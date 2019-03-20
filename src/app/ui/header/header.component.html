@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-xl navbar-light bg-white">
+  <div class="logo">
+    <a class="navbar-brand" href="/">
+      <img src="../../../assets/logo.png">
+    </a>
+  </div>
+  <div class="nav-top">
+    <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="#">FI</a>
+          <a class="nav-item nav-link" href="#">SE</a>
+          <a class="nav-item nav-link" href="#">EN</a>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse menu"
+        [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-item nav-link" href="#">Tutkijat</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="#">Organisaatiot</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="#">Rahoitus</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="#">Julkaisut</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="#">Tutkimustiedot</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="#">Välineet</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="#">Tiedepolitiikka</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="#">Tiedeuutisia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <button class="navbar-toggler hidden-md-up pull-right" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
