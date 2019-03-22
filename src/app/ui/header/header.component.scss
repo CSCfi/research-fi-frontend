@@ -17,7 +17,7 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 .navbar-light .navbar-nav .nav-link {
     color: rgb(79, 81, 168);
     font-weight: bold;
-    transition: 0.2s;
+    transition: 0.2s linear;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
@@ -31,9 +31,8 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
     left: 0;
     z-index: 4;
     background: #fffffff5;
-    margin: 8px 0px 0px 15px;
-    min-width: 400px;
-    transition: 0.2s;
+    margin: 8px 0px 0px 0px;
+    min-width: 100%;
     padding: 5px 23px;
 }
 
@@ -45,26 +44,7 @@ button.navbar-toggler.hidden-md-up.pull-right {
     text-transform: uppercase;
 }
 
-//Responsive
-
-// @media (min-width: 576px) {
-//     nav.navbar {
-//         max-width: 576px;
-//     }
-// }
-
-// @media (min-width: 768px) {
-//     nav.navbar {
-//         max-width: 750px;
-//     }
-// }
-
-// @media (min-width: 992px) {
-//     nav.navbar {
-//         max-width: 992px;
-//     }
-// }
-
+// Responsive
 @media (min-width: 1200px) {
     nav.navbar {
         max-width: 1440px;
