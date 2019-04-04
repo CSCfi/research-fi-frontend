@@ -8,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
 
+  collapse = 'closed';
+
+  toggleCollapse() {
+  // this.show = !this.show
+    this.collapse = this.collapse === 'open' ? 'closed' : 'open';
+  }
+
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }

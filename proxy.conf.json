@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+      "target": "https://virta-jtp.csc.fi",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+  }

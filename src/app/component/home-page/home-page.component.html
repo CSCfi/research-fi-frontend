@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-12 search" [ngClass]="status ? 'increase' : 'decrease'">
+    <h1 class="text-center">Hae tutkimuksen tekijöitä ja tuloksia.</h1>
+    <div class="form-group has-search">
+      <div class="input-group">
+        <input type="text" #search class="form-control" [(ngModel)]="route" (keyup.enter)="onEnter(search.value)">
+        <div class="input-group-append">
+          <button class="btn btn-search" type="button" routerLink="/publications">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <p class="text-right ext-search">
+        <a href="#" (click)="increaseEvent()" [ngClass]="status ? 'increase' : 'decrease'">
+          Laajennettu haku  
+        </a>
+      </p>
+      <div class="extended-search" [ngClass]="status ? 'increase' : 'decrease'">
+        <section>
+          <mat-checkbox [(ngModel)]="a">Valinta 1</mat-checkbox>
+          <mat-checkbox [(ngModel)]="b">Valinta 2</mat-checkbox>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col link-img">
+    <img src="../assets/1.jpg">
+    <span class="text-center">
+      Etsi asiantuntijoita eri tieteenaloilta
+    </span>
+  </div>
+  <div class="col col-6 link-img">
+    <img src="../assets/2.jpg">
+    <span class="text-center">
+      Tutkija, tuo tietosi tutkimustietovarantoon
+    </span>
+  </div>
+  <div class="col link-img">
+    <img src="../assets/3.jpg">
+    <span class="text-center">
+      Tutustu tutkimuksen tuloksiin
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="col link-img">
+    <img src="../assets/4.jpg">
+    <span class="text-center">
+      Tarkastele tutkimustoiminnan kehitystä
+    </span>
+  </div>
+  <div class="col link-img">
+    <img src="../assets/5.jpg">
+    <span class="text-center">
+      Hae tutkimusvälineitä ja palveluita
+      </span>
+  </div>
+  <div class="col link-img">
+    <img src="../assets/6.jpg">
+    <span class="text-center">
+      Tutustu rahoittajiin, avoimiin hakuihin ja hankkeisiin
+      </span>
+  </div>
+  <div class="col link-img">
+    <img src="../assets/7.jpg">
+    <span class="text-center">
+        Mitä tutkimustieto-varannossa tapahtuu nyt?
+    </span>
+  </div>
+</div>
+
+

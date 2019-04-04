@@ -1,0 +1,47 @@
+<input type="text" #publicationSearchInput class="form-control" placeholder="Hae" />
+<div class="row" *ngIf="isSearching">
+    <div class="col-12 text-center">
+        <h4>Etsitään ... </h4>
+    </div>
+</div>
+<div class="row">
+    <ng-container *ngIf="apiResponse['Response'] == 'False'; else elseTemplate">
+        <div class="col-12 text-center">
+            <div class="alert alert-danger" role="alert">
+                {{apiResponse['Error']}}
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <div class="col-3" *ngFor="let publication of apiResponse">
+            <div class="card" style="margin:5px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ publication['julkaisunNimi'] }}</h5>
+                    <p class="card-text">Tunnus: {{ publication['julkaisunTunnus'] }}</p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+
+<!-- <div *ngIf="!searchTerm">
+  <ul>
+    <li *ngFor="let publication of publications">
+      <p>
+        {{ publication.julkaisunTunnus }} • {{ publication.julkaisunNimi }} • <br><b>Tekijät:</b>
+        {{ publication.tekijat }}
+      </p>
+    </li>
+  </ul>
+</div>
+<div class="" *ngIf="searchTerm">
+  <ul>
+    <li *ngFor="let publication of items">
+      <p>
+        {{ publication.julkaisunTunnus }} • {{ publication.julkaisunNimi }} • <br><b>Tekijät:</b>
+        {{ publication.tekijat }}
+      </p>
+    </li>
+  </ul>
+</div> -->

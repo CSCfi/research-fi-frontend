@@ -1,0 +1,147 @@
+.col-12.search {
+    padding: 52px;
+    background: #4f51a8;
+    color: #FFF;
+    transition: 0.2s linear;
+}
+
+.col-12.search.increase {
+    padding-bottom: 150px;
+}
+
+.has-search .form-control {
+    padding-left: 0.375rem;
+    padding: 25px;
+    font-size: 25px;
+  }
+  
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.form-group.has-search {
+    max-width: 717px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+button.btn.btn-search {
+    background: white;
+    border: 1px solid #ced4da;
+    border-left: 0px;
+    font-size: 25px;
+    color: #4f51a8;
+}
+
+p.text-right.ext-search {
+    margin-top: 16px;
+    margin-bottom: -16px;
+}
+
+p.text-right.ext-search a {
+    color: #fff;
+    transition: 0.2s linear;
+}
+
+p.text-right.ext-search a:hover {
+    -webkit-filter: opacity(.7);
+    filter: opacity(.7);
+    text-decoration: none;
+}
+
+// extended search
+p.text-right.ext-search a.decrease:before {
+    font-family: "FontAwesome";
+    content: "\f078";
+    display: inline-block;
+    padding-right: 3px;
+    font-weight: 900;
+}
+
+p.text-right.ext-search a.increase:before {
+    font-family: "FontAwesome";
+    content: "\f077";
+}
+
+.extended-search.decrease {
+    display: none;
+}
+
+.extended-search.increase {
+    display: block;
+    transition: 0.2s linear;
+}
+
+.mat-checkbox {
+    margin: 0 10px;
+}
+
+// image links
+.link-img {
+    padding: 0px;
+    transition: 0.2s linear;
+}
+
+.link-img span {
+    transition: 0.2s linear;
+}
+
+.link-img img {
+    height: 250px;
+    min-width:300px;
+    width:100%;
+    object-fit: cover;
+    transition: 0.2s linear;
+}
+
+.link-img:hover {
+    -webkit-filter: opacity(.7);
+    filter: opacity(.7);
+}
+
+.link-img:hover span {
+    // zoom: 1.2;
+    -webkit-filter: opacity(1);
+    filter: opacity(1);
+}
+
+.col-6.link-img {
+    max-width: 100%;
+}
+
+.cover {
+    object-fit: cover;
+  }
+
+.col.link-img, .col-5.link-img {
+    padding: 0px!important;
+}
+
+.link-img span.text-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 21px; 
+    transition: 0.2s all;
+}
+
+//responsive
+
+@media (max-width: 616px) {
+    .col-6.link-img {
+        max-width: 100%;
+        flex: auto;
+    }
+}
