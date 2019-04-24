@@ -1,34 +1,26 @@
-<div style="margin:auto; width: 70%; margin-top: 30px;">
-    <app-search-bar (onSelectedOption)="onSelectedFilter($event)"></app-search-bar>
+<app-search-bar></app-search-bar>
+<p>Input: {{input}}</p>
 
-<div class="row">
-  <div class="col-3">
-    <mat-card>
-      <mat-card-content>
-    
-        <section class="example-section">
-          <mat-checkbox class="example-margin" [(ngModel)]="checked" click="getPublicationById(0031008914)">Valinta 1</mat-checkbox>
-          <mat-checkbox class="example-margin" [(ngModel)]="indeterminate">Valinta 2</mat-checkbox>
-        </section>
-        <section class="example-section">
-          <mat-checkbox class="example-margin" [(ngModel)]="checked">Valinta 3</mat-checkbox>
-          <mat-checkbox class="example-margin" [(ngModel)]="indeterminate">Valinta 4</mat-checkbox>
-        </section>
-    
-      </mat-card-content>
-    </mat-card>
-
-  </div>
-  <div class="col" style="border-left:1px solid;">
-    <h2 style="text-align:center">Data</h2>
-    <mat-tab-group>
-      <mat-tab label="Tab"> Tab 1 </mat-tab>
-      <mat-tab label="Tab"> Tab 2 </mat-tab>
-      <mat-tab label="Tab"> Tab 3 </mat-tab>
-    </mat-tab-group>
-    <div *ngFor="let julkaisu of restItems" class="group">
-      <p><b>Julkaisu :</b> <a routerLink="/results">{{julkaisut.julkaisunNimi}}</a></p>
-      <p><b>Tunnus: </b>{{julkaisut.julkaisunTunnus}}</p>
+<!-- <p>Results: {{responseData.hits.total | json}}</p> -->
+<!-- <div class="row" *ngIf="isSearching">
+    <div class="col-12 text-center">
+        <h4>Etsitään ... </h4>
     </div>
-  </div>
+</div> -->
+<div class="row">
+    <div class="searchbox">
+        <div class="col" *ngFor="let publication of responseData">
+            <div class="card" *ngFor="let x of publication?.hits?.hits" style="margin: 5px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{x._source?.doc?.row.publicationName}}</h5>
+                    <p class="card-text">Tunnus: {{x._source?.doc?.row.publicationId}}</p>
+                </div>
+                <!-- <div *ngFor="let y of x._source?.doc?.row | keyvalue">
+                    <li>{{y?.publicationName | json}}</li> 
+                    <li>{{y | json}}</li>
+                    <li>{{y.key}}: {{y.value}}</li>
+                </div> -->
+            </div>
+        </div>
+    </div>
 </div>

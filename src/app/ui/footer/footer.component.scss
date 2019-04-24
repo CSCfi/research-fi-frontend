@@ -1,8 +1,11 @@
 nav.footer {
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100%;
+    // margin: 0 auto;
     padding-right: 15px;
     padding-left: 15px;
+    height: 140px;
+    position: absolute;
+    bottom: 0;
 }
 
 .footer .col {

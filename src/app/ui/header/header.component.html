@@ -14,30 +14,26 @@
     </div>
     <div class="collapse navbar-collapse menu"
         [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav mr-auto left">
+        <li class="nav-item">
+          <a class="nav-item nav-link" routerLink="/results">Etusivu</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="/test-results">Haku</a>
+        </li>
+      </ul>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-item nav-link" routerLink="/results">Tutkijat</a>
+          <a class="nav-item nav-link" routerLink="/results">Tutkimuspolitiikka</a>
         </li>
         <li class="nav-item">
-            <a class="nav-item nav-link" routerLink="/julkaisut">Organisaatiot</a>
+            <a class="nav-item nav-link" href="/test-results">Tutkimusuutiset</a>
         </li>
         <li class="nav-item">
-            <a class="nav-item nav-link" routerLink="/publications">Rahoitus</a>
+            <a class="nav-item nav-link" routerLink="/publications">Rahoittajat</a>
         </li>
         <li class="nav-item">
-            <a class="nav-item nav-link" href="#">Julkaisut</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-item nav-link" href="#">Tutkimusaineistot</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-item nav-link" href="#">Välineet</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-item nav-link" href="#">Tiedepolitiikka</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-item nav-link" href="#">Tiedeuutisia</a>
+            <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
         </li>
       </ul>
     </div>

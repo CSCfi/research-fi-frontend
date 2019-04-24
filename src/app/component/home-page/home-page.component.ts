@@ -8,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class HomePageComponent implements OnInit {
 
   status = false;
-  value = '';
-  onEnter(value: string) { this.value = value; }
 
   constructor() {
   }

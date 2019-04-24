@@ -1,14 +1,11 @@
-.example-h2 {
-    margin: 10px;
-  }
-  
-  .example-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
-  
-  .example-margin {
-    margin: 0 10px;
-  }
+.searchbox {
+  max-width: 800px;
+  /* position: absolute; */
+  /* z-index: 999; */
+  /* left: 23%; */
+  /* max-height: 300px; */
+  /* overflow-y: scroll; */
+  background: #fff;
+  margin: 0 auto;
+  width: 50%;
+}

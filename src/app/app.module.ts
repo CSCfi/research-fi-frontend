@@ -19,18 +19,18 @@ import { UiModule } from './ui/ui.module';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { ResultsComponent } from './component/results/results.component';
+import { PublicationsComponent } from './component/publications/publications.component';
 
-import { SearchService } from './component/julkaisu/search.service';
-import { DataService } from './data.service';
+import { SearchService } from './services/search.service';
+import { ResultsService } from './services/results.service';
+import { ResultsHttpService } from './services/results-http.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-import { JulkaisuComponent } from './component/julkaisu/julkaisu.component';
-import { PublicationsComponent } from './component/publications/publications.component';
+import { TestResultsComponent } from './component/test-results/test-results.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +38,8 @@ import { PublicationsComponent } from './component/publications/publications.com
     HomePageComponent,
     SearchBarComponent,
     ResultsComponent,
-    JulkaisuComponent,
     PublicationsComponent,
+    TestResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +60,7 @@ import { PublicationsComponent } from './component/publications/publications.com
     MatTabsModule,
     MatProgressSpinnerModule
   ],
-  providers: [ SearchService, DataService ],
+  providers: [ SearchService, ResultsService, ResultsHttpService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -1,7 +1,7 @@
 var HttpsProxyAgent = require('https-proxy-agent');
 var proxyConfig = [{
-  context: '/api',
-  target: 'https://virta-jtp.csc.fi',
+  context: '/publication',
+  target: 'http://localhost:9200',
   secure: false
 }];
 

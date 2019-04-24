@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../data.service';
-import { Post } from '../../post';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { SearchService } from '../../services/search.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
+import { Search } from '../../models/search.model';
+
+
+const API_URL = environment.apiUrl;
 
 @Component({
   selector: 'app-results',
@@ -8,28 +15,44 @@ import { Post } from '../../post';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
+  restItems: any;
+  restItemsUrl = API_URL;
+  public data = {};
+  input: any = [];
+  isSearching: boolean;
+  responseData: any [];
+  errorMessage = [];
 
-  user: Post[];
-  constructor(
-    private dataService: DataService
-  ) { }
+  constructor(private searchService: SearchService, private http: HttpClient, private router: Router) {
+    this.isSearching = false;
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
 
-  ngOnInit() {
-    this.dataService.getUsers().subscribe(users => {
-      this.user = users;
-      this.dataService.usersData = users;
+      }
     });
   }
 
-  onSelectedFilter() {
-    this.getFilteredExpenseList();
+  ngOnInit() {
+    this.searchService.currentInput.subscribe(input => this.input = input);
+
+    if (this.searchService.subsVar === undefined) {
+      this.searchService.subsVar = this.searchService.
+      invokeFirstComponentFunction.subscribe(() => {
+
+      });
+    }
+
+    this.searchService.getPublications()
+    .pipe(
+      map(responseData => [responseData])
+      // map(responseData => [JSON.stringify(responseData)])
+    )
+    .subscribe(responseData => this.responseData = responseData,
+      error => this.errorMessage = error as any);
   }
 
-  getFilteredExpenseList() {
-    if (this.dataService.searchOption.length > 0) {
-      this.user = this.dataService.filteredListOptions();
-    } else {
-      this.user = this.dataService.usersData;
-    }
-  }
+  generateArray(obj: { [x: string]: any; }) {
+    return Object.keys(obj).map((key) => obj[key]);
+ }
+
 }

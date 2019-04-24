@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Publication } from '../../models/publication.model';
-import { PublicationService } from './publication.service';
+import { PublicationService } from '../../services/publication.service';
 import { of } from 'rxjs';
 import {
   debounceTime,
@@ -9,15 +9,7 @@ import {
   filter
 } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
-
-const PARAMS = new HttpParams({
-  fromObject: {
-    action: 'opensearch',
-    format: 'json',
-    origin: '*'
-  }
-});
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-publications',
@@ -29,6 +21,7 @@ export class PublicationsComponent implements OnInit {
   apiResponse: any;
   isSearching: boolean;
   publications: Publication[];
+  status = false;
 
   constructor(private publicationService: PublicationService, private httpClient: HttpClient) {
     this.isSearching = false;
@@ -68,10 +61,15 @@ export class PublicationsComponent implements OnInit {
 
   }
 
+  increaseEvent() {
+    this.status = !this.status;
+  }
+
   searchGetCall(term: string) {
     if (term === '') {
       return of([]);
     }
+    console.log('Term: ' + term);
     return this.httpClient.get('/api/julkaisut/haku?julkaisuVuosi=2019&organisaatioTunnus=01901&&lehdenNimi=Nature&julkaisunNimi=' + term);
   }
 

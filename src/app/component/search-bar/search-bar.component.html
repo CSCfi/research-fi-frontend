@@ -1,18 +1,28 @@
-<form class="example-form" >
-  <mat-form-field class="example-full-width" style="width: 100%">
-    <mat-chip-list #chipList>
-      <mat-chip style="margin-top:0.4em;" *ngFor="let option of  this.dataService.searchOption" (removed)="removeOption(option)">
-        <span>{{option.julkaisunNimi}}</span>
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-      <input #autocompleteInput type="text" placeholder="Hae" aria-label="Number" matInput [formControl]="myControl"
-        [matAutocomplete]="auto" [matChipInputFor]="chipList">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of autoCompleteList" [value]="option" (onSelectionChange)="filterUserList($event)">
-          {{option.julkaisunNimi}} | {{option.julkaisunTunnus}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-chip-list>
-  </mat-form-field>
-  
-  </form>
+<div class="row">
+  <div class="col-12 search" [ngClass]="status ? 'increase' : 'decrease'">
+    <h1 class="text-center">Hae tutkimuksen tekijöitä ja tuloksia.</h1>
+    <div class="form-group has-search">
+      <div class="input-group">
+        <input type="text" #publicationSearchInput class="form-control" placeholder="Hae" 
+        value="{{input}}" (input)="tcode=$event.target.value" id="publicationSearchInput" 
+        (keydown.enter)="newInput()"/>
+        <div class="input-group-append">
+          <button class="btn btn-search" type="button" routerLink="/results" (click)="newInput()">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <p class="text-right ext-search">
+        <a (click)="increaseEvent()" [ngClass]="status ? 'increase' : 'decrease'">
+          Laajennettu haku  
+        </a>
+      </p>
+      <div class="extended-search" [ngClass]="status ? 'increase' : 'decrease'">
+        <section>
+          <mat-checkbox [(ngModel)]="a">Valinta 1</mat-checkbox>
+          <mat-checkbox [(ngModel)]="b">Valinta 2</mat-checkbox>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

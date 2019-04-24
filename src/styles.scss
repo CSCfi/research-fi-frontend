@@ -5,3 +5,21 @@
 
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url( 'https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 140px;
+    min-height: 100%;
+  }
