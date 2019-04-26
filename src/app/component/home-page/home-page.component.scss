@@ -1,7 +1,30 @@
+// data amounts
+span.numeric-box {
+    max-width: 200px;
+    padding: 13px 5px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+    border-bottom: 1px solid #4f51a8;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.numeric .text-center {
+    padding: 13px 5px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    color: #4f51a8;
+}
+
 // image links
 .link-img {
     padding: 0px;
     transition: 0.2s linear;
+    cursor: pointer;
 }
 
 .link-img span {
@@ -58,4 +81,6 @@
         max-width: 100%;
         flex: auto;
     }
+
+
 }

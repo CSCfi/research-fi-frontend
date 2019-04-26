@@ -1,3 +1,10 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
 <nav offClick class="navbar navbar-expand-xl navbar-light bg-white">
   <div class="logo">
     <a class="navbar-brand" routerLink="">
@@ -16,13 +23,13 @@
         [ngClass]="{ 'show': navbarOpen }">
       <ul class="navbar-nav mr-auto left">
         <li class="nav-item">
-          <a class="nav-item nav-link" routerLink="/results">Etusivu</a>
+          <a class="nav-item nav-link" routerLink="/">Etusivu</a>
         </li>
         <li class="nav-item">
-            <a class="nav-item nav-link" href="/test-results">Haku</a>
+            <a class="nav-item nav-link" routerLink="/results">Haku</a>
         </li>
       </ul>
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto right">
         <li class="nav-item">
           <a class="nav-item nav-link" routerLink="/results">Tutkimuspolitiikka</a>
         </li>

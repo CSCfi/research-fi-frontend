@@ -1,10 +1,14 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { SearchService } from '../../services/search.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 const API_URL = environment.apiUrl;
 
@@ -42,8 +46,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
     newInput() {
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
-      // this.router.navigate(['/results', this.publicationSearchInput.nativeElement.value]);
-      this.searchService.onFirstComponentButtonClick();
+      this.router.navigate(['/results', this.publicationSearchInput.nativeElement.value]);
+      this.searchService.onSearchButtonClick();
     }
 
     ngAfterViewInit() {

@@ -1,3 +1,10 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
 <div class="row">
   <div class="col-12 search" [ngClass]="status ? 'increase' : 'decrease'">
     <h1 class="text-center">Hae tutkimuksen tekijöitä ja tuloksia.</h1>
@@ -7,7 +14,7 @@
         value="{{input}}" (input)="tcode=$event.target.value" id="publicationSearchInput" 
         (keydown.enter)="newInput()"/>
         <div class="input-group-append">
-          <button class="btn btn-search" type="button" routerLink="/results" (click)="newInput()">
+          <button class="btn btn-search" type="submit" routerLink="/results" (click)="newInput()">
             <i class="fa fa-search"></i>
           </button>
         </div>

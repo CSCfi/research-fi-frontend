@@ -1,26 +1,47 @@
-<app-search-bar></app-search-bar>
-<p>Input: {{input}}</p>
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
 
+<app-search-bar></app-search-bar>
+<!-- <p>Input: {{input}}</p> -->
 <!-- <p>Results: {{responseData.hits.total | json}}</p> -->
+
 <!-- <div class="row" *ngIf="isSearching">
     <div class="col-12 text-center">
         <h4>Etsitään ... </h4>
     </div>
 </div> -->
-<div class="row">
-    <div class="searchbox">
+<div class="container">
+    <div class="row">
+        <div class="col col-2" style="padding-top: 49px;">
+            <p>
+                <span>Suodata hakua</span>
+            </p>
+            <section class="filter-section">
+                <mat-checkbox [(ngModel)]="checked">Filter 1</mat-checkbox><br>
+                <mat-checkbox>Filter 2</mat-checkbox><br>
+                <mat-checkbox>Filter 3</mat-checkbox><br>
+                <mat-checkbox>Filter 4</mat-checkbox><br>
+                <mat-checkbox>Filter 5</mat-checkbox><br>
+            </section>
+        </div>
         <div class="col" *ngFor="let publication of responseData">
-            <div class="card" *ngFor="let x of publication?.hits?.hits" style="margin: 5px;">
-                <div class="card-body">
-                    <h5 class="card-title">{{x._source?.doc?.row.publicationName}}</h5>
-                    <p class="card-text">Tunnus: {{x._source?.doc?.row.publicationId}}</p>
-                </div>
-                <!-- <div *ngFor="let y of x._source?.doc?.row | keyvalue">
-                    <li>{{y?.publicationName | json}}</li> 
-                    <li>{{y | json}}</li>
-                    <li>{{y.key}}: {{y.value}}</li>
-                </div> -->
-            </div>
+            <mat-tab-group>
+                <mat-tab label="Julkaisut"> 
+                    <div class="card" *ngFor="let x of publication?.hits?.hits" style="margin: 5px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{x._source?.doc?.row.publicationName}}</h5>
+                            <p class="card-text">Tunnus: {{x._source?.doc?.row.publicationId}}</p>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Tutkijat"> </mat-tab>
+                <mat-tab label="Projektit"> </mat-tab>
+                <mat-tab label="Organisaatiot"> </mat-tab>
+            </mat-tab-group>
         </div>
     </div>
 </div>

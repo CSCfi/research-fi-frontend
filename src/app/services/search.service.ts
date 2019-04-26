@@ -1,26 +1,28 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
 import { Injectable, EventEmitter  } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { map, tap } from 'rxjs/operators';
-import { Publication } from '../models/publication.model';
+import { Search } from '../models/search.model';
 import { catchError } from 'rxjs/operators';
 
 const API_URL = environment.apiUrl;
 
 @Injectable()
 export class SearchService {
-
   public inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
-  invokeFirstComponentFunction = new EventEmitter();
+  invokeGetData = new EventEmitter();
   subsVar: Subscription;
   input: any;
-  restItems: any;
-  restItemsUrl = API_URL;
-  public data = {};
-  term: any;
+  apiUrl = API_URL;
 
   constructor(private http: HttpClient) {  }
 
@@ -28,52 +30,42 @@ export class SearchService {
     this.inputSource.next(input);
   }
 
-  onFirstComponentButtonClick() {
+  onSearchButtonClick() {
     console.log('Clicked');
-    this.invokeFirstComponentFunction.emit();
-    // this.getPublications();
-    this.term = this.currentInput.subscribe(input => this.input = input);
+    this.getPublications();
     console.log(this.input);
+    this.invokeGetData.emit();
   }
 
-  getRestItems(): void {
-    // this.http.get(this.restItemsUrl + 'publication_name=' + this.input).subscribe(responseData => console.log(responseData));
-    this.http.get(this.restItemsUrl).subscribe(responseData => console.log(responseData));
+  getAll(): Observable<Search[]> {
+      return this.http.get<Search[]>(this.apiUrl)
+      .pipe(catchError(this.handleError));
   }
 
-  getPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>(this.restItemsUrl + 'publication_name=' + this.input)
-    // return this.http.get<Publication[]>('./assets/test.json')
-    .pipe(
-      // tap(data => console.log('All: ' + JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-}
+  getPublications(): Observable<Search[]> {
+    this.currentInput.subscribe(input => this.input = input);
 
-private handleError(err: HttpErrorResponse) {
-  // in a real world app, we may send the server to some remote logging infrastructure
-  // instead of just logging it to the console
-  let errorMessage = 'arrr';
-  if (err.error instanceof Error) {
+    if (this.input === undefined || this.input === '') {
+      return this.http.get<Search[]>(this.apiUrl);
+    } else {
+      return this.http.get<Search[]>(this.apiUrl + '?q=publication_name=' + this.input)
+      .pipe(catchError(this.handleError));
+    }
+  }
+
+  private handleError(err: HttpErrorResponse) {
+    let errorMessage = 'arrr';
+    if (err.error instanceof Error) {
       // A client-side or network error occurred. Handle it accordingly.
       errorMessage = `An error occurred: ${err.error.message}`;
-  } else {
+    } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-  }
-  console.error(errorMessage);
-  return Observable.throw(errorMessage);
-}
-
-  restItemsServiceGetRestItems() {
-    // if input is null, return empty array
-    // if (this.input === '') {
-    //   return of(['']);
-    // }
-    return this.http
-      .get<any[]>(this.restItemsUrl)
-      .pipe(map(data => data));
+    }
+    console.error(errorMessage);
+    // tslint:disable-next-line: deprecation
+    return Observable.throw(errorMessage);
   }
 
 }

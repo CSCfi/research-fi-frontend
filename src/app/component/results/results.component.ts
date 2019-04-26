@@ -1,58 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
-import { Router, NavigationEnd } from '@angular/router';
-import { Search } from '../../models/search.model';
-
-
-const API_URL = environment.apiUrl;
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
-  restItems: any;
-  restItemsUrl = API_URL;
-  public data = {};
+export class ResultsComponent implements OnInit, OnDestroy {
   input: any = [];
   isSearching: boolean;
   responseData: any [];
   errorMessage = [];
 
-  constructor(private searchService: SearchService, private http: HttpClient, private router: Router) {
+  constructor(private searchService: SearchService) {
     this.isSearching = false;
-    this.router.events.subscribe((ev) => {
-      if (ev instanceof NavigationEnd) {
 
-      }
-    });
   }
 
   ngOnInit() {
+    // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
 
-    if (this.searchService.subsVar === undefined) {
-      this.searchService.subsVar = this.searchService.
-      invokeFirstComponentFunction.subscribe(() => {
+    // Get blank search data
+    this.getData();
 
+    // Listen for search button action
+    if (this.input !== null || this.searchService.subsVar === undefined) {
+      this.searchService.subsVar = this.searchService.
+      invokeGetData.subscribe(() => {
+        this.getData();
       });
     }
 
+  }
+
+  getData() {
     this.searchService.getPublications()
-    .pipe(
-      map(responseData => [responseData])
-      // map(responseData => [JSON.stringify(responseData)])
-    )
+    .pipe(map(responseData => [responseData]))
     .subscribe(responseData => this.responseData = responseData,
       error => this.errorMessage = error as any);
   }
 
-  generateArray(obj: { [x: string]: any; }) {
-    return Object.keys(obj).map((key) => obj[key]);
- }
+  // Unsubscribe from search term to prevent memory leaks
+  ngOnDestroy() {
+    this.searchService.subsVar.unsubscribe();
+  }
 
 }

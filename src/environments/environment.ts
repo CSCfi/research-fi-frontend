@@ -1,3 +1,10 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -5,7 +12,7 @@
 export const environment = {
   production: false,
   // apiUrl: '/api/julkaisut/haku?julkaisuVuosi=2019&organisaatioTunnus=01901&&lehdenNimi=Nature&julkaisunNimi='
-  apiUrl: '/publication_python/_search?q='
+  apiUrl: '/publication_python/_search'
   // apiUrl: './test.json/'
 };
 

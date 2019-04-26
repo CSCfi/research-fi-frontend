@@ -1,4 +1,34 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
 <app-search-bar (onSelectedOption)="onSelectedFilter($event)"></app-search-bar>
+
+<div class="row numeric" *ngFor="let publication of responseData" style="margin: 10px 0 10px 0;">
+  <div class="col-3">
+    <span class="numeric-box" routerLink="/results">{{publication?.hits?.total}}</span>
+    <span class="text-center" routerLink="/results">Julkaisut</span>
+  </div>
+
+  <div class="col-3">
+    <span class="numeric-box">4500</span>
+    <span class="text-center">Tutkijat</span>
+  </div>
+
+  <div class="col-3">
+    <span class="numeric-box">1240</span>
+    <span class="text-center">Projektit</span>
+  </div>
+
+  <div class="col-3">
+    <span class="numeric-box">512</span>
+    <span class="text-center">Organisaatiot</span>
+  </div>
+</div>
+
 <div class="row">
   <div class="col link-img">
     <img src="../assets/1.jpg">
