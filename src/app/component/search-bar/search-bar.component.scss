@@ -1,3 +1,10 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
 .col-12.search {
     padding: 30px;
     background: #4f51a8;
@@ -6,7 +13,7 @@
 }
 
 .col-12.search.increase {
-    padding-bottom: 150px;
+    padding-bottom: 100px;
 }
 
 .has-search .form-control {
@@ -49,6 +56,7 @@ p.text-right.ext-search {
 p.text-right.ext-search a {
     color: #fff;
     transition: 0.2s linear;
+    cursor: pointer;
 }
 
 p.text-right.ext-search a:hover {

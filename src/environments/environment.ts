@@ -11,8 +11,7 @@
 
 export const environment = {
   production: false,
-  // apiUrl: '/api/julkaisut/haku?julkaisuVuosi=2019&organisaatioTunnus=01901&&lehdenNimi=Nature&julkaisunNimi='
-  apiUrl: '/publication_python/_search'
+  apiUrl: '/publication/_search'
   // apiUrl: './test.json/'
 };
 

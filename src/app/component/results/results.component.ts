@@ -19,6 +19,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   isSearching: boolean;
   responseData: any [];
   errorMessage = [];
+  status = false;
 
   constructor(private searchService: SearchService) {
     this.isSearching = false;
@@ -47,6 +48,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => this.responseData = responseData,
       error => this.errorMessage = error as any);
+  }
+
+  increaseEvent() {
+    this.status = !this.status;
   }
 
   // Unsubscribe from search term to prevent memory leaks

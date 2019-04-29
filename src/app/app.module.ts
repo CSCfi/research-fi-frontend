@@ -1,3 +1,10 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,18 +26,15 @@ import { UiModule } from './ui/ui.module';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { ResultsComponent } from './component/results/results.component';
-import { PublicationsComponent } from './component/publications/publications.component';
 
 import { SearchService } from './services/search.service';
-import { ResultsService } from './services/results.service';
-import { ResultsHttpService } from './services/results-http.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TestResultsComponent } from './component/test-results/test-results.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -38,8 +42,6 @@ import { TestResultsComponent } from './component/test-results/test-results.comp
     HomePageComponent,
     SearchBarComponent,
     ResultsComponent,
-    PublicationsComponent,
-    TestResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +60,10 @@ import { TestResultsComponent } from './component/test-results/test-results.comp
     MatCardModule,
     MatRadioModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatExpansionModule
   ],
-  providers: [ SearchService, ResultsService, ResultsHttpService ],
+  providers: [ SearchService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

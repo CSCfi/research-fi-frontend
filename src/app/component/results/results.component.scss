@@ -1,3 +1,10 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
 .searchbox {
   max-width: 800px;
   /* position: absolute; */
@@ -9,3 +16,50 @@
   margin: 0 auto;
   width: 50%;
 }
+
+:host /deep/ .mat-tab-label {
+  font-size: 1.2em;
+  color: #4f51a8;
+  font-weight: bold;
+  opacity: 1!important;
+}
+
+.spinner-center {
+  margin-top: 25px;
+  height: 100px;
+  padding-left: 40%;
+}
+
+//Cards
+a.top-right-arrow {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  cursor: pointer;
+  font-weight: 900;
+  color: #4f51a8;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+  border-bottom: 1px solid #4f51a875;
+}
+
+.mat-expansion-panel-header:not([aria-disabled=true]) {
+  cursor: pointer;
+  padding: 10px 10px;
+}
+
+// a.top-right-arrow.decrease::before {
+//   font-family: "FontAwesome";
+//   content: "\f078"; 
+// }
+
+// a.top-right-arrow.increase::before {
+//   font-family: "FontAwesome";
+//   content: "\f077";
+// }
+
+// .extended.decrease {
+//   display: none;
+// }

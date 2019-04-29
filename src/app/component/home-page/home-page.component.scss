@@ -1,4 +1,16 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
 // data amounts
+
+.row .numeric {
+    transition: 0.2s linear;
+}
+
 span.numeric-box {
     max-width: 200px;
     padding: 13px 5px;
@@ -18,6 +30,7 @@ span.numeric-box {
     font-weight: bold;
     cursor: pointer;
     color: #4f51a8;
+    margin: 0 auto;
 }
 
 // image links
