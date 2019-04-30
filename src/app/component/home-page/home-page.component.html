@@ -15,22 +15,22 @@
 
 <div class="row numeric" *ngFor="let publication of responseData" style="margin: 10px 0 10px 0;">
   <div class="col-3">
-    <span class="numeric-box" routerLink="/results">{{publication?.hits?.total}}</span>
+    <span class="numeric-box" routerLink="/results" [countUp]="publication.hits.total" [options]="myOps">0</span>
     <span class="text-center" routerLink="/results">Julkaisut</span>
   </div>
 
   <div class="col-3">
-    <span class="numeric-box">4500</span>
+    <span class="numeric-box" [countUp]="4500" [options]="myOps">0</span>
     <span class="text-center">Tutkijat</span>
   </div>
 
   <div class="col-3">
-    <span class="numeric-box">1240</span>
+    <span class="numeric-box" [countUp]="1240" [options]="myOps">0</span>
     <span class="text-center">Projektit</span>
   </div>
 
   <div class="col-3">
-    <span class="numeric-box">512</span>
+    <span class="numeric-box" [countUp]="512" [options]="myOps">0</span>
     <span class="text-center">Organisaatiot</span>
   </div>
 </div>

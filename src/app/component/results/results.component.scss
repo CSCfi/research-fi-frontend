@@ -40,6 +40,10 @@ a.top-right-arrow {
   color: #4f51a8;
 }
 
+.mat-tab-group {
+  min-height: 740px;
+}
+
 .mat-expansion-panel:not([class*=mat-elevation-z]) {
   box-shadow: none;
   border-bottom: 1px solid #4f51a875;

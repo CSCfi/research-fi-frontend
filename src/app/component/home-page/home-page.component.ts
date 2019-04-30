@@ -18,6 +18,9 @@ export class HomePageComponent implements OnInit {
   responseData: any [];
   errorMessage = [];
   status = false;
+  myOps = {
+    duration: 0.5
+  };
 
   constructor(private searchService: SearchService) {
   }
@@ -36,4 +39,5 @@ export class HomePageComponent implements OnInit {
   increaseEvent() {
     this.status = !this.status;
   }
+
 }

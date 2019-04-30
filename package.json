@@ -24,6 +24,7 @@
     "@ng-select/ng-select": "^2.16.2",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
+    "countup.js-angular2": "^7.1.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "ngx-bootstrap": "^3.2.0",

@@ -36,6 +36,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+import { CountUpModule } from 'countup.js-angular2';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +63,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatRadioModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    CountUpModule
   ],
   providers: [ SearchService ],
   bootstrap: [ AppComponent ]

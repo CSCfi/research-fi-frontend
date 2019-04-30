@@ -8,9 +8,9 @@
 import { Injectable, EventEmitter  } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Search } from '../models/search.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Search } from '../models/search.model';
 import { catchError } from 'rxjs/operators';
 
 const API_URL = environment.apiUrl;
@@ -31,9 +31,7 @@ export class SearchService {
   }
 
   onSearchButtonClick() {
-    console.log('Clicked');
     this.getPublications();
-    console.log(this.input);
     this.invokeGetData.emit();
   }
 
@@ -54,7 +52,7 @@ export class SearchService {
   }
 
   private handleError(err: HttpErrorResponse) {
-    let errorMessage = 'arrr';
+    let errorMessage = 'HTTPError';
     if (err.error instanceof Error) {
       // A client-side or network error occurred. Handle it accordingly.
       errorMessage = `An error occurred: ${err.error.message}`;

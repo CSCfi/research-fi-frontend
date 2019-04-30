@@ -30,14 +30,15 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
 
-    // Get blank search data
+    // Get blank search data when coming from other than results page
     this.getData();
 
-    // Listen for search button action
+    // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
       this.searchService.subsVar = this.searchService.
       invokeGetData.subscribe(() => {
         this.getData();
+        console.log('sbutton');
       });
     }
 
@@ -48,10 +49,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => this.responseData = responseData,
       error => this.errorMessage = error as any);
-  }
-
-  increaseEvent() {
-    this.status = !this.status;
   }
 
   // Unsubscribe from search term to prevent memory leaks
