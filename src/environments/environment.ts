@@ -11,8 +11,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: '/publication/_search'
-  // apiUrl: './test.json/'
+  apiUrl: './test.json/'
 };
 
 /*

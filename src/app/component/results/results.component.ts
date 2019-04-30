@@ -20,23 +20,24 @@ export class ResultsComponent implements OnInit, OnDestroy {
   responseData: any [];
   errorMessage = [];
   status = false;
+  next = 0;
 
   constructor(private searchService: SearchService) {
     this.isSearching = false;
-
   }
 
   ngOnInit() {
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
 
-    // Get blank search data when coming from other than results page
+    // Get search data when coming from other than results page
     this.getData();
 
     // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
       this.searchService.subsVar = this.searchService.
       invokeGetData.subscribe(() => {
+        console.log('getData');
         this.getData();
         console.log('sbutton');
       });
@@ -49,6 +50,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => this.responseData = responseData,
       error => this.errorMessage = error as any);
+  }
+
+  nextPage() {
+    this.searchService.nextFrom();
+    this.getData();
+  }
+
+  previousPage() {
+    this.searchService.previousFrom();
+    this.getData();
   }
 
   // Unsubscribe from search term to prevent memory leaks

@@ -11,7 +11,7 @@
     <div class="form-group has-search">
       <div class="input-group">
         <input type="text" #publicationSearchInput class="form-control" placeholder="Hae" 
-        value="{{input}}" (input)="tcode=$event.target.value" id="publicationSearchInput" 
+        value="{{input}}" id="publicationSearchInput" 
         (keydown.enter)="newInput()"/>
         <div class="input-group-append">
           <button class="btn btn-search" type="submit" routerLink="/results" (click)="newInput()">
@@ -26,8 +26,8 @@
       </p>
       <div class="extended-search" [ngClass]="status ? 'increase' : 'decrease'">
         <section>
-          <mat-checkbox [(ngModel)]="a">Valinta 1</mat-checkbox>
-          <mat-checkbox [(ngModel)]="b">Valinta 2</mat-checkbox>
+          <mat-checkbox>Valinta 1</mat-checkbox>
+          <mat-checkbox>Valinta 2</mat-checkbox>
         </section>
       </div>
     </div>

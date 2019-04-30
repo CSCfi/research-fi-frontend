@@ -14,7 +14,7 @@
                 <span>Suodata hakua</span>
             </p>
             <section class="filter-section">
-                <mat-checkbox [(ngModel)]="checked">Filter 1</mat-checkbox><br>
+                <mat-checkbox>Filter 1</mat-checkbox><br>
                 <mat-checkbox>Filter 2</mat-checkbox><br>
                 <mat-checkbox>Filter 3</mat-checkbox><br>
                 <mat-checkbox>Filter 4</mat-checkbox><br>
@@ -29,7 +29,7 @@
                         <mat-spinner [diameter]="80"></mat-spinner>
                     </div>
                     <div *ngFor="let publication of responseData">
-                        <div *ngFor="let x of publication?.hits?.hits">
+                        <div *ngFor="let x of publication.hits.hits">
                             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                 <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -43,6 +43,8 @@
                             </mat-expansion-panel>
                         </div>
                     </div>
+                    <a *ngIf="this.searchService.from > 0" (click)="previousPage()" routerLink="/results">Edellinen sivu | </a>
+                    <a (click)="nextPage()" routerLink="/results">Seuraava sivu</a>
                 </mat-tab>
                 <mat-tab label="Tutkijat"> </mat-tab>
                 <mat-tab label="Projektit"> </mat-tab>
