@@ -1,27 +1,23 @@
-# TTV Portal
+# Research.fi Angular frontend
+## Environment setup
+### Local development version: add configuration file environment.researchfi.ts
+Configuration file **src/environments/environment.researchfi.ts** must be manually added:
+* Copy file **environment.ts** and rename it as **environment.researchfi.ts**
+* Modify file contents by replacing **http://<API_HOST>** with the correct API server address
+### Production version: add configuration file environment.researchfi.prod.ts
+Configuration file **src/environments/environment.researchfi.prod.ts** must be manually added:
+* Copy file **environment.prod.ts** and rename it as **environment.researchfi.prod.ts**
+* Modify file contents by replacing **http://<API_HOST>** with the correct API server address
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
+## Local development without Docker
+* Install Node.js and npm package manager, then
+```
+npm install
+ng serve
+```
 
-## Development server
-
-Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Local development using Docker
+* Install Docker Desktop, then
+```
+docker-compose up --build
+```
