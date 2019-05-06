@@ -30,6 +30,11 @@
   padding-left: 40%;
 }
 
+// Sort
+.sort {
+  text-align: right;
+}
+
 //Cards
 a.top-right-arrow {
   position: absolute;
@@ -46,20 +51,47 @@ a.top-right-arrow {
 
 .mat-expansion-panel:not([class*=mat-elevation-z]) {
   box-shadow: none;
+  border-radius: 0px;
   border-bottom: 1px solid #4f51a875;
 }
 
 .mat-expansion-panel-header:not([aria-disabled=true]) {
   cursor: pointer;
-  padding: 10px 10px;
+  padding: 10px 5px;
 }
 
-// a.top-right-arrow.decrease::before {
-//   font-family: "FontAwesome";
-//   content: "\f078"; 
-// }
+// Table
+th {
+  text-transform: uppercase;
+}
 
-// a.top-right-arrow.increase::before {
+tr {
+  border-bottom: 1px solid #4f51a875;
+}
+
+tr.ng-star-inserted.expand {
+  border-bottom: 5px solid;
+}
+
+td {
+  padding: 20px 10px 20px 0px;
+  vertical-align: top;
+}
+
+td.shorten {
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 360px;
+  max-height: 20px!important;
+  text-overflow: ellipsis;
+}
+
+a.arrow::before {
+  font-family: "FontAwesome";
+  content: "\f078"; 
+}
+
+// a.arrow.increase::before {
 //   font-family: "FontAwesome";
 //   content: "\f077";
 // }
@@ -67,3 +99,33 @@ a.top-right-arrow {
 // .extended.decrease {
 //   display: none;
 // }
+
+// Filter sidebar
+mat-checkbox {
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.mat-radio-button {
+  display: block;
+}
+
+:host /deep/ span.mat-expansion-indicator {
+  position: absolute;
+}
+
+:host /deep/  .mat-expansion-indicator::after {
+  margin-top: -8px;
+}
+
+.mat-expansion-panel-header-title {
+  margin-left: 20px;
+}
+
+// Responsive
+
+@media (min-width: 1200px) {
+.container {
+    max-width: 99%;
+}
+}

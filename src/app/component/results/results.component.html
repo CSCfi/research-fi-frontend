@@ -1,36 +1,121 @@
-<!-- # This file is part of the research.fi API service
-#
-# Copyright 2019 Ministry of Education and Culture, Finland
-#
-# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-# :license: MIT -->
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
 
 <app-search-bar></app-search-bar>
 
 <div class="container" style="margin-top:25px;">
     <div class="row">
-        <div class="col col-2" style="padding-top: 49px;">
-            <p>
-                <span>Suodata hakua</span>
-            </p>
-            <section class="filter-section">
-                <mat-checkbox>Filter 1</mat-checkbox><br>
-                <mat-checkbox>Filter 2</mat-checkbox><br>
-                <mat-checkbox>Filter 3</mat-checkbox><br>
-                <mat-checkbox>Filter 4</mat-checkbox><br>
-                <mat-checkbox>Filter 5</mat-checkbox><br>
+        <div class="col" style="padding-top: 49px;">
+            <h3 style="color: #808080;">SUODATA</h3>
+            <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>JULKAISUVUOSI</strong>
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="year">Vuosi</mat-radio-button>
+                    <mat-radio-button value="between">Aikaväli</mat-radio-button>
+                </mat-radio-group>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>SEKTORI</strong>
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-checkbox></mat-checkbox>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>TIETEENALA</strong>
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-checkbox></mat-checkbox>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>JULKAISUTYYPPI</strong>
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-checkbox></mat-checkbox>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>MAA</strong>
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-checkbox></mat-checkbox>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>KIELI</strong>
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-checkbox></mat-checkbox>
+            </mat-expansion-panel>
+
+            <section class="">
+                <span>Avoin saatavuus</span>
+                <mat-checkbox></mat-checkbox>
             </section>
+            <section class="">
+                <span>Kansainvälinen yhteisjulkaisu</span>
+                <mat-checkbox></mat-checkbox>
+            </section>
+
         </div>
 
-        <div class="col">
+        <div class="col-9">
             <mat-tab-group>
                 <mat-tab label="Julkaisut"> 
                     <div class="spinner-center" *ngIf="undefined === responseData">
                         <mat-spinner [diameter]="80"></mat-spinner>
                     </div>
+                    <div class="sort">
+                        <span class="align-left" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
+                        <mat-form-field>
+                            <select matNativeControl>
+                              <option value="newest">Uusin ensin</option>
+                              <option value="oldet">Vanhin ensin</option>
+                            </select>
+                        </mat-form-field>
+                    </div>
                     <div *ngFor="let publication of responseData">
-                        <div *ngFor="let x of publication.hits.hits">
-                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <table mat-table>
+                        <tr>
+                            <th></th>
+                            <th>Julkaisun nimi</th>
+                            <th>Tekijät</th>
+                            <th>Missä julkaistu</th>
+                            <th>Vuosi</th>
+                        </tr>
+                    <!-- <div *ngFor="let publication of responseData"> -->
+                        <!-- <div *ngFor="let x of publication.hits.hits"> -->
+                            <tr class="expand" [attr.data-selected]="false" 
+                            (click)="expandStatus[i]=!expandStatus[i]" 
+                            [class.expand]="expandStatus[i]"  *ngFor="let x of publication.hits.hits; let i = index">
+                                <td class="expand"><a class="arrow" (click)="increaseEvent()" [ngClass]="x.status ? 'increase' : 'decrease'"></a></td>
+                                <td style="max-width:500px;">{{x._source.doc.row.publicationName}}</td>
+                                <td class="shorten">{{x._source.doc.row.authorsText}}</td>
+                                <td class="shorten">{{x._source.doc.row.journalName}}</td>
+                                <td>{{x._source.doc.row.reportingYear}}</td>
+                            </tr>
+                            
+                            <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                 <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <strong>{{x._source.doc.row.publicationName}}</strong>
@@ -40,10 +125,12 @@
                                 <p><strong>Tutkijat:</strong> {{x._source.doc.row.authorsText}}</p>
                                 <p><strong>Julkaisuvuosi:</strong> {{x._source.doc.row.reportingYear}}</p>
                                 <p><strong>Juuli-osoite: </strong> <a href="{{x._source?.doc?.row.juuliAddress}}" target="_blank">{{x._source?.doc?.row.juuliAddress}}</a></p>
-                            </mat-expansion-panel>
-                        </div>
+                            </mat-expansion-panel> -->
+                        <!-- </div> -->
+                    <!-- </div> -->
+                    </table>
                     </div>
-                    
+                    <a *ngIf="this.searchService.from > 0" (click)="previousPage()" routerLink="/results">Edellinen sivu | </a>
                     <a (click)="nextPage()" routerLink="/results">Seuraava sivu</a>
                 </mat-tab>
                 <mat-tab label="Tutkijat"> </mat-tab>

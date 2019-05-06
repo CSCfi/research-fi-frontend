@@ -1,9 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../../services/search.service';
@@ -21,6 +21,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   errorMessage = [];
   status = false;
   next = 0;
+  expandStatus: Array<boolean> = [];
 
   constructor(private searchService: SearchService) {
     this.isSearching = false;
@@ -60,6 +61,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
   previousPage() {
     this.searchService.previousFrom();
     this.getData();
+  }
+
+  increaseEvent(i: number): void {
+    this.status = !this.status;
   }
 
   // Unsubscribe from search term to prevent memory leaks
