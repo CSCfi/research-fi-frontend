@@ -1,0 +1,18 @@
+# This file is part of the research.fi service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+
+version: '3.7'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: nginx
+    ports:
+      - "80:80"
+    restart: unless-stopped

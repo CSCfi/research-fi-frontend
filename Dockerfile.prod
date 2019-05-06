@@ -1,0 +1,18 @@
+# This file is part of the research.fi service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+
+# Stage 1: Build Angular application
+FROM node:10.15.3-alpine as builder
+COPY . /app
+WORKDIR /app
+RUN npm install
+RUN $(npm bin)/ng build --prod
+
+# Stage 2: Serve application using Nginx
+FROM nginx:latest as nginx
+COPY --from=builder /app/dist/* /usr/share/nginx/html/
+EXPOSE 80

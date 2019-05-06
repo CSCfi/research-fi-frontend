@@ -17,6 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.researchfi.ts"
+              }
+            ],
             "outputPath": "dist/csc-test",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -39,7 +45,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.researchfi.prod.ts"
                 }
               ],
               "optimization": true,
