@@ -118,6 +118,13 @@ mat-checkbox {
   margin-left: 20px;
 }
 
+// Pagination
+a.pagination-link {
+  cursor: pointer;
+  font-weight: bold;
+  color: #4f51a8;
+}
+
 // Responsive
 @media (max-width: 616px) {
   .col {

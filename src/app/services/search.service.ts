@@ -19,8 +19,6 @@ const API_URL = environment.apiUrl;
 export class SearchService {
   public inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
-  // public fromSource = new BehaviorSubject(0);
-  // currentFrom = this.fromSource.asObservable();
   invokeGetData = new EventEmitter();
   subsVar: Subscription;
   input: any;
@@ -35,16 +33,13 @@ export class SearchService {
 
   nextFrom() {
     this.from = this.from + 10;
-    console.log(this.from);
   }
 
   previousFrom() {
-    this.from = this.from - 10;
-    console.log(this.from);
+    this.from = this.from - 10;;
   }
 
   onSearchButtonClick() {
-    // this.getPublications();
     this.invokeGetData.emit();
     this.from = 0;
   }
@@ -57,7 +52,6 @@ export class SearchService {
   getPublications(): Observable<Search[]> {
     this.currentInput.subscribe(input => this.input = input);
     if (this.input === undefined || this.input === '') {
-      console.log('blank');
       return this.http.get<Search[]>(this.apiUrl + '?size=10&from=' + this.from);
     } else {
       console.log('getPublications');

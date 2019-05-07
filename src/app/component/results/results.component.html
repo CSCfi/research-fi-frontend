@@ -113,8 +113,8 @@
                         </tr>
                     </table>
                     </div>
-                    <a *ngIf="from > 0" (click)="previousPage()" routerLink="/results">Edellinen sivu | </a>
-                    <a (click)="nextPage()" routerLink="/results">Seuraava sivu</a>
+                    <a class="pagination-link"  *ngIf="fromPage > 0" (click)="previousPage()">Edellinen sivu | </a>
+                    <a class="pagination-link" (click)="nextPage()">Seuraava sivu</a>
                 </mat-tab>
                 <mat-tab label="Tutkijat"> </mat-tab>
                 <mat-tab label="Projektit"> </mat-tab>

@@ -20,13 +20,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   responseData: any [];
   errorMessage = [];
   status = false;
-  from = 0;
+  fromPage = 0;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
 
   constructor(private searchService: SearchService) {
     this.isSearching = false;
-    this.from = this.searchService.from;
   }
 
   ngOnInit() {
@@ -56,12 +55,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   nextPage() {
+    this.fromPage = this.fromPage + 10;
     this.searchService.nextFrom();
     this.getData();
   }
 
   previousPage() {
-    console.log('previous: ' + this.from);
+    this.fromPage = this.fromPage - 10;
     this.searchService.previousFrom();
     this.getData();
   }
