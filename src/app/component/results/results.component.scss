@@ -96,10 +96,6 @@ a.arrow.expand::before {
   content: "\f077";
 }
 
-// .extended.decrease {
-//   display: none;
-// }
-
 // Filter sidebar
 mat-checkbox {
   margin-left: 10px;
@@ -125,13 +121,13 @@ mat-checkbox {
 // Responsive
 @media (max-width: 616px) {
   .col {
-      max-width: 100%;
-      flex: auto;
-}
+    max-width: 100%;
+    flex: auto;
+  }
 }
 
 @media (min-width: 1200px) {
-.container {
+  .container {
     max-width: 99%;
-}
+  }
 }

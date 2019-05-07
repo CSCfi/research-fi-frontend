@@ -103,31 +103,14 @@
                             <th>Missä julkaistu</th>
                             <th>Vuosi</th>
                         </tr>
-                    <!-- <div *ngFor="let publication of responseData"> -->
-                        <!-- <div *ngFor="let x of publication.hits.hits"> -->
-                            <tr class="expand" [attr.data-selected]="false" 
-                            (click)="expandStatus[i]=!expandStatus[i]" 
+                        <tr class="expand" [attr.data-selected]="false" (click)="expandStatus[i]=!expandStatus[i]" 
                             [class.expand]="expandStatus[i]"  *ngFor="let x of publication.hits.hits; let i = index">
-                                <td class="expand"><a class="arrow" [class.expand]="expandStatus[i]"></a></td>
-                                <td style="max-width:500px;">{{x._source.doc.row.publicationName}}</td>
-                                <td class="shorten">{{x._source.doc.row.authorsText}}</td>
-                                <td class="shorten">{{x._source.doc.row.journalName}}</td>
-                                <td>{{x._source.doc.row.reportingYear}}</td>
-                            </tr>
-                            
-                            <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                                <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    <strong>{{x._source.doc.row.publicationName}}</strong>
-                                </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <p><strong>Tunnus:</strong> {{x._source.doc.row.publicationId}}</p>
-                                <p><strong>Tutkijat:</strong> {{x._source.doc.row.authorsText}}</p>
-                                <p><strong>Julkaisuvuosi:</strong> {{x._source.doc.row.reportingYear}}</p>
-                                <p><strong>Juuli-osoite: </strong> <a href="{{x._source?.doc?.row.juuliAddress}}" target="_blank">{{x._source?.doc?.row.juuliAddress}}</a></p>
-                            </mat-expansion-panel> -->
-                        <!-- </div> -->
-                    <!-- </div> -->
+                            <td class="expand"><a class="arrow" [class.expand]="expandStatus[i]"></a></td>
+                            <td style="max-width:500px;">{{x._source.doc.row.publicationName}}</td>
+                            <td class="shorten">{{x._source.doc.row.authorsText}}</td>
+                            <td class="shorten">{{x._source.doc.row.journalName}}</td>
+                            <td>{{x._source.doc.row.reportingYear}}</td>
+                        </tr>
                     </table>
                     </div>
                     <a *ngIf="this.searchService.from > 0" (click)="previousPage()" routerLink="/results">Edellinen sivu | </a>
