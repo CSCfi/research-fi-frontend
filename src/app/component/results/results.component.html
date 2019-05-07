@@ -79,7 +79,7 @@
 
         </div>
 
-        <div class="col-9" *ngFor="let publication of responseData">
+        <div class="col-10" *ngFor="let publication of responseData">
             <mat-tab-group>
                 <mat-tab label="Julkaisut ({{publication.hits.total}})">
                     <div class="spinner-center" *ngIf="undefined === responseData">
@@ -106,14 +106,14 @@
                         <tr class="expand" [attr.data-selected]="false" (click)="expandStatus[i]=!expandStatus[i]" 
                             [class.expand]="expandStatus[i]"  *ngFor="let x of publication.hits.hits; let i = index">
                             <td class="expand"><a class="arrow" [class.expand]="expandStatus[i]"></a></td>
-                            <td style="max-width:500px;">{{x._source.doc.row.publicationName}}</td>
+                            <td style="min-width:400px;">{{x._source.doc.row.publicationName}}</td>
                             <td class="shorten">{{x._source.doc.row.authorsText}}</td>
                             <td class="shorten">{{x._source.doc.row.journalName}}</td>
                             <td>{{x._source.doc.row.reportingYear}}</td>
                         </tr>
                     </table>
                     </div>
-                    <a *ngIf="this.searchService.from > 0" (click)="previousPage()" routerLink="/results">Edellinen sivu | </a>
+                    <a *ngIf="from > 0" (click)="previousPage()" routerLink="/results">Edellinen sivu | </a>
                     <a (click)="nextPage()" routerLink="/results">Seuraava sivu</a>
                 </mat-tab>
                 <mat-tab label="Tutkijat"> </mat-tab>
