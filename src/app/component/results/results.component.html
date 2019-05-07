@@ -9,7 +9,7 @@
 
 <div class="container" style="margin-top:25px;">
     <div class="row">
-        <div class="col" style="padding-top: 49px;">
+        <div class="col col-2" style="padding-top: 49px;">
             <h3 style="color: #808080;">SUODATA</h3>
             <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
@@ -79,9 +79,9 @@
 
         </div>
 
-        <div class="col-9">
+        <div class="col-9" *ngFor="let publication of responseData">
             <mat-tab-group>
-                <mat-tab label="Julkaisut"> 
+                <mat-tab label="Julkaisut ({{publication.hits.total}})">
                     <div class="spinner-center" *ngIf="undefined === responseData">
                         <mat-spinner [diameter]="80"></mat-spinner>
                     </div>
@@ -108,7 +108,7 @@
                             <tr class="expand" [attr.data-selected]="false" 
                             (click)="expandStatus[i]=!expandStatus[i]" 
                             [class.expand]="expandStatus[i]"  *ngFor="let x of publication.hits.hits; let i = index">
-                                <td class="expand"><a class="arrow" (click)="increaseEvent()" [ngClass]="x.status ? 'increase' : 'decrease'"></a></td>
+                                <td class="expand"><a class="arrow" [class.expand]="expandStatus[i]"></a></td>
                                 <td style="max-width:500px;">{{x._source.doc.row.publicationName}}</td>
                                 <td class="shorten">{{x._source.doc.row.authorsText}}</td>
                                 <td class="shorten">{{x._source.doc.row.journalName}}</td>

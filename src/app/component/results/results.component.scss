@@ -91,10 +91,10 @@ a.arrow::before {
   content: "\f078"; 
 }
 
-// a.arrow.increase::before {
-//   font-family: "FontAwesome";
-//   content: "\f077";
-// }
+a.arrow.expand::before {
+  font-family: "FontAwesome";
+  content: "\f077";
+}
 
 // .extended.decrease {
 //   display: none;
@@ -123,6 +123,12 @@ mat-checkbox {
 }
 
 // Responsive
+@media (max-width: 616px) {
+  .col {
+      max-width: 100%;
+      flex: auto;
+}
+}
 
 @media (min-width: 1200px) {
 .container {
