@@ -1,9 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
 
 .col-12.search {
     padding: 30px;
@@ -38,6 +38,25 @@
     max-width: 717px;
     margin: 0 auto;
     padding: 15px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-size: 17px;
+    font-style: italic;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-size: 17px;
+    font-style: italic;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    font-size: 17px;
+    font-style: italic;
+  }
+
+span.search-button {
+    padding-right: 10px;
 }
 
 button.btn.btn-search {

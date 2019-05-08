@@ -14,22 +14,23 @@
   <div class="nav-top">
     <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">FI</a>
-          <a class="nav-item nav-link" href="#">SE</a>
+          <a class="nav-item nav-link active" href="#">FI /</a>
+          <a class="nav-item nav-link" href="#">SE /</a>
           <a class="nav-item nav-link" href="#">EN</a>
         </div>
     </div>
     <div class="collapse navbar-collapse menu"
         [ngClass]="{ 'show': navbarOpen }">
-      <ul class="navbar-nav mr-auto left">
+      <ul class="navbar-nav main mr-auto">
         <li class="nav-item">
-          <a class="nav-item nav-link" routerLink="/">Etusivu</a>
+          <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+            true}">Etusivu</a>
         </li>
         <li class="nav-item">
-          <a class="nav-item nav-link" routerLink="/results">Haku</a>
+          <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link">Haku</a>
         </li>
       </ul>
-      <ul class="navbar-nav mr-auto right">
+      <ul class="navbar-nav main mr-auto">
         <li class="nav-item">
           <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
         </li>

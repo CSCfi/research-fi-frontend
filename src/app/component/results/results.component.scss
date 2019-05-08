@@ -5,18 +5,6 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-.searchbox {
-  max-width: 800px;
-  /* position: absolute; */
-  /* z-index: 999; */
-  /* left: 23%; */
-  /* max-height: 300px; */
-  /* overflow-y: scroll; */
-  background: #fff;
-  margin: 0 auto;
-  width: 50%;
-}
-
 :host /deep/ .mat-tab-label {
   font-size: 1.2em;
   color: #4f51a8;
@@ -28,6 +16,15 @@
   margin-top: 25px;
   height: 100px;
   padding-left: 40%;
+}
+
+//Breadcrumbs
+.breadcrumb {
+  background-color: transparent;
+  color: #000;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
 }
 
 // Sort
@@ -45,6 +42,10 @@ a.top-right-arrow {
   color: #4f51a8;
 }
 
+// Tabs
+::ng-deep .mat-ink-bar {
+  background-color:#3aaa35 !important;}
+
 .mat-tab-group {
   min-height: 740px;
 }
@@ -60,6 +61,10 @@ a.top-right-arrow {
   padding: 10px 5px;
 }
 
+::ng-deep .mat-tab-body-wrapper {
+  padding-top: 20px;
+}
+
 // Table
 th {
   text-transform: uppercase;
@@ -67,6 +72,10 @@ th {
 
 tr {
   border-bottom: 1px solid #4f51a875;
+}
+
+tr.header {
+  border-bottom: 2px solid #4f51a8;
 }
 
 tr.ng-star-inserted.expand {

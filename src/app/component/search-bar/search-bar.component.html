@@ -1,35 +1,38 @@
-<!-- # This file is part of the research.fi API service
-#
-# Copyright 2019 Ministry of Education and Culture, Finland
-#
-# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-# :license: MIT -->
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
 
 <div class="row">
   <div class="col-12 search" [ngClass]="status ? 'increase' : 'decrease'">
-    <h1 class="text-center">Hae tutkimuksen tekijöitä ja tuloksia.</h1>
-    <div class="form-group has-search">
-      <div class="input-group">
-        <input type="text" #publicationSearchInput class="form-control" placeholder="Hae" 
-        value="{{input}}" id="publicationSearchInput" 
-        (keydown.enter)="newInput()"/>
-        <div class="input-group-append">
-          <button class="btn btn-search" type="submit" routerLink="/results" (click)="newInput()">
-            <i class="fa fa-search"></i>
-          </button>
+    <form>
+      <label class="text-center" for="publicationSearchInput" style="width:100%;"><h1>Hae tutkimuksen tekijöitä ja tuloksia.</h1></label>
+      <div class="form-group has-search">
+        <div class="input-group">
+          <input type="text" #publicationSearchInput class="form-control" placeholder="Julkaisu, tutkija, projekti, organisaatio" 
+          value="{{input}}" id="publicationSearchInput" 
+          (keydown.enter)="newInput()"/>
+          <div class="input-group-append">
+            <button class="btn btn-search" type="button" routerLink="/results" (click)="newInput()">
+              <span class="search-button">Hae</span>
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <p class="text-right ext-search">
+          <a (click)="increaseEvent()" [ngClass]="status ? 'increase' : 'decrease'">
+            Laajennettu haku  
+          </a>
+        </p>
+        <div class="extended-search" [ngClass]="status ? 'increase' : 'decrease'">
+          <section>
+            <mat-checkbox>Valinta 1</mat-checkbox>
+            <mat-checkbox>Valinta 2</mat-checkbox>
+          </section>
         </div>
       </div>
-      <p class="text-right ext-search">
-        <a (click)="increaseEvent()" [ngClass]="status ? 'increase' : 'decrease'">
-          Laajennettu haku  
-        </a>
-      </p>
-      <div class="extended-search" [ngClass]="status ? 'increase' : 'decrease'">
-        <section>
-          <mat-checkbox>Valinta 1</mat-checkbox>
-          <mat-checkbox>Valinta 2</mat-checkbox>
-        </section>
-      </div>
-    </div>
+  </form>
   </div>
 </div>

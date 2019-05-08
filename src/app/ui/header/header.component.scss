@@ -24,7 +24,7 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 .navbar-light .navbar-nav .nav-link {
     color: rgb(79, 81, 168);
     font-weight: bold;
-    transition: 0.2s linear;
+
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
@@ -34,6 +34,25 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 
 ul.navbar-nav.mr-auto.left {
     width: 500px;
+}
+
+// Language selector
+.navbar-expand .navbar-nav .nav-link {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+// Single main menu item
+li.nav-item {
+    border-top: 3px solid transparent;
+}
+
+.main a.nav-item.nav-link {
+    padding: 0 28px;
+}
+
+.active-link {
+    border-bottom: 3px solid #3aaa35;
 }
 
 //mobile menu

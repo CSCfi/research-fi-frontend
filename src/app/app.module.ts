@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -64,6 +65,7 @@ import { CountUpModule } from 'countup.js-angular2';
     MatTabsModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    MatPaginatorModule,
     CountUpModule
   ],
   providers: [ SearchService ],
