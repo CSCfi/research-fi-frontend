@@ -8,6 +8,7 @@ node {
   def api_host = "${env.API_HOST}"
   def registry = "${env.DOCKER_REGISTRY}"
   def imagename = "researchfi-frontend"
+  def dockerfile = "Dockerfile.prod"
   def docker_image = "${registry}/${imagename}:testing"
 
   stage('Print environment variables') {
@@ -18,13 +19,13 @@ node {
     checkout scm
   }
 
-  stage('Add environment file') {
+  stage('Add production environment file') {
     sh "sed 's/<API_HOST>/${env.API_HOST}/g' src/environments/environment.prod.ts > src/environments/environment.researchfi.prod.ts"
     sh 'ls -l src/environments'
     sh 'cat src/environments/environment.researchfi.prod.ts'  
   }
 
   stage('Build Docker image') {
-    def newImage = docker.build(docker_image, "./Dockerfile.prod")
+    def newImage = docker.build(docker_image, "-f ${dockerfile} .")
   }
 }
