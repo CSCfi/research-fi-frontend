@@ -8,10 +8,12 @@
 <app-search-bar></app-search-bar>
 
 <div class="container" style="margin-top:25px;">
+    <div class="breadcrumbs">
+        <a class="breadcrumb" routerLink="/">< Takaisin etusivulle</a>
+    </div>
     <div class="row">
-        <div class="col col-2">
-            <a class="breadcrumb" routerLink="/">< Takaisin etusivulle</a>
-            <h3 style="color: #808080; padding-top: 55px;">SUODATA</h3>
+        <div class="col col-2 filters">
+            <h3 style="color: #808080;">SUODATA</h3>
             <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -88,7 +90,7 @@
         <div class="col-10" *ngFor="let publication of responseData">
             <mat-tab-group>
                 <mat-tab label="Julkaisut ({{publication.hits.total}})">
-                        <h3 style="float:left; margin-top:10px;">Hakutulokset</h3>
+                    <h3 style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h3>
                     <div class="spinner-center" *ngIf="undefined === responseData">
                         <mat-spinner [diameter]="80"></mat-spinner>
                     </div>
@@ -102,23 +104,40 @@
                         </mat-form-field>
                     </div>
                     <div *ngFor="let publication of responseData">
-                    <table mat-table>
-                        <tr class="header">
-                            <th></th>
-                            <th>Julkaisun nimi</th>
-                            <th>Tekijät</th>
-                            <th>Julkaisukanava</th>
-                            <th>Vuosi</th>
-                        </tr>
-                        <tr class="expand" [attr.data-selected]="false" (click)="expandStatus[i]=!expandStatus[i]" 
-                            [class.expand]="expandStatus[i]"  *ngFor="let x of publication.hits.hits; let i = index">
-                            <td class="expand"><a class="arrow" [class.expand]="expandStatus[i]"></a></td>
-                            <td style="min-width:400px;">{{x._source.doc.row.publicationName}}</td>
-                            <td class="shorten">{{x._source.doc.row.authorsText}}</td>
-                            <td class="shorten">{{x._source.doc.row.journalName}}</td>
-                            <td>{{x._source.doc.row.reportingYear}}</td>
-                        </tr>
-                    </table>
+                        <div class="row no-margin">
+                            <div class="col arrow">
+                            </div>
+                            <div class="col">
+                                <span class="bold uppercase">Julkaisun nimi</span>
+                            </div>
+                            <div class="col">
+                                <span class="bold uppercase">Tekijät</span>
+                            </div>
+                            <div class="col col-md-2">
+                                <span class="bold uppercase">Julkaisukanava</span>
+                            </div>
+                            <div class="col col-md-1">
+                                <span class="bold uppercase">Vuosi</span>
+                            </div>
+                        </div>
+                    <div class="row expand no-margin single" [attr.data-selected]="false" (click)="expandStatus[i]=!expandStatus[i]" 
+                    [class.expand]="expandStatus[i]"  *ngFor="let x of publication.hits.hits; let i = index">
+                        <div class="col arrow">
+                            <a class="arrow" [class.expand]="expandStatus[i]"></a>
+                        </div>          
+                        <div class="col">
+                            <span>{{x._source.doc.row.publicationName}}</span>
+                        </div>          
+                        <div class="col shorten">
+                            <span>{{x._source.doc.row.authorsText}}</span>
+                        </div>          
+                        <div class="col col-2">
+                            <span>{{x._source.doc.row.journalName}}</span>
+                        </div>          
+                        <div class="col col-1">
+                            <span>{{x._source.doc.row.reportingYear}}</span>
+                        </div>          
+                    </div>
                     </div>
                     <a class="pagination-link"  *ngIf="fromPage > 0" (click)="previousPage()">Edellinen sivu | </a>
                     <a class="pagination-link" (click)="nextPage()">Seuraava sivu</a>
@@ -129,8 +148,10 @@
 
                 </mat-tab>
                 <mat-tab label="Tutkijat"> </mat-tab>
-                <mat-tab label="Projektit"> </mat-tab>
-                <mat-tab label="Organisaatiot"> </mat-tab>
+                <mat-tab label="Rahoitetut hankkeet"> </mat-tab>
+                <mat-tab label="Tutkimusaineistot"> </mat-tab>
+                <mat-tab label="Tutkimusvälineet"> </mat-tab>
+                <mat-tab label="Muut tutkimusaktiviteetit"> </mat-tab>
             </mat-tab-group>
         </div>
     </div>

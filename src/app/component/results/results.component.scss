@@ -20,6 +20,7 @@
 
 //Breadcrumbs
 .breadcrumb {
+  position: absolute;
   background-color: transparent;
   color: #000;
   font-weight: bold;
@@ -95,6 +96,10 @@ td.shorten {
   text-overflow: ellipsis;
 }
 
+a.arrow {
+  color: #808080;
+}
+
 a.arrow::before {
   font-family: "FontAwesome";
   content: "\f078"; 
@@ -105,7 +110,45 @@ a.arrow.expand::before {
   content: "\f077";
 }
 
+// Results list
+.row.no-margin {
+  margin: 0 auto;
+  border-bottom: 1px solid #4f51a8;
+}
+
+span.bold {
+  font-weight: bold;
+}
+
+.single .col {
+  padding: 12px 8px;
+}
+
+.col.arrow {
+  max-width: 27px;
+  padding: 0px;
+  text-align: center;
+}
+
+.col.shorten {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
 // Filter sidebar
+.col.filters {
+background: #f9f9f9;
+padding-top: 15px;
+margin-top: 48px;
+}
+
+.mat-expansion-panel {
+  background: transparent;
+}
+
 mat-checkbox {
   margin-left: 10px;
   vertical-align: middle;
