@@ -26,6 +26,7 @@ node {
   }
 
   stage('Build Docker image') {
-    def newImage = docker.build(docker_image, "-f ${dockerfile} .")
+    //def newImage = docker.build(docker_image, "-f ${dockerfile} .")
+    sh 'docker build -t ${docker_image} -f ${dockerfile}'
   }
 }
