@@ -7,10 +7,10 @@
 node {
   def api_host = "${env.API_HOST}"
   def registry = "${env.DOCKER_REGISTRY}"
-  //def username = "researchfi"
-  //def imagename = "searchportal-prod"
   def dockerfile = "Dockerfile.prod"
-  def docker_image = "researchfi/searchportal-production:latest"
+  def imagename = "researchfi-frontend"
+  def tag = "latest"
+  def docker_image = "${registry}/${imagename}:${tag}"
 
   stage('Print environment variables') {
     echo sh(returnStdout: true, script: 'env')
