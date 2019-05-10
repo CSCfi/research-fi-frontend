@@ -6,6 +6,7 @@
 // :license: MIT
 node {
   def api_host = "${env.API_HOST}"
+  def artifactory_server = "${env.ARTIFACTORY_SERVER}"
   def registry = "${env.DOCKER_REGISTRY}"
   def dockerfile = "Dockerfile.prod"
   def imagename = "researchfi-frontend"
@@ -33,7 +34,7 @@ node {
     // def newImage = docker.build(docker_image, "-f ${dockerfile} .")
     sh "docker build -f ${dockerfile} -t ${docker_image} ."
 
-    withDockerRegistry(url: "${registry}", credentialsId: 'artifactory-credentials') {
+    withDockerRegistry(url: "https://${registry}", credentialsId: 'artifactory-credentials') {
       sh "docker push ${docker_image}"
     }
   }
