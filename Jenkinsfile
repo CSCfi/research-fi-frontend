@@ -26,7 +26,14 @@ node {
   }
 
   stage('Build Docker image') {
-    //def newImage = docker.build(docker_image, "-f ${dockerfile} .")
+    // There's a bug in Docker Pipeline Plugin, which crashes during multistage Docker build.
+    // https://github.com/jenkinsci/docker-workflow-plugin/pull/162
+    // Before that issue is fixed, execute docker build using shell script.
+    // def newImage = docker.build(docker_image, "-f ${dockerfile} .")
     sh "docker build -f ${dockerfile} -t ${docker_image} ."
+
+    withDockerRegistry(url: ${registry}, credentialsId: 'artifactory-credentials') {
+      sh "docker push ${docker_image}"
+    }
   }
 }
