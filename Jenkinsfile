@@ -33,7 +33,9 @@ node {
     // Before that issue is fixed, execute docker build using shell script.
     // def newImage = docker.build(docker_image, "-f ${dockerfile} .")
     sh "docker build -f ${dockerfile} -t ${docker_image} ."
+  }
 
+  stage('Push Docker image') {
     withDockerRegistry(url: "https://${registry}", credentialsId: 'artifactory-credentials') {
       sh "docker push ${docker_image}"
     }
