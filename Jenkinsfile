@@ -61,7 +61,7 @@ node {
   /*
    * Push Docker image to registry only if Git branch is 'master' or 'devel'
    */
-  if (env.GIT_BRANCH == 'master' || env.GIT_BRANCH == 'devel') {
+  if ("${branchname}" == "master" || "${branchname}" == "devel") {
     stage('Push Docker image') {
       withDockerRegistry(url: "https://${registry}", credentialsId: 'artifactory-credentials') {
         sh "docker push ${docker_image}"
