@@ -10,8 +10,9 @@ node {
   def registry = "${env.DOCKER_REGISTRY}"
   def dockerfile = "Dockerfile.prod"
   def imagename = "researchfi-frontend"
-  def tag = "latest"
-  def docker_image = "${registry}/${imagename}:${tag}"
+  def branchname = "${env.GIT_BRANCH}"
+  def tag = "${env.GIT_COMMIT}"
+  def docker_image = "${registry}/${imagename}/${branchname}:${tag}"
 
   stage('Print environment variables') {
     echo sh(returnStdout: true, script: 'env')
@@ -31,13 +32,17 @@ node {
     // There's a bug in Docker Pipeline Plugin, which crashes during multistage Docker build.
     // https://github.com/jenkinsci/docker-workflow-plugin/pull/162
     // Before that issue is fixed, execute docker build using shell script.
+
     // def newImage = docker.build(docker_image, "-f ${dockerfile} .")
     sh "docker build -f ${dockerfile} -t ${docker_image} ."
   }
 
-  stage('Push Docker image') {
-    withDockerRegistry(url: "https://${registry}", credentialsId: 'artifactory-credentials') {
-      sh "docker push ${docker_image}"
+  // Push Docker image to registry only if Git branch is 'master' or 'devel'
+  if (env.GIT_BRANCH == 'master' || env.GIT_BRANCH == 'devel') {
+    stage('Push Docker image') {
+      withDockerRegistry(url: "https://${registry}", credentialsId: 'artifactory-credentials') {
+        sh "docker push ${docker_image}"
+      }
     }
   }
 }
