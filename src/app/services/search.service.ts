@@ -60,7 +60,7 @@ export class SearchService {
     }
   }
 
-  private handleError(err: HttpErrorResponse) {
+  public handleError(err: HttpErrorResponse) {
     let errorMessage = 'HTTPError';
     if (err.error instanceof Error) {
       // A client-side or network error occurred. Handle it accordingly.

@@ -38,6 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import { CountUpModule } from 'countup.js-angular2';
+import { SingleComponent } from './component/single/single.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CountUpModule } from 'countup.js-angular2';
     HomePageComponent,
     SearchBarComponent,
     ResultsComponent,
+    SingleComponent,
   ],
   imports: [
     BrowserModule,

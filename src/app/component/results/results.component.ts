@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 
@@ -23,6 +23,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   fromPage = 0;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
+  @ViewChild('singleId') singleId: ElementRef;
 
   constructor(private searchService: SearchService) {
     this.isSearching = false;
@@ -41,7 +42,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
       invokeGetData.subscribe(() => {
         console.log('getData');
         this.getData();
-        console.log('sbutton');
       });
     }
 

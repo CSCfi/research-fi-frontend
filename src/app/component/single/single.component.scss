@@ -1,0 +1,25 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+
+// Table
+th {
+    min-width: 250px;
+    vertical-align: top;
+}
+
+.mat-checkbox {
+    cursor: default;
+}
+
+:host /deep/ label {
+    margin-bottom: 0;
+}
+
+:host /deep/ .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #ffffff;
+}

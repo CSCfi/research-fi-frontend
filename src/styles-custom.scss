@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$researchfi-primary: mat-palette($mat-blue-grey);
+$researchfi-accent:  mat-palette($mat-green);
+$researchfi-warn:    mat-palette($mat-deep-orange);
+$researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $researchfi-warn);
+@include angular-material-theme($researchfi-theme);

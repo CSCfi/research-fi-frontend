@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { ResultsComponent } from './component/results/results.component';
+import { SingleComponent } from './component/single/single.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,14 @@ const routes: Routes = [
   {
     path: 'results/:name',
     component: ResultsComponent
+  },
+  {
+    path: 'single',
+    component: SingleComponent
+  },
+  {
+    path: 'single/:id',
+    component: SingleComponent
   }
 ];
 

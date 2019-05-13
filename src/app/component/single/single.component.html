@@ -1,0 +1,120 @@
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+ <app-search-bar></app-search-bar>
+
+ <div class="container" style="margin-top:25px;">
+
+    <div class="row" *ngFor="let publication of responseData">
+        <div class="" *ngFor="let item of publication.hits.hits">
+            <span class="indicator" style="font-style: italic">Julkaisu</span>
+            <h3>{{item._source.doc.row.publicationName}}</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Julkaisun nimi:</th>
+                        <td>{{item._source.doc.row.publicationName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tekijät:</th>
+                        <td>{{item._source.doc.row.authorsText}}</td>
+                    </tr>
+                    <tr>
+                        <th>Julkaisukanava:</th>
+                        <td>{{item._source.doc.row.publisherName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Vuosi:</th>
+                        <td>{{item._source.doc.row.publicationYear}}</td>
+                    </tr>
+                    <tr>
+                        <th>Julkaisutyyppi:</th>
+                        <td>{{item._source.doc.row.publicationTypeCode}}</td>
+                    </tr>
+                    <tr>
+                        <th>Julkaisun kieli:</th>
+                        <td>{{item._source.doc.row.languageCode}}</td>
+                    </tr>
+                    <tr>
+                        <th>Julkaisumaa:</th>
+                        <td>{{item._source.doc.row.publicationCountryCode}}</td>
+                    </tr>
+                    <tr>
+                        <th>Julkaisufoorumiluokka:</th>
+                        <td>{{item._source.doc.row.jufoClassCode}}</td>
+                    </tr>
+                    <tr>
+                        <th>JUFO-ID:</th>
+                        <td>{{item._source.doc.row.jufoCode}}</td>
+                    </tr>
+                    <tr>
+                        <th>Viitetiedot:</th>
+                        <td>???</td>
+                    </tr>
+                    <tr>
+                        <th>ISSN:</th>
+                        <td>{{item._source.doc.row.issn}}</td>
+                    </tr>
+                    <tr>
+                        <th>ISBN:</th>
+                        <td>{{item._source.doc.row.isbn}}</td>
+                    </tr>
+                    <tr>
+                        <th>Emojulkaisun nimi:</th>
+                        <td>{{item._source.doc.row.parentPublicationName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Volyymi:</th>
+                        <td>{{item._source.doc.row.volume}}</td>
+                    </tr>
+                    <tr>
+                        <th>Numero:</th>
+                        <td>{{item._source.doc.row.issueNumber}}</td>
+                    </tr>
+                    <tr>
+                        <th>Sivut:</th>
+                        <td>{{item._source.doc.row.pageNumberText}}</td>
+                    </tr>
+                    <tr>
+                        <th>Emojulkaisun tekijä:</th>
+                        <td>{{item._source.doc.row.parentPublicationPublisher}}</td>
+                    </tr>
+                    <tr>
+                        <th>Organisaatiot:</th>
+                        <td>???</td>
+                    </tr>
+                    <tr>
+                        <th>Linkki kokotekstiin:</th>
+                        <td>???</td>
+                    </tr>
+                    <tr>
+                        <th>Avoin saatavuus:</th>
+                        <td>{{item._source.doc.row.publicationTypeCode}}</td>
+                    </tr>
+                    <tr *ngFor="let field of item._source.doc.row.fields_of_science">
+                        <th>Tieteenalat:</th>
+                        <td>{{field.fieldIdScience}}, {{field.nameFiScience}}</td>
+                    </tr>
+                    <tr>
+                        <th>Kansainvälinen yhteisjulkaisu:</th>
+                        <td>
+                            <mat-checkbox [checked]="item._source.doc.row.internationalPublication === true" 
+                            [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Julkaistu yrityksen kanssa:</th>
+                        <td>
+                            <mat-checkbox [checked]="item._source.doc.row.businessCollaboration === true" 
+                            [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
