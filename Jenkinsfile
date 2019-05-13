@@ -14,7 +14,7 @@ node {
   def registry = "${env.DOCKER_REGISTRY}"
   def dockerfile = "Dockerfile.prod"
   def imagename = "researchfi-frontend"
-  def branchname = "${env.BRANCH_NAME}"
+  def branchname = "${env.BRANCH_NAME}".toLowerCase()
   //def tag = "${env.GIT_COMMIT}"
   def tag = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
   def docker_image = "${registry}/${imagename}/${branchname}:${tag}"
