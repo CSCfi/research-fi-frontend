@@ -5,18 +5,19 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 node {
+  stage('Clone repository') {
+    checkout scm
+  }
+
   def api_host = "${env.API_HOST}"
   def artifactory_server = "${env.ARTIFACTORY_SERVER}"
   def registry = "${env.DOCKER_REGISTRY}"
   def dockerfile = "Dockerfile.prod"
   def imagename = "researchfi-frontend"
   def branchname = "${env.BRANCH_NAME}"
-  def tag = "${env.GIT_COMMIT}"
+  //def tag = "${env.GIT_COMMIT}"
+  def tag = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
   def docker_image = "${registry}/${imagename}/${branchname}:${tag}"
-  
-  stage('Clone repository') {
-    checkout scm
-  }
 
   stage('Print environment variables') {
     echo sh(returnStdout: true, script: 'env')
