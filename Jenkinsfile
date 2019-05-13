@@ -10,16 +10,16 @@ node {
   def registry = "${env.DOCKER_REGISTRY}"
   def dockerfile = "Dockerfile.prod"
   def imagename = "researchfi-frontend"
-  def branchname = "${env.GIT_BRANCH}"
+  def branchname = "${env.BRANCH_NAME}"
   def tag = "${env.GIT_COMMIT}"
   def docker_image = "${registry}/${imagename}/${branchname}:${tag}"
-
-  stage('Print environment variables') {
-    echo sh(returnStdout: true, script: 'env')
-  }
   
   stage('Clone repository') {
     checkout scm
+  }
+
+  stage('Print environment variables') {
+    echo sh(returnStdout: true, script: 'env')
   }
 
   stage('Add production environment file') {
