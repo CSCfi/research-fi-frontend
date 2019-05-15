@@ -110,6 +110,13 @@ a.arrow.expand::before {
   content: "\f077";
 }
 
+//Expand column
+.row.expand .col.shorten {
+  white-space: unset;
+  overflow: visible;
+  text-overflow: unset;
+}
+
 // Results list
 .row.no-margin {
   margin: 0 auto;

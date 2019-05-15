@@ -120,18 +120,19 @@
                                 <span class="bold uppercase">Vuosi</span>
                             </div>
                         </div>
-                    <div class="row expand no-margin single" *ngFor="let x of publication.hits.hits; let i = index">
+                    <div class="row expand no-margin single" *ngFor="let x of publication.hits.hits; let i = index"
+                        [class.expand]="expandStatus[i]">
                         <div class="col arrow">
                             <a class="arrow" [attr.data-selected]="false" (click)="expandStatus[i]=!expandStatus[i]" 
                             [class.expand]="expandStatus[i]"></a>
                         </div>          
                         <div class="col">
-                            <a routerLink="/single/{{x._source.doc.row.publicationId}}">{{x._source.doc.row.publicationName}}</a>
+                            <a routerLink="single/{{x._source.doc.row.publicationId}}">{{x._source.doc.row.publicationName}}</a>
                         </div>          
-                        <div class="col shorten">
+                        <div class="col shorten" (click)="expandStatus[i]=!expandStatus[i]">
                             <span>{{x._source.doc.row.authorsText}}</span>
                         </div>          
-                        <div class="col col-2 shorten">
+                        <div class="col col-2 shorten" (click)="expandStatus[i]=!expandStatus[i]">
                             <span>{{x._source.doc.row.journalName}}</span>
                         </div>          
                         <div class="col col-1">
