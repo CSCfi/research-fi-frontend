@@ -24,10 +24,11 @@ node {
   def imagename = "researchfi-frontend"
   // Git branch name. Converted to lowercase letters to prevent problems when creating Docker image.
   def branchname = "${env.BRANCH_NAME}".toLowerCase()
-  // Tag for the Docker image. Get Git commit hash using shell script.
-  def tag = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-  // Full Docker image 
-  def docker_image = "${registry}/${imagename}/${branchname}:${tag}"
+  // Git commit hash to be used as a tag for the Docker image. Get the hash using shell script.
+  def git_commit_hash = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+  // Docker image tags 
+  def tag_githash = "${registry}/${imagename}/${branchname}:${git_commit_hash}"
+  def tag_latest = "${registry}/${imagename}/${branchname}:latest"
 
   /*
    * Print environment variables for Jenkins pipeline debugging purposes.
@@ -55,7 +56,7 @@ node {
     // Before that issue is fixed, execute docker build using shell script.
 
     // def newImage = docker.build(docker_image, "-f ${dockerfile} .")
-    sh "docker build -f ${dockerfile} -t ${docker_image} ."
+    sh "docker build -f ${dockerfile} -t ${tag_githash} -t ${tag_latest} ."
   }
 
   /*
@@ -64,7 +65,8 @@ node {
   if ("${branchname}" == "master" || "${branchname}" == "devel") {
     stage('Push Docker image') {
       withDockerRegistry(url: "https://${registry}", credentialsId: 'artifactory-credentials') {
-        sh "docker push ${docker_image}"
+        sh "docker push ${tag_githash}"
+        sh "docker push ${tag_latest}"
       }
     }
   }
