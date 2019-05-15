@@ -8,9 +8,9 @@
 <app-search-bar></app-search-bar>
 
 <div class="container" style="margin-top:25px;">
-    <div class="breadcrumbs">
+    <!-- <div class="breadcrumbs">
         <a class="breadcrumb" routerLink="/">< Takaisin etusivulle</a>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col col-2 filters">
             <h3 style="color: #808080;">SUODATA</h3>
@@ -131,7 +131,7 @@
                         <div class="col shorten">
                             <span>{{x._source.doc.row.authorsText}}</span>
                         </div>          
-                        <div class="col col-2">
+                        <div class="col col-2 shorten">
                             <span>{{x._source.doc.row.journalName}}</span>
                         </div>          
                         <div class="col col-1">
@@ -140,18 +140,16 @@
                         </div>          
                     </div>
                     </div>
-                    <a class="pagination-link"  *ngIf="fromPage > 0" (click)="previousPage()">Edellinen sivu | </a>
-                    <a class="pagination-link" (click)="nextPage()">Seuraava sivu</a>
-                    <mat-paginator [length]="publication.hits.total"
-                        [pageSize]="10"
-                        (page)="pageEvent = $event">
-                    </mat-paginator>
-
+                    <!-- Move pagination to child component -->
+                    <a [ngClass]="fromPage > 0 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu | </a>
+                    <a [ngClass]="fromPage + 10 < publication.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
+                    <p style="float:right;" *ngIf="fromPage + 10 < publication.hits.total">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publication.hits.total}}</p>
+                    <p style="float:right;" *ngIf="fromPage + 10 >= publication.hits.total">Näytetään tulokset {{fromPage + 1}} - {{publication.hits.total}} / {{publication.hits.total}}</p>
                 </mat-tab>
                 <mat-tab label="Tutkijat"> </mat-tab>
                 <mat-tab label="Rahoitetut hankkeet"> </mat-tab>
                 <mat-tab label="Tutkimusaineistot"> </mat-tab>
-                <mat-tab label="Tutkimusvälineet"> </mat-tab>
+                <mat-tab label="Tutkimusinfrastruktuurit"> </mat-tab>
                 <mat-tab label="Muut tutkimusaktiviteetit"> </mat-tab>
             </mat-tab-group>
         </div>

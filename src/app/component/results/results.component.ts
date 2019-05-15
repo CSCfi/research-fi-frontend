@@ -33,6 +33,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
 
+    // Reset pagination
+    this.searchService.from = 0;
+
     // Get search data when coming from other than results page
     this.getData();
 
@@ -40,7 +43,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     if (this.input !== null || this.searchService.subsVar === undefined) {
       this.searchService.subsVar = this.searchService.
       invokeGetData.subscribe(() => {
-        console.log('getData');
+        // Reset pagination
+        this.searchService.from = 0;
+        this.fromPage = 0;
+        // Get search data
         this.getData();
       });
     }

@@ -54,7 +54,6 @@ export class SearchService {
     if (this.input === undefined || this.input === '') {
       return this.http.get<Search[]>(this.apiUrl + '?size=10&from=' + this.from);
     } else {
-      console.log('getPublications');
       return this.http.get<Search[]>(this.apiUrl + '?size=10&from=' + this.from + '&q=publication_name=' + this.input)
       .pipe(catchError(this.handleError));
     }

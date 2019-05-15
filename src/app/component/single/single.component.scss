@@ -7,6 +7,8 @@
 
 
 // Table
+tr:nth-child(even) {background-color: #f9f9f9;}
+
 th {
     min-width: 250px;
     vertical-align: top;
@@ -22,4 +24,15 @@ th {
 
 :host /deep/ .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
     background-color: #ffffff;
+}
+
+// Sidebar
+mat-card.mat-card {
+    margin-bottom: 10px;
+}
+
+button.mat-raised-button {
+    width: 161px;
+    padding: 10px;
+    margin: 10px;
 }

@@ -36,6 +36,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
 
 import { CountUpModule } from 'countup.js-angular2';
 import { SingleComponent } from './component/single/single.component';
@@ -68,6 +69,7 @@ import { SingleComponent } from './component/single/single.component';
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatPaginatorModule,
+    MatButtonModule,
     CountUpModule
   ],
   providers: [ SearchService ],

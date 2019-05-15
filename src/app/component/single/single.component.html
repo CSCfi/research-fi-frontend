@@ -10,9 +10,9 @@
  <div class="container" style="margin-top:25px;">
 
     <div class="row" *ngFor="let publication of responseData">
-        <div class="" *ngFor="let item of publication.hits.hits">
+        <div class="col" *ngFor="let item of publication.hits.hits">
             <span class="indicator" style="font-style: italic">Julkaisu</span>
-            <h3>{{item._source.doc.row.publicationName}}</h3>
+            <h3>{{item._source.doc.row.publicationName}}, {{item._source.doc.row.publicationYear}}</h3>
             <table>
                 <tbody>
                     <tr>
@@ -115,6 +115,20 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="col col-4">
+            <mat-card>
+                <button mat-raised-button color="primary">Kopioi linkki</button>
+                <button mat-raised-button color="primary">Lähetä sähköpostilla</button>
+                <button mat-raised-button color="primary">Viitetiedot</button>
+                <button mat-raised-button color="primary">Tulosta</button>
+            </mat-card>
+            <mat-card>
+                <mat-card-title>Muita samankaltaisia</mat-card-title>
+                <p>Julkaisun nimi</p>
+                <p>Julkaisun nimi</p>
+                <p>Julkaisun nimi</p>
+            </mat-card>
         </div>
     </div>
 </div>
