@@ -26,13 +26,17 @@ const routes: Routes = [
     component: ResultsComponent
   },
   {
-    path: 'single',
+    path: 'results/single',
     component: SingleComponent
   },
   {
-    path: 'single/:id',
+    path: 'results/single/:id',
     component: SingleComponent
-  }
+  },
+  {
+    path: 'results/:name/single/:id',
+    component: SingleComponent
+  },
 ];
 
 @NgModule({
