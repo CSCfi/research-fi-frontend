@@ -40,6 +40,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { CountUpModule } from 'countup.js-angular2';
 import { SingleComponent } from './component/single/single.component';
+import { PaginationComponent } from './component/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SingleComponent } from './component/single/single.component';
     SearchBarComponent,
     ResultsComponent,
     SingleComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
