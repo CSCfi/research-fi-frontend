@@ -12,8 +12,15 @@
         </a>
     </div>
     <div class="nav-top">
+        <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse pull-right">
+            <ul class="navbar-nav main mr-auto desktop">
+                <a class="nav-item nav-link active" href="#">FI /</a>
+                <a class="nav-item nav-link" href="#">SE /</a>
+                <a class="nav-item nav-link" href="#">EN</a>
+            </ul>
+        </div>
         <div class="collapse navbar-collapse menu container" [ngClass]="{ 'show': navbarOpen }">
-            <div class="navbar-expand ml-auto navbar-nav lang mobile ">
+            <div class="navbar-expand ml-auto navbar-nav lang mobile">
                 <ul class="navbar-nav main mx-auto">
                     <li>
                         <a class="nav-item nav-link active lang-box" href="#">Suomi</a>
@@ -49,23 +56,14 @@
                     <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
                 </li>
             </ul>
-            <div class="navbar-expand ml-auto navbar-nav lang desktop">
-                <ul class="navbar-nav main mr-auto">
-                    <li>
-                        <a class="nav-item nav-link active" href="#">FI /</a>
-                    </li>
-                    <li>
-                        <a class="nav-item nav-link" href="#">SE /</a>
-                    </li>
-                    <li>
-                        <a class="nav-item nav-link" href="#">EN</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
-    <button class="navbar-toggler navbar-toggler-right hidden-md-up pull-right" type="button" (click)="toggleNavbar()">
-        <span [hidden]="collapse=='open'" class="fa fa-bars fa-lg"></span>
-        <span [hidden]="collapse=='closed'" class="fa fa-times fa-lg"></span>
-    </button>
+    <div class="mobile">
+        <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggleNavbar()">
+            <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg"></span>
+            <span *ngIf="navbarOpen" class="fa fa-times fa-lg"></span>
+        </button>
+        <div *ngIf="!navbarOpen" class="toggle-menu-text">Valikko</div>
+        <div *ngIf="navbarOpen" class="toggle-menu-text">Sulje</div>
+    </div>
 </nav>

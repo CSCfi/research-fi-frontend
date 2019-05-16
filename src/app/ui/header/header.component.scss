@@ -5,11 +5,30 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+.hidden {
+    display: none;
+}
+
+.mobile .navbar-toggler {
+    outline: none;
+    border: none;
+}
+
+.toggle-menu-text {
+    color: rgb(79, 81, 168);
+    font-weight: bold;
+    text-align: center;
+}
+
+button span.fa {
+    color: rgb(79, 81, 168);
+}
+
 .lang-box {
     background: #fffffff5;
     border-radius: 10px;
-    padding: 20px;
-    height: 45px;
+    max-height: 45px;
+    margin: 10% 2px;
     text-align: center;
     border: solid 2px rgb(79,81,168);
 }
