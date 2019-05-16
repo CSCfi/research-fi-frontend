@@ -5,7 +5,7 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<div *ngIf="navbarOpen" id="overlay"></div>
+<div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()"></div>
 <nav offClick class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="logo">
         <a class="navbar-brand" routerLink="">
@@ -20,7 +20,7 @@
                 <a class="nav-item nav-link" href="#">EN</a>
             </ul>
         </div>
-        <div class="collapse navbar-collapse menu container" [ngClass]="{ 'show': navbarOpen }">
+        <div class="collapse navbar-collapse menu" [ngClass]="{ 'show': navbarOpen }">
             <div class="navbar-expand ml-auto navbar-nav lang mobile">
                 <ul class="navbar-nav main mx-auto">
                     <li>
@@ -34,7 +34,7 @@
                     </li>
                 </ul>
             </div>
-            <ul class="navbar-nav main mr-auto ">
+            <ul class="navbar-nav main mr-auto">
                 <li class="nav-item">
                     <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
                         [routerLinkActiveOptions]="{exact: true}">Etusivu</a>

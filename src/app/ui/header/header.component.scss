@@ -41,7 +41,7 @@ button span.fa {
     padding: 5px 10px;
     text-align: center;
     border: solid 2px rgb(79,81,168);
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .collapse.navbar-collapse.menu.show li a.lang-box.active {
@@ -91,10 +91,6 @@ li.nav-item {
     border-top: 3px solid transparent;
 }
 
-.main a.nav-item.nav-link {
-    padding: 0 28px;
-}
-
 .active-link {
     border-bottom: 3px solid #3aaa35;
 }
@@ -107,7 +103,7 @@ li.nav-item {
     z-index: 4;
     background: #fffffff5;
     margin: 8px 0px 0px 0px;
-    max-width: 75%;
+    max-width: 300px;   // HOW TO DO BETTER??
     padding: 5px 23px;
 }
 
