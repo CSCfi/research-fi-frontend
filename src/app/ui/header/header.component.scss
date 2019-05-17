@@ -6,7 +6,7 @@
 // # :license: MIT
 
 #overlay {
-    position: fixed;
+    position: absolute;
     z-index: 2;
     left: 0;
     top: 87px;
@@ -17,6 +17,10 @@
 
 #nav-links {
     padding-bottom: 3px;
+}
+
+#mobile-langs {
+    width: 300px;   // Is there a better way to do this?
 }
 
 li.col-4 {

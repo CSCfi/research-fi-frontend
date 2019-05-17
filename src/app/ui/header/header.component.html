@@ -5,8 +5,7 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()"></div>
-<nav offClick class="navbar navbar-expand-lg navbar-light bg-white">
+<nav offClick class="navbar navbar-expand-lg navbar-light bg-white" (window:resize)="onResize($event)">
     <div class="logo">
         <a class="navbar-brand" routerLink="">
             <img src="../../../assets/logo.png">
@@ -20,30 +19,30 @@
                 <a class="nav-item nav-link" href="#">EN</a>
             </ul>
         </div>
-        <div class="collapse navbar-collapse menu" [ngClass]="{ 'show': navbarOpen }">
-            <div class="navbar-expand ml-auto navbar-nav lang mobile">
-                <ul class="navbar-nav main mx-auto" [ngClass]="{ 'row center' : navbarOpen }">
+        <div class="collapse navbar-collapse menu" [ngClass]="{ 'show d-flex flex-column': navbarOpen }">
+            <div class="navbar-expand mx-auto navbar-nav lang mobile">
+                <ul class="navbar-nav main mx-auto" id="mobile-langs">
                     <li [ngClass]="{ 'col-4' : navbarOpen }">
                         <a class="nav-item nav-link active lang-box" href="#">Suomi</a>
                     </li>
                     <li [ngClass]="{ 'col-4' : navbarOpen }">
-                        <a class="nav-item nav-link lang-box" href="#">Svenska</a>
+                            <a class="nav-item nav-link lang-box" href="#">Svenska</a>
                     </li>
                     <li [ngClass]="{ 'col-4' : navbarOpen }">
                         <a class="nav-item nav-link lang-box" href="#">English</a>
                     </li>
                 </ul>
             </div>
-            <ul class="navbar-nav main mr-auto">
+            <ul class="navbar-nav main mx-auto">
                 <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
                     <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
-                        [routerLinkActiveOptions]="{exact: true}">Etusivu</a>
+                    [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
                 </li>
                 <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
-                    <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link">Haku</a>
+                    <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Haku</a>
                 </li>
             </ul>
-            <ul class="navbar-nav main mr-auto" id="nav-links">
+            <ul class="navbar-nav main mx-auto" id="nav-links">
                 <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
                     <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
                 </li>
@@ -68,3 +67,4 @@
         <div *ngIf="navbarOpen" class="toggle-menu-text">Sulje</div>
     </div>
 </nav>
+<div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()"></div>
