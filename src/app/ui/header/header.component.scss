@@ -15,6 +15,14 @@
     height: 100%;
 }
 
+#nav-links {
+    padding-bottom: 3px;
+}
+
+li.col-4 {
+    padding: 0;
+}
+
 .hidden {
     display: none;
 }
@@ -37,7 +45,7 @@ button span.fa {
 .collapse.navbar-collapse.menu.show li a.lang-box {
     background: #fffffff5;
     border-radius: 10px;
-    margin: 1px;
+    margin: 10px 1px;
     padding: 5px 10px;
     text-align: center;
     border: solid 2px rgb(79,81,168);
@@ -60,7 +68,7 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 
 .nav-top {
     right: 0;
-    margin-top: 32px;
+    // margin-top: 32px;
     margin-right: 0;
     margin-left: auto;
 }
@@ -103,7 +111,6 @@ li.nav-item {
     z-index: 4;
     background: #fffffff5;
     margin: 8px 0px 0px 0px;
-    max-width: 300px;   // HOW TO DO BETTER??
     padding: 5px 23px;
 }
 
