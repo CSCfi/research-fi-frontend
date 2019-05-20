@@ -22,7 +22,11 @@ const routes: Routes = [
     component: ResultsComponent
   },
   {
-    path: 'results/:name',
+    path: 'results/:input',
+    component: ResultsComponent
+  },
+  {
+    path: 'results/:input/:page',
     component: ResultsComponent
   },
   {
@@ -31,6 +35,10 @@ const routes: Routes = [
   },
   {
     path: 'single/:id',
+    component: SingleComponent
+  },
+  {
+    path: 'results/:name/single/:id',
     component: SingleComponent
   }
 ];

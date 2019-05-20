@@ -15,7 +15,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  responseData: any [];
+  publicationData: any [];
+  personData: any [];
   errorMessage = [];
   status = false;
   myOps = {
@@ -26,13 +27,21 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+    this.getPublicationData();
+    this.getPersonData();
   }
 
-  getData() {
-    this.searchService.getAll()
-    .pipe(map(responseData => [responseData]))
-    .subscribe(responseData => this.responseData = responseData,
+  getPublicationData() {
+    this.searchService.getAllPublications()
+    .pipe(map(publicationData => [publicationData]))
+    .subscribe(publicationData => this.publicationData = publicationData,
+      error => this.errorMessage = error as any);
+  }
+
+  getPersonData() {
+    this.searchService.getAllPersons()
+    .pipe(map(personData => [personData]))
+    .subscribe(personData => this.personData = personData,
       error => this.errorMessage = error as any);
   }
 

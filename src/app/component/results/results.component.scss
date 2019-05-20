@@ -1,16 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
-
-:host /deep/ .mat-tab-label {
-  font-size: 1.2em;
-  color: #4f51a8;
-  font-weight: bold;
-  opacity: 1!important;
-}
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
 
 .spinner-center {
   margin-top: 25px;
@@ -18,7 +11,7 @@
   padding-left: 40%;
 }
 
-//Breadcrumbs
+// Breadcrumbs
 .breadcrumb {
   position: absolute;
   background-color: transparent;
@@ -28,22 +21,26 @@
   margin: 0;
 }
 
+// Filters
+.col.filters {
+  background: #f9f9f9;
+  padding-top: 15px;
+  margin-top: 48px;
+}
+
 // Sort
 .sort {
   text-align: right;
 }
 
-//Cards
-a.top-right-arrow {
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  cursor: pointer;
-  font-weight: 900;
+// Tabs
+:host /deep/ .mat-tab-label {
+  font-size: 1.2em;
   color: #4f51a8;
+  font-weight: bold;
+  opacity: 1!important;
 }
 
-// Tabs
 ::ng-deep .mat-ink-bar {
   background-color:#3aaa35 !important;}
 
@@ -51,63 +48,8 @@ a.top-right-arrow {
   min-height: 740px;
 }
 
-.mat-expansion-panel:not([class*=mat-elevation-z]) {
-  box-shadow: none;
-  border-radius: 0px;
-  border-bottom: 1px solid #4f51a875;
-}
-
-.mat-expansion-panel-header:not([aria-disabled=true]) {
-  cursor: pointer;
-  padding: 10px 5px;
-}
-
 ::ng-deep .mat-tab-body-wrapper {
   padding-top: 20px;
-}
-
-// Table
-th {
-  text-transform: uppercase;
-}
-
-tr {
-  border-bottom: 1px solid #4f51a875;
-}
-
-tr.header {
-  border-bottom: 2px solid #4f51a8;
-}
-
-tr.ng-star-inserted.expand {
-  border-bottom: 5px solid;
-}
-
-td {
-  padding: 20px 10px 20px 0px;
-  vertical-align: top;
-}
-
-td.shorten {
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 360px;
-  max-height: 20px!important;
-  text-overflow: ellipsis;
-}
-
-a.arrow {
-  color: #808080;
-}
-
-a.arrow::before {
-  font-family: "FontAwesome";
-  content: "\f078"; 
-}
-
-a.arrow.expand::before {
-  font-family: "FontAwesome";
-  content: "\f077";
 }
 
 // Results list
@@ -136,45 +78,35 @@ span.bold {
   text-overflow: ellipsis;
 }
 
-
-
-// Filter sidebar
-.col.filters {
-background: #f9f9f9;
-padding-top: 15px;
-margin-top: 48px;
+.row.expand {
+  background: #f9f9f9;
 }
 
-.mat-expansion-panel {
-  background: transparent;
+.col.expand {
+  white-space: unset;
+  overflow: auto;
+  text-overflow: unset;
 }
 
-mat-checkbox {
-  margin-left: 10px;
-  vertical-align: middle;
+a.arrow {
+  color: #808080;
 }
 
-.mat-radio-button {
-  display: block;
+a.arrow::before {
+  font-family: "FontAwesome";
+  content: "\f078"; 
 }
 
-:host /deep/ span.mat-expansion-indicator {
-  position: absolute;
-}
-
-:host /deep/  .mat-expansion-indicator::after {
-  margin-top: -8px;
-}
-
-.mat-expansion-panel-header-title {
-  margin-left: 20px;
+a.arrow.expand::before {
+  font-family: "FontAwesome";
+  content: "\f077";
 }
 
 // Pagination
 a.pagination-link {
-  cursor: pointer;
-  font-weight: bold;
-  color: #4f51a8;
+cursor: pointer;
+font-weight: bold;
+color: #4f51a8;
 }
 
 // Responsive
