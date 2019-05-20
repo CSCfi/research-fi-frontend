@@ -10,9 +10,6 @@
  <div class="container" style="margin-top:25px;">
 
     <div class="row" *ngFor="let publication of responseData">
-        <!-- <div class="col" *ngFor="let item of publication.hits.hits">
-            {{item.total | json}}
-        </div> -->
         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>

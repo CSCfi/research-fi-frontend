@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-sidebar.component.scss']
 })
 export class FilterSidebarComponent implements OnInit {
-
+  panelOpenState: boolean;
+  expandStatus: Array<boolean> = [];
   constructor() { }
 
   ngOnInit() {

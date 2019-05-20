@@ -30,11 +30,11 @@ const routes: Routes = [
     component: ResultsComponent
   },
   {
-    path: 'results/single',
+    path: 'single',
     component: SingleComponent
   },
   {
-    path: 'results/single/:id',
+    path: 'single/:id',
     component: SingleComponent
   },
   {

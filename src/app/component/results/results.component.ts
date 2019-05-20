@@ -24,7 +24,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
   status = false;
   fromPage = 0;
   page = 1;
-  panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
 
