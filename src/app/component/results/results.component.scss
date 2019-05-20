@@ -52,6 +52,57 @@
   padding-top: 20px;
 }
 
+// Table
+th {
+  text-transform: uppercase;
+}
+
+tr {
+  border-bottom: 1px solid #4f51a875;
+}
+
+tr.header {
+  border-bottom: 2px solid #4f51a8;
+}
+
+tr.ng-star-inserted.expand {
+  border-bottom: 5px solid;
+}
+
+td {
+  padding: 20px 10px 20px 0px;
+  vertical-align: top;
+}
+
+td.shorten {
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 360px;
+  max-height: 20px!important;
+  text-overflow: ellipsis;
+}
+
+a.arrow {
+  color: #808080;
+}
+
+a.arrow::before {
+  font-family: "FontAwesome";
+  content: "\f078"; 
+}
+
+a.arrow.expand::before {
+  font-family: "FontAwesome";
+  content: "\f077";
+}
+
+//Expand column
+.row.expand .col.shorten {
+  white-space: unset;
+  overflow: visible;
+  text-overflow: unset;
+}
+
 // Results list
 .row.no-margin {
   margin: 0 auto;

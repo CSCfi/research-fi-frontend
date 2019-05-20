@@ -40,6 +40,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { CountUpModule } from 'countup.js-angular2';
 import { SingleComponent } from './component/single/single.component';
+
 import { PublicationsComponent } from './component/publications/publications.component';
 import { PersonsComponent } from './component/persons/persons.component';
 import { FilterSidebarComponent } from './component/filter-sidebar/filter-sidebar.component';

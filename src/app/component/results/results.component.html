@@ -47,6 +47,7 @@
                                     <span class="bold uppercase">Vuosi</span>
                                 </div>
                             </div>
+
                           <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
                           (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
                               <div class="col arrow">
@@ -73,6 +74,7 @@
                           <p style="float:right;" *ngIf="fromPage + 10 >= publications.hits.total">Näytetään tulokset {{fromPage + 1}} - {{publications.hits.total}} / {{publications.hits.total}}</p>
                         
                         </div>          
+
                 </mat-tab>
                 
                 <div class="" *ngFor="let person of personData">
