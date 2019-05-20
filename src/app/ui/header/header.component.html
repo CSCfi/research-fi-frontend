@@ -19,6 +19,7 @@
                 <a class="nav-item nav-link" href="#">EN</a>
             </ul>
         </div>
+
         <div class="collapse navbar-collapse menu" [ngClass]="{ 'show d-flex flex-column': navbarOpen }">
             <div class="navbar-expand mx-auto navbar-nav lang mobile">
                 <ul class="navbar-nav main mx-auto" id="mobile-langs">
@@ -26,7 +27,7 @@
                         <a class="nav-item nav-link active lang-box" href="#">Suomi</a>
                     </li>
                     <li [ngClass]="{ 'col-4' : navbarOpen }">
-                            <a class="nav-item nav-link lang-box" href="#">Svenska</a>
+                        <a class="nav-item nav-link lang-box" href="#">Svenska</a>
                     </li>
                     <li [ngClass]="{ 'col-4' : navbarOpen }">
                         <a class="nav-item nav-link lang-box" href="#">English</a>
@@ -36,10 +37,11 @@
             <ul class="navbar-nav main mx-auto">
                 <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
                     <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
-                    [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
+                        [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
                 </li>
                 <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
-                    <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Haku</a>
+                    <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link"
+                        (click)="navbarOpen && toggleNavbar()">Haku</a>
                 </li>
             </ul>
             <ul class="navbar-nav main mx-auto" id="nav-links">

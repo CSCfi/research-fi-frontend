@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onResize(event) {
-    if (event.target.innerWidth >= 992 && this.navbarOpen) this.toggleNavbar();
+    if (event.target.innerWidth >= 992) this.navbarOpen = false;
   }
 
   constructor() { }
