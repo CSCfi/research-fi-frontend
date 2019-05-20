@@ -15,5 +15,6 @@ For production:
 
 export const environment = {
   production: true,
-  apiUrl: 'http://<API_HOST>/portalapi/publication/_search'
+  apiUrl: 'http://<API_HOST>/portalapi/publication/_search',
+  buildInfo: '<BUILD_INFO>',
 };
