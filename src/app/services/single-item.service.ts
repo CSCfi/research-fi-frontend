@@ -12,7 +12,7 @@ const API_URL = environment.apiUrl;
   providedIn: 'root'
 })
 export class SingleItemService {
-  apiUrl = API_URL;
+  apiUrl = API_URL + 'publication/_search';
   getId$: Observable<any>;
   private getIdSubject = new Subject<any>();
   singleItemId: any;

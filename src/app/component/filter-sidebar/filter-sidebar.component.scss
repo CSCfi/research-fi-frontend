@@ -1,0 +1,44 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+// Filter sidebar
+   
+.mat-expansion-panel {
+    background: transparent;
+}
+
+mat-checkbox {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.mat-radio-button {
+    display: block;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #4f51a875;
+}
+
+    .mat-expansion-panel-header:not([aria-disabled=true]) {
+    cursor: pointer;
+    padding: 10px 5px;
+}
+
+:host /deep/ span.mat-expansion-indicator {
+    position: absolute;
+}
+
+:host /deep/  .mat-expansion-indicator::after {
+    margin-top: -8px;
+}
+
+.mat-expansion-panel-header-title {
+    margin-left: 20px;
+}

@@ -1,0 +1,71 @@
+  <h3 style="color: #808080;">SUODATA</h3>
+  <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>JULKAISUVUOSI</strong>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="year">Vuosi</mat-radio-button>
+          <mat-radio-button value="between">Aikaväli</mat-radio-button>
+      </mat-radio-group>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>SEKTORI</strong>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox></mat-checkbox>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>TIETEENALA</strong>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox></mat-checkbox>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>JULKAISUTYYPPI</strong>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox></mat-checkbox>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>MAA</strong>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox></mat-checkbox>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>KIELI</strong>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox></mat-checkbox>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>AVOIN SAATAVUUS</strong>
+      </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox></mat-checkbox>
+  </mat-expansion-panel>
+
+  <section class="" style="padding-top: 25px;">
+      <span>Kansainvälinen yhteisjulkaisu</span>
+      <mat-checkbox></mat-checkbox>
+  </section>

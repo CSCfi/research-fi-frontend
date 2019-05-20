@@ -44,17 +44,35 @@ export class SearchService {
     this.from = 0;
   }
 
-  getAll(): Observable<Search[]> {
-      return this.http.get<Search[]>(this.apiUrl)
+
+  // Data for homepage values
+  getAllPublications(): Observable<Search[]> {
+      return this.http.get<Search[]>(this.apiUrl + 'publication/_search')
       .pipe(catchError(this.handleError));
   }
 
+  getAllPersons(): Observable<Search[]> {
+      return this.http.get<Search[]>(this.apiUrl + 'person/_search')
+      .pipe(catchError(this.handleError));
+  }
+
+  // Data for results page
   getPublications(): Observable<Search[]> {
     this.currentInput.subscribe(input => this.input = input);
     if (this.input === undefined || this.input === '') {
-      return this.http.get<Search[]>(this.apiUrl + '?size=10&from=' + this.from);
+      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.from);
     } else {
-      return this.http.get<Search[]>(this.apiUrl + '?size=10&from=' + this.from + '&q=publication_name=' + this.input)
+      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.from + '&q=publication_name=' + this.input)
+      .pipe(catchError(this.handleError));
+    }
+  }
+
+  getPersons(): Observable<Search[]> {
+    this.currentInput.subscribe(input => this.input = input);
+    if (this.input === undefined || this.input === '') {
+      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.from);
+    } else {
+      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.from + '&q=lastName=' + this.input)
       .pipe(catchError(this.handleError));
     }
   }

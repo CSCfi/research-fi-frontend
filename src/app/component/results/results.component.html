@@ -6,92 +6,19 @@
  :license: MIT -->
 
 <app-search-bar></app-search-bar>
-
 <div class="container" style="margin-top:25px;">
-    <!-- <div class="breadcrumbs">
-        <a class="breadcrumb" routerLink="/">< Takaisin etusivulle</a>
-    </div> -->
     <div class="row">
         <div class="col col-2 filters">
-            <h3 style="color: #808080;">SUODATA</h3>
-            <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>JULKAISUVUOSI</strong>
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-radio-group aria-label="Select an option">
-                    <mat-radio-button value="year">Vuosi</mat-radio-button>
-                    <mat-radio-button value="between">Aikaväli</mat-radio-button>
-                </mat-radio-group>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>SEKTORI</strong>
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>TIETEENALA</strong>
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>JULKAISUTYYPPI</strong>
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>MAA</strong>
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>KIELI</strong>
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>AVOIN SAATAVUUS</strong>
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
-            </mat-expansion-panel>
-
-            <section class="" style="padding-top: 25px;">
-                <span>Kansainvälinen yhteisjulkaisu</span>
-                <mat-checkbox></mat-checkbox>
-            </section>
-
+            <app-filter-sidebar></app-filter-sidebar>
         </div>
-
-        <div class="col-10" *ngFor="let publication of responseData">
+        <div class="text-center" *ngIf="undefined === publicationData">
+            <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
+        <div class="col-10" *ngFor="let publication of publicationData">
             <mat-tab-group>
                 <mat-tab label="Julkaisut ({{publication.hits.total}})">
                     <h3 style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h3>
-                    <div class="spinner-center" *ngIf="undefined === responseData">
+                    <div class="spinner-center" *ngIf="undefined === publicationData">
                         <mat-spinner [diameter]="80"></mat-spinner>
                     </div>
                     <div class="sort">
@@ -103,51 +30,59 @@
                             </select>
                         </mat-form-field>
                     </div>
-                    <div *ngFor="let publication of responseData">
-                        <div class="row no-margin">
-                            <div class="col arrow">
+                    <div *ngFor="let publications of publicationData">
+                            <div class="row no-margin">
+                                <div class="col arrow">
+                                </div>
+                                <div class="col">
+                                    <span class="bold uppercase">Julkaisun nimi</span>
+                                </div>
+                                <div class="col">
+                                    <span class="bold uppercase">Tekijät</span>
+                                </div>
+                                <div class="col col-md-2">
+                                    <span class="bold uppercase">Julkaisukanava</span>
+                                </div>
+                                <div class="col col-md-1">
+                                    <span class="bold uppercase">Vuosi</span>
+                                </div>
                             </div>
-                            <div class="col">
-                                <span class="bold uppercase">Julkaisun nimi</span>
-                            </div>
-                            <div class="col">
-                                <span class="bold uppercase">Tekijät</span>
-                            </div>
-                            <div class="col col-md-2">
-                                <span class="bold uppercase">Julkaisukanava</span>
-                            </div>
-                            <div class="col col-md-1">
-                                <span class="bold uppercase">Vuosi</span>
-                            </div>
-                        </div>
-                    <div class="row expand no-margin single" *ngFor="let x of publication.hits.hits; let i = index"
-                        [class.expand]="expandStatus[i]">
-                        <div class="col arrow">
-                            <a class="arrow" [attr.data-selected]="false" (click)="expandStatus[i]=!expandStatus[i]" 
-                            [class.expand]="expandStatus[i]"></a>
+
+                          <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
+                          (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
+                              <div class="col arrow">
+                                  <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+                              </div>          
+                              <div class="col">
+                                  <a routerLink="/single/{{x._source.doc.row.publicationId}}">{{x._source.doc.row.publicationName}}</a>
+                              </div>          
+                              <div class="col shorten" [class.expand]="expandStatus[i]">
+                                  <span>{{x._source.doc.row.authorsText}}</span>
+                              </div>          
+                              <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
+                                  <span>{{x._source.doc.row.journalName}}</span>
+                              </div>          
+                              <div class="col col-1">
+                                  <span>{{x._source.doc.row.publicationYear}}</span>
+                                  <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
+                              </div>          
+                          </div>
+                          <!-- Move pagination to child component -->
+                          <a [ngClass]="fromPage > 0 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu | </a>
+                          <a [ngClass]="fromPage + 10 < publications.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
+                          <p style="float:right;" *ngIf="fromPage + 10 < publications.hits.total">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.hits.total}}</p>
+                          <p style="float:right;" *ngIf="fromPage + 10 >= publications.hits.total">Näytetään tulokset {{fromPage + 1}} - {{publications.hits.total}} / {{publications.hits.total}}</p>
+                        
                         </div>          
-                        <div class="col">
-                            <a routerLink="single/{{x._source.doc.row.publicationId}}">{{x._source.doc.row.publicationName}}</a>
-                        </div>          
-                        <div class="col shorten" (click)="expandStatus[i]=!expandStatus[i]">
-                            <span>{{x._source.doc.row.authorsText}}</span>
-                        </div>          
-                        <div class="col col-2 shorten" (click)="expandStatus[i]=!expandStatus[i]">
-                            <span>{{x._source.doc.row.journalName}}</span>
-                        </div>          
-                        <div class="col col-1">
-                            <span>{{x._source.doc.row.publicationYear}}</span>
-                            <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
-                        </div>          
-                    </div>
-                    </div>
-                    <!-- Move pagination to child component -->
-                    <a [ngClass]="fromPage > 0 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu | </a>
-                    <a [ngClass]="fromPage + 10 < publication.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
-                    <p style="float:right;" *ngIf="fromPage + 10 < publication.hits.total">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publication.hits.total}}</p>
-                    <p style="float:right;" *ngIf="fromPage + 10 >= publication.hits.total">Näytetään tulokset {{fromPage + 1}} - {{publication.hits.total}} / {{publication.hits.total}}</p>
+
                 </mat-tab>
-                <mat-tab label="Tutkijat"> </mat-tab>
+                
+                <div class="" *ngFor="let person of personData">
+                    <mat-tab label="Tutkijat  ({{person.hits.total}})"> 
+                        <app-persons></app-persons>
+                    </mat-tab>
+                </div>
+                
                 <mat-tab label="Rahoitetut hankkeet"> </mat-tab>
                 <mat-tab label="Tutkimusaineistot"> </mat-tab>
                 <mat-tab label="Tutkimusinfrastruktuurit"> </mat-tab>

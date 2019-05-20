@@ -22,7 +22,11 @@ const routes: Routes = [
     component: ResultsComponent
   },
   {
-    path: 'results/:name',
+    path: 'results/:input',
+    component: ResultsComponent
+  },
+  {
+    path: 'results/:input/:page',
     component: ResultsComponent
   },
   {
