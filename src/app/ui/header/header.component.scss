@@ -110,12 +110,17 @@ li.nav-item {
 //mobile menu
 .collapse.navbar-collapse.menu.show {
     position: absolute;
-    right: 0;
     top: 75px;
     z-index: 4;
     background: #fffffff5;
     margin: 8px 0px 0px 0px;
     padding: 5px 23px;
+    transition: right 0.5s ease-out;
+}
+
+// Initial position out of screen
+#mobile-menu {
+    right: -400px;
 }
 
 button.navbar-toggler.hidden-md-up.pull-right {

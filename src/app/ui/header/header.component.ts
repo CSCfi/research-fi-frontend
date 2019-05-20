@@ -24,10 +24,11 @@ export class HeaderComponent implements OnInit {
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
+    this.navbarOpen ? document.getElementById("mobile-menu").style.right = "0" : document.getElementById("mobile-menu").style.right = "-400px"; 
   }
 
   onResize(event) {
-    if (event.target.innerWidth >= 992) this.navbarOpen = false;
+    if (event.target.innerWidth >= 992 && this.navbarOpen) this.toggleNavbar();
   }
 
   constructor() { }
