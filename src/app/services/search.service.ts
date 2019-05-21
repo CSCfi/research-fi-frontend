@@ -36,7 +36,7 @@ export class SearchService {
   }
 
   previousFrom() {
-    this.from = this.from - 10;;
+    this.from = this.from - 10;
   }
 
   onSearchButtonClick() {

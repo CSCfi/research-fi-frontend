@@ -80,6 +80,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   nextPage() {
     this.fromPage = this.fromPage + 10;
     this.page = this.page + 1;
+    // snapshotilla page searchServiceen
     this.searchService.nextFrom();
     this.getPublicationData();
     this.router.navigate(['results/' + this.input + '&page' + this.page]);
