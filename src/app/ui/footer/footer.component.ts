@@ -6,6 +6,9 @@
 // # :license: MIT
 
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
+
+const BUILD_INFO = environment.buildInfo;
 
 @Component({
   selector: 'app-footer',
@@ -13,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  buildInfo = environment.buildInfo;
 
   constructor() { }
 

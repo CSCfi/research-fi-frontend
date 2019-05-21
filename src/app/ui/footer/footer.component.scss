@@ -59,6 +59,13 @@ nav.footer {
     opacity: 0.7;
 }
 
+.footer {
+    .build-info {
+        font-size: 9px;
+        opacity: 0.6
+    }
+}
+
 //Responsive
 @media (max-width: 575px) {
 

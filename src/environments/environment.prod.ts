@@ -16,5 +16,5 @@ For production:
 export const environment = {
   production: true,
   apiUrl: 'http://<API_HOST>/portalapi/',
-  buildInfo: '<BUILD_INFO>',
+  buildInfo: '<BUILD_INFO>'
 };
