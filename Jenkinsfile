@@ -78,11 +78,14 @@ node {
   }
 
   /*
-   * Cleanup. Delete unused Docker items: containers, images etc.
-   * NOTE! Uses 'system prune' commang to blindly remove any dangling items.
-   * This can be used as long as the project has dedicated Jenkins instance.
+   * Cleanup. Delete Docker images.
    */
   stage('Cleanup') {
-    sh 'docker system prune -f'
+    sh 'docker images'
+
+    sh "docker rmi ${tag_githash}"
+    sh "docker rmi ${tag_latest}"
+
+    sh 'docker images'
   }
 }
