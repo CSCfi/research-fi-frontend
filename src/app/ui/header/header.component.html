@@ -20,41 +20,41 @@
             </ul>
         </div>
 
-        <div class="collapse navbar-collapse menu" [ngClass]="{ 'show d-flex flex-column': navbarOpen }" id="mobile-menu">
+        <div class="collapse navbar-collapse menu" [ngClass]="{ 'mobile-bar' : mobile }" id="main-navbar">
             <div class="navbar-expand mx-auto navbar-nav lang mobile">
                 <ul class="navbar-nav main mx-auto" id="mobile-langs">
-                    <li [ngClass]="{ 'col-4' : navbarOpen }">
+                    <li [ngClass]="{ 'col-4' : mobile }">
                         <a class="nav-item nav-link active lang-box" href="#">Suomi</a>
                     </li>
-                    <li [ngClass]="{ 'col-4' : navbarOpen }">
+                    <li [ngClass]="{ 'col-4' : mobile }">
                         <a class="nav-item nav-link lang-box" href="#">Svenska</a>
                     </li>
-                    <li [ngClass]="{ 'col-4' : navbarOpen }">
+                    <li [ngClass]="{ 'col-4' : mobile }">
                         <a class="nav-item nav-link lang-box" href="#">English</a>
                     </li>
                 </ul>
             </div>
             <ul class="navbar-nav main mx-auto">
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
                     <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
                         [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
                 </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
                     <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link"
                         (click)="navbarOpen && toggleNavbar()">Haku</a>
                 </li>
             </ul>
             <ul class="navbar-nav main mx-auto" id="nav-links">
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
                     <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
                 </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
                     <a class="nav-item nav-link" href="#">Tutkimusuutiset</a>
                 </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
                     <a class="nav-item nav-link" href="#">Rahoittajat</a>
                 </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : navbarOpen }">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
                     <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
                 </li>
             </ul>

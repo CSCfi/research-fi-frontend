@@ -15,22 +15,26 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
 
-  collapse = 'closed';
-
-  toggleCollapse() {
-  // this.show = !this.show
-    this.collapse = this.collapse === 'open' ? 'closed' : 'open';
-  }
+  mobile = window.innerWidth < 992;
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
-    this.navbarOpen ? document.getElementById("mobile-menu").style.right = "0" : document.getElementById("mobile-menu").style.right = "-400px"; 
+    const elem = document.getElementById("main-navbar");
+    if (this.navbarOpen) {
+      elem.style.right = "0";
+    } else {
+      elem.style.right = "-350px";
+    }
   }
 
   onResize(event) {
-    if (event.target.innerWidth >= 992 && this.navbarOpen) this.toggleNavbar();
+    if (event.target.innerWidth >= 992) {
+      this.mobile = false;
+      if (this.navbarOpen) this.toggleNavbar();
+    } else {
+      this.mobile = true;
+    }
   }
-
   constructor() { }
 
   ngOnInit() {
