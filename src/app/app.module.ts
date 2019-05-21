@@ -43,6 +43,7 @@ import { SingleComponent } from './component/single/single.component';
 
 import { PublicationsComponent } from './component/publications/publications.component';
 import { PersonsComponent } from './component/persons/persons.component';
+import { PaginationComponent } from './component/pagination/pagination.component';
 import { FilterSidebarComponent } from './component/filter-sidebar/filter-sidebar.component';
 
 @NgModule({
@@ -54,6 +55,7 @@ import { FilterSidebarComponent } from './component/filter-sidebar/filter-sideba
     SingleComponent,
     PublicationsComponent,
     PersonsComponent,
+    PaginationComponent,
     FilterSidebarComponent,
   ],
   imports: [
