@@ -5,49 +5,68 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<nav offClick class="navbar navbar-expand-xl navbar-light bg-white">
-  <div class="logo">
-    <a class="navbar-brand" routerLink="">
-      <img src="../../../assets/logo.png">
-    </a>
-  </div>
-  <div class="nav-top">
-    <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">FI /</a>
-          <a class="nav-item nav-link" href="#">SE /</a>
-          <a class="nav-item nav-link" href="#">EN</a>
+<nav offClick class="navbar navbar-expand-lg navbar-light bg-white" (window:resize)="onResize($event)">
+    <div class="logo">
+        <a class="navbar-brand" routerLink="">
+            <img src="../../../assets/logo.png">
+        </a>
+    </div>
+    <div class="nav-top">
+        <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse w-100">
+            <ul class="navbar-nav main ml-auto desktop">
+                <a class="nav-item nav-link active" href="#">FI /</a>
+                <a class="nav-item nav-link" href="#">SE /</a>
+                <a class="nav-item nav-link" href="#">EN</a>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse menu" [ngClass]="{ 'mobile-bar' : mobile }" id="main-navbar">
+            <div class="navbar-expand mx-auto navbar-nav lang mobile">
+                <ul class="navbar-nav main mx-auto" id="mobile-langs">
+                    <li [ngClass]="{ 'col-4' : mobile }">
+                        <a class="nav-item nav-link active lang-box" href="#">Suomi</a>
+                    </li>
+                    <li [ngClass]="{ 'col-4' : mobile }">
+                        <a class="nav-item nav-link lang-box" href="#">Svenska</a>
+                    </li>
+                    <li [ngClass]="{ 'col-4' : mobile }">
+                        <a class="nav-item nav-link lang-box" href="#">English</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="navbar-nav main mx-auto">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
+                    <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
+                </li>
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
+                    <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link"
+                        (click)="navbarOpen && toggleNavbar()">Haku</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav main mx-auto" id="nav-links">
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
+                    <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
+                </li>
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
+                    <a class="nav-item nav-link" href="#">Tutkimusuutiset</a>
+                </li>
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
+                    <a class="nav-item nav-link" href="#">Rahoittajat</a>
+                </li>
+                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
+                    <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="collapse navbar-collapse menu"
-        [ngClass]="{ 'show': navbarOpen }">
-      <ul class="navbar-nav main mr-auto">
-        <li class="nav-item">
-          <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
-            true}">Etusivu</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link">Haku</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav main mr-auto">
-        <li class="nav-item">
-          <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-item nav-link" href="#">Tutkimusuutiset</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-item nav-link" href="#">Rahoittajat</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
-        </li>
-      </ul>
+    <div class="mobile">
+        <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleNavbar()">
+            <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg"></span>
+            <span *ngIf="navbarOpen" class="fa fa-times fa-lg"></span>
+        </button>
+        <div *ngIf="!navbarOpen" class="toggle-menu-text">Valikko</div>
+        <div *ngIf="navbarOpen" class="toggle-menu-text">Sulje</div>
     </div>
-  </div>
-  <button class="navbar-toggler navbar-toggler-right hidden-md-up pull-right" type="button" (click)="toggleNavbar()">
-    <span [hidden]="collapse=='open'" class="fa fa-bars fa-lg"></span>
-    <span [hidden]="collapse=='closed'" class="fa fa-times fa-lg"></span>
-  </button>
 </nav>
+<div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()"></div>
