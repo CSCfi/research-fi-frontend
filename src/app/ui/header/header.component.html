@@ -34,17 +34,17 @@
                     </li>
                 </ul>
             </div>
-                <ul class="navbar-nav main mx-auto" [ngClass]="{ 'navbar-expand-md row flex-wrap' : mobile }">
-                    <li class="nav-item" [ngClass]="{ 'col row mx-auto justify-content-center' : mobile }">
+                <ul class="navbar-nav main mx-auto" [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600 }">
+                    <li class="nav-item" [ngClass]="{ 'row mx-auto col justify-content-center' : mobile }">
                         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
                             [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
                     </li>
-                    <li class="nav-item" [ngClass]="{ 'col row mx-auto justify-content-center' : mobile }">
+                    <li class="nav-item" [ngClass]="{ 'row mx-auto col justify-content-center' : mobile }">
                         <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link"
                             (click)="navbarOpen && toggleNavbar()">Haku</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav main mx-auto" [ngClass]="{ 'navbar-expand-md row flex-wrap' : mobile }" id="nav-links">
+                <ul class="navbar-nav main mx-auto" [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600 }" id="nav-links">
                     <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
                         <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
                     </li>

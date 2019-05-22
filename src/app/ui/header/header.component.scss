@@ -109,7 +109,7 @@ li.nav-item {
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
-    right: -800px;
+    right: -100%;
     top: 75px;
     z-index: 4;
     background: rgba(255, 255, 255, 0.96);
@@ -164,8 +164,15 @@ button.navbar-toggler.hidden-md-up.pull-right {
 
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+// 2-row menu
+@media (max-height: 600px) and (min-width: 536px) {
     .nav-item {
         margin: 10px 0px;
+    }
+}
+
+@media (max-width: 340px) {
+    .logo {
+        margin: 0px -10px;
     }
 }
