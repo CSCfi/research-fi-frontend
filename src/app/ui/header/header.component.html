@@ -11,7 +11,7 @@
             <img src="../../../assets/logo.png">
         </a>
     </div>
-    <div class="nav-top">
+    <div class="nav-top" [ngClass]="{ 'w-100' : !mobile}">
         <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse w-100">
             <ul class="navbar-nav main ml-auto desktop">
                 <a class="nav-item nav-link active" href="#">FI /</a>
@@ -34,7 +34,7 @@
                     </li>
                 </ul>
             </div>
-                <ul class="navbar-nav main mx-auto" [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600 }">
+                <ul class="navbar-nav main" [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600, 'flex-row w-100' : !mobile}">
                     <li class="nav-item" [ngClass]="{ 'row mx-auto col justify-content-center' : mobile }">
                         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
                             [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
@@ -43,15 +43,14 @@
                         <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link"
                             (click)="navbarOpen && toggleNavbar()">Haku</a>
                     </li>
-                </ul>
-                <ul class="navbar-nav main mx-auto" [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600 }" id="nav-links">
+                    <div *ngIf="mobile" class="w-100"></div>
                     <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
                         <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
                     </li>
                     <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
                         <a class="nav-item nav-link" href="#">Tutkimusuutiset</a>
                     </li>
-                    <div class="w-100"></div>
+                    <div *ngIf="mobile" class="w-100"></div>
                     <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
                         <a class="nav-item nav-link" href="#">Rahoittajat</a>
                     </li>
