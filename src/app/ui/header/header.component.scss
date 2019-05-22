@@ -165,14 +165,22 @@ button.navbar-toggler.hidden-md-up.pull-right {
 }
 
 // 2-row menu
-@media (max-height: 600px) and (min-width: 536px) {
+@media (min-height: 410px) and (max-height: 600px) and (min-width: 536px) {
     .nav-item {
         margin: 10px 0px;
     }
 }
 
+// Logo margin for small screens to prevent menu button misplacement
 @media (max-width: 340px) {
     .logo {
         margin: 0px -10px;
+    }
+}
+
+// Nav items grouped closer on small mobile screens in landscape orientation
+@media (max-height: 340px) {
+    .nav-item {
+        margin: -10px 0px;
     }
 }
