@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     if (this.navbarOpen) {
       elem.style.right = "0";
     } else {
-      elem.style.right = "-350px";
+      elem.style.right = "-800px";
     }
   }
 

@@ -47,7 +47,7 @@ button span.fa {
 }
 
 .collapse.navbar-collapse.menu.mobile-bar li a.lang-box {
-    background: #fffffff5;
+    background: rgba(255, 255, 255, 0.96);
     border-radius: 5px;
     margin: 10px 1px;
     padding: 5px 10px;
@@ -58,7 +58,7 @@ button span.fa {
 
 .collapse.navbar-collapse.menu.mobile-bar li a.lang-box.active {
     background: rgb(79, 81, 168);
-    color: #fffffff5 !important;
+    color: rgba(255, 255, 255, 0.96) !important;
 }
 
 nav.navbar.navbar-expand-xl.navbar-light.bg-white {
@@ -72,7 +72,6 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 
 .nav-top {
     right: 0;
-    // margin-top: 32px;
     margin-right: 0;
     margin-left: auto;
 }
@@ -110,15 +109,16 @@ li.nav-item {
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
-    right: -350px;
+    right: -800px;
     top: 75px;
     z-index: 4;
-    background: #fffffff5;
+    background: rgba(255, 255, 255, 0.96);
     margin: 8px 0px 0px 0px;
     padding: 5px 23px;
     transition: right 0.5s ease-out;
     display: block;
-
+    max-width: 80%;
+    
 }
 
 // Initial position out of screen
@@ -164,3 +164,8 @@ button.navbar-toggler.hidden-md-up.pull-right {
 
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+    .nav-item {
+        margin: 10px 0px;
+    }
+}
