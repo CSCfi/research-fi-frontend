@@ -35,7 +35,7 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav main"
-                    [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600, 'flex-row w-100' : !mobile}">
+                    [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600, 'flex-row w-100 mx-auto' : !mobile}">
                     <li class="nav-item" [ngClass]="{ 'row mx-auto col justify-content-center' : mobile }">
                         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
                             [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
