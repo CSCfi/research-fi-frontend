@@ -9,7 +9,7 @@ import { Injectable, EventEmitter  } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { catchError } from 'rxjs/operators';
 
@@ -21,29 +21,41 @@ export class SearchService {
   currentInput = this.inputSource.asObservable();
   invokeGetData = new EventEmitter();
   subsVar: Subscription;
+  getInput$: Observable<any>;
+  private getInputSubject = new Subject<any>();
+  singleInput: any;
+  pageNumber: any;
   input: any;
   apiUrl = API_URL;
   from = 0;
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) {
+    this.getInput$ = this.getInputSubject.asObservable();
+  }
+
+  // Get input value from url
+  getInput(searchTerm: string) {
+    this.singleInput = searchTerm;
+    this.getInputSubject.next(searchTerm);
+  }
+
+  getPageNumber(searchTerm: number) {
+    this.pageNumber = searchTerm;
+    this.getInputSubject.next(searchTerm);
+    this.pageNumber = this.pageNumber * 10 - 10;
+    if (isNaN(this.pageNumber) || this.pageNumber < 0) {
+      this.pageNumber = 0;
+    }
+  }
 
   changeInput(input: string) {
     this.inputSource.next(input);
-  }
-
-  nextFrom() {
-    this.from = this.from + 10;
-  }
-
-  previousFrom() {
-    this.from = this.from - 10;
   }
 
   onSearchButtonClick() {
     this.invokeGetData.emit();
     this.from = 0;
   }
-
 
   // Data for homepage values
   getAllPublications(): Observable<Search[]> {
@@ -59,20 +71,23 @@ export class SearchService {
   // Data for results page
   getPublications(): Observable<Search[]> {
     this.currentInput.subscribe(input => this.input = input);
-    if (this.input === undefined || this.input === '') {
-      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.from);
+    if (this.singleInput === undefined || this.singleInput === '') {
+      // get this.form from value from url
+      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.pageNumber);
     } else {
-      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.from + '&q=publication_name=' + this.input)
+      return this.http.get<Search[]>
+      (this.apiUrl + 'publication/_search?size=10&from=' + this.pageNumber + '&q=publication_name=' + this.singleInput)
       .pipe(catchError(this.handleError));
     }
   }
 
   getPersons(): Observable<Search[]> {
     this.currentInput.subscribe(input => this.input = input);
-    if (this.input === undefined || this.input === '') {
-      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.from);
+    if (this.singleInput === undefined || this.singleInput === '') {
+      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.pageNumber);
     } else {
-      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.from + '&q=lastName=' + this.input)
+      return this.http.get<Search[]>
+      (this.apiUrl + 'person/_search?size=10&from=' + this.pageNumber + '&q=lastName=' + this.singleInput)
       .pipe(catchError(this.handleError));
     }
   }

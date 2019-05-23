@@ -33,7 +33,8 @@ export class SearchBarComponent implements OnInit {
 
     newInput() {
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
-      this.router.navigate(['/results', this.publicationSearchInput.nativeElement.value]);
+      this.router.navigate(['/results', this.publicationSearchInput.nativeElement.value, 1]);
+      this.searchService.getInput(this.publicationSearchInput.nativeElement.value);
       this.searchService.onSearchButtonClick();
     }
 

@@ -9,6 +9,8 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/co
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-results',
@@ -16,33 +18,57 @@ import { Router } from '@angular/router';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit, OnDestroy {
+  public searchTerm: any;
+  public urlPageNumber: number;
   input: any = [];
-  isSearching: boolean;
   publicationData: any [];
   personData: any [];
   errorMessage = [];
-  status = false;
   fromPage = 0;
   page = 1;
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
 
-  constructor( private searchService: SearchService, private router: Router ) {
-    this.isSearching = false;
+  constructor( private searchService: SearchService, private router: Router, private route: ActivatedRoute,
+               private location: Location) {
+    this.searchTerm = this.route.snapshot.params.input;
+    this.searchService.getInput(this.searchTerm);
+    this.urlPageNumber = this.route.snapshot.params.page;
+    this.searchService.getPageNumber(this.urlPageNumber);
     this.publicationData = [];
+    this.route.params.subscribe( params => console.log(params) );
   }
 
   ngOnInit() {
+    console.log('ngOnInit start: ', this.urlPageNumber);
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
 
     // Reset pagination
     this.searchService.from = 0;
-    this.page = 1;
+    this.page = this.urlPageNumber;
+    console.log('page: ', this.page);
 
-    // Get search data when coming from other than results page
-    this.getPublicationData();
-    this.getPersonData();
+    // If url is missing search term
+    if (this.searchTerm === undefined) {
+      this.searchTerm = '';
+      this.router.navigate(['results', this.searchTerm, 1]);
+    }
+
+    // If url is missing page number
+    if (this.urlPageNumber === undefined) {
+      
+      console.log('missing page number');
+    }
+
+    this.fromPage = this.page * 10 - 10;
+
+    if (this.urlPageNumber !== undefined) {
+      console.log('onInit');
+      // Get search data when coming from other than results page
+      this.getPublicationData();
+      this.getPersonData();
+    }
 
     // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
@@ -51,6 +77,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
         // Reset pagination
         this.searchService.from = 0;
         this.fromPage = 0;
+        this.urlPageNumber = 1;
+        this.page = 1;
+        this.searchService.getPageNumber(1);
         // Get search data
         this.getPublicationData();
         this.getPersonData();
@@ -73,25 +102,32 @@ export class ResultsComponent implements OnInit, OnDestroy {
       error => this.errorMessage = error as any);
   }
 
-  increaseEvent(i: number): void {
-    this.status = !this.status;
-  }
-
   nextPage() {
-    this.fromPage = this.fromPage + 10;
-    this.page = this.page + 1;
-    // snapshotilla page searchServiceen
-    this.searchService.nextFrom();
+    // if (this.page === undefined) {
+    //   this.page = 1;
+    //   this.fromPage = this.fromPage + 10;
+    //   console.log('aa', this.searchTerm);
+    //   this.router.navigate(['results', this.searchTerm, 2]);
+    // } else {
+    console.log('nextPage');
+    this.page++;
+    this.urlPageNumber = this.page;
+    this.fromPage = this.page * 10 - 10;
+    this.searchService.getPageNumber(this.page);
+    this.searchTerm = this.route.snapshot.params.input;
+    this.router.navigate(['results/', this.searchTerm, this.page]);
     this.getPublicationData();
-    this.router.navigate(['results/' + this.input + '&page' + this.page]);
+
   }
 
   previousPage() {
+    this.page--;
+    this.urlPageNumber = this.page;
     this.fromPage = this.fromPage - 10;
-    this.page = this.page - 1;
-    this.searchService.previousFrom();
+    this.searchService.getPageNumber(this.page);
+    this.searchTerm = this.route.snapshot.params.input;
+    this.router.navigate(['results/', this.searchTerm, this.page]);
     this.getPublicationData();
-    this.router.navigate(['results/' + this.input + '&page' + this.page]);
   }
 
   // Unsubscribe from search term to prevent memory leaks
