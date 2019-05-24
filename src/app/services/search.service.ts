@@ -25,6 +25,7 @@ export class SearchService {
   private getInputSubject = new Subject<any>();
   singleInput: any;
   pageNumber: any;
+  fromPage: any;
   input: any;
   apiUrl = API_URL;
   from = 0;
@@ -39,22 +40,27 @@ export class SearchService {
     this.getInputSubject.next(searchTerm);
   }
 
+  onSearchButtonClick() {
+    this.invokeGetData.emit();
+    this.from = 0;
+    this.pageNumber = 1;
+    console.log('searchbutton');
+  }
+
   getPageNumber(searchTerm: number) {
-    this.pageNumber = searchTerm;
     this.getInputSubject.next(searchTerm);
-    this.pageNumber = this.pageNumber * 10 - 10;
+    this.pageNumber++;
+    this.pageNumber = searchTerm;
+    this.fromPage = this.pageNumber * 10 - 10;
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
-      this.pageNumber = 0;
+      this.fromPage = 1;
+      this.pageNumber = 1;
     }
+    console.log('ss: ', this.pageNumber);
   }
 
   changeInput(input: string) {
     this.inputSource.next(input);
-  }
-
-  onSearchButtonClick() {
-    this.invokeGetData.emit();
-    this.from = 0;
   }
 
   // Data for homepage values
@@ -73,10 +79,10 @@ export class SearchService {
     this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
       // get this.form from value from url
-      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.pageNumber);
+      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage);
     } else {
       return this.http.get<Search[]>
-      (this.apiUrl + 'publication/_search?size=10&from=' + this.pageNumber + '&q=publication_name=' + this.singleInput)
+      (this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&q=publication_name=' + this.singleInput)
       .pipe(catchError(this.handleError));
     }
   }
@@ -84,10 +90,9 @@ export class SearchService {
   getPersons(): Observable<Search[]> {
     this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.pageNumber);
+      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.fromPage);
     } else {
-      return this.http.get<Search[]>
-      (this.apiUrl + 'person/_search?size=10&from=' + this.pageNumber + '&q=lastName=' + this.singleInput)
+      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.fromPage + '&q=lastName=' + this.singleInput)
       .pipe(catchError(this.handleError));
     }
   }

@@ -29,6 +29,9 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.getPublicationData();
     this.getPersonData();
+    // Reset local storage
+    localStorage.removeItem('Pagenumber');
+    localStorage.setItem('Pagenumber', JSON.stringify(1));
   }
 
   getPublicationData() {
