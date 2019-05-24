@@ -5,9 +5,10 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { Router } from '@angular/router';
+import { StringifyOptions } from 'querystring';
 
 
 @Component({
@@ -15,10 +16,11 @@ import { Router } from '@angular/router';
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     status = false;
     input: string;
+    inputField: string;
 
     constructor( private searchService: SearchService, private router: Router ) {
     }
@@ -31,11 +33,19 @@ export class SearchBarComponent implements OnInit {
         this.status = !this.status;
     }
 
+    // clear() {
+
+    // }
+
     newInput() {
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
       this.router.navigate(['/results', this.publicationSearchInput.nativeElement.value]);
       this.searchService.getInput(this.publicationSearchInput.nativeElement.value);
       this.searchService.onSearchButtonClick();
+    }
+
+    ngOnDestroy() {
+      this.inputField = '';
     }
 
 }

@@ -7,12 +7,12 @@
 
 <div class="row">
   <div class="col-12 search" [ngClass]="status ? 'increase' : 'decrease'">
-    <form>
+    <form #inputForm>
       <label class="text-center" for="publicationSearchInput" style="width:100%;"><h1>Hae tutkimuksen tekijöitä ja tuloksia.</h1></label>
       <div class="form-group has-search">
         <div class="input-group">
           <input type="text" #publicationSearchInput class="form-control" placeholder="Julkaisu, tutkija, projekti, organisaatio" 
-          value="{{input}}" id="publicationSearchInput" 
+          value="{{input}}" id="publicationSearchInput" [(ngModel)]="inputValue" name="inputField"
           (keydown.enter)="newInput()"/>
           <div class="input-group-append">
             <button class="btn btn-search" type="button" (click)="newInput()">
