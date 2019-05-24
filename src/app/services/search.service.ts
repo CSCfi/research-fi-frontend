@@ -42,7 +42,6 @@ export class SearchService {
   onSearchButtonClick() {
     this.invokeGetData.emit();
     this.pageNumber = 1;
-    console.log('searchbutton');
   }
 
   // Fetch page number from results page
