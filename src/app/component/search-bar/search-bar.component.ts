@@ -20,6 +20,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     status = false;
     input: string;
+    inputValue: string;
     inputField: string;
 
     constructor( private searchService: SearchService, private router: Router ) {
