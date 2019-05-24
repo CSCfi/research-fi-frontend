@@ -12,7 +12,8 @@ WORKDIR /app
 RUN npm install
 RUN $(npm bin)/ng build --prod
 
-# Stage 2: Serve application using Nginx
-FROM nginx:latest as nginx
+# Stage 2: Serve application using Nginx (non-root version)
+FROM nginxinc/nginx-unprivileged as nginx
 COPY --from=builder /app/dist/* /usr/share/nginx/html/
-EXPOSE 80
+COPY nginx/default.conf /etc/nginx/conf.d/
+EXPOSE 8080
