@@ -68,7 +68,7 @@
                               </div>          
                           </div>
                           <!-- Move pagination to child component -->
-                          <a [ngClass]="fromPage > 0 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu | </a>
+                          <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu | </a>
                           <a [ngClass]="fromPage + 10 < publications.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
                           <p style="float:right;" *ngIf="fromPage + 10 < publications.hits.total">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.hits.total}}</p>
                           <p style="float:right;" *ngIf="fromPage + 10 >= publications.hits.total">Näytetään tulokset {{fromPage + 1}} - {{publications.hits.total}} / {{publications.hits.total}}</p>

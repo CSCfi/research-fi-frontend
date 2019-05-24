@@ -9,6 +9,8 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/co
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-results',
@@ -16,20 +18,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit, OnDestroy {
+  public searchTerm: any;
   input: any = [];
-  isSearching: boolean;
   publicationData: any [];
   personData: any [];
   errorMessage = [];
-  status = false;
   fromPage = 0;
+  pageNumber = 1;
   page = 1;
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
 
-  constructor( private searchService: SearchService, private router: Router ) {
-    this.isSearching = false;
+  constructor( private searchService: SearchService, private route: ActivatedRoute ) {
+    this.searchTerm = this.route.snapshot.params.input;
+    this.searchService.getInput(this.searchTerm);
     this.publicationData = [];
+    // Get page number from local storage
+    this.pageNumber = JSON.parse(localStorage.getItem('Pagenumber'));
+    this.searchService.getPageNumber(this.pageNumber);
   }
 
   ngOnInit() {
@@ -37,10 +43,15 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.searchService.currentInput.subscribe(input => this.input = input);
 
     // Reset pagination
-    this.searchService.from = 0;
-    this.page = 1;
+    this.page = this.searchService.pageNumber;
 
-    // Get search data when coming from other than results page
+    // If url is missing search term, might not be necessary
+    if (this.searchTerm === undefined) {
+      this.searchTerm = '';
+    }
+
+    this.fromPage = this.page * 10 - 10;
+
     this.getPublicationData();
     this.getPersonData();
 
@@ -49,8 +60,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.searchService.subsVar = this.searchService.
       invokeGetData.subscribe(() => {
         // Reset pagination
-        this.searchService.from = 0;
         this.fromPage = 0;
+        this.page = 1;
+        this.searchService.getPageNumber(1);
         // Get search data
         this.getPublicationData();
         this.getPersonData();
@@ -73,25 +85,23 @@ export class ResultsComponent implements OnInit, OnDestroy {
       error => this.errorMessage = error as any);
   }
 
-  increaseEvent(i: number): void {
-    this.status = !this.status;
-  }
-
   nextPage() {
-    this.fromPage = this.fromPage + 10;
-    this.page = this.page + 1;
-    // snapshotilla page searchServiceen
-    this.searchService.nextFrom();
+    this.page++;
+    this.fromPage = this.page * 10 - 10;
+    // Set page number to local storage
+    localStorage.setItem('Pagenumber', JSON.stringify(this.page));
+    // Send to search service
+    this.searchService.getPageNumber(this.page);
     this.getPublicationData();
-    this.router.navigate(['results/' + this.input + '&page' + this.page]);
+
   }
 
   previousPage() {
+    this.page--;
     this.fromPage = this.fromPage - 10;
-    this.page = this.page - 1;
-    this.searchService.previousFrom();
+    localStorage.setItem('Pagenumber', JSON.stringify(this.page));
+    this.searchService.getPageNumber(this.page);
     this.getPublicationData();
-    this.router.navigate(['results/' + this.input + '&page' + this.page]);
   }
 
   // Unsubscribe from search term to prevent memory leaks
