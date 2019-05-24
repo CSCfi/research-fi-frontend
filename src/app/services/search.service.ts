@@ -28,7 +28,6 @@ export class SearchService {
   fromPage: any;
   input: any;
   apiUrl = API_URL;
-  from = 0;
 
   constructor(private http: HttpClient) {
     this.getInput$ = this.getInputSubject.asObservable();
@@ -42,11 +41,11 @@ export class SearchService {
 
   onSearchButtonClick() {
     this.invokeGetData.emit();
-    this.from = 0;
     this.pageNumber = 1;
     console.log('searchbutton');
   }
 
+  // Fetch page number from results page
   getPageNumber(searchTerm: number) {
     this.getInputSubject.next(searchTerm);
     this.pageNumber++;
@@ -56,9 +55,9 @@ export class SearchService {
       this.fromPage = 1;
       this.pageNumber = 1;
     }
-    console.log('ss: ', this.pageNumber);
   }
 
+  // Detect change in input value
   changeInput(input: string) {
     this.inputSource.next(input);
   }
@@ -97,6 +96,7 @@ export class SearchService {
     }
   }
 
+  // Error handling
   public handleError(err: HttpErrorResponse) {
     let errorMessage = 'HTTPError';
     if (err.error instanceof Error) {

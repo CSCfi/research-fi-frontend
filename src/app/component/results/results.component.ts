@@ -19,7 +19,6 @@ import { Location } from '@angular/common';
 })
 export class ResultsComponent implements OnInit, OnDestroy {
   public searchTerm: any;
-  public urlPageNumber: number;
   input: any = [];
   publicationData: any [];
   personData: any [];
@@ -30,25 +29,23 @@ export class ResultsComponent implements OnInit, OnDestroy {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
 
-  constructor( private searchService: SearchService, private router: Router, private route: ActivatedRoute ) {
+  constructor( private searchService: SearchService, private route: ActivatedRoute ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
     this.publicationData = [];
+    // Get page number from local storage
     this.pageNumber = JSON.parse(localStorage.getItem('Pagenumber'));
     this.searchService.getPageNumber(this.pageNumber);
   }
 
   ngOnInit() {
-    // local storage test
-    console.log('local: ', this.pageNumber);
-
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
 
     // Reset pagination
     this.page = this.searchService.pageNumber;
 
-    // If url is missing search term
+    // If url is missing search term, might not be necessary
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
@@ -64,7 +61,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
       invokeGetData.subscribe(() => {
         // Reset pagination
         this.fromPage = 0;
-        this.urlPageNumber = 1;
         this.page = 1;
         this.searchService.getPageNumber(1);
         // Get search data
@@ -92,7 +88,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
   nextPage() {
     this.page++;
     this.fromPage = this.page * 10 - 10;
+    // Set page number to local storage
     localStorage.setItem('Pagenumber', JSON.stringify(this.page));
+    // Send to search service
     this.searchService.getPageNumber(this.page);
     this.getPublicationData();
 
