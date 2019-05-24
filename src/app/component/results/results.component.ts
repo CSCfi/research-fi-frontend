@@ -8,9 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-results',

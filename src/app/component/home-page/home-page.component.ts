@@ -8,8 +8,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
+  providers: [SearchBarComponent],
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
@@ -23,7 +25,7 @@ export class HomePageComponent implements OnInit {
     duration: 0.5
   };
 
-  constructor(private searchService: SearchService) {
+  constructor( private searchService: SearchService, private searchBar: SearchBarComponent ) {
   }
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class HomePageComponent implements OnInit {
     // Reset local storage
     localStorage.removeItem('Pagenumber');
     localStorage.setItem('Pagenumber', JSON.stringify(1));
+    this.searchBar.clearInput();
   }
 
   getPublicationData() {

@@ -8,7 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { Router } from '@angular/router';
-import { StringifyOptions } from 'querystring';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -23,30 +23,34 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     inputValue: string;
     inputField: string;
 
-    constructor( private searchService: SearchService, private router: Router ) {
+    constructor( private searchService: SearchService, private router: Router, private route: ActivatedRoute ) {
+      console.log('url: ', this.route.snapshot.params.input);
     }
 
     ngOnInit() {
       this.searchService.currentInput.subscribe(input => this.input = input);
+      this.input = this.route.snapshot.params.input;
     }
 
     increaseEvent() {
         this.status = !this.status;
     }
 
-    // clear() {
-
-    // }
+    clearInput() {
+      this.inputField = '';
+    }
 
     newInput() {
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
       this.router.navigate(['/results', this.publicationSearchInput.nativeElement.value]);
       this.searchService.getInput(this.publicationSearchInput.nativeElement.value);
       this.searchService.onSearchButtonClick();
+      // console.log(this.route.snapshot.params.input);
+      // this.input = this.route.snapshot.params.input;
     }
 
     ngOnDestroy() {
-      this.inputField = '';
+      // this.inputField = '';
     }
 
 }
