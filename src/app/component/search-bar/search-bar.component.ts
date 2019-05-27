@@ -20,25 +20,20 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     status = false;
     input: string;
-    inputValue: string;
-    inputField: string;
 
     constructor( private searchService: SearchService, private router: Router, private route: ActivatedRoute ) {
-      console.log('url: ', this.route.snapshot.params.input);
     }
 
     ngOnInit() {
       this.searchService.currentInput.subscribe(input => this.input = input);
       this.input = this.route.snapshot.params.input;
+      console.log('url: ', this.route.snapshot.params.input);
     }
 
     increaseEvent() {
         this.status = !this.status;
     }
 
-    clearInput() {
-      this.inputField = '';
-    }
 
     newInput() {
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);

@@ -34,7 +34,6 @@ export class HomePageComponent implements OnInit {
     // Reset local storage
     localStorage.removeItem('Pagenumber');
     localStorage.setItem('Pagenumber', JSON.stringify(1));
-    this.searchBar.clearInput();
   }
 
   getPublicationData() {
