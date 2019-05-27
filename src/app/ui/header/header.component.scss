@@ -67,21 +67,6 @@ button span.fa {
     color: rgb(79, 81, 168);
 }
 
-.collapse.navbar-collapse.menu.mobile-bar li a.lang-box {
-    background: rgba(255, 255, 255, 0.96);
-    border-radius: 5px;
-    margin: 10px 1px;
-    padding: 5px 10px;
-    text-align: center;
-    border: solid 2px rgb(79,81,168);
-    font-size: 0.75rem;
-}
-
-.collapse.navbar-collapse.menu.mobile-bar li a.lang-box.active {
-    background: rgb(79, 81, 168);
-    color: rgba(255, 255, 255, 0.96) !important;
-}
-
 nav.navbar.navbar-expand-xl.navbar-light.bg-white {
     margin: 0 auto;
 }
@@ -119,7 +104,7 @@ li.nav-item {
     border-top: 3px solid transparent;
 }
 
-.active-link {
+.active-link, .desktop .active-lang {
     border-bottom: 3px solid #3aaa35;
 }
 
@@ -136,20 +121,35 @@ li.nav-item {
     display: block;
     max-width: 80%;
     border-bottom-left-radius: 15px;
+
+    li a {
+        text-transform: uppercase;
+        margin: 10px 0px;
+        text-align: center;
+    }
+
+    li a.lang-box {
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 5px;
+        margin: 10px 1px;
+        padding: 5px 10px;
+        text-align: center;
+        border: solid 2px rgb(79,81,168);
+        font-size: 0.75rem;
+    }
+
+    li a.lang-box.active-lang {
+        background: rgb(79, 81, 168);
+        color: rgba(255, 255, 255, 0.96) !important;
+    }
 }
 
 button.navbar-toggler.hidden-md-up.pull-right {
     margin-top: 32px;
 }
 
-.collapse.navbar-collapse.menu.mobile-bar li a {
-    text-transform: uppercase;
-    margin: 10px 0px;
-    text-align: center;
-}
-
 .main.flex-row {
-    max-width: 1500px;
+    max-width: 1000px;
     justify-content: space-around;
 }
 
