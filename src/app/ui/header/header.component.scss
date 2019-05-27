@@ -115,12 +115,13 @@ li.nav-item {
     top: 75px;
     z-index: 4;
     background: rgba(255, 255, 255, 0.96);
-    margin: 8px 0px 0px 0px;
-    padding: 5px 23px;
+    margin-top: 8px;
+    padding: 15px 10px 40px 20px;
     transition: right 0.5s ease-out;
     display: block;
-    max-width: 80%;
-    border-bottom-left-radius: 15px;
+    max-width: 95%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 
     li a {
         text-transform: uppercase;
@@ -165,7 +166,6 @@ button.navbar-toggler.hidden-md-up.pull-right {
 
 // Mobile size (< lg)
 @media (max-width: 991px) {
-
     .desktop {
         display: none;
     }
@@ -173,10 +173,11 @@ button.navbar-toggler.hidden-md-up.pull-right {
 }
 
 // 2-row menu
-@media (min-height: 410px) and (max-height: 600px) and (min-width: 536px) and (max-width: 991px) {
+@media (min-height: 410px) and (max-height: 599px) and (min-width: 536px) and (max-width: 991px) {
     .nav-item {
         margin: 10px 0px;
     }
+    
 }
 
 // Logo margin for small screens to prevent menu button misplacement
@@ -186,9 +187,19 @@ button.navbar-toggler.hidden-md-up.pull-right {
     }
 }
 
+@media (max-height: 599px) {
+        .collapse.navbar-collapse.menu.mobile-bar {
+            padding: 5px 23px;
+        }
+}
+
 // Nav items grouped closer on small mobile screens in landscape orientation
 @media (max-height: 340px) {
     .nav-item {
         margin: -10px 0px;
+    }
+
+    .collapse.navbar-collapse.menu.mobile-bar {
+        padding: 5px 23px;
     }
 }
