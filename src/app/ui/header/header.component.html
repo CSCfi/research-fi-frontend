@@ -8,59 +8,61 @@
 <nav offClick class="navbar navbar-expand-lg navbar-light bg-white" (window:resize)="onResize($event)">
     <div class="logo">
         <a class="navbar-brand" routerLink="">
-            <img src="../../../assets/logo.png">
+            <img src="../../../assets/logo.png" alt="Research.fi">
         </a>
     </div>
-    <div class="nav-top">
+    <div class="nav-top" [ngClass]="{ 'w-100' : !mobile}">
         <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse w-100">
             <ul class="navbar-nav main ml-auto desktop">
-                <a class="nav-item nav-link active" href="#">FI /</a>
-                <a class="nav-item nav-link" href="#">SE /</a>
+                <a class="nav-item nav-link active-lang" href="#">FI / </a>
+                <a class="nav-item nav-link" href="#">SE / </a>
                 <a class="nav-item nav-link" href="#">EN</a>
             </ul>
         </div>
-
-        <div class="collapse navbar-collapse menu" [ngClass]="{ 'mobile-bar' : mobile }" id="main-navbar">
-            <div class="navbar-expand mx-auto navbar-nav lang mobile">
-                <ul class="navbar-nav main mx-auto" id="mobile-langs">
-                    <li [ngClass]="{ 'col-4' : mobile }">
-                        <a class="nav-item nav-link active lang-box" href="#">Suomi</a>
+        <div [ngClass]="{ 'overflow-hider' : !navbarOpen && mobile }">
+            <div class="collapse navbar-collapse menu" [ngClass]="{ 'mobile-bar' : mobile }" id="main-navbar">
+                <div class="navbar-expand mx-auto navbar-nav lang mobile">
+                    <ul class="navbar-nav main mx-auto" id="mobile-langs">
+                        <li [ngClass]="{ 'col-4' : mobile }">
+                            <a class="nav-item nav-link active-lang lang-box" href="#">Suomi</a>
+                        </li>
+                        <li [ngClass]="{ 'col-4' : mobile }">
+                            <a class="nav-item nav-link lang-box" href="#">Svenska</a>
+                        </li>
+                        <li [ngClass]="{ 'col-4' : mobile }">
+                            <a class="nav-item nav-link lang-box" href="#">English</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav main"
+                    [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600, 'flex-row w-100 mx-auto' : !mobile}">
+                    <li class="nav-item" [ngClass]="{ 'row mx-auto col justify-content-center' : mobile }">
+                        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
+                            [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
                     </li>
-                    <li [ngClass]="{ 'col-4' : mobile }">
-                        <a class="nav-item nav-link lang-box" href="#">Svenska</a>
+                    <li class="nav-item" [ngClass]="{ 'row mx-auto col justify-content-center' : mobile }">
+                        <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link"
+                            (click)="navbarOpen && toggleNavbar()">Haku</a>
                     </li>
-                    <li [ngClass]="{ 'col-4' : mobile }">
-                        <a class="nav-item nav-link lang-box" href="#">English</a>
+                    <div *ngIf="mobile" class="w-100"></div>
+                    <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
+                        <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
+                    </li>
+                    <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
+                        <a class="nav-item nav-link" href="#">Tutkimusuutiset</a>
+                    </li>
+                    <div *ngIf="mobile" class="w-100"></div>
+                    <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
+                        <a class="nav-item nav-link" href="#">Rahoittajat</a>
+                    </li>
+                    <li class="nav-item" [ngClass]="{ 'col mx-auto justify-content-center' : mobile }">
+                        <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
                     </li>
                 </ul>
             </div>
-            <ul class="navbar-nav main mx-auto">
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
-                    <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
-                        [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">Etusivu</a>
-                </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
-                    <a class="nav-item nav-link" routerLink="/results" routerLinkActive="active-link"
-                        (click)="navbarOpen && toggleNavbar()">Haku</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav main mx-auto" id="nav-links">
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
-                    <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
-                </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
-                    <a class="nav-item nav-link" href="#">Tutkimusuutiset</a>
-                </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
-                    <a class="nav-item nav-link" href="#">Rahoittajat</a>
-                </li>
-                <li class="nav-item" [ngClass]="{ 'row justify-content-center' : mobile }">
-                    <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
-                </li>
-            </ul>
         </div>
     </div>
-    <div class="mobile">
+    <div class="mobile" id="navbar-toggle">
         <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleNavbar()">
             <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg"></span>
             <span *ngIf="navbarOpen" class="fa fa-times fa-lg"></span>

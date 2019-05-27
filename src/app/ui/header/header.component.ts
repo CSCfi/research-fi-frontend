@@ -17,18 +17,23 @@ export class HeaderComponent implements OnInit {
 
   mobile = window.innerWidth < 992;
 
+  height = window.innerHeight;
+  width = window.innerWidth;
+  
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
     const elem = document.getElementById("main-navbar");
     if (this.navbarOpen) {
       elem.style.right = "0";
     } else {
-      elem.style.right = "-350px";
+      elem.style.right = "-100%";
     }
   }
-
+  
   onResize(event) {
-    if (event.target.innerWidth >= 992) {
+    this.height = window.innerHeight;
+    this.width = window.innerWidth;
+    if (this.width >= 992) {
       this.mobile = false;
       if (this.navbarOpen) this.toggleNavbar();
     } else {
