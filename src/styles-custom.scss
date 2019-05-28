@@ -7,6 +7,16 @@ $researchfi-warn:    mat-palette($mat-deep-orange);
 $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $researchfi-warn);
 @include angular-material-theme($researchfi-theme);
 
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.container {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+}
 
 // Disable link
 a.disabled {

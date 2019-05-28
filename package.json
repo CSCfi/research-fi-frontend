@@ -28,7 +28,6 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",
-    "ng2-breadcrumbs": "^0.1.281",
     "ngx-bootstrap": "^3.2.0",
     "popper.js": "^1.14.7",
     "rxjs": "^6.5.2",

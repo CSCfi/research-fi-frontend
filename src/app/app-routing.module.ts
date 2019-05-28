@@ -37,6 +37,11 @@ const routes: Routes = [
     path: 'results/:name/single/:id',
     component: SingleComponent
   },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
