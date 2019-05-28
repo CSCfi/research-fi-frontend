@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit, OnDestroy {
+export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     status = false;
     input: string;
@@ -27,7 +27,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     ngOnInit() {
       this.searchService.currentInput.subscribe(input => this.input = input);
       this.input = this.route.snapshot.params.input;
-      console.log('url: ', this.route.snapshot.params.input);
     }
 
     increaseEvent() {
@@ -40,12 +39,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       this.router.navigate(['/results', this.publicationSearchInput.nativeElement.value]);
       this.searchService.getInput(this.publicationSearchInput.nativeElement.value);
       this.searchService.onSearchButtonClick();
-      // console.log(this.route.snapshot.params.input);
-      // this.input = this.route.snapshot.params.input;
-    }
-
-    ngOnDestroy() {
-      // this.inputField = '';
     }
 
 }

@@ -39,8 +39,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 
 import { CountUpModule } from 'countup.js-angular2';
-import { SingleComponent } from './component/single/single.component';
 
+import { SingleComponent } from './component/single/single.component';
 import { PublicationsComponent } from './component/publications/publications.component';
 import { PersonsComponent } from './component/persons/persons.component';
 import { PaginationComponent } from './component/pagination/pagination.component';
