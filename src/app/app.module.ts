@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -83,7 +83,7 @@ import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.compon
     MatButtonModule,
     CountUpModule
   ],
-  providers: [ SearchService ],
+  providers: [ SearchService, Title ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

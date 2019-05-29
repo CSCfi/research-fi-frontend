@@ -15,7 +15,7 @@
         </div>
         <div class="col" *ngFor="let item of publication.hits.hits">
             <span class="indicator" style="font-style: italic">Julkaisu</span>
-            <h3>{{item._source.doc.row.publicationName}}, {{item._source.doc.row.publicationYear}}</h3>
+            <h3 #resultTitle>{{item._source.doc.row.publicationName}}, {{item._source.doc.row.publicationYear}}</h3>
             <table>
                 <tbody>
                     <tr>
