@@ -6,12 +6,10 @@
 // # :license: MIT
 
 nav.footer {
-    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
     padding-right: 15px;
     padding-left: 15px;
-    height: 140px;
-    position: absolute;
-    bottom: 0;
 }
 
 .footer .col {

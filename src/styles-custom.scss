@@ -8,15 +8,28 @@ $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $res
 @include angular-material-theme($researchfi-theme);
 
 .row {
-    margin-right: 0px;
+    margin-right: -0px;
     margin-left: 0px;
 }
 
+.full-width {
+    background: #4f51a8;
+}
+
+.full-width .row {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.container-fluid {
+    padding: 0px;
+}
+
 .container {
-    width: 100%;
     padding-right: 0px;
     padding-left: 0px;
 }
+
 
 // Disable link
 a.disabled {

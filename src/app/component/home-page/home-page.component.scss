@@ -7,8 +7,9 @@
 
 // data amounts
 
-.row .numeric {
-    transition: 0.2s linear;
+.row.numeric {
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 span.numeric-box {
@@ -34,6 +35,15 @@ span.numeric-box {
 }
 
 // image links
+// .full-width {
+//     background: #4f51a8;
+// }
+
+// .full-width .row {
+//     max-width: 1440px;
+//     margin: 0 auto;
+// }
+
 .link-img {
     padding: 0px;
     transition: 0.2s linear;
