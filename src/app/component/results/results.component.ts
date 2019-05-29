@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +28,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute ) {
+  constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
     this.publicationData = [];
@@ -36,7 +37,15 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.searchService.getPageNumber(this.pageNumber);
   }
 
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
+
   ngOnInit() {
+    // Set title
+    this.setTitle('Julkaisut - Haku - Tutkimustietovaranto');
+
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
 

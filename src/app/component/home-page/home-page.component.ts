@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
@@ -25,12 +26,21 @@ export class HomePageComponent implements OnInit {
     duration: 0.5
   };
 
-  constructor( private searchService: SearchService, private searchBar: SearchBarComponent ) {
+  constructor( private searchService: SearchService, private searchBar: SearchBarComponent, private titleService: Title ) {
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   ngOnInit() {
+    // Set title
+    this.setTitle('Tutkimustietovaranto');
+
+    // Get data for count ups
     this.getPublicationData();
     this.getPersonData();
+
     // Reset local storage
     localStorage.removeItem('Pagenumber');
     localStorage.setItem('Pagenumber', JSON.stringify(1));

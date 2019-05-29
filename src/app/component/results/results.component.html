@@ -16,7 +16,7 @@
             <mat-spinner [diameter]="40"></mat-spinner>
         </div>
         <div class="col-10" *ngFor="let publication of publicationData">
-            <mat-tab-group>
+            <mat-tab-group (selectedTabChange)="setTitle($event.tab.textLabel + ' - Haku - Tutkimustietovaranto')">
                 <mat-tab label="Julkaisut ({{publication.hits.total}})">
                     <h3 style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h3>
                     <div class="spinner-center" *ngIf="undefined === publicationData">
