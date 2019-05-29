@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterStateSnapshot , ActivatedRouteSnapshot, ActivatedRoute, RouterState, NavigationEnd } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-breadcrumbs',

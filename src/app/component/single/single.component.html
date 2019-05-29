@@ -5,11 +5,13 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
- <app-search-bar></app-search-bar>
+<app-search-bar></app-search-bar>
 
- <div class="container" style="margin-top:25px;">
-
-    <div class="row" *ngFor="let publication of responseData">
+ <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
+    <div class="breadcrumb" *ngFor="let title of publication.hits.hits">
+        <p><a routerLink="/results">Haku</a> > Julkaisut > {{title._source.doc.row.publicationName}}</p>
+    </div>
+    <div class="row">
         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
