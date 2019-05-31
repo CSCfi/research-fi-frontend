@@ -189,17 +189,14 @@ button.navbar-toggler.hidden-md-up.pull-right {
 
 @media (max-height: 599px) {
         .collapse.navbar-collapse.menu.mobile-bar {
-            padding: 5px 23px;
+            padding: 5px 23px 10px 23px;
+            max-width: 80%;
         }
 }
 
 // Nav items grouped closer on small mobile screens in landscape orientation
-@media (max-height: 340px) {
+@media (max-height: 350px) {
     .nav-item {
         margin: -10px 0px;
-    }
-
-    .collapse.navbar-collapse.menu.mobile-bar {
-        padding: 5px 23px;
     }
 }
