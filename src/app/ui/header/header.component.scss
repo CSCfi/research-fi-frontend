@@ -123,6 +123,10 @@ li.nav-item {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 
+    li {
+        flex: 1 1 auto;
+    }
+
     li a {
         text-transform: uppercase;
         margin: 10px 0px;
@@ -190,7 +194,11 @@ button.navbar-toggler.hidden-md-up.pull-right {
 @media (max-height: 599px) {
         .collapse.navbar-collapse.menu.mobile-bar {
             padding: 5px 23px 10px 23px;
-            max-width: 80%;
+            width: 80%;
+
+            li {
+                flex: 1 1 0px;
+            }
         }
 }
 
