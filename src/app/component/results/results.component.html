@@ -5,6 +5,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<h1 class="sr-only">Julkaisut</h1>
 <app-search-bar></app-search-bar>
 
 <div class="container center-content" style="margin-top:25px;">
@@ -16,7 +17,7 @@
             <mat-spinner [diameter]="40"></mat-spinner>
         </div>
         <div class="col-10" *ngFor="let publication of publicationData">
-            <mat-tab-group (selectedTabChange)="setTitle($event.tab.textLabel + ' - Haku - Tutkimustietovaranto')">
+            <mat-tab-group (selectedTabChange)="updateTitle($event)">
                 <mat-tab label="Julkaisut ({{publication.hits.total}})">
                     <h3 style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h3>
                     <div class="spinner-center" *ngIf="undefined === publicationData">

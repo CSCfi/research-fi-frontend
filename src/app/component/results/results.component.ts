@@ -111,6 +111,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.getPublicationData();
   }
 
+  updateTitle(event) {
+    // Update title and <h1> with the information of the currently selected tab (exclude the number of hits) 
+    this.setTitle(event.tab.textLabel.split(' (')[0] + ' - Haku - Tutkimustietovaranto');
+    document.getElementsByTagName('h1')[0].innerHTML = event.tab.textLabel.split(' (')[0];
+  }
+
   // Unsubscribe from search term to prevent memory leaks
   ngOnDestroy() {
     this.searchService.subsVar.unsubscribe();
