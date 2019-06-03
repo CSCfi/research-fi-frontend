@@ -21,6 +21,7 @@ export class SingleComponent implements OnInit, AfterViewInit {
   responseData: any [];
   errorMessage = [];
   @ViewChild('resultTitle') resultTitle: ElementRef;
+  @ViewChild('srHeader') srHeader: ElementRef;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private titleService: Title ) {
     this.singleId = this.route.snapshot.params.id;
@@ -45,7 +46,8 @@ export class SingleComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // Set title according to result title. Should avoid timeout?
     setTimeout(() => {
-      this.setTitle(this.resultTitle.nativeElement.innerHTML + ' - Julkaisut - Haku Tutkimustietovaranto');
+      this.setTitle(this.resultTitle.nativeElement.innerHTML + ' - Julkaisut - Haku - Tutkimustietovaranto');
+      this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
     }, 100);
   }
 
