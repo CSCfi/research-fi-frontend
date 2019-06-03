@@ -18,8 +18,10 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+  allData: any [];
   publicationData: any [];
   personData: any [];
+  fundingData: any [];
   errorMessage = [];
   status = false;
   myOps = {
@@ -35,11 +37,13 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     // Set title
-    this.setTitle('Tutkimustietovaranto');
+    this.setTitle('Etusivu - Tutkimustietovaranto');
 
     // Get data for count ups
+
     this.getPublicationData();
     this.getPersonData();
+    this.getFundingData();
 
     // Reset local storage
     localStorage.removeItem('Pagenumber');
@@ -57,6 +61,13 @@ export class HomePageComponent implements OnInit {
     this.searchService.getAllPersons()
     .pipe(map(personData => [personData]))
     .subscribe(personData => this.personData = personData,
+      error => this.errorMessage = error as any);
+  }
+
+  getFundingData() {
+    this.searchService.getAllFundings()
+    .pipe(map(fundingData => [fundingData]))
+    .subscribe(fundingData => this.fundingData = fundingData,
       error => this.errorMessage = error as any);
   }
 

@@ -21,6 +21,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   input: any = [];
   publicationData: any [];
   personData: any [];
+  fundingData: any [];
   errorMessage = [];
   fromPage = 0;
   pageNumber = 1;
@@ -61,6 +62,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     this.getPublicationData();
     this.getPersonData();
+    this.getFundingData();
 
     // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
@@ -73,9 +75,18 @@ export class ResultsComponent implements OnInit, OnDestroy {
         // Get search data
         this.getPublicationData();
         this.getPersonData();
+        this.getFundingData();
       });
     }
 
+  }
+
+  getPublicationData() {
+    this.searchService.getPublications()
+    .pipe(map(publicationData => [publicationData]))
+    .subscribe(publicationData => this.publicationData = publicationData,
+      error => this.errorMessage = error as any);
+    console.log(this.publicationData);
   }
 
   getPersonData() {
@@ -85,10 +96,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
       error => this.errorMessage = error as any);
   }
 
-  getPublicationData() {
-    this.searchService.getPublications()
-    .pipe(map(publicationData => [publicationData]))
-    .subscribe(publicationData => this.publicationData = publicationData,
+  getFundingData() {
+    this.searchService.getFundings()
+    .pipe(map(fundingData => [fundingData]))
+    .subscribe(fundingData => this.fundingData = fundingData,
       error => this.errorMessage = error as any);
   }
 
@@ -100,7 +111,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Send to search service
     this.searchService.getPageNumber(this.page);
     this.getPublicationData();
-
   }
 
   previousPage() {

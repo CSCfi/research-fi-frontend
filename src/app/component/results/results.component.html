@@ -84,8 +84,13 @@
                         <app-persons></app-persons>
                     </mat-tab>
                 </div>
+
+                <div class="" *ngFor="let funding of fundingData">
+                    <mat-tab label="Rahoitetut hankkeet  ({{funding.hits.total}})"> 
+
+                    </mat-tab>
+                </div>
                 
-                <mat-tab label="Rahoitetut hankkeet"> </mat-tab>
                 <mat-tab label="Tutkimusaineistot"> </mat-tab>
                 <mat-tab label="Tutkimusinfrastruktuurit"> </mat-tab>
                 <mat-tab label="Muut tutkimusaktiviteetit"> </mat-tab>
