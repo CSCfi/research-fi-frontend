@@ -28,6 +28,7 @@ export class SearchService {
   fromPage: any;
   input: any;
   apiUrl = API_URL;
+  data: any;
 
   constructor(private http: HttpClient) {
     this.getInput$ = this.getInputSubject.asObservable();
@@ -63,12 +64,17 @@ export class SearchService {
 
   // Data for homepage values
   getAllPublications(): Observable<Search[]> {
-      return this.http.get<Search[]>(this.apiUrl + 'publication/_search')
+    return this.http.get<Search[]>(this.apiUrl + 'publication/_search')
       .pipe(catchError(this.handleError));
   }
 
   getAllPersons(): Observable<Search[]> {
       return this.http.get<Search[]>(this.apiUrl + 'person/_search')
+      .pipe(catchError(this.handleError));
+  }
+
+  getAllFundings(): Observable<Search[]> {
+      return this.http.get<Search[]>(this.apiUrl + 'funding/_search')
       .pipe(catchError(this.handleError));
   }
 
@@ -91,6 +97,16 @@ export class SearchService {
       return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.fromPage);
     } else {
       return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.fromPage + '&q=lastName=' + this.singleInput)
+      .pipe(catchError(this.handleError));
+    }
+  }
+
+  getFundings(): Observable<Search[]> {
+    this.currentInput.subscribe(input => this.input = input);
+    if (this.singleInput === undefined || this.singleInput === '') {
+      return this.http.get<Search[]>(this.apiUrl + 'funding/_search?size=10&from=' + this.fromPage);
+    } else {
+      return this.http.get<Search[]>(this.apiUrl + 'funding/_search?size=10&from=' + this.fromPage + '&q=fundedNameFi=' + this.singleInput)
       .pipe(catchError(this.handleError));
     }
   }

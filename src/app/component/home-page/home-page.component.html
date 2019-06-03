@@ -24,8 +24,8 @@
     <span class="text-center">Tutkijat</span>
   </div>
 
-  <div class="col">
-    <span class="numeric-box" [countUp]="1240" [options]="myOps">0</span>
+  <div class="col" *ngFor="let funding of fundingData">
+    <span class="numeric-box" routerLink="/results" [countUp]="funding.hits.total" [options]="myOps">0</span>
     <span class="text-center">Rahoitetut hankkeet</span>
   </div>
 
