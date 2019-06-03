@@ -44,10 +44,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Set title
-    this.setTitle('Julkaisut - (' + 'x' + ' hakutulosta) - Haku - Tutkimustietovaranto');
-    this.srHeader.nativeElement.innerHTML = document.title.split(" - ", 2).join(" - ");
-
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
     
@@ -64,8 +60,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.getPublicationData();
     this.getPersonData();
     this.getFundingData();
-
-
+    
+    
     // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
       this.searchService.subsVar = this.searchService.
@@ -82,13 +78,18 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
 
   }
-
+  
   getPublicationData() {
     this.searchService.getPublications()
     .pipe(map(publicationData => [publicationData]))
-    .subscribe(publicationData => this.publicationData = publicationData,
+    .subscribe(publicationData => {
+      this.publicationData = publicationData;
+      // Set the title
+      this.setTitle('Julkaisut - (' + this.publicationData[0].hits.total + ' hakutulosta) - Haku - Tutkimustietovaranto');
+      this.srHeader.nativeElement.innerHTML = document.title.split(" - ", 2).join(" - ");
+
+    },
       error => this.errorMessage = error as any);
-    console.log(this.publicationData);
   }
 
   getPersonData() {
