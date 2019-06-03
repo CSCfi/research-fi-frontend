@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './single.component.html',
   styleUrls: ['./single.component.scss']
 })
-export class SingleComponent implements OnInit, AfterViewInit {
+export class SingleComponent implements OnInit {
   public singleId: any;
   responseData: any [];
   errorMessage = [];
@@ -39,16 +39,11 @@ export class SingleComponent implements OnInit, AfterViewInit {
   getData() {
     this.singleService.getSingle()
     .pipe(map(responseData => [responseData]))
-    .subscribe(responseData => this.responseData = responseData,
+    .subscribe(responseData => {
+      this.responseData = responseData;
+      this.setTitle(this.responseData[0].hits.hits[0]._source.doc.row.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
+      this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
+    },
       error => this.errorMessage = error as any);
   }
-
-  ngAfterViewInit() {
-    // Set title according to result title. Should avoid timeout?
-    setTimeout(() => {
-      this.setTitle(this.resultTitle.nativeElement.innerHTML + ' - Julkaisut - Haku - Tutkimustietovaranto');
-      this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
-    }, 100);
-  }
-
 }
