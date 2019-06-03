@@ -20,7 +20,6 @@ export class SingleComponent implements OnInit {
   public singleId: any;
   responseData: any [];
   errorMessage = [];
-  @ViewChild('resultTitle') resultTitle: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private titleService: Title ) {
