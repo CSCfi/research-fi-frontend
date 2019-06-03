@@ -119,14 +119,14 @@ li.nav-item {
     right: -100%;
     top: 75px;
     z-index: 4;
-    background: rgba(255, 255, 255, 0.96);
+    background: rgb(255, 255, 255);
     margin-top: 8px;
-    padding: 15px 10px 40px 20px;
+    padding: 10px 32px 40px 32px;
     transition: right 0.5s ease-out;
     display: block;
     max-width: 95%;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 
     li {
         flex: 1 1 auto;
