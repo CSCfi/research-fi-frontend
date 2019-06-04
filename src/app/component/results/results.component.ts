@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
@@ -28,6 +28,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   page = 1;
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
+  @ViewChild('srHeader') srHeader: ElementRef;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title ) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -37,33 +38,30 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.pageNumber = JSON.parse(localStorage.getItem('Pagenumber'));
     this.searchService.getPageNumber(this.pageNumber);
   }
-
+  
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
-
   ngOnInit() {
-    // Set title
-    this.setTitle('Julkaisut - Haku - Tutkimustietovaranto');
-
     // Get input
     this.searchService.currentInput.subscribe(input => this.input = input);
-
+    
     // Reset pagination
     this.page = this.searchService.pageNumber;
-
+    
     // If url is missing search term, might not be necessary
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-
+    
     this.fromPage = this.page * 10 - 10;
-
+    
     this.getPublicationData();
     this.getPersonData();
     this.getFundingData();
-
+    
+    
     // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
       this.searchService.subsVar = this.searchService.
@@ -80,13 +78,18 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
 
   }
-
+  
   getPublicationData() {
     this.searchService.getPublications()
     .pipe(map(publicationData => [publicationData]))
-    .subscribe(publicationData => this.publicationData = publicationData,
+    .subscribe(publicationData => {
+      this.publicationData = publicationData;
+      // Set the title
+      this.setTitle('Julkaisut - (' + this.publicationData[0].hits.total + ' hakutulosta) - Haku - Tutkimustietovaranto');
+      this.srHeader.nativeElement.innerHTML = document.title.split(" - ", 2).join(" - ");
+
+    },
       error => this.errorMessage = error as any);
-    console.log(this.publicationData);
   }
 
   getPersonData() {
@@ -119,6 +122,14 @@ export class ResultsComponent implements OnInit, OnDestroy {
     localStorage.setItem('Pagenumber', JSON.stringify(this.page));
     this.searchService.getPageNumber(this.page);
     this.getPublicationData();
+  }
+
+  updateTitle(event) {
+    // Update title and <h1> with the information of the currently selected tab
+    // Regex to match the bracketed numbers
+    var re: RegExp = /\((\d*)\)/;
+    this.setTitle(event.tab.textLabel.replace(re, " - ($1 hakutulosta)") + ' - Haku - Tutkimustietovaranto');
+    this.srHeader.nativeElement.innerHTML = document.title.split(" - ", 2).join(" - ");
   }
 
   // Unsubscribe from search term to prevent memory leaks

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,7 @@ export class HomePageComponent implements OnInit {
   myOps = {
     duration: 0.5
   };
+  @ViewChild('srHeader') srHeader: ElementRef;
 
   constructor( private searchService: SearchService, private searchBar: SearchBarComponent, private titleService: Title ) {
   }
@@ -38,6 +39,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     // Set title
     this.setTitle('Etusivu - Tutkimustietovaranto');
+    this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
 
     // Get data for count ups
 

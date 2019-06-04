@@ -5,6 +5,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
+<h1 #srHeader class="sr-only"></h1>
 <app-search-bar></app-search-bar>
 
 <div class="container center-content" style="margin-top:25px;">
@@ -16,7 +17,7 @@
             <mat-spinner [diameter]="40"></mat-spinner>
         </div>
         <div class="col-10" *ngFor="let publication of publicationData">
-            <mat-tab-group (selectedTabChange)="setTitle($event.tab.textLabel + ' - Haku - Tutkimustietovaranto')">
+            <mat-tab-group (selectedTabChange)="updateTitle($event)">
                 <mat-tab label="Julkaisut ({{publication.hits.total}})">
                     <h3 style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h3>
                     <div class="spinner-center" *ngIf="undefined === publicationData">
@@ -69,7 +70,7 @@
                               </div>          
                           </div>
                           <!-- Move pagination to child component -->
-                          <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu | </a>
+                          <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</a><a> | </a>
                           <a [ngClass]="fromPage + 10 < publications.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
                           <p style="float:right;" *ngIf="fromPage + 10 < publications.hits.total">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.hits.total}}</p>
                           <p style="float:right;" *ngIf="fromPage + 10 >= publications.hits.total">Näytetään tulokset {{fromPage + 1}} - {{publications.hits.total}} / {{publications.hits.total}}</p>
@@ -79,20 +80,20 @@
                 </mat-tab>
                 
                 <div class="" *ngFor="let person of personData">
-                    <mat-tab label="Tutkijat  ({{person.hits.total}})"> 
+                    <mat-tab label="Tutkijat ({{person.hits.total}})"> 
                         <app-persons></app-persons>
                     </mat-tab>
                 </div>
 
                 <div class="" *ngFor="let funding of fundingData">
-                    <mat-tab label="Rahoitetut hankkeet  ({{funding.hits.total}})"> 
+                    <mat-tab label="Rahoitetut hankkeet ({{funding.hits.total}})"> 
 
                     </mat-tab>
                 </div>
                 
-                <mat-tab label="Tutkimusaineistot"> </mat-tab>
-                <mat-tab label="Tutkimusinfrastruktuurit"> </mat-tab>
-                <mat-tab label="Muut tutkimusaktiviteetit"> </mat-tab>
+                <mat-tab label="Tutkimusaineistot (0)"> </mat-tab>
+                <mat-tab label="Tutkimusinfrastruktuurit (0)"> </mat-tab>
+                <mat-tab label="Muut tutkimusaktiviteetit (0)"> </mat-tab>
             </mat-tab-group>
         </div>
     </div>
