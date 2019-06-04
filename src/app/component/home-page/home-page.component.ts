@@ -42,34 +42,17 @@ export class HomePageComponent implements OnInit {
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
 
     // Get data for count ups
-
-    this.getPublicationData();
-    this.getPersonData();
-    this.getFundingData();
+    this.getAllData();
 
     // Reset local storage
     localStorage.removeItem('Pagenumber');
     localStorage.setItem('Pagenumber', JSON.stringify(1));
   }
 
-  getPublicationData() {
-    this.searchService.getAllPublications()
-    .pipe(map(publicationData => [publicationData]))
-    .subscribe(publicationData => this.publicationData = publicationData,
-      error => this.errorMessage = error as any);
-  }
-
-  getPersonData() {
-    this.searchService.getAllPersons()
-    .pipe(map(personData => [personData]))
-    .subscribe(personData => this.personData = personData,
-      error => this.errorMessage = error as any);
-  }
-
-  getFundingData() {
-    this.searchService.getAllFundings()
-    .pipe(map(fundingData => [fundingData]))
-    .subscribe(fundingData => this.fundingData = fundingData,
+  getAllData() {
+    this.searchService.getAll()
+    .pipe(map(allData => [allData]))
+    .subscribe(allData => this.allData = allData,
       error => this.errorMessage = error as any);
   }
 
