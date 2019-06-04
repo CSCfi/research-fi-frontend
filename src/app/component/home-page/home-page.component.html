@@ -8,13 +8,6 @@
 <h1 #srHeader class="sr-only"></h1>
 <app-search-bar></app-search-bar>
 
-<!-- <span class="asd" *ngFor="let counted of allData">
-  {{counted.aggregations._index.buckets.julkaisut.doc_count}}
-  {{counted.aggregations._index.buckets.tutkijat.doc_count}}
-  {{counted.aggregations._index.buckets.hankkeet.doc_count}}
-
-</span> -->
-
 <div class="row numeric">
   <div class="text-center" *ngIf="undefined === allData">
     <mat-spinner [diameter]="40"></mat-spinner>
