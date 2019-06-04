@@ -84,10 +84,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
       this.publicationData = publicationData;
-      // Set the title
-      this.setTitle('Julkaisut - (' + this.publicationData[0].hits.total + ' hakutulosta) - Haku - Tutkimustietovaranto');
-      this.srHeader.nativeElement.innerHTML = document.title.split(" - ", 2).join(" - ");
-
+      // Set the title, pass a MatTabChange-like mock object to updateTitle() to avoid duplicate code 
+      this.updateTitle({tab: {textLabel: 'Julkaisut - (' + this.publicationData[0].hits.total + ' hakutulosta) - Haku - Tutkimustietovaranto'}});
     },
       error => this.errorMessage = error as any);
   }
