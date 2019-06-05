@@ -82,7 +82,7 @@ export class SearchService {
 
   // Data for results page
   getPublications(): Observable<Search[]> {
-    this.currentInput.subscribe(input => this.input = input);
+    // this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
       // get this.form from value from url
       return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage);

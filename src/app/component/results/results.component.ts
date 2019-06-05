@@ -5,11 +5,11 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -30,7 +30,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title ) {
+  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router, private titleService: Title ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
     this.publicationData = [];
@@ -38,30 +38,35 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.pageNumber = JSON.parse(localStorage.getItem('Pagenumber'));
     this.searchService.getPageNumber(this.pageNumber);
   }
-  
+
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
   ngOnInit() {
-    // Get input
-    this.searchService.currentInput.subscribe(input => this.input = input);
-    
+    // Subscribe to route input parameter, works with browser back & forward buttons
+    this.input = this.route.params.subscribe(params => {
+      const term = params.input;
+      this.searchTerm = term;
+      this.searchService.getInput(this.searchTerm);
+      // Get data
+      this.getPublicationData();
+      this.getPersonData();
+      this.getFundingData();
+    });
+
     // Reset pagination
     this.page = this.searchService.pageNumber;
-    
+
     // If url is missing search term, might not be necessary
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    
+
+    // Pagination number
     this.fromPage = this.page * 10 - 10;
-    
-    this.getPublicationData();
-    this.getPersonData();
-    this.getFundingData();
-    
-    
+
+
     // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
       this.searchService.subsVar = this.searchService.
@@ -70,15 +75,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.fromPage = 0;
         this.page = 1;
         this.searchService.getPageNumber(1);
-        // Get search data
-        this.getPublicationData();
-        this.getPersonData();
-        this.getFundingData();
       });
     }
 
   }
-  
+
   getPublicationData() {
     this.searchService.getPublications()
     .pipe(map(publicationData => [publicationData]))
@@ -122,12 +123,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.getPublicationData();
   }
 
-  updateTitle(event) {
+  updateTitle(event: { tab: any; }) {
     // Update title and <h1> with the information of the currently selected tab
     // Regex to match the bracketed numbers
-    var re: RegExp = /\((\d*)\)/;
-    this.setTitle(event.tab.textLabel.replace(re, " - ($1 hakutulosta)") + ' - Haku - Tutkimustietovaranto');
-    this.srHeader.nativeElement.innerHTML = document.title.split(" - ", 2).join(" - ");
+    const re: RegExp = /\((\d*)\)/;
+    this.setTitle(event.tab.textLabel.replace(re, ' - ($1 hakutulosta)') + ' - Haku - Tutkimustietovaranto');
+    this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
   }
 
   // Unsubscribe from search term to prevent memory leaks

@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
+    public searchTerm: any;
     status = false;
     input: string;
 
@@ -25,8 +26,14 @@ export class SearchBarComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.searchService.currentInput.subscribe(input => this.input = input);
-      this.input = this.route.snapshot.params.input;
+    // Subscribe to route input parameter, works with browser back & forward buttons
+    this.searchTerm = this.route.params.subscribe(params => {
+      const term = params.input;
+      console.log(term);
+      this.input = term;
+    });
+    this.searchService.currentInput.subscribe(input => this.input = input);
+    this.input = this.route.snapshot.params.input;
     }
 
     increaseEvent() {
