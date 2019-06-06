@@ -6,136 +6,146 @@
  :license: MIT -->
 
 <h1 #srHeader class="sr-only"></h1>
-<app-search-bar></app-search-bar>
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
 
  <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
-    <div class="breadcrumb" *ngFor="let title of publication.hits.hits">
-        <p><a routerLink="/results">Haku</a> > Julkaisut > {{title._source.doc.row.publicationName}}</p>
-    </div>
+    <nav aria-label="breadcrumb" *ngFor="let title of publication.hits.hits">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/results">Haku</a></li>
+            <li class="breadcrumb-item"><a>Julkaisut</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{title._source.doc.row.publicationName}}</li>
+        </ol>
+    </nav>
     <div class="row">
         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
-        <div class="col" *ngFor="let item of publication.hits.hits">
-            <span class="indicator" style="font-style: italic">Julkaisu</span>
-            <h3>{{item._source.doc.row.publicationName}}</h3>
-            <span>{{item._source.doc.row.publicationYear}}</span>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Julkaisun nimi:</th>
-                        <td>{{item._source.doc.row.publicationName}}</td>
-                    </tr>
-                    <tr>
-                        <th>Tekijät:</th>
-                        <td>{{item._source.doc.row.authorsText}}</td>
-                    </tr>
-                    <tr>
-                        <th>Julkaisukanava:</th>
-                        <td>{{item._source.doc.row.publisherName}}</td>
-                    </tr>
-                    <tr>
-                        <th>Vuosi:</th>
-                        <td>{{item._source.doc.row.publicationYear}}</td>
-                    </tr>
-                    <tr>
-                        <th>Julkaisutyyppi:</th>
-                        <td>{{item._source.doc.row.publicationTypeCode}}</td>
-                    </tr>
-                    <tr>
-                        <th>Julkaisun kieli:</th>
-                        <td>{{item._source.doc.row.languageCode}}</td>
-                    </tr>
-                    <tr>
-                        <th>Julkaisumaa:</th>
-                        <td>{{item._source.doc.row.publicationCountryCode}}</td>
-                    </tr>
-                    <tr>
-                        <th>Julkaisufoorumiluokka:</th>
-                        <td>{{item._source.doc.row.jufoClassCode}}</td>
-                    </tr>
-                    <tr>
-                        <th>JUFO-ID:</th>
-                        <td>{{item._source.doc.row.jufoCode}}</td>
-                    </tr>
-                    <tr>
-                        <th>Viitetiedot:</th>
-                        <td>???</td>
-                    </tr>
-                    <tr>
-                        <th>ISSN:</th>
-                        <td>{{item._source.doc.row.issn}}</td>
-                    </tr>
-                    <tr>
-                        <th>ISBN:</th>
-                        <td>{{item._source.doc.row.isbn}}</td>
-                    </tr>
-                    <tr>
-                        <th>Emojulkaisun nimi:</th>
-                        <td>{{item._source.doc.row.parentPublicationName}}</td>
-                    </tr>
-                    <tr>
-                        <th>Volyymi:</th>
-                        <td>{{item._source.doc.row.volume}}</td>
-                    </tr>
-                    <tr>
-                        <th>Numero:</th>
-                        <td>{{item._source.doc.row.issueNumber}}</td>
-                    </tr>
-                    <tr>
-                        <th>Sivut:</th>
-                        <td>{{item._source.doc.row.pageNumberText}}</td>
-                    </tr>
-                    <tr>
-                        <th>Emojulkaisun tekijä:</th>
-                        <td>{{item._source.doc.row.parentPublicationPublisher}}</td>
-                    </tr>
-                    <tr>
-                        <th>Organisaatiot:</th>
-                        <td>???</td>
-                    </tr>
-                    <tr>
-                        <th>Linkki kokotekstiin:</th>
-                        <td>???</td>
-                    </tr>
-                    <tr>
-                        <th>Avoin saatavuus:</th>
-                        <td>{{item._source.doc.row.publicationTypeCode}}</td>
-                    </tr>
-                    <tr *ngFor="let field of item._source.doc.row.fields_of_science">
-                        <th>Tieteenalat:</th>
-                        <td>{{field.fieldIdScience}}, {{field.nameFiScience}}</td>
-                    </tr>
-                    <tr>
-                        <th>Kansainvälinen yhteisjulkaisu:</th>
-                        <td>
-                            <mat-checkbox [checked]="item._source.doc.row.internationalPublication === true" 
-                            [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Julkaistu yrityksen kanssa:</th>
-                        <td>
-                            <mat-checkbox [checked]="item._source.doc.row.businessCollaboration === true" 
-                            [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col col-4">
-            <mat-card>
-                <button mat-raised-button color="primary">Kopioi linkki</button>
-                <button mat-raised-button color="primary">Lähetä sähköpostilla</button>
-                <button mat-raised-button color="primary">Viitetiedot</button>
-                <button mat-raised-button color="primary">Tulosta</button>
-            </mat-card>
-            <mat-card>
-                <mat-card-title>Muita samankaltaisia</mat-card-title>
-                <p>Julkaisun nimi</p>
-                <p>Julkaisun nimi</p>
-                <p>Julkaisun nimi</p>
-            </mat-card>
-        </div>
+        <main class="col">
+            <div *ngFor="let item of publication.hits.hits">
+                <span class="indicator" style="font-style: italic">Julkaisu</span>
+                <h3>{{item._source.doc.row.publicationName}}</h3>
+                <span>{{item._source.doc.row.publicationYear}}</span>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Julkaisun nimi:</th>
+                            <td>{{item._source.doc.row.publicationName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Tekijät:</th>
+                            <td>{{item._source.doc.row.authorsText}}</td>
+                        </tr>
+                        <tr>
+                            <th>Julkaisukanava:</th>
+                            <td>{{item._source.doc.row.publisherName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Vuosi:</th>
+                            <td>{{item._source.doc.row.publicationYear}}</td>
+                        </tr>
+                        <tr>
+                            <th>Julkaisutyyppi:</th>
+                            <td>{{item._source.doc.row.publicationTypeCode}}</td>
+                        </tr>
+                        <tr>
+                            <th>Julkaisun kieli:</th>
+                            <td>{{item._source.doc.row.languageCode}}</td>
+                        </tr>
+                        <tr>
+                            <th>Julkaisumaa:</th>
+                            <td>{{item._source.doc.row.publicationCountryCode}}</td>
+                        </tr>
+                        <tr>
+                            <th>Julkaisufoorumiluokka:</th>
+                            <td>{{item._source.doc.row.jufoClassCode}}</td>
+                        </tr>
+                        <tr>
+                            <th>JUFO-ID:</th>
+                            <td>{{item._source.doc.row.jufoCode}}</td>
+                        </tr>
+                        <tr>
+                            <th>Viitetiedot:</th>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <th>ISSN:</th>
+                            <td>{{item._source.doc.row.issn}}</td>
+                        </tr>
+                        <tr>
+                            <th>ISBN:</th>
+                            <td>{{item._source.doc.row.isbn}}</td>
+                        </tr>
+                        <tr>
+                            <th>Emojulkaisun nimi:</th>
+                            <td>{{item._source.doc.row.parentPublicationName}}</td>
+                        </tr>
+                        <tr>
+                            <th>Volyymi:</th>
+                            <td>{{item._source.doc.row.volume}}</td>
+                        </tr>
+                        <tr>
+                            <th>Numero:</th>
+                            <td>{{item._source.doc.row.issueNumber}}</td>
+                        </tr>
+                        <tr>
+                            <th>Sivut:</th>
+                            <td>{{item._source.doc.row.pageNumberText}}</td>
+                        </tr>
+                        <tr>
+                            <th>Emojulkaisun tekijä:</th>
+                            <td>{{item._source.doc.row.parentPublicationPublisher}}</td>
+                        </tr>
+                        <tr>
+                            <th>Organisaatiot:</th>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <th>Linkki kokotekstiin:</th>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <th>Avoin saatavuus:</th>
+                            <td>{{item._source.doc.row.publicationTypeCode}}</td>
+                        </tr>
+                        <tr *ngFor="let field of item._source.doc.row.fields_of_science">
+                            <th>Tieteenalat:</th>
+                            <td>{{field.fieldIdScience}}, {{field.nameFiScience}}</td>
+                        </tr>
+                        <tr>
+                            <th>Kansainvälinen yhteisjulkaisu:</th>
+                            <td>
+                                <mat-checkbox [checked]="item._source.doc.row.internationalPublication === true" 
+                                [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Julkaistu yrityksen kanssa:</th>
+                            <td>
+                                <mat-checkbox [checked]="item._source.doc.row.businessCollaboration === true" 
+                                [disableRipple]="true" (click)="$event.preventDefault()"></mat-checkbox>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <aside class="col col-4">
+            <div>
+                <mat-card>
+                    <button mat-raised-button color="primary">Kopioi linkki</button>
+                    <button mat-raised-button color="primary">Lähetä sähköpostilla</button>
+                    <button mat-raised-button color="primary">Viitetiedot</button>
+                    <button mat-raised-button color="primary">Tulosta</button>
+                </mat-card>
+                <mat-card>
+                    <mat-card-title>Muita samankaltaisia</mat-card-title>
+                    <p>Julkaisun nimi</p>
+                    <p>Julkaisun nimi</p>
+                    <p>Julkaisun nimi</p>
+                </mat-card>
+            </div>
+        </aside>
     </div>
 </div>

@@ -6,100 +6,103 @@
 # :license: MIT -->
 
 <h1 #srHeader class="sr-only"></h1>
-<app-search-bar></app-search-bar>
+<aside>
+  <app-search-bar></app-search-bar>
+</aside>
 
-<div class="row numeric">
-  <div class="text-center" *ngIf="undefined === allData">
+<div class="row numeric" *ngIf="!allData">
+  <div class="text-center">
     <mat-spinner [diameter]="40"></mat-spinner>
   </div>
 </div>
 
-<div *ngIf="allData">
-  <div class="row numeric" *ngFor="let counted of allData">
-    <div class="col">
-      <span class="numeric-box" routerLink="/results" [countUp]="counted.aggregations._index.buckets.julkaisut.doc_count" [options]="myOps">0</span>
-      <span class="text-center" routerLink="/results">Julkaisut</span>
-    </div>
+<main>
+  <div *ngIf="allData">
+    <div class="row numeric" *ngFor="let counted of allData">
+      <div class="col">
+        <span class="numeric-box" routerLink="/results" [countUp]="counted.aggregations._index.buckets.julkaisut.doc_count" [options]="myOps">0</span>
+        <span class="text-center" routerLink="/results">Julkaisut</span>
+      </div>
 
-    <div class="col">
-      <span class="numeric-box" routerLink="/results" [countUp]="counted.aggregations._index.buckets.tutkijat.doc_count" [options]="myOps">0</span>
-      <span class="text-center">Tutkijat</span>
-    </div>
+      <div class="col">
+        <span class="numeric-box" routerLink="/results" [countUp]="counted.aggregations._index.buckets.tutkijat.doc_count" [options]="myOps">0</span>
+        <span class="text-center">Tutkijat</span>
+      </div>
 
-    <div class="col">
-      <span class="numeric-box" routerLink="/results" [countUp]="counted.aggregations._index.buckets.hankkeet.doc_count" [options]="myOps">0</span>
-      <span class="text-center">Rahoitetut hankkeet</span>
-    </div>
+      <div class="col">
+        <span class="numeric-box" routerLink="/results" [countUp]="counted.aggregations._index.buckets.hankkeet.doc_count" [options]="myOps">0</span>
+        <span class="text-center">Rahoitetut hankkeet</span>
+      </div>
 
-    <div class="col">
-      <span class="numeric-box" [countUp]="512" [options]="myOps">0</span>
-      <span class="text-center">Tutkimusaineistot</span>
-    </div>
+      <div class="col">
+        <span class="numeric-box" [countUp]="512" [options]="myOps">0</span>
+        <span class="text-center">Tutkimusaineistot</span>
+      </div>
 
-    <div class="col">
-      <span class="numeric-box" [countUp]="78" [options]="myOps">0</span>
-      <span class="text-center">Tutkimusinfrastruktuurit</span>
-    </div>
+      <div class="col">
+        <span class="numeric-box" [countUp]="78" [options]="myOps">0</span>
+        <span class="text-center">Tutkimusinfrastruktuurit</span>
+      </div>
 
-    <div class="col">
-      <span class="numeric-box" [countUp]="45" [options]="myOps">0</span>
-      <span class="text-center">Muut tutkimusaktiviteetit</span>
-    </div>
+      <div class="col">
+        <span class="numeric-box" [countUp]="45" [options]="myOps">0</span>
+        <span class="text-center">Muut tutkimusaktiviteetit</span>
+      </div>
 
-    <div class="col">
-      <span class="numeric-box" [countUp]="67" [options]="myOps">0</span>
-      <span class="text-center">Tutkimusorganisaatiot</span>
+      <div class="col">
+        <span class="numeric-box" [countUp]="67" [options]="myOps">0</span>
+        <span class="text-center">Tutkimusorganisaatiot</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="full-width">
-  <div class="row">
-    <div class="col link-img">
-      <img src="../assets/1.jpg">
-      <span class="text-center">
-        Etsi asiantuntijoita eri tieteenaloilta
-      </span>
-    </div>
-    <div class="col col-6 link-img">
-      <img src="../assets/2.jpg">
-      <span class="text-center">
-        Tutkija, tuo tietosi tutkimustietovarantoon
-      </span>
-    </div>
-    <div class="col link-img">
-      <img src="../assets/3.jpg">
-      <span class="text-center">
-        Tutustu tutkimuksen tuloksiin
-      </span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col link-img">
-      <img src="../assets/4.jpg">
-      <span class="text-center">
-        Tarkastele tutkimustoiminnan kehitystä
-      </span>
-    </div>
-    <div class="col link-img">
-      <img src="../assets/5.jpg">
-      <span class="text-center">
-        Hae tutkimusvälineitä ja palveluita
+  <div class="full-width">
+    <div class="row">
+      <div class="col link-img">
+        <img src="../assets/1.jpg">
+        <span class="text-center">
+          Etsi asiantuntijoita eri tieteenaloilta
         </span>
-    </div>
-    <div class="col link-img">
-      <img src="../assets/6.jpg">
-      <span class="text-center">
-        Tutustu rahoittajiin, avoimiin hakuihin ja hankkeisiin
+      </div>
+      <div class="col col-6 link-img">
+        <img src="../assets/2.jpg">
+        <span class="text-center">
+          Tutkija, tuo tietosi tutkimustietovarantoon
         </span>
+      </div>
+      <div class="col link-img">
+        <img src="../assets/3.jpg">
+        <span class="text-center">
+          Tutustu tutkimuksen tuloksiin
+        </span>
+      </div>
     </div>
-    <div class="col link-img">
-      <img src="../assets/7.jpg">
-      <span class="text-center">
-          Mitä tutkimustieto-varannossa tapahtuu nyt?
-      </span>
+    <div class="row">
+      <div class="col link-img">
+        <img src="../assets/4.jpg">
+        <span class="text-center">
+          Tarkastele tutkimustoiminnan kehitystä
+        </span>
+      </div>
+      <div class="col link-img">
+        <img src="../assets/5.jpg">
+        <span class="text-center">
+          Hae tutkimusvälineitä ja palveluita
+          </span>
+      </div>
+      <div class="col link-img">
+        <img src="../assets/6.jpg">
+        <span class="text-center">
+          Tutustu rahoittajiin, avoimiin hakuihin ja hankkeisiin
+          </span>
+      </div>
+      <div class="col link-img">
+        <img src="../assets/7.jpg">
+        <span class="text-center">
+            Mitä tutkimustieto-varannossa tapahtuu nyt?
+        </span>
+      </div>
     </div>
   </div>
-</div>
-
+</main>
 
