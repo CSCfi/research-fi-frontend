@@ -26,6 +26,10 @@ const routes: Routes = [
     component: ResultsComponent
   },
   {
+    path: 'results/:input/:page',
+    component: ResultsComponent
+  },
+  {
     path: 'single',
     component: SingleComponent
   },

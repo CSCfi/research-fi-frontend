@@ -18,8 +18,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ResultsComponent implements OnInit, OnDestroy {
   public searchTerm: any;
+  public urlPageNumber: number;
   input: any = [];
   publicationData: any [];
+  responseData: any [];
   personData: any [];
   fundingData: any [];
   errorMessage = [];
@@ -33,10 +35,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router, private titleService: Title ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
+    this.urlPageNumber = this.route.snapshot.params.page;
     this.publicationData = [];
     // Get page number from local storage
     this.pageNumber = JSON.parse(localStorage.getItem('Pagenumber'));
-    this.searchService.getPageNumber(this.pageNumber);
+    this.searchService.getPageNumber(this.urlPageNumber);
+
+    if (this.urlPageNumber === undefined) {
+      this.urlPageNumber = 1;
+    }
+    console.log(this.urlPageNumber);
   }
 
   public setTitle(newTitle: string) {
@@ -50,9 +58,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.searchTerm = term;
       this.searchService.getInput(this.searchTerm);
       // Get data
-      this.getPublicationData();
-      this.getPersonData();
-      this.getFundingData();
+      // if (this.urlPageNumber === 1) {
+      //   this.getAllData();
+      // }
+      this.getAllData();
     });
 
     // Reset pagination
@@ -66,6 +75,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Pagination number
     this.fromPage = this.page * 10 - 10;
 
+    // Needs to detect when coming back to page different than first
+    if (this.fromPage >= 1) {
+      this.getPublicationData();
+    }
+
 
     // Listen for search button action on results page
     if (this.input !== null || this.searchService.subsVar === undefined) {
@@ -77,7 +91,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.searchService.getPageNumber(1);
       });
     }
+  }
 
+  getAllData() {
+    this.searchService.getAllResults()
+    .pipe(map(responseData => [responseData]))
+    .subscribe(responseData => {
+      this.responseData = responseData;
+      // Set the title, pass a MatTabChange-like mock object to updateTitle() to avoid duplicate code 
+      this.updateTitle({tab: {textLabel: 'Julkaisut (' + this.responseData[0].hits.total + ')'}});
+    },
+      error => this.errorMessage = error as any);
   }
 
   getPublicationData() {
@@ -112,6 +136,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     localStorage.setItem('Pagenumber', JSON.stringify(this.page));
     // Send to search service
     this.searchService.getPageNumber(this.page);
+    this.searchTerm = this.route.snapshot.params.input;
+    this.router.navigate(['results/', this.searchTerm, this.page]);
     this.getPublicationData();
   }
 
@@ -120,6 +146,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.fromPage = this.fromPage - 10;
     localStorage.setItem('Pagenumber', JSON.stringify(this.page));
     this.searchService.getPageNumber(this.page);
+    this.searchTerm = this.route.snapshot.params.input;
+    this.router.navigate(['results/', this.searchTerm, this.page]);
     this.getPublicationData();
   }
 

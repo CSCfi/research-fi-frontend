@@ -80,6 +80,37 @@ export class SearchService {
       .pipe(catchError(this.handleError));
   }
 
+  getAllResults(): Observable<Search[]> {
+    const payLoad = {
+      size: 0,
+      aggs: {
+        _index: {filters : {
+          filters: {
+            tutkijat : { match : { _index : 'person' }},
+            julkaisut : { match : { _index : 'publication' }},
+            hankkeet : { match : { _index : 'funding' }}
+          }
+        },
+          aggs: {
+            index_results: {
+              top_hits: {
+                size: 10
+              }
+            }
+          }
+        }
+      }
+    };
+    if (this.singleInput === undefined || this.singleInput === '') {
+      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage, payLoad);
+    } else {
+      return this.http.post<Search[]>
+      (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage + '&q=publication_name=' 
+      + this.singleInput, payLoad)
+      .pipe(catchError(this.handleError));
+    }
+  }
+
   // Data for results page
   getPublications(): Observable<Search[]> {
     // this.currentInput.subscribe(input => this.input = input);
