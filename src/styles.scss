@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@include mat-core();
+
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
@@ -7,22 +10,31 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url( 'https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
 
+@import './app/ui/header/header.component.scss-theme.scss';
+
+@mixin researchfi-components-theme($theme) {
+  @include app-header-theme($theme);
+}
+
 html {
     height: 100%;
     box-sizing: border-box;
   }
   
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 
 body {
-    position: relative;
-    margin: 0 auto;
-    min-height: 100%;
-  }
+  @include angular-material-theme($researchfi-theme);
+  @include researchfi-components-theme($researchfi-theme);
+  
+  position: relative;
+  margin: 0 auto;
+  min-height: 100%;
+}
 
 // Typography
 .uppercase {

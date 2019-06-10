@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+@mixin app-header-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    app-header {
+        .navbar-light .navbar-nav .nav-link {
+            color: mat-color($primary);
+            
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: mat-color($primary, lighter);
+        }
+    }
+    
+}

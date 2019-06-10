@@ -5,6 +5,9 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+$main_theme_color: #4f51a8;
+$main_theme_color_hover: #4f51a870;
+
 #overlay {
     position: absolute;
     z-index: 2;
@@ -58,15 +61,14 @@ li.col-4 {
     border: none;
 }
 
-
 .toggle-menu-text {
-    color: rgb(79, 81, 168);
+    color: $main_theme_color;
     font-weight: bold;
     text-align: center;
 }
 
 button span.fa {
-    color: rgb(79, 81, 168);
+    color: $main_theme_color;
 }
 
 nav.navbar.navbar-expand-xl.navbar-light.bg-white {
@@ -85,20 +87,20 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: rgb(79, 81, 168);
+    // color: $main_theme_color;
     font-weight: bold;
     
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-    color: rgba(79, 80, 168, 0.438);
+    // color: $main_theme_color_hover;
     font-weight: bold;
 }
 
 .separator {
     font-weight: bold;
     padding: 0.5rem 2px;
-    color: rgb(79, 81, 168);
+    color: $main_theme_color;
 }
 
 // Language selector
@@ -147,12 +149,12 @@ li.nav-item {
         margin: 10px 1px;
         padding: 5px 10px;
         text-align: center;
-        border: solid 2px rgb(79,81,168);
+        border: solid 2px $main_theme_color;
         font-size: 0.75rem;
     }
 
     li a.lang-box.active-lang {
-        background: rgb(79, 81, 168);
+        background: $main_theme_color;
         color: rgba(255, 255, 255, 0.96) !important;
     }
 }
