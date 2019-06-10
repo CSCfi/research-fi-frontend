@@ -15,10 +15,6 @@
     height: 100%;
 }
 
-nav {
-    max-width: 1440px;
-    margin: 0 auto;
-}
 
 #mobile-langs {
     width: 300px;   // Is there a better way to do this?
@@ -28,6 +24,11 @@ nav {
     position: absolute;
     bottom: 5px;
     right: 15px;
+}
+
+header {
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 // Prevent horizontal mobile screen scrolling while menu is out of view

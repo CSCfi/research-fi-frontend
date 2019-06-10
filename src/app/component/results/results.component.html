@@ -6,11 +6,13 @@
  :license: MIT -->
 
 <h1 #srHeader class="sr-only"></h1>
-<app-search-bar></app-search-bar>
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
 
 <div class="container center-content" style="margin-top:25px;">
     <div class="row">
-        <div class="col col-2 filters">
+        <aside class="col col-2 filters">
             <app-filter-sidebar></app-filter-sidebar>
         </div>
         <div class="text-center" *ngIf="undefined === responseData">
@@ -39,15 +41,25 @@
                                 <div class="col">
                                     <span class="bold uppercase">Julkaisun nimi</span>
                                 </div>
+
+                            <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
+                            (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
+                                <div class="col arrow">
+                                    <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+                                </div>          
                                 <div class="col">
-                                    <span class="bold uppercase">Tekijät</span>
-                                </div>
-                                <div class="col col-md-2">
-                                    <span class="bold uppercase">Julkaisukanava</span>
-                                </div>
-                                <div class="col col-md-1">
-                                    <span class="bold uppercase">Vuosi</span>
-                                </div>
+                                    <a routerLink="/single/{{x._source.doc.row.publicationId}}"><h3 style="font-size: 1rem">{{x._source.doc.row.publicationName}}</h3></a>
+                                </div>          
+                                <div class="col shorten" [class.expand]="expandStatus[i]">
+                                    <span>{{x._source.doc.row.authorsText}}</span>
+                                </div>          
+                                <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
+                                    <span>{{x._source.doc.row.journalName}}</span>
+                                </div>          
+                                <div class="col col-1">
+                                    <span>{{x._source.doc.row.publicationYear}}</span>
+                                    <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
+                                </div>          
                             </div>
                             <div *ngIf="fromPage >= 10; else nextTemplate">
                                 <div *ngFor="let publications of publicationData;">

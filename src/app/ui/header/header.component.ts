@@ -19,6 +19,8 @@ export class HeaderComponent implements OnInit {
 
   height = window.innerHeight;
   width = window.innerWidth;
+
+  lang = 'fi';
   
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
@@ -28,6 +30,10 @@ export class HeaderComponent implements OnInit {
     } else {
       elem.style.right = "-100%";
     }
+  }
+
+  setLang(lang: string) {
+    this.lang = lang;
   }
   
   onResize(event) {
