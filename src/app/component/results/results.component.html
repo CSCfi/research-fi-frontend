@@ -1,133 +1,124 @@
 <!--  This file is part of the research.fi API service
-
  Copyright 2019 Ministry of Education and Culture, Finland
-
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<h1 #srHeader class="sr-only"></h1>
-<aside>
-    <app-search-bar></app-search-bar>
-</aside>
-
-<div class="container center-content" style="margin-top:25px;">
-    <div class="row">
-        <aside class="col col-2 filters">
-            <app-filter-sidebar></app-filter-sidebar>
-        </div>
-        <div class="text-center" *ngIf="undefined === responseData">
-            <mat-spinner [diameter]="40"></mat-spinner>
-        </div>
-        <div class="col-10" *ngFor="let response of responseData">
-            <mat-tab-group (selectedTabChange)="updateTitle($event)">
-                <mat-tab label="Julkaisut ({{response.aggregations._index.buckets.julkaisut.doc_count}})">
-                    <h3 style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h3>
-                    <div class="spinner-center" *ngIf="undefined === publicationData">
-                        <mat-spinner [diameter]="80"></mat-spinner>
-                    </div>
-                    <div class="sort">
-                        <span class="align-left" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
-                        <mat-form-field>
-                            <select matNativeControl>
-                              <option value="newest">Uusin ensin</option>
-                              <option value="oldet">Vanhin ensin</option>
-                            </select>
-                        </mat-form-field>
-                    </div>
-                    <div *ngFor="let publications of responseData">
-                            <div class="row no-margin">
-                                <div class="col arrow">
-                                </div>
-                                <div class="col">
-                                    <span class="bold uppercase">Julkaisun nimi</span>
-                                </div>
-
-                            <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
-                            (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-                                <div class="col arrow">
-                                    <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
-                                </div>          
-                                <div class="col">
-                                    <a routerLink="/single/{{x._source.doc.row.publicationId}}"><h3 style="font-size: 1rem">{{x._source.doc.row.publicationName}}</h3></a>
-                                </div>          
-                                <div class="col shorten" [class.expand]="expandStatus[i]">
-                                    <span>{{x._source.doc.row.authorsText}}</span>
-                                </div>          
-                                <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
-                                    <span>{{x._source.doc.row.journalName}}</span>
-                                </div>          
-                                <div class="col col-1">
-                                    <span>{{x._source.doc.row.publicationYear}}</span>
-                                    <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
-                                </div>          
-                            </div>
-                            <div *ngIf="fromPage >= 10; else nextTemplate">
-                                <div *ngFor="let publications of publicationData;">
-                                    <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
-                                    (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-                                        <div class="col arrow">
-                                            <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
-                                        </div>          
-                                        <div class="col">
-                                            <a routerLink="/single/{{x._source.doc.row.publicationId}}">{{x._source.doc.row.publicationName}}</a>
-                                        </div>          
-                                        <div class="col shorten" [class.expand]="expandStatus[i]">
-                                            <span>{{x._source.doc.row.authorsText}}</span>
-                                        </div>          
-                                        <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
-                                            <span>{{x._source.doc.row.journalName}}</span>
-                                        </div>          
-                                        <div class="col col-1">
-                                            <span>{{x._source.doc.row.publicationYear}}</span>
-                                            <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
+ <h1 #srHeader class="sr-only"></h1>
+ <aside>
+     <app-search-bar></app-search-bar>
+ </aside>
+ 
+ <div class="container center-content" style="margin-top:25px;">
+     <div class="row">
+         <aside class="col col-2 filters">
+             <app-filter-sidebar></app-filter-sidebar>
+         </aside>
+         <div class="text-center" *ngIf="!responseData">
+             <mat-spinner [diameter]="40"></mat-spinner>
+         </div>
+         <main class="col-10">
+             <div *ngFor="let response of responseData">
+                 <mat-tab-group (selectedTabChange)="updateTitle($event)">
+                     <mat-tab label="Julkaisut ({{response.aggregations._index.buckets.julkaisut.doc_count}})">
+                         <h2 class="row" style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h2>
+                         <div class="spinner-center" *ngIf="!publicationData">
+                             <mat-spinner [diameter]="80"></mat-spinner>
+                         </div>
+                         <div class="sort">
+                             <span class="align-left" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
+                             <mat-form-field>
+                                 <select matNativeControl>
+                                 <option value="newest">Uusin ensin</option>
+                                 <option value="oldet">Vanhin ensin</option>
+                                 </select>
+                             </mat-form-field>
+                         </div>
+                         <div *ngFor="let publications of responseData">
+                                 <div class="row no-margin">
+                                     <div class="col arrow">
+                                     </div>
+                                     <div class="col">
+                                         <span class="bold uppercase">Julkaisun nimi</span>
+                                     </div>
+                                     <div class="col">
+                                         <span class="bold uppercase">Tekijät</span>
+                                     </div>
+                                     <div class="col col-md-2">
+                                         <span class="bold uppercase">Julkaisukanava</span>
+                                     </div>
+                                     <div class="col col-md-1">
+                                         <span class="bold uppercase">Vuosi</span>
+                                     </div>
+                                 </div>
+ 
+                                 <div *ngIf="fromPage >= 10; else nextTemplate">
+                                        <div *ngFor="let publications of publicationData;">
+                                            <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
+                                            (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
+                                                <div class="col arrow">
+                                                    <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+                                                </div>          
+                                                <div class="col">
+                                                    <a routerLink="/single/{{x._source.doc.row.publicationId}}"><h3 style="font-size: 1rem">{{x._source.doc.row.publicationName}}</h3></a>
+                                                </div>          
+                                                <div class="col shorten" [class.expand]="expandStatus[i]">
+                                                    <span>{{x._source.doc.row.authorsText}}</span>
+                                                </div>          
+                                                <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
+                                                    <span>{{x._source.doc.row.journalName}}</span>
+                                                </div>          
+                                                <div class="col col-1">
+                                                    <span>{{x._source.doc.row.publicationYear}}</span>
+                                                    <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
+                                                </div>
+                                            </div>       
                                         </div>
-                                    </div>       
-                                </div>
-                            </div>
-                            <ng-template #nextTemplate>
-                                <div class="row no-margin single" *ngFor="let x of publications.aggregations._index.buckets.julkaisut.index_results.hits.hits; let i = index"
-                                (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-                                    <div class="col arrow">
-                                        <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
-                                    </div>          
-                                    <div class="col">
-                                        <a routerLink="/single/{{x._source.doc.row.publicationId}}">{{x._source.doc.row.publicationName}}</a>
-                                    </div>          
-                                    <div class="col shorten" [class.expand]="expandStatus[i]">
-                                        <span>{{x._source.doc.row.authorsText}}</span>
-                                    </div>          
-                                    <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
-                                        <span>{{x._source.doc.row.journalName}}</span>
-                                    </div>          
-                                    <div class="col col-1">
-                                        <span>{{x._source.doc.row.publicationYear}}</span>
-                                        <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
-                                    </div>          
-                                </div>
-                            </ng-template>
-                          <!-- Move pagination to child component -->
-                          <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</a><a> | </a>
-                          <a [ngClass]="fromPage + 10 < publications.aggregations._index.buckets.julkaisut.doc_count ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
-                          <p style="float:right;" *ngIf="fromPage + 10 < publications.aggregations._index.buckets.julkaisut.doc_count">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.aggregations._index.buckets.julkaisut.doc_count}}</p>
-                          <p style="float:right;" *ngIf="fromPage + 10 >= publications.aggregations._index.buckets.julkaisut.doc_count">Näytetään tulokset {{fromPage + 1}} - {{publications.aggregations._index.buckets.julkaisut.doc_count}} / {{publications.aggregations._index.buckets.julkaisut.doc_count}}</p>
+                                    </div>
+                                    <ng-template #nextTemplate>
+                                        <div class="row no-margin single" *ngFor="let x of publications.aggregations._index.buckets.julkaisut.index_results.hits.hits; let i = index"
+                                        (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
+                                            <div class="col arrow">
+                                                <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+                                            </div>          
+                                            <div class="col">
+                                                <a routerLink="/single/{{x._source.doc.row.publicationId}}"><h3 style="font-size: 1rem">{{x._source.doc.row.publicationName}}</h3></a>
+                                            </div>          
+                                            <div class="col shorten" [class.expand]="expandStatus[i]">
+                                                <span>{{x._source.doc.row.authorsText}}</span>
+                                            </div>          
+                                            <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
+                                                <span>{{x._source.doc.row.journalName}}</span>
+                                            </div>          
+                                            <div class="col col-1">
+                                                <span>{{x._source.doc.row.publicationYear}}</span>
+                                                <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
+                                            </div>          
+                                        </div>
+                                    </ng-template>
+                             <!-- Move pagination to child component -->
+                             <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</a><a> | </a>
+                             <a [ngClass]="fromPage + 10 < publications.aggregations._index.buckets.julkaisut.doc_count ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
+                             <p style="float:right;" *ngIf="fromPage + 10 < publications.aggregations._index.buckets.julkaisut.doc_count">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.aggregations._index.buckets.julkaisut.doc_count}}</p>
+                             <p style="float:right;" *ngIf="fromPage + 10 >= publications.aggregations._index.buckets.julkaisut.doc_count">Näytetään tulokset {{fromPage + 1}} - {{publications.aggregations._index.buckets.julkaisut.doc_count}} / {{publications.aggregations._index.buckets.julkaisut.doc_count}}</p>
+
+                             </div>          
+ 
+                     </mat-tab>
+                     
+                     <mat-tab label="Tutkijat ({{response.aggregations._index.buckets.tutkijat.doc_count}})"> 
+                        <app-persons></app-persons>
+                    </mat-tab>
+    
+                    <mat-tab label="Rahoitetut hankkeet ({{response.aggregations._index.buckets.hankkeet.doc_count}})"> 
+    
+                    </mat-tab>
                         
-                        </div>          
-
-                </mat-tab>
-                
-                <mat-tab label="Tutkijat ({{response.aggregations._index.buckets.tutkijat.doc_count}})"> 
-                    <app-persons></app-persons>
-                </mat-tab>
-
-                <mat-tab label="Rahoitetut hankkeet ({{response.aggregations._index.buckets.hankkeet.doc_count}})"> 
-
-                </mat-tab>
-                
-                <mat-tab label="Tutkimusaineistot (0)"> </mat-tab>
-                <mat-tab label="Tutkimusinfrastruktuurit (0)"> </mat-tab>
-                <mat-tab label="Muut tutkimusaktiviteetit (0)"> </mat-tab>
-                <mat-tab label="Tutkimusorganisaatiot (0)"> </mat-tab>
-            </mat-tab-group>
-        </div>
-    </div>
-</div>
+                    <mat-tab label="Tutkimusaineistot (0)"> </mat-tab>
+                    <mat-tab label="Tutkimusinfrastruktuurit (0)"> </mat-tab>
+                    <mat-tab label="Muut tutkimusaktiviteetit (0)"> </mat-tab>
+                    <mat-tab label="Tutkimusorganisaatiot (0)"> </mat-tab>
+                 </mat-tab-group>
+             </div>
+         </main>
+     </div>
+ </div>
