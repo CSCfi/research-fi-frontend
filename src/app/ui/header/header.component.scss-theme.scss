@@ -8,49 +8,47 @@
     app-header {
         >header {
             background: mat-color($primary, default-contrast);
-        }
-
-        .navbar-light .navbar-nav .nav-link {
-            color: mat-color($primary);
             
-        }
-
-        .navbar-light .navbar-nav .nav-link:hover {
-            color: mat-color($primary, lighter);
-        }
-
-        .collapse.navbar-collapse.menu.mobile-bar {
-            background: mat-color($primary, default-contrast);
+            .navbar-light .navbar-nav .nav-link {
+                color: mat-color($primary);
             
-            li a.lang-box {
+            }
+            
+            .navbar-light .navbar-nav .nav-link:hover {
+                color: mat-color($primary, lighter);
+            }
+            
+            .collapse.navbar-collapse.menu.mobile-bar {
                 background: mat-color($primary, default-contrast);
-                border: solid 2px mat-color($primary);
                 
+                li a.lang-box {
+                    background: mat-color($primary, default-contrast);
+                    border: solid 2px mat-color($primary);
+                    
+                }
+                
+                li a.lang-box.active-lang {
+                    background: mat-color($primary);
+                    color: mat-color($primary, default-contrast);
+                }
             }
-
-            li a.lang-box.active-lang {
-                background: mat-color($primary);
-                color: mat-color($primary, default-contrast);
+            
+            .active-link, .desktop .active-lang {
+                border-bottom: 3px solid mat-color($accent);
+            }
+            
+            .toggle-menu-text {
+                color: mat-color($primary);
+            }
+            
+        
+            button span.fa {
+                color: mat-color($primary);
+            }
+            
+            .separator {
+                color: mat-color($primary);
             }
         }
-
-        .active-link, .desktop .active-lang {
-            border-bottom: 3px solid mat-color($accent);
-        }
-
-        .toggle-menu-text {
-            color: mat-color($primary);
-        }
-        
-        
-        button span.fa {
-            color: mat-color($primary);
-        }
-        
-        .separator {
-            color: mat-color($primary);
-        }
-
-
     }
 }

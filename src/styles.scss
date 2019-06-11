@@ -11,10 +11,12 @@
 @import url( 'https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
 
 @import './app/ui/header/header.component.scss-theme.scss';
+@import './app/ui/footer/footer.component.scss-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
   @include app-header-theme($theme);
+  @include app-footer-theme($theme);
 
   $primary: map-get($theme, primary);
   
