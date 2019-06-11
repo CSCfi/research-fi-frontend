@@ -19,18 +19,32 @@ span.numeric-box {
     text-align: center;
     font-weight: bold;
     font-size: 1.5em;
-    border-bottom: 1px solid #4f51a8;
+    // border-bottom: 1px solid #4f51a8;
     cursor: pointer;
     margin: 0 auto;
 }
 
-.numeric .text-center {
+.numeric div.col {
+    background: #e8e8f5;  // $primary 50
+    width: 202px;
+}
+
+.numeric div.col:hover {
+    background: #c5c5e5; // primary 100
+}
+
+.numeric div.col.active {
+    background: #b7b7ff; // primary A100
+    border-bottom: 6px #3e3fa8 solid; // primary default
+}
+
+.numeric .text-center, .numeric .numeric-box {
     padding: 13px 5px;
     display: block;
     text-align: center;
     font-weight: bold;
     cursor: pointer;
-    color: #4f51a8;
+    color: #3e3fa8;  // primary default
     margin: 0 auto;
 }
 

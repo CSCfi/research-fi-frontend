@@ -19,7 +19,7 @@
 <main>
   <div *ngIf="allData">
     <div class="row numeric" *ngFor="let counted of allData">
-      <div class="col">
+      <div class="col active">
         <span class="numeric-box" routerLink="/results" [countUp]="counted.aggregations._index.buckets.julkaisut.doc_count" [options]="myOps">0</span>
         <span class="text-center" routerLink="/results">Julkaisut</span>
       </div>
