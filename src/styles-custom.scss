@@ -9,15 +9,6 @@ $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $res
     margin-left: 0px;
 }
 
-.full-width {
-    background: #4f51a8;
-}
-
-.full-width .row {
-    max-width: 1440px;
-    margin: 0 auto;
-}
-
 .container-fluid {
     padding: 0px;
 }
@@ -27,11 +18,9 @@ $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $res
     padding-left: 0px;
 }
 
-
 // Disable link
 a.disabled {
     pointer-events: none;
     cursor: default;
     text-decoration: none;
-    color: #4f51a8a8!important;
 }

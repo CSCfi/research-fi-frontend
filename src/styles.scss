@@ -12,10 +12,19 @@
 
 @import './app/ui/header/header.component.scss-theme.scss';
 
+// Global element color definitions
 @mixin researchfi-components-theme($theme) {
   @include app-header-theme($theme);
+
+  $primary: map-get($theme, primary);
+  
+  // Disable link
+  a.disabled {
+      color: mat-color($primary, lighter) !important;
+  }
 }
 
+// Global style definitions
 html {
     height: 100%;
     box-sizing: border-box;

@@ -5,9 +5,6 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-$main_theme_color: #4f51a8;
-$main_theme_color_hover: #4f51a870;
-
 #overlay {
     position: absolute;
     z-index: 2;
@@ -17,7 +14,6 @@ $main_theme_color_hover: #4f51a870;
     width: 100%;
     height: 100%;
 }
-
 
 #mobile-langs {
     width: 300px;   // Is there a better way to do this?
@@ -62,17 +58,8 @@ li.col-4 {
 }
 
 .toggle-menu-text {
-    color: $main_theme_color;
     font-weight: bold;
     text-align: center;
-}
-
-button span.fa {
-    color: $main_theme_color;
-}
-
-nav.navbar.navbar-expand-xl.navbar-light.bg-white {
-    margin: 0 auto;
 }
 
 .logo img {
@@ -87,20 +74,17 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    // color: $main_theme_color;
     font-weight: bold;
     
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-    // color: $main_theme_color_hover;
     font-weight: bold;
 }
 
 .separator {
     font-weight: bold;
     padding: 0.5rem 2px;
-    color: $main_theme_color;
 }
 
 // Language selector
@@ -114,17 +98,12 @@ li.nav-item {
     border-top: 3px solid transparent;
 }
 
-.active-link, .desktop .active-lang {
-    border-bottom: 3px solid #3aaa35;
-}
-
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: -100%;
     top: 75px;
     z-index: 4;
-    background: rgb(255, 255, 255);
     margin-top: 8px;
     padding: 10px 32px 40px 32px;
     transition: right 0.5s ease-out;
@@ -144,18 +123,11 @@ li.nav-item {
     }
 
     li a.lang-box {
-        background: rgba(255, 255, 255, 0.96);
         border-radius: 5px;
         margin: 10px 1px;
         padding: 5px 10px;
         text-align: center;
-        border: solid 2px $main_theme_color;
         font-size: 0.75rem;
-    }
-
-    li a.lang-box.active-lang {
-        background: $main_theme_color;
-        color: rgba(255, 255, 255, 0.96) !important;
     }
 }
 
