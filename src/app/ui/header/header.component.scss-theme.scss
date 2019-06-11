@@ -34,7 +34,7 @@
             }
             
             .active-link, .desktop .active-lang {
-                border-bottom: 3px solid mat-color($accent);
+                border-bottom: 3px solid mat-color($accent, 600);
             }
             
             .toggle-menu-text {
