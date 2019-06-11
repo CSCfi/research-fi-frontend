@@ -28,10 +28,6 @@ footer {
         font-weight: bold;
     }
 
-    li a {
-        transition: 0.2s linear;
-    }
-    
     li a:hover {
         text-decoration: none;
     }
@@ -47,7 +43,6 @@ footer {
     .fa {
         font-size: 32px;
         padding: 32px 6px;
-        transition: 0.2s linear;
     }
 
     .fa:hover {

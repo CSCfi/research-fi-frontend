@@ -7,7 +7,7 @@
 
     app-footer {
         >footer {
-            background: mat-color($primary, default-contrast);
+            background: mat-contrast($primary, 400);
             
             li a {
                 color: mat-color($primary);
