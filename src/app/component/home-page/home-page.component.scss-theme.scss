@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+
+@mixin app-home-page-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    app-home-page {
+
+        .numeric div.col {
+            background: mat-color($primary, 50);
+        }
+        
+        .numeric div.col.active {
+            background: mat-color($primary, A100);
+            border-bottom: 6px solid mat-color($primary);
+        }
+        
+        .numeric div.col:hover {
+            background: mat-color($primary, 100);
+        }
+        
+        .numeric .text-center, .numeric .numeric-box {
+            color: mat-color($primary, 700);
+        }
+    }
+}
