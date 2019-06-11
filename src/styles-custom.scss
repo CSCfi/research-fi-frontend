@@ -9,6 +9,11 @@ $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $res
     margin-left: 0px;
 }
 
+.full-width .row {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
 .container-fluid {
     padding: 0px;
 }

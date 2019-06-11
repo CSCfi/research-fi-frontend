@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+
+@mixin app-search-bar-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    app-search-bar {
+        
+        .col-12.search {
+            background: mat-color($primary);
+            color: mat-color($primary, default-contrast);
+        }
+        
+        button.btn.btn-search {
+            background: mat-color($primary, default-contrast);
+            color: mat-color($primary);    
+            border: 1px solid mat-color($primary, default-contrast);
+
+        }
+        
+        p.text-right.ext-search a {
+            color: mat-color($primary, default-contrast);
+        }
+        
+        .mat-checkbox {
+            color: mat-color($primary, default-contrast);
+        }
+    }
+}

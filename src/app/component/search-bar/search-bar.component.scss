@@ -7,8 +7,8 @@
 
 .col-12.search {
     padding: 30px;
-    background: #4f51a8;
-    color: #FFF;
+    // background: #4f51a8;
+    // color: #FFF;
     transition: 0.2s linear;
 }
 
@@ -60,11 +60,8 @@ span.search-button {
 }
 
 button.btn.btn-search {
-    background: white;
-    border: 1px solid #ced4da;
     border-left: 0px;
     font-size: 25px;
-    color: #4f51a8;
 }
 
 p.text-right.ext-search {
@@ -73,8 +70,6 @@ p.text-right.ext-search {
 }
 
 p.text-right.ext-search a {
-    color: #fff;
-    transition: 0.2s linear;
     cursor: pointer;
 }
 
