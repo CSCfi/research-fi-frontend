@@ -78,6 +78,10 @@ export class PublicationsComponent implements OnInit {
     this.fromPage = this.fromPage - 10;
     this.searchService.getPageNumber(this.page);
     this.searchTerm = this.route.snapshot.params.input;
+    // If searchTerm is undefined, route doesn't work
+    if (this.searchTerm === undefined) {
+      this.searchTerm = '';
+    }
     this.router.navigate(['results/', this.searchTerm], { queryParams: { page: this.page } });
     // If going back to first page, getAllResults does POST request
     if (this.page === 1) {
