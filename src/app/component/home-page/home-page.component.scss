@@ -19,30 +19,24 @@ span.numeric-box {
     text-align: center;
     font-weight: bold;
     font-size: 1.5em;
-    border-bottom: 1px solid #4f51a8;
     cursor: pointer;
     margin: 0 auto;
 }
 
-.numeric .text-center {
+.numeric div.col {
+    width: 14%;
+    cursor: pointer;
+}
+
+.numeric .text-center, .numeric .numeric-box {
     padding: 13px 5px;
     display: block;
     text-align: center;
     font-weight: bold;
     cursor: pointer;
-    color: #4f51a8;
     margin: 0 auto;
+    overflow: hidden;
 }
-
-// image links
-// .full-width {
-//     background: #4f51a8;
-// }
-
-// .full-width .row {
-//     max-width: 1440px;
-//     margin: 0 auto;
-// }
 
 .link-img {
     padding: 0px;

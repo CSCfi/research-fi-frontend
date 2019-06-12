@@ -15,7 +15,6 @@
     height: 100%;
 }
 
-
 #mobile-langs {
     width: 300px;   // Is there a better way to do this?
 }
@@ -58,19 +57,9 @@ li.col-4 {
     border: none;
 }
 
-
 .toggle-menu-text {
-    color: rgb(79, 81, 168);
     font-weight: bold;
     text-align: center;
-}
-
-button span.fa {
-    color: rgb(79, 81, 168);
-}
-
-nav.navbar.navbar-expand-xl.navbar-light.bg-white {
-    margin: 0 auto;
 }
 
 .logo img {
@@ -85,20 +74,17 @@ nav.navbar.navbar-expand-xl.navbar-light.bg-white {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: rgb(79, 81, 168);
     font-weight: bold;
     
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-    color: rgba(79, 80, 168, 0.438);
     font-weight: bold;
 }
 
 .separator {
     font-weight: bold;
     padding: 0.5rem 2px;
-    color: rgb(79, 81, 168);
 }
 
 // Language selector
@@ -112,17 +98,12 @@ li.nav-item {
     border-top: 3px solid transparent;
 }
 
-.active-link, .desktop .active-lang {
-    border-bottom: 3px solid #3aaa35;
-}
-
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: -100%;
     top: 75px;
     z-index: 4;
-    background: rgb(255, 255, 255);
     margin-top: 8px;
     padding: 10px 32px 40px 32px;
     transition: right 0.5s ease-out;
@@ -142,18 +123,11 @@ li.nav-item {
     }
 
     li a.lang-box {
-        background: rgba(255, 255, 255, 0.96);
         border-radius: 5px;
         margin: 10px 1px;
         padding: 5px 10px;
         text-align: center;
-        border: solid 2px rgb(79,81,168);
         font-size: 0.75rem;
-    }
-
-    li a.lang-box.active-lang {
-        background: rgb(79, 81, 168);
-        color: rgba(255, 255, 255, 0.96) !important;
     }
 }
 

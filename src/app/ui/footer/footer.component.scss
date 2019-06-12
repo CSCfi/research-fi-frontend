@@ -5,40 +5,27 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-nav.footer {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.footer .col {
+.col {
     border: 0px solid;
     padding: 15px;
 }
 
-.footer ul {
+ul {
     margin-top: 30px;
     padding-inline-start: 0px;
 }
 
-.footer li {
+li {
     padding: 4px 0px;
     list-style: none;
     font-weight: bold;
 }
 
-.footer li a {
-    color: #4f51a8;
-    transition: 0.2s linear;
-}
-
-.footer li a:hover {
-    color: rgba(79, 80, 168, 0.438);
+li a:hover {
     text-decoration: none;
 }
 
-.footer img {
+img {
     padding-top: 10px;
 }
 
@@ -46,22 +33,18 @@ nav.footer {
     text-align: right;
 }
 
-.footer .fa {
+.fa {
     font-size: 32px;
     padding: 32px 6px;
-    color: #4f51a8;
-    transition: 0.2s linear;
 }
 
-.footer .fa:hover {
+.fa:hover {
     opacity: 0.7;
 }
 
-.footer {
-    .build-info {
-        font-size: 9px;
-        opacity: 0.6
-    }
+.build-info {
+    font-size: 9px;
+    opacity: 0.6
 }
 
 //Responsive
@@ -74,19 +57,19 @@ nav.footer {
 }
 
 @media (max-width: 768px) {
-    .footer .col {
+    footer .col {
         min-width: 100%;
         text-align: center;
         padding: 0px;
     }
 
-    .footer ul {
+    footer ul {
         padding: 0px;
         margin-top: 0px;
         margin-bottom: 0rem;
     }
 
-    .footer li {
+    footer li {
         padding: 8px;
     }
 

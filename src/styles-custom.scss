@@ -1,19 +1,21 @@
-@import '~@angular/material/theming';
-@include mat-core();
+@import './styles-custom-palettes.scss';
 
-$researchfi-primary: mat-palette($mat-indigo);
+$researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
 $researchfi-accent:  mat-palette($mat-green);
 $researchfi-warn:    mat-palette($mat-deep-orange);
+
 $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $researchfi-warn);
-@include angular-material-theme($researchfi-theme);
+
+// Insert custom background color
+// https://stackoverflow.com/questions/43919927/angular-material2-theming-how-to-set-app-background
+$background-color: map-get($researchfi-primary-palette, 100);
+$background: map-get($researchfi-theme, background);
+$background: map_merge($background, (card: $background-color));
+$researchfi-theme: map_merge($researchfi-theme, (background: $background));
 
 .row {
     margin-right: -0px;
     margin-left: 0px;
-}
-
-.full-width {
-    background: #4f51a8;
 }
 
 .full-width .row {
@@ -30,11 +32,9 @@ $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $res
     padding-left: 0px;
 }
 
-
 // Disable link
 a.disabled {
     pointer-events: none;
     cursor: default;
     text-decoration: none;
-    color: #4f51a8a8!important;
 }
