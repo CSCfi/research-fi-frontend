@@ -1,0 +1,10 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div *ngFor="let persons of personData">
+    <div class="row no-margin single" *ngFor="let person of persons.aggregations._index.buckets.tutkijat.index_results.hits.hits; let i = index">
+    <li>{{person._source.doc.row.lastName}}</li>        
+    </div>
+</div>

@@ -41,9 +41,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CountUpModule } from 'countup.js-angular2';
 
 import { SingleComponent } from './component/single/single.component';
-import { PublicationsComponent } from './component/publications/publications.component';
-import { PersonsComponent } from './component/persons/persons.component';
-import { PaginationComponent } from './component/pagination/pagination.component';
+import { PublicationsComponent } from './component/results/publications/publications.component';
+import { PersonsComponent } from './component/results/persons/persons.component';
 import { FilterSidebarComponent } from './component/filter-sidebar/filter-sidebar.component';
 import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.component';
 
@@ -56,7 +55,6 @@ import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.compon
     SingleComponent,
     PublicationsComponent,
     PersonsComponent,
-    PaginationComponent,
     FilterSidebarComponent,
     BreadcrumbsComponent,
   ],

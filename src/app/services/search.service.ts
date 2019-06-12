@@ -29,9 +29,11 @@ export class SearchService {
   input: any;
   apiUrl = API_URL;
   data: any;
+  requestCheck: boolean;
 
   constructor(private http: HttpClient) {
     this.getInput$ = this.getInputSubject.asObservable();
+    this.requestCheck = false;
   }
 
   // Get input value from url
@@ -52,7 +54,7 @@ export class SearchService {
     this.pageNumber = searchTerm;
     this.fromPage = this.pageNumber * 10 - 10;
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
-      this.fromPage = 1;
+      this.fromPage = 0;
       this.pageNumber = 1;
     }
   }
@@ -80,6 +82,7 @@ export class SearchService {
       .pipe(catchError(this.handleError));
   }
 
+  // Data for results page
   getAllResults(): Observable<Search[]> {
     const payLoad = {
       size: 0,
@@ -94,13 +97,15 @@ export class SearchService {
           aggs: {
             index_results: {
               top_hits: {
-                size: 10
+                size: 10,
+                from: this.fromPage
               }
             }
           }
         }
       }
     };
+    this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
       return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage, payLoad);
     } else {
@@ -113,6 +118,7 @@ export class SearchService {
 
   // Data for results page
   getPublications(): Observable<Search[]> {
+    this.requestCheck = true;
     // this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
       // get this.form from value from url
