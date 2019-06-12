@@ -7,8 +7,6 @@
 
 
 // Table
-tr:nth-child(even) {background-color: #f9f9f9;}
-
 th {
     min-width: 250px;
     vertical-align: top;
@@ -20,10 +18,6 @@ th {
 
 :host /deep/ label {
     margin-bottom: 0;
-}
-
-:host /deep/ .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
-    background-color: #ffffff;
 }
 
 // Sidebar

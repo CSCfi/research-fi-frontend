@@ -8,7 +8,7 @@
     app-home-page {
 
         .numeric div.col {
-            background: mat-color($primary, 50);
+            background: mat-color($primary, 100);
         }
         
         .numeric div.col.active {
@@ -17,7 +17,7 @@
         }
         
         .numeric div.col:not(.active):hover {
-            background: mat-color($primary, 100);
+            background: mat-color($primary, 200);
         }
         
         .numeric .text-center, .numeric .numeric-box {

@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+
+@mixin app-single-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+
+    app-single {
+
+        tr:nth-child(even) {
+            background-color: mat-color($primary, 50);
+        }
+
+        :host /deep/ .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
+            background-color: mat-color($primary, default-contrast);
+        }
+    }
+}

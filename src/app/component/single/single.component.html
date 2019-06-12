@@ -10,7 +10,7 @@
     <app-search-bar></app-search-bar>
 </aside>
 
- <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
+<div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <nav aria-label="breadcrumb" *ngFor="let title of publication.hits.hits">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a routerLink="/results">Haku</a></li>
