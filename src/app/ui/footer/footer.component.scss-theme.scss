@@ -4,8 +4,8 @@
     $primary: map-get($theme, primary);
 
     app-footer {
-        >footer {
-            background: mat-color($primary, 50);
+        >footer.full-width {
+            background-color: mat-color($primary, 50);
             
             li a {
                 color: mat-color($primary);
