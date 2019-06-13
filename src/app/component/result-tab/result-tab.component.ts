@@ -14,6 +14,9 @@ export class ResultTabComponent implements OnInit {
   errorMessage: any [];
   selectedTab: any;
   searchTerm: any;
+  myOps = {
+    duration: 0.5
+  };
 
   tabData = [
     { data: 'julkaisut', label: 'Julkaisut', link: 'publications' },
