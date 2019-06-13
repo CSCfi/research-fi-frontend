@@ -13,6 +13,16 @@ export class ResultTabComponent implements OnInit {
   errorMessage: any [];
   selectedTab = '';
 
+  tabData = [
+    { data: 'julkaisut', label: 'Julkaisut', link: 'publications' },
+    { data: 'tutkijat',  label: 'Tutkijat', link: 'persons' },
+    { data: 'hankkeet', label: 'Rahoitetut hankkeet', link: 'fundings' },
+    { data: '', label: 'Tutkimusaineistot', link: '' },
+    { data: '', label: 'Tutkimusinfrastruktuurit', link: '' },
+    { data: '', label: 'Muut tutkimusaktiviteetit', link: '' },
+    { data: '', label: 'Tutkimusorganisaatiot', link: '' }
+  ];
+
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {

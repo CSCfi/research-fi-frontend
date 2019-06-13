@@ -6,40 +6,10 @@
   
 
 <div *ngIf="allData">
-  <div class="row numeric" *ngFor="let counted of allData">
-    <div class="col active" routerLink="/results">
-      <span class="numeric-box" [countUp]="counted.aggregations._index.buckets.julkaisut.doc_count" [options]="myOps">0</span>
-      <span class="text-center">Julkaisut</span>
-    </div>
-
-    <div class="col" routerLink="/results">
-      <span class="numeric-box" [countUp]="counted.aggregations._index.buckets.tutkijat.doc_count" [options]="myOps">0</span>
-      <span class="text-center">Tutkijat</span>
-    </div>
-
-    <div class="col" routerLink="/results">
-      <span class="numeric-box" [countUp]="counted.aggregations._index.buckets.hankkeet.doc_count" [options]="myOps">0</span>
-      <span class="text-center">Rahoitetut hankkeet</span>
-    </div>
-
-    <div class="col" routerLink="/results">
-      <span class="numeric-box" [countUp]="512" [options]="myOps">0</span>
-      <span class="text-center">Tutkimusaineistot</span>
-    </div>
-
-    <div class="col" routerLink="/results">
-      <span class="numeric-box" [countUp]="78" [options]="myOps">0</span>
-      <span class="text-center">Tutkimusinfrastruktuurit</span>
-    </div>
-
-    <div class="col" routerLink="/results">
-      <span class="numeric-box" [countUp]="45" [options]="myOps">0</span>
-      <span class="text-center">Muut tutkimusaktiviteetit</span>
-    </div>
-
-    <div class="col" routerLink="/results">
-      <span class="numeric-box" [countUp]="67" [options]="myOps">0</span>
-      <span class="text-center">Tutkimusorganisaatiot</span>
-    </div>
+  <div  class="row numeric" *ngFor="let counted of allData">
+      <div *ngFor="let tab of tabData" class="col" routerLink="/results/{{tab.link}}">
+        <span class="numeric-box" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</span> <!-- TODO: Remove the ternary operator when all data becomes available -->
+        <span class="text-center">{{tab.label}}</span>
+      </div>
   </div>
 </div>
