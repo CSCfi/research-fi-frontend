@@ -96,13 +96,4 @@ export class PublicationsComponent implements OnInit {
       this.getPublicationData();
     }
   }
-
-  updateTitle(event: { tab: any; }) {
-    // Update title and <h1> with the information of the currently selected tab
-    // Regex to match the bracketed numbers
-    const re: RegExp = /\((\d*)\)/;
-    this.setTitle(event.tab.textLabel.replace(re, ' - ($1 hakutulosta)') + ' - Haku - Tutkimustietovaranto');
-    this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
-  }
-
 }

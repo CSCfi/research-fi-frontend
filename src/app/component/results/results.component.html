@@ -18,8 +18,8 @@
              <mat-spinner [diameter]="40"></mat-spinner>
          </div>
          <main class="col-10">
-             <app-publications *ngIf="tab==='publications' || !tab" [publicationData]="responseData"></app-publications>
-             <app-persons *ngIf="tab==='persons'"[personData]="responseData"></app-persons>
+             <app-publications *ngIf="tabLink==='publications'" [publicationData]="responseData"></app-publications>
+             <app-persons *ngIf="tabLink==='persons'"[personData]="responseData"></app-persons>
          </main>
      </div>
  </div>
