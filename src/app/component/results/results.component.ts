@@ -38,7 +38,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   public setTitle(newTitle: string) {
-    console.log(newTitle);
     this.titleService.setTitle(newTitle);
   }
 

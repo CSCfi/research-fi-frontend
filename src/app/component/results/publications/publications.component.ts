@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, Input, OnChanges } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../../services/search.service';
 import { map } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './publications.component.html',
   styleUrls: ['./publications.component.scss']
 })
-export class PublicationsComponent implements OnInit {
+export class PublicationsComponent implements OnInit, OnChanges {
   @Input() publicationData: any [];
   expandStatus: Array<boolean> = [];
   public searchTerm: any;
@@ -31,8 +31,8 @@ export class PublicationsComponent implements OnInit {
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router, private titleService: Title ) {
     this.searchTerm = this.route.snapshot.params.input;
 
-    // Check if http request is POST or GET
-    this.paginationCheck = this.searchService.requestCheck;
+    // // Check if http request is POST or GET
+    // this.paginationCheck = this.searchService.requestCheck;
   }
 
   public setTitle(newTitle: string) {
@@ -40,12 +40,23 @@ export class PublicationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // // Reset pagination
+    // this.page = this.searchService.pageNumber;
+
+    // // Pagination number
+    // this.fromPage = this.page * 10 - 10;
+
+  }
+
+  ngOnChanges(): void {
+    // Check if http request is POST or GET
+    this.paginationCheck = this.searchService.requestCheck;
+
     // Reset pagination
     this.page = this.searchService.pageNumber;
 
     // Pagination number
     this.fromPage = this.page * 10 - 10;
-
   }
 
   // Assign results to publicationData
