@@ -7,7 +7,7 @@
 
 <div *ngIf="allData">
   <div  class="row numeric" *ngFor="let counted of allData">
-      <div *ngFor="let tab of tabData" class="col" routerLink="/results/{{tab.link}}">
+      <div *ngFor="let tab of tabData" class="col" [class.active]="selectedTab===tab.link" (click)="changeTab(tab.link)">
         <span class="numeric-box" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</span> <!-- TODO: Remove the ternary operator when all data becomes available -->
         <span class="text-center">{{tab.label}}</span>
       </div>

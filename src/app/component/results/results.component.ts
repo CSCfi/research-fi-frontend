@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ResultsComponent implements OnInit, OnDestroy {
   public searchTerm: any;
   input: any = [];
+  tab: any = [];
   responseData: any [];
   errorMessage = [];
   pageNumber = 1;
@@ -50,7 +51,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Subscribe to route input parameter, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
+      const tab = params.tab;
       this.searchTerm = term;
+      this.tab = tab;
       this.searchService.getInput(this.searchTerm);
       // Get data
       this.getAllData();
