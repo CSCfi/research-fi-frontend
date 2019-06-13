@@ -68,7 +68,7 @@ export class PublicationsComponent implements OnInit {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    this.router.navigate(['results/', this.searchTerm], { queryParams: { page: this.page } });
+    this.router.navigate(['results/', 'publications', this.searchTerm], { queryParams: { page: this.page } });
     this.getPublicationData();
     this.paginationCheck = true;
   }
@@ -82,7 +82,7 @@ export class PublicationsComponent implements OnInit {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    this.router.navigate(['results/', this.searchTerm], { queryParams: { page: this.page } });
+    this.router.navigate(['results/', 'publications', this.searchTerm], { queryParams: { page: this.page } });
     // If going back to first page, getAllResults does POST request
     if (this.page === 1) {
       this.paginationCheck = false;
