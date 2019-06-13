@@ -14,7 +14,7 @@
 @import './app/ui/header/header.component.scss-theme.scss';
 @import './app/ui/footer/footer.component.scss-theme.scss';
 @import './app/component/search-bar/search-bar.component.scss-theme.scss';
-@import './app/component/home-page/home-page.component.scss-theme.scss';
+@import './app/component/result-tab/result-tab.component.scss-theme.scss';
 @import './app/component/single/single.component.scss-theme.scss';
 
 // Global element color definitions
@@ -22,7 +22,7 @@
   @include app-header-theme($theme);
   @include app-footer-theme($theme);
   @include app-search-bar-theme($theme);
-  @include app-home-page-theme($theme);
+  @include app-result-tab-theme($theme);
   @include app-single-theme($theme);
 
   $primary: map-get($theme, primary);

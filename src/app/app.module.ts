@@ -45,6 +45,7 @@ import { PublicationsComponent } from './component/results/publications/publicat
 import { PersonsComponent } from './component/results/persons/persons.component';
 import { FilterSidebarComponent } from './component/filter-sidebar/filter-sidebar.component';
 import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.component';
+import { ResultTabComponent } from './component/result-tab/result-tab.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.compon
     PersonsComponent,
     FilterSidebarComponent,
     BreadcrumbsComponent,
+    ResultTabComponent,
   ],
   imports: [
     BrowserModule,
