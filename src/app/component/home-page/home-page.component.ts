@@ -34,6 +34,9 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Get data for count-ups
+    this.getAllData();
+
     // Set title
     this.setTitle('Etusivu - Tutkimustietovaranto');
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
@@ -41,5 +44,12 @@ export class HomePageComponent implements OnInit {
     // Reset local storage
     localStorage.removeItem('Pagenumber');
     localStorage.setItem('Pagenumber', JSON.stringify(1));
+  }
+
+  getAllData() {
+    this.searchService.getAll()
+    .pipe(map(allData => [allData]))
+    .subscribe(allData => this.allData = allData,
+      error => this.errorMessage = error as any);
   }
 }
