@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TitleUpdateService } from 'src/app/services/title-update.service';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 
 @Component({
@@ -20,17 +20,9 @@ export class ResultTabComponent implements OnInit {
     duration: 0.5
   };
 
-  tabData = [
-    { data: 'julkaisut', label: 'Julkaisut', link: 'publications' },
-    { data: 'tutkijat',  label: 'Tutkijat', link: 'persons' },
-    { data: 'hankkeet', label: 'Rahoitetut hankkeet', link: 'fundings' },
-    { data: '', label: 'Tutkimusaineistot', link: '1' },
-    { data: '', label: 'Tutkimusinfrastruktuurit', link: '2' },
-    { data: '', label: 'Muut tutkimusaktiviteetit', link: '3' },
-    { data: '', label: 'Tutkimusorganisaatiot', link: '4' }
-  ];
+  tabData = this.tabChangeService.tabData;
 
-  constructor(private route: ActivatedRoute, private router: Router, private titleService: TitleUpdateService) {
+  constructor(private route: ActivatedRoute, private router: Router, private tabChangeService: TabChangeService) {
     this.searchTerm = this.route.snapshot.params.input;
     this.selectedTab = this.route.snapshot.params.tab;
    }
@@ -43,7 +35,7 @@ export class ResultTabComponent implements OnInit {
       // Update title based on selected tab
       this.tabData.forEach(tab => {
         if (tab.link === this.selectedTab) {
-          this.titleService.changeTitle(tab);
+          this.tabChangeService.changeTab(tab);
         }
       });
     });

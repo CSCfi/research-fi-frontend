@@ -1,25 +1,25 @@
 <!--  This file is part of the research.fi API service
- Copyright 2019 Ministry of Education and Culture, Finland
- :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
- :license: MIT -->
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
 
- <h1 #srHeader class="sr-only"></h1>
- <aside>
-     <app-search-bar></app-search-bar>
- </aside>
- 
- <div class="container center-content">
-     <div class="row">
-        <app-result-tab [allData]="responseData"></app-result-tab>
-         <aside class="col col-2 filters">
-             <app-filter-sidebar></app-filter-sidebar>
-         </aside>
-         <div class="text-center" *ngIf="!responseData">
-             <mat-spinner [diameter]="40"></mat-spinner>
-         </div>
-         <main class="col-10">
-             <app-publications *ngIf="tabLink==='publications'" [publicationData]="responseData"></app-publications>
-             <app-persons *ngIf="tabLink==='persons'"[personData]="responseData"></app-persons>
-         </main>
-     </div>
- </div>
+<h1 #srHeader class="sr-only"></h1>
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
+
+<div class="container center-content">
+    <div class="row">
+       <app-result-tab [allData]="responseData"></app-result-tab>
+        <aside class="col col-2 filters">
+            <app-filter-sidebar></app-filter-sidebar>
+        </aside>
+        <div class="text-center" *ngIf="!responseData">
+            <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
+        <main class="col-10">
+            <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData"></app-publications>
+            <app-persons *ngIf="tabLink===tabData[1].link"[personData]="responseData"></app-persons>
+        </main>
+    </div>
+</div>

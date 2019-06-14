@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TitleUpdateService } from 'src/app/services/title-update.service';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-results',
@@ -20,8 +20,9 @@ import { TitleUpdateService } from 'src/app/services/title-update.service';
 export class ResultsComponent implements OnInit, OnDestroy {
   public searchTerm: any;
   input: any = [];
+  tabData = this.tabChangeService.tabData;
   tabLink: any = [];
-  tabData: any = [];
+  selectedTabData: any = [];
   responseData: any [];
   errorMessage = [];
   pageNumber = 1;
@@ -31,8 +32,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   pageSub: any;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title, 
-               private titleUpdateService: TitleUpdateService ) {
+  constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
+               private tabChangeService: TabChangeService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -52,7 +53,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to tab changes to update title
-    this.titleUpdateService.currentTab.subscribe(tab => { this.tabData = tab; this.updateTitle(tab); });
+    this.tabChangeService.currentTab.subscribe(tab => { this.selectedTabData = tab; this.updateTitle(tab); });
 
     // Subscribe to route input parameter, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
@@ -92,20 +93,18 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       // Set the title
-      this.updateTitle(this.tabData);
+      this.updateTitle(this.selectedTabData);
     },
       error => this.errorMessage = error as any);
   }
 
   updateTitle(tab: { data: string; label: string}) {
     // Update title and <h1> with the information of the currently selected tab
-    // Regex to match the bracketed numbers
     if (this.responseData) {
       // Placeholder until real data is available
-      const amount = tab.data ? this.responseData[0].aggregations._index.buckets[tab.data].doc_count : 999;  
+      const amount = tab.data ? this.responseData[0].aggregations._index.buckets[tab.data].doc_count : 999;
       this.setTitle(tab.label + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto');
     }
-    // this.setTitle(event.tab.textLabel.replace(re, ' - ($1 hakutulosta)') + ' - Haku - Tutkimustietovaranto');
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
   }
 
