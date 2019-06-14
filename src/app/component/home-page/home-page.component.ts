@@ -19,9 +19,6 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 })
 export class HomePageComponent implements OnInit {
   allData: any [];
-  publicationData: any [];
-  personData: any [];
-  fundingData: any [];
   errorMessage = [];
   status = false;
   myOps = {
@@ -37,12 +34,12 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Get data for count-ups
+    this.getAllData();
+
     // Set title
     this.setTitle('Etusivu - Tutkimustietovaranto');
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
-
-    // Get data for count ups
-    this.getAllData();
 
     // Reset local storage
     localStorage.removeItem('Pagenumber');
@@ -55,5 +52,4 @@ export class HomePageComponent implements OnInit {
     .subscribe(allData => this.allData = allData,
       error => this.errorMessage = error as any);
   }
-
 }

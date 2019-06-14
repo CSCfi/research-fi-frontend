@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TitleUpdateService } from 'src/app/services/title-update.service';
 
 @Component({
   selector: 'app-results',
@@ -19,6 +20,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ResultsComponent implements OnInit, OnDestroy {
   public searchTerm: any;
   input: any = [];
+  tabLink: any = [];
+  tabData: any = [];
   responseData: any [];
   errorMessage = [];
   pageNumber = 1;
@@ -28,7 +31,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   pageSub: any;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title ) {
+  constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title, 
+               private titleUpdateService: TitleUpdateService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -47,14 +51,24 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.searchService.getPageNumber(this.page);
     });
 
+    // Subscribe to tab changes to update title
+    this.titleUpdateService.currentTab.subscribe(tab => { this.tabData = tab; this.updateTitle(tab); });
+
     // Subscribe to route input parameter, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
+      const previousTerm = this.searchTerm;
+      this.tabLink = params.tab;
       this.searchTerm = term;
       this.searchService.getInput(this.searchTerm);
-      // Get data
-      this.getAllData();
+      // Get data only if search term changed
+      if (previousTerm !== this.searchTerm) {
+        this.getAllData();
+      }
     });
+
+    // Get data on init
+    this.getAllData();
 
     // If url is missing search term, might not be necessary
     if (this.searchTerm === undefined) {
@@ -77,17 +91,21 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      // Set the title, pass a MatTabChange-like mock object to updateTitle() to avoid duplicate code
-      this.updateTitle({tab: {textLabel: 'Julkaisut (' + this.responseData[0].aggregations._index.buckets.julkaisut.doc_count + ')'}});
+      // Set the title
+      this.updateTitle(this.tabData);
     },
       error => this.errorMessage = error as any);
   }
 
-  updateTitle(event: { tab: any; }) {
+  updateTitle(tab: { data: string; label: string}) {
     // Update title and <h1> with the information of the currently selected tab
     // Regex to match the bracketed numbers
-    const re: RegExp = /\((\d*)\)/;
-    this.setTitle(event.tab.textLabel.replace(re, ' - ($1 hakutulosta)') + ' - Haku - Tutkimustietovaranto');
+    if (this.responseData) {
+      // Placeholder until real data is available
+      const amount = tab.data ? this.responseData[0].aggregations._index.buckets[tab.data].doc_count : 999;  
+      this.setTitle(tab.label + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto');
+    }
+    // this.setTitle(event.tab.textLabel.replace(re, ' - ($1 hakutulosta)') + ' - Haku - Tutkimustietovaranto');
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
   }
 

@@ -8,8 +8,9 @@
      <app-search-bar></app-search-bar>
  </aside>
  
- <div class="container center-content" style="margin-top:25px;">
+ <div class="container center-content">
      <div class="row">
+        <app-result-tab [allData]="responseData"></app-result-tab>
          <aside class="col col-2 filters">
              <app-filter-sidebar></app-filter-sidebar>
          </aside>
@@ -17,27 +18,8 @@
              <mat-spinner [diameter]="40"></mat-spinner>
          </div>
          <main class="col-10">
-             <div *ngFor="let response of responseData">
-                 <mat-tab-group (selectedTabChange)="updateTitle($event)">
-
-                    <mat-tab label="Julkaisut ({{response.aggregations._index.buckets.julkaisut.doc_count}})">      
-                        <app-publications [publicationData]="responseData"></app-publications>
-                    </mat-tab>
-                     
-                    <mat-tab label="Tutkijat ({{response.aggregations._index.buckets.tutkijat.doc_count}})"> 
-                        <app-persons [personData]="responseData"></app-persons>
-                    </mat-tab>
-    
-                    <mat-tab label="Rahoitetut hankkeet ({{response.aggregations._index.buckets.hankkeet.doc_count}})"> 
-    
-                    </mat-tab>
-                        
-                    <mat-tab label="Tutkimusaineistot (0)"> </mat-tab>
-                    <mat-tab label="Tutkimusinfrastruktuurit (0)"> </mat-tab>
-                    <mat-tab label="Muut tutkimusaktiviteetit (0)"> </mat-tab>
-                    <mat-tab label="Tutkimusorganisaatiot (0)"> </mat-tab>
-                 </mat-tab-group>
-             </div>
+             <app-publications *ngIf="tabLink==='publications'" [publicationData]="responseData"></app-publications>
+             <app-persons *ngIf="tabLink==='persons'"[personData]="responseData"></app-persons>
          </main>
      </div>
  </div>

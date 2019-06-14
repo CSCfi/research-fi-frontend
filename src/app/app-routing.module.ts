@@ -22,11 +22,15 @@ const routes: Routes = [
     component: ResultsComponent
   },
   {
-    path: 'results/:input',
+    path: 'results/:tab',
     component: ResultsComponent
   },
   {
-    path: 'results/:input/:page',
+    path: 'results/:tab/:input',
+    component: ResultsComponent
+  },
+  {
+    path: 'results/:tab/:input/:page',
     component: ResultsComponent
   },
   {

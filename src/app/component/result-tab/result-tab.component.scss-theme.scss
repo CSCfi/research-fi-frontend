@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-@mixin app-home-page-theme($theme) {
+@mixin app-result-tab-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-home-page {
+    app-result-tab {
 
         .numeric div.col {
             background: mat-color($primary, 100);
