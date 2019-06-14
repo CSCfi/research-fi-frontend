@@ -27,28 +27,7 @@
 
 // Filters
 .col.filters {
-  background: #f9f9f9;
   padding-top: 15px;
-  // margin-top: 48px;
-}
-
-// Tabs
-:host /deep/ .mat-tab-label {
-  font-size: 1.2em;
-  color: #4f51a8;
-  font-weight: bold;
-  opacity: 1!important;
-}
-
-::ng-deep .mat-ink-bar {
-  background-color:#3aaa35 !important;}
-
-.mat-tab-group {
-  min-height: 740px;
-}
-
-::ng-deep .mat-tab-body-wrapper {
-  padding-top: 20px;
 }
 
 // Responsive

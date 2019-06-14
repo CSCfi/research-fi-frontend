@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin app-results-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-results {
+        .col.filters {
+            background: mat-color($primary, 50);
+        } 
+    }
+}
