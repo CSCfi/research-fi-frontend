@@ -5,6 +5,11 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+.wrapper {
+    max-width: 1440px;
+    margin: auto;
+}
+
 .scroll {
     display: flex;
     flex-wrap: nowrap;
