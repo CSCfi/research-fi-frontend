@@ -5,8 +5,8 @@
 </div>
   
 <div *ngIf="allData">
-  <div  class="scroll numeric" *ngFor="let counted of allData">
-      <div *ngFor="let tab of tabData" class="" [class.active]="selectedTab===tab.link" (click)="changeTab(tab)">
+  <div class="scroll numeric" *ngFor="let counted of allData">
+      <div class="bundler" *ngFor="let tab of tabData" [class.active]="selectedTab===tab.link" (click)="changeTab(tab)">
         <span class="numeric-box" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</span> <!-- TODO: Remove the ternary operator when all data becomes available -->
         <span class="text-center">{{tab.label}}</span>
       </div>
