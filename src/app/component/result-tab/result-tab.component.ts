@@ -40,18 +40,17 @@ export class ResultTabComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.selectedTab = params.tab;
       this.searchTerm = params.input;
-    });
-    // Initialize selected tab
-    this.tabData.forEach(tab => {
-      if (tab.link === this.selectedTab) {
-        this.titleService.changeTitle(tab);
-      }
+      // Update title based on selected tab
+      this.tabData.forEach(tab => {
+        if (tab.link === this.selectedTab) {
+          this.titleService.changeTitle(tab);
+        }
+      });
     });
   }
 
   changeTab(tab) {
-    if (!this.searchTerm) this.searchTerm = '';
+    if (!this.searchTerm) { this.searchTerm = ''; }
     this.router.navigate(['results/', tab.link, this.searchTerm]);
-    this.titleService.changeTitle(tab);
   }
 }

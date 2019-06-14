@@ -57,13 +57,18 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Subscribe to route input parameter, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
-      const tab = params.tab;
+      const previousTerm = this.searchTerm;
+      this.tabLink = params.tab;
       this.searchTerm = term;
-      this.tabLink = tab;
       this.searchService.getInput(this.searchTerm);
-      // Get data
-      this.getAllData();
+      // Get data only if search term changed
+      if (previousTerm !== this.searchTerm) {
+        this.getAllData();
+      }
     });
+
+    // Get data on init
+    this.getAllData();
 
     // If url is missing search term, might not be necessary
     if (this.searchTerm === undefined) {
