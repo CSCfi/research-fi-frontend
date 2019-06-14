@@ -40,7 +40,7 @@ export class SingleComponent implements OnInit {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      this.setTitle(this.responseData[0].hits.hits[0]._source.doc.row.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
+      this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
       this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
     },
       error => this.errorMessage = error as any);

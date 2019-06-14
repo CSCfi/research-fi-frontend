@@ -41,17 +41,17 @@
                     <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
                 </div>          
                 <div class="col">
-                    <a routerLink="/single/{{x._source.doc.row.publicationId}}"><h3 style="font-size: 1rem">{{x._source.doc.row.publicationName}}</h3></a>
+                    <a routerLink="/single/{{x._source.publicationId}}"><h3 style="font-size: 1rem">{{x._source.publicationName}}</h3></a>
                 </div>          
                 <div class="col shorten" [class.expand]="expandStatus[i]">
-                    <span>{{x._source.doc.row.authorsText}}</span>
+                    <span>{{x._source.authorsText}}</span>
                 </div>          
                 <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
-                    <span>{{x._source.doc.row.journalName}}</span>
+                    <span>{{x._source.journalName}}</span>
                 </div>          
                 <div class="col col-1">
-                    <span>{{x._source.doc.row.publicationYear}}</span>
-                    <input type="hidden" value="{{x._source.doc.row.publicationId}}" #singleId>
+                    <span>{{x._source.publicationYear}}</span>
+                    <input type="hidden" value="{{x._source.publicationId}}" #singleId>
                 </div>
             </div>       
         </div>
@@ -63,17 +63,17 @@
                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
             </div>          
             <div class="col">
-                <a routerLink="/single/{{publication?._source.doc.row.publicationId}}"><h3 style="font-size: 1rem">{{publication?._source.doc.row.publicationName}}</h3></a>
+                <a routerLink="/single/{{publication?._source.publicationId}}"><h3 style="font-size: 1rem">{{publication?._source.publicationName}}</h3></a>
             </div>          
             <div class="col shorten" [class.expand]="expandStatus[i]">
-                <span>{{publication._source.doc.row.authorsText}}</span>
+                <span>{{publication._source.authorsText}}</span>
             </div>          
             <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
-                <span>{{publication._source.doc.row.journalName}}</span>
+                <span>{{publication._source.journalName}}</span>
             </div>          
             <div class="col col-1">
-                <span>{{publication._source.doc.row.publicationYear}}</span>
-                <input type="hidden" value="{{publication?._source.doc.row.publicationId}}" #singleId>
+                <span>{{publication._source.publicationYear}}</span>
+                <input type="hidden" value="{{publication?._source.publicationId}}" #singleId>
             </div>          
         </div>
     </ng-template>
