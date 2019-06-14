@@ -5,16 +5,16 @@
 
     app-result-tab {
 
-        .numeric div.col {
+        .numeric div {
             background: mat-color($primary, 100);
         }
         
-        .numeric div.col.active {
+        .numeric div.active {
             background: mat-color($primary, A100);
             border-bottom: 6px solid mat-color($primary);
         }
         
-        .numeric div.col:not(.active):hover {
+        .numeric div:not(.active):hover {
             background: mat-color($primary, 200);
         }
         

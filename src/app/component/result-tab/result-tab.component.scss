@@ -5,13 +5,25 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+.scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    white-space: nowrap; 
+}
+
+      
+// Demo purposes only, proceed with caution on Windows!
+.scroll::-webkit-scrollbar {
+    display: none; 
+}
+
 .row.numeric {
     max-width: 1440px;
     margin: 0 auto;
 }
 
 span.numeric-box {
-    max-width: 200px;
     padding: 13px 5px;
     display: block;
     text-align: center;
@@ -22,7 +34,6 @@ span.numeric-box {
 }
 
 .numeric div.col {
-    width: 14%;
     cursor: pointer;
 }
 
