@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+@mixin app-publications-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-publications {
+        
+        .row.no-margin {
+            border-bottom: 1px solid mat-color($primary);
+        }
+         
+        .row.expand {
+            background: mat-color($primary, 50);
+        }
+        
+        a.pagination-link {
+            color: mat-color($primary) !important;
+        }
+
+        h3 {
+            color: mat-color($primary, A700);
+        }
+    }
+}
+

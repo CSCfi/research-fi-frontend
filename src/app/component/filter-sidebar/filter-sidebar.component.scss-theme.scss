@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@mixin app-filter-sidebar-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-filter-sidebar {
+        
+        .mat-expansion-panel:not([class*=mat-elevation-z]) {
+            border-bottom: 1px solid mat-color($primary, 400);
+        }
+    }
+}

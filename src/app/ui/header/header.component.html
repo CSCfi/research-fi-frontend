@@ -21,7 +21,7 @@
                 </ul>
             </div>
             <div [ngClass]="{ 'overflow-hider' : !navbarOpen && mobile }">
-                <div class="collapse navbar-collapse menu" [ngClass]="{ 'mobile-bar' : mobile }" id="main-navbar">
+                <div class="collapse navbar-collapse menu" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" id="main-navbar">
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
                         <ul class="navbar-nav main mx-auto" id="mobile-langs">
                             <li [ngClass]="{ 'col-4' : mobile }">

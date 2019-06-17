@@ -21,21 +21,29 @@ export class HeaderComponent implements OnInit {
   width = window.innerWidth;
 
   lang = 'fi';
-  
+
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
-    const elem = document.getElementById("main-navbar");
+    const elem = document.getElementById('main-navbar');
+
+    // First change display: 'block' so animation works, then change position after a small timeout
     if (this.navbarOpen) {
-      elem.style.right = "0";
+      elem.style.display = 'block';
+
+      setTimeout(() => {
+        elem.style.right = '0';
+      }, 10);
+
     } else {
-      elem.style.right = "-100%";
+      elem.style.display = 'none';
+      elem.style.right = '-100%';
     }
   }
 
   setLang(lang: string) {
     this.lang = lang;
   }
-  
+
   onResize(event) {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
