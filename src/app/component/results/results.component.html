@@ -18,7 +18,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <mat-spinner [diameter]="40"></mat-spinner>
         </div>
         <main class="col-10">
-            <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData"></app-publications>
+            <app-publications *ngIf="tabLink===tabData[0].link"></app-publications>
             <app-persons *ngIf="tabLink===tabData[1].link"[personData]="responseData"></app-persons>
         </main>
     </div>

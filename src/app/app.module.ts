@@ -32,6 +32,7 @@ import { SearchService } from './services/search.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -46,6 +47,7 @@ import { PersonsComponent } from './component/results/persons/persons.component'
 import { FilterSidebarComponent } from './component/filter-sidebar/filter-sidebar.component';
 import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.component';
 import { ResultTabComponent } from './component/result-tab/result-tab.component';
+import { SortComponent } from './component/results/sort/sort.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { ResultTabComponent } from './component/result-tab/result-tab.component'
     FilterSidebarComponent,
     BreadcrumbsComponent,
     ResultTabComponent,
+    SortComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import { ResultTabComponent } from './component/result-tab/result-tab.component'
     MatCheckboxModule,
     MatCardModule,
     MatRadioModule,
+    MatSelectModule,
     MatTabsModule,
     MatProgressSpinnerModule,
     MatExpansionModule,

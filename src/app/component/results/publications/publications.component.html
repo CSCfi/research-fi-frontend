@@ -7,15 +7,7 @@
  <div class="spinner-center" *ngIf="!publicationData">
      <mat-spinner [diameter]="80"></mat-spinner>
  </div>
- <div class="sort">
-     <span class="align-left" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
-     <mat-form-field>
-         <select matNativeControl>
-            <option value="newest">Uusin ensin</option>
-            <option value="oldet">Vanhin ensin</option>
-         </select>
-     </mat-form-field>
- </div>
+<app-sort></app-sort>
  <div *ngFor="let publications of publicationData">
     <div class="row no-margin">
         <div class="col arrow">
@@ -33,58 +25,32 @@
             <span class="bold uppercase">Vuosi</span>
         </div>
     </div>
-    <div *ngIf="paginationCheck; else nextTemplate">
-        <div *ngFor="let publications of publicationData;">
-            <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
-            (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-                <div class="col arrow">
-                    <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
-                </div>          
-                <div class="col">
-                    <a routerLink="/single/{{x._source.publicationId}}"><h3 style="font-size: 1rem">{{x._source.publicationName}}</h3></a>
-                </div>          
-                <div class="col shorten" [class.expand]="expandStatus[i]">
-                    <span>{{x._source.authorsText}}</span>
-                </div>          
-                <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
-                    <span>{{x._source.journalName}}</span>
-                </div>          
-                <div class="col col-1">
-                    <span>{{x._source.publicationYear}}</span>
-                    <input type="hidden" value="{{x._source.publicationId}}" #singleId>
-                </div>
-            </div>       
-        </div>
-    </div>
-    <ng-template #nextTemplate>
-        <div class="row no-margin single" *ngFor="let publication of publications.aggregations?._index.buckets.julkaisut.index_results.hits.hits; let i = index"
+    <div *ngFor="let publications of publicationData;">
+        <div class="row no-margin single" *ngFor="let x of publications.hits.hits; let i = index"
         (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
             <div class="col arrow">
                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
             </div>          
             <div class="col">
-                <a routerLink="/single/{{publication?._source.publicationId}}"><h3 style="font-size: 1rem">{{publication?._source.publicationName}}</h3></a>
+                <a routerLink="/single/{{x._source.publicationId}}"><h3 style="font-size: 1rem">{{x._source.publicationName}}</h3></a>
             </div>          
             <div class="col shorten" [class.expand]="expandStatus[i]">
-                <span>{{publication._source.authorsText}}</span>
+                <span>{{x._source.authorsText}}</span>
             </div>          
             <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
-                <span>{{publication._source.journalName}}</span>
+                <span>{{x._source.journalName}}</span>
             </div>          
             <div class="col col-1">
-                <span>{{publication._source.publicationYear}}</span>
-                <input type="hidden" value="{{publication?._source.publicationId}}" #singleId>
-            </div>          
-        </div>
-    </ng-template>
-    <!-- Pagination, check if request is GET or POST and do the math -->
+                <span>{{x._source.publicationYear}}</span>
+                <input type="hidden" value="{{x._source.publicationId}}" #singleId>
+            </div>
+        </div>       
+    </div>
+    <!-- Pagination -->
     <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</a><a> | </a>
-    <a *ngIf="paginationCheck" [ngClass]="fromPage + 10 < publications.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
-    <a *ngIf="!paginationCheck" [ngClass]="fromPage + 10 < publications.aggregations?._index.buckets.julkaisut.doc_count ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
+    <a [ngClass]="fromPage + 10 < publications.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
     <div class="result-count">
-        <p *ngIf="fromPage + 10 < publications.aggregations?._index.buckets.julkaisut.doc_count && !paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.aggregations?._index.buckets.julkaisut.doc_count}}</p>
-        <p *ngIf="fromPage + 10 >= publications.aggregations?._index.buckets.julkaisut.doc_count && !paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{publications.aggregations?._index.buckets.julkaisut.doc_count}} / {{publications.aggregations?._index.buckets.julkaisut.doc_count}}</p>          
-        <p *ngIf="fromPage + 10 < publications.hits.total && paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.hits.total}}</p>
-        <p *ngIf="fromPage + 10 >= publications.hits.total && paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{publications.hits.total}} / {{publications.hits.total}}</p>          
+        <p *ngIf="fromPage + 10 < publications.hits.total"> Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{publications.hits.total}}</p>
+        <p *ngIf="fromPage + 10 >= publications.hits.total"> Näytetään tulokset {{fromPage + 1}} - {{publications.hits.total}} / {{publications.hits.total}}</p>          
     </div>
 </div>   
