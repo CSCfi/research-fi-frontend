@@ -21,15 +21,9 @@ export class HeaderComponent implements OnInit {
   width = window.innerWidth;
 
   lang = 'fi';
-  
+
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
-    const elem = document.getElementById("main-navbar");
-    if (this.navbarOpen) {
-      elem.style.right = "0";
-    } else {
-      elem.style.right = "-100%";
-    }
   }
 
   setLang(lang: string) {

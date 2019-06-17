@@ -99,6 +99,10 @@ li.nav-item {
 }
 
 // mobile menu
+.collapse.navbar-collapse.menu.mobile-bar.open {
+    right: 0;
+}
+
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: -100%;
