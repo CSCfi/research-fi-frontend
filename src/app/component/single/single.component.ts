@@ -19,6 +19,39 @@ import { map } from 'rxjs/operators';
 export class SingleComponent implements OnInit {
   public singleId: any;
   responseData: any [];
+  infoFields = [
+    {label: 'Julkaisun nimi', field: 'publicationName'},
+    {label: 'Tekijät', field: 'authorsText'},
+    {label: 'Julkaisuvuosi', field: 'publicationYear'},
+    {label: 'Julkaisutyyppi', field: 'publicationTypeCode'}
+  ];
+  authorFields = [
+    {label: 'Tekijöiden määrä', field: 'numberOfAuthors'}
+  ];
+  organizationFields = [
+    {label: 'Organisaatio', field: 'publicationOrgId'}
+  ];
+  mediumFields = [
+    {label: 'Lehti', field: 'publisherName'},
+    {label: 'ISSN', field: 'issn'},
+    {label: 'ISBN', field: 'isbn'},
+    {label: 'Volyymi', field: 'volume'},
+    {label: 'Numero', field: 'issueNumber'},
+    {label: 'Sivut', field: 'pageNumberText'},
+    {label: 'Julkaisufoorumi', field: 'jufoCode'},
+    {label: 'Julkaisufoorumitaso', field: 'jufoClassCode'}
+  ];
+  linksFields = [
+    {label: 'Juuli', field: 'juuliAddress'}
+  ];
+  otherFields  = [
+    {label: 'Tieteenalat', field: 'fields_of_science'},
+    {label: 'Avoin saatavuus', field: 'openAccessCode'},
+    {label: 'Julkaisumaa', field: 'publicationCountryCode'},
+    {label: 'Kieli', field: 'languageCode'},
+    {label: 'Kansainvälinen yhteisjulkaisu', field: 'InternationCollaboration'},
+    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'}
+  ];
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
 
