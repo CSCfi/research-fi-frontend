@@ -31,8 +31,6 @@ export class PublicationsComponent implements OnInit, OnChanges {
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router, private titleService: Title ) {
     this.searchTerm = this.route.snapshot.params.input;
 
-    // // Check if http request is POST or GET
-    // this.paginationCheck = this.searchService.requestCheck;
   }
 
   public setTitle(newTitle: string) {
@@ -40,15 +38,8 @@ export class PublicationsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // // Reset pagination
-    // this.page = this.searchService.pageNumber;
+    this.getPublicationData();
 
-    // // Pagination number
-    // this.fromPage = this.page * 10 - 10;
-
-  }
-
-  ngOnChanges(): void {
     // Check if http request is POST or GET
     this.paginationCheck = this.searchService.requestCheck;
 
@@ -57,6 +48,10 @@ export class PublicationsComponent implements OnInit, OnChanges {
 
     // Pagination number
     this.fromPage = this.page * 10 - 10;
+  }
+
+  ngOnChanges(): void {
+
   }
 
   // Assign results to publicationData
@@ -93,18 +88,21 @@ export class PublicationsComponent implements OnInit, OnChanges {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
+    // this.router.navigate(['results/', 'publications', this.searchTerm], { queryParams: { page: this.page } });
+    // // If going back to first page, getAllResults does POST request
+    // if (this.page === 1) {
+    //   this.paginationCheck = false;
+    //   this.searchService.getAllResults()
+    //   .pipe(map(publicationData => [publicationData]))
+    //   .subscribe(publicationData => {
+    //     this.publicationData = publicationData;
+    //   });
+    // } else {
+    //   this.paginationCheck = true;
+    //   this.getPublicationData();
+    // }
     this.router.navigate(['results/', 'publications', this.searchTerm], { queryParams: { page: this.page } });
-    // If going back to first page, getAllResults does POST request
-    if (this.page === 1) {
-      this.paginationCheck = false;
-      this.searchService.getAllResults()
-      .pipe(map(publicationData => [publicationData]))
-      .subscribe(publicationData => {
-        this.publicationData = publicationData;
-      });
-    } else {
-      this.paginationCheck = true;
-      this.getPublicationData();
-    }
+    this.getPublicationData();
+    this.paginationCheck = true;
   }
 }

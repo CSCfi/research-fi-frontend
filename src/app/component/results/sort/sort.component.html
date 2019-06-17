@@ -1,0 +1,15 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="sort">
+  <span class="align-left" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
+  <mat-form-field>
+     <select matNativeControl (change)="orderByYear($event)" [value]='sortMethod'>
+         <option value="desc">Uusin ensin</option>
+         <option value="asc">Vanhin ensin</option>
+     </select>
+ </mat-form-field>
+  <p>{{sort}}</p>
+</div>
