@@ -117,7 +117,7 @@
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
-                            <td class="col-4" *ngIf="otherFields.slice(2).length > i">
+                            <td class="col-4" *ngIf="otherFields.slice(2).length > i+1">
                                 <p>{{otherFields.slice(2)[i + 1].label}}</p>
                                 <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
                             </td>        
