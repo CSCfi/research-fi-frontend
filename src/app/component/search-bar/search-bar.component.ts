@@ -38,7 +38,7 @@ export class SearchBarComponent implements OnInit {
     }
 
     increaseEvent() {
-        this.status = !this.status;
+      this.status = !this.status;
     }
 
 
@@ -47,6 +47,7 @@ export class SearchBarComponent implements OnInit {
       this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>
       this.router.navigate(['results/', 'publications', this.publicationSearchInput.nativeElement.value], { queryParams: { page: 1 } }));
       this.searchService.getInput(this.publicationSearchInput.nativeElement.value);
+      this.searchService.getSortMethod('desc');
       this.searchService.onSearchButtonClick();
     }
 

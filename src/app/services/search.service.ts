@@ -113,14 +113,7 @@ export class SearchService {
             index_results: {
               top_hits: {
                 size: 10,
-                from: this.fromPage,
-                // sort: [
-                //   {
-                //     publicationYear: {
-                //       order: this.sortMethod
-                //     }
-                //   }
-                // ]
+                from: this.fromPage
               }
             }
           }

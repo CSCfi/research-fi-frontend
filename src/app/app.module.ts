@@ -48,6 +48,7 @@ import { FilterSidebarComponent } from './component/filter-sidebar/filter-sideba
 import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.component';
 import { ResultTabComponent } from './component/result-tab/result-tab.component';
 import { SortComponent } from './component/results/sort/sort.component';
+import { PaginationComponent } from './component/results/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { SortComponent } from './component/results/sort/sort.component';
     BreadcrumbsComponent,
     ResultTabComponent,
     SortComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

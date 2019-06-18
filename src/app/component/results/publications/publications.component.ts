@@ -88,19 +88,6 @@ export class PublicationsComponent implements OnInit, OnChanges {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    // this.router.navigate(['results/', 'publications', this.searchTerm], { queryParams: { page: this.page } });
-    // // If going back to first page, getAllResults does POST request
-    // if (this.page === 1) {
-    //   this.paginationCheck = false;
-    //   this.searchService.getAllResults()
-    //   .pipe(map(publicationData => [publicationData]))
-    //   .subscribe(publicationData => {
-    //     this.publicationData = publicationData;
-    //   });
-    // } else {
-    //   this.paginationCheck = true;
-    //   this.getPublicationData();
-    // }
     this.router.navigate(['results/', 'publications', this.searchTerm], { queryParams: { page: this.page } });
     this.getPublicationData();
     this.paginationCheck = true;
