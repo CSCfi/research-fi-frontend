@@ -9,6 +9,16 @@
             background-color: mat-color($primary, 50);
         }
 
+        th, td {
+            color: mat-color($primary);
+        }
+
+        td {
+            p:first-child {
+                color: mat-contrast($primary, 50);
+            }
+        }
+
         :host /deep/ .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
             background-color: mat-color($primary, default-contrast);
         }
