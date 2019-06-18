@@ -12,15 +12,15 @@ table {
 }
 
 th {
-    width: 250px;
+    // width: 250px;
     vertical-align: middle;
     padding: 5px 0px 5px 15px;
 }
 
 td {
-    // min-width: 350px;
-    border: 1px solid;
-    div {
+    // border: 1px solid;
+    p:first-child {
+        font-weight: bold;
     }
 }
 
