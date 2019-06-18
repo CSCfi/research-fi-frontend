@@ -30,10 +30,15 @@ export class SearchService {
   apiUrl = API_URL;
   data: any;
   requestCheck: boolean;
+  sortMethod: string;
+  private getSortByMethod = new Subject<any>();
+  sortUrl: string;
 
   constructor(private http: HttpClient) {
     this.getInput$ = this.getInputSubject.asObservable();
     this.requestCheck = false;
+    this.sortMethod = 'desc';
+    this.sortUrl = 'publicationYear:' + this.sortMethod;
   }
 
   // Get input value from url
@@ -62,6 +67,16 @@ export class SearchService {
   // Detect change in input value
   changeInput(input: string) {
     this.inputSource.next(input);
+  }
+
+  // Get sort method
+  getSortMethod(sortBy: string) {
+    this.sortMethod = sortBy;
+    this.getSortByMethod.next(sortBy);
+    if (this.sortMethod === undefined) {
+      this.sortMethod = 'desc';
+    }
+    this.sortUrl = 'publicationYear:' + this.sortMethod;
   }
 
   // Data for homepage values
@@ -107,25 +122,27 @@ export class SearchService {
     };
     this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage, payLoad);
+      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from='
+      + this.fromPage, payLoad);
     } else {
       return this.http.post<Search[]>
-      (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage + '&q=publication_name=' 
+      (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage + '&q=publication_name='
       + this.singleInput, payLoad)
       .pipe(catchError(this.handleError));
     }
   }
 
-  // Data for results page
+  // Data for pagination
   getPublications(): Observable<Search[]> {
     this.requestCheck = true;
     // this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
       // get this.form from value from url
-      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage);
+      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&sort=' + this.sortUrl);
     } else {
       return this.http.get<Search[]>
-      (this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&q=publication_name=' + this.singleInput)
+      (this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&q=publication_name=' + this.singleInput
+      + '&sort=' + this.sortUrl)
       .pipe(catchError(this.handleError));
     }
   }

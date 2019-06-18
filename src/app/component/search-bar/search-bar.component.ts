@@ -21,6 +21,7 @@ export class SearchBarComponent implements OnInit {
     public searchTerm: any;
     status = false;
     input: string;
+    tabLink: any;
 
     constructor( private searchService: SearchService, private router: Router, private route: ActivatedRoute ) {
     }
@@ -30,20 +31,23 @@ export class SearchBarComponent implements OnInit {
     this.searchTerm = this.route.params.subscribe(params => {
       const term = params.input;
       this.input = term;
+      this.tabLink = params.tab;
     });
     this.searchService.currentInput.subscribe(input => this.input = input);
     this.input = this.route.snapshot.params.input;
     }
 
     increaseEvent() {
-        this.status = !this.status;
+      this.status = !this.status;
     }
 
 
     newInput() {
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
-      this.router.navigate(['/results', 'publications', this.publicationSearchInput.nativeElement.value]);
+      this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>
+      this.router.navigate(['results/', 'publications', this.publicationSearchInput.nativeElement.value], { queryParams: { page: 1 } }));
       this.searchService.getInput(this.publicationSearchInput.nativeElement.value);
+      this.searchService.getSortMethod('desc');
       this.searchService.onSearchButtonClick();
     }
 

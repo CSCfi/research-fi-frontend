@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-single',
@@ -55,7 +56,8 @@ export class SingleComponent implements OnInit {
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private route: ActivatedRoute, private singleService: SingleItemService, private titleService: Title ) {
+  constructor( private route: ActivatedRoute, private singleService: SingleItemService, private titleService: Title,
+               private location: Location ) {
     this.singleId = this.route.snapshot.params.id;
     this.singleService.getId(this.singleId);
    }
@@ -66,6 +68,10 @@ export class SingleComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+  }
+
+  navigateBack() {
+    this.location.back();
   }
 
   getData() {

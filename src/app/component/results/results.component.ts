@@ -9,7 +9,7 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/co
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.pageSub = this.route
     .queryParams
     .subscribe(params => {
-      // Defaults to 0 if no query param provided.
+      // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
       this.searchService.getPageNumber(this.page);
     });
@@ -55,7 +55,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Subscribe to tab changes to update title
     this.tabChangeService.currentTab.subscribe(tab => { this.selectedTabData = tab; this.updateTitle(tab); });
 
-    // Subscribe to route input parameter, works with browser back & forward buttons
+    // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
       const previousTerm = this.searchTerm;
