@@ -13,7 +13,7 @@
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <nav aria-label="breadcrumb" *ngFor="let title of publication.hits.hits">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item" id="search"><a routerLink="/results/publications/{{searchTerm}}" [queryParams]="{'page': pageNumber}">Haku</a></li>
+            <li class="breadcrumb-item"><a routerLink="/results/publications/{{searchTerm}}" [queryParams]="{'page': pageNumber}">Haku</a></li>
             <li class="breadcrumb-item"><a>Julkaisut</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{title._source.publicationName}}</li>
         </ol>
