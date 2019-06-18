@@ -21,6 +21,7 @@ export class SingleComponent implements OnInit {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
+  pageNumber: any;
   infoFields = [
     {label: 'Julkaisun nimi', field: 'publicationName'},
     {label: 'Tekijät', field: 'authorsText'},
@@ -62,6 +63,7 @@ export class SingleComponent implements OnInit {
     this.singleId = this.route.snapshot.params.id;
     this.singleService.getId(this.singleId);
     this.searchService.currentInput.subscribe(input => this.searchTerm = input);
+    this.pageNumber = this.searchService.pageNumber || 1;
    }
 
   public setTitle(newTitle: string) {
