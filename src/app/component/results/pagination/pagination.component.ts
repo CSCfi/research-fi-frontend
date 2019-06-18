@@ -24,11 +24,9 @@ export class PaginationComponent implements OnInit {
   @Input() responseData: any [];
   input: any;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router ) { }
-
-  parentQueryMethod() {
-    this.queryEvent.emit('');
-  }
+  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router ) {
+    this.searchTerm = this.route.snapshot.params.input;
+   }
 
   ngOnInit() {
     // If searchTerm is undefined, route doesn't work
@@ -41,6 +39,7 @@ export class PaginationComponent implements OnInit {
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
       this.searchTerm = term;
+      this.page = params.page;
       this.tabLink = params.tab;
       this.searchService.getInput(this.searchTerm);
     });
@@ -66,7 +65,6 @@ export class PaginationComponent implements OnInit {
       this.searchTerm = '';
     }
     this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: this.page } });
-    this.parentQueryMethod();
     this.paginationCheck = true;
   }
 
@@ -80,7 +78,6 @@ export class PaginationComponent implements OnInit {
       this.searchTerm = '';
     }
     this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: this.page } });
-    this.parentQueryMethod();
     this.paginationCheck = true;
   }
 
