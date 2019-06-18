@@ -35,7 +35,6 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     // Get data for count-ups
-    this.searchService.changeInput('');
     this.getAllData();
 
     // Set title

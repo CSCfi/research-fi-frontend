@@ -62,7 +62,7 @@ export class SingleComponent implements OnInit {
                private titleService: Title ) {
     this.singleId = this.route.snapshot.params.id;
     this.singleService.getId(this.singleId);
-    this.searchService.currentInput.subscribe(input => this.searchTerm = input);
+    this.searchTerm = this.searchService.singleInput;
     this.pageNumber = this.searchService.pageNumber || 1;
    }
 
