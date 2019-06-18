@@ -25,41 +25,75 @@
         <main class="col">
             <h2>Julkaisun tiedot</h2>
             <div *ngFor="let item of publication.hits.hits">
-                <table>
+                <table id="info">
                     <tr *ngFor="let row of infoFields">
                         <th>{{row.label}}</th>
                         <td>{{item._source[row.field]}}</td>
                     </tr>
                 </table>
-                <table>
+                <table id="author">
                     <tr *ngFor="let row of authorFields">
                         <th>{{row.label}}</th>
                         <td>{{item._source[row.field]}}</td>
                     </tr>
                 </table>
-                <table>
+                <table id="organization">
                     <tr *ngFor="let row of organizationFields">
                         <th>{{row.label}}</th>
                         <td>{{item._source[row.field]}}</td>
                     </tr>
                 </table>
-                <table>
-                    <tr *ngFor="let row of mediumFields">
-                        <th>{{row.label}}</th>
-                        <td>{{item._source[row.field]}}</td>
+                <table id="medium">
+                    <tr class="row">
+                        <th class="col-3">Julkaisukanavan tiedot</th>
+                        <td class="col-3" *ngFor="let row of mediumFields.slice(0,3); let i = index">
+                            <p>{{row.label}}</p>
+                            <p>{{item._source[row.field]}}</p>
+                        </td>
                     </tr>
+                    <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
+                        <tr class="row" *ngIf="i % 3 == 0">
+                            <td class="col-3 offset-3">
+                                <p>{{row.label}}</p>
+                                <p>{{item._source[row.field]}}</p>
+                            </td>        
+                            <td class="col-3" *ngIf="mediumFields.slice(2).length > i+1">
+                                <p>{{mediumFields.slice(2)[i + 1].label}}</p>
+                                <p>{{item._source[mediumFields.slice(2)[i + 1].field]}}</p>
+                            </td>        
+                            <td class="col-3" *ngIf="mediumFields.slice(2).length > i+2">
+                                <p>{{mediumFields.slice(2)[i + 2].label}}</p>
+                                <p>{{item._source[mediumFields.slice(2)[i + 2].field]}}</p>
+                            </td>        
+                        </tr>
+                    </ng-container>
                 </table>
-                <table>
+                <table id="links">
                     <tr *ngFor="let row of linksFields">
                         <th>{{row.label}}</th>
                         <td><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></td>
                     </tr>
                 </table>
-                <table>
-                    <tr *ngFor="let row of otherFields">
-                        <th>{{row.label}}</th>
-                        <td>{{item._source[row.field]}}</td>
+                <table id="other">
+                    <tr class="row">
+                        <th class="col-4">Muut tiedot</th>
+                        <td class="col-4" *ngFor="let row of otherFields.slice(0,2); let i = index">
+                            <p>{{row.label}}</p>
+                            <p>{{item._source[row.field]}}</p>
+                        </td>
                     </tr>
+                    <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
+                        <tr class="row" *ngIf="i % 2 == 0">
+                            <td class="col-4 offset-4">
+                                <p>{{row.label}}</p>
+                                <p>{{item._source[row.field]}}</p>
+                            </td>        
+                            <td class="col-4" *ngIf="otherFields.slice(2).length > i">
+                                <p>{{otherFields.slice(2)[i + 1].label}}</p>
+                                <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
+                            </td>        
+                        </tr>
+                    </ng-container>
                 </table>
             </div>
         </main>
