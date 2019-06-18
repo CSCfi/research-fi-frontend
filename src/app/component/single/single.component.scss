@@ -11,14 +11,19 @@ table {
     box-shadow: 1px 1px 2px 0px;
 }
 
+tr {
+    padding: 0.5rem 0;
+}
+
 th {
-    // width: 250px;
     vertical-align: middle;
     padding: 5px 0px 5px 15px;
 }
 
 td {
-    // border: 1px solid;
+    p {
+        margin-bottom: 0.2rem;
+    }
     p:first-child {
         font-weight: bold;
     }

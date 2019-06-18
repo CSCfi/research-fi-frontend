@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
-import { Location } from '@angular/common';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-single',
@@ -20,6 +20,8 @@ import { Location } from '@angular/common';
 export class SingleComponent implements OnInit {
   public singleId: any;
   responseData: any [];
+  searchTerm: string;
+  pageNumber: any;
   infoFields = [
     {label: 'Julkaisun nimi', field: 'publicationName'},
     {label: 'Tekijät', field: 'authorsText'},
@@ -56,10 +58,12 @@ export class SingleComponent implements OnInit {
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private route: ActivatedRoute, private singleService: SingleItemService, private titleService: Title,
-               private location: Location ) {
+  constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
+               private titleService: Title ) {
     this.singleId = this.route.snapshot.params.id;
     this.singleService.getId(this.singleId);
+    this.searchTerm = this.searchService.singleInput;
+    this.pageNumber = this.searchService.pageNumber || 1;
    }
 
   public setTitle(newTitle: string) {
@@ -68,10 +72,6 @@ export class SingleComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-  }
-
-  navigateBack() {
-    this.location.back();
   }
 
   getData() {

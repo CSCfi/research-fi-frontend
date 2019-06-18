@@ -13,7 +13,7 @@
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <nav aria-label="breadcrumb" *ngFor="let title of publication.hits.hits">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a (click)="navigateBack()">Haku</a></li>
+            <li class="breadcrumb-item" id="search"><a routerLink="/results/publications/{{searchTerm}}" [queryParams]="{'page': pageNumber}">Haku</a></li>
             <li class="breadcrumb-item"><a>Julkaisut</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{title._source.publicationName}}</li>
         </ol>
@@ -105,7 +105,7 @@
                 </table>
                 <table id="other">
                     <tr class="row">
-                        <th class="col-4">Muut tiedot</th>
+                        <th class="col-3">Muut tiedot</th>
                         <td class="col-4" *ngFor="let row of otherFields.slice(0,2)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
@@ -113,11 +113,11 @@
                     </tr>
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
                         <tr class="row" *ngIf="i % 2 == 0">
-                            <td class="col-4 offset-4">
+                            <td class="col-4 offset-3">
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
-                            <td class="col-4" *ngIf="otherFields.slice(2).length > i+1">
+                            <td class="col-5" *ngIf="otherFields.slice(2).length > i+1">
                                 <p>{{otherFields.slice(2)[i + 1].label}}</p>
                                 <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
                             </td>        
