@@ -8,6 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit, Input } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { map } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-publications',
@@ -21,12 +22,13 @@ export class PublicationsComponent implements OnInit {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private searchService: SearchService ) {
+  constructor( private searchService: SearchService, private route: ActivatedRoute ) {
+
   }
 
   ngOnInit() {
-    // Get Data
-    this.getPublicationData();
+    // Get Data and subscripe to url query parameters
+    this.route.queryParams.subscribe( queryParams  => this.getPublicationData());
   }
 
   // Assign results to publicationData
