@@ -7,22 +7,54 @@
 
 
 // Table
+table {
+    box-shadow: 1px 1px 2px 0px;
+}
+
 th {
-    min-width: 250px;
-    vertical-align: top;
+    // width: 250px;
+    vertical-align: middle;
+    padding: 5px 0px 5px 15px;
+}
+
+td {
+    // border: 1px solid;
+    p:first-child {
+        font-weight: bold;
+    }
+}
+
+table {
+    margin: 20px 0px;
+    width: 100%;
+}
+
+
+h2 {
+    overflow: hidden;
+    font-size: 1.5em;
+}
+
+h2:after {
+    content:"";
+    display: inline-block;
+    height: 0.5em;
+    vertical-align: bottom;
+    width: 100%;
+    margin-right: -100%;
+    margin-left: 10px;
+    border-top: 1px solid black;
 }
 
 .mat-checkbox {
     cursor: default;
 }
 
-:host /deep/ label {
-    margin-bottom: 0;
-}
-
 // Sidebar
 mat-card.mat-card {
     margin-bottom: 10px;
+    border-radius: 0px;
+    box-shadow: 1px 1px 2px 0px;
 }
 
 button.mat-raised-button {
