@@ -106,6 +106,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.setTitle(tab.label + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto');
     }
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
+    // Reset request check
+    this.searchService.requestCheck = false;
   }
 
   // Unsubscribe from search term to prevent memory leaks

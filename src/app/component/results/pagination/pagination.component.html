@@ -3,11 +3,22 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div *ngFor="let response of responseData">
+<!-- <div *ngFor="let response of responseData">
   <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</a><a> | </a>
   <a [ngClass]="fromPage + 10 < response.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
   <div class="result-count">
     <p *ngIf="fromPage + 10 < response.hits.total"> Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
     <p *ngIf="fromPage + 10 >= response.hits.total"> Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>          
+  </div>
+</div> -->
+<div *ngFor="let response of responseData">
+  <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</a><a> | </a>
+  <a *ngIf="paginationCheck" [ngClass]="fromPage + 10 < response.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
+  <a *ngIf="!paginationCheck" [ngClass]="fromPage + 10 < response.aggregations?._index.buckets.julkaisut.doc_count ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
+  <div class="result-count">
+    <p style="float:right;" *ngIf="fromPage + 10 < response.aggregations?._index.buckets.julkaisut.doc_count && !paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.aggregations?._index.buckets.julkaisut.doc_count}}</p>
+    <p style="float:right;" *ngIf="fromPage + 10 >= response.aggregations?._index.buckets.julkaisut.doc_count && !paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{response.aggregations?._index.buckets.julkaisut.doc_count}} / {{response.aggregations?._index.buckets.julkaisut.doc_count}}</p>          
+    <p style="float:right;" *ngIf="fromPage + 10 < response.hits.total && paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
+    <p style="float:right;" *ngIf="fromPage + 10 >= response.hits.total && paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>   
   </div>
 </div>

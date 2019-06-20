@@ -32,11 +32,13 @@ export class SearchService {
   sortMethod: string;
   private getSortByMethod = new Subject<any>();
   sortUrl: string;
+  requestCheck: boolean;
 
   constructor(private http: HttpClient) {
     this.getInput$ = this.getInputSubject.asObservable();
     this.sortMethod = 'desc';
     this.sortUrl = 'publicationYear:' + this.sortMethod;
+    this.requestCheck = false;
   }
 
   // Get input value from url
@@ -100,24 +102,45 @@ export class SearchService {
     const payLoad = {
       size: 0,
       aggs: {
-        _index: {filters : {
-          filters: {
-            tutkijat : { match : { _index : 'person' }},
-            julkaisut : { match : { _index : 'publication' }},
-            hankkeet : { match : { _index : 'funding' }}
-          }
-        },
-          aggs: {
-            index_results: {
-              top_hits: {
-                size: 10,
-                from: this.fromPage
+          _index: {
+              filters: {
+                  filters: {
+                      tutkijat: {
+                          match: {
+                              _index: 'person'
+                          }
+                      },
+                      julkaisut: {
+                          match: {
+                              _index: 'publication'
+                          }
+                      },
+                      hankkeet: {
+                          match: {
+                              _index: 'funding'
+                          }
+                      }
+                  }
+              },
+              aggs: {
+                  index_results: {
+                      top_hits: {
+                          size: 10,
+                          from: this.fromPage,
+                          sort: [
+                          {
+                              publicationYear: {
+                                  order: this.sortMethod,
+                                  unmapped_type : 'long'
+                              }
+                          }]
+                      }
+                  }
               }
-            }
           }
-        }
       }
-    };
+   };
+    this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
       return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from='
       + this.fromPage, payLoad);
@@ -131,6 +154,7 @@ export class SearchService {
 
   // Data for pagination
   getPublications(): Observable<Search[]> {
+    this.requestCheck = true;
     // this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
       // get this.form from value from url

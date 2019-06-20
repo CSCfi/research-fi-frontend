@@ -23,10 +23,16 @@ export class PaginationComponent implements OnInit, OnDestroy {
   @Input() responseData: any [];
   input: any;
   sortMethod: string;
+  paginationCheck: boolean;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router ) {
     this.searchTerm = this.route.snapshot.params.input;
+    this.paginationCheck = this.searchService.requestCheck;
    }
+
+  getData() {
+    this.queryEvent.emit('');
+  }
 
   ngOnInit() {
     // If searchTerm is undefined, route doesn't work
@@ -61,6 +67,8 @@ export class PaginationComponent implements OnInit, OnDestroy {
     }
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
     { queryParams: { page: this.page, sort: this.sortMethod } });
+    this.paginationCheck = true;
+    this.getData();
   }
 
   previousPage() {
@@ -72,9 +80,12 @@ export class PaginationComponent implements OnInit, OnDestroy {
     // If searchTerm is undefined, route doesn't work
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
+      this.paginationCheck = false;
     }
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
     { queryParams: { page: this.page, sort: this.sortMethod } });
+    this.paginationCheck = true;
+    this.getData();
   }
 
   ngOnDestroy() {

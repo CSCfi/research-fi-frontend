@@ -22,18 +22,22 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
+  paginationCheck: boolean;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute ) {
-
+    // Check if http request is POST or GET
+    this.paginationCheck = this.searchService.requestCheck;
   }
 
   ngOnInit() {
     // Get Data and subscripe to url query parameters
-    this.queryParams = this.route.queryParams.subscribe( queryParams  => this.getPublicationData());
+    // this.queryParams = this.route.queryParams.subscribe( queryParams  => this.getPublicationData());
+    this.queryParams = this.route.queryParams.subscribe( queryParams  => console.log(''));
   }
 
   // Assign results to publicationData
   getPublicationData() {
+    this.paginationCheck = true;
     this.searchService.getPublications()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
