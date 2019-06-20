@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../services/search.service';
 
@@ -14,7 +14,7 @@ import { SearchService } from '../../../services/search.service';
   templateUrl: './sort.component.html',
   styleUrls: ['./sort.component.scss']
 })
-export class SortComponent implements OnInit, OnChanges {
+export class SortComponent implements OnInit {
   searchTerm: any;
   tabLink: any = [];
   page: any;
@@ -24,7 +24,16 @@ export class SortComponent implements OnInit, OnChanges {
 
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
-    this.sortMethod = this.searchService.sortMethod;
+
+    // Subscribe to URL sort method
+    this.route.queryParams.subscribe( queryParams  =>  {
+      this.sortMethod = queryParams.sort;
+    });
+
+    if (this.sortMethod === undefined) {
+      this.sortMethod = 'desc';
+    }
+    this.searchService.getSortMethod(this.sortMethod);
    }
 
   ngOnInit() {
@@ -42,9 +51,6 @@ export class SortComponent implements OnInit, OnChanges {
       this.searchService.getInput(this.searchTerm);
     });
 
-  }
-
-  ngOnChanges() {
   }
 
   orderByYear(event: { target: { value: any; }; }): void {

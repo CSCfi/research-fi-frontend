@@ -29,14 +29,12 @@ export class SearchService {
   input: any;
   apiUrl = API_URL;
   data: any;
-  requestCheck: boolean;
   sortMethod: string;
   private getSortByMethod = new Subject<any>();
   sortUrl: string;
 
   constructor(private http: HttpClient) {
     this.getInput$ = this.getInputSubject.asObservable();
-    this.requestCheck = false;
     this.sortMethod = 'desc';
     this.sortUrl = 'publicationYear:' + this.sortMethod;
   }
@@ -120,7 +118,6 @@ export class SearchService {
         }
       }
     };
-    this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
       return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from='
       + this.fromPage, payLoad);
@@ -134,7 +131,6 @@ export class SearchService {
 
   // Data for pagination
   getPublications(): Observable<Search[]> {
-    this.requestCheck = true;
     // this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
       // get this.form from value from url

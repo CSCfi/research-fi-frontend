@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,15 +14,15 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnDestroy {
   page: any;
   fromPage: number;
   searchTerm: any;
   tabLink: any = [];
-  paginationCheck: boolean;
   @Output() queryEvent = new EventEmitter<string>();
   @Input() responseData: any [];
   input: any;
+  sortMethod: string;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router ) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -33,19 +33,14 @@ export class PaginationComponent implements OnInit {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    this.page = this.searchService.pageNumber;
 
-    // Subscribe to route input parameter
+    // Subscribe to route parameters parameter
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
       this.searchTerm = term;
-      this.page = params.page;
       this.tabLink = params.tab;
       this.searchService.getInput(this.searchTerm);
     });
-
-    // Check if http request is POST or GET
-    this.paginationCheck = this.searchService.requestCheck;
 
     // Reset pagination
     this.page = this.searchService.pageNumber;
@@ -57,15 +52,15 @@ export class PaginationComponent implements OnInit {
   nextPage() {
     this.page++;
     this.fromPage = this.page * 10 - 10;
-    // Send to search service
     this.searchService.getPageNumber(this.page);
     this.searchTerm = this.route.snapshot.params.input;
+    this.sortMethod = this.searchService.sortMethod;
     // If searchTerm is undefined, route doesn't work
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: this.page } });
-    this.paginationCheck = true;
+    this.router.navigate(['results/', this.tabLink, this.searchTerm],
+    { queryParams: { page: this.page, sort: this.sortMethod } });
   }
 
   previousPage() {
@@ -73,12 +68,17 @@ export class PaginationComponent implements OnInit {
     this.fromPage = this.fromPage - 10;
     this.searchService.getPageNumber(this.page);
     this.searchTerm = this.route.snapshot.params.input;
+    this.sortMethod = this.searchService.sortMethod;
     // If searchTerm is undefined, route doesn't work
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: this.page } });
-    this.paginationCheck = true;
+    this.router.navigate(['results/', this.tabLink, this.searchTerm],
+    { queryParams: { page: this.page, sort: this.sortMethod } });
+  }
+
+  ngOnDestroy() {
+    this.input.unsubscribe();
   }
 
 }
