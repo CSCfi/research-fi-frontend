@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,12 +15,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './publications.component.html',
   styleUrls: ['./publications.component.scss']
 })
-export class PublicationsComponent implements OnInit {
+export class PublicationsComponent implements OnInit, OnDestroy {
   @Input() publicationData: any [];
   expandStatus: Array<boolean> = [];
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
+  queryParams: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute ) {
 
@@ -28,7 +29,7 @@ export class PublicationsComponent implements OnInit {
 
   ngOnInit() {
     // Get Data and subscripe to url query parameters
-    this.route.queryParams.subscribe( queryParams  => this.getPublicationData());
+    this.queryParams = this.route.queryParams.subscribe( queryParams  => this.getPublicationData());
   }
 
   // Assign results to publicationData
@@ -39,5 +40,9 @@ export class PublicationsComponent implements OnInit {
       this.publicationData = publicationData;
     },
       error => this.errorMessage = error as any);
+  }
+
+  ngOnDestroy() {
+    this.queryParams.unsubscribe();
   }
 }
