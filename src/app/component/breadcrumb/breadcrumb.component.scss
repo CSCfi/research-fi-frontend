@@ -5,7 +5,6 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-//Breadcrumb
 .breadcrumb {
     background-color: #ffffff;
 }
@@ -31,7 +30,7 @@ li.breadcrumb-item.arrow_box.active.arrow_box {
 
 li.breadcrumb-item.arrow_box.last.arrow_box {
 	background: #FFF;
-    border: 1px solid #B7B7DE;
+    border: 0px;
     border-left: 0px;
 }
 
@@ -50,6 +49,10 @@ li.breadcrumb-item.arrow_box.last.arrow_box {
     width: 0;
     position: absolute;
     pointer-events: none;
+}
+
+.last.arrow_box:after, .last.arrow_box:before {
+    left: 0%;
 }
 
 .arrow_box:after {
@@ -73,66 +76,4 @@ li.breadcrumb-item.arrow_box.last.arrow_box {
     border-left-color: #ffffff;
     border-width: 13px;
     margin-top: -13px;
-}
-
-// Table
-table {
-    box-shadow: 1px 1px 2px 0px;
-}
-
-tr {
-    padding: 0.5rem 0;
-}
-
-th {
-    vertical-align: middle;
-    padding: 5px 0px 5px 15px;
-}
-
-td {
-    p {
-        margin-bottom: 0.2rem;
-    }
-    p:first-child {
-        font-weight: bold;
-    }
-}
-
-table {
-    margin: 20px 0px;
-    width: 100%;
-}
-
-
-h2 {
-    overflow: hidden;
-    font-size: 1.5em;
-}
-
-h2:after {
-    content:"";
-    display: inline-block;
-    height: 0.5em;
-    vertical-align: bottom;
-    width: 100%;
-    margin-right: -100%;
-    margin-left: 10px;
-    border-top: 1px solid black;
-}
-
-.mat-checkbox {
-    cursor: default;
-}
-
-// Sidebar
-mat-card.mat-card {
-    margin-bottom: 10px;
-    border-radius: 0px;
-    box-shadow: 1px 1px 2px 0px;
-}
-
-button.mat-raised-button {
-    width: 161px;
-    padding: 10px;
-    margin: 10px;
 }

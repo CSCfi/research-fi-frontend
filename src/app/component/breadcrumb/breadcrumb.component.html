@@ -1,0 +1,13 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<nav aria-label="breadcrumb" *ngFor="let response of responseData">
+    <ol class="breadcrumb" *ngFor="let title of response.hits.hits">
+        <li class="breadcrumb-item arrow_box" style="z-index:999;"><a routerLink="/results/publications/{{searchTerm}}" [queryParams]="{'page': pageNumber}">Haku</a></li>
+        <li class="breadcrumb-item arrow_box" style="z-index:998;"><a routerLink="/results/{{title._index + 's'}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">{{getResultType(title._index)}}{{resultType}}</a></li>
+        <li class="breadcrumb-item arrow_box active" aria-current="page">{{title._source.publicationName}}</li>
+        <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
+    </ol>
+</nav>
