@@ -6,6 +6,7 @@
 // # :license: MIT
 
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
@@ -49,12 +50,14 @@ export class HeaderComponent implements OnInit {
     this.width = window.innerWidth;
     if (this.width >= 992) {
       this.mobile = false;
-      if (this.navbarOpen) this.toggleNavbar();
+      if (this.navbarOpen) { this.toggleNavbar(); }
     } else {
       this.mobile = true;
     }
   }
+
   constructor() { }
+
 
   ngOnInit() {
   }
