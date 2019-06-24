@@ -45,10 +45,10 @@ import { SingleComponent } from './component/single/single.component';
 import { PublicationsComponent } from './component/results/publications/publications.component';
 import { PersonsComponent } from './component/results/persons/persons.component';
 import { FilterSidebarComponent } from './component/filter-sidebar/filter-sidebar.component';
-import { BreadcrumbsComponent } from './component/breadcrumbs/breadcrumbs.component';
 import { ResultTabComponent } from './component/result-tab/result-tab.component';
 import { SortComponent } from './component/results/sort/sort.component';
 import { PaginationComponent } from './component/results/pagination/pagination.component';
+import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -60,10 +60,10 @@ import { PaginationComponent } from './component/results/pagination/pagination.c
     PublicationsComponent,
     PersonsComponent,
     FilterSidebarComponent,
-    BreadcrumbsComponent,
     ResultTabComponent,
     SortComponent,
     PaginationComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     BrowserModule,

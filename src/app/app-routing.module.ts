@@ -34,15 +34,11 @@ const routes: Routes = [
     component: ResultsComponent
   },
   {
-    path: 'single',
+    path: 'result/single',
     component: SingleComponent
   },
   {
-    path: 'single/:id',
-    component: SingleComponent
-  },
-  {
-    path: 'results/:name/single/:id',
+    path: 'result/single/:id',
     component: SingleComponent
   },
   {
