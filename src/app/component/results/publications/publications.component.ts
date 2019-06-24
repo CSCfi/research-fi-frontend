@@ -31,8 +31,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Get Data and subscripe to url query parameters
-    // this.queryParams = this.route.queryParams.subscribe( queryParams  => this.getPublicationData());
-    this.queryParams = this.route.queryParams.subscribe( queryParams  => console.log(''));
+    this.queryParams = this.route.queryParams.subscribe(this.queryParams);
   }
 
   // Assign results to publicationData
