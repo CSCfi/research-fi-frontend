@@ -10,12 +10,16 @@
 }
 
 .breadcrumb-item a {
-    padding: 0px 15px;
+    padding: 0px 30px;
     color: #00397D;
 }
 
+.breadcrumb-item.active {
+    color: #000000;
+}
+
 li.breadcrumb-item.arrow_box.active {
-    padding: 0px 15px;
+    padding: 0 15px 0 30px;
     white-space: nowrap;
     width: 350px;
     overflow: hidden;
