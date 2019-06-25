@@ -11,37 +11,18 @@
 
 .breadcrumb-item a {
     padding: 0px 30px;
-    color: #00397D;
+    color: #3A3A75;
 }
 
 .breadcrumb-item.active {
-    color: #000000;
-}
-
-li.breadcrumb-item.arrow_box.active {
-    padding: 0 15px 0 30px;
-    white-space: nowrap;
-    width: 350px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-li.breadcrumb-item.arrow_box.active.arrow_box {
-	background: #FFF;
-    border: 1px solid #B7B7DE;
-    border-right: 0px;
-}
-
-li.breadcrumb-item.arrow_box.last.arrow_box {
-	background: #FFF;
-    border: 0px;
-    border-left: 0px;
+    color: #3A3A75;
 }
 
 .arrow_box {
 	position: relative;
-	background: #B7B7DE;
-	border: 0px solid #c2e1f5;
+	background: #F8F8FC;
+    border: 0px solid #BFBFE2;
+    padding: 3px 0px;
 }
 
 .arrow_box:after, .arrow_box:before {
@@ -55,29 +36,64 @@ li.breadcrumb-item.arrow_box.last.arrow_box {
     pointer-events: none;
 }
 
-.last.arrow_box:after, .last.arrow_box:before {
-    left: 0%;
-}
-
 .arrow_box:after {
     border-color: rgba(136, 183, 213, 0);
-    border-left-color: #B7B7DE;
-    border-width: 12px;
-    margin-top: -12px;
+    border-left-color: #F8F8FC;
+    border-width: 15px;
+    margin-top: -15px;
+}
+
+.arrow_box:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-left-color: #ffffff;
+    border-width: 16px;
+    margin-top: -16px;
+}
+
+// Middle
+li.breadcrumb-item.arrow_box.middle {
+	background: #E6E6F4;
+}
+
+.middle.arrow_box:after {
+    border-left-color: #E6E6F4;
+}
+
+.middle.arrow_box:before {
+    border-left-color: #FFF;
+}
+
+// Last
+li.breadcrumb-item.arrow_box.active {
+    padding: 0 15px 0 30px;
+    white-space: nowrap;
+    width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+li.breadcrumb-item.arrow_box.active.arrow_box {
+	background: #BFBFE2;
+    border: 1px solid #BFBFE2;
+    border-right: 0px;
+    padding: 3px 30px;
+}
+
+li.breadcrumb-item.arrow_box.last.arrow_box {
+	background: #BFBFE2;
+    border: 0px;
+    border-left: 0px;
 }
 
 .last.arrow_box:after {
     border-color: rgba(136, 183, 213, 0);
-    border-left-color: #FFF;
+    border-left-color: #BFBFE2;
 }
 
 .last.arrow_box:before {
     border-left-color: #B7B7DE;
 }
 
-.arrow_box:before {
-    border-color: rgba(0, 0, 0, 0);
-    border-left-color: #ffffff;
-    border-width: 13px;
-    margin-top: -13px;
+.last.arrow_box:after, .last.arrow_box:before {
+    left: 0%;
 }
