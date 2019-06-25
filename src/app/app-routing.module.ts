@@ -18,6 +18,14 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
+    path: 'results/single',
+    component: SingleComponent
+  },
+  {
+    path: 'results/single/:id',
+    component: SingleComponent
+  },
+  {
     path: 'results',
     component: ResultsComponent
   },
@@ -32,14 +40,6 @@ const routes: Routes = [
   {
     path: 'results/:tab/:input/:page',
     component: ResultsComponent
-  },
-  {
-    path: 'result/single',
-    component: SingleComponent
-  },
-  {
-    path: 'result/single/:id',
-    component: SingleComponent
   },
   {
     path: '**',

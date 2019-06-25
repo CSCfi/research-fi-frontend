@@ -33,6 +33,7 @@ export class SearchService {
   private getSortByMethod = new Subject<any>();
   sortUrl: string;
   requestCheck: boolean;
+  sort: any [];
 
   constructor(private http: HttpClient) {
     this.getInput$ = this.getInputSubject.asObservable();
@@ -73,10 +74,32 @@ export class SearchService {
   getSortMethod(sortBy: string) {
     this.sortMethod = sortBy;
     this.getSortByMethod.next(sortBy);
-    if (this.sortMethod === undefined) {
-      this.sortMethod = 'desc';
+    switch (this.sortMethod) {
+      case 'desc': {
+        this.sortUrl = 'publicationYear:' + this.sortMethod;
+        this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+        break;
+      }
+      case 'asc': {
+        this.sortUrl = 'publicationYear:' + this.sortMethod;
+        this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+        break;
+      }
+      case 'name': {
+        this.sortUrl = 'publicationName.keyword:' + 'asc';
+        this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
+        break;
+      }
+      case 'person': {
+        this.sortUrl = 'authorsText.keyword:' + 'asc';
+        this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
+        break;
+      }
+      default: {
+        this.sortUrl = 'publicationYear:' + 'desc';
+        break;
+      }
     }
-    this.sortUrl = 'publicationYear:' + this.sortMethod;
   }
 
   // Data for homepage values
@@ -127,13 +150,7 @@ export class SearchService {
                       top_hits: {
                           size: 10,
                           from: this.fromPage,
-                          sort: [
-                          {
-                              publicationYear: {
-                                  order: this.sortMethod,
-                                  unmapped_type : 'long'
-                              }
-                          }]
+                          sort: this.sort
                       }
                   }
               }

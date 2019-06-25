@@ -36,7 +36,7 @@
                     <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
                 </div>          
                 <div class="col">
-                    <a routerLink="/result/single/{{publication._source.publicationId}}"><h3 style="font-size: 1rem">{{publication._source.publicationName}}</h3></a>
+                    <a routerLink="/results/single/{{publication._source.publicationId}}"><h3 style="font-size: 1rem">{{publication._source.publicationName}}</h3></a>
                 </div>          
                 <div class="col shorten" [class.expand]="expandStatus[i]">
                     <span>{{publication._source.authorsText}}</span>
@@ -58,7 +58,7 @@
                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
             </div>          
             <div class="col">
-                <a routerLink="/result/single/{{publication?._source.publicationId}}"><h3 style="font-size: 1rem">{{publication?._source.publicationName}}</h3></a>
+                <a routerLink="/results/single/{{publication?._source.publicationId}}"><h3 style="font-size: 1rem">{{publication?._source.publicationName}}</h3></a>
             </div>          
             <div class="col shorten" [class.expand]="expandStatus[i]">
                 <span>{{publication._source.authorsText}}</span>
