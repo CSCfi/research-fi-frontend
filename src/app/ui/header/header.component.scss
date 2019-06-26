@@ -30,6 +30,10 @@ header {
     margin: 0 auto;
 }
 
+.navbar {
+    padding: 1rem 1rem 0 1rem;
+}
+
 // Prevent horizontal mobile screen scrolling while menu is out of view
 .overflow-hider {
     position: absolute;
@@ -64,7 +68,7 @@ li.col-4 {
 
 .logo img {
     max-width: 235px;
-    margin-top: 20px;
+    margin-bottom: 22px;
 }
 
 .nav-top {
@@ -82,9 +86,13 @@ li.col-4 {
     font-weight: bold;
 }
 
+.nav-link {
+    padding: 0.2rem 1rem;
+}
+
 .separator {
     font-weight: bold;
-    padding: 0.5rem 2px;
+    padding: 0.2rem 2px;
 }
 
 // Language selector
@@ -96,6 +104,7 @@ li.col-4 {
 // Single main menu item
 li.nav-item {
     border-top: 3px solid transparent;
+    margin-left: 22px;
 }
 
 // mobile menu
@@ -136,25 +145,43 @@ button.navbar-toggler.hidden-md-up.pull-right {
 }
 
 .main.flex-row {
-    max-width: 1000px;
+    max-width: 800px;
     justify-content: space-around;
 }
 
 // Responsive
 
 // Desktop size (> lg)
-@media (min-width: 992px) {
+@media (min-width: 1217px) {
     .mobile {
         display: none;
     }
-    
+
 }
 
 // Mobile size (< lg)
-@media (max-width: 991px) {
+@media (max-width: 1216px) {
     .desktop {
         display: none;
     }
+
+    .navbar-toggler, .navbar-toggler-right {
+        display: block;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+        display: block!important;
+        flex-basis: auto;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+        flex-direction: column;
+    }
+
+    .navbar-expand.mx-auto.navbar-nav.lang.mobile .navbar-nav {
+        flex-direction: row;
+    }
+
 
 }
 
@@ -174,14 +201,14 @@ button.navbar-toggler.hidden-md-up.pull-right {
 }
 
 @media (max-height: 599px) {
-        .collapse.navbar-collapse.menu.mobile-bar {
-            padding: 5px 23px 10px 23px;
-            width: 80%;
+    .collapse.navbar-collapse.menu.mobile-bar {
+        padding: 5px 23px 10px 23px;
+        width: 80%;
 
-            li {
-                flex: 1 1 0px;
-            }
+        li {
+            flex: 1 1 0px;
         }
+    }
 }
 
 // Nav items grouped closer on small mobile screens in landscape orientation

@@ -7,7 +7,7 @@
 
 <div class="full-width">
   <div class="row">
-    <div class="col-12 search" [ngClass]="status ? 'increase' : 'decrease'">
+    <div class="col-12 search">
       <form #inputForm>
         <label class="text-center h1" for="publicationSearchInput" style="width:100%;">Hae tutkimuksen tekijöitä ja tuloksia.</label>
         <div class="form-group has-search">
@@ -20,17 +20,6 @@
                 <i class="fa fa-search"></i>
               </button>
             </div>
-          </div>
-          <p class="text-right ext-search">
-            <a (click)="increaseEvent()" [ngClass]="status ? 'increase' : 'decrease'">
-              Laajennettu haku  
-            </a>
-          </p>
-          <div class="extended-search" [ngClass]="status ? 'increase' : 'decrease'">
-            <section>
-              <mat-checkbox>Valinta 1</mat-checkbox>
-              <mat-checkbox>Valinta 2</mat-checkbox>
-            </section>
           </div>
         </div>
       </form>

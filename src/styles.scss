@@ -36,6 +36,11 @@
   .full-width {
     background: mat-color($primary)
   }
+
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
   
   // Disable link
   a.disabled {
