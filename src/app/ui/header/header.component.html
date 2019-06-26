@@ -13,13 +13,6 @@
             </a>
         </div>
         <nav class="nav-top" [ngClass]="{ 'w-100' : !mobile}">
-            <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse w-100">
-                <ul class="navbar-nav main ml-auto desktop">
-                    <a class="nav-item nav-link" [class.active-lang]="lang==='fi'" href="#" (click)="setLang('fi')">FI</a><div class="separator"> / </div>
-                    <a class="nav-item nav-link" [class.active-lang]="lang==='se'" href="#" (click)="setLang('se')">SE</a><div class="separator"> / </div>
-                    <a class="nav-item nav-link" [class.active-lang]="lang==='en'" href="#" (click)="setLang('en')">EN</a>
-                </ul>
-            </div>
             <div [ngClass]="{ 'overflow-hider' : !navbarOpen && mobile }">
                 <div class="collapse navbar-collapse menu" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" id="main-navbar">
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
@@ -36,7 +29,7 @@
                         </ul>
                     </div>
                     <ul class="navbar-nav main"
-                        [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600, 'flex-row w-100 mx-auto' : !mobile}">
+                        [ngClass]="{ 'navbar-expand row flex-wrap' : height < 600, 'flex-row w-100' : !mobile}">
                         <li class="nav-item" [ngClass]="{ 'row mx-auto col justify-content-center' : mobile }">
                             <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
                                 [routerLinkActiveOptions]="{exact: true}"
@@ -61,6 +54,13 @@
                             <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
                         </li>
                     </ul>
+                    <div class="navbar-expand ml-auto navbar-nav lang d-flex flex-row-reverse w-100">
+                        <ul class="navbar-nav main ml-auto desktop">
+                            <a class="nav-item nav-link" [class.active-lang]="lang==='fi'" href="#" (click)="setLang('fi')">FI</a><div class="separator"> / </div>
+                            <a class="nav-item nav-link" [class.active-lang]="lang==='se'" href="#" (click)="setLang('se')">SE</a><div class="separator"> / </div>
+                            <a class="nav-item nav-link" [class.active-lang]="lang==='en'" href="#" (click)="setLang('en')">EN</a>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="mobile" id="navbar-toggle">
