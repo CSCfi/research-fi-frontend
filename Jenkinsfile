@@ -6,6 +6,21 @@
 // :license: MIT
 node {
   /*
+   * Set Jenkins properties.
+   * - Discard old build logs after specified time
+   */
+  properties(
+    [
+      buildDiscarder(
+        logRotator(
+          daysToKeepStr: '7',
+          numToKeepStr: '10'
+        )
+      )
+    ]
+  )
+
+  /*
    * Get source files from Git repository.
    */
   stage('Get source files from Git') {
