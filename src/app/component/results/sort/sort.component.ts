@@ -53,7 +53,7 @@ export class SortComponent implements OnInit {
 
   }
 
-  orderByYear(event: { target: { value: any; }; }): void {
+  orderBy(event: { target: { value: any; }; }): void {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
