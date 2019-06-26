@@ -19,7 +19,6 @@ import { ActivatedRoute } from '@angular/router';
 export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     public searchTerm: any;
-    status = false;
     input: string;
     tabLink: any;
 
@@ -35,10 +34,6 @@ export class SearchBarComponent implements OnInit {
     });
     this.searchService.currentInput.subscribe(input => this.input = input);
     this.input = this.route.snapshot.params.input;
-    }
-
-    increaseEvent() {
-      this.status = !this.status;
     }
 
 
