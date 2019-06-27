@@ -60,8 +60,9 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.searchTerm = this.route.snapshot.params.input;
     this.sortMethod = this.searchService.sortMethod;
     // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm ? undefined : this.searchTerm === '') {}
-    // Navigate
+    if (this.searchTerm === undefined) {
+      this.searchTerm = '';
+    }
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
     { queryParams: { page: this.page, sort: this.sortMethod } });
     this.paginationCheck = true;
