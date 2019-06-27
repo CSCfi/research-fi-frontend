@@ -30,9 +30,8 @@ export class SortComponent implements OnInit {
       this.sortMethod = queryParams.sort;
     });
 
-    if (this.sortMethod === undefined) {
-      this.sortMethod = 'desc';
-    }
+    this.sortMethod = localStorage.getItem('sortMethod');
+    if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
    }
 
   ngOnInit() {
