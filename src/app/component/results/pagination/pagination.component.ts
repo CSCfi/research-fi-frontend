@@ -36,9 +36,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
+    if (this.searchTerm ? undefined : this.searchTerm === '') {}
 
     // Subscribe to route parameters parameter
     this.input = this.route.params.subscribe(params => {
@@ -62,9 +60,8 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.searchTerm = this.route.snapshot.params.input;
     this.sortMethod = this.searchService.sortMethod;
     // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
+    if (this.searchTerm ? undefined : this.searchTerm === '') {}
+    // Navigate
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
     { queryParams: { page: this.page, sort: this.sortMethod } });
     this.paginationCheck = true;

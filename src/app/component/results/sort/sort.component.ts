@@ -33,7 +33,6 @@ export class SortComponent implements OnInit {
     if (this.sortMethod === undefined) {
       this.sortMethod = 'desc';
     }
-    this.searchService.getSortMethod(this.sortMethod);
    }
 
   ngOnInit() {
@@ -54,10 +53,10 @@ export class SortComponent implements OnInit {
   }
 
   orderBy(event: { target: { value: any; }; }): void {
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
+    if (this.searchTerm ? undefined : this.searchTerm === '') {}
     this.sortBy = event.target.value;
+    localStorage.removeItem('sortMethod');
+    localStorage.setItem('sortMethod', this.sortBy);
     this.searchService.getSortMethod(this.sortBy);
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
     this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: 1, sort: this.sortBy } }));
