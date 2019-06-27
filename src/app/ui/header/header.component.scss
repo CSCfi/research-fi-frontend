@@ -34,6 +34,10 @@ header {
     padding: 1rem 0rem 0 0rem;
 }
 
+ul.navbar-nav.main.flex-row.w-100 {
+    margin-left: 20px;
+}
+
 // Prevent horizontal mobile screen scrolling while menu is out of view
 .overflow-hider {
     position: absolute;
