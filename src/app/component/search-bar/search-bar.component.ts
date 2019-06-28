@@ -19,7 +19,6 @@ import { ActivatedRoute } from '@angular/router';
 export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     public searchTerm: any;
-    status = false;
     input: string;
     tabLink: any;
 
@@ -37,12 +36,9 @@ export class SearchBarComponent implements OnInit {
     this.input = this.route.snapshot.params.input;
     }
 
-    increaseEvent() {
-      this.status = !this.status;
-    }
-
 
     newInput() {
+      localStorage.setItem('sortMethod', 'desc');
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
       this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>
       this.router.navigate(['results/', 'publications', this.publicationSearchInput.nativeElement.value], { queryParams: { page: 1 } }));

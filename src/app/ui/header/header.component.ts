@@ -16,7 +16,7 @@ import { Title } from '@angular/platform-browser';
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
 
-  mobile = window.innerWidth < 992;
+  mobile = window.innerWidth < 1217;
 
   height = window.innerHeight;
   width = window.innerWidth;
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
   onResize(event) {
     this.height = window.innerHeight;
     this.width = window.innerWidth;
-    if (this.width >= 992) {
+    if (this.width >= 1217) {
       this.mobile = false;
       if (this.navbarOpen) { this.toggleNavbar(); }
     } else {

@@ -5,9 +5,9 @@
 
     app-result-tab {
 
-        .scroll {
-            background: mat-color($primary, 100);
-        }
+        // .scroll {
+        //     background: mat-color($primary, 100);
+        // }
 
         .numeric .active {
             background: mat-color($primary, A100);
@@ -18,8 +18,11 @@
             background: mat-color($primary, 200);
         }
         
-        .numeric .text-center, .numeric .numeric-box {
-            color: mat-color($primary, 700);
+        .numeric .numeric-box {
+            color: mat-color($primary, 600);
+        }
+        .numeric .text-center {
+            color: mat-color($primary, 800);
         }
     }
 }

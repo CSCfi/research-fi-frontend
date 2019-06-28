@@ -36,9 +36,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
+    if (this.searchTerm ? undefined : this.searchTerm === '') {}
 
     // Subscribe to route parameters parameter
     this.input = this.route.params.subscribe(params => {

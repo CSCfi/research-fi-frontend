@@ -12,6 +12,7 @@ import { Search } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { catchError } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const API_URL = environment.apiUrl;
 
@@ -33,9 +34,10 @@ export class SearchService {
   private getSortByMethod = new Subject<any>();
   sortUrl: string;
   requestCheck: boolean;
-  sort: any [];
+  sort: any;
+  urlSortMethod: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.getInput$ = this.getInputSubject.asObservable();
     this.sortMethod = 'desc';
     this.sortUrl = 'publicationYear:' + this.sortMethod;
@@ -71,9 +73,10 @@ export class SearchService {
   }
 
   // Get sort method
-  getSortMethod(sortBy: string) {
-    this.sortMethod = sortBy;
-    this.getSortByMethod.next(sortBy);
+  getSortMethod(sortMethod: string) {
+
+    this.sortMethod = localStorage.getItem('sortMethod');
+    if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
     switch (this.sortMethod) {
       case 'desc': {
         this.sortUrl = 'publicationYear:' + this.sortMethod;
@@ -97,6 +100,7 @@ export class SearchService {
       }
       default: {
         this.sortUrl = 'publicationYear:' + 'desc';
+        this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
         break;
       }
     }
@@ -122,6 +126,7 @@ export class SearchService {
 
   // Data for results page
   getAllResults(): Observable<Search[]> {
+    if (this.sort === undefined) {this.getSortMethod(this.sortMethod); }
     const payLoad = {
       size: 0,
       aggs: {

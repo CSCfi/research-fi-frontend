@@ -5,6 +5,15 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+.wrapper {
+    overflow: hidden;
+}
+
+.row {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+
 .link-img {
     padding: 0px;
     transition: 0.2s linear;
@@ -43,28 +52,37 @@
   }
 
 .col.link-img, .col-5.link-img {
-    padding: 0px!important;
+    padding: 0 5px 10px 5px!important;
+}
+
+.wrap {
+    position: relative;
 }
 
 .link-img span.text-center {
     position: absolute;
-    top: 50%;
+    padding: 10px 0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 0;
+    width: 100%;
+    min-height: 74px;
+    -webkit-transform: translate(-50%, 0%);
+    transform: translate(-50%, -0%);
     color: #fff;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 21px; 
+    font-size: 18px;
     transition: 0.2s all;
 }
 
 //responsive
+@media (max-width: 1216px) {
 
-@media (max-width: 616px) {
+}
+
+@media (max-width: 621px) {
     .col-6.link-img {
         max-width: 100%;
         flex: auto;
     }
-
-
 }

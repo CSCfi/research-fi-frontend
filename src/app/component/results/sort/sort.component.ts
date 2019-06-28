@@ -30,10 +30,8 @@ export class SortComponent implements OnInit {
       this.sortMethod = queryParams.sort;
     });
 
-    if (this.sortMethod === undefined) {
-      this.sortMethod = 'desc';
-    }
-    this.searchService.getSortMethod(this.sortMethod);
+    this.sortMethod = localStorage.getItem('sortMethod');
+    if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
    }
 
   ngOnInit() {
@@ -53,11 +51,11 @@ export class SortComponent implements OnInit {
 
   }
 
-  orderByYear(event: { target: { value: any; }; }): void {
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
+  orderBy(event: { target: { value: any; }; }): void {
+    if (this.searchTerm ? undefined : this.searchTerm === '') {}
     this.sortBy = event.target.value;
+    localStorage.removeItem('sortMethod');
+    localStorage.setItem('sortMethod', this.sortBy);
     this.searchService.getSortMethod(this.sortBy);
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
     this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: 1, sort: this.sortBy } }));
