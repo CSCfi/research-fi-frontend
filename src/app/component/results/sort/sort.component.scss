@@ -9,3 +9,10 @@
 .sort {
     text-align: right;
 }
+
+// Responsive
+@media (max-width: 616px) {
+    .hide-mobile {
+        display: none;
+    }
+}

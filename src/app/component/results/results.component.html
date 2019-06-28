@@ -11,13 +11,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="container center-content">
     <div class="row">
        <app-result-tab style="width:100%" [allData]="responseData"></app-result-tab>
-        <aside class="col col-2 filters">
+        <aside class="col col-lg-2 filters">
             <app-filter-sidebar></app-filter-sidebar>
         </aside>
         <div class="text-center" *ngIf="!responseData">
             <mat-spinner [diameter]="40"></mat-spinner>
         </div>
-        <main class="col-10">
+        <main class="col-lg-10">
             <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData"></app-publications>
             <app-persons *ngIf="tabLink===tabData[1].link" [personData]="responseData"></app-persons>
         </main>
