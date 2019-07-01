@@ -6,7 +6,10 @@
 //  :license: MIT
 
 // Filter sidebar
-   
+#filter-sidebar {
+    display: block;
+}
+
 .mat-expansion-panel {
     background: transparent;
 }
@@ -40,4 +43,31 @@ mat-checkbox {
 
 .mat-expansion-panel-header-title {
     margin-left: 20px;
+}
+
+.navbar-toggler {
+    outline: none;
+    border: none;
+}
+
+// Filter button
+.navbar-toggler ul {
+    list-style: none;
+}
+
+.navbar-toggler li {
+    display: inline-flex;
+}
+
+// Responsive
+@media (max-width: 992px) {
+    #filter-sidebar {
+        display: none;
+    }
+}
+
+@media (min-width: 991px) {
+    .mobile {
+        display: none;
+    }
 }

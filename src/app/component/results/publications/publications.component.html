@@ -17,10 +17,10 @@
         <div class="col">
             <span class="bold uppercase">Julkaisun nimi</span>
         </div>
-        <div class="col">
+        <div class="col hide-mobile">
             <span class="bold uppercase">Tekijät</span>
         </div>
-        <div class="col col-md-2">
+        <div class="col col-md-2 hide-mobile">
             <span class="bold uppercase">Julkaisukanava</span>
         </div>
         <div class="col col-md-1">
@@ -38,10 +38,10 @@
                 <div class="col">
                     <a routerLink="/results/single/{{publication._source.publicationId}}"><h3 style="font-size: 1rem">{{publication._source.publicationName}}</h3></a>
                 </div>          
-                <div class="col shorten" [class.expand]="expandStatus[i]">
+                <div class="col shorten hide-mobile" [class.expand]="expandStatus[i]">
                     <span>{{publication._source.authorsText}}</span>
                 </div>          
-                <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
+                <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">
                     <span>{{publication._source.journalName}}</span>
                 </div>          
                 <div class="col col-1">
@@ -60,10 +60,10 @@
             <div class="col">
                 <a routerLink="/results/single/{{publication?._source.publicationId}}"><h3 style="font-size: 1rem">{{publication?._source.publicationName}}</h3></a>
             </div>          
-            <div class="col shorten" [class.expand]="expandStatus[i]">
+            <div class="col shorten hide-mobile" [class.expand]="expandStatus[i]">
                 <span>{{publication._source.authorsText}}</span>
             </div>          
-            <div class="col col-2 shorten" [class.expand]="expandStatus[i]">
+            <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">
                 <span>{{publication._source.journalName}}</span>
             </div>          
             <div class="col col-1">

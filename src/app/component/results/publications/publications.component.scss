@@ -61,9 +61,19 @@ a.arrow.expand::before {
 @media (max-width: 616px) {
   .col {
     max-width: 100%;
-    flex: auto;
+    // flex: auto;
   }
 }
+
+@media (max-width: 992px) {
+    .hide-mobile {
+        display: none;
+    }
+
+    .col.col-md-1 {
+        text-align: right;
+    }
+  }
   
 @media (min-width: 1200px) {
   .container {
