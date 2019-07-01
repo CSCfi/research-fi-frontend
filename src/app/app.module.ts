@@ -38,6 +38,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { CountUpModule } from 'countup.js-angular2';
 
@@ -87,6 +88,7 @@ import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component
     MatExpansionModule,
     MatPaginatorModule,
     MatButtonModule,
+    ScrollingModule,
     CountUpModule
   ],
   providers: [ SearchService, Title ],
