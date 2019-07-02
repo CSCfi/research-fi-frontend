@@ -7,7 +7,8 @@
 
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pagination',
@@ -24,6 +25,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
   input: any;
   sortMethod: string;
   paginationCheck: boolean;
+  queryParams: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router ) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -46,6 +48,13 @@ export class PaginationComponent implements OnInit, OnDestroy {
       this.searchService.getInput(this.searchTerm);
     });
 
+    // Subscribe to query parameters and get data
+    this.queryParams = this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+         this.getData();
+     })
+
     // Reset pagination
     this.page = this.searchService.pageNumber;
 
@@ -66,7 +75,6 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
     { queryParams: { page: this.page, sort: this.sortMethod } });
     this.paginationCheck = true;
-    this.getData();
   }
 
   previousPage() {
@@ -83,11 +91,11 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
     { queryParams: { page: this.page, sort: this.sortMethod } });
     this.paginationCheck = true;
-    this.getData();
   }
 
   ngOnDestroy() {
     this.input.unsubscribe();
+    this.queryParams.unsubscribe();
   }
 
 }
