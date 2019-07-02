@@ -72,6 +72,11 @@ export class SearchService {
     this.inputSource.next(input);
   }
 
+  // Filters
+  getFilter(filter: string) {
+
+  }
+
   // Get sort method
   getSortMethod(sortMethod: string) {
 
@@ -157,6 +162,13 @@ export class SearchService {
                           from: this.fromPage,
                           sort: this.sort
                       }
+                  },
+                  years: {
+                    terms: {
+                      field: 'publicationYear',
+                      size: 50,
+                      order : { _key : 'desc' }
+                    }
                   }
               }
           }
