@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { MatSelectionList } from '@angular/material';
 
 @Component({
   selector: 'app-filter-sidebar',
@@ -6,12 +14,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-sidebar.component.scss']
 })
 export class FilterSidebarComponent implements OnInit {
+  @Input() responseData: any [];
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
   sidebarOpen = false;
   mobile = window.innerWidth < 991;
-  height = window.innerHeight;
   width = window.innerWidth;
+  @ViewChild('selectedYears') selectedYears: MatSelectionList;
 
   constructor() { }
 
@@ -28,7 +37,6 @@ export class FilterSidebarComponent implements OnInit {
 
   onResize(event) {
     const elem = document.getElementById('filter-sidebar');
-    this.height = window.innerHeight;
     this.width = window.innerWidth;
     if (this.width >= 991) {
       elem.style.display = 'block';
@@ -37,7 +45,16 @@ export class FilterSidebarComponent implements OnInit {
     }
   }
 
+  onSelectionChange() {
+    console.log(this.getSelected());
+  }
+
+  getSelected() {
+    return this.selectedYears.selectedOptions.selected.map(s => s.value);
+  }
+
   ngOnInit() {
+
   }
 
 }

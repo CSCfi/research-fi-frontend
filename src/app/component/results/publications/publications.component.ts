@@ -8,7 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-publications',
