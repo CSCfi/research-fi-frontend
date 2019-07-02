@@ -15,9 +15,13 @@
 }
 
 mat-checkbox {
-    margin-left: 10px;
-    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: -moz-middle-with-baseline;
 }
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    background: #fff;
+  }
 
 .mat-radio-button {
     display: block;
@@ -28,7 +32,7 @@ mat-checkbox {
     border-radius: 0px;
 }
 
-    .mat-expansion-panel-header:not([aria-disabled=true]) {
+.mat-expansion-panel-header:not([aria-disabled=true]) {
     cursor: pointer;
     padding: 10px 5px;
 }
@@ -37,7 +41,7 @@ mat-checkbox {
     position: absolute;
 }
 
-:host /deep/  .mat-expansion-indicator::after {
+:host /deep/ .mat-expansion-indicator::after {
     margin-top: -8px;
 }
 
@@ -45,9 +49,38 @@ mat-checkbox {
     margin-left: 20px;
 }
 
+:host /deep/ .mat-expansion-panel-body {
+    padding: 0 8px 0;
+}
+
 .navbar-toggler {
     outline: none;
     border: none;
+}
+
+// Typography
+span.year, span.amount {
+    padding: 0px 10px!important;
+}
+
+span.amount {
+    font-weight: bold!important;
+}
+
+// Segments
+::ng-deep .mat-list-base .mat-list-item .mat-list-text, .mat-list-base .mat-list-option .mat-list-text {
+    flex-direction: row!important;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.scrollable {
+    margin-top: -22px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 // Filter button

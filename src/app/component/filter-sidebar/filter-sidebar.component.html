@@ -1,4 +1,11 @@
-<div id="filter-sidebar" (window:resize)="onResize($event)">
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div id="filter-sidebar" (window:resize)="onResize($event)" *ngFor="let response of responseData">
     <h3 style="color: #808080;">Rajaa hakua</h3>
     <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
@@ -6,10 +13,14 @@
                 <strong>Julkaisuvuosi</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="year">Vuosi</mat-radio-button>
-            <mat-radio-button value="between">Aikaväli</mat-radio-button>
-        </mat-radio-group>
+        <div class="scrollable">
+            <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()">
+                <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations._index.buckets.julkaisut.years.buckets" [value]="year.key">
+                    <span class="year">{{year.key}}</span>
+                    <span class="amount">{{year.doc_count}}</span>
+                </mat-list-option>
+            </mat-selection-list>         
+        </div>
     </mat-expansion-panel>
 
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">

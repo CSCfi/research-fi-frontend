@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -83,6 +84,7 @@ import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component
     MatCardModule,
     MatRadioModule,
     MatSelectModule,
+    MatListModule,
     MatTabsModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
