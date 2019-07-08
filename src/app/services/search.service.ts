@@ -80,7 +80,6 @@ export class SearchService {
   // Get sort method
   getSortMethod(sortMethod: string) {
 
-    this.sortMethod = localStorage.getItem('sortMethod');
     if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
     switch (this.sortMethod) {
       case 'desc': {

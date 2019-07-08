@@ -41,7 +41,7 @@ export class SearchBarComponent implements OnInit {
 
     newInput() {
       this.tabChangeService.directToMostHits = true;
-      localStorage.setItem('sortMethod', 'desc');
+      this.searchService.sortMethod = 'desc';
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
       this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>
       this.router.navigate(['results/', 'publications', this.publicationSearchInput.nativeElement.value], { queryParams: { page: 1 } }));
