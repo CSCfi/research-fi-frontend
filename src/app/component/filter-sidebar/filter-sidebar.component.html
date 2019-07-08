@@ -6,7 +6,7 @@
  :license: MIT -->
 
 <div id="filter-sidebar" (window:resize)="onResize($event)" *ngFor="let response of responseData">
-    <h3 style="color: #808080;">Rajaa hakua</h3>
+    <h3>Rajaa hakua</h3>
     <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
