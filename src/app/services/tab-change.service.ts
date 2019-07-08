@@ -18,6 +18,8 @@ export class TabChangeService {
   private tabSource = new BehaviorSubject({data: 'julkaisut', label: 'Julkaisut'});
   currentTab = this.tabSource.asObservable();
 
+  directToMostHits = false;
+
   constructor() { }
 
   changeTab(tab: {data: string; label: string}) {

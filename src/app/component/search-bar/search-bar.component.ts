@@ -9,6 +9,7 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class SearchBarComponent implements OnInit {
     input: string;
     tabLink: any;
 
-    constructor( private searchService: SearchService, private router: Router, private route: ActivatedRoute ) {
+    constructor( private searchService: SearchService, private tabChangeService: TabChangeService,
+                 private router: Router, private route: ActivatedRoute ) {
     }
 
     ngOnInit() {
@@ -38,6 +40,7 @@ export class SearchBarComponent implements OnInit {
 
 
     newInput() {
+      this.tabChangeService.directToMostHits = true;
       localStorage.setItem('sortMethod', 'desc');
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
       this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>

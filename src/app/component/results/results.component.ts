@@ -94,18 +94,21 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.responseData = responseData;
       // Set the title
       this.updateTitle(this.selectedTabData);
-      // Switch to the tab with the most results
-      const mostHits = {tab: 'publications', hits: 0};
-      this.tabData.forEach(tab => {
-        if (tab.data) {
-          const hits = this.responseData[0].aggregations._index.buckets[tab.data].doc_count;
-          if (hits > mostHits.hits) {
-            mostHits.tab = tab.link;
-            mostHits.hits = hits;
+      // Switch to the tab with the most results if flag is set (new search)
+      if (this.tabChangeService.directToMostHits) {
+        const mostHits = {tab: 'publications', hits: 0};
+        this.tabData.forEach(tab => {
+          if (tab.data) {
+            const hits = this.responseData[0].aggregations._index.buckets[tab.data].doc_count;
+            if (hits > mostHits.hits) {
+              mostHits.tab = tab.link;
+              mostHits.hits = hits;
+            }
           }
-        }
-      });
-      this.router.navigate(['results/', mostHits.tab, this.searchTerm]);
+        });
+        this.router.navigate(['results/', mostHits.tab, this.searchTerm]);
+        this.tabChangeService.directToMostHits = false;
+      }
     },
       error => this.errorMessage = error as any);
   }
