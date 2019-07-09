@@ -51,6 +51,7 @@ import { ResultTabComponent } from './component/result-tab/result-tab.component'
 import { SortComponent } from './component/results/sort/sort.component';
 import { PaginationComponent } from './component/results/pagination/pagination.component';
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
+import { FundingsComponent } from './component/results/fundings/fundings.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component
     SortComponent,
     PaginationComponent,
     BreadcrumbComponent,
+    FundingsComponent,
   ],
   imports: [
     BrowserModule,

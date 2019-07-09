@@ -20,6 +20,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <main class="col-lg-10">
             <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData"></app-publications>
             <app-persons *ngIf="tabLink===tabData[1].link" [personData]="responseData"></app-persons>
+            <app-fundings *ngIf="tabLink===tabData[2].link" [fundingData]="responseData"></app-fundings>
         </main>
     </div>
 </div>
