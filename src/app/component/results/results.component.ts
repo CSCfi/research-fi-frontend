@@ -72,7 +72,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     // Get data on init
     // Check url for filters
-    console.log('filtterit: ', this.filters);
+    // console.log('filtterit: ', this.filters);
     if (this.filters === '' || this.filters === undefined) {
 
     }

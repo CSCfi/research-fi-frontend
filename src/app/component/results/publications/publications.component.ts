@@ -54,8 +54,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
         this.getFilteredData();
         this.paginationCheck = true;
       }
-
-      console.log(this.paginationCheck);
     });
   }
 
