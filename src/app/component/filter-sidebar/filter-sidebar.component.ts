@@ -33,6 +33,7 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   selectedFilters: any[];
   filters: any;
   selected: any;
+  preSelection = [];
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService ) { }
 
@@ -90,7 +91,8 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
       // this.selectedYears.selectedOptions.selected.map = this.filters;
     });
 
-
+    // Pre select filters by url parameters
+    if (this.filters !== undefined) {this.preSelection = this.filters;}
 
   }
 
