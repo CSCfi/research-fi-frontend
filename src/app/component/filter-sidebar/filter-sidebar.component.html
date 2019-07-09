@@ -1,12 +1,10 @@
 <!--  This file is part of the research.fi API service
-
  Copyright 2019 Ministry of Education and Culture, Finland
-
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div id="filter-sidebar" (window:resize)="onResize($event)" *ngFor="let response of responseData">
-    <h3 style="color: #808080;">Rajaa hakua</h3>
+ <div id="filter-sidebar" (window:resize)="onResize($event)" *ngFor="let response of responseData">
+    <h3>Rajaa hakua</h3>
     <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -15,7 +13,7 @@
         </mat-expansion-panel-header>
         <div class="scrollable">
             <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()">
-                <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations._index.buckets.julkaisut.years.buckets" [value]="year.key">
+                <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations._index.buckets.publications.years.buckets" [value]="year.key">
                     <span class="year">{{year.key}}</span>
                     <span class="amount">{{year.doc_count}}</span>
                 </mat-list-option>

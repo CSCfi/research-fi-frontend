@@ -24,14 +24,8 @@ export class SortComponent implements OnInit {
 
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
+    this.sortMethod = this.searchService.sortMethod;
 
-    // Subscribe to URL sort method
-    this.route.queryParams.subscribe( queryParams  =>  {
-      this.sortMethod = queryParams.sort;
-    });
-
-    this.sortMethod = localStorage.getItem('sortMethod');
-    if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
    }
 
   ngOnInit() {
@@ -54,8 +48,7 @@ export class SortComponent implements OnInit {
   orderBy(event: { target: { value: any; }; }): void {
     if (this.searchTerm ? undefined : this.searchTerm === '') {}
     this.sortBy = event.target.value;
-    localStorage.removeItem('sortMethod');
-    localStorage.setItem('sortMethod', this.sortBy);
+    this.searchService.sortMethod = this.sortBy;
     this.searchService.getSortMethod(this.sortBy);
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
     this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: 1, sort: this.sortBy } }));

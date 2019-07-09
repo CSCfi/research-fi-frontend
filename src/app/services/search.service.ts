@@ -80,7 +80,6 @@ export class SearchService {
   // Get sort method
   getSortMethod(sortMethod: string) {
 
-    this.sortMethod = localStorage.getItem('sortMethod');
     if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
     switch (this.sortMethod) {
       case 'desc': {
@@ -118,9 +117,9 @@ export class SearchService {
       aggs: {
         _index: {filters : {
           filters: {
-            tutkijat : { match : { _index : 'person' }},
-            julkaisut : { match : { _index : 'publication' }},
-            hankkeet : { match : { _index : 'funding' }}
+            persons : { match : { _index : 'person' }},
+            publications : { match : { _index : 'publication' }},
+            fundings : { match : { _index : 'funding' }}
           }
         }}
       }
@@ -138,17 +137,17 @@ export class SearchService {
           _index: {
               filters: {
                   filters: {
-                      tutkijat: {
+                      persons: {
                           match: {
                               _index: 'person'
                           }
                       },
-                      julkaisut: {
+                      publications: {
                           match: {
                               _index: 'publication'
                           }
                       },
-                      hankkeet: {
+                      fundings: {
                           match: {
                               _index: 'funding'
                           }

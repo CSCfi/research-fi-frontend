@@ -53,7 +53,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
     filter(event => event instanceof NavigationEnd))
     .subscribe(() => {
          this.getData();
-     })
+    });
 
     // Reset pagination
     this.page = this.searchService.pageNumber;

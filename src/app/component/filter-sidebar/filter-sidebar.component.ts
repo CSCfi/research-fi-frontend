@@ -5,15 +5,18 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-filter-sidebar',
   templateUrl: './filter-sidebar.component.html',
   styleUrls: ['./filter-sidebar.component.scss']
 })
-export class FilterSidebarComponent implements OnInit {
+export class FilterSidebarComponent implements OnInit, OnDestroy {
   @Input() responseData: any [];
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
@@ -21,8 +24,17 @@ export class FilterSidebarComponent implements OnInit {
   mobile = window.innerWidth < 991;
   width = window.innerWidth;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  input: any;
+  tabLink: any;
+  searchTerm: any;
+  sortMethod: any;
+  page: any;
+  queryParams: any;
+  selectedFilters: any[];
+  filters: any;
+  selected: any;
 
-  constructor() { }
+  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService ) { }
 
   toggleNavbar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -46,15 +58,45 @@ export class FilterSidebarComponent implements OnInit {
   }
 
   onSelectionChange() {
-    console.log(this.getSelected());
+    this.sortMethod = this.searchService.sortMethod;
+    // If searchTerm is undefined, route doesn't work
+    if (this.searchTerm === undefined) {
+      this.searchTerm = '';
+    }
+
+    this.router.navigate(['results/', this.tabLink, this.searchTerm],
+    { queryParams: { page: this.page, sort: this.sortMethod, filter: this.getSelected() } });
   }
 
   getSelected() {
+    // console.log(this.selectedYears.selectedOptions);
     return this.selectedYears.selectedOptions.selected.map(s => s.value);
   }
 
   ngOnInit() {
+    // Subscribe to route parameters parameter
+    this.input = this.route.params.subscribe(params => {
+      const term = params.input;
+      this.searchTerm = term;
+      this.tabLink = params.tab;
+    });
 
+    // Subscribe to query parameters and get data
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.sortMethod = params.sort;
+      this.page = params.page;
+      this.filters = params.filter;
+      // console.log(this.selectedYears);
+      // this.selectedYears.selectedOptions.selected.map = this.filters;
+    });
+
+
+
+  }
+
+  ngOnDestroy() {
+    // this.input.unsubsribe();
+    // this.queryParams.unsubsribe();
   }
 
 }

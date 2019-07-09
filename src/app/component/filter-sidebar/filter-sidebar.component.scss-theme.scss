@@ -5,6 +5,10 @@
 
     app-filter-sidebar {
         
+        h3 {
+            color: mat-color($primary);
+        }
+
         .mat-expansion-panel:not([class*=mat-elevation-z]) {
             border-bottom: 1px solid mat-color($primary, 400);
         }
