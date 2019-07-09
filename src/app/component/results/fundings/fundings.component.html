@@ -39,14 +39,14 @@
                      <a routerLink="/results/single/test"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
                  </div>          
                  <div class="col shorten hide-mobile" [class.expand]="expandStatus[i]">
-                     <span>test</span>
+                     <span>{{funding._source.funderNameFi}}</span>
                  </div>          
                  <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">
-                     <span>test</span>
+                     <span>{{funding._source.fundedNameFi}}</span>
                  </div>          
                  <div class="col col-1">
-                     <span>test</span>
-                     <input type="hidden" value="test" #singleId>
+                     <span>{{funding._source.fundingApprovalDate.slice(0,4)}}</span>
+                     <input type="hidden" value="{{funding._source.funderProjectNumber}}" #singleId>
                  </div>
              </div>       
          </div>
@@ -61,14 +61,14 @@
                  <a routerLink="/results/single/test"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
              </div>          
              <div class="col shorten hide-mobile" [class.expand]="expandStatus[i]">
-                 <span>test</span>
+                 <span>{{funding._source.funderNameFi}}</span>
              </div>          
              <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">
-                 <span>test</span>
+                 <span>{{funding._source.fundedNameFi}}</span>
              </div>          
              <div class="col col-1">
-                 <span>test</span>
-                 <input type="hidden" value="test" #singleId>
+                 <span>{{funding._source.fundingApprovalDate.slice(0,4)}}</span>
+                 <input type="hidden" value="{{funding._source.funderProjectNumber}}" #singleId>
              </div>          
          </div>
      </ng-template>  
