@@ -27,7 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'results',
-    component: ResultsComponent
+    redirectTo: 'results/publications',
+    pathMatch: 'full'
   },
   {
     path: 'results/:tab',
