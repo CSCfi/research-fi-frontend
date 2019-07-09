@@ -92,7 +92,7 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
     });
 
     // Pre select filters by url parameters
-    if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); }
+    if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
 
   }
 

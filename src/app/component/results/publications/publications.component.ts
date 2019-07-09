@@ -67,9 +67,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     // Check if url contains filter
     if (this.filter !== undefined && this.filter.length > 0) {
       this.filterService.filterPublications();
-      console.log('hmm');
     } else {
-      console.log('hmm pubs');
       this.searchService.getPublications()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
