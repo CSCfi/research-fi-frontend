@@ -40,9 +40,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = params.filter;
-
-      if (this.filter === undefined) {this.paginationCheck = false; }
-
       // Check if multiple filters selected and send to service
       if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
@@ -53,6 +50,8 @@ export class PublicationsComponent implements OnInit, OnDestroy {
       if (this.filter !== undefined && this.filter.length > 0) {
         this.getFilteredData();
         this.paginationCheck = true;
+      } else {
+        // this.getPublicationData();
       }
     });
   }
@@ -63,12 +62,12 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   // Assign results to publicationData
   getPublicationData() {
-    this.paginationCheck = true;
+    this.paginationCheck = false;
     // Check if url contains filter
     if (this.filter !== undefined && this.filter.length > 0) {
       this.filterService.filterPublications();
     } else {
-      this.searchService.getPublications()
+    this.searchService.getAllResults()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
       this.publicationData = publicationData;
