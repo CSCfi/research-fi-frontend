@@ -7,8 +7,7 @@
 
 import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../services/search.service';
 
 @Component({
@@ -24,16 +23,14 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   mobile = window.innerWidth < 991;
   width = window.innerWidth;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  preSelection: any;
   input: any;
   tabLink: any;
   searchTerm: any;
   sortMethod: any;
   page: any;
   queryParams: any;
-  selectedFilters: any[];
   filters: any;
-  selected: any;
-  preSelection: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService ) { }
 
@@ -66,7 +63,7 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
     }
 
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
-    { queryParams: { page: this.page, sort: this.sortMethod, filter: this.getSelected() } });
+    { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
   }
 
   getSelected() {
@@ -86,7 +83,6 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
       this.sortMethod = params.sort;
       this.page = params.page;
       this.filters = params.filter;
-      // this.selectedYears.selectedOptions.selected.map = this.filters;
     });
 
     // Pre select filters by url parameters

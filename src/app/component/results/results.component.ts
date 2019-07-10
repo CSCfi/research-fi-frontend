@@ -77,7 +77,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
     this.getAllData();
 
-    // If url is missing search term, might not be necessary
+    // If url is missing search term
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }

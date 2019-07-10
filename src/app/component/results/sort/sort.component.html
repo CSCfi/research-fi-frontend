@@ -6,7 +6,7 @@
 <div class="sort">
   <span class="align-left hide-mobile" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
   <mat-form-field>
-     <select matNativeControl (change)="orderBy($event)" [value]='sortBy'>
+     <select matNativeControl (change)="orderBy($event)" [value]='sortMethod'>
          <option value="desc">Uusin ensin</option>
          <option value="asc">Vanhin ensin</option>
          <option value="name">Julkaisun nimen mukaan (A-Ö)</option>
