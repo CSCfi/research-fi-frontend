@@ -125,7 +125,8 @@ export class SearchService {
 
   // Data for results page
   getAllResults(): Observable<Search[]> {
-    if (this.sort === undefined) {this.getSortMethod(this.sortMethod); }
+    // Needs to be fixed. Sorting should remain when changed to another tab and back
+    if (this.sort === undefined) {this.getSortMethod('desc'); }
     const payLoad = {
       size: 0,
       aggs: {
