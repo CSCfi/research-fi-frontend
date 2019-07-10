@@ -76,7 +76,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    console.log('getFilteredData')
     this.paginationCheck = true;
     this.filterService.filterPublications()
     .pipe(map(publicationData => [publicationData]))
