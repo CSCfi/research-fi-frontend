@@ -35,7 +35,6 @@ export class SearchService {
   sortUrl: string;
   requestCheck: boolean;
   sort: any;
-  urlSortMethod: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.getInput$ = this.getInputSubject.asObservable();
@@ -125,6 +124,8 @@ export class SearchService {
 
   // Data for results page
   getAllResults(): Observable<Search[]> {
+    console.log(this.sort);
+    console.log(this.sortMethod);
     // Needs to be fixed. Sorting should remain when changed to another tab and back
     if (this.sort === undefined) {this.getSortMethod('desc'); }
     const payLoad = {

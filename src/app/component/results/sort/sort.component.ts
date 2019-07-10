@@ -70,6 +70,7 @@ export class SortComponent implements OnInit, OnDestroy {
   }
 
   navigate() {
+    if (this.searchTerm === undefined) {this. searchTerm = ''; }
     if (this.filters !== undefined) {
       this.router.navigate(['results/', this.tabLink, this.searchTerm],
       { queryParams: { page: 1, sort: this.sortMethod, filter: this.filters } });

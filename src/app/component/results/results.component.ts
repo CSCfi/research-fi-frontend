@@ -32,6 +32,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   pageSub: any;
   filters: any;
+  sortMethod: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router  ) {
@@ -70,11 +71,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Get data on init
-    // Check url for filters
-    if (this.filters === '' || this.filters === undefined) {
+    // Get sort method and data on init
+    this.sortMethod = this.route.snapshot.queryParams.sort;
+    if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
 
-    }
+    this.searchService.getSortMethod(this.sortMethod);
     this.getAllData();
 
     // If url is missing search term

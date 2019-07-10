@@ -32,7 +32,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
     // Check if http request is POST or GET
     this.paginationCheck = this.searchService.requestCheck;
-
     this.selectedFilters = [];
   }
 
@@ -67,16 +66,17 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     if (this.filter !== undefined && this.filter.length > 0) {
       this.filterService.filterPublications();
     } else {
-    this.searchService.getAllResults()
-    .pipe(map(publicationData => [publicationData]))
-    .subscribe(publicationData => {
-      this.publicationData = publicationData;
-    },
-      error => this.errorMessage = error as any);
+      this.searchService.getAllResults()
+      .pipe(map(publicationData => [publicationData]))
+      .subscribe(publicationData => {
+        this.publicationData = publicationData;
+      },
+        error => this.errorMessage = error as any);
     }
   }
 
   getFilteredData() {
+    console.log('getFilteredData')
     this.paginationCheck = true;
     this.filterService.filterPublications()
     .pipe(map(publicationData => [publicationData]))
