@@ -41,9 +41,9 @@ export class FilterService {
   // Filters
   getFilter(filter: any) {
     this.res = [];
-    if (filter.length === 0) {
-      this.res = null;
-    }
+    // if (filter.length === 0) {
+    //   this.res = null;
+    // }
     if (filter.length > 0 && Array.isArray(filter)) {
       filter.forEach(value => {
         this.res.push({ term : { publicationYear : value } });
@@ -55,6 +55,7 @@ export class FilterService {
 
   // Data for results page
   filterPublications(): Observable<Search[]> {
+    console.log('sort: ', this.searchService.sort);
     this.singleInput = this.searchService.singleInput;
     if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
     if (this.singleInput === undefined || this.singleInput === '') {
@@ -95,7 +96,7 @@ export class FilterService {
                 top_hits: {
                   size: 10,
                   from: 0,
-                  sort: this.sort
+                  sort: this.searchService.sort
                 }
               },
               years: {
@@ -114,63 +115,100 @@ export class FilterService {
     } else {
       this.payload = {
         query: {
-            bool : {
-              must :
-                { query_string : { query : this.singleInput } }
-              ,
-              should : [
-                this.res,
-              ],
-              minimum_should_match : 1,
-              boost : 1.0
-            }
-          },
-          size: 0,
-          aggs: {
-            _index: {
-              filters: {
-                filters: {
-                  persons: {
-                    match: {
-                      _index: 'person'
+          bool: {
+            should: [
+              {
+                bool: {
+                  must: [
+                    { query_string : { query : this.singleInput } },
+                    {
+                      term: {
+                        _index: 'publication'
+                      }
+                    },
+                    {
+                      bool: {
+                        should: [
+                          this.res
+                        ]
+                      }
                     }
-                  },
-                  publications: {
-                    match: {
-                      _index: 'publication'
-                    }
-                  },
-                  fundings: {
-                    match: {
-                      _index: 'funding'
-                    }
-                  }
+                  ]
                 }
               },
-              aggs: {
-                index_results: {
-                  top_hits: {
-                    size: 10,
-                    from: 0,
-                    sort: this.sort
+              {
+                bool: {
+                  must: [
+                    { query_string : { query : this.singleInput } },
+                    {
+                      term: {
+                        _index: 'person'
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                bool: {
+                  must: [
+                    { query_string : { query : this.singleInput } },
+                    {
+                      term: {
+                        _index: 'funding'
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            boost: 1
+          }
+        },
+        size: 0,
+        aggs: {
+          _index: {
+            filters: {
+              filters: {
+                persons: {
+                  match: {
+                    _index: 'person'
                   }
                 },
-                years: {
-                  terms: {
-                    field: 'publicationYear',
-                    size: 50,
-                    order: {
-                      _key: 'asc'
-                    }
+                publications: {
+                  match: {
+                    _index: 'publication'
+                  }
+                },
+                fundings: {
+                  match: {
+                    _index: 'funding'
+                  }
+                }
+              }
+            },
+            aggs: {
+              index_results: {
+                top_hits: {
+                  size: 10,
+                  from: this.searchService.fromPage,
+                  sort: this.searchService.sort
+                }
+              },
+              years: {
+                terms: {
+                  field: 'publicationYear',
+                  size: 50,
+                  order: {
+                    _key: 'asc'
                   }
                 }
               }
             }
           }
-        };
-    }
-    this.requestCheck = false;
-    if (this.singleInput === undefined || this.singleInput === '') {
+        }
+      };
+      this.requestCheck = false;
+      if (this.singleInput === undefined || this.singleInput === '') {
       return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from='
       + this.fromPage, this.payload);
     } else {
@@ -180,4 +218,5 @@ export class FilterService {
     }
   }
 
+}
 }
