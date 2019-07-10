@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../services/search.service';
 
@@ -14,13 +14,15 @@ import { SearchService } from '../../../services/search.service';
   templateUrl: './sort.component.html',
   styleUrls: ['./sort.component.scss']
 })
-export class SortComponent implements OnInit {
+export class SortComponent implements OnInit, OnDestroy {
   searchTerm: any;
   tabLink: any = [];
   page: any;
   sortBy = 'desc';
   input: any;
   sortMethod: any;
+  queryParams: any;
+  filters: any;
 
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -43,15 +45,38 @@ export class SortComponent implements OnInit {
       this.searchService.getInput(this.searchTerm);
     });
 
+    // Subscribe to query parameters and get data
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.sortMethod = params.sort;
+      this.page = params.page;
+      this.filters = params.filter;
+    });
+
   }
 
   orderBy(event: { target: { value: any; }; }): void {
     if (this.searchTerm ? undefined : this.searchTerm === '') {}
     this.sortBy = event.target.value;
     this.searchService.sortMethod = this.sortBy;
+    this.sortMethod = this.sortBy;
+    console.log('sortBy: ', this.sortBy);
     this.searchService.getSortMethod(this.sortBy);
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-    this.router.navigate(['results/', this.tabLink, this.searchTerm], { queryParams: { page: 1, sort: this.sortBy } }));
+    this.navigate();
+
+  }
+
+  navigate() {
+    if (this.filters !== undefined) {
+      this.router.navigate(['results/', this.tabLink, this.searchTerm],
+      { queryParams: { page: this.page, sort: this.sortMethod, filter: this.filters } });
+    } else {
+      this.router.navigate(['results/', this.tabLink, this.searchTerm],
+      { queryParams: { page: this.page, sort: this.sortMethod } });
+    }
+  }
+
+  ngOnDestroy() {
+    this.queryParams.unsubscribe();
   }
 
 }
