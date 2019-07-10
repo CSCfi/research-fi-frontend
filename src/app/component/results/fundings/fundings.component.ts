@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class FundingsComponent implements OnInit, OnDestroy {
   @Input() fundingData: any [];
+  @Input() tabData: string;
   expandStatus: Array<boolean> = [];
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
@@ -29,7 +30,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
 
   dataSource(): string {
     return this.paginationCheck ? this.fundingData[0].hits.hits :
-                                  this.fundingData[0].aggregations._index.buckets.hankkeet.index_results.hits.hits;
+                                  this.fundingData[0].aggregations._index.buckets[this.tabData].index_results.hits.hits;
   }
 
   // Assign results to fundingData

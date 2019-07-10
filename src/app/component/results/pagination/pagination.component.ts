@@ -22,6 +22,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
   tabLink: any = [];
   @Output() queryEvent = new EventEmitter<string>();
   @Input() responseData: any [];
+  @Input() tab: string;
   input: any;
   sortMethod: string;
   paginationCheck: boolean;
@@ -53,7 +54,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
     filter(event => event instanceof NavigationEnd))
     .subscribe(() => {
          this.getData();
-     })
+     });
 
     // Reset pagination
     this.page = this.searchService.pageNumber;

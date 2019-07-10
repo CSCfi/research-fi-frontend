@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublicationsComponent implements OnInit, OnDestroy {
   @Input() publicationData: any [];
+  @Input() tabData: string;
   expandStatus: Array<boolean> = [];
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
@@ -31,7 +32,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   dataSource(): string {
     return this.paginationCheck ? this.publicationData[0].hits.hits :
-                                  this.publicationData[0].aggregations._index.buckets.julkaisut.index_results.hits.hits;
+                                  this.publicationData[0].aggregations._index.buckets[this.tabData].index_results.hits.hits;
   }
 
   ngOnInit() {
