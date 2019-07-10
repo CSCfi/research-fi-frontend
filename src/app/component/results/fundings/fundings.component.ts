@@ -27,6 +27,11 @@ export class FundingsComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(this.queryParams);
   }
 
+  dataSource(): string {
+    return this.paginationCheck ? this.fundingData[0].hits.hits :
+                                  this.fundingData[0].aggregations._index.buckets.hankkeet.index_results.hits.hits;
+  }
+
   // Assign results to fundingData
   getFundingData() {
     this.paginationCheck = true;

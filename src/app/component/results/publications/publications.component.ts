@@ -29,6 +29,11 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     this.paginationCheck = this.searchService.requestCheck;
   }
 
+  dataSource(): string {
+    return this.paginationCheck ? this.publicationData[0].hits.hits :
+                                  this.publicationData[0].aggregations._index.buckets.julkaisut.index_results.hits.hits;
+  }
+
   ngOnInit() {
     // Get Data and subscripe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(this.queryParams);
