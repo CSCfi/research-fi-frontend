@@ -16,11 +16,8 @@ export class FundingsComponent implements OnInit, OnDestroy {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
-  paginationCheck: boolean;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute ) {
-    // Check if http request is POST or GET
-    this.paginationCheck = this.searchService.requestCheck;
   }
 
   ngOnInit() {
@@ -28,14 +25,8 @@ export class FundingsComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(this.queryParams);
   }
 
-  dataSource(): string {
-    return this.paginationCheck ? this.fundingData[0].hits.hits :
-                                  this.fundingData[0].aggregations._index.buckets[this.tabData].index_results.hits.hits;
-  }
-
   // Assign results to fundingData
   getFundingData() {
-    this.paginationCheck = true;
     this.searchService.getAllResults()
     .pipe(map(fundingData => [fundingData]))
     .subscribe(fundingData => {
