@@ -35,11 +35,9 @@ export class SearchService {
   sortUrl: string;
   requestCheck: boolean;
   sort: any;
-  urlSortMethod: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.getInput$ = this.getInputSubject.asObservable();
-    this.sortMethod = 'desc';
     this.sortUrl = 'publicationYear:' + this.sortMethod;
     this.requestCheck = false;
   }
@@ -72,16 +70,12 @@ export class SearchService {
     this.inputSource.next(input);
   }
 
-  // Filters
-  getFilter(filter: string) {
-
-  }
-
   // Get sort method
-  getSortMethod(sortMethod: string) {
-
-    if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
-    switch (this.sortMethod) {
+  getSortMethod(sortBy: string) {
+    this.sortMethod = sortBy;
+    this.getSortByMethod.next(sortBy);
+    if (sortBy ? undefined || null : this.sortMethod === 'desc') {}
+    switch (sortBy) {
       case 'desc': {
         this.sortUrl = 'publicationYear:' + this.sortMethod;
         this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
@@ -117,9 +111,9 @@ export class SearchService {
       aggs: {
         _index: {filters : {
           filters: {
-            tutkijat : { match : { _index : 'person' }},
-            julkaisut : { match : { _index : 'publication' }},
-            hankkeet : { match : { _index : 'funding' }}
+            persons : { match : { _index : 'person' }},
+            publications : { match : { _index : 'publication' }},
+            fundings : { match : { _index : 'funding' }}
           }
         }}
       }
@@ -130,24 +124,27 @@ export class SearchService {
 
   // Data for results page
   getAllResults(): Observable<Search[]> {
-    if (this.sort === undefined) {this.getSortMethod(this.sortMethod); }
+    console.log(this.sort);
+    console.log(this.sortMethod);
+    // Needs to be fixed. Sorting should remain when changed to another tab and back
+    if (this.sort === undefined) {this.getSortMethod('desc'); }
     const payLoad = {
       size: 0,
       aggs: {
           _index: {
               filters: {
                   filters: {
-                      tutkijat: {
+                      persons: {
                           match: {
                               _index: 'person'
                           }
                       },
-                      julkaisut: {
+                      publications: {
                           match: {
                               _index: 'publication'
                           }
                       },
-                      hankkeet: {
+                      fundings: {
                           match: {
                               _index: 'funding'
                           }
@@ -181,21 +178,6 @@ export class SearchService {
       return this.http.post<Search[]>
       (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage + '&q=publication_name='
       + this.singleInput, payLoad)
-      .pipe(catchError(this.handleError));
-    }
-  }
-
-  // Data for pagination
-  getPublications(): Observable<Search[]> {
-    this.requestCheck = true;
-    // this.currentInput.subscribe(input => this.input = input);
-    if (this.singleInput === undefined || this.singleInput === '') {
-      // get this.form from value from url
-      return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&sort=' + this.sortUrl);
-    } else {
-      return this.http.get<Search[]>
-      (this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&q=publication_name=' + this.singleInput
-      + '&sort=' + this.sortUrl)
       .pipe(catchError(this.handleError));
     }
   }

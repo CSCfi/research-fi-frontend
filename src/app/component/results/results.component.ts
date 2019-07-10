@@ -9,7 +9,7 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/co
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
@@ -31,9 +31,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   pageSub: any;
+  filters: any;
+  sortMethod: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
-               private tabChangeService: TabChangeService, private router: Router ) {
+               private tabChangeService: TabChangeService, private router: Router  ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -49,6 +51,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     .subscribe(params => {
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
+      this.filters = params.filter;
       this.searchService.getPageNumber(this.page);
     });
 
@@ -61,17 +64,21 @@ export class ResultsComponent implements OnInit, OnDestroy {
       const previousTerm = this.searchTerm;
       this.tabLink = params.tab;
       this.searchTerm = term;
-      this.searchService.getInput(this.searchTerm);
+      // this.searchService.getInput(this.searchTerm);
       // Get data only if search term changed
       if (previousTerm !== this.searchTerm) {
         this.getAllData();
       }
     });
 
-    // Get data on init
+    // Get sort method and data on init
+    this.sortMethod = this.route.snapshot.queryParams.sort;
+    if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
+
+    this.searchService.getSortMethod(this.sortMethod);
     this.getAllData();
 
-    // If url is missing search term, might not be necessary
+    // If url is missing search term
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }

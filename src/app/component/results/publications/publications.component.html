@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div *ngIf="paginationCheck; else nextTemplate">
+    <!-- <div *ngIf="paginationCheck; else nextTemplate">
         <div *ngFor="let publications of publicationData;">
             <div class="row no-margin single" *ngFor="let publication of publications.hits.hits; let i = index"
             (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
@@ -51,8 +51,8 @@
             </div>       
         </div>
     </div>
-    <ng-template #nextTemplate>
-        <div class="row no-margin single" *ngFor="let publication of publications.aggregations?._index.buckets.julkaisut.index_results.hits.hits; let i = index"
+    <ng-template #nextTemplate> -->
+        <div class="row no-margin single" *ngFor="let publication of publications.aggregations?._index.buckets.publications.index_results.hits.hits; let i = index"
         (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
             <div class="col arrow">
                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
@@ -71,7 +71,7 @@
                 <input type="hidden" value="{{publication?._source.publicationId}}" #singleId>
             </div>          
         </div>
-    </ng-template>  
+    <!-- </ng-template>   -->
     <!-- Pagination -->
     <app-pagination [responseData]="publicationData" (queryEvent)="getPublicationData($event)"></app-pagination>
 </div>   

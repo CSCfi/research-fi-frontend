@@ -5,15 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-filter-sidebar',
   templateUrl: './filter-sidebar.component.html',
   styleUrls: ['./filter-sidebar.component.scss']
 })
-export class FilterSidebarComponent implements OnInit {
+export class FilterSidebarComponent implements OnInit, OnDestroy {
   @Input() responseData: any [];
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
@@ -21,8 +23,16 @@ export class FilterSidebarComponent implements OnInit {
   mobile = window.innerWidth < 991;
   width = window.innerWidth;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  preSelection: any;
+  input: any;
+  tabLink: any;
+  searchTerm: any;
+  sortMethod: any;
+  page: any;
+  queryParams: any;
+  filters: any;
 
-  constructor() { }
+  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService ) { }
 
   toggleNavbar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -46,7 +56,14 @@ export class FilterSidebarComponent implements OnInit {
   }
 
   onSelectionChange() {
-    console.log(this.getSelected());
+    this.sortMethod = this.searchService.sortMethod;
+    // If searchTerm is undefined, route doesn't work
+    if (this.searchTerm === undefined) {
+      this.searchTerm = '';
+    }
+
+    this.router.navigate(['results/', this.tabLink, this.searchTerm],
+    { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
   }
 
   getSelected() {
@@ -54,7 +71,28 @@ export class FilterSidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Subscribe to route parameters parameter
+    this.input = this.route.params.subscribe(params => {
+      const term = params.input;
+      this.searchTerm = term;
+      this.tabLink = params.tab;
+    });
 
+    // Subscribe to query parameters and get data
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.sortMethod = params.sort;
+      this.page = params.page;
+      this.filters = params.filter;
+    });
+
+    // Pre select filters by url parameters
+    if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
+
+  }
+
+  ngOnDestroy() {
+    // this.input.unsubsribe();
+    // this.queryParams.unsubsribe();
   }
 
 }
