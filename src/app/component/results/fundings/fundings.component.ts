@@ -36,7 +36,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   // Assign results to fundingData
   getFundingData() {
     this.paginationCheck = true;
-    this.searchService.getFundings()
+    this.searchService.getAllResults()
     .pipe(map(fundingData => [fundingData]))
     .subscribe(fundingData => {
       this.fundingData = fundingData;

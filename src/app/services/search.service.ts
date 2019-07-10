@@ -73,7 +73,6 @@ export class SearchService {
   // Get sort method
   getSortMethod(sortBy: string) {
     this.sortMethod = sortBy;
-    console.log('ss: ', this.sortMethod);
     this.getSortByMethod.next(sortBy);
     // if (sortBy ? undefined || null : this.sortMethod === 'desc') {}
     switch (sortBy) {

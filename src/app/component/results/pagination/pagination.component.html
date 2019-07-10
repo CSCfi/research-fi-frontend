@@ -16,7 +16,7 @@
   <a *ngIf="paginationCheck" [ngClass]="fromPage + 10 < response.hits.total ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
   <a *ngIf="!paginationCheck" [ngClass]="fromPage + 10 < response.aggregations?._index.buckets[tab].doc_count ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
   <div class="result-count">
-    <p style="float:right;" *ngIf="fromPage + 10 < response.aggregations?._index.buckets[tab].doc_count && !paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.aggregations?._index.buckets[tab].doc_count}}</p>
+    <p style="float:right;" *ngIf="fromPage + 10 < response.aggregations?._index.buckets[tab].doc_count && !paginationCheck ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.aggregations?._index.buckets[tab].doc_count}}</p>
     <p style="float:right;" *ngIf="fromPage + 10 >= response.aggregations?._index.buckets[tab].doc_count && !paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{response.aggregations?._index.buckets[tab].doc_count}} / {{response.aggregations?._index.buckets[tab].doc_count}}</p>          
     <p style="float:right;" *ngIf="fromPage + 10 < response.hits.total && paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
     <p style="float:right;" *ngIf="fromPage + 10 >= response.hits.total && paginationCheck">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>   
