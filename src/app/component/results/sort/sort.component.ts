@@ -26,7 +26,9 @@ export class SortComponent implements OnInit, OnDestroy {
 
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
-    this.sortMethod = this.searchService.sortMethod;
+    this.sortMethod = this.route.snapshot.queryParams.sort;
+    // console.log('asaa: ', this.sortMethod);
+    this.searchService.getSortMethod(this.sortMethod);
    }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class SortComponent implements OnInit, OnDestroy {
       const term = params.input;
       this.searchTerm = term;
       this.tabLink = params.tab;
-      this.searchService.getInput(this.searchTerm);
+      // this.searchService.getInput(this.searchTerm);
     });
 
     // Subscribe to query parameters and get data
@@ -49,7 +51,11 @@ export class SortComponent implements OnInit, OnDestroy {
       this.sortMethod = params.sort;
       this.page = params.page;
       this.filters = params.filter;
-      if (this.sortMethod === undefined) {this.sortMethod = 'desc'}
+
+      if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
+      // console.log('sortMethod: ', this.sortMethod);
+
+      // this.searchService.getSortMethod(this.sortMethod);
     });
 
   }
@@ -67,10 +73,10 @@ export class SortComponent implements OnInit, OnDestroy {
   navigate() {
     if (this.filters !== undefined) {
       this.router.navigate(['results/', this.tabLink, this.searchTerm],
-      { queryParams: { page: this.page, sort: this.sortMethod, filter: this.filters } });
+      { queryParams: { page: 1, sort: this.sortMethod, filter: this.filters } });
     } else {
       this.router.navigate(['results/', this.tabLink, this.searchTerm],
-      { queryParams: { page: this.page, sort: this.sortMethod } });
+      { queryParams: { page: 1, sort: this.sortMethod } });
     }
   }
 

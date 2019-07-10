@@ -39,7 +39,6 @@ export class SearchService {
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.getInput$ = this.getInputSubject.asObservable();
-    this.sortMethod = 'desc';
     this.sortUrl = 'publicationYear:' + this.sortMethod;
     this.requestCheck = false;
   }
@@ -72,16 +71,12 @@ export class SearchService {
     this.inputSource.next(input);
   }
 
-  // Filters
-  getFilter(filter: string) {
-
-  }
-
   // Get sort method
-  getSortMethod(sortMethod: string) {
-
-    if (this.sortMethod ? undefined || null : this.sortMethod === 'desc') {}
-    switch (this.sortMethod) {
+  getSortMethod(sortBy: string) {
+    this.sortMethod = sortBy;
+    this.getSortByMethod.next(sortBy);
+    if (sortBy ? undefined || null : this.sortMethod === 'desc') {}
+    switch (sortBy) {
       case 'desc': {
         this.sortUrl = 'publicationYear:' + this.sortMethod;
         this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];

@@ -47,7 +47,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
       const term = params.input;
       this.searchTerm = term;
       this.tabLink = params.tab;
-      this.searchService.getInput(this.searchTerm);
+      // this.searchService.getInput(this.searchTerm);
     });
 
     // Subscribe to route events and get data

@@ -63,7 +63,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       const previousTerm = this.searchTerm;
       this.tabLink = params.tab;
       this.searchTerm = term;
-      this.searchService.getInput(this.searchTerm);
+      // this.searchService.getInput(this.searchTerm);
       // Get data only if search term changed
       if (previousTerm !== this.searchTerm) {
         this.getAllData();
