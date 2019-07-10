@@ -27,7 +27,6 @@ export class SortComponent implements OnInit, OnDestroy {
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.sortMethod = this.route.snapshot.queryParams.sort;
-    // console.log('asaa: ', this.sortMethod);
     this.searchService.getSortMethod(this.sortMethod);
    }
 

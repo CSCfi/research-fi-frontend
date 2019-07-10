@@ -181,21 +181,6 @@ export class SearchService {
     }
   }
 
-  // // Data for pagination
-  // getPublications(): Observable<Search[]> {
-  //   this.requestCheck = true;
-  //   // this.currentInput.subscribe(input => this.input = input);
-  //   if (this.singleInput === undefined || this.singleInput === '') {
-  //     // get this.form from value from url
-  //     return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&sort=' + this.sortUrl);
-  //   } else {
-  //     return this.http.get<Search[]>
-  //     (this.apiUrl + 'publication/_search?size=10&from=' + this.fromPage + '&q=publication_name=' + this.singleInput
-  //     + '&sort=' + this.sortUrl)
-  //     .pipe(catchError(this.handleError));
-  //   }
-  // }
-
   getPersons(): Observable<Search[]> {
     this.currentInput.subscribe(input => this.input = input);
     if (this.singleInput === undefined || this.singleInput === '') {
