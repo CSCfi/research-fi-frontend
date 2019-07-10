@@ -12,12 +12,12 @@
 <!-- Data -->
 <div *ngFor="let publications of publicationData">
     <div class="row no-margin">
-        <div class="col arrow">
+        <div class="col col-1 arrow">
         </div>
-        <div class="col">
+        <div class="col col-4">
             <span class="bold uppercase">Julkaisun nimi</span>
         </div>
-        <div class="col hide-mobile">
+        <div class="col col-4 hide-mobile">
             <span class="bold uppercase">Tekijät</span>
         </div>
         <div class="col col-md-2 hide-mobile">
@@ -32,13 +32,13 @@
         <div *ngFor="let publications of publicationData;">
             <div class="row no-margin single" *ngFor="let publication of publications.hits.hits; let i = index"
             (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-                <div class="col arrow">
+                <div class="col col-1 arrow">
                     <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
                 </div>          
-                <div class="col">
-                    <a routerLink="/results/single/{{publication._source.publicationId}}"><h3 style="font-size: 1rem">{{publication._source.publicationName}}</h3></a>
+                <div class="col col-4">
+                    <a routerLink="/results/single/{{publication._source.publicationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{publication._source.publicationName}}</h3></a>
                 </div>          
-                <div class="col shorten hide-mobile" [class.expand]="expandStatus[i]">
+                <div class="col col-4 shorten hide-mobile" [class.expand]="expandStatus[i]">
                     <span>{{publication._source.authorsText}}</span>
                 </div>          
                 <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">
@@ -53,13 +53,13 @@
     <ng-template #nextTemplate>
         <div class="row no-margin single" *ngFor="let publication of publications.aggregations?._index.buckets.julkaisut.index_results.hits.hits; let i = index"
         (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-            <div class="col arrow">
+            <div class="col col-1 arrow">
                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
             </div>          
-            <div class="col">
-                <a routerLink="/results/single/{{publication?._source.publicationId}}"><h3 style="font-size: 1rem">{{publication?._source.publicationName}}</h3></a>
+            <div class="col col-4">
+                <a routerLink="/results/single/{{publication?._source.publicationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{publication?._source.publicationName}}</h3></a>
             </div>          
-            <div class="col shorten hide-mobile" [class.expand]="expandStatus[i]">
+            <div class="col col-4 shorten hide-mobile" [class.expand]="expandStatus[i]">
                 <span>{{publication._source.authorsText}}</span>
             </div>          
             <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">

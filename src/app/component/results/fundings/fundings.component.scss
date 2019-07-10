@@ -22,7 +22,7 @@ span.bold {
 }
   
 .single .col {
-    padding: 12px 8px;
+    padding: 12px 12px;
 }
   
 .col.arrow {
@@ -42,19 +42,25 @@ span.bold {
     overflow: auto;
     text-overflow: unset;
 }
-  
-a.arrow {
-    color: #808080;
+ 
+div.arrow {
+    display: flex;
+    justify-content: center;
 }
   
+a.arrow {
+    cursor: pointer;
+    // align-self: center;
+}
+
 a.arrow::before {
     font-family: "FontAwesome";
-    content: "\f078"; 
+    content: "\f054"; 
 }
   
 a.arrow.expand::before {
     font-family: "FontAwesome";
-    content: "\f077";
+    content: "\f078";
 }
   
 // Responsive
