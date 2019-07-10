@@ -26,7 +26,9 @@ export class PaginationComponent implements OnInit, OnDestroy {
   input: any;
   sortMethod: string;
   paginationCheck: boolean;
+  routerEvent: any;
   queryParams: any;
+  filters: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router ) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -46,15 +48,22 @@ export class PaginationComponent implements OnInit, OnDestroy {
       const term = params.input;
       this.searchTerm = term;
       this.tabLink = params.tab;
-      this.searchService.getInput(this.searchTerm);
+      // this.searchService.getInput(this.searchTerm);
+    });
+
+    // Subscribe to route events and get data
+    this.routerEvent = this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+        this.getData();
     });
 
     // Subscribe to query parameters and get data
-    this.queryParams = this.router.events.pipe(
-    filter(event => event instanceof NavigationEnd))
-    .subscribe(() => {
-         this.getData();
-     });
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.sortMethod = params.sort;
+      this.page = params.page;
+      this.filters = params.filter;
+    });
 
     // Reset pagination
     this.page = this.searchService.pageNumber;
@@ -73,8 +82,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-    this.router.navigate(['results/', this.tabLink, this.searchTerm],
-    { queryParams: { page: this.page, sort: this.sortMethod } });
+    this.navigate();
     this.paginationCheck = true;
   }
 
@@ -89,13 +97,23 @@ export class PaginationComponent implements OnInit, OnDestroy {
       this.searchTerm = '';
       this.paginationCheck = false;
     }
-    this.router.navigate(['results/', this.tabLink, this.searchTerm],
-    { queryParams: { page: this.page, sort: this.sortMethod } });
+    this.navigate();
     this.paginationCheck = true;
+  }
+
+  navigate() {
+    if (this.filters !== undefined) {
+      this.router.navigate(['results/', this.tabLink, this.searchTerm],
+      { queryParams: { page: this.page, sort: this.sortMethod, filter: this.filters } });
+    } else {
+      this.router.navigate(['results/', this.tabLink, this.searchTerm],
+      { queryParams: { page: this.page, sort: this.sortMethod } });
+    }
   }
 
   ngOnDestroy() {
     this.input.unsubscribe();
+    this.routerEvent.unsubscribe();
     this.queryParams.unsubscribe();
   }
 

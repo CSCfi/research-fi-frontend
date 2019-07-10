@@ -12,7 +12,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div class="row">
        <app-result-tab style="width:100%" [allData]="responseData"></app-result-tab>
         <aside class="col col-lg-2 filters">
-            <app-filter-sidebar [responseData]="responseData"></app-filter-sidebar>
+            <app-filter-sidebar *ngIf="tabLink===tabData[0].link" [responseData]="responseData"></app-filter-sidebar>
         </aside>
         <div class="text-center" *ngIf="!responseData">
             <mat-spinner [diameter]="40"></mat-spinner>

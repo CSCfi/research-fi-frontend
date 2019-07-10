@@ -28,15 +28,15 @@ export class BreadcrumbComponent implements OnInit {
   getResultType(type: string) {
     switch (type) {
       case 'publication': {
-        this.resultType = 'Julkaisut';
+        this.resultType = 'Publications';
         break;
       }
       case 'person': {
-        this.resultType = 'Tutkijat';
+        this.resultType = 'Persons';
         break;
       }
       case 'funding': {
-        this.resultType = 'Rahoitetut hankkeet';
+        this.resultType = 'Fundings';
         break;
       }
       default: {

@@ -7,6 +7,7 @@
 
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
+import { FilterService } from '../../../services/filter.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
@@ -24,10 +25,35 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
   paginationCheck: boolean;
+  filter: any;
+  selectedFilters: any[];
+  selectedYears: any;
+  selectedYear: any;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute ) {
+  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
     // Check if http request is POST or GET
     this.paginationCheck = this.searchService.requestCheck;
+    this.selectedFilters = [];
+  }
+
+  getFilters() {
+    // Get Data and subscribe to url query parameters
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.filter = params.filter;
+      // Check if multiple filters selected and send to service
+      if (Array.isArray(this.filter)) {
+      this.filterService.getFilter(this.filter);
+      } else if (this.filter !== undefined) {
+        this.filterService.getFilter(this.filter);
+      }
+
+      if (this.filter !== undefined && this.filter.length > 0) {
+        this.getFilteredData();
+        this.paginationCheck = true;
+      } else {
+        // this.getPublicationData();
+      }
+    });
   }
 
   dataSource(): string {
@@ -36,14 +62,28 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Get Data and subscripe to url query parameters
-    this.queryParams = this.route.queryParams.subscribe(this.queryParams);
+    this.getFilters();
   }
 
   // Assign results to publicationData
   getPublicationData() {
+    this.paginationCheck = false;
+    // Check if url contains filter
+    if (this.filter !== undefined && this.filter.length > 0) {
+      this.filterService.filterPublications();
+    } else {
+      this.searchService.getAllResults()
+      .pipe(map(publicationData => [publicationData]))
+      .subscribe(publicationData => {
+        this.publicationData = publicationData;
+      },
+        error => this.errorMessage = error as any);
+    }
+  }
+
+  getFilteredData() {
     this.paginationCheck = true;
-    this.searchService.getPublications()
+    this.filterService.filterPublications()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
       this.publicationData = publicationData;

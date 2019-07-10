@@ -25,6 +25,10 @@ export class FilterService {
   requestCheck: boolean;
   singleInput: any;
   apiUrl = API_URL;
+  selectedYears: any;
+  res: any;
+  payload: any;
+
 
   constructor( private searchService: SearchService, private http: HttpClient) {
     this.sort = this.searchService.sort;
@@ -34,23 +38,131 @@ export class FilterService {
     this.singleInput = this.searchService.singleInput;
    }
 
+  // Filters
+  getFilter(filter: any) {
+    this.res = [];
+    if (filter.length > 0 && Array.isArray(filter)) {
+      filter.forEach(value => {
+        this.res.push({ term : { publicationYear : value } });
+      });
+    } else {
+      this.res = { term : { publicationYear : filter } }; }
+    }
+
+
   // Data for results page
   filterPublications(): Observable<Search[]> {
+    this.singleInput = this.searchService.singleInput;
     if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
-    const payLoad = {
+    if (this.singleInput === undefined || this.singleInput === '') {
+    this.payload = {
       query: {
-          bool : {
-            must :
-              { query_string : { query : this.singleInput } }
-            ,
-            should : [
-              { term : { publicationYear : 2018} },
-              { term : { publicationYear : 2016} },
-              { term : { publicationYear : 2014} }
-
+        bool: {
+          should: [
+            {
+              bool: {
+                must: [
+                  { bool: { should: [ this.res ] } }
+                ]
+              }
+            },
+            {
+              bool: {
+                must: [
+                  { query_string : { query : '' } },
+                  { term: { _index: 'person' } }
+                ]
+              }
+            },
+            {
+              bool: {
+                must: [
+                  { query_string : { query : '' } },
+                  { term: { _index: 'funding' } }
+                ]
+              }
+            }
+          ],
+          boost: 1
+        }
+      },
+      size: 0,
+      aggs: {
+        _index: {
+          filters: {
+            filters: {
+              persons: {
+                match: {
+                  _index: 'person'
+                }
+              },
+              publications: {
+                match: {
+                  _index: 'publication'
+                }
+              },
+              fundings: {
+                match: {
+                  _index: 'funding'
+                }
+              }
+            }
+          },
+          aggs: {
+            index_results: {
+              top_hits: {
+                size: 10,
+                from: this.searchService.fromPage,
+                sort: this.searchService.sort
+              }
+            },
+            years: {
+              terms: {
+                field: 'publicationYear',
+                size: 50,
+                order: {
+                  _key: 'asc'
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+    } else {
+      this.payload = {
+        query: {
+          bool: {
+            should: [
+              {
+                bool: {
+                  must: [
+                    { query_string : { query : this.singleInput } },
+                    { term: { _index: 'publication' } },
+                    { bool: { should: [ this.res ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                bool: {
+                  must: [
+                    { query_string : { query : this.singleInput } },
+                    { term: { _index: 'person' } }
+                  ]
+                }
+              },
+              {
+                bool: {
+                  must: [
+                    { query_string : { query : this.singleInput } },
+                    { term: { _index: 'funding' } }
+                  ]
+                }
+              }
             ],
-            minimum_should_match : 1,
-            boost : 1.0
+            boost: 1
           }
         },
         size: 0,
@@ -58,17 +170,17 @@ export class FilterService {
           _index: {
             filters: {
               filters: {
-                tutkijat: {
+                persons: {
                   match: {
                     _index: 'person'
                   }
                 },
-                julkaisut: {
+                publications: {
                   match: {
                     _index: 'publication'
                   }
                 },
-                hankkeet: {
+                fundings: {
                   match: {
                     _index: 'funding'
                   }
@@ -79,15 +191,8 @@ export class FilterService {
               index_results: {
                 top_hits: {
                   size: 10,
-                  from: 0,
-                  sort: [
-                    {
-                      'authorsText.keyword': {
-                        order: 'asc',
-                        unmapped_type: 'long'
-                      }
-                    }
-                  ]
+                  from: this.searchService.fromPage,
+                  sort: this.searchService.sort
                 }
               },
               years: {
@@ -103,16 +208,11 @@ export class FilterService {
           }
         }
       };
-    this.requestCheck = false;
-    if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from='
-      + this.fromPage, payLoad);
-    } else {
-      return this.http.post<Search[]>
-      (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage + '&q=publication_name='
-      + this.singleInput, payLoad)
-      .pipe(catchError(this.searchService.handleError));
     }
-  }
+    this.requestCheck = false;
+    return this.http.post<Search[]>
+    (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage, this.payload)
+    .pipe(catchError(this.searchService.handleError));
 
+}
 }
