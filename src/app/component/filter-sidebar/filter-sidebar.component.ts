@@ -70,7 +70,6 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   }
 
   getSelected() {
-    // console.log(this.selectedYears.selectedOptions);
     return this.selectedYears.selectedOptions.selected.map(s => s.value);
   }
 
@@ -87,7 +86,6 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
       this.sortMethod = params.sort;
       this.page = params.page;
       this.filters = params.filter;
-      // console.log(this.selectedYears);
       // this.selectedYears.selectedOptions.selected.map = this.filters;
     });
 

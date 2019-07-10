@@ -55,7 +55,6 @@ export class FilterService {
 
   // Data for results page
   filterPublications(): Observable<Search[]> {
-    console.log('sort: ', this.searchService.sort);
     this.singleInput = this.searchService.singleInput;
     if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
     if (this.singleInput === undefined || this.singleInput === '') {

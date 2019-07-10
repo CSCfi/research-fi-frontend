@@ -108,7 +108,6 @@ export class SearchService {
         break;
       }
     }
-    console.log('ss: ', this.sort);
   }
 
   // Data for homepage values

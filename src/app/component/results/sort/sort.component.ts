@@ -20,14 +20,13 @@ export class SortComponent implements OnInit, OnDestroy {
   page: any;
   sortBy = 'desc';
   input: any;
-  sortMethod: any;
+  sortMethod: string;
   queryParams: any;
   filters: any;
 
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.sortMethod = this.searchService.sortMethod;
-
    }
 
   ngOnInit() {
@@ -59,7 +58,6 @@ export class SortComponent implements OnInit, OnDestroy {
     this.sortBy = event.target.value;
     this.searchService.sortMethod = this.sortBy;
     this.sortMethod = this.sortBy;
-    console.log('sortBy: ', this.sortBy);
     this.searchService.getSortMethod(this.sortBy);
     this.navigate();
 
