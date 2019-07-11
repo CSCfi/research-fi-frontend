@@ -18,20 +18,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublicationsComponent implements OnInit, OnDestroy {
   @Input() publicationData: any [];
+  @Input() tabData: string;
   expandStatus: Array<boolean> = [];
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
-  paginationCheck: boolean;
   filter: any;
   selectedFilters: any[];
   selectedYears: any;
   selectedYear: any;
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
-    // Check if http request is POST or GET
-    this.paginationCheck = this.searchService.requestCheck;
     this.selectedFilters = [];
   }
 
@@ -48,7 +46,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
       if (this.filter !== undefined && this.filter.length > 0) {
         this.getFilteredData();
-        this.paginationCheck = true;
       } else {
         // this.getPublicationData();
       }
@@ -61,7 +58,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   // Assign results to publicationData
   getPublicationData() {
-    this.paginationCheck = false;
     // Check if url contains filter
     if (this.filter !== undefined && this.filter.length > 0) {
       this.filterService.filterPublications();
@@ -76,7 +72,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    this.paginationCheck = true;
     this.filterService.filterPublications()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {

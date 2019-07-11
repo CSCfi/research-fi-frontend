@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-@mixin app-publications-theme($theme) {
+@mixin app-fundings-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-publications {
+    app-fundings {
         
         .row.expand {
             background: mat-color($primary, 50);
