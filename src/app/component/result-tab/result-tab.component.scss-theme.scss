@@ -9,12 +9,16 @@
             background: mat-contrast($primary, 800);
         }
 
-        .numeric .active {
+        .numeric button.bundler.active {
             background: mat-color($primary, A100);
             border-bottom: 6px solid mat-color($primary);
         }
         
-        .numeric .bundler:not(.active):hover {
+        .numeric button.bundler:not(.active) {
+            background: mat-contrast($primary, 600);
+        }
+
+        .numeric button.bundler:not(.active):hover {
             background: mat-color($primary, 200);
         }
         
