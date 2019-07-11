@@ -51,8 +51,10 @@ export class SortComponent implements OnInit, OnDestroy {
       this.page = params.page;
       this.filters = params.filter;
 
-      if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
-      // console.log('sortMethod: ', this.sortMethod);
+      if (this.sortMethod === undefined) {
+        this.sortMethod = 'desc';
+        this.searchService.getSortMethod(this.sortMethod);
+      }
 
       // this.searchService.getSortMethod(this.sortMethod);
     });
