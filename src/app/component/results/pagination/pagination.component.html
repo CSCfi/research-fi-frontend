@@ -4,8 +4,8 @@
  :license: MIT -->
 
 <div *ngFor="let response of responseData">
-  <a [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</a><a> | </a>
-  <a [ngClass]="fromPage + 10 < response.aggregations?._index.buckets[tab].doc_count ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</a>
+  <button [ngClass]="fromPage > 1 ? 'pagination-link': 'disabled'" (click)="previousPage()">Edellinen sivu</button><a> | </a>
+  <button [ngClass]="fromPage + 10 < response.aggregations?._index.buckets[tab].doc_count ? 'pagination-link': 'disabled'" (click)="nextPage()">Seuraava sivu</button>
   <div class="result-count">
     <p style="float:right;" *ngIf="fromPage + 10 < response.aggregations?._index.buckets[tab].doc_count ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.aggregations?._index.buckets[tab].doc_count}}</p>
     <p style="float:right;" *ngIf="fromPage + 10 >= response.aggregations?._index.buckets[tab].doc_count">Näytetään tulokset {{fromPage + 1}} - {{response.aggregations?._index.buckets[tab].doc_count}} / {{response.aggregations?._index.buckets[tab].doc_count}}</p>          
