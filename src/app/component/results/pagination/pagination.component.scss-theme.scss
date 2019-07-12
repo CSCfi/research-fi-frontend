@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@mixin app-pagination-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-pagination {
+        button {
+            background: mat-contrast($primary, 600);
+            color: mat-color($primary);
+        }
+    }
+}

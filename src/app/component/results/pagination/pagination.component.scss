@@ -6,11 +6,15 @@
 //  :license: MIT
   
 // Pagination
-a.pagination-link {
-cursor: pointer;
-font-weight: bold;
+button {
+    border: 0;       
 }
 
+button.pagination-link {
+    cursor: pointer;
+    font-weight: bold;
+}
+    
 .result-count {
     float: right;
 }
