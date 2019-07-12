@@ -13,8 +13,16 @@
             </a>
         </div>
         <nav class="nav-top" [ngClass]="{ 'w-100' : !mobile}">
+            <div class="mobile" id="navbar-toggle">
+                    <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleNavbar()" #navbarToggler >
+                        <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg"></span>
+                        <span *ngIf="navbarOpen" class="fa fa-times fa-lg"></span>
+                    </button>
+                    <div *ngIf="!navbarOpen" class="toggle-menu-text">Valikko</div>
+                    <div *ngIf="navbarOpen" class="toggle-menu-text">Sulje</div>
+                </div>
             <div [ngClass]="{ 'overflow-hider' : !navbarOpen && mobile }">
-                <div class="collapse navbar-collapse menu" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" id="main-navbar">
+                <div class="collapse navbar-collapse menu" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
                         <ul class="navbar-nav main mx-auto" id="mobile-langs">
                             <li [ngClass]="{ 'col-4' : mobile }">
@@ -63,15 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mobile" id="navbar-toggle">
-                <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleNavbar()">
-                    <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg"></span>
-                    <span *ngIf="navbarOpen" class="fa fa-times fa-lg"></span>
-                </button>
-                <div *ngIf="!navbarOpen" class="toggle-menu-text">Valikko</div>
-                <div *ngIf="navbarOpen" class="toggle-menu-text">Sulje</div>
-            </div>
-        </nav>
+        </nav   >
     </div>
 </header>
 <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()"></div>

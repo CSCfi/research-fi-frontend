@@ -61,7 +61,6 @@ li.col-4 {
 }
 
 .mobile .navbar-toggler {
-    outline: none;
     border: none;
 }
 
@@ -120,7 +119,7 @@ li.nav-item {
     margin-top: 8px;
     padding: 10px 32px 40px 32px;
     transition: right 0.5s ease-out;
-    display: none;
+    display: none !important;
     max-width: 95%;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -174,7 +173,6 @@ button.navbar-toggler.hidden-md-up.pull-right {
     }
 
     .navbar-expand-lg .navbar-collapse {
-        display: block!important;
         flex-basis: auto;
     }
 

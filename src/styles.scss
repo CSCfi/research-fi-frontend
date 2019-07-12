@@ -64,6 +64,13 @@ html {
   box-sizing: inherit;
 }
 
+// Dont show outlines for mouse users
+body:not(.user-tabbing) {
+  button:focus, input:focus, select:focus, textarea:focus {
+    outline: none;
+  }
+}
+
 body {
   @include angular-material-theme($researchfi-theme);
   @include researchfi-components-theme($researchfi-theme);
