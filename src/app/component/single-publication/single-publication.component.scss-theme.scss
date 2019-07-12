@@ -3,9 +3,9 @@
 @mixin app-single-publication-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-single {
+    app-single-publication {
 
-        tr:nth-child(even) {
+        tr:nth-child(odd) {
             background-color: mat-color($primary, 50);
         }
 

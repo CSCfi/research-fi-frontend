@@ -8,16 +8,16 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { SingleItemService } from '../../services/single-item.service';
+import { SingleItemService } from 'src/app/services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
-  selector: 'app-single-publication',
-  templateUrl: './single-publication.component.html',
-  styleUrls: ['./single-publication.component.scss']
+  selector: 'app-single-funding',
+  templateUrl: './single-funding.component.html',
+  styleUrls: ['./single-funding.component.scss']
 })
-export class SinglePublicationComponent implements OnInit {
+export class SingleFundingComponent implements OnInit {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
@@ -61,7 +61,7 @@ export class SinglePublicationComponent implements OnInit {
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
     this.singleId = this.route.snapshot.params.id;
-    this.singleService.getPublicationId(this.singleId);
+    this.singleService.getFundingId(this.singleId);
     this.searchTerm = this.searchService.singleInput;
     this.pageNumber = this.searchService.pageNumber || 1;
    }
@@ -75,7 +75,7 @@ export class SinglePublicationComponent implements OnInit {
   }
 
   getData() {
-    this.singleService.getSinglePublication()
+    this.singleService.getSingleFunding()
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;

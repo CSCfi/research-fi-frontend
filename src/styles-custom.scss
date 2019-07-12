@@ -8,7 +8,7 @@ $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $res
 
 // Insert custom background color
 // https://stackoverflow.com/questions/43919927/angular-material2-theming-how-to-set-app-background
-$background-color: map-get($researchfi-primary-palette, 100);
+$background-color: map-get($researchfi-primary, 100);
 $background: map-get($researchfi-theme, background);
 $background: map_merge($background, (card: $background-color));
 $researchfi-theme: map_merge($researchfi-theme, (background: $background));

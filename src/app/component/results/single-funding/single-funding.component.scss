@@ -1,0 +1,138 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+//Breadcrumb
+.breadcrumb {
+    background-color: #ffffff;
+}
+
+.breadcrumb-item a {
+    padding: 0px 15px;
+    color: #00397D;
+}
+
+li.breadcrumb-item.arrow_box.active {
+    padding: 0px 15px;
+    white-space: nowrap;
+    width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+li.breadcrumb-item.arrow_box.active.arrow_box {
+	background: #FFF;
+    border: 1px solid #B7B7DE;
+    border-right: 0px;
+}
+
+li.breadcrumb-item.arrow_box.last.arrow_box {
+	background: #FFF;
+    border: 1px solid #B7B7DE;
+    border-left: 0px;
+}
+
+.arrow_box {
+	position: relative;
+	background: #B7B7DE;
+	border: 0px solid #c2e1f5;
+}
+
+.arrow_box:after, .arrow_box:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow_box:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-left-color: #B7B7DE;
+    border-width: 12px;
+    margin-top: -12px;
+}
+
+.last.arrow_box:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-left-color: #FFF;
+}
+
+.last.arrow_box:before {
+    border-left-color: #B7B7DE;
+}
+
+.arrow_box:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-left-color: #ffffff;
+    border-width: 13px;
+    margin-top: -13px;
+}
+
+// Table
+table {
+    box-shadow: 1px 1px 2px 0px;
+}
+
+tr {
+    padding: 0.5rem 0;
+}
+
+th {
+    vertical-align: middle;
+    padding: 5px 0px 5px 15px;
+}
+
+td {
+    p {
+        margin-bottom: 0.2rem;
+    }
+    p:first-child {
+        font-weight: bold;
+    }
+}
+
+table {
+    margin: 20px 0px;
+    width: 100%;
+}
+
+
+h2 {
+    overflow: hidden;
+    font-size: 1.5em;
+}
+
+h2:after {
+    content:"";
+    display: inline-block;
+    height: 0.5em;
+    vertical-align: bottom;
+    width: 100%;
+    margin-right: -100%;
+    margin-left: 10px;
+    border-top: 1px solid black;
+}
+
+.mat-checkbox {
+    cursor: default;
+}
+
+// Sidebar
+mat-card.mat-card {
+    margin-bottom: 10px;
+    border-radius: 0px;
+    box-shadow: 1px 1px 2px 0px;
+}
+
+button.mat-raised-button {
+    width: 161px;
+    padding: 10px;
+    margin: 10px;
+}

@@ -1,0 +1,145 @@
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+ <h1 #srHeader class="sr-only"></h1>
+ <aside>
+     <app-search-bar></app-search-bar>
+ </aside>
+ 
+ <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
+     <!-- Breadcrumb -->
+     <app-breadcrumb [responseData]="responseData"></app-breadcrumb>
+     <div class="row">
+         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
+             <h2>404 - Virheellinen osoite</h2>
+         </div>
+         <main class="col">
+             <h2>Julkaisun tiedot</h2>
+             <div *ngFor="let item of publication.hits.hits">
+                 <table id="info">
+                     <tr class="row" *ngFor="let row of infoFields">
+                         <th class="col-3">{{row.label}}</th>
+                         <td class="col-9">{{item._source[row.field]}}</td>
+                     </tr>
+                 </table>
+                 <table id="author">
+                     <tr class="row">
+                         <th class="col-3">Organisaatiot ja Tekijät</th>
+                         <td class="col-9" *ngFor="let row of authorFields.slice(0,1)">
+                             <p>{{row.label}}</p>
+                             <p>{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of authorFields.slice(1)">
+                         <tr class="row">
+                             <td class="col-9 offset-3">
+                                 <p>{{row.label}}</p>
+                                 <p>{{item._source[row.field]}}</p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                 </table>
+                 <table id="organization">
+                     <tr class="row">
+                         <th class="col-3">Organisaation sisäinen affiliaatio</th>
+                         <td class="col-9" *ngFor="let row of organizationFields.slice(0,1)">
+                             <p>{{row.label}}</p>
+                             <p>{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of organizationFields.slice(1)">
+                         <tr class="row">
+                             <td class="col-9 offset-3">
+                                 <p>{{row.label}}</p>
+                                 <p>{{item._source[row.field]}}</p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                 </table>
+                 <table id="medium">
+                     <tr class="row">
+                         <th class="col-3">Julkaisukanavan tiedot</th>
+                         <td class="col-3" *ngFor="let row of mediumFields.slice(0,3)">
+                             <p>{{row.label}}</p>
+                             <p>{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
+                         <tr class="row" *ngIf="i % 3 == 0">
+                             <td class="col-3 offset-3">
+                                 <p>{{row.label}}</p>
+                                 <p>{{item._source[row.field]}}</p>
+                             </td>        
+                             <td class="col-3" *ngIf="mediumFields.slice(3).length > i+1">
+                                 <p>{{mediumFields.slice(3)[i + 1].label}}</p>
+                                 <p>{{item._source[mediumFields.slice(3)[i + 1].field]}}</p>
+                             </td>        
+                             <td class="col-3" *ngIf="mediumFields.slice(3).length > i+2">
+                                 <p>{{mediumFields.slice(3)[i + 2].label}}</p>
+                                 <p>{{item._source[mediumFields.slice(3)[i + 2].field]}}</p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                 </table>
+                 <table id="links">
+                     <tr class="row" *ngFor="let row of linksFields.slice(0,1)">
+                         <th class="col-3">Linkit</th>
+                         <td class="col-9"><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></td>
+                     </tr>
+                     <ng-container *ngFor="let row of linksFields.slice(1)">
+                         <tr class="row">
+                             <td class="col-9 offset-3">
+                                 <p><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                 </table>
+                 <table id="other">
+                     <tr class="row">
+                         <th class="col-3">Muut tiedot</th>
+                         <td class="col-4" *ngFor="let row of otherFields.slice(0,2)">
+                             <p>{{row.label}}</p>
+                             <p>{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
+                         <tr class="row" *ngIf="i % 2 == 0">
+                             <td class="col-4 offset-3">
+                                 <p>{{row.label}}</p>
+                                 <p>{{item._source[row.field]}}</p>
+                             </td>        
+                             <td class="col-5" *ngIf="otherFields.slice(2).length > i+1">
+                                 <p>{{otherFields.slice(2)[i + 1].label}}</p>
+                                 <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                 </table>
+             </div>
+         </main>
+         <div class="col col-4">
+             <h2>Toiminnot</h2>
+             <aside>
+                 <mat-card>
+                     <button mat-raised-button color="primary">Kopioi linkki</button>
+                     <button mat-raised-button color="primary">Lähetä sähköpostilla</button>
+                     <button mat-raised-button color="primary">Viitetiedot</button>
+                     <button mat-raised-button color="primary">Tulosta</button>
+                 </mat-card>
+             </aside>
+             <h2>Liittyvää</h2>
+             <aside>
+                 <mat-card>
+                     <mat-card-title>Muita samankaltaisia</mat-card-title>
+                     <p>Julkaisun nimi</p>
+                     <p>Julkaisun nimi</p>
+                     <p>Julkaisun nimi</p>
+                 </mat-card>
+             </aside>
+         </div>
+     </div>
+ </div>
