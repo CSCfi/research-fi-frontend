@@ -43,7 +43,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { CountUpModule } from 'countup.js-angular2';
 
-import { SingleComponent } from './component/single/single.component';
+import { SinglePublicationComponent } from './component/single-publication/single-publication.component';
 import { PublicationsComponent } from './component/results/publications/publications.component';
 import { PersonsComponent } from './component/results/persons/persons.component';
 import { FilterSidebarComponent } from './component/filter-sidebar/filter-sidebar.component';
@@ -59,7 +59,7 @@ import { FundingsComponent } from './component/results/fundings/fundings.compone
     HomePageComponent,
     SearchBarComponent,
     ResultsComponent,
-    SingleComponent,
+    SinglePublicationComponent,
     PublicationsComponent,
     PersonsComponent,
     FilterSidebarComponent,

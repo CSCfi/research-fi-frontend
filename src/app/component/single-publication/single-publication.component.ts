@@ -13,11 +13,11 @@ import { map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
-  selector: 'app-single',
-  templateUrl: './single.component.html',
-  styleUrls: ['./single.component.scss']
+  selector: 'app-single-publication',
+  templateUrl: './single-publication.component.html',
+  styleUrls: ['./single-publication.component.scss']
 })
-export class SingleComponent implements OnInit {
+export class SinglePublicationComponent implements OnInit {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
