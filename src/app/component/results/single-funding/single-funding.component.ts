@@ -23,37 +23,27 @@ export class SingleFundingComponent implements OnInit {
   searchTerm: string;
   pageNumber: any;
   infoFields = [
-    {label: 'Julkaisun nimi', field: 'publicationName'},
-    {label: 'Tekijät', field: 'authorsText'},
-    {label: 'Julkaisuvuosi', field: 'publicationYear'},
-    {label: 'Julkaisutyyppi', field: 'publicationTypeCode'}
-  ];
-  authorFields = [
-    {label: 'Tekijöiden määrä', field: 'numberOfAuthors'}
-  ];
-  organizationFields = [
-    {label: 'Organisaatio', field: 'publicationOrgId'}
-  ];
-  mediumFields = [
-    {label: 'Lehti', field: 'publisherName'},
-    {label: 'ISSN', field: 'issn'},
-    {label: 'ISBN', field: 'isbn'},
-    {label: 'Volyymi', field: 'volume'},
-    {label: 'Numero', field: 'issueNumber'},
-    {label: 'Sivut', field: 'pageNumberText'},
-    {label: 'Julkaisufoorumi', field: 'jufoCode'},
-    {label: 'Julkaisufoorumitaso', field: 'jufoClassCode'}
-  ];
-  linksFields = [
-    {label: 'Juuli', field: 'juuliAddress'}
-  ];
-  otherFields  = [
-    {label: 'Tieteenalat', field: 'fields_of_science'},
-    {label: 'Avoin saatavuus', field: 'openAccessCode'},
-    {label: 'Julkaisumaa', field: 'publicationCountryCode'},
-    {label: 'Kieli', field: 'languageCode'},
-    {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration'},
-    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'}
+    {label: 'Hankkeen nimi', field: 'projectNameFi'},
+    {label: 'Rahoittaja', field: 'funderNameFi'},
+    {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
+    {label: 'Alkamisvuosi', field: 'fundingApprovalDate'},
+    {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
+    {label: 'Rahoituksen saaja (henkilö)', field: 'projectPersons'},
+    {label: 'Yhteyshenkilö', field: 'fundingContactPersonLastName'},
+    {label: 'Muut organisaatiot', field: '?'},
+    {label: 'Myönnetty summa', field: 'amount'},
+    {label: 'Rahoitusmuoto', field: '?'},
+    {label: 'Konsortion nimi', field: 'consortiumNameFi'},
+    {label: 'Konsortion kuvaus', field: 'consortiumDescriptionFi'},
+    {label: 'Hankkeeseen liittyvät muut rahoituspäätökset', field: '?'},
+    {label: 'Hankkeen alkupvm', field: 'fundingApprovalDate'},
+    {label: 'Hankkeen loppupvm', field: '?'},
+    {label: 'Tieteenala', field: '?'},
+    {label: 'Teema-alat / tutkimusalat', field: '?'},
+    {label: 'Avainsanat', field: '?'},
+    {label: 'Haun nimi', field: 'callProgrammeNameFi'},
+    {label: 'Linkit', field: '?'},
+    {label: 'Muut tiedot', field: '?'},
   ];
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
@@ -79,7 +69,7 @@ export class SingleFundingComponent implements OnInit {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
+      this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
       this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
       this.filterData();
     },
@@ -94,10 +84,5 @@ export class SingleFundingComponent implements OnInit {
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    this.authorFields = this.authorFields.filter(item => checkEmpty(item));
-    this.organizationFields = this.organizationFields.filter(item => checkEmpty(item));
-    this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
-    this.linksFields = this.linksFields.filter(item => checkEmpty(item));
-    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
   }
 }
