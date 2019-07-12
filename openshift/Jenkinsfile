@@ -1,0 +1,23 @@
+// This file is part of the research.fi service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+pipeline {
+  agent {
+    node {
+      label 'nodejs' 
+    }
+  }
+  options {
+    timeout(time: 5, unit: 'MINUTES') 
+  }
+  stages {
+    stage('Build') {
+      steps {
+        openshiftBuild(bldCfg: 'researchfi-frontend-build', showBuildLogs: 'true')
+      }
+    }
+  }
+}

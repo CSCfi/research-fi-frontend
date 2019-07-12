@@ -1,0 +1,110 @@
+# This file is part of the research.fi service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: v1
+kind: Template
+metadata:
+  labels:
+    app: researchfi-frontend
+    template: researchfi-frontend
+  name: researchfi-frontend
+objects:
+
+# Service
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: researchfi-frontend
+    annotations:
+      description: Research.fi frontend service
+  spec:
+    ports:
+      - name: frontend
+        port: 8080
+        targetPort: 8080
+    selector:
+      name: researchfi-frontend
+
+# ImageStream
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: researchfi-frontend
+
+# BuildConfig using Docker build strategy
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: researchfi-frontend-build
+  spec:
+    source:
+      git:
+        uri: https://github.com/CSCfi/research-fi-frontend.git
+        ref: CSCTTV-638_2 # change to 'devel'
+      contextDir: .
+    strategy:
+      dockerStrategy:
+        dockerfilePath: Dockerfile.prod
+        buildArgs:
+          - name: API_HOST
+            value: ${API_HOST}
+    output:
+      to:
+        kind: ImageStreamTag
+        name: researchfi-frontend:latest
+
+# Jenkins pipeline
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: researchfi-frontend-pipeline
+  spec:
+    source:
+      git:
+        uri: https://github.com/CSCfi/research-fi-frontend.git
+        ref: CSCTTV-638_2 # change to 'devel'
+      contextDir: .
+    strategy:
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: openshift/Jenkinsfile
+
+# Deployment config
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: researchfi-frontend
+  spec:
+    template:
+      metadata:
+        labels:
+          name: researchfi-frontend
+      spec:
+        containers:
+          - name: researchfi-frontend
+            image: ts/researchfi-frontend   # check image path
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+    replicas: 1
+    selector:
+      name: researchfi-frontend
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - researchfi-frontend
+        from:
+          kind: ImageStreamTag
+          name: researchfi-frontend:latest
+    strategy:
+      type: Rolling
+
+# Template parameters
+parameters:
+- name: API_HOST
+  description: Address of the API host, for example 'myhostname.csc.fi:8888'
