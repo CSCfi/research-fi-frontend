@@ -47,7 +47,7 @@ objects:
       contextDir: .
     strategy:
       dockerStrategy:
-        dockerfilePath: Dockerfile.prod
+        dockerfilePath: openshift/Dockerfile
         buildArgs:
           - name: API_HOST
             value: ${API_HOST}
