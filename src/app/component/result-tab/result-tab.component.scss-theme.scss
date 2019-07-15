@@ -17,7 +17,7 @@
         button.bundler:not(.active) {
             background: mat-contrast($primary, 600);
         }
-
+        
         button.bundler:not(.active):hover {
             background: mat-color($primary, 200);
         }
@@ -27,6 +27,26 @@
         }
         .text-center {
             color: mat-color($primary, 800);
+        }
+        
+        @media (max-width: 575px) {
+            button.bundler.active {
+                background: mat-color($primary);
+                border-bottom: 0px;
+            }
+
+            
+            .text-center {
+                color: mat-contrast($primary, 500);
+            }
+            
+            .bundler:not(.active) .text-center {
+                color: mat-color($primary);
+            }
+
+            button.bundler:not(.active) {
+                background: mat-contrast($primary, 600);
+            }
         }
     }
 }

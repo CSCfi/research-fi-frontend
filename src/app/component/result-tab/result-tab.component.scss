@@ -46,3 +46,20 @@ span.text-center {
     margin: 0 auto;
     overflow: hidden;
 }
+
+@media (max-width: 575px) {
+    .wrapper {
+        max-width: 2000px;
+    }
+
+    .bundler {
+        min-width: 270px;
+        border-radius: 0;
+        margin: 7px 5px;
+        padding: 7px 5px;
+    }
+
+    span.text-center {
+        font-size: 1.2em;
+    }
+}
