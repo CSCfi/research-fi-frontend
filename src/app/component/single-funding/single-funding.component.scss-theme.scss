@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-@mixin app-single-publication-theme($theme) {
+@mixin app-single-funding-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-single-publication {
+    app-single-funding {
 
         tr:nth-child(odd) {
             background-color: mat-color($primary, 50);

@@ -52,7 +52,7 @@ import { SortComponent } from './component/results/sort/sort.component';
 import { PaginationComponent } from './component/results/pagination/pagination.component';
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { FundingsComponent } from './component/results/fundings/fundings.component';
-import { SingleFundingComponent } from './component/results/single-funding/single-funding.component';
+import { SingleFundingComponent } from './component/single-funding/single-funding.component';
 
 @NgModule({
   declarations: [

@@ -10,7 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { ResultsComponent } from './component/results/results.component';
 import { SinglePublicationComponent } from './component/single-publication/single-publication.component';
-import { SingleFundingComponent } from './component/results/single-funding/single-funding.component';
+import { SingleFundingComponent } from './component/single-funding/single-funding.component';
 
 const routes: Routes = [
   {
