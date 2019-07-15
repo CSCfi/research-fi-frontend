@@ -1,0 +1,52 @@
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+ <h1 #srHeader class="sr-only"></h1>
+ <aside>
+     <app-search-bar></app-search-bar>
+ </aside>
+ 
+ <div class="container" *ngFor="let funding of responseData" style="margin-top:25px;">
+     <!-- Breadcrumb -->
+     <app-breadcrumb [responseData]="responseData" [tab]="'fundings'" [resultNameField]="'projectNameFi'"></app-breadcrumb>
+     <div class="row">
+         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="funding.hits.total === 0">
+             <h2>404 - Virheellinen osoite</h2>
+         </div>
+         <main class="col">
+             <h2>Hankkeen tiedot</h2>
+             <div *ngFor="let item of funding.hits.hits">
+                 <table id="info">
+                     <tr class="row" *ngFor="let row of infoFields">
+                         <th class="col-3">{{row.label}}</th>
+                         <td class="col-9">{{item._source[row.field]}}</td>
+                     </tr>
+                 </table>
+             </div>
+         </main>
+         <div class="col col-4">
+             <h2>Toiminnot</h2>
+             <aside>
+                 <mat-card>
+                     <button mat-raised-button color="primary">Kopioi linkki</button>
+                     <button mat-raised-button color="primary">Lähetä sähköpostilla</button>
+                     <button mat-raised-button color="primary">Viitetiedot</button>
+                     <button mat-raised-button color="primary">Tulosta</button>
+                 </mat-card>
+             </aside>
+             <h2>Liittyvää</h2>
+             <aside>
+                 <mat-card>
+                     <mat-card-title>Muita samankaltaisia</mat-card-title>
+                     <p>Julkaisun nimi</p>
+                     <p>Julkaisun nimi</p>
+                     <p>Julkaisun nimi</p>
+                 </mat-card>
+             </aside>
+         </div>
+     </div>
+ </div>

@@ -9,7 +9,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { ResultsComponent } from './component/results/results.component';
-import { SingleComponent } from './component/single/single.component';
+import { SinglePublicationComponent } from './component/single-publication/single-publication.component';
+import { SingleFundingComponent } from './component/single-funding/single-funding.component';
 
 const routes: Routes = [
   {
@@ -18,12 +19,20 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
-    path: 'results/single',
-    component: SingleComponent
+    path: 'results/publication',
+    component: SinglePublicationComponent
   },
   {
-    path: 'results/single/:id',
-    component: SingleComponent
+    path: 'results/publication/:id',
+    component: SinglePublicationComponent
+  },
+  {
+    path: 'results/funding',
+    component: SingleFundingComponent
+  },
+  {
+    path: 'results/funding/:id',
+    component: SingleFundingComponent
   },
   {
     path: 'results',

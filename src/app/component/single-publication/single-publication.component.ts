@@ -13,11 +13,11 @@ import { map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
-  selector: 'app-single',
-  templateUrl: './single.component.html',
-  styleUrls: ['./single.component.scss']
+  selector: 'app-single-publication',
+  templateUrl: './single-publication.component.html',
+  styleUrls: ['./single-publication.component.scss']
 })
-export class SingleComponent implements OnInit {
+export class SinglePublicationComponent implements OnInit {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
@@ -48,7 +48,7 @@ export class SingleComponent implements OnInit {
     {label: 'Juuli', field: 'juuliAddress'}
   ];
   otherFields  = [
-    {label: 'Tieteenalat', field: 'fields_of_science'},
+    {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Avoin saatavuus', field: 'openAccessCode'},
     {label: 'Julkaisumaa', field: 'publicationCountryCode'},
     {label: 'Kieli', field: 'languageCode'},
@@ -61,7 +61,7 @@ export class SingleComponent implements OnInit {
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
     this.singleId = this.route.snapshot.params.id;
-    this.singleService.getId(this.singleId);
+    this.singleService.getPublicationId(this.singleId);
     this.searchTerm = this.searchService.singleInput;
     this.pageNumber = this.searchService.pageNumber || 1;
    }
@@ -75,12 +75,13 @@ export class SingleComponent implements OnInit {
   }
 
   getData() {
-    this.singleService.getSingle()
+    this.singleService.getSinglePublication()
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
       this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
       this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
+      this.shapeData();
       this.filterData();
     },
       error => this.errorMessage = error as any);
@@ -99,5 +100,13 @@ export class SingleComponent implements OnInit {
     this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
     this.linksFields = this.linksFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
+  }
+
+  shapeData() {
+    const source = this.responseData[0].hits.hits[0]._source;
+    const fieldsOfScience = source.fields_of_science;
+    if (fieldsOfScience.length > 0) {
+      source.fieldsOfScience = fieldsOfScience[0].nameFiScience;
+    }
   }
 }

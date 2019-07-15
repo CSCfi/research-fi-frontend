@@ -35,7 +35,7 @@
                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
             </div>          
             <div class="col col-4">
-                <a routerLink="/results/single/{{publication._source.publicationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{publication._source.publicationName}}</h3></a>
+                <a routerLink="/results/publication/{{publication._source.publicationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{publication._source.publicationName}}</h3></a>
             </div>          
             <div class="col col-4 shorten hide-mobile" [class.expand]="expandStatus[i]">
                 <span>{{publication._source.authorsText}}</span>

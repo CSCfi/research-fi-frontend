@@ -1,11 +1,11 @@
 @import '~@angular/material/theming';
 
-@mixin app-single-theme($theme) {
+@mixin app-single-funding-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-single {
+    app-single-funding {
 
-        tr:nth-child(even) {
+        tr:nth-child(odd) {
             background-color: mat-color($primary, 50);
         }
 
@@ -17,10 +17,6 @@
             p:first-child {
                 color: mat-contrast($primary, 50);
             }
-        }
-
-        :host /deep/ .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
-            background-color: mat-color($primary, default-contrast);
         }
     }
 }

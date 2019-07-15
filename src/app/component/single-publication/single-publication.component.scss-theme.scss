@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+
+@mixin app-single-publication-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-single-publication {
+
+        tr:nth-child(odd) {
+            background-color: mat-color($primary, 50);
+        }
+
+        th, td {
+            color: mat-color($primary);
+        }
+
+        td {
+            p:first-child {
+                color: mat-contrast($primary, 50);
+            }
+        }
+    }
+}

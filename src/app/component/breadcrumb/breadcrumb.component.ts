@@ -15,6 +15,8 @@ import { SearchService } from '../../services/search.service';
 })
 export class BreadcrumbComponent implements OnInit {
   @Input() responseData: any [];
+  @Input() tab: any;
+  @Input() resultNameField: any;
   resultType: string;
   searchTerm: any;
 
@@ -24,25 +26,4 @@ export class BreadcrumbComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getResultType(type: string) {
-    switch (type) {
-      case 'publication': {
-        this.resultType = 'Publications';
-        break;
-      }
-      case 'person': {
-        this.resultType = 'Persons';
-        break;
-      }
-      case 'funding': {
-        this.resultType = 'Fundings';
-        break;
-      }
-      default: {
-        this.resultType = '';
-      }
-    }
-  }
-
 }
