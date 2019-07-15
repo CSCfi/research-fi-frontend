@@ -28,7 +28,7 @@ export class SingleFundingComponent implements OnInit {
     {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
     {label: 'Alkamisvuosi', field: 'fundingApprovalDate'},
     {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
-    {label: 'Rahoituksen saaja (henkilö)', field: 'projectPersons'},
+    {label: 'Rahoituksen saaja (henkilö)', field: 'projectPersonsNames'},
     {label: 'Yhteyshenkilö', field: 'fundingContactPersonLastName'},
     {label: 'Muut organisaatiot', field: '?'},
     {label: 'Myönnetty summa', field: 'amount'},
@@ -38,13 +38,14 @@ export class SingleFundingComponent implements OnInit {
     {label: 'Hankkeeseen liittyvät muut rahoituspäätökset', field: '?'},
     {label: 'Hankkeen alkupvm', field: 'fundingApprovalDate'},
     {label: 'Hankkeen loppupvm', field: '?'},
-    {label: 'Tieteenala', field: '?'},
-    {label: 'Teema-alat / tutkimusalat', field: '?'},
-    {label: 'Avainsanat', field: '?'},
+    {label: 'Tieteenala', field: 'keyword'},
+    {label: 'Teema-alat / tutkimusalat', field: 'keyword'},
+    {label: 'Avainsanat', field: 'keywords'},
     {label: 'Haun nimi', field: 'callProgrammeNameFi'},
     {label: 'Linkit', field: '?'},
     {label: 'Muut tiedot', field: '?'},
   ];
+
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
 
@@ -71,6 +72,7 @@ export class SingleFundingComponent implements OnInit {
       this.responseData = responseData;
       this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
       this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
+      this.shapeData(responseData);
       this.filterData();
     },
       error => this.errorMessage = error as any);
@@ -84,5 +86,21 @@ export class SingleFundingComponent implements OnInit {
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+  }
+
+  shapeData(data) {
+    const source = data[0].hits.hits[0]._source;
+    const persons = source.projectPersons;
+    const keywords = source.keywords;
+    if (persons.length > 0) {
+      source.projectPersonsNames = persons[0].projectPersonFirstNames + ' ' + persons[0].projectPersonLastName;
+    }
+    if (keywords.length > 0) {
+      source.keyword = keywords[0].keyword;
+      source.scheme = keywords[0].scheme;
+      source.language = keywords[0].language;
+      source.keywords = source.keyword + ' ' + source.scheme + ' ' + source.language;
+    }
+
   }
 }
