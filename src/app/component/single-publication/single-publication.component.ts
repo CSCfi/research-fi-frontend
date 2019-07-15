@@ -48,7 +48,7 @@ export class SinglePublicationComponent implements OnInit {
     {label: 'Juuli', field: 'juuliAddress'}
   ];
   otherFields  = [
-    {label: 'Tieteenalat', field: 'fields_of_science'},
+    {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Avoin saatavuus', field: 'openAccessCode'},
     {label: 'Julkaisumaa', field: 'publicationCountryCode'},
     {label: 'Kieli', field: 'languageCode'},
@@ -81,6 +81,7 @@ export class SinglePublicationComponent implements OnInit {
       this.responseData = responseData;
       this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
       this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
+      this.shapeData();
       this.filterData();
     },
       error => this.errorMessage = error as any);
@@ -99,5 +100,13 @@ export class SinglePublicationComponent implements OnInit {
     this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
     this.linksFields = this.linksFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
+  }
+
+  shapeData() {
+    const source = this.responseData[0].hits.hits[0]._source;
+    const fieldsOfScience = source.fields_of_science;
+    if (fieldsOfScience.length > 0) {
+      source.fieldsOfScience = fieldsOfScience[0].nameFiScience;
+    }
   }
 }

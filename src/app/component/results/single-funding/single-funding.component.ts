@@ -72,7 +72,7 @@ export class SingleFundingComponent implements OnInit {
       this.responseData = responseData;
       this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
       this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
-      this.shapeData(responseData);
+      this.shapeData();
       this.filterData();
     },
       error => this.errorMessage = error as any);
@@ -88,8 +88,8 @@ export class SingleFundingComponent implements OnInit {
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
   }
 
-  shapeData(data) {
-    const source = data[0].hits.hits[0]._source;
+  shapeData() {
+    const source = this.responseData[0].hits.hits[0]._source;
     const persons = source.projectPersons;
     const keywords = source.keywords;
     if (persons.length > 0) {
@@ -101,6 +101,5 @@ export class SingleFundingComponent implements OnInit {
       source.language = keywords[0].language;
       source.keywords = source.keyword + ' ' + source.scheme + ' ' + source.language;
     }
-
   }
 }
