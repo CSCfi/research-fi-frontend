@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,17 +10,9 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   templateUrl: './result-tab.component.html',
   styleUrls: ['./result-tab.component.scss']
 })
-export class ResultTabComponent implements OnInit, OnDestroy {
-  @ViewChild('scroll') scroll: ElementRef;
-  private _allData: any;
-  @Input() set allData(value: any) {
-    this._allData = value;
-    setTimeout(() => {
-      this.scrollWidth = this.scroll.nativeElement.scrollWidth;
-      this.offsetWidth = this.scroll.nativeElement.offsetWidth;
-    }, 1000);
-  }
-  get allData() { return this._allData; }
+export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
+  @ViewChildren('scroll') ref: QueryList<any>;
+  @Input() allData: any;
 
   errorMessage: any [];
   selectedTab: any;
@@ -30,6 +22,8 @@ export class ResultTabComponent implements OnInit, OnDestroy {
     duration: 0.5
   };
 
+  // Variables related to scrolling logic
+  scroll: ElementRef;
   lastScrollLocation = 0;
   offsetWidth;
   scrollWidth;
@@ -53,6 +47,7 @@ export class ResultTabComponent implements OnInit, OnDestroy {
         }
       });
     });
+    // Add the scroll handler
     window.addEventListener('scroll', this.scrollEvent, true);
   }
 
@@ -60,9 +55,23 @@ export class ResultTabComponent implements OnInit, OnDestroy {
     window.removeEventListener('scroll', this.scrollEvent);
   }
 
+  // Update scrollWidth and offsetWidth once data is available and DOM is rendered
+  // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
+  ngOnChanges() {
+    if (this.allData) {
+      this.ref.changes.subscribe((result) => {
+        this.scroll = result.first;
+        // Timeout to prevent value changed exception
+        setTimeout(() => {
+          this.scrollWidth = this.scroll.nativeElement.scrollWidth;
+          this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+        }, 1);
+      });
+    }
+  }
+
   scrollEvent = (e: any): void => {
     this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
-    console.log(this.offsetWidth + this.lastScrollLocation < this.scrollWidth);
   }
 
   onResize(event) {
