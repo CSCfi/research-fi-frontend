@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,8 +10,18 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   templateUrl: './result-tab.component.html',
   styleUrls: ['./result-tab.component.scss']
 })
-export class ResultTabComponent implements OnInit {
-  @Input() allData: any [];
+export class ResultTabComponent implements OnInit, OnDestroy {
+  @ViewChild('scroll') scroll: ElementRef;
+  private _allData: any;
+  @Input() set allData(value: any) {
+    this._allData = value;
+    setTimeout(() => {
+      this.scrollWidth = this.scroll.nativeElement.scrollWidth;
+      this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+    }, 1000);
+  }
+  get allData() { return this._allData; }
+
   errorMessage: any [];
   selectedTab: any;
   tab: any;
@@ -19,6 +29,10 @@ export class ResultTabComponent implements OnInit {
   myOps = {
     duration: 0.5
   };
+
+  lastScrollLocation = 0;
+  offsetWidth;
+  scrollWidth;
 
   tabData = this.tabChangeService.tabData;
 
@@ -39,6 +53,22 @@ export class ResultTabComponent implements OnInit {
         }
       });
     });
+    window.addEventListener('scroll', this.scrollEvent, true);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scrollEvent);
+  }
+
+  scrollEvent = (e: any): void => {
+    this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
+    console.log(this.offsetWidth + this.lastScrollLocation < this.scrollWidth);
+  }
+
+  onResize(event) {
+    this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
+    this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+    this.scrollWidth = this.scroll.nativeElement.scrollWidth;
   }
 
   changeTab(tab) {
