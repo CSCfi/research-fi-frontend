@@ -18,7 +18,7 @@
     display: none; 
 }
 
-span.numeric-box {
+.numeric-box {
     font-size: 1.5em;
 }
 
@@ -26,7 +26,7 @@ span.numeric-box {
     display: none;
 }
 
-span.text-center {
+.text-center {
     font-size: 0.9em;
 }
 
@@ -48,18 +48,15 @@ span.text-center {
 }
 
 @media (max-width: 575px) {
-    .wrapper {
-        max-width: 2000px;
-    }
-
     .bundler {
-        min-width: 270px;
+        min-width: auto;
         border-radius: 0;
         margin: 7px 5px;
-        padding: 7px 5px;
+        padding: 7px 20px;
     }
 
-    span.text-center {
+    .text-center {
+        display: table-cell;
         font-size: 1.2em;
     }
 }
