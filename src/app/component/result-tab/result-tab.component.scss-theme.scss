@@ -28,6 +28,10 @@
         .text-center {
             color: mat-color($primary, 800);
         }
+
+        .arrow {
+            background: mat-color($primary, 100);
+        }
         
         @media (max-width: 575px) {
             button.bundler.active {
