@@ -9,10 +9,10 @@
     position: absolute;
     z-index: 2;
     left: 0;
-    top: 87px;
+    top: 90px;
     background: rgba(0,0,0,0.5);
     width: 100%;
-    height: 100%;
+    height: calc(100% - 90px);
 }
 
 #mobile-langs {
