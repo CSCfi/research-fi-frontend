@@ -74,6 +74,14 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
   }
 
+  scrollLeft() {
+    this.scroll.nativeElement.scrollLeft -= Math.max(150, 1 + (this.scrollWidth) / 4);
+  }
+
+  scrollRight() {
+    this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) / 4);
+  }
+
   onResize(event) {
     this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
     this.offsetWidth = this.scroll.nativeElement.offsetWidth;
