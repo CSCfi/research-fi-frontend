@@ -14,13 +14,13 @@
     <div class="row no-margin">
         <div class="col col-1 arrow">
         </div>
-        <div class="col col-4">
+        <div class="col col-md-4">
             <span class="bold uppercase">Julkaisun nimi</span>
         </div>
-        <div class="col col-4 hide-mobile">
+        <div class="col col-md-4 d-none d-lg-block">
             <span class="bold uppercase">Tekijät</span>
         </div>
-        <div class="col col-md-2 hide-mobile">
+        <div class="col col-md-2 d-none d-lg-block">
             <span class="bold uppercase">Julkaisukanava</span>
         </div>
         <div class="col col-md-1">
@@ -34,16 +34,16 @@
             <div class="col col-1 arrow">
                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
             </div>          
-            <div class="col col-4">
+            <div class="col col-md-4">
                 <a routerLink="/results/publication/{{publication._source.publicationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{publication._source.publicationName}}</h3></a>
             </div>          
-            <div class="col col-4 shorten hide-mobile" [class.expand]="expandStatus[i]">
+            <div class="col col-md-4 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
                 <span>{{publication._source.authorsText}}</span>
             </div>          
-            <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">
+            <div class="col col-md-2 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
                 <span>{{publication._source.journalName}}</span>
             </div>          
-            <div class="col col-1">
+            <div class="col col-md-1">
                 <span>{{publication._source.publicationYear}}</span>
             </div>
         </div>       

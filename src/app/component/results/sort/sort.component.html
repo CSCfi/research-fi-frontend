@@ -6,11 +6,11 @@
 <div class="sort">
   <span class="align-left hide-mobile" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
   <mat-form-field>
-     <select matNativeControl (change)="orderBy($event)" [value]='sortMethod'>
-         <option value="desc">Uusin ensin</option>
-         <option value="asc">Vanhin ensin</option>
-         <option value="name">Julkaisun nimen mukaan (A-Ö)</option>
-         <option value="person">Ensimmäisen tekijän mukaan (A-Ö)</option>
-     </select>
+     <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
+         <mat-option [value]="'desc'">Uusin ensin</mat-option>
+         <mat-option [value]="'asc'">Vanhin ensin</mat-option>
+         <mat-option [value]="'name'">Julkaisun nimen mukaan (A-Ö)</mat-option>
+         <mat-option [value]="'person'">Ensimmäisen tekijän mukaan (A-Ö)</mat-option>
+     </mat-select>
  </mat-form-field>
 </div>

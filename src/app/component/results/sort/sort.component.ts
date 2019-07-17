@@ -61,9 +61,8 @@ export class SortComponent implements OnInit, OnDestroy {
 
   }
 
-  orderBy(event: { target: { value: any; }; }): void {
+  orderBy(): void {
     if (this.searchTerm ? undefined : this.searchTerm === '') {}
-    this.sortBy = event.target.value;
     this.searchService.sortMethod = this.sortBy;
     this.sortMethod = this.sortBy;
     this.searchService.getSortMethod(this.sortBy);
