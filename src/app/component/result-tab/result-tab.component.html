@@ -5,10 +5,18 @@
 </div>
   
 <div class="wrapper" *ngIf="allData">
-  <div class="scroll" *ngFor="let counted of allData">
+  <div #scroll class="scroll" *ngFor="let counted of allData" (window:resize)="onResize($event)">
+    <div *ngIf="lastScrollLocation > 0" class="edge">
+      <div class="grad grad-left"></div>
+      <div class="arrow arrow-left d-none d-sm-block" (click)="scrollLeft()"></div>
+    </div>
+    <div *ngIf="offsetWidth + lastScrollLocation < scrollWidth" class="edge">
+      <div class="grad grad-right"></div>
+      <div class="arrow arrow-right d-none d-sm-block" (click)="scrollRight()"></div>
+    </div>
     <button class="bundler" *ngFor="let tab of tabData" [class.active]="selectedTab===tab.link" (click)="changeTab(tab)">
-      <span class="numeric-box" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</span> <!-- TODO: Remove the ternary operator when all data becomes available -->
-      <span class="text-center">{{tab.label}}</span>
+      <div class="numeric-box d-none d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
+      <div class="text-center">{{tab.label}}</div>
     </button>
   </div>
 </div>

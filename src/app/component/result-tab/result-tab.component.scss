@@ -6,19 +6,26 @@
 // # :license: MIT
 
 .scroll {
+    scroll-behavior: smooth;
     display: flex;
     flex-wrap: nowrap;
     overflow: auto;
     white-space: nowrap; 
     max-height: 90px;
+    // Hide scrollbar on firefox
+    scrollbar-width: none;
 }
 
-// Demo purposes only, proceed with caution on Windows!
+.wrapper {
+    position: relative;
+}
+
+// Hide scrollbar on chrome
 .scroll::-webkit-scrollbar {
     display: none; 
 }
 
-span.numeric-box {
+.numeric-box {
     font-size: 1.5em;
 }
 
@@ -26,7 +33,7 @@ span.numeric-box {
     display: none;
 }
 
-span.text-center {
+.text-center {
     font-size: 0.9em;
 }
 
@@ -45,4 +52,74 @@ span.text-center {
     font-weight: bold;
     margin: 0 auto;
     overflow: hidden;
+}
+
+.edge {
+    display: flex;
+}
+
+.arrow {
+    align-self: center;
+    position: absolute;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.arrow::after {
+    font-family: "FontAwesome";
+    font-size: 2em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-left {
+    left: 0;
+}
+
+.arrow-left::after {
+    content: "\f060";
+}
+
+
+.arrow-right {
+    right: 0;
+}
+
+.arrow-right::after {
+    content: "\f061";
+}
+
+.grad {
+    position: absolute;
+    min-width: 100px;
+    min-height: 100%;
+    pointer-events: none;
+}
+
+.grad-left {
+    left: 0;
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+}
+
+.grad-right {
+    right: 0;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+}
+
+@media (max-width: 575px) {
+    .bundler {
+        min-width: auto;
+        border-radius: 0;
+        margin: 7px 5px;
+        padding: 7px 20px;
+    }
+
+    .text-center {
+        display: table-cell;
+        font-size: 1.2em;
+    }
 }

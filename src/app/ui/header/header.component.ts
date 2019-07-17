@@ -5,20 +5,16 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar') mainNavbar: ElementRef;
   @ViewChild('navbarToggler') navbarToggler: ElementRef;
-
-  tabEventHandler: any;
-  mouseEventHandler: any;
-  escapeHandler: any;
 
   navbarOpen = false;
 
@@ -32,31 +28,34 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.tabEventHandler = this.handleTabPressed.bind(this);
-    this.mouseEventHandler = this.handleMouseDown.bind(this);
-    this.escapeHandler = this.escapeListener.bind(this);
-    window.addEventListener('keydown', this.tabEventHandler);
-    window.addEventListener('keydown', this.escapeHandler);
+    window.addEventListener('keydown', this.handleTabPressed);
+    window.addEventListener('keydown', this.escapeListener);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('keydown', this.handleTabPressed);
+    window.removeEventListener('keydown', this.escapeListener);
+    window.removeEventListener('mousedown', this.handleMouseDown);
   }
 
   // Toggle between viewing and hiding focused element outlines
-  handleTabPressed(e) {
+  handleTabPressed = (e: any): void => {
     if (e.keyCode === 9) {
       document.body.classList.add('user-tabbing');
 
-      window.removeEventListener('keydown', this.tabEventHandler);
-      window.addEventListener('mousedown', this.mouseEventHandler);
+      window.removeEventListener('keydown', this.handleTabPressed);
+      window.addEventListener('mousedown', this.handleMouseDown);
     }
   }
 
-  handleMouseDown() {
+  handleMouseDown = (): void => {
     document.body.classList.remove('user-tabbing');
 
-    window.removeEventListener('mousedown', this.mouseEventHandler);
-    window.addEventListener('keydown', this.tabEventHandler);
+    window.removeEventListener('mousedown', this.handleMouseDown);
+    window.addEventListener('keydown', this.handleTabPressed);
   }
 
-  escapeListener(e) {
+  escapeListener = (e: any): void => {
     if (e.keyCode === 27) {
       this.toggleNavbar();
       this.navbarToggler.nativeElement.focus();
