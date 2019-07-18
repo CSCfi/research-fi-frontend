@@ -51,6 +51,7 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
       if (!this.sidebarOpen) { this.toggleSidebar(); }
     } else {
       this.mobile = true;
+      if (this.sidebarOpen) { this.toggleSidebar(); }
     }
   }
 

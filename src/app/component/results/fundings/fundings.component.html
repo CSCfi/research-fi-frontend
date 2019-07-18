@@ -3,12 +3,9 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
- <h2 class="row" style="float:left; margin-top:10px; margin-left: 43px;">Hakutulokset</h2>
  <div class="spinner-center" *ngIf="!fundingData">
      <mat-spinner [diameter]="80"></mat-spinner>
  </div>
- <!-- Sorting -->
- <app-sort></app-sort>
  <!-- Data -->
  <div *ngFor="let fundings of fundingData">
      <div class="row no-margin">

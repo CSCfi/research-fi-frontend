@@ -71,7 +71,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   scrollEvent = (e: any): void => {
-    this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
+    if (this.scroll) {
+      this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
+    }
   }
 
   scrollLeft() {

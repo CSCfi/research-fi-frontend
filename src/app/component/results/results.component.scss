@@ -36,3 +36,16 @@
     max-width: 100%;
   }
 }
+
+@media (min-width: 992px) {
+  .filters {
+    position: absolute;
+    top: 424px;
+  }
+}
+
+@media (max-width: 991px) {
+  main {
+    padding: 5px 0;
+  }
+}
