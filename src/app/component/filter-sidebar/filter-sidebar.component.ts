@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../services/search.service';
@@ -20,9 +20,10 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
   sidebarOpen = false;
-  mobile = window.innerWidth < 991;
   width = window.innerWidth;
+  mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
   input: any;
   tabLink: any;
@@ -34,24 +35,22 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService ) { }
 
-  toggleNavbar() {
+  toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
-    const elem = document.getElementById('filter-sidebar');
-
     if (this.sidebarOpen) {
-      elem.style.display = 'block';
+      this.filterSidebar.nativeElement.style.display = 'block';
     } else {
-      elem.style.display = 'none';
+      this.filterSidebar.nativeElement.style.display = 'none';
     }
   }
 
   onResize(event) {
-    const elem = document.getElementById('filter-sidebar');
     this.width = window.innerWidth;
-    if (this.width >= 991) {
-      elem.style.display = 'block';
+    if (this.width >= 992) {
+      this.mobile = false;
+      if (!this.sidebarOpen) { this.toggleSidebar(); }
     } else {
-      elem.style.display = 'none';
+      this.mobile = true;
     }
   }
 
