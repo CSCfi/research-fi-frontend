@@ -11,7 +11,7 @@
     </button>
 </div>
 
- <div #filterSidebar class="filter-sidebar" (window:resize)="onResize($event)" *ngFor="let response of responseData">
+ <div #filterSidebar class="filter-sidebar" *ngFor="let response of responseData">
     <h3 *ngIf="!mobile">Rajaa hakua</h3>
     <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>

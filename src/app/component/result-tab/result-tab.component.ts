@@ -3,6 +3,8 @@ import { SearchService } from 'src/app/services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { Subscription } from 'rxjs';
+import { ResizeService } from 'src/app/services/resize.service';
 
 
 @Component({
@@ -30,14 +32,18 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   tabData = this.tabChangeService.tabData;
 
-  constructor(private route: ActivatedRoute, private router: Router, private tabChangeService: TabChangeService) {
+  private paramSub: Subscription;
+  private resizeSub: Subscription;
+
+  constructor(private route: ActivatedRoute, private router: Router, private tabChangeService: TabChangeService,
+              private resizeService: ResizeService) {
     this.searchTerm = this.route.snapshot.params.input;
     this.selectedTab = this.route.snapshot.params.tab;
    }
 
   ngOnInit() {
     // Update active tab visual after change
-    this.route.params.subscribe(params => {
+    this.paramSub = this.route.params.subscribe(params => {
       this.selectedTab = params.tab;
       this.searchTerm = params.input;
       // Update title based on selected tab
@@ -47,12 +53,15 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         }
       });
     });
+    this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
     // Add the scroll handler, passive to improve performance
     window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
   }
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scrollEvent);
+    this.paramSub.unsubscribe();
+    this.resizeSub.unsubscribe();
   }
 
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered

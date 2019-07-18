@@ -9,6 +9,8 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, AfterViewIn
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../services/search.service';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-filter-sidebar',
@@ -25,15 +27,18 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
-  input: any;
+  private input: Subscription;
   tabLink: any;
   searchTerm: any;
   sortMethod: any;
   page: any;
-  queryParams: any;
+  private queryParams: Subscription;
   filters: any;
 
-  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService ) { }
+  private resizeSub: Subscription;
+
+  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
+               private resizeService: ResizeService) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -84,15 +89,15 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
       this.page = params.page;
       this.filters = params.filter;
     });
-
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     // Pre select filters by url parameters
     if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
 
   }
 
   ngOnDestroy() {
-    // this.input.unsubsribe();
-    // this.queryParams.unsubsribe();
+    this.input.unsubscribe();
+    this.queryParams.unsubscribe();
   }
 
 }
