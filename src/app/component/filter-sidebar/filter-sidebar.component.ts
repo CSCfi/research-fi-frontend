@@ -98,6 +98,7 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.input.unsubscribe();
     this.queryParams.unsubscribe();
+    this.resizeSub.unsubscribe();
   }
 
 }

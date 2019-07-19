@@ -4,8 +4,5 @@
     $primary: map-get($theme, primary);
 
     app-results {
-        .filters {
-            background: mat-color($primary, 50);
-        } 
     }
 }

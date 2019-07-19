@@ -8,6 +8,7 @@
 // Filter sidebar
 .filter-sidebar {
     display: block;
+    padding: 15px;
 }
 
 .mat-expansion-panel {
@@ -53,8 +54,25 @@ mat-checkbox {
     padding: 0 8px 0;
 }
 
-.navbar-toggler {
-    border: none;
+.mobile {
+    min-width: 210px;
+    max-width: 75%;
+}
+
+h3 {
+    font-size: 1.2em;
+    padding: 7px 0;
+}
+
+h3::before {
+    font-family: "FontAwesome";
+    content: '\f054';
+    font-size: 0.8em;
+    padding-right: 10px;
+}
+
+h3.open::before {
+    content: '\f078';
 }
 
 // Typography

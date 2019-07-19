@@ -3,9 +3,9 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
     
-<div class="mobile" id="navbar-toggle">
+<div class="mobile mx-auto" id="navbar-toggle">
     <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleSidebar()">
-        <h3>Rajaa hakua</h3>
+        <h3 [class.open]="sidebarOpen">Rajaa hakua</h3>
         <!-- <span *ngIf="!sidebarOpen" class="fa fa-filter fa-lg"></span> -->
         <!-- <span *ngIf="sidebarOpen" class="fa fa-times fa-lg"></span> -->
     </button>

@@ -27,7 +27,7 @@
 
 // Filters
 .filters {
-  padding: 15px;
+  padding: 0;
   align-self: flex-start;
 }
 
@@ -48,5 +48,9 @@
 @media (max-width: 991px) {
   main {
     padding: 5px 0;
+  }
+
+  .filters {
+    align-self: center;
   }
 }
