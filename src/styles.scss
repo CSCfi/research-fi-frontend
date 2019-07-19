@@ -22,6 +22,7 @@
 @import './app/component/results/publications/publications.component.scss-theme.scss';
 @import './app/component/results/fundings/fundings.component.scss-theme.scss';
 @import './app/component/results/pagination/pagination.component.scss-theme.scss';
+@import './app/component/results/sort/sort.component.scss-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -36,6 +37,7 @@
   @include app-publications-theme($theme);
   @include app-fundings-theme($theme);
   @include app-pagination-theme($theme);
+  @include app-sort-theme($theme);
 
   $primary: map-get($theme, primary);
   

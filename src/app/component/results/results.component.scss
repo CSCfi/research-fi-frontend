@@ -31,6 +31,10 @@
   align-self: flex-start;
 }
 
+.sort {
+  padding: 0;
+}
+
 .main-content {
   align-content: flex-start;
 }
@@ -52,5 +56,11 @@
 
   .filters {
     align-self: center;
+  }
+}
+
+@media (max-width: 575px) {
+  .filters {
+    margin-bottom: 5px;
   }
 }
