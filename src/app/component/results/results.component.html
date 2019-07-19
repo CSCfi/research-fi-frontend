@@ -10,21 +10,43 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
 <div class="container center-content">
     <div class="row">
-       <app-result-tab style="width:100%" [allData]="responseData"></app-result-tab>
-        <h2 class="row w-100" style="float:left; margin-top:10px;">Hakutulokset</h2>
-        <aside class="col col-6 col-lg-2 filters">
-            <app-filter-sidebar *ngIf="tabLink===tabData[0].link" [responseData]="responseData"></app-filter-sidebar>
-        </aside>
-        <aside class="col col-6 col-lg-10 offset-lg-2">
+        <app-result-tab style="width:100%" [allData]="responseData"></app-result-tab>
+        <div *ngIf="mobile; else desktop" class="row">
+            <h2 class="row col-12" style="float:left; margin-top:10px;">Hakutulokset</h2>
+            <aside class="col col-6 filters">
+                <app-filter-sidebar *ngIf="tabLink===tabData[0].link" [responseData]="responseData"></app-filter-sidebar>
+            </aside>
+            <aside class="col col-6">
+                <app-sort></app-sort>
+            </aside>
+            <div class="text-center" *ngIf="!responseData">
+                <mat-spinner [diameter]="40"></mat-spinner>
+            </div>
+            <main class="col-12">
+                <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData" [tabData]="tabData[0].data"></app-publications>
+                <app-persons *ngIf="tabLink===tabData[1].link" [personData]="responseData"></app-persons>
+                <app-fundings *ngIf="tabLink===tabData[2].link" [fundingData]="responseData" [tabData]="tabData[2].data"></app-fundings>
+            </main>
+        </div>
+    </div>
+</div>
+
+<ng-template #desktop>
+    <aside class="col col-6 col-lg-2 filters">
+        <app-filter-sidebar *ngIf="tabLink===tabData[0].link" [responseData]="responseData"></app-filter-sidebar>
+    </aside>
+    <div class="col-10 row">
+        <h2 class="col-6">Hakutulokset</h2>
+        <aside class="col-6">
             <app-sort></app-sort>
         </aside>
         <div class="text-center" *ngIf="!responseData">
             <mat-spinner [diameter]="40"></mat-spinner>
         </div>
-        <main class="col-12 col-lg-10 offset-lg-2">
+        <main class="col-12">
             <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData" [tabData]="tabData[0].data"></app-publications>
             <app-persons *ngIf="tabLink===tabData[1].link" [personData]="responseData"></app-persons>
             <app-fundings *ngIf="tabLink===tabData[2].link" [fundingData]="responseData" [tabData]="tabData[2].data"></app-fundings>
         </main>
     </div>
-</div>
+</ng-template>
