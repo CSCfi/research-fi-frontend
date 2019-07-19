@@ -26,8 +26,13 @@
 }
 
 // Filters
-.col.filters {
+.filters {
   padding: 15px;
+  align-self: flex-start;
+}
+
+.main-content {
+  align-content: flex-start;
 }
 
 // Responsive
@@ -38,10 +43,6 @@
 }
 
 @media (min-width: 992px) {
-  // .filters {
-  //   position: absolute;
-  //   top: 424px;
-  // }
 }
 
 @media (max-width: 991px) {

@@ -21,7 +21,7 @@
             color: mat-color($primary);
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 991px) {
             .single:last-child {
                 border-bottom: 1px solid mat-color($primary, 300);
             }

@@ -9,7 +9,7 @@
             color: mat-color($primary);
         }
 
-        .mat-expansion-panel:not([class*=mat-elevation-z]) {
+        .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
             border-bottom: 1px solid mat-color($primary, 400);
         }
     }

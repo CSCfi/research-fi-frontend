@@ -4,7 +4,7 @@
     $primary: map-get($theme, primary);
 
     app-results {
-        .col.filters {
+        .filters {
             background: mat-color($primary, 50);
         } 
     }
