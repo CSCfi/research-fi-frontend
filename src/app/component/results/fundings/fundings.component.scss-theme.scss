@@ -3,34 +3,7 @@
 @mixin app-fundings-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-fundings {
-        
-        .row.expand {
-            background: mat-color($primary, 50);
-        }
-        
-        a.pagination-link {
-            color: mat-color($primary) !important;
-        }
-
-        h3 {
-            color: mat-color($primary, A700);
-        }
-
-        a.arrow::before {
-            color: mat-color($primary);
-        }
-         
-        @media (max-width: 991px) {
-            .single:last-child {
-                border-bottom: 1px solid mat-color($primary, 300);
-            }
-            .single:nth-child(odd) {
-                border-bottom: 1px solid mat-color($primary, 300);
-                border-top: 1px solid mat-color($primary, 300);
-                background: mat-color($primary, 50);   
-            }
-        }
+    app-fundings {   
     }
 }
 
