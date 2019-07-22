@@ -23,6 +23,10 @@
         margin-left: auto;
     }
 
+    mat-form-field.mat-focused {
+        outline: -webkit-focus-ring-color auto 1px;
+    }
+
     mat-form-field.mat-form-field {
         width: 100%;
         border-radius: 0.25rem;
