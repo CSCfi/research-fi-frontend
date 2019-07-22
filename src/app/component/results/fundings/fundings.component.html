@@ -9,37 +9,37 @@
  <!-- Data -->
  <div *ngFor="let fundings of fundingData">
      <div class="row no-margin">
-         <div class="col arrow">
+         <div class="col col-1 arrow">
          </div>
-         <div class="col">
+         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
              <span class="bold uppercase">Hankkeen nimi</span>
          </div>
-         <div class="col hide-mobile">
+         <div class="col col-lg-3 col-xl-3 d-none d-lg-block">
              <span class="bold uppercase">Rahoittaja</span>
          </div>
-         <div class="col col-md-2 hide-mobile">
+         <div class="col col-xl-3 d-none d-xl-block">
              <span class="bold uppercase">Saaja</span>
          </div>
-         <div class="col col-md-1">
+         <div class="col col-lg-2 col-xl-1 d-none d-lg-block">
              <span class="bold uppercase">Aloitusvuosi</span>
          </div>
      </div> 
      <div *ngFor="let fundings of fundingData;">
          <div class="row no-margin single" *ngFor="let funding of fundings.aggregations?._index.buckets[tabData].index_results.hits.hits; let i = index"
          (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-             <div class="col arrow">
+             <div class="col col-1 arrow">
                  <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
              </div>          
-             <div class="col">
+             <div class="col col-8 col-lg-5 col-xl-4">
                  <a routerLink="/results/funding/{{funding._source.funderProjectNumber}}"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
              </div>          
-             <div class="col shorten hide-mobile" [class.expand]="expandStatus[i]">
+             <div class="col col-lg-3 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
                  <span>{{funding._source.funderNameFi}}</span>
              </div>          
-             <div class="col col-2 shorten hide-mobile" [class.expand]="expandStatus[i]">
+             <div class="col col-xl-3 shorten d-none d-xl-block" [class.expand]="expandStatus[i]">
                  <span>{{funding._source.fundedNameFi}}</span>
              </div>          
-             <div class="col col-1">
+             <div class="col col-lg-2 col-xl-1">
                  <span>{{funding._source.fundingApprovalDate.slice(0,4)}}</span>
              </div>
          </div>       
