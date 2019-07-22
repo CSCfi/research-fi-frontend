@@ -26,13 +26,41 @@
 }
 
 // Filters
-.col.filters {
-  padding: 15px;
+.filters {
+  padding: 0;
+  align-self: flex-start;
+}
+
+.sort {
+  padding: 0;
+}
+
+.main-content {
+  align-content: flex-start;
 }
 
 // Responsive
 @media (min-width: 1200px) {
   .container {
     max-width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+}
+
+@media (max-width: 991px) {
+  main {
+    padding: 5px 0;
+  }
+
+  .filters {
+    align-self: center;
+  }
+}
+
+@media (max-width: 575px) {
+  .filters {
+    margin-bottom: 5px;
   }
 }

@@ -5,7 +5,7 @@
 </div>
   
 <div class="wrapper" *ngIf="allData">
-  <div #scroll class="scroll" *ngFor="let counted of allData" (window:resize)="onResize($event)">
+  <div #scroll class="scroll" *ngFor="let counted of allData">
     <div *ngIf="lastScrollLocation > 0" class="edge">
       <div class="grad grad-left"></div>
       <div class="arrow arrow-left d-none d-sm-block" (click)="scrollLeft()"></div>

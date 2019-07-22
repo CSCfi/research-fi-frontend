@@ -6,8 +6,9 @@
 //  :license: MIT
 
 // Filter sidebar
-#filter-sidebar {
+.filter-sidebar {
     display: block;
+    padding: 15px;
 }
 
 .mat-expansion-panel {
@@ -53,9 +54,26 @@ mat-checkbox {
     padding: 0 8px 0;
 }
 
-.navbar-toggler {
-    outline: none;
-    border: none;
+.mobile {
+    min-width: 210px;
+    max-width: 75%;
+}
+
+h3 {
+    font-size: 24px;
+    padding: 11px 0;
+    margin: 0;
+}
+
+h3::before {
+    font-family: "FontAwesome";
+    content: '\f054';
+    font-size: 0.8em;
+    padding-right: 10px;
+}
+
+h3.open::before {
+    content: '\f078';
 }
 
 // Typography
@@ -93,13 +111,13 @@ ul {
 }
 
 // Responsive
-@media (max-width: 992px) {
-    #filter-sidebar {
+@media (max-width: 991px) {
+    .filter-sidebar {
         display: none;
     }
 }
 
-@media (min-width: 991px) {
+@media (min-width: 992px) {
     .mobile {
         display: none;
     }

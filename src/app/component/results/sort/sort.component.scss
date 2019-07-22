@@ -10,9 +10,48 @@
     text-align: right;
 }
 
-// Responsive
-@media (max-width: 616px) {
+@media (max-width: 991px) {
     .hide-mobile {
         display: none;
+    }
+    
+    .sort {
+        text-align: center;
+        min-width: 210px;
+        max-width: 75%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    mat-form-field.mat-form-field {
+        width: 100%;
+        border-radius: 0.25rem;
+        padding: 0 10px;
+        height: 53px;
+    }
+    
+    ::ng-deep .mat-select-arrow {
+        border: 0 !important;
+    }
+
+    ::ng-deep .mat-form-field-infix {
+        padding: 0 !important;
+    }
+
+    ::ng-deep mat-select {
+        font-size: 24px;
+        text-align: center;
+    }
+    ::ng-deep .mat-form-field-underline {
+        display: none !important;
+    }
+
+    .mat-select-value {
+        font-weight: bold;
+    }
+
+    ::ng-deep .mat-select-panel {
+        max-height: 100% !important;
+        font-size: 20px !important;
     }
 }

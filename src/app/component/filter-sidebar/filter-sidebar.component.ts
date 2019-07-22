@@ -5,10 +5,12 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../services/search.service';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-filter-sidebar',
@@ -20,38 +22,41 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
   sidebarOpen = false;
-  mobile = window.innerWidth < 991;
   width = window.innerWidth;
+  mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
-  input: any;
+  private input: Subscription;
   tabLink: any;
   searchTerm: any;
   sortMethod: any;
   page: any;
-  queryParams: any;
+  private queryParams: Subscription;
   filters: any;
 
-  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService ) { }
+  private resizeSub: Subscription;
 
-  toggleNavbar() {
+  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
+               private resizeService: ResizeService) { }
+
+  toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
-    const elem = document.getElementById('filter-sidebar');
-
     if (this.sidebarOpen) {
-      elem.style.display = 'block';
+      this.filterSidebar.nativeElement.style.display = 'block';
     } else {
-      elem.style.display = 'none';
+      this.filterSidebar.nativeElement.style.display = 'none';
     }
   }
 
   onResize(event) {
-    const elem = document.getElementById('filter-sidebar');
     this.width = window.innerWidth;
-    if (this.width >= 991) {
-      elem.style.display = 'block';
+    if (this.width >= 992) {
+      this.mobile = false;
+      if (!this.sidebarOpen) { this.toggleSidebar(); }
     } else {
-      elem.style.display = 'none';
+      this.mobile = true;
+      if (this.sidebarOpen) { this.toggleSidebar(); }
     }
   }
 
@@ -84,15 +89,16 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
       this.page = params.page;
       this.filters = params.filter;
     });
-
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     // Pre select filters by url parameters
     if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
 
   }
 
   ngOnDestroy() {
-    // this.input.unsubsribe();
-    // this.queryParams.unsubsribe();
+    this.input.unsubscribe();
+    this.queryParams.unsubscribe();
+    this.resizeSub.unsubscribe();
   }
 
 }

@@ -71,13 +71,15 @@ a.arrow.expand::before {
   }
 }
 
-@media (max-width: 992px) {
-    .hide-mobile {
-        display: none;
+@media (max-width: 991px) {
+    .col.col-lg-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .col.col-md-1 {
-        text-align: right;
+    .arrow {
+        display: none;
     }
   }
   

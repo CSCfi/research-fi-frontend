@@ -11,6 +11,7 @@ import { SearchService } from '../../services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ResizeService } from 'src/app/services/resize.service';
 
 @Component({
   selector: 'app-results',
@@ -33,9 +34,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
   pageSub: any;
   filters: any;
   sortMethod: any;
+  mobile: boolean;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
-               private tabChangeService: TabChangeService, private router: Router  ) {
+               private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -70,6 +72,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.getAllData();
       }
     });
+
+    // Subscribe to resize
+    this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
+    this.mobile = window.innerWidth < 992;
 
     // Get sort method and data on init
     this.sortMethod = this.route.snapshot.queryParams.sort;
@@ -130,6 +136,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
     // Reset request check
     this.searchService.requestCheck = false;
+  }
+
+  updateMobile(width) {
+    this.mobile = width < 992;
   }
 
   // Unsubscribe from search term to prevent memory leaks

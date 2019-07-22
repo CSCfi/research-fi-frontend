@@ -5,12 +5,21 @@
 
     app-filter-sidebar {
         
+        .filter-sidebar {
+            background: mat-color($primary, 50);
+        }
+        
         h3 {
             color: mat-color($primary);
         }
-
-        .mat-expansion-panel:not([class*=mat-elevation-z]) {
+        
+        .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
             border-bottom: 1px solid mat-color($primary, 400);
+        }
+        
+        .navbar-toggler {
+            background: mat-color($primary, 50);
+            border: 1px solid mat-color($primary);
         }
     }
 }

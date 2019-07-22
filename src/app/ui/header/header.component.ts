@@ -6,6 +6,8 @@
 // # :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -22,20 +24,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   height = window.innerHeight;
   width = window.innerWidth;
+  private resizeSub: Subscription;
 
   lang = 'fi';
 
-  constructor() { }
+  constructor(private resizeService: ResizeService) { }
 
   ngOnInit() {
     window.addEventListener('keydown', this.handleTabPressed);
     window.addEventListener('keydown', this.escapeListener);
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
   ngOnDestroy() {
     window.removeEventListener('keydown', this.handleTabPressed);
     window.removeEventListener('keydown', this.escapeListener);
     window.removeEventListener('mousedown', this.handleMouseDown);
+    this.resizeSub.unsubscribe();
   }
 
   // Toggle between viewing and hiding focused element outlines
@@ -83,9 +88,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.lang = lang;
   }
 
-  onResize(event) {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
+  onResize(dims) {
+    this.height = dims.height;
+    this.width = dims.width;
     if (this.width >= 1217) {
       this.mobile = false;
       if (this.navbarOpen) { this.toggleNavbar(); }

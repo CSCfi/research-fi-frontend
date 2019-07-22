@@ -105,7 +105,7 @@ export class SinglePublicationComponent implements OnInit {
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
     const fieldsOfScience = source.fields_of_science;
-    if (fieldsOfScience.length > 0) {
+    if (fieldsOfScience && fieldsOfScience.length > 0) {
       source.fieldsOfScience = fieldsOfScience[0].nameFiScience;
     }
   }
