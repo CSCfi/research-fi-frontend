@@ -28,7 +28,6 @@
         border-radius: 0.25rem;
         padding: 0 10px;
         height: 53px;
-        padding-top: 1px;
     }
     
     ::ng-deep .mat-select-arrow {
@@ -40,10 +39,19 @@
     }
 
     ::ng-deep mat-select {
-        font-size: 1.2em;
+        font-size: 24px;
         text-align: center;
     }
     ::ng-deep .mat-form-field-underline {
         display: none !important;
+    }
+
+    .mat-select-value {
+        font-weight: bold;
+    }
+
+    ::ng-deep .mat-select-panel {
+        max-height: 100% !important;
+        font-size: 20px !important;
     }
 }
