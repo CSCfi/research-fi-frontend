@@ -18,7 +18,8 @@
 @import './app/component/single-publication/single-publication.component.scss-theme.scss';
 @import './app/component/single-funding/single-funding.component.scss-theme.scss';
 @import './app/component/filter-sidebar/filter-sidebar.component.scss-theme.scss';
-@import './app/component/results/results.component.scss-theme.scss';
+@import './app/component/results/results.component.scss-theme-shared.scss';
+@import './app/component/results/results.component.scss-shared.scss';
 @import './app/component/results/publications/publications.component.scss-theme.scss';
 @import './app/component/results/fundings/fundings.component.scss-theme.scss';
 @import './app/component/results/pagination/pagination.component.scss-theme.scss';
@@ -33,7 +34,8 @@
   @include app-single-publication-theme($theme);
   @include app-single-funding-theme($theme);
   @include app-filter-sidebar-theme($theme);
-  @include app-results-theme($theme);
+  @include app-results-theme-shared($theme);
+  @include app-results-shared;
   @include app-publications-theme($theme);
   @include app-fundings-theme($theme);
   @include app-pagination-theme($theme);
