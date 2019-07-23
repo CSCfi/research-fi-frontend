@@ -7,7 +7,13 @@
 
 // Sort
 .sort {
-    text-align: right;
+    text-align: center;
+}
+
+span.align-left.hide-mobile {
+    margin-right: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 @media (max-width: 991px) {

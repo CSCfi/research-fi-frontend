@@ -4,6 +4,10 @@
     $primary: map-get($theme, primary);
 
     app-results {
+        h2 {
+            color: mat-color($primary);
+        }
+
         // "Bleed" the styles into sub-pages
         app-publications, app-fundings {
 
@@ -14,7 +18,7 @@
             a.pagination-link {
                 color: mat-color($primary) !important;
             }
-            
+
             h3 {
                 color: mat-color($primary, A700);
             }

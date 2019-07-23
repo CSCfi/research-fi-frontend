@@ -4,12 +4,12 @@
     $primary: map-get($theme, primary);
 
     app-active-filters {
-        .active-filter li {
+        .active-filters li {
             border: 1px solid mat-color($primary, 300);
             background: mat-color($primary, 100);
         }   
 
-        .active-filter li:after {
+        .active-filters li:after {
             color: mat-color($primary, 800);
         }   
     }

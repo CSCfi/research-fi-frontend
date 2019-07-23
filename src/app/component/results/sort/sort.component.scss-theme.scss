@@ -4,6 +4,9 @@
     $primary: map-get($theme, primary);
 
     app-sort {
+        .sort {
+            background: mat-color($primary, 100);
+        }
 
         @media (max-width: 991px) {
             mat-form-field.mat-form-field {

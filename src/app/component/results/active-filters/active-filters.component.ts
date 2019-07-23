@@ -25,7 +25,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = params.filter;
-      if (this.filter) {this.activeFilters = params.filter.sort((a, b) => b - a); } else {this.filter = []; }
+      if (this.filter === undefined) {this.filter = []; }
+      if (this.filter.length > 0) {this.activeFilters = params.filter.sort((a, b) => b - a); } else {this.filter = []; }
     });
   }
 
