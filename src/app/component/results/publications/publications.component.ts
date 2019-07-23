@@ -9,7 +9,7 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input } from '@ang
 import { SearchService } from '../../../services/search.service';
 import { FilterService } from '../../../services/filter.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-publications',
@@ -25,12 +25,9 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
   filter: any;
-  selectedFilters: any[];
-  selectedYears: any;
-  selectedYear: any;
 
-  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
-    this.selectedFilters = [];
+  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute,
+               private router: Router ) {
   }
 
   getFilters() {
@@ -78,6 +75,17 @@ export class PublicationsComponent implements OnInit, OnDestroy {
       this.publicationData = publicationData;
     },
       error => this.errorMessage = error as any);
+  }
+
+  removeFilter(event): void {
+    const filterParams = this.filter.filter(e => e !== event.target.id);
+
+    this.router.navigate([], {
+      queryParams: {
+        filter: filterParams,
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   ngOnDestroy() {
