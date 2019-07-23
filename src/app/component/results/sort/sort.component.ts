@@ -27,6 +27,7 @@ export class SortComponent implements OnInit, OnDestroy {
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.sortMethod = this.route.snapshot.queryParams.sort;
+    this.sortBy = this.route.snapshot.queryParams.sort;
     this.searchService.getSortMethod(this.sortMethod);
    }
 
@@ -50,12 +51,11 @@ export class SortComponent implements OnInit, OnDestroy {
       this.sortMethod = params.sort;
       this.page = params.page;
       this.filters = params.filter;
-
       if (this.sortMethod === undefined) {
         this.sortMethod = 'desc';
         this.searchService.getSortMethod(this.sortMethod);
       }
-
+      this.sortBy = this.sortMethod;
       // this.searchService.getSortMethod(this.sortMethod);
     });
 
