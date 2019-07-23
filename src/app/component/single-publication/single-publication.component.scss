@@ -62,6 +62,7 @@ th {
 td {
     p {
         margin-bottom: 0.2rem;
+        word-wrap: break-word;
     }
     p:first-child {
         font-weight: bold;
@@ -73,6 +74,11 @@ table {
     width: 100%;
 }
 
+#links td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 h2 {
     overflow: hidden;
@@ -94,6 +100,12 @@ h2:after {
     cursor: default;
 }
 
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 // Sidebar
 mat-card.mat-card {
     margin-bottom: 10px;
@@ -102,7 +114,13 @@ mat-card.mat-card {
 }
 
 button.mat-raised-button {
-    width: 161px;
+    width: 100%;
     padding: 10px;
-    margin: 10px;
+    margin: 10px 0;
+}
+
+@media (max-width: 991px) {
+    td.first-no-offset-mobile:nth-child(2) {
+        margin-left: 0;
+    }
 }
