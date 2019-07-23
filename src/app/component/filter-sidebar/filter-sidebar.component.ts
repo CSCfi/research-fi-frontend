@@ -27,14 +27,14 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
-  private input: Subscription;
   tabLink: any;
   searchTerm: any;
   sortMethod: any;
   page: any;
-  private queryParams: Subscription;
   filters: any;
-
+  
+  private input: Subscription;
+  private queryParams: Subscription;
   private resizeSub: Subscription;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,

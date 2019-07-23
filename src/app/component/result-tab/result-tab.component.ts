@@ -60,8 +60,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scrollEvent);
-    this.paramSub.unsubscribe();
-    this.resizeSub.unsubscribe();
+    // this.paramSub.unsubscribe();
+    // this.resizeSub.unsubscribe();
   }
 
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
