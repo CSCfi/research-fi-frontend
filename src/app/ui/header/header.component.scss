@@ -196,16 +196,20 @@ button.navbar-toggler.hidden-md-up.pull-right {
 }
 
 // Logo margin for small screens to prevent menu button misplacement
-@media (max-width: 340px) {
-    .logo {
-        margin: 0px -10px;
+@media (max-width: 355px) {
+    // .logo {
+    //     margin: 0px -10px;
+    // }
+
+    #mobile-langs {
+        width: 250px;
     }
 }
 
 @media (max-height: 599px) {
     .collapse.navbar-collapse.menu.mobile-bar {
-        padding: 5px 23px 10px 23px;
-        width: 80%;
+        // padding: 5px 23px 10px 23px;
+        // width: 80%;
 
         li {
             flex: 1 1 0px;
@@ -215,7 +219,7 @@ button.navbar-toggler.hidden-md-up.pull-right {
 
 // Nav items grouped closer on small mobile screens in landscape orientation
 @media (max-height: 350px) {
-    .nav-item {
-        margin: -10px 0px;
-    }
+    // .nav-item {
+    //     margin: -10px 0px;
+    // }
 }
