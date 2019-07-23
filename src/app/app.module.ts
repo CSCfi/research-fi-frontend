@@ -53,6 +53,7 @@ import { PaginationComponent } from './component/results/pagination/pagination.c
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { FundingsComponent } from './component/results/fundings/fundings.component';
 import { SingleFundingComponent } from './component/single-funding/single-funding.component';
+import { ActiveFiltersComponent } from './component/results/active-filters/active-filters.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { SingleFundingComponent } from './component/single-funding/single-fundin
     BreadcrumbComponent,
     FundingsComponent,
     SingleFundingComponent,
+    ActiveFiltersComponent
   ],
   imports: [
     BrowserModule,

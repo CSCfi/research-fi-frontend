@@ -1,0 +1,17 @@
+@import '~@angular/material/theming';
+
+@mixin app-active-filters-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-active-filters {
+        .active-filter li {
+            border: 1px solid mat-color($primary, 300);
+            background: mat-color($primary, 100);
+        }   
+
+        .active-filter li:after {
+            color: mat-color($primary, 800);
+        }   
+    }
+}
+
