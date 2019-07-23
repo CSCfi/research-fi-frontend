@@ -17,9 +17,9 @@
         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
-        <main class="col-12 col-md-8">
-            <h2>Julkaisun tiedot</h2>
+        <main class="col-12 col-md-8 col-xl-9">
             <div *ngFor="let item of publication.hits.hits">
+                <h2>{{item._source.publicationName}}</h2>
                 <table id="info">
                     <tr class="row" *ngFor="let row of infoFields">
                         <th class="col-6 col-lg-3">{{row.label}}</th>
@@ -121,25 +121,36 @@
                 </table>
             </div>
         </main>
-        <div class="col-12 col-md-4">
-            <h2>Toiminnot</h2>
+        <div class="col-12 col-md-4 col-xl-3">
             <aside>
                 <mat-card>
+                    <mat-card-title><h2>Liittyvää</h2></mat-card-title>
+                    <br>
+                    <p><a routerLink="/">Tutkijat (45)</a></p>
+                    <p><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
+                    <p><a routerLink="/">Tutkimusaineistot (13)</a></p>
+                    <p><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
+                    <p><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
+                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <div class="row">
+                        <div class="col-12 reference"><button mat-raised-button color="primary">Viittaa tähän julkaisuun</button></div>
+                    </div>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Jaa</h2></mat-card-title>
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-12 center"><button mat-raised-button color="primary">Kopioi linkki</button></div>
                         <div class="col-12 col-sm-6 col-md-12 center"><button mat-raised-button color="primary">Lähetä sähköpostilla</button></div>
                         <div class="col-12 col-sm-6 col-md-12 center"><button mat-raised-button color="primary">Viitetiedot</button></div>
                         <div class="col-12 col-sm-6 col-md-12 center"><button mat-raised-button color="primary">Tulosta</button></div>
                     </div>
-                </mat-card>
-            </aside>
-            <h2>Liittyvää</h2>
-            <aside>
-                <mat-card>
-                    <mat-card-title>Muita samankaltaisia</mat-card-title>
-                    <p>Julkaisun nimi</p>
-                    <p>Julkaisun nimi</p>
-                    <p>Julkaisun nimi</p>
                 </mat-card>
             </aside>
         </div>

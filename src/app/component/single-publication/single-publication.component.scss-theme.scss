@@ -18,5 +18,10 @@
                 color: mat-contrast($primary, 50);
             }
         }
+
+        a {
+            color: mat-color($primary);
+            font-weight: bold;
+        }
     }
 }

@@ -82,19 +82,20 @@ table {
 
 h2 {
     overflow: hidden;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
-h2:after {
-    content:"";
-    display: inline-block;
-    height: 0.5em;
-    vertical-align: bottom;
-    width: 100%;
-    margin-right: -100%;
-    margin-left: 10px;
-    border-top: 1px solid black;
-}
+// h2:after {
+//     content:"";
+//     display: inline-block;
+//     height: 0.5em;
+//     vertical-align: bottom;
+//     width: 100%;
+//     margin-right: -100%;
+//     margin-left: 10px;
+//     border-top: 1px solid black;
+// }
 
 .mat-checkbox {
     cursor: default;
@@ -113,6 +114,10 @@ mat-card.mat-card {
     box-shadow: 1px 1px 2px 0px;
 }
 
+.mat-card-title {
+    font-size: inherit;
+}
+
 button.mat-raised-button {
     width: 100%;
     padding: 10px;
@@ -122,5 +127,11 @@ button.mat-raised-button {
 @media (max-width: 991px) {
     td.first-no-offset-mobile:nth-child(2) {
         margin-left: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .reference {
+        padding: 0;
     }
 }
