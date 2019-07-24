@@ -69,15 +69,24 @@ li.col-4 {
     text-align: center;
 }
 
+.logo {
+    padding-bottom: 19px;
+}
+
 .logo img {
     max-width: 235px;
-    margin-bottom: 22px;
+}
+
+span.logo-text {
+    font-weight: bold;
+    display: block;
 }
 
 .nav-top {
     right: 0;
     margin-right: 0;
     margin-left: auto;
+    padding-top: 34px;
 }
 
 .navbar-light .navbar-nav .nav-link {
