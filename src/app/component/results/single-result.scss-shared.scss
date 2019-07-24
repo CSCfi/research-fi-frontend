@@ -1,0 +1,113 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+@mixin app-single-result-shared {
+    app-single-publication, app-single-funding {
+        // Prevent style bleeding
+        .shared {
+
+            // Table
+            table {
+                box-shadow: 1px 1px 2px 0px;
+            }
+
+            tr {
+                padding: 0.5rem 0;
+            }
+
+            th {
+                vertical-align: middle;
+                padding: 5px 0px 5px 15px;
+            }
+
+            td {
+                word-wrap: break-word;
+                p {
+                    margin-bottom: 0.2rem;
+                    word-wrap: break-word;
+                }
+                p:first-child {
+                    font-weight: bold;
+                }
+            }
+
+            table {
+                margin: 20px 0px;
+                width: 100%;
+            }
+
+            #links td {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            h2 {
+                overflow: hidden;
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+
+            a {
+                font-weight: bold;
+            }
+
+            .mat-checkbox {
+                cursor: default;
+            }
+
+            .center {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+            // Sidebar
+            mat-card.mat-card {
+                margin-bottom: 10px;
+                border-radius: 0px;
+                box-shadow: 1px 1px 2px 0px;
+            }
+
+            .mat-card-title {
+                font-size: inherit;
+            }
+
+            button.mat-raised-button {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+            }
+
+            .social {
+                text-align: right;
+                width: 100%;
+            }
+
+            .fa {
+                font-size: 32px;
+                padding: 32px 6px;
+            }
+
+            .fa:hover {
+                opacity: 0.7;
+            }
+
+            @media (max-width: 991px) {
+                td.first-no-offset-mobile:nth-child(2) {
+                    margin-left: 0;
+                }
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                .reference {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

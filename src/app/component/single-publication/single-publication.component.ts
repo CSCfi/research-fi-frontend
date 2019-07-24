@@ -41,8 +41,8 @@ export class SinglePublicationComponent implements OnInit {
     {label: 'Volyymi', field: 'volume'},
     {label: 'Numero', field: 'issueNumber'},
     {label: 'Sivut', field: 'pageNumberText'},
-    {label: 'Julkaisufoorumi', field: 'jufoCode'},
-    {label: 'Julkaisufoorumitaso', field: 'jufoClassCode'}
+    {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode'}, // \u00AD soft hyphen, break word here if needed
+    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode'}
   ];
   linksFields = [
     {label: 'Juuli', field: 'juuliAddress'}

@@ -13,30 +13,30 @@
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="'publications'" [resultNameField]="'publicationName'"></app-breadcrumb>
-    <div class="row">
+    <div class="row shared">
         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
-        <main class="col">
-            <h2>Julkaisun tiedot</h2>
+        <main class="col-12 col-md-8 col-xl-9">
             <div *ngFor="let item of publication.hits.hits">
+                <h2>{{item._source.publicationName}}</h2>
                 <table id="info">
                     <tr class="row" *ngFor="let row of infoFields">
-                        <th class="col-3">{{row.label}}</th>
-                        <td class="col-9">{{item._source[row.field]}}</td>
+                        <th class="col-6 col-lg-3">{{row.label}}</th>
+                        <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
                     </tr>
                 </table>
                 <table id="author">
                     <tr class="row">
-                        <th class="col-3">Organisaatiot ja Tekijät</th>
-                        <td class="col-9" *ngFor="let row of authorFields.slice(0,1)">
+                        <th class="col-6 col-lg-3">Organisaatiot ja Tekijät</th>
+                        <td class="col-6 col-lg-9" *ngFor="let row of authorFields.slice(0,1)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of authorFields.slice(1)">
                         <tr class="row">
-                            <td class="col-9 offset-3">
+                            <td class="col-6 col-lg-9 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
@@ -45,15 +45,15 @@
                 </table>
                 <table id="organization">
                     <tr class="row">
-                        <th class="col-3">Organisaation sisäinen affiliaatio</th>
-                        <td class="col-9" *ngFor="let row of organizationFields.slice(0,1)">
+                        <th class="col-6 col-lg-3">Organisaation sisäinen affiliaatio</th>
+                        <td class="col-6 col-lg-9" *ngFor="let row of organizationFields.slice(0,1)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of organizationFields.slice(1)">
                         <tr class="row">
-                            <td class="col-9 offset-3">
+                            <td class="col-6 col-lg-9 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
@@ -62,23 +62,23 @@
                 </table>
                 <table id="medium">
                     <tr class="row">
-                        <th class="col-3">Julkaisukanavan tiedot</th>
-                        <td class="col-3" *ngFor="let row of mediumFields.slice(0,3)">
+                        <th class="col-6 col-lg-3">Julkaisukanavan tiedot</th>
+                        <td class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of mediumFields.slice(0,3)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
                         <tr class="row" *ngIf="i % 3 == 0">
-                            <td class="col-3 offset-3">
+                            <td class="col-6 col-lg-3 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
-                            <td class="col-3" *ngIf="mediumFields.slice(3).length > i+1">
+                            <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+1">
                                 <p>{{mediumFields.slice(3)[i + 1].label}}</p>
                                 <p>{{item._source[mediumFields.slice(3)[i + 1].field]}}</p>
                             </td>        
-                            <td class="col-3" *ngIf="mediumFields.slice(3).length > i+2">
+                            <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+2">
                                 <p>{{mediumFields.slice(3)[i + 2].label}}</p>
                                 <p>{{item._source[mediumFields.slice(3)[i + 2].field]}}</p>
                             </td>        
@@ -100,19 +100,19 @@
                 </table>
                 <table id="other">
                     <tr class="row">
-                        <th class="col-3">Muut tiedot</th>
-                        <td class="col-4" *ngFor="let row of otherFields.slice(0,2)">
+                        <th class="col-6 col-lg-3">Muut tiedot</th>
+                        <td class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of otherFields.slice(0,2)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
                         <tr class="row" *ngIf="i % 2 == 0">
-                            <td class="col-4 offset-3">
+                            <td class="col-6 col-lg-4 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
-                            <td class="col-5" *ngIf="otherFields.slice(2).length > i+1">
+                            <td class="col-6 col-lg-5 offset-6 offset-lg-0" *ngIf="otherFields.slice(2).length > i+1">
                                 <p>{{otherFields.slice(2)[i + 1].label}}</p>
                                 <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
                             </td>        
@@ -121,23 +121,35 @@
                 </table>
             </div>
         </main>
-        <div class="col col-4">
-            <h2>Toiminnot</h2>
+        <div class="col-12 col-md-4 col-xl-3">
             <aside>
                 <mat-card>
-                    <button mat-raised-button color="primary">Kopioi linkki</button>
-                    <button mat-raised-button color="primary">Lähetä sähköpostilla</button>
-                    <button mat-raised-button color="primary">Viitetiedot</button>
-                    <button mat-raised-button color="primary">Tulosta</button>
+                    <mat-card-title><h2>Liittyvää</h2></mat-card-title>
+                    <br>
+                    <p><a routerLink="/">Tutkijat (45)</a></p>
+                    <p><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
+                    <p><a routerLink="/">Tutkimusaineistot (13)</a></p>
+                    <p><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
+                    <p><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
+                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
                 </mat-card>
             </aside>
-            <h2>Liittyvää</h2>
             <aside>
                 <mat-card>
-                    <mat-card-title>Muita samankaltaisia</mat-card-title>
-                    <p>Julkaisun nimi</p>
-                    <p>Julkaisun nimi</p>
-                    <p>Julkaisun nimi</p>
+                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <div class="row">
+                        <div class="col-12 reference"><button mat-raised-button color="primary">Viittaa tähän julkaisuun</button></div>
+                    </div>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <div class="social center">
+                        <a href="#"><i class="fa fa-facebook-official"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin-square"></i></a>
+                    </div>
                 </mat-card>
             </aside>
         </div>

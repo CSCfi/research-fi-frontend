@@ -32,7 +32,7 @@ export class FilterSidebarComponent implements OnInit, OnDestroy {
   sortMethod: any;
   page: any;
   filters: any;
-  
+
   private input: Subscription;
   private queryParams: Subscription;
   private resizeSub: Subscription;
