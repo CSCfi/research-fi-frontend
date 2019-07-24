@@ -13,7 +13,7 @@
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="'publications'" [resultNameField]="'publicationName'"></app-breadcrumb>
-    <div class="row">
+    <div class="row shared">
         <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
