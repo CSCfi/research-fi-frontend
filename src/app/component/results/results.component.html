@@ -37,8 +37,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-filter-sidebar [responseData]="responseData"></app-filter-sidebar>
     </aside>
     <div class="col-9 row main-content">
-        <h3 class="col-6">Hakutulokset</h3>
+        <div class="col-6">
+            <h3 class="">Hakutulokset</h3>
+            <!-- Active filters -->
+            <app-active-filters></app-active-filters>
+        </div>
         <aside class="col-6">
+            <!-- Sorting -->
             <app-sort></app-sort>
         </aside>
         <main class="col-12">
