@@ -7,6 +7,7 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isArray, isString } from 'util';
 
 @Component({
   selector: 'app-active-filters',
@@ -26,7 +27,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = params.filter;
       if (this.filter === undefined) {this.filter = []; }
-      if (this.filter.length > 0) {this.activeFilters = params.filter.sort((a, b) => b - a); } else {this.filter = []; }
+      if (isArray(this.filter)) {} else {this.filter = [params.filter]; }
+      if (this.filter.length > 0) {this.activeFilters = this.filter.sort((a, b) => b - a); }
     });
   }
 
@@ -42,6 +44,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.queryParams.unsubscribe();
   }
 
 }
