@@ -86,6 +86,10 @@ h2 {
     font-weight: bold;
 }
 
+a {
+    font-weight: bold;
+}
+
 // h2:after {
 //     content:"";
 //     display: inline-block;
@@ -104,7 +108,7 @@ h2 {
 .center {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 // Sidebar
