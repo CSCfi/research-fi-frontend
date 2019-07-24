@@ -14,9 +14,10 @@
                 border: 1px solid mat-color($primary);
             }
             .mat-select-value {
-                color: mat-color($primary);
+                color: mat-color($primary, 900);
                 font-weight: 500;
                 font-family: "Segoe UI";
+                font-size: 1.75rem;
             }
         }
     }
