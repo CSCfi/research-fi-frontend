@@ -26,8 +26,7 @@
 
 .link-img img {
     height: 250px;
-    min-width:300px;
-    width:100%;
+    width: 100%;
     object-fit: cover;
     transition: 0.2s linear;
 }
@@ -35,28 +34,6 @@
 .link-img:hover {
     -webkit-filter: opacity(.7);
     filter: opacity(.7);
-}
-
-.link-img:hover span {
-    // zoom: 1.2;
-    -webkit-filter: opacity(1);
-    filter: opacity(1);
-}
-
-.col-6.link-img {
-    max-width: 100%;
-}
-
-.cover {
-    object-fit: cover;
-  }
-
-.col.link-img, .col-5.link-img {
-    padding: 0 5px 10px 5px!important;
-}
-
-.wrap {
-    position: relative;
 }
 
 .link-img span.text-center {
