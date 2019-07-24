@@ -1,4 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+// You can add global styles to this file, and also import other style files
 @import '~@angular/material/theming';
 @include mat-core();
 
@@ -23,6 +30,7 @@
 @import './app/component/results/pagination/pagination.component.scss-theme.scss';
 @import './app/component/results/sort/sort.component.scss-theme.scss';
 @import './app/component/results/active-filters/active-filters.component.scss-theme.scss';
+@import './app/component/breadcrumb/breadcrumb.component.scss-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -38,6 +46,7 @@
   @include app-pagination-theme($theme);
   @include app-sort-theme($theme);
   @include app-active-filters-theme($theme);
+  @include app-breadcrumb-theme($theme);
 
   $primary: map-get($theme, primary);
   

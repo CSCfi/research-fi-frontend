@@ -5,27 +5,16 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-.breadcrumb {
-    background-color: #ffffff;
-}
-
 .capitalize {
     text-transform: capitalize;
 }
 
 .breadcrumb-item a {
     padding: 0px 30px;
-    color: #3A3A75;
-}
-
-.breadcrumb-item.active {
-    color: #3A3A75;
 }
 
 .arrow_box {
 	position: relative;
-	background: #F8F8FC;
-    border: 0px solid #BFBFE2;
     padding: 3px 0px;
 }
 
@@ -41,30 +30,14 @@
 }
 
 .arrow_box:after {
-    border-color: rgba(136, 183, 213, 0);
-    border-left-color: #F8F8FC;
+    border-left-color: #F8F8FC; // For some reason this doesn't work through theme scss file
     border-width: 15px;
     margin-top: -15px;
 }
 
 .arrow_box:before {
-    border-color: rgba(0, 0, 0, 0);
-    border-left-color: #ffffff;
     border-width: 16px;
     margin-top: -16px;
-}
-
-// Middle
-li.breadcrumb-item.arrow_box.middle {
-	background: #E6E6F4;
-}
-
-.middle.arrow_box:after {
-    border-left-color: #E6E6F4;
-}
-
-.middle.arrow_box:before {
-    border-left-color: #FFF;
 }
 
 // Last
@@ -77,25 +50,13 @@ li.breadcrumb-item.arrow_box.active {
 }
 
 li.breadcrumb-item.arrow_box.active.arrow_box {
-	background: #BFBFE2;
-    border: 1px solid #BFBFE2;
     border-right: 0px;
     padding: 3px 30px;
 }
 
 li.breadcrumb-item.arrow_box.last.arrow_box {
-	background: #BFBFE2;
     border: 0px;
     border-left: 0px;
-}
-
-.last.arrow_box:after {
-    border-color: rgba(136, 183, 213, 0);
-    border-left-color: #BFBFE2;
-}
-
-.last.arrow_box:before {
-    border-left-color: #B7B7DE;
 }
 
 .last.arrow_box:after, .last.arrow_box:before {
