@@ -4,8 +4,8 @@
     $primary: map-get($theme, primary);
 
     app-results {
-        h2 {
-            color: mat-color($primary);
+        h3 {
+            color: mat-color($primary, 900);
         }
 
         // "Bleed" the styles into sub-pages
@@ -20,7 +20,7 @@
             }
 
             h3 {
-                color: mat-color($primary, A700);
+                color: mat-color($primary, 900);
             }
 
             a.arrow::before {
