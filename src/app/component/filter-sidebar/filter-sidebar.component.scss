@@ -63,17 +63,6 @@ h3 {
     margin: 0;
 }
 
-h3::before {
-    font-family: "FontAwesome";
-    content: '\f054';
-    font-size: 0.8em;
-    padding-right: 10px;
-}
-
-h3.open::before {
-    content: '\f078';
-}
-
 // Typography
 span.year, span.amount {
     padding: 0px 10px!important;
@@ -116,6 +105,17 @@ ul {
 
     h3 {
         padding: 9px 0px;
+    }
+
+    h3::before {
+        font-family: "FontAwesome";
+        content: '\f054';
+        font-size: 0.8em;
+        padding-right: 10px;
+    }
+    
+    h3.open::before {
+        content: '\f078';
     }
 }
 
