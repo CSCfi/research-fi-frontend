@@ -17,36 +17,48 @@
          <div class="col" style="margin: 10px 0 10px 0;" *ngIf="funding.hits.total === 0">
              <h2>404 - Virheellinen osoite</h2>
          </div>
-         <main class="col">
-             <h2>Hankkeen tiedot</h2>
+         <main class="col-12 col-md-8 col-xl-9">
              <div *ngFor="let item of funding.hits.hits">
+                 <h2>{{item._source.projectNameFi}}</h2>
                  <table id="info">
                      <tr class="row" *ngFor="let row of infoFields">
-                         <th class="col-3">{{row.label}}</th>
-                         <td class="col-9">{{item._source[row.field]}}</td>
+                         <th class="col-6 col-lg-3">{{row.label}}</th>
+                         <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
                      </tr>
                  </table>
              </div>
          </main>
-         <div class="col col-4">
-             <h2>Toiminnot</h2>
-             <aside>
-                 <mat-card>
-                     <button mat-raised-button color="primary">Kopioi linkki</button>
-                     <button mat-raised-button color="primary">Lähetä sähköpostilla</button>
-                     <button mat-raised-button color="primary">Viitetiedot</button>
-                     <button mat-raised-button color="primary">Tulosta</button>
-                 </mat-card>
-             </aside>
-             <h2>Liittyvää</h2>
-             <aside>
-                 <mat-card>
-                     <mat-card-title>Muita samankaltaisia</mat-card-title>
-                     <p>Julkaisun nimi</p>
-                     <p>Julkaisun nimi</p>
-                     <p>Julkaisun nimi</p>
-                 </mat-card>
-             </aside>
-         </div>
+         <div class="col-12 col-md-4 col-xl-3">
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Liittyvää</h2></mat-card-title>
+                    <br>
+                    <p><a routerLink="/">Julkaisut (46)</a></p>
+                    <p><a routerLink="/">Tutkijat (45)</a></p>
+                    <p><a routerLink="/">Tutkimusaineistot (13)</a></p>
+                    <p><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
+                    <p><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
+                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <div class="row">
+                        <div class="col-12 reference"><button mat-raised-button color="primary">Viittaa tähän rahoitukseen</button></div>
+                    </div>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <div class="social center">
+                        <a href="#"><i class="fa fa-facebook-official"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin-square"></i></a>
+                    </div>
+                </mat-card>
+            </aside>
+        </div>
      </div>
  </div>
