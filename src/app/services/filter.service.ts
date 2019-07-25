@@ -62,6 +62,7 @@ export class FilterService {
             {
               bool: {
                 must: [
+                  { term: { _index: 'publication' } },
                   { bool: { should: [ this.res ] } }
                 ]
               }
@@ -69,7 +70,6 @@ export class FilterService {
             {
               bool: {
                 must: [
-                  { query_string : { query : '' } },
                   { term: { _index: 'person' } }
                 ]
               }
@@ -77,7 +77,6 @@ export class FilterService {
             {
               bool: {
                 must: [
-                  { query_string : { query : '' } },
                   { term: { _index: 'funding' } }
                 ]
               }
