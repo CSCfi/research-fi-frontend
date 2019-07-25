@@ -113,12 +113,13 @@ export class SearchService {
           filters: {
             persons : { match : { _index : 'person' }},
             publications : { match : { _index : 'publication' }},
-            fundings : { match : { _index : 'funding' }}
+            fundings : { match : { _index : 'funding' }},
+            organizations : { match : { _index : 'organization' }}
           }
         }}
       }
     };
-    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?', payLoad)
+    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad)
       .pipe(catchError(this.handleError));
   }
 
@@ -146,6 +147,11 @@ export class SearchService {
                           match: {
                               _index: 'funding'
                           }
+                      },
+                      organizations: {
+                          match: {
+                              _index: 'organization'
+                          }
                       }
                   }
               },
@@ -170,32 +176,12 @@ export class SearchService {
    };
     this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?size=10&from='
+      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?size=10&from='
       + this.fromPage, payLoad);
     } else {
       return this.http.post<Search[]>
-      (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage + '&q=publication_name='
+      (this.apiUrl + 'publication,person,funding,organization/_search?size=10&from=' + this.fromPage + '&q=publication_name='
       + this.singleInput, payLoad)
-      .pipe(catchError(this.handleError));
-    }
-  }
-
-  getPersons(): Observable<Search[]> {
-    this.currentInput.subscribe(input => this.input = input);
-    if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.fromPage);
-    } else {
-      return this.http.get<Search[]>(this.apiUrl + 'person/_search?size=10&from=' + this.fromPage + '&q=lastName=' + this.singleInput)
-      .pipe(catchError(this.handleError));
-    }
-  }
-
-  getFundings(): Observable<Search[]> {
-    this.currentInput.subscribe(input => this.input = input);
-    if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.get<Search[]>(this.apiUrl + 'funding/_search?size=10&from=' + this.fromPage);
-    } else {
-      return this.http.get<Search[]>(this.apiUrl + 'funding/_search?size=10&from=' + this.fromPage + '&q=fundedNameFi=' + this.singleInput)
       .pipe(catchError(this.handleError));
     }
   }

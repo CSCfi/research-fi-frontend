@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
-@mixin app-filter-sidebar-theme($theme) {
+@mixin app-filter-publications-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-filter-sidebar {
+    app-filter-publications {
         
         .filter-sidebar {
             background: mat-color($primary, 50);

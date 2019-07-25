@@ -210,7 +210,7 @@ export class FilterService {
     }
     this.requestCheck = false;
     return this.http.post<Search[]>
-    (this.apiUrl + 'publication,person,funding/_search?size=10&from=' + this.fromPage, this.payload)
+    (this.apiUrl + 'publication,person,funding/_search?', this.payload)
     .pipe(catchError(this.searchService.handleError));
 
 }

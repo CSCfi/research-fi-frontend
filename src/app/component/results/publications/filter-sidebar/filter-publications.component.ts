@@ -8,16 +8,16 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SearchService } from '../../services/search.service';
+import { SearchService } from '../../../../services/search.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-filter-sidebar',
-  templateUrl: './filter-sidebar.component.html',
-  styleUrls: ['./filter-sidebar.component.scss']
+  selector: 'app-filter-publications',
+  templateUrl: './filter-publications.component.html',
+  styleUrls: ['./filter-publications.component.scss']
 })
-export class FilterSidebarComponent implements OnInit, OnDestroy {
+export class FilterPublicationsComponent implements OnInit, OnDestroy {
   @Input() responseData: any [];
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
