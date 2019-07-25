@@ -70,17 +70,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
 
-    // First change display: 'block' so animation works, then change position after a small timeout
     if (this.navbarOpen) {
-      this.mainNavbar.nativeElement.style.cssText = 'display:block !important';
-
-      setTimeout(() => {
-        this.mainNavbar.nativeElement.style.right = '-15px';
-      }, 10);
-
+      this.mainNavbar.nativeElement.classList.add('open');
     } else {
-      this.mainNavbar.nativeElement.style.cssText = 'display:none !important';
-      this.mainNavbar.nativeElement.style.right = '-100vw';
+      this.mainNavbar.nativeElement.classList.remove('open');
     }
   }
 
