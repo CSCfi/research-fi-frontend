@@ -12,7 +12,7 @@ export class TabChangeService {
     { data: '', label: 'Tutkimusaineistot', link: '1' },
     { data: '', label: 'Tutkimusinfrastruktuurit', link: '2' },
     { data: '', label: 'Muut tutkimusaktiviteetit', link: '3' },
-    { data: '', label: 'Tutkimusorganisaatiot', link: '4' }
+    { data: 'organizations', label: 'Tutkimusorganisaatiot', link: 'organizations' }
   ];
 
   private tabSource = new BehaviorSubject({data: 'publications', label: 'Julkaisut'});
