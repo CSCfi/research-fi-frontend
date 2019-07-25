@@ -35,6 +35,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   filters: any;
   sortMethod: any;
   mobile: boolean;
+  currentTab: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService ) {
@@ -47,6 +48,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Subscribe to tab change
+    this.currentTab = this.route.params.subscribe(params => {
+      // Get tab name and data
+      this.searchService.getCurrentTab(this.route.snapshot.params.tab);
+      this.getAllData();
+    })
+
     // Subscribe to route page number
     this.pageSub = this.route
     .queryParams
@@ -58,7 +66,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to tab changes to update title
-    this.tabChangeService.currentTab.subscribe(tab => { this.selectedTabData = tab; this.updateTitle(tab); });
+    this.tabChangeService.currentTab.subscribe(tab => {
+      this.selectedTabData = tab;
+      this.updateTitle(tab);
+
+    });
 
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
@@ -81,8 +93,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.sortMethod = this.route.snapshot.queryParams.sort;
     if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
 
-    this.searchService.getSortMethod(this.sortMethod);
-    this.getAllData();
+    // Is this necessary???
+    // this.searchService.getSortMethod(this.sortMethod);
+    // this.getAllData();
 
     // If url is missing search term
     if (this.searchTerm === undefined) {

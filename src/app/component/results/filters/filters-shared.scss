@@ -16,8 +16,7 @@
 }
 
 mat-checkbox {
-    vertical-align: -webkit-baseline-middle;
-    vertical-align: -moz-middle-with-baseline;
+    display: block;
 }
 
 ::ng-deep .mat-checkbox .mat-checkbox-frame {
@@ -38,11 +37,11 @@ mat-checkbox {
     padding: 10px 5px;
 }
 
-:host /deep/ span.mat-expansion-indicator {
+span.mat-expansion-indicator {
     position: absolute;
 }
 
-:host /deep/ .mat-expansion-indicator::after {
+.mat-expansion-indicator::after {
     margin-top: -8px;
 }
 
@@ -50,7 +49,7 @@ mat-checkbox {
     margin-left: 20px;
 }
 
-:host /deep/ .mat-expansion-panel-body {
+.mat-expansion-panel-body {
     padding: 0 8px 0;
 }
 
