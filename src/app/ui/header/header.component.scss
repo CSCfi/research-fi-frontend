@@ -15,6 +15,10 @@
     height: calc(100% - 110px);
 }
 
+#mobile-langs {
+    width: 300px;
+}
+
 header {
     max-width: 1440px;
     margin: 0 auto;
@@ -140,7 +144,7 @@ nav.nav-top {
         width: 100%;
         border-radius: 5px;
         margin: 10px 1px;
-        padding: 5px 23px;
+        padding: 5px 0;
         text-align: center;
         font-size: 0.75rem;
     }
@@ -175,6 +179,7 @@ nav.nav-top {
 
     .navbar-expand.mx-auto.navbar-nav.lang.mobile .navbar-nav {
         flex-direction: row;
+        width: 100%;
     }
 
     nav.nav-top {
@@ -193,8 +198,8 @@ nav.nav-top {
         padding-right: 0;
     }
 
-    .collapse.navbar-collapse.menu.mobile-bar li a.lang-box{
-        padding: 5px 15px;
+    #mobile-langs {
+        width: 250px;
     }
 }
 
