@@ -1,0 +1,10 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+ <div class="row" *ngFor="let organizations of organizationData">
+  <div class="col-12 no-margin single" *ngFor="let organization of organizations.aggregations._index.buckets.organizations.index_results.hits.hits; let i = index">
+  <li>{{organization._source.nameFi}}</li>        
+  </div>
+</div>
