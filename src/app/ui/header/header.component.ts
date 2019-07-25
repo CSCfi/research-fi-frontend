@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navbarOpen = false;
 
-  mobile = window.innerWidth < 1217;
+  mobile = window.innerWidth < 1200;
 
   height = window.innerHeight;
   width = window.innerWidth;
@@ -75,12 +75,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.mainNavbar.nativeElement.style.cssText = 'display:block !important';
 
       setTimeout(() => {
-        this.mainNavbar.nativeElement.style.right = '0';
+        this.mainNavbar.nativeElement.style.right = '-15px';
       }, 10);
 
     } else {
       this.mainNavbar.nativeElement.style.cssText = 'display:none !important';
-      this.mainNavbar.nativeElement.style.right = '-100%';
+      this.mainNavbar.nativeElement.style.right = '-100vw';
     }
   }
 
@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onResize(dims) {
     this.height = dims.height;
     this.width = dims.width;
-    if (this.width >= 1217) {
+    if (this.width >= 1200) {
       this.mobile = false;
       if (this.navbarOpen) { this.toggleNavbar(); }
       this.mainNavbar.nativeElement.style.cssText = '';
