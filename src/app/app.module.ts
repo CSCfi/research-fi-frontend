@@ -51,7 +51,7 @@ import { PersonsComponent } from './component/results/persons/persons.component'
 import { FundingsComponent } from './component/results/fundings/fundings.component';
 import { OrganizationsComponent } from './component/results/organizations/organizations.component';
 
-import { FilterPublicationsComponent } from './component/results/publications/filter-sidebar/filter-publications.component';
+import { FilterPublicationsComponent } from './component/results/publications/filter-publications/filter-publications.component';
 import { ResultTabComponent } from './component/result-tab/result-tab.component';
 import { SortComponent } from './component/results/sort/sort.component';
 import { PaginationComponent } from './component/results/pagination/pagination.component';
