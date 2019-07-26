@@ -19,7 +19,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <h2 class="row col-12" style="float:left; margin-top:10px;">Hakutulokset</h2>
             <aside class="col col-12 col-sm-6 filters">
                 <app-filter-publications *ngIf="tabLink===tabData[0].link"  [responseData]="responseData" [tabData]="tabData[0].data"></app-filter-publications>
+                <app-filter-persons *ngIf="tabLink===tabData[1].link" [responseData]="responseData"></app-filter-persons>
                 <app-filter-fundings *ngIf="tabLink===tabData[2].link"  [responseData]="responseData" [tabData]="tabData[2].data"></app-filter-fundings>
+                <app-filter-organizations *ngIf="tabLink===tabData[6].link" [responseData]="responseData" [tabData]="tabData[6].data"></app-filter-organizations>
             </aside>
             <aside class="col col-12 col-sm-6 sort">
                 <app-sort></app-sort>
@@ -37,7 +39,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #desktop>
     <aside class="col-3 filters">
         <app-filter-publications *ngIf="tabLink===tabData[0].link"  [responseData]="responseData" [tabData]="tabData[0].data"></app-filter-publications>
+        <app-filter-persons *ngIf="tabLink===tabData[1].link" [responseData]="responseData"></app-filter-persons>
         <app-filter-fundings *ngIf="tabLink===tabData[2].link"  [responseData]="responseData" [tabData]="tabData[2].data"></app-filter-fundings>
+        <app-filter-organizations *ngIf="tabLink===tabData[6].link" [responseData]="responseData" [tabData]="tabData[6].data"></app-filter-organizations>
     </aside>
     <div class="col-9 row main-content">
         <div class="col-6">
