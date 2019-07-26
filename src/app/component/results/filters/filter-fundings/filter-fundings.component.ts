@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../services/search.service';
@@ -13,12 +13,13 @@ import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-filter-publications',
-  templateUrl: './filter-publications.component.html',
-  styleUrls: ['./filter-publications.component.scss']
+  selector: 'app-filter-fundings',
+  templateUrl: './filter-fundings.component.html',
+  styleUrls: ['./filter-fundings.component.scss']
 })
-export class FilterPublicationsComponent implements OnInit, OnDestroy {
+export class FilterFundingsComponent implements OnInit, OnDestroy {
   @Input() responseData: any [];
+  @Input() tabData: string;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
   sidebarOpen = false;
@@ -103,3 +104,4 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
   }
 
 }
+

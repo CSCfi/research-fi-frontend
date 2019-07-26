@@ -51,13 +51,16 @@ import { PersonsComponent } from './component/results/persons/persons.component'
 import { FundingsComponent } from './component/results/fundings/fundings.component';
 import { OrganizationsComponent } from './component/results/organizations/organizations.component';
 
-import { FilterPublicationsComponent } from './component/results/publications/filter-publications/filter-publications.component';
+import { FilterPublicationsComponent } from './component/results/filters/filter-publications/filter-publications.component';
 import { ResultTabComponent } from './component/result-tab/result-tab.component';
 import { SortComponent } from './component/results/sort/sort.component';
 import { PaginationComponent } from './component/results/pagination/pagination.component';
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { ActiveFiltersComponent } from './component/results/active-filters/active-filters.component';
+import { FilterFundingsComponent } from './component/results/filters/filter-fundings/filter-fundings.component';
 import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
+import { FilterOrganizationsComponent } from './component/results/filters/filter-organizations/filter-organizations.component';
+import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
 
 
 @NgModule({
@@ -78,7 +81,10 @@ import { SingleOrganizationComponent } from './component/single-organization/sin
     SingleFundingComponent,
     ActiveFiltersComponent,
     OrganizationsComponent,
-    SingleOrganizationComponent
+    FilterFundingsComponent,
+    SingleOrganizationComponent,
+    FilterOrganizationsComponent,
+    FilterPersonsComponent
   ],
   imports: [
     BrowserModule,

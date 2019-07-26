@@ -32,13 +32,13 @@ export class SearchService {
   data: any;
   sortMethod: string;
   private getSortByMethod = new Subject<any>();
-  sortUrl: string;
   requestCheck: boolean;
   sort: any;
+  currentTab: any;
+  sortField: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.getInput$ = this.getInputSubject.asObservable();
-    this.sortUrl = 'publicationYear:' + this.sortMethod;
     this.requestCheck = false;
   }
 
@@ -70,38 +70,70 @@ export class SearchService {
     this.inputSource.next(input);
   }
 
+  getCurrentTab(tab: string) {
+    this.currentTab = tab;
+    switch (tab) {
+      case 'publications': {
+        this.sortField = 'publicationYear';
+        switch (this.sortMethod) {
+          case 'desc': {
+            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            break;
+          }
+          case 'asc': {
+            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            break;
+          }
+          case 'name': {
+            this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'person': {
+            this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          default: {
+            this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
+            break;
+          }
+        }
+        break;
+      }
+      case 'persons': {
+        this.sortField = 'publicationYear'; // Change this according to index
+        break;
+      }
+      case 'fundings': {
+        this.sortField = 'fundingApprovalDate';
+        switch (this.sortMethod) {
+          case 'desc': {
+            this.sort = [{fundingApprovalDate: {order: 'desc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'asc': {
+            this.sort = [{fundingApprovalDate: {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'name': {
+            this.sort = [{'projectNameFi.keyword': {order: 'asc'}}];
+            break;
+          }
+          case 'funder': {
+            this.sort = [{'funderNameFi.keyword': {order: 'asc'}}];
+            break;
+          }
+          default: {
+            this.sort = [{fundingApprovalDate: {order: 'desc', unmapped_type : 'long'}}];
+          }
+        }
+      }
+    }
+  }
+
   // Get sort method
   getSortMethod(sortBy: string) {
     this.sortMethod = sortBy;
-    this.getSortByMethod.next(sortBy);
-    // if (sortBy ? undefined || null : this.sortMethod === 'desc') {}
-    switch (sortBy) {
-      case 'desc': {
-        this.sortUrl = 'publicationYear:' + this.sortMethod;
-        this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-        break;
-      }
-      case 'asc': {
-        this.sortUrl = 'publicationYear:' + this.sortMethod;
-        this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-        break;
-      }
-      case 'name': {
-        this.sortUrl = 'publicationName.keyword:' + 'asc';
-        this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
-        break;
-      }
-      case 'person': {
-        this.sortUrl = 'authorsText.keyword:' + 'asc';
-        this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
-        break;
-      }
-      default: {
-        this.sortUrl = 'publicationYear:' + 'desc';
-        this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-        break;
-      }
-    }
+    this.getCurrentTab(this.currentTab);
   }
 
   // Data for homepage values
@@ -176,12 +208,10 @@ export class SearchService {
    };
     this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?size=10&from='
-      + this.fromPage, payLoad);
+      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad);
     } else {
       return this.http.post<Search[]>
-      (this.apiUrl + 'publication,person,funding,organization/_search?size=10&from=' + this.fromPage + '&q=publication_name='
-      + this.singleInput, payLoad)
+      (this.apiUrl + 'publication,person,funding,organization/_search?q=' + this.singleInput, payLoad)
       .pipe(catchError(this.handleError));
     }
   }

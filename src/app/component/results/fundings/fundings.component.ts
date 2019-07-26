@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
+import { FilterService } from 'src/app/services/filter.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -16,7 +17,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute ) {
+  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
   }
 
   ngOnInit() {
@@ -25,6 +26,15 @@ export class FundingsComponent implements OnInit, OnDestroy {
   // Assign results to fundingData
   getFundingData() {
     this.searchService.getAllResults()
+    .pipe(map(fundingData => [fundingData]))
+    .subscribe(fundingData => {
+      this.fundingData = fundingData;
+    },
+      error => this.errorMessage = error as any);
+  }
+
+  getFilteredData() {
+    this.filterService.filterPublications()
     .pipe(map(fundingData => [fundingData]))
     .subscribe(fundingData => {
       this.fundingData = fundingData;
