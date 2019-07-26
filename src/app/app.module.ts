@@ -59,6 +59,8 @@ import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component
 import { ActiveFiltersComponent } from './component/results/active-filters/active-filters.component';
 import { FilterFundingsComponent } from './component/results/filters/filter-fundings/filter-fundings.component';
 import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
+import { FilterOrganizationsComponent } from './component/results/filters/filter-organizations/filter-organizations.component';
+import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
 
 
 @NgModule({
@@ -80,7 +82,9 @@ import { SingleOrganizationComponent } from './component/single-organization/sin
     ActiveFiltersComponent,
     OrganizationsComponent,
     FilterFundingsComponent,
-    SingleOrganizationComponent
+    SingleOrganizationComponent,
+    FilterOrganizationsComponent,
+    FilterPersonsComponent
   ],
   imports: [
     BrowserModule,
