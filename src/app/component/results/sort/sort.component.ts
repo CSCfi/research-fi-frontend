@@ -23,6 +23,19 @@ export class SortComponent implements OnInit, OnDestroy {
   sortMethod: string;
   queryParams: any;
   filters: any;
+  tabFields: any;
+  publicationFields = [
+    {label: 'Uusin ensin', value: 'desc'},
+    {label: 'Vanhin ensin', value: 'asc'},
+    {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'name'},
+    {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'person'}
+  ]
+  fundingFields = [
+    {label: 'Uusin ensin', value: 'desc'},
+    {label: 'Vanhin ensin', value: 'asc'},
+    {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
+    {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
+  ]
 
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -44,6 +57,17 @@ export class SortComponent implements OnInit, OnDestroy {
       this.searchTerm = term;
       this.tabLink = params.tab;
       // this.searchService.getInput(this.searchTerm);
+
+      switch (this.tabLink) {
+        case 'publications': {
+          this.tabFields = this.publicationFields;
+          break;
+        }
+        case 'fundings': {
+          this.tabFields = this.fundingFields;
+          break;
+        }
+      }
     });
 
     // Subscribe to query parameters and get data

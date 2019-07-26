@@ -3,14 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="sort">
-  <span class="align-left hide-mobile" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
-  <mat-form-field>
-     <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
-         <mat-option [value]="'desc'">Uusin ensin</mat-option>
-         <mat-option [value]="'asc'">Vanhin ensin</mat-option>
-         <mat-option [value]="'name'">Julkaisun nimen mukaan (A-Ö)</mat-option>
-         <mat-option [value]="'person'">Ensimmäisen tekijän mukaan (A-Ö)</mat-option>
-     </mat-select>
- </mat-form-field>
+<div class="sort" >
+    <span class="align-left hide-mobile" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
+    <mat-form-field >
+        <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
+            <mat-option *ngFor="let row of tabFields" [value]="row.value">{{row.label}}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
