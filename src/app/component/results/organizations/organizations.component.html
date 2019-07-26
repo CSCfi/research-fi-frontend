@@ -3,8 +3,39 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
- <div class="row" *ngFor="let organizations of organizationData">
-  <div class="col-12 no-margin single" *ngFor="let organization of organizations.aggregations._index.buckets.organizations.index_results.hits.hits; let i = index">
-  <li>{{organization._source.nameFi}}</li>        
-  </div>
+<div class="spinner-center" *ngIf="!organizationData">
+  <mat-spinner [diameter]="80"></mat-spinner>
 </div>
+<!-- Data -->
+<div *ngFor="let organizations of organizationData">
+  <!-- Active filters -->
+  <!-- <app-active-filters></app-active-filters> -->
+  <!-- Results -->
+  <div class="row no-margin">
+      <div class="col col-1 arrow">
+      </div>
+      <div class="col col-7 d-none d-lg-block">
+          <span class="bold uppercase">Nimi</span>
+      </div>
+      <div class="col col-4 d-none d-lg-block">
+          <span class="bold uppercase">Sektori</span>
+      </div>
+  </div>
+
+  <div *ngFor="let organizations of organizationData;">
+      <div class="row no-margin single" *ngFor="let organization of organizations.aggregations?._index.buckets[tabData].index_results.hits.hits; let i = index"
+      (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
+          <div class="col col-1 arrow">
+              <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+          </div>          
+          <div class="col col-7">
+              <a routerLink="/results/organization/{{organization._source.organizationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{organization._source.nameFi}}</h3></a>
+          </div>          
+          <div class="col col-4">
+              <span>{{organization._source.sectorNameFi}}</span>
+          </div>
+      </div>       
+  </div>
+  <!-- Pagination -->
+  <app-pagination [responseData]="organizationData" [tab]="tabData" (queryEvent)="getOrganizationData($event)"></app-pagination>
+</div>   
