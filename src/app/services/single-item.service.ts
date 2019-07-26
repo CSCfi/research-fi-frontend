@@ -14,10 +14,12 @@ const API_URL = environment.apiUrl;
 export class SingleItemService {
   publicationApiUrl = API_URL + 'publication/_search';
   fundingApiUrl = API_URL + 'funding/_search';
+  organizationApiUrl = API_URL + 'organization/_search';
   getId$: Observable<any>;
   private getIdSubject = new Subject<any>();
   singlePublicationId: any;
   singleFundingId: any;
+  singleOrganizationId: any;
 
   constructor( private http: HttpClient, private searchService: SearchService ) {
     this.getId$ = this.getIdSubject.asObservable();
@@ -33,6 +35,11 @@ export class SingleItemService {
     this.getIdSubject.next(singleId);
 }
 
+  getOrganizationId(singleId) {
+    this.singleOrganizationId = singleId;
+    this.getIdSubject.next(singleId);
+}
+
   getSinglePublication(): Observable<Search[]> {
     return this.http.get<Search[]>(this.publicationApiUrl + '?&q=publicationId=' + this.singlePublicationId)
     .pipe(catchError(this.searchService.handleError));
@@ -40,6 +47,11 @@ export class SingleItemService {
 
   getSingleFunding(): Observable<Search[]> {
     return this.http.get<Search[]>(this.fundingApiUrl + '?&q=funderProjectNumber=' + this.singleFundingId)
+    .pipe(catchError(this.searchService.handleError));
+  }
+
+  getSingleOrganization(): Observable<Search[]> {
+    return this.http.get<Search[]>(this.organizationApiUrl + '?&q=organizationId=' + this.singleOrganizationId)
     .pipe(catchError(this.searchService.handleError));
   }
 

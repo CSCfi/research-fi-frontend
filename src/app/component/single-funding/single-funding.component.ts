@@ -92,11 +92,13 @@ export class SingleFundingComponent implements OnInit {
     const source = this.responseData[0].hits.hits[0]._source;
     const persons = source.projectPersons;
     const keywords = source.keywords;
-    source.amount = source.amount + '€';
-    if (persons.length > 0) {
+    if (source.amount) {
+      source.amount = source.amount + '€';
+    }
+    if (persons && persons.length > 0) {
       source.projectPersonsNames = persons[0].projectPersonFirstNames + ' ' + persons[0].projectPersonLastName;
     }
-    if (keywords.length > 0) {
+    if (keywords && keywords.length > 0) {
       source.keyword = keywords[0].keyword;
       source.scheme = keywords[0].scheme;
       source.language = keywords[0].language;
