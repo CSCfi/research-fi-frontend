@@ -75,7 +75,28 @@ export class SearchService {
     switch (tab) {
       case 'publications': {
         this.sortField = 'publicationYear';
-        this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
+        switch (this.sortMethod) {
+          case 'desc': {
+            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            break;
+          }
+          case 'asc': {
+            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            break;
+          }
+          case 'name': {
+            this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'person': {
+            this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          default: {
+            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            break;
+          }
+        }
         break;
       }
       case 'persons': {
@@ -84,41 +105,50 @@ export class SearchService {
       }
       case 'fundings': {
         this.sortField = 'fundingApprovalDate';
-        this.sort = [{fundingApprovalDate: {order: 'desc', unmapped_type : 'long'}}];
-        break;
+        switch (this.sortMethod) {
+          case 'desc': {
+            this.sort = [{fundingApprovalDate: {order: 'desc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'asc': {
+            this.sort = [{fundingApprovalDate: {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+        }
       }
-      default: {
-        this.sortField = 'publicationYear';
-        break;
-      }
+      // default: {
+      //   this.sortField = 'publicationYear';
+      //   break;
+      // }
     }
   }
 
   // Get sort method
   getSortMethod(sortBy: string) {
     this.sortMethod = sortBy;
-    switch (sortBy) {
-      case 'desc': {
-        this.sort = [{publicationYear: {order: sortBy, unmapped_type : 'long'}}];
-        break;
-      }
-      case 'asc': {
-        this.sort = [{publicationYear: {order: sortBy, unmapped_type : 'long'}}];
-        break;
-      }
-      case 'name': {
-        this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
-        break;
-      }
-      case 'person': {
-        this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
-        break;
-      }
-      default: {
-        this.sort = [{publicationYear: {order: sortBy, unmapped_type : 'long'}}];
-        break;
-      }
-    }
+    this.getCurrentTab(this.currentTab);
+    // switch (this.sortMethod) {
+    //   case 'desc': {
+    //     this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+    //     break;
+    //   }
+    //   case 'asc': {
+    //     this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+    //     break;
+    //   }
+    //   case 'name': {
+    //     this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
+    //     break;
+    //   }
+    //   case 'person': {
+    //     this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
+    //     break;
+    //   }
+    //   default: {
+    //     this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+    //     break;
+    //   }
+    // }
   }
 
   // Data for homepage values
