@@ -93,7 +93,7 @@ export class SearchService {
             break;
           }
           default: {
-            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
         }
@@ -114,12 +114,19 @@ export class SearchService {
             this.sort = [{fundingApprovalDate: {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
+          case 'name': {
+            this.sort = [{'projectNameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'funder': {
+            this.sort = [{'funderNameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          default: {
+            this.sort = [{fundingApprovalDate: {order: 'desc', unmapped_type : 'long'}}];
+          }
         }
       }
-      // default: {
-      //   this.sortField = 'publicationYear';
-      //   break;
-      // }
     }
   }
 
@@ -127,28 +134,6 @@ export class SearchService {
   getSortMethod(sortBy: string) {
     this.sortMethod = sortBy;
     this.getCurrentTab(this.currentTab);
-    // switch (this.sortMethod) {
-    //   case 'desc': {
-    //     this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-    //     break;
-    //   }
-    //   case 'asc': {
-    //     this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-    //     break;
-    //   }
-    //   case 'name': {
-    //     this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
-    //     break;
-    //   }
-    //   case 'person': {
-    //     this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
-    //     break;
-    //   }
-    //   default: {
-    //     this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-    //     break;
-    //   }
-    // }
   }
 
   // Data for homepage values
