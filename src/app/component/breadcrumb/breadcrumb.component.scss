@@ -30,7 +30,6 @@
 }
 
 .arrow_box:after {
-    border-left-color: #F8F8FC; // For some reason this doesn't work through theme scss file
     border-width: 15px;
     margin-top: -15px;
 }

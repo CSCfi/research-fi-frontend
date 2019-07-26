@@ -24,7 +24,7 @@
             </div>
             <div class="col-xl-12 no-padding" [class.overflow-hider]="!navbarOpen && mobile">
                 <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
-                    <div class="navbar-expand mx-auto navbar-nav lang mobile">
+                    <div class="navbar-expand mx-auto navbar-nav lang mobile" id="mobile-langs">
                         <ul class="navbar-nav main mx-auto">
                             <li [class.col-4]="mobile">
                                 <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="#" (click)="setLang('fi')">Suomi</a>

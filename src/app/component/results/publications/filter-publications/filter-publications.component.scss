@@ -1,0 +1,126 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+// Filter sidebar
+.filter-sidebar {
+    display: block;
+    padding: 15px;
+}
+
+.mat-expansion-panel {
+    background: transparent;
+}
+
+mat-checkbox {
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: -moz-middle-with-baseline;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    background: #fff;
+  }
+
+.mat-radio-button {
+    display: block;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+.mat-expansion-panel-header:not([aria-disabled=true]) {
+    cursor: pointer;
+    padding: 10px 5px;
+}
+
+:host /deep/ span.mat-expansion-indicator {
+    position: absolute;
+}
+
+:host /deep/ .mat-expansion-indicator::after {
+    margin-top: -8px;
+}
+
+.mat-expansion-panel-header-title {
+    margin-left: 20px;
+}
+
+:host /deep/ .mat-expansion-panel-body {
+    padding: 0 8px 0;
+}
+
+.mobile {
+    min-width: 210px;
+    max-width: 75%;
+}
+
+h3 {
+    margin: 0;
+}
+
+// Typography
+span.year, span.amount {
+    padding: 0px 10px!important;
+}
+
+span.amount {
+    font-weight: bold!important;
+}
+
+// Segments
+::ng-deep .mat-list-base .mat-list-item .mat-list-text, .mat-list-base .mat-list-option .mat-list-text {
+    flex-direction: row!important;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.scrollable {
+    margin-top: -22px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+// Filter button
+.navbar-toggler ul {
+    list-style: none;
+}
+
+.navbar-toggler li {
+    display: inline-flex;
+}
+
+// Responsive
+@media (max-width: 991px) {
+    .filter-sidebar {
+        display: none;
+    }
+
+    h3 {
+        padding: 9px 0px;
+    }
+
+    h3::before {
+        font-family: "FontAwesome";
+        content: '\f054';
+        font-size: 0.8em;
+        padding-right: 10px;
+    }
+    
+    h3.open::before {
+        content: '\f078';
+    }
+}
+
+@media (min-width: 992px) {
+    .mobile {
+        display: none;
+    }
+}

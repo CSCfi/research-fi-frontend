@@ -58,6 +58,7 @@ import { PaginationComponent } from './component/results/pagination/pagination.c
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { ActiveFiltersComponent } from './component/results/active-filters/active-filters.component';
 import { FilterFundingsComponent } from './component/results/filters/filter-fundings/filter-fundings.component';
+import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { FilterFundingsComponent } from './component/results/filters/filter-fund
     SingleFundingComponent,
     ActiveFiltersComponent,
     OrganizationsComponent,
-    FilterFundingsComponent
+    FilterFundingsComponent,
+    SingleOrganizationComponent
   ],
   imports: [
     BrowserModule,

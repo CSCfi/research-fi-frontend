@@ -9,7 +9,7 @@
         }
 
         // "Bleed" the styles into sub-pages
-        app-publications, app-fundings {
+        app-publications, app-fundings, app-organizations {
 
             .row.expand {
                 background: mat-color($primary, 50);

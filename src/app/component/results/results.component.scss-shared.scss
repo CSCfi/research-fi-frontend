@@ -7,7 +7,7 @@
 @mixin app-results-shared {
     app-results {
         // "Bleed" the styles into child components
-        app-publications, app-fundings {
+        app-publications, app-fundings, app-organizations {
 
             //Expand column
             .row.expand .col.shorten {

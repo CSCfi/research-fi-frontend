@@ -30,4 +30,14 @@ export class OrganizationsComponent implements OnInit {
   ngOnInit() {
   }
 
+    // Assign results to organizationData
+    getOrganizationData() {
+      this.searchService.getAllResults()
+      .pipe(map(organizationData => [organizationData]))
+      .subscribe(organizationData => {
+        this.organizationData = organizationData;
+      },
+        error => this.errorMessage = error as any);
+    }
+
 }

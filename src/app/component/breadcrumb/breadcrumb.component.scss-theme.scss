@@ -5,7 +5,7 @@
 
     app-breadcrumb {
         .breadcrumb {
-            background-color: white;
+            background-color: mat-color($primary, default-contrast);
         }
 
         .breadcrumb-item a {
@@ -26,7 +26,7 @@
         
         .arrow_box:before {
             border-color: transparent;
-            border-left-color: white;
+            border-left-color: mat-color($primary, default-contrast);
         }
 
         // First
@@ -36,7 +36,7 @@
         }
         
         .first.arrow_box:after {
-
+            border-left-color: mat-color($primary, 50);
         }
         
         .first.arrow_box:before {
@@ -53,7 +53,7 @@
         }
         
         .middle.arrow_box:before {
-            border-left-color: white;
+            border-left-color: mat-color($primary, default-contrast);
         }
         
         // Last        
