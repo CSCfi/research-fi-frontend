@@ -106,7 +106,7 @@ export class SinglePublicationComponent implements OnInit {
     const source = this.responseData[0].hits.hits[0]._source;
     const fieldsOfScience = source.fields_of_science;
     if (fieldsOfScience && fieldsOfScience.length > 0) {
-      source.fieldsOfScience = fieldsOfScience[0].nameFiScience;
+      source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');
     }
   }
 }

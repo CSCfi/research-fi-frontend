@@ -38,8 +38,9 @@ export class SingleFundingComponent implements OnInit {
     {label: 'Hankkeeseen liittyvät muut rahoituspäätökset', field: '?'},
     {label: 'Hankkeen alkupvm', field: 'fundingApprovalDate'},
     {label: 'Hankkeen loppupvm', field: '?'},
-    {label: 'Tieteenala', field: 'keyword'},
-    {label: 'Teema-alat / tutkimusalat', field: 'keyword'},
+    {label: 'Tieteenala', field: 'fieldsOfScience'},
+    {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
+    {label: 'Teema-ala', field: 'fieldsOfTheme'},
     {label: 'Avainsanat', field: 'keywords'},
     {label: 'Haun nimi', field: 'callProgrammeNameFi'},
     {label: 'Linkit', field: '?'},
@@ -92,17 +93,29 @@ export class SingleFundingComponent implements OnInit {
     const source = this.responseData[0].hits.hits[0]._source;
     const persons = source.projectPersons;
     const keywords = source.keywords;
+    const scheme = keywords.map(x => x.scheme).join('');
+    const field = keywords.map(x => x.keyword).join('');
+    source.keywords = source.keywords.map(x => x.keyword).join(', ');
     if (source.amount) {
       source.amount = source.amount + '€';
     }
     if (persons && persons.length > 0) {
-      source.projectPersonsNames = persons[0].projectPersonFirstNames + ' ' + persons[0].projectPersonLastName;
+      source.projectPersonsNames = persons.map(x => x.projectPersonFirstNames).join(', ') + ' ' +
+      persons.map(x => x.projectPersonLastName).join(', ');
     }
-    if (keywords && keywords.length > 0) {
-      source.keyword = keywords[0].keyword;
-      source.scheme = keywords[0].scheme;
-      source.language = keywords[0].language;
-      source.keywords = source.keyword + ' ' + source.scheme + ' ' + source.language;
+    switch (scheme) {
+      case 'Tieteenala':
+        source.fieldsOfScience = field;
+        break;
+      case 'Tutkimusala':
+        source.fieldsOfResearch = field;
+        break;
+      case 'Teema-ala':
+        source.fieldsOfTheme = field;
+        break;
+
+      default:
+        break;
     }
   }
 }
