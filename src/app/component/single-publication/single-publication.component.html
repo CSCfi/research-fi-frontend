@@ -14,7 +14,7 @@
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="'publications'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">
-        <div class="col" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
+        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8 col-xl-9">

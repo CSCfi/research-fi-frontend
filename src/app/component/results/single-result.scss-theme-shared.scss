@@ -3,7 +3,7 @@
 @mixin app-single-result-theme-shared($theme) {
     $primary: map-get($theme, primary);
 
-    app-single-publication, app-single-funding {
+    app-single-publication, app-single-funding, app-single-organization {
 
         .shared {
             tr:nth-child(odd) {

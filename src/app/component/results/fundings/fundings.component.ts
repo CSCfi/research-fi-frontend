@@ -15,14 +15,11 @@ export class FundingsComponent implements OnInit, OnDestroy {
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  queryParams: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute ) {
   }
 
   ngOnInit() {
-    // Get Data and subscripe to url query parameters
-    this.queryParams = this.route.queryParams.subscribe(this.queryParams);
   }
 
   // Assign results to fundingData
@@ -36,6 +33,5 @@ export class FundingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
   }
 }

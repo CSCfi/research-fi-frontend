@@ -11,6 +11,7 @@ import { HomePageComponent } from './component/home-page/home-page.component';
 import { ResultsComponent } from './component/results/results.component';
 import { SinglePublicationComponent } from './component/single-publication/single-publication.component';
 import { SingleFundingComponent } from './component/single-funding/single-funding.component';
+import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
 
 const routes: Routes = [
   {
@@ -20,19 +21,30 @@ const routes: Routes = [
   },
   {
     path: 'results/publication',
-    component: SinglePublicationComponent
+    redirectTo: 'results/publications',
+    pathMatch: 'full'
+  },
+  {
+    path: 'results/funding',
+    redirectTo: 'results/fundings',
+    pathMatch: 'full'
+  },
+  {
+    path: 'results/organization',
+    redirectTo: 'results/organizations',
+    pathMatch: 'full'
   },
   {
     path: 'results/publication/:id',
     component: SinglePublicationComponent
   },
   {
-    path: 'results/funding',
+    path: 'results/funding/:id',
     component: SingleFundingComponent
   },
   {
-    path: 'results/funding/:id',
-    component: SingleFundingComponent
+    path: 'results/organization/:id',
+    component: SingleOrganizationComponent
   },
   {
     path: 'results',
