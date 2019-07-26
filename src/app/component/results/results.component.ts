@@ -51,14 +51,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Subscribe to tab change
     this.currentTab = this.route.params.subscribe(params => {
       // Get tab name and data
-      this.searchService.getCurrentTab(this.route.snapshot.params.tab);
+      this.searchService.getCurrentTab(params.tab);
+      // Fires twice because of observer, needs to be fixed
       this.getAllData();
-    })
+    });
 
     // Subscribe to route page number
-    this.pageSub = this.route
-    .queryParams
-    .subscribe(params => {
+    this.pageSub = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
       this.filters = params.filter;
@@ -69,7 +68,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTabData = tab;
       this.updateTitle(tab);
-
     });
 
     // Subscribe to route parameters, works with browser back & forward buttons
@@ -78,7 +76,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
       const previousTerm = this.searchTerm;
       this.tabLink = params.tab;
       this.searchTerm = term;
-      // this.searchService.getInput(this.searchTerm);
       // Get data only if search term changed
       if (previousTerm !== this.searchTerm) {
         this.getAllData();
@@ -93,8 +90,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.sortMethod = this.route.snapshot.queryParams.sort;
     if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
 
-    // Is this necessary???
-    // this.searchService.getSortMethod(this.sortMethod);
     // this.getAllData();
 
     // If url is missing search term
@@ -155,10 +150,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.mobile = width < 992;
   }
 
-  // Unsubscribe from search term to prevent memory leaks
+  // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
     this.searchService.subsVar.unsubscribe();
     this.pageSub.unsubscribe();
+    this.currentTab.unsubscribe();
+    this.input.unsubscribe();
   }
 
 }

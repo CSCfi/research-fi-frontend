@@ -18,8 +18,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <div *ngIf="mobile; else desktop" class="col-12 row" style="padding:0;">
             <h2 class="row col-12" style="float:left; margin-top:10px;">Hakutulokset</h2>
             <aside class="col col-12 col-sm-6 filters">
-                <!-- ToDo: copy data from desktop template -->
-                <app-filter-publications [responseData]="responseData"></app-filter-publications>
+                <app-filter-publications *ngIf="tabLink===tabData[0].link"  [responseData]="responseData" [tabData]="tabData[0].data"></app-filter-publications>
+                <app-filter-fundings *ngIf="tabLink===tabData[2].link"  [responseData]="responseData" [tabData]="tabData[2].data"></app-filter-fundings>
             </aside>
             <aside class="col col-12 col-sm-6 sort">
                 <app-sort></app-sort>
@@ -28,6 +28,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData" [tabData]="tabData[0].data"></app-publications>
                 <app-persons *ngIf="tabLink===tabData[1].link" [personData]="responseData"></app-persons>
                 <app-fundings *ngIf="tabLink===tabData[2].link" [fundingData]="responseData" [tabData]="tabData[2].data"></app-fundings>
+                <app-organizations *ngIf="tabLink===tabData[6].link" [organizationData]="responseData" [tabData]="tabData[6].data"></app-organizations>
             </main>
         </div>
     </div>

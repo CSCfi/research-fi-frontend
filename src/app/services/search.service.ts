@@ -193,12 +193,10 @@ export class SearchService {
    };
     this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?size=10&from='
-      + this.fromPage, payLoad);
+      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad);
     } else {
       return this.http.post<Search[]>
-      (this.apiUrl + 'publication,person,funding,organization/_search?size=10&q='
-      + this.singleInput, payLoad)
+      (this.apiUrl + 'publication,person,funding,organization/_search?q=' + this.singleInput, payLoad)
       .pipe(catchError(this.handleError));
     }
   }

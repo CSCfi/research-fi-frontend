@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { FilterService } from '../../../services/filter.service';
 import { map } from 'rxjs/operators';
@@ -25,6 +25,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
   filter: any;
+  @Output() responseEvent = new EventEmitter<string>();
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute,
                private router: Router ) {
