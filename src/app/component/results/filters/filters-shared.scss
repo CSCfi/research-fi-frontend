@@ -54,7 +54,7 @@ span.mat-expansion-indicator {
 }
 
 .mobile {
-    min-width: 210px;
+    // min-width: 210px;
     max-width: 75%;
 }
 
@@ -63,7 +63,7 @@ h3 {
 }
 
 // Typography
-span.year, span.amount {
+span.label, span.amount {
     padding: 0px 10px!important;
 }
 
