@@ -27,16 +27,21 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
+  @ViewChild('selectedFilters') selectedFilters: MatSelectionList;
   preSelection: any;
   tabLink: any;
   searchTerm: any;
   sortMethod: any;
   page: any;
   filters: any;
+  filterArray: any [];
 
   private input: Subscription;
   private queryParams: Subscription;
   private resizeSub: Subscription;
+  yearFilters: any[];
+  statusFilter: any[];
+  combinedFilters: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
                private resizeService: ResizeService) { }
@@ -67,17 +72,24 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-
     this.router.navigate(['results/', this.tabLink, this.searchTerm],
     { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
   }
 
   getSelected() {
-    return this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.statusFilter = this.selectedFilters.selectedOptions.selected.map(s => s.value);
+    this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.combinedFilters = this.statusFilter.concat(this.yearFilters);
+    return this.combinedFilters;
+  }
+
+  addFilter(event) {
+    // this.router.navigate([]);
+    console.log(event.checked);
   }
 
   ngOnInit() {
-    // Subscribe to route parameters parameter
+    // Subscribe to route parameters
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
       this.searchTerm = term;
