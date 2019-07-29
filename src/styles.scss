@@ -40,6 +40,7 @@
   @include app-search-bar-theme($theme);
   @include app-result-tab-theme($theme);
   @include app-filters-theme-shared($theme);
+  @include app-filters-shared;
   @include app-results-theme-shared($theme);
   @include app-results-shared;
   @include app-single-result-theme-shared($theme);
