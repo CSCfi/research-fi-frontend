@@ -197,7 +197,7 @@ export class SearchService {
                   },
                   years: {
                     terms: {
-                      field: 'publicationYear',
+                      field: this.sortField,
                       size: 50,
                       order : { _key : 'desc' }
                     }
