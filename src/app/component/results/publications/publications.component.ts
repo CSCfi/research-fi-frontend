@@ -78,16 +78,16 @@ export class PublicationsComponent implements OnInit, OnDestroy {
       error => this.errorMessage = error as any);
   }
 
-  removeFilter(event): void {
-    const filterParams = this.filter.filter(e => e !== event.target.id);
+  // removeFilter(event): void {
+  //   const filterParams = this.filter.filter(e => e !== event.target.id);
 
-    this.router.navigate([], {
-      queryParams: {
-        filter: filterParams,
-      },
-      queryParamsHandling: 'merge'
-    });
-  }
+  //   this.router.navigate([], {
+  //     queryParams: {
+  //       filter: filterParams,
+  //     },
+  //     queryParamsHandling: 'merge'
+  //   });
+  // }
 
   ngOnDestroy() {
     this.queryParams.unsubscribe();
