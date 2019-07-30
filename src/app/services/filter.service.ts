@@ -72,6 +72,10 @@ export class FilterService {
         this.range = { range: { fundingEndDate: {lte : '3000-01-01' } } };
         break;
       }
+      default: {
+        this.range = { range: { fundingEndDate: {lte : '3000-01-01' } } };
+        break;
+      }
     }
   }
 
