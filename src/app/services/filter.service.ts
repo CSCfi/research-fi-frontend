@@ -28,6 +28,8 @@ export class FilterService {
   selectedYears: any;
   res: any;
   payload: any;
+  range: any;
+  today: string;
 
 
   constructor( private searchService: SearchService, private http: HttpClient) {
@@ -40,6 +42,7 @@ export class FilterService {
 
   // Filters
   getFilter(filter: any) {
+    this.getRange(filter);
     this.res = [];
     if (filter.length > 0 && Array.isArray(filter)) {
       filter.forEach(value => {
@@ -49,6 +52,28 @@ export class FilterService {
       this.res = { term : { publicationYear : filter } }; }
     }
 
+  // Start & end date filtering
+  getRange(range: string) {
+    this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
+    switch (JSON.stringify(range)) {
+      case '["onGoing"]':
+      case '"onGoing"': {
+        this.range = { range: { fundingEndDate: {gte : '2017-01-01' } } };
+        break;
+      }
+      case '["ended"]':
+      case '"ended"': {
+        this.range = { range: { fundingEndDate: {lte : '2017-01-01' } } };
+        break;
+      }
+      // kind of hacky
+      case '["ended","onGoing"]':
+      case '["onGoing","ended"]': {
+        this.range = { range: { fundingEndDate: {lte : '3000-01-01' } } };
+        break;
+      }
+    }
+  }
 
   // Data for results page
   filterPublications(): Observable<Search[]> {
@@ -77,7 +102,8 @@ export class FilterService {
             {
               bool: {
                 must: [
-                  { term: { _index: 'funding' } }
+                  { term: { _index: 'funding' } },
+                  this.range
                 ]
               }
             }
@@ -138,9 +164,7 @@ export class FilterService {
                   must: [
                     { query_string : { query : this.singleInput } },
                     { term: { _index: 'publication' } },
-                    { bool: { should: [ this.res ]
-                      }
-                    }
+                    { bool: { should: [ this.res ] } }
                   ]
                 }
               },
@@ -156,7 +180,8 @@ export class FilterService {
                 bool: {
                   must: [
                     { query_string : { query : this.singleInput } },
-                    { term: { _index: 'funding' } }
+                    { term: { _index: 'funding' } },
+                    this.range
                   ]
                 }
               }
