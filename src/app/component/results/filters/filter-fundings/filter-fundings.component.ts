@@ -9,8 +9,10 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../services/search.service';
+import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-filter-fundings',
@@ -27,19 +29,24 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
+  @ViewChild('selectedFilters') selectedFilters: MatSelectionList;
   preSelection: any;
   tabLink: any;
   searchTerm: any;
   sortMethod: any;
   page: any;
   filters: any;
+  filterArray: any [];
 
   private input: Subscription;
   private queryParams: Subscription;
   private resizeSub: Subscription;
+  yearFilters: any[];
+  statusFilter: any[];
+  combinedFilters: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
-               private resizeService: ResizeService) { }
+               private resizeService: ResizeService, private filterService: FilterService) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -63,21 +70,37 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.sortMethod = this.searchService.sortMethod;
-    // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
 
-    this.router.navigate(['results/', this.tabLink, this.searchTerm],
+    this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
   }
 
   getSelected() {
-    return this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.statusFilter = this.selectedFilters.selectedOptions.selected.map(s => s.value);
+    this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.combinedFilters = this.statusFilter.concat(this.yearFilters);
+    return this.combinedFilters;
+  }
+
+  getRange() {
+    // console.log(JSON.stringify(this.statusFilter));
+    // switch (JSON.stringify(this.statusFilter)) {
+    //   case '["onGoing"]': {
+    //     this.filterService.getRange('gte');
+    //     break;
+    //   }
+    //   case '["ended"]': {
+    //     this.filterService.getRange('lte');
+    //     break;
+    //   }
+    //   default: {
+    //     this.filterService.getRange('both');
+    //   }
+    // }
   }
 
   ngOnInit() {
-    // Subscribe to route parameters parameter
+    // Subscribe to route parameters
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
       this.searchTerm = term;

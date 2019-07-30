@@ -16,21 +16,48 @@ export class FundingsComponent implements OnInit, OnDestroy {
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
+  queryParams: any;
+  filter: any;
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
   }
 
+  getFilters() {
+    // Get Data and subscribe to url query parameters
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.filter = params.filter;
+      // Check if multiple filters selected and send to service
+      if (Array.isArray(this.filter)) {
+      this.filterService.getFilter(this.filter);
+      } else if (this.filter !== undefined) {
+        this.filterService.getFilter(this.filter);
+      }
+
+      if (this.filter !== undefined && this.filter.length > 0) {
+        this.getFilteredData();
+      } else {
+        // this.getPublicationData();
+      }
+    });
+  }
+
   ngOnInit() {
+    this.getFilters();
   }
 
   // Assign results to fundingData
   getFundingData() {
-    this.searchService.getAllResults()
-    .pipe(map(fundingData => [fundingData]))
-    .subscribe(fundingData => {
-      this.fundingData = fundingData;
-    },
-      error => this.errorMessage = error as any);
+    // Check if url contains filter
+    if (this.filter !== undefined && this.filter.length > 0) {
+      this.filterService.filterPublications();
+    } else {
+      this.searchService.getAllResults()
+      .pipe(map(fundingData => [fundingData]))
+      .subscribe(fundingData => {
+        this.fundingData = fundingData;
+      },
+        error => this.errorMessage = error as any);
+    }
   }
 
   getFilteredData() {
@@ -43,5 +70,6 @@ export class FundingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.queryParams.unsubscribe();
   }
 }
