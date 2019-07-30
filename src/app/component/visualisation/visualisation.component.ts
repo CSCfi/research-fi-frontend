@@ -20,28 +20,37 @@ import * as d3 from 'd3';
 export class VisualisationComponent implements OnInit {
 
   data: Observable<any>;
+  responseData: any;
   apiUrl = this.searchService.apiUrl;
+  nOfData = 100;
+
+  visualToggle = true;
 
   width = window.innerWidth;
   height = 500;
   radius = d3.min([this.width, this.height]) / 2;
-  color = d3.scaleOrdinal(d3.schemeCategory10);
-
+  color = d3.scaleOrdinal(d3.schemeDark2);
 
   constructor(private searchService: SearchService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.data = this.fetchData(100);
+    this.data = this.fetchData(this.nOfData);
 
     this.data.subscribe(responseData => {
       responseData = responseData.hits.hits.map(x => x._source);
-      responseData = this.groupBy(responseData, 'publicationYear');
-      const grouped = {name: 'Data', children: Object.keys(responseData).map(x => responseData[x])};
+      this.responseData = responseData;
+      // responseData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+                                                // : x.field = 'No data');
+      const grouped = this.formatData(responseData, 'publicationYear');
       console.log(grouped);
       this.visualise(grouped);
     });
   }
 
+  formatData(data, field) {
+    const newData = this.groupBy(data, field);
+    return {name: 'Data', children: Object.keys(newData).map(x => newData[x])};
+  }
 
   fetchData(n: number) {
     return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + n + '&from=1');
@@ -58,7 +67,7 @@ export class VisualisationComponent implements OnInit {
       // set `storage` for this instance of group to the outer scope (if not empty) or initialize it
       storage[group] = storage[group] || {};
       storage[group].children = storage[group].children || [];
-      storage[group].name = group.toString();
+      storage[group].name = group ? group.toString() : '';
 
       // add this item to its group within `storage`
       storage[group].children.push(item);
@@ -72,6 +81,12 @@ export class VisualisationComponent implements OnInit {
     const angle = 90 + (d.x0 + d.x1) / Math.PI * 90;
 
     return ((angle < 90 || angle > 270) ? angle : angle + 180);
+  }
+
+  switch() {
+    const data = this.formatData(this.responseData, this.visualToggle ? 'numberOfAuthors' : 'publicationYear');
+    this.visualToggle = !this.visualToggle;
+    this.visualise(data);
   }
 
   visualise(data) {
@@ -89,8 +104,8 @@ export class VisualisationComponent implements OnInit {
 
     partition(root.count());
     const arc = d3.arc()
-      .startAngle(d => (d as any).x0)
-      .endAngle(d => (d as any).x1)
+      .startAngle(d => { d.x0s = d.x0; return d.x0 })
+      .endAngle(d => { d.x1s = d.x1; return d.x1 })
       .innerRadius(d => (d as any).y0)
       .outerRadius(d => (d as any).y1);
 
