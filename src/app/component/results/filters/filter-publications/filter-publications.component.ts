@@ -63,12 +63,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.sortMethod = this.searchService.sortMethod;
-    // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
 
-    this.router.navigate(['results/', this.tabLink, this.searchTerm],
+    this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
   }
 
@@ -93,8 +89,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
       if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
-
-
   }
 
   ngOnDestroy() {
