@@ -9,8 +9,10 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../services/search.service';
+import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-filter-fundings',
@@ -44,7 +46,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   combinedFilters: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
-               private resizeService: ResizeService) { }
+               private resizeService: ResizeService, private filterService: FilterService) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -68,11 +70,8 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.sortMethod = this.searchService.sortMethod;
-    // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
-    this.router.navigate(['results/', this.tabLink, this.searchTerm],
+
+    this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
   }
 
@@ -83,9 +82,21 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
     return this.combinedFilters;
   }
 
-  addFilter(event) {
-    // this.router.navigate([]);
-    console.log(event.checked);
+  getRange() {
+    // console.log(JSON.stringify(this.statusFilter));
+    // switch (JSON.stringify(this.statusFilter)) {
+    //   case '["onGoing"]': {
+    //     this.filterService.getRange('gte');
+    //     break;
+    //   }
+    //   case '["ended"]': {
+    //     this.filterService.getRange('lte');
+    //     break;
+    //   }
+    //   default: {
+    //     this.filterService.getRange('both');
+    //   }
+    // }
   }
 
   ngOnInit() {
