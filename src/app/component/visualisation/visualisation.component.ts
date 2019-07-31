@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { Search } from 'src/app/models/search.model';
 import { Observable } from 'rxjs';
 import * as d3 from 'd3';
+import { path } from 'd3';
 
 @Component({
   selector: 'app-visualisation',
@@ -19,7 +20,7 @@ import * as d3 from 'd3';
 })
 export class VisualisationComponent implements OnInit {
 
-  data: Observable<any>;
+  data: any;
   data2: Observable<any>;
   responseData: any;
   responseData2: any;
@@ -28,16 +29,20 @@ export class VisualisationComponent implements OnInit {
 
   visualToggle = false;
 
-  width = window.innerWidth;
-  height = 500;
-  radius = d3.min([this.width, this.height]) / 2;
-  color = d3.scaleOrdinal(d3.schemeDark2);
+  width = 900;
+  height = 900;
+  radius = this.width / 6;
+  color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 10 + 1));
+  format = d3.format(',d');
 
   g: any;
   partition: any;
   root: any;
   arc: any;
   chart: any;
+  path: any;
+  label: any;
+  parent: any;
 
   constructor(private searchService: SearchService, private http: HttpClient) { }
 
@@ -47,35 +52,47 @@ export class VisualisationComponent implements OnInit {
     this.g = d3.select('svg')
     .attr('width', this.width)
     .attr('height', this.height)
+    .style('font', '10px sans-serif')
     .append('g')
     .attr('transform', 'translate(' + this.width  / 2 + ',' + this.height / 2 + ')');
 
     // Data structure
-    this. partition = d3.partition().size([2 * Math.PI, this.radius]);
+    this.partition = data => {
+      const root = d3.hierarchy(data)
+          .sum(d => d.value)
+          .sort((a, b) => b.value - a.value);
+      return d3.partition()
+          .size([2 * Math.PI, root.height + 1])
+        (root);
+    };
 
     this.arc = d3.arc()
-      .startAngle(d => { d.x0s = d.x0; return d.x0 })
-      .endAngle(d => { d.x1s = d.x1; return d.x1 })
-      .innerRadius(d => (d as any).y0)
-      .outerRadius(d => (d as any).y1);
+      .startAngle(d => d.x0)
+      .endAngle(d => d.x1)
+      .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
+      .padRadius(this.radius * 1.5)
+      .innerRadius(d => d.y0 * this.radius)
+      .outerRadius(d => Math.max(d.y0 * this.radius, d.y1 * this.radius - 1));
 
-    this.data = this.fetchData(this.nOfData, 0);
-    this.data2 = this.fetchData(this.nOfData, 5);
+    this.fetchData(1, 1).subscribe(d => {this.data = d; this.visualise(d); });
 
-    this.data.subscribe(responseData => {
-      responseData = responseData.hits.hits.map(x => x._source);
-      this.responseData = responseData;
-      // responseData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
-                                                // : x.field = 'No data');
-      const grouped = this.formatData(responseData, 'publicationYear');
-      console.log(grouped);
-      this.visualise(grouped);
-    });
+    // this.data = this.fetchData(this.nOfData, 0);
+    // this.data2 = this.fetchData(this.nOfData, 5);
 
-    this.data2.subscribe(responseData => {
-      responseData = responseData.hits.hits.map(x => x._source);
-      this.responseData2 = responseData;
-    });
+    // this.data.subscribe(responseData => {
+    //   responseData = responseData.hits.hits.map(x => x._source);
+    //   this.responseData = responseData;
+    //   // responseData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+    //                                             // : x.field = 'No data');
+    //   const grouped = this.formatData(responseData, 'publicationYear');
+    //   // this.visualise(grouped);
+    //   this.fetchData(1, 1).subscribe(d => this.visualise(d));
+    // });
+
+    // this.data2.subscribe(responseData => {
+    //   responseData = responseData.hits.hits.map(x => x._source);
+    //   this.responseData2 = responseData;
+    // });
   }
 
   formatData(data, field) {
@@ -84,7 +101,8 @@ export class VisualisationComponent implements OnInit {
   }
 
   fetchData(size: number, from: number) {
-    return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + size + '&from=' + from);
+    // return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + size + '&from=' + from);
+    return this.http.get<Search[]>("https://raw.githubusercontent.com/d3/d3-hierarchy/v1.1.8/test/data/flare.json");
   }
 
 
@@ -140,39 +158,104 @@ export class VisualisationComponent implements OnInit {
 
   switch() {
     this.visualToggle = !this.visualToggle;
-    // const data = this.formatData(this.visualToggle ? this.responseData2 : this.responseData, 'publicationYear');
-    // this.visualise(data);
+    const data = this.formatData(this.visualToggle ? this.responseData2 : this.responseData, 'publicationYear');
+    this.visualise(data);
     // this.root = d3.hierarchy(data);
-    this.visualToggle ? this.root.sum(d => d.size) : this.root.count();
-    this.partition(this.root);
-
-    this.chart.selectAll('path').transition().duration(750).attrTween('d', this.arcTweenPath.bind(this));
-    this.chart.selectAll('text').transition().duration(750).attrTween('transform', this.arcTweenText.bind(this));
-  }
-
-  visualise(data) {
-    this.root = d3.hierarchy(data).count();
-
-    this.partition(this.root);
-
-    this.chart = this.g.selectAll('g')
-      .data(this.root.descendants(), d => d.name)
-      .enter().append('g').attr('class', 'node');
-
-    this.chart.append('path')
-      .attr('display', d => d.depth ? null : 'none')
-      .attr('d', this.arc as any)
-      .style('stroke', '#fff')
-      .style('fill', d => this.color((d.children ? d : d.parent).data.name));
-
-    this.g.selectAll('.node')
-      .append('text')
-      .attr('transform', d => 'translate(' + this.arc.centroid(d as any) + ')rotate(' + this.computeTextRotation(d) + ')')
-      .attr('dx', '-20')
-      .attr('dy', '5')
-      .text(d => (d.children && d.parent && (d.x1 - d.x0 > 0.2)) ? d.data.name : '');
+    // this.visualToggle ? this.root.sum(d => d.size) : this.root.count();
+    // this.partition(this.root);
 
     // this.chart.selectAll('path').transition().duration(750).attrTween('d', this.arcTweenPath.bind(this));
     // this.chart.selectAll('text').transition().duration(750).attrTween('transform', this.arcTweenText.bind(this));
+  }
+
+  clicked(p) {
+    this.parent.datum(p.parent || this.root);
+
+    this.root.each(d => d.target = {
+      x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
+      x1: Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
+      y0: Math.max(0, d.y0 - p.depth),
+      y1: Math.max(0, d.y1 - p.depth)
+    });
+
+    const t = this.g.transition().duration(750);
+    const arcVisible = this.arcVisible;
+    const labelVisible = this.labelVisible;
+    const labelTransform = this.labelTransform;
+
+    this.path.transition(t)
+      .tween('data', d => {
+        const i = d3.interpolate(d.current, d.target);
+        return dt => d.current = i(dt);
+      })
+      // .filter(function(d) {
+      //   return +this.getAttribute('fill-opacity') || arcVisible(d.target);
+      // })
+      .style('fill-opacity', d => arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
+      .attrTween('d', d => () => this.arc(d.current));
+
+    this.label
+    // .filter(function(d) {
+    //   return labelVisible(d.target);
+    // })
+      .transition(t)
+      .attr('fill-opacity', d => +labelVisible(d.target))
+      .attrTween('transform', d => () => labelTransform.bind(this)(d.current));
+  }
+
+
+  arcVisible(d) {
+    return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
+  }
+
+  labelVisible(d) {
+    return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
+  }
+
+  labelTransform(d) {
+    const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+    const y = (d.y0 + d.y1) / 2 * this.radius;
+    return 'rotate(' + (x - 90) + ') translate(' + y + ',0) rotate(' + (x < 180 ? 0 : 180) + ')';
+  }
+
+  visualise(data) {
+    this.root = this.partition(data);
+
+    this.root.each(d => d.current = d);
+
+    this.path = this.g.append('g')
+      .selectAll('path')
+      .data(this.root.descendants().slice(1))
+      .join('path')
+        .style('fill', d => { while (d.depth > 1) { d = d.parent; } return this.color(d.data.name); })
+        .style('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
+        .attr('d', d => this.arc(d.current));
+
+    this.path.filter(d => d.children)
+      .style('cursor', 'pointer')
+      .on('click', this.clicked.bind(this));
+
+    this.path.append('title')
+      .text(d => d.ancestors().map(d => d.data.name).reverse().join('/') + '\n' + this.format(d.value));
+
+    this.label = this.g.append('g')
+      .attr('pointer-events', 'none')
+      .attr('text-anchor', 'middle')
+      .style('user-select', 'none')
+      .selectAll('text')
+      .data(this.root.descendants().slice(1))
+      .join('text')
+        .attr('dy', '0.35em')
+        .attr('font-size', d => +this.labelVisible(d.current) * 10)
+        .attr('fill-opacity', d => +this.labelVisible(d.current))
+        .attr('transform', d => this.labelTransform(d.current))
+        .text(d => d.data.name);
+
+    this.parent = this.g.append('circle')
+      .datum(this.root)
+      .attr('r', this.radius)
+      .attr('fill', 'none')
+      .attr('pointer-events', 'all')
+      .on('click', this.clicked.bind(this));
   }
 }
