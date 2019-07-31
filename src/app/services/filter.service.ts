@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { isNumber } from 'util';
 
 const API_URL = environment.apiUrl;
 
@@ -43,14 +44,33 @@ export class FilterService {
   // Filters
   getFilter(filter: any) {
     this.getRange(filter);
-    this.res = [];
-    if (filter.length > 0 && Array.isArray(filter)) {
-      filter.forEach(value => {
-        this.res.push({ term : { publicationYear : value } });
-      });
-    } else {
-      this.res = { term : { publicationYear : filter } }; }
+    this.filterByYear(filter);
     }
+
+  filterByYear(filter: any) {
+    this.res = [];
+    const currentTab = this.searchService.currentTab;
+    switch (currentTab) {
+      case 'fundings': {
+        if (filter.length > 0 && Array.isArray(filter)) {
+          filter.forEach(value => {
+            this.res.push({ term : { fundingStartYear : value } });
+          });
+        } else {
+          this.res = { term : { fundingStartYear : filter } }; }
+        break;
+      }
+      case 'publications': {
+        if (filter.length > 0 && Array.isArray(filter)) {
+          filter.forEach(value => {
+            this.res.push({ term : { publicationYear : value } });
+          });
+        } else {
+          this.res = { term : { publicationYear : filter } }; }
+        break;
+      }
+    }
+  }
 
   // Start & end date filtering
   getRange(range: string) {
@@ -80,9 +100,8 @@ export class FilterService {
   }
 
   // Data for results page
-  filterPublications(): Observable<Search[]> {
+  filterData(): Observable<Search[]> {
     this.singleInput = this.searchService.singleInput;
-    if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
     if (this.singleInput === undefined || this.singleInput === '') {
     this.payload = {
       query: {
@@ -107,7 +126,8 @@ export class FilterService {
               bool: {
                 must: [
                   { term: { _index: 'funding' } },
-                  this.range
+                  this.range,
+                  { bool: { should: [ this.res ] } }
                 ]
               }
             }
@@ -185,7 +205,8 @@ export class FilterService {
                   must: [
                     { query_string : { query : this.singleInput } },
                     { term: { _index: 'funding' } },
-                    this.range
+                    this.range,
+                    { bool: { should: [ this.res ] } }
                   ]
                 }
               }
