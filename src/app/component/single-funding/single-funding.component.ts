@@ -26,7 +26,7 @@ export class SingleFundingComponent implements OnInit {
     {label: 'Hankkeen nimi', field: 'projectNameFi'},
     {label: 'Rahoittaja', field: 'funderNameFi'},
     {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
-    {label: 'Alkamisvuosi', field: 'fundingApprovalDate'},
+    {label: 'Alkamisvuosi', field: 'fundingStartYear'},
     {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
     {label: 'Rahoituksen saaja (henkilö)', field: 'projectPersonsNames'},
     {label: 'Yhteyshenkilö', field: 'fundingContactPersonLastName'},
