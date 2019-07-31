@@ -82,23 +82,6 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
     return this.combinedFilters;
   }
 
-  getRange() {
-    // console.log(JSON.stringify(this.statusFilter));
-    // switch (JSON.stringify(this.statusFilter)) {
-    //   case '["onGoing"]': {
-    //     this.filterService.getRange('gte');
-    //     break;
-    //   }
-    //   case '["ended"]': {
-    //     this.filterService.getRange('lte');
-    //     break;
-    //   }
-    //   default: {
-    //     this.filterService.getRange('both');
-    //   }
-    // }
-  }
-
   ngOnInit() {
     // Subscribe to route parameters
     this.input = this.route.params.subscribe(params => {

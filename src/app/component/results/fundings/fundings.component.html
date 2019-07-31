@@ -31,7 +31,7 @@
                  <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
              </div>          
              <div class="col col-8 col-lg-5 col-xl-4">
-                 <a routerLink="/results/funding/{{funding._source.funderProjectNumber}}"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
+                 <a routerLink="/results/funding/{{funding._source.projectId}}"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
              </div>          
              <div class="col col-lg-3 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
                  <span>{{funding._source.funderNameFi}}</span>
@@ -40,7 +40,7 @@
                  <span>{{funding._source.fundedNameFi}}</span>
              </div>          
              <div class="col col-lg-2 col-xl-1" style="margin-left:-15px;">
-                 <span>{{funding._source.fundingApprovalDate.slice(0,4)}}</span>
+                 <span>{{funding._source.fundingStartYear}}</span>
              </div>
          </div>       
      </div>

@@ -49,7 +49,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   getFundingData() {
     // Check if url contains filter
     if (this.filter !== undefined && this.filter.length > 0) {
-      this.filterService.filterPublications();
+      this.filterService.filterData();
     } else {
       this.searchService.getAllResults()
       .pipe(map(fundingData => [fundingData]))
@@ -61,7 +61,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    this.filterService.filterPublications()
+    this.filterService.filterData()
     .pipe(map(fundingData => [fundingData]))
     .subscribe(fundingData => {
       this.fundingData = fundingData;
