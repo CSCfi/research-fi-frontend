@@ -58,7 +58,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   getPublicationData() {
     // Check if url contains filter
     if (this.filter !== undefined && this.filter.length > 0) {
-      this.filterService.filterPublications();
+      this.filterService.filterData();
     } else {
       this.searchService.getAllResults()
       .pipe(map(publicationData => [publicationData]))
@@ -70,7 +70,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    this.filterService.filterPublications()
+    this.filterService.filterData()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
       this.publicationData = publicationData;
