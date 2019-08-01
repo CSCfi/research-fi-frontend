@@ -46,7 +46,7 @@ export class SingleItemService {
   }
 
   getSingleFunding(): Observable<Search[]> {
-    return this.http.get<Search[]>(this.fundingApiUrl + '?&q=funderProjectNumber=' + this.singleFundingId)
+    return this.http.get<Search[]>(this.fundingApiUrl + '?&q=projectId:' + this.singleFundingId)
     .pipe(catchError(this.searchService.handleError));
   }
 

@@ -42,18 +42,42 @@ export class FilterService {
 
   // Filters
   getFilter(filter: any) {
-    this.getRange(filter);
-    this.res = [];
-    if (filter.length > 0 && Array.isArray(filter)) {
-      filter.forEach(value => {
-        this.res.push({ term : { publicationYear : value } });
-      });
-    } else {
-      this.res = { term : { publicationYear : filter } }; }
+    // console.log('getFilter: ', filter[0]);
+    this.filterByYear(filter[0]);
+    this.getRange(filter[1]);
     }
+
+  filterByYear(filter: any) {
+    // console.log('fby: ', filter);
+    this.res = [];
+    const currentTab = this.searchService.currentTab;
+    switch (currentTab) {
+      case 'fundings': {
+        if (Array.isArray(filter) && filter.length > 0) {
+          filter.forEach(value => {
+            this.res.push({ term : { fundingStartYear : value } });
+          });
+        } else {
+            this.res = { exists : { field : 'fundingStartYear' } }; }
+        break;
+      }
+      case 'publications': {
+        if (Array.isArray(filter) && filter.length > 0) {
+          filter.forEach(value => {
+            this.res.push({ term : { publicationYear : value } });
+          });
+        } else if (filter !== undefined) {
+          this.res = { term : { publicationYear : filter } };
+        } else {
+            this.res = { exists : { field : 'publicationYear' } }; }
+        break;
+      }
+    }
+  }
 
   // Start & end date filtering
   getRange(range: string) {
+    // console.log('range: ', range);
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
     switch (JSON.stringify(range)) {
       case '["onGoing"]':
@@ -80,9 +104,10 @@ export class FilterService {
   }
 
   // Data for results page
-  filterPublications(): Observable<Search[]> {
+  filterData(): Observable<Search[]> {
+    // console.log('fire');
+    // console.log('res: ', this.res);
     this.singleInput = this.searchService.singleInput;
-    if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
     if (this.singleInput === undefined || this.singleInput === '') {
     this.payload = {
       query: {
@@ -107,7 +132,8 @@ export class FilterService {
               bool: {
                 must: [
                   { term: { _index: 'funding' } },
-                  this.range
+                  this.range,
+                  { bool: { should: [ this.res ] } }
                 ]
               }
             }
@@ -185,7 +211,8 @@ export class FilterService {
                   must: [
                     { query_string : { query : this.singleInput } },
                     { term: { _index: 'funding' } },
-                    this.range
+                    this.range,
+                    { bool: { should: [ this.res ] } }
                   ]
                 }
               }

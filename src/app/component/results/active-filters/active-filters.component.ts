@@ -18,6 +18,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   queryParams: any;
   filter: any;
   activeFilters: any [];
+  year: any;
+  status: any;
+  combinedFilters: any;
 
   constructor( private route: ActivatedRoute, private router: Router ) {
     this.filter = [];
@@ -25,19 +28,38 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = params.filter;
-      if (this.filter === undefined) {this.filter = []; }
-      if (isArray(this.filter)) {} else {this.filter = [params.filter]; }
-      if (this.filter.length > 0) {this.activeFilters = this.filter.sort((a, b) => b - a); }
+      this.filter = [params.year, params.status];
+      this.year = params.year;
+      this.status = params.status;
+
+      // If single filter, modify to array
+      if (!isArray(this.year)) {this.year = [params.year]; }
+      if (!isArray(this.status)) {this.status = [params.status]; }
+
+      this.filter.forEach(element => {
+        if (!isArray(element)) {element = [element]; }
+      });
+
+      this.combinedFilters = this.year.concat(this.status);
+      if (!isArray(this.combinedFilters)) {this.combinedFilters = [this.combinedFilters]; }
+      // console.log('c: ', this.combinedFilters);
+
+      if (this.year === undefined) {this.year = []; }
+      if (isArray(this.year)) {} else {this.year = [params.year]; }
+
+      // if (this.year.length > 0) {this.activeFilters = this.combinedFilters.sort((a, b) => b - a); }
+      this.activeFilters = this.combinedFilters.sort((a, b) => b - a);
     });
   }
 
   removeFilter(event): void {
-    const filterParams = this.filter.filter(e => e !== event.target.id);
+    const yearParams = this.year.filter(e => e !== event.target.id);
+    const statusParams = this.status.filter(e => e !== event.target.id);
 
     this.router.navigate([], {
       queryParams: {
-        filter: filterParams,
+        year: yearParams,
+        status: statusParams,
       },
       queryParamsHandling: 'merge'
     });

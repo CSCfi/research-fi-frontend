@@ -26,6 +26,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   queryParams: any;
   filter: any;
   @Output() responseEvent = new EventEmitter<string>();
+  filtersOn: boolean;
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute,
                private router: Router ) {
@@ -34,7 +35,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   getFilters() {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = params.filter;
+      this.filter = [params.year];
       // Check if multiple filters selected and send to service
       if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
@@ -42,10 +43,17 @@ export class PublicationsComponent implements OnInit, OnDestroy {
         this.filterService.getFilter(this.filter);
       }
 
-      if (this.filter !== undefined && this.filter.length > 0) {
+      // Maybe with switch statement to get more clean code
+      if (this.filter[0] !== undefined && this.filter[0].length > 0 || this.filter[1] !== undefined && this.filter[1].length > 0) {
+        this.filtersOn = true;
+      } else {this.filtersOn = false; }
+
+      // If selected filters, filtered API call
+      if (this.filtersOn === true) {
+        console.log(this.filter[0].length);
         this.getFilteredData();
       } else {
-        // this.getPublicationData();
+
       }
     });
   }
@@ -54,11 +62,11 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     this.getFilters();
   }
 
-  // Assign results to publicationData
+  // This gets called in pagination component, Assign results to publicationData
   getPublicationData() {
     // Check if url contains filter
-    if (this.filter !== undefined && this.filter.length > 0) {
-      this.filterService.filterPublications();
+    if (this.filtersOn === true) {
+      this.filterService.filterData();
     } else {
       this.searchService.getAllResults()
       .pipe(map(publicationData => [publicationData]))
@@ -70,24 +78,13 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    this.filterService.filterPublications()
+    this.filterService.filterData()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
       this.publicationData = publicationData;
     },
       error => this.errorMessage = error as any);
   }
-
-  // removeFilter(event): void {
-  //   const filterParams = this.filter.filter(e => e !== event.target.id);
-
-  //   this.router.navigate([], {
-  //     queryParams: {
-  //       filter: filterParams,
-  //     },
-  //     queryParamsHandling: 'merge'
-  //   });
-  // }
 
   ngOnDestroy() {
     this.queryParams.unsubscribe();

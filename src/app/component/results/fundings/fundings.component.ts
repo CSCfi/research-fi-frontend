@@ -18,6 +18,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
   filter: any;
+  filtersOn: boolean;
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
   }
@@ -25,7 +26,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   getFilters() {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = params.filter;
+      this.filter = [params.year, params.status];
       // Check if multiple filters selected and send to service
       if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
@@ -33,10 +34,14 @@ export class FundingsComponent implements OnInit, OnDestroy {
         this.filterService.getFilter(this.filter);
       }
 
-      if (this.filter !== undefined && this.filter.length > 0) {
+      // Maybe with switch statement to get more clean code
+      if (this.filter[0] !== undefined && this.filter[0].length > 0 || this.filter[1] !== undefined && this.filter[1].length > 0) {
+        this.filtersOn = true;
+      } else {this.filtersOn = false; }
+
+      // If selected filters, filtered API call
+      if (this.filtersOn === true) {
         this.getFilteredData();
-      } else {
-        // this.getPublicationData();
       }
     });
   }
@@ -45,11 +50,11 @@ export class FundingsComponent implements OnInit, OnDestroy {
     this.getFilters();
   }
 
-  // Assign results to fundingData
+  // This gets called in pagination component, Assign results to fundingData
   getFundingData() {
     // Check if url contains filter
-    if (this.filter !== undefined && this.filter.length > 0) {
-      this.filterService.filterPublications();
+    if (this.filtersOn === true) {
+      this.filterService.filterData();
     } else {
       this.searchService.getAllResults()
       .pipe(map(fundingData => [fundingData]))
@@ -61,7 +66,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    this.filterService.filterPublications()
+    this.filterService.filterData()
     .pipe(map(fundingData => [fundingData]))
     .subscribe(fundingData => {
       this.fundingData = fundingData;
