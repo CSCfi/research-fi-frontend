@@ -25,15 +25,15 @@ export class FundingsComponent implements OnInit, OnDestroy {
   getFilters() {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = params.filter;
+      this.filter = [params.year, params.status];
       // Check if multiple filters selected and send to service
       if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
       } else if (this.filter !== undefined) {
         this.filterService.getFilter(this.filter);
       }
-
-      if (this.filter !== undefined && this.filter.length > 0) {
+      // console.log(this.filter);
+      if (this.filter[0] !== undefined && this.filter[0].length > 0) {
         this.getFilteredData();
       } else {
         // this.getPublicationData();
