@@ -12,7 +12,6 @@ import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { isNumber } from 'util';
 
 const API_URL = environment.apiUrl;
 
@@ -43,16 +42,18 @@ export class FilterService {
 
   // Filters
   getFilter(filter: any) {
-    this.getRange(filter);
-    this.filterByYear(filter);
+    // console.log('getFilter: ', filter[0]);
+    this.filterByYear(filter[0]);
+    this.getRange(filter[1]);
     }
 
   filterByYear(filter: any) {
+    // console.log('fby: ', filter);
     this.res = [];
     const currentTab = this.searchService.currentTab;
     switch (currentTab) {
       case 'fundings': {
-        if (filter.length > 0 && Array.isArray(filter)) {
+        if (Array.isArray(filter) && filter.length > 0) {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
@@ -61,7 +62,7 @@ export class FilterService {
         break;
       }
       case 'publications': {
-        if (filter.length > 0 && Array.isArray(filter)) {
+        if (Array.isArray(filter) && filter.length > 0) {
           filter.forEach(value => {
             this.res.push({ term : { publicationYear : value } });
           });
@@ -74,6 +75,7 @@ export class FilterService {
 
   // Start & end date filtering
   getRange(range: string) {
+    // console.log('range: ', range);
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
     switch (JSON.stringify(range)) {
       case '["onGoing"]':
@@ -101,6 +103,7 @@ export class FilterService {
 
   // Data for results page
   filterData(): Observable<Search[]> {
+    // console.log('fire');
     this.singleInput = this.searchService.singleInput;
     if (this.singleInput === undefined || this.singleInput === '') {
     this.payload = {
