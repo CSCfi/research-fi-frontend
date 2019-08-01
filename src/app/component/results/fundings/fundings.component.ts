@@ -18,6 +18,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: any;
   filter: any;
+  filtersOn: boolean;
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
   }
@@ -32,12 +33,15 @@ export class FundingsComponent implements OnInit, OnDestroy {
       } else if (this.filter !== undefined) {
         this.filterService.getFilter(this.filter);
       }
-      // console.log(this.filter);
-      if (this.filter !== undefined && this.filter.length > 0) {
+
+      // Maybe with switch statement to get more clean code
+      if (this.filter[0] !== undefined && this.filter[0].length > 0 || this.filter[1] !== undefined && this.filter[1].length > 0) {
+        this.filtersOn = true;
+      } else {this.filtersOn = false; }
+
+      // If selected filters, filtered API call
+      if (this.filtersOn === true) {
         this.getFilteredData();
-        console.log('oew');
-      } else {
-        // this.getPublicationData();
       }
     });
   }
@@ -46,10 +50,10 @@ export class FundingsComponent implements OnInit, OnDestroy {
     this.getFilters();
   }
 
-  // Assign results to fundingData
+  // This gets called in pagination component, Assign results to fundingData
   getFundingData() {
     // Check if url contains filter
-    if (this.filter !== undefined && this.filter.length > 0) {
+    if (this.filtersOn === true) {
       this.filterService.filterData();
     } else {
       this.searchService.getAllResults()

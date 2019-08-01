@@ -26,6 +26,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   queryParams: any;
   filter: any;
   @Output() responseEvent = new EventEmitter<string>();
+  filtersOn: boolean;
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute,
                private router: Router ) {
@@ -41,8 +42,14 @@ export class PublicationsComponent implements OnInit, OnDestroy {
       } else if (this.filter !== undefined) {
         this.filterService.getFilter(this.filter);
       }
-      // Check if filters available, copy to funding index and modify
-      if (this.filter[0] !== undefined && this.filter[0].length > 0) {
+
+      // Maybe with switch statement to get more clean code
+      if (this.filter[0] !== undefined && this.filter[0].length > 0 || this.filter[1] !== undefined && this.filter[1].length > 0) {
+        this.filtersOn = true;
+      } else {this.filtersOn = false; }
+
+      // If selected filters, filtered API call
+      if (this.filtersOn === true) {
         console.log(this.filter[0].length);
         this.getFilteredData();
       } else {
@@ -55,10 +62,10 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     this.getFilters();
   }
 
-  // Assign results to publicationData
+  // This gets called in pagination component, Assign results to publicationData
   getPublicationData() {
     // Check if url contains filter
-    if (this.filter !== undefined && this.filter.length > 0) {
+    if (this.filtersOn === true) {
       this.filterService.filterData();
     } else {
       this.searchService.getAllResults()
