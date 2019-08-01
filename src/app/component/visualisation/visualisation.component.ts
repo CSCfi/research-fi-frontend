@@ -188,16 +188,16 @@ export class VisualisationComponent implements OnInit {
         const i = d3.interpolate(d.current, d.target);
         return dt => d.current = i(dt);
       })
-      // .filter(function(d) {
-      //   return +this.getAttribute('fill-opacity') || arcVisible(d.target);
-      // })
-      .style('fill-opacity', d => arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
+      .filter(function(d) {
+        return +this.getAttribute('fill-opacity') || arcVisible(d.target);
+      })
+      .attr('fill-opacity', d => arcVisible(d.target) ? (d.children ? 0.8 : 0.6) : 0)
       .attrTween('d', d => () => this.arc(d.current));
 
     this.label
-    // .filter(function(d) {
-    //   return labelVisible(d.target);
-    // })
+    .filter(function(d) {
+      return +this.getAttribute('fill-opacity') || labelVisible(d.target);
+    })
       .transition(t)
       .attr('fill-opacity', d => +labelVisible(d.target))
       .attrTween('transform', d => () => labelTransform.bind(this)(d.current));
@@ -227,8 +227,8 @@ export class VisualisationComponent implements OnInit {
       .selectAll('path')
       .data(this.root.descendants().slice(1))
       .join('path')
-        .style('fill', d => { while (d.depth > 1) { d = d.parent; } return this.color(d.data.name); })
-        .style('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
+        .attr('fill', d => { while (d.depth > 1) { d = d.parent; } return this.color(d.data.name); })
+        .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
         .attr('d', d => this.arc(d.current));
 
     this.path.filter(d => d.children)
@@ -246,7 +246,6 @@ export class VisualisationComponent implements OnInit {
       .data(this.root.descendants().slice(1))
       .join('text')
         .attr('dy', '0.35em')
-        .attr('font-size', d => +this.labelVisible(d.current) * 10)
         .attr('fill-opacity', d => +this.labelVisible(d.current))
         .attr('transform', d => this.labelTransform(d.current))
         .text(d => d.data.name);
