@@ -33,8 +33,9 @@ export class FundingsComponent implements OnInit, OnDestroy {
         this.filterService.getFilter(this.filter);
       }
       // console.log(this.filter);
-      if (this.filter[0] !== undefined && this.filter[0].length > 0) {
+      if (this.filter !== undefined && this.filter.length > 0) {
         this.getFilteredData();
+        console.log('oew');
       } else {
         // this.getPublicationData();
       }
