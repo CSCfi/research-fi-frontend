@@ -37,6 +37,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   sortMethod: any;
   mobile: boolean;
   currentTab: any;
+  year: any;
+  status: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -62,7 +64,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.pageSub = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
-      this.filters = params.filter;
+      this.filters = [params.year, params.status];
+      this.year = params.year;
+      this.status = params.status;
+      // console.log(this.filters);
       this.searchService.getPageNumber(this.page);
       // this.filterService.getFilter(this.filters);
     });
