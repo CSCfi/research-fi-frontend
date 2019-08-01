@@ -34,18 +34,19 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   getFilters() {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = params.filter;
+      this.filter = [params.year];
       // Check if multiple filters selected and send to service
       if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
       } else if (this.filter !== undefined) {
         this.filterService.getFilter(this.filter);
       }
-
-      if (this.filter !== undefined && this.filter.length > 0) {
+      // Check if filters available, copy to funding index and modify
+      if (this.filter[0] !== undefined && this.filter[0].length > 0) {
+        console.log(this.filter[0].length);
         this.getFilteredData();
       } else {
-        // this.getPublicationData();
+
       }
     });
   }
@@ -77,17 +78,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     },
       error => this.errorMessage = error as any);
   }
-
-  // removeFilter(event): void {
-  //   const filterParams = this.filter.filter(e => e !== event.target.id);
-
-  //   this.router.navigate([], {
-  //     queryParams: {
-  //       filter: filterParams,
-  //     },
-  //     queryParamsHandling: 'merge'
-  //   });
-  // }
 
   ngOnDestroy() {
     this.queryParams.unsubscribe();
