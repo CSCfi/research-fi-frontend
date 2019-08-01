@@ -26,6 +26,7 @@ export class VisualisationComponent implements OnInit {
   responseData2: any;
   apiUrl = this.searchService.apiUrl;
   nOfData = 100;
+  levels = ['publicationYear', 'field'];
 
   visualToggle = false;
 
@@ -59,8 +60,9 @@ export class VisualisationComponent implements OnInit {
     // Data structure
     this.partition = data => {
       const root = d3.hierarchy(data)
-          .sum(d => d.value)
-          .sort((a, b) => b.value - a.value);
+          .count();
+          // .sum(d => d.value)
+          // .sort((a, b) => b.value - a.value);
       return d3.partition()
           .size([2 * Math.PI, root.height + 1])
         (root);
@@ -74,20 +76,21 @@ export class VisualisationComponent implements OnInit {
       .innerRadius(d => d.y0 * this.radius)
       .outerRadius(d => Math.max(d.y0 * this.radius, d.y1 * this.radius - 1));
 
-    this.fetchData(1, 1).subscribe(d => {this.data = d; this.visualise(d); });
+    // this.fetchExampleData().subscribe(d => {this.data = d; this.visualise(d); });
 
-    // this.data = this.fetchData(this.nOfData, 0);
+    this.data = this.fetchData(this.nOfData, 0);
     // this.data2 = this.fetchData(this.nOfData, 5);
 
-    // this.data.subscribe(responseData => {
-    //   responseData = responseData.hits.hits.map(x => x._source);
-    //   this.responseData = responseData;
-    //   // responseData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
-    //                                             // : x.field = 'No data');
-    //   const grouped = this.formatData(responseData, 'publicationYear');
-    //   // this.visualise(grouped);
-    //   this.fetchData(1, 1).subscribe(d => this.visualise(d));
-    // });
+    this.data.subscribe(responseData => {
+      responseData = responseData.hits.hits.map(x => x._source);
+      this.responseData = responseData;
+      responseData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+                                                : x.field = 'No field available');
+      responseData.map(x => x.name = x.publicationName);
+      const grouped = this.formatData(responseData, this.levels[0], 0);
+      grouped.children = grouped.children.map(x => x = this.formatData(x.children, this.levels[1], 1));
+      this.visualise(grouped);
+    });
 
     // this.data2.subscribe(responseData => {
     //   responseData = responseData.hits.hits.map(x => x._source);
@@ -95,14 +98,17 @@ export class VisualisationComponent implements OnInit {
     // });
   }
 
-  formatData(data, field) {
+  formatData(data, field, level) {
     const newData = this.groupBy(data, field);
-    return {name: 'Data', children: Object.keys(newData).map(x => newData[x])};
+    return {name: level ? data[0][this.levels[level - 1]] : 'Data', children: Object.keys(newData).map(x => newData[x])};
+  }
+
+  fetchExampleData() {
+    return this.http.get<Search[]>("https://raw.githubusercontent.com/d3/d3-hierarchy/v1.1.8/test/data/flare.json");
   }
 
   fetchData(size: number, from: number) {
-    // return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + size + '&from=' + from);
-    return this.http.get<Search[]>("https://raw.githubusercontent.com/d3/d3-hierarchy/v1.1.8/test/data/flare.json");
+    return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + size + '&from=' + from);
   }
 
 
@@ -157,15 +163,7 @@ export class VisualisationComponent implements OnInit {
   }
 
   switch() {
-    this.visualToggle = !this.visualToggle;
-    const data = this.formatData(this.visualToggle ? this.responseData2 : this.responseData, 'publicationYear');
-    this.visualise(data);
-    // this.root = d3.hierarchy(data);
-    // this.visualToggle ? this.root.sum(d => d.size) : this.root.count();
-    // this.partition(this.root);
-
-    // this.chart.selectAll('path').transition().duration(750).attrTween('d', this.arcTweenPath.bind(this));
-    // this.chart.selectAll('text').transition().duration(750).attrTween('transform', this.arcTweenText.bind(this));
+    this.clicked(d3.select('circle').data().pop());
   }
 
   clicked(p) {
@@ -248,7 +246,7 @@ export class VisualisationComponent implements OnInit {
         .attr('dy', '0.35em')
         .attr('fill-opacity', d => +this.labelVisible(d.current))
         .attr('transform', d => this.labelTransform(d.current))
-        .text(d => d.data.name);
+        .text(d => d.data.name.toString().slice(0, 20));
 
     this.parent = this.g.append('circle')
       .datum(this.root)
