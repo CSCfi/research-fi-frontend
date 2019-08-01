@@ -37,6 +37,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
   private input: Subscription;
   private queryParams: Subscription;
   private resizeSub: Subscription;
+  yearFilters: any[];
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
                private resizeService: ResizeService) { }
@@ -63,12 +64,13 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.sortMethod = this.searchService.sortMethod;
-
+    this.getSelected()
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
+    { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters } });
   }
 
   getSelected() {
+    this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
     return this.selectedYears.selectedOptions.selected.map(s => s.value);
   }
 
@@ -84,7 +86,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.sortMethod = params.sort;
       this.page = params.page;
-      this.filters = params.filter;
+      this.filters = params.year;
       // Pre select filters by url parameters
       if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
     });

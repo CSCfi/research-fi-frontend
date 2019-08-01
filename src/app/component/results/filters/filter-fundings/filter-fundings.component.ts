@@ -70,9 +70,9 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.sortMethod = this.searchService.sortMethod;
-
+    this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
+    { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, status: this.statusFilter } });
   }
 
   getSelected() {
@@ -94,7 +94,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.sortMethod = params.sort;
       this.page = params.page;
-      this.filters = params.filter;
+      this.filters = [params.year, params.status];
       // Pre select filters by url parameters
       if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
     });
