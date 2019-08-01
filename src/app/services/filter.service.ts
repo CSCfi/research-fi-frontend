@@ -58,7 +58,7 @@ export class FilterService {
             this.res.push({ term : { fundingStartYear : value } });
           });
         } else {
-          this.res = { term : { fundingStartYear : filter } }; }
+            this.res = { exists : { field : 'fundingStartYear' } }; }
         break;
       }
       case 'publications': {
@@ -66,8 +66,10 @@ export class FilterService {
           filter.forEach(value => {
             this.res.push({ term : { publicationYear : value } });
           });
+        } else if (filter !== undefined) {
+          this.res = { term : { publicationYear : filter } };
         } else {
-          this.res = { term : { publicationYear : filter } }; }
+            this.res = { exists : { field : 'publicationYear' } }; }
         break;
       }
     }
@@ -104,6 +106,7 @@ export class FilterService {
   // Data for results page
   filterData(): Observable<Search[]> {
     // console.log('fire');
+    // console.log('res: ', this.res);
     this.singleInput = this.searchService.singleInput;
     if (this.singleInput === undefined || this.singleInput === '') {
     this.payload = {
