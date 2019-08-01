@@ -32,13 +32,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
       this.year = params.year;
       this.status = params.status;
 
-      // console.log(this.year);
+      // If single filter, modify to array
       if (!isArray(this.year)) {this.year = [params.year]; }
+      if (!isArray(this.status)) {this.status = [params.status]; }
 
-      // console.log(this.filter);
       this.filter.forEach(element => {
         if (!isArray(element)) {element = [element]; }
-        // console.log(element);
       });
 
       this.combinedFilters = this.year.concat(this.status);
