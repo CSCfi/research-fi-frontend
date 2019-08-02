@@ -115,11 +115,11 @@ export class SearchService {
             break;
           }
           case 'name': {
-            this.sort = [{'projectNameFi.keyword': {order: 'asc'}}];
+            this.sort = [{'projectNameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'funder': {
-            this.sort = [{'funderNameFi.keyword': {order: 'asc'}}];
+            this.sort = [{'funderNameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
           default: {

@@ -50,6 +50,7 @@ export class FilterService {
   filterByYear(filter: any) {
     this.res = [];
     if (!isArray(filter)) {filter = [filter]; }
+    console.log(filter);
     const currentTab = this.searchService.currentTab;
     switch (currentTab) {
       case 'fundings': {
@@ -57,8 +58,6 @@ export class FilterService {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
-        } else if (filter.length > 0 || filter[0] !== undefined) {
-            this.res = { term : { fundingStartYear : filter } };
         } else {
             this.res = { exists : { field : 'fundingStartYear' } }; }
         break;
@@ -68,8 +67,6 @@ export class FilterService {
           filter.forEach(value => {
             this.res.push({ term : { publicationYear : value } });
           });
-        } else if (filter !== undefined) {
-          this.res = { term : { publicationYear : filter } };
         } else {
             this.res = { exists : { field : 'publicationYear' } }; }
         break;
