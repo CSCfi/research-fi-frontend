@@ -60,12 +60,12 @@ export class VisualisationComponent implements OnInit {
     };
 
     this.arc = d3.arc()
-    .startAngle(d => d.x0)
-    .endAngle(d => d.x1)
-    .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
+    .startAngle(d => (d as any).x0)
+    .endAngle(d => (d as any).x1)
+    .padAngle(d => Math.min(((d as any).x1 - (d as any).x0) / 2, 0.005))
     .padRadius(this.radius * 1.5)
-    .innerRadius(d => d.y0 * this.radius)
-    .outerRadius(d => Math.max(d.y0 * this.radius, d.y1 * this.radius - 1));
+    .innerRadius(d => (d as any).y0 * this.radius)
+    .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
 
     this.data = this.fetchData(this.nOfData, 0);
 
@@ -77,8 +77,8 @@ export class VisualisationComponent implements OnInit {
       responseData.map(x => x.key = x.publicationName);
 
       const tree = d3.nest()
-        .key(d => d.publicationYear).sortKeys(d3.ascending)
-        .key(d => d.field)
+        .key(d => (d as any).publicationYear).sortKeys(d3.ascending)
+        .key(d => (d as any).field)
         .entries(responseData);
 
       this.visualise({key: 'Data', values: tree});
