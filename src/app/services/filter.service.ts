@@ -42,13 +42,11 @@ export class FilterService {
 
   // Filters
   getFilter(filter: any) {
-    // console.log('getFilter: ', filter[0]);
     this.filterByYear(filter[0]);
     this.getRange(filter[1]);
     }
 
   filterByYear(filter: any) {
-    // console.log('fby: ', filter);
     this.res = [];
     const currentTab = this.searchService.currentTab;
     switch (currentTab) {
@@ -57,6 +55,8 @@ export class FilterService {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
+        } else if (filter !== undefined) {
+          this.res = { term : { fundingStartYear : filter } };
         } else {
             this.res = { exists : { field : 'fundingStartYear' } }; }
         break;
@@ -77,7 +77,6 @@ export class FilterService {
 
   // Start & end date filtering
   getRange(range: string) {
-    // console.log('range: ', range);
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
     switch (JSON.stringify(range)) {
       case '["onGoing"]':
@@ -90,14 +89,8 @@ export class FilterService {
         this.range = { range: { fundingEndDate: {lte : '2017-01-01' } } };
         break;
       }
-      // kind of hacky
-      case '["ended","onGoing"]':
-      case '["onGoing","ended"]': {
-        this.range = { range: { fundingEndDate: {lte : '3000-01-01' } } };
-        break;
-      }
       default: {
-        this.range = { range: { fundingEndDate: {lte : '3000-01-01' } } };
+        this.range = { bool: { should: [ { exists : { field : 'fundingEndDate' } } ] } };
         break;
       }
     }
@@ -105,8 +98,6 @@ export class FilterService {
 
   // Data for results page
   filterData(): Observable<Search[]> {
-    // console.log('fire');
-    // console.log('res: ', this.res);
     this.singleInput = this.searchService.singleInput;
     if (this.singleInput === undefined || this.singleInput === '') {
     this.payload = {
