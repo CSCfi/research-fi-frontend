@@ -134,7 +134,8 @@ export class FilterService {
               bool: {
                 must: [
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
-                  { term: { _index: 'funding' } }
+                  { term: { _index: 'funding' } },
+                  { bool: { should: [ this.res ] } }
                 ]
               }
             }
@@ -185,7 +186,7 @@ export class FilterService {
         }
       }
     };
-    this.requestCheck = {};
+    this.requestCheck = false;
     return this.http.post<Search[]>
     (this.apiUrl + 'publication,person,funding/_search?', this.payload)
     .pipe(catchError(this.searchService.handleError));
