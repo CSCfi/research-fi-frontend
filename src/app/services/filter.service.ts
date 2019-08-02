@@ -54,7 +54,6 @@ export class FilterService {
   filterPublications(): Observable<Search[]> {
     this.singleInput = this.searchService.singleInput;
     if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
-    if (this.singleInput === undefined || this.singleInput === '') {
     this.payload = {
       query: {
         bool: {
@@ -62,6 +61,7 @@ export class FilterService {
             {
               bool: {
                 must: [
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'publication' } },
                   { bool: { should: [ this.res ] } }
                 ]
@@ -70,6 +70,7 @@ export class FilterService {
             {
               bool: {
                 must: [
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'person' } }
                 ]
               }
@@ -77,6 +78,7 @@ export class FilterService {
             {
               bool: {
                 must: [
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'funding' } }
                 ]
               }
@@ -128,87 +130,7 @@ export class FilterService {
         }
       }
     };
-    } else {
-      this.payload = {
-        query: {
-          bool: {
-            should: [
-              {
-                bool: {
-                  must: [
-                    { query_string : { query : this.singleInput } },
-                    { term: { _index: 'publication' } },
-                    { bool: { should: [ this.res ]
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                bool: {
-                  must: [
-                    { query_string : { query : this.singleInput } },
-                    { term: { _index: 'person' } }
-                  ]
-                }
-              },
-              {
-                bool: {
-                  must: [
-                    { query_string : { query : this.singleInput } },
-                    { term: { _index: 'funding' } }
-                  ]
-                }
-              }
-            ],
-            boost: 1
-          }
-        },
-        size: 0,
-        aggs: {
-          _index: {
-            filters: {
-              filters: {
-                persons: {
-                  match: {
-                    _index: 'person'
-                  }
-                },
-                publications: {
-                  match: {
-                    _index: 'publication'
-                  }
-                },
-                fundings: {
-                  match: {
-                    _index: 'funding'
-                  }
-                }
-              }
-            },
-            aggs: {
-              index_results: {
-                top_hits: {
-                  size: 10,
-                  from: this.searchService.fromPage,
-                  sort: this.searchService.sort
-                }
-              },
-              years: {
-                terms: {
-                  field: 'publicationYear',
-                  size: 50,
-                  order: {
-                    _key: 'asc'
-                  }
-                }
-              }
-            }
-          }
-        }
-      };
-    }
-    this.requestCheck = false;
+    this.requestCheck = {};
     return this.http.post<Search[]>
     (this.apiUrl + 'publication,person,funding/_search?', this.payload)
     .pipe(catchError(this.searchService.handleError));
