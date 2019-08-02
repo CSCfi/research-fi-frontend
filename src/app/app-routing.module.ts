@@ -12,6 +12,7 @@ import { ResultsComponent } from './component/results/results.component';
 import { SinglePublicationComponent } from './component/single-publication/single-publication.component';
 import { SingleFundingComponent } from './component/single-funding/single-funding.component';
 import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
+import { VisualisationComponent } from './component/visualisation/visualisation.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
     path: 'results/publication',
     redirectTo: 'results/publications',
     pathMatch: 'full'
+  },
+  {
+    path: 'visual',
+    component: VisualisationComponent
   },
   {
     path: 'results/funding',

@@ -61,6 +61,7 @@ import { FilterFundingsComponent } from './component/results/filters/filter-fund
 import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
 import { FilterOrganizationsComponent } from './component/results/filters/filter-organizations/filter-organizations.component';
 import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
+import { VisualisationComponent } from './component/visualisation/visualisation.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { FilterPersonsComponent } from './component/results/filters/filter-perso
     FilterFundingsComponent,
     SingleOrganizationComponent,
     FilterOrganizationsComponent,
-    FilterPersonsComponent
+    FilterPersonsComponent,
+    VisualisationComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +112,7 @@ import { FilterPersonsComponent } from './component/results/filters/filter-perso
     MatPaginatorModule,
     MatButtonModule,
     ScrollingModule,
-    CountUpModule
+    CountUpModule,
   ],
   providers: [ SearchService, Title ],
   bootstrap: [ AppComponent ]
