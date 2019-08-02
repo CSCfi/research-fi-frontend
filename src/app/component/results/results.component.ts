@@ -8,6 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
+import { FilterService } from 'src/app/services/filter.service'
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -36,9 +37,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   sortMethod: any;
   mobile: boolean;
   currentTab: any;
+  year: any;
+  status: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
-               private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService ) {
+               private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
+               private filterService: FilterService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -60,8 +64,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.pageSub = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
-      this.filters = params.filter;
+      this.filters = [params.year, params.status];
+      this.year = params.year;
+      this.status = params.status;
+      // console.log(this.filters);
       this.searchService.getPageNumber(this.page);
+      // this.filterService.getFilter(this.filters);
     });
 
     // Subscribe to tab changes to update title

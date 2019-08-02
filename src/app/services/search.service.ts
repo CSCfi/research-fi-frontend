@@ -104,14 +104,14 @@ export class SearchService {
         break;
       }
       case 'fundings': {
-        this.sortField = 'fundingApprovalDate';
+        this.sortField = 'fundingStartYear';
         switch (this.sortMethod) {
           case 'desc': {
-            this.sort = [{fundingApprovalDate: {order: 'desc', unmapped_type : 'long'}}];
+            this.sort = [{fundingStartYear: {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
           case 'asc': {
-            this.sort = [{fundingApprovalDate: {order: 'asc', unmapped_type : 'long'}}];
+            this.sort = [{fundingStartYear: {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'name': {
@@ -123,7 +123,7 @@ export class SearchService {
             break;
           }
           default: {
-            this.sort = [{fundingApprovalDate: {order: 'desc', unmapped_type : 'long'}}];
+            this.sort = [{fundingStartYear: {order: 'desc', unmapped_type : 'long'}}];
           }
         }
       }
@@ -197,7 +197,7 @@ export class SearchService {
                   },
                   years: {
                     terms: {
-                      field: 'publicationYear',
+                      field: this.sortField,
                       size: 50,
                       order : { _key : 'desc' }
                     }

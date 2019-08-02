@@ -60,7 +60,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.sortMethod = params.sort;
       this.page = params.page;
-      this.filters = params.filter;
+      // this.filters = params.filter;
     });
 
     // Reset pagination
@@ -97,13 +97,13 @@ export class PaginationComponent implements OnInit, OnDestroy {
   }
 
   navigate() {
-    if (this.filters !== undefined) {
-      this.router.navigate(['results/', this.tabLink, this.searchTerm],
-      { queryParams: { page: this.page, sort: this.sortMethod, filter: this.filters } });
-    } else {
-      this.router.navigate(['results/', this.tabLink, this.searchTerm],
-      { queryParams: { page: this.page, sort: this.sortMethod } });
-    }
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.route,
+        queryParams: { page: this.page },
+        queryParamsHandling: 'merge'
+      });
   }
 
   ngOnDestroy() {
