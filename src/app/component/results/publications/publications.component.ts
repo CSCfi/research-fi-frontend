@@ -50,7 +50,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
       // If selected filters, filtered API call
       if (this.filtersOn === true) {
-        console.log(this.filter[0].length);
         this.getFilteredData();
       } else {
 

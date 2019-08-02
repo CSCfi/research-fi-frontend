@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { isArray } from 'ngx-bootstrap';
 
 const API_URL = environment.apiUrl;
 
@@ -48,15 +49,16 @@ export class FilterService {
 
   filterByYear(filter: any) {
     this.res = [];
+    if (!isArray(filter)) {filter = [filter]; }
     const currentTab = this.searchService.currentTab;
     switch (currentTab) {
       case 'fundings': {
-        if (Array.isArray(filter) && filter.length > 0) {
+        if (Array.isArray(filter) && filter.length > 0 && filter[0] !== undefined) {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
-        } else if (filter !== undefined) {
-          this.res = { term : { fundingStartYear : filter } };
+        } else if (filter.length > 0 || filter[0] !== undefined) {
+            this.res = { term : { fundingStartYear : filter } };
         } else {
             this.res = { exists : { field : 'fundingStartYear' } }; }
         break;
