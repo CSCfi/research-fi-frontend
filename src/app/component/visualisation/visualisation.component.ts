@@ -22,13 +22,13 @@ export class VisualisationComponent implements OnInit {
   data: Observable<any>;
   apiUrl = this.searchService.apiUrl;
   nOfData = 100;
-  
+
   width = window.innerWidth;
   height = 900;
   radius = Math.min(this.width, this.height) / 6;
   color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 10 + 1));
   format = d3.format(',d');
-  
+
   g: any;
   partition: any;
   root: any;
@@ -37,11 +37,11 @@ export class VisualisationComponent implements OnInit {
   path: any;
   label: any;
   parent: any;
-  
+
   constructor(private searchService: SearchService, private http: HttpClient) { }
 
   ngOnInit() {
-    
+
     // Create primary g
     this.g = d3.select('svg')
     .attr('width', this.width)
@@ -49,7 +49,7 @@ export class VisualisationComponent implements OnInit {
     .style('font', '10px sans-serif')
     .append('g')
     .attr('transform', 'translate(' + this.width  / 2 + ',' + this.height / 2 + ')');
-    
+
     // Data structure
     this.partition = data => {
       const root = d3.hierarchy(data, d => d.values)
@@ -58,7 +58,7 @@ export class VisualisationComponent implements OnInit {
       .size([2 * Math.PI, root.height + 1])
       (root);
     };
-    
+
     this.arc = d3.arc()
     .startAngle(d => d.x0)
     .endAngle(d => d.x1)
@@ -66,9 +66,9 @@ export class VisualisationComponent implements OnInit {
     .padRadius(this.radius * 1.5)
     .innerRadius(d => d.y0 * this.radius)
     .outerRadius(d => Math.max(d.y0 * this.radius, d.y1 * this.radius - 1));
-    
+
     this.data = this.fetchData(this.nOfData, 0);
-    
+
     this.data.subscribe(responseData => {
       responseData = responseData.hits.hits.map(x => x._source);
       responseData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
