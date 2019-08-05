@@ -122,6 +122,7 @@ export class FilterService {
                 must: [
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'funding' } },
+                  this.range,
                   { bool: { should: [ this.res ] } }
                 ]
               }
