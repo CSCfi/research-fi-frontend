@@ -108,7 +108,6 @@ export class FilterService {
     // console.log('fire');
     // console.log('res: ', this.res);
     this.singleInput = this.searchService.singleInput;
-    if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
     this.payload = {
       query: {
         bool: {
