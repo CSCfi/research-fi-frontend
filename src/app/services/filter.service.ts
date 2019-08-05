@@ -98,7 +98,6 @@ export class FilterService {
   // Data for results page
   filterData(): Observable<Search[]> {
     this.singleInput = this.searchService.singleInput;
-    if (this.sort === undefined) {this.searchService.getSortMethod(this.sortMethod); }
     this.payload = {
       query: {
         bool: {
