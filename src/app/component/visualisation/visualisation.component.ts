@@ -9,7 +9,6 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { HttpClient } from '@angular/common/http';
 import { Search } from 'src/app/models/search.model';
-import { Observable } from 'rxjs';
 import * as d3 from 'd3';
 
 @Component({
@@ -19,13 +18,10 @@ import * as d3 from 'd3';
 })
 export class VisualisationComponent implements OnInit {
 
-  data: Observable<any>;
-  apiUrl = this.searchService.apiUrl;
-  nOfData = 100;
-
   allData: any = [];
-  currentData: any;
-  scrollId: string;
+  apiUrl = this.searchService.apiUrl;
+  total: number;
+  scrollSize = 100;
 
   width = window.innerWidth;
   height = 900;
@@ -71,29 +67,14 @@ export class VisualisationComponent implements OnInit {
     .innerRadius(d => (d as any).y0 * this.radius)
     .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
 
-    this.data = this.fetchData(this.nOfData, 0);
-
-    this.data.subscribe(responseData => {
-      responseData = responseData.hits.hits.map(x => x._source);
-      responseData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
-      : x.field = 'No field available');
-
-      responseData.map(x => x.key = x.publicationName);
-
-      const tree = d3.nest()
-        .key(d => (d as any).publicationYear).sortKeys(d3.ascending)
-        .key(d => (d as any).field)
-        .entries(responseData);
-
-      this.visualise({key: 'Data', values: tree});
-    });
-
     this.scrollData().subscribe(x => {
-      const total = (x as any).hits.total;
-      this.currentData = (x as any).hits.hits;
-      this.scrollId = (x as any).scrollId;
-      this.allData.push(...this.currentData);
-      this.getNextScroll(this.scrollId);
+      this.total = (x as any).hits.total;
+      const currentData = (x as any).hits.hits;
+      const scrollId = (x as any)._scroll_id;
+      this.allData.push(...currentData);
+      if (currentData.length < this.total) {
+        this.getNextScroll(scrollId);
+      }
     });
   }
 
@@ -108,26 +89,34 @@ export class VisualisationComponent implements OnInit {
           _index: 'publication'
         }
       },
-      size: this.nOfData
+      size: this.scrollSize
     };
     return this.http.post(this.apiUrl + 'publication/_search?scroll=1m', query);
   }
 
   getNextScroll(scrollId: string) {
     const query = {
+        scroll: '1m',
         scroll_id: scrollId,
-        size: this.nOfData
     };
-    this.http.post(this.apiUrl + 'publication/_search?scroll=1m', query).subscribe(x => {
-      this.currentData = (x as any).hits.hits;
-      this.scrollId = (x as any).scrollId;
-      this.allData.push(...this.currentData);
-      if (this.allData.length < 1000) { this.getNextScroll(this.scrollId); }
+    this.http.post(this.apiUrl + '_search/scroll', query).subscribe(x => {
+      const currentData = (x as any).hits.hits;
+      const nextScrollId = (x as any)._scroll_id;
+      this.allData.push(...currentData);
+      if (this.allData.length < 1000) {  // this.total
+        this.getNextScroll(nextScrollId);
+      } else {
+        this.formatData();
+        this.visualise(this.allData);
+      }
     });
   }
 
-  switch() {
-    this.clicked(d3.select('circle').data().pop());
+  formatData() {
+    this.allData = this.allData.map(x => x._source);
+    this.allData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+    : x.field = 'No field available');
+    this.allData.map(x => x.key = x.publicationName);
   }
 
   clicked(p) {
@@ -180,8 +169,13 @@ export class VisualisationComponent implements OnInit {
     return 'rotate(' + (x - 90) + ') translate(' + y + ',0) rotate(' + (x < 180 ? 0 : 180) + ')';
   }
 
-  visualise(data) {
-    this.root = this.partition(data);
+  visualise(allData) {
+    const tree = d3.nest()
+        .key(d => (d as any).publicationYear).sortKeys(d3.ascending)
+        .key(d => (d as any).field)
+        .entries(allData);
+
+    this.root = this.partition({key: 'Data', values: tree});
 
     this.root.each(d => d.current = d);
 
