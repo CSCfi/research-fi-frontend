@@ -16,6 +16,34 @@
                 text-overflow: unset;
             }
 
+            .relative-fields {
+                display: none
+            }
+
+            .relative-fields span {
+                font-weight: bold;
+            }
+
+            .row.relative-fields.expand {
+                padding-left: 63px;
+            }
+
+            ul.inline {
+                list-style: none;
+                padding: 0;
+            }
+
+            .inline li {
+                display: inline-block;
+                border-radius: 10px;
+                padding: 0px 10px;
+                margin-right: 10px;
+            }
+
+            .relative-fields.expand {
+                display: block
+            }
+
             // Results list
             .row.no-margin {
                 margin: 0 auto;

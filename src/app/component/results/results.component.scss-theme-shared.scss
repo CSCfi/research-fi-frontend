@@ -26,6 +26,17 @@
             a.arrow::before {
                 color: mat-color($primary);
             }
+
+            .inline li {
+                border: 1px solid mat-color($primary);
+                background: white;
+            }
+            
+            .inline li.active {
+                border: 1px solid mat-color($primary);
+                background: mat-color($primary);
+                color: white;
+            }
             
             @media (max-width: 991px) {
                 .single:last-child {
