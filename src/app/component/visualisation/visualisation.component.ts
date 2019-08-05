@@ -23,6 +23,10 @@ export class VisualisationComponent implements OnInit {
   apiUrl = this.searchService.apiUrl;
   nOfData = 100;
 
+  allData: any = [];
+  currentData: any;
+  scrollId: string;
+
   width = window.innerWidth;
   height = 900;
   radius = Math.min(this.width, this.height) / 6;
@@ -83,10 +87,43 @@ export class VisualisationComponent implements OnInit {
 
       this.visualise({key: 'Data', values: tree});
     });
+
+    this.scrollData().subscribe(x => {
+      const total = (x as any).hits.total;
+      this.currentData = (x as any).hits.hits;
+      this.scrollId = (x as any).scrollId;
+      this.allData.push(...this.currentData);
+      this.getNextScroll(this.scrollId);
+    });
   }
 
   fetchData(size: number, from: number) {
     return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + size + '&from=' + from);
+  }
+
+  scrollData() {
+    const query = {
+      query: {
+        term: {
+          _index: 'publication'
+        }
+      },
+      size: this.nOfData
+    };
+    return this.http.post(this.apiUrl + 'publication/_search?scroll=1m', query);
+  }
+
+  getNextScroll(scrollId: string) {
+    const query = {
+        scroll_id: scrollId,
+        size: this.nOfData
+    };
+    this.http.post(this.apiUrl + 'publication/_search?scroll=1m', query).subscribe(x => {
+      this.currentData = (x as any).hits.hits;
+      this.scrollId = (x as any).scrollId;
+      this.allData.push(...this.currentData);
+      if (this.allData.length < 1000) { this.getNextScroll(this.scrollId); }
+    });
   }
 
   switch() {
