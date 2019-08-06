@@ -24,6 +24,7 @@ export class VisualisationComponent implements OnInit {
   scrollSize = 100;
   maxQueries: number;
   queriesSoFar = 0;
+  loading = true;
 
   width = window.innerWidth;
   height = 900;
@@ -217,5 +218,7 @@ export class VisualisationComponent implements OnInit {
       .attr('fill', 'none')
       .attr('pointer-events', 'all')
       .on('click', this.clicked.bind(this));
+
+    this.loading = false;
   }
 }
