@@ -48,8 +48,9 @@ export class FilterService {
   filterByYear(filter: any) {
     this.res = [];
     if (!isArray(filter)) {filter = [filter]; }
-    console.log(filter);
+
     const currentTab = this.searchService.currentTab;
+
     switch (currentTab) {
       case 'fundings': {
         if (Array.isArray(filter) && filter.length > 0 && filter[0] !== undefined) {
