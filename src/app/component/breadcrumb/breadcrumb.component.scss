@@ -61,3 +61,10 @@ li.breadcrumb-item.arrow_box.last.arrow_box {
 .last.arrow_box:after, .last.arrow_box:before {
     left: 0%;
 }
+
+// Responsive
+@media (max-width: 991px) {
+    li.breadcrumb-item.arrow_box.active {
+        width: 210px;
+    }
+}
