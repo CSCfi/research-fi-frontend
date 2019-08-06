@@ -3,6 +3,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 :license: MIT -->
 
-<h1>Julkaisujen määrä vuoden mukaan</h1>
+<div class="d-flex justify-content-center row">
+    <h1 class="col-12">Julkaisujen määrä vuoden mukaan</h1>
+    <p class="col-12">{{loading ? ((allData.length / total) * 100).toFixed(0) + "%" : allData.length + " tulosta"}}</p>
+    <mat-spinner *ngIf="loading" [diameter]="200"></mat-spinner>
+</div>
 <svg></svg>
-<!-- <button (click)="switch()">Go back</button> -->
