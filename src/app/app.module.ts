@@ -62,6 +62,7 @@ import { SingleOrganizationComponent } from './component/single-organization/sin
 import { FilterOrganizationsComponent } from './component/results/filters/filter-organizations/filter-organizations.component';
 import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
+import { RelatedResultsComponent } from './component/results/related-results/related-results.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { VisualisationComponent } from './component/visualisation/visualisation.
     SingleOrganizationComponent,
     FilterOrganizationsComponent,
     FilterPersonsComponent,
-    VisualisationComponent
+    VisualisationComponent,
+    RelatedResultsComponent
   ],
   imports: [
     BrowserModule,
