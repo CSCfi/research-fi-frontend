@@ -67,7 +67,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.filters = [params.year, params.status];
       this.year = params.year;
       this.status = params.status;
-      // console.log(this.filters);
+
       this.searchService.getPageNumber(this.page);
       // this.filterService.getFilter(this.filters);
     });

@@ -36,18 +36,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
       if (!isArray(this.year)) {this.year = [params.year]; }
       if (!isArray(this.status)) {this.status = [params.status]; }
 
-      this.filter.forEach(element => {
-        if (!isArray(element)) {element = [element]; }
-      });
-
+      // Merge arrays
       this.combinedFilters = this.year.concat(this.status);
       if (!isArray(this.combinedFilters)) {this.combinedFilters = [this.combinedFilters]; }
-      // console.log('c: ', this.combinedFilters);
 
-      if (this.year === undefined) {this.year = []; }
-      if (isArray(this.year)) {} else {this.year = [params.year]; }
-
-      // if (this.year.length > 0) {this.activeFilters = this.combinedFilters.sort((a, b) => b - a); }
+      // Sort active filters by numerical value
       this.activeFilters = this.combinedFilters.sort((a, b) => b - a);
     });
   }

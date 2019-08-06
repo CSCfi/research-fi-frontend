@@ -43,14 +43,13 @@ export class PublicationsComponent implements OnInit, OnDestroy {
         this.filterService.getFilter(this.filter);
       }
 
-      // Maybe with switch statement to get more clean code
+      // Maybe with switch statement to get more cleaner code
       if (this.filter[0] !== undefined && this.filter[0].length > 0 || this.filter[1] !== undefined && this.filter[1].length > 0) {
         this.filtersOn = true;
       } else {this.filtersOn = false; }
 
       // If selected filters, filtered API call
       if (this.filtersOn === true) {
-        console.log(this.filter[0].length);
         this.getFilteredData();
       } else {
 

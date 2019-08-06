@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { isArray } from 'ngx-bootstrap';
 
 const API_URL = environment.apiUrl;
 
@@ -20,7 +21,6 @@ const API_URL = environment.apiUrl;
 })
 export class FilterService {
   sort: string;
-  sortMethod: string;
   fromPage: number;
   requestCheck: boolean;
   singleInput: any;
@@ -34,7 +34,6 @@ export class FilterService {
 
   constructor( private searchService: SearchService, private http: HttpClient) {
     this.sort = this.searchService.sort;
-    this.sortMethod = this.searchService.sortMethod;
     this.fromPage = this.searchService.fromPage;
     this.requestCheck = this.searchService.requestCheck;
     this.singleInput = this.searchService.singleInput;
@@ -42,18 +41,18 @@ export class FilterService {
 
   // Filters
   getFilter(filter: any) {
-    // console.log('getFilter: ', filter[0]);
     this.filterByYear(filter[0]);
     this.getRange(filter[1]);
     }
 
   filterByYear(filter: any) {
-    // console.log('fby: ', filter);
     this.res = [];
+    if (!isArray(filter)) {filter = [filter]; }
+    console.log(filter);
     const currentTab = this.searchService.currentTab;
     switch (currentTab) {
       case 'fundings': {
-        if (Array.isArray(filter) && filter.length > 0) {
+        if (Array.isArray(filter) && filter.length > 0 && filter[0] !== undefined) {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
@@ -66,8 +65,6 @@ export class FilterService {
           filter.forEach(value => {
             this.res.push({ term : { publicationYear : value } });
           });
-        } else if (filter !== undefined) {
-          this.res = { term : { publicationYear : filter } };
         } else {
             this.res = { exists : { field : 'publicationYear' } }; }
         break;
@@ -77,7 +74,6 @@ export class FilterService {
 
   // Start & end date filtering
   getRange(range: string) {
-    // console.log('range: ', range);
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
     switch (JSON.stringify(range)) {
       case '["onGoing"]':
@@ -90,14 +86,8 @@ export class FilterService {
         this.range = { range: { fundingEndDate: {lte : '2017-01-01' } } };
         break;
       }
-      // kind of hacky
-      case '["ended","onGoing"]':
-      case '["onGoing","ended"]': {
-        this.range = { range: { fundingEndDate: {lte : '3000-01-01' } } };
-        break;
-      }
       default: {
-        this.range = { range: { fundingEndDate: {lte : '3000-01-01' } } };
+        this.range = { bool: { should: [ { exists : { field : 'fundingEndDate' } } ] } };
         break;
       }
     }
@@ -105,10 +95,7 @@ export class FilterService {
 
   // Data for results page
   filterData(): Observable<Search[]> {
-    // console.log('fire');
-    // console.log('res: ', this.res);
     this.singleInput = this.searchService.singleInput;
-    if (this.singleInput === undefined || this.singleInput === '') {
     this.payload = {
       query: {
         bool: {
@@ -116,6 +103,7 @@ export class FilterService {
             {
               bool: {
                 must: [
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'publication' } },
                   { bool: { should: [ this.res ] } }
                 ]
@@ -124,6 +112,7 @@ export class FilterService {
             {
               bool: {
                 must: [
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'person' } }
                 ]
               }
@@ -131,6 +120,7 @@ export class FilterService {
             {
               bool: {
                 must: [
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'funding' } },
                   this.range,
                   { bool: { should: [ this.res ] } }
@@ -184,86 +174,6 @@ export class FilterService {
         }
       }
     };
-    } else {
-      this.payload = {
-        query: {
-          bool: {
-            should: [
-              {
-                bool: {
-                  must: [
-                    { query_string : { query : this.singleInput } },
-                    { term: { _index: 'publication' } },
-                    { bool: { should: [ this.res ] } }
-                  ]
-                }
-              },
-              {
-                bool: {
-                  must: [
-                    { query_string : { query : this.singleInput } },
-                    { term: { _index: 'person' } }
-                  ]
-                }
-              },
-              {
-                bool: {
-                  must: [
-                    { query_string : { query : this.singleInput } },
-                    { term: { _index: 'funding' } },
-                    this.range,
-                    { bool: { should: [ this.res ] } }
-                  ]
-                }
-              }
-            ],
-            boost: 1
-          }
-        },
-        size: 0,
-        aggs: {
-          _index: {
-            filters: {
-              filters: {
-                persons: {
-                  match: {
-                    _index: 'person'
-                  }
-                },
-                publications: {
-                  match: {
-                    _index: 'publication'
-                  }
-                },
-                fundings: {
-                  match: {
-                    _index: 'funding'
-                  }
-                }
-              }
-            },
-            aggs: {
-              index_results: {
-                top_hits: {
-                  size: 10,
-                  from: this.searchService.fromPage,
-                  sort: this.searchService.sort
-                }
-              },
-              years: {
-                terms: {
-                  field: 'publicationYear',
-                  size: 50,
-                  order: {
-                    _key: 'asc'
-                  }
-                }
-              }
-            }
-          }
-        }
-      };
-    }
     this.requestCheck = false;
     return this.http.post<Search[]>
     (this.apiUrl + 'publication,person,funding/_search?', this.payload)
