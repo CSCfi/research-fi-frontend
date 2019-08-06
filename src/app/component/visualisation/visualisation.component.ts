@@ -22,8 +22,6 @@ export class VisualisationComponent implements OnInit {
   apiUrl = this.searchService.apiUrl;
   total: number;
   scrollSize = 100;
-  maxQueries: number;
-  queriesSoFar = 0;
   loading = true;
 
   width = window.innerWidth;
@@ -71,9 +69,7 @@ export class VisualisationComponent implements OnInit {
     .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
 
     this.scrollData().subscribe(x => {
-      this.total = (x as any).hits.total;
-      this.maxQueries = Math.min(Math.ceil(this.total / this.scrollSize), 100); // Temporary limit of 100 queries
-      this.queriesSoFar++;
+      this.total = Math.min((x as any).hits.total, 10000); // Temporary limit
       const currentData = (x as any).hits.hits;
       const scrollId = (x as any)._scroll_id;
       this.allData.push(...currentData);
@@ -100,7 +96,6 @@ export class VisualisationComponent implements OnInit {
   }
 
   getNextScroll(scrollId: string) {
-    this.queriesSoFar++;
     const query = {
         scroll: '1m',
         scroll_id: scrollId,
@@ -109,7 +104,7 @@ export class VisualisationComponent implements OnInit {
       const currentData = (x as any).hits.hits;
       const nextScrollId = (x as any)._scroll_id;
       this.allData.push(...currentData);
-      if (this.allData.length < this.total && this.queriesSoFar < this.maxQueries) {  // this.total
+      if (this.allData.length < this.total) {
         this.getNextScroll(nextScrollId);
       } else {
         this.formatData();
