@@ -9,7 +9,7 @@
         }
 
         // "Bleed" the styles into sub-pages
-        app-publications, app-fundings, app-organizations {
+        app-publications, app-fundings, app-organizations, app-related-results {
 
             .row.expand {
                 background: mat-color($primary, 50);
@@ -25,6 +25,17 @@
 
             a.arrow::before {
                 color: mat-color($primary);
+            }
+
+            .inline li {
+                border: 1px solid mat-color($primary);
+                background: white;
+            }
+            
+            .inline li.active {
+                border: 1px solid mat-color($primary);
+                background: mat-color($primary);
+                color: white;
             }
             
             @media (max-width: 991px) {

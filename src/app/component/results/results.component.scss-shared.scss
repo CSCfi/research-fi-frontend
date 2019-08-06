@@ -7,13 +7,45 @@
 @mixin app-results-shared {
     app-results {
         // "Bleed" the styles into child components
-        app-publications, app-fundings, app-organizations {
+        app-publications, app-fundings, app-organizations, app-related-results {
 
             //Expand column
             .row.expand .col.shorten {
                 white-space: unset;
                 overflow: visible;
                 text-overflow: unset;
+            }
+
+            .related-fields {
+                display: none
+            }
+
+            .related-fields span {
+                font-weight: bold;
+            }
+
+            .row.related-fields.expand {
+                padding-left: 63px;
+            }
+
+            ul.inline, ul.results {
+                list-style: none;
+                padding: 0;
+            }
+
+            .inline li {
+                display: inline-block;
+                border-radius: 6px;
+                padding: 0px 10px;
+                margin-right: 10px;
+            }
+
+            .related-fields .col {
+                padding: 0;
+            }
+
+            .related-fields.expand {
+                display: block
             }
 
             // Results list
