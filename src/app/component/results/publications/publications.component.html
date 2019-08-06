@@ -47,9 +47,7 @@
                     <span>{{publication._source.publicationYear}}</span>
                 </div>
             </div>     
-            <div class="row related-fields" [class.expand]="expandStatus[i]">
-                <app-related-results></app-related-results>
-            </div>
+            <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results>
         </div>  
     </div>
     <!-- Pagination -->
