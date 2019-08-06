@@ -21,7 +21,7 @@ export class VisualisationComponent implements OnInit {
   allData: any = [];
   apiUrl = this.searchService.apiUrl;
   total: number;
-  scrollSize = 100;
+  scrollSize = 1000;
   loading = true;
 
   width = window.innerWidth;
@@ -69,12 +69,15 @@ export class VisualisationComponent implements OnInit {
     .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
 
     this.scrollData().subscribe(x => {
-      this.total = Math.min((x as any).hits.total, 10000); // Temporary limit
+      this.total = Math.min((x as any).hits.total, 1000); // Temporary limit
       const currentData = (x as any).hits.hits;
       const scrollId = (x as any)._scroll_id;
       this.allData.push(...currentData);
       if (currentData.length < this.total) {
         this.getNextScroll(scrollId);
+      } else {
+        this.formatData();
+        this.visualise(this.allData);
       }
     });
   }
@@ -88,7 +91,7 @@ export class VisualisationComponent implements OnInit {
       query: {
         term: {
           _index: 'publication'
-        }
+        },
       },
       size: this.scrollSize
     };
@@ -111,6 +114,16 @@ export class VisualisationComponent implements OnInit {
         this.visualise(this.allData);
       }
     });
+  }
+
+  clearScroll(scrollId: string) {
+    const payload = {
+      headers: {},
+      body: {
+        scroll_id: scrollId
+      }
+    };
+    return this.http.delete(this.apiUrl + '_search/scroll', payload).subscribe();
   }
 
   formatData() {
