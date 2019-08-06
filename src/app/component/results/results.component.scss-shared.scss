@@ -34,10 +34,15 @@
                 border-radius: 6px;
                 padding: 0px 10px;
                 margin-right: 10px;
+                margin-bottom: 3px;
             }
 
             .related-fields .col {
                 padding: 0;
+            }
+
+            .related-fields .offset {
+                margin-left: 5%;
             }
 
             .related-fields.expand {
