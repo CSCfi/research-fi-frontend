@@ -18,6 +18,7 @@
     padding: 0px;
     transition: 0.2s linear;
     cursor: pointer;
+    border: 3px solid white;
 }
 
 .link-img span {
@@ -38,7 +39,7 @@
 
 .link-img span.text-center {
     position: absolute;
-    padding: 10px 0;
+    padding: 10px 5px;
     left: 50%;
     bottom: 0;
     width: 100%;
@@ -63,3 +64,19 @@
         flex: auto;
     }
 }
+
+// @media (min-width: 992px) {
+//     .link-img {
+//         margin: 2px;
+//     }
+
+//     .col-lg-3 {
+//         flex: 0 0 24%;
+//         max-width: 24%;
+//     }
+
+//     .col-lg-6 {
+//         flex: 0 0 48.4%;
+//         max-width: 48.4%;
+//     }
+// }
