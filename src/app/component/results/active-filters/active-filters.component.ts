@@ -21,6 +21,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   year: any;
   status: any;
   combinedFilters: any;
+  field: any;
 
   constructor( private route: ActivatedRoute, private router: Router ) {
     this.filter = [];
@@ -28,16 +29,18 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = [params.year, params.status];
+      this.filter = [params.year, params.status, params.field];
       this.year = params.year;
       this.status = params.status;
+      this.field = params.field;
 
       // If single filter, modify to array
       if (!isArray(this.year)) {this.year = [params.year]; }
       if (!isArray(this.status)) {this.status = [params.status]; }
+      if (!isArray(this.field)) {this.field = [params.field]; }
 
       // Merge arrays
-      this.combinedFilters = this.year.concat(this.status);
+      this.combinedFilters = this.year.concat(this.status, this.field);
       if (!isArray(this.combinedFilters)) {this.combinedFilters = [this.combinedFilters]; }
 
       // Sort active filters by numerical value
@@ -48,14 +51,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   removeFilter(event): void {
     const yearParams = this.year.filter(e => e !== event.target.id);
     let statusParams = this.status.filter(e => e !== event.target.id);
+    let fieldParams = this.field.filter(e => e !== event.target.id);
 
     // Handle undefined filters
     if (statusParams) {statusParams = []; }
+    if (fieldParams) {fieldParams = []; }
 
     this.router.navigate([], {
       queryParams: {
         year: yearParams,
         status: statusParams,
+        field: fieldParams
       },
       queryParamsHandling: 'merge'
     });
