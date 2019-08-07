@@ -201,6 +201,13 @@ export class SearchService {
                       size: 50,
                       order : { _key : 'desc' }
                     }
+                  },
+                  fieldsOfScience: {
+                    terms: {
+                      field: 'fields_of_science.nameFiScience.keyword',
+                      size: 150,
+                      order : { _key : 'asc' }
+                    }
                   }
               }
           }
