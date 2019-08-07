@@ -8,8 +8,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { HttpClient } from '@angular/common/http';
-import { Search } from 'src/app/models/search.model';
 import * as d3 from 'd3';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-visualisation',
@@ -20,10 +22,19 @@ export class VisualisationComponent implements OnInit {
 
   allData: any = [];
   apiUrl = this.searchService.apiUrl;
-  total: number;
+  total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
   loading = true;
+  hierarchy = ['publicationYear', 'field'];
 
+  nOfResults = 0;
+  searchTerm: string;
+  index: string;
+  queryParams: Subscription;
+  filter: any;
+  years: any;
+  status: any;
+  query: any;
   width = window.innerWidth;
   height = 900;
   radius = Math.min(this.width, this.height) / 6;
@@ -39,7 +50,15 @@ export class VisualisationComponent implements OnInit {
   label: any;
   parent: any;
 
-  constructor(private searchService: SearchService, private http: HttpClient) { }
+  constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
+              private filterService: FilterService, private router: Router) {
+    this.searchTerm = this.route.snapshot.params.input;
+    this.searchService.getInput(this.searchTerm);
+    this.index = this.route.snapshot.params.tab;
+    this.searchService.getCurrentTab(this.index);
+    this.index = this.index.slice(0, -1);
+
+  }
 
   ngOnInit() {
 
@@ -68,34 +87,47 @@ export class VisualisationComponent implements OnInit {
     .innerRadius(d => (d as any).y0 * this.radius)
     .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
 
-    this.scrollData().subscribe(x => {
-      this.total = Math.min((x as any).hits.total, 1000); // Temporary limit
-      const currentData = (x as any).hits.hits;
-      const scrollId = (x as any)._scroll_id;
-      this.allData.push(...currentData);
-      if (currentData.length < this.total) {
-        this.getNextScroll(scrollId);
+    this.getFilters();
+  }
+
+  getFilters() {
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.filter = [];
+      this.filter.push(([params.year] as any).flat().filter(x => x !== undefined));
+      this.filter.push(([params.status] as any).flat().filter(x => x !== undefined));
+      if (this.filter.flat() || this.searchTerm) {
+        this.filterService.getFilter(this.filter);
+        this.query = this.filterService.constructQuery(this.filter, this.index);
       } else {
-        this.formatData();
-        this.visualise(this.allData);
+        this.query = {};
       }
+      this.refreshData();
     });
   }
 
-  fetchData(size: number, from: number) {
-    return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + size + '&from=' + from);
+  refreshData() {
+    if (this.index !== 'publication' && this.index !== 'funding') {
+      this.loading = false;
+      return;
+    }
+    // Clear data and visualisations
+    this.allData = [];
+    this.g.selectAll('*').remove();
+    this.scrollData().subscribe(x => {
+      this.total = (x as any).hits.total;
+      this.nOfResults = this.total;
+      const currentData = (x as any).hits.hits;
+      const scrollId = (x as any)._scroll_id;
+      this.allData.push(...currentData);
+      this.getNextScroll(scrollId);   // if there is no more data, empty response
+    });
   }
 
   scrollData() {
-    const query = {
-      query: {
-        term: {
-          _index: 'publication'
-        },
-      },
-      size: this.scrollSize
-    };
-    return this.http.post(this.apiUrl + 'publication/_search?scroll=1m', query);
+    this.loading = true;
+    const query = this.query;
+    query.size = this.scrollSize;
+    return this.http.post(this.apiUrl + this.index + '/_search?scroll=1m', query);
   }
 
   getNextScroll(scrollId: string) {
@@ -110,8 +142,8 @@ export class VisualisationComponent implements OnInit {
       if (this.allData.length < this.total) {
         this.getNextScroll(nextScrollId);
       } else {
-        this.formatData();
-        this.visualise(this.allData);
+        const data = this.formatData(this.index);
+        this.visualise(data, this.hierarchy);
       }
     });
   }
@@ -126,15 +158,35 @@ export class VisualisationComponent implements OnInit {
     return this.http.delete(this.apiUrl + '_search/scroll', payload).subscribe();
   }
 
-  formatData() {
-    this.allData = this.allData.map(x => x._source);
-    this.allData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
-    : x.field = 'No field available');
-    this.allData.map(x => x.key = x.publicationName);
+  formatData(index: string) {
+    const res = this.allData.map(x => x._source);
+    switch (index) {
+      case 'publication':
+        res.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+        : x.field = 'No field available');
+        res.map(x => x.key = x.publicationName);
+        res.map(x => x.id = x.publicationId);
+        break;
+
+        case 'funding':
+          res.map(x => x.key = x.projectNameFi);
+          res.map(x => x.id = x.projectId);
+          this.hierarchy = ['fundingStartYear', 'fundedNameFi'];
+          break;
+
+      default:
+        break;
+    }
+    return res;
+  }
+
+  openResult(p) {
+    this.router.navigate(['results/', this.index, p.data.id]);
   }
 
   clicked(p) {
     this.parent.datum(p.parent || this.root);
+    this.nOfResults = p.value;
 
     this.root.each(d => d.target = {
       x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
@@ -183,11 +235,12 @@ export class VisualisationComponent implements OnInit {
     return 'rotate(' + (x - 90) + ') translate(' + y + ',0) rotate(' + (x < 180 ? 0 : 180) + ')';
   }
 
-  visualise(allData) {
-    const tree = d3.nest()
-        .key(d => (d as any).publicationYear).sortKeys(d3.ascending)
-        .key(d => (d as any).field)
-        .entries(allData);
+  visualise(allData, hierarchy) {
+    let nest: any = d3.nest();
+    hierarchy.forEach(field => {
+      nest = nest.key(d => d[field]).sortKeys(d3.ascending);
+    });
+    const tree = nest.entries(allData);
 
     this.root = this.partition({key: 'Data', values: tree});
 
@@ -201,12 +254,17 @@ export class VisualisationComponent implements OnInit {
         .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
         .attr('d', d => this.arc(d.current));
 
-    this.path.filter(d => d.children)
+    this.path
       .style('cursor', 'pointer')
+      .filter(d => d.children)
       .on('click', this.clicked.bind(this));
 
+    this.path
+      .filter(d => !d.children)
+      .on('click', this.openResult.bind(this));
+
     this.path.append('title')
-      .text(d => d.ancestors().map(dd => dd.data.key).reverse().join('/') + '\n' + this.format(d.value));
+      .text(d => d.ancestors().map(dd => dd.data.key).reverse().join('/'));
 
     this.label = this.g.append('g')
       .attr('pointer-events', 'none')

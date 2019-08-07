@@ -110,6 +110,28 @@ export class FilterService {
     }
   }
 
+  constructQuery(filter, index: string) {
+    this.singleInput = this.searchService.singleInput;
+    return {
+      query: {
+        bool: {
+          should: [
+            {
+              bool: {
+                must: [
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
+                  { term: { _index: index } },
+                  ...(index === 'funding' ? [this.range] : []),
+                  { bool: { should:  this.res } }
+                ]
+              }
+            }
+          ],
+        }
+      }
+    };
+  }
+
   // Data for results page
   filterData(): Observable<Search[]> {
     this.singleInput = this.searchService.singleInput;
