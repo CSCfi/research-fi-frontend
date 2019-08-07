@@ -25,12 +25,15 @@ export class VisualisationComponent implements OnInit {
   total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
   loading = true;
+  hierarchy = ['publicationYear', 'field'];
 
   nOfResults = 0;
   searchTerm: string;
   index: string;
   queryParams: Subscription;
   filter: any;
+  years: any;
+  status: any;
   query: any;
   width = window.innerWidth;
   height = 900;
@@ -51,7 +54,10 @@ export class VisualisationComponent implements OnInit {
               private filterService: FilterService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
-    this.index = this.route.snapshot.params.tab.slice(0, -1);
+    this.index = this.route.snapshot.params.tab;
+    this.searchService.getCurrentTab(this.index);
+    this.index = this.index.slice(0, -1);
+
   }
 
   ngOnInit() {
@@ -86,8 +92,11 @@ export class VisualisationComponent implements OnInit {
 
   getFilters() {
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = ([params.year] as any).flatMap(x => x).filter(x => x !== undefined);
-      if (this.filter || this.searchTerm) {
+      this.filter = [];
+      this.filter.push(([params.year] as any).flatMap(x => x).filter(x => x !== undefined));
+      this.filter.push(([params.status] as any).flatMap(x => x).filter(x => x !== undefined));
+      if (this.filter.flatMap(x => x) || this.searchTerm) {
+        this.filterService.getFilter(this.filter);
         this.query = this.filterService.constructQuery(this.filter, this.index);
       } else {
         this.query = {};
@@ -97,7 +106,7 @@ export class VisualisationComponent implements OnInit {
   }
 
   refreshData() {
-    if (this.index !== 'publication') {
+    if (this.index !== 'publication' && this.index !== 'funding') {
       this.loading = false;
       return;
     }
@@ -134,7 +143,7 @@ export class VisualisationComponent implements OnInit {
         this.getNextScroll(nextScrollId);
       } else {
         const data = this.formatData(this.index);
-        this.visualise(data);
+        this.visualise(data, this.hierarchy);
       }
     });
   }
@@ -156,16 +165,23 @@ export class VisualisationComponent implements OnInit {
         res.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
         : x.field = 'No field available');
         res.map(x => x.key = x.publicationName);
+        res.map(x => x.id = x.publicationId);
         break;
 
-      case 'funding':
-        console.log('funding');
-        break;
+        case 'funding':
+          res.map(x => x.key = x.projectNameFi);
+          res.map(x => x.id = x.projectId);
+          this.hierarchy = ['fundingStartYear', 'fundedNameFi'];
+          break;
 
       default:
         break;
     }
     return res;
+  }
+
+  openResult(p) {
+    this.router.navigate(['results/', this.index, p.data.id]);
   }
 
   clicked(p) {
@@ -219,11 +235,12 @@ export class VisualisationComponent implements OnInit {
     return 'rotate(' + (x - 90) + ') translate(' + y + ',0) rotate(' + (x < 180 ? 0 : 180) + ')';
   }
 
-  visualise(allData) {
-    const tree = d3.nest()
-        .key(d => (d as any).publicationYear).sortKeys(d3.ascending)
-        .key(d => (d as any).field)
-        .entries(allData);
+  visualise(allData, hierarchy) {
+    let nest: any = d3.nest();
+    hierarchy.forEach(field => {
+      nest = nest.key(d => d[field]).sortKeys(d3.ascending);
+    });
+    const tree = nest.entries(allData);
 
     this.root = this.partition({key: 'Data', values: tree});
 
@@ -237,12 +254,17 @@ export class VisualisationComponent implements OnInit {
         .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
         .attr('d', d => this.arc(d.current));
 
-    this.path.filter(d => d.children)
+    this.path
       .style('cursor', 'pointer')
+      .filter(d => d.children)
       .on('click', this.clicked.bind(this));
 
+    this.path
+      .filter(d => !d.children)
+      .on('click', this.openResult.bind(this));
+
     this.path.append('title')
-      .text(d => d.ancestors().map(dd => dd.data.key).reverse().join('/') + '\n' + this.format(d.value));
+      .text(d => d.ancestors().map(dd => dd.data.key).reverse().join('/'));
 
     this.label = this.g.append('g')
       .attr('pointer-events', 'none')

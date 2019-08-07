@@ -96,10 +96,6 @@ export class FilterService {
 
   constructQuery(filter, index: string) {
     this.singleInput = this.searchService.singleInput;
-    this.res = [];
-    filter.forEach(x => {
-      this.res.push({term: {publicationYear: x}});
-    });
     return {
       query: {
         bool: {
@@ -109,6 +105,7 @@ export class FilterService {
                 must: [
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: index } },
+                  ...(index === 'funding' ? [this.range] : []),
                   { bool: { should:  this.res } }
                 ]
               }
