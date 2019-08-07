@@ -93,9 +93,9 @@ export class VisualisationComponent implements OnInit {
   getFilters() {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = [];
-      this.filter.push(([params.year] as any).flatMap(x => x).filter(x => x !== undefined));
-      this.filter.push(([params.status] as any).flatMap(x => x).filter(x => x !== undefined));
-      if (this.filter.flatMap(x => x) || this.searchTerm) {
+      this.filter.push(([params.year] as any).flat().filter(x => x !== undefined));
+      this.filter.push(([params.status] as any).flat().filter(x => x !== undefined));
+      if (this.filter.flat() || this.searchTerm) {
         this.filterService.getFilter(this.filter);
         this.query = this.filterService.constructQuery(this.filter, this.index);
       } else {
