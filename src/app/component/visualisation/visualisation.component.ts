@@ -8,7 +8,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { HttpClient } from '@angular/common/http';
-import { Search } from 'src/app/models/search.model';
 import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +22,7 @@ export class VisualisationComponent implements OnInit {
 
   allData: any = [];
   apiUrl = this.searchService.apiUrl;
-  total: number;
+  total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
   loading = true;
 
@@ -101,7 +100,7 @@ export class VisualisationComponent implements OnInit {
     this.allData = [];
     this.g.selectAll('*').remove();
     this.scrollData().subscribe(x => {
-      this.total = Math.min((x as any).hits.total, 1000); // Temporary limit
+      this.total = (x as any).hits.total;
       const currentData = (x as any).hits.hits;
       const scrollId = (x as any)._scroll_id;
       this.allData.push(...currentData);
