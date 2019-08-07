@@ -26,10 +26,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'visual',
-    component: VisualisationComponent
-  },
-  {
     path: 'results/funding',
     redirectTo: 'results/fundings',
     pathMatch: 'full'
@@ -67,6 +63,19 @@ const routes: Routes = [
   {
     path: 'results/:tab/:input/:page',
     component: ResultsComponent
+  },
+  {
+    path: 'visual',
+    redirectTo: 'visual/publications',
+    pathMatch: 'full'
+  },
+  {
+    path: 'visual/:tab',
+    component: VisualisationComponent
+  },
+  {
+    path: 'visual/:tab/:input',
+    component: VisualisationComponent
   },
   {
     path: '**',
