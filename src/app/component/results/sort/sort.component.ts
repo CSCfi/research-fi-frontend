@@ -38,17 +38,12 @@ export class SortComponent implements OnInit, OnDestroy {
   ]
 
   constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
-    this.searchTerm = this.route.snapshot.params.input;
     this.sortMethod = this.route.snapshot.queryParams.sort;
     this.sortBy = this.route.snapshot.queryParams.sort;
     this.searchService.getSortMethod(this.sortMethod);
    }
 
   ngOnInit() {
-    // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
     this.page = this.searchService.pageNumber;
 
     // Subscribe to route input parameter
@@ -56,7 +51,6 @@ export class SortComponent implements OnInit, OnDestroy {
       const term = params.input;
       this.searchTerm = term;
       this.tabLink = params.tab;
-      // this.searchService.getInput(this.searchTerm);
 
       switch (this.tabLink) {
         case 'publications': {
@@ -80,13 +74,11 @@ export class SortComponent implements OnInit, OnDestroy {
         this.searchService.getSortMethod(this.sortMethod);
       }
       this.sortBy = this.sortMethod;
-      // this.searchService.getSortMethod(this.sortMethod);
     });
 
   }
 
   orderBy(): void {
-    if (this.searchTerm ? undefined : this.searchTerm === '') {}
     this.searchService.sortMethod = this.sortBy;
     this.sortMethod = this.sortBy;
     this.searchService.getSortMethod(this.sortBy);
