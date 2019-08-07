@@ -35,7 +35,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   getFilters() {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = [params.year];
+      this.filter = [params.year, params.field];
       // Check if multiple filters selected and send to service
       if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
