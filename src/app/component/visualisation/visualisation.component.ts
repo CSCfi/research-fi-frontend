@@ -26,6 +26,7 @@ export class VisualisationComponent implements OnInit {
   scrollSize = 1000;
   loading = true;
 
+  nOfResults = 0;
   searchTerm: string;
   index: string;
   queryParams: Subscription;
@@ -96,11 +97,16 @@ export class VisualisationComponent implements OnInit {
   }
 
   refreshData() {
+    if (this.index !== 'publication') {
+      this.loading = false;
+      return;
+    }
     // Clear data and visualisations
     this.allData = [];
     this.g.selectAll('*').remove();
     this.scrollData().subscribe(x => {
       this.total = (x as any).hits.total;
+      this.nOfResults = this.total;
       const currentData = (x as any).hits.hits;
       const scrollId = (x as any)._scroll_id;
       this.allData.push(...currentData);
@@ -164,6 +170,7 @@ export class VisualisationComponent implements OnInit {
 
   clicked(p) {
     this.parent.datum(p.parent || this.root);
+    this.nOfResults = p.value;
 
     this.root.each(d => d.target = {
       x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,

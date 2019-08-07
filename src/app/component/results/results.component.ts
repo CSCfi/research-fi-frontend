@@ -116,6 +116,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
   }
 
+  navigateToVisualisation() {
+    this.router.navigate(['visual/', this.route.snapshot.params.tab, this.searchTerm],
+    {queryParams: {year: ([this.year] as any).flatMap(x => x).filter(x => x !== undefined)}});
+  }
+
   getAllData() {
     this.searchService.getAllResults()
     .pipe(map(responseData => [responseData]))
