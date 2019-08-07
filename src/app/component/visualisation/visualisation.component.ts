@@ -10,6 +10,9 @@ import { SearchService } from 'src/app/services/search.service';
 import { HttpClient } from '@angular/common/http';
 import { Search } from 'src/app/models/search.model';
 import * as d3 from 'd3';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-visualisation',
@@ -24,6 +27,11 @@ export class VisualisationComponent implements OnInit {
   scrollSize = 1000;
   loading = true;
 
+  searchTerm: string;
+  index: string;
+  queryParams: Subscription;
+  filter: any;
+  query: any;
   width = window.innerWidth;
   height = 900;
   radius = Math.min(this.width, this.height) / 6;
@@ -39,7 +47,12 @@ export class VisualisationComponent implements OnInit {
   label: any;
   parent: any;
 
-  constructor(private searchService: SearchService, private http: HttpClient) { }
+  constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
+              private filterService: FilterService) {
+    this.searchTerm = this.route.snapshot.params.input;
+    this.searchService.getInput(this.searchTerm);
+    this.index = this.route.snapshot.params.tab.slice(0, -1);
+  }
 
   ngOnInit() {
 
@@ -68,6 +81,8 @@ export class VisualisationComponent implements OnInit {
     .innerRadius(d => (d as any).y0 * this.radius)
     .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
 
+    this.getFilters();
+
     this.scrollData().subscribe(x => {
       this.total = Math.min((x as any).hits.total, 1000); // Temporary limit
       const currentData = (x as any).hits.hits;
@@ -76,26 +91,29 @@ export class VisualisationComponent implements OnInit {
       if (currentData.length < this.total) {
         this.getNextScroll(scrollId);
       } else {
-        this.formatData();
+        this.formatData(this.index);
         this.visualise(this.allData);
       }
     });
   }
 
-  fetchData(size: number, from: number) {
-    return this.http.get<Search[]>(this.apiUrl + 'publication/_search?size=' + size + '&from=' + from);
+  getFilters() {
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      this.filter = ([params.year] as any).flatMap(x => x).filter(x => x !== undefined);
+      if (this.filter || this.searchTerm) {
+        this.query = this.filterService.constructQuery(this.filter, this.index);
+      } else {
+        this.query = {};
+      }
+      this.scrollData();
+    });
   }
 
   scrollData() {
-    const query = {
-      query: {
-        term: {
-          _index: 'publication'
-        },
-      },
-      size: this.scrollSize
-    };
-    return this.http.post(this.apiUrl + 'publication/_search?scroll=1m', query);
+    this.loading = true;
+    const query = this.query;
+    query.size = this.scrollSize;
+    return this.http.post(this.apiUrl + this.index + '/_search?scroll=1m', query);
   }
 
   getNextScroll(scrollId: string) {
@@ -110,7 +128,7 @@ export class VisualisationComponent implements OnInit {
       if (this.allData.length < this.total) {
         this.getNextScroll(nextScrollId);
       } else {
-        this.formatData();
+        this.formatData(this.index);
         this.visualise(this.allData);
       }
     });
@@ -126,11 +144,22 @@ export class VisualisationComponent implements OnInit {
     return this.http.delete(this.apiUrl + '_search/scroll', payload).subscribe();
   }
 
-  formatData() {
+  formatData(index: string) {
     this.allData = this.allData.map(x => x._source);
-    this.allData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
-    : x.field = 'No field available');
-    this.allData.map(x => x.key = x.publicationName);
+    switch (index) {
+      case 'publication':
+        this.allData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+        : x.field = 'No field available');
+        this.allData.map(x => x.key = x.publicationName);
+        break;
+
+      case 'funding':
+        console.log('funding');
+        break;
+
+      default:
+        break;
+    }
   }
 
   clicked(p) {
