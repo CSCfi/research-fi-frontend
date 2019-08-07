@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { Search } from 'src/app/models/search.model';
 import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
@@ -48,7 +48,7 @@ export class VisualisationComponent implements OnInit {
   parent: any;
 
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
-              private filterService: FilterService) {
+              private filterService: FilterService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
     this.index = this.route.snapshot.params.tab.slice(0, -1);
@@ -82,19 +82,6 @@ export class VisualisationComponent implements OnInit {
     .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
 
     this.getFilters();
-
-    this.scrollData().subscribe(x => {
-      this.total = Math.min((x as any).hits.total, 1000); // Temporary limit
-      const currentData = (x as any).hits.hits;
-      const scrollId = (x as any)._scroll_id;
-      this.allData.push(...currentData);
-      if (currentData.length < this.total) {
-        this.getNextScroll(scrollId);
-      } else {
-        this.formatData(this.index);
-        this.visualise(this.allData);
-      }
-    });
   }
 
   getFilters() {
@@ -105,7 +92,20 @@ export class VisualisationComponent implements OnInit {
       } else {
         this.query = {};
       }
-      this.scrollData();
+      this.refreshData();
+    });
+  }
+
+  refreshData() {
+    // Clear data and visualisations
+    this.allData = [];
+    this.g.selectAll('*').remove();
+    this.scrollData().subscribe(x => {
+      this.total = Math.min((x as any).hits.total, 1000); // Temporary limit
+      const currentData = (x as any).hits.hits;
+      const scrollId = (x as any)._scroll_id;
+      this.allData.push(...currentData);
+      this.getNextScroll(scrollId);   // if there is no more data, empty response
     });
   }
 
@@ -128,8 +128,8 @@ export class VisualisationComponent implements OnInit {
       if (this.allData.length < this.total) {
         this.getNextScroll(nextScrollId);
       } else {
-        this.formatData(this.index);
-        this.visualise(this.allData);
+        const data = this.formatData(this.index);
+        this.visualise(data);
       }
     });
   }
@@ -145,12 +145,12 @@ export class VisualisationComponent implements OnInit {
   }
 
   formatData(index: string) {
-    this.allData = this.allData.map(x => x._source);
+    const res = this.allData.map(x => x._source);
     switch (index) {
       case 'publication':
-        this.allData.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+        res.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
         : x.field = 'No field available');
-        this.allData.map(x => x.key = x.publicationName);
+        res.map(x => x.key = x.publicationName);
         break;
 
       case 'funding':
@@ -160,6 +160,7 @@ export class VisualisationComponent implements OnInit {
       default:
         break;
     }
+    return res;
   }
 
   clicked(p) {
