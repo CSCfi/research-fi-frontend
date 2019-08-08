@@ -110,7 +110,7 @@ export class FilterService {
     }
   }
 
-  constructQuery(filter, index: string) {
+  constructQuery(index: string) {
     this.singleInput = this.searchService.singleInput;
     return {
       query: {
@@ -122,7 +122,9 @@ export class FilterService {
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: index } },
                   ...(index === 'funding' ? [this.range] : []),
-                  { bool: { should:  this.res } }
+                  { bool: { should:  this.res } },
+                  { bool: { should: [ this.fieldFilters ] } }
+
                 ]
               }
             }
