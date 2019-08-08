@@ -80,12 +80,12 @@ export class VisualisationComponent implements OnInit {
     };
 
     this.arc = d3.arc()
-    .startAngle(d => (d as any).x0)
-    .endAngle(d => (d as any).x1)
-    .padAngle(d => Math.min(((d as any).x1 - (d as any).x0) / 2, 0.005))
+    .startAngle((d: any) => d.x0)
+    .endAngle((d: any) => d.x1)
+    .padAngle((d: any) => Math.min((d.x1 - d.x0) / 2, 0.005))
     .padRadius(this.radius * 1.5)
-    .innerRadius(d => (d as any).y0 * this.radius)
-    .outerRadius(d => Math.max((d as any).y0 * this.radius, (d as any).y1 * this.radius - 1));
+    .innerRadius((d: any) => d.y0 * this.radius)
+    .outerRadius((d: any) => Math.max(d.y0 * this.radius, d.y1 * this.radius - 1));
 
     this.getFilters();
   }
@@ -93,15 +93,15 @@ export class VisualisationComponent implements OnInit {
   getFilters() {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = [];
-      this.filter.push(([params.year] as any).flat().filter(x => x !== undefined));
+      this.filter.push([params.year].flat().filter(x => x !== undefined));
 
       switch (this.index) {
         case 'publication':
-          this.filter.push(([params.field] as any).flat().filter(x => x !== undefined));
+          this.filter.push([params.field].flat().filter(x => x !== undefined));
           break;
 
         case 'funding':
-          this.filter.push(([params.status] as any).flat().filter(x => x !== undefined));
+          this.filter.push([params.status].flat().filter(x => x !== undefined));
           break;
 
         default:
@@ -125,11 +125,11 @@ export class VisualisationComponent implements OnInit {
     // Clear data and visualisations
     this.allData = [];
     this.g.selectAll('*').remove();
-    this.scrollData().subscribe(x => {
-      this.total = (x as any).hits.total;
+    this.scrollData().subscribe((x: any) => {
+      this.total = x.hits.total;
       this.nOfResults = this.total;
-      const currentData = (x as any).hits.hits;
-      const scrollId = (x as any)._scroll_id;
+      const currentData = x.hits.hits;
+      const scrollId = x._scroll_id;
       this.allData.push(...currentData);
       this.getNextScroll(scrollId);   // if there is no more data, empty response
     });
@@ -147,9 +147,9 @@ export class VisualisationComponent implements OnInit {
         scroll: '1m',
         scroll_id: scrollId,
     };
-    this.http.post(this.apiUrl + '_search/scroll', query).subscribe(x => {
-      const currentData = (x as any).hits.hits;
-      const nextScrollId = (x as any)._scroll_id;
+    this.http.post(this.apiUrl + '_search/scroll', query).subscribe((x: any) => {
+      const currentData = x.hits.hits;
+      const nextScrollId = x._scroll_id;
       this.allData.push(...currentData);
       if (this.allData.length < this.total) {
         this.getNextScroll(nextScrollId);

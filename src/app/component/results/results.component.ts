@@ -120,9 +120,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   navigateToVisualisation() {
     this.router.navigate(['visual/', this.route.snapshot.params.tab, this.searchTerm],
-    {queryParams: { year: (  [this.year] as any).flat().filter(x => x !== undefined),
-                  status: ([this.status] as any).flat().filter(x => x !== undefined),
-                  field: ([this.field] as any).flat().filter(x => x !== undefined)}});
+    {queryParams: { year:   [this.year].flat().filter(x => x !== undefined),
+                  status: [this.status].flat().filter(x => x !== undefined),
+                  field:   [this.field].flat().filter(x => x !== undefined)}});
   }
 
   getAllData() {
