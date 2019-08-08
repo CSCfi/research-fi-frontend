@@ -94,10 +94,22 @@ export class VisualisationComponent implements OnInit {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = [];
       this.filter.push(([params.year] as any).flat().filter(x => x !== undefined));
-      this.filter.push(([params.status] as any).flat().filter(x => x !== undefined));
+
+      switch (this.index) {
+        case 'publication':
+          this.filter.push(([params.field] as any).flat().filter(x => x !== undefined));
+          break;
+
+        case 'funding':
+          this.filter.push(([params.status] as any).flat().filter(x => x !== undefined));
+          break;
+
+        default:
+          break;
+      }
       if (this.filter.flat() || this.searchTerm) {
         this.filterService.getFilter(this.filter);
-        this.query = this.filterService.constructQuery(this.filter, this.index);
+        this.query = this.filterService.constructQuery(this.index);
       } else {
         this.query = {};
       }
@@ -162,7 +174,7 @@ export class VisualisationComponent implements OnInit {
     const res = this.allData.map(x => x._source);
     switch (index) {
       case 'publication':
-        res.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim()).join(', ')
+        res.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim())[0]
         : x.field = 'No field available');
         res.map(x => x.key = x.publicationName);
         res.map(x => x.id = x.publicationId);

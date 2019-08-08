@@ -16,6 +16,7 @@ import { SearchService } from '../../services/search.service';
 export class BreadcrumbComponent implements OnInit {
   @Input() responseData: any [];
   @Input() tab: any;
+  @Input() tabName: any;
   @Input() resultNameField: any;
   resultType: string;
   searchTerm: any;
