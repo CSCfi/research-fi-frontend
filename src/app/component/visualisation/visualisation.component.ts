@@ -107,7 +107,7 @@ export class VisualisationComponent implements OnInit {
         default:
           break;
       }
-      if (this.filter.flat() || this.searchTerm) {
+      if (this.filter.flat().length || this.searchTerm) {
         this.filterService.getFilter(this.filter);
         this.query = this.filterService.constructQuery(this.index);
       } else {
