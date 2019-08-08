@@ -26,6 +26,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
   width = window.innerWidth;
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  @ViewChild('selectedFields') selectedFields: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
   tabLink: any;
@@ -38,6 +39,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
   private queryParams: Subscription;
   private resizeSub: Subscription;
   yearFilters: any[];
+  fieldOfScienceFilter: any;
+  combinedFilters: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
                private resizeService: ResizeService) { }
@@ -66,12 +69,14 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
     this.sortMethod = this.searchService.sortMethod;
     this.getSelected()
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters } });
+    { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
   }
 
   getSelected() {
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
-    return this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.fieldOfScienceFilter = this.selectedFields.selectedOptions.selected.map(s => s.value);
+    this.combinedFilters = this.yearFilters.concat(this.fieldOfScienceFilter);
+    return this.combinedFilters;
   }
 
   ngOnInit() {
@@ -86,7 +91,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.sortMethod = params.sort;
       this.page = params.page;
-      this.filters = params.year;
+      this.filters = [params.year, params.field];
       // Pre select filters by url parameters
       if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
     });

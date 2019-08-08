@@ -37,6 +37,9 @@ export class HomePageComponent implements OnInit {
     // Get data for count-ups
     this.getAllData();
 
+    // Reset sort
+    this.searchService.getSortMethod('desc');
+
     // Set title
     this.setTitle('Etusivu - Tutkimustietovaranto');
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);

@@ -13,6 +13,7 @@ import { Search } from '../models/search.model';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { isArray } from 'ngx-bootstrap';
+import { isString } from 'ngx-bootstrap/chronos/utils/type-checks';
 
 const API_URL = environment.apiUrl;
 
@@ -30,6 +31,8 @@ export class FilterService {
   payload: any;
   range: any;
   today: string;
+  yearFilters: any;
+  fieldFilters: any;
 
 
   constructor( private searchService: SearchService, private http: HttpClient) {
@@ -43,17 +46,17 @@ export class FilterService {
   getFilter(filter: any) {
     this.filterByYear(filter[0]);
     this.getRange(filter[1]);
+    this.filterByFieldOfScience(filter[1]);
     }
 
   filterByYear(filter: any) {
     this.res = [];
     if (!isArray(filter)) {filter = [filter]; }
-
     const currentTab = this.searchService.currentTab;
 
     switch (currentTab) {
       case 'fundings': {
-        if (Array.isArray(filter) && filter.length > 0 && filter[0] !== undefined) {
+        if ((filter[0])) {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
@@ -62,14 +65,27 @@ export class FilterService {
         break;
       }
       case 'publications': {
-        if (Array.isArray(filter) && filter.length > 0) {
+        if (filter[0]) {
           filter.forEach(value => {
             this.res.push({ term : { publicationYear : value } });
           });
         } else {
-            this.res = { exists : { field : 'publicationYear' } }; }
+            this.res = [{ exists : { field : 'publicationYear' } }]; }
         break;
       }
+    }
+  }
+
+  filterByFieldOfScience(field: any) {
+    this.fieldFilters = [];
+    if (!isArray(field)) {field = [field]; }
+
+    if (field[0]) {
+      field.forEach(value => {
+        this.fieldFilters.push({ term : { 'fields_of_science.nameFiScience.keyword' : value } });
+      });
+    } else {
+      this.fieldFilters = [{ exists : { field : 'fields_of_science' } }];
     }
   }
 
@@ -128,7 +144,8 @@ export class FilterService {
                 must: [
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'publication' } },
-                  { bool: { should: [ this.res ] } }
+                  { bool: { should: [ this.res ] } },
+                  { bool: { should: [ this.fieldFilters ] } }
                 ]
               }
             },
@@ -191,6 +208,13 @@ export class FilterService {
                 order: {
                   _key: 'asc'
                 }
+              }
+            },
+            fieldsOfScience: {
+              terms: {
+                field: 'fields_of_science.nameFiScience.keyword',
+                size: 150,
+                order : { _key : 'asc' }
               }
             }
           }
