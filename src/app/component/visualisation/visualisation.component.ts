@@ -12,6 +12,7 @@ import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/services/filter.service';
+import { SortService } from 'src/app/services/sort.service';
 
 @Component({
   selector: 'app-visualisation',
@@ -51,11 +52,11 @@ export class VisualisationComponent implements OnInit {
   parent: any;
 
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
-              private filterService: FilterService, private router: Router) {
+              private filterService: FilterService, private sortService: SortService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
     this.index = this.route.snapshot.params.tab;
-    this.searchService.getCurrentTab(this.index);
+    this.sortService.getCurrentTab(this.index);
     this.index = this.index.slice(0, -1);
 
   }
@@ -137,8 +138,10 @@ export class VisualisationComponent implements OnInit {
 
   scrollData() {
     this.loading = true;
-    const query = this.query;
-    query.size = this.scrollSize;
+    const query = {
+      query: this.query,
+      size: this.scrollSize
+    };
     return this.http.post(this.apiUrl + this.index + '/_search?scroll=1m', query);
   }
 

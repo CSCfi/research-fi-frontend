@@ -57,7 +57,7 @@ export class FilterService {
 
     switch (currentTab) {
       case 'fundings': {
-        if ((filter[0])) {
+        if (filter[0]) {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
@@ -83,8 +83,6 @@ export class FilterService {
       field.forEach(value => {
         this.fieldFilters.push({ term : { 'fields_of_science.nameFiScience.keyword' : value } });
       });
-    } else {
-      this.fieldFilters = [{ exists : { field : 'fields_of_science' } }];
     }
   }
 
@@ -103,7 +101,7 @@ export class FilterService {
         break;
       }
       default: {
-        this.range = { bool: { should: [ { exists : { field : 'fundingEndDate' } } ] } };
+        this.range = undefined;
         break;
       }
     }
@@ -112,66 +110,30 @@ export class FilterService {
   constructQuery(index: string) {
     this.singleInput = this.searchService.singleInput;
     return {
-      query: {
         bool: {
           should: [
             {
               bool: {
                 must: [
-                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: index } },
-                  ...(index === 'funding' ? [this.range] : []),
+                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
+                  ...(index === 'funding' ? (this.range ? [this.range] : []) : []),
                   ...(this.res.flat().length ? { bool: { should: this.res } } : this.res.flat()),
-                  { bool: { should: [ this.fieldFilters ] } }
-
+                  ...(this.fieldFilters.flat().length ? { bool: { should: this.fieldFilters } } : this.fieldFilters.flat())
                 ]
               }
             }
           ],
         }
-      }
     };
   }
 
   // Data for results page
   filterData(): Observable<Search[]> {
     this.singleInput = this.searchService.singleInput;
+    const query = this.constructQuery(this.searchService.currentTab);
     this.payload = {
-      query: {
-        bool: {
-          should: [
-            {
-              bool: {
-                must: [
-                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
-                  { term: { _index: 'publication' } },
-                  ...(this.res.flat().length ? { bool: { should: this.res } } : this.res.flat()),
-                  { bool: { should: [ this.fieldFilters ] } }
-                ]
-              }
-            },
-            {
-              bool: {
-                must: [
-                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
-                  { term: { _index: 'person' } }
-                ]
-              }
-            },
-            {
-              bool: {
-                must: [
-                  ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
-                  { term: { _index: 'funding' } },
-                  ...(this.res.flat().length ? { bool: { should: this.res } } : this.res.flat()),
-                  this.range
-                ]
-              }
-            }
-          ],
-          boost: 1
-        }
-      },
+      query,
       size: 0,
       aggs: {
         _index: {
