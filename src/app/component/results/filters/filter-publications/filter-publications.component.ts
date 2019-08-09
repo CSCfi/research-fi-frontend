@@ -9,6 +9,7 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../services/search.service';
+import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 
@@ -43,7 +44,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
   combinedFilters: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
-               private resizeService: ResizeService) { }
+               private resizeService: ResizeService, private sortService: SortService ) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -66,7 +67,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChange() {
-    this.sortMethod = this.searchService.sortMethod;
+    this.sortMethod = this.sortService.sortMethod;
     this.getSelected()
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });

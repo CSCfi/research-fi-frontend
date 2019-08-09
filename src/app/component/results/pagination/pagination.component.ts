@@ -7,6 +7,7 @@
 
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
+import { SortService } from '../../../services/sort.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -29,7 +30,8 @@ export class PaginationComponent implements OnInit, OnDestroy {
   queryParams: any;
   filters: any;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router ) {
+  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
+               private sortService: SortService ) {
     this.searchTerm = this.route.snapshot.params.input;
    }
 
@@ -75,7 +77,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.fromPage = this.page * 10 - 10;
     this.searchService.getPageNumber(this.page);
     this.searchTerm = this.route.snapshot.params.input;
-    this.sortMethod = this.searchService.sortMethod;
+    this.sortMethod = this.sortService.sortMethod;
     // If searchTerm is undefined, route doesn't work
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
@@ -88,7 +90,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
     this.fromPage = this.fromPage - 10;
     this.searchService.getPageNumber(this.page);
     this.searchTerm = this.route.snapshot.params.input;
-    this.sortMethod = this.searchService.sortMethod;
+    this.sortMethod = this.sortService.sortMethod;
     // If searchTerm is undefined, route doesn't work
     if (this.searchTerm === undefined) {
       this.searchTerm = '';

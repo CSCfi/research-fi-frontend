@@ -7,6 +7,7 @@
 
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
+import { SortService } from '../../services/sort.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -24,7 +25,7 @@ export class SearchBarComponent implements OnInit {
     tabLink: any;
 
     constructor( private searchService: SearchService, private tabChangeService: TabChangeService,
-                 private router: Router, private route: ActivatedRoute ) {
+                 private router: Router, private route: ActivatedRoute, private sortService: SortService ) {
     }
 
     ngOnInit() {
@@ -41,7 +42,7 @@ export class SearchBarComponent implements OnInit {
 
     newInput() {
       this.tabChangeService.directToMostHits = true;
-      this.searchService.sortMethod = 'desc';
+      this.sortService.sortMethod = 'desc';
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
       this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>
       this.router.navigate(['results/', 'publications', this.publicationSearchInput.nativeElement.value], { queryParams: { page: 1 } }));

@@ -9,6 +9,7 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../services/search.service';
+import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 
@@ -39,7 +40,7 @@ export class FilterOrganizationsComponent implements OnInit {
   private resizeSub: Subscription;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
-               private resizeService: ResizeService) { }
+               private resizeService: ResizeService, private sortService: SortService ) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -62,7 +63,7 @@ export class FilterOrganizationsComponent implements OnInit {
   }
 
   onSelectionChange() {
-    this.sortMethod = this.searchService.sortMethod;
+    this.sortMethod = this.sortService.sortMethod;
     // If searchTerm is undefined, route doesn't work
     if (this.searchTerm === undefined) {
       this.searchTerm = '';

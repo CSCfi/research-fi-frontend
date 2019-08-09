@@ -8,6 +8,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../services/search.service';
+import { SortService } from '../../../services/sort.service';
 
 @Component({
   selector: 'app-sort',
@@ -26,15 +27,15 @@ export class SortComponent implements OnInit, OnDestroy {
     {label: 'Vanhin ensin', value: 'asc'},
     {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'name'},
     {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'person'}
-  ]
+  ];
   fundingFields = [
     {label: 'Uusin ensin', value: 'desc'},
     {label: 'Vanhin ensin', value: 'asc'},
     {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
     {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
-  ]
+  ];
 
-  constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService ) {
     // Get sort value from url, default to desc if undefined
     this.sortBy = this.route.snapshot.queryParams.sort;
     if (!this.sortBy) {this.sortBy = 'desc'; }
@@ -59,7 +60,7 @@ export class SortComponent implements OnInit, OnDestroy {
 
   // Send value to service and rewrite url
   orderBy(): void {
-    this.searchService.getSortMethod(this.sortBy);
+    this.sortService.getSortMethod(this.sortBy);
     this.navigate();
   }
 
@@ -69,7 +70,8 @@ export class SortComponent implements OnInit, OnDestroy {
         relativeTo: this.route,
         queryParams: { sort: this.sortBy },
         queryParamsHandling: 'merge'
-      });
+      }
+    );
   }
 
   ngOnDestroy() {
