@@ -110,7 +110,7 @@ export class VisualisationComponent implements OnInit {
       }
       if (this.filter.flat().length || this.searchTerm) {
         this.filterService.getFilter(this.filter);
-        this.query = this.filterService.constructQuery(this.index);
+        this.query = this.filterService.constructQuery(this.index, this.searchTerm);
       } else {
         this.query = {};
       }

@@ -37,9 +37,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
   sortMethod: any;
   mobile: boolean;
   currentTab: any;
-  year: any;
-  status: any;
-  field: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -57,10 +54,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
-      this.filters = [params.year, params.status, params.field];
-      this.year = params.year;
-      this.status = params.status;
-      this.field = params.field;
+      this.filters = {year: params.year || [], status: params.status || [], field: params.field || []};
 
       this.sortService.getSortMethod(params.sort);
       this.searchService.getPageNumber(this.page);
@@ -114,9 +108,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   navigateToVisualisation() {
     this.router.navigate(['visual/', this.route.snapshot.params.tab, this.searchTerm],
-    {queryParams: { year:   [this.year].flat().filter(x => x !== undefined),
-                  status: [this.status].flat().filter(x => x !== undefined),
-                  field:   [this.field].flat().filter(x => x !== undefined)}});
+    {queryParams: this.filters});
   }
 
   getAllData() {

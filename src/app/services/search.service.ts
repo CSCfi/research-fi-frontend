@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { catchError } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from './sort.service';
+import { FilterService } from './filter.service';
 
 const API_URL = environment.apiUrl;
 
@@ -32,7 +33,8 @@ export class SearchService {
   apiUrl = API_URL;
   data: any;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService, 
+              private filterService: FilterService) {
     this.getInput$ = this.getInputSubject.asObservable();
   }
 
@@ -81,6 +83,13 @@ export class SearchService {
     };
     return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad)
       .pipe(catchError(this.handleError));
+  }
+
+  filterData() {
+    const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
+                                                        this.sortService.sort, this.sortService.currentTab);
+    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?', payload)
+    .pipe(catchError(this.handleError));
   }
 
   // Data for results page
