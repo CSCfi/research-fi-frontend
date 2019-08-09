@@ -7,6 +7,7 @@
 
 import { Injectable  } from '@angular/core';
 import { SearchService} from './search.service';
+import { SortService } from './sort.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
@@ -35,8 +36,8 @@ export class FilterService {
   fieldFilters: any;
 
 
-  constructor( private searchService: SearchService, private http: HttpClient) {
-    this.sort = this.searchService.sort;
+  constructor( private searchService: SearchService, private sortService: SortService, private http: HttpClient) {
+    this.sort = this.sortService.sort;
     this.fromPage = this.searchService.fromPage;
     this.requestCheck = this.searchService.requestCheck;
     this.singleInput = this.searchService.singleInput;
@@ -52,7 +53,7 @@ export class FilterService {
   filterByYear(filter: any) {
     this.res = [];
     if (!isArray(filter)) {filter = [filter]; }
-    const currentTab = this.searchService.currentTab;
+    const currentTab = this.sortService.currentTab;
 
     switch (currentTab) {
       case 'fundings': {
@@ -200,7 +201,7 @@ export class FilterService {
               top_hits: {
                 size: 10,
                 from: this.searchService.fromPage,
-                sort: this.searchService.sort
+                sort: this.sortService.sort
               }
             },
             years: {
