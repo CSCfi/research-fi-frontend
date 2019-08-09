@@ -32,7 +32,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  pageSub: any;
+  queryParams: any;
   filters: any;
   sortMethod: any;
   mobile: boolean;
@@ -53,6 +53,19 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Subscribe to queryParams and send to search service
+    this.queryParams = this.route.queryParams.subscribe(params => {
+      // Defaults to 1 if no query param provided.
+      this.page = +params.page || 1;
+      this.filters = [params.year, params.status, params.field];
+      this.year = params.year;
+      this.status = params.status;
+      this.field = params.field;
+
+      this.searchService.getSortMethod(params.sort);
+      this.searchService.getPageNumber(this.page);
+    });
+
     // Subscribe to tab change
     this.currentTab = this.route.params.subscribe(params => {
       // Get tab name and data
@@ -61,18 +74,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.getAllData();
     });
 
-    // Subscribe to route page number
-    this.pageSub = this.route.queryParams.subscribe(params => {
-      // Defaults to 1 if no query param provided.
-      this.page = +params.page || 1;
-      this.filters = [params.year, params.status, params.field];
-      this.year = params.year;
-      this.status = params.status;
-      this.field = params.field;
 
-      this.searchService.getPageNumber(this.page);
-      // this.filterService.getFilter(this.filters);
-    });
 
     // Subscribe to tab changes to update title
     this.tabChangeService.currentTab.subscribe(tab => {
@@ -170,7 +172,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
     this.searchService.subsVar.unsubscribe();
-    this.pageSub.unsubscribe();
+    this.queryParams.unsubscribe();
     this.currentTab.unsubscribe();
     this.input.unsubscribe();
   }

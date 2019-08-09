@@ -75,6 +75,7 @@ export class SearchService {
     switch (tab) {
       case 'publications': {
         this.sortField = 'publicationYear';
+
         switch (this.sortMethod) {
           case 'desc': {
             this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
