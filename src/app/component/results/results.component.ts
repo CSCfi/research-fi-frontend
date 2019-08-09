@@ -8,6 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
+import { SortService } from '../../services/sort.service';
 import { FilterService } from 'src/app/services/filter.service'
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -43,7 +44,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
-               private filterService: FilterService ) {
+               private sortService: SortService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -62,16 +63,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.status = params.status;
       this.field = params.field;
 
-      this.searchService.getSortMethod(params.sort);
+      this.sortService.getSortMethod(params.sort);
       this.searchService.getPageNumber(this.page);
     });
 
     // Subscribe to tab change
     this.currentTab = this.route.params.subscribe(params => {
       // Get tab name and data
-      this.searchService.getCurrentTab(params.tab);
+      // this.searchService.getCurrentTab(params.tab);
       // Fires twice because of observer, needs to be fixed
-      this.getAllData();
+      // this.getAllData();
     });
 
 
@@ -80,6 +81,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTabData = tab;
       this.updateTitle(tab);
+      this.sortService.getCurrentTab(tab.data);
+      this.getAllData();
     });
 
     // Subscribe to route parameters, works with browser back & forward buttons
