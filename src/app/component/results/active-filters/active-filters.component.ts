@@ -55,9 +55,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   }
 
   removeFilter(event): void {
-    const yearParams = this.year.filter(e => e !== event.target.id);
-    const statusParams = this.status.filter(e => e !== event.target.id);
-    const fieldParams = this.field.filter(e => e !== event.target.id);
+    let yearParams = this.year.filter(e => e !== event.target.id);
+    let statusParams = this.status.filter(e => e !== event.target.id);
+    let fieldParams = this.field.filter(e => e !== event.target.id);
+
+    yearParams = yearParams || [];
+    statusParams = statusParams || [];
+    fieldParams = fieldParams || [];
 
     // Remove filters according to tab
     switch (this.currentTab) {
