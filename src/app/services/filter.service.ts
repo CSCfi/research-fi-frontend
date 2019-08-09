@@ -131,7 +131,7 @@ export class FilterService {
   // Data for results page
   filterData(): Observable<Search[]> {
     this.singleInput = this.searchService.singleInput;
-    const query = this.constructQuery(this.searchService.currentTab);
+    const query = this.constructQuery(this.sortService.currentTab.slice(0, -1));
     this.payload = {
       query,
       size: 0,

@@ -9,7 +9,6 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/co
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
-import { FilterService } from 'src/app/services/filter.service'
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -70,7 +69,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     // Subscribe to tab change
     this.currentTab = this.route.params.subscribe(params => {
       // Get tab name and data
-      // this.searchService.getCurrentTab(params.tab);
+      this.sortService.getCurrentTab(params.tab);
       // Fires twice because of observer, needs to be fixed
       // this.getAllData();
     });

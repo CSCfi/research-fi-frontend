@@ -8,6 +8,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
+import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 
@@ -26,7 +27,8 @@ export class HomePageComponent implements OnInit {
   };
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private searchService: SearchService, private searchBar: SearchBarComponent, private titleService: Title ) {
+  constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent, 
+               private titleService: Title ) {
   }
 
   public setTitle( newTitle: string) {
@@ -38,7 +40,7 @@ export class HomePageComponent implements OnInit {
     this.getAllData();
 
     // Reset sort
-    this.searchService.getSortMethod('desc');
+    this.sortService.getSortMethod('desc');
 
     // Set title
     this.setTitle('Etusivu - Tutkimustietovaranto');
