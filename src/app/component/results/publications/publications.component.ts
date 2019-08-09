@@ -9,7 +9,7 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input, Output, Eve
 import { SearchService } from '../../../services/search.service';
 import { FilterService } from '../../../services/filter.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-publications',
@@ -28,8 +28,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   @Output() responseEvent = new EventEmitter<string>();
   filtersOn: boolean;
 
-  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute,
-               private router: Router ) {
+  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
   }
 
   getFilters() {

@@ -110,16 +110,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-
-    // Listen for search button action on results page
-    if (this.input !== null || this.searchService.subsVar === undefined) {
-      this.searchService.subsVar = this.searchService.
-      invokeGetData.subscribe(() => {
-        // Reset pagination
-        this.page = 1;
-        this.searchService.getPageNumber(1);
-      });
-    }
   }
 
   navigateToVisualisation() {
@@ -163,8 +153,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.setTitle(tab.label + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto');
     }
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
-    // Reset request check
-    this.searchService.requestCheck = false;
   }
 
   updateMobile(width) {
@@ -173,7 +161,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
-    this.searchService.subsVar.unsubscribe();
     this.queryParams.unsubscribe();
     this.currentTab.unsubscribe();
     this.input.unsubscribe();

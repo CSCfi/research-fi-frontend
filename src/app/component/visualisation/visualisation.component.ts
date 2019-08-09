@@ -7,12 +7,12 @@
 
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
+import { SortService } from '../../services/sort.service';
 import { HttpClient } from '@angular/common/http';
 import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/services/filter.service';
-import { SortService } from 'src/app/services/sort.service';
 
 @Component({
   selector: 'app-visualisation',

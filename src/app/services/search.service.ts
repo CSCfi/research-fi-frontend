@@ -22,7 +22,7 @@ export class SearchService {
   public inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
   invokeGetData = new EventEmitter();
-  subsVar: Subscription;
+  // subsVar: Subscription;
   getInput$: Observable<any>;
   private getInputSubject = new Subject<any>();
   singleInput: any;
@@ -31,16 +31,9 @@ export class SearchService {
   input: any;
   apiUrl = API_URL;
   data: any;
-  sortMethod: string;
-  private getSortByMethod = new Subject<any>();
-  requestCheck: boolean;
-  sort: any;
-  currentTab: any;
-  sortField: string;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService) {
     this.getInput$ = this.getInputSubject.asObservable();
-    this.requestCheck = false;
   }
 
   // Get input value from url
@@ -92,8 +85,6 @@ export class SearchService {
 
   // Data for results page
   getAllResults(): Observable<Search[]> {
-    // Needs to be fixed. Sorting should remain when changed to another tab and back
-    // if (this.sort === undefined) {this.getSortMethod('desc'); }
     const payLoad = {
       size: 0,
       aggs: {
@@ -148,7 +139,6 @@ export class SearchService {
           }
       }
    };
-    this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
       return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad);
     } else {
