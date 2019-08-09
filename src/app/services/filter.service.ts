@@ -60,8 +60,7 @@ export class FilterService {
           filter.forEach(value => {
             this.res.push({ term : { fundingStartYear : value } });
           });
-        } else {
-            this.res = { exists : { field : 'fundingStartYear' } }; }
+        }
         break;
       }
       case 'publications': {
@@ -69,8 +68,7 @@ export class FilterService {
           filter.forEach(value => {
             this.res.push({ term : { publicationYear : value } });
           });
-        } else {
-            this.res = [{ exists : { field : 'publicationYear' } }]; }
+        }
         break;
       }
     }
@@ -122,7 +120,7 @@ export class FilterService {
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: index } },
                   ...(index === 'funding' ? [this.range] : []),
-                  { bool: { should:  this.res } },
+                  ...(this.res.flat().length ? { bool: { should: this.res } } : this.res.flat()),
                   { bool: { should: [ this.fieldFilters ] } }
 
                 ]
@@ -146,7 +144,7 @@ export class FilterService {
                 must: [
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'publication' } },
-                  { bool: { should: [ this.res ] } },
+                  ...(this.res.flat().length ? { bool: { should: this.res } } : this.res.flat()),
                   { bool: { should: [ this.fieldFilters ] } }
                 ]
               }
@@ -164,8 +162,8 @@ export class FilterService {
                 must: [
                   ...(this.singleInput ? [{ query_string : { query : this.singleInput } }] : []),
                   { term: { _index: 'funding' } },
-                  this.range,
-                  { bool: { should: [ this.res ] } }
+                  ...(this.res.flat().length ? { bool: { should: this.res } } : this.res.flat()),
+                  this.range
                 ]
               }
             }
