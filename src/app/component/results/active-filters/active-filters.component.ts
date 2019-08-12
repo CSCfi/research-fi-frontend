@@ -35,9 +35,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
 
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = [params.year, params.status, params.field];
-      this.year = params.year;
-      this.status = params.status;
-      this.field = params.field;
+      this.year = params.year || [];
+      this.status = params.status  || [];
+      this.field = params.field || [];
 
       // If single filter, modify to array
       if (!isArray(this.year)) {this.year = [params.year]; }
@@ -73,8 +73,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     yearParams = yearParams || [];
     statusParams = statusParams || [];
     fieldParams = fieldParams || [];
-
-    console.log(statusParams);
 
     // Remove filters according to tab
     switch (this.currentTab) {
