@@ -6,10 +6,10 @@
 <div *ngFor="let response of responseData">
   <button [disabled]="fromPage <= 1" 
           [class.pagination-link]="fromPage  > 1" (click)="previousPage()">Edellinen sivu</button><a> | </a>
-  <button [disabled]="fromPage + 10 >= response.aggregations?._index.buckets[tab].doc_count" 
-          [class.pagination-link]="fromPage + 10  < response.aggregations?._index.buckets[tab].doc_count" (click)="nextPage()">Seuraava sivu</button>
+  <button [disabled]="fromPage + 10 >= response.hits.total" 
+          [class.pagination-link]="fromPage + 10  < response.hits.total" (click)="nextPage()">Seuraava sivu</button>
   <div class="result-count">
-    <p style="float:right;" *ngIf="fromPage + 10 < response.aggregations?._index.buckets[tab].doc_count ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.aggregations?._index.buckets[tab].doc_count}}</p>
-    <p style="float:right;" *ngIf="fromPage + 10 >= response.aggregations?._index.buckets[tab].doc_count">Näytetään tulokset {{fromPage + 1}} - {{response.aggregations?._index.buckets[tab].doc_count}} / {{response.aggregations?._index.buckets[tab].doc_count}}</p>          
+    <p style="float:right;" *ngIf="fromPage + 10 < response.hits.total ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
+    <p style="float:right;" *ngIf="fromPage + 10 >= response.hits.total">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>          
   </div>
 </div>

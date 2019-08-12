@@ -113,55 +113,9 @@ export class FilterService {
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
     return {
       query,
-      size: 0,
-      aggs: {
-        _index: {
-          filters: {
-            filters: {
-              persons: {
-                match: {
-                  _index: 'person'
-                }
-              },
-              publications: {
-                match: {
-                  _index: 'publication'
-                }
-              },
-              fundings: {
-                match: {
-                  _index: 'funding'
-                }
-              }
-            }
-          },
-          aggs: {
-            index_results: {
-              top_hits: {
-                size: 10,
-                from: fromPage,
-                sort: sortOrder
-              }
-            },
-            years: {
-              terms: {
-                field: 'publicationYear',
-                size: 50,
-                order: {
-                  _key: 'asc'
-                }
-              }
-            },
-            fieldsOfScience: {
-              terms: {
-                field: 'fields_of_science.nameFiScience.keyword',
-                size: 150,
-                order : { _key : 'asc' }
-              }
-            }
-          }
-        }
-      }
+      size: 10,
+      from: fromPage,
+      sort: sortOrder
     };
   }
 }

@@ -26,7 +26,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader') srHeader: ElementRef;
   filterSub: Subscription;
   filter: any;
-  @Output() responseEvent = new EventEmitter<string>();
   filtersOn: boolean;
 
   constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
@@ -51,9 +50,8 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   // Get publication data, check if filtered or all data
   getPublicationData() {
-    // Check if url contains filter
-    (this.filtersOn ? this.searchService.filterData() :
-                      this.searchService.getAllResults())
+    // Get data
+    this.searchService.getData()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => this.publicationData = publicationData,
                 error => this.errorMessage = error as any);

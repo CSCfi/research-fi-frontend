@@ -42,9 +42,8 @@ export class FundingsComponent implements OnInit, OnDestroy {
 
   // Get funding data, check if filtered or all data
   getFundingData() {
-    // Check if url contains filter
-    (this.filtersOn ? this.searchService.filterData() :
-                      this.searchService.getAllResults())
+    // Get data
+    this.searchService.getData()
     .pipe(map(fundingData => [fundingData]))
     .subscribe(fundingData => this.fundingData = fundingData,
                error => this.errorMessage = error as any);

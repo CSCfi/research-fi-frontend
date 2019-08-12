@@ -30,7 +30,7 @@ export class SearchService {
   input: any;
   apiUrl = API_URL;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService, 
+  constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService,
               private filterService: FilterService) {
     this.getInput$ = this.getInputSubject.asObservable();
   }
@@ -82,10 +82,10 @@ export class SearchService {
       .pipe(catchError(this.handleError));
   }
 
-  filterData() {
+  getData() {
     const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
                                                         this.sortService.sort, this.sortService.currentTab);
-    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?', payload)
+    return this.http.post<Search[]>(this.apiUrl + this.sortService.currentTab.slice(0, -1) + '/_search?', payload)
     .pipe(catchError(this.handleError));
   }
 
@@ -120,13 +120,6 @@ export class SearchService {
                   }
               },
               aggs: {
-                  index_results: {
-                      top_hits: {
-                          size: 10,
-                          from: this.fromPage,
-                          sort: this.sortService.sort
-                      }
-                  },
                   years: {
                     terms: {
                       field: this.sortService.sortField,
