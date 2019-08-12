@@ -9,6 +9,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isArray } from 'util';
 import { SortService } from '../../../services/sort.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -18,50 +19,39 @@ import { SortService } from '../../../services/sort.service';
 export class ActiveFiltersComponent implements OnInit, OnDestroy {
   queryParams: any;
   filter: any;
-  activeFilters: any [];
-  year: any;
-  status: any;
-  combinedFilters: any;
-  field: any;
+  activeFilters = [];
+  combinedFilters = [];
   currentTab: string;
   filterParams: any;
 
-  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService ) {
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
+               private filterService: FilterService ) {
     this.filter = [];
    }
 
   ngOnInit() {
     this.currentTab = this.sortService.currentTab;
 
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = [params.year, params.status, params.field];
-      this.year = params.year;
-      this.status = params.status;
-      this.field = params.field;
-      // console.log(this.filter);
-
-      // If single filter, modify to array
-      if (!isArray(this.year)) {this.year = [params.year]; }
-      if (!isArray(this.status)) {this.status = [params.status]; }
-      if (!isArray(this.field)) {this.field = [params.field]; }
+    this.queryParams = this.filterService.filters.subscribe(filter => {
+      this.filter = filter;
 
       // Merge arrays
-      this.combinedFilters = this.year.concat(this.status, this.field);
-      if (!isArray(this.combinedFilters)) {this.combinedFilters = [this.combinedFilters]; }
+      this.combinedFilters = [];
+      Object.keys(filter).forEach(x => this.combinedFilters.push(filter[x]));
+      this.combinedFilters = this.combinedFilters.flat();
 
       // Sort active filters by numerical value
       this.activeFilters = this.combinedFilters.sort((a, b) => b - a);
+      console.log(this.activeFilters);
     });
   }
 
   removeFilter(event): void {
-    let yearParams = this.year.filter(e => e !== event.target.id);
-    let statusParams = this.status.filter(e => e !== event.target.id);
-    let fieldParams = this.field.filter(e => e !== event.target.id);
+    const yearParams = this.filter.year.filter(e => e !== event.target.id);
+    const statusParams = this.filter.status.filter(e => e !== event.target.id);
+    const fieldParams = this.filter.field.filter(e => e !== event.target.id);
 
-    yearParams = yearParams || [];
-    statusParams = statusParams || [];
-    fieldParams = fieldParams || [];
+    this.combinedFilters = [yearParams, statusParams, fieldParams].flat();
 
     // Remove filters according to tab
     switch (this.currentTab) {
