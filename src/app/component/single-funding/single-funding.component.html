@@ -22,8 +22,8 @@
                  <h2>{{item._source.projectNameFi}}</h2>
                  <table id="info">
                      <tr class="row" *ngFor="let row of infoFields">
-                         <th class="col-6 col-lg-3">{{row.label}}</th>
-                         <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
+                         <th *ngIf="item._source[row.field] && item._source[row.field] !== 'UNDEFINED'" class="col-6 col-lg-3">{{row.label}}</th>
+                         <td *ngIf="item._source[row.field] && item._source[row.field] !== 'UNDEFINED'" class="col-6 col-lg-9">{{item._source[row.field]}}</td>
                      </tr>
                  </table>
              </div>
