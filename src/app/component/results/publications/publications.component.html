@@ -29,7 +29,7 @@
     </div>
 
     <div *ngFor="let publications of publicationData;">
-        <div *ngFor="let publication of publications.aggregations?._index.buckets[tabData].index_results.hits.hits; let i = index">
+        <div *ngFor="let publication of publications.hits.hits; let i = index">
             <div class="row no-margin single" (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
                 <div class="col col-1 arrow">
                     <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>

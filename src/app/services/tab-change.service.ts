@@ -15,7 +15,7 @@ export class TabChangeService {
     { data: 'organizations', label: 'Tutkimusorganisaatiot', link: 'organizations' }
   ];
 
-  private tabSource = new BehaviorSubject({data: 'publications', label: 'Julkaisut'});
+  private tabSource = new BehaviorSubject({data: '', label: ''});
   currentTab = this.tabSource.asObservable();
 
   directToMostHits = false;
