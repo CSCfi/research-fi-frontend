@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./publications.component.scss']
 })
 export class PublicationsComponent implements OnInit, OnDestroy {
-  @Input() publicationData: any [];
+  publicationData: any [];
   @Input() tabData: string;
   expandStatus: Array<boolean> = [];
   errorMessage = [];
@@ -40,10 +40,8 @@ export class PublicationsComponent implements OnInit, OnDestroy {
       // Check if any filters are selected
       Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
 
-      // If selected filters, filtered API call
-      if (this.filtersOn === true) {
-        this.getFilteredData();
-      }
+      // Get data
+      this.getPublicationData();
     });
   }
 
@@ -51,28 +49,14 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     this.getFilters();
   }
 
-  // This gets called in pagination component, Assign results to publicationData
+  // Get publication data, check if filtered or all data
   getPublicationData() {
     // Check if url contains filter
-    if (this.filtersOn === true) {
-      this.searchService.filterData();
-    } else {
-      this.searchService.getAllResults()
-      .pipe(map(publicationData => [publicationData]))
-      .subscribe(publicationData => {
-        this.publicationData = publicationData;
-      },
-        error => this.errorMessage = error as any);
-    }
-  }
-
-  getFilteredData() {
-    this.searchService.filterData()
+    (this.filtersOn ? this.searchService.filterData() :
+                      this.searchService.getAllResults())
     .pipe(map(publicationData => [publicationData]))
-    .subscribe(publicationData => {
-      this.publicationData = publicationData;
-    },
-      error => this.errorMessage = error as any);
+    .subscribe(publicationData => this.publicationData = publicationData,
+                error => this.errorMessage = error as any);
   }
 
   ngOnDestroy() {

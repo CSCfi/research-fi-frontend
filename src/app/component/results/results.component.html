@@ -27,9 +27,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <app-sort></app-sort>
             </aside>
             <main class="col-12">
-                <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData" [tabData]="tabData[0].data"></app-publications>
+                <app-publications *ngIf="tabLink===tabData[0].link" [tabData]="tabData[0].data"></app-publications>
                 <app-persons *ngIf="tabLink===tabData[1].link" [personData]="responseData"></app-persons>
-                <app-fundings *ngIf="tabLink===tabData[2].link" [fundingData]="responseData" [tabData]="tabData[2].data"></app-fundings>
+                <app-fundings *ngIf="tabLink===tabData[2].link" [tabData]="tabData[2].data"></app-fundings>
                 <app-organizations *ngIf="tabLink===tabData[6].link" [organizationData]="responseData" [tabData]="tabData[6].data"></app-organizations>
             </main>
         </div>
@@ -54,9 +54,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <app-sort></app-sort>
         </aside>
         <main class="col-12">
-            <app-publications *ngIf="tabLink===tabData[0].link" [publicationData]="responseData" [tabData]="tabData[0].data"></app-publications>
+            <app-publications *ngIf="tabLink===tabData[0].link" [tabData]="tabData[0].data"></app-publications>
             <app-persons *ngIf="tabLink===tabData[1].link" [personData]="responseData"></app-persons>
-            <app-fundings *ngIf="tabLink===tabData[2].link" [fundingData]="responseData" [tabData]="tabData[2].data"></app-fundings>
+            <app-fundings *ngIf="tabLink===tabData[2].link" [tabData]="tabData[2].data"></app-fundings>
             <app-organizations *ngIf="tabLink===tabData[6].link" [organizationData]="responseData" [tabData]="tabData[6].data"></app-organizations>
         </main>
     </div>

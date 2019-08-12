@@ -51,6 +51,15 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    // Subscribe to tab changes to update title
+    this.currentTab = this.tabChangeService.currentTab.subscribe(tab => {
+      this.selectedTabData = tab;
+      this.updateTitle(tab);
+      this.sortService.getCurrentTab(tab.data);
+      this.getAllData();
+    });
+
     // Subscribe to queryParams and send to search service
     this.queryParams = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
@@ -65,23 +74,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.searchService.getPageNumber(this.page);
     });
 
-    // Subscribe to tab change
-    this.currentTab = this.route.params.subscribe(params => {
-      // Get tab name and data
-      this.sortService.getCurrentTab(params.tab);
-      // Fires twice because of observer, needs to be fixed
-      // this.getAllData();
-    });
-
-
-
-    // Subscribe to tab changes to update title
-    this.tabChangeService.currentTab.subscribe(tab => {
-      this.selectedTabData = tab;
-      this.updateTitle(tab);
-      this.sortService.getCurrentTab(tab.data);
-      this.getAllData();
-    });
 
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
