@@ -54,10 +54,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     // Subscribe to tab changes to update title
     this.currentTab = this.tabChangeService.currentTab.subscribe(tab => {
-      this.selectedTabData = tab;
-      this.updateTitle(tab);
-      this.sortService.getCurrentTab(tab.data);
-      this.getAllData();
+      // Prevent initialization from making an API-call
+      if (tab.data.length > 0) {
+        this.selectedTabData = tab;
+        this.updateTitle(tab);
+        this.sortService.getCurrentTab(tab.data);
+        this.getAllData();
+      }
     });
 
     // Subscribe to queryParams and send to search service
