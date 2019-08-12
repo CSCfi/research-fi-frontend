@@ -40,6 +40,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
       Object.keys(filter).forEach(x => this.combinedFilters.push(filter[x]));
       this.combinedFilters = this.combinedFilters.flat();
 
+      // Translate filter names
+      const onGoing = this.combinedFilters.indexOf('onGoing');
+      const ended = this.combinedFilters.indexOf('ended');
+      if (onGoing !== -1) {this.combinedFilters[onGoing] = 'Käynnissä'; }
+      if (ended !== -1) {this.combinedFilters[ended] = 'Päättynyt'; }
+
       // Sort active filters by numerical value
       this.activeFilters = this.combinedFilters.sort((a, b) => b - a);
       console.log(this.activeFilters);
