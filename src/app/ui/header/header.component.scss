@@ -30,7 +30,11 @@ header {
 }
 
 ul.navbar-nav.main {
-    justify-content: space-around;
+    justify-content: center;
+}
+
+li.nav-item {
+    padding: 0 10px;
 }
 
 // Prevent horizontal mobile screen scrolling while menu is out of view
