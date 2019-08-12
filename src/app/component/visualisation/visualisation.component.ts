@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { SortService } from '../../services/sort.service';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +19,7 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './visualisation.component.html',
   styleUrls: ['./visualisation.component.scss']
 })
-export class VisualisationComponent implements OnInit {
+export class VisualisationComponent implements OnInit, OnDestroy {
 
   allData: any = [];
   apiUrl = this.searchService.apiUrl;
@@ -32,6 +32,7 @@ export class VisualisationComponent implements OnInit {
   searchTerm: string;
   index: string;
   queryParams: Subscription;
+  filtersOn: boolean;
   filter: any;
   years: any;
   status: any;
@@ -93,26 +94,20 @@ export class VisualisationComponent implements OnInit {
 
   getFilters() {
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = [];
-      this.filter.push([params.year].flat().filter(x => x !== undefined));
+      this.filter = {year: [params.year].flat().filter(x => x),
+        status: [params.status].flat().filter(x => x),
+        field: [params.field].flat().filter(x => x)};
 
-      switch (this.index) {
-        case 'publication':
-          this.filter.push([params.field].flat().filter(x => x !== undefined));
-          break;
+      this.filterService.updateFilters(this.filter);
 
-        case 'funding':
-          this.filter.push([params.status].flat().filter(x => x !== undefined));
-          break;
+      // Check if any filters are selected
+      Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
 
-        default:
-          break;
-      }
-      if (this.filter.flat().length || this.searchTerm) {
-        this.filterService.getFilter(this.filter);
+      if (this.filtersOn || this.searchTerm) {
+        this.filterService.updateFilters(this.filter);
         this.query = this.filterService.constructQuery(this.index, this.searchTerm);
       } else {
-        this.query = {};
+        this.query = undefined;
       }
       this.refreshData();
     });
@@ -139,7 +134,7 @@ export class VisualisationComponent implements OnInit {
   scrollData() {
     this.loading = true;
     const query = {
-      query: this.query,
+      ...(this.query ? {query: this.query} : []),
       size: this.scrollSize
     };
     return this.http.post(this.apiUrl + this.index + '/_search?scroll=1m', query);
@@ -301,5 +296,9 @@ export class VisualisationComponent implements OnInit {
       .on('click', this.clicked.bind(this));
 
     this.loading = false;
+  }
+
+  ngOnDestroy() {
+    this.queryParams.unsubscribe();
   }
 }
