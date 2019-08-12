@@ -39,7 +39,6 @@ export class FilterService {
 
   // Filters
   getFilter(filter: any) {
-    console.log(filter);
     this.filterByYear(filter.year);
     this.getRange(filter.status);
     this.filterByFieldOfScience(filter.field);
