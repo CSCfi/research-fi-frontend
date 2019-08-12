@@ -37,7 +37,7 @@
                             </li>
                         </ul>
                     </div>
-                    <ul class="navbar-nav main col-xl-10 no-padding" [class.row]="!mobile">
+                    <ul class="navbar-nav main col-xl-8 no-padding" [class.row]="!mobile">
                         <li class="nav-item">
                             <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
                                 [routerLinkActiveOptions]="{exact: true}"
@@ -49,20 +49,14 @@
                         </li>
                         <div *ngIf="mobile" class=""></div>
                         <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">Tutkimuspolitiikka</a>
+                            <a class="nav-item nav-link" href="#">Tiedepolitiikka</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">Tutkimusuutiset</a>
+                            <a class="nav-item nav-link" href="#">Tiedeuutiset</a>
                         </li>
                         <div *ngIf="mobile" class=""></div>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">Rahoittajat</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">Tutkimusorganisaatiot</a>
-                        </li>
                     </ul>
-                    <div class="navbar-expand navbar-nav lang col-2 no-padding">
+                    <div class="navbar-expand navbar-nav lang col-4 no-padding">
                         <ul class="navbar-nav main ml-auto desktop">
                             <a class="nav-item nav-link" [class.active-lang]="lang==='fi'" href="#" (click)="setLang('fi')">FI</a><div class="separator"> / </div>
                             <a class="nav-item nav-link" [class.active-lang]="lang==='se'" href="#" (click)="setLang('se')">SE</a><div class="separator"> / </div>
