@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { FilterService } from 'src/app/services/filter.service';
-import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-fundings',
@@ -16,19 +16,17 @@ export class FundingsComponent implements OnInit, OnDestroy {
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  queryParams: any;
-  filter: any;
+  filterSub: Subscription;
+  filter: object;
   filtersOn: boolean;
 
-  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
+  constructor( private searchService: SearchService, private filterService: FilterService) {
   }
 
   getFilters() {
     // Get Data and subscribe to url query parameters
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = {year: params.year || [], status: params.status || [], field: []};
-      // Check if multiple filters selected and send to service
-      this.filterService.getFilter(this.filter);
+    this.filterSub = this.filterService.filters.subscribe(filter => {
+      this.filter = filter;
 
       // Check if any filters are selected
       Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
@@ -69,6 +67,6 @@ export class FundingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
+    this.filterSub.unsubscribe();
   }
 }

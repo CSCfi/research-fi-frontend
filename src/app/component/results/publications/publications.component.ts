@@ -10,6 +10,7 @@ import { SearchService } from '../../../services/search.service';
 import { FilterService } from '../../../services/filter.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-publications',
@@ -23,7 +24,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  queryParams: any;
+  filterSub: Subscription;
   filter: any;
   @Output() responseEvent = new EventEmitter<string>();
   filtersOn: boolean;
@@ -33,10 +34,8 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   getFilters() {
     // Get Data and subscribe to url query parameters
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = {year: params.year || [], field: params.field || []};
-      // Check if multiple filters selected and send to service
-      this.filterService.getFilter(this.filter);
+    this.filterSub = this.filterService.filters.subscribe(filter => {
+      this.filter = filter;
 
       // Check if any filters are selected
       Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
@@ -77,6 +76,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
+    this.filterSub.unsubscribe();
   }
 }

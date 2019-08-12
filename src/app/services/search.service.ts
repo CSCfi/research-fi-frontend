@@ -10,7 +10,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { catchError } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from './sort.service';
@@ -23,7 +22,6 @@ export class SearchService {
   public inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
   invokeGetData = new EventEmitter();
-  // subsVar: Subscription;
   getInput$: Observable<any>;
   private getInputSubject = new Subject<any>();
   singleInput: any;
@@ -31,7 +29,6 @@ export class SearchService {
   fromPage: any;
   input: any;
   apiUrl = API_URL;
-  data: any;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService, 
               private filterService: FilterService) {
