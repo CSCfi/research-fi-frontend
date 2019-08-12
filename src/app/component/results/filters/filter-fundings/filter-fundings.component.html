@@ -21,11 +21,11 @@
         </mat-expansion-panel-header>
         <div class="scrollable">
             <mat-selection-list #selectedFilters (selectionChange)="onSelectionChange()">
-                <mat-list-option checkboxPosition="before" [value]="'Käynnissä'" [selected]="preSelection.indexOf('Käynnissä') > -1">
+                <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
                     <span class="label">Käynnissä</span>
                     <span class="amount"></span>
                 </mat-list-option>
-                <mat-list-option checkboxPosition="before" [value]="'Päättynyt'" [selected]="preSelection.indexOf('Päättynyt') > -1">
+                <mat-list-option checkboxPosition="before" [value]="'ended'" [selected]="preSelection.indexOf('ended') > -1">
                     <span class="label">Päättynyt</span>
                     <span class="amount"></span>
                 </mat-list-option>

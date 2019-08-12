@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-results',
@@ -40,7 +41,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
-               private sortService: SortService ) {
+               private sortService: SortService, private filterService: FilterService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -50,33 +51,32 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    // Subscribe to tab changes to update title
+    this.currentTab = this.tabChangeService.currentTab.subscribe(tab => {
+      // Prevent initialization from making an API-call
+      if (tab.data.length > 0) {
+        this.selectedTabData = tab;
+        this.updateTitle(tab);
+        this.sortService.getCurrentTab(tab.data);
+        this.getAllData();
+      }
+    });
+
     // Subscribe to queryParams and send to search service
     this.queryParams = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
-      this.filters = {year: params.year || [], status: params.status || [], field: params.field || []};
+      // filters is an object consisting of arrays, empty property arrays represent that no filter is enabled
+      this.filters = {year: [params.year].flat().filter(x => x),
+                      status: [params.status].flat().filter(x => x),
+                      field: [params.field].flat().filter(x => x)};
 
+      this.filterService.updateFilters(this.filters);
       this.sortService.getSortMethod(params.sort);
       this.searchService.getPageNumber(this.page);
     });
 
-    // Subscribe to tab change
-    this.currentTab = this.route.params.subscribe(params => {
-      // Get tab name and data
-      this.sortService.getCurrentTab(params.tab);
-      // Fires twice because of observer, needs to be fixed
-      // this.getAllData();
-    });
-
-
-
-    // Subscribe to tab changes to update title
-    this.tabChangeService.currentTab.subscribe(tab => {
-      this.selectedTabData = tab;
-      this.updateTitle(tab);
-      this.sortService.getCurrentTab(tab.data);
-      this.getAllData();
-    });
 
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {

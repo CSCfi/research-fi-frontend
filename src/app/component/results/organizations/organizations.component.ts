@@ -7,8 +7,9 @@
 
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
-import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { FilterService } from 'src/app/services/filter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-organizations',
@@ -16,28 +17,43 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./organizations.component.scss']
 })
 export class OrganizationsComponent implements OnInit {
-  @Input() organizationData: any [];
+  organizationData: any [];
   @Input() tabData: string;
   expandStatus: Array<boolean> = [];
   errorMessage = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  queryParams: any;
+  filterSub: Subscription;
+  filter: object;
+  filtersOn: boolean;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute ) {
+  constructor( private searchService: SearchService, private filterService: FilterService ) {
+  }
+
+  getFilters() {
+    // Get Data and subscribe to url query parameters
+    this.filterSub = this.filterService.filters.subscribe(filter => {
+      this.filter = filter;
+
+      // Check if any filters are selected
+      Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
+
+      // Get data
+      this.getOrganizationData();
+    });
   }
 
   ngOnInit() {
+    this.getFilters();
   }
 
-    // Assign results to organizationData
-    getOrganizationData() {
-      this.searchService.getAllResults()
-      .pipe(map(organizationData => [organizationData]))
-      .subscribe(organizationData => {
-        this.organizationData = organizationData;
-      },
-        error => this.errorMessage = error as any);
-    }
+  // Assign results to organizationData
+  getOrganizationData() {
+    // Get data
+    this.searchService.getData()
+    .pipe(map(organizationData => [organizationData]))
+    .subscribe(organizationData => this.organizationData = organizationData,
+               error => this.errorMessage = error as any);
+  }
 
 }
