@@ -8,7 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
-import { FilterService } from 'src/app/services/filter.service'
+import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -37,13 +37,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
   sortMethod: any;
   mobile: boolean;
   currentTab: any;
-  year: any;
-  status: any;
-  field: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
-               private filterService: FilterService ) {
+               private sortService: SortService ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -57,21 +54,18 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
-      this.filters = [params.year, params.status, params.field];
-      this.year = params.year;
-      this.status = params.status;
-      this.field = params.field;
+      this.filters = {year: params.year || [], status: params.status || [], field: params.field || []};
 
-      this.searchService.getSortMethod(params.sort);
+      this.sortService.getSortMethod(params.sort);
       this.searchService.getPageNumber(this.page);
     });
 
     // Subscribe to tab change
     this.currentTab = this.route.params.subscribe(params => {
       // Get tab name and data
-      this.searchService.getCurrentTab(params.tab);
+      this.sortService.getCurrentTab(params.tab);
       // Fires twice because of observer, needs to be fixed
-      this.getAllData();
+      // this.getAllData();
     });
 
 
@@ -80,6 +74,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTabData = tab;
       this.updateTitle(tab);
+      this.sortService.getCurrentTab(tab.data);
+      this.getAllData();
     });
 
     // Subscribe to route parameters, works with browser back & forward buttons
@@ -108,23 +104,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
-
-    // Listen for search button action on results page
-    if (this.input !== null || this.searchService.subsVar === undefined) {
-      this.searchService.subsVar = this.searchService.
-      invokeGetData.subscribe(() => {
-        // Reset pagination
-        this.page = 1;
-        this.searchService.getPageNumber(1);
-      });
-    }
   }
 
   navigateToVisualisation() {
     this.router.navigate(['visual/', this.route.snapshot.params.tab, this.searchTerm],
-    {queryParams: { year:   [this.year].flat().filter(x => x !== undefined),
-                  status: [this.status].flat().filter(x => x !== undefined),
-                  field:   [this.field].flat().filter(x => x !== undefined)}});
+    {queryParams: this.filters});
   }
 
   getAllData() {
@@ -161,8 +145,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.setTitle(tab.label + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto');
     }
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
-    // Reset request check
-    this.searchService.requestCheck = false;
   }
 
   updateMobile(width) {
@@ -171,7 +153,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
-    this.searchService.subsVar.unsubscribe();
     this.queryParams.unsubscribe();
     this.currentTab.unsubscribe();
     this.input.unsubscribe();

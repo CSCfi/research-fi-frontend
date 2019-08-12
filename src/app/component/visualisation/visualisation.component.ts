@@ -7,6 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
+import { SortService } from '../../services/sort.service';
 import { HttpClient } from '@angular/common/http';
 import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
@@ -51,11 +52,11 @@ export class VisualisationComponent implements OnInit {
   parent: any;
 
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
-              private filterService: FilterService, private router: Router) {
+              private filterService: FilterService, private sortService: SortService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
     this.index = this.route.snapshot.params.tab;
-    this.searchService.getCurrentTab(this.index);
+    this.sortService.getCurrentTab(this.index);
     this.index = this.index.slice(0, -1);
 
   }
@@ -109,7 +110,7 @@ export class VisualisationComponent implements OnInit {
       }
       if (this.filter.flat().length || this.searchTerm) {
         this.filterService.getFilter(this.filter);
-        this.query = this.filterService.constructQuery(this.index);
+        this.query = this.filterService.constructQuery(this.index, this.searchTerm);
       } else {
         this.query = {};
       }
@@ -137,8 +138,10 @@ export class VisualisationComponent implements OnInit {
 
   scrollData() {
     this.loading = true;
-    const query = this.query;
-    query.size = this.scrollSize;
+    const query = {
+      query: this.query,
+      size: this.scrollSize
+    };
     return this.http.post(this.apiUrl + this.index + '/_search?scroll=1m', query);
   }
 

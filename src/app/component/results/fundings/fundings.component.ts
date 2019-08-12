@@ -26,18 +26,12 @@ export class FundingsComponent implements OnInit, OnDestroy {
   getFilters() {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = [params.year, params.status];
+      this.filter = {year: params.year || [], status: params.status || [], field: []};
       // Check if multiple filters selected and send to service
-      if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
-      } else if (this.filter !== undefined) {
-        this.filterService.getFilter(this.filter);
-      }
 
-      // Maybe with switch statement to get more clean code
-      if (this.filter[0] !== undefined && this.filter[0].length > 0 || this.filter[1] !== undefined && this.filter[1].length > 0) {
-        this.filtersOn = true;
-      } else {this.filtersOn = false; }
+      // Check if any filters are selected
+      Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
 
       // If selected filters, filtered API call
       if (this.filtersOn === true) {
@@ -54,7 +48,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   getFundingData() {
     // Check if url contains filter
     if (this.filtersOn === true) {
-      this.filterService.filterData();
+      this.searchService.filterData();
     } else {
       this.searchService.getAllResults()
       .pipe(map(fundingData => [fundingData]))
@@ -66,7 +60,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    this.filterService.filterData()
+    this.searchService.filterData()
     .pipe(map(fundingData => [fundingData]))
     .subscribe(fundingData => {
       this.fundingData = fundingData;

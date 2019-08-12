@@ -8,6 +8,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../services/search.service';
+import { SortService } from '../../../services/sort.service';
 
 @Component({
   selector: 'app-sort',
@@ -15,43 +16,35 @@ import { SearchService } from '../../../services/search.service';
   styleUrls: ['./sort.component.scss']
 })
 export class SortComponent implements OnInit, OnDestroy {
-  searchTerm: any;
-  tabLink: any = [];
-  page: any;
-  sortBy = 'desc';
-  input: any;
-  sortMethod: string;
-  queryParams: any;
-  filters: any;
+  tabLink: string;
   tabFields: any;
+  sortBy: string;
+  queryParams: any;
+
+  // Assign values to dropdown list by current tab
   publicationFields = [
     {label: 'Uusin ensin', value: 'desc'},
     {label: 'Vanhin ensin', value: 'asc'},
     {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'name'},
     {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'person'}
-  ]
+  ];
   fundingFields = [
     {label: 'Uusin ensin', value: 'desc'},
     {label: 'Vanhin ensin', value: 'asc'},
     {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
     {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
-  ]
+  ];
 
-  constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
-    this.sortMethod = this.route.snapshot.queryParams.sort;
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService ) {
+    // Get sort value from url, default to desc if undefined
     this.sortBy = this.route.snapshot.queryParams.sort;
-    this.searchService.getSortMethod(this.sortMethod);
+    if (!this.sortBy) {this.sortBy = 'desc'; }
    }
 
   ngOnInit() {
-    this.page = this.searchService.pageNumber;
-
-    // Subscribe to route input parameter
-    this.input = this.route.params.subscribe(params => {
-      const term = params.input;
-      this.searchTerm = term;
+    // Subscribe to current tab parameter
+    this.queryParams = this.route.params.subscribe(params => {
       this.tabLink = params.tab;
-
       switch (this.tabLink) {
         case 'publications': {
           this.tabFields = this.publicationFields;
@@ -63,37 +56,22 @@ export class SortComponent implements OnInit, OnDestroy {
         }
       }
     });
-
-    // Subscribe to query parameters and get data
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.sortMethod = params.sort;
-      this.page = params.page;
-      this.filters = params.filter;
-      if (this.sortMethod === undefined) {
-        this.sortMethod = 'desc';
-        this.searchService.getSortMethod(this.sortMethod);
-      }
-      this.sortBy = this.sortMethod;
-    });
-
   }
 
+  // Send value to service and rewrite url
   orderBy(): void {
-    this.searchService.sortMethod = this.sortBy;
-    this.sortMethod = this.sortBy;
-    this.searchService.getSortMethod(this.sortBy);
+    this.sortService.getSortMethod(this.sortBy);
     this.navigate();
-
   }
 
   navigate() {
-    this.router.navigate(
-      [],
+    this.router.navigate([],
       {
         relativeTo: this.route,
-        queryParams: { sort: this.sortMethod },
+        queryParams: { sort: this.sortBy },
         queryParamsHandling: 'merge'
-      });
+      }
+    );
   }
 
   ngOnDestroy() {

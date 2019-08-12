@@ -9,6 +9,7 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../services/search.service';
+import { SortService } from '../../../../services/sort.service';
 import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
@@ -46,7 +47,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   combinedFilters: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
-               private resizeService: ResizeService, private filterService: FilterService) { }
+               private resizeService: ResizeService, private filterService: FilterService, private sortService: SortService ) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -69,7 +70,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChange() {
-    this.sortMethod = this.searchService.sortMethod;
+    this.sortMethod = this.sortService.sortMethod;
     this.getSelected();
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, status: this.statusFilter } });

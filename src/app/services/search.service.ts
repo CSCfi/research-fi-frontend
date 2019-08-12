@@ -13,6 +13,8 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { catchError } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SortService } from './sort.service';
+import { FilterService } from './filter.service';
 
 const API_URL = environment.apiUrl;
 
@@ -21,7 +23,7 @@ export class SearchService {
   public inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
   invokeGetData = new EventEmitter();
-  subsVar: Subscription;
+  // subsVar: Subscription;
   getInput$: Observable<any>;
   private getInputSubject = new Subject<any>();
   singleInput: any;
@@ -30,16 +32,10 @@ export class SearchService {
   input: any;
   apiUrl = API_URL;
   data: any;
-  sortMethod: string;
-  private getSortByMethod = new Subject<any>();
-  requestCheck: boolean;
-  sort: any;
-  currentTab: any;
-  sortField: string;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService, 
+              private filterService: FilterService) {
     this.getInput$ = this.getInputSubject.asObservable();
-    this.requestCheck = false;
   }
 
   // Get input value from url
@@ -70,73 +66,6 @@ export class SearchService {
     this.inputSource.next(input);
   }
 
-  getCurrentTab(tab: string) {
-    this.currentTab = tab;
-    switch (tab) {
-      case 'publications': {
-        this.sortField = 'publicationYear';
-
-        switch (this.sortMethod) {
-          case 'desc': {
-            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-            break;
-          }
-          case 'asc': {
-            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
-            break;
-          }
-          case 'name': {
-            this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'person': {
-            this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-          default: {
-            this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
-            break;
-          }
-        }
-        break;
-      }
-      case 'persons': {
-        this.sortField = 'publicationYear'; // Change this according to index
-        break;
-      }
-      case 'fundings': {
-        this.sortField = 'fundingStartYear';
-        switch (this.sortMethod) {
-          case 'desc': {
-            this.sort = [{fundingStartYear: {order: 'desc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'asc': {
-            this.sort = [{fundingStartYear: {order: 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'name': {
-            this.sort = [{'projectNameFi.keyword': {order: 'asc'}}];
-            break;
-          }
-          case 'funder': {
-            this.sort = [{'funderNameFi.keyword': {order: 'asc'}}];
-            break;
-          }
-          default: {
-            this.sort = [{fundingStartYear: {order: 'desc', unmapped_type : 'long'}}];
-          }
-        }
-      }
-    }
-  }
-
-  // Get sort method
-  getSortMethod(sortBy: string) {
-    this.sortMethod = sortBy;
-    this.getCurrentTab(this.currentTab);
-  }
-
   // Data for homepage values
   getAll(): Observable<Search[]> {
     const payLoad = {
@@ -156,10 +85,15 @@ export class SearchService {
       .pipe(catchError(this.handleError));
   }
 
+  filterData() {
+    const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
+                                                        this.sortService.sort, this.sortService.currentTab);
+    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding/_search?', payload)
+    .pipe(catchError(this.handleError));
+  }
+
   // Data for results page
   getAllResults(): Observable<Search[]> {
-    // Needs to be fixed. Sorting should remain when changed to another tab and back
-    if (this.sort === undefined) {this.getSortMethod('desc'); }
     const payLoad = {
       size: 0,
       aggs: {
@@ -193,12 +127,12 @@ export class SearchService {
                       top_hits: {
                           size: 10,
                           from: this.fromPage,
-                          sort: this.sort
+                          sort: this.sortService.sort
                       }
                   },
                   years: {
                     terms: {
-                      field: this.sortField,
+                      field: this.sortService.sortField,
                       size: 50,
                       order : { _key : 'desc' }
                     }
@@ -214,7 +148,6 @@ export class SearchService {
           }
       }
    };
-    this.requestCheck = false;
     if (this.singleInput === undefined || this.singleInput === '') {
       return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad);
     } else {

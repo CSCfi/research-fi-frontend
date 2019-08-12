@@ -19,6 +19,10 @@
                 padding: 0.5rem 0;
             }
 
+            tr.row:empty {
+                display: none;
+            }
+
             th {
                 vertical-align: middle;
                 padding: 5px 0px 5px 15px;

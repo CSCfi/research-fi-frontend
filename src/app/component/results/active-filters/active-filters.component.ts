@@ -8,7 +8,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isArray } from 'util';
-import { SearchService } from '../../../services/search.service';
+import { SortService } from '../../../services/sort.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -26,12 +26,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   currentTab: string;
   filterParams: any;
 
-  constructor( private route: ActivatedRoute, private router: Router, private searchService: SearchService ) {
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService ) {
     this.filter = [];
    }
 
   ngOnInit() {
-    this.currentTab = this.searchService.currentTab;
+    this.currentTab = this.sortService.currentTab;
 
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = [params.year, params.status, params.field];
@@ -55,9 +55,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   }
 
   removeFilter(event): void {
-    const yearParams = this.year.filter(e => e !== event.target.id);
-    const statusParams = this.status.filter(e => e !== event.target.id);
-    const fieldParams = this.field.filter(e => e !== event.target.id);
+    let yearParams = this.year.filter(e => e !== event.target.id);
+    let statusParams = this.status.filter(e => e !== event.target.id);
+    let fieldParams = this.field.filter(e => e !== event.target.id);
+
+    yearParams = yearParams || [];
+    statusParams = statusParams || [];
+    fieldParams = fieldParams || [];
 
     // Remove filters according to tab
     switch (this.currentTab) {
@@ -66,12 +70,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
         break;
       }
       case 'fundings': {
-        this.filterParams = {queryParams: {status: statusParams, year: yearParams} };
+        this.filterParams = {queryParams: {status: statusParams, year: yearParams}, queryParamsHandling: 'merge' };
         break;
       }
     }
 
-    this.router.navigate([],this.filterParams);
+    this.router.navigate([], this.filterParams);
   }
 
   ngOnDestroy() {

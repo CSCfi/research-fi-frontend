@@ -92,10 +92,11 @@ export class SingleFundingComponent implements OnInit {
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
     const persons = source.projectPersons;
-    const keywords = source.keywords;
+    const keywords = source.keywords || [];
     const scheme = keywords.map(x => x.scheme).join('');
     const field = keywords.map(x => x.keyword).join('');
-    source.keywords = source.keywords.map(x => x.keyword).join(', ');
+    source.keywords = keywords.map(x => x.keyword).join(', ');
+    source.fundingContactPersonLastName = source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName;
     if (source.amount) {
       source.amount = source.amount + '€';
     }

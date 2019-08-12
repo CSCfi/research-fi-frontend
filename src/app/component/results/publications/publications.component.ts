@@ -9,7 +9,7 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy, Input, Output, Eve
 import { SearchService } from '../../../services/search.service';
 import { FilterService } from '../../../services/filter.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-publications',
@@ -28,31 +28,22 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   @Output() responseEvent = new EventEmitter<string>();
   filtersOn: boolean;
 
-  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute,
-               private router: Router ) {
+  constructor( private searchService: SearchService, private filterService: FilterService, private route: ActivatedRoute ) {
   }
 
   getFilters() {
     // Get Data and subscribe to url query parameters
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = [params.year, params.field];
+      this.filter = {year: params.year || [], field: params.field || []};
       // Check if multiple filters selected and send to service
-      if (Array.isArray(this.filter)) {
       this.filterService.getFilter(this.filter);
-      } else if (this.filter !== undefined) {
-        this.filterService.getFilter(this.filter);
-      }
 
-      // Maybe with switch statement to get more cleaner code
-      if (this.filter[0] !== undefined && this.filter[0].length > 0 || this.filter[1] !== undefined && this.filter[1].length > 0) {
-        this.filtersOn = true;
-      } else {this.filtersOn = false; }
+      // Check if any filters are selected
+      Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
 
       // If selected filters, filtered API call
       if (this.filtersOn === true) {
         this.getFilteredData();
-      } else {
-
       }
     });
   }
@@ -65,7 +56,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   getPublicationData() {
     // Check if url contains filter
     if (this.filtersOn === true) {
-      this.filterService.filterData();
+      this.searchService.filterData();
     } else {
       this.searchService.getAllResults()
       .pipe(map(publicationData => [publicationData]))
@@ -77,7 +68,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredData() {
-    this.filterService.filterData()
+    this.searchService.filterData()
     .pipe(map(publicationData => [publicationData]))
     .subscribe(publicationData => {
       this.publicationData = publicationData;
