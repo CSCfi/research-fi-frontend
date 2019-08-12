@@ -38,7 +38,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
       this.year = params.year;
       this.status = params.status;
       this.field = params.field;
-      // console.log(this.filter);
 
       // If single filter, modify to array
       if (!isArray(this.year)) {this.year = [params.year]; }
@@ -49,12 +48,24 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
       this.combinedFilters = this.year.concat(this.status, this.field);
       if (!isArray(this.combinedFilters)) {this.combinedFilters = [this.combinedFilters]; }
 
+      // Translate filter names
+      const onGoing = this.combinedFilters.indexOf('onGoing');
+      const ended = this.combinedFilters.indexOf('ended');
+      if (onGoing !== -1) {this.combinedFilters[onGoing] = 'Käynnissä'; }
+      if (ended !== -1) {this.combinedFilters[ended] = 'Päättynyt'; }
+
       // Sort active filters by numerical value
       this.activeFilters = this.combinedFilters.sort((a, b) => b - a);
     });
   }
 
   removeFilter(event): void {
+    // Translate filter values, consider using json objects with translated arrays
+    const onGoing = this.status.indexOf('onGoing');
+    const ended = this.status.indexOf('ended');
+    if (onGoing !== -1) {this.status[onGoing] = 'Käynnissä'; }
+    if (ended !== -1) {this.status[ended] = 'Päättynyt'; }
+
     let yearParams = this.year.filter(e => e !== event.target.id);
     let statusParams = this.status.filter(e => e !== event.target.id);
     let fieldParams = this.field.filter(e => e !== event.target.id);
@@ -62,6 +73,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     yearParams = yearParams || [];
     statusParams = statusParams || [];
     fieldParams = fieldParams || [];
+
+    console.log(statusParams);
 
     // Remove filters according to tab
     switch (this.currentTab) {
