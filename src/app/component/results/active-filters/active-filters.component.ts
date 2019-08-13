@@ -7,8 +7,8 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isArray } from 'util';
 import { SortService } from '../../../services/sort.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -17,76 +17,57 @@ import { SortService } from '../../../services/sort.service';
 })
 export class ActiveFiltersComponent implements OnInit, OnDestroy {
   queryParams: any;
-  filter: any;
-  activeFilters: any [];
-  year: any;
-  status: any;
-  combinedFilters: any;
-  field: any;
-  currentTab: string;
-  filterParams: any;
+  activeFilters = [];
 
-  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService ) {
-    this.filter = [];
+  translations = {
+    onGoing: 'Käynnissä',
+    ended: 'Päättynyt'
+  };
+
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
+               private filterService: FilterService ) {
    }
 
   ngOnInit() {
-    this.currentTab = this.sortService.currentTab;
 
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = [params.year, params.status, params.field];
-      this.year = params.year || [];
-      this.status = params.status  || [];
-      this.field = params.field || [];
+    this.queryParams = this.filterService.filters.subscribe(filter => {
 
-      // If single filter, modify to array
-      if (!isArray(this.year)) {this.year = [params.year]; }
-      if (!isArray(this.status)) {this.status = [params.status]; }
-      if (!isArray(this.field)) {this.field = [params.field]; }
-
-      // Merge arrays
-      this.combinedFilters = this.year.concat(this.status, this.field);
-      if (!isArray(this.combinedFilters)) {this.combinedFilters = [this.combinedFilters]; }
-
-      // Translate filter names
-      const onGoing = this.combinedFilters.indexOf('onGoing');
-      const ended = this.combinedFilters.indexOf('ended');
-      if (onGoing !== -1) {this.combinedFilters[onGoing] = 'Käynnissä'; }
-      if (ended !== -1) {this.combinedFilters[ended] = 'Päättynyt'; }
+      // Reset active filter so push doesn't duplicate
+      this.activeFilters = [];
+      // Merge and format arrays
+      Object.keys(filter).forEach(key => {
+        filter[key] = filter[key].map(val => {
+          return {category: key, value: val, translation: this.translations[val] || val};
+        });
+        this.activeFilters.push(...filter[key]);
+      });
 
       // Sort active filters by numerical value
-      this.activeFilters = this.combinedFilters.sort((a, b) => b - a);
+      this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
   }
 
   removeFilter(event): void {
-    // Translate filter values, consider using json objects with translated arrays
-    const onGoing = this.status.indexOf('onGoing');
-    const ended = this.status.indexOf('ended');
-    if (onGoing !== -1) {this.status[onGoing] = 'Käynnissä'; }
-    if (ended !== -1) {this.status[ended] = 'Päättynyt'; }
 
-    let yearParams = this.year.filter(e => e !== event.target.id);
-    let statusParams = this.status.filter(e => e !== event.target.id);
-    let fieldParams = this.field.filter(e => e !== event.target.id);
+    this.activeFilters = this.activeFilters.filter(elem => elem.value !== event.target.id);
 
-    yearParams = yearParams || [];
-    statusParams = statusParams || [];
-    fieldParams = fieldParams || [];
+    const params = this.activeFilters.reduce((storage, item) => {
+      // get the first instance of the category
+      const group = item.category;
 
-    // Remove filters according to tab
-    switch (this.currentTab) {
-      case 'publications': {
-        this.filterParams = {queryParams: {year: yearParams, field: fieldParams}, queryParamsHandling: 'merge' };
-        break;
-      }
-      case 'fundings': {
-        this.filterParams = {queryParams: {status: statusParams, year: yearParams}, queryParamsHandling: 'merge' };
-        break;
-      }
-    }
+      // set storage or initialize it
+      storage[group] = storage[group] || [];
 
-    this.router.navigate([], this.filterParams);
+      // add the current item to storage
+      storage[group].push(item.value);
+
+      // return the updated storage to the next iteration
+      return storage;
+    }, {});  // initially empty object {} as storage
+
+    params.sort = this.sortService.sortMethod;
+
+    this.router.navigate([], {queryParams: params});
   }
 
   ngOnDestroy() {

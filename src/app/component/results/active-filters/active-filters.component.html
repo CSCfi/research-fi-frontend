@@ -4,11 +4,11 @@
  :license: MIT -->
 
 <!-- Active filters -->
-<div class="row active-filters" *ngIf="filter.length > 0">
+<div class="row active-filters" *ngIf="activeFilters.length > 0">
   <h5>Rajaukset:</h5>
       <ul>
         <div class="filter" *ngFor="let activeFilter of activeFilters">
-          <li *ngIf="activeFilter" (click)="removeFilter($event)" id="{{activeFilter}}">{{activeFilter}}</li>
+          <li (click)="removeFilter($event)" id="{{activeFilter.value}}">{{activeFilter.translation}}</li>
         </div>
       </ul>
 
