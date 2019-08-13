@@ -83,6 +83,7 @@ export class SingleFundingComponent implements OnInit {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== 'UNDEFINED' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
@@ -95,7 +96,7 @@ export class SingleFundingComponent implements OnInit {
     const keywords = source.keywords || [];
     const scheme = keywords.map(x => x.scheme).join('');
     const field = keywords.map(x => x.keyword).join('');
-    source.keywords = keywords.map(x => x.keyword).join(', ');
+    source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
     source.fundingContactPersonLastName = source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName;
     if (source.amount) {
       source.amount = source.amount + '€';
