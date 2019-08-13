@@ -55,6 +55,7 @@ export class SinglePublicationComponent implements OnInit {
     {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration'},
     {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'}
   ];
+
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
 
@@ -107,6 +108,25 @@ export class SinglePublicationComponent implements OnInit {
     const fieldsOfScience = source.fields_of_science;
     if (fieldsOfScience && fieldsOfScience.length > 0) {
       source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');
+    }
+
+    source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
+    source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
+    source.openAccessCode = source.openAccessCode > 0 ? 'Kyllä' : 'Ei';
+
+    switch (source.languageCode) {
+      case 'fi': {
+        source.languageCode = 'Suomi';
+        break;
+      }
+      case 'en': {
+        source.languageCode = 'Englanti';
+        break;
+      }
+      case 'se': {
+        source.languageCode = 'Ruotsi';
+        break;
+      }
     }
   }
 }
