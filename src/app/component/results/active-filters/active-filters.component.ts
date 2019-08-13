@@ -7,7 +7,6 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isArray } from 'util';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from 'src/app/services/filter.service';
 
@@ -18,60 +17,57 @@ import { FilterService } from 'src/app/services/filter.service';
 })
 export class ActiveFiltersComponent implements OnInit, OnDestroy {
   queryParams: any;
-  filter: any;
   activeFilters = [];
-  combinedFilters = [];
-  currentTab: string;
-  filterParams: any;
+
+  translations = {
+    onGoing: 'Käynnissä',
+    ended: 'Päättynyt'
+  };
 
   constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
                private filterService: FilterService ) {
-    this.filter = [];
    }
 
   ngOnInit() {
-    this.currentTab = this.sortService.currentTab;
 
     this.queryParams = this.filterService.filters.subscribe(filter => {
-      this.filter = filter;
 
-      // Merge arrays
-      this.combinedFilters = [];
-      Object.keys(filter).forEach(x => this.combinedFilters.push(filter[x]));
-      this.combinedFilters = this.combinedFilters.flat();
-
-      // Translate filter names
-      const onGoing = this.combinedFilters.indexOf('onGoing');
-      const ended = this.combinedFilters.indexOf('ended');
-      if (onGoing !== -1) {this.combinedFilters[onGoing] = 'Käynnissä'; }
-      if (ended !== -1) {this.combinedFilters[ended] = 'Päättynyt'; }
+      // Reset active filter so push doesn't duplicate
+      this.activeFilters = [];
+      // Merge and format arrays
+      Object.keys(filter).forEach(key => {
+        filter[key] = filter[key].map(val => {
+          return {category: key, value: val, translation: this.translations[val] || val};
+        });
+        this.activeFilters.push(...filter[key]);
+      });
 
       // Sort active filters by numerical value
-      this.activeFilters = this.combinedFilters.sort((a, b) => b - a);
-      console.log(this.activeFilters);
+      this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
   }
 
   removeFilter(event): void {
-    const yearParams = this.filter.year.filter(e => e !== event.target.id);
-    const statusParams = this.filter.status.filter(e => e !== event.target.id);
-    const fieldParams = this.filter.field.filter(e => e !== event.target.id);
 
-    this.combinedFilters = [yearParams, statusParams, fieldParams].flat();
+    this.activeFilters = this.activeFilters.filter(elem => elem.value !== event.target.id);
 
-    // Remove filters according to tab
-    switch (this.currentTab) {
-      case 'publications': {
-        this.filterParams = {queryParams: {year: yearParams, field: fieldParams}, queryParamsHandling: 'merge' };
-        break;
-      }
-      case 'fundings': {
-        this.filterParams = {queryParams: {status: statusParams, year: yearParams}, queryParamsHandling: 'merge' };
-        break;
-      }
-    }
+    const params = this.activeFilters.reduce((storage, item) => {
+      // get the first instance of the category
+      const group = item.category;
 
-    this.router.navigate([], this.filterParams);
+      // set storage or initialize it
+      storage[group] = storage[group] || [];
+
+      // add the current item to storage
+      storage[group].push(item.value);
+
+      // return the updated storage to the next iteration
+      return storage;
+    }, {});  // initially empty object {} as storage
+
+    params.sort = this.sortService.sortMethod;
+
+    this.router.navigate([], {queryParams: params});
   }
 
   ngOnDestroy() {
