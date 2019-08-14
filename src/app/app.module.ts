@@ -63,7 +63,9 @@ import { FilterOrganizationsComponent } from './component/results/filters/filter
 import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
 import { RelatedResultsComponent } from './component/results/related-results/related-results.component';
+import { SearchResultsComponent, EmptyResultComponent } from './component/results/search-results/search-results.component';
 
+import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { RelatedResultsComponent } from './component/results/related-results/rel
     FilterOrganizationsComponent,
     FilterPersonsComponent,
     VisualisationComponent,
-    RelatedResultsComponent
+    RelatedResultsComponent,
+    SearchResultsComponent,
+    EmptyResultComponent
   ],
   imports: [
     BrowserModule,
@@ -115,8 +119,10 @@ import { RelatedResultsComponent } from './component/results/related-results/rel
     MatButtonModule,
     ScrollingModule,
     CountUpModule,
+    PortalModule
   ],
   providers: [ SearchService, Title ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
 })
 export class AppModule { }
