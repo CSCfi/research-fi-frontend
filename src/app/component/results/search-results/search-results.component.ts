@@ -1,61 +1,49 @@
-import { Component, OnInit, ViewChild, ElementRef, Injector, Input, ComponentRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Injector, Input, ComponentRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ComponentPortal, DomPortalHost } from '@angular/cdk/portal';
 import { createDomPortalHost } from './utils';
 import { SearchService } from 'src/app/services/search.service';
 import { Subscription } from 'rxjs';
-import { FilterService } from 'src/app/services/filter.service';
 import { map } from 'rxjs/operators';
-import { TabChangeService } from 'src/app/services/tab-change.service';
+import { PublicationsComponent } from '../publications/publications.component';
+import { FundingsComponent } from '../fundings/fundings.component';
+import { OrganizationsComponent } from '../organizations/organizations.component';
+import { PersonsComponent } from '../persons/persons.component';
 
 @Component({
   selector: 'app-search-results',
   template: '<div #portalHost></div>'
 })
-export class SearchResultsComponent implements OnInit {
+export class SearchResultsComponent implements OnInit, OnChanges {
 
   portalHost: DomPortalHost;
   @ViewChild('portalHost') elRef: ElementRef;
-  components = [ChildOne, ChildTwo, ChildThree];
 
-  // tslint:disable-next-line: variable-name
-  private _currentTab;
-  get currentTab(): any {
-    return this._currentTab;
-  }
-  @Input() set currentTab(val: any) {
-    this._currentTab = val;
-    this.getResultData();
-  }
+  @Input() currentTab;
+  @Input() updateFilters;
+
+  tabChanged = true;
 
   responseData: any;
   filtersOn: boolean;
   filter: object;
-  // currentTab: any;
   errorMessage: any;
 
   tabSub: Subscription;
   filterSub: Subscription;
 
-  constructor(private injector: Injector, private searchService: SearchService, private filterService: FilterService,
-              private tabChangeService: TabChangeService) { }
+  constructor(private injector: Injector, private searchService: SearchService) { }
 
   ngOnInit() {
     this.portalHost = createDomPortalHost(this.elRef, this.injector);
-
-    this.filterSub = this.filterService.filters.subscribe(filter => {
-      this.filter = filter;
-
-      // Check if any filters are selected
-      Object.keys(this.filter).forEach(key => this.filtersOn = this.filter[key].length > 0 || this.filtersOn);
-
-      // Get data
-      this.getResultData();
-    });
   }
 
-  // Get funding data, check if filtered or all data
+  ngOnChanges(changes: SimpleChanges) {
+    this.getResultData();
+  }
+
+  // Get result data, check if filtered or all data
   getResultData() {
-    // Get data
+    // Get data, then change component
     this.searchService.getData()
     .pipe(map(responseData => [responseData]))
     .subscribe(
@@ -66,46 +54,39 @@ export class SearchResultsComponent implements OnInit {
   }
 
   changeComponent(tab) {
+    let child: any;
     switch (tab.data) {
-      case 'publiactions':
+      case 'publications':
+        child = PublicationsComponent;
         break;
 
       case 'fundings':
+        child = FundingsComponent;
+        break;
+
+      case 'persons':
+        child = PersonsComponent;
+        break;
+
+      case 'organizations':
+        child = OrganizationsComponent;
         break;
 
       default:
         break;
     }
 
-    const randomChild = ChildOne;
-    const myPortal = new ComponentPortal(randomChild);
+    const myPortal = new ComponentPortal(child);
     this.portalHost.detach();
-    const componentRef = this.portalHost.attach(myPortal);
-    componentRef.instance.fundingData = this.responseData;
+    const componentRef: ComponentRef<any> = this.portalHost.attach(myPortal);
+    componentRef.instance.resultData = this.responseData;
   }
 }
 
 @Component({
-  selector: 'app-child-one',
-  templateUrl: '../fundings/fundings.component.html'
+  selector: 'app-empty-result',
+  template: '<p>Error</p>'
 })
-export class ChildOne {
-  @Input() fundingData;
-  expandStatus: Array<boolean> = [];
-}
-
-@Component({
-  selector: 'app-child-two',
-  template: `<p>I am child two. <strong>{{myInput}}</strong></p>`
-})
-export class ChildTwo {
-  @Input() myInput = '';
-}
-
-@Component({
-  selector: 'app-child-three',
-  template: `<p>I am child three. <strong>{{myInput}}</strong></p>`
-})
-export class ChildThree {
-  @Input() myInput = '';
+export class EmptyResultComponent {
+  @Input() resultData;
 }

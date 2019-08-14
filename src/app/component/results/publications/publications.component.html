@@ -3,11 +3,11 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="spinner-center" *ngIf="!publicationData">
+<div class="spinner-center" *ngIf="!resultData">
     <mat-spinner [diameter]="80"></mat-spinner>
 </div>
 <!-- Data -->
-<div *ngFor="let publications of publicationData">
+<div *ngFor="let publications of resultData">
     <!-- Active filters -->
     <!-- <app-active-filters></app-active-filters> -->
     <!-- Results -->
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div *ngFor="let publications of publicationData;">
+    <div *ngFor="let publications of resultData;">
         <div *ngFor="let publication of publications.hits.hits; let i = index">
             <div class="row no-margin single" (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
                 <div class="col col-1 arrow">
@@ -51,5 +51,5 @@
         </div>  
     </div>
     <!-- Pagination -->
-    <app-pagination [responseData]="publicationData" [tab]="tabData" (queryEvent)="getPublicationData($event)"></app-pagination>
+    <app-pagination [responseData]="resultData" (queryEvent)="getPublicationData($event)"></app-pagination>
 </div>   
