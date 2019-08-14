@@ -63,7 +63,7 @@ import { FilterOrganizationsComponent } from './component/results/filters/filter
 import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
 import { RelatedResultsComponent } from './component/results/related-results/related-results.component';
-import { AllResultsComponent, ChildOne, ChildTwo, ChildThree } from './component/results/all-results/all-results.component';
+import { SearchResultsComponent, ChildOne, ChildTwo, ChildThree } from './component/results/search-results/search-results.component';
 
 import { PortalModule } from '@angular/cdk/portal';
 
@@ -91,7 +91,7 @@ import { PortalModule } from '@angular/cdk/portal';
     FilterPersonsComponent,
     VisualisationComponent,
     RelatedResultsComponent,
-    AllResultsComponent,
+    SearchResultsComponent,
     ChildOne,
     ChildTwo,
     ChildThree

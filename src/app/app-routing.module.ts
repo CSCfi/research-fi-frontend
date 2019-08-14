@@ -13,7 +13,6 @@ import { SinglePublicationComponent } from './component/single-publication/singl
 import { SingleFundingComponent } from './component/single-funding/single-funding.component';
 import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
-import { AllResultsComponent } from './component/results/all-results/all-results.component';
 
 const routes: Routes = [
   {
@@ -77,10 +76,6 @@ const routes: Routes = [
   {
     path: 'visual/:tab/:input',
     component: VisualisationComponent
-  },
-  {
-    path: 'all',
-    component: AllResultsComponent
   },
   {
     path: '**',
