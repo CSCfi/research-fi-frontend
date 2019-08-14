@@ -27,10 +27,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <app-sort></app-sort>
             </aside>
             <main class="col-12">
-                <app-publications *ngIf="tabLink===tabData[0].link" [tabData]="tabData[0].data"></app-publications>
-                <app-persons *ngIf="tabLink===tabData[1].link"></app-persons>
-                <app-fundings *ngIf="tabLink===tabData[2].link" [tabData]="tabData[2].data"></app-fundings>
-                <app-organizations *ngIf="tabLink===tabData[6].link" [tabData]="tabData[6].data"></app-organizations>
+            <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
             </main>
         </div>
     </div>
@@ -54,10 +51,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <app-sort></app-sort>
         </aside>
         <main class="col-12">
-            <app-publications *ngIf="tabLink===tabData[0].link" [tabData]="tabData[0].data"></app-publications>
-            <app-persons *ngIf="tabLink===tabData[1].link"></app-persons>
-            <app-fundings *ngIf="tabLink===tabData[2].link" [tabData]="tabData[2].data"></app-fundings>
-            <app-organizations *ngIf="tabLink===tabData[6].link" [tabData]="tabData[6].data"></app-organizations>
+            <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
         </main>
     </div>
 </ng-template>

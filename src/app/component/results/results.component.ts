@@ -38,6 +38,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   sortMethod: any;
   mobile: boolean;
   currentTab: any;
+  updateFilters: boolean;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -75,6 +76,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.filterService.updateFilters(this.filters);
       this.sortService.getSortMethod(params.sort);
       this.searchService.getPageNumber(this.page);
+      this.updateFilters = !this.updateFilters;
     });
 
 
