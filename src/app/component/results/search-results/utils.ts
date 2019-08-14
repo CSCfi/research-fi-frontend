@@ -6,7 +6,7 @@ export function createDomPortalHost(elRef: ElementRef, injector: Injector) {
   return new DomPortalHost(
     elRef.nativeElement,
     injector.get<ComponentFactoryResolver>(ComponentFactoryResolver as any),
-    injector.get(ApplicationRef),
+    injector.get<ApplicationRef>(ApplicationRef as any),
     injector
   );
 }
