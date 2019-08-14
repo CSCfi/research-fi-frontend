@@ -9,10 +9,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-search-results',
-  template: `
-  <button (click)="changeComponent('hello')">Click to add random child component</button>
-  <div #portalHost></div>
-`
+  template: '<div #portalHost></div>'
 })
 export class SearchResultsComponent implements OnInit {
 
@@ -58,7 +55,6 @@ export class SearchResultsComponent implements OnInit {
 
   // Get funding data, check if filtered or all data
   getResultData() {
-    console.trace();
     // Get data
     this.searchService.getData()
     .pipe(map(responseData => [responseData]))
