@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../services/search.service';
@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './filter-publications.component.html',
   styleUrls: ['./filter-publications.component.scss']
 })
-export class FilterPublicationsComponent implements OnInit, OnDestroy {
+export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
   @Input() tabData: string;
   panelOpenState: boolean;
@@ -42,6 +42,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
   yearFilters: any[];
   fieldOfScienceFilter: any;
   combinedFilters: any;
+  fields: any[];
+  filtered: any;
+  filterTerm: string;
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
                private resizeService: ResizeService, private sortService: SortService ) { }
@@ -68,7 +71,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.sortMethod = this.sortService.sortMethod;
-    this.getSelected()
+    this.getSelected();
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
   }
@@ -97,6 +100,33 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy {
       if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+  }
+
+  // Wait for responeData and shape filter by term
+  ngOnChanges() {
+    this.responseData = this.responseData || [];
+    this.fields = [];
+    this.filterTerm = this.filterTerm || '';
+    if (this.responseData[0]) {
+      // ToDo: Dynamic bucket aggregation for filter
+      const source = this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets;
+      Object.keys(source).forEach(key => {
+        this.fields.push(source[key]);
+      });
+      this.fields = this.subFilter(this.fields, this.filterTerm);
+    }
+  }
+
+  // Get value from input inside filter
+  filterInput(event) {
+    this.filterTerm = event.target.value;
+    this.ngOnChanges();
+  }
+
+  // Search for term where values are in string format
+  subFilter(array: any, term: string) {
+    return array.filter(obj => { return Object.keys(obj).some(x => {
+      return typeof obj[x] === 'string' && obj[x].toLowerCase().includes(term.toLowerCase()); }); });
   }
 
   ngOnDestroy() {

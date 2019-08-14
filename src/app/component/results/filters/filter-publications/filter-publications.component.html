@@ -55,13 +55,14 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="scrollable">
+            <input (keyup)="filterInput($event)">
             <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
-                <mat-list-option checkboxPosition="before" *ngFor="let field of response.aggregations._index.buckets.publications.fieldsOfScience.buckets" 
+                <mat-list-option checkboxPosition="before" *ngFor="let field of fields" 
                 [value]="field.key" [selected]="preSelection.indexOf(field.key) > -1">
                     <span class="year">{{field.key}}</span>
                     <span class="amount">{{field.doc_count}}</span>
                 </mat-list-option>
-            </mat-selection-list>    
+            </mat-selection-list>
         </div>
     </mat-expansion-panel>
 
