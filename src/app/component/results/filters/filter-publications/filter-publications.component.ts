@@ -118,8 +118,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   // Search for term where values are in string format
   subFilter(array: any, term: string) {
-    return array.filter(obj => { return Object.keys(obj).some(x => {
-      return typeof obj[x] === 'string' && obj[x].toLowerCase().includes(term.toLowerCase()); }); });
+    return array.filter(obj => obj.key.toLowerCase().includes(term.toLowerCase()));
   }
 
   ngOnDestroy() {
