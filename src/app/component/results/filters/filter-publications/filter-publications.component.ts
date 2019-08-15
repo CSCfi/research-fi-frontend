@@ -115,20 +115,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   // Wait for responeData and shape filter by term
   ngOnChanges() {
     this.responseData = this.responseData || [];
-    this.fields = [];
     this.filterTerm = this.filterTerm || '';
-    if (this.responseData[0]) {
-      // ToDo: Dynamic bucket aggregation for filter
-      const source = this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets;
-      Object.keys(source).forEach(key => {
-        this.fields.push(source[key]);
-      });
-      this.fields = this.subFilter(this.fields, this.filterTerm);
-      // Separate major fields of science
-      // Object.keys(source).forEach(key => {
-      //   console.log(source[key].fieldId.buckets);
-      // })
-    }
+    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
+    this.fields = this.subFilter(source || [], this.filterTerm);
   }
 
   // Get value from input inside filter
@@ -139,8 +128,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   // Search for term where values are in string format
   subFilter(array: any, term: string) {
-    return array.filter(obj => { return Object.keys(obj).some(x => {
-      return typeof obj[x] === 'string' && obj[x].toLowerCase().includes(term.toLowerCase()); }); });
+    return array.filter(obj => obj.key.toLowerCase().includes(term.toLowerCase()));
   }
 
   ngOnDestroy() {

@@ -60,6 +60,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         this.selectedTabData = tab;
         this.updateTitle(tab);
         this.sortService.getCurrentTab(tab.data);
+        this.filterService.updateFilters(this.filters); // Temporary fix
         this.getAllData();
       }
     });

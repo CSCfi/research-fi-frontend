@@ -17,6 +17,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
   portalHost: DomPortalHost;
   @ViewChild('portalHost') elRef: ElementRef;
+  componentRef: ComponentRef<any>;
 
   @Input() currentTab;
   @Input() updateFilters;
@@ -38,6 +39,11 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // Reset data so previous data is not displayed until new data is loaded
+    if (changes.currentTab && !changes.currentTab.firstChange ||
+        changes.updateFilters && !changes.updateFilters.firstChange) {
+      this.componentRef.instance.resultData = undefined;
+    }
     this.getResultData();
   }
 
@@ -78,8 +84,8 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
     const myPortal = new ComponentPortal(child);
     this.portalHost.detach();
-    const componentRef: ComponentRef<any> = this.portalHost.attach(myPortal);
-    componentRef.instance.resultData = this.responseData;
+    this.componentRef = this.portalHost.attach(myPortal);
+    this.componentRef.instance.resultData = this.responseData;
   }
 }
 
