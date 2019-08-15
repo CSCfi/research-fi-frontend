@@ -40,8 +40,8 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // Reset data so previous data is not displayed until new data is loaded
-    if (changes.currentTab && !changes.currentTab.firstChange ||
-        changes.updateFilters && !changes.updateFilters.firstChange) {
+    if (this.componentRef && (changes.currentTab && !changes.currentTab.firstChange ||
+        changes.updateFilters && !changes.updateFilters.firstChange)) {
       this.componentRef.instance.resultData = undefined;
     }
     this.getResultData();
