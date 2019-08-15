@@ -105,16 +105,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   // Wait for responeData and shape filter by term
   ngOnChanges() {
     this.responseData = this.responseData || [];
-    this.fields = [];
     this.filterTerm = this.filterTerm || '';
-    if (this.responseData[0]) {
-      // ToDo: Dynamic bucket aggregation for filter
-      const source = this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets;
-      Object.keys(source).forEach(key => {
-        this.fields.push(source[key]);
-      });
-      this.fields = this.subFilter(this.fields, this.filterTerm);
-    }
+    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
+    this.fields = this.subFilter(source || [], this.filterTerm);
   }
 
   // Get value from input inside filter
