@@ -14,6 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FilterService {
   yearFilter: any;
+  majorFieldFilter: any;
   fieldFilter: any;
   statusFilter: object;
   today: string;
@@ -33,8 +34,9 @@ export class FilterService {
   createFilters(filter: any) {
     this.yearFilter = this.filterByYear(filter.year);
     this.statusFilter = this.filterByStatus(filter.status);
+    this.majorFieldFilter = this.filterByMajorFieldOfScience(filter.major);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
-    }
+  }
 
   filterByYear(filter: any) {
     const res = [];
@@ -57,6 +59,11 @@ export class FilterService {
     return res;
   }
 
+  filterByMajorFieldOfScience(field: any) {
+    // console.log(field);
+
+  }
+
   filterByFieldOfScience(field: any) {
     const fieldFilters = [];
     field.forEach(value => {
@@ -66,10 +73,10 @@ export class FilterService {
   }
 
   // Start & end date filtering
-  filterByStatus(range: string) {
+  filterByStatus(status: string) {
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
     let statusFilter;
-    switch (JSON.stringify(range)) {
+    switch (JSON.stringify(status)) {
       case '["onGoing"]':
       case '"onGoing"': {
         statusFilter = { range: { fundingEndDate: {gte : '2017-01-01' } } };

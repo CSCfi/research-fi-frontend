@@ -23,11 +23,11 @@
             <mat-selection-list #selectedFilters (selectionChange)="onSelectionChange()">
                 <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
                     <span class="label">Käynnissä</span>
-                    <span class="amount"></span>
+                    <!-- <span class="amount"></span> -->
                 </mat-list-option>
                 <mat-list-option checkboxPosition="before" [value]="'ended'" [selected]="preSelection.indexOf('ended') > -1">
                     <span class="label">Päättynyt</span>
-                    <span class="amount"></span>
+                    <!-- <span class="amount"></span> -->
                 </mat-list-option>
             </mat-selection-list>
         </div>
@@ -44,7 +44,7 @@
                 <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations._index.buckets.fundings.years.buckets" 
                 [value]="year.key" [selected]="preSelection.indexOf(year.key) > -1">
                     <span class="label">{{year.key}}</span>
-                    <span class="amount">{{year.doc_count}}</span>
+                    <!-- <span class="amount">{{year.doc_count}}</span> -->
                 </mat-list-option>
             </mat-selection-list>
         </div>

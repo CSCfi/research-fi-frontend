@@ -23,8 +23,8 @@
                 <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()">
                     <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations._index.buckets.publications.years.buckets" 
                     [value]="year.key" [selected]="preSelection.indexOf(year.key) > -1">
-                        <span class="year">{{year.key}}</span>
-                        <span class="amount">{{year.doc_count}}</span>
+                        <span class="label">{{year.key}}</span>
+                        <!-- <span class="amount">{{year.doc_count}}</span> -->
                     </mat-list-option>
                 </mat-selection-list>    
             </div>
@@ -54,28 +54,48 @@
                     <strong>Päätieteenala</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="scrollable">
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
-                </mat-form-field>
-                <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
-                    <mat-list-option checkboxPosition="before" *ngFor="let field of fields" 
-                    [value]="field.key" [selected]="preSelection.indexOf(field.key) > -1">
-                        <span class="year">{{field.key}}</span>
-                        <span class="amount">{{field.doc_count}}</span>
-                    </mat-list-option>
-                </mat-selection-list>
+            <div class="subFields">
+                <mat-expansion-panel *ngFor="let field of majorFieldsOfScience">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <strong>{{field.field}}</strong>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="scrollable">
+                        <mat-form-field class="">
+                            <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
+                        </mat-form-field>
+                        <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
+                            <mat-list-option checkboxPosition="before" *ngFor="let field of fields" 
+                            [value]="field.key" [selected]="preSelection.indexOf(field.key) > -1">
+                                <span class="label">{{field.key}}</span>
+                                <!-- <span class="amount">{{field.doc_count}}</span> -->
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </div>
+                </mat-expansion-panel>
             </div>
         </mat-expansion-panel>
     
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <strong>Tieteenala</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-checkbox></mat-checkbox>
-        </mat-expansion-panel>
+            <div class="scrollable">
+                <mat-form-field class="">
+                    <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
+                </mat-form-field>
+                <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
+                    <mat-list-option checkboxPosition="before" *ngFor="let field of fields" 
+                    [value]="field.key" [selected]="preSelection.indexOf(field.key) > -1">
+                        <span class="label">{{field.key}}</span>
+                        <span class="amount">{{field.doc_count}}</span>
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+        </mat-expansion-panel> -->
     
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
