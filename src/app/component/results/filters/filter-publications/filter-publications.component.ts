@@ -107,7 +107,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.responseData = this.responseData || [];
     this.filterTerm = this.filterTerm || '';
     const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
-    this.fields = this.subFilter(source || [], this.filterTerm);
+    this.fields = this.subFilter(source, this.filterTerm);
   }
 
   // Get value from input inside filter
