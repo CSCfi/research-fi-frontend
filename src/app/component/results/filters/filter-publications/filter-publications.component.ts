@@ -42,9 +42,19 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   yearFilters: any[];
   fieldOfScienceFilter: any;
   combinedFilters: any;
-  fields: any[];
+  fields: any;
   filtered: any;
   filterTerm: string;
+
+  majorFieldsOfScience: [
+    {key: 1, field: 'Luonnontieteet'},
+    {key: 2, field: 'Tekniikka'},
+    {key: 3, field: 'Lääke- ja yritystieteet'},
+    {key: 4, field: 'Maatalous- ja metsätiteet'},
+    {key: 5, field: 'Yhteiskuntatieteet'},
+    {key: 6, field: 'Humanistiset tieteet'},
+    {key: 9, field: 'Muut tieteet'}
+  ];
 
   constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
                private resizeService: ResizeService, private sortService: SortService ) { }
@@ -114,6 +124,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         this.fields.push(source[key]);
       });
       this.fields = this.subFilter(this.fields, this.filterTerm);
+      // Separate major fields of science
+      // Object.keys(source).forEach(key => {
+      //   console.log(source[key].fieldId.buckets);
+      // })
     }
   }
 
