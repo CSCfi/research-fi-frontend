@@ -94,48 +94,55 @@ export class SearchService {
     const payLoad = {
       size: 0,
       aggs: {
-          _index: {
+        _index: {
+          filters: {
               filters: {
-                  filters: {
-                      persons: {
-                          match: {
-                              _index: 'person'
-                          }
-                      },
-                      publications: {
-                          match: {
-                              _index: 'publication'
-                          }
-                      },
-                      fundings: {
-                          match: {
-                              _index: 'funding'
-                          }
-                      },
-                      organizations: {
-                          match: {
-                              _index: 'organization'
-                          }
+                  persons: {
+                      match: {
+                          _index: 'person'
+                      }
+                  },
+                  publications: {
+                      match: {
+                          _index: 'publication'
+                      }
+                  },
+                  fundings: {
+                      match: {
+                          _index: 'funding'
+                      }
+                  },
+                  organizations: {
+                      match: {
+                          _index: 'organization'
                       }
                   }
+              }
+          },
+          aggs: {
+            years: {
+              terms: {
+                field: this.sortService.sortField,
+                size: 50,
+                order : { _key : 'desc' }
+              }
+            },
+            fieldsOfScience: {
+              terms: {
+                field: 'fields_of_science.nameFiScience.keyword',
+                size: 150,
+                order : { _key : 'asc' }
               },
               aggs: {
-                  years: {
-                    terms: {
-                      field: this.sortService.sortField,
-                      size: 50,
-                      order : { _key : 'desc' }
-                    }
-                  },
-                  fieldsOfScience: {
-                    terms: {
-                      field: 'fields_of_science.nameFiScience.keyword',
-                      size: 150,
-                      order : { _key : 'asc' }
-                    }
+                fieldId: {
+                  terms: {
+                    field: 'fields_of_science.fieldIdScience'
                   }
+                }
               }
+            }
           }
+        }
       }
    };
     if (this.singleInput === undefined || this.singleInput === '') {

@@ -59,57 +59,57 @@
                 <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
             </mat-form-field>
             <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
-                <mat-list-option checkboxPosition="before" *ngFor="let field of fields" 
-                [value]="field.key" [selected]="preSelection.indexOf(field.key) > -1">
-                    <span class="year">{{field.key}}</span>
-                    <span class="amount">{{field.doc_count}}</span>
-                </mat-list-option>
-            </mat-selection-list>
-        </div>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <strong>Tieteenala</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <strong>Julkaisun pääluokka</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <strong>Julkaisutyyppi</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <strong>Julkaisumaa</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <strong>Kieli</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-    </mat-expansion-panel>
-
-</div>
+                    <mat-list-option checkboxPosition="before" *ngFor="let field of fields" 
+                    [value]="field.key" [selected]="preSelection.indexOf(field.key) > -1">
+                        <span class="year">{{field.key}}</span>
+                        <span class="amount">{{field.doc_count}}</span>
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+        </mat-expansion-panel>
+    
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Tieteenala</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox></mat-checkbox>
+        </mat-expansion-panel>
+    
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Julkaisun pääluokka</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox></mat-checkbox>
+        </mat-expansion-panel>
+    
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Julkaisutyyppi</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox></mat-checkbox>
+        </mat-expansion-panel>
+    
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Julkaisumaa</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-checkbox></mat-checkbox>
+        </mat-expansion-panel>
+    
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <strong>Kieli</strong>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+    
+    </div>
