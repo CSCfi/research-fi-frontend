@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -20,7 +20,7 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit, OnDestroy {
+export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   public searchTerm: any;
   input: any = [];
   tabData = this.tabChangeService.tabData;
@@ -39,10 +39,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
   mobile: boolean;
   currentTab: any;
   updateFilters: boolean;
+  total: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
-               private sortService: SortService, private filterService: FilterService ) {
+               private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -52,6 +53,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
 
     // Subscribe to tab changes to update title
     this.currentTab = this.tabChangeService.currentTab.subscribe(tab => {
@@ -109,6 +111,15 @@ export class ResultsComponent implements OnInit, OnDestroy {
     if (this.searchTerm === undefined) {
       this.searchTerm = '';
     }
+  }
+
+  // Get total value from search service / pagination
+  ngAfterViewInit() {
+    this.searchService.currentTotal.subscribe(total => {
+      this.total = total || '';
+      this.cdr.detectChanges();
+    });
+
   }
 
   navigateToVisualisation() {
