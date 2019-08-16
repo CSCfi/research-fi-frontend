@@ -40,6 +40,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   currentTab: any;
   updateFilters: boolean;
   total: any;
+  totalSub: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -115,7 +116,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Get total value from search service / pagination
   ngAfterViewInit() {
-    this.searchService.currentTotal.subscribe(total => {
+    this.totalSub = this.searchService.currentTotal.subscribe(total => {
       this.total = total || '';
       // Add thousand separators
       if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -174,6 +175,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.queryParams.unsubscribe();
     this.currentTab.unsubscribe();
     this.input.unsubscribe();
+    this.totalSub.unsubscribe();
   }
 
 }
