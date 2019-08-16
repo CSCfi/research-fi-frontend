@@ -19,6 +19,7 @@ export class PaginationComponent implements OnInit {
   fromPage: number; // Used for HTML rendering
   @Input() responseData: any [];
   @Input() tab: string;
+  total: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router) { }
 
@@ -28,6 +29,10 @@ export class PaginationComponent implements OnInit {
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
+
+    // Get total value of results and send to search service
+    this.searchService.currentTotal.subscribe(total => this.total = total);
+    this.searchService.getTotal(this.responseData[0].hits.total);
   }
 
   nextPage() {
