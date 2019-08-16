@@ -115,7 +115,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   ngOnChanges() {
     this.responseData = this.responseData || [];
     this.filterTerm = this.filterTerm || '';
-    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience_100.namesFi.buckets : [];
+    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
   }
 
