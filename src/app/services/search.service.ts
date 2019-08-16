@@ -133,22 +133,18 @@ export class SearchService {
                 order : { _key : 'desc' }
               }
             },
-            fieldsOfScience_100: {
-              filter: {
-                range: {
-                  'fields_of_science.fieldIdScience': {
-                    gte: 100,
-                    lte: 199
-                  }
+            fieldsOfScience: {
+              terms: {
+                field: 'fields_of_science.nameFiScience.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc'
                 }
               },
               aggs: {
-                namesFi: {
+                fieldId: {
                   terms: {
-                    field: 'fields_of_science.nameFiScience.keyword',
-                    order: {
-                      _key: 'asc'
-                    }
+                    field: 'fields_of_science.fieldIdScience'
                   }
                 }
               }
