@@ -7,6 +7,10 @@
         h3 {
             color: mat-color($primary, 900);
         }
+        
+        span.total {
+            color: gray;
+        }
 
         // "Bleed" the styles into sub-pages
         app-publications, app-fundings, app-organizations, app-related-results {

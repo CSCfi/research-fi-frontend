@@ -8,7 +8,6 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SearchService } from '../../../../services/search.service';
 import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
@@ -27,6 +26,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   width = window.innerWidth;
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  @ViewChild('selectedMajorFields') selectedMajorFields: MatSelectionList;
   @ViewChild('selectedFields') selectedFields: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
@@ -41,13 +41,23 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   private resizeSub: Subscription;
   yearFilters: any[];
   fieldOfScienceFilter: any;
-  combinedFilters: any;
-  fields: any[];
+  majorFieldOfScienceFilter: any;
+  fields: any;
   filtered: any;
   filterTerm: string;
 
-  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
-               private resizeService: ResizeService, private sortService: SortService ) { }
+  majorFieldsOfScience = [
+    {fieldId: 1, field: 'Luonnontieteet'},
+    {fieldId: 2, field: 'Tekniikka'},
+    {fieldId: 3, field: 'Lääke- ja yritystieteet'},
+    {fieldId: 4, field: 'Maatalous- ja metsätiteet'},
+    {fieldId: 5, field: 'Yhteiskuntatieteet'},
+    {fieldId: 6, field: 'Humanistiset tieteet'},
+    {fieldId: 9, field: 'Muut tieteet'}
+  ];
+
+  constructor( private router: Router, private route: ActivatedRoute, private resizeService: ResizeService,
+               private sortService: SortService ) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -79,12 +89,11 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   getSelected() {
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
     this.fieldOfScienceFilter = this.selectedFields.selectedOptions.selected.map(s => s.value);
-    this.combinedFilters = this.yearFilters.concat(this.fieldOfScienceFilter);
-    return this.combinedFilters;
+    // this.majorFieldOfScienceFilter = this.selectedMajorFields.selectedOptions.selected.map(s => s.value);
   }
 
   ngOnInit() {
-    // Subscribe to route parameters parameter
+    // Subscribe to route parameters
     this.input = this.route.params.subscribe(params => {
       const term = params.input;
       this.searchTerm = term;
@@ -95,7 +104,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.sortMethod = params.sort;
       this.page = params.page;
-      this.filters = [params.year, params.field];
+      this.filters = [params.year, params.major, params.field];
       // Pre select filters by url parameters
       if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
     });

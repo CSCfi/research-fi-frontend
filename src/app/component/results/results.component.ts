@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -20,7 +20,7 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit, OnDestroy {
+export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   public searchTerm: any;
   input: any = [];
   tabData = this.tabChangeService.tabData;
@@ -39,10 +39,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   mobile: boolean;
   currentTab: any;
   updateFilters: boolean;
+  total: any;
+  totalSub: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
-               private sortService: SortService, private filterService: FilterService ) {
+               private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.getInput(this.searchTerm);
   }
@@ -52,6 +54,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
 
     // Subscribe to tab changes to update title
     this.currentTab = this.tabChangeService.currentTab.subscribe(tab => {
@@ -111,6 +114,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Get total value from search service / pagination
+  ngAfterViewInit() {
+    this.totalSub = this.searchService.currentTotal.subscribe(total => {
+      this.total = total || '';
+      // Add thousand separators
+      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+      this.cdr.detectChanges();
+    });
+
+  }
+
   navigateToVisualisation() {
     this.router.navigate(['visual/', this.route.snapshot.params.tab, this.searchTerm],
     {queryParams: this.filters});
@@ -161,6 +175,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.queryParams.unsubscribe();
     this.currentTab.unsubscribe();
     this.input.unsubscribe();
+    this.totalSub.unsubscribe();
   }
 
 }

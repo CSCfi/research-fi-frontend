@@ -68,7 +68,7 @@
         }
 
         // Typography
-        span.year, span.amount {
+        span.label, span.amount {
             padding: 0px 10px!important;
         }
 
@@ -88,7 +88,7 @@
 
         .scrollable {
             margin-top: -22px;
-            max-height: 200px;
+            max-height: 344px;
             overflow-y: auto;
         }
 

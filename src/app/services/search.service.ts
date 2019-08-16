@@ -11,7 +11,6 @@ import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
 
@@ -30,7 +29,10 @@ export class SearchService {
   input: any;
   apiUrl = API_URL;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private sortService: SortService,
+  private totalResults = new BehaviorSubject(undefined);
+  currentTotal = this.totalResults.asObservable();
+
+  constructor(private http: HttpClient , private sortService: SortService,
               private filterService: FilterService) {
     this.getInput$ = this.getInputSubject.asObservable();
   }
@@ -44,6 +46,10 @@ export class SearchService {
   onSearchButtonClick() {
     this.invokeGetData.emit();
     this.pageNumber = 1;
+  }
+
+  getTotal(total: any) {
+    this.totalResults.next(total);
   }
 
   // Fetch page number from results page
@@ -94,48 +100,57 @@ export class SearchService {
     const payLoad = {
       size: 0,
       aggs: {
-          _index: {
+        _index: {
+          filters: {
               filters: {
-                  filters: {
-                      persons: {
-                          match: {
-                              _index: 'person'
-                          }
-                      },
-                      publications: {
-                          match: {
-                              _index: 'publication'
-                          }
-                      },
-                      fundings: {
-                          match: {
-                              _index: 'funding'
-                          }
-                      },
-                      organizations: {
-                          match: {
-                              _index: 'organization'
-                          }
+                  persons: {
+                      match: {
+                          _index: 'person'
+                      }
+                  },
+                  publications: {
+                      match: {
+                          _index: 'publication'
+                      }
+                  },
+                  fundings: {
+                      match: {
+                          _index: 'funding'
+                      }
+                  },
+                  organizations: {
+                      match: {
+                          _index: 'organization'
                       }
                   }
+              }
+          },
+          aggs: {
+            years: {
+              terms: {
+                field: this.sortService.sortField,
+                size: 50,
+                order : { _key : 'desc' }
+              }
+            },
+            fieldsOfScience: {
+              terms: {
+                field: 'fields_of_science.nameFiScience.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc'
+                }
               },
               aggs: {
-                  years: {
-                    terms: {
-                      field: this.sortService.sortField,
-                      size: 50,
-                      order : { _key : 'desc' }
-                    }
-                  },
-                  fieldsOfScience: {
-                    terms: {
-                      field: 'fields_of_science.nameFiScience.keyword',
-                      size: 150,
-                      order : { _key : 'asc' }
-                    }
+                fieldId: {
+                  terms: {
+                    field: 'fields_of_science.fieldIdScience'
                   }
+                }
               }
+            }
           }
+        }
       }
    };
     if (this.singleInput === undefined || this.singleInput === '') {
