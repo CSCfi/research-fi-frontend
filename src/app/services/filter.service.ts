@@ -98,18 +98,12 @@ export class FilterService {
   constructQuery(index: string, searchTerm: string) {
     return {
         bool: {
-          should: [
-            {
-              bool: {
-                must: [
-                  { term: { _index: index } },
-                  ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
-                  ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
-                  ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
-                  ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter)
-                ]
-              }
-            }
+          must: [
+            { term: { _index: index } },
+            ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
+            ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
+            ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
+            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter)
           ],
         }
     };
