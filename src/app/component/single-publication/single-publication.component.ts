@@ -116,15 +116,15 @@ export class SinglePublicationComponent implements OnInit {
 
     switch (source.languageCode) {
       case 'fi': {
-        source.languageCode = 'Suomi';
+        source.languageCode = 'suomi';
         break;
       }
       case 'en': {
-        source.languageCode = 'Englanti';
+        source.languageCode = 'englanti';
         break;
       }
       case 'se': {
-        source.languageCode = 'Ruotsi';
+        source.languageCode = 'ruotsi';
         break;
       }
     }

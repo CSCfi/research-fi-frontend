@@ -25,8 +25,6 @@
                         <th class="col-6 col-lg-3">{{row.label}}</th>
                         <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
                     </tr>
-                </table>
-                <table id="author">
                     <tr class="row">
                         <th class="col-6 col-lg-3">Organisaatiot ja Tekijät</th>
                         <td class="col-6 col-lg-9" *ngFor="let row of authorFields.slice(0,1)">
@@ -35,6 +33,7 @@
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of authorFields.slice(1)">
+                        <tr></tr>
                         <tr class="row">
                             <td class="col-6 col-lg-9 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
@@ -42,8 +41,6 @@
                             </td>        
                         </tr>
                     </ng-container>
-                </table>
-                <table id="organization">
                     <tr class="row">
                         <th class="col-6 col-lg-3">Organisaation sisäinen affiliaatio</th>
                         <td class="col-6 col-lg-9" *ngFor="let row of organizationFields.slice(0,1)">
@@ -52,6 +49,7 @@
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of organizationFields.slice(1)">
+                        <tr></tr>
                         <tr class="row">
                             <td class="col-6 col-lg-9 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
@@ -59,8 +57,6 @@
                             </td>        
                         </tr>
                     </ng-container>
-                </table>
-                <table id="medium">
                     <tr class="row">
                         <th class="col-6 col-lg-3">Julkaisukanavan tiedot</th>
                         <td class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of mediumFields.slice(0,3)">
@@ -69,6 +65,7 @@
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
+                        <tr *ngIf="i % 3 == 0"></tr>
                         <tr class="row" *ngIf="i % 3 == 0">
                             <td class="col-6 col-lg-3 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
@@ -84,21 +81,18 @@
                             </td>        
                         </tr>
                     </ng-container>
-                </table>
-                <table id="links">
                     <tr class="row" *ngFor="let row of linksFields.slice(0,1)">
                         <th class="col-3">Linkit</th>
                         <td class="col-9"><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></td>
                     </tr>
                     <ng-container *ngFor="let row of linksFields.slice(1)">
+                        <tr></tr>
                         <tr class="row">
                             <td class="col-9 offset-3">
                                 <p><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></p>
                             </td>        
                         </tr>
                     </ng-container>
-                </table>
-                <table id="other">
                     <tr class="row">
                         <th class="col-6 col-lg-3">Muut tiedot</th>
                         <td class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of otherFields.slice(0,2)">
@@ -107,6 +101,7 @@
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
+                        <tr *ngIf="i % 2 == 0"></tr>
                         <tr class="row" *ngIf="i % 2 == 0">
                             <td class="col-6 col-lg-4 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
@@ -123,15 +118,15 @@
         </main>
         <div class="col-12 col-md-4 col-xl-3">
             <aside>
-                <mat-card>
+                <mat-card class="row">
                     <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
                     <br>
-                    <p><a routerLink="/">Tutkijat (45)</a></p>
-                    <p><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
-                    <p><a routerLink="/">Tutkimusaineistot (13)</a></p>
-                    <p><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
-                    <p><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
-                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
+                    <p class="col-6"><a routerLink="/">Tutkijat (45)</a></p>
+                    <p class="col-6"><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
+                    <p class="col-6"><a routerLink="/">Tutkimusaineistot (13)</a></p>
+                    <p class="col-6"><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
+                    <p class="col-6"><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
+                    <p class="col-6"><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
                 </mat-card>
             </aside>
             <aside>
