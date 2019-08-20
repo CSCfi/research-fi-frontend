@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -26,8 +26,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   width = window.innerWidth;
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
-  @ViewChild('selectedMajorFields') selectedMajorFields: MatSelectionList;
-  @ViewChild('selectedFields') selectedFields: MatSelectionList;
+  @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
   tabLink: any;
@@ -50,11 +49,14 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     {fieldId: 1, field: 'Luonnontieteet'},
     {fieldId: 2, field: 'Tekniikka'},
     {fieldId: 3, field: 'Lääke- ja yritystieteet'},
-    {fieldId: 4, field: 'Maatalous- ja metsätiteet'},
+    {fieldId: 4, field: 'Maatalous- ja metsätieteet'},
     {fieldId: 5, field: 'Yhteiskuntatieteet'},
     {fieldId: 6, field: 'Humanistiset tieteet'},
     {fieldId: 9, field: 'Muut tieteet'}
   ];
+  mappedFieldsofScience: any;
+  combinedFields: any[];
+  mergedFields: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private resizeService: ResizeService,
                private sortService: SortService ) { }
@@ -88,8 +90,18 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   getSelected() {
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
-    this.fieldOfScienceFilter = this.selectedFields.selectedOptions.selected.map(s => s.value);
-    // this.majorFieldOfScienceFilter = this.selectedMajorFields.selectedOptions.selected.map(s => s.value);
+
+    // Get minor fields of science from multiple selection lists
+    const mergedFields = [];
+    // Loop through child elements & check for map fields that have values
+    this.selectedFields.forEach(child => {
+      if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
+        // Push mapped values into array
+        mergedFields.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
+      }
+     });
+    // Merge arrays
+    this.fieldOfScienceFilter = [].concat.apply([], mergedFields);
   }
 
   ngOnInit() {
@@ -111,12 +123,30 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
-  // Wait for responeData and shape filter by term
+  // Wait for responseData and shape filter by term
   ngOnChanges() {
     this.responseData = this.responseData || [];
     this.filterTerm = this.filterTerm || '';
     const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
+    this.separateMinor(source);
+  }
+
+  // Arrange fields by major
+  separateMinor(source) {
+    this.combinedFields = [];
+    // Map fields by field & id
+    if (source && source.length > 0) {
+      this.mappedFieldsofScience = source.map(majorField => ({ field: majorField.key, id: majorField.fieldId.buckets[0].key }));
+    }
+
+    // Loop through major fields & push all instances as separate arrays
+    for (let i = 1; i <= this.majorFieldsOfScience.length; i++) {
+      if (i === 7) { i = 9; }
+      if (this.mappedFieldsofScience) {
+        this.combinedFields.push(this.mappedFieldsofScience.filter(obj => obj.id.toString().charAt(0).includes(i)));
+      }
+    }
   }
 
   // Get value from input inside filter
