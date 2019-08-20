@@ -15,6 +15,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="container center-content">
     <div class="row">
         <app-result-tab style="width:100%" [allData]="responseData"></app-result-tab>
+        <div class="row breadcrumbs">
+            <div class="col">
+                <span class="arrow">Haku</span><span class="bold">{{selectedTabData.label}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div *ngIf="mobile; else desktop" class="col-12 row" style="padding:0;">
             <h2 class="row col-12" style="float:left; margin-top:10px;">Hakutulokset</h2>
             <aside class="col col-12 col-sm-6 filters">
