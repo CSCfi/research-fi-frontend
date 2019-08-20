@@ -101,6 +101,10 @@
             display: inline-flex;
         }
 
+        .navbar-toggler:focus {
+            outline: -webkit-focus-ring-color auto 1px;
+        }
+
         // Responsive
         @media (max-width: 991px) {
             .filter-sidebar {
@@ -111,15 +115,11 @@
                 padding: 9px 0px;
             }
             
-            h3::before {
+            h3.open::before {
                 font-family: "FontAwesome";
-                content: '\f054';
+                content: '\f077';
                 font-size: 0.8em;
                 padding-right: 10px;
-            }
-            
-            h3.open::before {
-                content: '\f078';
             }
         }
 
