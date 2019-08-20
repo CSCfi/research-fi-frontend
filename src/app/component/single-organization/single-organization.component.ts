@@ -15,8 +15,9 @@ export class SingleOrganizationComponent implements OnInit {
   responseData: any [];
   searchTerm: string;
   pageNumber: any;
+  tab = 'organizations';
   infoFields = [
-    {label: 'Organisaation nimi', field: 'nameFi'},
+    // {label: 'Organisaation nimi', field: 'nameFi'},
     {label: 'Perustettu', field: '?'},
     {label: 'Lisätietoa', field: '?'},
     {label: 'Organisaatiomuoto', field: '?'},

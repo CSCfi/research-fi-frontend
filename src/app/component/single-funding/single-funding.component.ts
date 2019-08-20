@@ -22,8 +22,9 @@ export class SingleFundingComponent implements OnInit {
   responseData: any [];
   searchTerm: string;
   pageNumber: any;
+  tab = 'fundings';
   infoFields = [
-    {label: 'Hankkeen nimi', field: 'projectNameFi'},
+    // {label: 'Hankkeen nimi', field: 'projectNameFi'},
     {label: 'Rahoittaja', field: 'funderNameFi'},
     {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
     {label: 'Alkamisvuosi', field: 'fundingStartYear'},
