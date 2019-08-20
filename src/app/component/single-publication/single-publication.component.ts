@@ -24,7 +24,7 @@ export class SinglePublicationComponent implements OnInit {
   pageNumber: any;
   tab = 'publications';
   infoFields = [
-    {label: 'Julkaisun nimi', field: 'publicationName'},
+    // {label: 'Julkaisun nimi', field: 'publicationName'},
     {label: 'Julkaisuvuosi', field: 'publicationYear'},
     {label: 'Julkaisutyyppi', field: 'publicationTypeCode'},
     {label: 'Tekijät', field: 'authorsText'}
