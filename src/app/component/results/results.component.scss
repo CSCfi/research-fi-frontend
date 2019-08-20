@@ -29,6 +29,17 @@
   margin: 0;
 }
 
+// Hard coded breadcrumb for demo purpose
+.row.breadcrumbs {
+  padding: 15px 0px;
+}
+
+span.arrow:after {
+  font-family: "FontAwesome";
+  content: "\f061";
+  padding: 0 6px;
+}
+
 // Total
 span.total {
   font-style: italic;
