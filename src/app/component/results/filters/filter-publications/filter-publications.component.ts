@@ -88,6 +88,25 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
   }
 
+  selectAll(event, i) {
+    this.selectedFields.toArray().forEach((item) => {
+      console.log(item);
+      switch (event.checked) {
+        case  true: {
+          item.selectAll();
+          break;
+        }
+        default: {
+          this.selectedFields.first.deselectAll();
+          break;
+        }
+      }
+    });
+
+
+    // this.onSelectionChange();
+  }
+
   getSelected() {
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
 
