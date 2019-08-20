@@ -31,16 +31,11 @@
 
         // First
         li.breadcrumb-item.arrow_box.first {
-            border: 1px solid mat-color($primary, 200);
             border-right: none;
         }
         
         .first.arrow_box:after {
             border-left-color: mat-color($primary, 50);
-        }
-        
-        .first.arrow_box:before {
-            border-left-color: mat-color($primary, 200);
         }
         
         // Middle
@@ -50,10 +45,6 @@
         
         .middle.arrow_box:after {
             border-left-color: mat-color($primary, 100);
-        }
-        
-        .middle.arrow_box:before {
-            border-left-color: mat-color($primary, default-contrast);
         }
         
         // Last        
