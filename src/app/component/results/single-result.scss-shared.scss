@@ -94,22 +94,14 @@
                 font-size: inherit;
             }
 
-            .related .col-6 {
+            .related p {
                 padding: 0;
-            }
-
-            .related ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            .related li {
-                margin: 10px 0;
             }
 
             span.mat-button-wrapper {
                 font-size: 1.3em;
                 font-weight: bold;
+                white-space: normal;
             }
 
             button.mat-raised-button {
