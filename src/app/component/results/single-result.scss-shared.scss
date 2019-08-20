@@ -79,19 +79,23 @@
 
             .back {
                 text-decoration: underline;
-                margin-bottom: 25px;
+                margin: 0;
             }
 
             // Sidebar
             mat-card.mat-card {
                 margin-bottom: 10px;
                 border-radius: 0px;
-                padding: 24px;
+                padding: 20px;
                 box-shadow: none;
             }
 
             .mat-card-title {
                 font-size: inherit;
+            }
+
+            .row.related {
+                margin-top: 20px;
             }
 
             .related p {
