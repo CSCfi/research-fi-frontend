@@ -37,6 +37,10 @@ li.nav-item {
     padding: 0 10px;
 }
 
+a.nav-item {
+    font-size: 17px;
+}
+
 // Prevent horizontal mobile screen scrolling while menu is out of view
 .overflow-hider {
     position: absolute;
@@ -84,7 +88,7 @@ li.col-4 {
 
 nav.nav-top {
     margin-left: auto;
-    padding-top: 34px;
+    padding-top: 8px;
 }
 
 .navbar-light .navbar-nav .nav-link {
