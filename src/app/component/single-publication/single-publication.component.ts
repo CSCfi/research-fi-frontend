@@ -22,11 +22,12 @@ export class SinglePublicationComponent implements OnInit {
   responseData: any [];
   searchTerm: string;
   pageNumber: any;
+  tab = 'publications';
   infoFields = [
-    {label: 'Julkaisun nimi', field: 'publicationName'},
-    {label: 'Tekijät', field: 'authorsText'},
+    // {label: 'Julkaisun nimi', field: 'publicationName'},
     {label: 'Julkaisuvuosi', field: 'publicationYear'},
-    {label: 'Julkaisutyyppi', field: 'publicationTypeCode'}
+    {label: 'Julkaisutyyppi', field: 'publicationTypeCode'},
+    {label: 'Tekijät', field: 'authorsText'}
   ];
   authorFields = [
     {label: 'Tekijöiden määrä', field: 'numberOfAuthors'}
@@ -116,15 +117,15 @@ export class SinglePublicationComponent implements OnInit {
 
     switch (source.languageCode) {
       case 'fi': {
-        source.languageCode = 'Suomi';
+        source.languageCode = 'suomi';
         break;
       }
       case 'en': {
-        source.languageCode = 'Englanti';
+        source.languageCode = 'englanti';
         break;
       }
       case 'se': {
-        source.languageCode = 'Ruotsi';
+        source.languageCode = 'ruotsi';
         break;
       }
     }

@@ -88,6 +88,25 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
   }
 
+  selectAll(event, i) {
+    this.selectedFields.toArray().forEach((item) => {
+      console.log(item);
+      switch (event.checked) {
+        case  true: {
+          item.selectAll();
+          break;
+        }
+        default: {
+          this.selectedFields.first.deselectAll();
+          break;
+        }
+      }
+    });
+
+
+    // this.onSelectionChange();
+  }
+
   getSelected() {
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
 
@@ -96,7 +115,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     // Loop through child elements & check for map fields that have values
     this.selectedFields.forEach(child => {
       if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
-        // Push into mapped values into array
+        // Push mapped values into array
         mergedFields.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
       }
      });

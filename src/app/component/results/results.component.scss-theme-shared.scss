@@ -12,6 +12,10 @@
             color: gray;
         }
 
+        span.arrow, span.bold {
+            color: mat-color($primary);
+        }
+
         // "Bleed" the styles into sub-pages
         app-publications, app-fundings, app-organizations, app-related-results {
 

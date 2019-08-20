@@ -34,6 +34,19 @@ span.align-left.hide-mobile {
         margin-bottom: 0;
     }
 
+    // Chevron
+    ::ng-deep .mat-form-field-flex:after {
+        font-family: "FontAwesome";
+        content: "\f078";
+        font-size: 26px;
+        margin-left: -12px;
+    }
+
+    ::ng-deep .mat-form-field-label-wrapper {
+        top: 0;
+        padding-top: 0;
+    }
+
     mat-form-field.mat-focused {
         outline: -webkit-focus-ring-color auto 1px;
     }

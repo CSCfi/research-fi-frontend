@@ -7,13 +7,16 @@
 
 @mixin app-single-result-shared {
     app-single-publication, app-single-funding, app-single-organization {
+        .container {
+            max-width: 1440px;
+        }
         // Prevent style bleeding
         .shared {
 
             // Table
-            table {
-                box-shadow: 1px 1px 2px 0px;
-            }
+            // table {
+            //     box-shadow: 1px 1px 2px 0px;
+            // }
 
             tr {
                 padding: 0.5rem 0;
@@ -50,6 +53,10 @@
                 text-overflow: ellipsis;
             }
 
+            main h2 {
+                margin-top: 2rem;
+            }
+
             h2 {
                 overflow: hidden;
                 font-size: 1.2em;
@@ -70,31 +77,52 @@
                 justify-content: space-evenly;
             }
 
+            .back {
+                text-decoration: underline;
+                margin: 0;
+            }
+
             // Sidebar
             mat-card.mat-card {
                 margin-bottom: 10px;
                 border-radius: 0px;
-                box-shadow: 1px 1px 2px 0px;
+                padding: 20px;
+                box-shadow: none;
             }
 
             .mat-card-title {
                 font-size: inherit;
             }
 
+            .row.related {
+                margin-top: 20px;
+            }
+
+            .related p {
+                padding: 0;
+            }
+
+            span.mat-button-wrapper {
+                font-size: 1.3em;
+                font-weight: bold;
+                white-space: normal;
+            }
+
             button.mat-raised-button {
                 width: 100%;
                 padding: 10px;
                 margin: 10px 0;
+                box-shadow: none;
             }
 
             .social {
-                text-align: right;
+                text-align: left;
                 width: 100%;
             }
 
             .fa {
                 font-size: 32px;
-                padding: 32px 6px;
+                padding: 16px 16px 0 0;
             }
 
             .fa:hover {

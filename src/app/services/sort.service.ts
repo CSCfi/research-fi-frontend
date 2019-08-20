@@ -60,6 +60,10 @@ export class SortService {
         this.sortField = 'publicationYear'; // Change this according to index
         break;
       }
+      case 'organizations': {
+        this.sortField = 'publicationYear'; // Change this according to index
+        break;
+      }
       case 'fundings': {
         this.sortField = 'fundingStartYear';
         switch (this.sortMethod) {

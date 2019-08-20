@@ -15,19 +15,27 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="container center-content">
     <div class="row">
         <app-result-tab style="width:100%" [allData]="responseData"></app-result-tab>
+        <!-- Breadcrumb for demo purposes -->
+        <div class="row breadcrumbs">
+            <div class="col">
+                <span class="arrow">Haku</span><span class="bold">{{selectedTabData.label}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div *ngIf="mobile; else desktop" class="col-12 row" style="padding:0;">
-            <h2 class="row col-12" style="float:left; margin-top:10px;">Hakutulokset</h2>
-            <aside class="col col-12 col-sm-6 filters">
+            <aside class="col col-6 col-sm-6 filters">
                 <app-filter-publications *ngIf="tabLink===tabData[0].link"  [responseData]="responseData" [tabData]="tabData[0].data"></app-filter-publications>
                 <app-filter-persons *ngIf="tabLink===tabData[1].link" [responseData]="responseData"></app-filter-persons>
                 <app-filter-fundings *ngIf="tabLink===tabData[2].link"  [responseData]="responseData" [tabData]="tabData[2].data"></app-filter-fundings>
                 <app-filter-organizations *ngIf="tabLink===tabData[6].link" [responseData]="responseData" [tabData]="tabData[6].data"></app-filter-organizations>
             </aside>
-            <aside class="col col-12 col-sm-6 sort">
+            <aside class="col col-6 col-sm-6 sort">
                 <app-sort></app-sort>
             </aside>
             <main class="col-12">
-            <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
+                <h2 style="padding: 24px 10px;">Hakutulokset <span class="total">({{total}})</span></h2>
+                <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
             </main>
         </div>
     </div>

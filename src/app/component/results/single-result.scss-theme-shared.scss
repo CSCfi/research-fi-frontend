@@ -6,12 +6,12 @@
     app-single-publication, app-single-funding, app-single-organization {
 
         .shared {
-            tr:nth-child(odd) {
+            tr:nth-child(even) {
                 background-color: mat-color($primary, 50);
             }
             
             th, td {
-                color: mat-color($primary);
+                color: mat-contrast($primary, 50);
             }
             
             td {
@@ -22,6 +22,13 @@
             
             a {
                 color: mat-color($primary);
+            }
+
+            .mat-raised-button.mat-primary {
+                background: white;
+                color: mat-color($primary);
+                border: 2px solid mat-color($primary);
+                border-radius: 20px;
             }
         }
     }
