@@ -109,9 +109,9 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="scrollable">
-                        <!-- <mat-form-field>
+                        <mat-form-field>
                             <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
-                        </mat-form-field> -->
+                        </mat-form-field>
                         <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
                             <mat-list-option checkboxPosition="before" *ngFor="let field of combinedFields[i]" 
                             [value]="field.field" [selected]="preSelection.indexOf(field.field) > -1">

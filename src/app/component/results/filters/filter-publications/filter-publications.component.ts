@@ -96,7 +96,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     // Loop through child elements & check for map fields that have values
     this.selectedFields.forEach(child => {
       if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
-        // Push into mapped values into array
+        // Push mapped values into array
         mergedFields.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
       }
      });
