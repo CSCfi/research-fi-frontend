@@ -12,12 +12,13 @@
 
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <!-- Breadcrumb -->
-    <app-breadcrumb [responseData]="responseData" [tab]="'publications'" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
+    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8 col-xl-9">
+            <a class="back" routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
             <div *ngFor="let item of publication.hits.hits">
                 <h2>{{item._source.publicationName}}</h2>
                 <table id="info">
@@ -118,15 +119,15 @@
         </main>
         <div class="col-12 col-md-4 col-xl-3">
             <aside>
-                <mat-card class="row">
+                <mat-card>
                     <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
                     <br>
-                    <p class="col-6"><a routerLink="/">Tutkijat (45)</a></p>
-                    <p class="col-6"><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
-                    <p class="col-6"><a routerLink="/">Tutkimusaineistot (13)</a></p>
-                    <p class="col-6"><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
-                    <p class="col-6"><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
-                    <p class="col-6"><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
+                    <p><a routerLink="/">Tutkijat (45)</a></p>
+                    <p><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
+                    <p><a routerLink="/">Tutkimusaineistot (13)</a></p>
+                    <p><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
+                    <p><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
+                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
                 </mat-card>
             </aside>
             <aside>
