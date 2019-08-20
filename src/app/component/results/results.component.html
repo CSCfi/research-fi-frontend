@@ -24,7 +24,6 @@ Copyright 2019 Ministry of Education and Culture, Finland
     </div>
     <div class="row">
         <div *ngIf="mobile; else desktop" class="col-12 row" style="padding:0;">
-            <!-- <h2 class="row col-12" style="float:left; margin-top:10px;">Hakutulokset <span class="total">({{total}})</span></h2> -->
             <aside class="col col-6 col-sm-6 filters">
                 <app-filter-publications *ngIf="tabLink===tabData[0].link"  [responseData]="responseData" [tabData]="tabData[0].data"></app-filter-publications>
                 <app-filter-persons *ngIf="tabLink===tabData[1].link" [responseData]="responseData"></app-filter-persons>
