@@ -17,8 +17,8 @@
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
-        <main class="col-12 col-md-8 col-xl-9">
-            <a class="back" routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
+        <a class="back col-12" routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
+        <main class="col-12 col-md-8">
             <div *ngFor="let item of publication.hits.hits">
                 <h2>{{item._source.publicationName}}</h2>
                 <table id="info">
@@ -117,7 +117,7 @@
                 </table>
             </div>
         </main>
-        <div class="col-12 col-md-4 col-xl-3">
+        <div class="col-12 col-md-4 col-xl-3 offset-xl-1">
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
