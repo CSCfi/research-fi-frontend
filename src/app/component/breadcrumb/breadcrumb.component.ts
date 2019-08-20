@@ -20,9 +20,11 @@ export class BreadcrumbComponent implements OnInit {
   @Input() resultNameField: any;
   resultType: string;
   searchTerm: any;
+  pageNumber: number;
 
   constructor( private searchService: SearchService) {
     this.searchTerm = this.searchService.singleInput;
+    this.pageNumber = this.searchService.pageNumber || 1;
   }
 
   ngOnInit() {

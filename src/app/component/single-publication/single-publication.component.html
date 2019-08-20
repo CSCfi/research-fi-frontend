@@ -14,10 +14,10 @@
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">
+        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
-        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a></p>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of publication.hits.hits">
                 <h2>{{item._source.publicationName}}</h2>
@@ -121,7 +121,6 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
-                    <!-- <br> -->
                     <div class="row related">
                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkijat (45)</a></p>
                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Aineistot (13)</a></p>
@@ -130,12 +129,6 @@
                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkimusvälineet (-)</a></p>
                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
                     </div>
-                    <!-- <p><a routerLink="/">Tutkijat (45)</a></p>
-                    <p><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
-                    <p><a routerLink="/">Tutkimusaineistot (13)</a></p>
-                    <p><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
-                    <p><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
-                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p> -->
                 </mat-card>
             </aside>
             <aside>
