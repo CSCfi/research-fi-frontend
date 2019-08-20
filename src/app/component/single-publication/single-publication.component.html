@@ -17,7 +17,7 @@
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
-        <main class="col-12 col-md-8 col-xl-9">
+        <main class="col-12 col-md-8 col-xl-8">
             <a class="back" routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
             <div *ngFor="let item of publication.hits.hits">
                 <h2>{{item._source.publicationName}}</h2>
@@ -117,17 +117,33 @@
                 </table>
             </div>
         </main>
-        <div class="col-12 col-md-4 col-xl-3">
+        <div class="col-12 col-md-4 col-xl-4">
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
-                    <br>
-                    <p><a routerLink="/">Tutkijat (45)</a></p>
+                    <!-- <br> -->
+                    <div class="row related">
+                        <div class="col-6">
+                            <ul>
+                                <li><a routerLink="/">Tutkijat (45)</a></li>
+                                <li><a routerLink="/">Aineistot (13)</a></li>
+                                <li><a routerLink="/">Organisaatiot (9)</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul>
+                                <li><a routerLink="/">Rahoitetut hankkeet (46)</a></li>
+                                <li><a routerLink="/">Tutkimusvälineet (-)</a></li>
+                                <li><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <p><a routerLink="/">Tutkijat (45)</a></p>
                     <p><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
                     <p><a routerLink="/">Tutkimusaineistot (13)</a></p>
                     <p><a routerLink="/">Tutkimusinfrastruktuurit (65)</a></p>
                     <p><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
-                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p>
+                    <p><a routerLink="/">Tutkimusorganisaatiot (9)</a></p> -->
                 </mat-card>
             </aside>
             <aside>
@@ -141,7 +157,7 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Jaa</h2></mat-card-title>
-                    <div class="social center">
+                    <div class="social">
                         <a href="#"><i class="fa fa-facebook-official"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-linkedin-square"></i></a>
