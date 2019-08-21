@@ -25,7 +25,7 @@ export class SearchBarComponent implements OnInit {
     tabLink: any;
 
     constructor( private searchService: SearchService, private tabChangeService: TabChangeService,
-                 private router: Router, private route: ActivatedRoute, private sortService: SortService ) {
+                 public router: Router, private route: ActivatedRoute, private sortService: SortService ) {
     }
 
     ngOnInit() {
