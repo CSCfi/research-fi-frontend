@@ -31,8 +31,7 @@ export class SearchBarComponent implements OnInit {
     ngOnInit() {
     // Subscribe to route input parameter, works with browser back & forward buttons
     this.searchTerm = this.route.params.subscribe(params => {
-      const term = params.input;
-      this.input = term;
+      this.input = params.input;
       this.tabLink = params.tab;
     });
     this.searchService.currentInput.subscribe(input => this.input = input);
