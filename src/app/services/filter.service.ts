@@ -22,7 +22,7 @@ export class FilterService {
   private filterSource = new BehaviorSubject({year: [], status: [], field: []});
   filters = this.filterSource.asObservable();
 
-  updateFilters(filters: {year: [], status: [], field: []}) {
+  updateFilters(filters: {year: any[], status: any[], field: any[]}) {
     // Create new filters first before sending updated values to components
     this.createFilters(filters);
     this.filterSource.next(filters);
@@ -32,6 +32,7 @@ export class FilterService {
 
   // Filters
   createFilters(filter: any) {
+    console.log('filterService createFilters()', filter);
     this.yearFilter = this.filterByYear(filter.year);
     this.statusFilter = this.filterByStatus(filter.status);
     this.majorFieldFilter = this.filterByMajorFieldOfScience(filter.major);

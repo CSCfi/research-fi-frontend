@@ -15,14 +15,14 @@ export class TabChangeService {
     { data: 'organizations', label: 'Tutkimusorganisaatiot', link: 'organizations' }
   ];
 
-  private tabSource = new BehaviorSubject({data: '', label: ''});
+  private tabSource = new BehaviorSubject({data: '', label: '', link: ''});
   currentTab = this.tabSource.asObservable();
 
   directToMostHits = false;
 
   constructor() { }
 
-  changeTab(tab: {data: string; label: string}) {
+  changeTab(tab: {data: string; label: string, link: string}) {
     this.tabSource.next(tab);
   }
 }

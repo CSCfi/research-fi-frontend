@@ -27,6 +27,7 @@ export class SortService {
   }
 
   getCurrentTab(tab: string) {
+    console.log('sort getCurrentTab()', tab);
     this.currentTab = tab;
     switch (tab) {
       case 'publications': {

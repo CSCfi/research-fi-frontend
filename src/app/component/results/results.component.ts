@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { FilterService } from 'src/app/services/filter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -22,9 +23,9 @@ import { FilterService } from 'src/app/services/filter.service';
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   public searchTerm: any;
-  input: any = [];
+  input: Subscription;
   tabData = this.tabChangeService.tabData;
-  tabLink: any = [];
+  tab: any = [];
   selectedTabData: any = [];
   responseData: any [];
   errorMessage = [];
@@ -33,11 +34,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  queryParams: any;
-  filters: any;
-  sortMethod: any;
+  queryParams: Subscription;
+  filters: {year: any[], status: any[], field: any[]};
+  sortMethod: string;
   mobile: boolean;
-  currentTab: any;
   updateFilters: boolean;
   total: any;
   totalSub: any;
@@ -54,24 +54,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-
-
-    // Subscribe to tab changes to update title
-    this.currentTab = this.tabChangeService.currentTab.subscribe(tab => {
-      // Prevent initialization from making an API-call
-      if (tab.data.length > 0) {
-        this.selectedTabData = tab;
-        this.updateTitle(tab);
-        this.sortService.getCurrentTab(tab.data);
-        if (this.filters) {
-          this.filterService.updateFilters(this.filters); // Temporary fix
-        }
-        this.getAllData();
-      }
-    });
+    console.log('result ngOnInit()');
 
     // Subscribe to queryParams and send to search service
     this.queryParams = this.route.queryParams.subscribe(params => {
+      console.log('result queryParams sub', params);
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
       // filters is an object consisting of arrays, empty property arrays represent that no filter is enabled
@@ -88,14 +75,21 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
-      const term = params.input;
-      const previousTerm = this.searchTerm;
-      this.tabLink = params.tab;
-      this.searchTerm = term;
-      // Get data only if search term changed
-      if (previousTerm !== this.searchTerm) {
-        this.getAllData();
+      console.log('result params sub', params);
+      this.searchTerm = params.input;
+
+      const previousTab = this.tab;
+      this.tab = params.tab;
+
+      if (previousTab !== this.tab) {
+        this.selectedTabData = this.tabData.filter(tab => tab.link === this.tab)[0];
+        this.updateTitle(this.selectedTabData);
+        this.sortService.getCurrentTab(this.selectedTabData.data);
+        this.filterService.updateFilters(this.filters);
+        this.tabChangeService.changeTab(this.selectedTabData);
       }
+
+      this.getAllData();
     });
 
     // Subscribe to resize
@@ -119,7 +113,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
       this.total = total || '';
       // Add thousand separators
-      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
       this.cdr.detectChanges();
     });
 
@@ -173,7 +167,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
     this.queryParams.unsubscribe();
-    this.currentTab.unsubscribe();
     this.input.unsubscribe();
     this.totalSub.unsubscribe();
   }
