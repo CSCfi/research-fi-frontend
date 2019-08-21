@@ -35,7 +35,7 @@ span.align-left.hide-mobile {
     }
 
     // Chevron
-    ::ng-deep .mat-form-field-flex:after {
+    ::ng-deep .mat-form-field-flex::after {
         font-family: "FontAwesome";
         content: "\f078";
         font-size: 26px;

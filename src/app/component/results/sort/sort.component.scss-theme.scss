@@ -19,6 +19,9 @@
                 font-family: "Segoe UI";
                 font-size: 1.75rem;
             }
+            .mat-form-field-flex::after {
+                color: mat-color($primary, 900);
+            }
         }
     }
 }
