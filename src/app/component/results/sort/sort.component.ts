@@ -55,6 +55,8 @@ export class SortComponent implements OnInit, OnDestroy {
           break;
         }
       }
+      // Default to desc sort on tab change
+      if (!this.route.snapshot.queryParams.sort) { this.sortBy = 'desc'; }
     });
   }
 
