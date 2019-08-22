@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from 'src/app/services/filter.service';
 
@@ -24,7 +24,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     ended: 'Päättynyt'
   };
 
-  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
+  constructor( private router: Router, private sortService: SortService,
                private filterService: FilterService ) {
    }
 
@@ -68,6 +68,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     params.sort = this.sortService.sortMethod;
 
     this.router.navigate([], {queryParams: params});
+  }
+
+  clearFilters() {
+    this.activeFilters = [];
+    this.router.navigate([]);
   }
 
   ngOnDestroy() {
