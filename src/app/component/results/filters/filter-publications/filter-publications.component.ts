@@ -50,6 +50,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mappedFieldsofScience: any;
   combinedFields: any[];
   mergedFields: any;
+  filterSub: Subscription;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) { }
@@ -112,10 +113,13 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngOnInit() {
-    // Get preselected filters from filterService
-    this.preSelection = [];
-    const filters = this.filterService.currentFilters;
-    Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+    // Subscribe to filter service filters
+    this.filterSub = this.filterService.filters.subscribe(subFilter => {
+     // Get preselected filters from filterService
+     this.preSelection = [];
+     const filters = this.filterService.currentFilters;
+     Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+    });
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
@@ -146,7 +150,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       });
     }
     this.cdr.detectChanges();
-
   }
 
   // Arrange fields by major
@@ -178,6 +181,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngOnDestroy() {
+    this.filterSub.unsubscribe();
     this.resizeSub.unsubscribe();
   }
 
