@@ -10,11 +10,9 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, 
 import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
-import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { FilterService } from 'src/app/services/filter.service';
-import { first, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filter-publications',
@@ -32,7 +30,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
-  preSelection: any;
+  preSelection = [];
 
   private resizeSub: Subscription;
   yearFilters: any[];
@@ -53,7 +51,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   combinedFields: any[];
   mergedFields: any;
 
-  constructor( private router: Router, private resizeService: ResizeService,
+  constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) { }
 
   toggleSidebar() {
