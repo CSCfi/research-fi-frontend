@@ -5,12 +5,15 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList, 
+         ChangeDetectorRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
+import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { first, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filter-publications',
@@ -46,20 +49,20 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   filterTerm: string;
 
   majorFieldsOfScience = [
-    {fieldId: 1, field: 'Luonnontieteet'},
-    {fieldId: 2, field: 'Tekniikka'},
-    {fieldId: 3, field: 'Lääke- ja yritystieteet'},
-    {fieldId: 4, field: 'Maatalous- ja metsätieteet'},
-    {fieldId: 5, field: 'Yhteiskuntatieteet'},
-    {fieldId: 6, field: 'Humanistiset tieteet'},
-    {fieldId: 9, field: 'Muut tieteet'}
+    {fieldId: 1, field: 'Luonnontieteet', checked: false},
+    {fieldId: 2, field: 'Tekniikka', checked: false},
+    {fieldId: 3, field: 'Lääke- ja yritystieteet', checked: false},
+    {fieldId: 4, field: 'Maatalous- ja metsätieteet', checked: false},
+    {fieldId: 5, field: 'Yhteiskuntatieteet', checked: false},
+    {fieldId: 6, field: 'Humanistiset tieteet', checked: false},
+    {fieldId: 9, field: 'Muut tieteet', checked: false}
   ];
   mappedFieldsofScience: any;
   combinedFields: any[];
   mergedFields: any;
 
   constructor( private router: Router, private route: ActivatedRoute, private resizeService: ResizeService,
-               private sortService: SortService ) { }
+               private sortService: SortService, private cdr: ChangeDetectorRef ) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -89,22 +92,18 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   selectAll(event, i) {
-    this.selectedFields.toArray().forEach((item) => {
-      console.log(item);
-      switch (event.checked) {
-        case  true: {
-          item.selectAll();
-          break;
-        }
-        default: {
-          this.selectedFields.first.deselectAll();
-          break;
-        }
+    const major = this.selectedFields.toArray();
+    switch (event.checked) {
+      case  true: {
+        major[i].selectAll();
+        break;
       }
-    });
-
-
-    // this.onSelectionChange();
+      default: {
+        major[i].deselectAll();
+        break;
+      }
+    }
+    this.onSelectionChange();
   }
 
   getSelected() {
@@ -149,6 +148,26 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
     this.separateMinor(source);
+    this.isChecked();
+  }
+
+  // Find fields where all items are checked and change checked status of majors in majorFieldsOfScience array of objects
+  isChecked() {
+    if (this.selectedFields) {
+      // Subscribe to selection lists
+      this.selectedFields.changes.subscribe(() => {
+        const array = this.selectedFields.toArray();
+        for (let i = 0; i <= array.length - 1; i++) {
+          // Compare sums of list and selection, change value of checked major
+          if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
+            const objIndex = this.majorFieldsOfScience.findIndex((obj => obj.fieldId === i + 1));
+            this.majorFieldsOfScience[objIndex].checked = true;
+          }
+        }
+      });
+    }
+    this.cdr.detectChanges();
+
   }
 
   // Arrange fields by major

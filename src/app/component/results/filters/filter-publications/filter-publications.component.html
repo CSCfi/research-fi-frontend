@@ -55,25 +55,27 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="subFields">
-                <mat-expansion-panel *ngFor="let major of majorFieldsOfScience, let i = index">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <strong>{{major.field}}</strong>
-                            <!-- <mat-checkbox (change)="selectAll($event, i)" style="padding:0 10px;"></mat-checkbox> -->
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <div class="scrollable">
-                        <!-- <mat-form-field>
-                            <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
-                        </mat-form-field> -->
-                        <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
-                            <mat-list-option checkboxPosition="before" *ngFor="let field of combinedFields[i]" 
-                            [value]="field.field" [selected]="preSelection.indexOf(field.field) > -1">
-                                <span class="label">{{field.field}}</span>
-                            </mat-list-option>
-                        </mat-selection-list>
-                    </div>
-                </mat-expansion-panel>
+                <div *ngFor="let major of majorFieldsOfScience, let i = index">
+                    <mat-expansion-panel [class.hidden]="!combinedFields[i].length > 0">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <strong>{{major.field}}</strong>
+                                <mat-checkbox [checked]="major.checked" (click)="$event.stopPropagation()" (change)="selectAll($event, i)" style="padding:0 10px;"></mat-checkbox>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="scrollable">
+                            <!-- <mat-form-field>
+                                <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
+                            </mat-form-field> -->
+                            <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
+                                <mat-list-option checkboxPosition="before" *ngFor="let field of combinedFields[i]" 
+                                [value]="field.field" [selected]="preSelection.indexOf(field.field) > -1">
+                                    <span class="label">{{field.field}}</span>
+                                </mat-list-option>
+                            </mat-selection-list>
+                        </div>
+                    </mat-expansion-panel>
+                </div>
             </div>
         </mat-expansion-panel>
     
