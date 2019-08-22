@@ -128,7 +128,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         const mostHits = Object.keys(buckets).reduce((best, index) => {
           best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
           return best;
-        }, {tab: '', hits: 0});
+        }, {tab: 'publications', hits: 0});
         this.router.navigate(['results/', mostHits.tab, this.searchTerm || ''], {replaceUrl: true});
         this.tabChangeService.directToMostHits = false;
       }
