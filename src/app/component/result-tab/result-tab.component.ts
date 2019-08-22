@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -17,9 +15,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @Input() allData: any;
 
   errorMessage: any [];
-  selectedTab: any;
-  tab: any;
-  searchTerm: any;
+  selectedTab: string;
+  searchTerm: string;
   myOps = {
     duration: 0.5
   };
@@ -36,10 +33,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   private searchTermSub: Subscription;
   private resizeSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private tabChangeService: TabChangeService,
+  constructor(private tabChangeService: TabChangeService,
               private resizeService: ResizeService, private searchService: SearchService) {
-    // this.searchTerm = this.route.snapshot.params.input;
-    // this.selectedTab = this.route.snapshot.params.tab;
    }
 
   ngOnInit() {
@@ -60,7 +55,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scrollEvent);
-    // this.paramSub.unsubscribe();
+    this.tabSub.unsubscribe();
+    this.searchTermSub.unsubscribe();
     // this.resizeSub.unsubscribe();
   }
 
