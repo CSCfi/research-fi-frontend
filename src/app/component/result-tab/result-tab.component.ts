@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -17,9 +15,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @Input() allData: any;
 
   errorMessage: any [];
-  selectedTab: any;
-  tab: any;
-  searchTerm: any;
+  selectedTab: string;
+  searchTerm: string;
   myOps = {
     duration: 0.5
   };
@@ -32,27 +29,25 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   tabData = this.tabChangeService.tabData;
 
-  private paramSub: Subscription;
+  private tabSub: Subscription;
+  private searchTermSub: Subscription;
   private resizeSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private tabChangeService: TabChangeService,
-              private resizeService: ResizeService) {
-    this.searchTerm = this.route.snapshot.params.input;
-    this.selectedTab = this.route.snapshot.params.tab;
+  constructor(private tabChangeService: TabChangeService,
+              private resizeService: ResizeService, private searchService: SearchService) {
    }
 
   ngOnInit() {
+    console.log('resultTab ngOnInit()');
     // Update active tab visual after change
-    this.paramSub = this.route.params.subscribe(params => {
-      this.selectedTab = params.tab;
-      this.searchTerm = params.input;
-      // Update title based on selected tab
-      this.tabData.forEach(tab => {
-        if (tab.link === this.selectedTab) {
-          this.tabChangeService.changeTab(tab);
-        }
-      });
+    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
+      this.selectedTab = tab.link;
     });
+
+    this.searchTermSub = this.searchService.currentInput.subscribe(term => {
+      this.searchTerm = term;
+    });
+
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
     // Add the scroll handler, passive to improve performance
     window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
@@ -60,7 +55,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scrollEvent);
-    // this.paramSub.unsubscribe();
+    this.tabSub.unsubscribe();
+    this.searchTermSub.unsubscribe();
     // this.resizeSub.unsubscribe();
   }
 
@@ -97,10 +93,5 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
     this.offsetWidth = this.scroll.nativeElement.offsetWidth;
     this.scrollWidth = this.scroll.nativeElement.scrollWidth;
-  }
-
-  changeTab(tab) {
-    if (!this.searchTerm) { this.searchTerm = ''; }
-    this.router.navigate(['results/', tab.link, this.searchTerm]);
   }
 }

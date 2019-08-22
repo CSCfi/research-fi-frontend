@@ -31,15 +31,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.queryParams = this.filterService.filters.subscribe(filter => {
+      console.log('activeFilter filterSub', filter);
 
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
+      const newFilters = {};
       // Merge and format arrays
       Object.keys(filter).forEach(key => {
-        filter[key] = filter[key].map(val => {
+        newFilters[key] = filter[key].map(val => {
           return {category: key, value: val, translation: this.translations[val] || val};
         });
-        this.activeFilters.push(...filter[key]);
+        this.activeFilters.push(...newFilters[key]);
       });
 
       // Sort active filters by numerical value
@@ -66,6 +68,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     }, {});  // initially empty object {} as storage
 
     params.sort = this.sortService.sortMethod;
+    console.log('activeFilter params', params);
 
     this.router.navigate([], {queryParams: params});
   }

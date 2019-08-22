@@ -7,8 +7,8 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchService } from '../../../services/search.service';
 import { SortService } from '../../../services/sort.service';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-sort',
@@ -35,7 +35,8 @@ export class SortComponent implements OnInit, OnDestroy {
     {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
   ];
 
-  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService ) {
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService, 
+               private tabChangeService: TabChangeService ) {
     // Get sort value from url, default to desc if undefined
     this.sortBy = this.route.snapshot.queryParams.sort;
     if (!this.sortBy) {this.sortBy = 'desc'; }
@@ -43,9 +44,8 @@ export class SortComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Subscribe to current tab parameter
-    this.queryParams = this.route.params.subscribe(params => {
-      this.tabLink = params.tab;
-      switch (this.tabLink) {
+    this.queryParams = this.tabChangeService.currentTab.subscribe(tab => {
+      switch (tab.link) {
         case 'publications': {
           this.tabFields = this.publicationFields;
           break;
@@ -62,7 +62,7 @@ export class SortComponent implements OnInit, OnDestroy {
 
   // Send value to service and rewrite url
   orderBy(): void {
-    this.sortService.getSortMethod(this.sortBy);
+    this.sortService.updateSort(this.sortBy);
     this.navigate();
   }
 

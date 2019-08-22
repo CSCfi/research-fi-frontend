@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { FilterService } from 'src/app/services/filter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -22,9 +23,9 @@ import { FilterService } from 'src/app/services/filter.service';
 })
 export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   public searchTerm: any;
-  input: any = [];
+  input: Subscription;
   tabData = this.tabChangeService.tabData;
-  tabLink: any = [];
+  tab: any = [];
   selectedTabData: any = [];
   responseData: any [];
   errorMessage = [];
@@ -33,11 +34,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  queryParams: any;
-  filters: any;
-  sortMethod: any;
+  queryParams: Subscription;
+  filters: {year: any[], status: any[], field: any[]};
   mobile: boolean;
-  currentTab: any;
   updateFilters: boolean;
   total: any;
   totalSub: any;
@@ -46,7 +45,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef ) {
     this.searchTerm = this.route.snapshot.params.input;
-    this.searchService.getInput(this.searchTerm);
+    this.searchService.updateInput(this.searchTerm);
   }
 
   public setTitle(newTitle: string) {
@@ -54,24 +53,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-
-
-    // Subscribe to tab changes to update title
-    this.currentTab = this.tabChangeService.currentTab.subscribe(tab => {
-      // Prevent initialization from making an API-call
-      if (tab.data.length > 0) {
-        this.selectedTabData = tab;
-        this.updateTitle(tab);
-        this.sortService.getCurrentTab(tab.data);
-        if (this.filters) {
-          this.filterService.updateFilters(this.filters); // Temporary fix
-        }
-        this.getAllData();
-      }
-    });
+    console.log('result ngOnInit()');
 
     // Subscribe to queryParams and send to search service
     this.queryParams = this.route.queryParams.subscribe(params => {
+      console.log('result queryParams sub', params);
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
       // filters is an object consisting of arrays, empty property arrays represent that no filter is enabled
@@ -80,38 +66,36 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                       field: [params.field].flat().filter(x => x)};
 
       this.filterService.updateFilters(this.filters);
-      this.sortService.getSortMethod(params.sort);
+      this.sortService.updateSort(params.sort);
       this.searchService.getPageNumber(this.page);
+      // Flag telling search-results to fetch new filtered data
       this.updateFilters = !this.updateFilters;
     });
 
 
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
-      const term = params.input;
-      const previousTerm = this.searchTerm;
-      this.tabLink = params.tab;
-      this.searchTerm = term;
-      // Get data only if search term changed
-      if (previousTerm !== this.searchTerm) {
-        this.getAllData();
+      console.log('result params sub', params);
+      this.searchTerm = params.input || '';
+      this.searchService.updateInput(this.searchTerm);
+
+      const previousTab = this.tab;
+      this.tab = params.tab;
+
+      if (previousTab !== this.tab) {
+        this.selectedTabData = this.tabData.filter(tab => tab.link === this.tab)[0];
+        this.updateTitle(this.selectedTabData);
+        this.sortService.updateTab(this.selectedTabData.data);
+        this.filterService.updateFilters(this.filters);
+        this.tabChangeService.changeTab(this.selectedTabData);
       }
+
+      this.getAllData();
     });
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
     this.mobile = window.innerWidth < 992;
-
-    // Get sort method and data on init
-    this.sortMethod = this.route.snapshot.queryParams.sort;
-    if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
-
-    // this.getAllData();
-
-    // If url is missing search term
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
   }
 
   // Get total value from search service / pagination
@@ -119,7 +103,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
       this.total = total || '';
       // Add thousand separators
-      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
       this.cdr.detectChanges();
     });
 
@@ -139,17 +123,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateTitle(this.selectedTabData);
       // Switch to the tab with the most results if flag is set (new search)
       if (this.tabChangeService.directToMostHits) {
-        const mostHits = {tab: 'publications', hits: 0};
-        this.tabData.forEach(tab => {
-          if (tab.data) {
-            const hits = this.responseData[0].aggregations._index.buckets[tab.data].doc_count;
-            if (hits > mostHits.hits) {
-              mostHits.tab = tab.link;
-              mostHits.hits = hits;
-            }
-          }
-        });
-        this.router.navigate(['results/', mostHits.tab, this.searchTerm]);
+        // Reduce buckets to the one with the most results
+        const buckets = this.responseData[0].aggregations._index.buckets;
+        const mostHits = Object.keys(buckets).reduce((best, index) => {
+          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
+          return best;
+        }, {tab: 'publications', hits: 0});
+        this.router.navigate(['results/', mostHits.tab, this.searchTerm || ''], {replaceUrl: true});
         this.tabChangeService.directToMostHits = false;
       }
     },
@@ -172,8 +152,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
+    this.tabChangeService.changeTab({data: '', label: '', link: ''});
+    this.searchService.updateInput('');
     this.queryParams.unsubscribe();
-    this.currentTab.unsubscribe();
     this.input.unsubscribe();
     this.totalSub.unsubscribe();
   }

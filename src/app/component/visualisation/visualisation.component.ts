@@ -55,9 +55,9 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
               private filterService: FilterService, private sortService: SortService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
-    this.searchService.getInput(this.searchTerm);
+    this.searchService.updateInput(this.searchTerm);
     this.index = this.route.snapshot.params.tab;
-    this.sortService.getCurrentTab(this.index);
+    this.sortService.updateTab(this.index);
     this.index = this.index.slice(0, -1);
 
   }
