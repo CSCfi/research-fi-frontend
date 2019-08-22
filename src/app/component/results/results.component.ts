@@ -53,11 +53,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('result ngOnInit()');
-
     // Subscribe to queryParams and send to search service
     this.queryParams = this.route.queryParams.subscribe(params => {
-      console.log('result queryParams sub', params);
       // Defaults to 1 if no query param provided.
       this.page = +params.page || 1;
       // filters is an object consisting of arrays, empty property arrays represent that no filter is enabled
@@ -75,7 +72,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
-      console.log('result params sub', params);
       this.searchTerm = params.input || '';
       this.searchService.updateInput(this.searchTerm);
 

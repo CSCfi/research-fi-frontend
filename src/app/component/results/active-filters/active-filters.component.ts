@@ -31,8 +31,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.queryParams = this.filterService.filters.subscribe(filter => {
-      console.log('activeFilter filterSub', filter);
-
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
       const newFilters = {};
@@ -68,7 +66,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     }, {});  // initially empty object {} as storage
 
     params.sort = this.sortService.sortMethod;
-    console.log('activeFilter params', params);
 
     this.router.navigate([], {queryParams: params});
   }

@@ -35,13 +35,11 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   constructor(private injector: Injector, private searchService: SearchService) { }
 
   ngOnInit() {
-    console.log('searhResults ngOnInit()');
     this.portalHost = createDomPortalHost(this.elRef, this.injector);
     this.getResultData();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('searhResults ngOnChanges()');
     // Reset data so previous data is not displayed until new data is loaded
     if (this.componentRef && (changes.currentTab && !changes.currentTab.firstChange ||
       changes.updateFilters && !changes.updateFilters.firstChange)) {
@@ -51,7 +49,6 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   }
 
   getResultData() {
-    console.log('searhResults getResultData()');
     // Get data, then change component
     this.searchService.getData()
     .pipe(map(responseData => [responseData]))

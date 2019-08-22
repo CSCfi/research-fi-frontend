@@ -34,7 +34,6 @@ export class FilterService {
 
   // Filters
   createFilters(filter: any) {
-    console.log('filterService createFilters()', filter);
     this.yearFilter = this.filterByYear(filter.year);
     this.statusFilter = this.filterByStatus(filter.status);
     this.majorFieldFilter = this.filterByMajorFieldOfScience(filter.major);
@@ -63,7 +62,6 @@ export class FilterService {
   }
 
   filterByMajorFieldOfScience(field: any) {
-    // console.log(field);
 
   }
 
