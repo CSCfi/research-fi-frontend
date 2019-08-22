@@ -58,11 +58,6 @@ export class SearchService {
     }
   }
 
-  // Detect change in input value
-  changeInput(input: string) {
-    this.inputSource.next(input);
-  }
-
   // Data for homepage values
   getAll(): Observable<Search[]> {
     const payLoad = {

@@ -11,11 +11,9 @@ import { Injectable  } from '@angular/core';
   providedIn: 'root'
 })
 export class SortService {
-  input: any;
   sortMethod: string;
-  requestCheck: boolean;
-  sort: any;
   currentTab: string;
+  sort: any;
   sortField: string;
 
   constructor() { }

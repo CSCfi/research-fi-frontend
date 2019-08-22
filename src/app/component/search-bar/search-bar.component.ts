@@ -22,30 +22,23 @@ export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     public searchTerm: any;
     input: string;
-    tabLink: any;
+    tab: string;
 
     constructor( private searchService: SearchService, private tabChangeService: TabChangeService,
                  public router: Router, private route: ActivatedRoute, private sortService: SortService ) {
     }
 
     ngOnInit() {
-    // Subscribe to route input parameter, works with browser back & forward buttons
-    this.searchTerm = this.route.params.subscribe(params => {
-      this.input = params.input;
-      this.tabLink = params.tab;
-    });
-    this.searchService.currentInput.subscribe(input => this.input = input);
-    this.input = this.route.snapshot.params.input;
+      this.searchService.currentInput.subscribe(input => this.input = input);
+      this.tabChangeService.currentTab.subscribe(tab => this.tab = tab.link);
     }
 
 
     newInput() {
       this.tabChangeService.directToMostHits = true;
       this.sortService.sortMethod = 'desc';
-      this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
-      this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>
-      this.router.navigate(['results/', 'publications', this.publicationSearchInput.nativeElement.value], { queryParams: { page: 1 } }));
       this.searchService.updateInput(this.publicationSearchInput.nativeElement.value);
+      this.router.navigate(['/results/publications', this.searchService.singleInput], { queryParams: { page: 1 } });
       this.searchService.onSearchButtonClick();
     }
 

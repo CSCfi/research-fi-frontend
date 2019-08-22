@@ -36,7 +36,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: Subscription;
   filters: {year: any[], status: any[], field: any[]};
-  sortMethod: string;
   mobile: boolean;
   updateFilters: boolean;
   total: any;
@@ -69,6 +68,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.filterService.updateFilters(this.filters);
       this.sortService.updateSort(params.sort);
       this.searchService.getPageNumber(this.page);
+      // Flag telling search-results to fetch new filtered data
       this.updateFilters = !this.updateFilters;
     });
 
@@ -76,7 +76,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {
       console.log('result params sub', params);
-      this.searchTerm = params.input;
+      this.searchTerm = params.input || '';
+      this.searchService.updateInput(this.searchTerm);
 
       const previousTab = this.tab;
       this.tab = params.tab;
@@ -95,17 +96,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
     this.mobile = window.innerWidth < 992;
-
-    // Get sort method and data on init
-    this.sortMethod = this.route.snapshot.queryParams.sort;
-    if (this.sortMethod === undefined) {this.sortMethod = 'desc'; }
-
-    // this.getAllData();
-
-    // If url is missing search term
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
   }
 
   // Get total value from search service / pagination
@@ -133,17 +123,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateTitle(this.selectedTabData);
       // Switch to the tab with the most results if flag is set (new search)
       if (this.tabChangeService.directToMostHits) {
-        const mostHits = {tab: 'publications', hits: 0};
-        this.tabData.forEach(tab => {
-          if (tab.data) {
-            const hits = this.responseData[0].aggregations._index.buckets[tab.data].doc_count;
-            if (hits > mostHits.hits) {
-              mostHits.tab = tab.link;
-              mostHits.hits = hits;
-            }
-          }
-        });
-        this.router.navigate(['results/', mostHits.tab, this.searchTerm]);
+        // Reduce buckets to the one with the most results
+        const buckets = this.responseData[0].aggregations._index.buckets;
+        const mostHits = Object.keys(buckets).reduce((best, index) => {
+          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
+          return best;
+        }, {tab: '', hits: 0});
+        this.router.navigate(['results/', mostHits.tab, this.searchTerm || ''], {replaceUrl: true});
         this.tabChangeService.directToMostHits = false;
       }
     },
@@ -166,6 +152,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
+    this.tabChangeService.changeTab({data: '', label: '', link: ''});
+    this.searchService.updateInput('');
     this.queryParams.unsubscribe();
     this.input.unsubscribe();
     this.totalSub.unsubscribe();

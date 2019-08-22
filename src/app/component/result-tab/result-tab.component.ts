@@ -33,12 +33,13 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   tabData = this.tabChangeService.tabData;
 
   private tabSub: Subscription;
+  private searchTermSub: Subscription;
   private resizeSub: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private tabChangeService: TabChangeService,
-              private resizeService: ResizeService) {
-    this.searchTerm = this.route.snapshot.params.input;
-    this.selectedTab = this.route.snapshot.params.tab;
+              private resizeService: ResizeService, private searchService: SearchService) {
+    // this.searchTerm = this.route.snapshot.params.input;
+    // this.selectedTab = this.route.snapshot.params.tab;
    }
 
   ngOnInit() {
@@ -46,6 +47,10 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
+    });
+
+    this.searchTermSub = this.searchService.currentInput.subscribe(term => {
+      this.searchTerm = term;
     });
 
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
