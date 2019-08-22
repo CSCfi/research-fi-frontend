@@ -7,10 +7,11 @@
 
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-filter-publications',
@@ -29,20 +30,11 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
-  tabLink: any;
-  searchTerm: any;
-  sortMethod: any;
-  page: any;
-  filters: any;
 
-  private input: Subscription;
-  private queryParams: Subscription;
   private resizeSub: Subscription;
   yearFilters: any[];
   fieldOfScienceFilter: any;
-  majorFieldOfScienceFilter: any;
   fields: any;
-  filtered: any;
   filterTerm: string;
 
   majorFieldsOfScience = [
@@ -58,7 +50,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   combinedFields: any[];
   mergedFields: any;
 
-  constructor( private router: Router, private route: ActivatedRoute, private resizeService: ResizeService,
+  constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService ) { }
 
   toggleSidebar() {
@@ -82,10 +74,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   onSelectionChange() {
-    this.sortMethod = this.sortService.sortMethod;
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
   }
 
   selectAll(event, i) {
@@ -102,9 +93,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         }
       }
     });
-
-
-    // this.onSelectionChange();
   }
 
   getSelected() {
@@ -120,25 +108,15 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       }
      });
     // Merge arrays
-    this.fieldOfScienceFilter = [].concat.apply([], mergedFields);
+    this.fieldOfScienceFilter = mergedFields.flat();
   }
 
   ngOnInit() {
-    // Subscribe to route parameters
-    this.input = this.route.params.subscribe(params => {
-      const term = params.input;
-      this.searchTerm = term;
-      this.tabLink = params.tab;
-    });
+    // Get preselected filters from filterService
+    this.preSelection = [];
+    const filters = this.filterService.currentFilters;
+    Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
 
-    // Subscribe to query parameters and get data
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.sortMethod = params.sort;
-      this.page = params.page;
-      this.filters = [params.year, params.major, params.field];
-      // Pre select filters by url parameters
-      if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
-    });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
@@ -180,8 +158,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngOnDestroy() {
-    this.input.unsubscribe();
-    this.queryParams.unsubscribe();
     this.resizeSub.unsubscribe();
   }
 

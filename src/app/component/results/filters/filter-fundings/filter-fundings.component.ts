@@ -7,13 +7,11 @@
 
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SearchService } from '../../../../services/search.service';
+import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-filter-fundings',
@@ -28,23 +26,18 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   sidebarOpen = false;
   width = window.innerWidth;
   mobile = this.width < 992;
-  @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
-  @ViewChild('selectedFilters') selectedFilters: MatSelectionList;
+  @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  @ViewChild('selectedStatus') selectedStatus: MatSelectionList;
   preSelection: any;
-  tabLink: any;
-  searchTerm: any;
-  filters: any;
-  filterArray: any [];
 
-  private searchTermSub: Subscription;
   private resizeSub: Subscription;
   yearFilters: any[];
   statusFilter: any[];
   combinedFilters: any;
 
-  constructor( private router: Router, private searchService: SearchService,
-               private resizeService: ResizeService, private filterService: FilterService, private sortService: SortService ) { }
+  constructor( private router: Router, private filterService: FilterService,
+               private resizeService: ResizeService, private sortService: SortService ) { }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -67,35 +60,28 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChange() {
-    const sortMethod = this.sortService.sortMethod;
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: sortMethod, year: this.yearFilters, status: this.statusFilter } });
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, status: this.statusFilter } });
   }
 
   getSelected() {
-    this.statusFilter = this.selectedFilters.selectedOptions.selected.map(s => s.value);
+    this.statusFilter = this.selectedStatus.selectedOptions.selected.map(s => s.value);
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
     this.combinedFilters = this.statusFilter.concat(this.yearFilters);
     return this.combinedFilters;
   }
 
   ngOnInit() {
-    // Fetch data with subscriptions
-    this.searchTermSub = this.searchService.currentInput.subscribe(term => this.searchTerm = term);
-
     // Get preselected filters from filterService
     this.preSelection = [];
     const filters = this.filterService.currentFilters;
     Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
-
-
   }
 
   ngOnDestroy() {
-    this.searchTermSub.unsubscribe();
     this.resizeSub.unsubscribe();
   }
 

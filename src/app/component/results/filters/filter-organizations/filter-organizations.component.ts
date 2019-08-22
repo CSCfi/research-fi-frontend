@@ -7,18 +7,18 @@
 
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SearchService } from '../../../../services/search.service';
+import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-filter-organizations',
   templateUrl: './filter-organizations.component.html',
   styleUrls: ['./filter-organizations.component.scss']
 })
-export class FilterOrganizationsComponent implements OnInit {
+export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   @Input() responseData: any [];
   @Input() tabData: string;
   panelOpenState: boolean;
@@ -29,17 +29,10 @@ export class FilterOrganizationsComponent implements OnInit {
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;
-  tabLink: any;
-  searchTerm: any;
-  sortMethod: any;
-  page: any;
-  filters: any;
 
-  private input: Subscription;
-  private queryParams: Subscription;
   private resizeSub: Subscription;
 
-  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
+  constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, private sortService: SortService ) { }
 
   toggleSidebar() {
@@ -63,14 +56,8 @@ export class FilterOrganizationsComponent implements OnInit {
   }
 
   onSelectionChange() {
-    this.sortMethod = this.sortService.sortMethod;
-    // If searchTerm is undefined, route doesn't work
-    if (this.searchTerm === undefined) {
-      this.searchTerm = '';
-    }
-
-    this.router.navigate(['results/', this.tabLink, this.searchTerm],
-    { queryParams: { page: 1, sort: this.sortMethod, filter: this.getSelected() } });
+    this.router.navigate([],
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.getSelected() } });
   }
 
   getSelected() {
@@ -78,29 +65,15 @@ export class FilterOrganizationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Subscribe to route parameters parameter
-    this.input = this.route.params.subscribe(params => {
-      const term = params.input;
-      this.searchTerm = term;
-      this.tabLink = params.tab;
-    });
+    // Get preselected filters from filterService
+    this.preSelection = [];
+    const filters = this.filterService.currentFilters;
+    Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
 
-    // Subscribe to query parameters and get data
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.sortMethod = params.sort;
-      this.page = params.page;
-      this.filters = params.filter;
-      // Pre select filters by url parameters
-      if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
-    });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
-
-
   }
 
   ngOnDestroy() {
-    this.input.unsubscribe();
-    this.queryParams.unsubscribe();
     this.resizeSub.unsubscribe();
   }
 

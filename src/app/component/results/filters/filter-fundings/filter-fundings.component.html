@@ -20,7 +20,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="scrollable">
-            <mat-selection-list #selectedFilters (selectionChange)="onSelectionChange()">
+            <mat-selection-list #selectedStatus (selectionChange)="onSelectionChange()">
                 <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
                     <span class="label">Käynnissä</span>
                     <!-- <span class="amount"></span> -->
