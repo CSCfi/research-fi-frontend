@@ -9,7 +9,6 @@
 
     app-filter-fundings, app-filter-organizations, app-filter-publications, app-filter-persons {
 
-
         // Filter sidebar
         .filter-sidebar {
             display: block;
@@ -90,6 +89,11 @@
             margin-top: -22px;
             max-height: 344px;
             overflow-y: auto;
+        }
+
+        // Hide fields
+        .hidden {
+            display: none;
         }
 
         // Filter button
