@@ -68,7 +68,7 @@ node {
     stage('Add production environment file') {
       def build_info = "${env.BUILD_TIMESTAMP} ${git_commit_hash}"
 
-      sh "sed 's/<API_HOST>/${api_host}/g;s/<BUILD_INFO>/${build_info}/g' src/environments/environment.prod.ts > src/environments/environment.researchfi.prod.ts"
+      sh "sed 's|<API_HOST>|${api_host}|g;s|<BUILD_INFO>|${build_info}|g' src/environments/environment.prod.ts > src/environments/environment.researchfi.prod.ts"
       sh 'ls -l src/environments'
       sh 'cat src/environments/environment.researchfi.prod.ts'  
     }
