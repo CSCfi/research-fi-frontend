@@ -4,12 +4,12 @@
  :license: MIT -->
 
 <!-- Active filters -->
-<div class="row active-filters" *ngIf="activeFilters.length > 0">
+<div class="row active-filters" *ngIf="activeFilters.length > 0">   
   <h5>Rajaukset:</h5>
-      <ul>
-        <div class="filter" *ngFor="let activeFilter of activeFilters">
-          <li (click)="removeFilter($event)" id="{{activeFilter.value}}">{{activeFilter.translation}}</li>
-        </div>
-      </ul>
-
+  <ul>
+      <button class="clear" mat-flat-button color="primary" (click)="clearFilters()">Tyhjennä rajaukset</button>
+    <div class="filter" *ngFor="let activeFilter of activeFilters">
+      <li (click)="removeFilter($event)" id="{{activeFilter.value}}">{{activeFilter.translation}}</li>
+    </div>
+  </ul>
 </div>

@@ -36,7 +36,6 @@ export class SortService {
   }
 
   private updateSortParam(sort: string, tab: string) {
-    console.log('sort updateSortForTab()', tab);
     this.currentTab = tab;
     this.sortMethod = sort;
     switch (this.currentTab) {

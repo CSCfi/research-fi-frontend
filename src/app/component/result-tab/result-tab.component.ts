@@ -38,7 +38,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
    }
 
   ngOnInit() {
-    console.log('resultTab ngOnInit()');
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
