@@ -15,31 +15,43 @@ export class SortService {
   sortMethod: string;
   requestCheck: boolean;
   sort: any;
-  currentTab: any;
+  currentTab: string;
   sortField: string;
 
   constructor() { }
 
   // Get sort method
-  getSortMethod(sortBy: string) {
+  updateSort(sortBy: string) {
     this.sortMethod = sortBy;
-    this.getCurrentTab(this.currentTab);
+    this.updateSortParam(this.sortMethod, this.currentTab);
   }
 
-  getCurrentTab(tab: string) {
-    console.log('sort getCurrentTab()', tab);
+  updateTab(tab: string) {
     this.currentTab = tab;
-    switch (tab) {
+    this.updateSortParam(this.sortMethod, this.currentTab);
+  }
+
+  updateSortAndTab(sort: string, tab: string) {
+    this.sortMethod = sort;
+    this.currentTab = tab;
+    this.updateSortParam(this.sortMethod, this.currentTab);
+  }
+
+  private updateSortParam(sort: string, tab: string) {
+    console.log('sort updateSortForTab()', tab);
+    this.currentTab = tab;
+    this.sortMethod = sort;
+    switch (this.currentTab) {
       case 'publications': {
         this.sortField = 'publicationYear';
 
         switch (this.sortMethod) {
           case 'desc': {
-            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
           case 'asc': {
-            this.sort = [{publicationYear: {order: this.sortMethod, unmapped_type : 'long'}}];
+            this.sort = [{publicationYear: {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'name': {
@@ -90,6 +102,7 @@ export class SortService {
         }
       }
     }
+    return this.sort;
   }
 
 }

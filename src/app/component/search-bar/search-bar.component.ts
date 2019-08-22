@@ -45,7 +45,7 @@ export class SearchBarComponent implements OnInit {
       this.searchService.changeInput(this.publicationSearchInput.nativeElement.value);
       this.router.navigateByUrl('/publications', {skipLocationChange: true}).then(() =>
       this.router.navigate(['results/', 'publications', this.publicationSearchInput.nativeElement.value], { queryParams: { page: 1 } }));
-      this.searchService.getInput(this.publicationSearchInput.nativeElement.value);
+      this.searchService.updateInput(this.publicationSearchInput.nativeElement.value);
       this.searchService.onSearchButtonClick();
     }
 

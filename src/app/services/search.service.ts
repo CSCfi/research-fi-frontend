@@ -18,15 +18,12 @@ const API_URL = environment.apiUrl;
 
 @Injectable()
 export class SearchService {
-  public inputSource = new BehaviorSubject('');
+  private inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
   invokeGetData = new EventEmitter();
-  getInput$: Observable<any>;
-  private getInputSubject = new Subject<any>();
-  singleInput: any;
-  pageNumber: any;
-  fromPage: any;
-  input: any;
+  singleInput: string;
+  pageNumber: number;
+  fromPage: number;
   apiUrl = API_URL;
 
   private totalResults = new BehaviorSubject(undefined);
@@ -34,13 +31,12 @@ export class SearchService {
 
   constructor(private http: HttpClient , private sortService: SortService,
               private filterService: FilterService) {
-    this.getInput$ = this.getInputSubject.asObservable();
   }
 
   // Get input value from url
-  getInput(searchTerm: string) {
+  updateInput(searchTerm: string) {
     this.singleInput = searchTerm;
-    this.getInputSubject.next(searchTerm);
+    this.inputSource.next(searchTerm);
   }
 
   onSearchButtonClick() {
@@ -53,10 +49,8 @@ export class SearchService {
   }
 
   // Fetch page number from results page
-  getPageNumber(searchTerm: number) {
-    this.getInputSubject.next(searchTerm);
-    this.pageNumber++;
-    this.pageNumber = searchTerm;
+  getPageNumber(pageNumber: number) {
+    this.pageNumber = pageNumber;
     this.fromPage = this.pageNumber * 10 - 10;
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
       this.fromPage = 0;

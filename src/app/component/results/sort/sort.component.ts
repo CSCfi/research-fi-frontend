@@ -62,7 +62,7 @@ export class SortComponent implements OnInit, OnDestroy {
 
   // Send value to service and rewrite url
   orderBy(): void {
-    this.sortService.getSortMethod(this.sortBy);
+    this.sortService.updateSort(this.sortBy);
     this.navigate();
   }
 

@@ -46,7 +46,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef ) {
     this.searchTerm = this.route.snapshot.params.input;
-    this.searchService.getInput(this.searchTerm);
+    this.searchService.updateInput(this.searchTerm);
   }
 
   public setTitle(newTitle: string) {
@@ -67,7 +67,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                       field: [params.field].flat().filter(x => x)};
 
       this.filterService.updateFilters(this.filters);
-      this.sortService.getSortMethod(params.sort);
+      this.sortService.updateSort(params.sort);
       this.searchService.getPageNumber(this.page);
       this.updateFilters = !this.updateFilters;
     });
@@ -84,7 +84,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (previousTab !== this.tab) {
         this.selectedTabData = this.tabData.filter(tab => tab.link === this.tab)[0];
         this.updateTitle(this.selectedTabData);
-        this.sortService.getCurrentTab(this.selectedTabData.data);
+        this.sortService.updateTab(this.selectedTabData.data);
         this.filterService.updateFilters(this.filters);
         this.tabChangeService.changeTab(this.selectedTabData);
       }
