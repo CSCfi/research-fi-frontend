@@ -46,7 +46,8 @@ export class SinglePublicationComponent implements OnInit {
     {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode'}
   ];
   linksFields = [
-    {label: 'Juuli', field: 'juuliAddress'}
+    {label: 'DOI', field: 'doiHandle'},
+    {label: 'Rinnakkaistallennus', field: 'greenOpenAccessAddress'},
   ];
   otherFields  = [
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
