@@ -10,12 +10,6 @@
     padding-top: 1rem;
 }
 
-button.clear {
-    padding: 3px 10px;
-    border-radius: 10px;
-    margin: 0px 10px 0 0;
-}
-
 .active-filters h5 {
     padding: 0 1rem 0 0;
 }
@@ -30,8 +24,9 @@ button.clear {
     margin: 0px 10px 0 0;
 }
 
-.active-filters li {
+.active-filters li, button.clear {
     padding: 5px 10px;
+    margin: 2px;
     border-radius: 10px;
     cursor: pointer;
 }
