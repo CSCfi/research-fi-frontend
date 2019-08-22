@@ -17,6 +17,7 @@ export class FilterService {
   majorFieldFilter: any;
   fieldFilter: any;
   statusFilter: object;
+  currentFilters: any;
   today: string;
 
   private filterSource = new BehaviorSubject({year: [], status: [], field: []});
@@ -24,6 +25,7 @@ export class FilterService {
 
   updateFilters(filters: {year: any[], status: any[], field: any[]}) {
     // Create new filters first before sending updated values to components
+    this.currentFilters = filters;
     this.createFilters(filters);
     this.filterSource.next(filters);
   }

@@ -42,7 +42,7 @@
         <div class="scrollable">
             <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()">
                 <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations._index.buckets.fundings.years.buckets" 
-                [value]="year.key" [selected]="preSelection.indexOf(year.key) > -1">
+                [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
                     <span class="label">{{year.key}}</span>
                     <!-- <span class="amount">{{year.doc_count}}</span> -->
                 </mat-list-option>

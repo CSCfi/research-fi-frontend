@@ -34,19 +34,16 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   preSelection: any;
   tabLink: any;
   searchTerm: any;
-  sortMethod: any;
-  page: any;
   filters: any;
   filterArray: any [];
 
-  private input: Subscription;
-  private queryParams: Subscription;
+  private searchTermSub: Subscription;
   private resizeSub: Subscription;
   yearFilters: any[];
   statusFilter: any[];
   combinedFilters: any;
 
-  constructor( private router: Router, private route: ActivatedRoute, private searchService: SearchService,
+  constructor( private router: Router, private searchService: SearchService,
                private resizeService: ResizeService, private filterService: FilterService, private sortService: SortService ) { }
 
   toggleSidebar() {
@@ -70,10 +67,10 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChange() {
-    this.sortMethod = this.sortService.sortMethod;
+    const sortMethod = this.sortService.sortMethod;
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortMethod, year: this.yearFilters, status: this.statusFilter } });
+    { queryParams: { page: 1, sort: sortMethod, year: this.yearFilters, status: this.statusFilter } });
   }
 
   getSelected() {
@@ -84,29 +81,21 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Subscribe to route parameters
-    this.input = this.route.params.subscribe(params => {
-      const term = params.input;
-      this.searchTerm = term;
-      this.tabLink = params.tab;
-    });
+    // Fetch data with subscriptions
+    this.searchTermSub = this.searchService.currentInput.subscribe(term => this.searchTerm = term);
 
-    // Subscribe to query parameters and get data
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      this.sortMethod = params.sort;
-      this.page = params.page;
-      this.filters = [params.year, params.status];
-      // Pre select filters by url parameters
-      if (this.filters !== undefined) {this.preSelection = JSON.stringify(this.filters); } else {this.preSelection = []; }
-    });
+    // Get preselected filters from filterService
+    this.preSelection = [];
+    const filters = this.filterService.currentFilters;
+    Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
 
 
   }
 
   ngOnDestroy() {
-    this.input.unsubscribe();
-    this.queryParams.unsubscribe();
+    this.searchTermSub.unsubscribe();
     this.resizeSub.unsubscribe();
   }
 
