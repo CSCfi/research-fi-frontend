@@ -107,4 +107,4 @@ objects:
 # Template parameters
 parameters:
 - name: API_HOST
-  description: Address of the API host, for example 'myhostname.csc.fi:8888'
+  description: Address of the API host including http:// or https://, for example 'https://myhostname.csc.fi:8888'
