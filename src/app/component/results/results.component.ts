@@ -38,8 +38,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   filters: {year: any[], status: any[], field: any[]};
   mobile: boolean;
   updateFilters: boolean;
-  total: any;
-  totalSub: any;
+  total: number;
+  totalSub: Subscription;
+  currentQueryParams: any;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -53,6 +54,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+
     // Subscribe to queryParams and send to search service
     this.queryParams = this.route.queryParams.subscribe(params => {
       // Defaults to 1 if no query param provided.
@@ -64,11 +66,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.filterService.updateFilters(this.filters);
       this.sortService.updateSort(params.sort);
-      this.searchService.getPageNumber(this.page);
+      this.searchService.updatePageNumber(this.page);
+      this.tabChangeService.changeTab(this.tabData.filter(tab => this.route.snapshot.params.tab === tab.link)[0]);
+      this.searchService.updateQueryParams(params);
       // Flag telling search-results to fetch new filtered data
       this.updateFilters = !this.updateFilters;
     });
-
 
     // Subscribe to route parameters, works with browser back & forward buttons
     this.input = this.route.params.subscribe(params => {

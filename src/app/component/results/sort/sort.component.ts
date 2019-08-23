@@ -19,7 +19,7 @@ export class SortComponent implements OnInit, OnDestroy {
   tabLink: string;
   tabFields: any;
   sortBy: string;
-  queryParams: any;
+  tabSub: any;
 
   // Assign values to dropdown list by current tab
   publicationFields = [
@@ -44,7 +44,7 @@ export class SortComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Subscribe to current tab parameter
-    this.queryParams = this.tabChangeService.currentTab.subscribe(tab => {
+    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       switch (tab.link) {
         case 'publications': {
           this.tabFields = this.publicationFields;
@@ -77,7 +77,7 @@ export class SortComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
+    this.tabSub.unsubscribe();
   }
 
 }

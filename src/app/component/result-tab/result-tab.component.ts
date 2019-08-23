@@ -3,6 +3,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from 'src/app/services/resize.service';
+import { UrlSerializer, Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   selectedTab: string;
   searchTerm: string;
   // This is used to keep track of filters in different tabs
-  queryParamString: string;
+  queryParams: any = {};
   myOps = {
     duration: 0.5
   };
@@ -32,26 +33,26 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   tabData = this.tabChangeService.tabData;
 
   private tabSub: Subscription;
-  private searchTermSub: Subscription;
+  private queryParamSub: Subscription;
   private resizeSub: Subscription;
 
-  constructor(private tabChangeService: TabChangeService,
-              private resizeService: ResizeService, private searchService: SearchService) {
+  constructor(private tabChangeService: TabChangeService, private serializer: UrlSerializer,
+              private resizeService: ResizeService, private searchService: SearchService, private router: Router) {
    }
 
   ngOnInit() {
+    Object.values(this.tabData).forEach(tab => this.queryParams[tab.link] = {});
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
     });
 
-    // Subscribe to search term to update tab links
-    this.searchTermSub = this.searchService.currentInput.subscribe(term => {
-      this.searchTerm = term;
-    });
-
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
+
+    this.queryParamSub = this.searchService.currentQueryParams.subscribe(params => {
+        this.queryParams[this.selectedTab] = params;
+    });
     // Add the scroll handler, passive to improve performance
     window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
   }
@@ -59,7 +60,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scrollEvent);
     this.tabSub.unsubscribe();
-    this.searchTermSub.unsubscribe();
+    this.queryParamSub.unsubscribe();
     // this.resizeSub.unsubscribe();
   }
 

@@ -58,7 +58,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
 
   onSelectionChange() {
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.getSelected() } });
+    { queryParams: { sort: this.sortService.sortMethod, year: this.getSelected() } });
   }
 
   getSelected() {

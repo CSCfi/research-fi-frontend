@@ -78,7 +78,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
+    { queryParams: { sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
   }
 
   selectAll(event, i) {
