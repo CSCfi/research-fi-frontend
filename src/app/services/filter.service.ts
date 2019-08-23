@@ -17,13 +17,14 @@ export class FilterService {
   majorFieldFilter: any;
   fieldFilter: any;
   statusFilter: object;
+  internationalCollaborationFilter: any;
   currentFilters: any;
   today: string;
 
-  private filterSource = new BehaviorSubject({year: [], status: [], field: []});
+  private filterSource = new BehaviorSubject({year: [], status: [], field: [], internationalCollaboration: []});
   filters = this.filterSource.asObservable();
 
-  updateFilters(filters: {year: any[], status: any[], field: any[]}) {
+  updateFilters(filters: {year: any[], status: any[], field: any[], internationalCollaboration: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -38,6 +39,7 @@ export class FilterService {
     this.statusFilter = this.filterByStatus(filter.status);
     this.majorFieldFilter = this.filterByMajorFieldOfScience(filter.major);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
+    this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
   }
 
   filterByYear(filter: any) {
@@ -63,6 +65,13 @@ export class FilterService {
 
   filterByMajorFieldOfScience(field: any) {
 
+  }
+
+  filterByInternationalCollaboration(status: any) {
+    if (status.length > 0) {
+      console.log(JSON.parse(status));
+      return { term: { internationalCollaboration: true }	};
+    } else { return { exists: { field: 'internationalCollaboration' }	}; }
   }
 
   filterByFieldOfScience(field: any) {
@@ -104,7 +113,8 @@ export class FilterService {
             ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
-            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter)
+            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter),
+            ...(this.internationalCollaborationFilter.length ? { bool: { should: this.internationalCollaborationFilter } } : this.internationalCollaborationFilter)
           ],
         }
     };
