@@ -17,6 +17,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   errorMessage: any [];
   selectedTab: string;
   searchTerm: string;
+  queryParamString: string;
   myOps = {
     duration: 0.5
   };
