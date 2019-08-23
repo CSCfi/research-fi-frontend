@@ -110,10 +110,10 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
+            ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
-            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter),
-            ...(this.internationalCollaborationFilter.length ? { bool: { should: this.internationalCollaborationFilter } } : this.internationalCollaborationFilter)
+            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter)
           ],
         }
     };
