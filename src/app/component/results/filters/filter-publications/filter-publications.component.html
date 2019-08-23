@@ -121,7 +121,7 @@
         </mat-expansion-panel-header>
     </mat-expansion-panel>
 
-    <div class="single-checkbox">
+    <div class="single-checkbox" *ngIf="response.aggregations._index.buckets.publications.internationalCollaboration.buckets[1]">
         <mat-checkbox labelPosition="before" [checked]="internationalCollab" (change)="singleSelect($event)">Kansainvälinen yhteisjulkaisu</mat-checkbox>
     </div>
 </div>
