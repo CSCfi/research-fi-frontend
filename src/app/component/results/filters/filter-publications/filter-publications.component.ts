@@ -29,6 +29,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
+  @ViewChild('selectedOpenaccess') selectedOpenaccess: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection = [];
 
@@ -116,6 +117,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   getSelected() {
+    // If international collaboration is false, prevent param initalization
+    if(!this.internationalCollab) {this.internationalCollab = null; }
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
 
     // Get minor fields of science from multiple selection lists
@@ -139,7 +142,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       const filters = this.filterService.currentFilters;
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
       // Set international collaboration checked if true
-      console.log(filterSub.internationalCollaboration);
       if (filterSub.internationalCollaboration.length > 0 && filterSub.internationalCollaboration[0] === 'true') {
         this.internationalCollab = true; } else {this.internationalCollab = false; }
     });
