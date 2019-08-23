@@ -45,6 +45,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.selectedTab = tab.link;
     });
 
+    // Subscribe to search term to update tab links
     this.searchTermSub = this.searchService.currentInput.subscribe(term => {
       this.searchTerm = term;
     });
