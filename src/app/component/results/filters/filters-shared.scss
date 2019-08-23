@@ -105,6 +105,14 @@
             height: 100%;
         }
 
+        .single-checkbox label.mat-checkbox-layout {
+            margin: 0;
+        }
+
+        .single-checkbox span.mat-checkbox-label {
+            margin-left: 25px;
+        }
+
         // Hide fields
         .hidden {
             display: none;
