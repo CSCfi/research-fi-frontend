@@ -137,6 +137,12 @@ export class SearchService {
                   }
                 }
               }
+            },
+            internationalCollaboration: {
+              terms: {
+                field: 'internationalCollaboration',
+                size: 2
+              }
             }
           }
         }
