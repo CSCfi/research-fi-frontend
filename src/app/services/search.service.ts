@@ -143,6 +143,11 @@ export class SearchService {
                 field: 'internationalCollaboration',
                 size: 2
               }
+            },
+            openAccess: {
+              terms: {
+                field: 'openAccessCode.keyword'
+              }
             }
           }
         }
