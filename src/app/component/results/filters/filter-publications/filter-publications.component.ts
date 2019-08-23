@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList, 
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
          ChangeDetectorRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
@@ -47,10 +47,21 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     {fieldId: 6, field: 'Humanistiset tieteet', checked: false},
     {fieldId: 9, field: 'Muut tieteet', checked: false}
   ];
+
+  publicationClass = [
+    {id: 1, class: 'A'},
+    {id: 2, class: 'B'},
+    {id: 3, class: 'C'},
+    {id: 4, class: 'D'},
+    {id: 5, class: 'G'},
+    {id: 6, class: 'F'}
+  ];
+
   mappedFieldsofScience: any;
   combinedFields: any[];
   mergedFields: any;
   filterSub: Subscription;
+  internationalCollab: boolean;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) { }
@@ -78,9 +89,11 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter,
+      internationalCollaboration: this.internationalCollab } });
   }
 
+  // Select all from major
   selectAll(event, i) {
     const major = this.selectedFields.toArray();
     switch (event.checked) {
@@ -93,6 +106,12 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         break;
       }
     }
+    this.onSelectionChange();
+  }
+
+  // Single checkbox
+  singleSelect(event) {
+    if (event.checked) {this.internationalCollab = true; } else {this.internationalCollab = null; }
     this.onSelectionChange();
   }
 
@@ -114,11 +133,15 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   ngOnInit() {
     // Subscribe to filter service filters
-    this.filterSub = this.filterService.filters.subscribe(subFilter => {
-     // Get preselected filters from filterService
-     this.preSelection = [];
-     const filters = this.filterService.currentFilters;
-     Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+    this.filterSub = this.filterService.filters.subscribe(filterSub => {
+      // Get preselected filters from filterService
+      this.preSelection = [];
+      const filters = this.filterService.currentFilters;
+      Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+      // Set international collaboration checked if true
+      console.log(filterSub.internationalCollaboration);
+      if (filterSub.internationalCollaboration.length > 0 && filterSub.internationalCollaboration[0] === 'true') {
+        this.internationalCollab = true; } else {this.internationalCollab = false; }
     });
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));

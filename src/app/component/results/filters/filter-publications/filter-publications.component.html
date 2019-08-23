@@ -33,15 +33,6 @@
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <strong>Sektori</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
                 <strong>Organisaatio</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
@@ -114,4 +105,23 @@
         </mat-expansion-panel-header>
     </mat-expansion-panel>
 
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <strong>Julkaisufoorumitaso</strong>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <strong>Avoin saatavuus</strong>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <div class="single-checkbox">
+        <mat-checkbox labelPosition="before" [checked]="internationalCollab" (change)="singleSelect($event)">Kansainvälinen yhteisjulkaisu</mat-checkbox>
+    </div>
 </div>

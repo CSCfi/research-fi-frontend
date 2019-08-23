@@ -21,7 +21,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
 
   translations = {
     onGoing: 'Käynnissä',
-    ended: 'Päättynyt'
+    ended: 'Päättynyt',
+    true: 'Kansainvälinen yhteisjulkaisu'
   };
 
   constructor( private router: Router, private sortService: SortService,
