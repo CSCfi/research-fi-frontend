@@ -68,7 +68,7 @@ export class FilterService {
   }
 
   filterByInternationalCollaboration(status: any) {
-    if (status.length > 0) {
+    if (status.length > 0 && JSON.parse(status)) {
       return { term: { internationalCollaboration: true }	};
     } else { return { exists: { field: 'internationalCollaboration' }	}; }
   }
