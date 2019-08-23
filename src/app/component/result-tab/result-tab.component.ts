@@ -50,6 +50,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.searchTerm = term;
     });
 
+    // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
     // Add the scroll handler, passive to improve performance
     window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
