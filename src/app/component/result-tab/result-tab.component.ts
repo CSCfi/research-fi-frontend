@@ -34,14 +34,15 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   private tabSub: Subscription;
   private queryParamSub: Subscription;
+  private searchTermSub: Subscription;
   private resizeSub: Subscription;
 
-  constructor(private tabChangeService: TabChangeService, private serializer: UrlSerializer,
+  constructor(private tabChangeService: TabChangeService,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router) {
    }
 
   ngOnInit() {
-    Object.values(this.tabData).forEach(tab => this.queryParams[tab.link] = {});
+    this.resetQueryParams();
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
@@ -53,6 +54,10 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.queryParamSub = this.searchService.currentQueryParams.subscribe(params => {
         this.queryParams[this.selectedTab] = params;
     });
+
+    // Reset query params after search term change
+    this.searchTermSub = this.searchService.currentInput.subscribe(term => this.resetQueryParams());
+
     // Add the scroll handler, passive to improve performance
     window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
   }
@@ -61,7 +66,12 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     window.removeEventListener('scroll', this.scrollEvent);
     this.tabSub.unsubscribe();
     this.queryParamSub.unsubscribe();
+    this.searchTermSub.unsubscribe();
     // this.resizeSub.unsubscribe();
+  }
+
+  resetQueryParams() {
+    Object.values(this.tabData).forEach(tab => this.queryParams[tab.link] = {});
   }
 
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered

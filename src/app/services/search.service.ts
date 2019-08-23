@@ -13,6 +13,7 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
+import { TabChangeService } from './tab-change.service';
 
 const API_URL = environment.apiUrl;
 
@@ -33,7 +34,7 @@ export class SearchService {
   private querySource = new BehaviorSubject({});
   currentQueryParams = this.querySource.asObservable();
 
-  constructor(private http: HttpClient , private sortService: SortService,
+  constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService) {
   }
 
@@ -86,8 +87,8 @@ export class SearchService {
 
   getData() {
     const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
-                                                        this.sortService.sort, this.sortService.currentTab);
-    return this.http.post<Search[]>(this.apiUrl + this.sortService.currentTab.slice(0, -1) + '/_search?', payload)
+                                                        this.sortService.sort, this.tabChangeService.tab);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload)
     .pipe(catchError(this.handleError));
   }
 
