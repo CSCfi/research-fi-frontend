@@ -33,6 +33,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   preSelection = [];
 
   private resizeSub: Subscription;
+  private filterSub: Subscription;
   yearFilters: any[];
   fieldOfScienceFilter: any;
   fields: any;
@@ -50,7 +51,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mappedFieldsofScience: any;
   combinedFields: any[];
   mergedFields: any;
-  filterSub: Subscription;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) { }
@@ -114,10 +114,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   ngOnInit() {
     // Subscribe to filter service filters
-    this.filterSub = this.filterService.filters.subscribe(subFilter => {
+    this.filterSub = this.filterService.filters.subscribe(filters => {
      // Get preselected filters from filterService
      this.preSelection = [];
-     const filters = this.filterService.currentFilters;
      Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
     });
 
