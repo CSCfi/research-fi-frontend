@@ -26,6 +26,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     noaccessinfo: 'Ei vastausta',
     openAccess: 'Open access',
     hybridAccess: 'Hybridijulkaisu',
+    top: 'Korkein taso',
+    leading: 'Johtava taso',
+    basic: 'Perustaso',
+    others: 'Muut',
   };
 
   constructor( private router: Router, private sortService: SortService,
