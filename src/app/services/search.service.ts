@@ -146,7 +146,7 @@ export class SearchService {
             },
             openAccess: {
               terms: {
-                field: 'openAccessCode.keyword'
+                field: 'openAccessCode'
               }
             }
           }
