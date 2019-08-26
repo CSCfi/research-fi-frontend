@@ -17,6 +17,7 @@ export class FilterService {
   majorFieldFilter: any;
   fieldFilter: any;
   statusFilter: object;
+  openAccessFilter: any;
   internationalCollaborationFilter: any;
   currentFilters: any;
   today: string;
@@ -39,6 +40,7 @@ export class FilterService {
     this.statusFilter = this.filterByStatus(filter.status);
     this.majorFieldFilter = this.filterByMajorFieldOfScience(filter.major);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
+    this.openAccessFilter = this.filterByOpenAccess(filter.openAccess)
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
   }
 
@@ -65,6 +67,16 @@ export class FilterService {
 
   filterByMajorFieldOfScience(field: any) {
 
+  }
+
+  filterByOpenAccess(code) {
+    const res = [];
+    if (code.length === 0) {res.push({ exists : { field : 'openAccessCode' } }); }
+    if (code.includes('noAccessInfo')) {res.push({ term : { openAccessCode : 0 } },
+      { term : { openAccessCode : -1 } }, { term : { openAccessCode : 9 } }); }
+    if (code.includes('openAccess')) {res.push({ term : { openAccessCode : 1 } }); }
+    if (code.includes('hybridAccess')) {res.push({ term : { openAccessCode : 2 } }); }
+    return res;
   }
 
   filterByInternationalCollaboration(status: any) {
@@ -110,6 +122,7 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
+            ...(index === 'publication' ? (this.openAccessFilter.length ? { bool: { should: this.openAccessFilter } } : this.openAccessFilter) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
