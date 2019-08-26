@@ -64,7 +64,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             multicast(new Subject(), s => merge(s.pipe(take(1)),        // First call is instant, after that debounce
                                                 s.pipe(skip(1), debounceTime(1)))))
       .subscribe(results => {
-        console.log(results);
         const query = results.query;
         const params = results.params;
 
@@ -110,7 +109,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.updateFilters = !this.updateFilters;
 
         if (this.searchService.redirecting) { this.responseData = [this.searchService.resultData]; }
-        console.log(this.responseData);
         // Get number values on start and after changed search term
         if ((tabChanged || this.init) && !this.searchService.redirecting) {
           this.getAllData();
