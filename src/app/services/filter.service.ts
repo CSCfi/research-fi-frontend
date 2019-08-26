@@ -17,13 +17,15 @@ export class FilterService {
   majorFieldFilter: any;
   fieldFilter: any;
   statusFilter: object;
+  openAccessFilter: any;
+  internationalCollaborationFilter: any;
   currentFilters: any;
   today: string;
 
-  private filterSource = new BehaviorSubject({year: [], status: [], field: []});
+  private filterSource = new BehaviorSubject({year: [], status: [], field: [], internationalCollaboration: []});
   filters = this.filterSource.asObservable();
 
-  updateFilters(filters: {year: any[], status: any[], field: any[]}) {
+  updateFilters(filters: {year: any[], status: any[], field: any[], internationalCollaboration: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -38,6 +40,8 @@ export class FilterService {
     this.statusFilter = this.filterByStatus(filter.status);
     this.majorFieldFilter = this.filterByMajorFieldOfScience(filter.major);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
+    this.openAccessFilter = this.filterByOpenAccess(filter.openAccess)
+    this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
   }
 
   filterByYear(filter: any) {
@@ -63,6 +67,22 @@ export class FilterService {
 
   filterByMajorFieldOfScience(field: any) {
 
+  }
+
+  filterByOpenAccess(code) {
+    const res = [];
+    if (code.length === 0) {res.push({ exists : { field : 'openAccessCode' } }); }
+    if (code.includes('noAccessInfo')) {res.push({ term : { openAccessCode : 0 } },
+      { term : { openAccessCode : -1 } }, { term : { openAccessCode : 9 } }); }
+    if (code.includes('openAccess')) {res.push({ term : { openAccessCode : 1 } }); }
+    if (code.includes('hybridAccess')) {res.push({ term : { openAccessCode : 2 } }); }
+    return res;
+  }
+
+  filterByInternationalCollaboration(status: any) {
+    if (status.length > 0 && JSON.parse(status)) {
+      return { term: { internationalCollaboration: true }	};
+    } else { return { exists: { field: 'internationalCollaboration' }	}; }
   }
 
   filterByFieldOfScience(field: any) {
@@ -102,6 +122,8 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
+            ...(index === 'publication' ? (this.openAccessFilter.length ? { bool: { should: this.openAccessFilter } } : this.openAccessFilter) : []),
+            ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
             ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter)

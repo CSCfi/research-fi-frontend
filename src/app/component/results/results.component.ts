@@ -35,7 +35,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: Subscription;
-  filters: {year: any[], status: any[], field: any[]};
+  filters: {year: any[], status: any[], field: any[], openAccess: any[], internationalCollaboration: any[]};
   mobile: boolean;
   updateFilters: boolean;
   total: any;
@@ -60,7 +60,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       // filters is an object consisting of arrays, empty property arrays represent that no filter is enabled
       this.filters = {year: [params.year].flat().filter(x => x),
                       status: [params.status].flat().filter(x => x),
-                      field: [params.field].flat().filter(x => x)};
+                      field: [params.field].flat().filter(x => x),
+                      openAccess: [params.openAccess].flat().filter(x => x),
+                      internationalCollaboration: [params.internationalCollaboration].flat().filter(x => x)};
 
       this.filterService.updateFilters(this.filters);
       this.sortService.updateSort(params.sort);

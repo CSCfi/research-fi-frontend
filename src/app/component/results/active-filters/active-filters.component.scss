@@ -21,14 +21,15 @@
 
 .filter {
     display: inline-block;
-    margin: 0px 10px 0 0;
 }
 
 .active-filters li, button.clear {
     padding: 5px 10px;
-    margin: 2px;
+    margin: 0 4px 4px 0;
     border-radius: 10px;
+    line-height: 31px;
     cursor: pointer;
+    height: 43px;
 }
 
 .active-filters li:after {

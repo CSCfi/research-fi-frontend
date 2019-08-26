@@ -91,6 +91,28 @@
             overflow-y: auto;
         }
 
+        // Single checkbox
+        .single-checkbox {
+            height: 69px;
+            border-bottom: 1px solid #7879c2;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .single-checkbox .mat-checkbox {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .single-checkbox label.mat-checkbox-layout {
+            margin: 0;
+        }
+
+        .single-checkbox span.mat-checkbox-label {
+            margin-left: 25px;
+        }
+
         // Hide fields
         .hidden {
             display: none;

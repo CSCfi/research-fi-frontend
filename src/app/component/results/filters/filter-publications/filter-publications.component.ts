@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList, 
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
          ChangeDetectorRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
@@ -29,6 +29,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
+  @ViewChild('selectedOpenAccess') selectedOpenAccess: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection = [];
 
@@ -36,6 +37,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   private filterSub: Subscription;
   yearFilters: any[];
   fieldOfScienceFilter: any;
+  openAccessFilter: any;
   fields: any;
   filterTerm: string;
 
@@ -48,9 +50,21 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     {fieldId: 6, field: 'Humanistiset tieteet', checked: false},
     {fieldId: 9, field: 'Muut tieteet', checked: false}
   ];
+
+  publicationClass = [
+    {id: 1, class: 'A'},
+    {id: 2, class: 'B'},
+    {id: 3, class: 'C'},
+    {id: 4, class: 'D'},
+    {id: 5, class: 'G'},
+    {id: 6, class: 'F'}
+  ];
+
   mappedFieldsofScience: any;
   combinedFields: any[];
   mergedFields: any;
+  openAccessCodes: any[];
+  internationalCollab: boolean;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) { }
@@ -78,9 +92,11 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter } });
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter,
+      openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
   }
 
+  // Select all from major
   selectAll(event, i) {
     const major = this.selectedFields.toArray();
     switch (event.checked) {
@@ -96,8 +112,17 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.onSelectionChange();
   }
 
+  // Single checkbox
+  singleSelect(event) {
+    if (event.checked) {this.internationalCollab = true; } else {this.internationalCollab = null; }
+    this.onSelectionChange();
+  }
+
   getSelected() {
+    // If international collaboration is false, prevent param initalization
+    if (!this.internationalCollab) {this.internationalCollab = null; }
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
 
     // Get minor fields of science from multiple selection lists
     const mergedFields = [];
@@ -130,6 +155,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
     this.separateMinor(source);
+    this.openAccess();
     this.isChecked();
   }
 
@@ -165,6 +191,22 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       if (this.mappedFieldsofScience) {
         this.combinedFields.push(this.mappedFieldsofScience.filter(obj => obj.id.toString().charAt(0).includes(i)));
       }
+    }
+  }
+
+  // Open access
+  openAccess() {
+    const combined = [];
+    // Get aggregation from response
+    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.openAccess.buckets : [];
+    if (source && source .length > 0) {
+      source.forEach(val => combined.push(val.key));
+      this.openAccessCodes = [];
+      // Check for matching access codes. -1 & 9 are fallbacks from old data
+      if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {this.openAccessCodes.push(
+        {key: 0, label: 'Ei vastausta', value: 'noAccessInfo'}); }
+      if (combined.includes(1)) {this.openAccessCodes.push({key: 1, label: 'Open access', value: 'openAccess'}); }
+      if (combined.includes(2)) {this.openAccessCodes.push({key: 2, label: 'Hybridijulkaisu', value: 'hybridAccess'}); }
     }
   }
 
