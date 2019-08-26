@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, AfterViewInit } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { UrlSerializer, Router } from '@angular/router';
   templateUrl: './result-tab.component.html',
   styleUrls: ['./result-tab.component.scss']
 })
-export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
+export class ResultTabComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('scroll') ref: QueryList<any>;
   @Input() allData: any;
 
@@ -76,7 +76,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
-  ngOnChanges() {
+  ngAfterViewInit() {
     if (this.allData) {
       this.ref.changes.subscribe((result) => {
         this.scroll = result.first;

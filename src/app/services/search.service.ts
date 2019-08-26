@@ -24,6 +24,10 @@ export class SearchService {
   fromPage: number;
   apiUrl = API_URL;
 
+  // Variables to help with search term redirections
+  resultData: any;
+  redirecting = false;
+
   private inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
 
@@ -32,9 +36,6 @@ export class SearchService {
 
   private querySource = new BehaviorSubject({});
   currentQueryParams = this.querySource.asObservable();
-
-  private redirectSource = new Subject();
-  redirectFlag = this.redirectSource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService) {
@@ -51,10 +52,6 @@ export class SearchService {
 
   updateQueryParams(params: any) {
     this.querySource.next(params);
-  }
-
-  fireRedirect(input: string) {
-    this.redirectSource.next(input);
   }
 
   onSearchButtonClick() {

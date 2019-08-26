@@ -31,8 +31,20 @@ export class SearchBarComponent implements OnInit {
     newInput() {
       this.sortService.sortMethod = 'desc';
       this.searchService.updateInput(this.publicationSearchInput.nativeElement.value);
-      this.searchService.onSearchButtonClick();
-      this.searchService.fireRedirect(this.searchService.singleInput);
+      this.searchService.updatePageNumber(1);
+
+      this.searchService.getAllResults().subscribe((data: any) => {
+        this.searchService.resultData = data;
+        this.searchService.redirecting = true;
+        // Reduce buckets to the one with the most results
+        const buckets = data.aggregations._index.buckets;
+        const mostHits = Object.keys(buckets).reduce((best, index) => {
+          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
+          return best;
+        }, {tab: 'publications', hits: 0});
+        // Redirect to tab with most results
+        this.router.navigate(['results/', mostHits.tab, this.searchService.singleInput || '']);
+      });
     }
 
 }

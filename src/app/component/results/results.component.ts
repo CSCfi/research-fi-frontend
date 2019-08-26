@@ -39,13 +39,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   updateFilters: boolean;
   total: number | string;
   currentQueryParams: any;
-  redirecting = false;
   init = true;
 
   totalSub: Subscription;
   queryParams: Subscription;
   combinedRouteParams: Subscription;
-  redirectSub: Subscription;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -80,8 +78,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         const searchTermChanged = this.searchTerm !== (params.input || '');
 
         this.searchTerm = params.input || '';
-        this.tab = params.tab;
-        this.selectedTabData = this.tabData.filter(tab => tab.link === this.tab)[0];
+        this.selectedTabData = this.tabData.filter(tab => tab.link === params.tab)[0];
+        // Default to publications if invalid tab
+        if (!this.selectedTabData) {
+          this.router.navigate(['results/publications']);
+          return;
+        }
+
+        this.tab = this.selectedTabData.link;
 
         if (tabChanged) {
           this.tabChangeService.changeTab(this.selectedTabData);
@@ -105,17 +109,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Flag telling search-results to fetch new filtered data
         this.updateFilters = !this.updateFilters;
 
+        if (this.searchService.redirecting) { this.responseData = [this.searchService.resultData]; }
+        console.log(this.responseData);
         // Get number values on start and after changed search term
-        if ((searchTermChanged || this.init) && !this.redirecting) {
+        if ((tabChanged || this.init) && !this.searchService.redirecting) {
           this.getAllData();
         }
         this.init = false;
-        this.redirecting = false;
       });
-
-    this.redirectSub = this.searchService.redirectFlag.subscribe(input => {
-      this.redirectTab(input);
-    });
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
@@ -136,23 +137,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   navigateToVisualisation() {
     this.router.navigate(['visual/', this.route.snapshot.params.tab, this.searchTerm],
     {queryParams: this.filters});
-  }
-
-  redirectTab(input) {
-    this.searchService.getAllResults()
-      .pipe(map(data => [data]))
-      .subscribe(responseData => {
-        this.responseData = responseData;
-        this.redirecting = true;
-        // Reduce buckets to the one with the most results
-        const buckets = this.responseData[0].aggregations._index.buckets;
-        const mostHits = Object.keys(buckets).reduce((best, index) => {
-          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
-          return best;
-        }, {tab: 'publications', hits: 0});
-        // Redirect to tab with most results
-        this.router.navigate(['results/', mostHits.tab, input || '']);
-      });
   }
 
   getAllData() {

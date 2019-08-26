@@ -16,7 +16,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div class="row">
         <app-result-tab style="width:100%" [allData]="responseData"></app-result-tab>
         <!-- Breadcrumb for demo purposes -->
-        <div class="row breadcrumbs">
+        <div *ngIf="selectedTabData" class="row breadcrumbs">
             <div class="col">
                 <span class="arrow">Haku</span><span class="bold">{{selectedTabData.label}}</span>
             </div>
