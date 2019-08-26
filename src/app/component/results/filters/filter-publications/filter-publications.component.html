@@ -111,6 +111,24 @@
                 <strong>Julkaisufoorumitaso</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
+        <div class="scrollable">
+            <mat-selection-list #selectedJuFo (selectionChange)="onSelectionChange()">
+                <div *ngFor="let code of response.aggregations._index.buckets.publications.juFo.buckets">
+                    <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'top'" [selected]="preSelection.indexOf(''+'top') > -1">
+                        <span class="label">{{code.key}} - Korkein taso</span>
+                    </mat-list-option>
+                    <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'leading'" [selected]="preSelection.indexOf(''+'leading') > -1">
+                        <span class="label">{{code.key}} - Johtava taso</span>
+                    </mat-list-option>
+                    <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'basic'" [selected]="preSelection.indexOf(''+'basic') > -1">
+                        <span class="label">{{code.key}} - Perustaso</span>
+                    </mat-list-option>
+                    <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'others'" [selected]="preSelection.indexOf(''+'others') > -1">
+                        <span class="label">{{code.key}} - Muut</span>
+                    </mat-list-option>
+                </div>
+            </mat-selection-list>    
+        </div>
     </mat-expansion-panel>
 
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
