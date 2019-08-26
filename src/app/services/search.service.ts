@@ -28,7 +28,7 @@ export class SearchService {
   resultData: any;
   redirecting = false;
 
-  private inputSource = new Subject();
+  private inputSource = new Subject<string>();
   currentInput = this.inputSource.asObservable();
 
   private totalSource = new Subject<number | string>();
