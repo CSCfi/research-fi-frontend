@@ -108,7 +108,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Flag telling search-results to fetch new filtered data
         this.updateFilters = !this.updateFilters;
 
-        if (this.searchService.redirecting) { this.responseData = [this.searchService.resultData]; }
         // Get number values on start and after changed tab or term
         if (searchTermChanged || tabChanged || this.init) {
           this.getAllData();

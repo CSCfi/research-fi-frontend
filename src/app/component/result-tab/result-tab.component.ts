@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { UrlSerializer, Router } from '@angular/router';
   templateUrl: './result-tab.component.html',
   styleUrls: ['./result-tab.component.scss']
 })
-export class ResultTabComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;
   @Input() allData: any;
 
@@ -52,7 +52,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, AfterViewInit {
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
 
     this.queryParamSub = this.searchService.currentQueryParams.subscribe(params => {
-        this.queryParams[this.selectedTab] = params;
+      this.queryParams[this.selectedTab] = params;
     });
 
     // Reset query params after search term change
@@ -76,7 +76,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
-  ngAfterViewInit() {
+  ngOnChanges() {
     if (this.allData) {
       this.ref.changes.subscribe((result) => {
         this.scroll = result.first;
