@@ -19,7 +19,6 @@ const API_URL = environment.apiUrl;
 
 @Injectable()
 export class SearchService {
-  invokeGetData = new EventEmitter();
   singleInput: string;
   pageNumber: number;
   fromPage: number;
@@ -28,11 +27,14 @@ export class SearchService {
   private inputSource = new BehaviorSubject('');
   currentInput = this.inputSource.asObservable();
 
-  private totalSource = new BehaviorSubject(undefined);
+  private totalSource = new Subject<number | string>();
   currentTotal = this.totalSource.asObservable();
 
   private querySource = new BehaviorSubject({});
   currentQueryParams = this.querySource.asObservable();
+
+  private redirectSource = new Subject();
+  redirectFlag = this.redirectSource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService) {
@@ -51,8 +53,11 @@ export class SearchService {
     this.querySource.next(params);
   }
 
+  fireRedirect(input: string) {
+    this.redirectSource.next(input);
+  }
+
   onSearchButtonClick() {
-    this.invokeGetData.emit();
     this.pageNumber = 1;
   }
 

@@ -20,26 +20,19 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 })
 export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
-    public searchTerm: any;
-    input: string;
-    tab: string;
 
     constructor( private searchService: SearchService, private tabChangeService: TabChangeService,
                  public router: Router, private route: ActivatedRoute, private sortService: SortService ) {
     }
 
-    ngOnInit() {
-      this.searchService.currentInput.subscribe(input => this.input = input);
-      this.tabChangeService.currentTab.subscribe(tab => this.tab = tab.link);
-    }
+    ngOnInit() { }
 
 
     newInput() {
-      this.tabChangeService.directToMostHits = true;
       this.sortService.sortMethod = 'desc';
       this.searchService.updateInput(this.publicationSearchInput.nativeElement.value);
-      this.router.navigate(['/results/publications', this.searchService.singleInput], { queryParams: { page: 1 } });
       this.searchService.onSearchButtonClick();
+      this.searchService.fireRedirect(this.searchService.singleInput);
     }
 
 }

@@ -19,8 +19,6 @@ export class TabChangeService {
   currentTab = this.tabSource.asObservable();
   tab: string;
 
-  directToMostHits = false;
-
   constructor() { }
 
   changeTab(tab: {data: string; label: string, link: string}) {

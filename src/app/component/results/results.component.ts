@@ -9,7 +9,7 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, Cha
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
-import { map, throttleTime, multicast, debounceTime, take, skip } from 'rxjs/operators';
+import { map, multicast, debounceTime, take, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -34,15 +34,18 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
-  queryParams: Subscription;
-  combinedRouteParams: Subscription;
   filters: {year: any[], status: any[], field: any[]};
   mobile: boolean;
   updateFilters: boolean;
-  total: number;
-  totalSub: Subscription;
+  total: number | string;
   currentQueryParams: any;
-  first = true;
+  redirecting = false;
+  init = true;
+
+  totalSub: Subscription;
+  queryParams: Subscription;
+  combinedRouteParams: Subscription;
+  redirectSub: Subscription;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -83,6 +86,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         if (tabChanged) {
           this.tabChangeService.changeTab(this.selectedTabData);
           this.sortService.updateTab(this.selectedTabData.data);
+          this.updateTitle(this.selectedTabData);
+
         }
 
         this.sortService.updateSort(query.sort);
@@ -101,13 +106,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.updateFilters = !this.updateFilters;
 
         // Get number values on start and after changed search term
-        if (searchTermChanged || this.first) {
+        if ((searchTermChanged || this.init) && !this.redirecting) {
           this.getAllData();
         }
-        this.first = false;
+        this.init = false;
+        this.redirecting = false;
       });
 
-
+    this.redirectSub = this.searchService.redirectFlag.subscribe(input => {
+      this.redirectTab(input);
+    });
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
@@ -130,6 +138,23 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     {queryParams: this.filters});
   }
 
+  redirectTab(input) {
+    this.searchService.getAllResults()
+      .pipe(map(data => [data]))
+      .subscribe(responseData => {
+        this.responseData = responseData;
+        this.redirecting = true;
+        // Reduce buckets to the one with the most results
+        const buckets = this.responseData[0].aggregations._index.buckets;
+        const mostHits = Object.keys(buckets).reduce((best, index) => {
+          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
+          return best;
+        }, {tab: 'publications', hits: 0});
+        // Redirect to tab with most results
+        this.router.navigate(['results/', mostHits.tab, input || '']);
+      });
+  }
+
   getAllData() {
     this.searchService.getAllResults()
     .pipe(map(responseData => [responseData]))
@@ -137,17 +162,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.responseData = responseData;
       // Set the title
       this.updateTitle(this.selectedTabData);
-      // Switch to the tab with the most results if flag is set (new search)
-      if (this.tabChangeService.directToMostHits) {
-        // Reduce buckets to the one with the most results
-        const buckets = this.responseData[0].aggregations._index.buckets;
-        const mostHits = Object.keys(buckets).reduce((best, index) => {
-          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
-          return best;
-        }, {tab: 'publications', hits: 0});
-        this.router.navigate(['results/', mostHits.tab, this.searchTerm || ''], {replaceUrl: true});
-        this.tabChangeService.directToMostHits = false;
-      }
     },
       error => this.errorMessage = error as any);
   }
