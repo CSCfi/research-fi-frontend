@@ -69,7 +69,7 @@ export class SearchService {
   }
 
   // Data for homepage values
-  getAll(): Observable<Search[]> {
+  getAllResultCount(): Observable<Search[]> {
     const payLoad = {
       size: 0,
       aggs: {
@@ -159,6 +159,11 @@ export class SearchService {
       (this.apiUrl + 'publication,person,funding,organization/_search?q=' + this.singleInput, payLoad)
       .pipe(catchError(this.handleError));
     }
+  }
+
+  getFilters(): Observable<Search[]> {
+    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab + '/_search?', payLoad).pipe(catchError(this.handleError));
   }
 
   // Error handling

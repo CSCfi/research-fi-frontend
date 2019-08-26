@@ -120,4 +120,61 @@ export class FilterService {
       sort: sortOrder
     };
   }
+
+  constructFilterPayload(tab: string) {
+    const payLoad: any = {
+      size: 0,
+      aggs: {
+        _index: {
+          aggs: { }
+        }
+      }
+    };
+    switch (tab) {
+      case 'publications':
+        payLoad.aggs._index.aggs.years = {
+          terms: {
+            field: 'publicationYear',
+            size: 50,
+            order : { _key : 'desc' }
+          }
+        };
+        payLoad.aggs._index.aggs.fieldsOfScience = {
+          terms: {
+            field: 'fields_of_science.nameFiScience.keyword',
+            size: 250,
+            order: {
+              _key: 'asc'
+            }
+          },
+          aggs: {
+            fieldId: {
+              terms: {
+                field: 'fields_of_science.fieldIdScience'
+              }
+            }
+          }
+        };
+        break;
+      case 'fundings':
+        payLoad.aggs._index.aggs.years = {
+          terms: {
+            field: 'fundingStartYear',
+            size: 50,
+            order : { _key : 'desc' }
+          }
+        };
+        break;
+
+      default:
+        payLoad.aggs._index.aggs.years = {
+          terms: {
+            field: 'publicationYear',
+            size: 50,
+            order : { _key : 'desc' }
+          }
+        };
+        break;
+    }
+  }
 }
