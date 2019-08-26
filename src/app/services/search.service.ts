@@ -148,6 +148,14 @@ export class SearchService {
               terms: {
                 field: 'openAccessCode'
               }
+            },
+            juFo: {
+              terms: {
+                field: 'jufoClassCode.keyword',
+                order: {
+                  _key: 'desc'
+                }
+              }
             }
           }
         }

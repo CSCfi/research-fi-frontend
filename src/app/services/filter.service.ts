@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FilterService {
   yearFilter: any;
-  majorFieldFilter: any;
+  juFoCodeFilter: any;
   fieldFilter: any;
   statusFilter: object;
   openAccessFilter: any;
@@ -22,10 +22,10 @@ export class FilterService {
   currentFilters: any;
   today: string;
 
-  private filterSource = new BehaviorSubject({year: [], status: [], field: [], internationalCollaboration: []});
+  private filterSource = new BehaviorSubject({year: [], status: [], field: [], juFo: [], openAccess: [], internationalCollaboration: []});
   filters = this.filterSource.asObservable();
 
-  updateFilters(filters: {year: any[], status: any[], field: any[], internationalCollaboration: any[]}) {
+  updateFilters(filters: {year: any[], status: any[], field: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -38,7 +38,7 @@ export class FilterService {
   createFilters(filter: any) {
     this.yearFilter = this.filterByYear(filter.year);
     this.statusFilter = this.filterByStatus(filter.status);
-    this.majorFieldFilter = this.filterByMajorFieldOfScience(filter.major);
+    this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess)
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
@@ -47,26 +47,35 @@ export class FilterService {
   filterByYear(filter: any) {
     const res = [];
     const currentTab = this.sortService.currentTab;
-
     switch (currentTab) {
       case 'fundings': {
-        filter.forEach(value => {
-          res.push({ term : { fundingStartYear : value } });
-        });
+        filter.forEach(value => { res.push({ term : { fundingStartYear : value } }); });
         break;
       }
       case 'publications': {
-        filter.forEach(value => {
-          res.push({ term : { publicationYear : value } });
-        });
+        filter.forEach(value => { res.push({ term : { publicationYear : value } }); });
         break;
       }
     }
     return res;
   }
 
-  filterByMajorFieldOfScience(field: any) {
+  filterByFieldOfScience(field: any) {
+    const fieldFilters = [];
+    field.forEach(value => {
+      fieldFilters.push({ term : { 'fields_of_science.nameFiScience.keyword' : value } });
+    });
+    return fieldFilters;
+  }
 
+  filterByJuFoCode(code: any) {
+    const res = [];
+    if (code.length === 0) {res.push({ exists : { field : 'jufoClassCode' } }); }
+    if (code.includes('top')) {res.push({ term : { 'jufoClassCode.keyword' : 3 } }); }
+    if (code.includes('leading')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
+    if (code.includes('basic')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
+    if (code.includes('others')) {res.push({ term : { 'jufoClassCode.keyword' : 0 } }); }
+    return res;
   }
 
   filterByOpenAccess(code) {
@@ -83,14 +92,6 @@ export class FilterService {
     if (status.length > 0 && JSON.parse(status)) {
       return { term: { internationalCollaboration: true }	};
     } else { return { exists: { field: 'internationalCollaboration' }	}; }
-  }
-
-  filterByFieldOfScience(field: any) {
-    const fieldFilters = [];
-    field.forEach(value => {
-      fieldFilters.push({ term : { 'fields_of_science.nameFiScience.keyword' : value } });
-    });
-    return fieldFilters;
   }
 
   // Start & end date filtering
@@ -122,6 +123,7 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
+            ...(index === 'publication' ? (this.juFoCodeFilter.length ? { bool: { should: this.juFoCodeFilter } } : this.juFoCodeFilter) : []),
             ...(index === 'publication' ? (this.openAccessFilter.length ? { bool: { should: this.openAccessFilter } } : this.openAccessFilter) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
