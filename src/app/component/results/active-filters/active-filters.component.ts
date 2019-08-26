@@ -22,7 +22,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
   translations = {
     onGoing: 'Käynnissä',
     ended: 'Päättynyt',
-    true: 'Kansainvälinen yhteisjulkaisu'
+    true: 'Kansainvälinen yhteisjulkaisu',
+    noaccessinfo: 'Ei vastausta',
+    openAccess: 'Open access',
+    hybridAccess: 'Hybridijulkaisu',
   };
 
   constructor( private router: Router, private sortService: SortService,
