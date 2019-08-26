@@ -23,6 +23,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   myOps = {
     duration: 0.5
   };
+  first = true;
 
   // Variables related to scrolling logic
   scroll: ElementRef;
@@ -56,7 +57,15 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     // Reset query params after search term change
-    this.searchTermSub = this.searchService.currentInput.subscribe(term => this.resetQueryParams());
+    this.searchTermSub = this.searchService.currentInput.subscribe(term => {
+      // Don't reset on the value returned by BehaviorSubject initial value
+      // (has to be BehaviorSubject because of search bar)
+      if (!this.first) {
+        this.resetQueryParams();
+      } else {
+        this.first = false;
+      }
+    });
 
     // Add the scroll handler, passive to improve performance
     window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
@@ -67,7 +76,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.tabSub.unsubscribe();
     this.queryParamSub.unsubscribe();
     this.searchTermSub.unsubscribe();
-    // this.resizeSub.unsubscribe();
+    this.resizeSub.unsubscribe();
   }
 
   resetQueryParams() {

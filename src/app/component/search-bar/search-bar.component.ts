@@ -11,6 +11,7 @@ import { SortService } from '../../services/sort.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,18 +21,21 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 })
 export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
+    input: string;
+    sub: Subscription;
 
     constructor( private searchService: SearchService, private tabChangeService: TabChangeService,
                  public router: Router, private route: ActivatedRoute, private sortService: SortService ) {
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
 
     newInput() {
       this.sortService.sortMethod = 'desc';
-      this.searchService.updateInput(this.publicationSearchInput.nativeElement.value);
       this.searchService.updatePageNumber(1);
+      // Don't trigger subscriptions, just update search term
+      this.searchService.singleInput = this.publicationSearchInput.nativeElement.value;
 
       this.searchService.getAllResults().subscribe((data: any) => {
         this.searchService.resultData = data;
