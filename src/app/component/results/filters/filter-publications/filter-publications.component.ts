@@ -34,7 +34,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   preSelection = [];
 
   private resizeSub: Subscription;
-  filterSub: Subscription;
+  private filterSub: Subscription;
   yearFilters: any[];
   fieldOfScienceFilter: any;
   openAccessFilter: any;
@@ -139,14 +139,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   ngOnInit() {
     // Subscribe to filter service filters
-    this.filterSub = this.filterService.filters.subscribe(filterSub => {
-      // Get preselected filters from filterService
-      this.preSelection = [];
-      const filters = this.filterService.currentFilters;
-      Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
-      // Set international collaboration checked if true
-      if (filterSub.internationalCollaboration.length > 0 && filterSub.internationalCollaboration[0] === 'true') {
-        this.internationalCollab = true; } else {this.internationalCollab = false; }
+    this.filterSub = this.filterService.filters.subscribe(filters => {
+     // Get preselected filters from filterService
+     this.preSelection = [];
+     Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
     });
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));

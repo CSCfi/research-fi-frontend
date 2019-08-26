@@ -31,6 +31,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   preSelection: any;
 
   private resizeSub: Subscription;
+  private filterSub: Subscription;
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, private sortService: SortService ) { }
@@ -65,16 +66,18 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Get preselected filters from filterService
-    this.preSelection = [];
-    const filters = this.filterService.currentFilters;
-    Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
-
+    // Subscribe to filter service filters
+    this.filterSub = this.filterService.filters.subscribe(filters => {
+      // Get preselected filters from filterService
+      this.preSelection = [];
+      Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+    });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
   ngOnDestroy() {
     this.resizeSub.unsubscribe();
+    this.filterSub.unsubscribe();
   }
 
 }
