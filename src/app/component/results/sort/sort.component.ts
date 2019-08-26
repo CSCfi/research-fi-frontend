@@ -35,11 +35,8 @@ export class SortComponent implements OnInit, OnDestroy {
     {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
   ];
 
-  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService, 
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
                private tabChangeService: TabChangeService ) {
-    // Get sort value from url, default to desc if undefined
-    this.sortBy = this.route.snapshot.queryParams.sort;
-    if (!this.sortBy) {this.sortBy = 'desc'; }
    }
 
   ngOnInit() {
@@ -55,9 +52,9 @@ export class SortComponent implements OnInit, OnDestroy {
           break;
         }
       }
-      // Default to desc sort on tab change
-      if (!this.route.snapshot.queryParams.sort) { this.sortBy = 'desc'; }
-    });
+      // Get sort from url and default to desc sort on tab change
+      this.sortBy = this.route.snapshot.queryParams.sort || 'desc';
+  });
   }
 
   // Send value to service and rewrite url

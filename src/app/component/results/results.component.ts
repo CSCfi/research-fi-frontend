@@ -93,14 +93,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         }
 
-        this.sortService.updateSort(query.sort);
-
-        this.searchService.updatePageNumber(this.page);
-        this.searchService.updateQueryParams(query);
-
         if (searchTermChanged) {
           this.searchService.updateInput(this.searchTerm);
         }
+
+        this.sortService.updateSort(query.sort);
+        this.searchService.updatePageNumber(this.page);
+        this.searchService.updateQueryParams(query);
+
 
         this.filterService.updateFilters(this.filters);
 
@@ -109,10 +109,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.updateFilters = !this.updateFilters;
 
         if (this.searchService.redirecting) { this.responseData = [this.searchService.resultData]; }
-        // Get number values on start and after changed search term
-        if ((tabChanged || this.init) && !this.searchService.redirecting) {
+        // Get number values on start and after changed tab or term
+        if (searchTermChanged || tabChanged || this.init) {
           this.getAllData();
         }
+        this.searchService.redirecting = false;
         this.init = false;
       });
 
