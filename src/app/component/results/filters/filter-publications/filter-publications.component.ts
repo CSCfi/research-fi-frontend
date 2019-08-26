@@ -29,6 +29,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mobile = this.width < 992;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
+  @ViewChild('selectedJuFo') selectedJuFo: MatSelectionList;
   @ViewChild('selectedOpenAccess') selectedOpenAccess: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection = [];
@@ -37,6 +38,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   private filterSub: Subscription;
   yearFilters: any[];
   fieldOfScienceFilter: any;
+  juFoFilter: any;
   openAccessFilter: any;
   fields: any;
   filterTerm: string;
@@ -93,7 +95,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.getSelected();
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter,
-      openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
+      juFo:this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
   }
 
   // Select all from major
@@ -122,6 +124,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     // If international collaboration is false, prevent param initalization
     if (!this.internationalCollab) {this.internationalCollab = null; }
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
     this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
 
     // Get minor fields of science from multiple selection lists
