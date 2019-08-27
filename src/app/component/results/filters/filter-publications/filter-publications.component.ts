@@ -145,7 +145,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.filterSub = this.filterService.filters.subscribe(filters => {
       // Get preselected filters from filterService
       this.preSelection = [];
-      console.log(filters.internationalCollaboration);
       if (filters.internationalCollaboration.length > 0) {this.internationalCollab = true; } else {this.internationalCollab = false; }
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
     });
