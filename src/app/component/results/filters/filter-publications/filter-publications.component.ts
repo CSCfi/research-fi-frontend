@@ -95,7 +95,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.getSelected();
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter,
-      juFo:this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
+      juFo: this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
   }
 
   // Select all from major
@@ -155,7 +155,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   ngOnChanges() {
     this.responseData = this.responseData || [];
     this.filterTerm = this.filterTerm || '';
-    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
+    const source = this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
     this.separateMinor(source);
     this.openAccess();
@@ -201,7 +201,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   openAccess() {
     const combined = [];
     // Get aggregation from response
-    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.openAccess.buckets : [];
+    const source = this.responseData[0] ? this.responseData[0].aggregations.openAccess.buckets : [];
     if (source && source .length > 0) {
       source.forEach(val => combined.push(val.key));
       this.openAccessCodes = [];

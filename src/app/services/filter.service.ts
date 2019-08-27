@@ -75,6 +75,7 @@ export class FilterService {
     if (code.includes('leading')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
     if (code.includes('basic')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
     if (code.includes('others')) {res.push({ term : { 'jufoClassCode.keyword' : 0 } }); }
+    if (code.includes('noVal')) {res.push({ term : { 'jufoClassCode.keyword' : ' ' } }); }
     return res;
   }
 
@@ -143,5 +144,70 @@ export class FilterService {
       from: fromPage,
       sort: sortOrder
     };
+  }
+
+  constructFilterPayload(tab: string) {
+    const payLoad: any = {
+      size: 0,
+      aggs: {
+        years: {
+          terms: {
+            field: this.sortService.sortField,
+            size: 50,
+            order: { _key : 'desc' }
+          }
+        },
+        languageCode: {
+          terms: {
+            field: 'languageCode.keyword'
+          }
+        },
+        juFo: {
+          terms: {
+            field: 'jufoClassCode.keyword',
+            order: {
+              _key: 'desc'
+            }
+          }
+        },
+        openAccess: {
+          terms: {
+            field: 'openAccessCode'
+          }
+        },
+        internationalCollaboration: {
+          terms: {
+            field: 'internationalCollaboration',
+            size: 2
+          }
+        },
+      }
+    };
+    switch (tab) {
+      case 'publications':
+        payLoad.aggs.fieldsOfScience = {
+          terms: {
+            field: 'fields_of_science.nameFiScience.keyword',
+            size: 250,
+            order: {
+              _key: 'asc'
+            }
+          },
+          aggs: {
+            fieldId: {
+              terms: {
+                field: 'fields_of_science.fieldIdScience'
+              }
+            }
+          }
+        };
+        break;
+      case 'fundings':
+        break;
+
+      default:
+        break;
+    }
+    return payLoad;
   }
 }

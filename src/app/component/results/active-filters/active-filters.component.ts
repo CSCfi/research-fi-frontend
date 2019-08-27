@@ -30,6 +30,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     leading: 'Johtava taso',
     basic: 'Perustaso',
     others: 'Muut',
+    noVal: 'Ei arviota'
   };
 
   constructor( private router: Router, private sortService: SortService,

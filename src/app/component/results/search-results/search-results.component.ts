@@ -36,7 +36,10 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.portalHost = createDomPortalHost(this.elRef, this.injector);
-    this.getResultData();
+    // Dont get results with invalid tab
+    if (this.currentTab) {
+      this.getResultData();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

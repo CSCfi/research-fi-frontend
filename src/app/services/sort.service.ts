@@ -14,7 +14,7 @@ export class SortService {
   sortMethod: string;
   currentTab: string;
   sort: any;
-  sortField: string;
+  sortField = 'desc';
 
   constructor() { }
 

@@ -21,7 +21,7 @@
         </mat-expansion-panel-header>
         <div class="scrollable">
             <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()">
-                <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations._index.buckets.publications.years.buckets" 
+                <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.years.buckets" 
                 [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
                     <span class="label">{{year.key}}</span>
                     <!-- <span class="amount">{{year.doc_count}}</span> -->
@@ -103,6 +103,14 @@
                 <strong>Kieli</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
+        <div class="scrollable">
+            <mat-selection-list #selectedLanguage (selectionChange)="onSelectionChange()">
+                <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.languageCode.buckets"
+                [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
+                    <span class="label">{{code.key}}</span>
+                </mat-list-option>
+            </mat-selection-list>    
+        </div>
     </mat-expansion-panel>
 
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -113,7 +121,7 @@
         </mat-expansion-panel-header>
         <div class="scrollable">
             <mat-selection-list #selectedJuFo (selectionChange)="onSelectionChange()">
-                <div *ngFor="let code of response.aggregations._index.buckets.publications.juFo.buckets">
+                <div *ngFor="let code of response.aggregations.juFo.buckets">
                     <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'top'" [selected]="preSelection.indexOf(''+'top') > -1">
                         <span class="label">{{code.key}} - Korkein taso</span>
                     </mat-list-option>
@@ -125,6 +133,9 @@
                     </mat-list-option>
                     <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'others'" [selected]="preSelection.indexOf(''+'others') > -1">
                         <span class="label">{{code.key}} - Muut</span>
+                    </mat-list-option>
+                    <mat-list-option *ngIf="code.key === ' '" checkboxPosition="before" [value]="'noVal'" [selected]="preSelection.indexOf(''+'noVal') > -1">
+                        <span class="label">Ei arviota</span>
                     </mat-list-option>
                 </div>
             </mat-selection-list>    
@@ -147,7 +158,7 @@
         </div>
     </mat-expansion-panel>
 
-    <div class="single-checkbox" *ngIf="response.aggregations._index.buckets.publications.internationalCollaboration.buckets[1]">
+    <div class="single-checkbox" *ngIf="response.aggregations.internationalCollaboration.buckets[1]">
         <mat-checkbox labelPosition="before" [checked]="internationalCollab" (change)="singleSelect($event)">Kansainvälinen yhteisjulkaisu</mat-checkbox>
     </div>
 </div>

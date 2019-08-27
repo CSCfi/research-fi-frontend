@@ -52,7 +52,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getAllData() {
-    this.searchService.getAll()
+    this.searchService.getAllResultCount()
     .pipe(map(allData => [allData]))
     .subscribe(allData => this.allData = allData,
       error => this.errorMessage = error as any);

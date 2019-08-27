@@ -13,43 +13,53 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
+import { TabChangeService } from './tab-change.service';
 
 const API_URL = environment.apiUrl;
 
 @Injectable()
 export class SearchService {
-  private inputSource = new BehaviorSubject('');
-  currentInput = this.inputSource.asObservable();
-  invokeGetData = new EventEmitter();
   singleInput: string;
   pageNumber: number;
   fromPage: number;
   apiUrl = API_URL;
 
-  private totalResults = new BehaviorSubject(undefined);
-  currentTotal = this.totalResults.asObservable();
+  // Variables to help with search term redirections
+  tabValues: any;
+  redirecting = false;
 
-  constructor(private http: HttpClient , private sortService: SortService,
+  private inputSource = new BehaviorSubject<string>('');
+  currentInput = this.inputSource.asObservable();
+
+  private totalSource = new Subject<number | string>();
+  currentTotal = this.totalSource.asObservable();
+
+  private querySource = new BehaviorSubject({});
+  currentQueryParams = this.querySource.asObservable();
+
+  constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService) {
   }
 
-  // Get input value from url
   updateInput(searchTerm: string) {
     this.singleInput = searchTerm;
     this.inputSource.next(searchTerm);
   }
 
+  updateTotal(total: number) {
+    this.totalSource.next(total);
+  }
+
+  updateQueryParams(params: any) {
+    this.querySource.next(params);
+  }
+
   onSearchButtonClick() {
-    this.invokeGetData.emit();
     this.pageNumber = 1;
   }
 
-  getTotal(total: any) {
-    this.totalResults.next(total);
-  }
-
   // Fetch page number from results page
-  getPageNumber(pageNumber: number) {
+  updatePageNumber(pageNumber: number) {
     this.pageNumber = pageNumber;
     this.fromPage = this.pageNumber * 10 - 10;
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
@@ -59,7 +69,7 @@ export class SearchService {
   }
 
   // Data for homepage values
-  getAll(): Observable<Search[]> {
+  getAllResultCount(): Observable<Search[]> {
     const payLoad = {
       size: 0,
       aggs: {
@@ -79,95 +89,54 @@ export class SearchService {
 
   getData() {
     const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
-                                                        this.sortService.sort, this.sortService.currentTab);
-    return this.http.post<Search[]>(this.apiUrl + this.sortService.currentTab.slice(0, -1) + '/_search?', payload)
+                                                        this.sortService.sort, this.tabChangeService.tab);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload)
     .pipe(catchError(this.handleError));
   }
 
   // Data for results page
-  getAllResults(): Observable<Search[]> {
+  getTabValues(): Observable<Search[]> {
     const payLoad = {
       size: 0,
       aggs: {
         _index: {
           filters: {
-              filters: {
-                  persons: {
-                      match: {
-                          _index: 'person'
-                      }
-                  },
-                  publications: {
-                      match: {
-                          _index: 'publication'
-                      }
-                  },
-                  fundings: {
-                      match: {
-                          _index: 'funding'
-                      }
-                  },
-                  organizations: {
-                      match: {
-                          _index: 'organization'
-                      }
-                  }
-              }
-          },
-          aggs: {
-            years: {
-              terms: {
-                field: this.sortService.sortField,
-                size: 50,
-                order : { _key : 'desc' }
-              }
-            },
-            fieldsOfScience: {
-              terms: {
-                field: 'fields_of_science.nameFiScience.keyword',
-                size: 250,
-                order: {
-                  _key: 'asc'
+            filters: {
+              persons: {
+                match: {
+                    _index: 'person'
                 }
               },
-              aggs: {
-                fieldId: {
-                  terms: {
-                    field: 'fields_of_science.fieldIdScience'
-                  }
+              publications: {
+                match: {
+                    _index: 'publication'
                 }
-              }
-            },
-            internationalCollaboration: {
-              terms: {
-                field: 'internationalCollaboration',
-                size: 2
-              }
-            },
-            openAccess: {
-              terms: {
-                field: 'openAccessCode'
-              }
-            },
-            juFo: {
-              terms: {
-                field: 'jufoClassCode.keyword',
-                order: {
-                  _key: 'desc'
+              },
+              fundings: {
+                match: {
+                    _index: 'funding'
+                }
+              },
+              organizations: {
+                match: {
+                    _index: 'organization'
                 }
               }
             }
           }
         }
       }
-   };
-    if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad);
-    } else {
-      return this.http.post<Search[]>
-      (this.apiUrl + 'publication,person,funding,organization/_search?q=' + this.singleInput, payLoad)
+    };
+    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?' + queryTerm, payLoad)
       .pipe(catchError(this.handleError));
-    }
+  }
+
+  getFilters(): Observable<Search[]> {
+    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab);
+    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?' + queryTerm, payLoad)
+      .pipe(catchError(this.handleError));
   }
 
   // Error handling

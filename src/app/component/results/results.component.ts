@@ -9,12 +9,12 @@ import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, Cha
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
-import { map } from 'rxjs/operators';
+import { map, multicast, debounceTime, take, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { FilterService } from 'src/app/services/filter.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, combineLatest, Subject, merge } from 'rxjs';
 
 @Component({
   selector: 'app-results',
@@ -28,6 +28,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   tab: any = [];
   selectedTabData: any = [];
   responseData: any [];
+  public tabValues: any;
+  public filterValues: any;
   errorMessage = [];
   pageNumber = 1;
   page: any;
@@ -38,8 +40,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   filters: {year: any[], status: any[], field: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
   mobile: boolean;
   updateFilters: boolean;
-  total: any;
-  totalSub: any;
+  total: number | string;
+  currentQueryParams: any;
+  init = true;
+
+  totalSub: Subscription;
+  combinedRouteParams: Subscription;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -67,30 +73,83 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.filterService.updateFilters(this.filters);
       this.sortService.updateSort(params.sort);
-      this.searchService.getPageNumber(this.page);
+      this.searchService.updatePageNumber(this.page);
       // Flag telling search-results to fetch new filtered data
       this.updateFilters = !this.updateFilters;
     });
 
+    // Subscribe to route params and query params in one subscription
+    this.combinedRouteParams = combineLatest([this.route.params, this.route.queryParams])
+      .pipe(map(results => ({params: results[0], query: results[1]})),
+            multicast(new Subject(), s => merge(s.pipe(take(1)),        // First call is instant, after that debounce
+                                                s.pipe(skip(1), debounceTime(1)))))
+      .subscribe(results => {
+        const query = results.query;
+        const params = results.params;
 
-    // Subscribe to route parameters, works with browser back & forward buttons
-    this.input = this.route.params.subscribe(params => {
-      this.searchTerm = params.input || '';
-      this.searchService.updateInput(this.searchTerm);
+        this.page = +query.page || 1;
+        this.filters = {year: [query.year].flat().filter(x => x),
+                        status: [query.status].flat().filter(x => x),
+                        field: [query.field].flat().filter(x => x),
+                        juFo: [query.juFo].flat().filter(x => x),
+                        openAccess: [query.openAccess].flat().filter(x => x),
+                        internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x)};
 
-      const previousTab = this.tab;
-      this.tab = params.tab;
 
-      if (previousTab !== this.tab) {
-        this.selectedTabData = this.tabData.filter(tab => tab.link === this.tab)[0];
-        this.updateTitle(this.selectedTabData);
-        this.sortService.updateTab(this.selectedTabData.data);
+        const tabChanged = this.tab !== params.tab;
+        const searchTermChanged = this.searchTerm !== (params.input || '');
+
+        this.searchTerm = params.input || '';
+        this.selectedTabData = this.tabData.filter(tab => tab.link === params.tab)[0];
+        // Default to publications if invalid tab
+        if (!this.selectedTabData) {
+          this.router.navigate(['results/publications']);
+          return;
+        }
+
+        this.tab = this.selectedTabData.link;
+
+        if (tabChanged) {
+          this.tabChangeService.changeTab(this.selectedTabData);
+          this.sortService.updateTab(this.selectedTabData.data);
+          this.updateTitle(this.selectedTabData);
+
+        }
+
+        if (searchTermChanged) {
+          this.searchService.updateInput(this.searchTerm);
+        }
+
+        this.sortService.updateSort(query.sort);
+        this.searchService.updatePageNumber(this.page);
+        this.searchService.updateQueryParams(query);
+
+
         this.filterService.updateFilters(this.filters);
-        this.tabChangeService.changeTab(this.selectedTabData);
-      }
 
-      this.getAllData();
-    });
+
+        // Flag telling search-results to fetch new filtered data
+        this.updateFilters = !this.updateFilters;
+
+        // If init without search bar redirecting, get data
+        if (this.init && !this.searchService.redirecting) {
+          this.getTabValues();
+        // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
+        } else if (this.searchService.redirecting) {
+          setTimeout(() => {
+            this.tabValues = [this.searchService.tabValues];
+          }, 1);
+        }
+        // If new filter data is neeed
+        if (searchTermChanged || tabChanged || this.init) {
+          // Reset filter values so new tab doesn't try to use previous tab's filters.
+          this.filterValues = undefined;
+          this.getFilterData();
+        }
+        // Reset flags
+        this.searchService.redirecting = false;
+        this.init = false;
+      });
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
@@ -113,24 +172,22 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     {queryParams: this.filters});
   }
 
-  getAllData() {
-    this.searchService.getAllResults()
-    .pipe(map(responseData => [responseData]))
-    .subscribe(responseData => {
-      this.responseData = responseData;
+  getTabValues() {
+    this.searchService.getTabValues()
+    .pipe(map(data => [data]))
+    .subscribe(tabValues => {
+      this.tabValues = tabValues;
+    },
+    error => this.errorMessage = error as any);
+  }
+
+  getFilterData() {
+    this.searchService.getFilters()
+    .pipe(map(data => [data]))
+    .subscribe(filterValues => {
+      this.filterValues = filterValues;
       // Set the title
       this.updateTitle(this.selectedTabData);
-      // Switch to the tab with the most results if flag is set (new search)
-      if (this.tabChangeService.directToMostHits) {
-        // Reduce buckets to the one with the most results
-        const buckets = this.responseData[0].aggregations._index.buckets;
-        const mostHits = Object.keys(buckets).reduce((best, index) => {
-          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
-          return best;
-        }, {tab: 'publications', hits: 0});
-        this.router.navigate(['results/', mostHits.tab, this.searchTerm || ''], {replaceUrl: true});
-        this.tabChangeService.directToMostHits = false;
-      }
     },
       error => this.errorMessage = error as any);
   }
@@ -153,8 +210,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.tabChangeService.changeTab({data: '', label: '', link: ''});
     this.searchService.updateInput('');
-    this.queryParams.unsubscribe();
-    this.input.unsubscribe();
+    this.combinedRouteParams.unsubscribe();
     this.totalSub.unsubscribe();
   }
 

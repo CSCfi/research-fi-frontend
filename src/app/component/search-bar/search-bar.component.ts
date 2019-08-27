@@ -11,6 +11,7 @@ import { SortService } from '../../services/sort.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,26 +21,35 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 })
 export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
-    public searchTerm: any;
     input: string;
-    tab: string;
+    sub: Subscription;
 
-    constructor( private searchService: SearchService, private tabChangeService: TabChangeService,
+    constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
                  public router: Router, private route: ActivatedRoute, private sortService: SortService ) {
     }
 
     ngOnInit() {
-      this.searchService.currentInput.subscribe(input => this.input = input);
-      this.tabChangeService.currentTab.subscribe(tab => this.tab = tab.link);
     }
 
 
     newInput() {
-      this.tabChangeService.directToMostHits = true;
       this.sortService.sortMethod = 'desc';
-      this.searchService.updateInput(this.publicationSearchInput.nativeElement.value);
-      this.router.navigate(['/results/publications', this.searchService.singleInput], { queryParams: { page: 1 } });
-      this.searchService.onSearchButtonClick();
+      this.searchService.updatePageNumber(1);
+      // Don't trigger subscriptions, just update search term
+      this.searchService.singleInput = this.publicationSearchInput.nativeElement.value;
+
+      this.searchService.getTabValues().subscribe((data: any) => {
+        this.searchService.tabValues = data;
+        this.searchService.redirecting = true;
+        // Reduce buckets to the one with the most results
+        const buckets = data.aggregations._index.buckets;
+        const mostHits = Object.keys(buckets).reduce((best, index) => {
+          best = best.hits < buckets[index].doc_count ? {tab: index, hits: buckets[index].doc_count} : best;
+          return best;
+        }, {tab: 'publications', hits: 0});
+        // Redirect to tab with most results
+        this.router.navigate(['results/', mostHits.tab, this.searchService.singleInput || '']);
+      });
     }
 
 }

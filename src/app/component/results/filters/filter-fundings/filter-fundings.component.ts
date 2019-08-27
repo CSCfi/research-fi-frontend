@@ -63,7 +63,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, status: this.statusFilter } });
+    { queryParams: { sort: this.sortService.sortMethod, year: this.yearFilters, status: this.statusFilter } });
   }
 
   getSelected() {
