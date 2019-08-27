@@ -38,22 +38,20 @@
                         </ul>
                     </div>
                     <ul class="navbar-nav main col-xl-8 no-padding" [class.row]="!mobile">
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
-                                [routerLinkActiveOptions]="{exact: true}"
-                                (click)="navbarOpen && toggleNavbar()">Etusivu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link"
-                                (click)="navbarOpen && toggleNavbar()">Haku</a>
-                        </li>
+                        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+                        (click)="navbarOpen && toggleNavbar()">
+                            <li class="nav-item"><span class="label">Etusivu</span></li>
+                        </a>
+                        <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
+                            <li class="nav-item"><span class="label">Haku</span></li>
+                        </a>
                         <div *ngIf="mobile" class=""></div>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">Tiedepolitiikka</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">Tiedeuutiset</a>
-                        </li>
+                        <a class="nav-item nav-link" href="#">
+                            <li class="nav-item"><span class="label">Tiedepolitiikka</span></li>
+                        </a>
+                        <a class="nav-item nav-link" href="#">
+                            <li class="nav-item"><span class="label">Tiedeuutiset</span></li>
+                        </a>
                         <div *ngIf="mobile" class=""></div>
                     </ul>
                     <div class="navbar-expand navbar-nav lang col-4 no-padding">
