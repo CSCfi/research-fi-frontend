@@ -17,12 +17,12 @@ export class TabChangeService {
 
   private tabSource = new BehaviorSubject({data: '', label: '', link: ''});
   currentTab = this.tabSource.asObservable();
-
-  directToMostHits = false;
+  tab: string;
 
   constructor() { }
 
   changeTab(tab: {data: string; label: string, link: string}) {
+    this.tab = tab.link;
     this.tabSource.next(tab);
   }
 }

@@ -19,7 +19,7 @@ export class SortComponent implements OnInit, OnDestroy {
   tabLink: string;
   tabFields: any;
   sortBy: string;
-  queryParams: any;
+  tabSub: any;
 
   // Assign values to dropdown list by current tab
   publicationFields = [
@@ -35,16 +35,13 @@ export class SortComponent implements OnInit, OnDestroy {
     {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
   ];
 
-  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService, 
+  constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
                private tabChangeService: TabChangeService ) {
-    // Get sort value from url, default to desc if undefined
-    this.sortBy = this.route.snapshot.queryParams.sort;
-    if (!this.sortBy) {this.sortBy = 'desc'; }
    }
 
   ngOnInit() {
     // Subscribe to current tab parameter
-    this.queryParams = this.tabChangeService.currentTab.subscribe(tab => {
+    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       switch (tab.link) {
         case 'publications': {
           this.tabFields = this.publicationFields;
@@ -55,9 +52,9 @@ export class SortComponent implements OnInit, OnDestroy {
           break;
         }
       }
-      // Default to desc sort on tab change
-      if (!this.route.snapshot.queryParams.sort) { this.sortBy = 'desc'; }
-    });
+      // Get sort from url and default to desc sort on tab change
+      this.sortBy = this.route.snapshot.queryParams.sort || 'desc';
+  });
   }
 
   // Send value to service and rewrite url
@@ -77,7 +74,7 @@ export class SortComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
+    this.tabSub.unsubscribe();
   }
 
 }
