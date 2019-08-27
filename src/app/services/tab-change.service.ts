@@ -18,6 +18,7 @@ export class TabChangeService {
   private tabSource = new BehaviorSubject({data: '', label: '', link: ''});
   currentTab = this.tabSource.asObservable();
   tab: string;
+  tabQueryParams: any = {};
 
   constructor() { }
 

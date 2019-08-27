@@ -209,7 +209,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
     this.tabChangeService.changeTab({data: '', label: '', link: ''});
-    this.searchService.updateInput('');
     this.combinedRouteParams.unsubscribe();
     this.totalSub.unsubscribe();
   }

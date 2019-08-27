@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
   };
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent, 
+  constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title ) {
   }
 
@@ -36,6 +36,9 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Reset search term
+    this.searchService.updateInput('');
+
     // Get data for count-ups
     this.getAllData();
 
