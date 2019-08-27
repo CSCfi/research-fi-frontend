@@ -103,6 +103,14 @@
                 <strong>Kieli</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
+        <div class="scrollable">
+            <mat-selection-list #selectedLanguage (selectionChange)="onSelectionChange()">
+                <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations._index.buckets.publications.languageCode.buckets"
+                [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
+                    <span class="label">{{code.key}}</span>
+                </mat-list-option>
+            </mat-selection-list>    
+        </div>
     </mat-expansion-panel>
 
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -125,6 +133,9 @@
                     </mat-list-option>
                     <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'others'" [selected]="preSelection.indexOf(''+'others') > -1">
                         <span class="label">{{code.key}} - Muut</span>
+                    </mat-list-option>
+                    <mat-list-option *ngIf="code.key === ' '" checkboxPosition="before" [value]="'noVal'" [selected]="preSelection.indexOf(''+'noVal') > -1">
+                        <span class="label">Ei arviota</span>
                     </mat-list-option>
                 </div>
             </mat-selection-list>    

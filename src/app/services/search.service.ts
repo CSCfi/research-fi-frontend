@@ -138,15 +138,9 @@ export class SearchService {
                 }
               }
             },
-            internationalCollaboration: {
+            languageCode: {
               terms: {
-                field: 'internationalCollaboration',
-                size: 2
-              }
-            },
-            openAccess: {
-              terms: {
-                field: 'openAccessCode'
+                field: 'languageCode.keyword'
               }
             },
             juFo: {
@@ -156,7 +150,18 @@ export class SearchService {
                   _key: 'desc'
                 }
               }
-            }
+            },
+            openAccess: {
+              terms: {
+                field: 'openAccessCode'
+              }
+            },
+            internationalCollaboration: {
+              terms: {
+                field: 'internationalCollaboration',
+                size: 2
+              }
+            },
           }
         }
       }

@@ -95,7 +95,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.getSelected();
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter,
-      juFo:this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
+      juFo: this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
   }
 
   // Select all from major

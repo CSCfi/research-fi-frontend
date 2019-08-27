@@ -75,6 +75,7 @@ export class FilterService {
     if (code.includes('leading')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
     if (code.includes('basic')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
     if (code.includes('others')) {res.push({ term : { 'jufoClassCode.keyword' : 0 } }); }
+    if (code.includes('noVal')) {res.push({ term : { 'jufoClassCode.keyword' : ' ' } }); }
     return res;
   }
 
