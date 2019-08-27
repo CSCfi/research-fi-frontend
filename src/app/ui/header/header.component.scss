@@ -34,12 +34,24 @@ ul.navbar-nav.main {
     height: calc(100% - 50px);
 }
 
+.main li.nav-item {
+    padding: 10px 10px;
+}
+
+.main a.nav-item.nav-link {
+    padding: 0;
+}
+
 li.nav-item {
     padding: 0 10px;
 }
 
 a.nav-item {
     font-size: 17px;
+}
+
+span.label {
+    padding: 5px 10px;
 }
 
 // Prevent horizontal mobile screen scrolling while menu is out of view
@@ -124,7 +136,7 @@ nav.nav-top {
 .collapse.navbar-collapse.menu.mobile-bar.open {
     transform: translateX(5%);
     visibility: visible;
-    height: 75vh;
+    height: auto;
 }
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
