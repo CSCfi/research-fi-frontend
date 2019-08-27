@@ -16,26 +16,6 @@
     <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <strong>Hankkeen tila</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="scrollable">
-            <mat-selection-list #selectedStatus (selectionChange)="onSelectionChange()">
-                <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
-                    <span class="label">Käynnissä</span>
-                    <!-- <span class="amount"></span> -->
-                </mat-list-option>
-                <mat-list-option checkboxPosition="before" [value]="'ended'" [selected]="preSelection.indexOf('ended') > -1">
-                    <span class="label">Päättynyt</span>
-                    <!-- <span class="amount"></span> -->
-                </mat-list-option>
-            </mat-selection-list>
-        </div>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
                 <strong>Aloitusvuosi</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
@@ -48,15 +28,6 @@
                 </mat-list-option>
             </mat-selection-list>
         </div>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <strong>Sektori</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
     </mat-expansion-panel>
 
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -89,24 +60,6 @@
     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <strong>Rahoituksen saaja</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <strong>Päätieteenala</strong>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-checkbox></mat-checkbox>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
                 <strong>Tieteenala</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
@@ -118,6 +71,26 @@
                 <strong>Teema-ala</strong>
             </mat-panel-title>
         </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <strong>Hankkeen tila</strong>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="scrollable">
+            <mat-selection-list #selectedStatus (selectionChange)="onSelectionChange()">
+                <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
+                    <span class="label">Käynnissä</span>
+                    <!-- <span class="amount"></span> -->
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before" [value]="'ended'" [selected]="preSelection.indexOf('ended') > -1">
+                    <span class="label">Päättynyt</span>
+                    <!-- <span class="amount"></span> -->
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
     </mat-expansion-panel>
 
 </div>
