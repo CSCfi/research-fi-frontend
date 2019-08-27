@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-single-publication',
@@ -23,6 +24,7 @@ export class SinglePublicationComponent implements OnInit {
   searchTerm: string;
   pageNumber: any;
   tab = 'publications';
+  tabQueryParams: any;
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'publicationName'},
     {label: 'Julkaisuvuosi', field: 'publicationYear'},
@@ -61,12 +63,12 @@ export class SinglePublicationComponent implements OnInit {
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
 
-  constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title ) {
+  constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
+               private titleService: Title, private tabChangeService: TabChangeService ) {
     this.singleId = this.route.snapshot.params.id;
     this.singleService.getPublicationId(this.singleId);
-    this.searchTerm = this.searchService.singleInput;
     this.pageNumber = this.searchService.pageNumber || 1;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
    }
 
   public setTitle(newTitle: string) {

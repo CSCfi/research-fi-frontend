@@ -14,7 +14,7 @@
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">
-        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a></p>
+        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchService.currentInput | async}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
