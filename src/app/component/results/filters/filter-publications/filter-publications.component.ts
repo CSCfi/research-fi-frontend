@@ -66,7 +66,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   combinedFields: any[];
   mergedFields: any;
   openAccessCodes: any[];
-  internationalCollab: boolean;
+  internationalCollab = false;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) { }
@@ -143,9 +143,11 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   ngOnInit() {
     // Subscribe to filter service filters
     this.filterSub = this.filterService.filters.subscribe(filters => {
-     // Get preselected filters from filterService
-     this.preSelection = [];
-     Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+      // Get preselected filters from filterService
+      this.preSelection = [];
+      console.log(filters.internationalCollaboration);
+      if (filters.internationalCollaboration.length > 0) {this.internationalCollab = true; } else {this.internationalCollab = false; }
+      Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
     });
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
