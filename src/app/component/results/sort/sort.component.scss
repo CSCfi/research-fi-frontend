@@ -27,18 +27,22 @@ span.align-left.hide-mobile {
     
     .sort {
         text-align: center;
-        min-width: 210px;
-        max-width: 75%;
+        min-width: 169px;
+        max-width: 95%;
         margin-right: auto;
         margin-left: auto;
         margin-bottom: 0;
+    }
+
+    ::ng-deep .mat-select-value {
+        font-size: 1.4rem!important;
     }
 
     // Chevron
     ::ng-deep .mat-form-field-flex::after {
         font-family: "FontAwesome";
         content: "\f078";
-        font-size: 26px;
+        font-size: 20px;
         margin-left: -12px;
     }
 
@@ -54,8 +58,7 @@ span.align-left.hide-mobile {
     mat-form-field.mat-form-field {
         width: 100%;
         border-radius: 0.25rem;
-        padding: 0 10px;
-        height: 53px;
+        height: 46px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -72,6 +75,7 @@ span.align-left.hide-mobile {
     ::ng-deep .mat-form-field-infix {
         border: 0 !important;
         padding: 0 !important;
+        width: 280px !important;
     }
 
     ::ng-deep mat-select {
@@ -85,5 +89,11 @@ span.align-left.hide-mobile {
     ::ng-deep .mat-select-panel {
         max-height: 100% !important;
         font-size: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    ::ng-deep .mat-form-field-infix {
+        width: 149px!important;
     }
 }
