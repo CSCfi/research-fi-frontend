@@ -125,21 +125,18 @@ export class FilterService {
     const payLoad: any = {
       size: 0,
       aggs: {
-        _index: {
-          aggs: { }
+        years: {
+          terms: {
+            field: this.sortService.sortField,
+            size: 50,
+            order: { _key : 'desc' }
+          }
         }
       }
     };
     switch (tab) {
       case 'publications':
-        payLoad.aggs._index.aggs.years = {
-          terms: {
-            field: 'publicationYear',
-            size: 50,
-            order : { _key : 'desc' }
-          }
-        };
-        payLoad.aggs._index.aggs.fieldsOfScience = {
+        payLoad.aggs.fieldsOfScience = {
           terms: {
             field: 'fields_of_science.nameFiScience.keyword',
             size: 250,
@@ -157,24 +154,11 @@ export class FilterService {
         };
         break;
       case 'fundings':
-        payLoad.aggs._index.aggs.years = {
-          terms: {
-            field: 'fundingStartYear',
-            size: 50,
-            order : { _key : 'desc' }
-          }
-        };
         break;
 
       default:
-        payLoad.aggs._index.aggs.years = {
-          terms: {
-            field: 'publicationYear',
-            size: 50,
-            order : { _key : 'desc' }
-          }
-        };
         break;
     }
+    return payLoad;
   }
 }

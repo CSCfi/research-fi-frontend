@@ -5,8 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList, 
-         ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
+         ChangeDetectorRef, } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -127,7 +127,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   ngOnChanges() {
     this.responseData = this.responseData || [];
     this.filterTerm = this.filterTerm || '';
-    const source = this.responseData[0] ? this.responseData[0].aggregations._index.buckets.publications.fieldsOfScience.buckets : [];
+    const source = this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
     this.separateMinor(source);
     this.isChecked();

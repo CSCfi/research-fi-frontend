@@ -25,7 +25,7 @@ export class SearchService {
   apiUrl = API_URL;
 
   // Variables to help with search term redirections
-  resultData: any;
+  tabValues: any;
   redirecting = false;
 
   private inputSource = new BehaviorSubject<string>('');
@@ -95,75 +95,48 @@ export class SearchService {
   }
 
   // Data for results page
-  getAllResults(): Observable<Search[]> {
+  getTabValues(): Observable<Search[]> {
     const payLoad = {
       size: 0,
       aggs: {
         _index: {
           filters: {
-              filters: {
-                  persons: {
-                      match: {
-                          _index: 'person'
-                      }
-                  },
-                  publications: {
-                      match: {
-                          _index: 'publication'
-                      }
-                  },
-                  fundings: {
-                      match: {
-                          _index: 'funding'
-                      }
-                  },
-                  organizations: {
-                      match: {
-                          _index: 'organization'
-                      }
-                  }
-              }
-          },
-          aggs: {
-            years: {
-              terms: {
-                field: this.sortService.sortField,
-                size: 50,
-                order : { _key : 'desc' }
-              }
-            },
-            fieldsOfScience: {
-              terms: {
-                field: 'fields_of_science.nameFiScience.keyword',
-                size: 250,
-                order: {
-                  _key: 'asc'
+            filters: {
+              persons: {
+                match: {
+                    _index: 'person'
                 }
               },
-              aggs: {
-                fieldId: {
-                  terms: {
-                    field: 'fields_of_science.fieldIdScience'
-                  }
+              publications: {
+                match: {
+                    _index: 'publication'
+                }
+              },
+              fundings: {
+                match: {
+                    _index: 'funding'
+                }
+              },
+              organizations: {
+                match: {
+                    _index: 'organization'
                 }
               }
             }
           }
         }
       }
-   };
-    if (this.singleInput === undefined || this.singleInput === '') {
-      return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad);
-    } else {
-      return this.http.post<Search[]>
-      (this.apiUrl + 'publication,person,funding,organization/_search?q=' + this.singleInput, payLoad)
+    };
+    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?' + queryTerm, payLoad)
       .pipe(catchError(this.handleError));
-    }
   }
 
   getFilters(): Observable<Search[]> {
     const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab);
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab + '/_search?', payLoad).pipe(catchError(this.handleError));
+    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?' + queryTerm, payLoad)
+      .pipe(catchError(this.handleError));
   }
 
   // Error handling

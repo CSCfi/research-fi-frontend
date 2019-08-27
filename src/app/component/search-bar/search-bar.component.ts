@@ -28,7 +28,8 @@ export class SearchBarComponent implements OnInit {
                  public router: Router, private route: ActivatedRoute, private sortService: SortService ) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
 
     newInput() {
@@ -37,8 +38,8 @@ export class SearchBarComponent implements OnInit {
       // Don't trigger subscriptions, just update search term
       this.searchService.singleInput = this.publicationSearchInput.nativeElement.value;
 
-      this.searchService.getAllResults().subscribe((data: any) => {
-        this.searchService.resultData = data;
+      this.searchService.getTabValues().subscribe((data: any) => {
+        this.searchService.tabValues = data;
         this.searchService.redirecting = true;
         // Reduce buckets to the one with the most results
         const buckets = data.aggregations._index.buckets;

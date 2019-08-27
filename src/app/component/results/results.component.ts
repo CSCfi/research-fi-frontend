@@ -28,6 +28,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   tab: any = [];
   selectedTabData: any = [];
   responseData: any [];
+  private tabValues: any;
+  private filterValues: any;
   errorMessage = [];
   pageNumber = 1;
   page: any;
@@ -108,10 +110,22 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Flag telling search-results to fetch new filtered data
         this.updateFilters = !this.updateFilters;
 
-        // Get number values on start and after changed tab or term
-        if (searchTermChanged || tabChanged || this.init) {
-          this.getAllData();
+        // If init without search bar redirecting, get data
+        if (this.init && !this.searchService.redirecting) {
+          this.getTabValues();
+        // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
+        } else if (this.searchService.redirecting) {
+          setTimeout(() => {
+            this.tabValues = [this.searchService.tabValues];
+          }, 1);
         }
+        // If new filter data is neeed
+        if (searchTermChanged || tabChanged || this.init) {
+          // Reset filter values so new tab doesn't try to use previous tab's filters.
+          this.filterValues = undefined;
+          this.getFilterData();
+        }
+        // Reset flags
         this.searchService.redirecting = false;
         this.init = false;
       });
@@ -137,11 +151,20 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     {queryParams: this.filters});
   }
 
-  getAllData() {
-    this.searchService.getAllResults()
-    .pipe(map(responseData => [responseData]))
-    .subscribe(responseData => {
-      this.responseData = responseData;
+  getTabValues() {
+    this.searchService.getTabValues()
+    .pipe(map(data => [data]))
+    .subscribe(tabValues => {
+      this.tabValues = tabValues;
+    },
+    error => this.errorMessage = error as any);
+  }
+
+  getFilterData() {
+    this.searchService.getFilters()
+    .pipe(map(data => [data]))
+    .subscribe(filterValues => {
+      this.filterValues = filterValues;
       // Set the title
       this.updateTitle(this.selectedTabData);
     },
