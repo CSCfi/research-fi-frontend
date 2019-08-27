@@ -31,6 +31,7 @@ header {
 
 ul.navbar-nav.main {
     justify-content: center;
+    height: calc(100% - 50px);
 }
 
 li.nav-item {
@@ -123,6 +124,7 @@ nav.nav-top {
 .collapse.navbar-collapse.menu.mobile-bar.open {
     transform: translateX(5%);
     visibility: visible;
+    height: 75vh;
 }
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
@@ -141,6 +143,7 @@ nav.nav-top {
         flex: 1 1 auto;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
     
     li a {
