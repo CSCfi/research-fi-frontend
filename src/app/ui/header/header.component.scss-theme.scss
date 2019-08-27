@@ -36,7 +36,7 @@
                 color: mat-color($primary, 900)
             }
 
-            .active-link span.label, .desktop .active-lang {
+            .active-link, .desktop .active-lang {
                 border-bottom: 4px solid mat-color($accent, 600);
             }
             
