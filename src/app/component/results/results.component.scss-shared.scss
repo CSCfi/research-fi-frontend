@@ -6,6 +6,11 @@
 //  :license: MIT
 @mixin app-results-shared {
     app-results {
+        // Typography
+        h3.total {
+            padding: 0 0 24px;
+        }
+
         // "Bleed" the styles into child components
         app-publications, app-fundings, app-organizations, app-related-results {
 
@@ -56,7 +61,23 @@
             
             span.bold {
                 font-weight: bold;
+                cursor: pointer;
             }
+
+            // Sort arrows
+            span.bold.uppercase.asc:after {
+                font-family: "FontAwesome";
+                content: "\f106";
+                margin-left: 6px;
+            }
+
+            span.bold.uppercase.desc:after {
+                font-family: "FontAwesome";
+                content: "\f107";
+                margin-left: 6px;
+            }
+
+            // Columns
             
             .single .col {
                 padding: 12px 12px;
