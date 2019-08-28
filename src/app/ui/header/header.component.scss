@@ -136,7 +136,7 @@ nav.nav-top {
 .collapse.navbar-collapse.menu.mobile-bar.open {
     transform: translateX(5%);
     visibility: visible;
-    height: auto;
+    height: 75vh;
 }
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
@@ -151,6 +151,10 @@ nav.nav-top {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
+    ul.main {
+        justify-content: space-evenly;
+    }
+
     li {
         flex: 1 1 auto;
         display: flex;
@@ -162,6 +166,10 @@ nav.nav-top {
         text-transform: uppercase;
         margin: 10px 0px;
         padding: 0.2rem 0;
+    }
+
+    li .label {
+        text-transform: uppercase;
     }
 
     li a.lang-box {

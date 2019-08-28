@@ -27,7 +27,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   tabData = this.tabChangeService.tabData;
   tab: any = [];
   selectedTabData: any = [];
-  responseData: any [];
   public tabValues: any;
   public filterValues: any;
   errorMessage = [];
@@ -194,9 +193,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   updateTitle(tab: { data: string; label: string}) {
     // Update title and <h1> with the information of the currently selected tab
-    if (this.responseData) {
+    if (this.tabValues) {
       // Placeholder until real data is available
-      const amount = tab.data ? this.responseData[0].aggregations._index.buckets[tab.data].doc_count : 999;
+      const amount = tab.data ? this.tabValues[0].aggregations._index.buckets[tab.data].doc_count : 999;
       this.setTitle(tab.label + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto');
     }
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
