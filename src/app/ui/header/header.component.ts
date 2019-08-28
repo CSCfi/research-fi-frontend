@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navbarOpen = false;
 
-  mobile = window.innerWidth < 1200;
+  mobile = window.innerWidth < 992;
 
   height = window.innerHeight;
   width = window.innerWidth;
@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onResize(dims) {
     this.height = dims.height;
     this.width = dims.width;
-    if (this.width >= 1200) {
+    if (this.width >= 992) {
       this.mobile = false;
       if (this.navbarOpen) { this.toggleNavbar(); }
       this.mainNavbar.nativeElement.style.cssText = '';
