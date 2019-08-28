@@ -60,10 +60,6 @@ export class PublicationsComponent implements OnInit {
             newSort = 'nameDesc';
             break;
           }
-          case 'nameDesc': {
-            newSort = [];
-            break;
-          }
           default: {newSort = 'name'; }
         }
         break;
@@ -72,10 +68,6 @@ export class PublicationsComponent implements OnInit {
         switch (activeSort) {
           case 'author': {
             newSort = 'authorDesc';
-            break;
-          }
-          case 'authorDesc': {
-            newSort = [];
             break;
           }
           default: {newSort = 'author'; }
@@ -88,10 +80,6 @@ export class PublicationsComponent implements OnInit {
             newSort = 'journalDesc';
             break;
           }
-          case 'journalDesc': {
-            newSort = [];
-            break;
-          }
           default: {newSort = 'journal'; }
         }
         break;
@@ -100,10 +88,6 @@ export class PublicationsComponent implements OnInit {
         switch (activeSort) {
           case 'year': {
             newSort = 'yearDesc';
-            break;
-          }
-          case 'yearDesc': {
-            newSort = [];
             break;
           }
           default: {newSort = 'year'; }
