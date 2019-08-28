@@ -43,11 +43,11 @@ export class SortService {
         this.sortField = 'publicationYear';
 
         switch (this.sortMethod) {
-          case 'desc': {
+          case 'yearDesc': {
             this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
-          case 'asc': {
+          case 'year': {
             this.sort = [{publicationYear: {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
@@ -55,8 +55,24 @@ export class SortService {
             this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
-          case 'person': {
+          case 'nameDesc': {
+            this.sort = [{'publicationName.keyword': {order: 'desc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'author': {
             this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'authorDesc': {
+            this.sort = [{'authorsText.keyword': {order: 'desc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'journal': {
+            this.sort = [{'journalName.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'journalDesc': {
+            this.sort = [{'journalName.keyword': {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
           default: {
