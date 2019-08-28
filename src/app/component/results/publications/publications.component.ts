@@ -48,7 +48,6 @@ export class PublicationsComponent implements OnInit {
         this.sortIndicator.push('year', 'desc');
       }
     }
-    console.log(this.sortIndicator);
   }
 
   sortBy(sortBy) {
