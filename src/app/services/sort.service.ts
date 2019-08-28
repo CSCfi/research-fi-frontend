@@ -15,6 +15,8 @@ export class SortService {
   currentTab: string;
   sort: any;
   sortField = 'desc';
+  newSort: string;
+  sortIndicator: any[];
 
   constructor() { }
 
@@ -35,6 +37,67 @@ export class SortService {
     this.updateSortParam(this.sortMethod, this.currentTab);
   }
 
+  sortBy(sortBy, activeSort) {
+    let newSort: any;
+    switch (sortBy) {
+      case 'a': {
+        switch (activeSort) {
+          case 'a': { this.newSort = 'aDesc'; break; }
+          default: { this.newSort = 'a'; }
+        }
+        break;
+      }
+      case 'b': {
+        switch (activeSort) {
+          case 'b': { this.newSort = 'bDesc'; break; }
+          default: { this.newSort = 'b'; }
+        }
+        break;
+      }
+      case 'c': {
+        switch (activeSort) {
+          case 'c': { this.newSort = 'cDesc'; break; }
+          default: { this.newSort = 'c'; }
+        }
+        break;
+      }
+      case 'd': {
+        switch (activeSort) {
+          case 'd': { this.newSort = 'dDesc'; break; }
+          default: { this.newSort = 'd'; }
+        }
+        break;
+      }
+      default: {
+        newSort = 'dDesc';
+      }
+    }
+  }
+
+  addSortIndicator() {
+    this.sortIndicator = [];
+    if (!this.sortMethod) {this.sortMethod = 'dDesc'; }
+    switch (this.sortMethod) {
+      case 'a':
+      case 'b':
+      case 'c':
+      case 'd': {
+        this.sortIndicator.push(this.sortMethod, 'asc');
+        break;
+      }
+      case 'aDesc':
+      case 'bDesc':
+      case 'cDesc':
+      case 'dDesc': {
+        this.sortIndicator.push(this.sortMethod, 'desc');
+        break;
+      }
+      default: {
+        this.sortIndicator.push('d', 'desc');
+      }
+    }
+  }
+
   private updateSortParam(sort: string, tab: string) {
     this.currentTab = tab;
     this.sortMethod = sort;
@@ -43,36 +106,36 @@ export class SortService {
         this.sortField = 'publicationYear';
 
         switch (this.sortMethod) {
-          case 'yearDesc': {
-            this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'year': {
-            this.sort = [{publicationYear: {order: 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'name': {
+          case 'a': {
             this.sort = [{'publicationName.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
-          case 'nameDesc': {
+          case 'aDesc': {
             this.sort = [{'publicationName.keyword': {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
-          case 'author': {
+          case 'b': {
             this.sort = [{'authorsText.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
-          case 'authorDesc': {
+          case 'bDesc': {
             this.sort = [{'authorsText.keyword': {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
-          case 'journal': {
+          case 'c': {
             this.sort = [{'journalName.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
-          case 'journalDesc': {
+          case 'cDesc': {
             this.sort = [{'journalName.keyword': {order: 'desc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'd': {
+            this.sort = [{publicationYear: {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'dDesc': {
+            this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
           default: {
@@ -93,20 +156,36 @@ export class SortService {
       case 'fundings': {
         this.sortField = 'fundingStartYear';
         switch (this.sortMethod) {
-          case 'desc': {
-            this.sort = [{fundingStartYear: {order: 'desc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'asc': {
-            this.sort = [{fundingStartYear: {order: 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'name': {
+          case 'a': {
             this.sort = [{'projectNameFi.keyword': {order: 'asc'}}];
             break;
           }
-          case 'funder': {
+          case 'aDesc': {
+            this.sort = [{'projectNameFi.keyword': {order: 'desc'}}];
+            break;
+          }
+          case 'b': {
             this.sort = [{'funderNameFi.keyword': {order: 'asc'}}];
+            break;
+          }
+          case 'bDesc': {
+            this.sort = [{'funderNameFi.keyword': {order: 'desc'}}];
+            break;
+          }
+          case 'c': {
+            this.sort = [{'fundedNameFi.keyword': {order: 'asc'}}];
+            break;
+          }
+          case 'cDesc': {
+            this.sort = [{'fundedNameFi.keyword': {order: 'desc'}}];
+            break;
+          }
+          case 'd': {
+            this.sort = [{fundingStartYear: {order: 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'dDesc': {
+            this.sort = [{fundingStartYear: {order: 'desc', unmapped_type : 'long'}}];
             break;
           }
           default: {

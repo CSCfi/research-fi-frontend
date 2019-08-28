@@ -8,26 +8,24 @@
 </div>
 <!-- Data -->
 <div *ngFor="let publications of resultData">
-    <!-- Active filters -->
-    <!-- <app-active-filters></app-active-filters> -->
     <!-- Results -->
     <div class="row no-margin">
         <div class="col col-1 arrow"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'name' || sortIndicator[0] === 'nameDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('name')">Julkaisun nimi</span>
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'a' || sortIndicator[0] === 'aDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('a')">Julkaisun nimi</span>
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'author' || sortIndicator[0] === 'authorDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('author')">Tekijät</span>
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'b' || sortIndicator[0] === 'bDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('b')">Tekijät</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'journal' || sortIndicator[0] === 'journalDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('journal')">Julkaisukanava</span>
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'c' || sortIndicator[0] === 'cDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('c')">Julkaisukanava</span>
         </div>
         <div class="col col-lg-1 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'year' || sortIndicator[0] === 'yearDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('year')">Vuosi</span>
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'd' || sortIndicator[0] === 'dDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('d')">Vuosi</span>
         </div>
     </div>
 

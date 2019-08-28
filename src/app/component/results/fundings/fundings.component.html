@@ -8,43 +8,48 @@
  </div>
  <!-- Data -->
  <div *ngFor="let fundings of resultData">
-     <div class="row no-margin">
-         <div class="col col-1 arrow">
-         </div>
-         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
-             <span class="bold uppercase">Hankkeen nimi</span>
-         </div>
-         <div class="col col-lg-3 col-xl-3 d-none d-lg-block">
-             <span class="bold uppercase">Rahoittaja</span>
-         </div>
-         <div class="col col-xl-3 d-none d-xl-block">
-             <span class="bold uppercase">Saaja</span>
-         </div>
-         <div class="col col-lg-2 col-xl-1 d-none d-lg-block" style="margin-left:-15px;">
-             <span class="bold uppercase">Aloitusvuosi</span>
-         </div>
-     </div> 
-     <div *ngFor="let fundings of resultData;">
-         <div class="row no-margin single" *ngFor="let funding of fundings.hits.hits; let i = index"
-         (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-             <div class="col col-1 arrow">
-                 <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
-             </div>          
-             <div class="col col-8 col-lg-5 col-xl-4">
-                 <a routerLink="/results/funding/{{funding._source.projectId}}"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
-             </div>          
-             <div class="col col-lg-3 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
-                 <span>{{funding._source.funderNameFi}}</span>
-             </div>          
-             <div class="col col-xl-3 shorten d-none d-xl-block" [class.expand]="expandStatus[i]">
-                 <span>{{funding._source.fundedNameFi}}</span>
-             </div>          
-             <div class="col col-lg-2 col-xl-1" style="margin-left:-15px;">
-                 <span>{{funding._source.fundingStartYear}}</span>
-             </div>
-         </div>       
-     </div>
-     <!-- Pagination -->
-     <app-pagination [responseData]="resultData" (queryEvent)="getFundingData($event)"></app-pagination>
- </div>   
+    <!-- Results -->
+    <div class="row no-margin">
+        <div class="col col-1 arrow">
+        </div>
+        <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'a' || sortIndicator[0] === 'aDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('a')">Hankkeen nimi</span>
+        </div>
+        <div class="col col-lg-3 col-xl-3 d-none d-lg-block">
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'b' || sortIndicator[0] === 'bDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('b')">Rahoittaja</span>
+        </div>
+        <div class="col col-xl-3 d-none d-xl-block">
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'c' || sortIndicator[0] === 'cDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('c')">Saaja</span>
+        </div>
+        <div class="col col-lg-2 col-xl-1 d-none d-lg-block" style="margin-left:-15px;">
+            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'd' || sortIndicator[0] === 'dDesc' ? sortIndicator[1] : ''"
+            (click)="sortBy('d')">Aloitusvuosi</span>
+        </div>
+    </div> 
+    <div *ngFor="let fundings of resultData;">
+        <div class="row no-margin single" *ngFor="let funding of fundings.hits.hits; let i = index"
+        (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
+            <div class="col col-1 arrow">
+                <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+            </div>          
+            <div class="col col-8 col-lg-5 col-xl-4">
+                <a routerLink="/results/funding/{{funding._source.projectId}}"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
+            </div>          
+            <div class="col col-lg-3 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
+                <span>{{funding._source.funderNameFi}}</span>
+            </div>          
+            <div class="col col-xl-3 shorten d-none d-xl-block" [class.expand]="expandStatus[i]">
+                <span>{{funding._source.fundedNameFi}}</span>
+            </div>          
+            <div class="col col-lg-2 col-xl-1" style="margin-left:-15px;">
+                <span>{{funding._source.fundingStartYear}}</span>
+            </div>
+        </div>       
+    </div>
+    <!-- Pagination -->
+    <app-pagination [responseData]="resultData" (queryEvent)="getFundingData($event)"></app-pagination>
+</div>   
  

@@ -96,7 +96,10 @@ export class VisualisationComponent implements OnInit, OnDestroy {
     this.queryParams = this.route.queryParams.subscribe(params => {
       this.filter = {year: [params.year].flat().filter(x => x),
         status: [params.status].flat().filter(x => x),
-        field: [params.field].flat().filter(x => x)};
+        field: [params.field].flat().filter(x => x),
+        juFo: [params.juFo].flat().filter(x => x),
+        openAccess: [params.openAccess].flat().filter(x => x),
+        internationalCollaboration: [params.internationalCollaboration].flat().filter(x => x)};
 
       this.filterService.updateFilters(this.filter);
 
