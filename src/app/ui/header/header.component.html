@@ -24,33 +24,47 @@
             </div>
             <div class="col-lg-12 no-padding" [class.overflow-hider]="!navbarOpen && mobile">
                 <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
-                    <div class="navbar-expand mx-auto navbar-nav lang mobile" id="mobile-langs">
+                    <div class="navbar-expand mx-auto navbar-nav lang mobile">
                         <ul class="navbar-nav mx-auto">
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="#" (click)="setLang('fi')">Suomi</a>
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="#" (click)="setLang('fi')">
+                                    <span class="label">Suomi</span>
+                                </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='se'" href="#" (click)="setLang('se')">Svenska</a>
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='se'" href="#" (click)="setLang('se')">
+                                    <span class="label">Svenska</span>
+                                </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="#" (click)="setLang('en')">English</a>
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="#" (click)="setLang('en')">
+                                    <span class="label">English</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
                     <ul class="navbar-nav main col-lg-9 no-padding" [class.row]="!mobile">
-                        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
-                        (click)="navbarOpen && toggleNavbar()">
-                            <li class="nav-item"><span class="label">Etusivu</span></li>
-                        </a>
-                        <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
-                            <li class="nav-item"><span class="label">Haku</span></li>
-                        </a>
-                        <a class="nav-item nav-link" href="#">
-                            <li class="nav-item"><span class="label">Tiedepolitiikka</span></li>
-                        </a>
-                        <a class="nav-item nav-link" href="#">
-                            <li class="nav-item"><span class="label">Tiedeuutiset</span></li>
-                        </a>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+                            (click)="navbarOpen && toggleNavbar()">
+                                <span class="label">Etusivu</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
+                                <span class="label">Haku</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="#">
+                                <span class="label">Tiedepolitiikka</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="#">
+                                <span class="label">Tiedeuutiset</span>
+                            </a>
+                        </li>
                         <div *ngIf="mobile" class=""></div>
                     </ul>
                     <div class="navbar-expand navbar-nav lang col-3 no-padding">
