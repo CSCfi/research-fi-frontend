@@ -44,7 +44,11 @@ export class PublicationsComponent implements OnInit {
         this.sortIndicator.push(sortMethod, 'desc');
         break;
       }
+      default: {
+        this.sortIndicator.push('year', 'desc');
+      }
     }
+    console.log(this.sortIndicator);
   }
 
   sortBy(sortBy) {
@@ -96,8 +100,7 @@ export class PublicationsComponent implements OnInit {
       case 'year': {
         switch (activeSort) {
           case 'year': {
-            newSort = 'yearAsc';
-            this.sortIndicator = 'desc';
+            newSort = 'yearDesc';
             break;
           }
           case 'yearDesc': {
