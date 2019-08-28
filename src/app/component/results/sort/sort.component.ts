@@ -23,14 +23,14 @@ export class SortComponent implements OnInit, OnDestroy {
 
   // Assign values to dropdown list by current tab
   publicationFields = [
-    {label: 'Uusin ensin', value: 'desc'},
-    {label: 'Vanhin ensin', value: 'asc'},
-    {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'name'},
-    {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'person'}
+    {label: 'Uusin ensin', value: 'yearDesc'},
+    {label: 'Vanhin ensin', value: 'year'},
+    {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'author'},
+    {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'journal'}
   ];
   fundingFields = [
-    {label: 'Uusin ensin', value: 'desc'},
-    {label: 'Vanhin ensin', value: 'asc'},
+    {label: 'Uusin ensin', value: 'yearDesc'},
+    {label: 'Vanhin ensin', value: 'year'},
     {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
     {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
   ];
@@ -53,7 +53,7 @@ export class SortComponent implements OnInit, OnDestroy {
         }
       }
       // Get sort from url and default to desc sort on tab change
-      this.sortBy = this.route.snapshot.queryParams.sort || 'desc';
+      this.sortBy = this.route.snapshot.queryParams.sort || 'yearDesc';
   });
   }
 
