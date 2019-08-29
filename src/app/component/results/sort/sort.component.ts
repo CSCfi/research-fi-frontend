@@ -29,10 +29,10 @@ export class SortComponent implements OnInit, OnDestroy {
     {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'author'}
   ];
   fundingFields = [
-    {label: 'Uusin ensin', value: 'dDesc'},
-    {label: 'Vanhin ensin', value: 'd'},
-    {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'a'},
-    {label: 'Rahoittajan mukaan (A-Ö)', value: 'b'}
+    {label: 'Uusin ensin', value: 'yearDesc'},
+    {label: 'Vanhin ensin', value: 'year'},
+    {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
+    {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
   ];
 
   constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
