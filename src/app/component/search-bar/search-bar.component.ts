@@ -8,6 +8,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
+import { AutosuggestService } from '../../services/autosuggest.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -23,14 +24,24 @@ export class SearchBarComponent implements OnInit {
     @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
     input: string;
     sub: Subscription;
+    results: any;
 
     constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
-                 public router: Router, private route: ActivatedRoute, private sortService: SortService ) {
+                 public router: Router, private route: ActivatedRoute, private sortService: SortService,
+                 private autosuggestService: AutosuggestService ) {
     }
 
     ngOnInit() {
     }
 
+    getAutosuggest(event) {
+      console.log(event.target.value);
+
+      this.autosuggestService.search(event.target.value)
+      .subscribe(results => {
+        this.results = results;
+      });
+    }
 
     newInput() {
       this.sortService.sortMethod = 'desc';
