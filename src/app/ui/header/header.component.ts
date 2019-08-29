@@ -72,8 +72,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     if (this.navbarOpen) {
       this.mainNavbar.nativeElement.classList.add('open');
+      document.body.style.overflow = 'hidden';
     } else {
       this.mainNavbar.nativeElement.classList.remove('open');
+      document.body.style.overflow = '';
     }
   }
 

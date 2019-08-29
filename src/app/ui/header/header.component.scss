@@ -27,7 +27,6 @@ header {
 
 ul.navbar-nav.main {
     justify-content: center;
-    height: calc(100% - 50px);
 }
 
 .main li.nav-item a {
@@ -127,16 +126,16 @@ nav.nav-top {
 
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar.open {
-    transform: translateX(5%);
+    transform: translateX(3%);
     visibility: visible;
 }
 
 .collapse.navbar-collapse.menu.mobile-bar {
-    position: absolute;
+    position: fixed;
     right: 0;
     transform: translateX(105%);
     z-index: 1000;
-    padding: 10px 32px 40px 32px;
+    padding: 10px 50px 40px 50px;
     transition: transform 0.25s ease-out;
     visibility: hidden;
     display: block !important;
@@ -240,9 +239,13 @@ nav.nav-top {
     .logo {
         padding-right: 0;
     }
+    .collapse.navbar-collapse.menu.mobile-bar.open {
+        transform: translateX(2%);
+    }
 
-    #mobile-langs {
-        width: 250px;
+    .collapse.navbar-collapse.menu.mobile-bar {
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
 
@@ -250,5 +253,6 @@ nav.nav-top {
     #overlay {
         top: 87px;
         height: calc(100% - 87px);
+        overflow: hidden;
     }
 }
