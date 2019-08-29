@@ -51,11 +51,12 @@ export class SortService {
   private updateSortParam(sort: string, tab: string) {
     this.currentTab = tab;
     this.sortMethod = sort;
+    this.initSort(sort || '');
     switch (this.currentTab) {
       case 'publications': {
         this.yearField = 'publicationYear';
 
-        switch (this.sortMethod) {
+        switch (this.sortColumn) {
           case 'name': {
             this.sort = [{'publicationName.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
@@ -90,7 +91,7 @@ export class SortService {
       case 'fundings': {
         this.yearField = 'fundingStartYear';
 
-        switch (this.sortMethod) {
+        switch (this.sortColumn) {
           case 'name': {
             this.sort = [{'projectNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;

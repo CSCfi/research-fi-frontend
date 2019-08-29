@@ -33,7 +33,7 @@ export class SearchBarComponent implements OnInit {
 
 
     newInput() {
-      this.sortService.sortMethod = 'desc';
+      this.sortService.sortMethod = '';
       this.searchService.updatePageNumber(1);
       // Don't trigger subscriptions, just update search term
       this.searchService.singleInput = this.publicationSearchInput.nativeElement.value;
