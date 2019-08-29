@@ -88,7 +88,7 @@ export class SortService {
         break;
       }
       case 'fundings': {
-        this.yearField = 'publicationYear';
+        this.yearField = 'fundingStartYear';
 
         switch (this.sortMethod) {
           case 'name': {
