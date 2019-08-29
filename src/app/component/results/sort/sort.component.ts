@@ -25,14 +25,14 @@ export class SortComponent implements OnInit, OnDestroy {
   publicationFields = [
     {label: 'Uusin ensin', value: 'yearDesc'},
     {label: 'Vanhin ensin', value: 'year'},
-    {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'author'},
-    {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'journal'}
+    {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'name'},
+    {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'author'}
   ];
   fundingFields = [
-    {label: 'Uusin ensin', value: 'yearDesc'},
-    {label: 'Vanhin ensin', value: 'year'},
-    {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
-    {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
+    {label: 'Uusin ensin', value: 'dDesc'},
+    {label: 'Vanhin ensin', value: 'd'},
+    {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'a'},
+    {label: 'Rahoittajan mukaan (A-Ö)', value: 'b'}
   ];
 
   constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
@@ -53,6 +53,8 @@ export class SortComponent implements OnInit, OnDestroy {
         }
       }
       // Get sort from url and default to desc sort on tab change
+
+      if (!this.sortBy ? this.sortBy : 'yearDesc') {}
       this.sortBy = this.route.snapshot.queryParams.sort || 'yearDesc';
   });
   }
