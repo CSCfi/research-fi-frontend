@@ -157,9 +157,8 @@ nav.nav-top {
     li {
         flex: 1 1 auto;
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
         padding: 0;
+        align-items: center;
     }
     
     li a {
@@ -168,7 +167,8 @@ nav.nav-top {
     
     .main li a {
         width: 100%;
-        padding: 1.5rem, 1.25rem;
+        padding: 1.5rem 1.25rem;
+        display: flex;
     }
     
     li .label {
@@ -185,6 +185,12 @@ nav.nav-top {
         padding-right: 0;
         display: flex;
         justify-content: center;
+    }
+
+    .fa-angle-down {
+        font-size: 2.5rem;
+        margin-left: auto;
+        margin-right: 25px;
     }
 }
 
