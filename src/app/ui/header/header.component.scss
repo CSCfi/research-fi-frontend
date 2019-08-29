@@ -30,10 +30,8 @@ ul.navbar-nav.main {
     height: calc(100% - 50px);
 }
 
-.main li.nav-item {
-    a {
-        padding: 10px 10px;
-    }
+.main li.nav-item a {
+    padding: 10px 10px;
 }
 
 .main a.nav-item.nav-link, .lang a.nav-item.nav-link {
