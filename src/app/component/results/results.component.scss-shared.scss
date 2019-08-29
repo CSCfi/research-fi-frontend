@@ -67,14 +67,23 @@
             // Sort arrows
             span.bold.uppercase.asc:after {
                 font-family: "FontAwesome";
-                content: "\f106";
                 margin-left: 6px;
+                vertical-align: middle;
+                content: "\f0de";
             }
 
             span.bold.uppercase.desc:after {
                 font-family: "FontAwesome";
-                content: "\f107";
                 margin-left: 6px;
+                vertical-align: text-bottom;
+                content: "\f0dd";
+            }
+
+            span.bold.uppercase.unsorted:after {
+                font-family: "FontAwesome";
+                margin-left: 6px;
+                // vertical-align: middle;
+                content: "\f0dc";
             }
 
             // Columns
