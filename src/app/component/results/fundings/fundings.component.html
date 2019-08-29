@@ -13,20 +13,20 @@
         <div class="col col-1 arrow">
         </div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'a' || sortIndicator[0] === 'aDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('a')">Hankkeen nimi</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('name')">Hankkeen nimi</span>
         </div>
         <div class="col col-lg-3 col-xl-3 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'b' || sortIndicator[0] === 'bDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('b')">Rahoittaja</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'funder' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('funder')">Rahoittaja</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'c' || sortIndicator[0] === 'cDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('c')">Saaja</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'funded' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('funded')">Saaja</span>
         </div>
         <div class="col col-lg-2 col-xl-1 d-none d-lg-block" style="margin-left:-15px;">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'd' || sortIndicator[0] === 'dDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('d')">Aloitusvuosi</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('year')">Aloitusvuosi</span>
         </div>
     </div> 
     <div *ngFor="let fundings of resultData;">

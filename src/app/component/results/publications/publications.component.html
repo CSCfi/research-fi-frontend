@@ -12,20 +12,20 @@
     <div class="row no-margin">
         <div class="col col-1 arrow"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'a' || sortIndicator[0] === 'aDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('a')">Julkaisun nimi</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('name')">Julkaisun nimi</span>
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'b' || sortIndicator[0] === 'bDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('b')">Tekijät</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'author' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('author')">Tekijät</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'c' || sortIndicator[0] === 'cDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('c')">Julkaisukanava</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('medium')">Julkaisukanava</span>
         </div>
         <div class="col col-lg-1 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortIndicator[0] === 'd' || sortIndicator[0] === 'dDesc' ? sortIndicator[1] : ''"
-            (click)="sortBy('d')">Vuosi</span>
+            <span class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : ''"
+            (click)="sortBy('year')">Vuosi</span>
         </div>
     </div>
 

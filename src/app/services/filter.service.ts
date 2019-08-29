@@ -152,7 +152,7 @@ export class FilterService {
       aggs: {
         years: {
           terms: {
-            field: this.sortService.sortField,
+            field: this.sortService.yearField,
             size: 50,
             order: { _key : 'desc' }
           }

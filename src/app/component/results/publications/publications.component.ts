@@ -17,24 +17,25 @@ import { SortService } from '../../../services/sort.service';
 export class PublicationsComponent implements OnInit {
   @Input() resultData: any [];
   expandStatus: Array<boolean> = [];
-  sortIndicator: any;
+  sortColumn: string;
+  sortDirection: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService) { }
 
   ngOnInit() {
-    this.sortService.addSortIndicator();
-    this.sortIndicator = this.sortService.sortIndicator;
+    this.sortService.initSort(this.route.snapshot.queryParams.sort || 'yearDesc');
+    this.sortColumn = this.sortService.sortColumn;
+    this.sortDirection = this.sortService.sortDirection;
   }
 
   sortBy(sortBy) {
     const activeSort = this.route.snapshot.queryParams.sort;
-    this.sortService.sortBy(sortBy, activeSort);
-    const newSort = this.sortService.newSort;
+    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
 
     this.router.navigate([],
       {
         relativeTo: this.route,
-        queryParams: { sort: newSort },
+        queryParams: { sort: sortColumn + (sortDirection ? 'Desc' : '') },
         queryParamsHandling: 'merge'
       }
     );
