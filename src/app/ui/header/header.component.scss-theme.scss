@@ -19,6 +19,7 @@
             
             .collapse.navbar-collapse.menu.mobile-bar {
                 background: mat-color($primary, default-contrast);
+                color: mat-color($primary);
                 
                 li a.lang-box {
                     background: mat-color($primary, default-contrast);

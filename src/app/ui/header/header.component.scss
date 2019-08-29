@@ -15,10 +15,6 @@
     height: calc(100% - 110px);
 }
 
-#mobile-langs {
-    width: 300px;
-}
-
 header {
     max-width: 1440px;
     margin: 0 auto;
@@ -26,7 +22,7 @@ header {
 
 .navbar {
     padding: 1rem 0rem 0 0rem;
-    margin: 0 15px;
+    margin: 0 15px 0 10px;
 }
 
 ul.navbar-nav.main {
@@ -38,7 +34,7 @@ ul.navbar-nav.main {
     padding: 10px 10px;
 }
 
-.main a.nav-item.nav-link {
+.main a.nav-item.nav-link, .lang a.nav-item.nav-link {
     padding: 0;
 }
 
@@ -87,6 +83,7 @@ li.col-4 {
 
 .logo {
     padding-left: 0;
+    padding-right: 0;
     padding-bottom: 19px;
 }
 
@@ -136,8 +133,8 @@ nav.nav-top {
 .collapse.navbar-collapse.menu.mobile-bar.open {
     transform: translateX(5%);
     visibility: visible;
-    height: 75vh;
 }
+
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: 0;
@@ -148,8 +145,10 @@ nav.nav-top {
     visibility: hidden;
     display: block !important;
     width: 105vw;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+
+    .lang.mobile {
+        margin-bottom: 20px;
+    }
 
     ul.main {
         justify-content: space-evenly;
@@ -158,41 +157,54 @@ nav.nav-top {
     li {
         flex: 1 1 auto;
         display: flex;
-        justify-content: center;
+        padding: 0;
         align-items: center;
     }
     
     li a {
-        text-transform: uppercase;
-        margin: 10px 0px;
-        padding: 0.2rem 0;
+        padding: 0.9375rem 1.25rem;
     }
-
+    
+    .main li a {
+        width: 100%;
+        padding: 1.5rem 1.25rem;
+        display: flex;
+    }
+    
     li .label {
         text-transform: uppercase;
+        padding: 0 10px;
+        font-size: 1.1rem;
     }
 
     li a.lang-box {
         width: 100%;
         border-radius: 5px;
-        margin: 10px 1px;
-        padding: 5px 0;
-        text-align: center;
-        font-size: 0.75rem;
+        margin: 0 1px;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .fa-angle-down {
+        font-size: 2.5rem;
+        margin-left: auto;
+        margin-right: 25px;
     }
 }
 
 // Responsive
 
 // Desktop size (xl)
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
     .mobile {
         display: none;
     }
 }
 
 // Mobile size (sm md lg)
-@media (max-width: 1199px) {
+@media (max-width: 991px) {
     .desktop {
         display: none;
     }
@@ -212,6 +224,7 @@ nav.nav-top {
     .navbar-expand.mx-auto.navbar-nav.lang.mobile .navbar-nav {
         flex-direction: row;
         width: 100%;
+        max-width: 800px;
     }
 
     nav.nav-top {
