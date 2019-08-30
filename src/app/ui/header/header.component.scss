@@ -52,6 +52,9 @@ span.label {
 
 .absolute {
     position: absolute;
+    // IE fix
+    top: 0;
+    right: 0;
 }
 
 .fa-bars {
