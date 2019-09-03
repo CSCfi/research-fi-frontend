@@ -27,7 +27,7 @@
   </div>
   <!-- Auto suggest -->
   <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest">
-    <div *ngIf="topData">
+    <div class="results" *ngIf="topData">
       <div *ngFor="let data of topData">
         <div class="row results" *ngIf="topData">
           <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
