@@ -14,15 +14,14 @@
             background: mat-color($primary, default-contrast);
             color: mat-color($primary);    
             border: 1px solid mat-color($primary, default-contrast);
+        }
+        
+        .auto-suggest {
+            outline: 2px solid mat-color($primary);
+        }
 
-        }
-        
-        p.text-right.ext-search a {
-            color: mat-color($primary, default-contrast);
-        }
-        
-        .mat-checkbox {
-            color: mat-color($primary, default-contrast);
+        .auto-suggest ul li a {
+            color: mat-color($primary); 
         }
     }
 }

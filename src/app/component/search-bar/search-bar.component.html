@@ -12,10 +12,10 @@
         <label *ngIf="router.url === '/'" class="text-center h1" for="publicationSearchInput" style="width:100%;">Hae tutkimuksen tekijöitä ja tuloksia.</label>
         <div class="form-group has-search">
           <div class="input-group">
-            <input type="text" #publicationSearchInput class="form-control" placeholder="Julkaisu, tutkija, projekti, organisaatio" 
-            value="{{searchService.currentInput | async}}" id="publicationSearchInput" (keydown.enter)="newInput()"/>
+            <input type="text" #publicationSearchInput class="form-control" [formControl]="queryField" placeholder="Julkaisu, tutkija, projekti, organisaatio"
+            value="{{searchService.currentInput | async}}" id="publicationSearchInput" (keydown.enter)="newInput(undefined)" autocomplete="off"/>
             <div class="input-group-append">
-              <button class="btn btn-search" type="button" (click)="newInput()">
+              <button class="btn btn-search" type="button" (click)="newInput(undefined)">
                 <span class="search-button">Hae</span>
                 <i class="fa fa-search"></i>
               </button>
@@ -25,4 +25,45 @@
       </form>
     </div>
   </div>
+  <!-- Auto suggest -->
+  <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest">
+    <div class="row results" *ngIf="topData">
+      <div *ngFor="let data of topData">
+        <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
+          <h3 class="font-weight-bold">{{data.translation}} ({{data.source.doc_count}})</h3>
+          <div class="top-results" *ngFor="let i of indices">
+            <ul *ngIf="data.index === i.index">
+              <li *ngFor="let item of data.source.index_results.hits.hits">
+                <a routerLink="/results/{{data.index}}/{{item._source[i.link]}}" (click)="addToHistory()">{{item._source[i.field]}}</a>
+              </li>
+            </ul>
+          </div>
+          <div align="center">
+            <a class="font-weight-bold" *ngIf="data.source.doc_count > 3" (click)="newInput(data.index)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a> 
+          </div>
+        </div>
+      </div>
+      <div class="col other-links">
+        <ul>
+          <li *ngFor="let data of otherData">
+            <a class="font-weight-bold" *ngIf="data.source.doc_count > 0" (click)="newInput(data.index)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Query history -->
+    <div class="row" *ngIf="queryHistory">
+      <div class="col" *ngIf="queryHistory[0] === '' || this.queryHistory.length === 0; else showHistory ">
+      </div>
+      <ng-template #showHistory>
+        <div class="col query-history">
+          <h3 class="font-weight-bold">Hait viimeeksi:</h3>
+          <ul>
+            <li *ngFor="let item of queryHistory"><a href="javascript:void(0);" (click)="newInput(undefined, item)">{{item}}</a></li>
+          </ul>
+          <a href="javascript:void(0);" (click)="clearHistory()">Tyhjennä hakuhistoria</a>
+        </div>
+      </ng-template>
+    </div>
+  </div> 
 </div>

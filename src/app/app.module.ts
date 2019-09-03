@@ -28,6 +28,7 @@ import { SearchBarComponent } from './component/search-bar/search-bar.component'
 import { ResultsComponent } from './component/results/results.component';
 
 import { SearchService } from './services/search.service';
+import { AutosuggestService} from './services/autosuggest.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
@@ -121,7 +122,7 @@ import { PortalModule } from '@angular/cdk/portal';
     CountUpModule,
     PortalModule
   ],
-  providers: [ SearchService, Title ],
+  providers: [ SearchService, Title, AutosuggestService ],
   bootstrap: [ AppComponent ],
   entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
 })
