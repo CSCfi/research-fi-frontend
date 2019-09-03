@@ -26,7 +26,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
   loading = true;
-  hierarchy = ['publicationYear', 'field'];
+  hierarchy;
 
   nOfResults = 0;
   searchTerm: string;
@@ -34,8 +34,6 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   queryParams: Subscription;
   filtersOn: boolean;
   filter: any;
-  years: any;
-  status: any;
   query: any;
   width = window.innerWidth;
   height = 900;
@@ -179,6 +177,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
         : x.field = 'No field available');
         res.map(x => x.key = x.publicationName);
         res.map(x => x.id = x.publicationId);
+        this.hierarchy = ['publicationYear', 'field'];
         break;
 
         case 'funding':
@@ -256,12 +255,13 @@ export class VisualisationComponent implements OnInit, OnDestroy {
     const tree = nest.entries(allData);
 
     this.root = this.partition({key: 'Data', values: tree});
+    const filteredChildred = this.root.descendants().slice(1).filter(d => d.children);
 
     this.root.each(d => d.current = d);
 
     this.path = this.g.append('g')
       .selectAll('path')
-      .data(this.root.descendants().slice(1))
+      .data(filteredChildred)
       .join('path')
         .attr('fill', d => { while (d.depth > 1) { d = d.parent; } return this.color(d.data.key); })
         .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
@@ -284,7 +284,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
       .attr('text-anchor', 'middle')
       .style('user-select', 'none')
       .selectAll('text')
-      .data(this.root.descendants().slice(1))
+      .data(filteredChildred)
       .join('text')
         .attr('dy', '0.35em')
         .attr('fill-opacity', d => +this.labelVisible(d.current))
