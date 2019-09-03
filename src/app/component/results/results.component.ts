@@ -58,25 +58,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    // Subscribe to queryParams and send to search service
-    this.queryParams = this.route.queryParams.subscribe(params => {
-      // Defaults to 1 if no query param provided.
-      this.page = +params.page || 1;
-      // filters is an object consisting of arrays, empty property arrays represent that no filter is enabled
-      this.filters = {year: [params.year].flat().filter(x => x),
-                      status: [params.status].flat().filter(x => x),
-                      field: [params.field].flat().filter(x => x),
-                      juFo: [params.juFo].flat().filter(x => x),
-                      openAccess: [params.openAccess].flat().filter(x => x),
-                      internationalCollaboration: [params.internationalCollaboration].flat().filter(x => x)};
-
-      this.filterService.updateFilters(this.filters);
-      this.sortService.updateSort(params.sort);
-      this.searchService.updatePageNumber(this.page);
-      // Flag telling search-results to fetch new filtered data
-      this.updateFilters = !this.updateFilters;
-    });
-
     // Subscribe to route params and query params in one subscription
     this.combinedRouteParams = combineLatest([this.route.params, this.route.queryParams])
       .pipe(map(results => ({params: results[0], query: results[1]})),
