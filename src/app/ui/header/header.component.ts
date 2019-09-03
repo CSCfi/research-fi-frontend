@@ -81,6 +81,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setLang(lang: string) {
     this.lang = lang;
+    document.documentElement.lang = lang;
   }
 
   onResize(dims) {
