@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../services/single-item.service';
@@ -18,7 +18,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   templateUrl: './single-publication.component.html',
   styleUrls: ['./single-publication.component.scss']
 })
-export class SinglePublicationComponent implements OnInit {
+export class SinglePublicationComponent implements OnInit, OnDestroy {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
@@ -62,6 +62,7 @@ export class SinglePublicationComponent implements OnInit {
 
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
+  routeParams: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService ) {
@@ -76,7 +77,14 @@ export class SinglePublicationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+    this.routeParams = this.route.params.subscribe(param => {
+      this.singleService.getPublicationId(param.id);
+      this.getData();
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeParams.unsubscribe();
   }
 
   getData() {

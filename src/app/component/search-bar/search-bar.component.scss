@@ -89,7 +89,7 @@ p.text-right.ext-search a:hover {
 .auto-suggest {
     padding: 10px 0;
     background: #fff;
-    z-index: 5;
+    z-index: 999;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -162,4 +162,12 @@ p.text-right.ext-search a.increase:before {
 
 .mat-checkbox {
     margin: 0 10px;
+}
+
+// Responsive
+@media (max-width:754px) {
+    .auto-suggest {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
 }

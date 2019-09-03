@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from 'src/app/services/single-item.service';
@@ -17,7 +17,7 @@ import { SearchService } from 'src/app/services/search.service';
   templateUrl: './single-funding.component.html',
   styleUrls: ['./single-funding.component.scss']
 })
-export class SingleFundingComponent implements OnInit {
+export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
@@ -50,6 +50,7 @@ export class SingleFundingComponent implements OnInit {
 
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
+  routeParams: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
@@ -64,7 +65,14 @@ export class SingleFundingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+    this.routeParams = this.route.params.subscribe(param => {
+      this.singleService.getPublicationId(param.id);
+      this.getData();
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeParams.unsubscribe();
   }
 
   getData() {

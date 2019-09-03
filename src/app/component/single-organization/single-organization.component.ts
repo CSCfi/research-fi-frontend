@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from 'src/app/services/single-item.service';
 import { SearchService } from 'src/app/services/search.service';
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './single-organization.component.html',
   styleUrls: ['./single-organization.component.scss']
 })
-export class SingleOrganizationComponent implements OnInit {
+export class SingleOrganizationComponent implements OnInit, OnDestroy {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
@@ -32,6 +32,7 @@ export class SingleOrganizationComponent implements OnInit {
 
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
+  routeParams: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
@@ -46,7 +47,14 @@ export class SingleOrganizationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+    this.routeParams = this.route.params.subscribe(param => {
+      this.singleService.getPublicationId(param.id);
+      this.getData();
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeParams.unsubscribe();
   }
 
   getData() {
