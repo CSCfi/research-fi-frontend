@@ -27,19 +27,21 @@
   </div>
   <!-- Auto suggest -->
   <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest">
-    <div class="row results" *ngIf="topData">
+    <div *ngIf="topData">
       <div *ngFor="let data of topData">
-        <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
-          <h3 class="font-weight-bold">{{data.translation}} ({{data.source.doc_count}})</h3>
-          <div class="top-results" *ngFor="let i of indices">
-            <ul *ngIf="data.index === i.index">
-              <li *ngFor="let item of data.source.index_results.hits.hits">
-                <a routerLink="/results/{{data.index}}/{{item._source[i.link]}}" (click)="addToHistory()">{{item._source[i.field]}}</a>
-              </li>
-            </ul>
-          </div>
-          <div align="center">
-            <a class="font-weight-bold" *ngIf="data.source.doc_count > 3" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a> 
+        <div class="row results" *ngIf="topData">
+          <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
+            <h3 class="font-weight-bold">{{data.translation}} ({{data.source.doc_count}})</h3>
+            <div class="top-results" *ngFor="let i of indices">
+              <ul *ngIf="data.index === i.index">
+                <li *ngFor="let item of data.source.index_results.hits.hits">
+                  <a routerLink="/results/{{data.index}}/{{item._source[i.link]}}" (click)="addToHistory()">{{item._source[i.field]}}</a>
+                </li>
+              </ul>
+            </div>
+            <div align="center">
+              <a class="font-weight-bold" *ngIf="data.source.doc_count > 3" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a> 
+            </div>
           </div>
         </div>
       </div>
