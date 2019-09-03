@@ -43,10 +43,12 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // Reset data so previous data is not displayed until new data is loaded
-    if (this.componentRef && (changes.currentTab && !changes.currentTab.firstChange ||
-      changes.updateFilters && !changes.updateFilters.firstChange)) {
-        this.componentRef.instance.resultData = undefined;
+    if (changes.currentTab && !changes.currentTab.firstChange ||
+      changes.updateFilters && !changes.updateFilters.firstChange) {
+        if (this.componentRef) {
+          // Reset data so previous data is not displayed until new data is loaded
+          this.componentRef.instance.resultData = undefined;
+        }
         this.getResultData();
       }
   }
@@ -82,6 +84,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
         break;
 
       default:
+        child = EmptyResultComponent;
         break;
     }
 
@@ -94,7 +97,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
 @Component({
   selector: 'app-empty-result',
-  template: '<p>Error</p>'
+  template: '<b>Component not implemented yet</b>'
 })
 export class EmptyResultComponent {
   @Input() resultData;

@@ -15,10 +15,6 @@
     height: calc(100% - 110px);
 }
 
-#mobile-langs {
-    width: 300px;
-}
-
 header {
     max-width: 1440px;
     margin: 0 auto;
@@ -26,24 +22,19 @@ header {
 
 .navbar {
     padding: 1rem 0rem 0 0rem;
-    margin: 0 15px;
+    margin: 0 15px 0 10px;
 }
 
 ul.navbar-nav.main {
     justify-content: center;
-    height: calc(100% - 50px);
 }
 
-.main li.nav-item {
+.main li.nav-item a {
     padding: 10px 10px;
 }
 
-.main a.nav-item.nav-link {
+.main a.nav-item.nav-link, .lang a.nav-item.nav-link {
     padding: 0;
-}
-
-li.nav-item {
-    padding: 0 10px;
 }
 
 a.nav-item {
@@ -56,8 +47,14 @@ span.label {
 
 // Prevent horizontal mobile screen scrolling while menu is out of view
 .overflow-hider {
-    position: absolute;
     overflow: hidden;
+}
+
+.absolute {
+    position: absolute;
+    // IE fix
+    top: 0;
+    right: 0;
 }
 
 .fa-bars {
@@ -87,6 +84,7 @@ li.col-4 {
 
 .logo {
     padding-left: 0;
+    padding-right: 0;
     padding-bottom: 19px;
 }
 
@@ -134,67 +132,86 @@ nav.nav-top {
 
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar.open {
-    transform: translateX(5%);
-    visibility: visible;
-    height: 75vh;
+    right: 0;
 }
+
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
-    right: 0;
-    transform: translateX(105%);
+    right: -110vw;
+    top: 70px;
     z-index: 1000;
-    padding: 10px 32px 40px 32px;
-    transition: transform 0.5s ease-out;
-    visibility: hidden;
+    padding: 10px 50px 40px 50px;
+    transition: right 0.25s ease-out;
     display: block !important;
-    width: 105vw;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    width: 100vw;
+
+    .lang.mobile {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 
     ul.main {
         justify-content: space-evenly;
+        max-width: 800px;
+        margin: 0 auto;
     }
 
     li {
         flex: 1 1 auto;
         display: flex;
-        justify-content: center;
+        padding: 0;
         align-items: center;
     }
     
     li a {
-        text-transform: uppercase;
-        margin: 10px 0px;
-        padding: 0.2rem 0;
+        padding: 0.9375rem 1.25rem;
     }
-
+    
+    .main li a {
+        width: 100%;
+        padding: 1.5rem 0.5rem;
+        display: flex;
+    }
+    
     li .label {
         text-transform: uppercase;
+        padding: 0;
+        font-size: 1.1rem;
     }
 
     li a.lang-box {
         width: 100%;
         border-radius: 5px;
-        margin: 10px 1px;
-        padding: 5px 0;
-        text-align: center;
-        font-size: 0.75rem;
+        margin: 0 1px;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .fa-angle-down {
+        font-size: 2.5rem;
+        padding-right: 25px;
     }
 }
 
 // Responsive
 
 // Desktop size (xl)
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
     .mobile {
         display: none;
     }
 }
 
 // Mobile size (sm md lg)
-@media (max-width: 1199px) {
+@media (max-width: 991px) {
     .desktop {
         display: none;
+    }
+
+    .navbar {
+        margin-right: 0;
     }
 
     .navbar-toggler, .navbar-toggler-right {
@@ -212,17 +229,18 @@ nav.nav-top {
     .navbar-expand.mx-auto.navbar-nav.lang.mobile .navbar-nav {
         flex-direction: row;
         width: 100%;
+        max-width: 800px;
     }
 
     nav.nav-top {
         padding-top: 0;
+        padding-right: 15px;
     }
 }
 
 // Logo margin for small screens to prevent menu button misplacement
 @media (max-width: 355px) {
     .navbar {
-        margin-right: 15px;
         margin-left: 4px;
     }
 
@@ -230,8 +248,9 @@ nav.nav-top {
         padding-right: 0;
     }
 
-    #mobile-langs {
-        width: 250px;
+    .collapse.navbar-collapse.menu.mobile-bar {
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
 
@@ -239,5 +258,10 @@ nav.nav-top {
     #overlay {
         top: 87px;
         height: calc(100% - 87px);
+        overflow: hidden;
+    }
+
+    .collapse.navbar-collapse.menu.mobile-bar {
+        top: 58px;
     }
 }

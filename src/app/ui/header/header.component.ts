@@ -17,10 +17,12 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar') mainNavbar: ElementRef;
   @ViewChild('navbarToggler') navbarToggler: ElementRef;
+  @ViewChild('overflowHider') overflowHider: ElementRef;
 
   navbarOpen = false;
+  hideOverflow = true;
 
-  mobile = window.innerWidth < 1200;
+  mobile = window.innerWidth < 992;
 
   height = window.innerHeight;
   width = window.innerWidth;
@@ -68,23 +70,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleNavbar() {
+    // Toggle navbar state
     this.navbarOpen = !this.navbarOpen;
 
-    if (this.navbarOpen) {
-      this.mainNavbar.nativeElement.classList.add('open');
-    } else {
-      this.mainNavbar.nativeElement.classList.remove('open');
-    }
+    // Allow menu to slide out before hiding
+    setTimeout(() => {
+      this.hideOverflow = !this.hideOverflow;
+    }, 250 * (1 - +this.navbarOpen));
   }
 
   setLang(lang: string) {
     this.lang = lang;
+    document.documentElement.lang = lang;
   }
 
   onResize(dims) {
     this.height = dims.height;
     this.width = dims.width;
-    if (this.width >= 1200) {
+    if (this.width >= 992) {
       this.mobile = false;
       if (this.navbarOpen) { this.toggleNavbar(); }
       this.mainNavbar.nativeElement.style.cssText = '';

@@ -35,19 +35,6 @@ const routes: Routes = [
     redirectTo: 'results/organizations',
     pathMatch: 'full'
   },
-  // Prevent path to unfinished tabs
-  {
-    path: 'results/1',
-    redirectTo: 'results/publications'
-  },
-  {
-    path: 'results/2',
-    redirectTo: 'results/publications'
-  },
-  {
-    path: 'results/3',
-    redirectTo: 'results/publications'
-  },
   {
     path: 'results/publication/:id',
     component: SinglePublicationComponent

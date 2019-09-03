@@ -43,7 +43,7 @@ export class HomePageComponent implements OnInit {
     this.getAllData();
 
     // Reset sort
-    this.sortService.updateSort('desc');
+    this.sortService.updateSort('');
 
     // Set title
     this.setTitle('Etusivu - Tutkimustietovaranto');

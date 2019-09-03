@@ -26,7 +26,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   input: Subscription;
   tabData = this.tabChangeService.tabData;
   tab: any = [];
-  selectedTabData: any = [];
+  selectedTabData: {data: string, label: string, link: string};
   public tabValues: any;
   public filterValues: any;
   errorMessage = [];
