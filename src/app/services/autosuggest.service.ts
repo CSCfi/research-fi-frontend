@@ -20,100 +20,121 @@ export class AutosuggestService {
 
   search(terms: Observable<string>) {
     const payLoad = {
-			query: {
-				bool: {
-					should: [
-						{
-							bool: {
-								must: [
-									{ term: { _index: 'publication'	}	},
-									{	bool:
-										{	should: [
-											{ match_phrase_prefix: { publicationName: { query: terms } } }
-										]	}
-									}
-								]
-							}
-						},
-						{
-							bool: {
-								must: [
-									{ term: { _index: 'funding'	}	},
-									{	bool:
-										{	should: [
-											{ prefix: { projectNameFi: { value: terms } } }
-										]	}
-									}
-								]
-							}
-						},
-						{
-							bool: {
-								must: [
-									{ term: { _index: 'person'	}	},
-									{	bool:
-										{	should: [
-											{ prefix: { firstNames: { value: terms } } },
-											{ prefix: { lastName: { value: terms } } }
-										]	}
-									}
-								]
-							}
-						},
-						{
-							bool: {
-								must: [
-									{ term: { _index: 'organization'	}	},
-									{	bool:
-										{	should: [
-											{ prefix: { nameFi: { value: terms } } }
-										]	}
-									}
-								]
-							}
-						}
-					],
-					boost: 1
-				}
-			},
-			aggs: {
-					_index: {
-							filters: {
-									filters: {
-											person: {
-													match: {
-															_index: 'person'
-													}
-											},
-											publication: {
-													match: {
-															_index: 'publication'
-													}
-											},
-											funding: {
-													match: {
-															_index: 'funding'
-													}
-											},
-											organization: {
-													match: {
-															_index: 'organization'
-													}
-											}
-									}
-							},
-							aggs: {
-									index_results: {
-											top_hits: {
-													size: 3
-											}
-									}
-							}
-					}
-			}
-	};
-
-	   return this.http.post(this.apiUrl + 'publication,person,funding,organization/_search?filter_path=aggregations&q=' + terms, payLoad);
-	}
+    query: {
+        bool: {
+            should: [
+              {
+                bool: {
+                  must: [
+                    { term: { _index: 'publication'	}	},
+                    {	bool:
+                      {	should: [
+                          { fuzzy: { publicationName: { value: terms,
+                            fuzziness: 'AUTO',
+                            max_expansions: 50,
+                            prefix_length: 0,
+                            transpositions: true,
+                            rewrite: 'constant_score' } } },
+                            {match_phrase_prefix: { publicationName: { query: terms }}}
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                bool: {
+                  must: [
+                    { term: { _index: 'funding'	}	},
+                    {	bool:
+                      {	should: [
+                          { fuzzy: { projectNameFi: { value: terms,
+                            fuzziness: 'AUTO',
+                            max_expansions: 50,
+                            prefix_length: 0,
+                            transpositions: true,
+                            rewrite: 'constant_score' } } },
+                            {match_phrase_prefix: { projectNameFi: { query: terms }}}
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                bool: {
+                  must: [
+                    { term: { _index: 'person'	}	},
+                    {	bool:
+                      {	should: [
+                        { prefix: { firstNames: { value: terms } } },
+                        { prefix: { lastName: { value: terms } } }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                bool: {
+                  must: [
+                    { term: { _index: 'organization'	}	},
+                    {	bool:
+                      {	should: [
+                          { fuzzy: { nameFi: { value: terms,
+                            fuzziness: 'AUTO',
+                            max_expansions: 50,
+                            prefix_length: 0,
+                            transpositions: true,
+                            rewrite: 'constant_score' } } },
+                            {match_phrase_prefix: { nameFi: { query: terms }}}
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+          ],
+          boost: 1
+        }
+      },
+      aggs: {
+        _index: {
+          filters: {
+            filters: {
+              person: {
+                match: {
+                  _index: 'person'
+                }
+              },
+              publication: {
+                match: {
+                  _index: 'publication'
+                }
+              },
+              funding: {
+                match: {
+                  _index: 'funding'
+                }
+              },
+              organization: {
+                match: {
+                  _index: 'organization'
+                }
+              }
+            }
+          },
+          aggs: {
+            index_results: {
+              top_hits: {
+                size: 3
+              }
+            }
+          }
+        }
+      }
+    };
+    return this.http.post(this.apiUrl + 'publication,person,funding,organization/_search?filter_path=aggregations', payLoad);
+    }
 
 }
