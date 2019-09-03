@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { SingleItemService } from 'src/app/services/single-item.service';
 
 
 @Component({
@@ -50,7 +51,7 @@ export class SearchBarComponent implements OnInit {
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
-               private autosuggestService: AutosuggestService ) {
+               private autosuggestService: AutosuggestService, private singleService: SingleItemService ) {
                 this.queryHistory = Object.keys(sessionStorage).reverse();
   }
 
@@ -122,8 +123,9 @@ export class SearchBarComponent implements OnInit {
     });
   }
 
-  addToHistory() {
+  addToHistory(id: string) {
     this.showAutoSuggest = false;
+    this.singleService.updateId(id);
     sessionStorage.setItem(this.currentInput, this.currentInput);
     this.searchService.singleInput = this.currentInput;
   }

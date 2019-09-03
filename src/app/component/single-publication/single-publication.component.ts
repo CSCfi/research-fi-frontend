@@ -12,6 +12,7 @@ import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-single-publication',
@@ -62,14 +63,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
-  routeParams: any;
+  idSub: Subscription;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService ) {
-    this.singleId = this.route.snapshot.params.id;
-    this.singleService.getPublicationId(this.singleId);
-    this.pageNumber = this.searchService.pageNumber || 1;
-    this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
    }
 
   public setTitle(newTitle: string) {
@@ -77,18 +74,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.routeParams = this.route.params.subscribe(param => {
-      this.singleService.getPublicationId(param.id);
-      this.getData();
-    });
+    this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
+    this.singleId = this.route.snapshot.params.id;
+    this.singleService.updateId(this.singleId);
+    this.pageNumber = this.searchService.pageNumber || 1;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
   }
 
   ngOnDestroy() {
-    this.routeParams.unsubscribe();
+    this.idSub.unsubscribe();
   }
 
-  getData() {
-    this.singleService.getSinglePublication()
+  getData(id: string) {
+    this.singleService.getSinglePublication(id)
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
