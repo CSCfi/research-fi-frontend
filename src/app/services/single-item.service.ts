@@ -15,43 +15,30 @@ export class SingleItemService {
   publicationApiUrl = API_URL + 'publication/_search';
   fundingApiUrl = API_URL + 'funding/_search';
   organizationApiUrl = API_URL + 'organization/_search';
-  getId$: Observable<any>;
-  private getIdSubject = new Subject<any>();
-  singlePublicationId: any;
-  singleFundingId: any;
-  singleOrganizationId: any;
+  private getIdSubject = new Subject<string>();
+  currentId = this.getIdSubject.asObservable();
+  resultId: string;
 
   constructor( private http: HttpClient, private searchService: SearchService ) {
-    this.getId$ = this.getIdSubject.asObservable();
    }
 
-  getPublicationId(singleId) {
-    this.singlePublicationId = singleId;
+  updateId(singleId: string) {
+    this.resultId = singleId;
     this.getIdSubject.next(singleId);
-}
+  }
 
-  getFundingId(singleId) {
-    this.singleFundingId = singleId;
-    this.getIdSubject.next(singleId);
-}
-
-  getOrganizationId(singleId) {
-    this.singleOrganizationId = singleId;
-    this.getIdSubject.next(singleId);
-}
-
-  getSinglePublication(): Observable<Search[]> {
-    return this.http.get<Search[]>(this.publicationApiUrl + '?&q=publicationId=' + this.singlePublicationId)
+  getSinglePublication(id): Observable<Search[]> {
+    return this.http.get<Search[]>(this.publicationApiUrl + '?&q=publicationId=' + id)
     .pipe(catchError(this.searchService.handleError));
   }
 
-  getSingleFunding(): Observable<Search[]> {
-    return this.http.get<Search[]>(this.fundingApiUrl + '?&q=projectId:' + this.singleFundingId)
+  getSingleFunding(id): Observable<Search[]> {
+    return this.http.get<Search[]>(this.fundingApiUrl + '?&q=projectId:' + id)
     .pipe(catchError(this.searchService.handleError));
   }
 
-  getSingleOrganization(): Observable<Search[]> {
-    return this.http.get<Search[]>(this.organizationApiUrl + '?&q=organizationId=' + this.singleOrganizationId)
+  getSingleOrganization(id): Observable<Search[]> {
+    return this.http.get<Search[]>(this.organizationApiUrl + '?&q=organizationId=' + id)
     .pipe(catchError(this.searchService.handleError));
   }
 

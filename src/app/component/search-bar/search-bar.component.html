@@ -34,7 +34,7 @@
           <div class="top-results" *ngFor="let i of indices">
             <ul *ngIf="data.index === i.index">
               <li *ngFor="let item of data.source.index_results.hits.hits">
-                <a routerLink="/results/{{data.index}}/{{item._source[i.link]}}" (click)="addToHistory()">{{item._source[i.field]}}</a>
+                <a routerLink="/results/{{data.index}}/{{item._source[i.link]}}" (click)="addToHistory(item._source[i.link])">{{item._source[i.field]}}</a>
               </li>
             </ul>
           </div>

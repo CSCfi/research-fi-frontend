@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from 'src/app/services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-single-funding',
@@ -50,14 +51,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
-  routeParams: any;
+  idSub: Subscription;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
-    this.singleId = this.route.snapshot.params.id;
-    this.singleService.getFundingId(this.singleId);
-    this.searchTerm = this.searchService.singleInput;
-    this.pageNumber = this.searchService.pageNumber || 1;
    }
 
   public setTitle(newTitle: string) {
@@ -65,18 +62,19 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.routeParams = this.route.params.subscribe(param => {
-      this.singleService.getPublicationId(param.id);
-      this.getData();
-    });
+    this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
+    this.singleId = this.route.snapshot.params.id;
+    this.singleService.updateId(this.singleId);
+    this.searchTerm = this.searchService.singleInput;
+    this.pageNumber = this.searchService.pageNumber || 1;
   }
 
   ngOnDestroy() {
-    this.routeParams.unsubscribe();
+    this.idSub.unsubscribe();
   }
 
-  getData() {
-    this.singleService.getSingleFunding()
+  getData(id: string) {
+    this.singleService.getSingleFunding(id)
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;

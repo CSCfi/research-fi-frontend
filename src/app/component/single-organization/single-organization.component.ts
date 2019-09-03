@@ -4,6 +4,7 @@ import { SingleItemService } from 'src/app/services/single-item.service';
 import { SearchService } from 'src/app/services/search.service';
 import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-single-organization',
@@ -32,14 +33,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
-  routeParams: any;
+  idSub: Subscription;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
-    this.singleId = this.route.snapshot.params.id;
-    this.singleService.getOrganizationId(this.singleId);
-    this.searchTerm = this.searchService.singleInput;
-    this.pageNumber = this.searchService.pageNumber || 1;
    }
 
   public setTitle(newTitle: string) {
@@ -47,18 +44,19 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.routeParams = this.route.params.subscribe(param => {
-      this.singleService.getPublicationId(param.id);
-      this.getData();
-    });
+    this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
+    this.singleId = this.route.snapshot.params.id;
+    this.singleService.updateId(this.singleId);
+    this.searchTerm = this.searchService.singleInput;
+    this.pageNumber = this.searchService.pageNumber || 1;
   }
 
   ngOnDestroy() {
-    this.routeParams.unsubscribe();
+    this.idSub.unsubscribe();
   }
 
-  getData() {
-    this.singleService.getSingleOrganization()
+  getData(id: string) {
+    this.singleService.getSingleOrganization(id)
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
