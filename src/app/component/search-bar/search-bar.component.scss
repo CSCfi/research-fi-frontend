@@ -85,6 +85,58 @@ p.text-right.ext-search a:hover {
     text-decoration: none;
 }
 
+// Auto suggest
+.auto-suggest {
+    padding: 10px 0;
+    background: #fff;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+    max-width: 687px;
+}
+
+.row.results {
+    padding: 10px 0;
+}
+
+.auto-suggest h3 {
+    font-size: 1rem;
+}
+
+.auto-suggest h3::first-letter {
+    text-transform: uppercase;
+}
+
+.auto-suggest ul {
+    list-style: none;
+}
+
+.auto-suggest  li:empty {
+    display: none;
+}
+
+.top-results ul li {
+    padding: 4px 0;
+}
+
+.auto-suggest .other-links a:after {
+    font-family: "FontAwesome";
+    margin-left: 8px;
+    content: "\f061";
+}
+
+.other-links ul {
+    margin: 0;
+    padding: 0;
+}
+
+.other-links ul li {
+    padding-top: 20px;
+}
+
 // extended search
 p.text-right.ext-search a.decrease:before {
     font-family: "FontAwesome";
