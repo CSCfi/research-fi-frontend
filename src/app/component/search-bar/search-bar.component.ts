@@ -123,8 +123,9 @@ export class SearchBarComponent implements OnInit {
   }
 
   addToHistory() {
+    this.showAutoSuggest = false;
     sessionStorage.setItem(this.currentInput, this.currentInput);
-    // this.searchService.singleInput = this.currentInput;
+    this.searchService.singleInput = this.currentInput;
   }
 
   clearHistory() {
