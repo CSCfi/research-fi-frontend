@@ -101,7 +101,6 @@ export class SearchBarComponent implements OnInit {
   newInput(selectedIndex, historyLink) {
     // Set input to session storage & assign list to variable
     sessionStorage.setItem(this.currentInput, this.currentInput);
-    console.log('c: ', this.currentInput);
 
     this.showAutoSuggest = false;
     this.sortService.sortMethod = 'desc';
