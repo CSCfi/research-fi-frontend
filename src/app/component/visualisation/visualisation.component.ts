@@ -268,8 +268,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
         .attr('d', d => this.arc(d.current));
 
     this.path
+      .filter(d => d.height > 1)
       .style('cursor', 'pointer')
-      .filter(d => d.children)
       .on('click', this.clicked.bind(this));
 
     this.path
