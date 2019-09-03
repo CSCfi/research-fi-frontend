@@ -23,5 +23,9 @@
         .auto-suggest ul li a {
             color: mat-color($primary); 
         }
+
+        .auto-suggest .other-links ul li a {
+            color: mat-color($primary, A300); 
+        }
     }
 }
