@@ -61,6 +61,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'}
   ];
 
+  document = document;
+
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
   idSub: Subscription;
