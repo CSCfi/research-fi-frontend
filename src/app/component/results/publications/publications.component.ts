@@ -19,6 +19,7 @@ export class PublicationsComponent implements OnInit {
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
+  documentLang = document.documentElement.lang;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService) { }
 
