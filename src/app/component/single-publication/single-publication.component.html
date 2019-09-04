@@ -20,7 +20,7 @@
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of publication.hits.hits">
-                <h2 [attr.lang]="item._source.languageCode !== document.documentElement.lang ? item._source.languageCode : null">{{item._source.publicationName}}</h2>
+                <h2 [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h2>
                 <table id="info">
                     <tr class="row" *ngFor="let row of infoFields">
                         <th class="col-6 col-lg-3">{{row.label}}</th>
@@ -62,7 +62,7 @@
                         <th class="col-6 col-lg-3">Julkaisukanavan tiedot</th>
                         <td class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of mediumFields.slice(0,3)">
                             <p>{{row.label}}</p>
-                            <p>{{item._source[row.field]}}</p>
+                            <p [attr.lang]="row.lang && item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">

@@ -39,7 +39,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Organisaatio', field: 'publicationOrgId'}
   ];
   mediumFields = [
-    {label: 'Lehti', field: 'publisherName'},
+    {label: 'Lehti', field: 'publisherName' /*, lang: true */},
     {label: 'ISSN', field: 'issn'},
     {label: 'ISBN', field: 'isbn'},
     {label: 'Volyymi', field: 'volume'},
@@ -56,12 +56,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Avoin saatavuus', field: 'openAccessCode'},
     {label: 'Julkaisumaa', field: 'publicationCountryCode'},
-    {label: 'Kieli', field: 'languageCode'},
+    {label: 'Kieli', field: 'languageExpanded'},
     {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration'},
     {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'}
   ];
 
-  document = document;
+  documentLang = document.documentElement.lang;
 
   errorMessage = [];
   @ViewChild('srHeader') srHeader: ElementRef;
@@ -128,16 +128,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     switch (source.languageCode) {
       case 'fi': {
-        source.languageCode = 'suomi';
+        source.languageExpanded = 'suomi';
         break;
       }
       case 'en': {
-        source.languageCode = 'englanti';
+        source.languageExpanded = 'englanti';
         break;
       }
       case 'se': {
-        source.languageCode = 'ruotsi';
+        source.languageExpanded = 'ruotsi';
         break;
+      }
+      default: {
+        source.languageExpanded = source.languageCode;
       }
     }
   }
