@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, HostListener } from '@angular/core';
+import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, OnDestroy, AfterViewInit, QueryList } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { AutosuggestService } from '../../services/autosuggest.service';
@@ -15,14 +15,16 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from 'src/app/services/single-item.service';
-
+import { ListItemComponent } from './list-item/list-item.component';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ENTER } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-search-bar',
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
   input: string;
   sub: Subscription;
@@ -33,8 +35,10 @@ export class SearchBarComponent implements OnInit {
   currentInput: any;
   showAutoSuggest = false;
   queryHistory: any;
+  @ViewChildren(ListItemComponent) items: QueryList<any>;
+  private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
-  indices = [
+  docList = [
     {index: 'publication', field: 'publicationName', link: 'publicationId'},
     {index: 'person', field: 'lastName'},
     {index: 'funding', field: 'projectNameFi', link: 'projectId'},
@@ -48,16 +52,25 @@ export class SearchBarComponent implements OnInit {
     organization: 'tutkimusorganisaatiot'
   };
 
+  additionalItems = ['clear'];
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService ) {
-                this.queryHistory = Object.keys(sessionStorage).reverse();
+                if (this.queryHistory) {this.queryHistory = Object.keys(sessionStorage); } else {this.queryHistory = []; }
   }
 
   ngOnInit() {
     this.fireAutoSuggest();
-    // console.log(this.queryHistory)
+    window.addEventListener('keydown', this.escapeListener);
+  }
+
+  ngAfterViewInit() {
+    this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('keydown', this.escapeListener);
   }
 
   fireAutoSuggest() {
@@ -86,9 +99,50 @@ export class SearchBarComponent implements OnInit {
           this.topData = arr.slice(0, 2);
           // Todo: Change value to 5 when all indices are added
           this.otherData = arr.slice(2);
+          // console.log(this.topData);
         });
       } else {this.topData = []; this.otherData = []; }
     });
+  }
+
+  onKeydown(event) {
+    // Listen for enter key and match with auto-suggest values
+    if (event.keyCode === ENTER && this.keyManager.activeItem) {
+      const doc = this.keyManager.activeItem.doc;
+      const id = this.keyManager.activeItem.id || '';
+      const term = this.keyManager.activeItem.term || undefined;
+      const history = this.keyManager.activeItem.historyItem || undefined;
+      const clear = this.keyManager.activeItem.clear || undefined;
+
+      // Check for items that match current highlighted item
+      if (doc && id) {
+        this.singleService.updateId(id);
+        this.router.navigate(['results/', doc, id || '']);
+      } else if (doc && term) {
+        this.searchService.singleInput = term.value;
+        this.newInput(doc, undefined);
+      } else if (history) {
+        this.newInput(undefined, history);
+      } else if (clear) {
+        this.clearHistory();
+        // Do search with current term if position is at empty list item
+      } else {
+        this.newInput(undefined, undefined);
+      }
+      this.showAutoSuggest = false;
+    } else if (event.keyCode === ENTER) {
+      this.newInput(undefined, undefined);
+      this.showAutoSuggest = false;
+      // Continue without action
+    } else {
+      this.keyManager.onKeydown(event);
+    }
+  }
+
+  disableArrows(event) {
+    if (event.keyCode === 32 ||  event.keyCode === 38) {
+      return false;
+    }
   }
 
   // Hide auto suggest if clicked outside component
@@ -99,7 +153,14 @@ export class SearchBarComponent implements OnInit {
     }
   }
 
+  escapeListener = (e: any): void => {
+    if (e.keyCode === 27 || e.keyCode === 9) {
+      this.showAutoSuggest = false;
+    }
+  }
+
   newInput(selectedIndex, historyLink) {
+    console.log('----');
     // Set input to session storage & assign list to variable
     sessionStorage.setItem(this.currentInput, this.currentInput);
     this.showAutoSuggest = false;
