@@ -112,6 +112,15 @@ p.text-right.ext-search a:hover {
 
 .auto-suggest ul {
     list-style: none;
+    padding-inline-start: 0;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.list-group-item.active {
+    border: 0px;
 }
 
 .auto-suggest  li:empty {
@@ -120,6 +129,11 @@ p.text-right.ext-search a:hover {
 
 .top-results ul li {
     padding: 4px 0;
+}
+
+.top-results ul li.active {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .results {

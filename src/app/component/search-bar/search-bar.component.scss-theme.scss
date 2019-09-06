@@ -24,8 +24,20 @@
             color: mat-color($primary); 
         }
 
+        .list-group-item.active {
+            background-color: #3e3fa8;
+        }
+        
+        .list-group-item.active a {
+            color: #fff!important;
+        }
+
+        a.item {
+            color: mat-color($primary);  
+        }
+
         .auto-suggest .other-links ul li a {
-            color: mat-color($primary, A300); 
+            color: mat-color($primary, A200); 
         }
     }
 }
