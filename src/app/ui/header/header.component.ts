@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   escapeListener = (e: any): void => {
-    if (e.keyCode === 27) {
+    if (e.keyCode === 27 && this.mobile) {
       this.toggleNavbar();
       this.navbarToggler.nativeElement.focus();
     }
