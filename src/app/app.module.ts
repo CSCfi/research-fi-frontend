@@ -67,6 +67,7 @@ import { RelatedResultsComponent } from './component/results/related-results/rel
 import { SearchResultsComponent, EmptyResultComponent } from './component/results/search-results/search-results.component';
 
 import { PortalModule } from '@angular/cdk/portal';
+import { ListItemComponent } from './component/search-bar/list-item/list-item.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { PortalModule } from '@angular/cdk/portal';
     VisualisationComponent,
     RelatedResultsComponent,
     SearchResultsComponent,
-    EmptyResultComponent
+    EmptyResultComponent,
+    ListItemComponent
   ],
   imports: [
     BrowserModule,
