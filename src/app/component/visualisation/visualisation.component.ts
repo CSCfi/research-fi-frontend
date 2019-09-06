@@ -177,13 +177,19 @@ export class VisualisationComponent implements OnInit, OnDestroy {
         : x.field = 'No field available');
         res.map(x => x.key = x.publicationName);
         res.map(x => x.id = x.publicationId);
-        this.hierarchy = ['publicationYear', 'field'];
+        this.hierarchy = [
+                          {resultField: 'publicationYear', queryField: 'year'},
+                          {resultField: 'field', queryField: 'field'}
+                        ];
         break;
 
         case 'funding':
           res.map(x => x.key = x.projectNameFi);
           res.map(x => x.id = x.projectId);
-          this.hierarchy = ['fundingStartYear', 'fundedNameFi'];
+          this.hierarchy = [
+                            {resultField: 'fundingStartYear', queryField: 'year'},
+                            {resultField: 'funderNameFi', queryField: 'funder'}
+                          ];
           break;
 
       default:
@@ -194,6 +200,13 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   openResult(p) {
     this.router.navigate(['results/', this.index, p.data.id]);
+  }
+
+  searchFiltered(p) {
+    const filterArray: string[] = p.ancestors().reverse().slice(1).map(d => d.data.key);
+    const queryParam = {};
+    this.hierarchy.forEach((e, i) => queryParam[e.queryField] = filterArray[i]);
+    this.router.navigate(['results/', this.index], {queryParams: queryParam});
   }
 
   clicked(p) {
@@ -220,7 +233,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
       .filter(function(d) {
         return +this.getAttribute('fill-opacity') || arcVisible(d.target);
       })
-      .attr('fill-opacity', d => arcVisible(d.target) ? (d.children ? 0.8 : 0.6) : 0)
+      .attr('fill-opacity', d => arcVisible(d.target) ? (d.show ? 0.8 : 0.6) : 0)
       .attrTween('d', d => () => this.arc(d.current));
 
     this.label
@@ -250,7 +263,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   visualise(allData, hierarchy) {
     let nest: any = d3.nest();
     hierarchy.forEach(field => {
-      nest = nest.key(d => d[field]).sortKeys(d3.ascending);
+      nest = nest.key(d => d[field.resultField]).sortKeys(d3.ascending);
     });
     const tree = nest.entries(allData);
 
@@ -258,19 +271,24 @@ export class VisualisationComponent implements OnInit, OnDestroy {
     const filteredChildred = this.root.descendants().slice(1).filter(d => d.children);
 
     this.root.each(d => d.current = d);
+    this.root.each(d => d.show = d.height > 1);
 
     this.path = this.g.append('g')
       .selectAll('path')
       .data(filteredChildred)
       .join('path')
         .attr('fill', d => { while (d.depth > 1) { d = d.parent; } return this.color(d.data.key); })
-        .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
+        .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.show ? 0.8 : 0.6) : 0)
         .attr('d', d => this.arc(d.current));
 
     this.path
-      .filter(d => d.height > 1)
+      // .filter(d => d.height > 1)
       .style('cursor', 'pointer')
       .on('click', this.clicked.bind(this));
+
+    this.path
+      .filter(d => d.height === 1)
+      .on('click', this.searchFiltered.bind(this));
 
     this.path
       .filter(d => !d.children)
