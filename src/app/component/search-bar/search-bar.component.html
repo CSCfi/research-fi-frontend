@@ -8,12 +8,13 @@
 <div class="full-width">
   <div class="row">
     <div class="col-12 search" [class.no-heading]="router.url !== '/'">
-      <form #inputForm>
+      <form #inputForm (keydown.enter)="$event.preventDefault()">
         <label *ngIf="router.url === '/'" class="text-center h1" for="publicationSearchInput" style="width:100%;">Hae tutkimuksen tekijöitä ja tuloksia.</label>
         <div class="form-group has-search">
           <div class="input-group">
             <input type="text" #publicationSearchInput class="form-control" [formControl]="queryField" placeholder="Julkaisu, tutkija, projekti, organisaatio"
-            value="{{searchService.currentInput | async}}" id="publicationSearchInput" (keydown.enter)="newInput(undefined, undefined)" autocomplete="off"/>
+            value="{{searchService.currentInput | async}}" id="publicationSearchInput"  autocomplete="off" (keyup)="onKeydown($event)"
+            (keydown)="disableArrows($event)"/>
             <div class="input-group-append">
               <button class="btn btn-search" type="button" (click)="newInput(undefined, undefined)">
                 <span class="search-button">Hae</span>
@@ -32,23 +33,28 @@
         <div class="row results" *ngIf="topData">
           <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
             <h3 class="font-weight-bold">{{data.translation}} ({{data.source.doc_count}})</h3>
-            <div class="top-results" *ngFor="let i of indices">
-              <ul *ngIf="data.index === i.index">
-                <li *ngFor="let item of data.source.index_results.hits.hits">
-                  <a routerLink="/results/{{data.index}}/{{item._source[i.link]}}" (click)="addToHistory()">{{item._source[i.field]}}</a>
-                </li>
+            <div class="top-results" *ngFor="let doc of docList">
+              <ul *ngIf="data.index === doc.index">
+                <app-list-item *ngFor="let item of data.source.index_results.hits.hits; let index = index" class="list-group-item" [doc]="data.index" [id]="item._source[doc.link]">
+                  <a class="item" tabindex="-1" routerLink="/results/{{data.index}}/{{item._source[doc.link]}}" (click)="addToHistory()">{{item._source[doc.field]}}</a>
+                </app-list-item>
               </ul>
             </div>
-            <div align="center">
-              <a class="font-weight-bold" *ngIf="data.source.doc_count > 3" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a> 
-            </div>
+            <app-list-item *ngIf="data.source.doc_count > 3" class="list-group-item" [doc]="data.index" [term]="queryField">
+              <div align="center">
+                <a tabindex="-1" class="font-weight-bold" (keydown.enter)="newInput(data.index, undefined)"
+                  (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a> 
+              </div>
+          </app-list-item>
           </div>
         </div>
       </div>
       <div class="col other-links">
         <ul>
           <li *ngFor="let data of otherData">
-            <a class="font-weight-bold" *ngIf="data.source.doc_count > 0" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a>
+            <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item" [doc]="data.index" [term]="queryField">
+              <a tabindex="-1" class="font-weight-bold" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a>
+            </app-list-item>
           </li>
         </ul>
       </div>
@@ -56,14 +62,22 @@
     <!-- Query history -->
     <div class="row" *ngIf="queryHistory">
       <div class="col" *ngIf="queryHistory[0] === '' || this.queryHistory.length === 0; else showHistory ">
+        <app-list-item *ngFor="let additional of additionalItems" [empty]="additional"></app-list-item>
       </div>
       <ng-template #showHistory>
         <div class="col query-history">
           <h3 class="font-weight-bold">Hait viimeeksi:</h3>
           <ul>
-            <li *ngFor="let item of queryHistory"><a href="javascript:void(0);" (click)="newInput(undefined, item)">{{item}}</a></li>
+            <app-list-item *ngFor="let item of queryHistory" class="list-group-item" [historyItem]="item">
+              <a tabindex="-1" href="javascript:void(0);" (click)="newInput(undefined, item)">{{item}}</a>
+            </app-list-item>
           </ul>
-          <a href="javascript:void(0);" (click)="clearHistory()">Tyhjennä hakuhistoria</a>
+          <ul>
+          <app-list-item *ngFor="let additional of additionalItems" class="list-group-item" [clear]="additional">
+            <a tabindex="-1" href="javascript:void(0);" (click)="clearHistory()">Tyhjennä hakuhistoria</a>
+          </app-list-item>
+          <app-list-item *ngFor="let additional of additionalItems" [empty]="additional"></app-list-item>
+          </ul>
         </div>
       </ng-template>
     </div>
