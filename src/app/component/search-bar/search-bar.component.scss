@@ -40,10 +40,31 @@
     color: #aaa;
 }
 
+// Hide "blue glow" on focus
+.form-control:focus {
+    box-shadow: none;
+}
+
+button.btn.btn-search:focus {
+    box-shadow: none;
+}
+
+button.btn.btn-search:focus span {
+    text-decoration: underline;
+}
+
 .form-group.has-search {
     max-width: 717px;
     margin: 0 auto;
     padding: 15px;
+}
+
+input {
+    z-index: 8;
+}
+
+.input-group-append {
+    z-index: 7;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -61,15 +82,6 @@
     font-style: italic;
   }
 
-span.search-button {
-    padding-right: 10px;
-}
-
-button.btn.btn-search {
-    border-left: 0px;
-    font-size: 25px;
-}
-
 p.text-right.ext-search {
     margin-top: 16px;
     margin-bottom: -16px;
@@ -85,17 +97,33 @@ p.text-right.ext-search a:hover {
     text-decoration: none;
 }
 
+// Button
+span.search-button {
+    padding-right: 10px;
+}
+
+button.btn.btn-search {
+    border-left: 0px;
+    font-size: 25px;
+}
+
+.input-group > .input-group-append:not(:last-child) > .btn {
+    border-top-right-radius: 0.25rem;
+}
+
 // Auto suggest
 .auto-suggest {
     padding: 10px 0;
     background: #fff;
-    z-index: 999;
+    z-index: 1;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     margin-top: -20px;
+    margin-top: 46px;
     max-width: 687px;
+    border-radius: 0.25rem;
 }
 
 .row.results {
@@ -116,6 +144,7 @@ p.text-right.ext-search a:hover {
 }
 
 .list-group-item {
+    padding: 0.4rem 1.25rem;
     border: none;
 }
 
@@ -187,9 +216,9 @@ p.text-right.ext-search a.increase:before {
 }
 
 // Responsive
-@media (max-width:754px) {
-    .auto-suggest {
-        margin-left: 25px;
-        margin-right: 25px;
-    }
-}
+// @media (max-width:754px) {
+//     .auto-suggest {
+//         margin-left: 25px;
+//         margin-right: 25px;
+//     }
+// }
