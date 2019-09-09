@@ -5,8 +5,8 @@
 
 <nav aria-label="breadcrumb" *ngFor="let response of responseData">
     <ol class="breadcrumb" >
-        <li class="breadcrumb-item arrow_box first" style="z-index:998;"><a routerLink="/results/publications/{{searchTerm}}" [queryParams]="{'page': pageNumber}">Haku</a></li>
-        <li class="breadcrumb-item arrow_box middle" style="z-index:997;"><a class="capitalize" routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">{{tabName}}</a></li>
+        <li class="breadcrumb-item arrow_box first" style="z-index:3;"><a routerLink="/results/publications/{{searchTerm}}" [queryParams]="{'page': pageNumber}">Haku</a></li>
+        <li class="breadcrumb-item arrow_box middle" style="z-index:2;"><a class="capitalize" routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">{{tabName}}</a></li>
         <li *ngFor="let title of response.hits.hits" class="breadcrumb-item arrow_box active" aria-current="page">{{title._source[resultNameField]}}</li>
         <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
     </ol>

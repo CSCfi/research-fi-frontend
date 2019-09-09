@@ -60,11 +60,11 @@ button.btn.btn-search:focus span {
 }
 
 input {
-    z-index: 8;
+    z-index: 22;
 }
 
 .input-group-append {
-    z-index: 7;
+    z-index: 21;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -115,7 +115,7 @@ button.btn.btn-search {
 .auto-suggest {
     padding: 10px 0;
     background: #fff;
-    z-index: 1;
+    z-index: 20;
     left: 0;
     right: 0;
     margin-left: auto;
