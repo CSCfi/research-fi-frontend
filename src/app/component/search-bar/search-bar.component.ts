@@ -79,6 +79,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
       distinctUntilChanged()
     )
     .subscribe(result => {
+      this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
       if (result.length > 0) {this.showAutoSuggest = true; } else {this.showAutoSuggest = false; }
       this.queryHistory = Object.keys(sessionStorage).reverse();
       this.currentInput = result;
@@ -117,6 +118,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
       // Check for items that match current highlighted item
       if (doc && id) {
         this.singleService.updateId(id);
+        this.searchService.singleInput = this.publicationSearchInput.nativeElement.value;
         this.router.navigate(['results/', doc, id || '']);
       } else if (doc && term) {
         this.searchService.singleInput = term.value;
@@ -140,7 +142,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   disableArrows(event) {
-    if (event.keyCode === 32 ||  event.keyCode === 38) {
+    if (event.keyCode === 40 ||  event.keyCode === 38) {
       return false;
     }
   }
