@@ -70,7 +70,6 @@ export class FilterService {
 
   filterByJuFoCode(code: any) {
     const res = [];
-    if (code.length === 0) {res.push({ exists : { field : 'jufoClassCode' } }); }
     if (code.includes('top')) {res.push({ term : { 'jufoClassCode.keyword' : 3 } }); }
     if (code.includes('leading')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
     if (code.includes('basic')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
@@ -81,7 +80,6 @@ export class FilterService {
 
   filterByOpenAccess(code) {
     const res = [];
-    if (code.length === 0) {res.push({ exists : { field : 'openAccessCode' } }); }
     if (code.includes('noAccessInfo')) {res.push({ term : { openAccessCode : 0 } },
       { term : { openAccessCode : -1 } }, { term : { openAccessCode : 9 } }); }
     if (code.includes('openAccess')) {res.push({ term : { openAccessCode : 1 } }); }
@@ -92,7 +90,7 @@ export class FilterService {
   filterByInternationalCollaboration(status: any) {
     if (status.length > 0 && JSON.parse(status)) {
       return { term: { internationalCollaboration: true }	};
-    } else { return { exists: { field: 'internationalCollaboration' }	}; }
+    } else { return undefined; }
   }
 
   // Start & end date filtering
@@ -124,8 +122,8 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
-            ...(index === 'publication' ? (this.juFoCodeFilter.length ? { bool: { should: this.juFoCodeFilter } } : this.juFoCodeFilter) : []),
-            ...(index === 'publication' ? (this.openAccessFilter.length ? { bool: { should: this.openAccessFilter } } : this.openAccessFilter) : []),
+            ...(index === 'publication' ? (this.juFoCodeFilter.length ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
+            ...(index === 'publication' ? (this.openAccessFilter.length ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
