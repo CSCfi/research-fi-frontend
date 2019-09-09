@@ -45,6 +45,10 @@
     box-shadow: none;
 }
 
+.input-group > .form-control:focus {
+    z-index: 8;
+}
+
 button.btn.btn-search:focus {
     box-shadow: none;
 }
@@ -60,11 +64,11 @@ button.btn.btn-search:focus span {
 }
 
 input {
-    z-index: 22;
+    z-index: 6;
 }
 
 .input-group-append {
-    z-index: 21;
+    z-index: 5;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -115,7 +119,7 @@ button.btn.btn-search {
 .auto-suggest {
     padding: 10px 0;
     background: #fff;
-    z-index: 20;
+    z-index: 4;
     left: 0;
     right: 0;
     margin-left: auto;
