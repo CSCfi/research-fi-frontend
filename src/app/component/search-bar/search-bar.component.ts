@@ -142,10 +142,8 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   disableArrows(event) {
-    if (event.keyCode === 40 ||  event.keyCode === 38) {
-      this.showAutoSuggest = true;
-      return false;
-    }
+    if (event.keyCode === 40 && this.topData) { this.showAutoSuggest = true; }
+    if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
 
   // Hide auto suggest if clicked outside component
