@@ -15,6 +15,10 @@
             color: mat-color($primary);    
             border: 1px solid mat-color($primary, default-contrast);
         }
+
+        .index h3 {
+            color: mat-color($primary);  
+        }
         
         .auto-suggest {
             outline: 2px solid mat-color($primary);
