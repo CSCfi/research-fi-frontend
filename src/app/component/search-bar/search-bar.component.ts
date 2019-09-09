@@ -75,7 +75,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   fireAutoSuggest() {
     this.queryField.valueChanges.pipe(
-      debounceTime(400),
+      debounceTime(500),
       distinctUntilChanged()
     )
     .subscribe(result => {
