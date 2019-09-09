@@ -16,7 +16,7 @@
             value="{{searchService.currentInput | async}}" id="publicationSearchInput"  autocomplete="off" (keyup)="onKeydown($event)"
             (keydown)="disableArrows($event)"/>
             <div class="input-group-append">
-              <button class="btn btn-search" type="button" (click)="newInput(undefined, undefined)">
+              <button class="btn btn-search" type="button" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
                 <span class="search-button">Hae</span>
                 <i class="fa fa-search"></i>
               </button>
