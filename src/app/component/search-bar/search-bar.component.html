@@ -14,7 +14,7 @@
           <div class="input-group">
             <input type="text" #publicationSearchInput class="form-control" [formControl]="queryField" placeholder="Julkaisu, tutkija, projekti, organisaatio"
             value="{{searchService.currentInput | async}}" id="publicationSearchInput"  autocomplete="off" (keyup)="onKeydown($event)"
-            (keydown)="disableArrows($event)"/>
+            (keydown)="disableArrows($event)" tabindex="0"/>
             <div class="input-group-append">
               <button class="btn btn-search" type="button" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
                 <span class="search-button">Hae</span>
