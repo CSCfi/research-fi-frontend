@@ -49,14 +49,6 @@
     z-index: 8;
 }
 
-button.btn.btn-search:focus {
-    box-shadow: none;
-}
-
-button.btn.btn-search:focus span {
-    text-decoration: underline;
-}
-
 .form-group.has-search {
     max-width: 717px;
     margin: 0 auto;
@@ -111,6 +103,15 @@ button.btn.btn-search {
     font-size: 25px;
 }
 
+
+button.btn.btn-search:focus {
+    box-shadow: none;
+}
+
+button.btn.btn-search:focus span {
+    text-decoration: underline;
+}
+
 .input-group > .input-group-append:not(:last-child) > .btn {
     border-top-right-radius: 0.25rem;
 }
@@ -150,6 +151,7 @@ button.btn.btn-search {
 .list-group-item {
     padding: 0.4rem 1.25rem;
     border: none;
+    border-radius: .25rem;
 }
 
 .list-group-item.active {
