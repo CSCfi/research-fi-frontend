@@ -15,8 +15,13 @@
             padding: 15px;
         }
 
-        .mat-expansion-panel {
-            background: transparent;
+        .filter-wrapper {
+            max-height: 608px;
+            overflow: auto;
+        }
+
+        .mat-expansion-panel.mat-expanded {
+            overflow: inherit !important;
         }
 
         mat-checkbox {
@@ -41,12 +46,23 @@
             padding: 10px 5px;
         }
 
-        span.mat-expansion-indicator {
-            position: absolute;
-        }
-
         .mat-expansion-indicator::after {
             margin-top: -8px;
+        }
+
+        .mat-expansion-panel-header {
+            flex-direction: row-reverse;
+        }
+
+        .mat-expanded mat-expansion-panel-header.mat-expanded {
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+            z-index: 39;
+        }
+
+        .subFields .mat-expanded mat-expansion-panel-header.mat-expanded {
+            z-index: 38;
         }
 
         .mat-expansion-panel-header-title {
@@ -55,6 +71,7 @@
 
         .mat-expansion-panel-body {
             padding: 0 8px 0;
+            margin-top: -22px;
         }
 
         .mobile {
