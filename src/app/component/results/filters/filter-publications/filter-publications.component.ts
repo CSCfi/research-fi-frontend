@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
-         ChangeDetectorRef } from '@angular/core';
+         ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -19,7 +19,7 @@ import { FilterService } from 'src/app/services/filter.service';
   templateUrl: './filter-publications.component.html',
   styleUrls: ['./filter-publications.component.scss']
 })
-export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges {
+export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Input() responseData: any [];
   @Input() tabData: string;
   panelOpenState: boolean;
@@ -147,9 +147,17 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       this.preSelection = [];
       if (filters.internationalCollaboration.length > 0) {this.internationalCollab = true; } else {this.internationalCollab = false; }
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+
+      if (this.selectedFields) {
+        this.selectedFields.notifyOnChanges();
+      }
     });
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+  }
+
+  ngAfterViewInit() {
+
   }
 
   // Wait for responseData and shape filter by term
@@ -161,24 +169,29 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.separateMinor(source);
     this.openAccess();
     this.isChecked();
+    this.cdr.detectChanges();
   }
 
   // Find fields where all items are checked and change checked status of majors in majorFieldsOfScience array of objects
   isChecked() {
+    let objIndex: number;
     if (this.selectedFields) {
       // Subscribe to selection lists
       this.selectedFields.changes.subscribe(() => {
         const array = this.selectedFields.toArray();
+        console.log(this.majorFieldsOfScience);
         for (let i = 0; i <= array.length - 1; i++) {
           // Compare sums of list and selection, change value of checked major
           if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
-            const objIndex = this.majorFieldsOfScience.findIndex((obj => obj.fieldId === i + 1));
+            objIndex = this.majorFieldsOfScience.findIndex((obj => obj.fieldId === i + 1));
             this.majorFieldsOfScience[objIndex].checked = true;
+            console.log('______');
+          } else {
+            this.majorFieldsOfScience[i].checked = false;
           }
         }
       });
     }
-    this.cdr.detectChanges();
   }
 
   // Arrange fields by major
