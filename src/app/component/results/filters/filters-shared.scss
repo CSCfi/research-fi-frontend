@@ -61,7 +61,9 @@
             z-index: 39;
         }
 
+        // Preserve space for parent header
         .subFields .mat-expanded mat-expansion-panel-header.mat-expanded {
+            top: 58px;
             z-index: 38;
         }
 
