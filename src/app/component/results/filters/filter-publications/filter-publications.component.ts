@@ -67,6 +67,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mergedFields: any;
   openAccessCodes: any[];
   internationalCollab = false;
+  panelHeight = '48px';
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) { }
@@ -179,16 +180,16 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       // Subscribe to selection lists
       this.selectedFields.changes.subscribe(() => {
         const array = this.selectedFields.toArray();
-        console.log(this.majorFieldsOfScience);
         for (let i = 0; i <= array.length - 1; i++) {
-          // Compare sums of list and selection, change value of checked major
-          if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
-            objIndex = this.majorFieldsOfScience.findIndex((obj => obj.fieldId === i + 1));
-            this.majorFieldsOfScience[objIndex].checked = true;
-            console.log('______');
-          } else {
-            this.majorFieldsOfScience[i].checked = false;
-          }
+          // Compare sums of list and selection, change value of checked major, won't work without timeout
+          setTimeout(() => {
+            if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
+              objIndex = this.majorFieldsOfScience.findIndex((obj => obj.fieldId === i + 1));
+              this.majorFieldsOfScience[objIndex].checked = true;
+            } else {
+              this.majorFieldsOfScience[i].checked = false;
+            }
+          }, 0);
         }
       });
     }
