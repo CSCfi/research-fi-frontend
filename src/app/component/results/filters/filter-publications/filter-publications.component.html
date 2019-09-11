@@ -15,8 +15,8 @@
     <h3 *ngIf="!mobile">Rajaa hakua</h3>
     <div class="filter-wrapper">
     <mat-accordion>
-        <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Julkaisuvuosi</strong>
                 </mat-panel-title>
@@ -30,17 +30,29 @@
             </mat-selection-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <div class="separator"></div>
+
+        <mat-expansion-panel >
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Organisaatio</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-checkbox></mat-checkbox>
+            <mat-selection-list>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+            </mat-selection-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Tieteenala</strong>
                 </mat-panel-title>
@@ -68,35 +80,69 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <div class="separator"></div>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Julkaisun pääluokka</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-checkbox></mat-checkbox>
+            <mat-selection-list>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+            </mat-selection-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Julkaisutyyppi</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-checkbox></mat-checkbox>
+            <mat-selection-list>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+            </mat-selection-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <div class="separator"></div>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Julkaisumaa</strong>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-checkbox></mat-checkbox>
+            <mat-selection-list>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+                <mat-list-option checkboxPosition="before">
+                    <span> - </span>
+                </mat-list-option>
+            </mat-selection-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Kieli</strong>
                 </mat-panel-title>
@@ -109,8 +155,10 @@
             </mat-selection-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <div class="separator"></div>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Julkaisufoorumitaso</strong>
                 </mat-panel-title>
@@ -136,8 +184,10 @@
             </mat-selection-list>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+        <div class="separator"></div>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header expandedHeight="60px" collapsedHeight="60px">
                 <mat-panel-title>
                     <strong>Avoin saatavuus</strong>
                 </mat-panel-title>
@@ -149,6 +199,9 @@
                 </mat-list-option>
             </mat-selection-list>
         </mat-expansion-panel>
+
+        <div class="separator"></div>
+
     </mat-accordion>
 
     <div class="single-checkbox" *ngIf="response.aggregations.internationalCollaboration.buckets[1]">
