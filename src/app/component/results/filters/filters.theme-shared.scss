@@ -20,9 +20,9 @@
             color: mat-color($primary);
         }
         
-        .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
-            border-bottom: 1px solid mat-color($primary, 400);
-        }
+        // .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
+        //     border-bottom: 1px solid mat-color($primary, 400);
+        // }
         
         .navbar-toggler {
             background: mat-color($primary, 50);
@@ -31,6 +31,10 @@
 
         .mat-expanded mat-expansion-panel-header, mat-expansion-panel-header, mat-expansion-panel, mat-expansion-panel-header:hover {
             background: mat-color($primary, 50)!important;
+        }
+
+        .separator {
+            border: 0.5px solid mat-color($primary);
         }
 
         .shared {
