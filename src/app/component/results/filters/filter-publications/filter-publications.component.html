@@ -21,14 +21,15 @@
                         <strong>Julkaisuvuosi</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.height.px]="height">
+                <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
                     <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.years.buckets" 
                     [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
                         <span class="label">{{year.key}}</span>
                         <!-- <span class="amount">{{year.doc_count}}</span> -->
                     </mat-list-option>
                 </mat-selection-list>
-                <button mat-button *ngIf="clickCount + 1 < response.aggregations.years.buckets.length / 5"  class="more" (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää</button>
+                <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations.years.buckets.length / 5" 
+                (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää...</button>
             </mat-expansion-panel>
 
             <mat-expansion-panel >
