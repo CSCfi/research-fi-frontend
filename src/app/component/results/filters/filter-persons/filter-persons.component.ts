@@ -26,6 +26,7 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
   sidebarOpen = false;
   width = window.innerWidth;
   mobile = this.width < 992;
+  panelHeight = '48px';
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   preSelection: any;

@@ -26,6 +26,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   sidebarOpen = false;
   width = window.innerWidth;
   mobile = this.width < 992;
+  panelHeight = '48px';
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
   @ViewChild('selectedStatus') selectedStatus: MatSelectionList;
