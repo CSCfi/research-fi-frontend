@@ -31,8 +31,6 @@
                 <button mat-button *ngIf="clickCount + 1 < response.aggregations.years.buckets.length / 5"  class="more" (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää</button>
             </mat-expansion-panel>
 
-            <div class="separator"></div>
-
             <mat-expansion-panel >
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                     <mat-panel-title>
@@ -81,8 +79,6 @@
                 </div>
             </mat-expansion-panel>
 
-            <div class="separator"></div>
-
             <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                     <mat-panel-title>
@@ -121,8 +117,6 @@
                 </mat-selection-list>
             </mat-expansion-panel>
 
-            <div class="separator"></div>
-
             <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                     <mat-panel-title>
@@ -156,8 +150,6 @@
                 </mat-selection-list>
             </mat-expansion-panel>
 
-            <div class="separator"></div>
-
             <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                     <mat-panel-title>
@@ -185,8 +177,6 @@
                 </mat-selection-list>
             </mat-expansion-panel>
 
-            <div class="separator"></div>
-
             <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
@@ -200,8 +190,6 @@
                     </mat-list-option>
                 </mat-selection-list>
             </mat-expansion-panel>
-
-            <div class="separator"></div>
 
         </mat-accordion>
 
