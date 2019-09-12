@@ -13,6 +13,10 @@ $background: map-get($researchfi-theme, background);
 $background: map_merge($background, (card: $background-color));
 $researchfi-theme: map_merge($researchfi-theme, (background: $background));
 
+main {
+    padding-bottom: 10.5rem;
+}
+
 .row {
     margin-right: -0px;
     margin-left: 0px;
@@ -56,6 +60,22 @@ span.bold {
 .mat-pseudo-checkbox {
     background: #FFF;
 }
+
+// Responsive
+
+@media (max-width: 991px) {
+    main {
+        padding-bottom: 13.5rem!important;
+    }
+}
+
+@media (max-width: 769px) {
+    main {
+        padding-bottom: 30.5rem !important;
+    }
+}
+
+
 
 // Img alt test, delete in production
 // img:not([alt]) {
