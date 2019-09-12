@@ -168,6 +168,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       if (filters.internationalCollaboration.length > 0) {this.internationalCollab = true; } else {this.internationalCollab = false; }
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
 
+      // Listen for changes in querylist
       if (this.selectedFields) {
         this.selectedFields.notifyOnChanges();
       }
@@ -177,7 +178,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngAfterViewInit() {
-
+    this.isChecked();
   }
 
   // Wait for responseData and shape filter by term
@@ -188,7 +189,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.fields = this.subFilter(source, this.filterTerm);
     this.separateMinor(source);
     this.openAccess();
-    this.isChecked();
     this.cdr.detectChanges();
   }
 
