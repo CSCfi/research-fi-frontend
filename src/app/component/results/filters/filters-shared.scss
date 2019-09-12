@@ -106,6 +106,11 @@
             flex-direction: row!important;
         }
 
+        mat-selection-list.limit {
+            // max-height: 240px;
+            overflow: hidden;
+        }
+
         ul {
             list-style: none;
             padding: 0px;
