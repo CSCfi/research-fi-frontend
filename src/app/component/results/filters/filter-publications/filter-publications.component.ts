@@ -68,9 +68,15 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   openAccessCodes: any[];
   internationalCollab = false;
   panelHeight = '48px';
+  public height: number;
+  public clickCount: number;
+  limitList = true;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
-               private sortService: SortService, private cdr: ChangeDetectorRef ) { }
+               private sortService: SortService, private cdr: ChangeDetectorRef ) {
+                 this.height = 240;
+                 this.clickCount = 0;
+                }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -79,6 +85,19 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     } else {
       this.filterSidebar.nativeElement.style.display = 'none';
     }
+  }
+
+  resetHeight() {
+    this.height = 240;
+    this.clickCount = 0;
+  }
+
+  showMore(total) {
+    this.clickCount++;
+    total = total - 5 * this.clickCount;
+    if (total < 5) {
+      this.height = this.height + total * 48;
+    } else {this.height = this.height + 240; }
   }
 
   onResize(event) {
