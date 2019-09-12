@@ -37,6 +37,10 @@
             border: 0.5px solid mat-color($primary);
         }
 
+        .show-more {
+            color: mat-color($primary, A200);
+        }
+
         .shared {
             tr:nth-child(odd) {
                 background-color: mat-color($primary, 50);
