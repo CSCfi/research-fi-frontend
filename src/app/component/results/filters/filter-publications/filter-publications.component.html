@@ -21,7 +21,7 @@
                         <strong>Julkaisuvuosi</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
+                <mat-selection-list #selectedYear (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
                     <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.years.buckets" 
                     [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
                         <span class="label">{{year.key}}</span>
@@ -59,7 +59,7 @@
                 </mat-expansion-panel-header>
                 <div class="subFields">
                     <div *ngFor="let major of majorFieldsOfScience, let i = index">
-                        <mat-expansion-panel [class.hidden]="!combinedFields[i].length > 0">
+                        <mat-expansion-panel [class.hidden]="!combinedMajorFields[i].length > 0">
                             <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                                 <mat-panel-title>
                                     <strong>{{major.field}}</strong>
@@ -70,7 +70,7 @@
                                 <input matInput placeholder="Rajaa tieteenaloja" autocomplete="off" (keyup)="filterInput($event)">
                             </mat-form-field> -->
                             <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
-                                <mat-list-option checkboxPosition="before" *ngFor="let field of combinedFields[i]" 
+                                <mat-list-option checkboxPosition="before" *ngFor="let field of combinedMajorFields[i]" 
                                 [value]="field.field" [selected]="preSelection.indexOf(field.field) > -1">
                                     <span class="label">{{field.field}}</span>
                                 </mat-list-option>
@@ -83,23 +83,36 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                     <mat-panel-title>
-                        <strong>Julkaisun pääluokka</strong>
+                        <strong>Julkaisutyyppi</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                </mat-selection-list>
+                <div class="subFields">
+                    <div *ngFor="let class of publicationClass">
+                        <div *ngFor="let classType of filteredPublicationClass">
+                            <mat-expansion-panel *ngIf="class.class === classType">
+                                <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
+                                    <mat-panel-title>
+                                        <strong>{{class.class}} {{class.label}}</strong>
+                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="selectAll($event, i)" style="padding:0 10px;"></mat-checkbox>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-selection-list #selectedPublicationClasses (selectionChange)="onSelectionChange()">
+                                    <div *ngFor="let item of response.aggregations.publicationType.buckets">
+                                        <div *ngFor="let type of class.types">
+                                            <mat-list-option checkboxPosition="before" *ngIf="type.type === item.key"  
+                                            [value]="type.type" [selected]="preSelection.indexOf(type.type) > -1">
+                                                <span class="label">{{type.label}}</span>
+                                            </mat-list-option>
+                                        </div>
+                                    </div>
+                                </mat-selection-list>
+                            </mat-expansion-panel>
+                        </div>
+                    </div>
+                </div>
             </mat-expansion-panel>
 
-            <mat-expansion-panel>
+            <!-- <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                     <mat-panel-title>
                         <strong>Julkaisutyyppi</strong>
@@ -116,7 +129,7 @@
                         <span> - </span>
                     </mat-list-option>
                 </mat-selection-list>
-            </mat-expansion-panel>
+            </mat-expansion-panel> -->
 
             <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
@@ -124,17 +137,14 @@
                         <strong>Julkaisumaa</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
+                <mat-selection-list #selectedCountry (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
+                    <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.countryCode.buckets"
+                    [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
+                        <span class="label">{{code.key}}</span>
                     </mat-list-option>
                 </mat-selection-list>
+                <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations.countryCode.buckets.length / 5" 
+                (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää...</button>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
@@ -143,7 +153,7 @@
                         <strong>Kieli</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list #selectedLanguage (selectionChange)="onSelectionChange()">
+                <mat-selection-list #selectedLang (selectionChange)="onSelectionChange()">
                     <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.languageCode.buckets"
                     [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
                         <span class="label">{{code.key}}</span>
