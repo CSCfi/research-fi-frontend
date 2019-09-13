@@ -10,9 +10,9 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, 
 import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
-import { ResizeService } from 'src/app/services/resize.service';
+import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
-import { FilterService } from 'src/app/services/filter.service';
+import { FilterService } from '../../../../services/filter.service';
 
 @Component({
   selector: 'app-filter-publications',
@@ -27,8 +27,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   sidebarOpen = false;
   width = window.innerWidth;
   mobile = this.width < 992;
-  @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  @ViewChild('selectedYear') selectedYear: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
+  @ViewChildren('selectedPublicationClasses') selectedPublicationClasses: QueryList<MatSelectionList>;
+  @ViewChild('selectedLang') selectedLang: MatSelectionList;
   @ViewChild('selectedJuFo') selectedJuFo: MatSelectionList;
   @ViewChild('selectedOpenAccess') selectedOpenAccess: MatSelectionList;
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
@@ -36,8 +38,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   private resizeSub: Subscription;
   private filterSub: Subscription;
-  yearFilters: any[];
+  yearFilter: any[];
   fieldOfScienceFilter: any;
+  langFilter: any;
   juFoFilter: any;
   openAccessFilter: any;
   fields: any;
@@ -54,18 +57,52 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   ];
 
   publicationClass = [
-    {id: 1, class: 'A'},
-    {id: 2, class: 'B'},
-    {id: 3, class: 'C'},
-    {id: 4, class: 'D'},
-    {id: 5, class: 'G'},
-    {id: 6, class: 'F'}
+    {id: 1, class: 'A', label: 'Vertaisarvioidut tieteelliset artikkelit', types: [
+      {type: 'A1', label: 'Kirjoitus tieteellisessä aikakauslehdessä'},
+      {type: 'A2', label: 'Kirjan tai muun kokoomateoksen osa'},
+      {type: 'A3', label: 'Vertaisarvioimaton artikkeli konferenssijulkaisussa'},
+      {type: 'A4', label: 'Artikkeli konferenssijulkaisussa'}
+    ]},
+    {id: 2, class: 'B', label: 'Vertaisarvioimattomat tieteelliset kirjoitukset', types: [
+      {type: 'B1', label: 'Alkuperäisartikkeli tieteellisessä aikakauslehdessä'},
+      {type: 'B2', label: 'Katsausartikkeli tieteellisessä aikakauslehdessä'},
+      {type: 'B3', label: 'Kirjan tai muun kokoomateoksen osa'}
+    ]},
+    {id: 3, class: 'C', label: 'Tieteelliset kirjat (monografiat)', types: [
+      {type: 'C1', label: 'Kustannettu tieteellinen erillisteos'},
+      {type: 'C2', label: 'Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero'}
+    ]},
+    {id: 4, class: 'D', label: 'Ammattiyhteisölle suunnatut julkaisut', types: [
+      {type: 'D1', label: 'Artikkeli ammattilehdessä'},
+      {type: 'D2', label: 'Artikkeli ammatillisessa käsi- tai opaskirjassa, ammatillisessa tietojärjestelmässä tai oppikirja-aineisto'},
+      {type: 'D3', label: 'Artikkeli ammatillisessa konferenssijulkaisussa'},
+      {type: 'D4', label: 'Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys'},
+      {type: 'D5', label: 'Oppikirja, ammatillinen käsi- tai opaskirja taikka sanakirja'},
+      {type: 'D6', label: 'Toimitettu ammatillinen teos'}
+    ]},
+    {id: 5, class: 'E', label: 'Suurelle yleisölle suunnatut julkaisut', types: [
+      {type: 'E1', label: 'Yleistajuinen artikkeli, sanomalehtiartikkeli'},
+      {type: 'E2', label: 'Yleistajuinen monografia'},
+      {type: 'E3', label: 'Toimitettu yleistajuinen teos'}
+    ]},
+    {id: 6, class: 'F', label: 'Julkinen taiteellinen ja taideteollinen toiminta', types: [
+      {type: 'F1', label: 'Erillisjulkaisu'},
+      {type: 'F2', label: 'Julkinen taiteellinen teoksen osatoteutus'},
+      {type: 'F3', label: 'Ei-taiteellisen julkaisun taiteellinen osa'}
+    ]},
+    {id: 7, class: 'G', label: 'Opinnäytteet', types: [
+      {type: 'F1', label: 'Monografiaväitöskirja'},
+      {type: 'F2', label: 'Artikkeliväitöskirja'}
+    ]}
   ];
 
   mappedFieldsofScience: any;
-  combinedFields: any[];
+  mappedPublicationClass: any;
+  combinedMajorFields: any[];
+  combinedPublicationClasses: any[];
   mergedFields: any;
   openAccessCodes: any[];
+  filteredPublicationClass: any[];
   internationalCollab = false;
   panelHeight = '48px';
   public height: number;
@@ -114,7 +151,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilters, field: this.fieldOfScienceFilter,
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, field: this.fieldOfScienceFilter,
+      lang: this.langFilter,
       juFo: this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
   }
 
@@ -143,13 +181,14 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   getSelected() {
     // If international collaboration is false, prevent param initalization
     if (!this.internationalCollab) {this.internationalCollab = null; }
-    this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
+    this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
     this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
 
     // Get minor fields of science from multiple selection lists
     const mergedFields = [];
-    // Loop through child elements & check for map fields that have values
+    // Loop through child elements & check for mapped fields that have values
     this.selectedFields.forEach(child => {
       if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
         // Push mapped values into array
@@ -188,6 +227,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     const source = this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
     this.separateMinor(source);
+    this.separatePublicationClass();
     this.openAccess();
     this.cdr.detectChanges();
   }
@@ -216,8 +256,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   // Arrange fields by major
   separateMinor(source) {
-    this.combinedFields = [];
-    // Map fields by field & id
+    this.combinedMajorFields = [];
+    // Map fields by field & nested id at position 0
     if (source && source.length > 0) {
       this.mappedFieldsofScience = source.map(majorField => ({ field: majorField.key, id: majorField.fieldId.buckets[0].key }));
     }
@@ -226,8 +266,20 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     for (let i = 1; i <= this.majorFieldsOfScience.length; i++) {
       if (i === 7) { i = 9; }
       if (this.mappedFieldsofScience) {
-        this.combinedFields.push(this.mappedFieldsofScience.filter(obj => obj.id.toString().charAt(0).includes(i)));
+        this.combinedMajorFields.push(this.mappedFieldsofScience.filter(obj => obj.id.toString().charAt(0).includes(i)));
       }
+    }
+  }
+
+  // Arrange publication type classes as parent classes (A, B, C...)
+  separatePublicationClass() {
+    const source = this.responseData[0] ? this.responseData[0].aggregations.publicationType.buckets : [];
+    const combined = [];
+    this.combinedPublicationClasses = [];
+    if (source && source.length > 0) {
+      source.forEach(val => combined.push(val.key.substring(0, 1)));
+      this.openAccessCodes = [];
+      this.filteredPublicationClass = combined.filter((v, i, a) => a.indexOf(v) === i);
     }
   }
 
@@ -236,7 +288,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     const combined = [];
     // Get aggregation from response
     const source = this.responseData[0] ? this.responseData[0].aggregations.openAccess.buckets : [];
-    if (source && source .length > 0) {
+    if (source && source.length > 0) {
       source.forEach(val => combined.push(val.key));
       this.openAccessCodes = [];
       // Check for matching access codes. -1 & 9 are fallbacks from old data
