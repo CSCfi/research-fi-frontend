@@ -11,9 +11,9 @@ import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map, multicast, debounceTime, take, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TabChangeService } from 'src/app/services/tab-change.service';
-import { ResizeService } from 'src/app/services/resize.service';
-import { FilterService } from 'src/app/services/filter.service';
+import { TabChangeService } from '../../services/tab-change.service';
+import { ResizeService } from '../../services/resize.service';
+import { FilterService } from '../../services/filter.service';
 import { Subscription, Observable, combineLatest, Subject, merge } from 'rxjs';
 
 @Component({
@@ -36,7 +36,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: Subscription;
-  filters: {year: any[], status: any[], field: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
+  filters: {year: any[], status: any[], field: any[], lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
   mobile: boolean;
   updateFilters: boolean;
   total: number | string;
@@ -71,6 +71,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filters = {year: [query.year].flat().filter(x => x),
                         status: [query.status].flat().filter(x => x),
                         field: [query.field].flat().filter(x => x),
+                        lang: [query.lang].flat().filter(x => x),
                         juFo: [query.juFo].flat().filter(x => x),
                         openAccess: [query.openAccess].flat().filter(x => x),
                         internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x)};
