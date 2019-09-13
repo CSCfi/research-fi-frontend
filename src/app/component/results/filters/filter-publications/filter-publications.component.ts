@@ -63,16 +63,22 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       {type: 'A2', label: 'Kirjan tai muun kokoomateoksen osa'},
       {type: 'A3', label: 'Vertaisarvioimaton artikkeli konferenssijulkaisussa'},
       {type: 'A4', label: 'Artikkeli konferenssijulkaisussa'}
-    ]},
+    ],
+    checked: false
+    },
     {id: 2, class: 'B', label: 'Vertaisarvioimattomat tieteelliset kirjoitukset', types: [
       {type: 'B1', label: 'Alkuperäisartikkeli tieteellisessä aikakauslehdessä'},
       {type: 'B2', label: 'Katsausartikkeli tieteellisessä aikakauslehdessä'},
       {type: 'B3', label: 'Kirjan tai muun kokoomateoksen osa'}
-    ]},
+    ],
+    checked: false
+    },
     {id: 3, class: 'C', label: 'Tieteelliset kirjat (monografiat)', types: [
       {type: 'C1', label: 'Kustannettu tieteellinen erillisteos'},
       {type: 'C2', label: 'Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero'}
-    ]},
+    ],
+    checked: false
+    },
     {id: 4, class: 'D', label: 'Ammattiyhteisölle suunnatut julkaisut', types: [
       {type: 'D1', label: 'Artikkeli ammattilehdessä'},
       {type: 'D2', label: 'Artikkeli ammatillisessa käsi- tai opaskirjassa, ammatillisessa tietojärjestelmässä tai oppikirja-aineisto'},
@@ -80,17 +86,23 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       {type: 'D4', label: 'Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys'},
       {type: 'D5', label: 'Oppikirja, ammatillinen käsi- tai opaskirja taikka sanakirja'},
       {type: 'D6', label: 'Toimitettu ammatillinen teos'}
-    ]},
+    ],
+    checked: false
+    },
     {id: 5, class: 'E', label: 'Suurelle yleisölle suunnatut julkaisut', types: [
       {type: 'E1', label: 'Yleistajuinen artikkeli, sanomalehtiartikkeli'},
       {type: 'E2', label: 'Yleistajuinen monografia'},
       {type: 'E3', label: 'Toimitettu yleistajuinen teos'}
-    ]},
+    ],
+    checked: false
+    },
     {id: 6, class: 'F', label: 'Julkinen taiteellinen ja taideteollinen toiminta', types: [
       {type: 'F1', label: 'Erillisjulkaisu'},
       {type: 'F2', label: 'Julkinen taiteellinen teoksen osatoteutus'},
       {type: 'F3', label: 'Ei-taiteellisen julkaisun taiteellinen osa'}
-    ]},
+    ],
+    checked: false
+    },
     {id: 7, class: 'G', label: 'Opinnäytteet', types: [
       {type: 'F1', label: 'Monografiaväitöskirja'},
       {type: 'F2', label: 'Artikkeliväitöskirja'}
@@ -109,6 +121,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   public height: number;
   public clickCount: number;
   limitList = true;
+  parentChecked: boolean;
+  checked: Subscription;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef ) {
@@ -189,6 +203,12 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         }
         break;
       }
+      default: {
+        // major[i].deselectAll();
+        major.forEach(val => val.deselectAll());
+        typeClass.forEach(val => val.deselectAll());
+        // typeClass[i].deselectAll();
+      }
     }
     this.onSelectionChange();
   }
@@ -252,6 +272,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       // Listen for changes in querylist
       if (this.selectedFields) {
         this.selectedFields.notifyOnChanges();
+        this.selectedPublicationTypes.notifyOnChanges();
       }
     });
 
@@ -289,6 +310,24 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
               this.majorFieldsOfScience[objIndex].checked = true;
             } else {
               this.majorFieldsOfScience[i].checked = false;
+            }
+          }, 0);
+        }
+      });
+    }
+
+    if (this.selectedPublicationTypes) {
+      // Subscribe to selection lists
+      this.selectedPublicationTypes.changes.subscribe(() => {
+        const array = this.selectedPublicationTypes.toArray();
+        for (let i = 0; i <= array.length - 1; i++) {
+          // Compare sums of list and selection, change value of checked major, won't work without timeout
+          setTimeout(() => {
+            if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
+              objIndex = this.publicationClass.findIndex((obj => obj.id === i + 1));
+              this.publicationClass[objIndex].checked = true;
+            } else {
+              this.publicationClass[i].checked = false;
             }
           }, 0);
         }
@@ -355,6 +394,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   ngOnDestroy() {
     this.filterSub.unsubscribe();
     this.resizeSub.unsubscribe();
+    this.checked.unsubscribe();
   }
 
 }
