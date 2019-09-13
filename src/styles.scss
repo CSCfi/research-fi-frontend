@@ -89,7 +89,7 @@ body:not(.user-tabbing) {
 body {
   @include angular-material-theme($researchfi-theme);
   @include researchfi-components-theme($researchfi-theme);
-  
+  overflow-y: scroll;
   position: relative;
   margin: 0 auto;
   min-height: 100%;
