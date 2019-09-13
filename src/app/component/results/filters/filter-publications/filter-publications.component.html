@@ -93,7 +93,7 @@
                                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                                     <mat-panel-title>
                                         <strong>{{class.class}} {{class.label}}</strong>
-                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
+                                        <mat-checkbox [checked]="class.checked" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-selection-list #selectedPublicationTypes (selectionChange)="onSelectionChange()">
