@@ -8,7 +8,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { FilterService } from 'src/app/services/filter.service';
+import { FilterService } from '../../../services/filter.service';
 
 @Component({
   selector: 'app-active-filters',
