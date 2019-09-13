@@ -15,11 +15,13 @@
         .filter-sidebar {
             display: block;
             padding: 15px;
+            overflow: auto;
+            overflow-x: hidden;
         }
 
         .filter-wrapper {
             max-height: 840px;
-            overflow: auto;
+
         }
 
         // Material expansion panel & accordion
@@ -35,8 +37,8 @@
             margin-top: 0;
         }
 
-        mat-checkbox {
-            display: block;
+        mat-checkbox, .mat-checkbox {
+            display: flex;
         }
 
         .mat-checkbox .mat-checkbox-frame {
@@ -68,7 +70,7 @@
         .mat-expanded mat-expansion-panel-header.mat-expanded {
             position: sticky;
             position: -webkit-sticky;
-            top: 0;
+            top: -16px;
             z-index: 39;
         }
 
@@ -81,7 +83,7 @@
 
         // Preserve space for parent header
         .subFields .mat-expanded mat-expansion-panel-header.mat-expanded {
-            top: 58px;
+            top: 52px;
             z-index: 38;
         }
 
@@ -151,6 +153,10 @@
 
         .single-checkbox span.mat-checkbox-label {
             margin-left: 25px;
+        }
+
+        .mat-checkbox-layout {
+            white-space: pre-wrap;
         }
 
         // Hide fields
