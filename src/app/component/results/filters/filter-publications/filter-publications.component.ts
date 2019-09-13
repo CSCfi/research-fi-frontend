@@ -29,7 +29,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mobile = this.width < 992;
   @ViewChild('selectedYear') selectedYear: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
-  @ViewChildren('selectedPublicationClasses') selectedPublicationClasses: QueryList<MatSelectionList>;
+  @ViewChildren('selectedPublicationTypes') selectedPublicationTypes: QueryList<MatSelectionList>;
   @ViewChild('selectedLang') selectedLang: MatSelectionList;
   @ViewChild('selectedJuFo') selectedJuFo: MatSelectionList;
   @ViewChild('selectedOpenAccess') selectedOpenAccess: MatSelectionList;
@@ -40,6 +40,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   private filterSub: Subscription;
   yearFilter: any[];
   fieldOfScienceFilter: any;
+  publicationTypeFilter: any;
   langFilter: any;
   juFoFilter: any;
   openAccessFilter: any;
@@ -152,20 +153,40 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.getSelected();
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, field: this.fieldOfScienceFilter,
-      lang: this.langFilter,
+      lang: this.langFilter, publicationType: this.publicationTypeFilter,
       juFo: this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
   }
 
   // Select all from major
-  selectAll(event, i) {
+  selectAll(event, i, filter) {
     const major = this.selectedFields.toArray();
+    const typeClass = this.selectedPublicationTypes.toArray();
+
     switch (event.checked) {
-      case  true: {
-        major[i].selectAll();
+      case true: {
+        switch (filter) {
+          case 'field': {
+            major[i].selectAll();
+            break;
+          }
+          case 'type': {
+            typeClass[i].selectAll();
+            break;
+          }
+        }
         break;
       }
-      default: {
-        major[i].deselectAll();
+      case false: {
+        switch (filter) {
+          case 'field': {
+            major[i].deselectAll();
+            break;
+          }
+          case 'type': {
+            typeClass[i].deselectAll();
+            break;
+          }
+        }
         break;
       }
     }
@@ -185,7 +206,12 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
     this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
+    this.selectFields();
+    this.selectTypeClass();
+  }
 
+  // Select fields
+  selectFields() {
     // Get minor fields of science from multiple selection lists
     const mergedFields = [];
     // Loop through child elements & check for mapped fields that have values
@@ -195,8 +221,24 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         mergedFields.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
       }
      });
+
     // Merge arrays
     this.fieldOfScienceFilter = mergedFields.flat();
+  }
+
+  selectTypeClass() {
+    // Get minor fields of science from multiple selection lists
+    const merged = [];
+    // Loop through child elements & check for mapped fields that have values
+    this.selectedPublicationTypes.forEach(child => {
+      if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
+        // Push mapped values into array
+        merged.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
+      }
+      });
+
+    // Merge arrays
+    this.publicationTypeFilter = merged.flat();
   }
 
   ngOnInit() {
