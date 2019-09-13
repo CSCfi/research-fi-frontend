@@ -203,12 +203,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         }
         break;
       }
-      default: {
-        // major[i].deselectAll();
-        major.forEach(val => val.deselectAll());
-        typeClass.forEach(val => val.deselectAll());
-        // typeClass[i].deselectAll();
-      }
     }
     this.onSelectionChange();
   }
