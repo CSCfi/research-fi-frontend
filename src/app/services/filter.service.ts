@@ -16,16 +16,19 @@ export class FilterService {
   yearFilter: any;
   juFoCodeFilter: any;
   fieldFilter: any;
+  langFilter: any;
   statusFilter: object;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
   currentFilters: any;
   today: string;
 
-  private filterSource = new BehaviorSubject({year: [], status: [], field: [], juFo: [], openAccess: [], internationalCollaboration: []});
+  private filterSource = new BehaviorSubject({year: [], status: [], field: [], lang: [],
+    juFo: [], openAccess: [], internationalCollaboration: []});
   filters = this.filterSource.asObservable();
 
-  updateFilters(filters: {year: any[], status: any[], field: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[]}) {
+  updateFilters(filters: {year: any[], status: any[], field: any[], lang: any[],
+    openAccess: any[], juFo: any[], internationalCollaboration: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -40,7 +43,8 @@ export class FilterService {
     this.statusFilter = this.filterByStatus(filter.status);
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
-    this.openAccessFilter = this.filterByOpenAccess(filter.openAccess)
+    this.langFilter = this.filterByLang(filter.lang);
+    this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
   }
 
@@ -66,6 +70,18 @@ export class FilterService {
       fieldFilters.push({ term : { 'fields_of_science.nameFiScience.keyword' : value } });
     });
     return fieldFilters;
+  }
+
+  filterByLang(code: any) {
+    const res = [];
+    const currentTab = this.sortService.currentTab;
+    switch (currentTab) {
+      case 'publications': {
+        code.forEach(value => { res.push({ term : { languageCode : value } }); });
+        break;
+      }
+    }
+    return res;
   }
 
   filterByJuFoCode(code: any) {
@@ -127,7 +143,8 @@ export class FilterService {
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
-            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter)
+            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter),
+            ...(this.langFilter.length ? { bool: { should: this.langFilter } } : this.langFilter)
           ],
         }
     };
@@ -155,9 +172,22 @@ export class FilterService {
             order: { _key : 'desc' }
           }
         },
+        countryCode: {
+          terms: {
+            field: 'publicationCountryCode.keyword'
+          }
+        },
         languageCode: {
           terms: {
             field: 'languageCode.keyword'
+          }
+        },
+        publicationType: {
+          terms: {
+            field: 'publicationTypeCode.keyword',
+            order: {
+              _key: 'asc'
+            }
           }
         },
         juFo: {
@@ -196,7 +226,7 @@ export class FilterService {
               terms: {
                 field: 'fields_of_science.fieldIdScience'
               }
-            }
+            },
           }
         };
         break;
