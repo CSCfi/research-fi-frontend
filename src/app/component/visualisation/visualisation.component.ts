@@ -209,7 +209,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
     const filterArray: string[] = p.ancestors().reverse().slice(1).map(d => d.data.key);
     const queryParam = {};
     this.hierarchy.forEach((e, i) => queryParam[e.queryField] = filterArray[i]);
-    this.router.navigate(['results/', this.index + 's', this.searchTerm], {queryParams: queryParam});
+    this.router.navigate(['results/', this.index + 's', this.searchTerm || ''], {queryParams: queryParam});
   }
 
   clicked(p) {
