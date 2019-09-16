@@ -112,32 +112,13 @@
                 </div>
             </mat-expansion-panel>
 
-            <!-- <mat-expansion-panel>
-                <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
-                    <mat-panel-title>
-                        <strong>Julkaisutyyppi</strong>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-selection-list>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                    <mat-list-option checkboxPosition="before">
-                        <span> - </span>
-                    </mat-list-option>
-                </mat-selection-list>
-            </mat-expansion-panel> -->
-
             <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                     <mat-panel-title>
                         <strong>Julkaisumaa</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list #selectedCountry (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
+                <mat-selection-list #selectedCountryCode (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
                     <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.countryCode.buckets"
                     [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
                         <span class="label">{{code.key}}</span>

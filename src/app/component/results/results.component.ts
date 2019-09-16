@@ -36,8 +36,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: Subscription;
-  filters: {year: any[], status: any[], field: any[], publicationType: any[], lang: any[], juFo: any[], openAccess: any[],
-    internationalCollaboration: any[]};
+  filters: {year: any[], status: any[], field: any[], publicationType: any[], countryCode: any[],
+    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
   mobile: boolean;
   updateFilters: boolean;
   total: number | string;
@@ -73,6 +73,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                         status: [query.status].flat().filter(x => x),
                         field: [query.field].flat().filter(x => x),
                         publicationType: [query.publicationType].flat().filter(x => x),
+                        countryCode: [query.countryCode].flat().filter(x => x),
                         lang: [query.lang].flat().filter(x => x),
                         juFo: [query.juFo].flat().filter(x => x),
                         openAccess: [query.openAccess].flat().filter(x => x),

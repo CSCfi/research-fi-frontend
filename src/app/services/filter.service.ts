@@ -17,6 +17,7 @@ export class FilterService {
   juFoCodeFilter: any;
   fieldFilter: any;
   publicationTypeFilter: any;
+  countryCodeFilter: any;
   langFilter: any;
   statusFilter: object;
   openAccessFilter: any;
@@ -24,11 +25,11 @@ export class FilterService {
   currentFilters: any;
   today: string;
 
-  private filterSource = new BehaviorSubject({year: [], status: [], field: [], publicationType: [], lang: [],
+  private filterSource = new BehaviorSubject({year: [], status: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: []});
   filters = this.filterSource.asObservable();
 
-  updateFilters(filters: {year: any[], status: any[], field: any[], publicationType: any[], lang: any[],
+  updateFilters(filters: {year: any[], status: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
     openAccess: any[], juFo: any[], internationalCollaboration: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -45,6 +46,7 @@ export class FilterService {
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
     this.publicationTypeFilter = this.filterByPublicationType(filter.publicationType);
+    this.countryCodeFilter = this.filterByCountryCode(filter.countryCode);
     this.langFilter = this.filterByLang(filter.lang);
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
@@ -80,6 +82,14 @@ export class FilterService {
       typeFilters.push({ term : { 'publicationTypeCode.keyword' : value } });
     });
     return typeFilters;
+  }
+
+  filterByCountryCode(code: any) {
+    const codeFilters = [];
+    code.forEach(value => {
+      codeFilters.push({ term : { 'publicationCountryCode.keyword' : value } });
+    });
+    return codeFilters;
   }
 
   filterByLang(code: any) {
@@ -155,7 +165,8 @@ export class FilterService {
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
             ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter),
             ...(this.publicationTypeFilter.length ? { bool: { should: this.publicationTypeFilter } } : this.publicationTypeFilter),
-            ...(this.langFilter.length ? { bool: { should: this.langFilter } } : this.langFilter)
+            ...(this.langFilter.length ? { bool: { should: this.langFilter } } : this.langFilter),
+            ...(this.countryCodeFilter.length ? { bool: { should: this.countryCodeFilter } } : this.countryCodeFilter)
           ],
         }
     };

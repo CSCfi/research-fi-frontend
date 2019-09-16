@@ -30,6 +30,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @ViewChild('selectedYear') selectedYear: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
   @ViewChildren('selectedPublicationTypes') selectedPublicationTypes: QueryList<MatSelectionList>;
+  @ViewChild('selectedCountryCode') selectedCountryCode: MatSelectionList;
   @ViewChild('selectedLang') selectedLang: MatSelectionList;
   @ViewChild('selectedJuFo') selectedJuFo: MatSelectionList;
   @ViewChild('selectedOpenAccess') selectedOpenAccess: MatSelectionList;
@@ -41,6 +42,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   yearFilter: any[];
   fieldOfScienceFilter: any;
   publicationTypeFilter: any;
+  countryCodeFilter: any;
   langFilter: any;
   juFoFilter: any;
   openAccessFilter: any;
@@ -167,7 +169,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.getSelected();
     this.router.navigate([],
     { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, field: this.fieldOfScienceFilter,
-      lang: this.langFilter, publicationType: this.publicationTypeFilter,
+      lang: this.langFilter, publicationType: this.publicationTypeFilter, countryCode: this.countryCodeFilter,
       juFo: this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
   }
 
@@ -217,6 +219,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     // If international collaboration is false, prevent param initalization
     if (!this.internationalCollab) {this.internationalCollab = null; }
     this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
+    this.countryCodeFilter = this.selectedCountryCode.selectedOptions.selected.map(s => s.value);
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
     this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
