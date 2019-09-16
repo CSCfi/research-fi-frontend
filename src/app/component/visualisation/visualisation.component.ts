@@ -96,6 +96,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
         status: [params.status].flat().filter(x => x),
         field: [params.field].flat().filter(x => x),
         publicationType: [params.publicationType].flat().filter(x => x),
+        countryCode: [params.countryCode].flat().filter(x => x),
         lang: [params.lang].flat().filter(x => x),
         juFo: [params.juFo].flat().filter(x => x),
         openAccess: [params.openAccess].flat().filter(x => x),
