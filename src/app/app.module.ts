@@ -68,6 +68,8 @@ import { SearchResultsComponent, EmptyResultComponent } from './component/result
 
 import { PortalModule } from '@angular/cdk/portal';
 import { ListItemComponent } from './component/search-bar/list-item/list-item.component';
+import { SunburstComponent } from './component/visualisation/sunburst/sunburst.component';
+import { TreemapComponent } from './component/visualisation/treemap/treemap.component';
 import { HighlightSearch } from './pipes/highlight.pipe';
 
 import { LOCALE_ID } from '@angular/core';
@@ -99,6 +101,8 @@ import { LOCALE_ID } from '@angular/core';
     SearchResultsComponent,
     EmptyResultComponent,
     ListItemComponent,
+    SunburstComponent,
+    TreemapComponent
     HighlightSearch
   ],
   imports: [
