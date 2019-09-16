@@ -388,7 +388,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   ngOnDestroy() {
     this.filterSub.unsubscribe();
     this.resizeSub.unsubscribe();
-    this.checked.unsubscribe();
   }
 
 }
