@@ -13,6 +13,7 @@ import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../../../services/filter.service';
+import { FilterMethodService } from '../../../../services/filter-method.service';
 
 @Component({
   selector: 'app-filter-publications',
@@ -127,7 +128,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   checked: Subscription;
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
-               private sortService: SortService, private cdr: ChangeDetectorRef ) {
+               private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService ) {
                  this.height = 240;
                  this.clickCount = 0;
                 }
@@ -219,43 +220,12 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     // If international collaboration is false, prevent param initalization
     if (!this.internationalCollab) {this.internationalCollab = null; }
     this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
+    this.fieldOfScienceFilter = this.filterMethodService.mergeChildren(this.selectedFields);
+    this.publicationTypeFilter = this.filterMethodService.mergeChildren(this.selectedPublicationTypes);
     this.countryCodeFilter = this.selectedCountryCode.selectedOptions.selected.map(s => s.value);
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
     this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
-    this.selectFields();
-    this.selectTypeClass();
-  }
-
-  // Select fields
-  selectFields() {
-    // Get minor fields of science from multiple selection lists
-    const mergedFields = [];
-    // Loop through child elements & check for mapped fields that have values
-    this.selectedFields.forEach(child => {
-      if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
-        // Push mapped values into array
-        mergedFields.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
-      }
-     });
-
-    // Merge arrays
-    this.fieldOfScienceFilter = mergedFields.flat();
-  }
-
-  selectTypeClass() {
-    // Get minor fields of science from multiple selection lists
-    const merged = [];
-    // Loop through child elements & check for mapped fields that have values
-    this.selectedPublicationTypes.forEach(child => {
-      if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
-        // Push mapped values into array
-        merged.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
-      }
-      });
-
-    // Merge arrays
-    this.publicationTypeFilter = merged.flat();
   }
 
   ngOnInit() {
