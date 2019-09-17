@@ -253,9 +253,11 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   // Wait for responseData and shape filter by term
   ngOnChanges() {
     this.responseData = this.responseData || [];
+    // Sub filter is for testing purposes. ToDo: Subfilter per parent if needed
     this.filterTerm = this.filterTerm || '';
-    const source = this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [];
-    this.fields = this.subFilter(source, this.filterTerm);
+    this.fields = this.filterMethodService.subFilter(
+      this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [], this.filterTerm);
+    // Major & minor fields of study
     this.combinedMajorFields = this.filterMethodService.separateMinor(
       this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : []);
     this.separatePublicationClass();
@@ -263,44 +265,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.cdr.detectChanges();
   }
 
-  // Find fields where all items are checked and change checked status of majors in majorFieldsOfScience array of objects
+  // Manage checked status of parent fields
   isChecked() {
-    let objIndex: number;
-    if (this.selectedFields) {
-      // Subscribe to selection lists
-      this.selectedFields.changes.subscribe(() => {
-        const array = this.selectedFields.toArray();
-        for (let i = 0; i <= array.length - 1; i++) {
-          // Compare sums of list and selection, change value of checked major, won't work without timeout
-          setTimeout(() => {
-            if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
-              objIndex = this.majorFieldsOfScience.findIndex((obj => obj.fieldId === i + 1));
-              this.majorFieldsOfScience[objIndex].checked = true;
-            } else {
-              this.majorFieldsOfScience[i].checked = false;
-            }
-          }, 0);
-        }
-      });
-    }
-
-    if (this.selectedPublicationTypes) {
-      // Subscribe to selection lists
-      this.selectedPublicationTypes.changes.subscribe(() => {
-        const array = this.selectedPublicationTypes.toArray();
-        for (let i = 0; i <= array.length - 1; i++) {
-          // Compare sums of list and selection, change value of checked major, won't work without timeout
-          setTimeout(() => {
-            if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
-              objIndex = this.publicationClass.findIndex((obj => obj.id === i + 1));
-              this.publicationClass[objIndex].checked = true;
-            } else {
-              this.publicationClass[i].checked = false;
-            }
-          }, 0);
-        }
-      });
-    }
+    if (this.selectedFields) {this.filterMethodService.isChecked(this.selectedFields); }
+    if (this.selectedPublicationTypes) {this.filterMethodService.isChecked(this.selectedPublicationTypes); }
   }
 
   // Arrange publication type classes as parent classes (A, B, C...)
@@ -335,11 +303,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   filterInput(event) {
     this.filterTerm = event.target.value;
     this.ngOnChanges();
-  }
-
-  // Search for term where values are in string format
-  subFilter(array: any, term: string) {
-    return array.filter(obj => obj.key.toLowerCase().includes(term.toLowerCase()));
   }
 
   ngOnDestroy() {
