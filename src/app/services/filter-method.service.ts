@@ -1,10 +1,17 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterMethodService {
-  majorFieldsOfScience = [
+  public majorFieldsOfScience = [
     {fieldId: 1, field: 'Luonnontieteet', checked: false},
     {fieldId: 2, field: 'Tekniikka', checked: false},
     {fieldId: 3, field: 'Lääke- ja yritystieteet', checked: false},
@@ -48,5 +55,30 @@ export class FilterMethodService {
       }
     }
     return this.combined;
+  }
+
+  isChecked(parent) {
+    let objIndex: number;
+    if (parent) {
+      // Subscribe to selection lists
+      parent.changes.subscribe(() => {
+        const array = parent.toArray();
+        for (let i = 0; i <= array.length - 1; i++) {
+          // Compare sums of list and selection, change value of checked major, won't work without timeout
+          setTimeout(() => {
+            if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
+              objIndex = this.majorFieldsOfScience.findIndex((obj => obj.fieldId === i + 1));
+              this.majorFieldsOfScience[objIndex].checked = true;
+            } else {
+              this.majorFieldsOfScience[i].checked = false;
+            }
+          }, 0);
+        }
+      });
+    }
+  }
+
+  subFilter(source: any, term: string) {
+    return source.filter(obj => obj.key.toLowerCase().includes(term.toLowerCase()));
   }
 }
