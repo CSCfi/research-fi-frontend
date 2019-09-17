@@ -58,7 +58,7 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="subFields">
-                    <div *ngFor="let major of majorFieldsOfScience, let i = index">
+                    <div *ngFor="let major of filterMethodService.majorFieldsOfScience, let i = index">
                         <mat-expansion-panel [class.hidden]="!combinedMajorFields[i].length > 0">
                             <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                                 <mat-panel-title>
