@@ -256,7 +256,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.filterTerm = this.filterTerm || '';
     const source = this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [];
     this.fields = this.subFilter(source, this.filterTerm);
-    this.separateMinor(source);
+    this.combinedMajorFields = this.filterMethodService.separateMinor(
+      this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : []);
     this.separatePublicationClass();
     this.openAccess();
     this.cdr.detectChanges();
@@ -299,23 +300,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
           }, 0);
         }
       });
-    }
-  }
-
-  // Arrange fields by major
-  separateMinor(source) {
-    this.combinedMajorFields = [];
-    // Map fields by field & nested id at position 0
-    if (source && source.length > 0) {
-      this.mappedFieldsofScience = source.map(majorField => ({ field: majorField.key, id: majorField.fieldId.buckets[0].key }));
-    }
-
-    // Loop through major fields & push all instances as separate arrays
-    for (let i = 1; i <= this.majorFieldsOfScience.length; i++) {
-      if (i === 7) { i = 9; }
-      if (this.mappedFieldsofScience) {
-        this.combinedMajorFields.push(this.mappedFieldsofScience.filter(obj => obj.id.toString().charAt(0).includes(i)));
-      }
     }
   }
 
