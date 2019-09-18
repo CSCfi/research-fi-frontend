@@ -8,7 +8,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <app-search-bar></app-search-bar>
 </aside>
 
-<div class="text-center" *ngIf="!tabValues">
+<div class="text-center" *ngIf="!tabValues || !filterValues">
     <mat-spinner [diameter]="40"></mat-spinner>
 </div>
 
@@ -65,7 +65,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </ng-template>
 
 <ng-template #noResults>
-    <div class="row main-content">
+    <div class="row main-content" *ngIf="filterValues && filterValues[0].hits.total === 0;">
         <div class="col text-center no-results">
             <h2>Ei tuloksia</h2>
         </div>
