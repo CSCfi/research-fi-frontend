@@ -2,6 +2,13 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="fi" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="searchSlogan" datatype="html">
+        <source>Hae tutkimuksen tekijöitä ja tuloksia.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="appSlogan" datatype="html">
         <source>Ikkuna tutkimukseen Suomessa</source>
         <context-group purpose="location">
