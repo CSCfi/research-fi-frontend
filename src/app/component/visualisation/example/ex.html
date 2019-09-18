@@ -128,7 +128,6 @@
                 .attr("dy", ".75em");
         d3.json("budget-data.json", function(data) {
             var root = d3.hierarchy(data);
-            console.log(root);
             treemap(root
                 .sum(function (d) {
                     return d.value;
@@ -230,6 +229,7 @@
                     /* added */
                     // Remove the old node when the transition is finished.
                     t1.on("end.remove", function(){
+                        console.log(this);
                         this.remove();
                         transitioning = false;
                     });
