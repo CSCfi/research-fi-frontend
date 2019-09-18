@@ -61,7 +61,6 @@ export class FilterMethodService {
     }
     let objIndex: number;
 
-
     const array = parent.toArray();
     for (let i = 0; i <= array.length - 1; i++) {
       // Compare sums of list and selection, change value of checked major, won't work without timeout
