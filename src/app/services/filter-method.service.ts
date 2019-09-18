@@ -63,14 +63,12 @@ export class FilterMethodService {
 
 
     const array = parent.toArray();
-    console.log('subbed');
     for (let i = 0; i <= array.length - 1; i++) {
       // Compare sums of list and selection, change value of checked major, won't work without timeout
       setTimeout(() => {
         if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
           objIndex = dataArray.findIndex((obj => obj.id === i + 1));
           dataArray[objIndex].checked = true;
-          console.log(dataArray[objIndex]);
         } else {
           dataArray[i].checked = false;
         }
