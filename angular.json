@@ -44,6 +44,14 @@
             "es5BrowserSupport": true
           },
           "configurations": {
+            "en": {
+              "aot": true,
+              "outputPath": "dist/nn-en/",
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -78,6 +86,9 @@
           "configurations": {
             "production": {
               "browserTarget": "research-fi:build:production"
+            },
+            "en": {
+              "browserTarget": "research-fi:build:en"
             }
           }
         },
