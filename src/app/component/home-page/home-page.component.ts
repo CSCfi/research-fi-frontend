@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, LOCALE_ID, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -28,7 +28,8 @@ export class HomePageComponent implements OnInit {
   @ViewChild('srHeader') srHeader: ElementRef;
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
-               private titleService: Title ) {
+               private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string ) {
+                console.log('Locale:', localeId);
   }
 
   public setTitle( newTitle: string) {
