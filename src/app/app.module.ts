@@ -69,6 +69,8 @@ import { SearchResultsComponent, EmptyResultComponent } from './component/result
 import { PortalModule } from '@angular/cdk/portal';
 import { ListItemComponent } from './component/search-bar/list-item/list-item.component';
 
+import { LOCALE_ID } from '@angular/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,7 +126,7 @@ import { ListItemComponent } from './component/search-bar/list-item/list-item.co
     CountUpModule,
     PortalModule
   ],
-  providers: [ SearchService, Title, AutosuggestService ],
+  providers: [ SearchService, Title, AutosuggestService, {provide: LOCALE_ID, useValue: 'fi-FI'} ],
   bootstrap: [ AppComponent ],
   entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
 })
