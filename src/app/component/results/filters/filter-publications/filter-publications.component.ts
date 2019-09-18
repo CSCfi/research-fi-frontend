@@ -151,8 +151,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   getSelected() {
-    // If international collaboration is false, prevent param initalization
-    if (!this.internationalCollab) {this.internationalCollab = null; }
     this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
     this.countryCodeFilter = this.selectedCountryCode.selectedOptions.selected.map(s => s.value);
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
@@ -161,6 +159,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     // Use common filtering methods
     this.fieldOfScienceFilter = this.filterMethodService.mergeChildren(this.selectedFields);
     this.publicationTypeFilter = this.filterMethodService.mergeChildren(this.selectedPublicationTypes);
+    // If international collaboration is false, prevent param initalization
+    if (!this.internationalCollab) {this.internationalCollab = null; }
   }
 
   ngOnInit() {
