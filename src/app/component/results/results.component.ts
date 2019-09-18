@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef  } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -26,7 +26,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   input: Subscription;
   tabData = this.tabChangeService.tabData;
   tab: any = [];
-  selectedTabData: {data: string, label: string, link: string};
+  selectedTabData: {data: string, labelFi: string, labelEn: string, link: string};
   public tabValues: any;
   public filterValues: any;
   errorMessage = [];
@@ -49,7 +49,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
-               private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef ) {
+               private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
+               @Inject( LOCALE_ID ) protected localeId: string ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
   }
@@ -176,12 +177,24 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       error => this.errorMessage = error as any);
   }
 
-  updateTitle(tab: { data: string; label: string}) {
+  updateTitle(tab: { data: string; labelFi: string; labelEn: string}) {
     // Update title and <h1> with the information of the currently selected tab
     if (this.tabValues) {
       // Placeholder until real data is available
       const amount = tab.data ? this.tabValues[0].aggregations._index.buckets[tab.data].doc_count : 999;
-      this.setTitle(tab.label + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto');
+      // Set label by locale
+      switch (this.localeId) {
+        case 'fi': {
+          if (amount === 1) {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulos) - Haku - Tutkimustietovaranto');
+          } else {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto'); }
+          break;
+        }
+        case 'en': {
+          if (amount === 1) {this.setTitle(tab.labelEn + ' - (' + amount + ' search result) - Search - Research portal');
+          } else {this.setTitle(tab.labelEn + ' - (' + amount + ' search results) - Search - Research portal'); }
+          break;
+        }
+      }
     }
     this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
   }
@@ -192,7 +205,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
-    this.tabChangeService.changeTab({data: '', label: '', link: ''});
+    this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: ''});
     this.combinedRouteParams.unsubscribe();
     this.totalSub.unsubscribe();
   }
