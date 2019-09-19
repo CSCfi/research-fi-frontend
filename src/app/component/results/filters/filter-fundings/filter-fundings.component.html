@@ -35,7 +35,6 @@
                         <strong>Organisaatio</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
@@ -44,7 +43,6 @@
                         <strong>Rahoittaja</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
@@ -53,7 +51,6 @@
                         <strong>Rahoitusmuoto</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
@@ -105,6 +102,19 @@
                     </mat-list-option>
                 </mat-selection-list>
             </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
+                        <mat-panel-title>
+                            <strong>Kansainvälinen yhteistyö</strong>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list>
+                        <mat-list-option checkboxPosition="before">
+                            <span class="label">Kyllä</span>
+                        </mat-list-option>
+                    </mat-selection-list>
+                </mat-expansion-panel>
         </mat-accordion>
     </div>
 </div>
