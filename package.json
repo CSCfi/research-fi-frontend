@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "extract-i18n": "ng xi18n research-fi --i18n-format xlf --output-path i18n --i18n-locale fi && ng run research-fi:xliffmerge",
-    "start-se": "ng serve --configuration=se",
+    "start-sv": "ng serve --configuration=sv",
     "start-en": "ng serve --configuration=en"
   },
   "private": true,

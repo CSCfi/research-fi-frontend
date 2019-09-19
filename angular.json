@@ -68,12 +68,12 @@
                 }
               ]
             },
-            "se": {
+            "sv": {
               "aot": true,
-              "outputPath": "dist/research-fi-se",
-              "i18nFile": "src/i18n/messages.se.xlf",
+              "outputPath": "dist/research-fi-sv",
+              "i18nFile": "src/i18n/messages.sv.xlf",
               "i18nFormat": "xlf",
-              "i18nLocale": "se"
+              "i18nLocale": "sv"
             },
             "en": {
               "aot": true,
@@ -96,8 +96,8 @@
             "en": {
               "browserTarget": "research-fi:build:en"
             },
-            "se": {
-              "browserTarget": "research-fi:build:se"
+            "sv": {
+              "browserTarget": "research-fi:build:sv"
             }
           }
         },
@@ -148,7 +148,7 @@
               "defaultLanguage": "fi",
               "languages": [
                 "fi",
-                "se",
+                "sv",
                 "en"
               ]
             }
