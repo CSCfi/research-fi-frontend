@@ -30,7 +30,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     leading: 'Johtava taso',
     basic: 'Perustaso',
     others: 'Muut',
-    noVal: 'Ei arviota'
+    noVal: 'Ei arviota',
+    over100k: 'Rahoitus yli 100 000€',
+    under100k: 'Rahoitus alle 100 000€'
   };
 
   constructor( private router: Router, private sortService: SortService,
