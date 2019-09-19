@@ -53,6 +53,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                @Inject( LOCALE_ID ) protected localeId: string ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
+    console.log(this.localeId);
   }
 
   public setTitle(newTitle: string) {
@@ -184,7 +185,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       const amount = tab.data ? this.tabValues[0].aggregations._index.buckets[tab.data].doc_count : 999;
       // Set label by locale
       switch (this.localeId) {
-        case 'fi': {
+        case 'fi-FI': {
           if (amount === 1) {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulos) - Haku - Tutkimustietovaranto');
           } else {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto'); }
           break;
