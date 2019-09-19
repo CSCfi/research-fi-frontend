@@ -21,3 +21,13 @@ ng serve
 ```
 docker-compose up --build
 ```
+
+## Run different language builds
+* For English
+```
+npm run start-en
+```
+* For Swedish
+```
+npm run start-se
+```

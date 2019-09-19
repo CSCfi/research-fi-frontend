@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Subscription } from 'rxjs';
@@ -38,8 +38,11 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   private searchTermSub: Subscription;
   private resizeSub: Subscription;
 
-  constructor(private tabChangeService: TabChangeService,
+  locale: string;
+
+  constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router) {
+                this.locale = localeId;
    }
 
   ngOnInit() {

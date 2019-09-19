@@ -48,23 +48,23 @@
                         <li class="nav-item">
                             <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
                             (click)="navbarOpen && toggleNavbar()">
-                                <span class="label">Etusivu</span>
+                                <span i18n="Main navigation item|Home" class="label">Etusivu</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
-                                <span class="label">Haku</span>
+                                <span i18n="Main navigation item|Search" class="label">Haku</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-item nav-link" href="#">
-                                <span class="label">Tiedepolitiikka</span>
+                                <span i18n="Main navigation item|Science politics" class="label">Tiedepolitiikka</span>
                             </a>
                             <i class="fa fa-angle-down mobile"></i>
                         </li>
                         <li class="nav-item">
                             <a class="nav-item nav-link" href="#">
-                                <span class="label">Tiedeuutiset</span>
+                                <span i18n="Main navigation item|Science news" class="label">Tiedeuutiset</span>
                             </a>
                         </li>
                         <div *ngIf="mobile" class=""></div>
@@ -72,7 +72,7 @@
                     <div class="navbar-expand navbar-nav lang col-3 no-padding">
                         <ul class="navbar-nav ml-auto desktop">
                             <a class="nav-item nav-link" [class.active-lang]="lang==='fi'" href="#" (click)="setLang('fi')">FI</a><div class="separator"> / </div>
-                            <a class="nav-item nav-link" [class.active-lang]="lang==='sv'" href="#" (click)="setLang('sv')">SV</a><div class="separator"> / </div>
+                            <a class="nav-item nav-link" [class.active-lang]="lang==='se'" href="#" (click)="setLang('se')">SV</a><div class="separator"> / </div>
                             <a class="nav-item nav-link" [class.active-lang]="lang==='en'" href="#" (click)="setLang('en')">EN</a>
                         </ul>
                     </div>
