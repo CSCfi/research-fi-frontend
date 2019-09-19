@@ -36,8 +36,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: Subscription;
+  // publicationFilters: ;
   filters: {year: any[], status: any[], field: any[], publicationType: any[], countryCode: any[],
-    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
+    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], fundingAmount: any[]};
   mobile: boolean;
   updateFilters: boolean;
   total: number | string;
@@ -77,7 +78,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                         lang: [query.lang].flat().filter(x => x),
                         juFo: [query.juFo].flat().filter(x => x),
                         openAccess: [query.openAccess].flat().filter(x => x),
-                        internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x)};
+                        internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
+                        fundingAmount: [query.fundingAmount].flat().filter(x => x)};
 
 
         const tabChanged = this.tab !== params.tab;
