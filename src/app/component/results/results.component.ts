@@ -36,8 +36,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader') srHeader: ElementRef;
   queryParams: Subscription;
-  filters: {year: any[], status: any[], field: any[], publicationType: any[], countryCode: any[],
+  publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
+  fundingFilters: {status: any[], fundingAmount: any[]};
+  filters: any;
   mobile: boolean;
   updateFilters: boolean;
   total: number | string;
@@ -52,6 +54,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
+    this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
   }
 
   public setTitle(newTitle: string) {
@@ -77,7 +80,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                         lang: [query.lang].flat().filter(x => x),
                         juFo: [query.juFo].flat().filter(x => x),
                         openAccess: [query.openAccess].flat().filter(x => x),
-                        internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x)};
+                        internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
+                        fundingAmount: [query.fundingAmount].flat().filter(x => x)};
 
 
         const tabChanged = this.tab !== params.tab;

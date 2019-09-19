@@ -29,12 +29,14 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   panelHeight = '48px';
   @ViewChild('filterSidebar') filterSidebar: ElementRef;
   @ViewChild('selectedYears') selectedYears: MatSelectionList;
+  @ViewChild('selectedFundingAmount') selectedFundingAmount: MatSelectionList;
   @ViewChild('selectedStatus') selectedStatus: MatSelectionList;
   preSelection: any;
 
   private resizeSub: Subscription;
   private filterSub: Subscription;
   yearFilters: any[];
+  fundingAmountFilter: any[];
   statusFilter: any[];
   combinedFilters: any;
 
@@ -64,12 +66,14 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { sort: this.sortService.sortMethod, year: this.yearFilters, status: this.statusFilter } });
+    { queryParams: { sort: this.sortService.sortMethod, year: this.yearFilters, fundingAmount: this.fundingAmountFilter,
+      status: this.statusFilter } });
   }
 
   getSelected() {
     this.statusFilter = this.selectedStatus.selectedOptions.selected.map(s => s.value);
     this.yearFilters = this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.fundingAmountFilter = this.selectedFundingAmount.selectedOptions.selected.map(s => s.value);
     this.combinedFilters = this.statusFilter.concat(this.yearFilters);
     return this.combinedFilters;
   }

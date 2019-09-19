@@ -15,7 +15,7 @@
     <h3 *ngIf="!mobile">Rajaa hakua</h3>
     <div class="filter-wrapper">
         <mat-accordion>
-            <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
                         <strong>Aloitusvuosi</strong>
@@ -29,34 +29,31 @@
                 </mat-selection-list>
             </mat-expansion-panel>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
                         <strong>Organisaatio</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
             </mat-expansion-panel>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
                         <strong>Rahoittaja</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
             </mat-expansion-panel>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
                         <strong>Rahoitusmuoto</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-checkbox></mat-checkbox>
             </mat-expansion-panel>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
                         <strong>Tieteenala</strong>
@@ -64,7 +61,7 @@
                 </mat-expansion-panel-header>
             </mat-expansion-panel>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
                         <strong>Teema-ala</strong>
@@ -72,25 +69,52 @@
                 </mat-expansion-panel-header>
             </mat-expansion-panel>
 
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
+                    <mat-panel-title>
+                        <strong>Myönnetty rahoitus</strong>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-selection-list #selectedFundingAmount (selectionChange)="onSelectionChange()">
+                    <mat-list-option checkboxPosition="before" [value]="'over100k'" [selected]="preSelection.indexOf('over100k') > -1">
+                        <span class="label">Yli 100 000€</span>
+                    </mat-list-option>
+                    <mat-list-option checkboxPosition="before" [value]="'under100k'" [selected]="preSelection.indexOf('under100k') > -1">
+                        <span class="label">Alle 100 000€</span>
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                     <mat-panel-title>
                         <strong>Hankkeen tila</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div class="scrollable">
-                    <mat-selection-list #selectedStatus (selectionChange)="onSelectionChange()">
-                        <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
-                            <span class="label">Käynnissä</span>
-                            <!-- <span class="amount"></span> -->
-                        </mat-list-option>
-                        <mat-list-option checkboxPosition="before" [value]="'ended'" [selected]="preSelection.indexOf('ended') > -1">
-                            <span class="label">Päättynyt</span>
-                            <!-- <span class="amount"></span> -->
+                <mat-selection-list #selectedStatus (selectionChange)="onSelectionChange()">
+                    <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
+                        <span class="label">Käynnissä</span>
+                        <!-- <span class="amount"></span> -->
+                    </mat-list-option>
+                    <mat-list-option checkboxPosition="before" [value]="'ended'" [selected]="preSelection.indexOf('ended') > -1">
+                        <span class="label">Päättynyt</span>
+                        <!-- <span class="amount"></span> -->
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
+                        <mat-panel-title>
+                            <strong>Kansainvälinen yhteistyö</strong>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list>
+                        <mat-list-option checkboxPosition="before">
+                            <span class="label">Kyllä</span>
                         </mat-list-option>
                     </mat-selection-list>
-                </div>
-            </mat-expansion-panel>
+                </mat-expansion-panel>
         </mat-accordion>
     </div>
 </div>

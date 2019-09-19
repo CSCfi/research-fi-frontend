@@ -68,6 +68,7 @@ import { SearchResultsComponent, EmptyResultComponent } from './component/result
 
 import { PortalModule } from '@angular/cdk/portal';
 import { ListItemComponent } from './component/search-bar/list-item/list-item.component';
+import { HighlightSearch } from './pipes/highlight.pipe';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { ListItemComponent } from './component/search-bar/list-item/list-item.co
     RelatedResultsComponent,
     SearchResultsComponent,
     EmptyResultComponent,
-    ListItemComponent
+    ListItemComponent,
+    HighlightSearch
   ],
   imports: [
     BrowserModule,

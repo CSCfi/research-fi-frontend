@@ -31,7 +31,8 @@
                       <div class="top-results" *ngFor="let doc of docList">
                         <ul *ngIf="data.index === doc.index">
                           <app-list-item *ngFor="let item of data.source.index_results.hits.hits; let index = index" class="list-group-item" [doc]="data.index" [id]="item._source[doc.link]">
-                            <a class="item" tabindex="-1" routerLink="/results/{{data.index}}/{{item._source[doc.link]}}" (click)="addToHistory()">{{item._source[doc.field]}}</a>
+                            <a class="item" tabindex="-1" routerLink="/results/{{data.index}}/{{item._source[doc.link]}}" (click)="addToHistory()" 
+                            [innerHtml]="item._source[doc.field] | highlight: currentInput"></a>
                           </app-list-item>
                         </ul>
                       </div>
