@@ -44,7 +44,7 @@
             "es5BrowserSupport": true
           },
           "configurations": {
-            "production": {
+            "fi": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -69,14 +69,56 @@
               ]
             },
             "sv": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.researchfi.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
               "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
               "outputPath": "dist/research-fi-sv",
               "i18nFile": "src/i18n/messages.sv.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "sv"
             },
             "en": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.researchfi.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
               "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
               "outputPath": "dist/research-fi-en",
               "i18nFile": "src/i18n/messages.en.xlf",
               "i18nFormat": "xlf",
