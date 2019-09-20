@@ -12,14 +12,15 @@ export class HighlightSearch implements PipeTransform {
         return value;
     }
     // 'gi' stands for case insensitive, use 'g' if needed for case sensitive
-    const re = new RegExp(args, 'gi');
-    const match = value.match(re);
+    const source = new RegExp(args, 'gi');
+    const match = value.match(source);
 
     if (!match) {
         return value;
     }
 
-    const replacedValue = value.replace(re, '<mark>' + match[0] + '</mark>');
+    const replacedValue = value.replace(source, '<mark>' + match[0] + '</mark>');
+    // Needs to be bypassed because of dynamic value
     return this.sanitizer.bypassSecurityTrustHtml(replacedValue);
     }
 }
