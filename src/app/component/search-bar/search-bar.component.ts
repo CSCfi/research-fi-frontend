@@ -161,7 +161,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   newInput(selectedIndex, historyLink) {
     // Set input to session storage & assign list to variable
-    sessionStorage.setItem(this.currentInput, this.currentInput);
+    if (this.currentInput) {sessionStorage.setItem(this.currentInput, this.currentInput); }
     this.showAutoSuggest = false;
     this.sortService.sortMethod = 'desc';
     this.searchService.updatePageNumber(1);
