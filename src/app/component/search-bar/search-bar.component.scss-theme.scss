@@ -21,7 +21,7 @@
         }
         
         .auto-suggest {
-            outline: 2px solid mat-color($primary);
+            box-shadow: 0 0 0 2px mat-color($primary);
         }
 
         .auto-suggest ul li a {
