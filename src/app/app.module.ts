@@ -102,7 +102,7 @@ import { LOCALE_ID } from '@angular/core';
     EmptyResultComponent,
     ListItemComponent,
     SunburstComponent,
-    TreemapComponent
+    TreemapComponent,
     HighlightSearch
   ],
   imports: [

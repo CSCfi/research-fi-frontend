@@ -20,7 +20,7 @@
   .grandparent:hover rect {
     fill: grey;
   }
-  .children rect.parent,
+  .children,
   .grandparent rect {
     cursor: pointer;
   }
@@ -28,11 +28,8 @@
     opacity: 0;
   }
   .children:hover rect.child {
-    opacity: 1;
-    stroke-width: 1px;
-  }
-  .children:hover rect.parent {
     opacity: 0;
+    stroke-width: 1px;
   }
   .legend {
     margin-bottom:8px !important;
@@ -54,7 +51,7 @@
       font-family: "Open Sans",Helvetica,Arial,sans-serif;
       font-size: 14px;
       padding: 7px;
-      cursor: pointer;
+      pointer-events: none;
       overflow:none;
   }
   .textdiv .title {
