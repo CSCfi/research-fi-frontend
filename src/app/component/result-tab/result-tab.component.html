@@ -17,7 +17,9 @@
     <div *ngFor="let tab of tabData" class="bundler" [class.active]="selectedTab===tab.link">
       <a routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" [queryParams]="queryParams[tab.link]">
         <div class="numeric-box d-none d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
-        <div class="text-center">{{tab.label}}</div>
+        <div *ngIf="locale === 'fi-FI'" class="text-center">{{tab.labelFi}}</div>
+        <div *ngIf="locale === 'se'" class="text-center">{{tab.labelSe}}</div>
+        <div *ngIf="locale === 'en'" class="text-center">{{tab.labelEn}}</div>
       </a>
     </div>
   </div>

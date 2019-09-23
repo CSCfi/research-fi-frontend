@@ -5,7 +5,7 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 
@@ -28,9 +28,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   width = window.innerWidth;
   private resizeSub: Subscription;
 
-  lang = 'fi';
+  lang: string;
 
-  constructor(private resizeService: ResizeService) { }
+  constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string) {this.lang = localeId; }
 
   ngOnInit() {
     window.addEventListener('keydown', this.handleTabPressed);

@@ -10,10 +10,17 @@ FROM node:10.15.3-alpine as builder
 COPY . /app
 WORKDIR /app
 RUN npm install
-RUN $(npm bin)/ng build --prod
+# Build Finnish language version
+RUN $(npm bin)/ng build --configuration=fi
+# Build Swedish language version
+RUN $(npm bin)/ng build --configuration=sv --i18n-file src/i18n/messages.sv.xlf --i18n-format xlf --i18n-locale sv --baseHref /sv/
+# Build English language version
+RUN $(npm bin)/ng build --configuration=en --i18n-file src/i18n/messages.en.xlf --i18n-format xlf --i18n-locale en --baseHref /en/
 
 # Stage 2: Serve application using Nginx (non-root version)
 FROM nginxinc/nginx-unprivileged as nginx
-COPY --from=builder /app/dist/* /usr/share/nginx/html/
+COPY --from=builder /app/dist/research-fi/ /usr/share/nginx/html/
+COPY --from=builder /app/dist/research-fi-sv/ /usr/share/nginx/html/sv/
+COPY --from=builder /app/dist/research-fi-en/ /usr/share/nginx/html/en/
 COPY nginx/default.conf /etc/nginx/conf.d/
 EXPOSE 8080

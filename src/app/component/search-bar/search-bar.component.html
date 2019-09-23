@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-12 search" [class.no-heading]="router.url !== '/'">
       <form #inputForm (keydown.enter)="$event.preventDefault()">
-        <label *ngIf="router.url === '/'" class="text-center h1" for="publicationSearchInput" style="width:100%;">Hae tutkimuksen tekijöitä ja tuloksia.</label>
+        <label i18n="@@searchSlogan" *ngIf="router.url === '/'" class="text-center h1" for="publicationSearchInput" style="width:100%;">Hae tutkimuksen tekijöitä ja tuloksia.</label>
         <div class="form-group has-search">
           <div class="input-group">
             <input type="text" #publicationSearchInput class="form-control" [formControl]="queryField" placeholder="Julkaisu, tutkija, projekti, organisaatio"

@@ -34,7 +34,7 @@
             ],
             "styles": [
               {
-              "input": "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
+                "input": "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
               },
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
@@ -44,7 +44,7 @@
             "es5BrowserSupport": true
           },
           "configurations": {
-            "production": {
+            "fi": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -67,6 +67,62 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "sv": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.researchfi.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "outputPath": "dist/research-fi-sv",
+              "i18nFile": "src/i18n/messages.sv.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "sv"
+            },
+            "en": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.researchfi.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "outputPath": "dist/research-fi-en",
+              "i18nFile": "src/i18n/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en"
             }
           }
         },
@@ -78,6 +134,12 @@
           "configurations": {
             "production": {
               "browserTarget": "research-fi:build:production"
+            },
+            "en": {
+              "browserTarget": "research-fi:build:en"
+            },
+            "sv": {
+              "browserTarget": "research-fi:build:sv"
             }
           }
         },
@@ -116,6 +178,22 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        },
+        "xliffmerge": {
+          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
+          "options": {
+            "xliffmergeOptions": {
+              "i18nFormat": "xlf",
+              "srcDir": "src/i18n",
+              "genDir": "src/i18n",
+              "defaultLanguage": "fi",
+              "languages": [
+                "fi",
+                "sv",
+                "en"
+              ]
+            }
           }
         }
       }
