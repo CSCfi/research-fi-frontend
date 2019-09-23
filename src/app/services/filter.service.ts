@@ -279,6 +279,19 @@ export class FilterService {
         };
         break;
       case 'fundings':
+        payLoad.aggs.scheme = {
+          terms: {
+            field: 'keywords.scheme.keyword',
+            size: 10
+          },
+          aggs: {
+            field: {
+              terms: {
+                field: 'keywords.keyword.keyword'
+              }
+            },
+          }
+        };
         break;
 
       default:
