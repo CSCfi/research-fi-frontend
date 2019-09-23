@@ -32,7 +32,6 @@ export class FilterMethodService {
   separateMinor(source) {
     let mapped: any;
     this.combined = [];
-    // console.log(source);
     // Map fields by field & nested id
     if (source && source.length > 0) {
       mapped = source.map(majorField => ({ field: majorField.key, id: majorField.fieldId.buckets[0].key }));

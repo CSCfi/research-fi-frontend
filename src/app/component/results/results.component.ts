@@ -53,7 +53,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                @Inject( LOCALE_ID ) protected localeId: string ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
-    console.log(this.localeId);
   }
 
   public setTitle(newTitle: string) {

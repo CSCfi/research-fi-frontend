@@ -100,7 +100,6 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
           this.topData = arr.slice(0, 2);
           // Todo: Change value to 5 when all indices are added
           this.otherData = arr.slice(2);
-          // console.log(this.topData);
         });
       } else {this.topData = []; this.otherData = []; }
     });
@@ -161,7 +160,6 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   newInput(selectedIndex, historyLink) {
-    console.log('----');
     // Set input to session storage & assign list to variable
     sessionStorage.setItem(this.currentInput, this.currentInput);
     this.showAutoSuggest = false;
