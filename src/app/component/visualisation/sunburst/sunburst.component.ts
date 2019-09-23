@@ -40,8 +40,8 @@ export class SunburstComponent implements OnInit, OnChanges {
   ngOnInit() {
 
     this.hierarchy = [
-      {resultField: 'publicationYear', queryField: 'year'},
-      {resultField: 'field', queryField: 'field'}
+      {resultField: 'year', queryField: 'year'},
+      {resultField: 'fieldOfScience', queryField: 'field'}
     ];
 
     // Create primary g
@@ -63,7 +63,6 @@ export class SunburstComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.data.firstChange) {
-      console.log(this.data);
       // const data = this.formatData(this.index);
       this.visualise(this.data, this.hierarchy);
     }
@@ -71,14 +70,15 @@ export class SunburstComponent implements OnInit, OnChanges {
 
   partition(data) {
     const root = d3.hierarchy(data, d => {
-      // tslint:disable-next-line
-      if (d.buckets) return d.buckets
-      // tslint:disable-next-line
-      else if (d.fieldOfScience && d.fieldOfScience.buckets) return d.fieldOfScience.buckets
-      // tslint:disable-next-line
-      else return undefined;
+      for (const item of this.hierarchy) {
+        // tslint:disable-next-line
+        if (d[item.resultField]) return d[item.resultField].buckets;
+      }
+      return undefined;
     })
-    .sum(d => d.fieldOfScience ? 0 : d.doc_count);
+    .sum(d => d.fieldOfScience ? 0 : d.doc_count)
+    .sort((a, b) => a.data.key - b.data.key);
+    console.log(root);
     return d3.partition()
       .size([2 * Math.PI, root.height + 1])
       (root);
@@ -183,9 +183,8 @@ export class SunburstComponent implements OnInit, OnChanges {
 
     const tree = nest.entries(allData);
 
-    this.root = this.partition(allData.year);
+    this.root = this.partition(allData);
     const excludeRoot = this.root.descendants().slice(1);
-    console.log(excludeRoot);
 
     this.root.each(d => d.current = d);
     // this.root.each(d => d.show = d.height > 1);

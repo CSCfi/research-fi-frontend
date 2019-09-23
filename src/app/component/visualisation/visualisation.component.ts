@@ -27,7 +27,6 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   apiUrl = this.searchService.apiUrl;
   total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
-  loading = true;
   hierarchy;
 
   nOfResults = 0;
@@ -53,7 +52,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   parent: any;
 
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
-    private filterService: FilterService, private sortService: SortService, private router: Router) {
+              private filterService: FilterService, private sortService: SortService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
     this.index = this.route.snapshot.params.tab;
@@ -99,87 +98,37 @@ export class VisualisationComponent implements OnInit, OnDestroy {
     } else {
       this.query = undefined;
     }
-      this.refreshData();
+      this.getData();
   });
 }
 
-refreshData() {
+getData() {
   if (this.index !== 'publication' && this.index !== 'funding') {
-    this.loading = false;
     return;
   }
-  // Clear data and visualisations
-  this.allData = [];
-  // this.g.selectAll('*').remove();
 
-  this.scrollData().subscribe((x: any) => {
-    this.total = x.hits.total;
-    this.tmpData.push(x.aggregations);
-    this.allData = this.tmpData[0];
-    this.loading = false;
+  this.getVisualisationData().subscribe((x: any) => {
+    this.nOfResults = x.hits.total;
+    this.allData = x.aggregations;
   });
-
-  // this.scrollData().subscribe((x: any) => {
-  //   this.total = x.hits.total;
-  //   this.nOfResults = this.total;
-  //   const currentData = x.hits.hits;
-  //   const scrollId = x._scroll_id;
-  //   this.tmpData.push(...currentData);
-  //   this.getNextScroll(scrollId);   // if there is no more data, empty response
-  // });
 }
 
-scrollData() {
-  this.loading = true;
+getVisualisationData() {
   const query = {
     ...(this.query ? { query: this.query } : []),
     size: 0,
     aggs: {
-      year:
-      {
-        terms:
-          { field: 'publicationYear' }
-        ,
-        aggs:
-        {
-          fieldOfScience:
-          {
-            terms:
-              { field: 'fields_of_science.nameFiScience.keyword' }
+      year: {
+        terms: { field: 'publicationYear' },
+        aggs: {
+          fieldOfScience: {
+            terms: { field: 'fields_of_science.nameFiScience.keyword' }
           }
         }
       }
     }
   };
   return this.http.post(this.apiUrl + this.index + '/_search?', query);
-}
-
-getNextScroll(scrollId: string) {
-  const query = {
-    scroll: '1m',
-    scroll_id: scrollId,
-  };
-  this.http.post(this.apiUrl + '_search/scroll', query).subscribe((x: any) => {
-    const currentData = x.hits.hits;
-    const nextScrollId = x._scroll_id;
-    this.tmpData.push(...currentData);
-    if (this.tmpData.length < this.total) {
-      this.getNextScroll(nextScrollId);
-    } else {
-      this.allData = this.tmpData;
-      this.loading = false;
-    }
-  });
-}
-
-clearScroll(scrollId: string) {
-  const payload = {
-    headers: {},
-    body: {
-      scroll_id: scrollId
-    }
-  };
-  return this.http.delete(this.apiUrl + '_search/scroll', payload).subscribe();
 }
 
 ngOnDestroy() {
