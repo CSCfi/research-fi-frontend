@@ -39,6 +39,11 @@ export class SunburstComponent implements OnInit, OnChanges {
 
   ngOnInit() {
 
+    this.hierarchy = [
+      {resultField: 'publicationYear', queryField: 'year'},
+      {resultField: 'field', queryField: 'field'}
+    ];
+
     // Create primary g
     this.g = d3.select('svg')
     .attr('width', this.width)
@@ -58,14 +63,22 @@ export class SunburstComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.data.firstChange) {
-      const data = this.formatData(this.index);
-      this.visualise(data, this.hierarchy);
+      console.log(this.data);
+      // const data = this.formatData(this.index);
+      this.visualise(this.data, this.hierarchy);
     }
   }
 
   partition(data) {
-    const root = d3.hierarchy(data, d => d.values)
-      .count();
+    const root = d3.hierarchy(data, d => {
+      // tslint:disable-next-line
+      if (d.buckets) return d.buckets
+      // tslint:disable-next-line
+      else if (d.fieldOfScience && d.fieldOfScience.buckets) return d.fieldOfScience.buckets
+      // tslint:disable-next-line
+      else return undefined;
+    })
+    .sum(d => d.fieldOfScience ? 0 : d.doc_count);
     return d3.partition()
       .size([2 * Math.PI, root.height + 1])
       (root);
@@ -135,7 +148,7 @@ export class SunburstComponent implements OnInit, OnChanges {
       .filter(function(d) {
         return +this.getAttribute('fill-opacity') || arcVisible(d.target);
       })
-      .attr('fill-opacity', d => arcVisible(d.target) ? (d.show ? 0.8 : 0.6) : 0)
+      .attr('fill-opacity', d => arcVisible(d.target) ? (d.children ? 0.8 : 0.6) : 0)
       .attrTween('d', d => () => this.arc(d.current));
 
     this.label
@@ -167,34 +180,33 @@ export class SunburstComponent implements OnInit, OnChanges {
     hierarchy.forEach(field => {
       nest = nest.key(d => d[field.resultField]).sortKeys(d3.ascending);
     });
+
     const tree = nest.entries(allData);
 
-    this.root = this.partition({key: 'Data', values: tree});
-    const filteredChildred = this.root.descendants().slice(1).filter(d => d.children);
+    this.root = this.partition(allData.year);
+    const excludeRoot = this.root.descendants().slice(1);
+    console.log(excludeRoot);
 
     this.root.each(d => d.current = d);
-    this.root.each(d => d.show = d.height > 1);
+    // this.root.each(d => d.show = d.height > 1);
 
     this.path = this.g.append('g')
       .selectAll('path')
-      .data(filteredChildred)
+      .data(excludeRoot)
       .join('path')
         .attr('fill', d => { while (d.depth > 1) { d = d.parent; } return this.color(d.data.key); })
-        .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.show ? 0.8 : 0.6) : 0)
+        .attr('fill-opacity', d => this.arcVisible(d.current) ? (d.children ? 0.8 : 0.6) : 0)
         .attr('d', d => this.arc(d.current));
 
     this.path
-      // .filter(d => d.height > 1)
+      .filter(d => d.height >= 1)
       .style('cursor', 'pointer')
       .on('click', this.clicked.bind(this));
 
     this.path
-      .filter(d => d.height === 1)
+      .filter(d => d.height === 0)
+      .style('cursor', 'pointer')
       .on('click', this.searchFiltered.bind(this));
-
-    this.path
-      .filter(d => !d.children)
-      .on('click', this.openResult.bind(this));
 
     this.path.append('title')
       .text(d => d.ancestors().map(dd => dd.data.key).reverse().join('/'));
@@ -204,7 +216,7 @@ export class SunburstComponent implements OnInit, OnChanges {
       .attr('text-anchor', 'middle')
       .style('user-select', 'none')
       .selectAll('text')
-      .data(filteredChildred)
+      .data(excludeRoot)
       .join('text')
         .attr('dy', '0.35em')
         .attr('fill-opacity', d => +this.labelVisible(d.current))

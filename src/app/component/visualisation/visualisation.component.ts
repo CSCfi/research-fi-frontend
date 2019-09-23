@@ -53,7 +53,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   parent: any;
 
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
-              private filterService: FilterService, private sortService: SortService, private router: Router) {
+    private filterService: FilterService, private sortService: SortService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
     this.index = this.route.snapshot.params.tab;
@@ -76,7 +76,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   getFilters() {
     this.queryParams = this.route.queryParams.subscribe(params => {
-      this.filter = {year: [params.year].flat().filter(x => x),
+      this.filter = {
+        year: [params.year].flat().filter(x => x),
         status: [params.status].flat().filter(x => x),
         field: [params.field].flat().filter(x => x),
         publicationType: [params.publicationType].flat().filter(x => x),
@@ -84,7 +85,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
         lang: [params.lang].flat().filter(x => x),
         juFo: [params.juFo].flat().filter(x => x),
         openAccess: [params.openAccess].flat().filter(x => x),
-        internationalCollaboration: [params.internationalCollaboration].flat().filter(x => x)};
+        internationalCollaboration: [params.internationalCollaboration].flat().filter(x => x)
+      };
 
       this.filterService.updateFilters(this.filter);
 
@@ -94,69 +96,93 @@ export class VisualisationComponent implements OnInit, OnDestroy {
       if (this.filtersOn || this.searchTerm) {
         this.filterService.updateFilters(this.filter);
         this.query = this.filterService.constructQuery(this.index, this.searchTerm);
-      } else {
-        this.query = undefined;
-      }
-      this.refreshData();
-    });
-  }
-
-  refreshData() {
-    if (this.index !== 'publication' && this.index !== 'funding') {
-      this.loading = false;
-      return;
+    } else {
+      this.query = undefined;
     }
-    // Clear data and visualisations
-    this.allData = [];
-    // this.g.selectAll('*').remove();
-    this.scrollData().subscribe((x: any) => {
-      this.total = x.hits.total;
-      this.nOfResults = this.total;
-      const currentData = x.hits.hits;
-      const scrollId = x._scroll_id;
-      this.tmpData.push(...currentData);
-      this.getNextScroll(scrollId);   // if there is no more data, empty response
-    });
-  }
+      this.refreshData();
+  });
+}
 
-  scrollData() {
-    this.loading = true;
-    const query = {
-      ...(this.query ? {query: this.query} : []),
-      size: this.scrollSize
-    };
-    return this.http.post(this.apiUrl + this.index + '/_search?scroll=1m', query);
+refreshData() {
+  if (this.index !== 'publication' && this.index !== 'funding') {
+    this.loading = false;
+    return;
   }
+  // Clear data and visualisations
+  this.allData = [];
+  // this.g.selectAll('*').remove();
 
-  getNextScroll(scrollId: string) {
-    const query = {
-        scroll: '1m',
-        scroll_id: scrollId,
-    };
-    this.http.post(this.apiUrl + '_search/scroll', query).subscribe((x: any) => {
-      const currentData = x.hits.hits;
-      const nextScrollId = x._scroll_id;
-      this.tmpData.push(...currentData);
-      if (this.tmpData.length < this.total) {
-        this.getNextScroll(nextScrollId);
-      } else {
-        this.allData = this.tmpData;
-        this.loading = false;
+  this.scrollData().subscribe((x: any) => {
+    this.total = x.hits.total;
+    this.tmpData.push(x.aggregations);
+    this.allData = this.tmpData[0];
+    this.loading = false;
+  });
+
+  // this.scrollData().subscribe((x: any) => {
+  //   this.total = x.hits.total;
+  //   this.nOfResults = this.total;
+  //   const currentData = x.hits.hits;
+  //   const scrollId = x._scroll_id;
+  //   this.tmpData.push(...currentData);
+  //   this.getNextScroll(scrollId);   // if there is no more data, empty response
+  // });
+}
+
+scrollData() {
+  this.loading = true;
+  const query = {
+    ...(this.query ? { query: this.query } : []),
+    size: 0,
+    aggs: {
+      year:
+      {
+        terms:
+          { field: 'publicationYear' }
+        ,
+        aggs:
+        {
+          fieldOfScience:
+          {
+            terms:
+              { field: 'fields_of_science.nameFiScience.keyword' }
+          }
+        }
       }
-    });
-  }
+    }
+  };
+  return this.http.post(this.apiUrl + this.index + '/_search?', query);
+}
 
-  clearScroll(scrollId: string) {
-    const payload = {
-      headers: {},
-      body: {
-        scroll_id: scrollId
-      }
-    };
-    return this.http.delete(this.apiUrl + '_search/scroll', payload).subscribe();
-  }
+getNextScroll(scrollId: string) {
+  const query = {
+    scroll: '1m',
+    scroll_id: scrollId,
+  };
+  this.http.post(this.apiUrl + '_search/scroll', query).subscribe((x: any) => {
+    const currentData = x.hits.hits;
+    const nextScrollId = x._scroll_id;
+    this.tmpData.push(...currentData);
+    if (this.tmpData.length < this.total) {
+      this.getNextScroll(nextScrollId);
+    } else {
+      this.allData = this.tmpData;
+      this.loading = false;
+    }
+  });
+}
 
-  ngOnDestroy() {
-    this.queryParams.unsubscribe();
-  }
+clearScroll(scrollId: string) {
+  const payload = {
+    headers: {},
+    body: {
+      scroll_id: scrollId
+    }
+  };
+  return this.http.delete(this.apiUrl + '_search/scroll', payload).subscribe();
+}
+
+ngOnDestroy() {
+  this.queryParams.unsubscribe();
+}
 }
