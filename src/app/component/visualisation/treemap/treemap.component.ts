@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
-import { HierarchyNode } from 'd3';
+import { HierarchyNode, ScaleLinear } from 'd3';
 
 @Component({
   selector: 'app-treemap',
@@ -29,17 +29,21 @@ export class TreemapComponent implements OnInit, OnChanges {
 
   transitioning = false;
 
-  x = d3.scaleLinear()
-    .domain([0, this.width])
-    .range([0, this.width]);
-  y = d3.scaleLinear()
-    .domain([0, this.height])
-    .range([0, this.height]);
+  x: ScaleLinear<number, number>;
+  y: ScaleLinear<number, number>;
+  color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 10 + 1));
 
   constructor() { }
 
   ngOnInit() {
     this.hierarchy = ['publicationYear', 'publicationTypeCode'];
+
+    this.x = d3.scaleLinear()
+      .domain([0, this.width])
+      .range([0, this.width]);
+    this.y = d3.scaleLinear()
+      .domain([0, this.height])
+      .range([0, this.height]);
 
     this.treemap = d3.treemap()
       .size([this.width, this.height])
@@ -69,7 +73,6 @@ export class TreemapComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.data.firstChange) {
       this.root = this.createHierarchy(this.data.map(x => x._source), this.hierarchy);
-      console.log(this.root);
       this.treemap(this.root.sort((a, b) => b.value - a.value));
       this.display(this.root);
     }
@@ -112,7 +115,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     // Add click handler and class to all gs with children
     this.g.filter(dd => dd.height > 1)
           .classed('children', true)
-          .on('click', this.transition.bind(this))
+          .on('click', this.transition.bind(this));
     this.g.selectAll('.child')
           .data(dd => this.filterChildren(dd))
           .enter().append('rect')
@@ -141,12 +144,11 @@ export class TreemapComponent implements OnInit, OnChanges {
   }
 
   transition(d) {
-    console.log(d);
     if (this.transitioning || !d) { return; }
     this.transitioning = true;
-    const g2 = this.display(d);
     const t1 = this.g1.transition().duration(650);
-    const t2 =      g2.transition().duration(650);
+    const g2 = this.display(d);
+    const t2 = g2.transition().duration(650);
     // Update domain
     this.x.domain([d.x0, d.x1]);
     this.y.domain([d.y0, d.y1]);
@@ -165,11 +167,11 @@ export class TreemapComponent implements OnInit, OnChanges {
     // Foreign object
     t1.selectAll('.textdiv').style('display', 'none');
     t1.selectAll('.foreignObj').call(this.foreign.bind(this));
-    t1.selectAll('.textdiv').style('display', 'block');
-    t1.selectAll('.foreignObj').call(this.foreign.bind(this));
+    t2.selectAll('.textdiv').style('display', 'block');
+    t2.selectAll('.foreignObj').call(this.foreign.bind(this));
     // Remove old node
     t1.on('end.remove', function() {
-      this.parentElement.children[1 - d.depth].remove();
+      this.remove();
     });
     this.transitioning = false;
   }
@@ -184,7 +186,7 @@ export class TreemapComponent implements OnInit, OnChanges {
         .attr('y', d => this.y(d.y0))
         .attr('width', d => this.x(d.x1) - this.x(d.x0))
         .attr('height', d => this.y(d.y1) - this.y(d.y0))
-        .attr('fill', d => '#dddddd');
+        .attr('fill', d => this.color(d.data.key));
       }
 
   foreign(f) {
