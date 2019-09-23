@@ -20,17 +20,18 @@ export class FilterService {
   countryCodeFilter: any;
   langFilter: any;
   statusFilter: object;
+  fundingAmountFilter: any;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
   currentFilters: any;
   today: string;
 
-  private filterSource = new BehaviorSubject({year: [], status: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: []});
+  private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
+    juFo: [], openAccess: [], internationalCollaboration: [], status: [], fundingAmount: []});
   filters = this.filterSource.asObservable();
 
-  updateFilters(filters: {year: any[], status: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[]}) {
+  updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
+    openAccess: any[], juFo: any[], internationalCollaboration: any[], status: any[], fundingAmount: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -41,8 +42,8 @@ export class FilterService {
 
   // Filters
   createFilters(filter: any) {
+    // Publication
     this.yearFilter = this.filterByYear(filter.year);
-    this.statusFilter = this.filterByStatus(filter.status);
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.fieldFilter = this.filterByFieldOfScience(filter.field);
     this.publicationTypeFilter = this.filterByPublicationType(filter.publicationType);
@@ -50,6 +51,9 @@ export class FilterService {
     this.langFilter = this.filterByLang(filter.lang);
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
+    // Funding
+    this.statusFilter = this.filterByStatus(filter.status);
+    this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
   }
 
   filterByYear(filter: any) {
@@ -129,6 +133,27 @@ export class FilterService {
     } else { return undefined; }
   }
 
+  // Fundings
+  filterByFundingAmount(val) {
+    let res;
+    switch (JSON.stringify(val)) {
+      case '["over100k"]':
+      case 'over100k': {
+        res = { range: { amount: {gt : 100000 } } };
+        break;
+      }
+      case '["under100k"]':
+      case 'under100k': {
+        res = { range: { amount: {lte : 100000 } } };
+        break;
+      }
+      default: {
+        res = undefined;
+      }
+    }
+    return res;
+  }
+
   // Start & end date filtering
   filterByStatus(status: string) {
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
@@ -162,6 +187,7 @@ export class FilterService {
             ...(index === 'publication' ? (this.openAccessFilter.length ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
+            ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
             ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter),
             ...(this.publicationTypeFilter.length ? { bool: { should: this.publicationTypeFilter } } : this.publicationTypeFilter),
@@ -230,7 +256,7 @@ export class FilterService {
             field: 'internationalCollaboration',
             size: 2
           }
-        },
+        }
       }
     };
     switch (tab) {

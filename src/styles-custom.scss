@@ -56,6 +56,11 @@ span.bold {
     font-weight: bold;
 }
 
+mark, .mark {
+    padding: 0;
+    font-weight: bold;
+}
+
 // Forms
 .mat-pseudo-checkbox {
     background: #FFF;
