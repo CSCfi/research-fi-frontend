@@ -76,7 +76,7 @@ export class SunburstComponent implements OnInit, OnChanges {
       }
       return undefined;
     })
-    .sum(d => d.fieldOfScience ? 0 : d.doc_count)
+    .sum(d => Object.keys(d).length > 2 ? 0 : d.doc_count)
     .sort((a, b) => a.data.key - b.data.key);
     console.log(root);
     return d3.partition()

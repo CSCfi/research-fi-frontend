@@ -22,7 +22,7 @@ export class TreemapComponent implements OnInit, OnChanges {
   g: d3.Selection<SVGElement, HierarchyNode<any>, SVGElement, any>;
   g1: d3.Selection<SVGElement, any, HTMLElement, any>;
 
-  margin = {top: 30, right: 30, bottom: 30, left: 30};
+  margin = {top: 30, right: 0, bottom: 0, left: 0};
   width = 900;
   height = 600;
   format = d3.format(',');
@@ -74,7 +74,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     if (!changes.data.firstChange) {
       this.root = this.createHierarchy(this.data, this.hierarchy);
       this.treemap(this.root
-        .sum(d => d.fieldOfScience ? 0 : d.doc_count)
+        .sum(d => Object.keys(d).length > 2 ? 0 : d.doc_count)
         .sort((a, b) => b.value - a.value));
       this.display(this.root);
     }
@@ -89,12 +89,11 @@ export class TreemapComponent implements OnInit, OnChanges {
       }
       return undefined;
     });
-    console.log(root);
     return root;
   }
 
   filterChildren(d: d3.HierarchyNode<any>) {
-    return d.children || [d];
+    return d.children || [];
   }
 
   display(d: d3.HierarchyNode<number>) {
@@ -120,17 +119,18 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.g.filter(dd => dd.height > 0)
           .classed('children', true)
           .on('click', this.transition.bind(this));
-    this.g.selectAll('.child')
-          .data(dd => this.filterChildren(dd))
-          .enter().append('rect')
-          .attr('class', 'child')
-          .call(this.rect.bind(this));
     // Add title to parents
     this.g.append('rect')
           .attr('class', 'parent')
           .call(this.rect.bind(this))
           .append('title')
           .text(dd => dd.data.key);
+    // Add children nodes
+    this.g.selectAll('.child')
+          .data(dd => this.filterChildren(dd))
+          .enter().append('rect')
+          .attr('class', 'child')
+          .call(this.outlineRect.bind(this));
     // Add foreign object to allow text wrapping
     this.g.append('foreignObject')
           .call(this.rect.bind(this))
@@ -139,7 +139,8 @@ export class TreemapComponent implements OnInit, OnChanges {
           .attr('dy', '.75em')
           .html(dd =>
             `<p class="title">${dd.data.key}</p>
-             <p> ${this.format(dd.value)}</p>
+             <p>${this.format(dd.value)}</p>
+             <title>${dd.data.key}, ${this.format(dd.value)}</title>
             `
           )
           .attr('class', 'textdiv');
@@ -167,7 +168,8 @@ export class TreemapComponent implements OnInit, OnChanges {
     t1.selectAll('text').call(this.text.bind(this)).style('fill-opacity', 0);
     t2.selectAll('text').call(this.text.bind(this)).style('fill-opacity', 1);
     t1.selectAll('rect').call(this.rect.bind(this));
-    t2.selectAll('rect').call(this.rect.bind(this));
+    t2.selectAll('rect.child').call(this.outlineRect.bind(this));
+    t2.selectAll('rect.parent').call(this.rect.bind(this));
     // Foreign object
     t1.selectAll('.textdiv').style('display', 'none');
     t1.selectAll('.foreignObj').call(this.foreign.bind(this));
@@ -178,6 +180,11 @@ export class TreemapComponent implements OnInit, OnChanges {
       this.remove();
     });
     this.transitioning = false;
+  }
+
+  textVisible(d) {
+    return ((this.y(d.y1) - this.y(d.y0)) > 40 || (this.x(d.x1) - this.x(d.x0)) > 100)
+         && (this.y(d.y1) - this.y(d.y0)) * (this.x(d.x1) - this.x(d.x0)) > 3500;
   }
 
   text(text) {
@@ -191,13 +198,22 @@ export class TreemapComponent implements OnInit, OnChanges {
         .attr('width', d => this.x(d.x1) - this.x(d.x0))
         .attr('height', d => this.y(d.y1) - this.y(d.y0))
         .attr('fill', d => this.color(d.data.key));
-      }
+  }
+
+  outlineRect(rect) {
+    rect.attr('x', d => this.x(d.x0))
+        .attr('y', d => this.y(d.y0))
+        .attr('width', d => this.x(d.x1) - this.x(d.x0))
+        .attr('height', d => this.y(d.y1) - this.y(d.y0))
+        .attr('fill', d => 'rgba(0, 0, 0, 0)');
+  }
 
   foreign(f) {
     f.attr('x', d => this.x(d.x0))
      .attr('y', d => this.y(d.y0))
      .attr('width', d => this.x(d.x1) - this.x(d.x0))
-     .attr('height', d => this.y(d.y1) - this.y(d.y0));
+     .attr('height', d => this.y(d.y1) - this.y(d.y0))
+     .attr('opacity', d => +this.textVisible(d));
   }
 
 }
