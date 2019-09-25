@@ -86,35 +86,6 @@ export class SunburstComponent implements OnInit, OnChanges {
       (root);
   }
 
-  formatData(index: string) {
-    const res = this.data.map(x => x._source);
-    switch (index) {
-      case 'publication':
-        res.map(x => x.fields_of_science ? x.field = x.fields_of_science.map(y => y.nameFiScience.trim())[0]
-        : x.field = 'No field available');
-        res.map(x => x.key = x.publicationName);
-        res.map(x => x.id = x.publicationId);
-        this.hierarchy = [
-                          {resultField: 'publicationYear', queryField: 'year'},
-                          {resultField: 'field', queryField: 'field'}
-                        ];
-        break;
-
-        case 'funding':
-          res.map(x => x.key = x.projectNameFi);
-          res.map(x => x.id = x.projectId);
-          this.hierarchy = [
-                            {resultField: 'fundingStartYear', queryField: 'year'},
-                            {resultField: 'funderNameFi', queryField: 'funder'}
-                          ];
-          break;
-
-      default:
-        break;
-    }
-    return res;
-  }
-
   openResult(p) {
     this.router.navigate(['results/', this.index, p.data.id]);
   }
@@ -178,13 +149,6 @@ export class SunburstComponent implements OnInit, OnChanges {
   }
 
   visualise(allData, hierarchy) {
-    let nest: any = d3.nest();
-    hierarchy.forEach(field => {
-      nest = nest.key(d => d[field.resultField]).sortKeys(d3.ascending);
-    });
-
-    const tree = nest.entries(allData);
-
     this.root = this.partition(allData);
     const excludeRoot = this.root.descendants().slice(1);
 
