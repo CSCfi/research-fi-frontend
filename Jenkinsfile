@@ -58,8 +58,8 @@ node {
     }
 
     /*
-     * Angular application requires configuration file 'environment.prod.ts', which is not included in the Git repository.
-     * Create the file and
+     * Angular application requires configuration file 'src/assets/config.json', which is not included in the Git repository.
+     * Create the file from template file 'src/assets/config_template.json'
      * - replace string '<API_URL>' with variable 'api_host'
      * - replace string '<BUILD_INFO>' with variable 'build_info'
      *
@@ -68,9 +68,10 @@ node {
     stage('Add production environment file') {
       def build_info = "${env.BUILD_TIMESTAMP} ${git_commit_hash}"
 
-      sh "sed 's|<API_HOST>|${api_host}|g;s|<BUILD_INFO>|${build_info}|g' src/environments/environment.prod.ts > src/environments/environment.researchfi.prod.ts"
-      sh 'ls -l src/environments'
-      sh 'cat src/environments/environment.researchfi.prod.ts'  
+      // Create config.json
+      sh "sed 's|<API_HOST>|${api_host}|g;s|<BUILD_INFO>|${build_info}|g' src/assets/config_template.json > src/assets/config.json"
+      sh 'ls -l src/assets/config.json'
+      sh 'cat src/assets/config.json'
     }
 
     /*

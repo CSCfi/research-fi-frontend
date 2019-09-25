@@ -48,3 +48,4 @@ Thumbs.db
 # Custom environment files
 src/environments/environment.researchfi.ts
 src/environments/environment.researchfi.prod.ts
+src/assets/config.json
