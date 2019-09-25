@@ -92,6 +92,16 @@ objects:
             ports:
               - containerPort: 8080
                 protocol: TCP
+            volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/nginx/html/assets
+        volumes:
+          - name: config-volume
+            configMap:
+              name: frontend-config
+              items:
+              - key: configfile
+                path: config.json
     replicas: 1
     selector:
       name: researchfi-frontend
