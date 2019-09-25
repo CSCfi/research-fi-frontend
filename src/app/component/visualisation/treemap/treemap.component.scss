@@ -1,0 +1,69 @@
+::ng-deep svg {
+  .breadcrumb text, .back text {
+    font-weight: bold;
+  }
+
+  rect {
+    stroke: #fff;
+    stroke-width: 1px;
+  }
+
+  rect.parent,
+  .breadcrumb rect {
+    stroke-width: 3px;
+  }
+
+  .back.on:hover rect {
+    fill: grey;
+  }
+
+  .children, .back.on {
+    cursor: pointer;
+  }
+
+  .back, .breadcrumb{
+    cursor: default;
+  }
+
+  text {
+    cursor: inherit;
+  }
+
+  .children {
+    rect.child, rect.outline {
+      opacity: 0;
+    }
+  }
+
+  .children:hover {
+    rect.child {
+      opacity: 1;
+    }
+    // rect.parent {
+    // }
+    rect.outline {
+      opacity: 1
+    }
+  }
+
+  .textdiv {
+      font-family: "Open Sans",Helvetica,Arial,sans-serif;
+      font-size: 14px;
+      padding: 7px;
+      pointer-events: none;
+  }
+
+  .textdiv .title {
+      font-size: 102%;
+      font-weight: bold;
+      margin-top: 8px;
+      font-size:11px !important;
+  }
+
+  .textdiv p {
+      line-height: 13px;
+      margin:0 0 4px !important;
+      padding:0px;
+      font-size:10px !important;
+  }
+}
