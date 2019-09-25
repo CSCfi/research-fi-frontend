@@ -24,8 +24,8 @@ export class TreemapComponent implements OnInit, OnChanges {
   g1: d3.Selection<SVGElement, any, HTMLElement, any>;
 
   margin = {top: 30, right: 0, bottom: 30, left: 0};
-  width = 900;
-  height = 600;
+  width = window.innerWidth - this.margin.right - this.margin.left - 50;
+  height = 800;
   format = d3.format(',');
 
   transitioning = false;
@@ -130,9 +130,8 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.back.select('rect')
       .attr('fill', '#e04005');
 
-    this.back.attr('display', d.parent ? 'block' : 'none');
-
-    d.parent ? this.back.classed('on', true) : this.back.classed('on', false);
+    // Hide back button on init and animation start
+    this.back.attr('display', 'none');
 
     // Text
     this.breadcrumb.select('text')
@@ -213,6 +212,8 @@ export class TreemapComponent implements OnInit, OnChanges {
     t1.on('end.remove', function() {
       this.remove();
     });
+    // Show back button after animation
+    t2.on('end', dd => this.back.attr('display', d.parent ? 'block' : 'none'));
     this.transitioning = false;
   }
 
