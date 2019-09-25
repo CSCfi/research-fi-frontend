@@ -59,11 +59,14 @@ export class SunburstComponent implements OnInit, OnChanges {
     .padRadius(this.radius * 1.5)
     .innerRadius((d: any) => d.y0 * this.radius)
     .outerRadius((d: any) => Math.max(d.y0 * this.radius, d.y1 * this.radius - 1));
+
+    if (this.data) {
+      this.visualise(this.data, this.hierarchy);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.data.firstChange) {
-      // const data = this.formatData(this.index);
       this.visualise(this.data, this.hierarchy);
     }
   }
@@ -78,7 +81,6 @@ export class SunburstComponent implements OnInit, OnChanges {
     })
     .sum(d => Object.keys(d).length > 2 ? 0 : d.doc_count)
     .sort((a, b) => a.data.key - b.data.key);
-    console.log(root);
     return d3.partition()
       .size([2 * Math.PI, root.height + 1])
       (root);

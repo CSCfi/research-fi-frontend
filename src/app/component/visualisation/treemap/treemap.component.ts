@@ -17,12 +17,13 @@ export class TreemapComponent implements OnInit, OnChanges {
   remove;
 
   svg: d3.Selection<SVGElement, any, HTMLElement, any>;
-  grandparent: d3.Selection<SVGElement, any, HTMLElement, any>;
+  breadcrumb: d3.Selection<SVGElement, any, HTMLElement, any>;
+  back: d3.Selection<SVGElement, any, HTMLElement, any>;
 
   g: d3.Selection<SVGElement, HierarchyNode<any>, SVGElement, any>;
   g1: d3.Selection<SVGElement, any, HTMLElement, any>;
 
-  margin = {top: 30, right: 0, bottom: 0, left: 0};
+  margin = {top: 30, right: 0, bottom: 30, left: 0};
   width = 900;
   height = 600;
   format = d3.format(',');
@@ -36,8 +37,31 @@ export class TreemapComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    this.hierarchy = ['year', 'fieldOfScience'];
+    // Async signature fixes graph not rendering
+    setTimeout(() => {
+      this.initValues();
+      if (this.data) {
+        this.changesTrigger();
+      }
+      }, 0);
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.data.firstChange) {
+      this.changesTrigger();
+    }
+  }
+
+  changesTrigger() {
+    this.root = this.createHierarchy(this.data, this.hierarchy);
+    this.treemap(this.root
+      .sum(d => Object.keys(d).length > 2 ? 0 : d.doc_count)
+      .sort((a, b) => b.value - a.value));
+    this.display(this.root);
+  }
+
+  initValues() {
+    this.hierarchy = ['year', 'fieldOfScience'];
     this.x = d3.scaleLinear()
       .domain([0, this.width])
       .range([0, this.width]);
@@ -59,25 +83,25 @@ export class TreemapComponent implements OnInit, OnChanges {
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')')
       .style('shape-rendering', 'crispEdges');
 
-    this.grandparent = this.svg.append('g').attr('class', 'grandparent');
-    this.grandparent.append('rect')
+    this.back = this.svg.append('g').attr('class', 'back');
+    this.back.append('rect')
+      .attr('y', this.height)
+      .attr('width', 75)
+      .attr('height', this.margin.bottom);
+    this.back.append('text')
+      .attr('x', 6)
+      .attr('y', this.height + 8)
+      .attr('dy', '.75em');
+
+    this.breadcrumb = this.svg.append('g').attr('class', 'breadcrumb');
+    this.breadcrumb.append('rect')
       .attr('y', -this.margin.top)
       .attr('width', this.width)
       .attr('height', this.margin.top);
-    this.grandparent.append('text')
-      .attr('x', 6)
-      .attr('y', 6 - this.margin.top)
+    this.breadcrumb.append('text')
+      .attr('x', 8)
+      .attr('y', 8 - this.margin.top)
       .attr('dy', '.75em');
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes.data.firstChange) {
-      this.root = this.createHierarchy(this.data, this.hierarchy);
-      this.treemap(this.root
-        .sum(d => Object.keys(d).length > 2 ? 0 : d.doc_count)
-        .sort((a, b) => b.value - a.value));
-      this.display(this.root);
-    }
   }
 
   createHierarchy(data, hierarchy) {
@@ -98,16 +122,26 @@ export class TreemapComponent implements OnInit, OnChanges {
 
   display(d: d3.HierarchyNode<number>) {
 
-    this.grandparent.datum(d.parent)
+    this.back.datum(d.parent)
       .on('click', this.transition.bind(this))
       .select('text')
-      .text('Back');
-    // Color
-    this.grandparent.datum(d.parent)
-      .select('rect')
-      .attr('fill', dd => '#f05010');
+      .text('Takaisin');
 
-    this.g1 = this.svg.insert('g', '.grandparent')
+    this.back.select('rect')
+      .attr('fill', '#e04005');
+
+    this.back.attr('display', d.parent ? 'block' : 'none');
+
+    d.parent ? this.back.classed('on', true) : this.back.classed('on', false);
+
+    // Text
+    this.breadcrumb.select('text')
+      .text(this.breadcrumbText(d));
+    // Color
+    this.breadcrumb.select('rect')
+      .attr('fill', '#f05010');
+
+    this.g1 = this.svg.insert('g', '.breadcrumb')
       .datum(d)
       .attr('class', 'depth');
 
@@ -185,6 +219,10 @@ export class TreemapComponent implements OnInit, OnChanges {
   textVisible(d) {
     return ((this.y(d.y1) - this.y(d.y0)) > 40 || (this.x(d.x1) - this.x(d.x0)) > 100)
          && (this.y(d.y1) - this.y(d.y0)) * (this.x(d.x1) - this.x(d.x0)) > 3500;
+  }
+
+  breadcrumbText(d) {
+    return 'Kaikki' + d.ancestors().map(dd => dd.data.key).reverse().join(' -> ');
   }
 
   text(text) {

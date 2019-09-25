@@ -5,7 +5,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
 <div class="d-flex justify-content-center row main-content">
     <h1 class="col-12">Visualisaatio</h1>
-    <p class="col-12">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p>
-    <!-- <app-sunburst [data]="allData" [index]="index"></app-sunburst> -->
-    <app-treemap [data]="allData"></app-treemap>
+    <p class="col-6 offset-3">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p>
+    <button class="col-3" mat-raised-button color="primary" (click)="swapVis()">Vaihda visualisaation tyyppiä</button>
+    <app-sunburst *ngIf="!visType" [data]="allData" [index]="index"></app-sunburst>
+    <app-treemap *ngIf="visType" [data]="allData"></app-treemap>
 </div>

@@ -21,8 +21,9 @@ import { FilterService } from '../../services/filter.service';
 })
 export class VisualisationComponent implements OnInit, OnDestroy {
 
-  allData: any = [];
-  tmpData: any = [];
+  visType = 0;
+
+  allData: any;
 
   apiUrl = this.searchService.apiUrl;
   total = -1;  // Initial value to prevent NaN%
@@ -63,6 +64,10 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getFilters();
+  }
+
+  swapVis() {
+    this.visType = 1 - this.visType;
   }
 
   partition(data) {
