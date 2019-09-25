@@ -122,7 +122,8 @@ getVisualisationData() {
         terms: { field: 'publicationYear' },
         aggs: {
           fieldOfScience: {
-            terms: { field: 'fields_of_science.nameFiScience.keyword' }
+            terms: { field: 'fields_of_science.nameFiScience.keyword',
+                      size: 100 }
           }
         }
       }

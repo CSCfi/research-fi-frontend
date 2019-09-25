@@ -36,7 +36,7 @@ export class TreemapComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    this.hierarchy = ['publicationYear', 'publicationTypeCode'];
+    this.hierarchy = ['year', 'fieldOfScience'];
 
     this.x = d3.scaleLinear()
       .domain([0, this.width])
@@ -72,25 +72,29 @@ export class TreemapComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.data.firstChange) {
-      this.root = this.createHierarchy(this.data.map(x => x._source), this.hierarchy);
-      this.treemap(this.root.sort((a, b) => b.value - a.value));
+      this.root = this.createHierarchy(this.data, this.hierarchy);
+      this.treemap(this.root
+        .sum(d => d.fieldOfScience ? 0 : d.doc_count)
+        .sort((a, b) => b.value - a.value));
       this.display(this.root);
     }
   }
 
   createHierarchy(data, hierarchy) {
-    let nest: any = d3.nest();
-    hierarchy.forEach(key => {
-      nest = nest.key(d => d[key]);
-    });
+    const root = d3.hierarchy(data, d => {
 
-    const tree = nest.entries(data);
-    const root = d3.hierarchy({key: 'Data', values: tree}, d => d.values).count();
+      for (const item of hierarchy) {
+        // tslint:disable-next-line: curly
+        if (d[item]) return d[item].buckets;
+      }
+      return undefined;
+    });
+    console.log(root);
     return root;
   }
 
   filterChildren(d: d3.HierarchyNode<any>) {
-    return d.height > 1 ? d.children : [];
+    return d.children || [d];
   }
 
   display(d: d3.HierarchyNode<number>) {
@@ -113,7 +117,7 @@ export class TreemapComponent implements OnInit, OnChanges {
       .enter()
       .append('g');
     // Add click handler and class to all gs with children
-    this.g.filter(dd => dd.height > 1)
+    this.g.filter(dd => dd.height > 0)
           .classed('children', true)
           .on('click', this.transition.bind(this));
     this.g.selectAll('.child')

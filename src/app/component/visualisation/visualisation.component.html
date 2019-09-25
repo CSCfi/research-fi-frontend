@@ -6,7 +6,6 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="d-flex justify-content-center row main-content">
     <h1 class="col-12">Visualisaatio</h1>
     <p class="col-12">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p>
+    <!-- <app-sunburst [data]="allData" [index]="index"></app-sunburst> -->
+    <app-treemap [data]="allData"></app-treemap>
 </div>
-
-<app-sunburst [data]="allData" [index]="index"></app-sunburst>
-<!-- <app-treemap [data]="allData"></app-treemap> -->
