@@ -9,6 +9,10 @@ h1, p {
     text-align: center;
 }
 
+.main-content {
+    min-height: calc(100vh - 111px - 164px) // Header and footer
+}
+
 button {
     margin-bottom: 10px;
 }

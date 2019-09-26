@@ -22,6 +22,9 @@ import { FilterService } from '../../services/filter.service';
 export class VisualisationComponent implements OnInit, OnDestroy {
 
   visType = 0;
+  
+  width = window.innerWidth - 25;  // scrollbar margin
+  height = window.innerHeight - 111 - 164 - 102;  // header - footer - info
 
   allData: any;
 
@@ -37,8 +40,6 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   filtersOn: boolean;
   filter: any;
   query: any;
-  width = window.innerWidth;
-  height = 900;
   radius = Math.min(this.width, this.height) / 6;
   color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 10 + 1));
   format = d3.format(',d');

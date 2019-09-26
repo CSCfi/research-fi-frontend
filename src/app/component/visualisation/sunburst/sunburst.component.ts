@@ -12,9 +12,9 @@ export class SunburstComponent implements OnInit, OnChanges {
   @Input() index;
   @Input() searchTerm;
 
-  width = window.innerWidth;
-  height = 900;
-  radius = Math.min(this.width, this.height) / 6;
+  @Input() width;
+  @Input() height;
+  radius;
 
 
   arc: any;
@@ -38,6 +38,8 @@ export class SunburstComponent implements OnInit, OnChanges {
   constructor(private router: Router) { }
 
   ngOnInit() {
+
+    this.radius = Math.min(this.width, this.height) / 6;
 
     this.hierarchy = [
       {resultField: 'year', queryField: 'year'},

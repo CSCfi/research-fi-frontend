@@ -9,12 +9,12 @@ import { HierarchyNode, ScaleLinear } from 'd3';
 })
 export class TreemapComponent implements OnInit, OnChanges {
   @Input() data;
+  @Input() width;
+  @Input() height;
 
   treemap: d3.TreemapLayout<any>;
   hierarchy;
   root: d3.HierarchyNode<any>;
-
-  remove;
 
   svg: d3.Selection<SVGElement, any, HTMLElement, any>;
   breadcrumb: d3.Selection<SVGElement, any, HTMLElement, any>;
@@ -24,8 +24,6 @@ export class TreemapComponent implements OnInit, OnChanges {
   g1: d3.Selection<SVGElement, any, HTMLElement, any>;
 
   margin = {top: 30, right: 0, bottom: 30, left: 0};
-  width = 900;
-  height = 500;
   format = d3.format(',');
 
   transitioning = false;
@@ -39,10 +37,10 @@ export class TreemapComponent implements OnInit, OnChanges {
   ngOnInit() {
     // Async signature fixes graph not rendering
     setTimeout(() => {
-      this.initValues();
-      if (this.data) {
-        this.changesTrigger();
-      }
+        this.initValues();
+        if (this.data) {
+          this.changesTrigger();
+        }
       }, 0);
   }
 
