@@ -13,15 +13,15 @@
     stroke-width: 3px;
   }
 
-  .back.on:hover rect {
+  .back:hover rect {
     fill: grey;
   }
 
-  .children, .back.on {
+  .children, .back {
     cursor: pointer;
   }
 
-  .back, .breadcrumb{
+  .breadcrumb{
     cursor: default;
   }
 
