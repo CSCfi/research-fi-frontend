@@ -9,14 +9,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
-
-const API_URL = environment.apiUrl;
+import { AppConfigService } from './app-config-service.service';
 
 @Injectable()
 export class AutosuggestService {
-  apiUrl = API_URL;
+  apiUrl = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private appConfigService: AppConfigService) {
+    this.apiUrl = this.appConfigService.apiUrl;
+  }
 
   search(terms: Observable<string>) {
     const payLoad = {

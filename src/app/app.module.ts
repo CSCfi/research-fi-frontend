@@ -6,7 +6,8 @@
 //  :license: MIT
 
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { TypeaheadModule } from 'ngx-bootstrap';
@@ -29,6 +30,7 @@ import { ResultsComponent } from './component/results/results.component';
 
 import { SearchService } from './services/search.service';
 import { AutosuggestService} from './services/autosuggest.service';
+import { AppConfigService } from './services/app-config-service.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
@@ -132,7 +134,19 @@ import { LOCALE_ID } from '@angular/core';
     CountUpModule,
     PortalModule
   ],
-  providers: [ SearchService, Title, AutosuggestService, {provide: LOCALE_ID, useValue: 'fi-FI'} ],
+  providers: [ SearchService, Title, AutosuggestService, {provide: LOCALE_ID, useValue: 'fi-FI'},
+  {
+    provide: APP_INITIALIZER,
+    multi: true,
+    deps: [AppConfigService],
+    useFactory: (appConfigService: AppConfigService) => {
+      // Load configuration from file when application starts.
+      return () => {
+        return appConfigService.loadAppConfig();
+      };
+    }
+  } ],
+
   bootstrap: [ AppComponent ],
   entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
 })

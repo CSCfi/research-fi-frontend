@@ -10,10 +10,6 @@ FROM node:10.15.3-alpine as builder
 COPY . /app
 WORKDIR /app
 
-# Create Angular production environment file
-ARG API_HOST
-RUN sed "s|<API_HOST>|$API_HOST|g" /app/src/environments/environment.prod.ts > /app/src/environments/environment.researchfi.prod.ts
-
 RUN npm install
 # Build Finnish language version
 RUN $(npm bin)/ng build --configuration=fi
