@@ -167,6 +167,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     // Add foreign object to allow text wrapping
     this.g.append('foreignObject')
           .call(this.rect.bind(this))
+          .call(this.setTextVisibility.bind(this))
           .attr('class', 'foreignObj')
           .append('xhtml:div')
           .attr('dy', '.75em')
@@ -220,6 +221,10 @@ export class TreemapComponent implements OnInit, OnChanges {
   textVisible(d) {
     return ((this.y(d.y1) - this.y(d.y0)) > 40 || (this.x(d.x1) - this.x(d.x0)) > 100)
          && (this.y(d.y1) - this.y(d.y0)) * (this.x(d.x1) - this.x(d.x0)) > 3500;
+  }
+
+  setTextVisibility(d) {
+    d.attr('opacity', dd => +this.textVisible(dd));
   }
 
   breadcrumbText(d) {
