@@ -24,8 +24,8 @@ export class TreemapComponent implements OnInit, OnChanges {
   g1: d3.Selection<SVGElement, any, HTMLElement, any>;
 
   margin = {top: 30, right: 0, bottom: 30, left: 0};
-  width = window.innerWidth - this.margin.right - this.margin.left - 50;
-  height = 800;
+  width = 900;
+  height = 500;
   format = d3.format(',');
 
   transitioning = false;
