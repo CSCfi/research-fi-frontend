@@ -53,6 +53,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   label: any;
   parent: any;
 
+  visualHeight: number;
+
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
               private filterService: FilterService, private sortService: SortService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -65,6 +67,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getFilters();
+    this.visualHeight = this.height * 1.5;
   }
 
   swapVis() {
