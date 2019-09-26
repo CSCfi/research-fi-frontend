@@ -177,12 +177,79 @@ export class FilterService {
     return statusFilter;
   }
 
+  constructSearch(index, searchTerm) {
+    let res = {};
+    switch (index) {
+      case 'publication': {
+        res = {
+          bool:
+          {	should: [
+              { multi_match : {
+                  query: searchTerm,
+                  // type: 'phrase',
+                  analyzer: 'standard',
+                  fields: [ 'publicationName', 'authorsText', 'journalName' ],
+                  // type: 'best_fields',
+                  // operator: 'and',
+                  fuzziness: 'auto',
+                  // prefix_length: 1
+              }}
+                // {match_phrase_prefix: { publicationName: { query: searchTerm }}},
+            ]
+          }
+        };
+        break;
+      }
+      case 'person': {
+        res = {
+          bool:
+          {	should: [
+              { multi_match : {
+                  query: searchTerm,
+                  analyzer: 'standard',
+                  fields: [ 'firstName', 'lastName'],
+                  fuzziness: 'auto',
+              }}
+            ]
+          }
+        };
+        break;
+      }
+      case 'funding': {
+        res = {
+          bool:
+          {	should: [
+              // { fuzzy: { projectNameFi: { value: searchTerm,
+              //   fuzziness: 'AUTO',
+              //   max_expansions: 50,
+              //   prefix_length: 0,
+              //   transpositions: true,
+              //   rewrite: 'constant_score' } } },
+              //   {match_phrase_prefix: { projectNameFi: { query: searchTerm }}}
+              { multi_match : {
+                query: searchTerm,
+                analyzer: 'standard',
+                fields: [ 'projectNameFi', 'fundedNameFi', 'funderNameFi' ],
+                operator: 'and',
+                fuzziness: 'auto',
+            }}
+            ]
+          }
+        };
+        break;
+      }
+    }
+    return res;
+  }
+
   constructQuery(index: string, searchTerm: string) {
+    const query = this.constructSearch(index, searchTerm);
+    // console.log(query);
     return {
         bool: {
           must: [
             { term: { _index: index } },
-            ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
+            ...(searchTerm ? [query] : []),
             ...(index === 'publication' ? (this.juFoCodeFilter.length ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
             ...(index === 'publication' ? (this.openAccessFilter.length ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
@@ -209,8 +276,32 @@ export class FilterService {
     };
   }
 
-  constructFilterPayload(tab: string) {
+  constructFilterPayload(tab: string, searchTerm: string, fieldsArr: any) {
     const payLoad: any = {
+      query: {
+        bool: {
+          should: [{
+            bool: {
+              must: [{
+                term: {
+                  _index: tab.slice(0, -1)
+              }},
+              { bool: {
+                  should: [{
+                    multi_match: {
+                      query: searchTerm,
+                      analyzer: 'standard',
+                      fields: fieldsArr,
+                      fuzziness: 'auto'
+                    }
+                  }]
+                }
+              }],
+              boost: 1
+            }
+          }]
+        }
+      },
       size: 0,
       aggs: {
         years: {
