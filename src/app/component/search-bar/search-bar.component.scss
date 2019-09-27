@@ -23,8 +23,7 @@
 }
 
 .has-search .form-control {
-    padding-left: 0.375rem;
-    padding: 25px;
+    padding-left: 25px;
     font-size: 25px;
   }
   
@@ -69,11 +68,6 @@ input {
   }
   
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    font-size: 17px;
-    font-style: italic;
-  }
-  
-  ::-ms-input-placeholder { /* Microsoft Edge */
     font-size: 17px;
     font-style: italic;
   }

@@ -74,4 +74,27 @@ export class StaticDataService {
   ];
 
   constructor() { }
+
+  queryFieldsByIndex(index) {
+    let res = [];
+    switch (index) {
+      case 'publication': {
+        res = ['publicationName', 'authorsText', 'journalName'];
+        break;
+      }
+      case 'person': {
+        res = ['firstName', 'lastName'];
+        break;
+      }
+      case 'funding': {
+        res = ['projectNameFi', 'fundedNameFi', 'funderNameFi'];
+        break;
+      }
+      case 'organization': {
+        res = ['ornameFiga', 'sectorNameFi'];
+        break;
+      }
+    }
+    return res;
+  }
 }
