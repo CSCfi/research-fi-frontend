@@ -8,6 +8,7 @@
 import { Injectable  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
+import { StaticDataService} from './static-data.service'
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class FilterService {
     this.filterSource.next(filters);
   }
 
-  constructor(private sortService: SortService) { }
+  constructor(private sortService: SortService, private staticDataService: StaticDataService) { }
 
   // Filters
   createFilters(filter: any) {
@@ -177,74 +178,25 @@ export class FilterService {
     return statusFilter;
   }
 
-  constructSearch(index, searchTerm) {
-    let res = {};
-    switch (index) {
-      case 'publication': {
-        res = {
-          bool:
-          {	should: [
-              { multi_match : {
-                  query: searchTerm,
-                  // type: 'phrase',
-                  analyzer: 'standard',
-                  fields: [ 'publicationName', 'authorsText', 'journalName' ],
-                  // type: 'best_fields',
-                  // operator: 'and',
-                  fuzziness: 'auto',
-                  // prefix_length: 1
-              }}
-                // {match_phrase_prefix: { publicationName: { query: searchTerm }}},
-            ]
-          }
-        };
-        break;
+  constructSearch(index: string, searchTerm: string) {
+    let querySettings = {};
+    querySettings = {
+      bool:
+      {	should: [
+          { multi_match : {
+              query: searchTerm,
+              analyzer: 'standard',
+              fields: this.staticDataService.queryFieldsByIndex(index),
+              fuzziness: 'auto',
+          }}
+        ]
       }
-      case 'person': {
-        res = {
-          bool:
-          {	should: [
-              { multi_match : {
-                  query: searchTerm,
-                  analyzer: 'standard',
-                  fields: [ 'firstName', 'lastName'],
-                  fuzziness: 'auto',
-              }}
-            ]
-          }
-        };
-        break;
-      }
-      case 'funding': {
-        res = {
-          bool:
-          {	should: [
-              // { fuzzy: { projectNameFi: { value: searchTerm,
-              //   fuzziness: 'AUTO',
-              //   max_expansions: 50,
-              //   prefix_length: 0,
-              //   transpositions: true,
-              //   rewrite: 'constant_score' } } },
-              //   {match_phrase_prefix: { projectNameFi: { query: searchTerm }}}
-              { multi_match : {
-                query: searchTerm,
-                analyzer: 'standard',
-                fields: [ 'projectNameFi', 'fundedNameFi', 'funderNameFi' ],
-                operator: 'and',
-                fuzziness: 'auto',
-            }}
-            ]
-          }
-        };
-        break;
-      }
-    }
-    return res;
+    };
+    return querySettings;
   }
 
   constructQuery(index: string, searchTerm: string) {
     const query = this.constructSearch(index, searchTerm);
-    // console.log(query);
     return {
         bool: {
           must: [
@@ -276,32 +228,28 @@ export class FilterService {
     };
   }
 
-  constructFilterPayload(tab: string, searchTerm: string, fieldsArr: any) {
+  constructFilterPayload(tab: string, searchTerm: string) {
     const payLoad: any = {
-      query: {
+      ...(searchTerm.length ? { query: {
         bool: {
           should: [{
             bool: {
-              must: [{
-                term: {
-                  _index: tab.slice(0, -1)
-              }},
+              must: [{ term: { _index: tab.slice(0, -1) }},
               { bool: {
                   should: [{
                     multi_match: {
                       query: searchTerm,
                       analyzer: 'standard',
-                      fields: fieldsArr,
+                      fields: this.staticDataService.queryFieldsByIndex(tab.slice(0, -1)),
                       fuzziness: 'auto'
                     }
                   }]
                 }
-              }],
-              boost: 1
+              }]
             }
           }]
         }
-      },
+      }} : []),
       size: 0,
       aggs: {
         years: {
