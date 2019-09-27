@@ -14,6 +14,7 @@ import { catchError } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
 import { TabChangeService } from './tab-change.service';
+import { StaticDataService } from './static-data.service';
 
 const API_URL = environment.apiUrl;
 
@@ -38,7 +39,7 @@ export class SearchService {
   currentQueryParams = this.querySource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
-              private filterService: FilterService) {
+              private filterService: FilterService, private staticDataService: StaticDataService) {
   }
 
   updateInput(searchTerm: string) {
@@ -66,29 +67,6 @@ export class SearchService {
       this.fromPage = 0;
       this.pageNumber = 1;
     }
-  }
-
-  queryFields(index) {
-    let res = [];
-    switch (index) {
-      case 'publication': {
-        res = ['publicationName', 'authorsText', 'journalName'];
-        break;
-      }
-      case 'person': {
-        res = ['firstName', 'lastName'];
-        break;
-      }
-      case 'funding': {
-        res = ['projectNameFi', 'fundedNameFi', 'funderNameFi'];
-        break;
-      }
-      case 'organization': {
-        res = ['ornameFiga', 'sectorNameFi'];
-        break;
-      }
-    }
-    return res;
   }
 
   // Data for homepage values
@@ -120,91 +98,48 @@ export class SearchService {
   // Data for results page
   getTabValues(): Observable<Search[]> {
     const payLoad = {
-      query: {
+      ...(this.singleInput.length ? { query: {
         bool: {
           should: [
             { bool: {
-                must: [{
-                  term: {
-                    _index: 'publication'
-                }},
-                { bool: {
-                    should: [{
-                      multi_match: {
+                must: [{ term: { _index: 'publication' }},
+                { bool: { should: [{ multi_match: {
                         query: this.singleInput,
                         analyzer: 'standard',
-                        fields: this.queryFields('publication'),
+                        fields: this.staticDataService.queryFieldsByIndex('publication'),
                         fuzziness: 'auto'
-                      }
-                    }]
-                  }
-                }],
-                boost: 1
-              }
-            },
-            {
-            bool: {
-              must: [{
-                term: {
-                  _index: 'person'
-              }},
+                      }}]}
+              }]}},
               { bool: {
-                  should: [{
-                    multi_match: {
-                      query: this.singleInput,
-                      analyzer: 'standard',
-                      fields: this.queryFields('person'),
-                      fuzziness: 'auto'
-                    }
-                  }]
-                }
-              }],
-              boost: 1
-            }
-          },
-          {
-            bool: {
-              must: [{
-                term: {
-                  _index: 'funding'
-              }},
+                must: [{ term: { _index: 'person' }},
+                { bool: { should: [{ multi_match: {
+                        query: this.singleInput,
+                        analyzer: 'standard',
+                        fields: this.staticDataService.queryFieldsByIndex('person'),
+                        fuzziness: 'auto'
+                      }}]}
+              }]}},
               { bool: {
-                  should: [{
-                    multi_match: {
-                      query: this.singleInput,
-                      analyzer: 'standard',
-                      fields: this.queryFields('funding'),
-                      fuzziness: 'auto'
-                    }
-                  }]
-                }
-              }],
-              boost: 1
-            }
-          },
-          {
-            bool: {
-              must: [{
-                term: {
-                  _index: 'organization'
-              }},
+                must: [{ term: { _index: 'funding' }},
+                { bool: { should: [{ multi_match: {
+                        query: this.singleInput,
+                        analyzer: 'standard',
+                        fields: this.staticDataService.queryFieldsByIndex('funding'),
+                        fuzziness: 'auto'
+                      }}]}
+              }]}},
               { bool: {
-                  should: [{
-                    multi_match: {
-                      query: this.singleInput,
-                      analyzer: 'standard',
-                      fields: this.queryFields('organization'),
-                      fuzziness: 'auto'
-                    }
-                  }]
-                }
-              }],
-              boost: 1
-            }
-          }
-        ]
-        }
-      },
+                must: [{ term: { _index: 'organization' }},
+                { bool: { should: [{ multi_match: {
+                        query: this.singleInput,
+                        analyzer: 'standard',
+                        fields: this.staticDataService.queryFieldsByIndex('organization'),
+                        fuzziness: 'auto'
+                      }}]}
+              }]}},
+        ]}
+      }, } : []),
+
       size: 0,
       aggs: {
         _index: {
@@ -235,15 +170,14 @@ export class SearchService {
         }
       }
     };
-    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
     return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad)
       .pipe(catchError(this.handleError));
   }
 
   getFilters(): Observable<Search[]> {
-    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput, this.queryFields(this.tabChangeService.tab));
-    // queryTerm pois ja payloadiin samat multi matchit kun normi haussa
-    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad)
       .pipe(catchError(this.handleError));
   }
