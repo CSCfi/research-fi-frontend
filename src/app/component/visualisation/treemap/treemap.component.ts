@@ -23,7 +23,7 @@ export class TreemapComponent implements OnInit, OnChanges {
   g: d3.Selection<SVGElement, HierarchyNode<any>, SVGElement, any>;
   g1: d3.Selection<SVGElement, any, HTMLElement, any>;
 
-  margin = {top: 30, right: 0, bottom: 30, left: 0};
+  margin = {top: 30, right: 30, bottom: 30, left: 30};
   format = d3.format(',');
 
   transitioning = false;
@@ -62,7 +62,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.hierarchy = ['year', 'fieldOfScience'];
     this.x = d3.scaleLinear()
       .domain([0, this.width])
-      .range([0, this.width]);
+      .range([0, this.width - this.margin.left - this.margin.right]);
     this.y = d3.scaleLinear()
       .domain([0, this.height])
       .range([0, this.height]);
@@ -73,10 +73,8 @@ export class TreemapComponent implements OnInit, OnChanges {
       .round(false);
 
     this.svg = d3.select('svg')
-    .attr('width', this.width + this.margin.left + this.margin.right)
+    .attr('width', this.width)
     .attr('height', this.height + this.margin.bottom + this.margin.top)
-    .style('margin-left', -this.margin.left + 'px')
-    .style('margin-right', -this.margin.right + 'px')
     .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')')
       .style('shape-rendering', 'crispEdges');
@@ -94,7 +92,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.breadcrumb = this.svg.append('g').attr('class', 'breadcrumb');
     this.breadcrumb.append('rect')
       .attr('y', -this.margin.top)
-      .attr('width', this.width)
+      .attr('width', this.width - this.margin.left - this.margin.right)
       .attr('height', this.margin.top);
     this.breadcrumb.append('text')
       .attr('x', 8)

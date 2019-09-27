@@ -10,7 +10,8 @@ h1, p {
 }
 
 .main-content {
-    min-height: calc(100vh - 111px - 164px) // Header and footer
+    min-height: calc(100vh - 111px - 164px); // Header and footer
+    padding-bottom: 164px;
 }
 
 button {

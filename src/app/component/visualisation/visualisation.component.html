@@ -9,8 +9,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <p class="col-6 offset-3">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p>
         <button class="col-3" mat-raised-button color="primary" (click)="swapVis()">Vaihda visualisaation tyyppiä</button>
     </div>
-    <div class="visual-container" [style.min-height.px]="visualHeight" >
-    <app-sunburst *ngIf="!visType" [data]="allData" [index]="index" [width]="width" [height]="height"></app-sunburst>
-    <app-treemap *ngIf="visType" [data]="allData" [width]="width" [height]="height"></app-treemap>
+    <div class="visual-container">
+        <app-sunburst *ngIf="!visType" [style.min-height.px]="height" [data]="allData" [index]="index" [width]="width" [height]="height"></app-sunburst>
+        <app-treemap *ngIf="visType" [style.min-height.px]="height + 90" [data]="allData" [width]="width" [height]="height"></app-treemap>
     </div>
 </div>

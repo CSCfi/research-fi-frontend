@@ -22,7 +22,7 @@ import { FilterService } from '../../services/filter.service';
 export class VisualisationComponent implements OnInit, OnDestroy {
 
   visType = 0;
-  
+
   width = window.innerWidth - 25;  // scrollbar margin
   height = window.innerHeight - 111 - 164 - 102;  // header - footer - info
 
@@ -67,7 +67,6 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getFilters();
-    this.visualHeight = this.height * 1.5;
   }
 
   swapVis() {
