@@ -9,6 +9,11 @@ h1, p {
     text-align: center;
 }
 
-.visual-container {
-    min-height: 1100px;
+.main-content {
+    min-height: calc(100vh - 111px - 164px); // Header and footer
+    padding-bottom: 164px;
+}
+
+button {
+    margin-bottom: 10px;
 }
