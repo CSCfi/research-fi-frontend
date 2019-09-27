@@ -187,7 +187,6 @@ export class FilterService {
               query: searchTerm,
               analyzer: 'standard',
               fields: this.staticDataService.queryFieldsByIndex(index),
-              fuzziness: 'auto',
           }}
         ]
       }
