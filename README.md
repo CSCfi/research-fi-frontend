@@ -1,13 +1,11 @@
 # Research.fi Angular frontend
 ## Environment setup
-### Local development version: add configuration file environment.researchfi.ts
-Configuration file **src/environments/environment.researchfi.ts** must be manually added:
-* Copy file **environment.ts** and rename it as **environment.researchfi.ts**
-* Modify file contents by replacing **http://<API_HOST>** with the correct API server address
+### Local development version: add file config.json
+Configuration file **src/assets/config.json** must be manually added:
+* Copy file **src/assets/config_template.json** as **src/assets/config.json**.
+* Modify file contents by replacing **<API_HOST>** with the correct API server address.
 ### Production version: add configuration file environment.researchfi.prod.ts
-Configuration file **src/environments/environment.researchfi.prod.ts** must be manually added:
-* Copy file **environment.prod.ts** and rename it as **environment.researchfi.prod.ts**
-* Modify file contents by replacing **http://<API_HOST>** with the correct API server address
+Production version of configuration file is added during CI/CD process.
 
 ## Local development without Docker
 * Install Node.js and npm package manager, then
@@ -29,5 +27,5 @@ npm run start-en
 ```
 * For Swedish
 ```
-npm run start-se
+npm run start-sv
 ```
