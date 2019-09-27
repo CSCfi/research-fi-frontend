@@ -107,7 +107,7 @@ export class SearchService {
                         query: this.singleInput,
                         analyzer: 'standard',
                         fields: this.staticDataService.queryFieldsByIndex('publication'),
-                        fuzziness: 'auto'
+                        // fuzziness: 'auto'
                       }}]}
               }]}},
               { bool: {
@@ -116,7 +116,7 @@ export class SearchService {
                         query: this.singleInput,
                         analyzer: 'standard',
                         fields: this.staticDataService.queryFieldsByIndex('person'),
-                        fuzziness: 'auto'
+                        // fuzziness: 'auto'
                       }}]}
               }]}},
               { bool: {
@@ -125,7 +125,7 @@ export class SearchService {
                         query: this.singleInput,
                         analyzer: 'standard',
                         fields: this.staticDataService.queryFieldsByIndex('funding'),
-                        fuzziness: 'auto'
+                        // fuzziness: 'auto'
                       }}]}
               }]}},
               { bool: {
@@ -134,7 +134,7 @@ export class SearchService {
                         query: this.singleInput,
                         analyzer: 'standard',
                         fields: this.staticDataService.queryFieldsByIndex('organization'),
-                        fuzziness: 'auto'
+                        // fuzziness: 'auto'
                       }}]}
               }]}},
         ]}
