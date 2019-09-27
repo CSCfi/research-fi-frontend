@@ -187,6 +187,7 @@ export class FilterService {
               query: searchTerm,
               analyzer: 'standard',
               fields: this.staticDataService.queryFieldsByIndex(index),
+              // fuzziness: 'auto'
           }}
         ]
       }
@@ -240,7 +241,7 @@ export class FilterService {
                       query: searchTerm,
                       analyzer: 'standard',
                       fields: this.staticDataService.queryFieldsByIndex(tab.slice(0, -1)),
-                      fuzziness: 'auto'
+                      // fuzziness: 'auto'
                     }
                   }]
                 }

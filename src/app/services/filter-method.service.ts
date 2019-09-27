@@ -36,8 +36,6 @@ export class FilterMethodService {
     if (source && source.length > 0) {
       mapped = source.map(majorField => ({ field: majorField.key, id: majorField.fieldId.buckets[0].key }));
     }
-    // console.log(mapped)
-
     // Loop through major fields & push all instances as separate arrays
     for (let i = 1; i < this.staticDataService.majorFieldsOfScience.length; i++) {
       if (i === 7) { i = 9; }
