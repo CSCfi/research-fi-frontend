@@ -43,8 +43,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        #ref: devel
-        ref: CSCTTV-790
+        ref: devel
       contextDir: .
     strategy:
       dockerStrategy:
@@ -65,8 +64,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        #ref: devel
-        ref: CSCTTV-790
+        ref: devel
       contextDir: .
     strategy:
       jenkinsPipelineStrategy:
