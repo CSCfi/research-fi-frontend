@@ -59,7 +59,7 @@
                 </mat-expansion-panel-header>
                 <div class="subFields">
                     <div *ngFor="let major of staticDataService.majorFieldsOfScience, let i = index">
-                        <mat-expansion-panel [class.hidden]="!combinedMajorFields[i].length > 0">
+                        <mat-expansion-panel *ngIf="combinedMajorFields[i] && combinedMajorFields[i].length > 0">
                             <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                                 <mat-panel-title>
                                     <strong>{{major.label}}</strong>

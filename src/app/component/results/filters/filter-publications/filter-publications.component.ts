@@ -188,7 +188,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.filterTerm = this.filterTerm || '';
     this.fields = this.filterMethodService.subFilter(
       this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [], this.filterTerm);
-    // Major & minor fields of study
+    // Major & minor fields
     this.combinedMajorFields = this.filterMethodService.separateMinor(
       this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : []);
     this.separatePublicationClass();

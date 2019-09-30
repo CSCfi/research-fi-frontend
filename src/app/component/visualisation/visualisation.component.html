@@ -3,10 +3,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 :license: MIT -->
 
-<div class="d-flex justify-content-center row main-content">
-    <h1 class="col-12">Visualisaatio</h1>
-    <p class="col-6 offset-3">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p>
-    <button class="col-3" mat-raised-button color="primary" (click)="swapVis()">Vaihda visualisaation tyyppiä</button>
-    <app-sunburst *ngIf="!visType" [data]="allData" [index]="index"></app-sunburst>
-    <app-treemap *ngIf="visType" [data]="allData"></app-treemap>
+<div class="main-content">
+    <div class="row">
+        <h1 class="col-12">Visualisaatio</h1>
+        <p class="col-6 offset-3">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p>
+        <button class="col-3" mat-raised-button color="primary" (click)="swapVis()">Vaihda visualisaation tyyppiä</button>
+    </div>
+    <div class="visual-container">
+        <app-sunburst *ngIf="!visType" [style.min-height.px]="height" [data]="allData" [index]="index" [width]="width" [height]="height"></app-sunburst>
+        <app-treemap *ngIf="visType" [style.min-height.px]="height + 90" [data]="allData" [width]="width" [height]="height"></app-treemap>
+    </div>
 </div>
