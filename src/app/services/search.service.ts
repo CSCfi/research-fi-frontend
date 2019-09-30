@@ -14,8 +14,8 @@ import { catchError } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
 import { TabChangeService } from './tab-change.service';
-import { AppConfigService } from './app-config-service.service';
 import { StaticDataService } from './static-data.service';
+import { AppConfigService } from './app-config-service.service';
 
 @Injectable()
 export class SearchService {
@@ -38,7 +38,8 @@ export class SearchService {
   currentQueryParams = this.querySource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
-    private filterService: FilterService, private appConfigService: AppConfigService, private staticDataService: StaticDataService) {
+              private filterService: FilterService, private staticDataService: StaticDataService,
+              private appConfigService: AppConfigService) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
