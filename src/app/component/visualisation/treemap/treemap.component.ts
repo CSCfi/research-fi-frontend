@@ -9,12 +9,12 @@ import { HierarchyNode, ScaleLinear } from 'd3';
 })
 export class TreemapComponent implements OnInit, OnChanges {
   @Input() data;
+  @Input() width;
+  @Input() height;
 
   treemap: d3.TreemapLayout<any>;
   hierarchy;
   root: d3.HierarchyNode<any>;
-
-  remove;
 
   svg: d3.Selection<SVGElement, any, HTMLElement, any>;
   breadcrumb: d3.Selection<SVGElement, any, HTMLElement, any>;
@@ -23,9 +23,7 @@ export class TreemapComponent implements OnInit, OnChanges {
   g: d3.Selection<SVGElement, HierarchyNode<any>, SVGElement, any>;
   g1: d3.Selection<SVGElement, any, HTMLElement, any>;
 
-  margin = {top: 30, right: 0, bottom: 30, left: 0};
-  width = 900;
-  height = 500;
+  margin = {top: 30, right: 30, bottom: 30, left: 30};
   format = d3.format(',');
 
   transitioning = false;
@@ -39,10 +37,10 @@ export class TreemapComponent implements OnInit, OnChanges {
   ngOnInit() {
     // Async signature fixes graph not rendering
     setTimeout(() => {
-      this.initValues();
-      if (this.data) {
-        this.changesTrigger();
-      }
+        this.initValues();
+        if (this.data) {
+          this.changesTrigger();
+        }
       }, 0);
   }
 
@@ -64,7 +62,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.hierarchy = ['year', 'fieldOfScience'];
     this.x = d3.scaleLinear()
       .domain([0, this.width])
-      .range([0, this.width]);
+      .range([0, this.width - this.margin.left - this.margin.right]);
     this.y = d3.scaleLinear()
       .domain([0, this.height])
       .range([0, this.height]);
@@ -75,10 +73,8 @@ export class TreemapComponent implements OnInit, OnChanges {
       .round(false);
 
     this.svg = d3.select('svg')
-    .attr('width', this.width + this.margin.left + this.margin.right)
+    .attr('width', this.width)
     .attr('height', this.height + this.margin.bottom + this.margin.top)
-    .style('margin-left', -this.margin.left + 'px')
-    .style('margin-right', -this.margin.right + 'px')
     .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')')
       .style('shape-rendering', 'crispEdges');
@@ -96,7 +92,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.breadcrumb = this.svg.append('g').attr('class', 'breadcrumb');
     this.breadcrumb.append('rect')
       .attr('y', -this.margin.top)
-      .attr('width', this.width)
+      .attr('width', this.width - this.margin.left - this.margin.right)
       .attr('height', this.margin.top);
     this.breadcrumb.append('text')
       .attr('x', 8)
@@ -167,6 +163,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     // Add foreign object to allow text wrapping
     this.g.append('foreignObject')
           .call(this.rect.bind(this))
+          .call(this.setTextVisibility.bind(this))
           .attr('class', 'foreignObj')
           .append('xhtml:div')
           .attr('dy', '.75em')
@@ -220,6 +217,10 @@ export class TreemapComponent implements OnInit, OnChanges {
   textVisible(d) {
     return ((this.y(d.y1) - this.y(d.y0)) > 40 || (this.x(d.x1) - this.x(d.x0)) > 100)
          && (this.y(d.y1) - this.y(d.y0)) * (this.x(d.x1) - this.x(d.x0)) > 3500;
+  }
+
+  setTextVisibility(d) {
+    d.attr('opacity', dd => +this.textVisible(dd));
   }
 
   breadcrumbText(d) {

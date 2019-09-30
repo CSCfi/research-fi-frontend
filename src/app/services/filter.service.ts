@@ -8,6 +8,7 @@
 import { Injectable  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
+import { StaticDataService} from './static-data.service'
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class FilterService {
     this.filterSource.next(filters);
   }
 
-  constructor(private sortService: SortService) { }
+  constructor(private sortService: SortService, private staticDataService: StaticDataService) { }
 
   // Filters
   createFilters(filter: any) {
@@ -177,12 +178,30 @@ export class FilterService {
     return statusFilter;
   }
 
+  constructSearch(index: string, searchTerm: string) {
+    let querySettings = {};
+    querySettings = {
+      bool:
+      {	should: [
+          { multi_match : {
+              query: searchTerm,
+              analyzer: 'standard',
+              fields: this.staticDataService.queryFieldsByIndex(index),
+              // fuzziness: 'auto'
+          }}
+        ]
+      }
+    };
+    return querySettings;
+  }
+
   constructQuery(index: string, searchTerm: string) {
+    const query = this.constructSearch(index, searchTerm);
     return {
         bool: {
           must: [
             { term: { _index: index } },
-            ...(searchTerm ? [{ query_string : { query : searchTerm } }] : []),
+            ...(searchTerm ? [query] : []),
             ...(index === 'publication' ? (this.juFoCodeFilter.length ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
             ...(index === 'publication' ? (this.openAccessFilter.length ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
@@ -209,8 +228,28 @@ export class FilterService {
     };
   }
 
-  constructFilterPayload(tab: string) {
+  constructFilterPayload(tab: string, searchTerm: string) {
     const payLoad: any = {
+      ...(searchTerm.length ? { query: {
+        bool: {
+          should: [{
+            bool: {
+              must: [{ term: { _index: tab.slice(0, -1) }},
+              { bool: {
+                  should: [{
+                    multi_match: {
+                      query: searchTerm,
+                      analyzer: 'standard',
+                      fields: this.staticDataService.queryFieldsByIndex(tab.slice(0, -1)),
+                      // fuzziness: 'auto'
+                    }
+                  }]
+                }
+              }]
+            }
+          }]
+        }
+      }} : []),
       size: 0,
       aggs: {
         years: {
@@ -279,6 +318,19 @@ export class FilterService {
         };
         break;
       case 'fundings':
+        payLoad.aggs.scheme = {
+          terms: {
+            field: 'keywords.scheme.keyword',
+            size: 10
+          },
+          aggs: {
+            field: {
+              terms: {
+                field: 'keywords.keyword.keyword'
+              }
+            },
+          }
+        };
         break;
 
       default:

@@ -23,6 +23,9 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   visType = 0;
 
+  width = window.innerWidth - 25;  // scrollbar margin
+  height = window.innerHeight - 111 - 164 - 102;  // header - footer - info
+
   allData: any;
 
   apiUrl = this.searchService.apiUrl;
@@ -37,8 +40,6 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   filtersOn: boolean;
   filter: any;
   query: any;
-  width = window.innerWidth;
-  height = 900;
   radius = Math.min(this.width, this.height) / 6;
   color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 10 + 1));
   format = d3.format(',d');
@@ -51,6 +52,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   path: any;
   label: any;
   parent: any;
+
+  visualHeight: number;
 
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
               private filterService: FilterService, private sortService: SortService, private router: Router) {
@@ -124,7 +127,8 @@ getVisualisationData() {
     size: 0,
     aggs: {
       year: {
-        terms: { field: 'publicationYear' },
+        terms: { field: 'publicationYear',
+                 size: 100 },
         aggs: {
           fieldOfScience: {
             terms: { field: 'fields_of_science.nameFiScience.keyword',

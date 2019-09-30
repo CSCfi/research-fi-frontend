@@ -14,6 +14,7 @@ import { catchError } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
 import { TabChangeService } from './tab-change.service';
+import { StaticDataService } from './static-data.service';
 
 const API_URL = environment.apiUrl;
 
@@ -38,7 +39,7 @@ export class SearchService {
   currentQueryParams = this.querySource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
-              private filterService: FilterService) {
+              private filterService: FilterService, private staticDataService: StaticDataService) {
   }
 
   updateInput(searchTerm: string) {
@@ -97,6 +98,48 @@ export class SearchService {
   // Data for results page
   getTabValues(): Observable<Search[]> {
     const payLoad = {
+      ...(this.singleInput.length ? { query: {
+        bool: {
+          should: [
+            { bool: {
+                must: [{ term: { _index: 'publication' }},
+                { bool: { should: [{ multi_match: {
+                        query: this.singleInput,
+                        analyzer: 'standard',
+                        fields: this.staticDataService.queryFieldsByIndex('publication'),
+                        // fuzziness: 'auto'
+                      }}]}
+              }]}},
+              { bool: {
+                must: [{ term: { _index: 'person' }},
+                { bool: { should: [{ multi_match: {
+                        query: this.singleInput,
+                        analyzer: 'standard',
+                        fields: this.staticDataService.queryFieldsByIndex('person'),
+                        // fuzziness: 'auto'
+                      }}]}
+              }]}},
+              { bool: {
+                must: [{ term: { _index: 'funding' }},
+                { bool: { should: [{ multi_match: {
+                        query: this.singleInput,
+                        analyzer: 'standard',
+                        fields: this.staticDataService.queryFieldsByIndex('funding'),
+                        // fuzziness: 'auto'
+                      }}]}
+              }]}},
+              { bool: {
+                must: [{ term: { _index: 'organization' }},
+                { bool: { should: [{ multi_match: {
+                        query: this.singleInput,
+                        analyzer: 'standard',
+                        fields: this.staticDataService.queryFieldsByIndex('organization'),
+                        // fuzziness: 'auto'
+                      }}]}
+              }]}},
+        ]}
+      }, } : []),
+
       size: 0,
       aggs: {
         _index: {
@@ -127,15 +170,15 @@ export class SearchService {
         }
       }
     };
-    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?' + queryTerm, payLoad)
+    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad)
       .pipe(catchError(this.handleError));
   }
 
   getFilters(): Observable<Search[]> {
-    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab);
-    const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?' + queryTerm, payLoad)
+    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad)
       .pipe(catchError(this.handleError));
   }
 
