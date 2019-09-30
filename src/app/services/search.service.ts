@@ -97,49 +97,18 @@ export class SearchService {
 
   // Data for results page
   getTabValues(): Observable<Search[]> {
+    this.staticDataService.querySettings(this.tabChangeService.tab, this.singleInput);
     const payLoad = {
       ...(this.singleInput.length ? { query: {
         bool: {
           should: [
-            { bool: {
-                must: [{ term: { _index: 'publication' }},
-                { bool: { should: [{ multi_match: {
-                        query: this.singleInput,
-                        analyzer: 'standard',
-                        fields: this.staticDataService.queryFieldsByIndex('publication'),
-                        // fuzziness: 'auto'
-                      }}]}
-              }]}},
-              { bool: {
-                must: [{ term: { _index: 'person' }},
-                { bool: { should: [{ multi_match: {
-                        query: this.singleInput,
-                        analyzer: 'standard',
-                        fields: this.staticDataService.queryFieldsByIndex('person'),
-                        // fuzziness: 'auto'
-                      }}]}
-              }]}},
-              { bool: {
-                must: [{ term: { _index: 'funding' }},
-                { bool: { should: [{ multi_match: {
-                        query: this.singleInput,
-                        analyzer: 'standard',
-                        fields: this.staticDataService.queryFieldsByIndex('funding'),
-                        // fuzziness: 'auto'
-                      }}]}
-              }]}},
-              { bool: {
-                must: [{ term: { _index: 'organization' }},
-                { bool: { should: [{ multi_match: {
-                        query: this.singleInput,
-                        analyzer: 'standard',
-                        fields: this.staticDataService.queryFieldsByIndex('organization'),
-                        // fuzziness: 'auto'
-                      }}]}
-              }]}},
-        ]}
+            this.staticDataService.querySettings('publication', this.singleInput),
+            this.staticDataService.querySettings('person', this.singleInput),
+            this.staticDataService.querySettings('funding', this.singleInput),
+            this.staticDataService.querySettings('organization', this.singleInput)
+          ]
+        }
       }, } : []),
-
       size: 0,
       aggs: {
         _index: {
