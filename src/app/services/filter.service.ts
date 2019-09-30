@@ -138,13 +138,11 @@ export class FilterService {
   filterByFundingAmount(val) {
     let res;
     switch (JSON.stringify(val)) {
-      case '["over100k"]':
-      case 'over100k': {
+      case '["over100k"]': {
         res = { range: { amount: {gt : 100000 } } };
         break;
       }
-      case '["under100k"]':
-      case 'under100k': {
+      case '["under100k"]': {
         res = { range: { amount: {lte : 100000 } } };
         break;
       }
@@ -160,13 +158,11 @@ export class FilterService {
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
     let statusFilter;
     switch (JSON.stringify(status)) {
-      case '["onGoing"]':
-      case '"onGoing"': {
+      case '["onGoing"]': {
         statusFilter = { range: { fundingEndDate: {gte : '2017-01-01' } } };
         break;
       }
-      case '["ended"]':
-      case '"ended"': {
+      case '["ended"]': {
         statusFilter = { range: { fundingEndDate: {lte : '2017-01-01' } } };
         break;
       }
