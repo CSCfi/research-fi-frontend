@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import * as d3 from 'd3';
 import { HierarchyNode, ScaleLinear } from 'd3';
 
@@ -31,6 +31,8 @@ export class TreemapComponent implements OnInit, OnChanges {
   x: ScaleLinear<number, number>;
   y: ScaleLinear<number, number>;
   color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 10 + 1));
+
+  @Output() title: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
@@ -169,7 +171,7 @@ export class TreemapComponent implements OnInit, OnChanges {
           .attr('dy', '.75em')
           .html(dd =>
             `<p class="title">${dd.data.key}</p>
-             <p>${this.format(dd.value)}</p>
+             <p class="amount">${this.format(dd.value)}</p>
              <title>${dd.data.key}, ${this.format(dd.value)}</title>
             `
           )
@@ -224,6 +226,9 @@ export class TreemapComponent implements OnInit, OnChanges {
   }
 
   breadcrumbText(d) {
+    const newTitle = d.ancestors().length > 1 ? 'Julkaisujen määrät tieteenaloittain'
+                             : 'Julkaisujen määrät vuosittain';
+    this.title.emit(newTitle);
     return 'Kaikki' + d.ancestors().map(dd => dd.data.key).reverse().join(' -> ');
   }
 
