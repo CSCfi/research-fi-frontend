@@ -10,17 +10,13 @@ FROM node:10.15.3-alpine as builder
 COPY . /app
 WORKDIR /app
 
-# Create Angular production environment file
-ARG API_HOST
-RUN sed "s|<API_HOST>|$API_HOST|g" /app/src/environments/environment.prod.ts > /app/src/environments/environment.researchfi.prod.ts
-
 RUN npm install
 # Build Finnish language version
-RUN $(npm bin)/ng build --configuration=fi
+RUN $(npm bin)/ng build --prod --configuration=fi
 # Build Swedish language version
-RUN $(npm bin)/ng build --configuration=sv --i18n-file src/i18n/messages.sv.xlf --i18n-format xlf --i18n-locale sv --baseHref /sv/
+RUN $(npm bin)/ng build --prod --configuration=sv --i18n-file src/i18n/messages.sv.xlf --i18n-format xlf --i18n-locale sv --baseHref /sv/
 # Build English language version
-RUN $(npm bin)/ng build --configuration=en --i18n-file src/i18n/messages.en.xlf --i18n-format xlf --i18n-locale en --baseHref /en/
+RUN $(npm bin)/ng build --prod --configuration=en --i18n-file src/i18n/messages.en.xlf --i18n-format xlf --i18n-locale en --baseHref /en/
 
 # Stage 2: Serve application using Nginx (non-root version)
 FROM nginxinc/nginx-unprivileged as nginx

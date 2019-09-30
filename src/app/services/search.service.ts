@@ -15,15 +15,14 @@ import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
 import { TabChangeService } from './tab-change.service';
 import { StaticDataService } from './static-data.service';
-
-const API_URL = environment.apiUrl;
+import { AppConfigService } from './app-config-service.service';
 
 @Injectable()
 export class SearchService {
   singleInput: string;
   pageNumber: number;
   fromPage: number;
-  apiUrl = API_URL;
+  apiUrl = '';
 
   // Variables to help with search term redirections
   tabValues: any;
@@ -39,7 +38,9 @@ export class SearchService {
   currentQueryParams = this.querySource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
-              private filterService: FilterService, private staticDataService: StaticDataService) {
+              private filterService: FilterService, private staticDataService: StaticDataService,
+              private appConfigService: AppConfigService) {
+      this.apiUrl = this.appConfigService.apiUrl;
   }
 
   updateInput(searchTerm: string) {

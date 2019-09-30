@@ -45,6 +45,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Custom environment files
-src/environments/environment.researchfi.ts
-src/environments/environment.researchfi.prod.ts
+# Configuration file containing API url
+src/assets/config/config.json
