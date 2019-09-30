@@ -75,6 +75,21 @@ export class StaticDataService {
 
   constructor() { }
 
+  // Global settings for query
+  querySettings(index: string, term: string) {
+    const res = { bool: {
+      must: [{ term: { _index: index }},
+      { bool: { should: [{ multi_match: {
+              query: term,
+              analyzer: 'standard',
+              fields: this.queryFieldsByIndex(index),
+              operator: 'and'
+            }}]}
+    }]}};
+
+    return res;
+  }
+
   queryFieldsByIndex(index) {
     let res = [];
     switch (index) {
