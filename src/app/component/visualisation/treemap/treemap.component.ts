@@ -171,7 +171,7 @@ export class TreemapComponent implements OnInit, OnChanges {
           .attr('dy', '.75em')
           .html(dd =>
             `<p class="title">${dd.data.key}</p>
-             <p>${this.format(dd.value)}</p>
+             <p class="amount">${this.format(dd.value)}</p>
              <title>${dd.data.key}, ${this.format(dd.value)}</title>
             `
           )

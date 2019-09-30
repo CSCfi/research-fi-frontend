@@ -10,7 +10,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <button class="col-3" mat-raised-button color="primary" (click)="swapVis()">Vaihda visualisaation tyyppiä</button>
     </div>
     <div class="visual-container">
-        <app-sunburst *ngIf="!visType" (title)="updateTitle($event)"  [style.min-height.px]="height" [data]="allData" [index]="index" [width]="width" [height]="height"></app-sunburst>
-        <app-treemap *ngIf="visType" (title)="updateTitle($event)" [style.min-height.px]="height + 90" [data]="allData" [width]="width" [height]="height"></app-treemap>
+        <app-treemap *ngIf="!visType" (title)="updateTitle($event)" [style.min-height.px]="height + 90" [data]="allData" [width]="width" [height]="height"></app-treemap>
+        <app-sunburst *ngIf="visType" (title)="updateTitle($event)"  [style.min-height.px]="height" [data]="allData" [index]="index" [width]="width" [height]="height"></app-sunburst>
     </div>
 </div>

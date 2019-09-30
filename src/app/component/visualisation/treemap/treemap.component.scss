@@ -13,6 +13,10 @@
     stroke-width: 3px;
   }
 
+  rect.parent {
+    opacity: 0.9;
+  }
+
   .back:hover rect {
     fill: grey;
   }
@@ -48,22 +52,21 @@
 
   .textdiv {
       font-family: "Open Sans",Helvetica,Arial,sans-serif;
-      font-size: 14px;
       padding: 7px;
       pointer-events: none;
-  }
+      line-height: 11px;
+      
+      p {
+        margin: 0 0 4px;
+      }
 
-  .textdiv .title {
-      font-size: 102%;
-      font-weight: bold;
-      margin-top: 8px;
-      font-size:11px !important;
-  }
-
-  .textdiv p {
-      line-height: 13px;
-      margin:0 0 4px !important;
-      padding:0px;
-      font-size:10px !important;
+      .title {
+        font-weight: bold;
+        font-size: 11px;
+      }
+      
+      .amount {
+        font-size: 10px;
+      }
   }
 }
