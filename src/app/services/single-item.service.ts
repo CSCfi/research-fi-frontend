@@ -5,22 +5,27 @@ import { Search } from '../models/search.model';
 import { Subject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SearchService} from './search.service';
+import { AppConfigService } from './app-config-service.service';
 
-const API_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class SingleItemService {
-  publicationApiUrl = API_URL + 'publication/_search';
-  fundingApiUrl = API_URL + 'funding/_search';
-  organizationApiUrl = API_URL + 'organization/_search';
+  apiUrl = '';
+  publicationApiUrl = '';
+  fundingApiUrl = '';
+  organizationApiUrl = '';
   private getIdSubject = new Subject<string>();
   currentId = this.getIdSubject.asObservable();
   resultId: string;
 
-  constructor( private http: HttpClient, private searchService: SearchService ) {
-   }
+  constructor( private http: HttpClient, private searchService: SearchService, private appConfigService: AppConfigService ) {
+    this.apiUrl = this.appConfigService.apiUrl;
+    this.publicationApiUrl = this.apiUrl + 'publication/_search';
+    this.fundingApiUrl = this.apiUrl + 'funding/_search';
+    this.organizationApiUrl = this.apiUrl + 'organization/_search';
+  }
 
   updateId(singleId: string) {
     this.resultId = singleId;

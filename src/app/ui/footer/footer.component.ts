@@ -7,8 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
-
-const BUILD_INFO = environment.buildInfo;
+import { AppConfigService } from '../../services/app-config-service.service';
 
 @Component({
   selector: 'app-footer',
@@ -16,9 +15,11 @@ const BUILD_INFO = environment.buildInfo;
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-  buildInfo = environment.buildInfo;
+  buildInfo = '';
 
-  constructor() { }
+  constructor(private appConfigService: AppConfigService) {
+    this.buildInfo = this.appConfigService.buildInfo;
+  }
 
   ngOnInit() {
   }

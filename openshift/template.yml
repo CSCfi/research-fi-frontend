@@ -48,9 +48,6 @@ objects:
     strategy:
       dockerStrategy:
         dockerfilePath: openshift/Dockerfile
-        buildArgs:
-          - name: API_HOST
-            value: ${API_HOST}
     output:
       to:
         kind: ImageStreamTag
@@ -90,6 +87,32 @@ objects:
             ports:
               - containerPort: 8080
                 protocol: TCP
+            volumeMounts:
+            - name: config-volume-fi
+              mountPath: /usr/share/nginx/html/assets/config
+            - name: config-volume-sv
+              mountPath: /usr/share/nginx/html/sv/assets/config
+            - name: config-volume-en
+              mountPath: /usr/share/nginx/html/en/assets/config
+        volumes:
+          - name: config-volume-fi
+            configMap:
+              name: frontend-config
+              items:
+              - key: configfile
+                path: config.json
+          - name: config-volume-sv
+            configMap:
+              name: frontend-config
+              items:
+              - key: configfile
+                path: config.json
+          - name: config-volume-en
+            configMap:
+              name: frontend-config
+              items:
+              - key: configfile
+                path: config.json
     replicas: 1
     selector:
       name: researchfi-frontend
@@ -105,8 +128,3 @@ objects:
           name: researchfi-frontend:latest
     strategy:
       type: Rolling
-
-# Template parameters
-parameters:
-- name: API_HOST
-  description: Address of the API host including http:// or https://, for example 'https://myhostname.csc.fi:8888'
