@@ -1,4 +1,4 @@
 {
-    "apiUrl": "<API_HOST>",
+    "apiUrl": "<API_HOST>/portalapi/",
     "buildInfo": "<BUILD_INFO>"
 }
