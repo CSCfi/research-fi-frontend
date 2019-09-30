@@ -55,6 +55,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   visualHeight: number;
 
+  title = '';
+
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
               private filterService: FilterService, private sortService: SortService, private router: Router) {
     this.searchTerm = this.route.snapshot.params.input;
@@ -71,6 +73,10 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   swapVis() {
     this.visType = 1 - this.visType;
+  }
+
+  updateTitle(newTitle: string) {
+    this.title = newTitle;
   }
 
   partition(data) {

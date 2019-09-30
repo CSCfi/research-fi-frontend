@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 import { Router } from '@angular/router';
 
@@ -35,10 +35,13 @@ export class SunburstComponent implements OnInit, OnChanges {
   label: any;
   parent: any;
 
+  @Output() title: EventEmitter<string> = new EventEmitter();
+
   constructor(private router: Router) { }
 
   ngOnInit() {
 
+    this.title.emit('Julkaisujen määrä vuosittain ja tieteenaloittain');
     this.radius = Math.min(this.width, this.height) / 6;
 
     this.hierarchy = [
@@ -73,9 +76,9 @@ export class SunburstComponent implements OnInit, OnChanges {
     }
   }
 
-  partition(data) {
+  partition(data, hierarchy) {
     const root = d3.hierarchy(data, d => {
-      for (const item of this.hierarchy) {
+      for (const item of hierarchy) {
         // tslint:disable-next-line
         if (d[item.resultField]) return d[item.resultField].buckets;
       }
@@ -151,7 +154,7 @@ export class SunburstComponent implements OnInit, OnChanges {
   }
 
   visualise(allData, hierarchy) {
-    this.root = this.partition(allData);
+    this.root = this.partition(allData, hierarchy);
     const excludeRoot = this.root.descendants().slice(1);
 
     this.root.each(d => d.current = d);
