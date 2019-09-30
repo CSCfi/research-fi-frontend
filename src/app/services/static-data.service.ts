@@ -83,7 +83,8 @@ export class StaticDataService {
               query: term,
               analyzer: 'standard',
               fields: this.queryFieldsByIndex(index),
-              operator: 'and'
+              operator: 'and',
+              lenient: 'true'
             }}]}
     }]}};
 
@@ -94,7 +95,7 @@ export class StaticDataService {
     let res = [];
     switch (index) {
       case 'publication': {
-        res = ['publicationName', 'authorsText', 'journalName'];
+        res = ['publicationName', 'authorsText', 'journalName', 'reportingYear'];
         break;
       }
       case 'person': {
