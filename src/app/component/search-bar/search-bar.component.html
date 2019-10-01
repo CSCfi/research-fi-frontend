@@ -27,7 +27,7 @@
                 <div *ngFor="let data of topData">
                   <div class="row results" *ngIf="topData">
                     <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
-                      <h3 class="font-weight-bold">{{data.translation}} ({{data.source.doc_count}})</h3>
+                      <h3 class="font-weight-bold">{{data.translation}}</h3>
                       <div class="top-results" *ngFor="let doc of docList">
                         <ul *ngIf="data.index === doc.index">
                           <app-list-item *ngFor="let item of data.source.index_results.hits.hits; let index = index" class="list-group-item" [doc]="data.index" [id]="item._source[doc.link]">
@@ -39,7 +39,7 @@
                       <app-list-item *ngIf="data.source.doc_count > 3" class="list-group-item" [doc]="data.index" [term]="queryField">
                         <div align="center">
                           <a tabindex="-1" class="font-weight-bold" (keydown.enter)="newInput(data.index, undefined)"
-                            (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a> 
+                            (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}}</a> 
                         </div>
                     </app-list-item>
                     </div>
@@ -49,7 +49,7 @@
                   <ul>
                     <li *ngFor="let data of otherData">
                       <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item" [doc]="data.index" [term]="queryField">
-                        <a tabindex="-1" class="font-weight-bold" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}} ({{data.source.doc_count}})</a>
+                        <a tabindex="-1" class="font-weight-bold" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}}</a>
                       </app-list-item>
                     </li>
                   </ul>
