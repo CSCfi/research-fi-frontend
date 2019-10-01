@@ -70,8 +70,8 @@ node {
 
       // Create config.json
       sh "sed 's|<API_HOST>|${api_host}|g;s|<BUILD_INFO>|${build_info}|g' src/assets/config/config_template.json > src/assets/config/config.json"
-      sh 'ls -l src/assets/config.json'
-      sh 'cat src/assets/config.json'
+      sh 'ls -l src/assets/config/config.json'
+      sh 'cat src/assets/config/config.json'
     }
 
     /*
