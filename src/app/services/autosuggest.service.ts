@@ -62,20 +62,17 @@ export class AutosuggestService {
                   ]
                 }
               },
-              {
-                bool: {
-                  must: [
-                    { term: { _index: 'person'	}	},
-                    {	bool:
-                      {	should: [
-                        { prefix: { firstNames: { value: terms } } },
-                        { prefix: { lastName: { value: terms } } }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              },
+              { bool: {
+                must: [{ term: { _index: 'person' }},
+                { bool: { should: [{ multi_match: {
+                        query: terms,
+                        analyzer: 'standard',
+                        fields: ['firstName', 'lastName'],
+                        operator: 'and',
+                        // fuzziness: 'auto',
+                        prefix_length: 1
+                      }}]}
+              }]}},
               {
                 bool: {
                   must: [
