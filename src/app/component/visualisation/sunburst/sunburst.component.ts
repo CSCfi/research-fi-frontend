@@ -40,7 +40,18 @@ export class SunburstComponent implements OnInit, OnChanges {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.init();
+    }, 0);
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.data.firstChange) {
+      this.visualise(this.data, this.hierarchy);
+    }
+  }
+
+  init() {
     this.title.emit('Julkaisujen määrä vuosittain ja tieteenaloittain');
     this.radius = Math.min(this.width, this.height) / 6;
 
@@ -66,12 +77,6 @@ export class SunburstComponent implements OnInit, OnChanges {
     .outerRadius((d: any) => Math.max(d.y0 * this.radius, d.y1 * this.radius - 1));
 
     if (this.data) {
-      this.visualise(this.data, this.hierarchy);
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes.data.firstChange) {
       this.visualise(this.data, this.hierarchy);
     }
   }
