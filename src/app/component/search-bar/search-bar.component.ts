@@ -17,7 +17,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from 'src/app/services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { ENTER } from '@angular/cdk/keycodes';
+import { ENTER, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-search-bar',
@@ -134,8 +134,8 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (event.keyCode === ENTER) {
       this.newInput(undefined, undefined);
       this.showAutoSuggest = false;
-      // Continue without action
-    } else {
+      // Continue without action. For some reason letter 'n' registers as down arrow, hacky fix:
+    } else if (event.keyCode !== 78)  {
       this.keyManager.onKeydown(event);
     }
   }
