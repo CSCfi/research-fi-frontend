@@ -14,7 +14,7 @@ export class SortService {
   sortMethod: string;
   currentTab: string;
   sort: any;
-  yearField = 'publicationYear';
+  yearField: string;
   sortColumn: string;
   sortDirection: boolean;
 
@@ -74,7 +74,7 @@ export class SortService {
             break;
           }
           default: {
-            this.sort = [{publicationYear: {order: 'desc', unmapped_type : 'long'}}];
+            this.sort = [];
             break;
           }
         }
