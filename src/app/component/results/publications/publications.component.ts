@@ -8,6 +8,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
+import { SortComponent } from '../sort/sort.component';
 
 @Component({
   selector: 'app-publications',
@@ -24,19 +25,26 @@ export class PublicationsComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService) { }
 
   ngOnInit() {
-    this.sortService.initSort(this.route.snapshot.queryParams.sort || 'yearDesc');
+    // Check url for sorting, default to empty
+    this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
   }
 
   sortBy(sortBy) {
-    const activeSort = this.route.snapshot.queryParams.sort;
+    const activeSort = this.route.snapshot.queryParams.sort || '';
     const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
+    let currentSort = sortColumn + (sortDirection ? 'Desc' : '');
+    // Reset sort
+    if (activeSort.slice(-4) === 'Desc') {
+      currentSort = '';
+    }
+
 
     this.router.navigate([],
       {
         relativeTo: this.route,
-        queryParams: { sort: sortColumn + (sortDirection ? 'Desc' : '') },
+        queryParams: { sort: currentSort },
         queryParamsHandling: 'merge'
       }
     );
