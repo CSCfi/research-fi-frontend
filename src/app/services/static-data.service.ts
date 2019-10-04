@@ -79,23 +79,110 @@ export class StaticDataService {
   querySettings(index: string, term: string) {
     const res = { bool: {
       must: [{ term: { _index: index }},
-      { bool: { should: [{ multi_match: {
-              query: term,
-              analyzer: 'standard',
-              fields: this.queryFieldsByIndex(index),
-              operator: 'and',
-              lenient: 'true'
-            }}]}
-    }]}};
+        {
+          bool: {
+            should: [
+              {
+                multi_match: {
+                  query: term,
+                  analyzer: 'simple',
+                  type: 'best_fields',
+                  fields: this.queryFields(index),
+                  operator: 'and',
+                  lenient: 'true',
+                  fuzziness: '1',
+                  prefix_length: 1
+                }
+              },
+              {
+                multi_match: {
+                  query: term,
+                  analyzer: 'standard',
+                  type: 'most_fields',
+                  fields: this.queryExactFields(index),
+                  lenient: 'true',
+                  prefix_length: 1,
+                  boost: 2
+                }
+              }
+            ],
+            filter: [
+              {
+                multi_match: {
+                  query: term,
+                  analyzer: 'simple',
+                  type: 'best_fields',
+                  fields: this.queryFields(index),
+                  operator: 'and',
+                  lenient: 'true',
+                  fuzziness: '1',
+                  prefix_length: 1
+                }
+              }
+            ]
+          }
+        }]}};
+
+    const des = {
+      bool: {
+        must: [
+          { term: { _index: index }},
+          {
+            bool: {
+              should: [
+                {
+                  multi_match: {
+                    query: term,
+                    analyzer: 'simple',
+                    type: 'best_fields',
+                    fields: this.queryFields(index),
+                    operator: 'and',
+                    lenient: 'true',
+                    fuzziness: '1',
+                    prefix_length: 1
+                  }
+                },
+                {
+                  multi_match: {
+                    query: term,
+                    analyzer: 'standard',
+                    type: 'most_fields',
+                    fields: this.queryExactFields(index),
+                    lenient: 'true',
+                    prefix_length: 1,
+                    boost: 2
+                  }
+                }
+              ],
+              filter: [
+                {
+                  multi_match: {
+                    query: term,
+                    analyzer: 'simple',
+                    type: 'best_fields',
+                    fields: this.queryFields(index),
+                    operator: 'and',
+                    lenient: 'true',
+                    fuzziness: '1',
+                    prefix_length: 1
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      size: 10
+    };
 
     return res;
   }
 
-  queryFieldsByIndex(index) {
+  queryFields(index) {
     let res = [];
     switch (index) {
       case 'publication': {
-        res = ['publicationName', 'authorsText', 'journalName', 'reportingYear'];
+        res = ['publicationName', 'authorsText', 'journalName'];
         break;
       }
       case 'person': {
@@ -113,4 +200,27 @@ export class StaticDataService {
     }
     return res;
   }
+
+queryExactFields(index) {
+  let res = [];
+  switch (index) {
+    case 'publication': {
+      res = ['publicationYear'];
+      break;
+    }
+    case 'person': {
+
+      break;
+    }
+    case 'funding': {
+
+      break;
+    }
+    case 'organization': {
+
+      break;
+    }
+  }
+  return res;
+}
 }
