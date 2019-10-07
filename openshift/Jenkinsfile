@@ -19,11 +19,6 @@ pipeline {
     )
   }
 
-  options {
-    // Pipeline timeout
-    timeout(time: 15, unit: 'MINUTES') 
-  }
-
   stages {
     /*
     Build image using build config "researchfi-frontend-build".
