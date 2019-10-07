@@ -13,13 +13,15 @@ metadata:
   name: researchfi-frontend
 objects:
 
-# Service
+# Service (development)
 - apiVersion: v1
   kind: Service
   metadata:
-    name: researchfi-frontend
+    name: researchfi-frontend-devel-service
+    labels:
+      app: researchfi-frontend
     annotations:
-      description: Research.fi frontend service
+      description: Research.fi frontend service for development
   spec:
     ports:
       - name: frontend
@@ -28,11 +30,38 @@ objects:
     selector:
       name: researchfi-frontend
 
-# ImageStream
+# Service (production)
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: researchfi-frontend-production-service
+    labels:
+      app: researchfi-frontend
+    annotations:
+      description: Research.fi frontend service for production
+  spec:
+    ports:
+      - name: frontend
+        port: 8081
+        targetPort: 8081
+    selector:
+      name: researchfi-frontend
+
+# ImageStream (development)
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: researchfi-frontend
+    name: researchfi-frontend-devel
+    labels:
+      app: researchfi-frontend
+
+# ImageStream (production)
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: researchfi-frontend-production
+    labels:
+      app: researchfi-frontend
 
 # BuildConfig using Docker build strategy
 - apiVersion: v1
@@ -43,7 +72,8 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: devel
+        #ref: devel
+        ref: CSCTTV-643
       contextDir: .
     strategy:
       dockerStrategy:
@@ -51,7 +81,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: researchfi-frontend:latest
+        name: researchfi-frontend-devel:latest
     successfulBuildsHistoryLimit: 4 
     failedBuildsHistoryLimit: 4
 
@@ -60,30 +90,40 @@ objects:
   kind: BuildConfig
   metadata:
     name: researchfi-frontend-pipeline
+    labels:
+      app: researchfi-frontend
   spec:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: devel
+        #ref: devel
+        ref: CSCTTV-643
       contextDir: .
     strategy:
       jenkinsPipelineStrategy:
         jenkinsfilePath: openshift/Jenkinsfile
 
-# Deployment config
+# Deployment config (development)
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    name: researchfi-frontend
+    name: researchfi-frontend-devel-deployment
+    labels:
+      app: researchfi-frontend
   spec:
+    selector:
+      app: researchfi-frontend
+      depcfg: frontend-devel
     template:
       metadata:
         labels:
-          name: researchfi-frontend
+          app: researchfi-frontend
+          depcfg: frontend-devel
       spec:
         containers:
-          - name: researchfi-frontend
+          - name: frontend-devel
             image: ts/researchfi-frontend   # check image path
+            imagePullPolicy: Always
             ports:
               - containerPort: 8080
                 protocol: TCP
@@ -97,34 +137,96 @@ objects:
         volumes:
           - name: config-volume-fi
             configMap:
-              name: frontend-config
+              name: frontend-config-devel
               items:
               - key: configfile
                 path: config.json
           - name: config-volume-sv
             configMap:
-              name: frontend-config
+              name: frontend-config-devel
               items:
               - key: configfile
                 path: config.json
           - name: config-volume-en
             configMap:
-              name: frontend-config
+              name: frontend-config-devel
               items:
               - key: configfile
                 path: config.json
     replicas: 1
-    selector:
-      name: researchfi-frontend
     triggers:
     - type: ConfigChange
     - type: ImageChange
       imageChangeParams:
         automatic: true
         containerNames:
-        - researchfi-frontend
+        - frontend-devel
         from:
           kind: ImageStreamTag
-          name: researchfi-frontend:latest
+          name: researchfi-frontend-devel:latest
+    strategy:
+      type: Rolling
+
+# Deployment config (production)
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: researchfi-frontend-production-deployment
+    labels:
+      app: researchfi-frontend
+  spec:
+    selector:
+      app: researchfi-frontend
+      depcfg: frontend-production
+    template:
+      metadata:
+        labels:
+          app: researchfi-frontend
+          depcfg: frontend-production
+      spec:
+        containers:
+          - name: frontend-production
+            image: ts/researchfi-frontend   # check image path
+            imagePullPolicy: Always
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            volumeMounts:
+            - name: config-volume-fi
+              mountPath: /usr/share/nginx/html/assets/config
+            - name: config-volume-sv
+              mountPath: /usr/share/nginx/html/sv/assets/config
+            - name: config-volume-en
+              mountPath: /usr/share/nginx/html/en/assets/config
+        volumes:
+          - name: config-volume-fi
+            configMap:
+              name: frontend-config-production
+              items:
+              - key: configfile
+                path: config.json
+          - name: config-volume-sv
+            configMap:
+              name: frontend-config-production
+              items:
+              - key: configfile
+                path: config.json
+          - name: config-volume-en
+            configMap:
+              name: frontend-config-production
+              items:
+              - key: configfile
+                path: config.json
+    replicas: 1
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - frontend-production
+        from:
+          kind: ImageStreamTag
+          name: researchfi-frontend-production:latest
     strategy:
       type: Rolling
