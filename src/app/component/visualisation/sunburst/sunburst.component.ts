@@ -11,6 +11,7 @@ export class SunburstComponent implements OnInit, OnChanges {
   @Input() data;
   @Input() index;
   @Input() searchTerm;
+  @Input() hierarchy;
 
   @Input() width;
   @Input() height;
@@ -23,7 +24,6 @@ export class SunburstComponent implements OnInit, OnChanges {
 
   total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
-  hierarchy;
 
   nOfResults = 0;
   color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 10 + 1));
@@ -56,8 +56,8 @@ export class SunburstComponent implements OnInit, OnChanges {
     this.radius = Math.min(this.width, this.height) / 6;
 
     this.hierarchy = [
-      {resultField: 'year', queryField: 'year'},
-      {resultField: 'fieldOfScience', queryField: 'field'}
+      {resultField: 'publicationYear', queryField: 'year'},
+      {resultField: 'fields_of_science.nameFiScience.keyword', queryField: 'field'}
     ];
 
     // Create primary g
@@ -84,8 +84,13 @@ export class SunburstComponent implements OnInit, OnChanges {
   partition(data, hierarchy) {
     const root = d3.hierarchy(data, d => {
       for (const item of hierarchy) {
-        // tslint:disable-next-line
-        if (d[item.resultField]) return d[item.resultField].buckets;
+        if (d[item.resultField]) {
+          d['missing_' + item.resultField].key = 'Ei tietoa';
+          // tslint:disable-next-line
+          if (!d.pushed) d[item.resultField].buckets.push(d['missing_' + item.resultField]);
+          d.pushed = true;
+          return d[item.resultField].buckets;
+        }
       }
       return undefined;
     })

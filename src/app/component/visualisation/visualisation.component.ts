@@ -31,7 +31,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   apiUrl = this.searchService.apiUrl;
   total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
-  hierarchy;
+  hierarchy = ['publicationYear', 'fields_of_science.nameFiScience.keyword'];
 
   nOfResults = 0;
   searchTerm: string;
@@ -109,45 +109,48 @@ export class VisualisationComponent implements OnInit, OnDestroy {
       if (this.filtersOn || this.searchTerm) {
         this.filterService.updateFilters(this.filter);
         this.query = this.filterService.constructQuery(this.index, this.searchTerm);
-    } else {
-      this.query = undefined;
-    }
+      } else {
+        this.query = undefined;
+      }
       this.getData();
-  });
-}
-
-getData() {
-  if (this.index !== 'publication' && this.index !== 'funding') {
-    return;
+    });
   }
 
-  this.getVisualisationData().subscribe((x: any) => {
-    this.nOfResults = x.hits.total;
-    this.allData = x.aggregations;
-  });
-}
-
-getVisualisationData() {
-  const query = {
-    ...(this.query ? { query: this.query } : []),
-    size: 0,
-    aggs: {
-      year: {
-        terms: { field: 'publicationYear',
-                 size: 100 },
-        aggs: {
-          fieldOfScience: {
-            terms: { field: 'fields_of_science.nameFiScience.keyword',
-                      size: 100 }
-          }
-        }
-      }
+  getData() {
+    if (this.index !== 'publication' && this.index !== 'funding') {
+      return;
     }
-  };
-  return this.http.post(this.apiUrl + this.index + '/_search?', query);
-}
 
-ngOnDestroy() {
-  this.queryParams.unsubscribe();
-}
+    this.getVisualisationData().subscribe((x: any) => {
+      this.nOfResults = x.hits.total;
+      this.allData = x.aggregations;
+    });
+  }
+
+  createQuery(fields: string[]): object {
+    const res: any = {};
+    let q = res;
+    for (let i = 0; i < fields.length; i++) {
+      const s = fields[i];
+      q = i === 0 ? q : q.aggs[fields[i - 1]];
+      q.aggs = {};
+      q.aggs['missing_' + s] = {missing: {field: s}};
+      q.aggs[s] = {terms: {field: s, size: 100}};
+    }
+    res.size = 0;
+    return res;
+  }
+
+  getVisualisationData() {
+    const q = this.createQuery(this.hierarchy);
+    const query = {
+      ...(this.query ? { query: this.query } : []),
+      ...(q)
+    };
+    return this.http.post(this.apiUrl + this.index + '/_search?', query);
+  }
+
+  ngOnDestroy() {
+    this.queryParams.unsubscribe();
+  }
 }
