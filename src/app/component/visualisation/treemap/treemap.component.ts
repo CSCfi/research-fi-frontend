@@ -11,9 +11,8 @@ export class TreemapComponent implements OnInit, OnChanges {
   @Input() data;
   @Input() width;
   @Input() height;
+  @Input() hierarchy;
 
-  treemap: d3.TreemapLayout<any>;
-  hierarchy;
   root: d3.HierarchyNode<any>;
 
   svg: d3.Selection<SVGElement, any, HTMLElement, any>;
@@ -40,9 +39,6 @@ export class TreemapComponent implements OnInit, OnChanges {
     // Async signature fixes graph not rendering
     setTimeout(() => {
         this.initValues();
-        if (this.data) {
-          this.changesTrigger();
-        }
       }, 0);
   }
 
@@ -53,15 +49,14 @@ export class TreemapComponent implements OnInit, OnChanges {
   }
 
   changesTrigger() {
-    this.root = this.createHierarchy(this.data, this.hierarchy);
-    this.treemap(this.root
-      .sum(d => Object.keys(d).length > 2 ? 0 : d.doc_count)
-      .sort((a, b) => b.value - a.value));
+    this.root = this.treemap(this.data, this.hierarchy);
     this.display(this.root);
   }
 
   initValues() {
-    this.hierarchy = ['year', 'fieldOfScience'];
+    // Define the hierarchy of the data, should be the same as the query fields
+    // this.hierarchy = ['publicationYear', 'fields_of_science.nameFiScience.keyword'];
+    // Create x and y scales
     this.x = d3.scaleLinear()
       .domain([0, this.width])
       .range([0, this.width - this.margin.left - this.margin.right]);
@@ -69,11 +64,7 @@ export class TreemapComponent implements OnInit, OnChanges {
       .domain([0, this.height])
       .range([0, this.height]);
 
-    this.treemap = d3.treemap()
-      .size([this.width, this.height])
-      .paddingInner(0)
-      .round(false);
-
+    // Create top-level group-element
     this.svg = d3.select('svg')
     .attr('width', this.width)
     .attr('height', this.height + this.margin.bottom + this.margin.top)
@@ -81,6 +72,7 @@ export class TreemapComponent implements OnInit, OnChanges {
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')')
       .style('shape-rendering', 'crispEdges');
 
+    // Create reference for back-button
     this.back = this.svg.append('g').attr('class', 'back');
     this.back.append('rect')
       .attr('y', this.height)
@@ -90,7 +82,7 @@ export class TreemapComponent implements OnInit, OnChanges {
       .attr('x', 6)
       .attr('y', this.height + 8)
       .attr('dy', '.75em');
-
+    // Create reference for breadcrumb-element
     this.breadcrumb = this.svg.append('g').attr('class', 'breadcrumb');
     this.breadcrumb.append('rect')
       .attr('y', -this.margin.top)
@@ -100,26 +92,43 @@ export class TreemapComponent implements OnInit, OnChanges {
       .attr('x', 8)
       .attr('y', 8 - this.margin.top)
       .attr('dy', '.75em');
+    // Create visualisation if data is available
+    if (this.data) {
+      this.changesTrigger();
+    }
   }
 
-  createHierarchy(data, hierarchy) {
+  treemap(data, hierarchy) {
+    // Create the root node from data and hierarchy
     const root = d3.hierarchy(data, d => {
-
       for (const item of hierarchy) {
-        // tslint:disable-next-line: curly
-        if (d[item]) return d[item].buckets;
+        if (d[item]) {
+          d['missing_' + item].key = 'Ei tietoa';
+          // tslint:disable-next-line: curly
+          if (!d.pushed) d[item].buckets.push(d['missing_' + item]);
+          d.pushed = true;
+          return d[item].buckets;
+        }
       }
       return undefined;
-    });
-    return root;
+    })
+    .sum(d => Object.keys(d).length > 2 ? 0 : d.doc_count)
+    .sort((a, b) => b.value - a.value);
+    // Compute the treemap layout from the given root node
+    return d3.treemap()
+      .size([this.width, this.height])
+      (root);
   }
 
+  // A simple function that returns an empty array if the node has no children
   filterChildren(d: d3.HierarchyNode<any>) {
     return d.children || [];
   }
 
+  // Where the magic happens
   display(d: d3.HierarchyNode<number>) {
 
+    // Set the selected element's parent as the datum for the back-element, undefined for the root
     this.back.datum(d.parent)
       .on('click', this.transition.bind(this))
       .select('text')
@@ -138,10 +147,12 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.breadcrumb.select('rect')
       .attr('fill', '#f05010');
 
+    // Insert the top-level group-element for data
     this.g1 = this.svg.insert('g', '.breadcrumb')
       .datum(d)
       .attr('class', 'depth');
 
+    // Create reference to child gs
     this.g = this.g1.selectAll('g')
       .data(dd => this.filterChildren(dd))
       .enter()
@@ -181,10 +192,14 @@ export class TreemapComponent implements OnInit, OnChanges {
   }
 
   transition(d) {
+    // If already transitioning or at root, return
     if (this.transitioning || !d) { return; }
     this.transitioning = true;
+    // Create transition for previous level
     const t1 = this.g1.transition().duration(650);
+    // Get reference to new level
     const g2 = this.display(d);
+    // Create transition for new level
     const t2 = g2.transition().duration(650);
     // Update domain
     this.x.domain([d.x0, d.x1]);
@@ -216,6 +231,7 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.transitioning = false;
   }
 
+  // Show text if rectangle is big enough
   textVisible(d) {
     return ((this.y(d.y1) - this.y(d.y0)) > 40 || (this.x(d.x1) - this.x(d.x0)) > 100)
          && (this.y(d.y1) - this.y(d.y0)) * (this.x(d.x1) - this.x(d.x0)) > 3500;
@@ -231,6 +247,8 @@ export class TreemapComponent implements OnInit, OnChanges {
     this.title.emit(newTitle);
     return 'Kaikki' + d.ancestors().map(dd => dd.data.key).reverse().join(' -> ');
   }
+
+  // Methods to set attributes for different elements, called as needed
 
   text(text) {
     text.attr('x', d => this.x(d.x))
