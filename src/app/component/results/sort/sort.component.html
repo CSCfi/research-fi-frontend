@@ -4,9 +4,9 @@
  :license: MIT -->
 
 <div class="sort" >
-    <span class="align-left hide-mobile" style="margin-right: 25px; text-transform: uppercase;">Järjestä</span>
-    <mat-form-field >
+    <mat-form-field>
         <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
+            <mat-option value="reset">Osuvin tulos ensin</mat-option>
             <mat-option *ngFor="let row of tabFields" [value]="row.value">{{row.label}}</mat-option>
         </mat-select>
     </mat-form-field>

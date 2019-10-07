@@ -11,8 +11,8 @@ export class TreemapComponent implements OnInit, OnChanges {
   @Input() data;
   @Input() width;
   @Input() height;
+  @Input() hierarchy;
 
-  hierarchy;
   root: d3.HierarchyNode<any>;
 
   svg: d3.Selection<SVGElement, any, HTMLElement, any>;
@@ -55,7 +55,7 @@ export class TreemapComponent implements OnInit, OnChanges {
 
   initValues() {
     // Define the hierarchy of the data, should be the same as the query fields
-    this.hierarchy = ['year', 'fieldOfScience'];
+    // this.hierarchy = ['publicationYear', 'fields_of_science.nameFiScience.keyword'];
     // Create x and y scales
     this.x = d3.scaleLinear()
       .domain([0, this.width])
@@ -101,10 +101,14 @@ export class TreemapComponent implements OnInit, OnChanges {
   treemap(data, hierarchy) {
     // Create the root node from data and hierarchy
     const root = d3.hierarchy(data, d => {
-
       for (const item of hierarchy) {
-        // tslint:disable-next-line: curly
-        if (d[item]) return d[item].buckets;
+        if (d[item]) {
+          d['missing_' + item].key = 'Ei tietoa';
+          // tslint:disable-next-line: curly
+          if (!d.pushed) d[item].buckets.push(d['missing_' + item]);
+          d.pushed = true;
+          return d[item].buckets;
+        }
       }
       return undefined;
     })

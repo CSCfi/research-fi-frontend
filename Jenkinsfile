@@ -92,7 +92,7 @@ node {
     if ("${branchname}" == "master" || "${branchname}" == "devel") {
       stage('Push Docker image') {
         withDockerRegistry(url: "https://${registry}", credentialsId: 'artifactory-credentials') {
-          sh "docker push ${tag_githash}"
+          //sh "docker push ${tag_githash}"
           sh "docker push ${tag_latest}"
         }
       }
