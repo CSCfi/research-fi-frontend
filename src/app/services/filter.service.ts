@@ -8,7 +8,7 @@
 import { Injectable  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
-import { StaticDataService} from './static-data.service'
+import { StaticDataService} from './static-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +57,7 @@ export class FilterService {
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
   }
 
-  filterByYear(filter: any) {
+  filterByYear(filter: any[]) {
     const res = [];
     const currentTab = this.sortService.currentTab;
     switch (currentTab) {
@@ -73,7 +73,7 @@ export class FilterService {
     return res;
   }
 
-  filterByFieldOfScience(field: any) {
+  filterByFieldOfScience(field: any[]) {
     const fieldFilters = [];
     field.forEach(value => {
       fieldFilters.push({ term : { 'fields_of_science.nameFiScience.keyword' : value } });
@@ -81,7 +81,7 @@ export class FilterService {
     return fieldFilters;
   }
 
-  filterByPublicationType(type: any) {
+  filterByPublicationType(type: any[]) {
     const typeFilters = [];
     type.forEach(value => {
       typeFilters.push({ term : { 'publicationTypeCode.keyword' : value } });
@@ -89,7 +89,7 @@ export class FilterService {
     return typeFilters;
   }
 
-  filterByCountryCode(code: any) {
+  filterByCountryCode(code: any[]) {
     const codeFilters = [];
     code.forEach(value => {
       codeFilters.push({ term : { 'publicationCountryCode.keyword' : value } });
@@ -97,7 +97,7 @@ export class FilterService {
     return codeFilters;
   }
 
-  filterByLang(code: any) {
+  filterByLang(code: any[]) {
     const res = [];
     const currentTab = this.sortService.currentTab;
     switch (currentTab) {
@@ -109,7 +109,7 @@ export class FilterService {
     return res;
   }
 
-  filterByJuFoCode(code: any) {
+  filterByJuFoCode(code: string) {
     const res = [];
     if (code.includes('top')) {res.push({ term : { 'jufoClassCode.keyword' : 3 } }); }
     if (code.includes('leading')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
@@ -119,7 +119,7 @@ export class FilterService {
     return res;
   }
 
-  filterByOpenAccess(code) {
+  filterByOpenAccess(code: string) {
     const res = [];
     if (code.includes('noAccessInfo')) {res.push({ term : { openAccessCode : 0 } },
       { term : { openAccessCode : -1 } }, { term : { openAccessCode : 9 } }); }
@@ -136,7 +136,7 @@ export class FilterService {
 
   // Fundings
   filterByFundingAmount(val) {
-    let res;
+    let res = {};
     switch (JSON.stringify(val)) {
       case '["over100k"]': {
         res = { range: { amount: {gt : 100000 } } };
@@ -156,7 +156,7 @@ export class FilterService {
   // Start & end date filtering
   filterByStatus(status: string) {
     this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
-    let statusFilter;
+    let statusFilter = {};
     switch (JSON.stringify(status)) {
       case '["onGoing"]': {
         statusFilter = { range: { fundingEndDate: {gte : '2017-01-01' } } };

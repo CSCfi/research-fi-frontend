@@ -52,15 +52,15 @@ export class SortComponent implements OnInit, OnDestroy {
           break;
         }
       }
-      // Get sort from url and default to desc sort on tab change
-
-      if (!this.sortBy ? this.sortBy : 'yearDesc') {}
-      this.sortBy = this.route.snapshot.queryParams.sort || 'yearDesc';
+      // Get sort from url and reset sort on tab change
+      if (!this.sortBy ? this.sortBy : 'reset') {}
+      this.sortBy = this.route.snapshot.queryParams.sort || 'reset';
   });
   }
 
   // Send value to service and rewrite url
   orderBy(): void {
+    console.log(this.sortBy);
     this.sortService.updateSort(this.sortBy);
     this.navigate();
   }
