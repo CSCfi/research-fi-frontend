@@ -28,7 +28,7 @@ objects:
         port: 8080
         targetPort: 8080
     selector:
-      name: frontend-devel
+      depcfg: frontend-devel
 
 # Service (production)
 - apiVersion: v1
@@ -45,7 +45,7 @@ objects:
         port: 8081
         targetPort: 8081
     selector:
-      name: frontend-production
+      depcfg: frontend-production
 
 # ImageStream (development)
 - apiVersion: v1
