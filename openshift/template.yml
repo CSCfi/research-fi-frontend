@@ -68,6 +68,8 @@ objects:
   kind: BuildConfig
   metadata:
     name: researchfi-frontend-build
+    labels:
+      app: researchfi-frontend
   spec:
     source:
       git:
