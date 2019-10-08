@@ -73,6 +73,9 @@ export class StaticDataService {
     ]}
   ];
 
+  // Query parameters
+  minScore = 10;
+
   constructor() { }
 
   // Global settings for query
@@ -85,10 +88,10 @@ export class StaticDataService {
               {
                 multi_match: {
                   query: term,
-                  analyzer: 'simple',
-                  type: 'best_fields',
+                  analyzer: 'standard',
+                  type: 'most_fields',
                   fields: this.queryFields(index),
-                  operator: 'and',
+                  operator: 'or',
                   lenient: 'true',
                   fuzziness: '1',
                   prefix_length: 1
@@ -105,76 +108,9 @@ export class StaticDataService {
                   boost: 2
                 }
               }
-            ],
-            filter: [
-              {
-                multi_match: {
-                  query: term,
-                  analyzer: 'simple',
-                  type: 'best_fields',
-                  fields: this.queryFields(index),
-                  operator: 'and',
-                  lenient: 'true',
-                  fuzziness: '1',
-                  prefix_length: 1
-                }
-              }
             ]
           }
         }]}};
-
-    const des = {
-      bool: {
-        must: [
-          { term: { _index: index }},
-          {
-            bool: {
-              should: [
-                {
-                  multi_match: {
-                    query: term,
-                    analyzer: 'simple',
-                    type: 'best_fields',
-                    fields: this.queryFields(index),
-                    operator: 'and',
-                    lenient: 'true',
-                    fuzziness: '1',
-                    prefix_length: 1
-                  }
-                },
-                {
-                  multi_match: {
-                    query: term,
-                    analyzer: 'standard',
-                    type: 'most_fields',
-                    fields: this.queryExactFields(index),
-                    lenient: 'true',
-                    prefix_length: 1,
-                    boost: 2
-                  }
-                }
-              ],
-              filter: [
-                {
-                  multi_match: {
-                    query: term,
-                    analyzer: 'simple',
-                    type: 'best_fields',
-                    fields: this.queryFields(index),
-                    operator: 'and',
-                    lenient: 'true',
-                    fuzziness: '1',
-                    prefix_length: 1
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      },
-      size: 10
-    };
-
     return res;
   }
 
@@ -182,7 +118,10 @@ export class StaticDataService {
     let res = [];
     switch (index) {
       case 'publication': {
-        res = ['publicationName', 'authorsText', 'journalName'];
+        res = ['publicationName', 'authorsText^2', 'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
+              'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress', 'fields_of_science.nameFiScience',
+              'fields_of_science.nameEnScience', 'fields_of_science.nameSvScience',
+              'fields_of_education', 'keywords'];
         break;
       }
       case 'person': {
@@ -201,11 +140,13 @@ export class StaticDataService {
     return res;
   }
 
+// Fields that need exact matches with no fuzziness
 queryExactFields(index) {
   let res = [];
   switch (index) {
     case 'publication': {
-      res = ['publicationYear'];
+      res = ['publicationYear', 'publicationTypeCode', 'publicationOrgId', 'issn', 'issn2', 'volume', 'issueNumber', 'pageNumberText',
+            'articleNumberText', 'isbn', 'isbn2', 'jufoCode', 'jufoClassCode'];
       break;
     }
     case 'person': {
