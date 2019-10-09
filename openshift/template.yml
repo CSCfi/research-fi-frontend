@@ -74,8 +74,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        #ref: devel
-        ref: CSCTTV-643
+        ref: devel
       contextDir: .
     strategy:
       dockerStrategy:
@@ -98,8 +97,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        #ref: devel
-        ref: CSCTTV-643
+        ref: devel
       contextDir: .
     strategy:
       jenkinsPipelineStrategy:
@@ -124,7 +122,7 @@ objects:
       spec:
         containers:
           - name: frontend-devel
-            image: ts/researchfi-frontend   # check image path
+            image: researchfi/researchfi-frontend-devel
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
@@ -188,7 +186,7 @@ objects:
       spec:
         containers:
           - name: frontend-production
-            image: ts/researchfi-frontend   # check image path
+            image: researchfi/researchfi-frontend-production
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
