@@ -37,13 +37,19 @@
     font-size: 0.9em;
 }
 
+.bundler.active {
+    margin-top: 10px;
+    border-bottom: 0px;
+    background: none;
+}
+
 .bundler {
     cursor: pointer;
     min-width: 202px;
-    margin: 5px 4px 5px 0px;
-    padding: 4px 8px 4px 12px;
+    margin: 23px 0 0px 0;
+    padding: 5px 8px 5px 12px;
     border-radius: 2px;
-    border: 0;
+    // border: 0;
 }
 
 .text-center, .numeric-box {
