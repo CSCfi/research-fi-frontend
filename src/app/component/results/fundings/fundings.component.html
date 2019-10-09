@@ -3,20 +3,19 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
- <div class="spinner-center" *ngIf="!resultData">
-     <mat-spinner [diameter]="80"></mat-spinner>
- </div>
- <!-- Data -->
- <div *ngFor="let fundings of resultData">
+<div class="spinner-center" *ngIf="!resultData">
+    <mat-spinner [diameter]="80"></mat-spinner>
+</div>
+<!-- Data -->
+<div *ngFor="let fundings of resultData">
     <!-- Results -->
     <div class="row no-margin">
-        <div class="col col-1 arrow">
-        </div>
+        <div class="col col-1 arrow"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
             <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('name')">Hankkeen nimi</span>
         </div>
-        <div class="col col-lg-3 col-xl-3 d-none d-lg-block">
+        <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
             <span class="bold uppercase" [ngClass]="sortColumn === 'funder' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('funder')">Rahoittaja</span>
         </div>
@@ -24,7 +23,7 @@
             <span class="bold uppercase" [ngClass]="sortColumn === 'funded' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('funded')">Saaja</span>
         </div>
-        <div class="col col-lg-2 col-xl-1 d-none d-lg-block" style="margin-left:-15px;">
+        <div class="col col-lg-1 d-none d-lg-block">
             <span class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('year')">Aloitusvuosi</span>
         </div>
@@ -38,13 +37,13 @@
             <div class="col col-8 col-lg-5 col-xl-4">
                 <a routerLink="/results/funding/{{funding._source.projectId}}"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
             </div>          
-            <div class="col col-lg-3 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
+            <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
                 <span>{{funding._source.funderNameFi}}</span>
             </div>          
             <div class="col col-xl-3 shorten d-none d-xl-block" [class.expand]="expandStatus[i]">
                 <span>{{funding._source.fundedNameFi}}</span>
             </div>          
-            <div class="col col-lg-2 col-xl-1" style="margin-left:-15px;">
+            <div class="col col-lg-1">
                 <span>{{funding._source.fundingStartYear}}</span>
             </div>
         </div>       
