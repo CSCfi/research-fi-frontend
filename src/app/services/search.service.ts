@@ -5,14 +5,16 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter  } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
 import { TabChangeService } from './tab-change.service';
+import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
 
@@ -37,7 +39,8 @@ export class SearchService {
   currentQueryParams = this.querySource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
-              private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService) {
+              private filterService: FilterService, private staticDataService: StaticDataService,
+              private appConfigService: AppConfigService, private settingsService: SettingsService) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -96,15 +99,15 @@ export class SearchService {
 
   // Data for results page
   getTabValues(): Observable<Search[]> {
-    this.settingsService.querySettings(this.tabChangeService.tab, this.singleInput);
+    this.staticDataService.querySettings(this.tabChangeService.tab, this.singleInput);
     const payLoad = {
       ...(this.singleInput.length ? { query: {
         bool: {
           should: [
-            this.settingsService.querySettings('publication', this.singleInput),
-            this.settingsService.querySettings('person', this.singleInput),
-            this.settingsService.querySettings('funding', this.singleInput),
-            this.settingsService.querySettings('organization', this.singleInput)
+            this.staticDataService.querySettings('publication', this.singleInput),
+            this.staticDataService.querySettings('person', this.singleInput),
+            this.staticDataService.querySettings('funding', this.singleInput),
+            this.staticDataService.querySettings('organization', this.singleInput)
           ]
         }
       }, } : []),
