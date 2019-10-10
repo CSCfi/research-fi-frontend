@@ -41,7 +41,7 @@
     margin-top: 10px;
     border-bottom: 0px;
     background: none;
-    z-index: 1;
+    // z-index: 1;
 }
 
 .bundler {
@@ -51,6 +51,14 @@
     padding: 5px 8px 5px 12px;
     border-radius: 2px;
     // border: 0;
+}
+
+.bundler.active .numeric-box.d-none.d-sm-block {
+    font-weight: bold;
+}
+
+.bundler .numeric-box.d-none.d-sm-block {
+    font-weight: 400;
 }
 
 .text-center, .numeric-box {
