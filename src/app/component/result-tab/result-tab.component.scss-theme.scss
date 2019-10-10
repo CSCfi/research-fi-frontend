@@ -14,16 +14,21 @@
         }
 
         .bundler.active {
-            background: mat-color($primary, A100);
-            border-bottom: 6px solid mat-color($primary);
+            // background: mat-color($primary, A100);
+            // border-bottom: 6px solid mat-color($primary);
+            border-top: 2px solid mat-color($primary);
+            border-right: 2px solid mat-color($primary);
+            border-left: 2px solid mat-color($primary);
+            box-shadow: 13px 0 22px -13px rgba(0,0,0,0.2), -13px 0 22px -13px rgba(0,0,0,0.2);
         }
         
         .bundler {
-            background: mat-contrast($primary, 600);
+            background: mat-color($primary, 100);
+            border-bottom: 2px solid mat-color($primary);
         }
         
         .bundler:not(.active):hover {
-            background: mat-color($primary, 200);
+            background: mat-color($primary, 200)!important;
         }
         
         .numeric-box {
@@ -48,7 +53,7 @@
             }
 
             .active .text-center {
-                color: mat-contrast($primary, 500);
+                color: mat-color($primary);
             }
 
             .text-center {

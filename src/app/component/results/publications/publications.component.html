@@ -38,7 +38,8 @@
                 <div class="col col-8 col-lg-5 col-xl-4">
                     <a routerLink="/results/publication/{{publication._source.publicationId}}">
                         <h3 style="font-size: 1rem; margin-bottom: 0;" 
-                            [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null">{{publication._source.publicationName}}</h3>
+                        [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null">
+                        {{publication._source.publicationName}}</h3>
                     </a>
                 </div>          
                 <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">

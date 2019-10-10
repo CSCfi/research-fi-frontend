@@ -27,6 +27,13 @@ export class HomePageComponent implements OnInit {
   };
   @ViewChild('srHeader') srHeader: ElementRef;
 
+  basicStyle = {
+    border: '0px',
+    background: 'white',
+    margin: '5px 4px 5px 0',
+    padding: '4px 8px 4px 12px'
+  };
+
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title ) { }
 

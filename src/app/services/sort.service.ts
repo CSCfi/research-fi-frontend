@@ -109,7 +109,7 @@ export class SortService {
             break;
           }
           default: {
-            this.sort = [{fundingStartYear: {order: 'desc', unmapped_type : 'long'}}];
+            this.sort = [];
             break;
           }
         }
