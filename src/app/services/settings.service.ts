@@ -16,8 +16,8 @@ indexList: string;
 aggsOnly: string;
 
   constructor( private staticDataService: StaticDataService) {
-    this.indexList = 'publication,person,funding,organization';
-    this.aggsOnly = '/_search?filter_path=aggregations';
+    this.indexList = 'publication,person,funding,organization' + '/_search?';
+    this.aggsOnly = 'filter_path=aggregations';
    }
 
    // Global settings for query
