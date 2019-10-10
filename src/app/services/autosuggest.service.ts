@@ -7,15 +7,15 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { AppConfigService } from './app-config-service.service';
+import { SettingsService } from './settings.service';
 
 @Injectable()
 export class AutosuggestService {
   apiUrl = '';
 
-  constructor(private http: HttpClient, private appConfigService: AppConfigService) {
+  constructor(private http: HttpClient, private appConfigService: AppConfigService, private settingService: SettingsService) {
     this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -132,7 +132,7 @@ export class AutosuggestService {
         }
       }
     };
-    return this.http.post(this.apiUrl + 'publication,person,funding,organization/_search?filter_path=aggregations', payLoad);
+    return this.http.post(this.apiUrl + this.settingService.indexList + this.settingService.aggsOnly, payLoad);
     }
 
 }

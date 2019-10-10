@@ -8,7 +8,7 @@
 import { Injectable  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
-import { StaticDataService} from './static-data.service';
+import { SettingsService} from './settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class FilterService {
     this.filterSource.next(filters);
   }
 
-  constructor(private sortService: SortService, private staticDataService: StaticDataService) { }
+  constructor(private sortService: SortService, private settingsService: SettingsService) { }
 
   // Filters
   createFilters(filter: any) {
@@ -175,7 +175,7 @@ export class FilterService {
   }
 
   constructQuery(index: string, searchTerm: string) {
-    const query = this.staticDataService.querySettings(index, searchTerm);
+    const query = this.settingsService.querySettings(index, searchTerm);
     return {
         bool: {
           must: [
@@ -210,7 +210,7 @@ export class FilterService {
   constructFilterPayload(tab: string, searchTerm: string) {
     const payLoad: any = {
       ...(searchTerm.length ? { query: {
-        bool: { should: [ this.staticDataService.querySettings(tab.slice(0, -1), searchTerm) ] }
+        bool: { should: [ this.settingsService.querySettings(tab.slice(0, -1), searchTerm) ] }
         }} : []),
       size: 0,
       aggs: {
