@@ -122,8 +122,12 @@
     .bundler {
         min-width: auto;
         border-radius: 0;
-        margin: 7px 5px;
+        margin: 0;
         padding: 7px 20px;
+    }
+
+    .bundler.active {
+        margin-top: -2px;
     }
 
     .text-center {
