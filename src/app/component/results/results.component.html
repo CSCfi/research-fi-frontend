@@ -16,9 +16,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div class="row">
         <app-result-tab style="width:100%" [allData]="tabValues"></app-result-tab>
         <!-- Breadcrumb for demo purposes -->
-        <div *ngIf="selectedTabData" class="row breadcrumbs">
+        <!-- <div *ngIf="selectedTabData" class="row breadcrumbs">
             <div class="col">
                 <span class="arrow">Haku</span><span class="bold">{{selectedTabData.label}}</span>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col">
+                <h3 class="total" (click)="navigateToVisualisation()">{{selectedTabData.labelFi}} <span class="total">({{total}})</span></h3>
             </div>
         </div>
     </div>
@@ -34,7 +39,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <app-sort></app-sort>
             </aside>
             <main class="col-12">
-                <h2 style="padding: 24px 10px;">Hakutulokset <span class="total">({{total}})</span></h2>
+                <!-- <h2 style="padding: 24px 10px;">Hakutulokset <span class="total">({{total}})</span></h2> -->
                 <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
             </main>
         </div>
@@ -49,9 +54,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-filter-organizations *ngIf="tab===tabData[6].link" [responseData]="filterValues" [tabData]="tabData[6].data"></app-filter-organizations>
     </aside>
     <div class="col-9 row main-content">
-        <div class="col-6">
+        <!-- <div class="col-6">
             <h3 class="total" (click)="navigateToVisualisation()">Hakutulokset <span class="total">({{total}})</span></h3>
-        </div>
+        </div> -->
         <aside class="col-6">
             <!-- Sorting -->
             <!-- <app-sort></app-sort> -->
