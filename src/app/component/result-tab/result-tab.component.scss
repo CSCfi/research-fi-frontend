@@ -57,7 +57,11 @@
     font-weight: bold;
 }
 
-.bundler .numeric-box.d-none.d-sm-block {
+.bundler.active .text-center {
+    font-weight: 700;
+}
+
+.bundler .numeric-box.d-none.d-sm-block, .bundler .text-center {
     font-weight: 400;
 }
 
