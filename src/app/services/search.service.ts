@@ -16,6 +16,7 @@ import { FilterService } from './filter.service';
 import { TabChangeService } from './tab-change.service';
 import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
+import { SettingsService } from './settings.service';
 
 @Injectable()
 export class SearchService {
@@ -39,7 +40,7 @@ export class SearchService {
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService, private staticDataService: StaticDataService,
-              private appConfigService: AppConfigService) {
+              private appConfigService: AppConfigService, private settingsService: SettingsService) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -85,7 +86,7 @@ export class SearchService {
         }}
       }
     };
-    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad)
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList, payLoad)
       .pipe(catchError(this.handleError));
   }
 
@@ -141,7 +142,7 @@ export class SearchService {
       }
     };
     // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + 'publication,person,funding,organization/_search?', payLoad)
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList, payLoad)
       .pipe(catchError(this.handleError));
   }
 
