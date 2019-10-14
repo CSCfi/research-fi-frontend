@@ -180,6 +180,7 @@ export class TreemapComponent implements OnInit, OnChanges {
           .attr('class', 'foreignObj')
           .append('xhtml:div')
           .attr('dy', '.75em')
+          .style('color', dd => this.contrastColor(this.color(dd.data.key)))
           .html(dd =>
             `<p class="title">${dd.data.key}</p>
              <p class="amount">${this.format(dd.value)}</p>
@@ -235,6 +236,17 @@ export class TreemapComponent implements OnInit, OnChanges {
   textVisible(d) {
     return ((this.y(d.y1) - this.y(d.y0)) > 40 || (this.x(d.x1) - this.x(d.x0)) > 100)
          && (this.y(d.y1) - this.y(d.y0)) * (this.x(d.x1) - this.x(d.x0)) > 3500;
+  }
+
+  // https://www.w3.org/TR/WCAG20/#relativeluminancedef
+  contrastColor(c: string) {
+    const arr = c.slice(4, -1).split(',');
+    const lumi = arr.map(v => {
+      let n = Number(v) / 255;
+      n <= 0.03928 ? n = n / 12.92 : n = Math.pow(((n + 0.055) / 1.055), 2.4);
+      return n;
+    });
+    return lumi[0] * 0.2126 + lumi[1] * 0.7152 + lumi[2] * 0.0722 <= 0.1833 ? 'white' : 'black';
   }
 
   setTextVisibility(d) {
