@@ -239,6 +239,7 @@ export class TreemapComponent implements OnInit, OnChanges {
   }
 
   // https://www.w3.org/TR/WCAG20/#relativeluminancedef
+  // https://ux.stackexchange.com/questions/107318/formula-for-color-contrast-between-text-and-background
   contrastColor(c: string) {
     const arr = c.slice(4, -1).split(',');
     const lumi = arr.map(v => {
