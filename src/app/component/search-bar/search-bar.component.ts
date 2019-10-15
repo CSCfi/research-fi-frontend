@@ -73,6 +73,10 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
     window.removeEventListener('keydown', this.escapeListener);
   }
 
+  onFocus() {
+    this.showAutoSuggest = true;
+  }
+
   fireAutoSuggest() {
     this.queryField.valueChanges.pipe(
       debounceTime(500),
@@ -150,7 +154,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   clickout(event) {
     if (!this.eRef.nativeElement.contains(event.target)) {
       this.showAutoSuggest = false;
-    }
+    } else {this.showAutoSuggest = true; }
   }
 
   escapeListener = (e: any): void => {
