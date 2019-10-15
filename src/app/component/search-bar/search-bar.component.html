@@ -13,8 +13,8 @@
         <div class="form-group has-search">
           <div class="input-group">
             <input type="text" #publicationSearchInput class="form-control" [formControl]="queryField" placeholder="Julkaisu, tutkija, projekti, organisaatio"
-            value="{{searchService.currentInput | async}}" id="publicationSearchInput"  autocomplete="off" (keyup)="onKeydown($event)"
-            (keydown)="disableArrows($event)" tabindex="0"/>
+            value="{{searchService.currentInput | async}}" id="publicationSearchInput" autocomplete="off" (keyup)="onKeydown($event)"
+            (keydown)="disableArrows($event)" tabindex="0" (focus)="onFocus()"/>
             <div class="input-group-append">
               <button class="btn btn-search" type="button" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
                 <span class="search-button">Hae</span>
@@ -23,6 +23,11 @@
             </div>
               <!-- Auto suggest -->
             <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest" role="listbox">
+              <div class="row helper" *ngIf="!queryField.value || queryField.value.length < 3">
+                <div class="col">
+                  <span>Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span>
+                </div>
+              </div>
               <div class="results" *ngIf="topData">
                 <div *ngFor="let data of topData">
                   <div class="row results" *ngIf="topData">
