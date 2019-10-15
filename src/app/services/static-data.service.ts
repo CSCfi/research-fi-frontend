@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StaticDataService {
+  // Filters, Fields of study
   majorFieldsOfScience = [
     {id: 1, label: 'Luonnontieteet', checked: false},
     {id: 2, label: 'Tekniikka', checked: false},
@@ -21,6 +22,7 @@ export class StaticDataService {
     {id: 9, label: 'Muut tieteet', checked: false}
   ];
 
+  // Filters, Publication class
   publicationClass = [
     {id: 1, class: 'A', label: 'Vertaisarvioidut tieteelliset artikkelit', types: [
       {type: 'A1', label: 'Kirjoitus tieteellisessä aikakauslehdessä'},
@@ -114,6 +116,7 @@ export class StaticDataService {
     return res;
   }
 
+  // Query fields where exact match isn't needed
   queryFields(index) {
     let res = [];
     switch (index) {
