@@ -73,6 +73,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
     window.removeEventListener('keydown', this.escapeListener);
   }
 
+  // Show auto-suggest when input in focus
   onFocus() {
     this.showAutoSuggest = true;
   }
