@@ -4,7 +4,6 @@
     $primary: map-get($theme, primary);
 
     app-search-bar {
-        
         .col-12.search {
             background: mat-color($primary);
             color: mat-color($primary, default-contrast);
@@ -14,6 +13,10 @@
             background: mat-color($primary, default-contrast);
             color: mat-color($primary);    
             border: 1px solid mat-color($primary, default-contrast);
+        }
+
+        span {
+            color: mat-color($primary); 
         }
 
         .auto-suggest h3 {
