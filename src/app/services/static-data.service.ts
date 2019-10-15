@@ -80,42 +80,6 @@ export class StaticDataService {
 
   constructor() { }
 
-  // Global settings for query
-  querySettings(index: string, term: string) {
-    const res = { bool: {
-      must: [{ term: { _index: index }},
-        {
-          bool: {
-            should: [
-              {
-                multi_match: {
-                  query: term,
-                  analyzer: 'standard',
-                  type: 'most_fields',
-                  fields: this.queryFields(index),
-                  operator: 'or',
-                  lenient: 'true',
-                  fuzziness: '1',
-                  prefix_length: 1
-                }
-              },
-              {
-                multi_match: {
-                  query: term,
-                  analyzer: 'standard',
-                  type: 'most_fields',
-                  fields: this.queryExactFields(index),
-                  lenient: 'true',
-                  prefix_length: 1,
-                  boost: 2
-                }
-              }
-            ]
-          }
-        }]}};
-    return res;
-  }
-
   // Query fields where exact match isn't needed
   queryFields(index) {
     let res = [];
