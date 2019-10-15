@@ -20,7 +20,7 @@ aggsOnly: string;
     this.aggsOnly = 'filter_path=aggregations';
    }
 
-   // Global settings for query
+   // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: string) {
     const res = { bool: {
       must: [{ term: { _index: index }},
