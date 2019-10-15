@@ -37,7 +37,7 @@ pipeline {
 
               // New image gets automatically tagged "latest", it is defined in the OpenShift build config.
               // Tag image also using short Git commit hash.
-              openshift.tag("researchfi-frontend-devel:latest", "researchfi-frontend-devel:${GIT_COMMIT_SHORT}")
+              // openshift.tag("researchfi-frontend-devel:latest", "researchfi-frontend-devel:${GIT_COMMIT_SHORT}")
             }
           }
         }
@@ -80,7 +80,7 @@ pipeline {
           openshift.withCluster() {
             openshift.withProject() {
               openshift.tag("researchfi-frontend-devel:latest", "researchfi-frontend-production:latest")
-              openshift.tag("researchfi-frontend-production:latest", "researchfi-frontend-production:${GIT_COMMIT_SHORT}")
+              // openshift.tag("researchfi-frontend-production:latest", "researchfi-frontend-production:${GIT_COMMIT_SHORT}")
             }
           }
         }
