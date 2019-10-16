@@ -91,8 +91,6 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
       if (result.length > 2) {
         this.autosuggestService.search(result).pipe(map(response => [response]))
         .subscribe(response => {
-          // Set auto suggest to visible
-          this.showAutoSuggest = true;
           // Sort indices with highest doc count
           const arr = [];
           this.autoSuggestResponse = response;
@@ -135,7 +133,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.newInput(undefined, undefined);
       }
-      this.showAutoSuggest = false;
+      // this.showAutoSuggest = false;
     } else if (event.keyCode === ENTER) {
       this.newInput(undefined, undefined);
       this.showAutoSuggest = false;
@@ -146,7 +144,6 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   disableArrows(event) {
-    if (event.keyCode === 40 && this.topData) { this.showAutoSuggest = true; }
     if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
 
