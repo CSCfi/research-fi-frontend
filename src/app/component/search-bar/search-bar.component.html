@@ -8,10 +8,10 @@
 <div class="full-width">
   <div class="row">
     <div class="col-12 search" [class.no-heading]="router.url !== '/'">
-      <form #inputForm (keydown.enter)="$event.preventDefault()">
+      <form (keydown.enter)="$event.preventDefault()">
         <label i18n="@@searchSlogan" *ngIf="router.url === '/'" class="text-center h1" for="publicationSearchInput" style="width:100%;">Hae tietoa tutkimuksesta Suomessa</label>
         <div class="form-group has-search">
-          <div class="input-group">
+          <div class="input-group" #inputGroup>
             <input type="text" #publicationSearchInput class="form-control" [formControl]="queryField" placeholder="Julkaisu, tutkija, projekti, organisaatio"
             value="{{searchService.currentInput | async}}" id="publicationSearchInput" autocomplete="off" (keyup)="onKeydown($event)"
             (keydown)="disableArrows($event)" tabindex="0" (focus)="onFocus()"/>
