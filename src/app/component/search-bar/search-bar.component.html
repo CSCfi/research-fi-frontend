@@ -23,14 +23,22 @@
             </div>
               <!-- Auto suggest -->
             <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest" role="listbox">
-              <div class="row helper" *ngIf="!queryField.value || queryField.value.length < 3">
-                <div class="col">
+              <div class="row helper">
+                <div class="col" *ngIf="!queryField.value || queryField.value.length < 3">
                   <span>Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span>
                 </div>
               </div>
+              <div class="row" *ngIf="topData && !topData.length > 0 && queryField.value.length > 2">
+                <div class="col text-center">
+                  <mat-spinner [diameter]="40"></mat-spinner>
+                </div>
+              </div>
               <div class="results" *ngIf="topData">
+                <div class ="col" *ngIf="topData[0] && topData[0].source.doc_count === 0">
+                  <span>Ei ehdotuksia</span>
+                </div>
                 <div *ngFor="let data of topData">
-                  <div class="row results" *ngIf="topData">
+                  <div class="row results" *ngIf="data.source.doc_count > 0">
                     <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
                       <h3 class="font-weight-bold">{{data.translation}}</h3>
                       <div class="top-results" *ngFor="let doc of docList">
