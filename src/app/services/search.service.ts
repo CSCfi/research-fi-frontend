@@ -99,15 +99,15 @@ export class SearchService {
 
   // Data for results page
   getTabValues(): Observable<Search[]> {
-    this.staticDataService.querySettings(this.tabChangeService.tab, this.singleInput);
+    this.settingsService.querySettings(this.tabChangeService.tab, this.singleInput);
     const payLoad = {
       ...(this.singleInput.length ? { query: {
         bool: {
           should: [
-            this.staticDataService.querySettings('publication', this.singleInput),
-            this.staticDataService.querySettings('person', this.singleInput),
-            this.staticDataService.querySettings('funding', this.singleInput),
-            this.staticDataService.querySettings('organization', this.singleInput)
+            this.settingsService.querySettings('publication', this.singleInput),
+            this.settingsService.querySettings('person', this.singleInput),
+            this.settingsService.querySettings('funding', this.singleInput),
+            this.settingsService.querySettings('organization', this.singleInput)
           ]
         }
       }, } : []),

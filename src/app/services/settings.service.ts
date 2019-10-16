@@ -31,25 +31,23 @@ aggsOnly: string;
                 multi_match: {
                   query: term,
                   analyzer: 'standard',
-                  type: 'most_fields',
-                  fields: this.staticDataService.queryFields(index),
-                  operator: 'or',
-                  lenient: 'true',
-                  fuzziness: '1',
-                  prefix_length: 1
+                  type: 'cross_fields',
+                  // Todo: Are two separate arrays needed for fields? In first version second array was for fields that needed exact match
+                  fields: this.staticDataService.queryFields(index).concat(this.staticDataService.queryExactFields(index)),
+                  operator: 'AND',
+                  lenient: 'true'
                 }
               },
-              {
-                multi_match: {
-                  query: term,
-                  analyzer: 'standard',
-                  type: 'most_fields',
-                  fields: this.staticDataService.queryExactFields(index),
-                  lenient: 'true',
-                  prefix_length: 1,
-                  boost: 2
-                }
-              }
+              // {
+              //   multi_match: {
+              //     query: term,
+              //     analyzer: 'standard',
+              //     type: 'cross_fields',
+              //     fields: this.staticDataService.queryExactFields(index),
+              //     operator: 'AND',
+              //     lenient: 'true'
+              //   }
+              // }
             ]
           }
         }]}};
