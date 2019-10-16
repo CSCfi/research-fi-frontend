@@ -31,7 +31,8 @@ export class HomePageComponent implements OnInit {
     border: '0px',
     background: 'white',
     margin: '5px 4px 5px 0',
-    padding: '4px 8px 4px 12px'
+    padding: '4px 8px 4px 12px',
+    'min-width': '200px'
   };
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
