@@ -4,6 +4,7 @@ import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from '../../services/resize.service';
 import { UrlSerializer, Router } from '@angular/router';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -42,6 +43,11 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   locale: string;
 
+  homepageIcons: object;
+
+  faArrowLeft = faArrowLeft;
+  faArrowRight = faArrowRight;
+
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router) {
                 this.locale = localeId;
@@ -53,6 +59,13 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
     });
+
+    // Hide icons on pages other than home
+    if (this.router.url !== '/') {
+      this.homepageIcons = {
+        display: 'none'
+      };
+    }
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));

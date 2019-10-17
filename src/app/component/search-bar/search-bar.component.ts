@@ -17,7 +17,6 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { ENTER, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-search-bar',
@@ -26,6 +25,7 @@ import { ENTER, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 })
 export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
+  @ViewChild('inputGroup') inputGroup: ElementRef;
   input: string;
   sub: Subscription;
   autoSuggestResponse: any;
@@ -110,7 +110,8 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onKeydown(event) {
     // Listen for enter key and match with auto-suggest values
-    if (event.keyCode === ENTER && this.keyManager.activeItem) {
+    if (event.keyCode === 13 && this.keyManager.activeItem) {
+      this.showAutoSuggest = false;
       const doc = this.keyManager.activeItem.doc;
       const id = this.keyManager.activeItem.id || '';
       const term = this.keyManager.activeItem.term || undefined;
@@ -134,7 +135,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
         this.newInput(undefined, undefined);
       }
       // this.showAutoSuggest = false;
-    } else if (event.keyCode === ENTER) {
+    } else if (event.keyCode === 13) {
       this.newInput(undefined, undefined);
       this.showAutoSuggest = false;
       // Continue without action. For some reason letter 'n' registers as down arrow, hacky fix:
@@ -147,16 +148,17 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
     if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
 
-  // Hide auto suggest if clicked outside component
-  @HostListener('document:click', ['$event'])
-  clickout(event) {
-    if (!this.eRef.nativeElement.contains(event.target)) {
+  // Hide auto suggest if clicked outside element
+  @HostListener('document:click', ['$event.target'])
+  public onClick(targetElement) {
+    const clickedInside = this.inputGroup.nativeElement.contains(targetElement);
+    if (!clickedInside) {
       this.showAutoSuggest = false;
-    } else {this.showAutoSuggest = true; }
+    }
   }
 
   escapeListener = (e: any): void => {
-    if (e.keyCode === 27 || e.keyCode === 9) {
+    if (e.keyCode === 27) {
       this.showAutoSuggest = false;
     }
   }

@@ -30,8 +30,8 @@ export class HomePageComponent implements OnInit {
   basicStyle = {
     border: '0px',
     background: 'white',
-    margin: '5px 4px 5px 0',
-    padding: '4px 8px 4px 12px',
+    margin: '6px 0 4px',
+    // padding: '4px 8px 4px 12px',
     'min-width': '200px'
   };
 

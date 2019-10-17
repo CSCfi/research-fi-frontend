@@ -8,7 +8,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { SortComponent } from '../sort/sort.component';
 
 @Component({
   selector: 'app-publications',

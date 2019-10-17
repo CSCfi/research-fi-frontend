@@ -31,8 +31,18 @@
                 color: mat-color($primary, 900);
             }
 
+            a.arrow {
+                color: mat-color($primary)!important;
+            }
+
             a.arrow::before {
-                color: mat-color($primary);
+                font-family: "FontAwesome";
+                content: "\f054"; 
+            }
+            
+            a.arrow.expand::before {
+                font-family: "FontAwesome";
+                content: "\f078";
             }
 
             .inline li {

@@ -75,6 +75,7 @@ import { TreemapComponent } from './component/visualisation/treemap/treemap.comp
 import { HighlightSearch } from './pipes/highlight.pipe';
 
 import { LOCALE_ID } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { LOCALE_ID } from '@angular/core';
     MatButtonModule,
     ScrollingModule,
     CountUpModule,
-    PortalModule
+    PortalModule,
+    FontAwesomeModule
   ],
   providers: [ SearchService, Title, AutosuggestService, {provide: LOCALE_ID, useValue: 'fi-FI'},
   {
