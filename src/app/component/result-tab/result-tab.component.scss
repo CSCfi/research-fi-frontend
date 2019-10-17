@@ -11,7 +11,7 @@
     flex-wrap: nowrap;
     overflow: auto;
     white-space: nowrap; 
-    max-height: 90px;
+    justify-content: space-between;
     // Hide scrollbar on firefox
     scrollbar-width: none;
 }
@@ -47,10 +47,9 @@
 .bundler {
     cursor: pointer;
     min-width: 205.7px;
-    margin: 23px 0 0px 0;
-    padding: 5px 8px 5px 12px;
+    margin: 23px 0 0;
+    padding: 5px 0;
     border-radius: 2px;
-    // border: 0;
 }
 
 .bundler.active .numeric-box.d-none.d-sm-block {
@@ -63,6 +62,16 @@
 
 .bundler .numeric-box.d-none.d-sm-block, .bundler .text-center {
     font-weight: 400;
+}
+
+.bundler .label {
+    font-size: 18px;
+}
+
+.bundler .numeric-box {
+    font-size: 16px;
+    font-weight: bold!important;
+    padding-bottom: 7px;
 }
 
 .text-center, .numeric-box {
@@ -85,15 +94,8 @@
     height: 50px;
     border-radius: 25px;
     box-shadow: 1px 3px 3px;
-}
-
-.arrow::after {
-    font-family: "FontAwesome";
     font-size: 2em;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 }
 
 .arrow-left, .arrow-right {
@@ -104,17 +106,8 @@
     left: 3px;
 }
 
-.arrow-left::after {
-    content: "\f060";
-}
-
-
 .arrow-right {
     right: 3px;
-}
-
-.arrow-right::after {
-    content: "\f061";
 }
 
 .grad {
@@ -122,6 +115,7 @@
     min-width: 100px;
     min-height: 100%;
     pointer-events: none;
+    vertical-align: middle;
 }
 
 .grad-left {
@@ -132,6 +126,20 @@
 .grad-right {
     right: 0;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+}
+
+// Icons
+.tab-icon {
+    height: 51px;
+    width: 51px;
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
 }
 
 @media (max-width: 575px) {
