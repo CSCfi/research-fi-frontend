@@ -10,9 +10,9 @@ export class TabChangeService {
     { data: 'publications', labelFi: 'Julkaisut', labelEn: 'Publications', link: 'publications', icon: faFileAlt},
     { data: 'persons',  labelFi: 'Tutkijat', labelEn: 'People', link: 'persons', icon: faUsers },
     { data: 'fundings', labelFi: 'Rahoitetut hankkeet', labelEn: 'Fundings', link: 'fundings', icon: faBullseye },
-    { data: '', labelFi: 'Tutkimusaineistot', labelEn: 'Materials', link: '1', icon: faSpinner },
-    { data: '', labelFi: 'Tutkimusinfrastruktuurit', labelEn: 'Infrastructures', link: '2', icon: faAlignLeft },
-    { data: '', labelFi: 'Muut tutkimusaktiviteetit', labelEn: 'Research activities', link: '3', icon: faCalculator },
+    { data: '', labelFi: 'Tutkimusaineistot', labelEn: 'Materials', link: '1', icon: faAlignLeft },
+    { data: '', labelFi: 'Tutkimusinfrastruktuurit', labelEn: 'Infrastructures', link: '2', icon: faCalculator },
+    { data: '', labelFi: 'Muut tutkimusaktiviteetit', labelEn: 'Research activities', link: '3', icon: faSpinner },
     { data: 'organizations', labelFi: 'Tutkimusorganisaatiot', labelEn: 'Organizations', link: 'organizations', icon: faCity }
   ];
 
