@@ -13,6 +13,15 @@
             background: mat-contrast($primary, 800);
         }
 
+        .tab-icon {
+            // background-color: mat-color($primary);
+            color: mat-color($primary);
+        }
+        
+        .tab-icon:after {
+            color: mat-color($primary);
+        }
+        
         .bundler.active {
             // background: mat-color($primary, A100);
             // border-bottom: 6px solid mat-color($primary);
@@ -20,6 +29,14 @@
             border-right: 1px solid mat-color($primary);
             border-left: 1px solid mat-color($primary);
             box-shadow: 13px 0 22px -13px rgba(0,0,0,0.2), -13px 0 22px -13px rgba(0,0,0,0.2);
+        }
+
+        .bundler .label {
+            font-size: 18px;
+        }
+        
+        .bundler .numeric-box {
+            font-size: 16px;
         }
         
         .bundler {
@@ -40,11 +57,12 @@
 
         .arrow {
             background: mat-color($primary);
-        }
-
-        .arrow::after {
             color: mat-contrast($primary, 500);
         }
+
+        // .arrow::after {
+        //     color: mat-contrast($primary, 500);
+        // }
         
         @media (max-width: 575px) {
             .bundler.active {
