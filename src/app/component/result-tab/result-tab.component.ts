@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID } from '@angular/core';
-import { SearchService } from 'src/app/services/search.service';
-import { TabChangeService } from 'src/app/services/tab-change.service';
+import { SearchService } from '../../services/search.service';
+import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
-import { ResizeService } from 'src/app/services/resize.service';
+import { ResizeService } from '../../services/resize.service';
 import { UrlSerializer, Router } from '@angular/router';
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Injector, Input, ComponentRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ComponentPortal, DomPortalHost } from '@angular/cdk/portal';
 import { createDomPortalHost } from './utils';
-import { SearchService } from 'src/app/services/search.service';
+import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PublicationsComponent } from '../publications/publications.component';

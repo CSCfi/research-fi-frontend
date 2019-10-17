@@ -10,7 +10,7 @@ import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { FilterService } from '../../../../services/filter.service';
-import { ResizeService } from 'src/app/services/resize.service';
+import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 
 @Component({

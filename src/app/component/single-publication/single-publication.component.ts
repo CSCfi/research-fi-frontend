@@ -10,8 +10,8 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
-import { SearchService } from 'src/app/services/search.service';
-import { TabChangeService } from 'src/app/services/tab-change.service';
+import { SearchService } from '../../services/search.service';
+import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 
 @Component({

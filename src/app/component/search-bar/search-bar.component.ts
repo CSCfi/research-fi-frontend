@@ -9,12 +9,12 @@ import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, O
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { AutosuggestService } from '../../services/autosuggest.service';
-import { TabChangeService } from 'src/app/services/tab-change.service';
+import { TabChangeService } from '../../services/tab-change.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { SingleItemService } from 'src/app/services/single-item.service';
+import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ENTER, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
