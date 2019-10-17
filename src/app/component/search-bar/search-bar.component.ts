@@ -111,6 +111,7 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   onKeydown(event) {
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
+      this.showAutoSuggest = false;
       const doc = this.keyManager.activeItem.doc;
       const id = this.keyManager.activeItem.id || '';
       const term = this.keyManager.activeItem.term || undefined;
