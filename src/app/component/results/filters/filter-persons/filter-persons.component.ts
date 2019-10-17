@@ -9,9 +9,9 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import { MatSelectionList } from '@angular/material';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
-import { ResizeService } from 'src/app/services/resize.service';
+import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
-import { FilterService } from 'src/app/services/filter.service';
+import { FilterService } from '../../../../services/filter.service';
 
 @Component({
   selector: 'app-filter-persons',

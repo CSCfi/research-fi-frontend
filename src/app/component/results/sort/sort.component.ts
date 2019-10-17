@@ -8,7 +8,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { TabChangeService } from 'src/app/services/tab-change.service';
+import { TabChangeService } from '../../../services/tab-change.service';
 
 @Component({
   selector: 'app-sort',
