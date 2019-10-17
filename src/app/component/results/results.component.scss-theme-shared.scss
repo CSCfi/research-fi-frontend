@@ -35,6 +35,16 @@
                 color: mat-color($primary)!important;
             }
 
+            a.arrow::before {
+                font-family: "FontAwesome";
+                content: "\f054"; 
+            }
+            
+            a.arrow.expand::before {
+                font-family: "FontAwesome";
+                content: "\f078";
+            }
+
             .inline li {
                 border: 1px solid mat-color($primary);
                 background: white;
