@@ -6,7 +6,7 @@
 // # :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
-import { ResizeService } from 'src/app/services/resize.service';
+import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
 
 @Component({

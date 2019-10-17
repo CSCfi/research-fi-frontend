@@ -8,9 +8,9 @@
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { SingleItemService } from 'src/app/services/single-item.service';
+import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
-import { SearchService } from 'src/app/services/search.service';
+import { SearchService } from '../../services/search.service';
 import { Subscription } from 'rxjs';
 
 @Component({
