@@ -31,8 +31,8 @@
                 color: mat-color($primary, 900);
             }
 
-            a.arrow::before {
-                color: mat-color($primary);
+            a.arrow {
+                color: mat-color($primary)!important;
             }
 
             .inline li {
