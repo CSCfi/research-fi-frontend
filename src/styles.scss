@@ -14,12 +14,12 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
 @import 'styles-custom.scss';
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url( 'https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
 
 // Component custom styles
 @import './app/ui/header/header.component.scss-theme.scss';
 @import './app/ui/footer/footer.component.scss-theme.scss';
+@import './app/component/home-page/home-page.component.scss-theme.scss';
 @import './app/component/search-bar/search-bar.component.scss-theme.scss';
 @import './app/component/result-tab/result-tab.component.scss-theme.scss';
 @import './app/component/results/results.component.scss-theme-shared.scss';
@@ -37,6 +37,7 @@
 @mixin researchfi-components-theme($theme) {
   @include app-header-theme($theme);
   @include app-footer-theme($theme);
+  @include app-home-page-theme($theme);
   @include app-search-bar-theme($theme);
   @include app-result-tab-theme($theme);
   @include app-filters-theme-shared($theme);

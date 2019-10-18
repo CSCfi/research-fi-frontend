@@ -37,20 +37,26 @@
     filter: opacity(.7);
 }
 
-.link-img span.text-center {
+.link-img .caption.text-center {
     position: absolute;
     padding: 10px 24px;
     left: 50%;
     bottom: 0;
     width: 100%;
-    min-height: 74px;
+    min-height: 124px;
     -webkit-transform: translate(-50%, 0%);
-    transform: translate(-50%, -0%);
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 18px;
+    transform: translate(-50%, 0%);
     transition: 0.2s all;
+}
+
+.caption .header {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.caption .hint {
+    // font-size: 14px;
+    // font-weight: 500;
 }
 
 //responsive

@@ -1,9 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
 import { ResizeService } from '../../services/resize.service';
@@ -29,8 +29,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private resizeSub: Subscription;
 
   lang: string;
+  currentLang: string;
 
-  constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string) {this.lang = localeId; }
+  constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string) {
+    this.lang = localeId;
+    this.currentLang = this.displayLang(this.lang);
+  }
 
   ngOnInit() {
     window.addEventListener('keydown', this.handleTabPressed);
@@ -82,6 +86,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
   setLang(lang: string) {
     this.lang = lang;
     document.documentElement.lang = lang;
+  }
+
+  displayLang(lang: string) {
+    let current = '';
+    switch (lang) {
+      case 'fi-FI': {
+        current = 'FI';
+        break;
+      }
+      case 'sv': {
+        current = 'SV';
+        break;
+      }
+      case 'en': {
+        current = 'EN';
+        break;
+      }
+    }
+    return current;
   }
 
   onResize(dims) {
