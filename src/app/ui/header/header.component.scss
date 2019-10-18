@@ -1,9 +1,9 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 
 #overlay {
     position: absolute;
@@ -29,8 +29,16 @@ ul.navbar-nav.main {
     justify-content: center;
 }
 
+ul.nav-left.navbar-nav.main {
+    justify-content: flex-start;
+}
+
+ul.nav-right.navbar-nav.main {
+    justify-content: flex-end;
+}
+
 .main li.nav-item a {
-    padding: 10px 10px;
+    padding: 0 10px;
 }
 
 .main a.nav-item.nav-link, .lang a.nav-item.nav-link {
@@ -103,13 +111,13 @@ nav.nav-top {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    font-weight: bold;
+    font-weight: 500;
     
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
-    font-weight: bold;
-}
+// .navbar-light .navbar-nav .nav-link:hover {
+//     font-weight: bold;
+// }
 
 .nav-link {
     padding: 0.2rem 1rem;
@@ -118,6 +126,11 @@ nav.nav-top {
 .separator {
     font-weight: bold;
     padding: 0 2px;
+}
+
+a.nav-item.nav-link.active-link {
+    border-radius: 10px;
+    height: 6px;
 }
 
 // Language selector
@@ -129,6 +142,42 @@ nav.nav-top {
 .no-padding {
     padding: 0;
 }
+
+.mat-select-value-text {
+    font-weight: 500;
+}
+
+::ng-deep .mat-form-field-infix {
+    width: 54px!important;
+}
+
+::ng-deep .mat-select-arrow {
+    border: 0!important;
+}
+
+::ng-deep .mat-select-value-text:after {
+    font-family: "FontAwesome";
+    margin-left: 8px;
+    content: "\f078";
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0!important;
+}
+
+::ng-deep .mat-form-field, .mat-select {
+    font-size: inherit;
+    font-weight: 500;
+    font-family: inherit!important;
+}
+
+::ng-deep .mat-form-field-infix {
+    border: 0!important;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
+} 
 
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar.open {
@@ -201,6 +250,12 @@ nav.nav-top {
 @media (min-width: 992px) {
     .mobile {
         display: none;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+        flex-direction: row;
+        justify-content: flex-end;
+        text-align: right;
     }
 }
 
