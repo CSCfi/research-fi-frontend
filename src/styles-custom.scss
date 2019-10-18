@@ -13,6 +13,10 @@ $background: map-get($researchfi-theme, background);
 $background: map_merge($background, (card: $background-color));
 $researchfi-theme: map_merge($researchfi-theme, (background: $background));
 
+body {
+    color: map-get($researchfi-primary, lighter-contrast);
+}
+
 main {
     padding-bottom: 10.5rem;
 }
@@ -79,8 +83,6 @@ mark, .mark {
         padding-bottom: 30.5rem !important;
     }
 }
-
-
 
 // Img alt test, delete in production
 // img:not([alt]) {
