@@ -44,7 +44,7 @@
                             </li>
                         </ul>
                     </div>
-                    <ul class="navbar-nav main col-lg-9 no-padding" [class.row]="!mobile">
+                    <ul class="nav-left navbar-nav main col no-padding" [class.row]="!mobile">
                         <li class="nav-item">
                             <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
                             (click)="navbarOpen && toggleNavbar()">
@@ -56,6 +56,8 @@
                                 <span i18n="Main navigation item|Search" class="label">Haku</span>
                             </a>
                         </li>
+                    </ul>
+                    <ul class="nav-right navbar-nav main col no-padding" [class.row]="!mobile">
                         <li class="nav-item">
                             <a class="nav-item nav-link" href="#">
                                 <span i18n="Main navigation item|Science politics" class="label">Tiedepolitiikka</span>
@@ -69,12 +71,26 @@
                         </li>
                         <div *ngIf="mobile" class=""></div>
                     </ul>
-                    <div class="navbar-expand navbar-nav lang col-3 no-padding">
-                        <ul class="navbar-nav ml-auto desktop">
+                    <div class="navbar-expand navbar-nav lang col-2 no-padding">
+                        <!-- <ul class="navbar-nav ml-auto desktop">
                             <a class="nav-item nav-link" [class.active-lang]="lang==='fi-FI'" href="/" (click)="setLang('fi')">FI</a><div class="separator"> / </div>
-                            <a class="nav-item nav-link" [class.active-lang]="lang==='se'" href="/sv/" (click)="setLang('se')">SV</a><div class="separator"> / </div>
+                            <a class="nav-item nav-link" [class.active-lang]="lang==='sv'" href="/sv/" (click)="setLang('sv')">SV</a><div class="separator"> / </div>
                             <a class="nav-item nav-link" [class.active-lang]="lang==='en'" href="/en/" (click)="setLang('en')">EN</a>
-                        </ul>
+                        </ul> -->
+                        <mat-form-field>
+                            <!-- <mat-label>{{currentLang}}</mat-label> -->
+                            <mat-select [(value)]="currentLang">
+                                <mat-option value="FI" (change)="displayLang('fi-FI')">
+                                    FI
+                                </mat-option>
+                                <mat-option value="SV" (change)="displayLang('sv')">
+                                    SV
+                                </mat-option>
+                                <mat-option value="EN" (change)="displayLang('en')">
+                                    EN
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
