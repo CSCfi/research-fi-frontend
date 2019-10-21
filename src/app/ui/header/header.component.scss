@@ -128,11 +128,6 @@ nav.nav-top {
     padding: 0 2px;
 }
 
-a.nav-item.nav-link.active-link {
-    border-radius: 10px;
-    height: 6px;
-}
-
 // Language selector
 .navbar-expand .navbar-nav .nav-link {
     padding-right: 2px;
@@ -257,11 +252,20 @@ a.nav-item.nav-link.active-link {
         justify-content: flex-end;
         text-align: right;
     }
+
+    a.nav-item.nav-link.active-link {
+        border-radius: 10px;
+        height: 6px;
+    }
 }
 
 // Mobile size (sm md lg)
 @media (max-width: 991px) {
     .desktop {
+        display: none;
+    }
+
+    .langSelect {
         display: none;
     }
 

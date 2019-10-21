@@ -5,24 +5,21 @@
     $accent: map-get($theme, accent);
 
     app-header {
-        >header {
-            background: mat-color($primary, default-contrast);
-            
+        >header {    
             .navbar-light .navbar-nav .nav-link {
-                color: mat-contrast($primary, 50);
-            
+                color: mat-contrast($primary, 300);
             }
             
             .navbar-light .navbar-nav .nav-link:hover {
-                color: mat-color($primary, lighter);
+                color: mat-contrast($primary, 200);
             }
             
             .collapse.navbar-collapse.menu.mobile-bar {
-                background: mat-color($primary, default-contrast);
+                background: mat-contrast($primary, 600);
                 color: mat-color($primary);
                 
                 li a.lang-box {
-                    background: mat-color($primary, default-contrast);
+                    background: mat-contrast($primary, 600);
                     border: solid 2px mat-color($primary);
                     
                 }
@@ -34,15 +31,15 @@
             }
             
             a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang {
-                color: mat-contrast($primary, 50);
+                color: mat-contrast($primary, 200);
             }
 
-            a.nav-item.nav-link.active-link {
-                box-shadow: 0 28px 0 0 mat-color($primary, 400);;
+            .mat-select-value {
+                color: mat-contrast($primary, 300);
             }
 
             .active-link span.label, .desktop .active-lang {
-                // border-bottom: 4px solid mat-color($primary, 400);
+                border-bottom: 4px solid mat-color($primary, 400);
             }
             
             .toggle-menu-text {
@@ -56,6 +53,13 @@
             
             .separator {
                 color: mat-color($primary);
+            }
+
+            @media (min-width: 991px) {
+                a.nav-item.nav-link.active-link {
+                    box-shadow: 0 28px 0 0 mat-color($primary, 400);;
+                }
+
             }
         }
     }

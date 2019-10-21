@@ -4,16 +4,18 @@
     $primary: map-get($theme, primary);
 
     app-home-page {
+        .link-img {
+            border: 3px solid mat-contrast($primary, 500);
+        }
 
-        .odd {
+        .odd, .odd h3 {
             background: mat-color($primary);
             color: mat-contrast($primary, 500);
         }
 
         .even {
             background: mat-contrast($primary, 500);
-            color: mat-contrast($primary, lighter-contrast);
-        }
-       
+            color: mat-contrast($primary, 300);
+        }      
     }
 }
