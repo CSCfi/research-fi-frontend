@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable  } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
 import { SettingsService} from './settings.service';
@@ -39,7 +39,8 @@ export class FilterService {
     this.filterSource.next(filters);
   }
 
-  constructor(private sortService: SortService, private settingsService: SettingsService) { }
+  constructor(private sortService: SortService, private settingsService: SettingsService,
+              @Inject( LOCALE_ID ) protected localeId: string) { }
 
   // Filters
   createFilters(filter: any) {
@@ -207,6 +208,25 @@ export class FilterService {
     };
   }
 
+  langByLocale(locale) {
+    let field: string;
+    switch (locale) {
+      case 'fi-FI': {
+        field = 'languageFi';
+        break;
+      }
+      case 'sv': {
+        field = 'languageSv';
+        break;
+      }
+      case 'en': {
+        field = 'languageEn';
+        break;
+      }
+    }
+    return field;
+  }
+
   constructFilterPayload(tab: string, searchTerm: string) {
     const payLoad: any = {
       ...(searchTerm.length ? { query: {
@@ -229,6 +249,11 @@ export class FilterService {
         languageCode: {
           terms: {
             field: 'languageCode.keyword'
+          }
+        },
+        languageName: {
+          terms: {
+            field: this.langByLocale(this.localeId) + '.keyword'
           }
         },
         publicationType: {
