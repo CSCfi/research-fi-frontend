@@ -6,21 +6,17 @@
     app-search-bar {
         .col-12.search {
             background: mat-color($primary);
-            color: mat-color($primary, default-contrast);
+            color: mat-contrast($primary, 600);
         }
         
         button.btn.btn-search {
-            background: mat-color($primary, default-contrast);
+            background: mat-contrast($primary, 600);
             color: mat-color($primary);    
-            border: 1px solid mat-color($primary, default-contrast);
-        }
-
-        span {
-            color: mat-color($primary); 
+            border: 1px solid mat-contrast($primary, 600);
         }
 
         .auto-suggest h3 {
-            color: mat-color($primary);  
+            color: mat-contrast($primary, default-contrast);
         }
         
         .auto-suggest {
@@ -28,23 +24,23 @@
         }
 
         .auto-suggest ul li a {
-            color: mat-color($primary); 
+            color: #000;
         }
 
         .list-group-item.active {
-            background-color: #3e3fa8;
+            background-color: mat-color($primary);
         }
         
         .list-group-item.active a {
-            color: #fff!important;
+            color: #000;
         }
 
         a.item {
-            color: mat-color($primary);  
+            color: mat-color($primary, darker-contrast);
         }
 
         .auto-suggest .other-links ul li a {
-            color: mat-color($primary, A200); 
+            color: #000; 
         }
     }
 }
