@@ -5,15 +5,15 @@
 
     app-results {
         h3 {
-            color: mat-color($primary, 900);
+            color: mat-contrast($primary, 200);
         }
         
         span.total {
-            color: gray;
+            color: mat-contrast($primary, 400);
         }
 
         span.arrow, span.bold {
-            color: mat-color($primary);
+            color: mat-contrast($primary, 200);
         }
 
         // "Bleed" the styles into sub-pages
@@ -28,7 +28,8 @@
             }
 
             h3 {
-                color: mat-color($primary, 900);
+                color: mat-contrast($primary, 200);
+                text-decoration: underline;
             }
 
             a.arrow {
