@@ -18,7 +18,6 @@
     padding: 0px;
     transition: 0.2s linear;
     cursor: pointer;
-    border: 3px solid white;
 }
 
 .link-img span {
@@ -39,7 +38,7 @@
 
 .link-img .caption.text-center {
     position: absolute;
-    padding: 10px 24px;
+    padding: 10px 24px 16px;
     left: 50%;
     bottom: 0;
     width: 100%;
