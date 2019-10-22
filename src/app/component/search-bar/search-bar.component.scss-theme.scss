@@ -8,6 +8,10 @@
             background: mat-color($primary);
             color: mat-contrast($primary, 200);
         }
+
+        label.text-center.h1 {
+            color: mat-contrast($primary, 500); 
+        }
         
         button.btn.btn-search {
             background: mat-contrast($primary, 600);
