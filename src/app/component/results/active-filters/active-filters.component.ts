@@ -5,17 +5,18 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-active-filters',
   templateUrl: './active-filters.component.html',
   styleUrls: ['./active-filters.component.scss']
 })
-export class ActiveFiltersComponent implements OnInit, OnDestroy {
+export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentInit {
   queryParams: any;
   activeFilters = [];
 
@@ -34,12 +35,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
     over100k: 'Rahoitus yli 100 000€',
     under100k: 'Rahoitus alle 100 000€'
   };
+  filterResponse: any;
+  response: string;
 
   constructor( private router: Router, private sortService: SortService,
-               private filterService: FilterService ) {
+               private filterService: FilterService, private dataService: DataService ) {
    }
 
   ngOnInit() {
+
 
     this.queryParams = this.filterService.filters.subscribe(filter => {
       // Reset active filter so push doesn't duplicate
@@ -56,6 +60,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
       // Sort active filters by numerical value
       this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
+  }
+
+  ngAfterContentInit() {
+    this.filterResponse = this.dataService.currentResponse.subscribe(response => this.response = response);
+    console.log(this.response);
   }
 
   removeFilter(event): void {
@@ -88,6 +97,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.queryParams.unsubscribe();
+    this.filterResponse.unsubscribe();
   }
 
 }
