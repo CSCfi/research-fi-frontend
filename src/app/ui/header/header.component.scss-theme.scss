@@ -7,11 +7,11 @@
     app-header {
         >header {    
             .navbar-light .navbar-nav .nav-link {
-                color: mat-contrast($primary, 300);
+                color: mat-contrast($primary, 200);
             }
             
             .navbar-light .navbar-nav .nav-link:hover {
-                color: mat-contrast($primary, 200);
+                color: mat-contrast($primary, 300);
             }
             
             .collapse.navbar-collapse.menu.mobile-bar {
@@ -57,9 +57,12 @@
 
             @media (min-width: 991px) {
                 a.nav-item.nav-link.active-link {
-                    box-shadow: 0 28px 0 0 mat-color($primary, 400);;
+                    box-shadow: 0 28px 0 0 mat-color($primary, 400);
                 }
 
+                .active-link span.label, .desktop .active-lang {
+                    border-bottom: 0;
+                }
             }
         }
     }
