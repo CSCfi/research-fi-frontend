@@ -185,8 +185,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   // Wait for responseData and shape filter by term
   ngOnChanges() {
     this.responseData = this.responseData || [];
+    // Send data to service so it's available through app
     if (this.responseData.length > 0) {this.dataService.changeResponse(this.responseData); }
-    
     // Sub filter is for testing purposes. ToDo: Subfilter per parent if needed
     this.filterTerm = this.filterTerm || '';
     this.fields = this.filterMethodService.subFilter(
