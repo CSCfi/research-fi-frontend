@@ -14,6 +14,7 @@ import { ResizeService } from '../../../../services/resize.service';
 import { FilterService } from '../../../../services/filter.service';
 import { FilterMethodService } from '../../../../services/filter-method.service';
 import { StaticDataService } from '../../../../services/static-data.service';
+import { DataService } from '../../../../services/data.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -62,7 +63,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
-               private staticDataService: StaticDataService ) {
+               private staticDataService: StaticDataService, private dataService: DataService ) {
                  this.height = 240;
                  this.clickCount = 0;
                 }
@@ -164,7 +165,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngOnInit() {
-    // Subscribe to filter service filters
+    // Subscribe to filterService filters
     this.filterSub = this.filterService.filters.subscribe(filters => {
       // Get preselected filters from filterService
       this.preSelection = [];
@@ -184,6 +185,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   // Wait for responseData and shape filter by term
   ngOnChanges() {
     this.responseData = this.responseData || [];
+    // Send data to service so it's available through app
+    if (this.responseData.length > 0) {this.dataService.changeResponse(this.responseData); }
     // Sub filter is for testing purposes. ToDo: Subfilter per parent if needed
     this.filterTerm = this.filterTerm || '';
     this.fields = this.filterMethodService.subFilter(

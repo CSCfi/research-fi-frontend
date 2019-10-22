@@ -20,6 +20,10 @@ span.align-left.hide-mobile {
     font-weight: bold;
 }
 
+::ng-deep .mat-select {
+    font-family: inherit!important;
+}
+
 @media (max-width: 991px) {
     .hide-mobile {
         display: none;

@@ -6,7 +6,7 @@
 
     app-header {
         >header {    
-            .navbar-light .navbar-nav .nav-link {
+            .navbar-light .navbar-nav .nav-link, a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang, .mat-select-value {
                 color: mat-contrast($primary, 200);
             }
             
@@ -21,7 +21,6 @@
                 li a.lang-box {
                     background: mat-contrast($primary, 600);
                     border: solid 2px mat-color($primary);
-                    
                 }
                 
                 li a.lang-box.active-lang {
@@ -29,31 +28,15 @@
                     color: mat-color($primary, default-contrast);
                 }
             }
-            
-            a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang {
-                color: mat-contrast($primary, 200);
-            }
-
-            .mat-select-value {
-                color: mat-contrast($primary, 300);
-            }
 
             .active-link span.label, .desktop .active-lang {
                 border-bottom: 4px solid mat-color($primary, 400);
             }
             
-            .toggle-menu-text {
+            .toggle-menu-text, button span.fa, .separator {
                 color: mat-color($primary);
             }
             
-        
-            button span.fa {
-                color: mat-color($primary);
-            }
-            
-            .separator {
-                color: mat-color($primary);
-            }
 
             @media (min-width: 991px) {
                 a.nav-item.nav-link.active-link {
