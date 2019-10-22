@@ -248,12 +248,14 @@ export class FilterService {
         },
         languageCode: {
           terms: {
-            field: 'languageCode.keyword'
-          }
-        },
-        languageName: {
-          terms: {
-            field: this.langByLocale(this.localeId) + '.keyword'
+            field: 'languages.languageCode.keyword'
+          },
+          aggs: {
+            language: {
+              terms: {
+                field: 'languages.' + this.langByLocale(this.localeId) + '.keyword'
+              }
+            }
           }
         },
         publicationType: {
