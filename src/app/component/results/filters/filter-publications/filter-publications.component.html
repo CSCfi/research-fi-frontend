@@ -137,7 +137,7 @@
                 <mat-selection-list #selectedLang (selectionChange)="onSelectionChange()">
                     <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.languageCode.buckets"
                     [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
-                        <span class="label">{{code.key}}</span>
+                        <span class="label">{{code.language.buckets[0].key}}</span>
                     </mat-list-option>
                 </mat-selection-list>
             </mat-expansion-panel>
