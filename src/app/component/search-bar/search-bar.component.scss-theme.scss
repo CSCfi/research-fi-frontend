@@ -6,7 +6,7 @@
     app-search-bar {
         .col-12.search {
             background: mat-color($primary);
-            color: mat-contrast($primary, 600);
+            color: mat-contrast($primary, 200);
         }
         
         button.btn.btn-search {
@@ -36,7 +36,7 @@
         }
 
         a.item {
-            color: mat-color($primary, darker-contrast);
+            color: mat-contrast($primary, 200);
         }
 
         .auto-suggest .other-links ul li a {
