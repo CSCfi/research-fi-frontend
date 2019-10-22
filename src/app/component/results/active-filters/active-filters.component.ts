@@ -36,7 +36,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     under100k: 'Rahoitus alle 100 000€'
   };
   filterResponse: any;
-  response: string;
+  response: any;
 
   constructor( private router: Router, private sortService: SortService,
                private filterService: FilterService, private dataService: DataService ) {
@@ -44,7 +44,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   ngOnInit() {
 
+  }
 
+  ngAfterContentInit() {
     this.queryParams = this.filterService.filters.subscribe(filter => {
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
@@ -57,14 +59,24 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         this.activeFilters.push(...newFilters[key]);
       });
 
+      this.filterResponse = this.dataService.currentResponse.subscribe(response => this.response = response);
+
+      // ToDo: Change category dynamically if possible.
+      // Replace values with translated ones
+      this.activeFilters.forEach(val => {
+        if (val.category === 'lang') {
+          const result = this.response[0].aggregations.languageCode.buckets.find(({ key }) => key === val.value);
+          const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+          this.activeFilters[foundIndex].translation = result.language.buckets[0].key;
+        }
+      });
+
       // Sort active filters by numerical value
       this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
-  }
 
-  ngAfterContentInit() {
-    this.filterResponse = this.dataService.currentResponse.subscribe(response => this.response = response);
-    console.log(this.response);
+    // console.log(this.translations);
+    console.log(this.activeFilters)
   }
 
   removeFilter(event): void {
