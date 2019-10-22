@@ -103,7 +103,7 @@ export class FilterService {
     const currentTab = this.sortService.currentTab;
     switch (currentTab) {
       case 'publications': {
-        code.forEach(value => { res.push({ term : { languageCode : value } }); });
+        code.forEach(value => { res.push({ term : { 'languages.languageCode' : value } }); });
         break;
       }
     }
@@ -208,6 +208,7 @@ export class FilterService {
     };
   }
 
+  // Check current ui language
   langByLocale(locale) {
     let field: string;
     switch (locale) {
