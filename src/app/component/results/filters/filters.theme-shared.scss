@@ -19,6 +19,10 @@
         h3 {
             color: mat-color($primary);
         }
+
+        span.mat-checkbox-label {
+            color: mat-contrast($primary, 200);
+        }
         
         // .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
         //     border-bottom: 1px solid mat-color($primary, 400);
