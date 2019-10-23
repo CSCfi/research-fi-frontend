@@ -92,12 +92,7 @@
             .single .col {
                 padding: 12px 12px;
             }
-            
-            .col.arrow {
-                max-width: 5%;
-                text-align: center;
-            }
-            
+
             .col.shorten {
                 white-space: nowrap;
                 overflow: hidden;
@@ -109,15 +104,32 @@
                 overflow: auto;
                 text-overflow: unset;
             }
+            
+            // Icons 
+            .col.icon {
+                max-width: 5%;
+                text-align: center;
+            }
 
-            div.arrow {
+            div.icon {
                 display: flex;
                 justify-content: center;
             }
             
-            a.arrow {
+            a.icon {
                 cursor: pointer;
+                font-size: 20px;
             }
+
+            // a.icon::before {
+            //     font-family: "FontAwesome";
+            //     content: "\f15c"; 
+            // }
+            
+            // a.arrow.expand::before {
+            //     font-family: "FontAwesome";
+            //     content: "\f078";
+            // }
             
             // Responsive
             @media (max-width: 616px) {
@@ -133,7 +145,7 @@
                     align-items: center;
                 }
 
-                .arrow {
+                .icon {
                     display: none;
                 }
             }
