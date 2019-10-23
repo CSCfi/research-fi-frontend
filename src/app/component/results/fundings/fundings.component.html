@@ -10,7 +10,7 @@
 <div *ngFor="let fundings of resultData">
     <!-- Results -->
     <div class="row no-margin">
-        <div class="col col-1 arrow"></div>
+        <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
             <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('name')">Hankkeen nimi</span>
