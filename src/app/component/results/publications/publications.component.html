@@ -31,9 +31,11 @@
 
     <div *ngFor="let publications of resultData;">
         <div *ngFor="let publication of publications.hits.hits; let i = index">
-            <div class="row no-margin single" (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-                <div class="col col-1 arrow">
-                    <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+            <div class="row no-margin single">
+                <div class="col col-1 icon">
+                    <a routerLink="/results/publication/{{publication._source.publicationId}}" class="icon">
+                        <fa-icon [icon]="faFileAlt"></fa-icon>
+                    </a>
                 </div>           
                 <div class="col col-8 col-lg-5 col-xl-4">
                     <a routerLink="/results/publication/{{publication._source.publicationId}}">
@@ -42,17 +44,17 @@
                         {{publication._source.publicationName}}</h3>
                     </a>
                 </div>          
-                <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
+                <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
                     <span>{{publication._source.authorsText}}</span>
                 </div>          
-                <div class="col col-xl-3 shorten d-none d-xl-block" [class.expand]="expandStatus[i]">
+                <div class="col col-xl-3 shorten d-none d-xl-block">
                     <span [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null">{{publication._source.journalName}}</span>
                 </div>          
                 <div class="col col-lg-1">
                     <span>{{publication._source.publicationYear}}</span>
                 </div>
             </div>     
-            <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results>
+            <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
         </div>  
     </div>
     <!-- Pagination -->

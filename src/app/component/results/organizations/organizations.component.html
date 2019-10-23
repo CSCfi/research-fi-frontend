@@ -23,10 +23,11 @@
   </div>
 
   <div *ngFor="let organizations of resultData;">
-      <div class="row no-margin single" *ngFor="let organization of organizations.hits.hits; let i = index"
-      (click)="expandStatus[i]=!expandStatus[i]" [class.expand]="expandStatus[i]">
-          <div class="col col-1 arrow">
-              <a class="arrow" [attr.data-selected]="false" [class.expand]="expandStatus[i]"></a>
+      <div class="row no-margin single" *ngFor="let organization of organizations.hits.hits; let i = index">
+          <div class="col col-1 icon">
+              <a class="icon" routerLink="/results/organization/{{organization._source.organizationId}}">
+                <fa-icon [icon]="faCity"></fa-icon>
+              </a>
           </div>          
           <div class="col col-7">
               <a routerLink="/results/organization/{{organization._source.organizationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{organization._source.nameFi}}</h3></a>
