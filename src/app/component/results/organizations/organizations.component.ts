@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Component, Input } from '@angular/core';
+import { faCity } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-organizations',
@@ -15,4 +16,5 @@ import { Component, Input } from '@angular/core';
 export class OrganizationsComponent {
   @Input() resultData: any [];
   expandStatus: Array<boolean> = [];
+  faCity = faCity;
 }
