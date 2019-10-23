@@ -135,10 +135,12 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-selection-list #selectedLang (selectionChange)="onSelectionChange()">
-                    <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.languageCode.buckets"
-                    [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
-                        <span class="label">{{code.language.buckets[0].key}}</span>
-                    </mat-list-option>
+                    <div *ngFor="let code of response.aggregations.languageCode.buckets">
+                        <mat-list-option checkboxPosition="before" *ngIf="code.language.buckets[0].key !== 'undefined'"
+                        [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
+                            <span class="label">{{code.language.buckets[0].key}}</span>
+                        </mat-list-option>
+                    </div>
                 </mat-selection-list>
             </mat-expansion-panel>
 

@@ -59,9 +59,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         this.activeFilters.push(...newFilters[key]);
       });
 
+      // Subscribe to aggregation data
       this.filterResponse = this.dataService.currentResponse.subscribe(response => this.response = response);
 
-      // ToDo: Change category dynamically if possible.
+      // ToDo: Could it be possible to get data by category & aggreagation dynamically?
       // Replace values with translated ones
       this.activeFilters.forEach(val => {
         if (val.category === 'lang') {
@@ -70,13 +71,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
           this.activeFilters[foundIndex].translation = result.language.buckets[0].key;
         }
       });
-
       // Sort active filters by numerical value
       this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
-
-    // console.log(this.translations);
-    console.log(this.activeFilters)
   }
 
   removeFilter(event): void {
