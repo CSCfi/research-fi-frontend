@@ -15,6 +15,10 @@
         // "Bleed" the styles into child components
         app-publications, app-fundings, app-organizations, app-related-results {
 
+            .row {
+                margin: 5px auto!important;
+            }
+
             //Expand column
             .row.expand .col.shorten {
                 white-space: unset;
