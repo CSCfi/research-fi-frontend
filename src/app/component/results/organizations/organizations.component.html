@@ -12,8 +12,7 @@
   <!-- <app-active-filters></app-active-filters> -->
   <!-- Results -->
   <div class="row no-margin">
-      <div class="col col-1 icon">
-      </div>
+      <div class="col col-1 icon" style="margin-right: 10px;"></div>
       <div class="col col-7 d-none d-lg-block">
           <span class="bold uppercase">Nimi</span>
       </div>
@@ -23,8 +22,8 @@
   </div>
 
   <div *ngFor="let organizations of resultData;">
-      <div class="row no-margin single" *ngFor="let organization of organizations.hits.hits; let i = index">
-          <div class="col col-1 icon">
+      <div class="row no-margin single" style="margin: 20px auto!important" *ngFor="let organization of organizations.hits.hits; let i = index">
+          <div class="col col-1 icon" style="margin-right: 10px; margin-top: -18px;">
               <a class="icon" routerLink="/results/organization/{{organization._source.organizationId}}">
                 <fa-icon [icon]="faCity"></fa-icon>
               </a>
