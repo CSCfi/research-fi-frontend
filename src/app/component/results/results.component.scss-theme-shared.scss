@@ -12,7 +12,7 @@
             color: mat-contrast($primary, 400);
         }
 
-        span.arrow, span.bold {
+        span.icon, span.bold {
             color: mat-contrast($primary, 200);
         }
 
@@ -32,18 +32,8 @@
                 text-decoration: underline;
             }
 
-            a.arrow {
+            a.icon {
                 color: mat-color($primary)!important;
-            }
-
-            a.arrow::before {
-                font-family: "FontAwesome";
-                content: "\f054"; 
-            }
-            
-            a.arrow.expand::before {
-                font-family: "FontAwesome";
-                content: "\f078";
             }
 
             .inline li {
