@@ -119,17 +119,8 @@
             a.icon {
                 cursor: pointer;
                 font-size: 20px;
+                line-height: 1.3;
             }
-
-            // a.icon::before {
-            //     font-family: "FontAwesome";
-            //     content: "\f15c"; 
-            // }
-            
-            // a.arrow.expand::before {
-            //     font-family: "FontAwesome";
-            //     content: "\f078";
-            // }
             
             // Responsive
             @media (max-width: 616px) {
