@@ -17,11 +17,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
-import {
-  MatIconModule, MatInputModule,
-  MatAutocompleteModule, MatChipsModule,
-  MatFormFieldModule
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 import { UiModule } from './ui/ui.module';
 import { HomePageComponent } from './component/home-page/home-page.component';
