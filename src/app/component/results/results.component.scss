@@ -41,6 +41,10 @@ span.arrow:after {
 }
 
 // Total
+.row.total {
+  display: inline;
+}
+
 span.total {
   font-style: italic;
 }
