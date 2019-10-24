@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
-import { MatSelectionList } from '@angular/material';
+import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from '../../../../services/resize.service';
