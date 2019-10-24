@@ -64,7 +64,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   documentLang = document.documentElement.lang;
 
   errorMessage = [];
-  @ViewChild('srHeader') srHeader: ElementRef;
+  @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,

@@ -50,7 +50,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   errorMessage = [];
-  @ViewChild('srHeader') srHeader: ElementRef;
+  @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,

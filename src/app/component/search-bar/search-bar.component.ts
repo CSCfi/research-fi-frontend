@@ -24,8 +24,8 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
     styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('publicationSearchInput') publicationSearchInput: ElementRef;
-  @ViewChild('inputGroup') inputGroup: ElementRef;
+  @ViewChild('publicationSearchInput', { static: true }) publicationSearchInput: ElementRef;
+  @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   input: string;
   sub: Subscription;
   autoSuggestResponse: any;

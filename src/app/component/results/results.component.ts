@@ -33,8 +33,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   pageNumber = 1;
   page: any;
   expandStatus: Array<boolean> = [];
-  @ViewChild('singleId') singleId: ElementRef;
-  @ViewChild('srHeader') srHeader: ElementRef;
+  @ViewChild('singleId', { static: false }) singleId: ElementRef;
+  @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
