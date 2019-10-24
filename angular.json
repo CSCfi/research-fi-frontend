@@ -117,6 +117,9 @@
               "i18nFile": "src/i18n/messages.en.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "en"
+            },
+            "es5": {
+              "tsConfig": "./tsconfig.es5.json"
             }
           }
         },
@@ -134,6 +137,9 @@
             },
             "sv": {
               "browserTarget": "research-fi:build:sv"
+            },
+            "es5": {
+              "browserTarget": "research-fi:build:es5"
             }
           }
         },

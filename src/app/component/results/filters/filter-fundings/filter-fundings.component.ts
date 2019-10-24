@@ -27,10 +27,10 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   width = window.innerWidth;
   mobile = this.width < 992;
   panelHeight = '48px';
-  @ViewChild('filterSidebar') filterSidebar: ElementRef;
-  @ViewChild('selectedYears') selectedYears: MatSelectionList;
-  @ViewChild('selectedFundingAmount') selectedFundingAmount: MatSelectionList;
-  @ViewChild('selectedStatus') selectedStatus: MatSelectionList;
+  @ViewChild('filterSidebar', { static: false }) filterSidebar: ElementRef;
+  @ViewChild('selectedYears', { static: false }) selectedYears: MatSelectionList;
+  @ViewChild('selectedFundingAmount', { static: false }) selectedFundingAmount: MatSelectionList;
+  @ViewChild('selectedStatus', { static: false }) selectedStatus: MatSelectionList;
   preSelection: any;
 
   private resizeSub: Subscription;

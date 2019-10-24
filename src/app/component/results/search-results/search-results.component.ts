@@ -16,7 +16,7 @@ import { PersonsComponent } from '../persons/persons.component';
 export class SearchResultsComponent implements OnInit, OnChanges {
 
   portalHost: DomPortalHost;
-  @ViewChild('portalHost') elRef: ElementRef;
+  @ViewChild('portalHost', { static: true }) elRef: ElementRef;
   componentRef: ComponentRef<any>;
 
   @Input() currentTab;

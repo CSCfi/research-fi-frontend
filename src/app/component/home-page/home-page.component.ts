@@ -25,7 +25,7 @@ export class HomePageComponent implements OnInit {
   myOps = {
     duration: 0.5
   };
-  @ViewChild('srHeader') srHeader: ElementRef;
+  @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
 
   basicStyle = {
     border: '0px',

@@ -15,9 +15,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  @ViewChild('mainNavbar') mainNavbar: ElementRef;
-  @ViewChild('navbarToggler') navbarToggler: ElementRef;
-  @ViewChild('overflowHider') overflowHider: ElementRef;
+  @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
+  @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
+  @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
 
   navbarOpen = false;
   hideOverflow = true;
