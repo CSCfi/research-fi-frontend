@@ -187,11 +187,12 @@ export class FilterService {
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
-            ...(this.yearFilter.length ? { bool: { should: this.yearFilter } } : this.yearFilter),
-            ...(this.fieldFilter.length ? { bool: { should: this.fieldFilter } } : this.fieldFilter),
-            ...(this.publicationTypeFilter.length ? { bool: { should: this.publicationTypeFilter } } : this.publicationTypeFilter),
-            ...(this.langFilter.length ? { bool: { should: this.langFilter } } : this.langFilter),
-            ...(this.countryCodeFilter.length ? { bool: { should: this.countryCodeFilter } } : this.countryCodeFilter)
+            ...(this.yearFilter ? (this.yearFilter.length ? [{ bool: { should: this.yearFilter } }] : []) : []),
+            ...(this.fieldFilter ? (this.fieldFilter.length ? [{ bool: { should: this.fieldFilter } }] : []) : []),
+            // tslint:disable-next-line: max-line-length
+            ...(this.publicationTypeFilter ? (this.publicationTypeFilter.length ? [{ bool: { should: this.publicationTypeFilter } }] : []) : []),
+            ...(this.langFilter ? (this.langFilter.length ? [{ bool: { should: this.langFilter } }] : []) : []),
+            ...(this.countryCodeFilter ? (this.countryCodeFilter.length ? [{ bool: { should: this.countryCodeFilter } }] : []) : []),
           ],
         }
     };
