@@ -31,7 +31,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   apiUrl = this.searchService.apiUrl;
   total = -1;  // Initial value to prevent NaN%
   scrollSize = 1000;
-  hierarchy = ['publicationYear', 'fields_of_science.nameFiScience.keyword'];
+  hierarchy = ['publicationYear', 'fields_of_science.mainFieldOfScienceNameFi.keyword', 'fields_of_science.nameFiScience.keyword'];
 
   nOfResults = 0;
   searchTerm: string;

@@ -57,6 +57,7 @@ export class SunburstComponent implements OnInit, OnChanges {
 
     this.hierarchy = [
       {resultField: 'publicationYear', queryField: 'year'},
+      {resultField: 'fields_of_science.mainFieldOfScienceNameFi.keyword', queryField: ''},
       {resultField: 'fields_of_science.nameFiScience.keyword', queryField: 'field'}
     ];
 
