@@ -86,28 +86,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }, 250 * (1 - +this.navbarOpen));
   }
 
-  setMobileLang(lang: string) {
+  setLang(lang: string) {
     this.lang = lang;
     document.documentElement.lang = lang;
   }
 
-  setLang(event) {
-    const lang = event.value;
-    switch (lang) {
-      case 'FI': {
-        this.router.navigate(['/']);
-        break;
-      }
-      case 'SV': {
-        this.router.navigate(['/sv/']);
-        break;
-      }
-      case 'EN': {
-        this.router.navigate(['/en/']);
-        break;
-      }
-    }
-  }
+  // setDisplayLang(event) {
+  //   const lang = event.value;
+  //   switch (lang) {
+  //     case 'FI': {
+  //       this.router.navigateByUrl('');
+  //       break;
+  //     }
+  //     case 'SV': {
+  //       this.router.navigateByUrl('/sv/');
+  //       break;
+  //     }
+  //     case 'EN': {
+  //       this.router.navigateByUrl('/en/');
+  //       break;
+  //     }
+  //   }
+  // }
 
   getLang(lang: string) {
     let current = '';

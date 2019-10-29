@@ -28,17 +28,17 @@
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
                         <ul class="navbar-nav mx-auto">
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi-FI'" href="/" (click)="setMobileLang('fi')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi-FI'" href="/" (click)="setLang('fi')">
                                     <span class="label">Suomi</span>
                                 </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="/sv/" (click)="setMobileLang('sv')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="/sv/" (click)="setLang('sv')">
                                     <span class="label">Svenska</span>
                                 </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="/en/" (click)="setMobileLang('en')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="/en/" (click)="setLang('en')">
                                     <span class="label">English</span>
                                 </a>
                             </li>
@@ -79,16 +79,16 @@
                         </ul> -->
                         <mat-form-field>
                             <!-- <mat-label>{{currentLang}}</mat-label> -->
-                            <mat-select [(value)]="currentLang" (selectionChange)="setLang($event)">
-                                <mat-option value="FI">
-                                    FI
-                                </mat-option>
-                                <mat-option value="SV">
-                                    SV
-                                </mat-option>
-                                <mat-option value="EN">
-                                    EN
-                                </mat-option>
+                            <mat-select [(value)]="currentLang" >
+                                <a href="/">
+                                    <mat-option value="FI">FI</mat-option>
+                                </a>
+                                <a href="/sv/">
+                                    <mat-option value="SV">SV</mat-option>
+                                </a>
+                                <a href="/en/">
+                                    <mat-option value="EN">EN</mat-option>
+                                </a>
                             </mat-select>
                         </mat-form-field>
                     </div>
