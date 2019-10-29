@@ -110,7 +110,7 @@ import { WINDOW_PROVIDERS } from './services/window.service';
     HighlightSearch
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
