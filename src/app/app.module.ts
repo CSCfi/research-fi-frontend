@@ -136,7 +136,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PortalModule,
     FontAwesomeModule
   ],
-  providers: [ SearchService, Title, AutosuggestService, {provide: LOCALE_ID, useValue: 'fi-FI'},
+  providers: [ SearchService, Title, AutosuggestService,
+  {provide: 'windowObject', useValue: window},
+  {provide: LOCALE_ID, useValue: 'fi-FI'},
   {
     provide: APP_INITIALIZER,
     multi: true,

@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
-         ChangeDetectorRef, AfterViewInit } from '@angular/core';
+         ChangeDetectorRef, AfterViewInit, Inject } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -28,7 +28,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
   sidebarOpen = false;
-  width = window.innerWidth;
+  width = this.window.innerWidth;
   mobile = this.width < 992;
   @ViewChild('selectedYear', { static: false }) selectedYear: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
@@ -63,7 +63,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
-               private staticDataService: StaticDataService, private dataService: DataService ) {
+               private staticDataService: StaticDataService, private dataService: DataService,
+               @Inject('windowObject') private window: Window, ) {
                  this.height = 240;
                  this.clickCount = 0;
                 }
@@ -91,7 +92,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   onResize(event) {
-    this.width = window.innerWidth;
+    this.width = event.width;
     if (this.width >= 992) {
       this.mobile = false;
       if (!this.sidebarOpen) { this.toggleSidebar(); }
