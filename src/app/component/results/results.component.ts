@@ -15,6 +15,7 @@ import { TabChangeService } from '../../services/tab-change.service';
 import { ResizeService } from '../../services/resize.service';
 import { FilterService } from '../../services/filter.service';
 import { Subscription, Observable, combineLatest, Subject, merge } from 'rxjs';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-results',
@@ -52,7 +53,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
-               @Inject( LOCALE_ID ) protected localeId: string ) {
+               @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
@@ -142,7 +143,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
-    this.mobile = window.innerWidth < 992;
+    this.mobile = this.window.innerWidth < 992;
   }
 
   // Get total value from search service / pagination

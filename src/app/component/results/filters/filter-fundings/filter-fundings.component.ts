@@ -12,6 +12,7 @@ import { SortService } from '../../../../services/sort.service';
 import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-filter-fundings',
@@ -40,7 +41,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   statusFilter: any[];
   combinedFilters: any;
 
-  constructor( private router: Router, private filterService: FilterService, @Inject('windowObject') private window: Window,
+  constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
                private resizeService: ResizeService, private sortService: SortService ) { }
 
   toggleSidebar() {

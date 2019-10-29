@@ -12,6 +12,7 @@ import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../../../services/filter.service';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-filter-persons',
@@ -34,7 +35,7 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
   private resizeSub: Subscription;
   private filterSub: Subscription;
 
-  constructor( private router: Router, private filterService: FilterService, @Inject('windowObject') private window: Window,
+  constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
                private resizeService: ResizeService, private sortService: SortService ) { }
 
   toggleSidebar() {

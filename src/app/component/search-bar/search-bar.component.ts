@@ -23,7 +23,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChild('publicationSearchInput', { static: true }) publicationSearchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   input: string;
@@ -62,15 +62,10 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.fireAutoSuggest();
-    window.addEventListener('keydown', this.escapeListener);
   }
 
   ngAfterViewInit() {
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('keydown', this.escapeListener);
   }
 
   // Show auto-suggest when input in focus
@@ -142,6 +137,9 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
     } else if (event.keyCode !== 78)  {
       this.keyManager.onKeydown(event);
     }
+    if (event.keyCode === 27) {
+      this.showAutoSuggest = false;
+    }
   }
 
   disableArrows(event) {
@@ -153,12 +151,6 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   public onClick(targetElement) {
     const clickedInside = this.inputGroup.nativeElement.contains(targetElement);
     if (!clickedInside) {
-      this.showAutoSuggest = false;
-    }
-  }
-
-  escapeListener = (e: any): void => {
-    if (e.keyCode === 27) {
       this.showAutoSuggest = false;
     }
   }
