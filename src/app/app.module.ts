@@ -76,6 +76,7 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 
 import { LOCALE_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { WINDOW_PROVIDERS } from './services/window.service';
 
 @NgModule({
   declarations: [
@@ -136,8 +137,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PortalModule,
     FontAwesomeModule
   ],
-  providers: [ SearchService, Title, AutosuggestService,
-  {provide: 'windowObject', useValue: window},
+  providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: LOCALE_ID, useValue: 'fi-FI'},
   {
     provide: APP_INITIALIZER,

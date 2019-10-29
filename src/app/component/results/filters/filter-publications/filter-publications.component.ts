@@ -16,6 +16,7 @@ import { FilterMethodService } from '../../../../services/filter-method.service'
 import { StaticDataService } from '../../../../services/static-data.service';
 import { DataService } from '../../../../services/data.service';
 import { Subscription } from 'rxjs';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-filter-publications',
@@ -64,7 +65,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
-               @Inject('windowObject') private window: Window, ) {
+               @Inject(WINDOW) private window: Window, ) {
                  this.height = 240;
                  this.clickCount = 0;
                 }
