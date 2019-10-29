@@ -6,6 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
 
@@ -28,12 +29,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   width = window.innerWidth;
   private resizeSub: Subscription;
 
-  lang: string;
-  currentLang: string;
 
-  constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string) {
+  currentLang: string;
+  lang: string;
+
+  constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
+              private router: Router, private route: ActivatedRoute) {
     this.lang = localeId;
-    this.currentLang = this.displayLang(this.lang);
+    this.currentLang = this.getLang(this.lang);
   }
 
   ngOnInit() {
@@ -83,12 +86,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }, 250 * (1 - +this.navbarOpen));
   }
 
-  setLang(lang: string) {
+  setMobileLang(lang: string) {
     this.lang = lang;
     document.documentElement.lang = lang;
   }
 
-  displayLang(lang: string) {
+  setLang(event) {
+    const lang = event.value;
+    switch (lang) {
+      case 'FI': {
+        this.router.navigate(['/']);
+        break;
+      }
+      case 'SV': {
+        this.router.navigate(['/sv/']);
+        break;
+      }
+      case 'EN': {
+        this.router.navigate(['/en/']);
+        break;
+      }
+    }
+  }
+
+  getLang(lang: string) {
     let current = '';
     switch (lang) {
       case 'fi-FI': {
@@ -104,6 +125,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         break;
       }
     }
+    document.documentElement.lang = lang;
     return current;
   }
 
