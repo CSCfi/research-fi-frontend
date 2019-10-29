@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID, HostListener } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
@@ -88,11 +88,10 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     // Add the scroll handler, passive to improve performance
-    window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scrollEvent);
+    this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
     this.tabSub.unsubscribe();
     this.queryParamSub.unsubscribe();
     this.searchTermSub.unsubscribe();
@@ -114,6 +113,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.scrollWidth = this.scroll.nativeElement.scrollWidth;
           this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+          this.scroll.nativeElement.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
         }, 1);
       });
     }
