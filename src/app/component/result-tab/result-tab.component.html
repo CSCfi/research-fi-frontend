@@ -19,9 +19,7 @@
         <div *ngIf="locale === 'fi-FI'" class="label text-center">{{tab.labelFi}}</div>
         <div *ngIf="locale === 'se'" class="label text-center">{{tab.labelSe}}</div>
         <div *ngIf="locale === 'en'" class="label text-center">{{tab.labelEn}}</div>
-        <div class="numeric-box d-none d-sm-block">0
-          {{tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999}}
-        </div> <!-- TODO: Remove the ternary operator when all data becomes available -->
+        <div class="numeric-box d-none d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
       </a>
     </div>
   </div>
