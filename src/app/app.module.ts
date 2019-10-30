@@ -44,7 +44,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
-import { CountUpModule } from 'countup.js-angular2';
+// import { CountUpModule } from 'countup.js-angular2';
 
 import { SinglePublicationComponent } from './component/single-publication/single-publication.component';
 import { SingleFundingComponent } from './component/single-funding/single-funding.component';
@@ -133,12 +133,13 @@ import { WINDOW_PROVIDERS } from './services/window.service';
     MatPaginatorModule,
     MatButtonModule,
     ScrollingModule,
-    CountUpModule,
+    // CountUpModule,
     PortalModule,
     FontAwesomeModule
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: LOCALE_ID, useValue: 'fi-FI'},
+  {provide: 'LOCALSTORAGE', useFactory: getDocument},
   {
     provide: APP_INITIALIZER,
     multi: true,
@@ -155,3 +156,7 @@ import { WINDOW_PROVIDERS } from './services/window.service';
   entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
 })
 export class AppModule { }
+
+export function getDocument() {
+  return (typeof document !== 'undefined') ? document.documentElement : null;
+}

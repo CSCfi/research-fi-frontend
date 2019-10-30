@@ -23,7 +23,7 @@ export class SearchService {
   singleInput: string;
   pageNumber: number;
   fromPage: number;
-  apiUrl = '';
+  apiUrl: any;
 
   // Variables to help with search term redirections
   tabValues: any;

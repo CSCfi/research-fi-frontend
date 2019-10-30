@@ -11,10 +11,10 @@
     "extract-i18n": "ng xi18n research-fi --i18n-format xlf --output-path i18n --i18n-locale fi && ng run research-fi:xliffmerge",
     "start-sv": "ng serve --configuration=sv",
     "start-en": "ng serve --configuration=en",
-    "compile:server": "webpack --config webpack.server.config.js --progress --colors",
-    "serve:ssr": "node dist/server",
-    "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
-    "build:client-and-server-bundles": "ng build --prod && ng run research-fi:server:production --bundleDependencies all"
+    "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
+    "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
+    "serve:ssr": "node dist/server.js",
+    "build:client-and-server-bundles": "ng build --prod && ng run research-fi:server"
   },
   "private": true,
   "dependencies": {

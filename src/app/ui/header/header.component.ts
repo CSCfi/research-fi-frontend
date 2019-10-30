@@ -5,10 +5,13 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
+import { WINDOW } from 'src/app/services/window.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -23,10 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navbarOpen = false;
   hideOverflow = true;
 
-  mobile = window.innerWidth < 992;
+  mobile = this.window.innerWidth < 992;
 
-  height = window.innerHeight;
-  width = window.innerWidth;
+  height = this.window.innerHeight;
+  width = this.window.innerWidth;
   private resizeSub: Subscription;
 
 
@@ -34,39 +37,43 @@ export class HeaderComponent implements OnInit, OnDestroy {
   lang: string;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
-              private router: Router, private route: ActivatedRoute) {
+              @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
+              @Inject(PLATFORM_ID) private platformId: object) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
   }
 
   ngOnInit() {
-    window.addEventListener('keydown', this.handleTabPressed);
-    window.addEventListener('keydown', this.escapeListener);
+    this.window.addEventListener('keydown', this.handleTabPressed);
+    this.window.addEventListener('keydown', this.escapeListener);
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
   ngOnDestroy() {
-    window.removeEventListener('keydown', this.handleTabPressed);
-    window.removeEventListener('keydown', this.escapeListener);
-    window.removeEventListener('mousedown', this.handleMouseDown);
-    this.resizeSub.unsubscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('keydown', this.handleTabPressed);
+      window.removeEventListener('keydown', this.escapeListener);
+      window.removeEventListener('mousedown', this.handleMouseDown);
+
+      this.resizeSub.unsubscribe();
+    }
   }
 
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
     if (e.keyCode === 9) {
-      document.body.classList.add('user-tabbing');
+      this.document.body.classList.add('user-tabbing');
 
-      window.removeEventListener('keydown', this.handleTabPressed);
-      window.addEventListener('mousedown', this.handleMouseDown);
+      this.window.removeEventListener('keydown', this.handleTabPressed);
+      this.window.addEventListener('mousedown', this.handleMouseDown);
     }
   }
 
   handleMouseDown = (): void => {
-    document.body.classList.remove('user-tabbing');
+    this.document.body.classList.remove('user-tabbing');
 
-    window.removeEventListener('mousedown', this.handleMouseDown);
-    window.addEventListener('keydown', this.handleTabPressed);
+    this.window.removeEventListener('mousedown', this.handleMouseDown);
+    this.window.addEventListener('keydown', this.handleTabPressed);
   }
 
   escapeListener = (e: any): void => {
@@ -88,7 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setLang(lang: string) {
     this.lang = lang;
-    document.documentElement.lang = lang;
+    this.document.documentElement.lang = lang;
   }
 
   // setDisplayLang(event) {
@@ -125,7 +132,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         break;
       }
     }
-    document.documentElement.lang = lang;
+    this.document.documentElement.lang = lang;
     return current;
   }
 
