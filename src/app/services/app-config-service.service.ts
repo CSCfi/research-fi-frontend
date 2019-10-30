@@ -30,24 +30,25 @@ export class AppConfigService {
 
   // Read configuartion file
   loadAppConfig() {
-    return this.http.get('assets/config/config.json')
-      // .toPromise()
-      // .then(data => {
-      //   this.appConfig = data;
-      // });
+    // ToDo: Fix absolute path
+    return this.http.get('http://localhost:4000/assets/config/config.json')
+      .toPromise()
+      .then(data => {
+        this.appConfig = data;
+      });
   }
 
-  apiUrl() {
-    this.loadAppConfig().pipe(data => this.appConfig = data);
-    console.log(this.appConfig);
-    return this.appConfig.apiUrl;
-  }
-
-  // API Url
-  // get apiUrl() {
-  //   if (!this.appConfig) { throw Error('Config file not loaded!'); }
+  // apiUrl() {
+  //   this.loadAppConfig().pipe(data => this.appConfig = data);
+  //   console.log(this.appConfig);
   //   return this.appConfig.apiUrl;
   // }
+
+  // API Url
+  get apiUrl() {
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.apiUrl;
+  }
 
   // Build info
   get buildInfo() {
