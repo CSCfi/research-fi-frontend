@@ -89,8 +89,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         this.first = false;
       }
     });
-
-    // Add the scroll handler, passive to improve performance
   }
 
   ngOnDestroy() {
