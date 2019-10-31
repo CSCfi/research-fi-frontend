@@ -30,8 +30,7 @@ export class AppConfigService {
 
   // Read configuartion file
   loadAppConfig() {
-    // ToDo: Fix absolute path
-    return this.http.get('http://localhost:4000/assets/config/config.json')
+    return this.http.get('assets/config/config.json')
       .toPromise()
       .then(data => {
         this.appConfig = data;

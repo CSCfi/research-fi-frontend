@@ -7,7 +7,6 @@
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
@@ -44,9 +43,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.window.addEventListener('keydown', this.handleTabPressed);
-    this.window.addEventListener('keydown', this.escapeListener);
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    if (isPlatformBrowser(this.platformId)) {
+      this.window.addEventListener('keydown', this.handleTabPressed);
+      this.window.addEventListener('keydown', this.escapeListener);
+      this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    }
   }
 
   ngOnDestroy() {
@@ -97,24 +98,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.lang = lang;
     this.document.documentElement.lang = lang;
   }
-
-  // setDisplayLang(event) {
-  //   const lang = event.value;
-  //   switch (lang) {
-  //     case 'FI': {
-  //       this.router.navigateByUrl('');
-  //       break;
-  //     }
-  //     case 'SV': {
-  //       this.router.navigateByUrl('/sv/');
-  //       break;
-  //     }
-  //     case 'EN': {
-  //       this.router.navigateByUrl('/en/');
-  //       break;
-  //     }
-  //   }
-  // }
 
   getLang(lang: string) {
     let current = '';
