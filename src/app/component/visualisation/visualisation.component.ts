@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { HttpClient } from '@angular/common/http';
@@ -13,6 +13,7 @@ import * as d3 from 'd3';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from '../../services/filter.service';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-visualisation',
@@ -23,8 +24,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   visType = 0;
 
-  width = window.innerWidth - 25;  // scrollbar margin
-  height = window.innerHeight - 111 - 164 - 102;  // header - footer - info
+  width = this.window.innerWidth - 25;  // scrollbar margin
+  height = this.window.innerHeight - 111 - 164 - 102;  // header - footer - info
 
   allData: any;
 
@@ -58,7 +59,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   title = '';
 
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
-              private filterService: FilterService, private sortService: SortService, private router: Router) {
+              private filterService: FilterService, private sortService: SortService, private router: Router,
+              @Inject(WINDOW) private window: Window) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
     this.index = this.route.snapshot.params.tab;
