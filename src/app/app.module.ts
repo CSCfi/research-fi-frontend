@@ -139,7 +139,8 @@ import { WINDOW_PROVIDERS } from './services/window.service';
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: LOCALE_ID, useValue: 'fi-FI'},
-  {provide: 'LOCALSTORAGE', useFactory: getDocument},
+  // { provide: 'ADDEVENTLISTENER', useFactory: getEventListener },
+  // { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
   {
     provide: APP_INITIALIZER,
     multi: true,
@@ -157,6 +158,10 @@ import { WINDOW_PROVIDERS } from './services/window.service';
 })
 export class AppModule { }
 
-export function getDocument() {
-  return (typeof document !== 'undefined') ? document.documentElement : null;
-}
+// export function getEventListener() {
+//     return (typeof window !== 'undefined') ? window.addEventListener : null;
+// }
+
+// export function getLocalStorage() {
+//   return (typeof window !== 'undefined') ? window.localStorage : null;
+// }
