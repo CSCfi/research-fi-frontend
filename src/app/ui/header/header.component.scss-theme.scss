@@ -33,8 +33,12 @@
                 border-bottom: 4px solid mat-color($primary, 400);
             }
             
-            .toggle-menu-text, button span.fa, .separator {
+            button span.fa, .separator {
                 color: mat-color($primary);
+            }
+
+            .toggle-menu-text {
+                color: mat-contrast($primary, 200);
             }
             
 
