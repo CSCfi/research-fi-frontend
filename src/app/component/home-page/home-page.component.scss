@@ -27,10 +27,6 @@
     cursor: pointer;
 }
 
-.link-img span {
-    transition: 0.2s linear;
-}
-
 .link-img img {
     height: 250px;
     width: 100%;
@@ -38,18 +34,20 @@
     transition: 0.2s linear;
 }
 
-.link-img:hover {
-    -webkit-filter: opacity(.7);
-    filter: opacity(.7);
-}
+// .link-img:hover {
+//     -webkit-filter: opacity(.7);
+//     filter: opacity(.7);
+// }
 
 .link-img .caption.text-center {
     padding: 10px 10px 16px;
     left: 50%;
     bottom: 0;
     width: 100%;
-    min-height: 130px;
-    transition: 0.2s all;
+    height: 160px;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
 }
 
 .caption .header {
