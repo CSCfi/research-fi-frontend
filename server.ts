@@ -17,17 +17,61 @@
 
 import 'zone.js/dist/zone-node';
 
+import {enableProdMode} from '@angular/core';
 import * as express from 'express';
+import * as helmet from 'helmet';
 import {join} from 'path';
+
+enableProdMode();
 
 // Express server
 const app = express();
 
 const PORT = process.env.PORT || 4000;
-const DIST_FOLDER = join(process.cwd(), 'dist/browser');
+const DIST_FOLDER = join(process.cwd(), 'dist');
+
+const routes = [
+  {path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main')},
+  //{path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
+  //{path: '/*', view: 'index', bundle: require(join(DIST_FOLDER, 'server', 'fi', 'main'))}
+  {path: '/*', view: 'index', bundle: require('./dist/server/fi/main')}
+];
+
+app.use(helmet());
+app.use(helmet.referrerPolicy({policy: 'same-origin'}));
+app.use(helmet.noCache());
+app.use(helmet.featurePolicy({
+  features: {
+    fullscreen: ['\'self\''],
+    payment: ['\'none\''],
+    syncXhr: ['\'none\'']
+  }
+}));
+
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: [
+      '\'self\'',
+      'ws://localhost:4200',
+      'http://localhost:*',
+      'http://*.csc.fi:*',
+      'https://*.csc.fi:*',
+      'http://*rahtiapp.fi:*',
+      'https://*rahtiapp.fi:*'
+    ],
+    styleSrc: [
+      '\'self\'',
+      '\'unsafe-inline\''
+    ],
+    scriptSrc: [
+      '\'self\'',
+      '\'unsafe-inline\''
+    ]
+  }
+}));
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const {AppServerModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/main');
+const {AppServerModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/fi/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', ngExpressEngine({
@@ -37,22 +81,32 @@ app.engine('html', ngExpressEngine({
   ]
 }));
 
-app.set('view engine', 'html');
-app.set('views', DIST_FOLDER);
+app.set('view engine', 'html');3
+app.set('views', join(DIST_FOLDER, 'browser'));
 
 // Example Express Rest API endpoints
 // app.get('/api/**', (req, res) => { });
 // Serve static files from /browser
-app.get('*.*', express.static(DIST_FOLDER, {
-  maxAge: '1y'
-}));
+app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
 // All regular routes use the Universal engine
-app.get('*', (req, res) => {
-  res.render('index', { req });
+//app.get('*', (req, res) => {
+//  res.render('index', { req });
+//});
+
+routes.forEach((route) => {
+  app.get(route.path, (req, res) => {
+    res.render(route.view, {
+      req, res, engine: ngExpressEngine({
+        bootstrap: route.bundle.AppServerModuleNgFactory,
+        providers: [provideModuleMap(route.bundle.LAZY_MODULE_MAP)]
+      })
+    });
+  });
 });
 
 // Start up the Node server
 app.listen(PORT, () => {
   console.log(`Node Express server listening on http://localhost:${PORT}`);
+  console.log("DIST_FOLDER " + DIST_FOLDER);
 });

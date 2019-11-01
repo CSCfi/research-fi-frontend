@@ -31,28 +31,21 @@ export class AppConfigService {
   // Read configuartion file
   loadAppConfig() {
     return this.http.get('assets/config/config.json')
-      // .toPromise()
-      // .then(data => {
-      //   this.appConfig = data;
-      // });
-  }
-
-  apiUrl() {
-    this.loadAppConfig().pipe(data => this.appConfig = data);
-    console.log(this.appConfig);
-    return this.appConfig.apiUrl;
+      .toPromise()
+      .then(data => {
+        this.appConfig = data;
+      });
   }
 
   // API Url
-  // get apiUrl() {
-  //   if (!this.appConfig) { throw Error('Config file not loaded!'); }
-  //   return this.appConfig.apiUrl;
-  // }
+  get apiUrl() {
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.apiUrl;
+  }
 
   // Build info
   get buildInfo() {
-    // if (!this.appConfig) { throw Error('Config file not loaded!'); }
-    // return this.appConfig.buildInfo;
-    return '';
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.buildInfo;
   }
 }
