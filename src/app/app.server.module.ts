@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ServerModule } from '@angular/platform-server';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
 
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
@@ -13,6 +13,7 @@ import { UniversalInterceptor } from './universal-interceptor';
     AppModule,
     ServerModule,
     ModuleMapLoaderModule,
+    ServerTransferStateModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
