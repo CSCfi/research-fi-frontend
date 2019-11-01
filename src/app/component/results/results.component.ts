@@ -206,7 +206,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     }
-    this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
+    this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ');
   }
 
   updateMobile(width) {
