@@ -37,12 +37,6 @@ export class AppConfigService {
       });
   }
 
-  // apiUrl() {
-  //   this.loadAppConfig().pipe(data => this.appConfig = data);
-  //   console.log(this.appConfig);
-  //   return this.appConfig.apiUrl;
-  // }
-
   // API Url
   get apiUrl() {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }
@@ -51,8 +45,7 @@ export class AppConfigService {
 
   // Build info
   get buildInfo() {
-    // if (!this.appConfig) { throw Error('Config file not loaded!'); }
-    // return this.appConfig.buildInfo;
-    return '';
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.buildInfo;
   }
 }
