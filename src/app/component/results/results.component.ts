@@ -78,6 +78,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.page = +query.page || 1;
 
+        // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {
           this.filters = {year: [query.year].flat().filter(x => x),
             status: [query.status].flat().filter(x => x),
@@ -119,9 +120,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.searchService.updatePageNumber(this.page);
         this.searchService.updateQueryParams(query);
 
-
-        this.filterService.updateFilters(this.filters);
-
+        // Check for Angular Univeral SSR, update filters if browser
+        if (isPlatformBrowser(this.platformId)) {this.filterService.updateFilters(this.filters); }
 
         // Flag telling search-results to fetch new filtered data
         this.updateFilters = !this.updateFilters;
@@ -177,14 +177,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getFilterData() {
-    this.searchService.getFilters()
-    .pipe(map(data => [data]))
-    .subscribe(filterValues => {
-      this.filterValues = filterValues;
-      // Set the title
-      this.updateTitle(this.selectedTabData);
-    },
-      error => this.errorMessage = error as any);
+    // Check for Angular Univeral SSR, get filter data if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.searchService.getFilters()
+      .pipe(map(data => [data]))
+      .subscribe(filterValues => {
+        this.filterValues = filterValues;
+        // Set the title
+        this.updateTitle(this.selectedTabData);
+      },
+        error => this.errorMessage = error as any);
+    }
   }
 
   updateTitle(tab: { data: string; labelFi: string; labelEn: string}) {
