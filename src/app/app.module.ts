@@ -77,6 +77,7 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 import { LOCALE_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { WINDOW_PROVIDERS } from './services/window.service';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,9 @@ import { WINDOW_PROVIDERS } from './services/window.service';
     ScrollingModule,
     CountUpModule,
     PortalModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserModule.withServerTransition({appId: 'research-fi'}),
+    TransferHttpCacheModule,
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: LOCALE_ID, useValue: 'fi-FI'},
