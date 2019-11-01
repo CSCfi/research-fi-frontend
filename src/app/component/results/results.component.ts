@@ -16,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from '../../services/tab-change.service';
 import { ResizeService } from '../../services/resize.service';
 import { FilterService } from '../../services/filter.service';
-import { Subscription, Observable, combineLatest, Subject, merge } from 'rxjs';
+import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 
 @Component({

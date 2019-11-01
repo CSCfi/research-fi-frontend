@@ -137,7 +137,6 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
     CountUpModule,
     PortalModule,
     FontAwesomeModule,
-    BrowserModule.withServerTransition({appId: 'research-fi'}),
     TransferHttpCacheModule,
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
