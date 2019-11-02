@@ -38,13 +38,33 @@
 
             .inline li {
                 border: 1px solid mat-color($primary);
-                background: white;
+                background: mat-color($primary, default-contrast);
             }
             
             .inline li.active {
                 border: 1px solid mat-color($primary);
                 background: mat-color($primary);
-                color: white;
+                color: mat-color($primary, default-contrast);
+            }
+
+            // Hover description
+            span.tooltip-box {
+                background: mat-color($primary, default-contrast);
+                border: 1px solid;
+            }
+
+            span.tooltip-box:after, span.tooltip-box:before {
+                border: solid transparent;
+            }
+
+            span.tooltip-box:after {
+                border-bottom-color: mat-color($primary, default-contrast);
+            }
+
+            span.tooltip-box:before {
+                border-bottom-color: mat-color($primary);
+                border-width: 13px;
+                margin-left: -13px;
             }
             
             @media (max-width: 991px) {
