@@ -1,0 +1,11 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="col" id="title" (mouseenter)="getCoords($event)" (mouseenter)="enter(index)" (mouseleave)="leave(index)" [ngStyle]="colStyle">
+    <a routerLink="/results/funding/{{id}}">
+        <h3 style="font-size: 1rem">{{title}}</h3>
+        <span class="tooltip-box" [ngStyle]="{'margin-left': tooltipMargin}" *ngIf="hoverIndex === index">{{description}}</span>
+    </a>
+</div>   
