@@ -34,10 +34,13 @@
                 <a class="icon" routerLink="/results/funding/{{funding._source.projectId}}">
                     <fa-icon [icon]="faEuroSign"></fa-icon>
                 </a>
-            </div>          
-            <div class="col col-8 col-lg-5 col-xl-4">
-                <a routerLink="/results/funding/{{funding._source.projectId}}"><h3 style="font-size: 1rem">{{funding._source.projectNameFi}}</h3></a>
-            </div>          
+            </div>
+            <!-- Use tooltip component for title -->
+            <div class="col col-8 col-lg-5 col-xl-4" style="position: unset">
+                <app-tooltip [title]="funding._source.projectNameFi" [description]="funding._source.projectDescriptionFi" [id]="funding._source.projectId"
+                [index]="i">
+                </app-tooltip>
+            </div>
             <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
                 <span>{{funding._source.funderNameFi}}</span>
             </div>          
