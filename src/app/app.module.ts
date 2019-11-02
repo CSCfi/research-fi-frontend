@@ -76,6 +76,7 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 
 import { LOCALE_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TooltipComponent } from './component/results/tooltip/tooltip.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ListItemComponent,
     SunburstComponent,
     TreemapComponent,
-    HighlightSearch
+    HighlightSearch,
+    TooltipComponent
   ],
   imports: [
     BrowserModule,
