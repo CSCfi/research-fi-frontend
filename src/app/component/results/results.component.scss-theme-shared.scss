@@ -48,20 +48,20 @@
             }
 
             // Hover description
-            span.tooltip-box {
+            .tooltip-box {
                 background: mat-color($primary, default-contrast);
                 border: 1px solid;
             }
 
-            span.tooltip-box:after, span.tooltip-box:before {
+            .tooltip-box:after, .tooltip-box:before {
                 border: solid transparent;
             }
 
-            span.tooltip-box:after {
+            .tooltip-box:after {
                 border-bottom-color: mat-color($primary, default-contrast);
             }
 
-            span.tooltip-box:before {
+            .tooltip-box:before {
                 border-bottom-color: mat-color($primary);
                 border-width: 13px;
                 margin-left: -13px;
