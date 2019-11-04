@@ -12,7 +12,7 @@ import { AppConfigService } from './app-config-service.service';
   providedIn: 'root'
 })
 export class SingleItemService {
-  apiUrl = '';
+  apiUrl: any;
   publicationApiUrl = '';
   fundingApiUrl = '';
   organizationApiUrl = '';

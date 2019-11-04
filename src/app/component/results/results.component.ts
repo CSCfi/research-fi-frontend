@@ -5,7 +5,9 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID  } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID,
+  PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -14,7 +16,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from '../../services/tab-change.service';
 import { ResizeService } from '../../services/resize.service';
 import { FilterService } from '../../services/filter.service';
-import { Subscription, Observable, combineLatest, Subject, merge } from 'rxjs';
+import { Subscription, combineLatest, Subject, merge } from 'rxjs';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-results',
@@ -52,7 +55,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
-               @Inject( LOCALE_ID ) protected localeId: string ) {
+               @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
+               @Inject(PLATFORM_ID) private platformId: object ) {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
@@ -73,17 +77,20 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         const params = results.params;
 
         this.page = +query.page || 1;
-        this.filters = {year: [query.year].flat().filter(x => x),
-                        status: [query.status].flat().filter(x => x),
-                        field: [query.field].flat().filter(x => x),
-                        publicationType: [query.publicationType].flat().filter(x => x),
-                        countryCode: [query.countryCode].flat().filter(x => x),
-                        lang: [query.lang].flat().filter(x => x),
-                        juFo: [query.juFo].flat().filter(x => x),
-                        openAccess: [query.openAccess].flat().filter(x => x),
-                        internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
-                        fundingAmount: [query.fundingAmount].flat().filter(x => x)};
 
+        // Check for Angular Univeral SSR, get filters if browser
+        if (isPlatformBrowser(this.platformId)) {
+          this.filters = {year: [query.year].flat().filter(x => x),
+            status: [query.status].flat().filter(x => x),
+            field: [query.field].flat().filter(x => x),
+            publicationType: [query.publicationType].flat().filter(x => x),
+            countryCode: [query.countryCode].flat().filter(x => x),
+            lang: [query.lang].flat().filter(x => x),
+            juFo: [query.juFo].flat().filter(x => x),
+            openAccess: [query.openAccess].flat().filter(x => x),
+            internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
+            fundingAmount: [query.fundingAmount].flat().filter(x => x)};
+        }
 
         const tabChanged = this.tab !== params.tab;
         const searchTermChanged = this.searchTerm !== (params.input || '');
@@ -113,9 +120,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.searchService.updatePageNumber(this.page);
         this.searchService.updateQueryParams(query);
 
-
-        this.filterService.updateFilters(this.filters);
-
+        // Check for Angular Univeral SSR, update filters if browser
+        if (isPlatformBrowser(this.platformId)) {this.filterService.updateFilters(this.filters); }
 
         // Flag telling search-results to fetch new filtered data
         this.updateFilters = !this.updateFilters;
@@ -142,7 +148,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
-    this.mobile = window.innerWidth < 992;
+    this.mobile = this.window.innerWidth < 992;
   }
 
   // Get total value from search service / pagination
@@ -171,14 +177,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getFilterData() {
-    this.searchService.getFilters()
-    .pipe(map(data => [data]))
-    .subscribe(filterValues => {
-      this.filterValues = filterValues;
-      // Set the title
-      this.updateTitle(this.selectedTabData);
-    },
-      error => this.errorMessage = error as any);
+    // Check for Angular Univeral SSR, get filter data if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.searchService.getFilters()
+      .pipe(map(data => [data]))
+      .subscribe(filterValues => {
+        this.filterValues = filterValues;
+        // Set the title
+        this.updateTitle(this.selectedTabData);
+      },
+        error => this.errorMessage = error as any);
+    }
   }
 
   updateTitle(tab: { data: string; labelFi: string; labelEn: string}) {
@@ -200,7 +209,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       }
     }
-    this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 2).join(' - ');
+    this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ');
   }
 
   updateMobile(width) {
@@ -209,9 +218,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
-    this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: ''});
-    this.combinedRouteParams.unsubscribe();
-    this.totalSub.unsubscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: ''});
+      this.combinedRouteParams.unsubscribe();
+      this.totalSub.unsubscribe();
+    }
   }
 
 }

@@ -77,6 +77,8 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 import { LOCALE_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipComponent } from './component/results/tooltip/tooltip.component';
+import { WINDOW_PROVIDERS } from './services/window.service';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,7 @@ import { TooltipComponent } from './component/results/tooltip/tooltip.component'
     TooltipComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
@@ -136,9 +138,13 @@ import { TooltipComponent } from './component/results/tooltip/tooltip.component'
     ScrollingModule,
     CountUpModule,
     PortalModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TransferHttpCacheModule,
   ],
-  providers: [ SearchService, Title, AutosuggestService, {provide: LOCALE_ID, useValue: 'fi-FI'},
+  providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
+  {provide: LOCALE_ID, useValue: 'fi-FI'},
+  // { provide: 'ADDEVENTLISTENER', useFactory: getEventListener },
+  // { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
   {
     provide: APP_INITIALIZER,
     multi: true,
@@ -155,3 +161,11 @@ import { TooltipComponent } from './component/results/tooltip/tooltip.component'
   entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
 })
 export class AppModule { }
+
+// export function getEventListener() {
+//     return (typeof window !== 'undefined') ? window.addEventListener : null;
+// }
+
+// export function getLocalStorage() {
+//   return (typeof window !== 'undefined') ? window.localStorage : null;
+// }

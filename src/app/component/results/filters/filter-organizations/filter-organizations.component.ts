@@ -5,13 +5,14 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Inject } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../../../services/filter.service';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-filter-organizations',
@@ -24,7 +25,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
   sidebarOpen = false;
-  width = window.innerWidth;
+  width = this.window.innerWidth;
   mobile = this.width < 992;
   panelHeight = '48px';
   @ViewChild('selectedYears', { static: false }) selectedYears: MatSelectionList;
@@ -34,7 +35,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   private resizeSub: Subscription;
   private filterSub: Subscription;
 
-  constructor( private router: Router, private filterService: FilterService,
+  constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
                private resizeService: ResizeService, private sortService: SortService ) { }
 
   toggleSidebar() {
@@ -47,7 +48,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   }
 
   onResize(event) {
-    this.width = window.innerWidth;
+    this.width = event.width;
     if (this.width >= 992) {
       this.mobile = false;
       if (!this.sidebarOpen) { this.toggleSidebar(); }
