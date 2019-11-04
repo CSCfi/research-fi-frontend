@@ -150,10 +150,12 @@
               "browserTarget": "research-fi:build:fi"
             },
             "en": {
-              "browserTarget": "research-fi:build:en"
+              "browserTarget": "research-fi:build:en",
+              "aot": true
             },
             "sv": {
-              "browserTarget": "research-fi:build:sv"
+              "browserTarget": "research-fi:build:sv",
+              "aot": true
             },
             "es5": {
               "browserTarget": "research-fi:build:es5"

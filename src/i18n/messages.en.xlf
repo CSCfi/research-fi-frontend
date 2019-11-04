@@ -66,7 +66,7 @@
         <note priority="1" from="description">Site slogan </note>
       </trans-unit>
       <trans-unit id="35d161e1bc5e3a23ce638f59ffbc99522e21b357" datatype="html">
-        <source>Etusivu</source><target state="new">Etusivu</target>
+        <source>Etusivu</source><target state="new">Home</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
           <context context-type="linenumber">51</context>
@@ -75,7 +75,7 @@
         <note priority="1" from="meaning">Main navigation item</note>
       </trans-unit>
       <trans-unit id="213eb37128c2b5c0099983865d7fe498ea291a15" datatype="html">
-        <source>Haku</source><target state="new">Haku</target>
+        <source>Haku</source><target state="new">Search</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
           <context context-type="linenumber">56</context>
@@ -84,7 +84,7 @@
         <note priority="1" from="meaning">Main navigation item</note>
       </trans-unit>
       <trans-unit id="e74d6efc1c3b7bc17d6720b6003e51eafd2c99bd" datatype="html">
-        <source>Tiedepolitiikka</source><target state="new">Tiedepolitiikka</target>
+        <source>Tiedepolitiikka</source><target state="new">Science politics</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
           <context context-type="linenumber">63</context>
@@ -93,7 +93,7 @@
         <note priority="1" from="meaning">Main navigation item</note>
       </trans-unit>
       <trans-unit id="bbfe3938a7facf1187307108fa655af2878f8946" datatype="html">
-        <source>Tiedeuutiset</source><target state="new">Tiedeuutiset</target>
+        <source>Tiedeuutiset</source><target state="new">Science news</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
           <context context-type="linenumber">69</context>
