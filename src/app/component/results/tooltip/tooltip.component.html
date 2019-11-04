@@ -6,6 +6,9 @@
 <div class="col" id="title" (mouseenter)="getCoords($event)" (mouseenter)="enter(index)" (mouseleave)="leave(index)" [ngStyle]="colStyle">
     <a routerLink="/results/funding/{{id}}">
         <h3 style="font-size: 1rem">{{title}}</h3>
-        <span class="tooltip-box" [ngStyle]="{'margin-left': tooltipMargin}" *ngIf="hoverIndex === index">{{description}}</span>
+        <div class="tooltip-box" *ngIf="hoverIndex === index" [ngStyle]="{'margin-left': tooltipMargin}">
+            <h4>Hankkeen kuvaus</h4>
+            <span>{{description}}</span>
+        </div>
     </a>
 </div>   
