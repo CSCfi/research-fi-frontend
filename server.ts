@@ -19,6 +19,7 @@ import 'zone.js/dist/zone-node';
 
 import {enableProdMode} from '@angular/core';
 import * as express from 'express';
+import * as compression from 'compression';
 import * as helmet from 'helmet';
 import {join} from 'path';
 
@@ -37,6 +38,7 @@ const routes = [
   {path: '/*', view: 'index', bundle: require('./dist/server/fi/main')}
 ];
 
+app.use(compression());
 app.use(helmet());
 app.use(helmet.referrerPolicy({policy: 'same-origin'}));
 app.use(helmet.noCache());
