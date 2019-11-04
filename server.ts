@@ -56,8 +56,8 @@ app.use(helmet.contentSecurityPolicy({
       'http://localhost:*',
       'http://*.csc.fi:*',
       'https://*.csc.fi:*',
-      'http://*rahtiapp.fi:*',
-      'https://*rahtiapp.fi:*'
+      'http://*.rahtiapp.fi:*',
+      'https://*.rahtiapp.fi:*'
     ],
     styleSrc: [
       '\'self\'',
