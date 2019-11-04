@@ -127,7 +127,7 @@
             }
 
             // Hover
-            span.tooltip-box {
+            .tooltip-box {
                 position: absolute;
                 margin-top: 5px;
                 z-index: 2;
@@ -135,7 +135,12 @@
                 max-width: 400px;
             }
 
-            span.tooltip-box:after, span.tooltip-box:before {
+            .tooltip-box h4 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .tooltip-box:after, .tooltip-box:before {
                 bottom: 100%;
                 left: 13%;
                 content: " ";
@@ -145,12 +150,12 @@
                 pointer-events: none;
             }
             
-            span.tooltip-box:after {
+            .tooltip-box:after {
                 border-width: 12px;
                 margin-left: -12px;
             }
 
-            span.tooltip-box:before {
+            .tooltip-box:before {
                 border-width: 13px;
                 margin-left: -13px;
             }
