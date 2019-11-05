@@ -22,19 +22,17 @@ import * as express from 'express';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import {join} from 'path';
+import { EXPRESS_HTTP_PORT } from './src/app/app.global';
 
 enableProdMode();
 
 // Express server
 const app = express();
-
-const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
 const routes = [
   {path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main')},
   //{path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
-  //{path: '/*', view: 'index', bundle: require(join(DIST_FOLDER, 'server', 'fi', 'main'))}
   {path: '/*', view: 'index', bundle: require('./dist/server/fi/main')}
 ];
 
@@ -91,11 +89,6 @@ app.set('views', join(DIST_FOLDER, 'browser'));
 // Serve static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
-// All regular routes use the Universal engine
-//app.get('*', (req, res) => {
-//  res.render('index', { req });
-//});
-
 routes.forEach((route) => {
   app.get(route.path, (req, res) => {
     res.render(route.view, {
@@ -108,7 +101,7 @@ routes.forEach((route) => {
 });
 
 // Start up the Node server
-app.listen(PORT, () => {
-  console.log(`Node Express server listening on http://localhost:${PORT}`);
+app.listen(EXPRESS_HTTP_PORT, () => {
+  console.log(`Node Express server listening on http://localhost:${EXPRESS_HTTP_PORT}`);
   console.log("DIST_FOLDER " + DIST_FOLDER);
 });

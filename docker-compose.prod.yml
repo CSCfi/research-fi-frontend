@@ -8,11 +8,11 @@
 version: '3.7'
 
 services:
-  nginx:
+  angular:
     build:
       context: .
       dockerfile: Dockerfile.prod
-      target: nginx
+      target: angular
     ports:
-      - "80:8080"
+      - "80:4000"
     restart: unless-stopped
