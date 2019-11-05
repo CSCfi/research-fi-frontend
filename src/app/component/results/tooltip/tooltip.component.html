@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="col" id="title" (mouseenter)="getCoords($event)" (mouseenter)="enter(index)" (mouseleave)="leave(index)" [ngStyle]="colStyle">
+<div class="tooltip-title" id="title" (mouseenter)="getCoords($event)" (mouseenter)="enter(index)" (mouseleave)="leave(index)" [ngStyle]="colStyle">
     <a routerLink="/results/funding/{{id}}">
         <h3 style="font-size: 1rem">{{title}}</h3>
         <div class="tooltip-box" *ngIf="hoverIndex === index" [ngStyle]="{'margin-left': tooltipMargin}">

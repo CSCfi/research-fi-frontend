@@ -21,6 +21,7 @@ export class TooltipComponent {
   tooltipMargin: string;
   colStyle = {
     padding: '0 0 12px 0',
+    'margin-bottom': '-12px',
     position: 'unset'
   };
 
