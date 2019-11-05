@@ -198,6 +198,18 @@
                 font-size: 18px !important;
             }
 
+            .mat-pseudo-checkbox {
+                width: 22px;
+                height: 22px;
+            }
+
+            .mat-pseudo-checkbox-checked::after {
+                top: 4.4px;
+                left: 3px;
+                width: 10px;
+                height: 3px;
+            }
+
             h3 {
                 font-size: 1.4rem;
                 padding: 9px 0px;
