@@ -6,22 +6,21 @@
 # :license: MIT
 
 # Stage 1: Build Angular application
-FROM node:10.15.3-alpine as builder
+FROM node:12.12.0-alpine as builder
 COPY . /app
 WORKDIR /app
-
+RUN chown -R node:node /app
+USER node
 RUN npm install
-# Build Finnish language version
-RUN $(npm bin)/ng build --prod --configuration=fi
-# Build Swedish language version
-RUN $(npm bin)/ng build --prod --configuration=sv --i18n-file src/i18n/messages.sv.xlf --i18n-format xlf --i18n-locale sv --baseHref /sv/
-# Build English language version
-RUN $(npm bin)/ng build --prod --configuration=en --i18n-file src/i18n/messages.en.xlf --i18n-format xlf --i18n-locale en --baseHref /en/
+RUN npm run build:ssr
 
-# Stage 2: Serve application using Nginx (non-root version)
-FROM nginxinc/nginx-unprivileged as nginx
-COPY --from=builder /app/dist/research-fi/ /usr/share/nginx/html/
-COPY --from=builder /app/dist/research-fi-sv/ /usr/share/nginx/html/sv/
-COPY --from=builder /app/dist/research-fi-en/ /usr/share/nginx/html/en/
-COPY nginx/default.conf /etc/nginx/conf.d/
-EXPOSE 8080
+# Stage 2: Serve Angular application
+FROM node:12.12.0-alpine as angular
+COPY --from=builder /app/dist/ /dist/
+WORKDIR /
+
+RUN chown -R node:node /dist
+USER node
+
+EXPOSE 4000
+CMD node dist/server.js
