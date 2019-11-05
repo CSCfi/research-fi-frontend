@@ -185,6 +185,17 @@
         @media (max-width: 991px) {
             .filter-sidebar {
                 display: none;
+                width: 100vw;
+            }
+
+            .filter-wrapper {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            span.label, .mat-expansion-panel-header-title, .single-checkbox {
+                font-size: 18px !important;
             }
 
             h3 {
