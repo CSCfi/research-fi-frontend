@@ -76,6 +76,8 @@ export class SearchBarComponent implements OnInit, OnDestroy, AfterViewInit {
   // Show auto-suggest when input in focus
   onFocus() {
     this.showAutoSuggest = true;
+    // This hides query history if search term isn't altered after history clear button click
+    if (sessionStorage.length === 0) {this.queryHistory = false; }
   }
 
   fireAutoSuggest() {
