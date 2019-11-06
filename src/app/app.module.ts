@@ -79,6 +79,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipComponent } from './component/results/tooltip/tooltip.component';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
+import { SuggestComponent } from './component/results/suggest/suggest.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
     SunburstComponent,
     TreemapComponent,
     HighlightSearch,
-    TooltipComponent
+    TooltipComponent,
+    SuggestComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -143,8 +145,6 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: LOCALE_ID, useValue: 'fi-FI'},
-  // { provide: 'ADDEVENTLISTENER', useFactory: getEventListener },
-  // { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
   {
     provide: APP_INITIALIZER,
     multi: true,
@@ -162,10 +162,3 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 })
 export class AppModule { }
 
-// export function getEventListener() {
-//     return (typeof window !== 'undefined') ? window.addEventListener : null;
-// }
-
-// export function getLocalStorage() {
-//   return (typeof window !== 'undefined') ? window.localStorage : null;
-// }

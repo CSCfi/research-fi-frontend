@@ -153,13 +153,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Get total value from search service / pagination
   ngAfterViewInit() {
+    this.getTotal();
+  }
+
+  getTotal() {
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
       this.total = total || '';
       // Add thousand separators
       if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
       this.cdr.detectChanges();
     });
-
   }
 
   navigateToVisualisation() {

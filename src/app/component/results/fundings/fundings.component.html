@@ -42,10 +42,10 @@
                 </app-tooltip>
             </div>
             <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block" [class.expand]="expandStatus[i]">
-                <span>{{funding._source.funderNameFi}}</span>
+                <span>{{funding._source.funderNameFi !== 'UNDEFINED' ? funding._source.funderNameFi : ''}}</span>
             </div>          
             <div class="col col-xl-3 shorten d-none d-xl-block" [class.expand]="expandStatus[i]">
-                <span>{{funding._source.fundedNameFi}}</span>
+                <span>{{funding._source.fundedNameFi !== 'UNDEFINED' ? funding._source.fundedNameFi : ''}}</span>
             </div>          
             <div class="col col-lg-1">
                 <span>{{funding._source.fundingStartYear}}</span>
