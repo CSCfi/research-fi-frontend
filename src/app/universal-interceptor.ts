@@ -31,15 +31,16 @@ export class UniversalInterceptor implements HttpInterceptor {
     Ensure full path including port number, so that the request works with Angular Universal and Docker.
     */
     if (this.request && req.url.indexOf('config.json') !== -1) {
-      let host = this.request.get('host');
+      //let host = this.request.get('host');
 
       // Ensure that 'host' part contains port number.
-      if (host.indexOf(EXPRESS_HTTP_PORT.toString()) === -1) {
-        host += ':' + EXPRESS_HTTP_PORT;
-      }
+      //if (host.indexOf(EXPRESS_HTTP_PORT.toString()) === -1) {
+      //  host += ':' + EXPRESS_HTTP_PORT;
+      //}
 
       // Ensure full path.
-      let configJsonUrl = `${this.request.protocol}://${host}/assets/config/config.json`;
+      //let configJsonUrl = `${this.request.protocol}://${host}/assets/config/config.json`;
+      let configJsonUrl = `http://localhost:${EXPRESS_HTTP_PORT}/assets/config/config.json`;
       serverReq = req.clone({url: configJsonUrl});
     }
     return next.handle(serverReq);
