@@ -48,6 +48,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   total: number | string;
   currentQueryParams: any;
   init = true;
+  isBrowser: boolean;
 
   totalSub: Subscription;
   combinedRouteParams: Subscription;
@@ -60,6 +61,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchTerm = this.route.snapshot.params.input;
     this.searchService.updateInput(this.searchTerm);
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   public setTitle(newTitle: string) {
