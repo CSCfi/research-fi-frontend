@@ -17,17 +17,20 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./suggest.component.scss']
 })
 export class SuggestComponent implements OnInit, OnDestroy {
-  suggests: string;
+  suggests: any;
   responseData: any;
   errorMessage: any;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   tabSub: any;
+  inputSub: any;
+  currentInput: any;
 
   constructor( private searchService: SearchService, public router: Router, private route: ActivatedRoute,
                private tabChangeService: TabChangeService ) {  }
 
   ngOnInit() {
     this.getResultData();
+    // this.inputSub = this.searchService.currentInput.subscribe(input => this.currentInput = input)
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => this.currentTab = tab);
   }
 
