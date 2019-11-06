@@ -153,7 +153,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
       this.cdr.detectChanges();
     });
-
   }
 
   navigateToVisualisation() {
