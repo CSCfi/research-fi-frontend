@@ -23,20 +23,24 @@ export class SuggestComponent implements OnInit, OnDestroy {
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   tabSub: any;
   inputSub: any;
+  dataSub: any;
   currentInput: any;
 
   constructor( private searchService: SearchService, public router: Router, private route: ActivatedRoute,
                private tabChangeService: TabChangeService ) {  }
 
   ngOnInit() {
-    this.getResultData();
-    // this.inputSub = this.searchService.currentInput.subscribe(input => this.currentInput = input)
+    this.inputSub = this.searchService.currentInput.subscribe(input => {
+      this.currentInput = input;
+      console.log(this.currentInput);
+      this.getResultData();
+    });
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => this.currentTab = tab);
   }
 
   getResultData() {
     // Get data
-    this.searchService.getData()
+    this.dataSub = this.searchService.getData()
     .pipe(map(responseData => [responseData]))
     .subscribe(
       responseData => {
@@ -48,10 +52,12 @@ export class SuggestComponent implements OnInit, OnDestroy {
 
   navigate(term) {
     this.searchService.singleInput = term;
-    this.router.navigate(['results/', this.currentTab.data, term])
+    this.router.navigate(['results/', this.currentTab.data, term]);
   }
 
   ngOnDestroy() {
     this.tabSub.unsubscribe();
+    this.inputSub.unsubscribe();
+    this.dataSub.unsubscribe();
   }
 }
