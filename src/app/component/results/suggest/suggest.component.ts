@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../../services/search.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { map } from 'rxjs/operators';
@@ -23,35 +24,73 @@ export class SuggestComponent implements OnInit, OnDestroy {
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   tabSub: any;
   inputSub: any;
+  dataSub: any;
   currentInput: any;
+  tabValueSub: any;
 
   constructor( private searchService: SearchService, public router: Router, private route: ActivatedRoute,
-               private tabChangeService: TabChangeService ) {  }
+               private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
+               private titleService: Title ) {  }
+    public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
 
   ngOnInit() {
-    this.getResultData();
-    // this.inputSub = this.searchService.currentInput.subscribe(input => this.currentInput = input)
-    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => this.currentTab = tab);
+    // Subscribe to input change and get data
+    this.inputSub = this.searchService.currentInput.subscribe(input => {
+      this.currentInput = input;
+      this.getResultData();
+      this.tabSub = this.tabChangeService.currentTab.subscribe(tab => this.currentTab = tab);
+    });
   }
 
   getResultData() {
     // Get data
-    this.searchService.getData()
+    this.dataSub = this.searchService.getData()
     .pipe(map(responseData => [responseData]))
     .subscribe(
       responseData => {
         this.responseData = responseData,
+        // path to suggestions
         this.suggests = this.responseData[0].suggest.mySuggestions[0];
+        // Update total & title if no hits
+        if (this.responseData[0].hits.total === 0) {
+          // Update total count, fixes issue where old count is visible when no results
+          this.searchService.updateTotal(0);
+          // Update title, same fix as above
+          this.updateTitle(this.currentTab);
+        }
       }
     );
   }
 
+  updateTitle(tab) {
+    // Set title by locale
+    switch (this.localeId) {
+      case 'fi-FI': {
+        this.setTitle(tab.labelFi + ' - Ei tuloksia - Haku - Tutkimustietovaranto');
+        break;
+      }
+      case 'en': {
+        this.setTitle(tab.labelEn + ' - No results - Search - Research portal');
+        break;
+      }
+    }
+  }
+
   navigate(term) {
     this.searchService.singleInput = term;
-    this.router.navigate(['results/', this.currentTab.data, term])
+    // this.router.navigate(['results/', this.currentTab.data, term]);
+
+    this.tabValueSub = this.searchService.getTabValues().subscribe((data: any) => {
+      this.searchService.tabValues = data;
+      this.searchService.redirecting = true;
+      this.router.navigate(['results/', this.currentTab.data, term]);
+    });
   }
 
   ngOnDestroy() {
     this.tabSub.unsubscribe();
+    this.inputSub.unsubscribe();
   }
 }
