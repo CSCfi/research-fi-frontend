@@ -204,6 +204,7 @@ export class FilterService {
     return {
       query,
       size: 10,
+      ...(tab === 'publications' ? this.settingsService.suggestSettings(searchTerm) : []),
       from: fromPage,
       sort: sortOrder
     };
