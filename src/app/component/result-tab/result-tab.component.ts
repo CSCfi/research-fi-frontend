@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID,
+  HostListener, PLATFORM_ID } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from '../../services/resize.service';
 import { UrlSerializer, Router } from '@angular/router';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @Component({
@@ -50,7 +52,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   faArrowRight = faArrowRight;
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
-              private resizeService: ResizeService, private searchService: SearchService, private router: Router) {
+              private resizeService: ResizeService, private searchService: SearchService, private router: Router,
+              @Inject( PLATFORM_ID ) private platformId: object) {
                 this.locale = localeId;
    }
 
@@ -86,17 +89,16 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         this.first = false;
       }
     });
-
-    // Add the scroll handler, passive to improve performance
-    window.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scrollEvent);
-    this.tabSub.unsubscribe();
-    this.queryParamSub.unsubscribe();
-    this.searchTermSub.unsubscribe();
-    this.resizeSub.unsubscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
+      this.tabSub.unsubscribe();
+      this.queryParamSub.unsubscribe();
+      this.searchTermSub.unsubscribe();
+      this.resizeSub.unsubscribe();
+    }
   }
 
   resetQueryParams() {
@@ -114,6 +116,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.scrollWidth = this.scroll.nativeElement.scrollWidth;
           this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+          this.scroll.nativeElement.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
         }, 1);
       });
     }

@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../../services/search.service';
 import { TabChangeService } from '../../../services/tab-change.service';
@@ -30,7 +31,7 @@ export class SuggestComponent implements OnInit, OnDestroy {
 
   constructor( private searchService: SearchService, public router: Router, private route: ActivatedRoute,
                private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
-               private titleService: Title ) {  }
+               private titleService: Title, @Inject(PLATFORM_ID) private platformId: object ) {  }
     public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
@@ -90,7 +91,9 @@ export class SuggestComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.tabSub.unsubscribe();
-    this.inputSub.unsubscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.tabSub.unsubscribe();
+      this.inputSub.unsubscribe();
+    }
   }
 }

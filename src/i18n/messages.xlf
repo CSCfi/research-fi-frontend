@@ -3,79 +3,51 @@
   <file source-language="fi" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="searchSlogan" datatype="html">
-        <source>Hae tutkimuksen tekijöitä ja tuloksia.</source>
+        <source>
+          Hae tietoa tutkimuksesta Suomessa
+        </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="b9003bb9ac869ae65286377255347c68a1b90100" datatype="html">
+      <trans-unit id="df827dd350285c7193dbc58d33f26ca5807de0bf" datatype="html">
         <source>
-          Etsi asiantuntijoita eri tieteenaloilta
-        </source>
+            Hae tietoa
+          </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">90</context>
         </context-group>
         <note priority="1" from="description">Shortcut</note>
       </trans-unit>
-      <trans-unit id="74707b1fddc5564ffd7b41be051edfe22960715d" datatype="html">
+      <trans-unit id="47bda0adb4909a520d9584a30f65641dcff4e217" datatype="html">
         <source>
-          Tutkija, tuo tietosi tänne
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
-          <context context-type="linenumber">27</context>
-        </context-group>
-        <note priority="1" from="description">Shortcut</note>
-      </trans-unit>
-      <trans-unit id="d105b77988c19b66cc64baf7ddae0ef7d3ca0646" datatype="html">
-        <source>
-          Tutustu tutkimuksen tuloksiin
-        </source>
+            Tutki julkaisujen määriä tieteenaloittain
+          </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
           <context context-type="linenumber">33</context>
-        </context-group>
-        <note priority="1" from="description">Shortcut</note>
-      </trans-unit>
-      <trans-unit id="0e09c0a4607b319caefe7c1f769a3f24aecf3e20" datatype="html">
-        <source>
-          Tarkastele tutkimustoiminnan kehitystä
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-        <note priority="1" from="description">Shortcut</note>
-      </trans-unit>
-      <trans-unit id="6d5937dc1d58a1ff7388d9416b2a1e24df5e0447" datatype="html">
-        <source>
-          Hae tutkimusvälineitä ja palveluita
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
-          <context context-type="linenumber">47</context>
-        </context-group>
-        <note priority="1" from="description">Shortcut</note>
-      </trans-unit>
-      <trans-unit id="8cc67c69fb55eebe8fa4312604fc1b065d08635b" datatype="html">
-        <source>
-          Tutustu rahoittajiin ja hankkeisiin
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
-          <context context-type="linenumber">53</context>
-        </context-group>
-        <note priority="1" from="description">Shortcut</note>
-      </trans-unit>
-      <trans-unit id="1a0b6b9e64feddebe48fac7ef8e15b085a544641" datatype="html">
-        <source>
-          Katso viimeisimpiä tiedeuutisia
-        </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
-          <context context-type="linenumber">59</context>
         </context-group>
         <note priority="1" from="description">Shortcut</note>
       </trans-unit>
@@ -109,7 +81,7 @@
         <source>Tiedepolitiikka</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">63</context>
         </context-group>
         <note priority="1" from="description">Science politics</note>
         <note priority="1" from="meaning">Main navigation item</note>
@@ -118,7 +90,7 @@
         <source>Tiedeuutiset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
         <note priority="1" from="description">Science news</note>
         <note priority="1" from="meaning">Main navigation item</note>

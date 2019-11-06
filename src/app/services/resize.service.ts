@@ -8,7 +8,6 @@
 // https://stackoverflow.com/questions/35527456/angular-window-resize-event
 
 import { Injectable, EventEmitter } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
 import { EventManager } from '@angular/platform-browser';
 
 @Injectable({
@@ -27,5 +26,5 @@ export class ResizeService {
 
   constructor(eventManager: EventManager) {
     eventManager.addGlobalEventListener('window', 'resize', this.getDims);
-   }
+  }
 }

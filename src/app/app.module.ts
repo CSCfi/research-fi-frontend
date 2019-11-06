@@ -77,6 +77,8 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 import { LOCALE_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipComponent } from './component/results/tooltip/tooltip.component';
+import { WINDOW_PROVIDERS } from './services/window.service';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './component/results/suggest/suggest.component';
 
 @NgModule({
@@ -113,7 +115,7 @@ import { SuggestComponent } from './component/results/suggest/suggest.component'
     SuggestComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
@@ -138,9 +140,11 @@ import { SuggestComponent } from './component/results/suggest/suggest.component'
     ScrollingModule,
     CountUpModule,
     PortalModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TransferHttpCacheModule,
   ],
-  providers: [ SearchService, Title, AutosuggestService, {provide: LOCALE_ID, useValue: 'fi-FI'},
+  providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
+  {provide: LOCALE_ID, useValue: 'fi-FI'},
   {
     provide: APP_INITIALIZER,
     multi: true,
@@ -157,3 +161,4 @@ import { SuggestComponent } from './component/results/suggest/suggest.component'
   entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
 })
 export class AppModule { }
+

@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID} from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -36,7 +37,7 @@ export class HomePageComponent implements OnInit {
   };
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
-               private titleService: Title ) { }
+               private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object ) { }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
@@ -54,11 +55,13 @@ export class HomePageComponent implements OnInit {
 
     // Set title
     this.setTitle('Etusivu - Tutkimustietovaranto');
-    this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
+    this.srHeader.nativeElement.innerHTML = this.document.title.split(' - ', 1);
 
     // Reset local storage
-    localStorage.removeItem('Pagenumber');
-    localStorage.setItem('Pagenumber', JSON.stringify(1));
+    // if (isPlatformBrowser(this.platformId)) {
+    //   localStorage.removeItem('Pagenumber');
+    //   localStorage.setItem('Pagenumber', JSON.stringify(1));
+    // }
   }
 
   getAllData() {

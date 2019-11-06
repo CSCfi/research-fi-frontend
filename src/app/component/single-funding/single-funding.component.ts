@@ -79,7 +79,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
-      this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
+      this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
       this.shapeData();
       this.filterData();
     },

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../services/single-item.service';
@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-single-publication',
@@ -61,14 +62,14 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'}
   ];
 
-  documentLang = document.documentElement.lang;
+  documentLang = this.document.documentElement.lang;
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService ) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any ) {
    }
 
   public setTitle(newTitle: string) {
@@ -93,7 +94,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
-      this.srHeader.nativeElement.innerHTML = document.title.split(' - ', 1);
+      this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
       this.shapeData();
       this.filterData();
     },

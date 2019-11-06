@@ -13,7 +13,7 @@ import { SettingsService } from './settings.service';
 
 @Injectable()
 export class AutosuggestService {
-  apiUrl = '';
+  apiUrl: any;
 
   constructor(private http: HttpClient, private appConfigService: AppConfigService, private settingService: SettingsService) {
     this.apiUrl = this.appConfigService.apiUrl;
