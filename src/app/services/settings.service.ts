@@ -53,4 +53,23 @@ aggsOnly: string;
         }]}};
     return res;
   }
+
+  suggestSettings(term: string) {
+    const res = {
+      suggest: {
+        mySuggestions: {
+          prefix: term,
+          completion: {
+            field: 'completions',
+            size: 5,
+            skip_duplicates: true,
+            fuzzy: {
+              fuzziness: 0
+            }
+          }
+        }
+      }
+    };
+    return res;
+  }
 }
