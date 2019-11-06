@@ -7,4 +7,4 @@
 
 // Http port number for the Express web server.
 // When changing this, make sure that deployment configurations (Docker, OpenShift etc) use matching number.
-export const EXPRESS_HTTP_PORT = 4000;
+export const EXPRESS_HTTP_PORT = 8080;

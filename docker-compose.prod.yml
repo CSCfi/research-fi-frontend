@@ -14,5 +14,5 @@ services:
       dockerfile: Dockerfile.prod
       target: angular
     ports:
-      - "80:4000"
+      - "80:8080"
     restart: unless-stopped

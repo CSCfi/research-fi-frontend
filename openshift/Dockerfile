@@ -22,5 +22,5 @@ WORKDIR /
 RUN chown -R node:node /dist
 USER node
 
-EXPOSE 4000
+EXPOSE 8080
 CMD node dist/server.js
