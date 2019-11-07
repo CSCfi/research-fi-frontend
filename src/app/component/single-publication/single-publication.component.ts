@@ -40,7 +40,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Organisaatio', field: 'publicationOrgId'}
   ];
   mediumFields = [
-    {label: 'Lehti', field: 'publisherName' /*, lang: true */},
+    {label: 'Kustantaja', field: 'publisherName' /*, lang: true */},
     {label: 'ISSN', field: 'issn'},
     {label: 'ISBN', field: 'isbn'},
     {label: 'Volyymi', field: 'volume'},
