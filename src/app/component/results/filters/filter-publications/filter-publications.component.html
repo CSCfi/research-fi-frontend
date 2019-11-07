@@ -13,13 +13,13 @@
 
 <ng-template #myModal>
     <div class="modal-header">
-        <h5 class="modal-title">Title</h5>
+        <h5 class="modal-title">Rajaa hakua</h5>
     </div>
     <div class="modal-body">
         <ng-container *ngTemplateOutlet="filters"></ng-container>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn modal-close" (click)="closeModal()">Sulje</button>
     </div>
 </ng-template>
 
