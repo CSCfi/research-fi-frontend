@@ -40,6 +40,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Organisaatio', field: 'publicationOrgId'}
   ];
   mediumFields = [
+    {label: 'Lehti', field: 'journalName' /*, lang: true */},
+    {label: 'Konferenssi', field: 'conferenceName' /*, lang: true */},
     {label: 'Kustantaja', field: 'publisherName' /*, lang: true */},
     {label: 'ISSN', field: 'issn'},
     {label: 'ISBN', field: 'isbn'},
@@ -47,7 +49,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Numero', field: 'issueNumber'},
     {label: 'Sivut', field: 'pageNumberText'},
     {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode'}, // \u00AD soft hyphen, break word here if needed
-    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode'}
+    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode'},
+
   ];
   linksFields = [
     {label: 'DOI', field: 'doi'},
