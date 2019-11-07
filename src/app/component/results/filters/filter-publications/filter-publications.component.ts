@@ -29,7 +29,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @Input() tabData: string;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
-  sidebarOpen = false;
   width = this.window.innerWidth;
   mobile = this.width < 992;
   @ViewChild('selectedYear', { static: false }) selectedYear: MatSelectionList;
@@ -39,7 +38,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @ViewChild('selectedLang', { static: false }) selectedLang: MatSelectionList;
   @ViewChild('selectedJuFo', { static: false }) selectedJuFo: MatSelectionList;
   @ViewChild('selectedOpenAccess', { static: false }) selectedOpenAccess: MatSelectionList;
-  @ViewChild('filterSidebar', { static: false }) filterSidebar: ElementRef;
   preSelection = [];
   private resizeSub: Subscription;
   private filterSub: Subscription;
@@ -81,15 +79,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.modalRef.hide();
   }
 
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-    if (this.sidebarOpen) {
-      this.filterSidebar.nativeElement.style.display = 'block';
-    } else {
-      this.filterSidebar.nativeElement.style.display = 'none';
-    }
-  }
-
   resetHeight() {
     this.height = 240;
     this.clickCount = 0;
@@ -107,10 +96,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.width = event.width;
     if (this.width >= 992) {
       this.mobile = false;
-      if (!this.sidebarOpen) { this.toggleSidebar(); }
+      this.closeModal();
     } else {
       this.mobile = true;
-      if (this.sidebarOpen) { this.toggleSidebar(); }
     }
   }
 
