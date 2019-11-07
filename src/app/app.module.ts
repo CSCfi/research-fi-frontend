@@ -10,7 +10,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { TypeaheadModule } from 'ngx-bootstrap';
+import { TypeaheadModule, ModalModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -142,6 +142,7 @@ import { SuggestComponent } from './component/results/suggest/suggest.component'
     PortalModule,
     FontAwesomeModule,
     TransferHttpCacheModule,
+    ModalModule.forRoot()
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: LOCALE_ID, useValue: 'fi-FI'},
