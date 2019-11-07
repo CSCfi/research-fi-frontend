@@ -9,7 +9,6 @@
 <aside>
     <app-search-bar></app-search-bar>
 </aside>
-
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
@@ -74,10 +73,11 @@
                             </td>        
                             <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+1">
                                 <p>{{mediumFields.slice(3)[i + 1].label}}</p>
-                                <p>{{item._source[mediumFields.slice(3)[i + 1].field]}}</p>
+                                <p><a href="https://www.tsv.fi/julkaisufoorumi/haku.php?issn={{item._source[mediumFields.slice(3)[i + 1].field]}}">{{item._source[mediumFields.slice(3)[i + 1].field]}}</a></p>
                             </td>        
                             <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+2">
                                 <p>{{mediumFields.slice(3)[i + 2].label}}</p>
+                                <a href="" *ngIf=""></a>
                                 <p>{{item._source[mediumFields.slice(3)[i + 2].field]}}</p>
                             </td>        
                         </tr>
