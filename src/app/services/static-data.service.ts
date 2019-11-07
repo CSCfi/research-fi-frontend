@@ -70,8 +70,8 @@ export class StaticDataService {
     checked: false
     },
     {id: 7, class: 'G', label: 'Opinnäytteet', types: [
-      {type: 'F1', label: 'Monografiaväitöskirja'},
-      {type: 'F2', label: 'Artikkeliväitöskirja'}
+      {type: 'G4', label: 'Monografiaväitöskirja'},
+      {type: 'G5', label: 'Artikkeliväitöskirja'}
     ]}
   ];
 

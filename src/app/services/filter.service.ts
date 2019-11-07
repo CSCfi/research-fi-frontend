@@ -264,6 +264,7 @@ export class FilterService {
         publicationType: {
           terms: {
             field: 'publicationTypeCode.keyword',
+            size: 50,
             order: {
               _key: 'asc'
             }

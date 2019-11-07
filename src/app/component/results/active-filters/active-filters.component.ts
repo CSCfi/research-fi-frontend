@@ -24,7 +24,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     onGoing: 'Käynnissä',
     ended: 'Päättynyt',
     true: 'Kansainvälinen yhteisjulkaisu',
-    noaccessinfo: 'Ei vastausta',
+    noaccessinfo: 'Ei tietoa',
     openAccess: 'Open access',
     hybridAccess: 'Hybridijulkaisu',
     top: 'Korkein taso',

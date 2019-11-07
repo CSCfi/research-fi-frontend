@@ -134,7 +134,7 @@
                         <strong>Kieli</strong>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list #selectedLang (selectionChange)="onSelectionChange()">
+                <mat-selection-list #selectedLang (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
                     <div *ngFor="let code of response.aggregations.languageCode.buckets">
                         <mat-list-option checkboxPosition="before" *ngIf="code.language.buckets[0].key !== 'undefined'"
                         [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
@@ -142,6 +142,8 @@
                         </mat-list-option>
                     </div>
                 </mat-selection-list>
+                <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations.languageCode.buckets.length / 5" 
+                (click)="showMore(response.aggregations.languageCode.buckets.length)">Näytä lisää...</button>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
