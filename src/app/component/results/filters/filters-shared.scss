@@ -118,6 +118,10 @@
             flex-direction: row!important;
         }
 
+        .mat-list-base .mat-list-option .mat-list-item-content {
+            width: 100%;
+        }
+
         mat-selection-list.limit {
             // max-height: 240px;
             overflow: hidden;
@@ -183,6 +187,14 @@
 
         // Responsive
         @media (max-width: 991px) {
+            .filter-sidebar {
+                max-height: calc(100vh - 200px);
+            }
+
+            .modal-body {
+                padding: 0;
+            }
+
             span.label, .mat-expansion-panel-header-title, .single-checkbox {
                 font-size: 18px !important;
             }
@@ -193,7 +205,7 @@
             }
 
             .mat-pseudo-checkbox-checked::after {
-                top: 4.4px;
+                top: 5.6px;
                 left: 3px;
                 width: 10px;
                 height: 3px;
