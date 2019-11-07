@@ -10,7 +10,7 @@
 @mixin app-filters-theme-shared($theme) {
     $primary: map-get($theme, primary);
 
-    app-filter-publications, app-filter-persons, app-filter-fundings, app-filter-organizations {
+    app-filter-publications, app-filter-persons, app-filter-fundings, app-filter-organizations, modal-container {
 
         .filter-sidebar {
             background: mat-color($primary, 50);
@@ -45,6 +45,10 @@
             color: mat-color($primary, A200);
         }
 
+        .modal-close {
+            background: mat-color($primary, 500);
+            color: mat-contrast($primary, 500);
+        }
         
         .shared {
             tr:nth-child(odd) {
@@ -65,9 +69,5 @@
                 color: mat-color($primary);
             }
         }
-    }
-    .modal-close {
-        background: mat-color($primary, 500);
-        color: mat-contrast($primary, 500);
     }
 }
