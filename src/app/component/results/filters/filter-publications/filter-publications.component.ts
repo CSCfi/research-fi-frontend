@@ -242,7 +242,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       this.openAccessCodes = [];
       // Check for matching access codes. -1 & 9 are fallbacks from old data
       if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {this.openAccessCodes.push(
-        {key: 0, label: 'Ei vastausta', value: 'noAccessInfo'}); }
+        {key: 0, label: 'Ei tietoa', value: 'noAccessInfo'}); }
       if (combined.includes(1)) {this.openAccessCodes.push({key: 1, label: 'Open access', value: 'openAccess'}); }
       if (combined.includes(2)) {this.openAccessCodes.push({key: 2, label: 'Hybridijulkaisu', value: 'hybridAccess'}); }
     }
