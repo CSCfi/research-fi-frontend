@@ -50,7 +50,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode'}
   ];
   linksFields = [
-    {label: 'DOI', field: 'doiHandle'},
+    {label: 'DOI', field: 'doi'},
+    {label: 'Pysyvä osoite', field: 'doiHandle'},
     {label: 'Rinnakkaistallennus', field: 'greenOpenAccessAddress'},
   ];
   otherFields  = [
