@@ -162,7 +162,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
       this.total = total || '';
       // Add thousand separators
-      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
       this.cdr.detectChanges();
     });
   }
