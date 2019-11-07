@@ -96,7 +96,9 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.width = event.width;
     if (this.width >= 992) {
       this.mobile = false;
-      this.closeModal();
+      // Modal existence check
+      // tslint:disable-next-line: no-unused-expression
+      this.modalRef && this.closeModal();
     } else {
       this.mobile = true;
     }
