@@ -51,15 +51,18 @@ export class SuggestComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(
       responseData => {
-        this.responseData = responseData,
-        // path to suggestions
-        this.suggests = this.responseData[0].suggest.mySuggestions[0];
-        // Update total & title if no hits
-        if (this.responseData[0].hits.total === 0) {
-          // Update total count, fixes issue where old count is visible when no results
-          this.searchService.updateTotal(0);
-          // Update title, same fix as above
-          this.updateTitle(this.currentTab);
+        // ToDo: Remove outer if statement when all indices have been mapped to suggests
+        if (this.currentTab.data === 'publications') {
+          this.responseData = responseData,
+          // path to suggestions
+          this.suggests = this.responseData[0].suggest.mySuggestions[0];
+          // Update total & title if no hits
+          if (this.responseData[0].hits.total === 0) {
+            // Update total count, fixes issue where old count is visible when no results
+            this.searchService.updateTotal(0);
+            // Update title, same fix as above
+            this.updateTitle(this.currentTab);
+          }
         }
       }
     );
