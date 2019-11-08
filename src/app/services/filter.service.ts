@@ -112,10 +112,10 @@ export class FilterService {
 
   filterByJuFoCode(code: string) {
     const res = [];
-    if (code.includes('top')) {res.push({ term : { 'jufoClassCode.keyword' : 3 } }); }
-    if (code.includes('leading')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
-    if (code.includes('basic')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
-    if (code.includes('others')) {res.push({ term : { 'jufoClassCode.keyword' : 0 } }); }
+    if (code.includes('3')) {res.push({ term : { 'jufoClassCode.keyword' : 3 } }); }
+    if (code.includes('2')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
+    if (code.includes('1')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
+    if (code.includes('0')) {res.push({ term : { 'jufoClassCode.keyword' : 0 } }); }
     if (code.includes('noVal')) {res.push({ term : { 'jufoClassCode.keyword' : ' ' } }); }
     return res;
   }
