@@ -9,7 +9,6 @@
 <aside>
     <app-search-bar></app-search-bar>
 </aside>
-
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
@@ -27,7 +26,7 @@
                         <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
                     </tr>
                     <tr class="row">
-                        <th class="col-6 col-lg-3">Organisaatiot ja Tekijät</th>
+                        <th class="col-6 col-lg-3">Organisaatiot ja tekijät</th>
                         <td class="col-6 col-lg-9" *ngFor="let row of authorFields.slice(0,1)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
@@ -62,7 +61,12 @@
                         <th class="col-6 col-lg-3">Julkaisukanavan tiedot</th>
                         <td class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of mediumFields.slice(0,3)">
                             <p>{{row.label}}</p>
-                            <p [attr.lang]="row.lang && item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source[row.field]}}</p>
+                            <p [attr.lang]="row.lang && item._source.languageCode !== documentLang ? item._source.languageCode : null">
+                                <a routerLink="/results/publications/{{item._source[row.field]}}">
+                                    {{item._source[row.field]}}
+                                </a>
+  
+                            </p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
@@ -78,7 +82,7 @@
                             </td>        
                             <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+2">
                                 <p>{{mediumFields.slice(3)[i + 2].label}}</p>
-                                <p>{{item._source[mediumFields.slice(3)[i + 2].field]}}</p>
+                                <p><a href="https://www.tsv.fi/julkaisufoorumi/haku.php?issn={{item._source[mediumFields.slice(3)[i + 2].field]}}">{{item._source[mediumFields.slice(3)[i + 2].field]}}</a></p>
                             </td>        
                         </tr>
                     </ng-container>

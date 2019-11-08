@@ -14,43 +14,45 @@ import { StaticDataService } from './static-data.service';
 export class SettingsService {
 indexList: string;
 aggsOnly: string;
+exactField: string;
 
   constructor( private staticDataService: StaticDataService) {
     this.indexList = 'publication,person,funding,organization' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
-   }
+  }
+
+  strictFields(field) {
+    this.exactField = field;
+  }
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: string) {
+    // console.log(this.strictField)
+    let targetFields: any;
+
+    // Use exact field when doing a search from single document page
+    if (this.exactField) {
+      targetFields = this.exactField;
+    } else {
+      // Todo: Are two separate arrays needed for fields? In first version second array was for fields that needed exact match
+      targetFields = this.staticDataService.queryFields(index).concat(this.staticDataService.queryExactFields(index))
+    }
+
     const res = { bool: {
-      must: [{ term: { _index: index }},
-        {
-          bool: {
             should: [
               {
                 multi_match: {
                   query: term,
                   analyzer: 'standard',
                   type: 'cross_fields',
-                  // Todo: Are two separate arrays needed for fields? In first version second array was for fields that needed exact match
-                  fields: this.staticDataService.queryFields(index).concat(this.staticDataService.queryExactFields(index)),
+                  fields: targetFields,
                   operator: 'AND',
                   lenient: 'true'
                 }
-              },
-              // {
-              //   multi_match: {
-              //     query: term,
-              //     analyzer: 'standard',
-              //     type: 'cross_fields',
-              //     fields: this.staticDataService.queryExactFields(index),
-              //     operator: 'AND',
-              //     lenient: 'true'
-              //   }
-              // }
+              }
             ]
           }
-        }]}};
+        };
     return res;
   }
 
