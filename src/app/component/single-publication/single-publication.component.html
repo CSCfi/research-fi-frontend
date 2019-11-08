@@ -5,154 +5,172 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<h1 #srHeader class="sr-only"></h1>
-<aside>
-    <app-search-bar></app-search-bar>
-</aside>
-<div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
-    <!-- Breadcrumb -->
-    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
-    <div class="row shared">
-        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchService.currentInput | async}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
-        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
-            <h2>404 - Virheellinen osoite</h2>
-        </div>
-        <main class="col-12 col-md-8">
-            <div *ngFor="let item of publication.hits.hits">
-                <h2 [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h2>
-                <table id="info">
-                    <tr class="row" *ngFor="let row of infoFields">
-                        <th class="col-6 col-lg-3">{{row.label}}</th>
-                        <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-6 col-lg-3">Organisaatiot ja tekijät</th>
-                        <td class="col-6 col-lg-9" *ngFor="let row of authorFields.slice(0,1)">
-                            <p>{{row.label}}</p>
-                            <p>{{item._source[row.field]}}</p>
-                        </td>
-                    </tr>
-                    <ng-container *ngFor="let row of authorFields.slice(1)">
-                        <tr></tr>
-                        <tr class="row">
-                            <td class="col-6 col-lg-9 offset-6 offset-lg-3">
-                                <p>{{row.label}}</p>
-                                <p>{{item._source[row.field]}}</p>
-                            </td>        
-                        </tr>
-                    </ng-container>
-                    <tr class="row">
-                        <th class="col-6 col-lg-3">Organisaation sisäinen affiliaatio</th>
-                        <td class="col-6 col-lg-9" *ngFor="let row of organizationFields.slice(0,1)">
-                            <p>{{row.label}}</p>
-                            <p>{{item._source[row.field]}}</p>
-                        </td>
-                    </tr>
-                    <ng-container *ngFor="let row of organizationFields.slice(1)">
-                        <tr></tr>
-                        <tr class="row">
-                            <td class="col-6 col-lg-9 offset-6 offset-lg-3">
-                                <p>{{row.label}}</p>
-                                <p>{{item._source[row.field]}}</p>
-                            </td>        
-                        </tr>
-                    </ng-container>
-                    <tr class="row">
-                        <th class="col-6 col-lg-3">Julkaisukanavan tiedot</th>
-                        <td class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of mediumFields.slice(0,3)">
-                            <p>{{row.label}}</p>
-                            <p [attr.lang]="row.lang && item._source.languageCode !== documentLang ? item._source.languageCode : null">
-                                <a routerLink="/results/publications/{{item._source[row.field]}}">
+ <h1 #srHeader class="sr-only"></h1>
+ <aside>
+     <app-search-bar></app-search-bar>
+ </aside>
+ <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;">
+     <!-- Breadcrumb -->
+     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
+     <div class="row shared">
+         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchService.currentInput | async}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
+         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
+             <h2>404 - Virheellinen osoite</h2>
+         </div>
+         <main class="col-12 col-md-8">
+             <div *ngFor="let item of publication.hits.hits">
+                 <h2 [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h2>
+                 <table id="info">
+                     <tr class="row" *ngFor="let row of infoFields">
+                         <th class="col-6 col-lg-3">{{row.label}}</th>
+                         <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
+                     </tr>
+                     <tr class="row">
+                         <th class="col-6 col-lg-3">Organisaatiot ja tekijät</th>
+                         <td class="col-6 col-lg-9" *ngFor="let row of authorFields.slice(0,1)">
+                             <p>{{row.label}}</p>
+                             <p>{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of authorFields.slice(1)">
+                         <tr></tr>
+                         <tr class="row">
+                             <td class="col-6 col-lg-9 offset-6 offset-lg-3">
+                                 <p>{{row.label}}</p>
+                                 <p>{{item._source[row.field]}}</p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                     <tr class="row">
+                         <th class="col-6 col-lg-3">Organisaation sisäinen affiliaatio</th>
+                         <td class="col-6 col-lg-9" *ngFor="let row of organizationFields.slice(0,1)">
+                             <p>{{row.label}}</p>
+                             <p>{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of organizationFields.slice(1)">
+                         <tr></tr>
+                         <tr class="row">
+                             <td class="col-6 col-lg-9 offset-6 offset-lg-3">
+                                 <p>{{row.label}}</p>
+                                 <p>{{item._source[row.field]}}</p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                     <tr class="row">
+                         <!-- Top row links, switch case to check for different search targets -->
+                         <th class="col-6 col-lg-3">Julkaisukanavan tiedot</th>
+                         <td class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of mediumFields.slice(0,3)">
+                             <p>{{row.label}}</p>
+                             <p *ngIf="row.link && juFoCode.length > 1 " [attr.lang]="row.lang && item._source.languageCode !== documentLang ? item._source.languageCode : null" 
+                             [ngSwitch]="true">
+                                <!-- Check if fields are issn or isbn and target search with exact field  -->
+                                <a *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'" (click)="navigate(row.field)" 
+                                routerLink="{{row.linkPath}}{{item._source[row.field]}}">
                                     {{item._source[row.field]}}
                                 </a>
-  
-                            </p>
-                        </td>
-                    </tr>
-                    <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
-                        <tr *ngIf="i % 3 == 0"></tr>
-                        <tr class="row" *ngIf="i % 3 == 0">
-                            <td class="col-6 col-lg-3 offset-6 offset-lg-3">
+                                <!-- Every other link uses jufoCode as search term -->
+                                <a *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
+                                    {{item._source[row.field]}}
+                                </a>
+                             </p>
+                             <!-- Show label only if no search functionality -->
+                             <p *ngIf="!row.link || juFoCode.length === 1">{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
+                         <tr *ngIf="i % 3 == 0"></tr>
+                         <tr class="row" *ngIf="i % 3 == 0">
+                             <td class="col-6 col-lg-3 offset-6 offset-lg-3">
                                 <p>{{row.label}}</p>
-                                <p>{{item._source[row.field]}}</p>
-                            </td>        
-                            <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+1">
+                                <a *ngIf="row.link" href="{{row.linkPath}}{{item._source[row.field]}}">
+                                    {{item._source[row.field]}}
+                                </a>
+                                <span *ngIf="!row.link">{{item._source[row.field]}}</span>
+                             </td>        
+                             <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+1">
                                 <p>{{mediumFields.slice(3)[i + 1].label}}</p>
-                                <p>{{item._source[mediumFields.slice(3)[i + 1].field]}}</p>
-                            </td>        
-                            <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+2">
+                                <a *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item._source[mediumFields.slice(3)[i + 1].field]}}">
+                                    {{item._source[mediumFields.slice(3)[i + 1].field]}}
+                                </a>
+                                <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item._source[row.field]}}</span>
+                             </td>        
+                             <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+2">
                                 <p>{{mediumFields.slice(3)[i + 2].label}}</p>
-                                <p><a href="https://www.tsv.fi/julkaisufoorumi/haku.php?issn={{item._source[mediumFields.slice(3)[i + 2].field]}}">{{item._source[mediumFields.slice(3)[i + 2].field]}}</a></p>
-                            </td>        
-                        </tr>
-                    </ng-container>
-                    <tr class="row" *ngFor="let row of linksFields.slice(0,1)">
-                        <th class="col-3">Linkit</th>
-                        <td class="col-9"><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></td>
-                    </tr>
-                    <ng-container *ngFor="let row of linksFields.slice(1)">
-                        <tr></tr>
-                        <tr class="row">
-                            <td class="col-9 offset-3">
-                                <p><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></p>
-                            </td>        
-                        </tr>
-                    </ng-container>
-                    <tr class="row">
-                        <th class="col-6 col-lg-3">Muut tiedot</th>
-                        <td class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of otherFields.slice(0,2)">
-                            <p>{{row.label}}</p>
-                            <p>{{item._source[row.field]}}</p>
-                        </td>
-                    </tr>
-                    <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
-                        <tr *ngIf="i % 2 == 0"></tr>
-                        <tr class="row" *ngIf="i % 2 == 0">
-                            <td class="col-6 col-lg-4 offset-6 offset-lg-3">
-                                <p>{{row.label}}</p>
-                                <p>{{item._source[row.field]}}</p>
-                            </td>        
-                            <td class="col-6 col-lg-5 offset-6 offset-lg-0" *ngIf="otherFields.slice(2).length > i+1">
-                                <p>{{otherFields.slice(2)[i + 1].label}}</p>
-                                <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
-                            </td>        
-                        </tr>
-                    </ng-container>
-                </table>
-            </div>
-        </main>
-        <div class="col-12 col-md-4 col-xl-4">
-            <aside>
-                <mat-card>
-                    <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
-                    <div class="row related">
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkijat (45)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Aineistot (13)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Organisaatiot (9)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkimusvälineet (-)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
-                    </div>
-                </mat-card>
-            </aside>
-            <aside>
-                <mat-card>
-                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
-                    <div class="row">
-                        <div class="col-12 reference"><button mat-raised-button color="primary">Viittaa tähän julkaisuun</button></div>
-                    </div>
-                </mat-card>
-            </aside>
-            <aside>
-                <mat-card>
-                    <mat-card-title><h2>Jaa</h2></mat-card-title>
-                    <div class="social">
-                        <a href="#"><i class="fa fa-facebook-official"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin-square"></i></a>
-                    </div>
-                </mat-card>
-            </aside>
-        </div>
-    </div>
-</div>
+                                <a *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item._source[mediumFields.slice(3)[i + 2].field]}}">
+                                    {{item._source[mediumFields.slice(3)[i + 2].field]}}
+                                </a>
+                                <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item._source[row.field]}}</span>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                     <tr class="row" *ngFor="let row of linksFields.slice(0,1)">
+                         <th class="col-3">Linkit</th>
+                         <td class="col-9"><a href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a></td>
+                     </tr>
+                     <ng-container *ngFor="let row of linksFields.slice(1)">
+                         <tr></tr>
+                         <tr class="row">
+                             <td class="col-9 offset-3">
+                                 <p><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                     <tr class="row">
+                         <th class="col-6 col-lg-3">Muut tiedot</th>
+                         <td class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of otherFields.slice(0,2)">
+                             <p>{{row.label}}</p>
+                             <p>{{item._source[row.field]}}</p>
+                         </td>
+                     </tr>
+                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
+                         <tr *ngIf="i % 2 == 0"></tr>
+                         <tr class="row" *ngIf="i % 2 == 0">
+                             <td class="col-6 col-lg-4 offset-6 offset-lg-3">
+                                 <p>{{row.label}}</p>
+                                 <p>{{item._source[row.field]}}</p>
+                             </td>        
+                             <td class="col-6 col-lg-5 offset-6 offset-lg-0" *ngIf="otherFields.slice(2).length > i+1">
+                                 <p>{{otherFields.slice(2)[i + 1].label}}</p>
+                                 <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
+                             </td>        
+                         </tr>
+                     </ng-container>
+                 </table>
+             </div>
+         </main>
+         <div class="col-12 col-md-4 col-xl-4">
+             <aside>
+                 <mat-card>
+                     <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
+                     <div class="row related">
+                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkijat (45)</a></p>
+                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Aineistot (13)</a></p>
+                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Organisaatiot (9)</a></p>
+                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
+                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkimusvälineet (-)</a></p>
+                         <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
+                     </div>
+                 </mat-card>
+             </aside>
+             <aside>
+                 <mat-card>
+                     <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                     <div class="row">
+                         <div class="col-12 reference"><button mat-raised-button color="primary">Viittaa tähän julkaisuun</button></div>
+                     </div>
+                 </mat-card>
+             </aside>
+             <aside>
+                 <mat-card>
+                     <mat-card-title><h2>Jaa</h2></mat-card-title>
+                     <div class="social">
+                         <a href="#"><i class="fa fa-facebook-official"></i></a>
+                         <a href="#"><i class="fa fa-twitter"></i></a>
+                         <a href="#"><i class="fa fa-linkedin-square"></i></a>
+                     </div>
+                 </mat-card>
+             </aside>
+         </div>
+     </div>
+ </div>
