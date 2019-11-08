@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
+import { SettingsService } from '../../services/settings.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
@@ -40,22 +41,26 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Organisaatio', field: 'publicationOrgId'}
   ];
   mediumFields = [
-    {label: 'Lehti', field: 'journalName' /*, lang: true */},
-    {label: 'Konferenssi', field: 'conferenceName' /*, lang: true */},
-    {label: 'Kustantaja', field: 'publisherName' /*, lang: true */},
-    {label: 'ISSN', field: 'issn'},
-    {label: 'ISBN', field: 'isbn'},
-    {label: 'Volyymi', field: 'volume'},
-    {label: 'Numero', field: 'issueNumber'},
-    {label: 'Sivut', field: 'pageNumberText'},
-    {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode'}, // \u00AD soft hyphen, break word here if needed
-    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode'},
-
+    {label: 'Lehti', field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: 'Emojulkaisun nimi', field: 'parentPublicationName', link: true, linkPath: '/results/publications/'},
+    {label: 'Konferenssi', field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: 'Kustantaja', field: 'publisherName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
+    {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
+    {label: 'Volyymi', field: 'volume', link: false},
+    {label: 'Numero', field: 'issueNumber', link: false},
+    {label: 'Sivut', field: 'pageNumberText', link: false},
+    // \u00AD soft hyphen, break word here if needed
+    {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn='},
+    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: true, linkPath: '/results/publications?page=1&juFo='},
   ];
+
+  mediumTopRowFields = []
+
   linksFields = [
-    {label: 'DOI', field: 'doi'},
-    {label: 'Pysyvä osoite', field: 'doiHandle'},
-    {label: 'Rinnakkaistallennus', field: 'greenOpenAccessAddress'},
+    {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
+    {label: 'Pysyvä osoite', field: 'doiHandle', path: ''},
+    {label: 'Rinnakkaistallennus', field: 'greenOpenAccessAddress', path: ''},
   ];
   otherFields  = [
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
@@ -71,9 +76,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
+  juFoCode: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any ) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
+               private settingsService: SettingsService ) {
    }
 
   public setTitle(newTitle: string) {
@@ -99,6 +106,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       this.responseData = responseData;
       this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
       this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+      // juFoCode is used for exact search
+      this.juFoCode = this.responseData[0].hits.hits[0]._source.jufoCode;
       this.shapeData();
       this.filterData();
     },
@@ -148,5 +157,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         source.languageExpanded = source.languageCode;
       }
     }
+  }
+
+  navigate(field) {
+    console.log(field)
+    this.settingsService.strictFields(field)
   }
 }
