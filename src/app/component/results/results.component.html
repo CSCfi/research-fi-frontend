@@ -17,7 +17,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-result-tab style="width:100%" [allData]="tabValues"></app-result-tab>
         <div class="row total">
             <div class="col">
-                <h3 class="total" (click)="navigateToVisualisation()">{{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span></h3>
+                <h3 class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''" (click)="navigateToVisualisation()">{{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span></h3>
             </div>
         </div>
     </div>
