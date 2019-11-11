@@ -101,7 +101,7 @@ export class SearchService {
   getTabValues(): Observable<Search[]> {
     this.settingsService.querySettings(this.tabChangeService.tab, this.singleInput);
     const payLoad = {
-      ...(this.singleInput.length ? { query: {
+      ...(this.singleInput ? { query: {
         bool: {
           should: [
             this.settingsService.querySettings('publication', this.singleInput),
