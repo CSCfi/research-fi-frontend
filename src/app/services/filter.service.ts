@@ -204,7 +204,7 @@ export class FilterService {
     return {
       query,
       size: 10,
-      ...(tab === 'publications' ? this.settingsService.suggestSettings(searchTerm) : []),
+      ...(tab === 'publications' && searchTerm ? this.settingsService.suggestSettings(searchTerm) : []),
       from: fromPage,
       sort: sortOrder
     };
@@ -232,7 +232,7 @@ export class FilterService {
 
   constructFilterPayload(tab: string, searchTerm: string) {
     const payLoad: any = {
-      ...(searchTerm.length ? { query: {
+      ...(searchTerm ? { query: {
         bool: { should: [ this.settingsService.querySettings(tab.slice(0, -1), searchTerm) ] }
         }} : []),
       size: 0,
