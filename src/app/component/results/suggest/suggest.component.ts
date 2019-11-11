@@ -29,7 +29,7 @@ export class SuggestComponent implements OnInit, OnDestroy {
   currentInput: any;
   tabValueSub: any;
 
-  constructor( private searchService: SearchService, public router: Router, private route: ActivatedRoute,
+  constructor( private searchService: SearchService, public router: Router,
                private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
                private titleService: Title, @Inject(PLATFORM_ID) private platformId: object ) {  }
     public setTitle(newTitle: string) {
@@ -86,8 +86,6 @@ export class SuggestComponent implements OnInit, OnDestroy {
 
   navigate(term) {
     this.searchService.singleInput = term;
-    // this.router.navigate(['results/', this.currentTab.data, term]);
-
     this.tabValueSub = this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
       this.searchService.redirecting = true;
