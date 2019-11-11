@@ -180,7 +180,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         this.selectedPublicationTypes.notifyOnChanges();
       }
     });
-
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
@@ -191,7 +190,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   shapeData() {
     this.responseData = this.responseData || [];
-    // console.log(this.responseData);
 
     // Send data to service so it's available through app
     if (this.responseData.length > 0) {
@@ -268,5 +266,4 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.filterSub.unsubscribe();
     this.resizeSub.unsubscribe();
   }
-
 }
