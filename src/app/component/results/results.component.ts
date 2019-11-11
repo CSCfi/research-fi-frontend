@@ -46,6 +46,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   mobile: boolean;
   updateFilters: boolean;
   total: number | string;
+  parsedTotal: string;
   currentQueryParams: any;
   init = true;
   isBrowser: boolean;
@@ -62,6 +63,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchService.updateInput(this.searchTerm);
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
+    this.total = 1;
   }
 
   public setTitle(newTitle: string) {
@@ -148,23 +150,20 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.init = false;
       });
 
+    this.totalSub = this.searchService.currentTotal.subscribe(total => {
+      this.total = total || '';
+      // Add thousand separators
+      if (this.total) {this.parsedTotal = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+      this.cdr.detectChanges();
+    });
+
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
     this.mobile = this.window.innerWidth < 992;
   }
 
-  // Get total value from search service / pagination
   ngAfterViewInit() {
-    this.getTotal();
-  }
 
-  getTotal() {
-    this.totalSub = this.searchService.currentTotal.subscribe(total => {
-      this.total = total || '';
-      // Add thousand separators
-      if (this.total) {this.total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
-      this.cdr.detectChanges();
-    });
   }
 
   navigateToVisualisation() {
