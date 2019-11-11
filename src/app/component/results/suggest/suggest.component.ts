@@ -40,8 +40,10 @@ export class SuggestComponent implements OnInit, OnDestroy {
     // Subscribe to input change and get data
     this.inputSub = this.searchService.currentInput.subscribe(input => {
       this.currentInput = input;
+      this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
+        this.currentTab = tab;
+      });
       this.getResultData();
-      this.tabSub = this.tabChangeService.currentTab.subscribe(tab => this.currentTab = tab);
     });
   }
 
