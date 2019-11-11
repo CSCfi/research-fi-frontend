@@ -50,6 +50,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
+  currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
@@ -112,6 +113,14 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     if (this.allData) {
       this.ref.changes.subscribe((result) => {
         this.scroll = result.first;
+        // Subscribe to current tab and get count
+        this.tabChangeService.currentTab.subscribe(tab => {
+          this.currentTab = tab;
+          if (this.currentTab.data.length) {
+            // Update total count of current tab
+            this.searchService.updateTotal(this.allData[0].aggregations._index.buckets[this.currentTab.data].doc_count);
+          }
+        })
         // Timeout to prevent value changed exception
         setTimeout(() => {
           this.scrollWidth = this.scroll.nativeElement.scrollWidth;

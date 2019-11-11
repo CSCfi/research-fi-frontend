@@ -66,9 +66,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Avoin saatavuus', field: 'openAccessCode'},
     {label: 'Julkaisumaa', field: 'publicationCountryCode'},
-    {label: 'Kieli', field: 'languageExpanded'},
+    {label: 'Kieli', field: 'languages'},
     {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration'},
-    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'}
+    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'},
+    {label: 'Avainsanat', field: 'keywords'}
   ];
 
   documentLang = this.document.documentElement.lang;
@@ -132,31 +133,23 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
     const fieldsOfScience = source.fields_of_science;
+    const languages = source.languages;
+    const keywords = source.keywords;
     if (fieldsOfScience && fieldsOfScience.length > 0) {
       source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');
+    }
+
+    if (languages && languages.length > 0) {
+      source.languages = languages.map(x => x.languageFi);
+    }
+
+    if (keywords && keywords.length > 0) {
+      source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
     }
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
     source.openAccessCode = source.openAccessCode > 0 ? 'Kyllä' : 'Ei';
-
-    switch (source.languageCode) {
-      case 'fi': {
-        source.languageExpanded = 'suomi';
-        break;
-      }
-      case 'en': {
-        source.languageExpanded = 'englanti';
-        break;
-      }
-      case 'se': {
-        source.languageExpanded = 'ruotsi';
-        break;
-      }
-      default: {
-        source.languageExpanded = source.languageCode;
-      }
-    }
   }
 
   navigate(field) {
