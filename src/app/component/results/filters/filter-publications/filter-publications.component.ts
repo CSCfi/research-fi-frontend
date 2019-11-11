@@ -186,16 +186,26 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   // Wait for responseData and shape filter by term
   ngOnChanges() {
+    this.shapeData();
+  }
+
+  shapeData() {
     this.responseData = this.responseData || [];
+    // console.log(this.responseData);
+
     // Send data to service so it's available through app
-    if (this.responseData.length > 0) {this.dataService.changeResponse(this.responseData); }
+    if (this.responseData.length > 0) {
+      this.dataService.changeResponse(this.responseData);
+      // check if major aggregation is available
+      this.combinedMajorFields =
+      this.responseData[0].aggregations.fieldsOfScience ? (this.filterMethodService.separateMinor(
+        this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : []) ) : [];
+    }
     // Sub filter is for testing purposes. ToDo: Subfilter per parent if needed
-    this.filterTerm = this.filterTerm || '';
-    this.fields = this.filterMethodService.subFilter(
-      this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [], this.filterTerm);
-    // Major & minor fields
-    this.combinedMajorFields = this.filterMethodService.separateMinor(
-      this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : []);
+    // this.filterTerm = this.filterTerm || '';
+    // this.fields = this.filterMethodService.subFilter(
+    //   this.responseData[0] ? this.responseData[0].aggregations.fieldsOfScience.buckets : [], this.filterTerm);
+
     this.separatePublicationClass();
     this.openAccess();
     this.cdr.detectChanges();
