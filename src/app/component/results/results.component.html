@@ -15,31 +15,24 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="container center-content">
     <div class="row">
         <app-result-tab style="width:100%" [allData]="tabValues"></app-result-tab>
-        <!-- Breadcrumb for demo purposes -->
-        <!-- <div *ngIf="selectedTabData" class="row breadcrumbs">
-            <div class="col">
-                <span class="arrow">Haku</span><span class="bold">{{selectedTabData.label}}</span>
-            </div>
-        </div> -->
         <div class="row total">
             <div class="col">
-                <h3 class="total" (click)="navigateToVisualisation()">{{selectedTabData.labelFi}} - <span class="total">{{total}}</span></h3>
+                <h3 class="total" (click)="navigateToVisualisation()">{{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span></h3>
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="filterValues && filterValues[0].hits.total > 0; else noResults">
+    <div class="row" *ngIf="total > 0; else noResults">
         <div *ngIf="mobile; else desktop" class="col-12 row" style="padding:0;">
             <aside class="col col-6 col-sm-6 filters">
-                <app-filter-publications *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filter-publications>
+                <app-filter-publications *ngIf="tab===tabData[0].link" [responseData]="filterValues" [tabData]="tabData[0].data"></app-filter-publications>
                 <app-filter-persons *ngIf="tab===tabData[1].link" [responseData]="filterValues"></app-filter-persons>
-                <app-filter-fundings *ngIf="tab===tabData[2].link"  [responseData]="filterValues" [tabData]="tabData[2].data"></app-filter-fundings>
+                <app-filter-fundings *ngIf="tab===tabData[2].link" [responseData]="filterValues" [tabData]="tabData[2].data"></app-filter-fundings>
                 <app-filter-organizations *ngIf="tab===tabData[6].link" [responseData]="filterValues" [tabData]="tabData[6].data"></app-filter-organizations>
             </aside>
             <aside class="col col-6 col-sm-6 sort">
                 <app-sort></app-sort>
             </aside>
             <main class="col-12">
-                <!-- <h2 style="padding: 24px 10px;">Hakutulokset <span class="total">({{total}})</span></h2> -->
                 <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
             </main>
         </div>
@@ -54,15 +47,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-filter-organizations *ngIf="tab===tabData[6].link" [responseData]="filterValues" [tabData]="tabData[6].data"></app-filter-organizations>
     </aside>
     <div class="col-9 row main-content">
-        <!-- <div class="col-6">
-            <h3 class="total" (click)="navigateToVisualisation()">Hakutulokset <span class="total">({{total}})</span></h3>
-        </div> -->
-        <aside class="col-6">
-            <!-- Sorting -->
-            <!-- <app-sort></app-sort> -->
-        </aside>
         <main class="col-12">
-            <!-- Active filters -->
             <app-active-filters></app-active-filters>
             <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
         </main>
@@ -70,7 +55,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </ng-template>
 
 <ng-template #noResults>
-    <div class="row main-content" *ngIf="filterValues && filterValues[0].hits.total === 0;">
+    <div class="row main-content">
         <div class="col text-center no-results">
             <h2>Ei tuloksia</h2>
         </div>
