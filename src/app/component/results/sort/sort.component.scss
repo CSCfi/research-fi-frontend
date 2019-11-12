@@ -50,6 +50,10 @@ span.align-left.hide-mobile {
         margin-left: -12px;
     }
 
+    ::ng-deep .mat-select-value-text:after {
+        content: "";
+    }
+
     ::ng-deep .mat-form-field-label-wrapper {
         top: 0;
         padding-top: 0;
@@ -62,7 +66,7 @@ span.align-left.hide-mobile {
     mat-form-field.mat-form-field {
         width: 100%;
         border-radius: 0.25rem;
-        height: 53px;
+        padding: 19px 0;
         display: flex;
         justify-content: center;
         align-items: center;

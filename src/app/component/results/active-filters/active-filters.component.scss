@@ -28,12 +28,27 @@
     border-radius: 10px;
     line-height: 28px;
     cursor: pointer;
-    height: 43px;
+    min-height: 43px;
+}
+
+.active-filters li {
+    padding-right: 30px;
 }
 
 .active-filters li:after {
+    position: absolute;
     font-family: "FontAwesome";
     content: "\f00d ";
     font-size: 1.2rem;
     padding-left: 5px;
+}
+
+.active-filters li:hover::after {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 991px) {
+    .active-filters {
+        padding-inline-end: 1.4rem;
+    }
 }

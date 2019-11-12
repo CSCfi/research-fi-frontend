@@ -7,7 +7,7 @@
 
 @mixin app-filters-shared {
 
-    app-filter-fundings, app-filter-organizations, app-filter-publications, app-filter-persons {
+    app-filter-fundings, app-filter-organizations, app-filter-publications, app-filter-persons, modal-container {
         .mobile {
             max-width: 95%;
         }
@@ -118,6 +118,10 @@
             flex-direction: row!important;
         }
 
+        .mat-list-base .mat-list-option .mat-list-item-content {
+            width: 100%;
+        }
+
         mat-selection-list.limit {
             // max-height: 240px;
             overflow: hidden;
@@ -164,6 +168,10 @@
             display: none;
         }
 
+        .navbar-toggler {
+            padding: 8px 0;
+        }
+
         // Filter button
         .navbar-toggler ul {
             list-style: none;
@@ -180,7 +188,27 @@
         // Responsive
         @media (max-width: 991px) {
             .filter-sidebar {
-                display: none;
+                max-height: calc(100vh - 200px);
+            }
+
+            .modal-body {
+                padding: 0;
+            }
+
+            span.label, .mat-expansion-panel-header-title, .single-checkbox {
+                font-size: 18px !important;
+            }
+
+            .mat-pseudo-checkbox {
+                width: 22px;
+                height: 22px;
+            }
+
+            .mat-pseudo-checkbox-checked::after {
+                top: 5.6px;
+                left: 3px;
+                width: 10px;
+                height: 3px;
             }
 
             h3 {

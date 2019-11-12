@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
-         ChangeDetectorRef, AfterViewInit, Inject } from '@angular/core';
+         ChangeDetectorRef, AfterViewInit, Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -17,6 +17,7 @@ import { StaticDataService } from '../../../../services/static-data.service';
 import { DataService } from '../../../../services/data.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-filter-publications',
@@ -28,7 +29,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @Input() tabData: string;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
-  sidebarOpen = false;
   width = this.window.innerWidth;
   mobile = this.width < 992;
   @ViewChild('selectedYear', { static: false }) selectedYear: MatSelectionList;
@@ -38,7 +38,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @ViewChild('selectedLang', { static: false }) selectedLang: MatSelectionList;
   @ViewChild('selectedJuFo', { static: false }) selectedJuFo: MatSelectionList;
   @ViewChild('selectedOpenAccess', { static: false }) selectedOpenAccess: MatSelectionList;
-  @ViewChild('filterSidebar', { static: false }) filterSidebar: ElementRef;
   preSelection = [];
   private resizeSub: Subscription;
   private filterSub: Subscription;
@@ -62,21 +61,22 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   public clickCount: number;
   limitList = true;
 
+  modalRef: BsModalRef;
+
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
-               @Inject(WINDOW) private window: Window, ) {
+               @Inject(WINDOW) private window: Window, private modalService: BsModalService) {
                  this.height = 240;
                  this.clickCount = 0;
                 }
 
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-    if (this.sidebarOpen) {
-      this.filterSidebar.nativeElement.style.display = 'block';
-    } else {
-      this.filterSidebar.nativeElement.style.display = 'none';
-    }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
   }
 
   resetHeight() {
@@ -96,10 +96,11 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.width = event.width;
     if (this.width >= 992) {
       this.mobile = false;
-      if (!this.sidebarOpen) { this.toggleSidebar(); }
+      // Modal existence check
+      // tslint:disable-next-line: no-unused-expression
+      this.modalRef && this.closeModal();
     } else {
       this.mobile = true;
-      if (this.sidebarOpen) { this.toggleSidebar(); }
     }
   }
 
