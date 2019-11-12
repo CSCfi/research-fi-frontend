@@ -76,9 +76,9 @@
 
         .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
             height: auto;
-            min-height: 48px;
             display: flex;
             vertical-align: middle;
+            padding: 12px 0;
         }
 
         // Preserve space for parent header
@@ -120,6 +120,7 @@
 
         .mat-list-base .mat-list-option .mat-list-item-content {
             width: 100%;
+            padding: 0 0 0 16px;
         }
 
         mat-selection-list.limit {
@@ -195,11 +196,15 @@
                 padding: 0;
             }
 
+            .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+                min-height: 48px;
+            }
+
             span.label, .mat-expansion-panel-header-title, .single-checkbox {
                 font-size: 18px !important;
             }
 
-            .mat-pseudo-checkbox {
+            .mat-pseudo-checkbox, .mat-checkbox-inner-container {
                 width: 22px;
                 height: 22px;
             }
@@ -209,6 +214,10 @@
                 left: 3px;
                 width: 10px;
                 height: 3px;
+            }
+
+            mat-expansion-panel.mat-expansion-panel {
+                max-width: auto;
             }
 
             h3 {
