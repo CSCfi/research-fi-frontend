@@ -42,13 +42,13 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </div>
 
 <ng-template #desktop>
-    <aside class="col-3 filters">
+    <aside class="col-4 col-xl-3 filters">
         <app-filter-publications *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filter-publications>
         <app-filter-persons *ngIf="tab===tabData[1].link" [responseData]="filterValues"></app-filter-persons>
         <app-filter-fundings *ngIf="tab===tabData[2].link"  [responseData]="filterValues" [tabData]="tabData[2].data"></app-filter-fundings>
         <app-filter-organizations *ngIf="tab===tabData[6].link" [responseData]="filterValues" [tabData]="tabData[6].data"></app-filter-organizations>
     </aside>
-    <div class="col-9 row main-content">
+    <div class="col-8 col-xl-9 row main-content">
         <main class="col-12">
             <app-active-filters></app-active-filters>
             <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
