@@ -85,7 +85,7 @@ export class StaticDataService {
     let res = [];
     switch (index) {
       case 'publication': {
-        res = ['publicationName', 'authorsText^2', 'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
+        res = ['publicationName^2', 'authorsText', 'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
               'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress', 'fields_of_science.nameFiScience',
               'fields_of_science.nameEnScience', 'fields_of_science.nameSvScience',
               'fields_of_education', 'keywords'];
@@ -96,11 +96,11 @@ export class StaticDataService {
         break;
       }
       case 'funding': {
-        res = ['projectNameFi', 'fundedNameFi', 'funderNameFi'];
+        res = ['projectNameFi^2', 'fundedNameFi', 'funderNameFi'];
         break;
       }
       case 'organization': {
-        res = ['ornameFiga', 'sectorNameFi'];
+        res = ['ornameFiga^2', 'sectorNameFi'];
         break;
       }
     }
