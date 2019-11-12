@@ -100,7 +100,7 @@ export class StaticDataService {
         break;
       }
       case 'organization': {
-        res = ['ornameFiga^2', 'sectorNameFi'];
+        res = ['nameFi^2', 'sectorNameFi'];
         break;
       }
     }
