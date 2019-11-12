@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { StaticDataService } from './static-data.service';
+import { isNumber } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { StaticDataService } from './static-data.service';
 export class SettingsService {
 indexList: string;
 aggsOnly: string;
-exactField: string;
+exactField: any;
 
   constructor( private staticDataService: StaticDataService) {
     this.indexList = 'publication,person,funding,organization' + '/_search?';
@@ -26,16 +27,31 @@ exactField: string;
   }
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
-  querySettings(index: string, term: string) {
-    // console.log(this.strictField)
+  querySettings(index: string, term: any) {
+    if (this.exactField === this.exactField) {this.exactField = undefined}
     let targetFields: any;
+    let hasDigits: any;
+    let targetAnalyzer: string;
+    let targetType: string;
 
     // Use exact field when doing a search from single document page
     if (this.exactField) {
       targetFields = this.exactField;
     } else {
       // Todo: Are two separate arrays needed for fields? In first version second array was for fields that needed exact match
-      targetFields = this.staticDataService.queryFields(index).concat(this.staticDataService.queryExactFields(index))
+      targetFields = this.staticDataService.queryFields(index).concat(this.staticDataService.queryExactFields(index));
+    }
+
+    // Set analyzer & type
+    // hasDigits = /^\d+$/.test(term);
+    hasDigits = /\d/.test(term);
+
+    if (hasDigits) {
+      targetAnalyzer = 'standard';
+      targetType = 'cross_fields';
+    } else {
+      targetAnalyzer = 'simple';
+      targetType = 'phrase_prefix';
     }
 
     const res = { bool: {
@@ -43,8 +59,8 @@ exactField: string;
               {
                 multi_match: {
                   query: term,
-                  analyzer: 'standard',
-                  type: 'cross_fields',
+                  analyzer: targetAnalyzer,
+                  type: targetType,
                   fields: targetFields,
                   operator: 'AND',
                   lenient: 'true'
