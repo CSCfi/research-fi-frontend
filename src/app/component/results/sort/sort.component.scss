@@ -31,7 +31,7 @@ span.align-left.hide-mobile {
     
     .sort {
         text-align: center;
-        min-width: 169px;
+        min-width: 152px;
         max-width: 95%;
         margin-right: auto;
         margin-left: auto;
@@ -83,7 +83,7 @@ span.align-left.hide-mobile {
     ::ng-deep .mat-form-field-infix {
         border: 0 !important;
         padding: 0 !important;
-        width: 280px !important;
+        width: 240px !important;
     }
 
     ::ng-deep mat-select {
@@ -100,8 +100,14 @@ span.align-left.hide-mobile {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     ::ng-deep .mat-form-field-infix {
-        width: 149px!important;
+        width: 150px !important;
+    }
+}
+
+@media (max-width: 350px) {
+    ::ng-deep .mat-form-field-infix {
+        width: 135px !important;
     }
 }

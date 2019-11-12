@@ -78,7 +78,7 @@
                     <div class="subFields">
                         <div *ngFor="let major of staticDataService.majorFieldsOfScience, let i = index">
                             <mat-expansion-panel *ngIf="combinedMajorFields[i] && combinedMajorFields[i].length > 0">
-                                <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
+                                <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         <strong>{{major.label}}</strong>
                                         <mat-checkbox [checked]="major.checked" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'field')" style="padding:0 10px;"></mat-checkbox>
@@ -108,7 +108,7 @@
                         <div *ngFor="let class of staticDataService.publicationClass">
                             <div *ngFor="let classType of filteredPublicationClass, let i = index">
                                 <mat-expansion-panel *ngIf="class.class === classType">
-                                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
+                                    <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <strong>{{class.class}} {{class.label}}</strong>
                                             <mat-checkbox [checked]="class.checked" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
