@@ -30,6 +30,7 @@ exactField: any;
   querySettings(index: string, term: any) {
     if (this.exactField === this.exactField) {this.exactField = undefined}
     let targetFields: any;
+    let onlyDigits: any;
     let hasDigits: any;
     let targetAnalyzer: string;
     let targetType: string;
@@ -43,14 +44,18 @@ exactField: any;
     }
 
     // Set analyzer & type
-    // hasDigits = /^\d+$/.test(term);
+    onlyDigits = /^\d+$/.test(term);
     hasDigits = /\d/.test(term);
 
     if (hasDigits) {
       targetAnalyzer = 'standard';
-      targetType = 'cross_fields';
+      if (onlyDigits) {
+        targetType = 'phrase_prefix';
+      } else {
+        targetType = 'cross_fields';
+      }
     } else {
-      targetAnalyzer = 'simple';
+      targetAnalyzer = 'standard';
       targetType = 'phrase_prefix';
     }
 
