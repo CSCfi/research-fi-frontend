@@ -153,7 +153,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   navigate(field) {
-    console.log(field)
-    this.settingsService.strictFields(field)
+    this.settingsService.strictFields(field);
   }
 }
