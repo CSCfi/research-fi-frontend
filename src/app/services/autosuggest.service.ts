@@ -30,12 +30,12 @@ export class AutosuggestService {
                     { term: { _index: 'publication'	}	},
                     {	bool:
                       {	should: [
-                          { fuzzy: { publicationName: { value: terms,
-                            fuzziness: 'AUTO',
-                            max_expansions: 50,
-                            prefix_length: 0,
-                            transpositions: true,
-                            rewrite: 'constant_score' } } },
+                          // { fuzzy: { publicationName: { value: terms,
+                          //   fuzziness: 'AUTO',
+                          //   max_expansions: 50,
+                          //   prefix_length: 0,
+                          //   transpositions: true,
+                          //   rewrite: 'constant_score' } } },
                             {match_phrase_prefix: { publicationName: { query: terms }}}
                         ]
                       }
