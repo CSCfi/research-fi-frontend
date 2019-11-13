@@ -30,12 +30,6 @@ export class AutosuggestService {
                     { term: { _index: 'publication'	}	},
                     {	bool:
                       {	should: [
-                          // { fuzzy: { publicationName: { value: terms,
-                          //   fuzziness: 'AUTO',
-                          //   max_expansions: 50,
-                          //   prefix_length: 0,
-                          //   transpositions: true,
-                          //   rewrite: 'constant_score' } } },
                             {match_phrase_prefix: { publicationName: { query: terms }}}
                         ]
                       }
@@ -63,7 +57,6 @@ export class AutosuggestService {
                         analyzer: 'standard',
                         fields: ['firstName', 'lastName'],
                         operator: 'and',
-                        // fuzziness: 'auto',
                         prefix_length: 1
                       }}]}
               }]}},
@@ -118,9 +111,9 @@ export class AutosuggestService {
             }
           }
         }
-      }
+      },
     };
-    return this.http.post(this.apiUrl + this.settingService.indexList + this.settingService.aggsOnly, payLoad);
+    return this.http.post(this.apiUrl + this.settingService.indexList, payLoad);
     }
 
 }
