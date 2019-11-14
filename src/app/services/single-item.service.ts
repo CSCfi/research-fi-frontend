@@ -32,18 +32,29 @@ export class SingleItemService {
     this.getIdSubject.next(singleId);
   }
 
+  constructPayload(field, term) {
+    const res = {
+      query: {
+        match: {
+          [field]: term
+        }
+      }
+    };
+    return res;
+  }
+
   getSinglePublication(id): Observable<Search[]> {
-    return this.http.get<Search[]>(this.publicationApiUrl + '?&q=publicationId=' + id)
+    return this.http.post<Search[]>(this.publicationApiUrl, this.constructPayload('publicationId', id))
     .pipe(catchError(this.searchService.handleError));
   }
 
   getSingleFunding(id): Observable<Search[]> {
-    return this.http.get<Search[]>(this.fundingApiUrl + '?&q=projectId:' + id)
+    return this.http.post<Search[]>(this.fundingApiUrl, this.constructPayload('projectId', id))
     .pipe(catchError(this.searchService.handleError));
   }
 
   getSingleOrganization(id): Observable<Search[]> {
-    return this.http.get<Search[]>(this.organizationApiUrl + '?&q=organizationId=' + id)
+    return this.http.post<Search[]>(this.organizationApiUrl, this.constructPayload('organizationId', id))
     .pipe(catchError(this.searchService.handleError));
   }
 
