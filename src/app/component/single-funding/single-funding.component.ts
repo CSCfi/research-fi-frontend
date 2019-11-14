@@ -12,6 +12,7 @@ import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { Subscription } from 'rxjs';
+import { isNumber } from 'util';
 
 @Component({
   selector: 'app-single-funding',
@@ -73,15 +74,19 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.idSub.unsubscribe();
   }
 
-  getData(id: string) {
-    this.singleService.getSingleFunding(id)
+  getData(id) {
+    // Check if id is number, convert to -1 if string to get past elasticsearch number mapping
+    const idNumber = parseInt(id, 10) ? id : -1;
+    this.singleService.getSingleFunding(idNumber)
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
-      this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
-      this.shapeData();
-      this.filterData();
+      if (this.responseData[0].hits.hits[0]) {
+        this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
+        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        this.shapeData();
+        this.filterData();
+      }
     },
       error => this.errorMessage = error as any);
   }

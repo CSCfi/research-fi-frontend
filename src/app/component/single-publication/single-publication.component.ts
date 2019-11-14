@@ -105,12 +105,14 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
-      this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
-      // juFoCode is used for exact search
-      this.juFoCode = this.responseData[0].hits.hits[0]._source.jufoCode;
-      this.shapeData();
-      this.filterData();
+      if (this.responseData[0].hits.hits[0]) {
+        this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
+        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        // juFoCode is used for exact search
+        this.juFoCode = this.responseData[0].hits.hits[0]._source.jufoCode;
+        this.shapeData();
+        this.filterData();
+      }
     },
       error => this.errorMessage = error as any);
   }
