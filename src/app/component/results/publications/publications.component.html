@@ -43,6 +43,14 @@
                         [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null">
                         {{publication._source.publicationName}}</h3>
                     </a>
+                    <div class="tags">
+                        <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
+                        <div *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" class="open-access">Avoin saatavuus</div>
+                        <div *ngIf="publication._source.doi.trim()" class="doi">
+                            <span class="doi-tag">DOI</span>
+                            <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
+                        </div>
+                    </div>
                 </div>          
                 <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
                     <span>{{publication._source.authorsText}}</span>

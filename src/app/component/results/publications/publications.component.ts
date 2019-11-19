@@ -32,6 +32,11 @@ export class PublicationsComponent implements OnInit {
     this.sortDirection = this.sortService.sortDirection;
   }
 
+  isReviewed(type: string) {
+    if (!type) return false;
+    return type[0] === 'A' || type[0] === 'C';
+  }
+
   sortBy(sortBy) {
     const activeSort = this.route.snapshot.queryParams.sort || '';
     const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);

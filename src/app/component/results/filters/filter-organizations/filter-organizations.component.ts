@@ -46,7 +46,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   closeModal() {
     this.modalRef.hide();
   }
-  
+
   onResize(event) {
     this.width = event.width;
     if (this.width >= 992) {
