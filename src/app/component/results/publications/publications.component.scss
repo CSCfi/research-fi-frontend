@@ -9,6 +9,7 @@
     margin-top: 5px;
     display: flex;
     flex-wrap: wrap;
+    font-size: 0.7rem;
     > div {
         border-radius: 3px;
         color: white;
@@ -45,5 +46,11 @@
         a {
             color: white;
         }
+    }
+}
+
+@media (min-width: 992px) {
+    .tags {
+        margin-bottom: 15px;
     }
 }
