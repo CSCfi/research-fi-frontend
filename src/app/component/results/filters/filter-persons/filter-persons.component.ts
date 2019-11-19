@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -13,6 +13,7 @@ import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../../../services/filter.service';
 import { WINDOW } from 'src/app/services/window.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-filter-persons',
@@ -24,7 +25,6 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
   @Input() tabData: string;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
-  sidebarOpen = false;
   width = this.window.innerWidth;
   mobile = this.width < 992;
   panelHeight = '48px';
@@ -32,29 +32,32 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
   @ViewChild('filterSidebar', { static: false }) filterSidebar: ElementRef;
   preSelection: any;
 
+  modalRef: BsModalRef;
+
   private resizeSub: Subscription;
   private filterSub: Subscription;
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
-               private resizeService: ResizeService, private sortService: SortService ) { }
+               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService ) { }
 
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-    if (this.sidebarOpen) {
-      this.filterSidebar.nativeElement.style.display = 'block';
-    } else {
-      this.filterSidebar.nativeElement.style.display = 'none';
-    }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
   }
 
   onResize(event) {
     this.width = event.width;
     if (this.width >= 992) {
       this.mobile = false;
-      if (!this.sidebarOpen) { this.toggleSidebar(); }
+      // Modal existence check
+      // tslint:disable-next-line: no-unused-expression
+      this.modalRef && this.closeModal();
     } else {
       this.mobile = true;
-      if (this.sidebarOpen) { this.toggleSidebar(); }
     }
   }
 

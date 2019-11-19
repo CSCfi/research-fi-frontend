@@ -4,14 +4,12 @@
  :license: MIT -->
     
  <div class="mobile mx-auto" id="navbar-toggle">
-    <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="openModal(myModal)">
+    <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="openModal(filterModal)">
         <h3>Rajaa hakua</h3>
-        <!-- <span *ngIf="!sidebarOpen" class="fa fa-filter fa-lg"></span> -->
-        <!-- <span *ngIf="sidebarOpen" class="fa fa-times fa-lg"></span> -->
     </button>
 </div>
 
-<ng-template #myModal>
+<ng-template #filterModal>
     <div class="modal-header">
         <h5 class="modal-title">Rajaa hakua</h5>
     </div>

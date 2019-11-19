@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -13,6 +13,7 @@ import { FilterService } from '../../../../services/filter.service';
 import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-filter-fundings',
@@ -41,26 +42,28 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   statusFilter: any[];
   combinedFilters: any;
 
-  constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
-               private resizeService: ResizeService, private sortService: SortService ) { }
+  modalRef: BsModalRef;
 
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-    if (this.sidebarOpen) {
-      this.filterSidebar.nativeElement.style.display = 'block';
-    } else {
-      this.filterSidebar.nativeElement.style.display = 'none';
-    }
+  constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
+               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService ) { }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
   }
 
   onResize(event) {
     this.width = event.width;
     if (this.width >= 992) {
       this.mobile = false;
-      if (!this.sidebarOpen) { this.toggleSidebar(); }
+      // Modal existence check
+      // tslint:disable-next-line: no-unused-expression
+      this.modalRef && this.closeModal();
     } else {
       this.mobile = true;
-      if (this.sidebarOpen) { this.toggleSidebar(); }
     }
   }
 
