@@ -51,7 +51,7 @@
                           </app-list-item>
                         </ul>
                       </div>
-                      <app-list-item *ngIf="data.source.doc_count > 3" class="list-group-item" [doc]="data.index" [term]="queryField">
+                      <app-list-item *ngIf="data.source.doc_count > 3" class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
                         <div align="center">
                           <a tabindex="-1" class="font-weight-bold" (keydown.enter)="newInput(data.index, undefined)"
                             (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}}</a> 
@@ -63,7 +63,7 @@
                 <div class="col other-links">
                   <ul>
                     <li *ngFor="let data of otherData">
-                      <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item" [doc]="data.index" [term]="queryField">
+                      <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
                         <a tabindex="-1" class="font-weight-bold" (click)="newInput(data.index, undefined)" href="javascript:void(0);">Näytä kaikki {{data.translation}}</a>
                       </app-list-item>
                     </li>

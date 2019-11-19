@@ -60,10 +60,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
-      this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
-      this.shapeData();
-      this.filterData();
+      if (this.responseData[0].hits.hits[0]) {
+        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
+        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        this.shapeData();
+        this.filterData();
+      }
     },
       error => this.errorMessage = error as any);
   }
