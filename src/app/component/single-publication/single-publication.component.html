@@ -166,6 +166,15 @@
              </aside>
              <aside>
                  <mat-card>
+                     <mat-card-title><h2>Tiedon lähde</h2></mat-card-title>
+                     <div *ngFor="let source of publication.hits.hits">
+                         <p>Organisaatio: {{source._source.publicationOrgId}}</p>
+                     </div>
+                     <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
+                 </mat-card>
+             </aside>
+             <aside>
+                 <mat-card>
                      <mat-card-title><h2>Jaa</h2></mat-card-title>
                      <div class="social">
                          <a href="#"><i class="fa fa-facebook-official"></i></a>
