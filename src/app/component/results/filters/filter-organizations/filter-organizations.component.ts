@@ -25,12 +25,10 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   @Input() tabData: string;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
-  sidebarOpen = false;
   width = this.window.innerWidth;
   mobile = this.width < 992;
   panelHeight = '48px';
   @ViewChild('selectedYears', { static: false }) selectedYears: MatSelectionList;
-  @ViewChild('filterSidebar', { static: false }) filterSidebar: ElementRef;
   preSelection: any;
   modalRef: BsModalRef;
 

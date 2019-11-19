@@ -25,11 +25,9 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   @Input() tabData: string;
   panelOpenState: boolean;
   expandStatus: Array<boolean> = [];
-  sidebarOpen = false;
   width = this.window.innerWidth;
   mobile = this.width < 992;
   panelHeight = '48px';
-  @ViewChild('filterSidebar', { static: false }) filterSidebar: ElementRef;
   @ViewChild('selectedYears', { static: false }) selectedYears: MatSelectionList;
   @ViewChild('selectedFundingAmount', { static: false }) selectedFundingAmount: MatSelectionList;
   @ViewChild('selectedStatus', { static: false }) selectedStatus: MatSelectionList;
