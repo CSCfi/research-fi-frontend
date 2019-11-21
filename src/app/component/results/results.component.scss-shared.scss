@@ -133,6 +133,11 @@
                 z-index: 2;
                 padding: 5px 10px;
                 max-width: 400px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 5;
+                -webkit-box-orient: vertical;
             }
 
             .tooltip-box h4 {
