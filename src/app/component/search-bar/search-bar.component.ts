@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, OnDestroy, AfterViewInit, QueryList } from '@angular/core';
+import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { AutosuggestService } from '../../services/autosuggest.service';
@@ -17,6 +18,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { EventEmitter } from 'events';
 
 @Component({
     selector: 'app-search-bar',
@@ -24,7 +26,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
     styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit, AfterViewInit {
-  @ViewChild('publicationSearchInput', { static: true }) publicationSearchInput: ElementRef;
+  @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   input: string;
   sub: Subscription;
@@ -53,11 +55,16 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   };
 
   additionalItems = ['clear'];
+  completion: string;
+  isAtEnd: boolean;
+  inputMargin: string;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
-               private autosuggestService: AutosuggestService, private singleService: SingleItemService ) {
+               private autosuggestService: AutosuggestService, private singleService: SingleItemService,
+               @Inject(DOCUMENT) private document: any ) {
                 if (this.queryHistory) {this.queryHistory = Object.keys(sessionStorage); } else {this.queryHistory = []; }
+                this.completion = '';
   }
 
   ngOnInit() {
@@ -100,11 +107,15 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           this.topData = arr.slice(0, 2);
           // Todo: Change value to 5 when all indices are added
           this.otherData = arr.slice(2);
+          // Completion
+          this.getCompletion();
         });
-      } else {this.topData = []; this.otherData = []; }
+        // Reset data
+      } else {this.topData = []; this.otherData = []; this.completion = ''; }
     });
   }
 
+  // Keycodes
   onKeydown(event) {
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
@@ -118,7 +129,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       // Check for items that match current highlighted item
       if (doc && id) {
         this.singleService.updateId(id);
-        this.searchService.singleInput = this.publicationSearchInput.nativeElement.value;
+        this.searchService.singleInput = this.searchInput.nativeElement.value;
         this.router.navigate(['results/', doc, id || '']);
       } else if (doc && term) {
         this.searchService.singleInput = term.value;
@@ -131,7 +142,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       } else {
         this.newInput(undefined, undefined);
       }
-      // this.showAutoSuggest = false;
     } else if (event.keyCode === 13) {
       this.newInput(undefined, undefined);
       this.showAutoSuggest = false;
@@ -142,9 +152,55 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.keyCode === 27) {
       this.showAutoSuggest = false;
     }
+    // Reset completion
+    if (this.searchInput.nativeElement.value.length < 3 && event.keyCode === 8) {
+      this.completion = '';
+    }
+
   }
 
-  disableArrows(event) {
+  getCompletion() {
+    // Get first result from completions
+    let completionData = this.autoSuggestResponse[0].suggest.mySuggestions[0].options[0] ?
+    this.autoSuggestResponse[0].suggest.mySuggestions[0].options[0].text : '';
+    // Get second completion suggest if first is same as input
+    if (completionData === this.searchInput.nativeElement.value) {
+      completionData = this.autoSuggestResponse[0].suggest.mySuggestions[0].options[1] ?
+      this.autoSuggestResponse[0].suggest.mySuggestions[0].options[1].text : '';
+    }
+    // Replace characters other than alphabetical letters
+    if (!completionData.match(/^[A-Z]/i)) {
+      completionData = completionData.replace(/[\W_0-9]+/g, '');
+    }
+    this.completion = completionData.slice(this.searchInput.nativeElement.value.length);
+  }
+
+  setCompletionWidth() {
+    const span = this.document.getElementById('completionAssist');
+    span.innerHTML = this.searchInput.nativeElement.value;
+    const width = span.offsetWidth;
+    span.style.fontSize = 25;
+    this.inputMargin = (width + 25) + 'px';
+}
+
+  addCompletion(event) {
+    const input = this.searchInput.nativeElement;
+    const val = input.value;
+    let isAtEnd = false;
+    if (typeof input.selectionStart === 'number') {
+      isAtEnd = (input.selectionEnd === val.length);
+    }
+    switch (event.keyCode) {
+      case 39: {
+        if (isAtEnd) {
+          this.searchInput.nativeElement.value = this.searchInput.nativeElement.value + this.completion;
+          this.completion = '';
+        }
+      }
+    }
+  }
+
+  disableKeys(event) {
     if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
 
@@ -168,7 +224,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (historyLink) {
       this.searchService.singleInput = historyLink;
     } else {
-      this.searchService.singleInput = this.publicationSearchInput.nativeElement.value;
+      this.searchService.singleInput = this.searchInput.nativeElement.value;
     }
     this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;

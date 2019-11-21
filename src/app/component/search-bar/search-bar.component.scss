@@ -87,6 +87,21 @@ p.text-right.ext-search a:hover {
     text-decoration: none;
 }
 
+// Completion
+// input width count span
+#completionAssist{
+    overflow: auto;
+    font-size: 25px;
+    position: absolute;
+    z-index: -999;
+}
+
+.completion {
+    font-size: 25px;
+    margin-top: 7px;
+    opacity: 0.4;
+}
+
 // Button
 span.search-button {
     padding-right: 10px;

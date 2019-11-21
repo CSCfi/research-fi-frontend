@@ -204,7 +204,7 @@ export class FilterService {
     return {
       query,
       size: 10,
-      ...(tab === 'publications' && searchTerm ? this.settingsService.suggestSettings(searchTerm) : []),
+      ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),
       from: fromPage,
       sort: sortOrder
     };
