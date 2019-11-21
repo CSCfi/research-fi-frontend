@@ -28,7 +28,7 @@ exactField: any;
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: any) {
-    if (this.exactField === this.exactField) {this.exactField = undefined}
+    if (this.exactField === this.exactField) {this.exactField = undefined; }
     let targetFields: any;
     let onlyDigits: any;
     let hasDigits: any;
@@ -77,7 +77,8 @@ exactField: any;
     return res;
   }
 
-  suggestSettings(term: string) {
+  // Completions fields
+  completionsSettings(term: string) {
     const res = {
       suggest: {
         mySuggestions: {
@@ -93,6 +94,116 @@ exactField: any;
         }
       }
     };
+    return res;
+  }
+
+  autoSuggestSettings(term: string) {
+    const res = {
+      query: {
+          bool: {
+              should: [
+                {
+                  bool: {
+                    must: [
+                      { term: { _index: 'publication'	}	},
+                      {	bool:
+                        {	should: [
+                              {match_phrase_prefix: { publicationName: { query: term }}}
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  bool: {
+                    must: [
+                      { term: { _index: 'funding'	}	},
+                      {	bool:
+                        {	should: [
+                              {match_phrase_prefix: { projectNameFi: { query: term }}}
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                { bool: {
+                  must: [{ term: { _index: 'person' }},
+                  { bool: { should: [{ multi_match: {
+                          query: term,
+                          analyzer: 'standard',
+                          fields: ['firstName', 'lastName'],
+                          operator: 'and',
+                          prefix_length: 1
+                        }}]}
+                }]}},
+                {
+                  bool: {
+                    must: [
+                      { term: { _index: 'organization'	}	},
+                      {	bool:
+                        {	should: [
+                              {match_phrase_prefix: { nameFi: { query: term }}}
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+            ],
+            boost: 1
+          }
+        },
+        aggs: {
+          _index: {
+            filters: {
+              filters: {
+                person: {
+                  match: {
+                    _index: 'person'
+                  }
+                },
+                publication: {
+                  match: {
+                    _index: 'publication'
+                  }
+                },
+                funding: {
+                  match: {
+                    _index: 'funding'
+                  }
+                },
+                organization: {
+                  match: {
+                    _index: 'organization'
+                  }
+                }
+              }
+            },
+            aggs: {
+              index_results: {
+                top_hits: {
+                  size: 3
+                }
+              }
+            }
+          }
+        },
+        suggest: {
+          mySuggestions: {
+            prefix: term,
+            completion: {
+              field: 'completions',
+              size: 5,
+              skip_duplicates: true,
+              fuzzy: {
+                fuzziness: 0
+              }
+            }
+          }
+        }
+      };
     return res;
   }
 }
