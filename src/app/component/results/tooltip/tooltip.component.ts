@@ -19,13 +19,17 @@ export class TooltipComponent {
   @Input() index: number;
   hoverIndex: any;
   tooltipMargin: string;
+  tooltipUpMargin: string;
   colStyle = {
-    padding: '0 0 12px 0',
+    padding: '12px 0 12px 0',
     'margin-bottom': '-12px',
+    'margin-top': '-12px',
     position: 'unset'
   };
+  arrowPosition: string;
 
-  constructor( @Inject(DOCUMENT) private document: Document ) { }
+  constructor( @Inject(DOCUMENT) private document: Document ) {
+   }
 
   // Show description box
   enter(index) {
@@ -33,9 +37,19 @@ export class TooltipComponent {
   }
 
   // Get div position and place description box where cursor fires hover
-  getCoords(event) {
+  getCoords(event, index) {
+    // Calculate vertical cursor position and place tooltip above or below title depending on position
+    const headerHeight = this.document.getElementById('header-' + index).offsetHeight;
+    if (event.clientY > 535) {
+      this.tooltipUpMargin = 0 - (headerHeight + 176) + 'px';
+      this.arrowPosition = 'down';
+    } else {
+      this.tooltipUpMargin = 0 + 'px';
+      this.arrowPosition = 'up';
+    }
     const divPosition = this.document.getElementById('title').getBoundingClientRect();
-    const x = (event.clientX - 52) - divPosition.left;
+    // Calculate margin, prevent tooltip to get past 150px from column start
+    const x = ((event.clientX - 52) - divPosition.left) < 150 ? ((event.clientX - 52) - divPosition.left) : 150;
     this.tooltipMargin = x + 'px';
   }
 
