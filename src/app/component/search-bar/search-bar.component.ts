@@ -174,8 +174,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   }
 
-  update() {
-    const span = this.document.getElementById('value');
+  setCompletionWidth() {
+    const span = this.document.getElementById('completionAssist');
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
     span.style.fontSize = 25;
