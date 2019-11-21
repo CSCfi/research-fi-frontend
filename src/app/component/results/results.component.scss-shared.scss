@@ -129,9 +129,13 @@
             // Hover
             .tooltip-box {
                 position: absolute;
-                margin-top: 5px;
+                // margin-top: 5px;
                 z-index: 2;
                 padding: 5px 10px;
+                max-width: 400px;
+            }
+
+            .tooltip-description {
                 max-width: 400px;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -145,26 +149,36 @@
                 font-weight: bold;
             }
 
-            .tooltip-box:after, .tooltip-box:before {
+            .arrow-up:after, .arrow-up:before {
+                content: " ";
+                position: absolute;
                 bottom: 100%;
                 left: 13%;
-                content: " ";
                 height: 0;
                 width: 0;
-                position: absolute;
                 pointer-events: none;
             }
             
-            .tooltip-box:after {
+            .arrow-up:after, .arrow-down:after {
                 border-width: 12px;
                 margin-left: -12px;
             }
 
-            .tooltip-box:before {
+            .arrow-up:before, .arrow-down:before {
                 border-width: 13px;
                 margin-left: -13px;
             }
-            
+
+            .arrow-down:after, .arrow-down:before {
+                content: " ";
+                position: absolute;
+                top: 100%;
+                left: 13%;
+                height: 0;
+                width: 0;
+                pointer-events: none;
+            }
+           
             // Responsive
             @media (max-width: 616px) {
                 .col {

@@ -53,16 +53,25 @@
                 border: 1px solid;
             }
 
-            .tooltip-box:after, .tooltip-box:before {
+            .arrow-up:after, .arrow-up:before, .arrow-down:after, .arrow-down:before {
                 border: solid transparent;
             }
 
-            .tooltip-box:after {
+            .arrow-up:after {
                 border-bottom-color: mat-color($primary, default-contrast);
             }
 
-            .tooltip-box:before {
+            .arrow-up:before {
                 border-bottom-color: mat-color($primary);
+                border-width: 13px;
+                margin-left: -13px;
+            }
+
+            .arrow-down:after {
+                border-top-color: mat-color($primary, default-contrast);
+            }
+            .arrow-down:before {
+                border-top-color: mat-color($primary);
                 border-width: 13px;
                 margin-left: -13px;
             }
