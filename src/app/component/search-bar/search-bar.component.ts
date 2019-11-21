@@ -18,6 +18,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { EventEmitter } from 'events';
 
 @Component({
     selector: 'app-search-bar',
@@ -108,13 +109,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           this.otherData = arr.slice(2);
           // Completion
           this.getCompletion();
-          // console.log(this.completion);
         });
         // Reset data
       } else {this.topData = []; this.otherData = []; this.completion = ''; }
     });
   }
 
+  // Keycodes
   onKeydown(event) {
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
@@ -141,7 +142,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       } else {
         this.newInput(undefined, undefined);
       }
-      // this.showAutoSuggest = false;
     } else if (event.keyCode === 13) {
       this.newInput(undefined, undefined);
       this.showAutoSuggest = false;
@@ -152,6 +152,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.keyCode === 27) {
       this.showAutoSuggest = false;
     }
+    // Reset completion
+    if (this.searchInput.nativeElement.value.length < 3 && event.keyCode === 8) {
+      this.completion = '';
+    }
+
   }
 
   getCompletion() {
@@ -168,10 +173,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       completionData = completionData.replace(/[\W_0-9]+/g, '');
     }
     this.completion = completionData.slice(this.searchInput.nativeElement.value.length);
-
-    // Get input width and set margin for completion
-    // console.log(this.searchInput.nativeElement.value, this.searchInput.nativeElement.style.fontSize);
-
   }
 
   setCompletionWidth() {
@@ -180,12 +181,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     const width = span.offsetWidth;
     span.style.fontSize = 25;
     this.inputMargin = (width + 25) + 'px';
-    console.log(this.searchInput.nativeElement.value);
-    console.log(this.inputMargin);
 }
 
   addCompletion(event) {
-
     const input = this.searchInput.nativeElement;
     const val = input.value;
     let isAtEnd = false;
@@ -195,7 +193,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     switch (event.keyCode) {
       case 39: {
         if (isAtEnd) {
-          // console.log('fire!');
           this.searchInput.nativeElement.value = this.searchInput.nativeElement.value + this.completion;
           this.completion = '';
         }
@@ -203,7 +200,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  disableArrows(event) {
+  disableKeys(event) {
     if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
 
