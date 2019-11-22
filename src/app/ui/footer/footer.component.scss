@@ -14,7 +14,6 @@ footer {
 
 .col {
     border: 0px solid;
-    padding: 15px;
 }
 
 ul {
@@ -39,6 +38,7 @@ img {
 img.logo {
     max-width: 150px;
     height: auto;
+    margin-top: 30px;
 }
 
 .social ul {
@@ -76,12 +76,16 @@ img.logo {
     footer .col {
         min-width: 100%;
         text-align: center;
-        padding: 0px;
+        padding: 0;
+    }
+
+    img.logo {
+        margin-top: 0;
     }
 
     footer ul {
-        padding: 0px;
-        margin-top: 0px;
+        padding: 0;
+        margin-top: 0;
         margin-bottom: 0rem;
     }
 
