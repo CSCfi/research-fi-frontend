@@ -50,6 +50,16 @@
     }
 }
 
+@media (max-width: 991px) {
+    .tags {
+        .doi {
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
 @media (min-width: 992px) {
     .tags {
         margin-bottom: 15px;
