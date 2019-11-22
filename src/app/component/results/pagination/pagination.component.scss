@@ -10,11 +10,39 @@ button {
     border: 0;       
 }
 
-button.pagination-link {
+button.pagination-link-active {
     cursor: pointer;
     font-weight: bold;
 }
+
+.pagination {
+    margin-bottom: 1rem;
+}
     
-.result-count {
+.result-count, .result-count p {
     float: right;
+}
+
+@media (max-width: 991px) {
+    .pagination {
+        justify-content: center;
+        padding: 0;
+        margin: 1rem 0;
+    }
+
+    .pagination button {
+        border: 1px solid;
+        padding: 10px 15px;
+        margin: 0 10px;
+        border: 0;
+    }
+
+    span.separator {
+        display: none;
+    }
+
+    .result-count p {
+        float: none;
+        text-align: center;
+    }
 }
