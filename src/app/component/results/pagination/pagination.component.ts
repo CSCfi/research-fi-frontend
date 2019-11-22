@@ -32,7 +32,6 @@ export class PaginationComponent implements OnInit {
 
     // Get total value of results and send to search service
     this.searchService.currentTotal.subscribe(total => this.total = total);
-    // this.searchService.updateTotal(this.responseData[0].hits.total);
   }
 
   nextPage() {

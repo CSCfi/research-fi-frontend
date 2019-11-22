@@ -6,7 +6,8 @@
 <div class="row pagination-container" *ngFor="let response of responseData">
   <div class="col pagination">
     <button [disabled]="fromPage <= 1" [class.pagination-link-active]="fromPage  > 1" (click)="previousPage()">
-      Edellinen sivu</button>
+      Edellinen sivu
+    </button>
     <button [disabled]="fromPage + 10 >= response.hits.total" [class.pagination-link-active]="fromPage + 10  < response.hits.total" (click)="nextPage()">
       Seuraava sivu
     </button>
