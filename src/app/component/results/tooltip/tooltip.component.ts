@@ -27,6 +27,7 @@ export class TooltipComponent {
     position: 'unset'
   };
   arrowPosition: string;
+  hasDescription: boolean;
 
   constructor( @Inject(DOCUMENT) private document: Document ) {
    }
@@ -37,11 +38,15 @@ export class TooltipComponent {
   }
 
   // Get div position and place description box where cursor fires hover
-  getCoords(event, index) {
+  getCoords(event, index, description) {
+    description = description ? description : ' ';
+    this.hasDescription = description.length > 10 ? true : false;
     // Calculate vertical cursor position and place tooltip above or below title depending on position
     const headerHeight = this.document.getElementById('header-' + index).offsetHeight;
     if (event.clientY > 535) {
-      this.tooltipUpMargin = 0 - (headerHeight + 176) + 'px';
+      // Calculate tooltip height
+      const toolTipHeight = description.length > 10 ? 176 : 78;
+      this.tooltipUpMargin = 0 - (headerHeight + toolTipHeight) + 'px';
       this.arrowPosition = 'down';
     } else {
       this.tooltipUpMargin = 0 + 'px';

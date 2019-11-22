@@ -158,6 +158,10 @@
                 width: 0;
                 pointer-events: none;
             }
+
+            .no-description.arrow-up:after, .no-description.arrow-up:before {
+                left: 30%;
+            }
             
             .arrow-up:after, .arrow-down:after {
                 border-width: 12px;
