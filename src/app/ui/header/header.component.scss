@@ -176,7 +176,11 @@ nav.nav-top {
 
 ::ng-deep .mat-form-field-underline {
     display: none;
-} 
+}
+
+::ng-deep .mat-select-value-text:hover {
+    opacity: 0.6;
+}
 
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar.open {
