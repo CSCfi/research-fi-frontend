@@ -9,16 +9,14 @@
             color: mat-color($primary);
         }
 
-        @media (max-width: 991px) {
-            button.pagination-link-active {
-                background: mat-color($primary);
-                color: mat-contrast($primary, 600);
-            }
+        button.pagination-link-active {
+            background: mat-color($primary);
+            color: mat-contrast($primary, 600);
+        }
 
-            button:disabled {
-                background: mat-color($primary, 100);
-                color: mat-color($primary, 200);
-            }
+        button:disabled {
+            background: mat-color($primary, 100);
+            color: mat-color($primary, 200);
         }
     }
 }
