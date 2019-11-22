@@ -23,8 +23,7 @@ h1, h2, h3, h4, h5 {
 }
 
 main {
-    padding-bottom: 10.5rem;
-    min-height: 900px;
+    padding-bottom: 2rem;
 }
 
 .row {
@@ -74,20 +73,6 @@ mark, .mark {
 // Forms
 .mat-pseudo-checkbox {
     background: #FFF;
-}
-
-// Responsive
-
-@media (max-width: 991px) {
-    main {
-        padding-bottom: 13.5rem!important;
-    }
-}
-
-@media (max-width: 769px) {
-    main {
-        padding-bottom: 30.5rem !important;
-    }
 }
 
 // Img alt test, delete in production
