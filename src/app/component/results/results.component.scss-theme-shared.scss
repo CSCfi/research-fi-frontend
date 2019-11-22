@@ -53,6 +53,10 @@
                 border: 1px solid;
             }
 
+            .tooltip-title a {
+                color: mat-color($primary);
+            }
+
             .arrow-up:after, .arrow-up:before, .arrow-down:after, .arrow-down:before {
                 border: solid transparent;
             }
