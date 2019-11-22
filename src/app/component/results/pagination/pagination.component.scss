@@ -15,34 +15,47 @@ button.pagination-link-active {
     font-weight: bold;
 }
 
-.pagination {
-    margin-bottom: 1rem;
+.pagination-container {
+    padding: 0;
+}
+
+.pagination button {
+    border: 1px solid;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 0;
 }
     
 .result-count, .result-count p {
     float: right;
+    font-weight: bold;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
     .pagination {
         justify-content: center;
-        padding: 0;
-        margin: 1rem 0;
-    }
-
-    .pagination button {
-        border: 1px solid;
-        padding: 10px 15px;
-        margin: 0 10px;
-        border: 0;
-    }
-
-    span.separator {
-        display: none;
     }
 
     .result-count p {
         float: none;
         text-align: center;
+        padding-top: 1rem;
     }
+}
+
+@media (max-width: 991px) {
+    .pagination-container {
+        padding-top: 1rem;
+    }
+
+    .pagination {
+        padding: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .pagination {
+        padding-bottom: 1rem;
+    }
+
 }
