@@ -3,13 +3,18 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div *ngFor="let response of responseData">
-  <button [disabled]="fromPage <= 1" 
-          [class.pagination-link]="fromPage  > 1" (click)="previousPage()">Edellinen sivu</button><a> | </a>
-  <button [disabled]="fromPage + 10 >= response.hits.total" 
-          [class.pagination-link]="fromPage + 10  < response.hits.total" (click)="nextPage()">Seuraava sivu</button>
-  <div class="result-count">
-    <p style="float:right;" *ngIf="fromPage + 10 < response.hits.total ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
-    <p style="float:right;" *ngIf="fromPage + 10 >= response.hits.total">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>          
+<div class="row" *ngFor="let response of responseData">
+  <div class="col pagination">
+    <button [disabled]="fromPage <= 1" [class.pagination-link-active]="fromPage  > 1" (click)="previousPage()">
+      Edellinen sivu</button>
+    <span class="separator"> | </span>
+    <button [disabled]="fromPage + 10 >= response.hits.total" [class.pagination-link-active]="fromPage + 10  < response.hits.total" (click)="nextPage()">
+      Seuraava sivu
+    </button>
+  </div>
+
+  <div class="col-sm result-count">
+    <p *ngIf="fromPage + 10 < response.hits.total ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
+    <p *ngIf="fromPage + 10 >= response.hits.total">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>          
   </div>
 </div>
