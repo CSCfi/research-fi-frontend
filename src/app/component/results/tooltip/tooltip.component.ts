@@ -39,6 +39,7 @@ export class TooltipComponent {
 
   // Get div position and place description box where cursor fires hover
   getCoords(event, index, description) {
+    description = description ? description : ' ';
     this.hasDescription = description.length > 10 ? true : false;
     // Calculate vertical cursor position and place tooltip above or below title depending on position
     const headerHeight = this.document.getElementById('header-' + index).offsetHeight;
