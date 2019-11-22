@@ -3,17 +3,16 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="row" *ngFor="let response of responseData">
+<div class="row pagination-container" *ngFor="let response of responseData">
   <div class="col pagination">
     <button [disabled]="fromPage <= 1" [class.pagination-link-active]="fromPage  > 1" (click)="previousPage()">
       Edellinen sivu</button>
-    <span class="separator"> | </span>
     <button [disabled]="fromPage + 10 >= response.hits.total" [class.pagination-link-active]="fromPage + 10  < response.hits.total" (click)="nextPage()">
       Seuraava sivu
     </button>
   </div>
 
-  <div class="col-sm result-count">
+  <div class="col-md result-count">
     <p *ngIf="fromPage + 10 < response.hits.total ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
     <p *ngIf="fromPage + 10 >= response.hits.total">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>          
   </div>
