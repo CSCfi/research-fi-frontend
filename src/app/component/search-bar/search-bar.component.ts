@@ -175,8 +175,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     console.log('b: ', completionData);
     console.log(this.searchInput.nativeElement.value.split(' ').splice(-1)[0].length);
     this.completion = completionData.slice(this.searchInput.nativeElement.value.split(' ').splice(-1)[0].length);
-    // console.log(this.completion);
-    // console.log(this.searchInput.nativeElement.value.length);
   }
 
   // Put input term to hidden span and calulate width. Add margin to completion.
