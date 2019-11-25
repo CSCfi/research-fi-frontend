@@ -61,7 +61,11 @@ span.total {
 
 .main-content {
   align-content: flex-start;
-  // min-height: 1100px;
+}
+
+// No results
+.no-results {
+  min-height: 420px;
 }
 
 // Responsive
