@@ -56,14 +56,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   additionalItems = ['clear'];
   completion: string;
-  isAtEnd: boolean;
   inputMargin: string;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: any ) {
-                if (this.queryHistory) {this.queryHistory = Object.keys(sessionStorage); } else {this.queryHistory = []; }
+                this.queryHistory = this.queryHistory ? Object.keys(sessionStorage) : [];
                 this.completion = '';
   }
 
@@ -72,6 +71,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    // Get item for list
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
   }
 
@@ -175,14 +175,16 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.completion = completionData.slice(this.searchInput.nativeElement.value.length);
   }
 
+  // Put input term to hidden span and calulate width. Add margin to completion.
   setCompletionWidth() {
     const span = this.document.getElementById('completionAssist');
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
     span.style.fontSize = 25;
     this.inputMargin = (width + 25) + 'px';
-}
+  }
 
+  // Add completion with right arrow key if caret is at the end of term
   addCompletion(event) {
     const input = this.searchInput.nativeElement;
     const val = input.value;
@@ -200,6 +202,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // Disable up & down arrows on input. Normally places caret on start or end of input
   disableKeys(event) {
     if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
