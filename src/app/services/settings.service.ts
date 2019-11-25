@@ -70,6 +70,14 @@ exactField: any;
                   operator: 'AND',
                   lenient: 'true'
                 }
+              },
+              {
+                multi_match: {
+                  query: term,
+                  fields: targetFields,
+                  operator: 'AND',
+                  lenient: 'true'
+                }
               }
             ]
           }
