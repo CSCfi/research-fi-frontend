@@ -98,6 +98,7 @@ exactField: any;
   }
 
   autoSuggestSettings(term: string) {
+    // console.log(term.split(' ').splice(-1));
     const res = {
       query: {
           bool: {
@@ -192,7 +193,7 @@ exactField: any;
         },
         suggest: {
           mySuggestions: {
-            prefix: term,
+            prefix: term.split(' ').splice(-1),
             completion: {
               field: 'completions',
               size: 5,
