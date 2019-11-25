@@ -153,7 +153,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.showAutoSuggest = false;
     }
     // Reset completion
-    if (this.searchInput.nativeElement.value.length < 3 && event.keyCode === 8) {
+    if (event.keyCode !== 39) {
       this.completion = '';
     }
 
@@ -172,8 +172,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (!completionData.match(/^[A-Z]/i)) {
       completionData = completionData.replace(/[\W_0-9]+/g, '');
     }
-    console.log('b: ', completionData);
-    console.log(this.searchInput.nativeElement.value.split(' ').splice(-1)[0].length);
     this.completion = completionData.slice(this.searchInput.nativeElement.value.split(' ').splice(-1)[0].length);
   }
 
