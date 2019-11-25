@@ -98,7 +98,6 @@ exactField: any;
   }
 
   autoSuggestSettings(term: string) {
-    // console.log(term.split(' ').splice(-1));
     const res = {
       query: {
           bool: {
