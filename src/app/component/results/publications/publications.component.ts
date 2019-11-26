@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
@@ -20,10 +21,14 @@ export class PublicationsComponent implements OnInit {
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  documentLang = document.documentElement.lang;
-  faFileAlt = faFileAlt;
 
-  constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService) { }
+  faFileAlt = faFileAlt;
+  documentLang: any;
+
+  constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
+              @Inject(DOCUMENT) private document: any) {
+                this.documentLang = this.document.documentElement.lang;
+               }
 
   ngOnInit() {
     // Check url for sorting, default to empty
@@ -33,7 +38,7 @@ export class PublicationsComponent implements OnInit {
   }
 
   isReviewed(type: string) {
-    if (!type) return false;
+    if (!type) {return false; }
     return type[0] === 'A' || type[0] === 'C';
   }
 
