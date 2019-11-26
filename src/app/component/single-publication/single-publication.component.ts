@@ -15,6 +15,8 @@ import { SettingsService } from '../../services/settings.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
+import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-single-publication',
@@ -78,6 +80,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
   juFoCode: any;
+
+  faTwitter = faTwitter;
+  faFacebook = faFacebook;
+  faLinkedin = faLinkedin;
+  faMendeley = faMendeley;
+  faQuoteRight = faQuoteRight;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,

@@ -91,15 +91,24 @@
             }
 
             .mat-card-title {
-                font-size: inherit;
+                font-size: 0.85em;
+                text-transform: uppercase;
             }
 
             .row.related {
                 margin-top: 20px;
             }
 
-            .related p {
+            .related ul {
+                margin: 0;
+            }
+
+            .related li {
+                display: block;
+                list-style-type: none;
                 padding: 0;
+                margin-block-end: 1em;
+                text-decoration: underline;
             }
 
             span.mat-button-wrapper {
@@ -125,12 +134,12 @@
                 width: 100%;
             }
 
-            .fa {
+            a.icon {
                 font-size: 32px;
                 padding: 16px 16px 0 0;
             }
 
-            .fa:hover {
+            a.icon:hover {
                 opacity: 0.7;
             }
 
