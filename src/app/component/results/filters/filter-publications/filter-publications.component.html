@@ -190,33 +190,6 @@
                 </mat-expansion-panel>
 
                 <mat-expansion-panel>
-                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
-                        <mat-panel-title>
-                            <strong>Julkaisufoorumitaso</strong>
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-selection-list #selectedJuFo (selectionChange)="onSelectionChange()">
-                        <div *ngFor="let code of response.aggregations.juFo.buckets">
-                            <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'top'" [selected]="preSelection.indexOf(''+'top') > -1">
-                                <span class="label">{{code.key}} - Korkein taso</span>
-                            </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'leading'" [selected]="preSelection.indexOf(''+'leading') > -1">
-                                <span class="label">{{code.key}} - Johtava taso</span>
-                            </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'basic'" [selected]="preSelection.indexOf(''+'basic') > -1">
-                                <span class="label">{{code.key}} - Perustaso</span>
-                            </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'others'" [selected]="preSelection.indexOf(''+'others') > -1">
-                                <span class="label">{{code.key}} - Muut</span>
-                            </mat-list-option>
-                            <mat-list-option *ngIf="code.key === ' '" checkboxPosition="before" [value]="'noVal'" [selected]="preSelection.indexOf(''+'noVal') > -1">
-                                <span class="label">Ei arviota</span>
-                            </mat-list-option>
-                        </div>
-                    </mat-selection-list>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel>
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                         <mat-panel-title>
                             <strong>Avoin saatavuus</strong>
