@@ -182,17 +182,17 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [query] : []),
-            ...(index === 'publication' ? (this.juFoCodeFilter.length ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
-            ...(index === 'publication' ? (this.openAccessFilter.length ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
+            ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
+            ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
-            ...(this.yearFilter.length ? [{ bool: { should: this.yearFilter } }] : []),
-            ...(this.fieldFilter.length ? [{ bool: { should: this.fieldFilter } }] : []),
+            ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
+            ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
             // tslint:disable-next-line: max-line-length
-            ...(this.publicationTypeFilter.length ? [{ bool: { should: this.publicationTypeFilter } }] : []),
-            ...(this.langFilter.length ? [{ bool: { should: this.langFilter } }] : []),
-            ...(this.countryCodeFilter.length ? [{ bool: { should: this.countryCodeFilter } }] : []),
+            ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
+            ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
+            ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
           ],
         }
     };
