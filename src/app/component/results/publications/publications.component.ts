@@ -8,7 +8,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-publications',
@@ -21,9 +21,10 @@ export class PublicationsComponent implements OnInit {
   sortColumn: string;
   sortDirection: boolean;
   documentLang = document.documentElement.lang;
-  faFileAlt = faFileAlt;
+  faIcon = this.tabChangeService.tabData.filter(t => t.data === 'publications').map(t => t.icon).pop();
 
-  constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
+              private tabChangeService: TabChangeService) { }
 
   ngOnInit() {
     // Check url for sorting, default to empty
@@ -33,6 +34,7 @@ export class PublicationsComponent implements OnInit {
   }
 
   isReviewed(type: string) {
+    // tslint:disable-next-line: curly
     if (!type) return false;
     return type[0] === 'A' || type[0] === 'C';
   }
