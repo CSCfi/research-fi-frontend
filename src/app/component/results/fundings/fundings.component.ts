@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { faEuroSign } from '@fortawesome/free-solid-svg-icons';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-fundings',
@@ -20,9 +21,11 @@ export class FundingsComponent implements OnInit {
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faEuroSign = faEuroSign;
+  faIcon = this.tabChangeService.tabData.filter(t => t.data === 'fundings').map(t => t.icon).pop();
 
-  constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService) { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
+              private tabChangeService: TabChangeService) { }
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');

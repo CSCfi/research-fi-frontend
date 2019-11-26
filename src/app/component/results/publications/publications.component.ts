@@ -9,7 +9,7 @@ import { Component, Input, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-publications',
@@ -22,11 +22,11 @@ export class PublicationsComponent implements OnInit {
   sortColumn: string;
   sortDirection: boolean;
 
-  faFileAlt = faFileAlt;
+  faIcon = this.tabChangeService.tabData.filter(t => t.data === 'publications').map(t => t.icon).pop();
   documentLang: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
-              @Inject(DOCUMENT) private document: any) {
+              @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService) {
                 this.documentLang = this.document.documentElement.lang;
                }
 
