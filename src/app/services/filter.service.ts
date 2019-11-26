@@ -189,7 +189,6 @@ export class FilterService {
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
             ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
-            // tslint:disable-next-line: max-line-length
             ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
             ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
             ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
