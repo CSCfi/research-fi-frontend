@@ -32,7 +32,7 @@
         <div class="row no-margin single" *ngFor="let funding of fundings.hits.hits; let i = index">
             <div class="col col-1 icon">
                 <a class="icon" routerLink="/results/funding/{{funding._source.projectId}}">
-                    <fa-icon [icon]="faEuroSign"></fa-icon>
+                    <fa-icon [icon]="faIcon"></fa-icon>
                 </a>
             </div>
             <!-- Use tooltip component for title -->

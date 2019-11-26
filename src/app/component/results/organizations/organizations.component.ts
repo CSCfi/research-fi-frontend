@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, Input } from '@angular/core';
-import { faCity } from '@fortawesome/free-solid-svg-icons';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-organizations',
@@ -16,5 +16,7 @@ import { faCity } from '@fortawesome/free-solid-svg-icons';
 export class OrganizationsComponent {
   @Input() resultData: any [];
   expandStatus: Array<boolean> = [];
-  faCity = faCity;
+  faIcon = this.tabChangeService.tabData.filter(t => t.data === 'organizations').map(t => t.icon).pop();
+
+  constructor(private tabChangeService: TabChangeService) { }
 }
