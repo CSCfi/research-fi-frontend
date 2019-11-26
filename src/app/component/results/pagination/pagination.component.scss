@@ -16,7 +16,7 @@ button.pagination-link-active {
 }
 
 .pagination-container {
-    padding: 0;
+    padding: 0 0 2rem 0;
 }
 
 .pagination button {
@@ -45,7 +45,7 @@ button.pagination-link-active {
 
 @media (max-width: 991px) {
     .pagination-container {
-        padding-top: 1rem;
+        padding: 1rem 0 0;
     }
 
     .pagination {
