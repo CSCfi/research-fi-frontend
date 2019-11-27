@@ -29,10 +29,12 @@
               </a>
           </div>          
           <div class="col col-7">
-              <a routerLink="/results/organization/{{organization._source.organizationId}}"><h3 style="font-size: 1rem; margin-bottom: 0;">{{organization._source.nameFi}}</h3></a>
+              <a routerLink="/results/organization/{{organization._source.organizationId}}">
+                <h3 style="font-size: 1rem; margin-bottom: 0;" [innerHtml]="organization._source.nameFi | highlight: input"></h3>
+            </a>
           </div>          
           <div class="col col-4">
-              <span>{{organization._source.sectorNameFi}}</span>
+              <span [innerHtml]="organization._source.sectorNameFi | highlight: input"></span>
           </div>
       </div>       
   </div>
