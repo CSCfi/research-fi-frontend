@@ -40,8 +40,9 @@
                 <div class="col col-8 col-lg-5 col-xl-4">
                     <a routerLink="/results/publication/{{publication._source.publicationId}}">
                         <h3 style="font-size: 1rem; margin-bottom: 0;" 
-                        [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null">
-                        {{publication._source.publicationName}}</h3>
+                        [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null"
+                        [innerHtml]="publication._source.publicationName | highlight: input">
+                        </h3>
                     </a>
                     <div class="tags">
                         <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
@@ -53,13 +54,15 @@
                     </div>
                 </div>          
                 <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
-                    <span>{{publication._source.authorsText}}</span>
+                    <span [innerHtml]="publication._source.authorsText | highlight: input"></span>
                 </div>          
                 <div class="col col-xl-3 shorten d-none d-xl-block">
-                    <span [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null">{{publication._source.journalName}}</span>
+                    <span [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null"
+                    [innerHtml]="publication._source.journalName | highlight: input">
+                    </span>
                 </div>          
                 <div class="col col-lg-1">
-                    <span>{{publication._source.publicationYear}}</span>
+                    <span [innerHtml]="publication._source.publicationYear | highlight: input"></span>
                 </div>
             </div>     
             <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->

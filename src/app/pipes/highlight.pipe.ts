@@ -8,17 +8,14 @@ export class HighlightSearch implements PipeTransform {
     constructor( private sanitizer: DomSanitizer ) {}
 
     transform(value: any, args: any): any {
+        if (!value.length || !args) {
+           return value;
+        }
         // Parantheses are removed because of regexp. Asterisk doesn't work with titles containing mulptiple different integers
         args = args.replace(/[\])}[{(]/g, '').replace(/\*/g, '');
-
         const valueArr = value.split(' ');
         // Remove empty strings
         const argsArr = args.split(' ').filter(Boolean);
-
-        // Return value if no input
-        if (!args) {
-            return value;
-        }
 
         // Map value keys and loop through args, replace with tags
         const match = valueArr.map((e) => {

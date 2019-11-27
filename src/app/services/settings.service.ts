@@ -39,8 +39,7 @@ exactField: any;
     if (this.exactField) {
       targetFields = this.exactField;
     } else {
-      // Todo: Are two separate arrays needed for fields? In first version second array was for fields that needed exact match
-      targetFields = this.staticDataService.queryFields(index).concat(this.staticDataService.queryExactFields(index));
+      targetFields = this.staticDataService.queryFields(index);
     }
 
     // Set analyzer & type
@@ -74,6 +73,7 @@ exactField: any;
               {
                 multi_match: {
                   query: term,
+                  type: 'cross_fields',
                   fields: targetFields,
                   operator: 'AND',
                   lenient: 'true'
@@ -85,25 +85,7 @@ exactField: any;
     return res;
   }
 
-  // Completions fields
-  completionsSettings(term: string) {
-    const res = {
-      suggest: {
-        mySuggestions: {
-          prefix: term,
-          completion: {
-            field: 'completions',
-            size: 5,
-            skip_duplicates: true,
-            fuzzy: {
-              fuzziness: 0
-            }
-          }
-        }
-      }
-    };
-    return res;
-  }
+
 
   autoSuggestSettings(term: string) {
     const res = {
@@ -114,13 +96,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'publication'	}	},
-                      {	bool:
-                        {	should: [
-                              {match_phrase_prefix: { publicationName: { query: term }}},
-                              {match: { publicationName: { query: term }}}
-                          ]
-                        }
-                      }
+                      [this.querySettings('publication', term)]
                     ]
                   }
                 },
@@ -128,13 +104,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'funding'	}	},
-                      {	bool:
-                        {	should: [
-                              {match_phrase_prefix: { projectNameFi: { query: term }}},
-                              {match: { projectNameFi: { query: term }}}
-                          ]
-                        }
-                      }
+                      [this.querySettings('funding', term)]
                     ]
                   }
                 },
@@ -152,13 +122,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'organization'	}	},
-                      {	bool:
-                        {	should: [
-                              {match_phrase_prefix: { nameFi: { query: term }}},
-                              {match: { nameFi: { query: term }}}
-                          ]
-                        }
-                      }
+                      [this.querySettings('organization', term)]
                     ]
                   }
                 }
@@ -201,20 +165,28 @@ exactField: any;
             }
           }
         },
-        suggest: {
-          mySuggestions: {
-            prefix: term.split(' ').splice(-1),
-            completion: {
-              field: 'completions',
-              size: 5,
-              skip_duplicates: true,
-              fuzzy: {
-                fuzziness: 0
-              }
+        ...term ? this.completionsSettings(term) : []
+      };
+    return res;
+  }
+
+  // Completions fields
+  completionsSettings(term: string) {
+    const res = {
+      suggest: {
+        mySuggestions: {
+          prefix: term.split(' ').splice(-1),
+          completion: {
+            field: 'completions',
+            size: 5,
+            skip_duplicates: true,
+            fuzzy: {
+              fuzziness: 0
             }
           }
         }
-      };
+      }
+    };
     return res;
   }
 }
