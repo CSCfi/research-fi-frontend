@@ -116,7 +116,8 @@ exactField: any;
                       { term: { _index: 'publication'	}	},
                       {	bool:
                         {	should: [
-                              {match_phrase_prefix: { publicationName: { query: term }}}
+                              {match_phrase_prefix: { publicationName: { query: term }}},
+                              {match: { publicationName: { query: term }}}
                           ]
                         }
                       }
@@ -129,7 +130,8 @@ exactField: any;
                       { term: { _index: 'funding'	}	},
                       {	bool:
                         {	should: [
-                              {match_phrase_prefix: { projectNameFi: { query: term }}}
+                              {match_phrase_prefix: { projectNameFi: { query: term }}},
+                              {match: { projectNameFi: { query: term }}}
                           ]
                         }
                       }
@@ -152,7 +154,8 @@ exactField: any;
                       { term: { _index: 'organization'	}	},
                       {	bool:
                         {	should: [
-                              {match_phrase_prefix: { nameFi: { query: term }}}
+                              {match_phrase_prefix: { nameFi: { query: term }}},
+                              {match: { nameFi: { query: term }}}
                           ]
                         }
                       }
