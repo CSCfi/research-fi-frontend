@@ -5,10 +5,10 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { faEuroSign } from '@fortawesome/free-solid-svg-icons';
+import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
@@ -16,21 +16,26 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   templateUrl: './fundings.component.html',
   styleUrls: ['./fundings.component.scss']
 })
-export class FundingsComponent implements OnInit {
+export class FundingsComponent implements OnInit, OnDestroy {
   @Input() resultData: any [];
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'fundings').map(t => t.icon).pop();
+  inputSub: any;
+  input: string;
 
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
-              private tabChangeService: TabChangeService) { }
+              private tabChangeService: TabChangeService, private searchService: SearchService) { }
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
+    this.inputSub = this.searchService.currentInput.subscribe(input => {
+      this.input = input;
+    });
   }
 
   sortBy(sortBy) {
@@ -48,5 +53,9 @@ export class FundingsComponent implements OnInit {
         queryParamsHandling: 'merge'
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.inputSub.unsubscribe();
   }
 }

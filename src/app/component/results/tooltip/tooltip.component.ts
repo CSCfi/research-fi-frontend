@@ -5,14 +5,15 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, OnInit, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-tooltip',
   templateUrl: './tooltip.component.html'
 })
-export class TooltipComponent {
+export class TooltipComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() description: string;
   @Input() id: string;
@@ -28,8 +29,10 @@ export class TooltipComponent {
   };
   arrowPosition: string;
   hasDescription: boolean;
+  inputSub: any;
+  input: string;
 
-  constructor( @Inject(DOCUMENT) private document: Document ) {
+  constructor( @Inject(DOCUMENT) private document: Document, private searchService: SearchService ) {
    }
 
   // Show description box
@@ -63,4 +66,13 @@ export class TooltipComponent {
       this.hoverIndex = null;
   }
 
+  ngOnInit() {
+    this.inputSub = this.searchService.currentInput.subscribe(input => {
+      this.input = input;
+    });
+  }
+
+  ngOnDestroy() {
+    this.inputSub.unsubscribe();
+  }
 }
