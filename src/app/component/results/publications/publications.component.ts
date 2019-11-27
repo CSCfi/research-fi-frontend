@@ -5,18 +5,19 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, Inject } from '@angular/core';
+import { Component, Input, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.component.html',
   styleUrls: ['./publications.component.scss']
 })
-export class PublicationsComponent implements OnInit {
+export class PublicationsComponent implements OnInit, OnDestroy {
   @Input() resultData: any [];
   expandStatus: Array<boolean> = [];
   sortColumn: string;
@@ -24,9 +25,12 @@ export class PublicationsComponent implements OnInit {
 
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'publications').map(t => t.icon).pop();
   documentLang: any;
+  input: string;
+  inputSub: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
-              @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService) {
+              @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService,
+              private searchService: SearchService) {
                 this.documentLang = this.document.documentElement.lang;
                }
 
@@ -35,6 +39,9 @@ export class PublicationsComponent implements OnInit {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
+    this.inputSub = this.searchService.currentInput.subscribe(input => {
+      this.input = input;
+    });
   }
 
   isReviewed(type: string) {
@@ -57,5 +64,9 @@ export class PublicationsComponent implements OnInit {
         queryParamsHandling: 'merge'
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.inputSub.unsubscribe();
   }
 }
