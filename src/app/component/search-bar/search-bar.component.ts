@@ -18,7 +18,6 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { EventEmitter } from 'events';
 
 @Component({
     selector: 'app-search-bar',
@@ -75,10 +74,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
   }
 
-  // Show auto-suggest when input in focus
   onFocus() {
+    // Show auto-suggest when input in focus
     this.showAutoSuggest = true;
-    // This hides query history if search term isn't altered after history clear button click
+    // Hides query history if search term isn't altered after history clear button click
     if (sessionStorage.length === 0) {this.queryHistory = false; }
   }
 
@@ -89,7 +88,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     )
     .subscribe(result => {
       this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
-      if (result.length > 0) {this.showAutoSuggest = true; } else {this.showAutoSuggest = false; }
       this.queryHistory = Object.keys(sessionStorage).reverse();
       this.currentInput = result;
       if (result.length > 2) {
@@ -117,16 +115,16 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   // Keycodes
   onKeydown(event) {
+    this.showAutoSuggest = true;
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
-      this.showAutoSuggest = false;
       const doc = this.keyManager.activeItem.doc;
       const id = this.keyManager.activeItem.id || '';
       const term = this.keyManager.activeItem.term || undefined;
       const history = this.keyManager.activeItem.historyItem || undefined;
       const clear = this.keyManager.activeItem.clear || undefined;
 
-      // Check for items that match current highlighted item
+      // Check for items that match current selected item
       if (doc && id) {
         this.singleService.updateId(id);
         this.searchService.singleInput = this.searchInput.nativeElement.value;
@@ -144,15 +142,15 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       }
     } else if (event.keyCode === 13) {
       this.newInput(undefined, undefined);
-      this.showAutoSuggest = false;
       // Continue without action. For some reason letter 'n' registers as down arrow, hacky fix:
     } else if (event.keyCode !== 78)  {
       this.keyManager.onKeydown(event);
     }
+    // Hide auto-suggest with esc key
     if (event.keyCode === 27) {
       this.showAutoSuggest = false;
     }
-    // Reset completion
+    // Reset completion with right arrow key
     if (event.keyCode !== 39) {
       this.completion = '';
     }
@@ -207,7 +205,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
 
-  // Hide auto suggest if clicked outside element
+  // Hide auto-suggest if clicked outside element
   @HostListener('document:click', ['$event.target'])
   public onClick(targetElement) {
     const clickedInside = this.inputGroup.nativeElement.contains(targetElement);
@@ -219,8 +217,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   newInput(selectedIndex, historyLink) {
     // Set input to session storage & assign list to variable
     if (this.currentInput) {sessionStorage.setItem(this.currentInput, this.currentInput); }
+    // Hide auto-suggest
     this.showAutoSuggest = false;
+    // Reset completion
+    this.completion = '';
+    // Reset sort
     this.sortService.sortMethod = 'desc';
+    // Reset page number
     this.searchService.updatePageNumber(1);
     // Don't trigger subscriptions, just update search term
     // If query history link is clicked, send value to service and navigate
