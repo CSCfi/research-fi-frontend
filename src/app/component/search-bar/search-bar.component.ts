@@ -205,12 +205,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
   }
 
-  // Hide auto-suggest if clicked outside element
+  // Hide auto-suggest and reset completion if clicked outside element
   @HostListener('document:click', ['$event.target'])
   public onClick(targetElement) {
     const clickedInside = this.inputGroup.nativeElement.contains(targetElement);
     if (!clickedInside) {
       this.showAutoSuggest = false;
+      this.completion = '';
     }
   }
 
