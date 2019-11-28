@@ -8,6 +8,8 @@ export class HighlightSearch implements PipeTransform {
     constructor( private sanitizer: DomSanitizer ) {}
 
     transform(value: any, args: any): any {
+        // Convert value to string to highlight numbers also
+        value = value.toString();
         if (!value.length || !args) {
            return value;
         }
@@ -32,7 +34,6 @@ export class HighlightSearch implements PipeTransform {
         });
 
         const result = match.join(' ');
-
         // Needs to be bypassed because of dynamic value
         return this.sanitizer.bypassSecurityTrustHtml(result);
     }
