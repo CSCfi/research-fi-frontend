@@ -28,7 +28,6 @@ export class HighlightSearch implements PipeTransform {
                     const found = e.match(src);
                     if (!found) {return e; }
                     e = e.replace(src, ('<mark>' + found[0] + '</mark>'));
-                    console.log(e)
                  }
             });
             return e;
