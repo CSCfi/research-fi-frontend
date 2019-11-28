@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID,
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, OnChanges, ChangeDetectorRef, Inject, LOCALE_ID,
   PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
@@ -24,7 +24,7 @@ import { WINDOW } from 'src/app/services/window.service';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
   public searchTerm: any;
   input: Subscription;
   tabData = this.tabChangeService.tabData;
@@ -151,9 +151,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
-      this.total = total || '';
+      this.total = total || 0;
+      this.parsedTotal =  '0';
       // Add thousand separators
       if (this.total) {this.parsedTotal = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+      console.log(this.parsedTotal);
       this.cdr.detectChanges();
     });
 
@@ -162,7 +164,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.mobile = this.window.innerWidth < 992;
   }
 
-  ngAfterViewInit() {
+  ngOnChanges() {
 
   }
 
@@ -176,6 +178,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     .pipe(map(data => [data]))
     .subscribe(tabValues => {
       this.tabValues = tabValues;
+      
     },
     error => this.errorMessage = error as any);
   }
