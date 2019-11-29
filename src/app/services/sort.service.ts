@@ -86,6 +86,20 @@ export class SortService {
       }
       case 'organizations': {
         this.yearField = 'publicationYear'; // Change this according to index
+        switch (this.sortColumn) {
+          case 'name': {
+            this.sort = [{'nameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'sector': {
+            this.sort = [{'sectorNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          default: {
+            this.sort = [];
+            break;
+          }
+        }
         break;
       }
       case 'fundings': {
