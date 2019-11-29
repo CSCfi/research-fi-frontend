@@ -6,8 +6,10 @@
 //  :license: MIT
 
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
+import { SortService } from 'src/app/services/sort.service';
 
 @Component({
   selector: 'app-organizations',
@@ -21,13 +23,30 @@ export class OrganizationsComponent implements OnInit, OnDestroy {
   inputSub: any;
   input: string;
 
-  constructor(private tabChangeService: TabChangeService, private searchService: SearchService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private tabChangeService: TabChangeService, 
+              private searchService: SearchService, private sortService: SortService) { }
 
   ngOnInit() {
     this.inputSub = this.searchService.currentInput.subscribe(input => {
       this.input = input;
     });
+  }
 
+  sortBy(sortBy) {
+    const activeSort = this.route.snapshot.queryParams.sort || '';
+    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
+    let newSort = sortColumn + (sortDirection ? 'Desc' : '');
+    // Reset sort
+    if (activeSort.slice(-4) === 'Desc') { newSort = ''; }
+
+
+    this.router.navigate([],
+      {
+        relativeTo: this.route,
+        queryParams: { sort: newSort },
+        queryParamsHandling: 'merge'
+      }
+    );
   }
 
   ngOnDestroy() {
