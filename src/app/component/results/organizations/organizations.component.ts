@@ -19,6 +19,8 @@ import { SortService } from 'src/app/services/sort.service';
 export class OrganizationsComponent implements OnInit, OnDestroy {
   @Input() resultData: any [];
   expandStatus: Array<boolean> = [];
+  sortColumn: string;
+  sortDirection: boolean;
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'organizations').map(t => t.icon).pop();
   inputSub: any;
   input: string;
@@ -27,6 +29,9 @@ export class OrganizationsComponent implements OnInit, OnDestroy {
               private searchService: SearchService, private sortService: SortService) { }
 
   ngOnInit() {
+    this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
+    this.sortColumn = this.sortService.sortColumn;
+    this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe(input => {
       this.input = input;
     });
