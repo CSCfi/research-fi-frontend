@@ -30,7 +30,8 @@
             <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest" role="listbox">
               <div class="row helper">
                 <div class="col" *ngIf="!queryField.value || queryField.value.length < 3">
-                  <span>Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span>
+                    <span *ngIf="searchInput.value.length < 3">Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span>
+                    <span *ngIf="searchInput.value.length >= 3">Muuta hakua saadaksesi ehdotuksia</span>
                 </div>
               </div>
               <div class="row" *ngIf="topData && !topData.length > 0 && queryField.value.length > 2">
