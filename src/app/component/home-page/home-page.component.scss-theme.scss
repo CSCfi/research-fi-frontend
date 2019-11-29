@@ -19,5 +19,17 @@
                 color: mat-contrast($primary, 500);
             }
         }
+
+        .news-feed {
+            border: 3px solid mat-contrast($primary, 500);
+        }
+
+        .news-feed .news-container {
+            background: mat-color($primary, 100);
+        }
+
+        .news-feed .news-card {
+            background: mat-contrast($primary, 500);
+        }
     }
 }
