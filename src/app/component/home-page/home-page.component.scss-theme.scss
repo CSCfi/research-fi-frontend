@@ -5,7 +5,7 @@
 
     app-home-page {
         .link-img {
-            border: 3px solid mat-contrast($primary, 500);
+            outline: 6px solid mat-contrast($primary, 500);
         }
 
         .header, .caption {
@@ -21,7 +21,7 @@
         }
 
         .news-feed {
-            border: 3px solid mat-contrast($primary, 500);
+            outline: 3px solid mat-contrast($primary, 500);
         }
 
         .news-feed .news-container {
@@ -30,6 +30,12 @@
 
         .news-feed .news-card {
             background: mat-contrast($primary, 500);
+        }
+
+        @media (max-width: 991px) {
+            .news-feed {
+                outline: 6px solid mat-contrast($primary, 500);
+            }
         }
     }
 }
