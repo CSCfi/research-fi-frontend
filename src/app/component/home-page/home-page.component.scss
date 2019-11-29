@@ -9,11 +9,6 @@
     overflow: hidden;
 }
 
-.row {
-    margin-right: -5px;
-    margin-left: -5px;
-}
-
 .shortcuts {
     padding: 0;
 }
@@ -39,7 +34,7 @@
 }
 
 .link-img .caption.text-center {
-    padding: 10px 10px 16px;
+    padding: 10px 10px 10px 7px;
     left: 50%;
     bottom: 0;
     width: 100%;
@@ -93,7 +88,7 @@ span.date {
     }
 
     .news-feed {
-        padding: 0px 10px 0;
+        padding: 0px 15px 0;
     }
 }
 
