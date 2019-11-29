@@ -63,7 +63,12 @@
 
 .news-feed h4, .news-feed h5 {
     text-align: center;
-    margin-top: 10px;
+    padding: 5px 0;
+}
+
+.news-feed h4 {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .news-feed .news-card {
