@@ -152,10 +152,8 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
 
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
       this.total = total || 0;
-      this.parsedTotal =  '0';
-      // Add thousand separators
-      if (this.total) {this.parsedTotal = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
-      console.log(this.parsedTotal);
+      // Add thousand separators and set total to 0 if no hits
+      this.parsedTotal = this.total ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '0';
       this.cdr.detectChanges();
     });
 
