@@ -14,10 +14,12 @@
   <div class="row no-margin">
       <div class="col col-1 icon" style="margin-right: 10px;"></div>
       <div class="col col-7 d-none d-lg-block">
-          <span class="bold uppercase">Nimi</span>
+          <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+          (click)="sortBy('name')">Nimi</span>
       </div>
       <div class="col col-4 d-none d-lg-block">
-          <span class="bold uppercase">Sektori</span>
+          <span class="bold uppercase" [ngClass]="sortColumn === 'sector' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+          (click)="sortBy('sector')">Sektori</span>
       </div>
   </div>
 
