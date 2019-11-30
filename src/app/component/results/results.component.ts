@@ -176,7 +176,6 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
     .pipe(map(data => [data]))
     .subscribe(tabValues => {
       this.tabValues = tabValues;
-      
     },
     error => this.errorMessage = error as any);
   }
@@ -188,6 +187,8 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
       .pipe(map(data => [data]))
       .subscribe(filterValues => {
         this.filterValues = filterValues;
+        // Send total value to service
+        this.searchService.updateTotal(this.filterValues[0].hits.total);
         // Set the title
         this.updateTitle(this.selectedTabData);
       },
