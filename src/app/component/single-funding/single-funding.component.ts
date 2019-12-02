@@ -25,29 +25,45 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   searchTerm: string;
   pageNumber: any;
   tab = 'fundings';
-  infoFields = [
-    // {label: 'Hankkeen nimi', field: 'projectNameFi'},
-    {label: 'Rahoittaja', field: 'funderNameFi'},
-    {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
-    {label: 'Alkamisvuosi', field: 'fundingStartYear'},
-    {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
-    {label: 'Rahoituksen saaja (henkilö)', field: 'projectPersonsNames'},
-    {label: 'Yhteyshenkilö', field: 'fundingContactPersonLastName'},
-    {label: 'Muut organisaatiot', field: '?'},
-    {label: 'Myönnetty summa', field: 'amount'},
-    {label: 'Rahoitusmuoto', field: '?'},
-    {label: 'Konsortion nimi', field: 'consortiumNameFi'},
-    {label: 'Konsortion kuvaus', field: 'consortiumDescriptionFi'},
-    {label: 'Hankkeeseen liittyvät muut rahoituspäätökset', field: '?'},
-    {label: 'Hankkeen alkupvm', field: 'fundingApprovalDate'},
-    {label: 'Hankkeen loppupvm', field: '?'},
-    {label: 'Tieteenala', field: 'fieldsOfScience'},
-    {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
-    {label: 'Teema-ala', field: 'fieldsOfTheme'},
-    {label: 'Avainsanat', field: 'keywords'},
-    {label: 'Haun nimi', field: 'callProgrammeNameFi'},
-    {label: 'Linkit', field: '?'},
-    {label: 'Muut tiedot', field: '?'},
+
+  table = [
+    {
+      0: [
+        {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
+        {label: 'Aloitusvuosi', field: 'fundingStartYear'},
+        {label: 'Konsortion nimi', field: 'consortiumNameFi'},
+        {label: 'Konsortion kuvaus', field: 'consortiumDescriptionFi'},
+      ]
+    },
+    {
+      1: [
+        {label: 'Rahoituksen saaja (henkilö)', field: 'projectPersonsNames'},
+        {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
+        {label: 'Organisaatio', field: '?'},
+        {label: 'Myönnetty summa', field: 'amount'},
+      ]
+    },
+    {
+      2: [
+        {label: 'Rahoittaja', field: 'funderNameFi'},
+        {label: 'Rahoitusmuoto', field: '?'},
+        {label: 'Haku', field: 'callProgrammeNameFi'},
+      ]
+    },
+    {
+      3: [
+        {label: 'Tieteenala', field: 'fieldsOfScience'},
+        {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
+        {label: 'Teema-ala', field: 'fieldsOfTheme'},
+        {label: 'Avainsanat', field: 'keywords'},
+        {label: 'Muut tiedot', field: '?'},
+      ]
+    },
+    {
+      4: [
+        {label: 'Linkit', field: '?'},
+      ]
+    }
   ];
 
   errorMessage = [];
@@ -99,7 +115,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
-    this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.table.forEach(x => {
+
+    });
+    this.table[0][0] = this.table[0][0].filter(item => checkEmpty(item));
   }
 
   shapeData() {
