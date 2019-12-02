@@ -25,9 +25,10 @@
   </div>
 </div>
 <ng-template #noData>
-  <div class="row justify-content-center" style="text-align: center;">
-    <div class="col">
-        <h2 class="error">Yhteysongelma. Dataa ei saatavilla.</h2>
+  <div class="row justify-content-center">
+    <div class="col" align="center" style="margin-top:25px">
+      <mat-spinner [diameter]="40"></mat-spinner>
+      <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2>
     </div>
   </div>
 </ng-template>
