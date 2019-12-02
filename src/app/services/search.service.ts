@@ -38,9 +38,11 @@ export class SearchService {
   private querySource = new BehaviorSubject({});
   currentQueryParams = this.querySource.asObservable();
 
+  private errorSource = new BehaviorSubject<string>('noError');
+  connError = this.inputSource.asObservable();
+
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
-              private filterService: FilterService, private staticDataService: StaticDataService,
-              private appConfigService: AppConfigService, private settingsService: SettingsService) {
+              private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -162,11 +164,11 @@ export class SearchService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
+      this.errorSource.next('connection');
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
     // tslint:disable-next-line: deprecation
     return Observable.throw(errorMessage);
   }
-
 }
