@@ -107,10 +107,10 @@
                             </td>        
                         </tr>
                     </ng-container>
-                    <tr class="row" *ngFor="let row of linksFields.slice(0,1)">
+                    <!-- <tr class="row" *ngFor="let row of linksFields.slice(0,1)">
                         <th class="col-3">Linkit</th>
                         <td class="col-9"><a href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a></td>
-                    </tr>
+                    </tr> -->
                     <ng-container *ngFor="let row of linksFields.slice(1)">
                         <tr></tr>
                         <tr class="row">
