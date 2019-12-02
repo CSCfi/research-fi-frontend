@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
   
-<div class="wrapper" *ngIf="allData">
+<div class="wrapper" *ngIf="allData; else noData">
   <div #scroll class="scroll" *ngFor="let counted of allData">
     <div *ngIf="lastScrollLocation > 0" class="edge">
       <div class="grad grad-left"></div>
@@ -24,3 +24,10 @@
     </div>
   </div>
 </div>
+<ng-template #noData>
+  <div class="row justify-content-center" style="text-align: center;">
+    <div class="col">
+        <h2 class="error">Yhteysongelma. Dataa ei saatavilla.</h2>
+    </div>
+  </div>
+</ng-template>

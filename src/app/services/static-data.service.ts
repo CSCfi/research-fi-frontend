@@ -87,8 +87,9 @@ export class StaticDataService {
       case 'publication': {
         res = ['publicationName^2', 'authorsText', 'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
               'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress', 'fields_of_science.nameFiScience',
-              'fields_of_science.nameEnScience', 'fields_of_science.nameSvScience',
-              'fields_of_education', 'keywords'];
+              'fields_of_science.nameEnScience', 'fields_of_science.nameSvScience', 'fields_of_education', 'keywords', 'publicationYear',
+              'publicationTypeCode', 'publicationOrgId', 'issn', 'issn2', 'volume', 'issueNumber', 'pageNumberText','articleNumberText', 
+              'isbn', 'isbn2', 'jufoCode', 'jufoClassCode'];
         break;
       }
       case 'person': {
@@ -106,29 +107,4 @@ export class StaticDataService {
     }
     return res;
   }
-
-// Fields that need exact matches with no fuzziness
-queryExactFields(index) {
-  let res = [];
-  switch (index) {
-    case 'publication': {
-      res = ['publicationYear', 'publicationTypeCode', 'publicationOrgId', 'issn', 'issn2', 'volume', 'issueNumber', 'pageNumberText',
-            'articleNumberText', 'isbn', 'isbn2', 'jufoCode', 'jufoClassCode'];
-      break;
-    }
-    case 'person': {
-
-      break;
-    }
-    case 'funding': {
-
-      break;
-    }
-    case 'organization': {
-
-      break;
-    }
-  }
-  return res;
-}
 }
