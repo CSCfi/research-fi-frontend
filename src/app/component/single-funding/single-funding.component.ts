@@ -70,6 +70,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   faMendeley = faMendeley;
   faQuoteRight = faQuoteRight;
 
+  expand: boolean;
+
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
    }
@@ -156,5 +158,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   shapeAmount(val) {
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  }
+
+  expandDescription() {
+    this.expand = !this.expand;
   }
 }
