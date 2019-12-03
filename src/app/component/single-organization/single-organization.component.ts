@@ -4,6 +4,7 @@ import { SingleItemService } from '../../services/single-item.service';
 import { SearchService } from '../../services/search.service';
 import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
+import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -30,6 +31,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Tunnuslukuja', field: '?'},
     {label: 'Alayksiköt', field: '?'}
   ];
+
+  faTwitter = faTwitter;
+  faFacebook = faFacebook;
+  faLinkedin = faLinkedin;
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
