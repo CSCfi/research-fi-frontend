@@ -8,11 +8,15 @@
 
 .index-name {
     font-weight: bold;
-    margin:20px 0 0 0
+    padding-left: 15px;
 }
 
 .padding-left {
-    padding-left: 15px;
+    padding-left: 25px;
+}
+
+.content {
+    padding: 15px 10px;
 }
 
 table {
@@ -25,4 +29,36 @@ table {
 
 th {
     font-weight: 400;
+}
+
+td p:first-child {
+    font-weight: 400;
+}
+
+.info-link-wrapper, .info-link {
+    width: 100%;
+    padding-top: 10px;
+}
+
+.info-link {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.no-links {
+    font-style: italic;
+}
+
+.other-links {
+    text-decoration: underline;
+}
+
+.other-link {
+    padding-block-start: 0.85em;;
+}
+
+.quote {
+    padding-right: 5%;
 }
