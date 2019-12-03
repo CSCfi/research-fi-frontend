@@ -6,7 +6,11 @@
 //  :license: MIT
 
 .tags {
-    margin-top: 5px;
+    .padder {
+        max-width: 5%;
+        padding: 0 17px;
+    }
+    margin-top: -12px !important;
     display: flex;
     flex-wrap: wrap;
     font-size: 0.7rem;
