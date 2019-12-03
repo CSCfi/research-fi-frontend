@@ -26,7 +26,11 @@
                         <p class="index-name">Hanke</p>
                         <tr class="row" *ngFor="let row of infoFields">
                             <th class="col-6 col-lg-3">{{row.label}}</th>
-                            <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
+                            <td class="col-6 col-lg-9">
+                                <p [ngClass]="expand ? 'expand' : 'short'">{{item._source[row.field]}}</p>
+                                <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'projectDescriptionFi'" (click)="expandDescription()" 
+                                [innerHTML]="expand ? 'Näytä vähemmän' : 'Lue lisää'"></a>
+                            </td>
                         </tr>
                     </div>
                     <!-- Funded -->
@@ -87,7 +91,7 @@
                         </div>
                     </mat-card>
                 </aside>
-                <aside>
+                <!-- <aside>
                     <mat-card>
                         <mat-card-title><h2>Viittaa</h2></mat-card-title>
                         <div class="row">
@@ -96,7 +100,7 @@
                             </div>
                         </div>
                     </mat-card>
-                </aside>
+                </aside> -->
                 <aside>
                     <mat-card>
                         <mat-card-title><h2>Jaa</h2></mat-card-title>
