@@ -107,18 +107,6 @@
                             </td>        
                         </tr>
                     </ng-container>
-                    <!-- <tr class="row" *ngFor="let row of linksFields.slice(0,1)">
-                        <th class="col-3">Linkit</th>
-                        <td class="col-9"><a href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a></td>
-                    </tr> -->
-                    <ng-container *ngFor="let row of linksFields.slice(1)">
-                        <tr></tr>
-                        <tr class="row">
-                            <td class="col-9 offset-3">
-                                <p><a href={{item._source[row.field]}}>{{item._source[row.field]}}</a></p>
-                            </td>        
-                        </tr>
-                    </ng-container>
                     <tr class="row">
                         <th class="col-6 col-lg-3">Muut tiedot</th>
                         <td class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of otherFields.slice(0,2)">
