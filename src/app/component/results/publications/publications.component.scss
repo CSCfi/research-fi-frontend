@@ -74,3 +74,11 @@
         margin-bottom: 15px;
     }
 }
+
+@media (max-width: 991px) {
+    .tags .padder {
+        max-width: 0;
+        padding: 0;
+        height: 100%;
+    }
+}
