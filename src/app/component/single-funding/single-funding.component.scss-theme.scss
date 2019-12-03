@@ -16,12 +16,12 @@
             color: mat-contrast($primary, 50)
         }
 
-       .shared tr:nth-child(even) {
-            background-color: transparent;
+        .shared tr {
+            background-color: transparent!important;
         }
 
-        .even {
-            background-color: mat-color($primary, 50);;
+        table div:nth-child(even) {
+            background-color: mat-color($primary, 50);
         }
     }
 }
