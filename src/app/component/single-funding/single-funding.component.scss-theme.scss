@@ -15,5 +15,13 @@
         .index-name {
             color: mat-contrast($primary, 50)
         }
+
+       .shared tr:nth-child(even) {
+            background-color: transparent;
+        }
+
+        .even {
+            background-color: mat-color($primary, 50);;
+        }
     }
 }
