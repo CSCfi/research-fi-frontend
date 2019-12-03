@@ -12,7 +12,8 @@ import { SingleItemService } from '../../services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { Subscription } from 'rxjs';
-import { isNumber } from 'util';
+import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
+import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-single-funding',
@@ -25,34 +26,49 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   searchTerm: string;
   pageNumber: any;
   tab = 'fundings';
+
   infoFields = [
-    // {label: 'Hankkeen nimi', field: 'projectNameFi'},
-    {label: 'Rahoittaja', field: 'funderNameFi'},
     {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
-    {label: 'Alkamisvuosi', field: 'fundingStartYear'},
-    {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
-    {label: 'Rahoituksen saaja (henkilö)', field: 'projectPersonsNames'},
-    {label: 'Yhteyshenkilö', field: 'fundingContactPersonLastName'},
-    {label: 'Muut organisaatiot', field: '?'},
-    {label: 'Myönnetty summa', field: 'amount'},
-    {label: 'Rahoitusmuoto', field: '?'},
+    {label: 'Aloitusvuosi', field: 'fundingStartYear'},
     {label: 'Konsortion nimi', field: 'consortiumNameFi'},
     {label: 'Konsortion kuvaus', field: 'consortiumDescriptionFi'},
-    {label: 'Hankkeeseen liittyvät muut rahoituspäätökset', field: '?'},
-    {label: 'Hankkeen alkupvm', field: 'fundingApprovalDate'},
-    {label: 'Hankkeen loppupvm', field: '?'},
+  ];
+
+  fundedFields = [
+    {label: 'Etunimi', field: 'fundingContactPersonFirstNames'},
+    {label: 'Sukunimi', field: 'fundingContactPersonLastName'},
+    {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
+    {label: 'Rooli hankkeessa', field: 'fundingContactPersonTitle'},
+    {label: 'Myönnetty summa', field: 'amount'},
+  ];
+
+  funderFields =  [
+    {label: 'Nimi', field: 'funderNameFi'},
+    {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi'},
+    {label: 'Haku', field: 'callProgrammeNameFi'}
+  ];
+
+  otherFields = [
     {label: 'Tieteenala', field: 'fieldsOfScience'},
     {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
-    {label: 'Teema-ala', field: 'fieldsOfTheme'},
+    {label: 'Teema-ala', field: '?'},
     {label: 'Avainsanat', field: 'keywords'},
-    {label: 'Haun nimi', field: 'callProgrammeNameFi'},
-    {label: 'Linkit', field: '?'},
-    {label: 'Muut tiedot', field: '?'},
+    {label: 'Muut tiedot', field: '?'}
+  ]
+
+  linkFields = [
+    {label: 'Linkit', field: '?'}
   ];
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
+
+  faTwitter = faTwitter;
+  faFacebook = faFacebook;
+  faLinkedin = faLinkedin;
+  faMendeley = faMendeley;
+  faQuoteRight = faQuoteRight;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
@@ -96,10 +112,15 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
              this.responseData[0].hits.hits[0]._source[item.field] !== 'UNDEFINED' &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== '-1' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.fundedFields = this.fundedFields.filter(item => checkEmpty(item));
+    this.funderFields = this.funderFields.filter(item => checkEmpty(item));
+    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
+    this.linkFields = this.linkFields.filter(item => checkEmpty(item));
   }
 
   shapeData() {
@@ -131,5 +152,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+  }
+
+  shapeAmount(val) {
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   }
 }

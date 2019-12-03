@@ -30,8 +30,8 @@
     </div>
 
     <div *ngFor="let publications of resultData;">
-        <div *ngFor="let publication of publications.hits.hits; let i = index">
-            <div class="row no-margin single">
+        <div *ngFor="let publication of publications.hits.hits; let i = index" class="single">
+            <div class="row no-margin">
                 <div class="col col-1 icon">
                     <a routerLink="/results/publication/{{publication._source.publicationId}}" class="icon">
                         <fa-icon [icon]="faIcon"></fa-icon>
@@ -44,14 +44,14 @@
                         [innerHtml]="publication._source.publicationName | highlight: input">
                         </h3>
                     </a>
-                    <div class="tags">
+                    <!-- <div class="tags">
                         <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
                         <div *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" class="open-access">Avoin saatavuus</div>
                         <div *ngIf="publication._source.doi.trim()" class="doi">
                             <span class="doi-tag">DOI</span>
                             <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>          
                 <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
                     <span [innerHtml]="publication._source.authorsText | highlight: input"></span>
@@ -64,7 +64,16 @@
                 <div class="col col-lg-1">
                     <span [innerHtml]="publication._source.publicationYear | highlight: input"></span>
                 </div>
-            </div>     
+            </div>
+            <div class="row tags">
+                <div class="col col-1 icon"></div>
+                <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
+                <div *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" class="open-access">Avoin saatavuus</div>
+                <div *ngIf="publication._source.doi.trim()" class="doi">
+                    <span class="doi-tag">DOI</span>
+                    <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
+                </div>
+            </div>
             <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
         </div>  
     </div>

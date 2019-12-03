@@ -4,3 +4,24 @@
 // 
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
+
+
+@import '~@angular/material/theming';
+
+@mixin app-single-funding-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-single-funding {
+        .index-name {
+            color: mat-contrast($primary, 50)
+        }
+
+       .shared tr:nth-child(even) {
+            background-color: transparent;
+        }
+
+        .even {
+            background-color: mat-color($primary, 50);;
+        }
+    }
+}
