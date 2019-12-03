@@ -22,17 +22,31 @@
     display: inline-block;
 }
 
+.active-filters {
+    font-size: 0.85rem;
+}
+
 .active-filters li, button.clear {
-    padding: 5px 10px;
+    padding: 2px 10px;
     margin: 0 4px 4px 0;
     border-radius: 10px;
     line-height: 28px;
     cursor: pointer;
-    min-height: 43px;
+}
+
+button.clear {
+    border-radius: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: inherit;
 }
 
 .active-filters li {
     padding-right: 30px;
+    position: relative;
+    &:nth-last-child(2) {
+        margin-right: 20px;
+    }
 }
 
 .active-filters li:after {
@@ -45,6 +59,7 @@
 
 .active-filters li:hover::after {
     font-size: 1.5rem;
+    top: 0px;
 }
 
 @media (max-width: 991px) {
