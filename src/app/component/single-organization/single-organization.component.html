@@ -32,42 +32,37 @@
          <div class="col-12 col-md-4">
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Tähän julkaisuun liittyvät</h2></mat-card-title>
+                    <mat-card-title><h2>Tutkimusorganisaation</h2></mat-card-title>
                     <div class="row related">
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkijat (45)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Aineistot (13)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Organisaatiot (9)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Rahoitetut hankkeet (46)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Tutkimusvälineet (-)</a></p>
-                        <p class="col-12 col-sm-6 col-md-12 col-xl-6"><a routerLink="/">Muut tutkimusaktiviteetit (-)</a></p>
+                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+                            <li class=""><a routerLink="/">Julkaisut</a></li>
+                            <li class=""><a routerLink="/">Tutkijat</a></li>
+                            <li class=""><a routerLink="/">Aineistot</a></li>
+                        </ul>
+                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+                            <li class=""><a routerLink="/">Infrastruktuurit</a></li>
+                            <li class=""><a routerLink="/">Muu tutkimustoiminta</a></li>
+                        </ul>
                     </div>
-                </mat-card>
-            </aside>
-            <!-- <aside>
-                <mat-card>
-                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
-                    <div class="row">
-                        <div class="col-12 reference"><button mat-raised-button color="primary">Viittaa tähän organisaatioon</button></div>
-                    </div>
-                </mat-card>
-            </aside> -->
-            <aside>
-                <mat-card>
-                    <mat-card-title><h2>Tiedon lähde</h2></mat-card-title>
-                    <div *ngFor="let source of organization.hits.hits">
-                        <p>Virta/Vipunen/etc?</p>
-                    </div>
-                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                 </mat-card>
             </aside>
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Jaa</h2></mat-card-title>
                     <div class="social">
-                        <a href="#"><i class="fa fa-facebook-official"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin-square"></i></a>
+                        <a href="#" class="icon"><fa-icon [icon]="faFacebook"></fa-icon></a>
+                        <a href="#" class="icon"><fa-icon [icon]="faTwitter"></fa-icon></a>
+                        <a href="#" class="icon"><fa-icon [icon]="faLinkedin"></fa-icon></a>
                     </div>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Organisaatiotiedon lähde</h2></mat-card-title>
+                    <div *ngFor="let source of organization.hits.hits">
+                        <p>Virta/Vipunen/etc?</p>
+                    </div>
+                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                 </mat-card>
             </aside>
         </div>
