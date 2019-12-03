@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="row tags">
-                <div class="padder"></div>
+                <span class="col col-1 icon"></span>
                 <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
                 <a *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" href="{{getOALink(publication._source)}}" class="open-access div">
                     <span class="open-access-image"></span>

@@ -6,10 +6,7 @@
 //  :license: MIT
 
 .tags {
-    .padder {
-        max-width: 5%;
-        padding: 0 17px;
-    }
+    margin-left: 12px !important;
     margin-top: -12px !important;
     display: flex;
     flex-wrap: wrap;
@@ -47,10 +44,6 @@
     .peer-reviewed, .open-access {
         padding: 3px 15px;
     }
-    .doi {
-        max-width: 294px;
-        padding: 3px 0;
-    }
     .doi-tag {
         background: #363636;
         border: 2px solid #363636;
@@ -72,13 +65,5 @@
 @media (min-width: 992px) {
     .tags {
         margin-bottom: 15px;
-    }
-}
-
-@media (max-width: 991px) {
-    .tags .padder {
-        max-width: 0;
-        padding: 0;
-        height: 100%;
     }
 }
