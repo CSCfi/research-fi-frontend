@@ -52,7 +52,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Tieteenala', field: 'fieldsOfScience'},
     {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
     {label: 'Teema-ala', field: '?'},
-    {label: 'Avainsanat', field: 'keywords'},
+    // {label: 'Avainsanat', field: 'keywords'},
     {label: 'Muut tiedot', field: '?'}
   ]
 
@@ -144,9 +144,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       case 'Tieteenala':
         source.fieldsOfScience = field;
         break;
-      // case 'Tutkimusala':
-      //   source.fieldsOfResearch = field;
-      //   break;
+      case 'Tutkimusala':
+        source.fieldsOfResearch = field;
+        break;
       case 'Teema-ala':
         source.fieldsOfTheme = field;
         break;
