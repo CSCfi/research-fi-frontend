@@ -35,7 +35,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   fundedFields = [
-    {label: 'Etunimi', field: 'fundingContactPersonFirstNames'},
+    // {label: 'Etunimi', field: 'fundingContactPersonFirstNames'},
     {label: 'Sukunimi', field: 'fundingContactPersonLastName'},
     {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
     {label: 'Rooli hankkeessa', field: 'fundingContactPersonTitle'},
