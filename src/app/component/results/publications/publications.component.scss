@@ -10,63 +10,57 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 0.7rem;
-    align-items: center;
-    div {
+    > div, .div {
         border-radius: 3px;
         color: white;
         font-weight: bold;
         margin: 4px;
-        margin-inline-start: 0;
         width: fit-content;
         height: fit-content;
         white-space: nowrap;
+        display: flex;
+    }
+    a.div {
+        display: flex;
     }
     .peer-reviewed {
-        background: #32842F;
+        background: #00A19A;
+        border: 2px solid #00A19A;
+    }
+    .open-access {
+        color: #BC520A;
+        border: 2px solid #EA883E;
     }
     .open-access-image {
         background-image: url(../../../../assets/openaccess.svg);
         background-size: cover;
-        width: 20px;
-        height: 0;
+        height: 15px;
+        width: 10px;
         padding: 0;
-        padding-bottom: 160%;
-        display: block;
-
+        margin-right: 5px;
+        display: inline-block;
     }
     .peer-reviewed, .open-access {
         padding: 3px 15px;
     }
-    .right {
-        max-width: 0;
-    }
     .doi {
         max-width: 294px;
         padding: 3px 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     .doi-tag {
         background: #363636;
+        border: 2px solid #363636;
         padding: 3px 10px 3px 11px;
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
     }
     .doi-link {
-        background: #007ABA;
         padding: 3px 10px;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
+        border: 2px solid #363636;
         a {
-            color: white;
-        }
-    }
-}
-
-@media (max-width: 991px) {
-    .tags {
-        .doi {
-            max-width: 200px;
+            color: #363636;
         }
     }
 }

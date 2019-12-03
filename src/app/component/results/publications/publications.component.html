@@ -45,17 +45,14 @@
                         </h3>
                     </a>
                     <div class="tags">
-                        <div class="left">
-                            <a *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" class="open-access-image"
-                                href="{{getOALink(publication._source)}}">
-                            </a>
-                        </div>
-                        <div class="right">
-                            <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
-                            <div *ngIf="publication._source.doi.trim()" class="doi">
-                                <span class="doi-tag">DOI</span>
-                                <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
-                            </div>
+                        <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
+                        <a *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" href="{{getOALink(publication._source)}}" class="open-access div">
+                            <span class="open-access-image"></span>
+                            <span>Avoin saatavuus</span>
+                        </a>
+                        <div *ngIf="publication._source.doi.trim()" class="doi">
+                            <span class="doi-tag">DOI</span>
+                            <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
                         </div>
                     </div>
                 </div>          
