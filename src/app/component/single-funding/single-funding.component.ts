@@ -142,9 +142,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       case 'Tieteenala':
         source.fieldsOfScience = field;
         break;
-      case 'Tutkimusala':
-        source.fieldsOfResearch = field;
-        break;
+      // case 'Tutkimusala':
+      //   source.fieldsOfResearch = field;
+      //   break;
       case 'Teema-ala':
         source.fieldsOfTheme = field;
         break;
