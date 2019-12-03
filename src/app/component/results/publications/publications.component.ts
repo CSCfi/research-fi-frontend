@@ -49,6 +49,21 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     return type[0] === 'A' || type[0] === 'C';
   }
 
+  getOALink(publication) {
+    if (publication.link) { return publication.link; }
+    const fields = ['greenOpenAccessAddress', 'doi', 'doiHandle'];
+    let link = '';
+    for (const field of fields) {
+      const test = publication[field];
+      if (test && test.trim() !== '') {
+        link = (field === 'doi' ? 'https://doi.org/' : '') + test;
+        break;
+      }
+    }
+    publication.link = link;
+    return link;
+  }
+
   sortBy(sortBy) {
     const activeSort = this.route.snapshot.queryParams.sort || '';
     const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);

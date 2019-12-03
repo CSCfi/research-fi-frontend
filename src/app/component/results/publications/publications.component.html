@@ -46,9 +46,9 @@
                     </a>
                     <div class="tags">
                         <div class="left">
-                            <div *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" class="open-access-image">
-                                <!-- <div class="open-access-image"></div> -->
-                            </div>
+                            <a *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" class="open-access-image"
+                                href="{{getOALink(publication._source)}}">
+                            </a>
                         </div>
                         <div class="right">
                             <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
