@@ -81,10 +81,7 @@
             }
             
             @media (max-width: 991px) {
-                .single:last-child {
-                    border-bottom: 1px solid mat-color($primary, 200);
-                }
-                .single:nth-child(odd) {
+                .single {
                     border-bottom: 1px solid mat-color($primary, 200);
                 }
             }
