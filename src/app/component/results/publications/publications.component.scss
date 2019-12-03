@@ -10,7 +10,8 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 0.7rem;
-    > div {
+    align-items: center;
+    div {
         border-radius: 3px;
         color: white;
         font-weight: bold;
@@ -23,15 +24,26 @@
     .peer-reviewed {
         background: #32842F;
     }
-    .open-access {
-        background: #C95000;
+    .open-access-image {
+        background-image: url(../../../../assets/openaccess.svg);
+        background-size: cover;
+        width: 20px;
+        height: 0;
+        padding: 0;
+        padding-bottom: 133%;
+
     }
     .peer-reviewed, .open-access {
         padding: 3px 15px;
     }
+    .right {
+        max-width: calc(100% - 24px);
+    }
     .doi {
         max-width: 294px;
         padding: 3px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .doi-tag {
         background: #363636;
@@ -54,8 +66,6 @@
     .tags {
         .doi {
             max-width: 180px;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
     }
 }
