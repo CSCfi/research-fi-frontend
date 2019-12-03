@@ -35,6 +35,10 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   private resizeSub: Subscription;
   private filterSub: Subscription;
 
+
+  sectorFilters = ['Yliopistot', 'Ammattikorkeakoulut', 'Tutkimuslaitokset',
+                   'Yliopistolliset sairaalat', 'Muut organisaatiot', 'Rahoittajat'];
+
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
                private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService ) { }
 
