@@ -44,6 +44,17 @@
                         [innerHtml]="publication._source.publicationName | highlight: input">
                         </h3>
                     </a>
+                    <div class="tags">
+                        <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
+                        <a *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" href="{{getOALink(publication._source)}}" class="open-access div">
+                            <span class="open-access-image"></span>
+                            <span>Avoin saatavuus</span>
+                        </a>
+                        <div *ngIf="publication._source.doi.trim()" class="doi">
+                            <span class="doi-tag">DOI</span>
+                            <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
+                        </div>
+                    </div>
                 </div>          
                 <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
                     <span [innerHtml]="publication._source.authorsText | highlight: input"></span>
@@ -55,18 +66,6 @@
                 </div>          
                 <div class="col col-lg-1">
                     <span [innerHtml]="publication._source.publicationYear | highlight: input"></span>
-                </div>
-            </div>
-            <div class="row tags">
-                <span class="col col-1 icon"></span>
-                <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
-                <a *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" href="{{getOALink(publication._source)}}" class="open-access div">
-                    <span class="open-access-image"></span>
-                    <span>Avoin saatavuus</span>
-                </a>
-                <div *ngIf="publication._source.doi.trim()" class="doi">
-                    <span class="doi-tag">DOI</span>
-                    <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
                 </div>
             </div>
             <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
