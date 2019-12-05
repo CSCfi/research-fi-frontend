@@ -17,6 +17,9 @@ div.links {
     .doi {
         max-width: 294px;
         padding: 3px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .doi-tag {
         background: #363636;
