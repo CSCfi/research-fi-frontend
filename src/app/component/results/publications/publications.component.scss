@@ -6,11 +6,10 @@
 //  :license: MIT
 
 .tags {
-    margin-left: 12px !important;
-    margin-top: -12px !important;
     display: flex;
     flex-wrap: wrap;
     font-size: 0.7rem;
+    margin-top: 0.5rem;
     > div, .div {
         border-radius: 3px;
         color: white;
@@ -20,6 +19,7 @@
         height: fit-content;
         white-space: nowrap;
         display: flex;
+        margin-inline-start: 0;
     }
     a.div {
         display: flex;
@@ -59,11 +59,5 @@
         a {
             color: #363636;
         }
-    }
-}
-
-@media (min-width: 992px) {
-    .tags {
-        margin-bottom: 15px;
     }
 }
