@@ -143,6 +143,10 @@
                 opacity: 0.7;
             }
 
+            .no-links {
+                font-style: italic;
+            }
+
             @media (max-width: 991px) {
                 td.first-no-offset-mobile:nth-child(2) {
                     margin-left: 0;
