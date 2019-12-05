@@ -141,7 +141,7 @@
                                 <span class="doi-link"><a [attr.href]="'https://doi.org/'+item._source.doi">{{item._source.doi}}</a></span>
                             </div>
                             <div *ngFor="let row of linksFields.slice(1)" class="info-link-wrapper">
-                                <a class="info-link" href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}></a>
+                                <a class="info-link" href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a>
                             </div>
                         </div>
                         <div *ngIf="!linksFields.length" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
