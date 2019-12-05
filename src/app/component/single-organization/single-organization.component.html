@@ -30,6 +30,15 @@
              </div>
          </main>
          <div class="col-12 col-md-4">
+             <aside>
+                 <mat-card>
+                     <div *ngFor="let item of organization.hits.hits">
+                     <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
+                         <a href="{{item._source.homePage}}">{{item._source.homePage}}</a>
+                         <div *ngIf="!item._source.homePage" class="no-links">Organisaatiolle ei ole tarjolla verkkosivua tässä portaalissa</div>
+                    </div>
+                 </mat-card>
+             </aside>
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Tutkimusorganisaation</h2></mat-card-title>
