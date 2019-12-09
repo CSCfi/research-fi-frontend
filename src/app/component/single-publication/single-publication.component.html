@@ -144,7 +144,7 @@
                                 <a class="info-link" href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a>
                             </div>
                         </div>
-                        <div *ngIf="!linksFields.length" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <div *ngIf="!linksFields[0].path.length" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
                 <aside>
