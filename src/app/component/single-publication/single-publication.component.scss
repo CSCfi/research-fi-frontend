@@ -31,9 +31,14 @@ div.links {
     }
     .doi-link {
         padding: 3px 10px;
+        background: white;
         a {
             color: black;
         }
+    }
+
+    .doi-tag, .doi-link {
+        vertical-align: middle;
     }
 }
 
