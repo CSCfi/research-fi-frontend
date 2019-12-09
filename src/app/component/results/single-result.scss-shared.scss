@@ -12,12 +12,6 @@
         }
         // Prevent style bleeding
         .shared {
-
-            // Table
-            // table {
-            //     box-shadow: 1px 1px 2px 0px;
-            // }
-
             tr {
                 padding: 0.5rem 0;
             }
@@ -95,12 +89,13 @@
                 text-transform: uppercase;
             }
 
-            .row.related {
+            .row.related, .row.other-links {
                 margin-top: 20px;
             }
 
-            .related ul {
+            .related ul, .other-link {
                 margin: 0;
+                padding: 0;
             }
 
             .related li {
