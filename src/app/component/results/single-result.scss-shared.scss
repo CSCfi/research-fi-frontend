@@ -21,12 +21,14 @@
             }
 
             th {
-                vertical-align: middle;
-                padding: 5px 0px 5px 15px;
+                vertical-align: top;
+                padding: 8px 0px 5px 15px;
             }
 
             td {
+                vertical-align: top;
                 word-wrap: break-word;
+                padding: 8px;
                 p {
                     margin-bottom: 0.2rem;
                     word-wrap: break-word;
@@ -39,6 +41,22 @@
             table {
                 margin: 20px 0px;
                 width: 100%;
+                table-layout: fixed;
+                overflow: hidden;
+            }
+
+            tr.even:nth-child(1n+1) td:first-child {
+                position: relative;
+            }
+
+            tr.even:nth-child(1n+1) td:first-child:after {
+                content: ' ';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 100vw;
+                z-index: -1;
             }
 
             #links td {

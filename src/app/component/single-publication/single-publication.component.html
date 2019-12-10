@@ -21,46 +21,46 @@
             <div *ngFor="let item of publication.hits.hits">
                 <h2 [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h2>
                 <table id="info">
-                    <tr class="row" *ngFor="let row of infoFields">
-                        <th class="col-6 col-lg-3">{{row.label}}</th>
-                        <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
+                    <tr *ngFor="let row of infoFields">
+                        <th scope="row">{{row.label}}</th>
+                        <td colspan="3">{{item._source[row.field]}}</td>
                     </tr>
-                    <tr class="row">
-                        <th class="col-6 col-lg-3">Organisaatiot ja tekijät</th>
-                        <td class="col-6 col-lg-9" *ngFor="let row of authorFields.slice(0,1)">
+                    <tr>
+                        <th scope="row">Organisaatiot ja tekijät</th>
+                        <td colspan="3" *ngFor="let row of authorFields.slice(0,1)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of authorFields.slice(1)">
                         <tr></tr>
-                        <tr class="row">
-                            <td class="col-6 col-lg-9 offset-6 offset-lg-3">
+                        <tr>
+                            <td colspan="3">
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
                         </tr>
                     </ng-container>
-                    <tr class="row">
-                        <th class="col-6 col-lg-3">Organisaation sisäinen affiliaatio</th>
-                        <td class="col-6 col-lg-9" *ngFor="let row of organizationFields.slice(0,1)">
+                    <tr>
+                        <th scope="row">Organisaation sisäinen affiliaatio</th>
+                        <td *ngFor="let row of organizationFields.slice(0,1)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of organizationFields.slice(1)">
                         <tr></tr>
-                        <tr class="row">
-                            <td class="col-6 col-lg-9 offset-6 offset-lg-3">
+                        <tr >
+                            <td>
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
                         </tr>
                     </ng-container>
-                    <tr class="row">
+                    <tr>
                         <!-- Top row links, switch case to check for different search targets -->
-                        <th class="col-6 col-lg-3">Julkaisukanavan tiedot</th>
-                        <td class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of mediumFields.slice(0,3)">
+                        <th scope="row">Julkaisukanavan tiedot</th>
+                        <td *ngFor="let row of mediumFields.slice(0,3)">
                             <p>{{row.label}}</p>
                             <p *ngIf="row.link && juFoCode.length > 1 " [attr.lang]="row.lang && item._source.languageCode !== documentLang ? item._source.languageCode : null" 
                             [ngSwitch]="true">
@@ -77,12 +77,15 @@
                             <!-- Show label only if no search functionality -->
                             <p *ngIf="!row.link || juFoCode.length === 1">{{item._source[row.field]}}</p>
                         </td>
+                        <!-- Fill the leftover space if col amount less than 3-->
+                        <td class="spacer" [attr.colspan]="3 - mediumFields.slice(0,3).length" *ngIf="mediumFields.slice(0,3).length < 3"></td>
                     </tr>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
                         <tr *ngIf="i % 3 == 0"></tr>
-                        <tr class="row" *ngIf="i % 3 == 0">
+                        <tr *ngIf="i % 3 == 0" class="even">
+                            <td class="spacer"></td>
                             <!-- First col -->
-                            <td class="col-6 col-lg-3 offset-6 offset-lg-3">
+                            <td>
                             <p>{{row.label}}</p>
                             <a *ngIf="row.link" href="{{row.linkPath}}{{item._source[row.field]}}">
                                 {{item._source[row.field]}}
@@ -90,38 +93,39 @@
                             <span *ngIf="!row.link">{{item._source[row.field]}}</span>
                             </td>
                             <!-- Second col -->    
-                            <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+1">
-                            <p>{{mediumFields.slice(3)[i + 1].label}}</p>
-                            <a *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item._source[mediumFields.slice(3)[i + 1].field]}}">
-                                {{item._source[mediumFields.slice(3)[i + 1].field]}}
-                            </a>
-                            <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item._source[mediumFields.slice(3)[i + 1].field]}}</span>
-                            </td> 
+                            <td *ngIf="mediumFields.slice(3).length > i+1">
+                                <p>{{mediumFields.slice(3)[i + 1].label}}</p>
+                                <a *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item._source[mediumFields.slice(3)[i + 1].field]}}">
+                                    {{item._source[mediumFields.slice(3)[i + 1].field]}}
+                                </a>
+                                <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item._source[mediumFields.slice(3)[i + 1].field]}}</span>
+                            </td>
                             <!-- Third col -->   
-                            <td class="col-6 col-lg-3 offset-6 offset-lg-0" *ngIf="mediumFields.slice(3).length > i+2">
+                            <td *ngIf="mediumFields.slice(3).length > i+2">
                             <p>{{mediumFields.slice(3)[i + 2].label}}</p>
                             <a *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item._source[mediumFields.slice(3)[i + 2].field]}}">
                                 {{item._source[mediumFields.slice(3)[i + 2].field]}}
                             </a>
                             <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item._source[mediumFields.slice(3)[i + 2].field]}}</span>
-                            </td>        
+                            </td>  
                         </tr>
                     </ng-container>
-                    <tr class="row">
-                        <th class="col-6 col-lg-3">Muut tiedot</th>
-                        <td class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile" *ngFor="let row of otherFields.slice(0,2)">
+                    <tr>
+                        <th scope="row">Muut tiedot</th>
+                        <td *ngFor="let row of otherFields.slice(0,2)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
                         </td>
                     </tr>
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
                         <tr *ngIf="i % 2 == 0"></tr>
-                        <tr class="row" *ngIf="i % 2 == 0">
-                            <td class="col-6 col-lg-4 offset-6 offset-lg-3">
+                        <tr *ngIf="i % 2 == 0">
+                            <td class="spacer"></td>
+                            <td>
                                 <p>{{row.label}}</p>
                                 <p>{{item._source[row.field]}}</p>
                             </td>        
-                            <td class="col-6 col-lg-5 offset-6 offset-lg-0" *ngIf="otherFields.slice(2).length > i+1">
+                            <td *ngIf="otherFields.slice(2).length > i+1">
                                 <p>{{otherFields.slice(2)[i + 1].label}}</p>
                                 <p>{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
                             </td>
