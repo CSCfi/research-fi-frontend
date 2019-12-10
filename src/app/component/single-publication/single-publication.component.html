@@ -42,7 +42,7 @@
                         </tr>
                     </ng-container>
                     <tr>
-                        <th scope="row">Organisaation sisäinen affiliaatio</th>
+                        <th scope="row">Organisaation alayksiköt</th>
                         <td *ngFor="let row of organizationFields.slice(0,1)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
