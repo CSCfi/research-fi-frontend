@@ -77,6 +77,8 @@
                             <!-- Show label only if no search functionality -->
                             <p *ngIf="!row.link || juFoCode.length === 1">{{item._source[row.field]}}</p>
                         </td>
+                        <!-- Fill the leftover space if col amount less than 3-->
+                        <td class="spacer" [attr.colspan]="3 - mediumFields.slice(0,3).length" *ngIf="mediumFields.slice(0,3).length < 3"></td>
                     </tr>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
                         <tr *ngIf="i % 3 == 0"></tr>
