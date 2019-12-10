@@ -82,13 +82,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
     // Reset query params after search term change
     this.searchTermSub = this.searchService.currentInput.subscribe(term => {
-      // Don't reset on the value returned by BehaviorSubject initial value
-      // (has to be BehaviorSubject because of search bar)
-      if (!this.first) {
         this.resetQueryParams();
-      } else {
-        this.first = false;
-      }
     });
   }
 
