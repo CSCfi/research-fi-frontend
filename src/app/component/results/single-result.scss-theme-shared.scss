@@ -6,7 +6,7 @@
     app-single-publication, app-single-funding, app-single-organization {
 
         .shared {
-            tr:nth-child(even), tr.even:nth-child(1n+1) td:first-child:after, tr:nth-child(3) td:first-child:after {
+            tr:nth-child(even), tr.even:nth-child(1n+1) td:first-child:after {
                 background-color: mat-color($primary, 50);
             }
             
