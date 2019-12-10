@@ -129,6 +129,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== 'undefined' &&
+             JSON.stringify(this.responseData[0].hits.hits[0]._source[item.field]) !== '["undefined"]' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
