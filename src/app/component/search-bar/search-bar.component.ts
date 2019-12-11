@@ -78,7 +78,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Show auto-suggest when input in focus
     this.showAutoSuggest = true;
     // Hides query history if search term isn't altered after history clear button click
-    this.queryHistory = Object.keys(sessionStorage).reverse();
+    this.queryHistory = Object.keys(sessionStorage).slice().reverse();
   }
 
   fireAutoSuggest() {
@@ -219,6 +219,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Set input to session storage & assign list to variable
     this.currentInput = this.queryField.value;
     if (this.currentInput) {sessionStorage.setItem(this.currentInput, this.currentInput); }
+    this.queryHistory = Object.keys(sessionStorage).slice().reverse();
     // Hide auto-suggest
     this.showAutoSuggest = false;
     // Reset completion
