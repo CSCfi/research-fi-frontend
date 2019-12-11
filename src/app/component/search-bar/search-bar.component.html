@@ -64,7 +64,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col other-links">
+                <div class="col" [class.other-links]="otherData">
                   <ul>
                     <li *ngFor="let data of otherData">
                       <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
@@ -80,7 +80,7 @@
                   <app-list-item *ngFor="let additional of additionalItems" [empty]="additional"></app-list-item>
                 </div>
                 <ng-template #showHistory>
-                  <div class="col query-history" [class.padder]="!topData">
+                  <div class="col query-history">
                     <h3 class="font-weight-bold">Hait viimeeksi:</h3>
                     <ul>
                       <app-list-item *ngFor="let item of queryHistory" class="list-group-item" [historyItem]="item">

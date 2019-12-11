@@ -188,10 +188,6 @@ button.btn.btn-search:focus span {
     font-weight: bold;
 }
 
-.results {
-    padding-bottom: 25px;
-}
-
 .auto-suggest .other-links a:after {
     font-family: "FontAwesome";
     margin-left: 8px;
@@ -208,10 +204,7 @@ button.btn.btn-search:focus span {
 }
 
 .query-history {
-    padding-bottom: 25px;
-    &.padder {
-        padding-top: 25px;
-    }
+    padding-top: 25px;
 }
 
 // extended search
