@@ -217,6 +217,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   newInput(selectedIndex, historyLink) {
     // Set input to session storage & assign list to variable
+    this.currentInput = this.queryField.value;
     if (this.currentInput) {sessionStorage.setItem(this.currentInput, this.currentInput); }
     // Hide auto-suggest
     this.showAutoSuggest = false;
