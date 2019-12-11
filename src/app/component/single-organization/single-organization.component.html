@@ -5,40 +5,42 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
- <h1 #srHeader class="sr-only"></h1>
- <aside>
-     <app-search-bar></app-search-bar>
- </aside>
+<h1 #srHeader class="sr-only"></h1>
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
  
- <div class="container" *ngFor="let organization of responseData" style="margin-top:25px;">
-     <!-- Breadcrumb -->
-     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'organisaatio'" [resultNameField]="'nameFi'"></app-breadcrumb>
-     <div class="row shared">
-        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a></p>
-         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="organization.hits.total === 0">
+<div class="container" *ngFor="let organization of responseData" style="margin-top:25px;">
+    <!-- Breadcrumb -->
+    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'organisaatio'" [resultNameField]="'nameFi'"></app-breadcrumb>
+    <div class="row shared">
+        <p class="back col-12">
+            <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
+        </p>
+        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="organization.hits.total === 0">
              <h2>404 - Virheellinen osoite</h2>
-         </div>
-         <main class="col-12 col-md-8">
-             <div *ngFor="let item of organization.hits.hits">
-                 <h2>{{item._source.nameFi}}</h2>
-                 <table id="info">
-                     <tr class="row" *ngFor="let row of infoFields">
-                         <th class="col-6 col-lg-3">{{row.label}}</th>
-                         <td class="col-6 col-lg-9">{{item._source[row.field]}}</td>
-                     </tr>
-                 </table>
+        </div>
+        <main class="col-12 col-md-8">
+            <div *ngFor="let item of organization.hits.hits">
+                <h2>{{item._source.nameFi}}</h2>
+                <div id="info" class="table">
+                    <div class="row" *ngFor="let row of infoFields">
+                        <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                        <div class="col-6 col-lg-9 td">{{item._source[row.field]}}</div>
+                    </div>
+                </div>
              </div>
          </main>
          <div class="col-12 col-md-4">
-             <aside>
-                 <mat-card>
-                     <div *ngFor="let item of organization.hits.hits">
-                     <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
-                         <a href="{{item._source.homePage}}">{{item._source.homePage}}</a>
-                         <div *ngIf="!item._source.homePage" class="no-links">Organisaatiolle ei ole tarjolla verkkosivua tässä portaalissa</div>
+            <aside>
+                <mat-card>
+                    <div *ngFor="let item of organization.hits.hits">
+                        <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
+                        <a href="{{item._source.homePage}}">{{item._source.homePage}}</a>
+                        <div *ngIf="!item._source.homePage" class="no-links">Organisaatiolle ei ole tarjolla verkkosivua tässä portaalissa</div>
                     </div>
                  </mat-card>
-             </aside>
+            </aside>
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Tutkimusorganisaation</h2></mat-card-title>
@@ -75,5 +77,5 @@
                 </mat-card>
             </aside>
         </div>
-     </div>
- </div>
+    </div>
+</div>
