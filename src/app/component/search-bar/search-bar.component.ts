@@ -78,7 +78,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Show auto-suggest when input in focus
     this.showAutoSuggest = true;
     // Hides query history if search term isn't altered after history clear button click
-    if (sessionStorage.length === 0) {this.queryHistory = false; }
+    this.queryHistory = Object.keys(sessionStorage).reverse();
   }
 
   fireAutoSuggest() {
@@ -88,7 +88,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     )
     .subscribe(result => {
       this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
-      this.queryHistory = Object.keys(sessionStorage).reverse();
       this.currentInput = result;
       if (result.length > 2) {
         this.autosuggestService.search(result).pipe(map(response => [response]))

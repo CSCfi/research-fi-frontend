@@ -29,7 +29,7 @@
   
 .has-search .form-control-feedback {
     position: absolute;
-    z-index: 2;
+    z-index: 100;
     display: block;
     width: 2.375rem;
     height: 2.375rem;
@@ -45,7 +45,7 @@
 }
 
 .input-group > .form-control:focus {
-    z-index: 8;
+    z-index: 104;
 }
 
 .form-group.has-search {
@@ -55,11 +55,11 @@
 }
 
 input {
-    z-index: 6;
+    z-index: 102;
 }
 
 .input-group-append {
-    z-index: 5;
+    z-index: 101;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -129,7 +129,7 @@ button.btn.btn-search:focus span {
 .auto-suggest {
     padding: 10px 0;
     background: #fff;
-    z-index: 4;
+    z-index: 100;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -209,6 +209,9 @@ button.btn.btn-search:focus span {
 
 .query-history {
     padding-bottom: 25px;
+    &.padder {
+        padding-top: 25px;
+    }
 }
 
 // extended search
