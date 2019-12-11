@@ -59,8 +59,6 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
                @Inject(PLATFORM_ID) private platformId: object ) {
-    this.searchTerm = this.route.snapshot.params.input;
-    // this.searchService.updateInput(this.searchTerm);
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -99,6 +97,12 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
         const tabChanged = this.tab !== params.tab;
 
         this.searchTerm = params.input || '';
+
+        // If there's a new search term, send it to search service
+        if (this.searchTerm !== this.searchService.singleInput) {
+          this.searchService.updateInput(this.searchTerm);
+        }
+
         this.selectedTabData = this.tabData.filter(tab => tab.link === params.tab)[0];
         // Default to publications if invalid tab
         if (!this.selectedTabData) {
