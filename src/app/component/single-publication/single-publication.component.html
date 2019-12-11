@@ -42,7 +42,7 @@
                         </tr>
                     </ng-container>
                     <tr>
-                        <th scope="row">Organisaation sisäinen affiliaatio</th>
+                        <th scope="row">Organisaation alayksiköt</th>
                         <td *ngFor="let row of organizationFields.slice(0,1)">
                             <p>{{row.label}}</p>
                             <p>{{item._source[row.field]}}</p>
@@ -78,19 +78,19 @@
                             <p *ngIf="!row.link || juFoCode.length === 1">{{item._source[row.field]}}</p>
                         </td>
                         <!-- Fill the leftover space if col amount less than 3-->
-                        <td class="spacer" [attr.colspan]="3 - mediumFields.slice(0,3).length" *ngIf="mediumFields.slice(0,3).length < 3"></td>
+                        <td class="spacer" *ngIf="mediumFields.slice(0,3).length < 3" [attr.colspan]="3 - mediumFields.slice(0,3).length"></td>
                     </tr>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
                         <tr *ngIf="i % 3 == 0"></tr>
-                        <tr *ngIf="i % 3 == 0" class="even">
+                        <tr *ngIf="i % 3 == 0">
                             <td class="spacer"></td>
                             <!-- First col -->
                             <td>
-                            <p>{{row.label}}</p>
-                            <a *ngIf="row.link" href="{{row.linkPath}}{{item._source[row.field]}}">
-                                {{item._source[row.field]}}
-                            </a>
-                            <span *ngIf="!row.link">{{item._source[row.field]}}</span>
+                                <p>{{row.label}}</p>
+                                <a *ngIf="row.link" href="{{row.linkPath}}{{item._source[row.field]}}">
+                                    {{item._source[row.field]}}
+                                </a>
+                                <span *ngIf="!row.link">{{item._source[row.field]}}</span>
                             </td>
                             <!-- Second col -->    
                             <td *ngIf="mediumFields.slice(3).length > i+1">
@@ -102,13 +102,15 @@
                             </td>
                             <!-- Third col -->   
                             <td *ngIf="mediumFields.slice(3).length > i+2">
-                            <p>{{mediumFields.slice(3)[i + 2].label}}</p>
-                            <a *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item._source[mediumFields.slice(3)[i + 2].field]}}">
-                                {{item._source[mediumFields.slice(3)[i + 2].field]}}
-                            </a>
-                            <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item._source[mediumFields.slice(3)[i + 2].field]}}</span>
-                            </td>  
+                                <p>{{mediumFields.slice(3)[i + 2].label}}</p>
+                                <a *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item._source[mediumFields.slice(3)[i + 2].field]}}">
+                                    {{item._source[mediumFields.slice(3)[i + 2].field]}}
+                                </a>
+                                <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item._source[mediumFields.slice(3)[i + 2].field]}}</span>
+                            </td>
+                            <td class="spacer" *ngIf="(mediumFields.slice(3).length - i) < 3" [attr.colspan]="3 - (mediumFields.slice(3).length - i)"></td>
                         </tr>
+                        <!-- <pre>{{mediumFields.slice(3).length}}{{i}}</pre> -->
                     </ng-container>
                     <tr>
                         <th scope="row">Muut tiedot</th>

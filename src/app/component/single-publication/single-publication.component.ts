@@ -57,8 +57,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: true, linkPath: '/results/publications?page=1&juFo='},
   ];
 
-  mediumTopRowFields = [];
-
   linksFields = [
     {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
     {label: 'Pysyvä osoite', field: 'doiHandle', path: ''},
@@ -129,6 +127,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== 'undefined' &&
+             JSON.stringify(this.responseData[0].hits.hits[0]._source[item.field]) !== '["undefined"]' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
