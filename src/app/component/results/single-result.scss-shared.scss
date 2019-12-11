@@ -45,20 +45,6 @@
                 overflow: hidden;
             }
 
-            tr.even:nth-child(1n+1) td:first-child {
-                position: relative;
-            }
-
-            tr.even:nth-child(1n+1) td:first-child:after {
-                content: ' ';
-                position: absolute;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                width: 100vw;
-                z-index: -1;
-            }
-
             #links td {
                 white-space: nowrap;
                 overflow: hidden;
