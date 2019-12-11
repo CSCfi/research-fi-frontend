@@ -57,8 +57,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: true, linkPath: '/results/publications?page=1&juFo='},
   ];
 
-  mediumTopRowFields = [];
-
   linksFields = [
     {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
     {label: 'Pysyvä osoite', field: 'doiHandle', path: ''},
