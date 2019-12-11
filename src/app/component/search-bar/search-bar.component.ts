@@ -193,6 +193,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       case 39: {
         if (isAtEnd) {
           this.searchInput.nativeElement.value = this.searchInput.nativeElement.value + this.completion;
+          this.queryField.setValue(this.searchInput.nativeElement.value);
           this.completion = '';
         }
       }
