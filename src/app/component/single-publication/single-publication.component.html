@@ -120,7 +120,7 @@
                                  <p class="td">{{item._source[row.field]}}</p>
                              </div>        
                              <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
-                                 <p>{{otherFields.slice(2)[i + 1].label}}</p>
+                                 <p class="th">{{otherFields.slice(2)[i + 1].label}}</p>
                                  <p class="td">{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
                              </div>
                          </div>
@@ -138,8 +138,8 @@
                                  <span class="doi-tag">DOI</span>
                                  <span class="doi-link"><a [attr.href]="'https://doi.org/'+item._source.doi">{{item._source.doi}}</a></span>
                              </div>
-                             <div *ngFor="let row of linksFields.slice(1)" class="info-link-wrapper">
-                                 <a class="info-link" href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a>
+                             <div *ngFor="let row of linksFields" class="info-link-wrapper">
+                                 <a class="info-link" *ngIf="row.field !== 'doi'" href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a>
                              </div>
                          </div>
                          <div *ngIf="!linksFields.length" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
