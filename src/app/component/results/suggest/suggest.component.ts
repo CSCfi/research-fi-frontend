@@ -85,7 +85,7 @@ export class SuggestComponent implements OnInit, OnDestroy {
   }
 
   navigate(term) {
-    this.searchService.singleInput = term;
+    this.searchService.updateInput(term);
     this.tabValueSub = this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
       this.searchService.redirecting = true;

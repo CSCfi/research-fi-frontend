@@ -60,7 +60,7 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
                @Inject(PLATFORM_ID) private platformId: object ) {
     this.searchTerm = this.route.snapshot.params.input;
-    this.searchService.updateInput(this.searchTerm);
+    // this.searchService.updateInput(this.searchTerm);
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -97,7 +97,6 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
         }
 
         const tabChanged = this.tab !== params.tab;
-        const searchTermChanged = this.searchTerm !== (params.input || '');
 
         this.searchTerm = params.input || '';
         this.selectedTabData = this.tabData.filter(tab => tab.link === params.tab)[0];
@@ -114,10 +113,6 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
           this.sortService.updateTab(this.selectedTabData.data);
           this.updateTitle(this.selectedTabData);
 
-        }
-
-        if (searchTermChanged) {
-          this.searchService.updateInput(this.searchTerm);
         }
 
         this.sortService.updateSort(query.sort);
@@ -140,7 +135,7 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
           }, 1);
         }
         // If new filter data is neeed
-        if (searchTermChanged || tabChanged || this.init) {
+        if (tabChanged || this.init) {
           // Reset filter values so new tab doesn't try to use previous tab's filters.
           this.filterValues = undefined;
           this.getFilterData();

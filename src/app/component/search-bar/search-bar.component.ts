@@ -127,7 +127,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       // Check for items that match current selected item
       if (doc && id) {
         this.singleService.updateId(id);
-        this.searchService.singleInput = this.searchInput.nativeElement.value;
+        this.searchService.updateInput(this.searchInput.nativeElement.value);
         this.router.navigate(['results/', doc, id || '']);
       } else if (doc && term) {
         this.searchService.singleInput = term.value;
@@ -229,9 +229,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Don't trigger subscriptions, just update search term
     // If query history link is clicked, send value to service and navigate
     if (historyLink) {
-      this.searchService.singleInput = historyLink;
+      this.searchService.updateInput(historyLink);
     } else {
-      this.searchService.singleInput = this.searchInput.nativeElement.value;
+      this.searchService.updateInput(this.searchInput.nativeElement.value);
     }
     this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
@@ -248,7 +248,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.showAutoSuggest = false;
     this.singleService.updateId(id);
     sessionStorage.setItem(this.currentInput, this.currentInput);
-    this.searchService.singleInput = this.currentInput;
+    this.searchService.updateInput(this.currentInput);
   }
 
   clearHistory() {

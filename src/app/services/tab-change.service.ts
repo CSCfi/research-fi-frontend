@@ -30,4 +30,8 @@ export class TabChangeService {
     this.tab = tab.link;
     this.tabSource.next(tab);
   }
+
+  resetQueryParams() {
+    Object.values(this.tabData).forEach(tab => this.tabQueryParams[tab.link] = {});
+  }
 }

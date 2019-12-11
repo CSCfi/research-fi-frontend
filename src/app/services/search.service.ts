@@ -39,7 +39,7 @@ export class SearchService {
   currentQueryParams = this.querySource.asObservable();
 
   private errorSource = new BehaviorSubject<string>('noError');
-  connError = this.inputSource.asObservable();
+  connError = this.errorSource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService) {
@@ -47,6 +47,7 @@ export class SearchService {
   }
 
   updateInput(searchTerm: string) {
+    this.tabChangeService.resetQueryParams();
     this.singleInput = searchTerm;
     this.inputSource.next(searchTerm);
   }
