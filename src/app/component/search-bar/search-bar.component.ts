@@ -61,7 +61,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: any ) {
-                this.queryHistory = this.queryHistory ? Object.keys(sessionStorage) : [];
+                this.queryHistory = this.getHistory();
                 this.completion = '';
   }
 
@@ -78,7 +78,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Show auto-suggest when input in focus
     this.showAutoSuggest = true;
     // Hides query history if search term isn't altered after history clear button click
-    this.queryHistory = Object.keys(sessionStorage).slice().reverse();
+    this.queryHistory = this.getHistory();
   }
 
   fireAutoSuggest() {
@@ -218,8 +218,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   newInput(selectedIndex, historyLink) {
     // Set input to session storage & assign list to variable
     this.currentInput = this.queryField.value;
-    if (this.currentInput) {sessionStorage.setItem(this.currentInput, this.currentInput); }
-    this.queryHistory = Object.keys(sessionStorage).slice().reverse();
+    if (this.currentInput) {sessionStorage.setItem(sessionStorage.length.toString(), this.currentInput); }
+    this.queryHistory = this.getHistory();
     // Hide auto-suggest
     this.showAutoSuggest = false;
     // Reset completion
@@ -246,10 +246,17 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getHistory() {
+    const keys = Object.keys(sessionStorage);
+    const values = Object.values(sessionStorage);
+    const arr = keys.map((key, i) => [key, values[i]]);
+    return arr.sort((a, b) => b[0] - a[0]).map(x => x[1]);
+  }
+
   addToHistory(id: string) {
     this.showAutoSuggest = false;
     this.singleService.updateId(id);
-    sessionStorage.setItem(this.currentInput, this.currentInput);
+    sessionStorage.setItem(sessionStorage.length.toString(), this.currentInput);
     this.searchService.updateInput(this.currentInput);
   }
 
