@@ -79,6 +79,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.showAutoSuggest = true;
     // Hides query history if search term isn't altered after history clear button click
     this.queryHistory = this.getHistory();
+    // Set queryfield value to trigger subscription and fetch suggestions
+    this.queryField.setValue(this.searchInput.nativeElement.value);
+    this.setCompletionWidth();
   }
 
   fireAutoSuggest() {
