@@ -216,9 +216,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   newInput(selectedIndex, historyLink) {
-    // Set input to session storage & assign list to variable
+    // Set input to local storage & assign list to variable
     this.currentInput = this.queryField.value;
-    if (this.currentInput) {sessionStorage.setItem(sessionStorage.length.toString(), this.currentInput); }
+    if (this.currentInput) {localStorage.setItem(localStorage.length.toString(), this.currentInput); }
     this.queryHistory = this.getHistory();
     // Hide auto-suggest
     this.showAutoSuggest = false;
@@ -228,7 +228,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.sortService.sortMethod = 'desc';
     // Reset page number
     this.searchService.updatePageNumber(1);
-    // Don't trigger subscriptions, just update search term
     // If query history link is clicked, send value to service and navigate
     if (historyLink) {
       this.searchService.updateInput(historyLink);
@@ -238,7 +237,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
       this.searchService.redirecting = true;
-      // Termporary default to publications
+      // Temporary default to publications
       // Change tab if clicked from auto suggest
       if (selectedIndex) {this.router.navigate(['results/', selectedIndex + 's', this.searchService.singleInput || '']); } else {
         this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || '']);
@@ -247,21 +246,22 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   getHistory() {
-    const keys = Object.keys(sessionStorage);
-    const values = Object.values(sessionStorage);
+    const keys = Object.keys(localStorage);
+    const values = Object.values(localStorage);
     const arr = keys.map((key, i) => [key, values[i]]);
-    return arr.sort((a, b) => b[0] - a[0]).map(x => x[1]);
+    // Filter for integer keys, sort by order, map to value and filter for duplicates
+    return arr.filter(x => +x[0] === +x[0]).sort((a, b) => b[0] - a[0]).map(x => x[1]).filter((e, i, a) => a.indexOf(e) === i);
   }
 
   addToHistory(id: string) {
     this.showAutoSuggest = false;
     this.singleService.updateId(id);
-    sessionStorage.setItem(sessionStorage.length.toString(), this.currentInput);
+    localStorage.setItem(localStorage.length.toString(), this.currentInput);
     this.searchService.updateInput(this.currentInput);
   }
 
   clearHistory() {
-    sessionStorage.clear();
+    localStorage.clear();
     this.showAutoSuggest = false;
   }
 }
