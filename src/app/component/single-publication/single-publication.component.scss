@@ -7,44 +7,58 @@
 
 div.links {
     border-radius: 3px;
-    color: white;
     font-weight: bold;
-    margin: 4px;
+    margin: 15px;
     margin-inline-start: 0;
-    // width: fit-content;
-    height: fit-content;
+    // display: flex;
+    // height: fit-content;
     white-space: nowrap;
-    .doi {
-        max-width: max-content;
+    .doi, .info-link-wrapper {
         padding: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: black;
-        border: 2px solid #363636;
-        border-radius: 3px;
-        background: white
+        display: inherit;
+        max-width: 100%;
     }
     .doi-tag {
-        background: #363636;
-        padding: 4px 10px 4px 11px;
-        color: white;
+        padding: 4px 10px 2px;
     }
     .doi-link {
         padding: 3px 10px;
-        a {
-            color: black;
-        }
     }
 
     .doi-tag, .doi-link {
         vertical-align: middle;
     }
+
+    .doi .link, .info-link-wrapper .link {
+        margin-left: 14px;
+    }
+
+    span.doi-link, .link {
+        max-width: max-content;
+        height: fit-content;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 4px 10px 2px;
+    }
+
+    .link, .icon {
+        padding: 0;
+    }
+
+    .icon {
+        font-size: 36px;
+        line-height: 0;
+    }
+
+    .link a {
+        text-decoration: underline;
+    }
 }
 
 .info-link-wrapper, .info-link {
     width: 100%;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 .info-link {
