@@ -31,6 +31,7 @@
 @import './app/component/breadcrumb/breadcrumb.component.scss-theme.scss';
 @import './app/component/results/filters/filters-shared.scss';
 @import './app/component/results/filters/filters.theme-shared.scss';
+@import './app/component/single-publication/single-publication.component.scss-theme.scss';
 @import './app/component/single-funding/single-funding.component.scss-theme.scss';
 
 // Global element color definitions
@@ -50,6 +51,7 @@
   @include app-sort-theme($theme);
   @include app-active-filters-theme($theme);
   @include app-breadcrumb-theme($theme);
+  @include app-single-publication-theme($theme);
   @include app-single-funding-theme($theme);
 
   $primary: map-get($theme, primary);
