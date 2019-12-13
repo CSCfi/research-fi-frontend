@@ -18,8 +18,8 @@ div.links {
         display: inherit;
         max-width: 100%;
     }
-    .doi-tag {
-        padding: 4px 10px 2px;
+    .doi-tag, span.doi-link, .link {
+        padding: 4px 10px 3px;
     }
     .doi-link {
         padding: 3px 10px;
@@ -39,7 +39,6 @@ div.links {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding: 4px 10px 2px;
     }
 
     .link, .icon {
@@ -47,7 +46,7 @@ div.links {
     }
 
     .icon {
-        font-size: 36px;
+        font-size: 35px;
         line-height: 0;
     }
 
