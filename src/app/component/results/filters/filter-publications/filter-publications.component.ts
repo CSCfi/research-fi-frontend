@@ -28,6 +28,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   @Input() responseData: any [];
   @Input() tabData: string;
   panelOpenState: boolean;
+  parentPanel: string;
   expandStatus: Array<boolean> = [];
   width = this.window.innerWidth;
   mobile = this.width < 992;
