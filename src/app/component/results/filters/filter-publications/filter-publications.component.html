@@ -48,7 +48,7 @@
                     (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää...</button>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel >
+                <mat-expansion-panel>
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Organisaatio</strong>
@@ -67,15 +67,16 @@
                     </mat-selection-list>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>
+                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = ''">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
-                            <strong>Tieteenala</strong>
+                            <strong>Tieteenala {{testOpen}}</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="subFields">
                         <div *ngFor="let major of staticDataService.majorFieldsOfScience, let i = index">
-                            <mat-expansion-panel *ngIf="combinedMajorFields[i] && combinedMajorFields[i].length > 0">
+                            <mat-expansion-panel *ngIf="combinedMajorFields[i] && combinedMajorFields[i].length > 0" 
+                                (opened)="panelOpenState = i; parentPanel = 'major'" [expanded]="panelOpenState === i && parentPanel === 'major' ? true : false">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         <strong>{{major.label}}</strong>
@@ -96,7 +97,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel>
+                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = ''">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Julkaisutyyppi</strong>
@@ -105,7 +106,8 @@
                     <div class="subFields">
                         <div *ngFor="let class of staticDataService.publicationClass">
                             <div *ngFor="let classType of filteredPublicationClass, let i = index">
-                                <mat-expansion-panel *ngIf="class.class === classType">
+                                <mat-expansion-panel *ngIf="class.class === classType"
+                                (opened)="panelOpenState = i; parentPanel = 'type'" [expanded]="panelOpenState === i && parentPanel === 'type' ? true : false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <strong>{{class.class}} {{class.label}}</strong>
