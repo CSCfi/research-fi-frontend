@@ -14,6 +14,14 @@
             <div class="logo-text d-none d-sm-block"><span i18n="Site slogan @@appSlogan">Ikkuna tutkimukseen Suomessa</span></div>
         </div>
         <nav class="nav-top col-3 col-lg-9 row no-padding">
+            <div id="srHelper" class="sr-only">
+                <ul>
+                    <li><a [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
+                    <li><a [href]="currentRoute + '#main-content'">Hyppää sivun pääsisältöön</a></li>
+                    <!-- ToDo: Link to accessibility -->
+                    <li><a routerLink="{{currentRoute}}" disabled fragment="accessibility">Hyppää saavutettavuusselosteeseen</a></li>
+                </ul>
+            </div>
             <div class="mobile ml-auto no-padding">
                 <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleNavbar()" #navbarToggler>
                     <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg toggle-icon"></span>
