@@ -11,6 +11,8 @@ import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators'
 
 @Component({
   selector: 'app-header',
@@ -34,12 +36,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentLang: string;
   lang: string;
+  currentRoute: any;
+  routeSub: Subscription;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object) {
+              @Inject(PLATFORM_ID) private platformId: object, private router: Router) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
+    this.routeEvent(router);
+  }
+
+  // Get current url
+  routeEvent(router: Router) {
+    this.routeSub = router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        // Prevent multiple anchors
+        this.currentRoute = e.urlAfterRedirects.split('#')[0];
+      }
+    });
   }
 
   ngOnInit() {
@@ -58,6 +73,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       this.resizeSub.unsubscribe();
     }
+    this.routeSub.unsubscribe();
   }
 
   // Toggle between viewing and hiding focused element outlines
