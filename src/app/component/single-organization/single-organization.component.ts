@@ -94,6 +94,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== 0 &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
