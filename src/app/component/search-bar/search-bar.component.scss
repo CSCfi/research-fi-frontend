@@ -144,11 +144,11 @@ button.btn.btn-search:focus span {
     padding: 10px 0;
 }
 
-.auto-suggest h3 {
+.auto-suggest h2, .auto-suggest h3 {
     font-size: 1rem;
 }
 
-.auto-suggest h3::first-letter {
+.auto-suggest h2::first-letter, .auto-suggest h3::first-letter {
     text-transform: uppercase;
 }
 
