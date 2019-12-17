@@ -19,17 +19,37 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tab = 'organizations';
   infoFields = [
-    // {label: 'Organisaation nimi', field: 'nameFi'},
-    {label: 'Perustettu', field: '?'},
+    {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
+    {label: 'Muut nimet', field: 'variantNames'},
+    {label: 'Perustettu', field: 'established'},
     {label: 'Lisätietoa', field: '?'},
-    {label: 'Organisaatiomuoto', field: '?'},
-    {label: 'Sektori', field: 'sectorNameFi'},
-    {label: 'Organisaation verkko-osoite', field: 'homepage'},
-    {label: 'Osoite', field: '?'},
+    {label: 'Edeltävä organisaatio', field: 'predecessors'},
+    {label: 'Liittyvä organisaatio', field: 'related'},
+    {label: 'Organisaatiomuoto', field: ''},
+    {label: 'Organisaation tyyppi', field: 'organizationType'},
+    {label: 'Käyntiosoite', field: 'visitingAddress'},
+    {label: 'Postiosoite', field: 'postalAddress'},
     {label: 'Y-tunnus', field: 'businessId'},
-    {label: 'Tilastokeskuksen oppilaitostunnus', field: '?'},
-    {label: 'Tunnuslukuja', field: '?'},
-    {label: 'Alayksiköt', field: '?'}
+    {label: 'Tilastokeskuksen oppilaitostunnus', field: '01910'},
+    {label: 'Opetus- ja tutkimushenkilöstön määrä', field: 'staffCountAsFte'},
+    // {label: 'Opiskelijoiden määrä', field: [
+    //   {label: 'Alempi korkeakoulututkinto', field: 'studentCountBsc'},
+    //   {label: 'Ylempi korkeakoulututkinto', field: 'studentCountMsc'},
+    //   {label: 'Lisensiaatintutkinto', field: 'studentCountLic'},
+    //   {label: 'Tohtorintutkinto', field: 'studentCountPhd'}]
+    // },
+    // {label: 'Alayksiköt', field: 'subUnits'}
+  ];
+
+  studentCounts = [
+    {label: 'Alempi korkeakoulututkinto', field: 'studentCountBsc'},
+    {label: 'Ylempi korkeakoulututkinto', field: 'studentCountMsc'},
+    {label: 'Lisensiaatintutkinto', field: 'studentCountLic'},
+    {label: 'Tohtorintutkinto', field: 'studentCountPhd'}
+  ];
+
+  subUnitFields = [
+    {label: 'Alayksiköt', field: 'subUnits'}
   ];
 
   faTwitter = faTwitter;
@@ -77,7 +97,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   filterData() {
     // Helper function to check if the field exists and has data
-    const checkEmpty = (item: {field: string} ) =>  {
+    const checkEmpty = (item: {field: any} ) =>  {
       return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
@@ -86,6 +106,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   shapeData() {
+    const source = this.responseData[0].hits.hits[0]._source;
+    const subUnits = source.subUnits;
+
+    if (subUnits && subUnits.length > 0) {
+      source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
+    }
 
   }
 }
