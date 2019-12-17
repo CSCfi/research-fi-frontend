@@ -25,7 +25,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Lisätietoa', field: 'organizationBackground'},
     {label: 'Edeltävä organisaatio', field: 'predecessors'},
     {label: 'Liittyvä organisaatio', field: 'related'},
-    {label: 'Organisaatiomuoto', field: 'OrganizationType'},
+    {label: 'Organisaatiomuoto', field: 'organizationType'},
     {label: 'Organisaation tyyppi', field: 'sectorNameFi'},
     {label: 'Käyntiosoite', field: 'visitingAddress'},
     {label: 'Postiosoite', field: 'postalAddress'},
