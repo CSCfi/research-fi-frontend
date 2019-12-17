@@ -22,11 +22,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
     {label: 'Muut nimet', field: 'variantNames'},
     {label: 'Perustettu', field: 'established'},
-    {label: 'Lisätietoa', field: '?'},
+    {label: 'Lisätietoa', field: 'organizationBackground'},
     {label: 'Edeltävä organisaatio', field: 'predecessors'},
     {label: 'Liittyvä organisaatio', field: 'related'},
-    {label: 'Organisaatiomuoto', field: ''},
-    {label: 'Organisaation tyyppi', field: 'organizationType'},
+    {label: 'Organisaatiomuoto', field: 'OrganizationType'},
+    {label: 'Organisaation tyyppi', field: 'sectorNameFi'},
     {label: 'Käyntiosoite', field: 'visitingAddress'},
     {label: 'Postiosoite', field: 'postalAddress'},
     {label: 'Y-tunnus', field: 'businessId'},
@@ -52,6 +52,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
+  expand: boolean;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
@@ -103,10 +104,22 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
     const subUnits = source.subUnits;
+    const established = new Date(source.established);
 
     if (subUnits && subUnits.length > 0) {
       source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
     }
 
+    const shapeDate = (date: any) => {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      return date.toLocaleString('fi-FI', options);
+    };
+
+    source.established = shapeDate(established);
+
+  }
+
+  expandDescription() {
+    this.expand = !this.expand;
   }
 }
