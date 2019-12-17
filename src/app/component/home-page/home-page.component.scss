@@ -56,14 +56,18 @@
     height: 100%;
 }
 
-.news-feed h4, .news-feed h5 {
+.news-feed h2 {
     text-align: center;
     padding: 5px 0;
 }
 
-.news-feed h4 {
+.news-feed h2 {
     font-size: 20px;
     font-weight: bold;
+}
+
+.news-feed h3 {
+    font-size: 16px;
 }
 
 .news-feed .news-card {
@@ -76,9 +80,15 @@ span.date {
     font-weight: bold;
 }
 
-.news-feed h5.link-news {
-    text-decoration: underline;
+.read-more {
+    text-align: center;
 }
+
+a.link-news {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 
 //responsive
 @media (max-width: 991px) {
