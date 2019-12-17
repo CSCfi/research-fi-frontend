@@ -4,7 +4,7 @@ import { SingleItemService } from '../../services/single-item.service';
 import { SearchService } from '../../services/search.service';
 import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
-import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,26 +19,41 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tab = 'organizations';
   infoFields = [
-    // {label: 'Organisaation nimi', field: 'nameFi'},
-    {label: 'Perustettu', field: '?'},
-    {label: 'Lisätietoa', field: '?'},
-    {label: 'Organisaatiomuoto', field: '?'},
-    {label: 'Sektori', field: 'sectorNameFi'},
-    {label: 'Organisaation verkko-osoite', field: 'homepage'},
-    {label: 'Osoite', field: '?'},
+    {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
+    {label: 'Muut nimet', field: 'variantNames'},
+    {label: 'Perustettu', field: 'established'},
+    {label: 'Lisätietoa', field: 'organizationBackground'},
+    {label: 'Edeltävä organisaatio', field: 'predecessors'},
+    {label: 'Liittyvä organisaatio', field: 'related'},
+    {label: 'Organisaatiomuoto', field: 'organizationType'},
+    {label: 'Organisaation tyyppi', field: 'sectorNameFi'},
+    {label: 'Käyntiosoite', field: 'visitingAddress'},
+    {label: 'Postiosoite', field: 'postalAddress'},
     {label: 'Y-tunnus', field: 'businessId'},
-    {label: 'Tilastokeskuksen oppilaitostunnus', field: '?'},
-    {label: 'Tunnuslukuja', field: '?'},
-    {label: 'Alayksiköt', field: '?'}
+    {label: 'Tilastokeskuksen oppilaitostunnus', field: '01910'},
+    {label: 'Opetus- ja tutkimushenkilöstön määrä', field: 'staffCountAsFte'},
+  ];
+
+  studentCounts = [
+    {label: 'Alempi korkeakoulututkinto', field: 'studentCountBsc'},
+    {label: 'Ylempi korkeakoulututkinto', field: 'studentCountMsc'},
+    {label: 'Lisensiaatintutkinto', field: 'studentCountLic'},
+    {label: 'Tohtorintutkinto', field: 'studentCountPhd'}
+  ];
+
+  subUnitFields = [
+    {label: 'Alayksiköt', field: 'subUnits'}
   ];
 
   faTwitter = faTwitter;
   faFacebook = faFacebook;
   faLinkedin = faLinkedin;
+  faMendeley = faMendeley;
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
+  expand: boolean;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
@@ -83,9 +98,29 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.studentCounts = this.studentCounts.filter(item => checkEmpty(item));
+    this.subUnitFields = this.subUnitFields.filter(item => checkEmpty(item));
   }
 
   shapeData() {
+    const source = this.responseData[0].hits.hits[0]._source;
+    const subUnits = source.subUnits;
+    const established = new Date(source.established);
 
+    if (subUnits && subUnits.length > 0) {
+      source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
+    }
+
+    const shapeDate = (date: any) => {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      return date.toLocaleString('fi-FI', options);
+    };
+
+    source.established = shapeDate(established);
+
+  }
+
+  expandDescription() {
+    this.expand = !this.expand;
   }
 }

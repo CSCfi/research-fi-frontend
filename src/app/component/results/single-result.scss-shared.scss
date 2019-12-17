@@ -159,6 +159,15 @@
                 font-style: italic;
             }
 
+            // Show more
+            p.short {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+            }
+
             @media (max-width: 991px) {
                 .first-no-offset-mobile:nth-child(2) {
                     margin-left: 0;

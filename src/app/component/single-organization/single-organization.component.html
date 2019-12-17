@@ -24,9 +24,40 @@
             <div *ngFor="let item of organization.hits.hits">
                 <h2>{{item._source.nameFi}}</h2>
                 <div id="info" class="table">
-                    <div class="row" *ngFor="let row of infoFields">
+                    <div class="row content" *ngFor="let row of infoFields">
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                        <div class="col-6 col-lg-9 td">{{item._source[row.field]}}</div>
+                        <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item._source[row.fieldEn]}}</div>
+                    </div>
+                    <div class="row content">
+                        <div class="col-6 col-lg-3 th">Opiskelijoiden määrä</div>
+                        <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of studentCounts.slice(0,2)">
+                            <p class="th">{{row.label}}</p>
+                            <p class="td">{{item._source[row.field]}}</p>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let row of studentCounts.slice(2); let i = index">
+                        <div *ngIf="i % 2 == 0"></div>
+                        <div class="row content" *ngIf="i % 2 == 0">
+                            <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
+                                <p class="th">{{row.label}}</p>
+                                <p class="td">{{item._source[row.field]}}</p>
+                            </div>        
+                            <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="studentCounts.slice(2).length > i+1">
+                                <p class="th">{{studentCounts.slice(2)[i + 1].label}}</p>
+                                <p class="td">{{item._source[studentCounts.slice(2)[i + 1].field]}}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="row content" *ngFor="let row of subUnitFields">
+                        <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                        <div class="col-6 col-lg-9 td">
+                            <p [ngClass]="expand ? 'expand' : 'short'">
+                                {{item._source[row.field]}}
+                            </p>
+                            <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'subUnits' && item._source.subUnits.length > 256" 
+                            (click)="expandDescription()" [innerHTML]="expand ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>
+                        </div>
+
                     </div>
                 </div>
              </div>
@@ -64,6 +95,7 @@
                         <a href="#" class="icon"><fa-icon [icon]="faFacebook"></fa-icon></a>
                         <a href="#" class="icon"><fa-icon [icon]="faTwitter"></fa-icon></a>
                         <a href="#" class="icon"><fa-icon [icon]="faLinkedin"></fa-icon></a>
+                        <a href="#" class="icon"><fa-icon [icon]="faMendeley"></fa-icon></a>
                     </div>
                 </mat-card>
             </aside>

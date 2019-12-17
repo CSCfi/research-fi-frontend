@@ -35,14 +35,6 @@ td p:first-child {
     font-weight: 400;
 }
 
-p.short {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
 .info-link-wrapper, .info-link {
     width: 100%;
     padding-top: 10px;
