@@ -50,7 +50,14 @@
                     </ng-container>
                     <div class="row content" *ngFor="let row of subUnitFields">
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                        <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item._source[row.fieldEn]}}</div>
+                        <div class="col-6 col-lg-9 td">
+                            <p [ngClass]="expand ? 'expand' : 'short'">
+                                {{item._source[row.field]}}
+                            </p>
+                            <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'subUnits' && item._source.subUnits.length > 256" 
+                            (click)="expandDescription()" [innerHTML]="expand ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>
+                        </div>
+
                     </div>
                 </div>
              </div>
