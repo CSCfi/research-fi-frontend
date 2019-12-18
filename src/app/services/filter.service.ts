@@ -24,15 +24,16 @@ export class FilterService {
   fundingAmountFilter: any;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
+  sectorFilter: any;
   currentFilters: any;
   today: string;
 
   private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: [], status: [], fundingAmount: []});
+    juFo: [], openAccess: [], internationalCollaboration: [], status: [], fundingAmount: [], sector: []});
   filters = this.filterSource.asObservable();
 
   updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[], status: any[], fundingAmount: any[]}) {
+    openAccess: any[], juFo: any[], internationalCollaboration: any[], status: any[], fundingAmount: any[], sector: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -56,6 +57,8 @@ export class FilterService {
     // Funding
     this.statusFilter = this.filterByStatus(filter.status);
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
+    // Organization
+    this.sectorFilter = this.filterBySector(filter.sector);
   }
 
   filterByYear(filter: any[]) {
@@ -100,13 +103,7 @@ export class FilterService {
 
   filterByLang(code: any[]) {
     const res = [];
-    const currentTab = this.sortService.currentTab;
-    switch (currentTab) {
-      case 'publications': {
-        code.forEach(value => { res.push({ term : { 'languages.languageCode' : value } }); });
-        break;
-      }
-    }
+    code.forEach(value => { res.push({ term : { 'languages.languageCode' : value } }); });
     return res;
   }
 
@@ -175,6 +172,13 @@ export class FilterService {
     return statusFilter;
   }
 
+  // Organizations
+  filterBySector(sector: any[]) {
+    const res = [];
+    sector.forEach(value => { res.push({ term : { 'sectorId.keyword' : value } }); });
+    return res;
+  }
+
   constructQuery(index: string, searchTerm: string) {
     const query = this.settingsService.querySettings(index, searchTerm);
     return {
@@ -187,11 +191,13 @@ export class FilterService {
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
+            // ...(index === 'organization' ? (this.sectorFilter ? [this.sectorFilter] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
             ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
             ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
             ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
             ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
+            ...(this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : [])
           ],
         }
     };
@@ -324,6 +330,21 @@ export class FilterService {
           }
         };
         break;
+        case 'organizations':
+          payLoad.aggs.sector = {
+            terms: {
+              field: 'sectorNameFi.keyword',
+              size: 50
+            },
+            aggs: {
+              sectorId: {
+                terms: {
+                  field: 'sectorId.keyword'
+                }
+              },
+            }
+          };
+          break;
 
       default:
         break;
