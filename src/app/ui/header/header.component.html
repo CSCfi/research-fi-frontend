@@ -5,7 +5,7 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<header (onKeydown)="onKeydown($event)">
+<header>
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
             <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
