@@ -5,13 +5,13 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<header (keyup)="onKeydown($event)">
-    <div id="srHelper" class="row skip-links" [ngClass]="tabbed ? 'show' : 'sr-only'">
+<header>
+    <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
-            <li><a [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
-            <li><a [href]="currentRoute + '#main-content'">Hyppää sivun pääsisältöön</a></li>
+            <li><a (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
+            <li><a (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#main-content'">Hyppää sivun pääsisältöön</a></li>
             <!-- ToDo: Link to accessibility -->
-            <li><a routerLink="{{currentRoute}}" disabled fragment="accessibility">Hyppää saavutettavuusselosteeseen</a></li>
+            <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="{{currentRoute}}" disabled fragment="accessibility">Hyppää saavutettavuusselosteeseen</a></li>
         </ul>
     </div>
     <div offClick class="navbar navbar-expand-lg navbar-light row">
