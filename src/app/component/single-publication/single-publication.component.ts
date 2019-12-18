@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { SettingsService } from '../../services/settings.service';
 import { TabChangeService } from '../../services/tab-change.service';
+import { StaticDataService } from '../../services/static-data.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
@@ -34,7 +35,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'publicationName'},
     {label: 'Julkaisuvuosi', field: 'publicationYear'},
-    {label: 'Julkaisutyyppi', field: 'publicationTypeCode'},
+    {label: 'Julkaisutyyppi', field: 'publicationTypeCode', typeLabel: ' '},
     {label: 'Tekijät', field: 'authorsText'}
   ];
   authorFields = [
@@ -86,10 +87,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   faMendeley = faMendeley;
   faQuoteRight = faQuoteRight;
   faIcon = faFileAlt;
+  publicationType: { id: number; class: string; label: string; types: { type: string; label: string; }[]; checked: boolean; } | { id: number; class: string; label: string; types: { type: string; label: string; }[]; checked?: undefined; };
+  publicationTypeLabel: string;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
-               private settingsService: SettingsService ) {
+               private settingsService: SettingsService, private staticDataService: StaticDataService ) {
    }
 
   public setTitle(newTitle: string) {
@@ -163,6 +166,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
     source.openAccessCode = source.openAccessCode > 0 ? 'Kyllä' : 'Ei';
+
+    // Get & set publication type label
+    this.publicationType = this.staticDataService.publicationClass.find(val => val.class === source.publicationTypeCode.slice(0, 1));
+    this.publicationTypeLabel = this.publicationType.label;
   }
 
   navigate(field) {
