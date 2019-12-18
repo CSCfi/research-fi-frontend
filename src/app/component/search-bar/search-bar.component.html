@@ -21,7 +21,7 @@
             <span id="completionAssist"></span>
             <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">{{completion}}</div>
             <div class="input-group-append">
-              <button class="btn btn-search" type="button" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
+              <button (blur)="showAutoSuggest = false" class="btn btn-search" type="button" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
                 <span class="search-button">Hae</span>
                 <i class="fa fa-search"></i>
               </button>
