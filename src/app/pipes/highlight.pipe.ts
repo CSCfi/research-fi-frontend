@@ -9,8 +9,8 @@ export class HighlightSearch implements PipeTransform {
 
     transform(value: any, args: any): any {
         // Convert value to string to highlight numbers also
-        value = value.toString();
-        if (!value.length || !args) {
+        value = value ? value.toString() : value;
+        if (!value || !args) {
            return value;
         }
         // Parantheses are removed because of regexp. Asterisk doesn't work with titles containing mulptiple different integers
