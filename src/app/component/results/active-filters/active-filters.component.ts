@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
@@ -43,7 +43,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
    }
 
   ngOnInit() {
-
   }
 
   ngAfterContentInit() {
@@ -60,17 +59,33 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       });
 
       // Subscribe to aggregation data
-      this.filterResponse = this.dataService.currentResponse.subscribe(response => this.response = response);
+      this.filterResponse = this.dataService.currentResponse.subscribe(response => {
+        this.response = response;
+        if (this.response.length > 0) {
+          // ToDo: Could it be possible to get data by category & aggregation dynamically?
+          // Replace values with translated ones
+          this.activeFilters.forEach(val => {
+            const source = this.response[0].aggregations;
+            if (val.category === 'lang' && source.languageCode.sum_other_doc_count > 0) {
+              const result = source.languageCode.buckets.find(({ key }) => key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result.language.buckets[0].key;
+            }
+            if (val.category === 'sector' && source.sector.buckets.length > 0) {
+              source.sector.buckets.forEach(element => {
+                if (element.sectorId.buckets[0].key === val.value) {
+                  const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                  this.activeFilters[foundIndex].translation = element.key;
+                }
+              });
+            }
 
-      // ToDo: Could it be possible to get data by category & aggreagation dynamically?
-      // Replace values with translated ones
-      this.activeFilters.forEach(val => {
-        if (val.category === 'lang') {
-          const result = this.response[0].aggregations.languageCode.buckets.find(({ key }) => key === val.value);
-          const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-          this.activeFilters[foundIndex].translation = result.language.buckets[0].key;
+          });
         }
+
       });
+
+
       // Sort active filters by numerical value
       this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
