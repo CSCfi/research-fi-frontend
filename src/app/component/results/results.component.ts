@@ -41,7 +41,7 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
-  fundingFilters: {status: any[], fundingAmount: any[]};
+  fundingFilters: {status: any[], fundingAmount: any[], sector: any[]};
   filters: any;
   mobile: boolean;
   updateFilters: boolean;
@@ -91,7 +91,8 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
             juFo: [query.juFo].flat().filter(x => x),
             openAccess: [query.openAccess].flat().filter(x => x),
             internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
-            fundingAmount: [query.fundingAmount].flat().filter(x => x)};
+            fundingAmount: [query.fundingAmount].flat().filter(x => x),
+            sector: [query.sector].flat().filter(x => x)};
         }
 
         const tabChanged = this.tab !== params.tab;
