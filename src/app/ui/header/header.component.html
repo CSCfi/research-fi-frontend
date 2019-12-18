@@ -5,11 +5,11 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<header>
+<header (onKeydown)="onKeydown($event)">
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
-            <li><a (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
-            <li><a (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#main-content'">Hyppää sivun pääsisältöön</a></li>
+            <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
+            <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#main-content'">Hyppää sivun pääsisältöön</a></li>
             <!-- ToDo: Link to accessibility -->
             <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="{{currentRoute}}" disabled fragment="accessibility">Hyppää saavutettavuusselosteeseen</a></li>
         </ul>

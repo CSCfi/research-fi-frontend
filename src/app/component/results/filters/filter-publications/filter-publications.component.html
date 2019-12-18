@@ -119,7 +119,7 @@
                                             <div *ngFor="let type of class.types">
                                                 <mat-list-option checkboxPosition="before" *ngIf="type.type === item.key"  
                                                 [value]="type.type" [selected]="preSelection.indexOf(type.type) > -1">
-                                                    <span class="label">{{type.label}}</span>
+                                                    <span class="label">{{type.type}}, {{type.label}}</span>
                                                 </mat-list-option>
                                             </div>
                                         </div>
