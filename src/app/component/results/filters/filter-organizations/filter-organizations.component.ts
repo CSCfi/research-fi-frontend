@@ -5,13 +5,14 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, Inject, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, ViewChild, ElementRef, Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../../../services/filter.service';
+import { DataService } from '../../../../services/data.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
@@ -20,7 +21,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
   templateUrl: './filter-organizations.component.html',
   styleUrls: ['./filter-organizations.component.scss']
 })
-export class FilterOrganizationsComponent implements OnInit, OnDestroy {
+export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
   @Input() tabData: string;
   panelOpenState: boolean;
@@ -28,19 +29,17 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   width = this.window.innerWidth;
   mobile = this.width < 992;
   panelHeight = '48px';
-  @ViewChild('selectedYears', { static: false }) selectedYears: MatSelectionList;
+  @ViewChild('selectedSectors', { static: false }) selectedSectors: MatSelectionList;
   preSelection: any;
   modalRef: BsModalRef;
 
   private resizeSub: Subscription;
   private filterSub: Subscription;
-
-
-  sectorFilters = ['Yliopistot', 'Ammattikorkeakoulut', 'Tutkimuslaitokset',
-                   'Yliopistolliset sairaalat', 'Muut organisaatiot', 'Rahoittajat'];
+  sectorFilter: any[];
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
-               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService ) { }
+               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService,
+               private dataService: DataService ) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -64,12 +63,13 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChange() {
+    this.getSelected();
     this.router.navigate([],
-    { queryParams: { sort: this.sortService.sortMethod, year: this.getSelected() } });
+    { queryParams: { sort: this.sortService.sortMethod, sector: this.sectorFilter } });
   }
 
   getSelected() {
-    return this.selectedYears.selectedOptions.selected.map(s => s.value);
+    this.sectorFilter = this.selectedSectors.selectedOptions.selected.map(s => s.value);
   }
 
   ngOnInit() {
@@ -80,6 +80,13 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy {
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+  }
+
+  ngOnChanges() {
+    this.responseData = this.responseData || [];
+    if (this.responseData.length > 0) {
+      this.dataService.changeResponse(this.responseData);
+    }
   }
 
   ngOnDestroy() {
