@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, OnChanges, Input, ViewChild, ElementRef, Inject, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, Input, ViewChild, ChangeDetectorRef, Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -39,7 +39,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
                private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService,
-               private dataService: DataService ) { }
+               private dataService: DataService, private cdr: ChangeDetectorRef ) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -83,10 +83,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
   }
 
   ngOnChanges() {
-    this.responseData = this.responseData || [];
-    if (this.responseData.length > 0) {
-      this.dataService.changeResponse(this.responseData);
-    }
+
   }
 
   ngOnDestroy() {

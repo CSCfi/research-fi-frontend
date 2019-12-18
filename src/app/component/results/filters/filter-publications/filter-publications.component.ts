@@ -193,9 +193,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   shapeData() {
     this.responseData = this.responseData || [];
 
-    // Send data to service so it's available through app
     if (this.responseData.length > 0) {
-      this.dataService.changeResponse(this.responseData);
       // check if major aggregation is available
       this.combinedMajorFields =
       this.responseData[0].aggregations.fieldsOfScience ? (this.filterMethodService.separateMinor(

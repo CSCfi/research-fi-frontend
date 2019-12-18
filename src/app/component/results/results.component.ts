@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from '../../services/tab-change.service';
 import { ResizeService } from '../../services/resize.service';
 import { FilterService } from '../../services/filter.service';
+import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 
@@ -58,7 +59,7 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
-               @Inject(PLATFORM_ID) private platformId: object ) {
+               @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -143,8 +144,11 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
         if (tabChanged || this.init) {
           // Reset filter values so new tab doesn't try to use previous tab's filters.
           this.filterValues = undefined;
-          this.getFilterData();
         }
+
+        // Get data filter data
+        this.getFilterData();
+
         // Reset flags
         this.searchService.redirecting = false;
         this.init = false;
@@ -187,6 +191,8 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
       .pipe(map(data => [data]))
       .subscribe(filterValues => {
         this.filterValues = filterValues;
+        // Send response to data service
+        this.dataService.changeResponse(this.filterValues);
         // Send total value to service
         this.searchService.updateTotal(this.filterValues[0].hits.total);
         // Set the title
