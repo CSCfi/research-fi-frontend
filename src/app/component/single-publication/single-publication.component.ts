@@ -87,7 +87,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   faMendeley = faMendeley;
   faQuoteRight = faQuoteRight;
   faIcon = faFileAlt;
-  publicationType: { id: number; class: string; label: string; types: { type: string; label: string; }[]; checked: boolean; } | { id: number; class: string; label: string; types: { type: string; label: string; }[]; checked?: undefined; };
+  publicationType: any;
   publicationTypeLabel: string;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
