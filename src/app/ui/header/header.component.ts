@@ -38,6 +38,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   lang: string;
   currentRoute: any;
   routeSub: Subscription;
+  showSkipLinks: boolean;
+
+  countTab = 0;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Injector, Input, ComponentRef
 import { ComponentPortal, DomPortalHost } from '@angular/cdk/portal';
 import { createDomPortalHost } from './utils';
 import { SearchService } from '../../../services/search.service';
+import { DataService } from '../../../services/data.service';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PublicationsComponent } from '../publications/publications.component';
@@ -32,7 +33,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   tabSub: Subscription;
   filterSub: Subscription;
 
-  constructor(private injector: Injector, private searchService: SearchService) { }
+  constructor(private injector: Injector, private searchService: SearchService, private dataService: DataService) { }
 
   ngOnInit() {
     this.portalHost = createDomPortalHost(this.elRef, this.injector);
@@ -50,6 +51,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
           this.componentRef.instance.resultData = undefined;
         }
         this.getResultData();
+
       }
   }
 
@@ -57,8 +59,8 @@ export class SearchResultsComponent implements OnInit, OnChanges {
     // Get data, then change component
     this.searchService.getData()
     .pipe(map(responseData => [responseData]))
-    .subscribe(
-      responseData => this.responseData = responseData,
+    .subscribe(responseData =>
+      this.responseData = responseData,
       error => this.errorMessage = error as any,
       () => this.changeComponent(this.currentTab)
     );

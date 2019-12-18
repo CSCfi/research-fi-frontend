@@ -20,6 +20,19 @@ header {
     margin: 0 auto;
 }
 
+// Skip-to links
+.skip-links ul {
+    display: flex;
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.skip-links li {
+    padding: 0 15px;
+}
+
+// Navigation
+
 .navbar {
     padding: 1rem 0rem 0 0rem;
     margin: 0 15px 0 10px;

@@ -61,7 +61,7 @@
 
         .mat-expansion-panel-header:not([aria-disabled=true]) {
             cursor: pointer;
-            padding: 10px 5px;
+            padding: 0 5px;
         }
 
         .mat-expansion-indicator::after {
