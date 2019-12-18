@@ -37,9 +37,10 @@
                             <strong>Sektori</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list>
-                        <mat-list-option checkboxPosition="before" *ngFor="let sector of sectorFilters" [value]="sector">
-                            <span class="label">{{sector}}</span>
+                    <mat-selection-list #selectedSectors (selectionChange)="onSelectionChange()">
+                        <mat-list-option checkboxPosition="before" *ngFor="let sector of response.aggregations.sector?.buckets" 
+                        [value]="sector.sectorId.buckets[0].key" [selected]="preSelection.indexOf(''+sector.sectorId.buckets[0].key) > -1">
+                            <span class="label">{{sector.key}}</span>
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>
