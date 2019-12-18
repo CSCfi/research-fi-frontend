@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   lang: string;
   currentRoute: any;
   routeSub: Subscription;
+  tabbed: boolean;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
@@ -45,6 +46,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
+  }
+
+  onKeydown(event) {
+    this.tabbed = event.keyCode === 9 ? true : false;
   }
 
   // Get current url
