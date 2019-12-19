@@ -170,19 +170,21 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     }
 
     // Get authors per organization
-    author.forEach(org => {
-      const authorArr = [];
-      org.organization[0].organizationUnit.forEach(subUnit => {
-        subUnit.person.forEach(person => {
-          authorArr.push({
-            author: person.authorLastName + ' ' + person.authorFirstNames,
-            orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
-            subUnit: subUnit.organizationUnitNameFi
+    if (author && author.length > 0) {
+      author.forEach(org => {
+        const authorArr = [];
+        org.organization[0].organizationUnit.forEach(subUnit => {
+          subUnit.person.forEach(person => {
+            authorArr.push({
+              author: person.authorLastName + ' ' + person.authorFirstNames,
+              orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+              subUnit: subUnit.organizationUnitNameFi
+            });
           });
         });
+        this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi, authors: authorArr});
       });
-      this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi, authors: authorArr});
-    });
+    }
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
