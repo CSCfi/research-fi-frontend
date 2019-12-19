@@ -168,6 +168,17 @@
                 -webkit-box-orient: vertical;
             }
 
+            button.show-more {
+                border: 0px;
+                padding: 5px 10px;
+                font-weight: 500;
+            }
+
+            // Sub units
+            p.sub-unit {
+                margin-left: 15px;
+            }
+
             @media (max-width: 991px) {
                 .first-no-offset-mobile:nth-child(2) {
                     margin-left: 0;

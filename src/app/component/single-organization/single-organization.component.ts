@@ -106,18 +106,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
     const subUnits = source.subUnits;
-    const established = new Date(source.established);
 
     if (subUnits && subUnits.length > 0) {
       source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
     }
-
-    const shapeDate = (date: any) => {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      return date.toLocaleString('fi-FI', options);
-    };
-
-    source.established = shapeDate(established);
 
   }
 
