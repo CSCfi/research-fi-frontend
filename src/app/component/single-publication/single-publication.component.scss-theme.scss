@@ -10,7 +10,6 @@
 @mixin app-single-publication-theme($theme) {
     $primary: map-get($theme, primary);
 
-
     div.links {
         color: mat-contrast($primary, 500);
         
