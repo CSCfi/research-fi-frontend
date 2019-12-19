@@ -45,8 +45,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   authorAndOrganization = [];
 
   organizationSubFields = [
-    {label: 'Organisaatio', field: 'publicationOrgId'}
+    {label: 'Organisaatio', field: 'publicationOrgUnits'}
   ];
+
   mediumFields = [
     {label: 'Lehti', field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: 'Emojulkaisun nimi', field: 'parentPublicationName', link: true, linkPath: '/results/publications/'},
@@ -156,6 +157,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
+    const subUnits = source.publicationOrgUnits;
 
     if (fieldsOfScience && fieldsOfScience.length > 0) {
       source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');
@@ -167,6 +169,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     if (keywords && keywords.length > 0) {
       source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
+    }
+
+    if (subUnits && subUnits.length > 0) {
+      source.publicationOrgUnits = subUnits.map(x => x.organizationUnitNameFi.trim()).join(', ');
     }
 
     // Get authors per organization
