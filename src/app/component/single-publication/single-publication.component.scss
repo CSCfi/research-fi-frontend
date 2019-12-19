@@ -48,6 +48,7 @@ div.links {
     .icon {
         font-size: 35px;
         line-height: 0;
+        max-width: 30px;
     }
 
     .link a {
@@ -81,4 +82,12 @@ div.links {
 
 .quote {
     padding-right: 5%;
+}
+
+// Orcid icon
+img.orcid-icon {
+    height: 16px;
+    width: auto;
+    margin: 4px;
+    vertical-align: top;
 }
