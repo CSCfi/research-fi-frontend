@@ -39,9 +39,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Tekijät', field: 'authorsText'}
   ];
   authorFields = [
-    {label: 'Tekijöiden määrä', field: 'numberOfAuthors'}
+    {label: 'Tekijöiden määrä', field: 'author[0].nameFiSector'}
   ];
-  organizationFields = [
+
+  authorAndOrganization = [];
+
+  organizationSubFields = [
     {label: 'Organisaatio', field: 'publicationOrgId'}
   ];
   mediumFields = [
@@ -140,7 +143,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
     this.authorFields = this.authorFields.filter(item => checkEmpty(item));
-    this.organizationFields = this.organizationFields.filter(item => checkEmpty(item));
+    this.organizationSubFields = this.organizationSubFields.filter(item => checkEmpty(item));
     this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
     this.linksFields = this.linksFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
@@ -151,6 +154,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const fieldsOfScience = source.fields_of_science;
     const languages = source.languages;
     const keywords = source.keywords;
+    const author = source.author;
+
     if (fieldsOfScience && fieldsOfScience.length > 0) {
       source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');
     }
@@ -162,6 +167,23 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (keywords && keywords.length > 0) {
       source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
     }
+
+    const authorArr = [];
+    author.forEach(org => {
+      org.organization[0].organizationUnit.forEach(subUnit => {
+        subUnit.person.forEach(person => {
+          authorArr.push({
+            author: person.authorLastName + ' ' + person.authorFirstNames,
+            orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+            subUnit: subUnit.organizationUnitNameFi
+          });
+        });
+      });
+      this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi, authors: authorArr});
+    });
+    console.log(this.authorAndOrganization);
+
+
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
