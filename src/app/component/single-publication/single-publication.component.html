@@ -23,42 +23,38 @@
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
                         <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.typeLabel">, {{publicationTypeLabel}}</span></div>
                     </div>
-                    <!-- <div class="row content">
-                        <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät</div>
-                        <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
-                            <p class="th">{{row.orgName}}</p>
-                            <p class="td" [ngClass]="row.orcid ? 'has-orcid' : ''">{{row.author}}<img *ngIf="row.orcid" class="orcid-icon" src="../assets/orcid_icon.svg"></p>
-                        </div>
-                    </div>
-                    <ng-container *ngFor="let row of authorAndOrganization.slice(1)">
-                        <div></div>
-                        <div class="row content">
-                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td">
-                                <p class="th">{{row.orgName}}</p>
-                                <p class="td">{{row.author}}</p>
-                                <p class="td">{{row.orcid}}</p>
-                            </div>        
-                        </div>
-                    </ng-container> -->
                     <div class="row content">
-                        <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät</div>
+                        <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
+                            <button class="show-more" *ngIf="!showSubUnits" (click)="showSubUnits = true">Näytä  alayksiköt</button>
+                            <button class="show-more" *ngIf="showSubUnits" (click)="showSubUnits = false">Piilota  alayksiköt</button>
+                        </div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
                             <p class="th">{{row.orgName}}</p>
-                            <p class="td" *ngFor="let author of row.authors" [ngClass]="author.orcid ? 'has-orcid' : ''">
-                                {{author.author}}
-                                <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
-                            </p>
+                            <div *ngFor="let author of row.authors">
+                                <div *ngIf="author.author.length > 10">
+                                    <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
+                                        {{author.author}}
+                                        <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
+                                    </p>
+                                    <p class="sub-unit" *ngIf="showSubUnits">{{author.subUnit}}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <ng-container *ngFor="let row of authorAndOrganization.slice(1)">
                         <div></div>
                         <div class="row content">
-                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td"*ngFor="let row of authorAndOrganization.slice(1)">
+                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td" *ngFor="let row of authorAndOrganization.slice(1)">
                                 <p class="th">{{row.orgName}}</p>
-                                <p class="td" *ngFor="let author of row.authors" [ngClass]="author.orcid ? 'has-orcid' : ''">
-                                    {{author.author}}
-                                    <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
-                                </p>
+                                <div *ngFor="let author of row.authors">
+                                    <div *ngIf="author.author.length > 10">
+                                        <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
+                                            {{author.author}}
+                                            <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
+                                        </p>
+                                        <p class="sub-unit" *ngIf="showSubUnits">{{author.subUnit}}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </ng-container>
