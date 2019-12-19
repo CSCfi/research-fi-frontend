@@ -61,7 +61,6 @@
                     <div class="row content">
                         <div class="col-6 col-lg-3 th">Organisaation alayksiköt</div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
-                            <p class="th">{{row.label}}</p>
                             <p class="td">{{item._source[row.field]}}</p>
                         </div>
                     </div>
