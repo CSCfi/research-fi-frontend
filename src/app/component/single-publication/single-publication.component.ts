@@ -92,6 +92,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   faIcon = faFileAlt;
   publicationType: any;
   publicationTypeLabel: string;
+  showSubUnits = false;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
@@ -168,8 +169,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
     }
 
-    const authorArr = [];
+    // Get authors per organization
     author.forEach(org => {
+      const authorArr = [];
       org.organization[0].organizationUnit.forEach(subUnit => {
         subUnit.person.forEach(person => {
           authorArr.push({
@@ -181,9 +183,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       });
       this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi, authors: authorArr});
     });
-    console.log(this.authorAndOrganization);
-
-
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
