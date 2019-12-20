@@ -33,6 +33,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   width = this.window.innerWidth;
   mobile = this.width < 992;
   @ViewChild('selectedYear', { static: false }) selectedYear: MatSelectionList;
+  @ViewChild('selectedSector', { static: false }) selectedSector: MatSelectionList;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
   @ViewChildren('selectedPublicationTypes') selectedPublicationTypes: QueryList<MatSelectionList>;
   @ViewChild('selectedCountryCode', { static: false }) selectedCountryCode: MatSelectionList;
@@ -44,6 +45,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   private filterSub: Subscription;
 
   yearFilter: any[];
+  sectorFilter: any[];
   fieldOfScienceFilter: any;
   publicationTypeFilter: any;
   countryCodeFilter: any;
@@ -68,8 +70,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
                @Inject(WINDOW) private window: Window, private modalService: BsModalService) {
-                 this.height = 240;
-                 this.clickCount = 0;
+                  this.height = 240;
+                  this.clickCount = 0;
+                  // Set year filter to expanded as default
+                  this.parentPanel = !this.parentPanel ? 'year' : undefined;
                 }
 
   openModal(template: TemplateRef<any>) {
@@ -108,9 +112,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, field: this.fieldOfScienceFilter,
-      lang: this.langFilter, publicationType: this.publicationTypeFilter, countryCode: this.countryCodeFilter,
-      juFo: this.juFoFilter, openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, sector: this.sectorFilter,
+      field: this.fieldOfScienceFilter, lang: this.langFilter, publicationType: this.publicationTypeFilter,
+      countryCode: this.countryCodeFilter, juFo: this.juFoFilter, openAccess: this.openAccessFilter,
+      internationalCollaboration: this.internationalCollab } });
   }
 
   // Check parent and select all
@@ -157,6 +162,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   getSelected() {
     this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
+    this.sectorFilter = this.selectedSector.selectedOptions.selected.map(s => s.value);
     this.countryCodeFilter = this.selectedCountryCode.selectedOptions.selected.map(s => s.value);
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
