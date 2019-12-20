@@ -172,10 +172,20 @@ export class FilterService {
     return statusFilter;
   }
 
-  // Organizations
+  // Sector
   filterBySector(sector: any[]) {
     const res = [];
-    sector.forEach(value => { res.push({ term : { 'sectorId.keyword' : value } }); });
+    const currentTab = this.sortService.currentTab;
+    switch (currentTab) {
+      case 'publications': {
+        sector.forEach(value => { res.push({ term : { 'author.sectorId.keyword' : value } }); });
+        break;
+      }
+      case 'organizations': {
+        sector.forEach(value => { res.push({ term : { 'sectorId.keyword' : value } }); });
+        break;
+      }
+    }
     return res;
   }
 
