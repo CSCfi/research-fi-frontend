@@ -298,6 +298,25 @@ export class FilterService {
     };
     switch (tab) {
       case 'publications':
+        payLoad.aggs.sector = {
+          terms: {
+            field: 'author.nameFiSector.keyword',
+            size: 50,
+            exclude: ' ',
+            order: {
+              _key: 'asc'
+            }
+          },
+          aggs: {
+            sectorId: {
+              terms: {
+                field: 'author.sectorId.keyword',
+                size: 1,
+                exclude: ' '
+              }
+            },
+          }
+        };
         payLoad.aggs.fieldsOfScience = {
           terms: {
             field: 'fields_of_science.nameFiScience.keyword',
