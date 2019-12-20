@@ -95,6 +95,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
              this.responseData[0].hits.hits[0]._source[item.field] !== 0 &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== null &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
@@ -105,7 +106,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
+    const predecessors = source.predecessors;
     const subUnits = source.subUnits;
+
+    if (predecessors && predecessors.length > 0) {
+      source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
+    }
 
     if (subUnits && subUnits.length > 0) {
       source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
