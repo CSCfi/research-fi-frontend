@@ -107,10 +107,15 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
     const predecessors = source.predecessors;
+    const related = source.related;
     const subUnits = source.subUnits;
 
     if (predecessors && predecessors.length > 0) {
       source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
+    }
+
+    if (related && related.length > 0) {
+      source.related = related.map(x => x.nameFi.trim()).join(', ');
     }
 
     if (subUnits && subUnits.length > 0) {
