@@ -48,19 +48,31 @@
                     (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää...</button>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (opened)="parentPanel = 'organization'" [expanded]="parentPanel === 'organization'">
+                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = ''" [expanded]="parentPanel === 'organization'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Organisaatio</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list #selectedSector (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
-                        <mat-list-option checkboxPosition="before" *ngFor="let sector of response.aggregations.sector?.buckets" 
-                        [value]="sector.sectorId.buckets[0].key" [selected]="preSelection.indexOf(''+sector.sectorId.buckets[0].key) > -1">
-                            <span class="label">{{sector.key}}</span>
-                            <!-- <span class="amount">{{year.doc_count}}</span> -->
-                        </mat-list-option>
-                    </mat-selection-list>
+                    <div class="subFields">
+                        <div *ngFor="let sector of response.aggregations.sector.sectorName?.buckets, let i = index">
+                            <mat-expansion-panel 
+                            (opened)="panelOpenState = i; parentPanel = 'organization'" [expanded]="panelOpenState === i && parentPanel === 'organization' ? true : false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <strong>{{sector.key}}</strong>
+                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'sector')" style="padding:0 10px;"></mat-checkbox>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-selection-list #selectedOrganization (selectionChange)="onSelectionChange()">
+                                    <mat-list-option checkboxPosition="before" *ngFor="let organization of sector.organizations.buckets" 
+                                    [value]="organization.key" [selected]="preSelection.indexOf(''+organization.key) > -1">
+                                        <span class="label">{{organization.key}}</span>
+                                    </mat-list-option>
+                                </mat-selection-list>
+                            </mat-expansion-panel>
+                        </div>
+                    </div>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = ''" [expanded]="parentPanel === 'major'">

@@ -34,6 +34,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mobile = this.width < 992;
   @ViewChild('selectedYear', { static: false }) selectedYear: MatSelectionList;
   @ViewChild('selectedSector', { static: false }) selectedSector: MatSelectionList;
+  @ViewChildren('selectedOrganization') selectedOrganization: QueryList<MatSelectionList>;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
   @ViewChildren('selectedPublicationTypes') selectedPublicationTypes: QueryList<MatSelectionList>;
   @ViewChild('selectedCountryCode', { static: false }) selectedCountryCode: MatSelectionList;
@@ -46,6 +47,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   yearFilter: any[];
   sectorFilter: any[];
+  organizationFilter: any[];
   fieldOfScienceFilter: any;
   publicationTypeFilter: any;
   countryCodeFilter: any;
@@ -109,23 +111,19 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     }
   }
 
-  onSelectionChange() {
-    this.getSelected();
-    this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, sector: this.sectorFilter,
-      field: this.fieldOfScienceFilter, lang: this.langFilter, publicationType: this.publicationTypeFilter,
-      countryCode: this.countryCodeFilter, juFo: this.juFoFilter, openAccess: this.openAccessFilter,
-      internationalCollaboration: this.internationalCollab } });
-  }
-
   // Check parent and select all
   selectAll(event, i, filter) {
+    const sector = this.selectedOrganization.toArray();
     const major = this.selectedFields.toArray();
     const typeClass = this.selectedPublicationTypes.toArray();
 
     switch (event.checked) {
       case true: {
         switch (filter) {
+          case 'sector': {
+            sector[i].selectAll();
+            break;
+          }
           case 'field': {
             major[i].selectAll();
             break;
@@ -139,6 +137,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       }
       case false: {
         switch (filter) {
+          case 'sector': {
+            sector[i].deselectAll();
+            break;
+          }
           case 'field': {
             major[i].deselectAll();
             break;
@@ -160,14 +162,25 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.onSelectionChange();
   }
 
+  onSelectionChange() {
+    this.getSelected();
+    this.router.navigate([],
+    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, sector: this.sectorFilter,
+      organization: this.organizationFilter, field: this.fieldOfScienceFilter, lang: this.langFilter,
+      publicationType: this.publicationTypeFilter, countryCode: this.countryCodeFilter, juFo: this.juFoFilter,
+      openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
+  }
+
   getSelected() {
     this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
-    this.sectorFilter = this.selectedSector.selectedOptions.selected.map(s => s.value);
+    // this.sectorFilter = this.selectedSector.selectedOptions.selected.map(s => s.value);
+    // this.organizationFilter = this.selectedOrganization.selectedOptions.selected.map(s => s.value);
     this.countryCodeFilter = this.selectedCountryCode.selectedOptions.selected.map(s => s.value);
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
     this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
     // Use common filtering methods
+    this.organizationFilter = this.filterMethodService.mergeChildren(this.selectedOrganization);
     this.fieldOfScienceFilter = this.filterMethodService.mergeChildren(this.selectedFields);
     this.publicationTypeFilter = this.filterMethodService.mergeChildren(this.selectedPublicationTypes);
     // If international collaboration is false, prevent param initalization
