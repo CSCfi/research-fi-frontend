@@ -199,15 +199,15 @@ export class FilterService {
             ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
             ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
+            ...(index === 'publication' ? (this.sectorFilter ? [{nested: {path: 'author', query: {bool: { should: this.sectorFilter } }}}] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
-            // ...(index === 'organization' ? (this.sectorFilter ? [this.sectorFilter] : []) : []),
+            ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
             ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
             ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
             ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
             ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
-            ...(this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : [])
           ],
         }
     };
@@ -309,22 +309,28 @@ export class FilterService {
     switch (tab) {
       case 'publications':
         payLoad.aggs.sector = {
-          terms: {
-            field: 'author.nameFiSector.keyword',
-            size: 50,
-            exclude: ' ',
-            order: {
-              _key: 'asc'
-            }
+          nested: {
+            path: 'author'
           },
           aggs: {
-            sectorId: {
+            sectorName: {
               terms: {
-                field: 'author.sectorId.keyword',
-                size: 1,
+                field: 'author.nameFiSector.keyword',
                 exclude: ' '
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    field: 'author.sectorId.keyword'
+                  }
+                },
+                organizations: {
+                  terms: {
+                    field: 'author.organization.OrganizationNameFi.keyword'
+                  }
+                }
               }
-            },
+            }
           }
         };
         payLoad.aggs.fieldsOfScience = {
