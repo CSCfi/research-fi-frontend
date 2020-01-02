@@ -65,7 +65,12 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { sort: this.sortService.sortMethod, sector: this.sectorFilter } });
+    { queryParams: {
+        sort: this.sortService.sortMethod,
+        sector: this.sectorFilter.length > 0 ? this.sectorFilter : null
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   getSelected() {

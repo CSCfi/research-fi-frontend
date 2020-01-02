@@ -19,7 +19,7 @@ body {
 
 h1, h2, h3, h4, h5 {
     color: map-get(map-get($researchfi-primary, contrast), 200);
-    line-height: 1.5;
+    // line-height: 1.5;
 }
 
 a {

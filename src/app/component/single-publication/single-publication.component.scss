@@ -91,3 +91,27 @@ img.orcid-icon {
     margin: 4px;
     vertical-align: top;
 }
+
+.col.sub-unit {
+    padding-left: 0;
+}
+
+.guide-line, .guide-line-top {
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.guide-line-top {
+    height: 12px;
+    width: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.guide-line {
+    top: 10px;
+    height: 3px;
+    width: 30px;
+    position: relative;
+}

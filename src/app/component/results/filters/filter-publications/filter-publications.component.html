@@ -67,7 +67,7 @@
                                 <mat-selection-list #selectedOrganization (selectionChange)="onSelectionChange()">
                                     <mat-list-option checkboxPosition="before" *ngFor="let organization of sector.organizations.buckets" 
                                     [value]="organization.key" [selected]="preSelection.indexOf(''+organization.key) > -1">
-                                        <span class="label">{{organization.key}}</span>
+                                        <span class="label">{{organization.key.trim()}}</span>
                                     </mat-list-option>
                                 </mat-selection-list>
                             </mat-expansion-panel>

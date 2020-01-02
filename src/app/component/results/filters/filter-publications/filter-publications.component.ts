@@ -8,7 +8,7 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
          ChangeDetectorRef, AfterViewInit, Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
 import { ResizeService } from '../../../../services/resize.service';
 import { FilterService } from '../../../../services/filter.service';
@@ -71,7 +71,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
-               @Inject(WINDOW) private window: Window, private modalService: BsModalService) {
+               @Inject(WINDOW) private window: Window, private modalService: BsModalService, private route: ActivatedRoute) {
                   this.height = 240;
                   this.clickCount = 0;
                   // Set year filter to expanded as default
@@ -165,16 +165,26 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { page: 1, sort: this.sortService.sortMethod, year: this.yearFilter, sector: this.sectorFilter,
-      organization: this.organizationFilter, field: this.fieldOfScienceFilter, lang: this.langFilter,
-      publicationType: this.publicationTypeFilter, countryCode: this.countryCodeFilter, juFo: this.juFoFilter,
-      openAccess: this.openAccessFilter, internationalCollaboration: this.internationalCollab } });
+    { queryParams: {
+        page: 1,
+        sort: this.sortService.sortMethod,
+        year: this.yearFilter.length > 0 ? this.yearFilter : null,
+        sector: this.sectorFilter ? this.sectorFilter : null,
+        organization: this.organizationFilter.length > 0 ? this.organizationFilter : null,
+        field: this.fieldOfScienceFilter.length > 0 ? this.fieldOfScienceFilter : null,
+        lang: this.langFilter.length > 0 ? this.langFilter : null,
+        publicationType: this.publicationTypeFilter.length > 0 ? this.publicationTypeFilter : null,
+        countryCode: this.countryCodeFilter.length > 0 ? this.countryCodeFilter : null,
+        juFo: this.juFoFilter.length > 0 ? this.juFoFilter : null,
+        openAccess: this.openAccessFilter.length > 0 ? this.openAccessFilter : null,
+        internationalCollaboration: this.internationalCollab ? this.internationalCollab : null
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   getSelected() {
     this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
-    // this.sectorFilter = this.selectedSector.selectedOptions.selected.map(s => s.value);
-    // this.organizationFilter = this.selectedOrganization.selectedOptions.selected.map(s => s.value);
     this.countryCodeFilter = this.selectedCountryCode.selectedOptions.selected.map(s => s.value);
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);

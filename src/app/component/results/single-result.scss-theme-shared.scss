@@ -31,6 +31,10 @@
                 border-radius: 20px;
             }
 
+            .guide-line, .guide-line-top {
+                background: mat-color($primary);
+            }
+
         }
     }
 }

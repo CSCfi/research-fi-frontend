@@ -181,14 +181,17 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         const authorArr = [];
         org.organization[0].organizationUnit.forEach(subUnit => {
           subUnit.person.forEach(person => {
-            authorArr.push({
-              author: person.authorLastName + ' ' + person.authorFirstNames,
-              orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
-              subUnit: subUnit.organizationUnitNameFi
-            });
+            // Add author if name is available
+            if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
+              authorArr.push({
+                author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
+                orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+                subUnit: subUnit.organizationUnitNameFi
+              });
+            }
           });
         });
-        this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi, authors: authorArr});
+        this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi.trim(), authors: authorArr});
       });
     }
 
