@@ -41,9 +41,9 @@
     height: 160px;
 }
 
-.caption .header {
+.caption .header, .news-feed h2 {
     font-size: 1.2rem;
-    line-height: 2.4rem;
+    line-height: 1.6rem;
     font-weight: 500;
 }
 
@@ -60,15 +60,12 @@
 .news-feed h2 {
     text-align: center;
     padding: 5px 0;
-}
-
-.news-feed h2 {
-    font-size: 20px;
     font-weight: bold;
 }
 
 .news-feed h3 {
-    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5rem;
 }
 
 .news-feed .news-card {
