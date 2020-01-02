@@ -164,7 +164,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   onSelectionChange() {
     this.getSelected();
-    console.log(this.yearFilter);
     this.router.navigate([],
     { queryParams: {
         page: 1,
@@ -182,11 +181,10 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       },
       queryParamsHandling: 'merge'
     });
-    console.log(this.route.queryParams);
   }
 
   getSelected() {
-    this.yearFilter = this.selectedYear ? this.selectedYear.selectedOptions.selected.map(s => s.value) : null;
+    this.yearFilter = this.selectedYear.selectedOptions.selected.map(s => s.value);
     this.countryCodeFilter = this.selectedCountryCode.selectedOptions.selected.map(s => s.value);
     this.langFilter = this.selectedLang.selectedOptions.selected.map(s => s.value);
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
