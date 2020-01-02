@@ -36,7 +36,6 @@
                                         {{author.author}}
                                         <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
                                     </p>
-
                                     <div class="row" *ngIf="showSubUnits">
                                         <div class="col-1">
                                             <span class="guide-line">
@@ -49,7 +48,6 @@
                                             </p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -65,7 +63,18 @@
                                             {{author.author}}
                                             <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
                                         </p>
-                                        <p class="sub-unit" *ngIf="showSubUnits">{{author.subUnit}}</p>
+                                        <div class="row" *ngIf="showSubUnits">
+                                            <div class="col-1">
+                                                <span class="guide-line">
+                                                    <span class="guide-line-top"></span>
+                                                </span>
+                                            </div>
+                                            <div class="col sub-unit">
+                                                <p>
+                                                    {{author.subUnit}}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
