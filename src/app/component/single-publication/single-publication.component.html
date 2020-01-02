@@ -25,18 +25,31 @@
                     </div>
                     <div class="row content" *ngIf="authorAndOrganization.length > 0">
                         <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
-                            <button class="show-more" *ngIf="authorAndOrganization[0].authors.length > 0 && !showSubUnits" (click)="showSubUnits = true">Näytä  alayksiköt</button>
-                            <button class="show-more" *ngIf="authorAndOrganization[0].authors.length > 0 && showSubUnits" (click)="showSubUnits = false">Piilota  alayksiköt</button>
+                            <button class="show-more" *ngIf="authorAndOrganization[0].authors.length > 0 && !showSubUnits" (click)="showSubUnits = true">Näytä alayksiköt</button>
+                            <button class="show-more" *ngIf="authorAndOrganization[0].authors.length > 0 && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
                         </div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
                             <p class="th">{{row.orgName}}</p>
                             <div *ngFor="let author of row.authors">
                                 <div *ngIf="author.author.length > 10">
-                                    <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
+                                    <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
                                         {{author.author}}
                                         <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
                                     </p>
-                                    <p class="sub-unit" *ngIf="showSubUnits">{{author.subUnit}}</p>
+
+                                    <div class="row" *ngIf="showSubUnits">
+                                        <div class="col-1">
+                                            <span class="guide-line">
+                                                <span class="guide-line-top"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col sub-unit">
+                                            <p>
+                                                {{author.subUnit}}
+                                            </p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
