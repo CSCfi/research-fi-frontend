@@ -68,8 +68,14 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
-    { queryParams: { sort: this.sortService.sortMethod, year: this.yearFilters, fundingAmount: this.fundingAmountFilter,
-      status: this.statusFilter } });
+    { queryParams: {
+        sort: this.sortService.sortMethod,
+        year: this.yearFilters.length > 0 ? this.yearFilters : null,
+        fundingAmount: this.fundingAmountFilter.length > 0 ? this.fundingAmountFilter : null,
+        status: this.statusFilter.length > 0 ? this.statusFilter : null
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   getSelected() {
