@@ -39,7 +39,7 @@
                 </div>           
                 <div class="col col-8 col-lg-5 col-xl-4">
                     <a routerLink="/results/publication/{{publication._source.publicationId}}">
-                        <h3 style="font-size: 1rem; margin-bottom: 0;" 
+                        <h3 class="result-title" 
                         [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null"
                         [innerHtml]="publication._source.publicationName | highlight: input">
                         </h3>
