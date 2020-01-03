@@ -62,11 +62,26 @@ export class FilterMethodService {
     let objIndex: number;
     const array = parent.toArray();
 
-    for (const [i, item] of array.entries()) {
+    // for (const [i, item] of array.entries()) {
+    //   setTimeout(() => {
+    //     if (item.options.length > 0 && item.options.length === item.selectedOptions.selected.length) {
+    //       objIndex = dataArray.findIndex((obj => obj.id === i + 1));
+    //       dataArray[objIndex].checked = true;
+    //     } else {
+    //       dataArray[i].checked = false;
+    //     }
+    //   }, 0);
+    // }
+
+    for (let i = 0; i <= array.length - 1; i++) {
+      // Compare sums of list and selection, change value of checked major, won't work without timeout
       setTimeout(() => {
-        if (item.options.length > 0 && item.options.length === item.selectedOptions.selected.length) {
+        if (array[i].options.length > 0 && array[i].options.length === array[i].selectedOptions.selected.length) {
+          console.log(array[i].options.length, array[i].selectedOptions.selected.length)
           objIndex = dataArray.findIndex((obj => obj.id === i + 1));
+          
           dataArray[objIndex].checked = true;
+          console.log(dataArray[objIndex].checked)
         } else {
           dataArray[i].checked = false;
         }

@@ -239,8 +239,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngAfterViewInit() {
-    this.filterMethodService.isChecked(this.selectedFields, 'majorFieldsOfScience');
-    this.filterMethodService.isChecked(this.selectedPublicationTypes, 'publicationClass');
+    // this.filterMethodService.isChecked(this.selectedFields, 'majorFieldsOfScience');
+    // this.filterMethodService.isChecked(this.selectedPublicationTypes, 'publicationClass');
     this.parentSub();
   }
 
