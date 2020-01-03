@@ -105,7 +105,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = 'type'">
+                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = 'type'" [expanded]="parentPanel === 'type'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Julkaisutyyppi</strong>
