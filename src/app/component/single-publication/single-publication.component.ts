@@ -137,7 +137,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
+      return this.responseData[0].hits.hits[0]._source[item.field] !== '-1' &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
              this.responseData[0].hits.hits[0]._source[item.field] !== 'undefined' &&
              JSON.stringify(this.responseData[0].hits.hits[0]._source[item.field]) !== '["undefined"]' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
