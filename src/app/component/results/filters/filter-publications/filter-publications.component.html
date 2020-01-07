@@ -31,7 +31,7 @@
         <h3 *ngIf="!mobile">Rajaa hakua</h3>
         <div class="filter-wrapper">
             <mat-accordion>
-                <mat-expansion-panel (opened)="parentPanel = 'year'" [expanded]="parentPanel === 'year'">
+                <mat-expansion-panel [expanded]="parentPanel === 'year'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Julkaisuvuosi</strong>
@@ -48,7 +48,7 @@
                     (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää...</button>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = ''" [expanded]="parentPanel === 'organization'">
+                <mat-expansion-panel (closed)="panelOpenState = -1" [expanded]="parentPanel === 'organization'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong style="text-decoration: line-through; color: tomato">Organisaatio</strong>
@@ -75,7 +75,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = ''" [expanded]="parentPanel === 'major'">
+                <mat-expansion-panel (closed)="panelOpenState = -1" [expanded]="parentPanel === 'major'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Tieteenala</strong>
@@ -105,7 +105,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = 'type'" [expanded]="parentPanel === 'type'">
+                <mat-expansion-panel (closed)="panelOpenState = -1" [expanded]="parentPanel === 'type'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Julkaisutyyppi</strong>
@@ -118,7 +118,7 @@
                                 (opened)="panelOpenState = i; parentPanel = 'type'" [expanded]="panelOpenState === i && parentPanel === 'type' ? true : false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
-                                            <strong>{{class.class}} {{class.label}}, {{class.checked}}</strong>
+                                            <strong>{{class.class}} {{class.label}}</strong>
                                             <mat-checkbox [checked]="class.checked" (change)="panelOpenState = -1; parentPanel = 'type'" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
@@ -138,13 +138,13 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (opened)="parentPanel = 'country'" [expanded]="parentPanel === 'country'">
+                <mat-expansion-panel [expanded]="parentPanel === 'country'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Julkaisumaa</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list #selectedCountryCode (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
+                    <mat-selection-list #selectedCountryCode (selectionChange)="onSelectionChange(); parentPanel = 'country'" [class.limit]="limitList" [style.max-height.px]="height">
                         <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.countryCode.buckets"
                         [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
                             <span class="label">{{code.key}}</span>
@@ -154,13 +154,13 @@
                     (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää...</button>
                 </mat-expansion-panel>
     
-                <mat-expansion-panel (opened)="parentPanel = 'lang'" [expanded]="parentPanel === 'lang'">
+                <mat-expansion-panel [expanded]="parentPanel === 'lang'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Kieli</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list #selectedLang (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
+                    <mat-selection-list #selectedLang (selectionChange)="onSelectionChange(); parentPanel = 'lang'" [class.limit]="limitList" [style.max-height.px]="height">
                         <div *ngFor="let code of response.aggregations.languageCode.buckets">
                             <mat-list-option checkboxPosition="before" *ngIf="code.language.buckets[0].key !== 'undefined'"
                             [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
@@ -172,24 +172,24 @@
                     (click)="showMore(response.aggregations.languageCode.buckets.length)">Näytä lisää...</button>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (opened)="parentPanel = 'juFo'" [expanded]="parentPanel === 'juFo'">
+                <mat-expansion-panel [expanded]="parentPanel === 'juFo'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Julkaisufoorumitaso</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list #selectedJuFo (selectionChange)="onSelectionChange()">
+                    <mat-selection-list #selectedJuFo (selectionChange)="onSelectionChange(); parentPanel = 'juFo'">
                         <div *ngFor="let code of response.aggregations.juFo.buckets">
-                            <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'3'" [selected]="preSelection.indexOf(''+'top') > -1">
+                            <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'3'" [selected]="preSelection.indexOf('' + 3) > -1">
                                 <span class="label">{{code.key}} - Korkein taso</span>
                             </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'2'" [selected]="preSelection.indexOf(''+'leading') > -1">
+                            <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'2'" [selected]="preSelection.indexOf('' + 2) > -1">
                                 <span class="label">{{code.key}} - Johtava taso</span>
                             </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'1'" [selected]="preSelection.indexOf(''+'basic') > -1">
+                            <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'1'" [selected]="preSelection.indexOf('' + 1) > -1">
                                 <span class="label">{{code.key}} - Perustaso</span>
                             </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'0'" [selected]="preSelection.indexOf(''+'others') > -1">
+                            <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'0'" [selected]="preSelection.indexOf('' + 0) > -1">
                                 <span class="label">{{code.key}} - Muut</span>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === ' '" checkboxPosition="before" [value]="'noVal'" [selected]="preSelection.indexOf(''+'noVal') > -1">
@@ -199,13 +199,13 @@
                     </mat-selection-list>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (opened)="parentPanel = 'oa'" [expanded]="parentPanel === 'oa'">
+                <mat-expansion-panel [expanded]="parentPanel === 'oa'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
                         <mat-panel-title>
                             <strong>Avoin saatavuus</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list #selectedOpenAccess (selectionChange)="onSelectionChange()">
+                    <mat-selection-list #selectedOpenAccess (selectionChange)="onSelectionChange(); parentPanel = 'oa'">
                         <mat-list-option checkboxPosition="before" *ngFor="let code of openAccessCodes"
                         [value]="code.value" [selected]="preSelection.indexOf(''+code.value) > -1">
                             <span class="label">{{code.label}}</span>
