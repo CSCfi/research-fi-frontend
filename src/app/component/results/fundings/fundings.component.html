@@ -31,7 +31,7 @@
     <div *ngFor="let fundings of resultData;">
         <div class="row no-margin single" *ngFor="let funding of fundings.hits.hits; let i = index">
             <div class="col col-1 icon">
-                <a class="icon" routerLink="/results/funding/{{funding._source.projectId}}">
+                <a class="icon" routerLink="/results/funding/{{funding._source.projectId}}" tabindex="-1">
                     <fa-icon [icon]="faIcon"></fa-icon>
                 </a>
             </div>
