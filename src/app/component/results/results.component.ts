@@ -5,8 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ElementRef, OnInit, OnDestroy, OnChanges, ChangeDetectorRef, Inject, LOCALE_ID,
-  PLATFORM_ID } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, OnDestroy, ChangeDetectorRef, Inject, LOCALE_ID,
+  PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
@@ -25,7 +25,7 @@ import { WINDOW } from 'src/app/services/window.service';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
+export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   public searchTerm: any;
   input: Subscription;
   tabData = this.tabChangeService.tabData;
@@ -39,6 +39,7 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
   expandStatus: Array<boolean> = [];
   @ViewChild('singleId', { static: false }) singleId: ElementRef;
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
+  @ViewChild('totalHeader', { static: false }) totalHeader: ElementRef;
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
@@ -54,6 +55,7 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
 
   totalSub: Subscription;
   combinedRouteParams: Subscription;
+  tabSub: Subscription;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -166,8 +168,10 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
     this.mobile = this.window.innerWidth < 992;
   }
 
-  ngOnChanges() {
-
+  ngAfterViewInit() {
+    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
+      this.totalHeader.nativeElement.focus();
+    });
   }
 
   navigateToVisualisation() {
@@ -234,6 +238,7 @@ export class ResultsComponent implements OnInit, OnDestroy, OnChanges {
       this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: ''});
       this.combinedRouteParams.unsubscribe();
       this.totalSub.unsubscribe();
+      this.tabSub.unsubscribe();
     }
   }
 
