@@ -252,7 +252,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       });
     }
     if (this.selectedPublicationTypes) {
-      this.selectedFields.changes.subscribe(() => {
+      this.selectedPublicationTypes.changes.subscribe(() => {
         this.filterMethodService.isChecked(this.selectedPublicationTypes, 'publicationClass');
       });
     }
