@@ -37,7 +37,7 @@
                             <strong>Julkaisuvuosi</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-selection-list #selectedYear (selectionChange)="onSelectionChange()" [class.limit]="limitList" [style.max-height.px]="height">
+                    <mat-selection-list #selectedYear (selectionChange)="onSelectionChange(); parentPanel = 'year'" [class.limit]="limitList" [style.max-height.px]="height">
                         <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.years.buckets" 
                         [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
                             <span class="label">{{year.key}}</span>
