@@ -146,6 +146,10 @@ nav.nav-top {
 }
 
 // Language selector
+mat-form-field.mat-focused {
+    outline: -webkit-focus-ring-color auto 1px;
+}
+
 .navbar-expand .navbar-nav .nav-link {
     padding-right: 2px;
     padding-left: 2px;
@@ -258,6 +262,7 @@ nav.nav-top {
         font-size: 2.5rem;
         padding-right: 25px;
     }
+
 }
 
 // Responsive
