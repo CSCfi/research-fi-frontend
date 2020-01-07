@@ -5,8 +5,9 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList, 
+  PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { AutosuggestService } from '../../services/autosuggest.service';
@@ -56,13 +57,15 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   additionalItems = ['clear'];
   completion: string;
   inputMargin: string;
+  isBrowser: boolean;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
-               @Inject(DOCUMENT) private document: any ) {
+               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object ) {
                 this.queryHistory = this.getHistory();
                 this.completion = '';
+                this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit() {
@@ -221,8 +224,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   newInput(selectedIndex, historyLink) {
     // Set input to local storage & assign list to variable
     this.currentInput = this.queryField.value;
-    if (this.currentInput) {localStorage.setItem(localStorage.length.toString(), this.currentInput); }
-    this.queryHistory = this.getHistory();
+    if (this.currentInput && isPlatformBrowser(this.platformId)) {localStorage.setItem(localStorage.length.toString(), this.currentInput); }
+    this.queryHistory = isPlatformBrowser(this.platformId) ? this.getHistory() : '';
     // Hide auto-suggest
     this.showAutoSuggest = false;
     // Reset completion
@@ -249,22 +252,28 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   getHistory() {
-    const keys = Object.keys(localStorage);
-    const values = Object.values(localStorage);
-    const arr = keys.map((key, i) => [key, values[i]]);
-    // Filter for integer keys, sort by order, map to value and filter for duplicates
-    return arr.filter(x => +x[0] === +x[0]).sort((a, b) => b[0] - a[0]).map(x => x[1]).filter((e, i, a) => a.indexOf(e) === i);
+    if (isPlatformBrowser(this.platformId)) {
+      const keys = Object.keys(localStorage);
+      const values = Object.values(localStorage);
+      const arr = keys.map((key, i) => [key, values[i]]);
+      // Filter for integer keys, sort by order, map to value and filter for duplicates
+      return arr.filter(x => +x[0] === +x[0]).sort((a, b) => b[0] - a[0]).map(x => x[1]).filter((e, i, a) => a.indexOf(e) === i);
+    }
   }
 
   addToHistory(id: string) {
-    this.showAutoSuggest = false;
-    this.singleService.updateId(id);
-    localStorage.setItem(localStorage.length.toString(), this.currentInput);
-    this.searchService.updateInput(this.currentInput);
+    if (isPlatformBrowser(this.platformId)) {
+      this.showAutoSuggest = false;
+      this.singleService.updateId(id);
+      localStorage.setItem(localStorage.length.toString(), this.currentInput);
+      this.searchService.updateInput(this.currentInput);
+    }
   }
 
   clearHistory() {
-    localStorage.clear();
-    this.showAutoSuggest = false;
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
+      this.showAutoSuggest = false;
+    }
   }
 }
