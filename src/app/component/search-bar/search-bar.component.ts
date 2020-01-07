@@ -156,8 +156,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.showAutoSuggest = false;
     }
     // Reset completion with right arrow key
-    if (event.keyCode !== 39) {
-      this.completion = '';
+    if (event.keyCode === 39) {
+      this.addCompletion();
     }
 
   }
@@ -188,21 +188,17 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   // Add completion with right arrow key if caret is at the end of term
-  addCompletion(event) {
+  addCompletion() {
     const input = this.searchInput.nativeElement;
     const val = input.value;
     let isAtEnd = false;
     if (typeof input.selectionStart === 'number') {
       isAtEnd = (input.selectionEnd === val.length);
     }
-    switch (event.keyCode) {
-      case 39: {
-        if (isAtEnd) {
-          this.searchInput.nativeElement.value = this.searchInput.nativeElement.value + this.completion;
-          this.queryField.setValue(this.searchInput.nativeElement.value);
-          this.completion = '';
-        }
-      }
+    if (isAtEnd) {
+      this.searchInput.nativeElement.value = this.searchInput.nativeElement.value + this.completion;
+      this.queryField.setValue(this.searchInput.nativeElement.value);
+      this.completion = '';
     }
   }
 
