@@ -60,7 +60,7 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "helmet": "3.19.0",
-    "jquery": "^1.12.4",
+    "jquery": "^3.4.1",
     "mississippi": "^4.0.0",
     "ngx-bootstrap": "^5.2.0",
     "popper.js": "^1.16.0",
