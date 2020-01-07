@@ -239,8 +239,8 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngAfterViewInit() {
-    this.filterMethodService.isChecked(this.selectedFields, 'majorFieldsOfScience');
-    this.filterMethodService.isChecked(this.selectedPublicationTypes, 'publicationClass');
+    // this.filterMethodService.isChecked(this.selectedFields, 'majorFieldsOfScience');
+    // this.filterMethodService.isChecked(this.selectedPublicationTypes, 'publicationClass');
     this.parentSub();
   }
 
@@ -252,7 +252,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       });
     }
     if (this.selectedPublicationTypes) {
-      this.selectedFields.changes.subscribe(() => {
+      this.selectedPublicationTypes.changes.subscribe(() => {
         this.filterMethodService.isChecked(this.selectedPublicationTypes, 'publicationClass');
       });
     }

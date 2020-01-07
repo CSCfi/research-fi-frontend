@@ -199,7 +199,7 @@ export class FilterService {
             ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
             ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
-            ...(index === 'publication' ? (this.sectorFilter.length > 0 ? [{nested: {path: 'author', query: {bool: { should: this.sectorFilter } }}}] : []) : []),
+            ...(index === 'publication' ? (this.sectorFilter ? [{nested: {path: 'author', query: {bool: { should: this.sectorFilter } }}}] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),

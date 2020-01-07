@@ -71,6 +71,7 @@
             h2 {
                 overflow: hidden;
                 font-size: 1.2em;
+                line-height: 1.8;
                 font-weight: bold;
             }
 
@@ -103,6 +104,7 @@
 
             .mat-card-title {
                 font-size: 0.85em;
+                line-height: 1.275;
                 text-transform: uppercase;
             }
 
@@ -125,6 +127,7 @@
 
             span.mat-button-wrapper {
                 font-size: 1.3em;
+                line-height: 1.95;
                 font-weight: bold;
                 white-space: normal;
             }
@@ -138,6 +141,7 @@
 
             .refer {
                 font-size: 10px;
+                line-height: 15px;
                 float: right;
             }
 
@@ -147,8 +151,8 @@
             }
 
             a.icon {
-                font-size: 32px;
-                padding: 16px 16px 0 0;
+                font-size: 2rem;
+                padding: 1rem 1rem 0 0;
             }
 
             a.icon:hover {

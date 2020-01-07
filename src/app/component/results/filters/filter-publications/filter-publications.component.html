@@ -51,11 +51,11 @@
                 <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = ''" [expanded]="parentPanel === 'organization'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
-                            <strong>Organisaatio</strong>
+                            <strong style="text-decoration: line-through; color: tomato">Organisaatio</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="subFields">
-                        <div *ngFor="let sector of response.aggregations.sector.sectorName?.buckets, let i = index">
+                        <div *ngFor="let sector of response.aggregations.sector?.sectorName?.buckets, let i = index">
                             <mat-expansion-panel 
                             (opened)="panelOpenState = i; parentPanel = 'organization'" [expanded]="panelOpenState === i && parentPanel === 'organization' ? true : false">
                                 <mat-expansion-panel-header>
@@ -88,7 +88,7 @@
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         <strong>{{major.label}}</strong>
-                                        <mat-checkbox [checked]="major.checked" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'field')" style="padding:0 10px;"></mat-checkbox>
+                                        <mat-checkbox [checked]="major.checked" (change)="panelOpenState = -1; parentPanel = 'major'" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'field')" style="padding:0 10px;"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <!-- <mat-form-field>
@@ -105,7 +105,7 @@
                     </div>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = 'type'">
+                <mat-expansion-panel (closed)="panelOpenState = -1; parentPanel = 'type'" [expanded]="parentPanel === 'type'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Julkaisutyyppi</strong>
@@ -118,8 +118,8 @@
                                 (opened)="panelOpenState = i; parentPanel = 'type'" [expanded]="panelOpenState === i && parentPanel === 'type' ? true : false">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
-                                            <strong>{{class.class}} {{class.label}}</strong>
-                                            <mat-checkbox [checked]="class.checked" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
+                                            <strong>{{class.class}} {{class.label}}, {{class.checked}}</strong>
+                                            <mat-checkbox [checked]="class.checked" (change)="panelOpenState = -1; parentPanel = 'type'" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
                                     <mat-selection-list #selectedPublicationTypes (selectionChange)="onSelectionChange()">

@@ -137,7 +137,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
+      return this.responseData[0].hits.hits[0]._source[item.field] !== '-1' &&
+             this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
              this.responseData[0].hits.hits[0]._source[item.field] !== 'undefined' &&
              JSON.stringify(this.responseData[0].hits.hits[0]._source[item.field]) !== '["undefined"]' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
@@ -158,6 +159,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const keywords = source.keywords;
     const author = source.author;
     const subUnits = source.publicationOrgUnits;
+
+    // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
+    for (const [i, item] of fieldsOfScience.entries()) {
+      if ( item.fieldIdScience === 0) {
+        fieldsOfScience.splice(i, 1);
+      }
+    }
 
     if (fieldsOfScience && fieldsOfScience.length > 0) {
       source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');

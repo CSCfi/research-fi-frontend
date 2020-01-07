@@ -69,6 +69,12 @@
                 cursor: pointer;
             }
 
+            h3.result-title {
+                font-size: 1rem;
+                line-height: 1.5;
+                margin-bottom: 0;
+            }
+
             // Sort arrows
             span.bold.uppercase.asc:after {
                 font-family: "FontAwesome";
