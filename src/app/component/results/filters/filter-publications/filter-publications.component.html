@@ -51,22 +51,23 @@
                 <mat-expansion-panel (closed)="panelOpenState = -1" [expanded]="parentPanel === 'organization'">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
-                            <strong style="text-decoration: line-through; color: tomato">Organisaatio</strong>
+                            <strong>Organisaatio</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="subFields">
-                        <div *ngFor="let sector of response.aggregations.sector?.sectorName?.buckets, let i = index">
+                        <div *ngFor="let sector of response.aggregations.sector.sectorName?.buckets, let i = index">
                             <mat-expansion-panel 
                             (opened)="panelOpenState = i; parentPanel = 'organization'" [expanded]="panelOpenState === i && parentPanel === 'organization' ? true : false">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         <strong>{{sector.key}}</strong>
-                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'sector')" style="padding:0 10px;"></mat-checkbox>
+                                        <mat-checkbox [checked]="sector.organizations.buckets.length === selectedOrg[i]?.length" (click)="$event.stopPropagation()" 
+                                        (change)="panelOpenState = -1; parentPanel = 'organization'" (change)="selectAll($event, i, 'sector')" style="padding:0 10px;"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <mat-selection-list #selectedOrganization (selectionChange)="onSelectionChange()">
+                                <mat-selection-list [(ngModel)]="selectedOrg[i]" #selectedOrganizations (selectionChange)="onSelectionChange()">
                                     <mat-list-option checkboxPosition="before" *ngFor="let organization of sector.organizations.buckets" 
-                                    [value]="organization.key" [selected]="preSelection.indexOf(''+organization.key) > -1">
+                                    [value]="organization.orgId.buckets[0].key" [selected]="preSelection.indexOf(organization.orgId.buckets[0].key) > -1">
                                         <span class="label">{{organization.key.trim()}}</span>
                                     </mat-list-option>
                                 </mat-selection-list>
@@ -88,7 +89,8 @@
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         <strong>{{major.label}}</strong>
-                                        <mat-checkbox [checked]="major.checked" (change)="panelOpenState = -1; parentPanel = 'major'" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'field')" style="padding:0 10px;"></mat-checkbox>
+                                        <mat-checkbox [checked]="major.checked" (change)="panelOpenState = -1; parentPanel = 'major'" (click)="$event.stopPropagation()" 
+                                        (change)="selectAll($event, i, 'field')" style="padding:0 10px;"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <!-- <mat-form-field>
@@ -119,7 +121,8 @@
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             <strong>{{class.class}} {{class.label}}</strong>
-                                            <mat-checkbox [checked]="class.checked" (change)="panelOpenState = -1; parentPanel = 'type'" (click)="$event.stopPropagation()" (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
+                                            <mat-checkbox [checked]="class.checked" (change)="panelOpenState = -1; parentPanel = 'type'" (click)="$event.stopPropagation()" 
+                                            (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
                                     <mat-selection-list #selectedPublicationTypes (selectionChange)="onSelectionChange()">
