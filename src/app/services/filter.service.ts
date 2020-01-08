@@ -25,15 +25,17 @@ export class FilterService {
   openAccessFilter: any;
   internationalCollaborationFilter: any;
   sectorFilter: any;
+  organizationFilter: any;
   currentFilters: any;
   today: string;
 
   private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: [], status: [], fundingAmount: [], sector: []});
+    juFo: [], openAccess: [], internationalCollaboration: [], status: [], fundingAmount: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
 
   updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[], status: any[], fundingAmount: any[], sector: any[]}) {
+    openAccess: any[], juFo: any[], internationalCollaboration: any[], status: any[], fundingAmount: any[], sector: any[],
+    organization: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -59,6 +61,7 @@ export class FilterService {
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
+    this.organizationFilter = this.filterByOrganization(filter.organization);
   }
 
   filterByYear(filter: any[]) {
@@ -189,6 +192,12 @@ export class FilterService {
     return res;
   }
 
+  filterByOrganization(organization: any[]) {
+    const res = [];
+    organization.forEach(value => { res.push({ term : { 'author.organization.organizationId.keyword' : value } }); });
+    return res;
+  }
+
   constructQuery(index: string, searchTerm: string) {
     const query = this.settingsService.querySettings(index, searchTerm);
     return {
@@ -199,8 +208,8 @@ export class FilterService {
             ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
             ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
-            ...(index === 'publication' ? ((this.sectorFilter && this.sectorFilter.length > 0) ?
-                [{nested: {path: 'author', query: {bool: {should: this.sectorFilter } }}}] : []) : []),
+            ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+                [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
@@ -328,6 +337,13 @@ export class FilterService {
                 organizations: {
                   terms: {
                     field: 'author.organization.OrganizationNameFi.keyword'
+                  },
+                  aggs: {
+                    orgId: {
+                      terms: {
+                        field: 'author.organization.organizationId.keyword'
+                      }
+                    }
                   }
                 }
               }
