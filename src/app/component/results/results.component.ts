@@ -42,7 +42,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('totalHeader', { static: false }) totalHeader: ElementRef;
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
-    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
+    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
   fundingFilters: {status: any[], fundingAmount: any[], sector: any[]};
   filters: any;
   mobile: boolean;
@@ -95,7 +95,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             openAccess: [query.openAccess].flat().filter(x => x),
             internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
             fundingAmount: [query.fundingAmount].flat().filter(x => x),
-            sector: [query.sector].flat().filter(x => x)};
+            sector: [query.sector].flat().filter(x => x),
+            organization: [query.organization].flat().filter(x => x)};
         }
 
         const tabChanged = this.tab !== params.tab;
