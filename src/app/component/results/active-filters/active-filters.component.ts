@@ -69,7 +69,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         if (this.response.length > 0) {
           const source = this.response[0].aggregations;
           const tab = this.currentTab.data;
-
+          // console.log(this.activeFilters)
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
             if (val.category === 'lang' && source.languageCode.sum_other_doc_count > 0) {
@@ -95,6 +95,19 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                     const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                     this.activeFilters[foundIndex].translation = element.key;
                   }
+                });
+              }
+            }
+            // Organization name
+            if (val.category === 'organization' && source.sector.sectorName) {
+              if (source.sector.sectorName.buckets.length > 0) {
+                source.sector.sectorName.buckets.forEach(sector => {
+                  sector.organizations.buckets.forEach(org => {
+                    if (org.orgId.buckets[0].key === val.value) {
+                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                      this.activeFilters[foundIndex].translation = org.key.trim();
+                    }
+                  });
                 });
               }
             }
