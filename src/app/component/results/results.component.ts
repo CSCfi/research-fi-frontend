@@ -57,6 +57,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   combinedRouteParams: Subscription;
   tabSub: Subscription;
 
+  pageFallback = false;
+
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
@@ -82,6 +84,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         const params = results.params;
 
         this.page = +query.page || 1;
+        if (this.page > 1000) {
+          this.pageFallback = true;
+          this.getTabValues();
+          return;
+        }
 
         // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {
