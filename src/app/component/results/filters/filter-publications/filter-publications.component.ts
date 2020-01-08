@@ -78,11 +78,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
                   this.parentPanel = !this.parentPanel ? 'year' : undefined;
                 }
 
-  // Getter for organizations ngModel. This is used to check parent sector
-  get selectedOrg() {
-    return this;
-  }
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -215,6 +210,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         this.selectedOrganizations.notifyOnChanges();
         this.selectedFields.notifyOnChanges();
         this.selectedPublicationTypes.notifyOnChanges();
+        this.cdr.detectChanges();
       }
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
