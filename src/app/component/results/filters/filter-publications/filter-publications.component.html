@@ -60,12 +60,12 @@
                             (opened)="panelOpenState = i; parentPanel = 'organization'" [expanded]="panelOpenState === i && parentPanel === 'organization' ? true : false">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
-                                        <strong>{{sector.key}}, {{selectedOrg[i]?.length}}</strong>
-                                        <mat-checkbox [checked]="sector.organizations.buckets.length === selectedOrg[i]?.length" (click)="$event.stopPropagation()" 
+                                        <strong>{{sector.key}}</strong>
+                                        <mat-checkbox [checked]="sector.organizations.buckets.length === selectedOrganizations.selectedOptions.selected.length" (click)="$event.stopPropagation()" 
                                         (change)="panelOpenState = -1; parentPanel = 'organization'" (change)="selectAll($event, i, 'sector')" style="padding:0 10px;"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <mat-selection-list (ngModel)="selectedOrg[i]" #selectedOrganizations (selectionChange)="onSelectionChange()">
+                                <mat-selection-list #selectedOrganizations (selectionChange)="onSelectionChange()">
                                     <mat-list-option checkboxPosition="before" *ngFor="let organization of sector.organizations.buckets" 
                                     [value]="organization.orgId.buckets[0].key" [selected]="preSelection.indexOf(organization.orgId.buckets[0].key) > -1">
                                         <span class="label">{{organization.key.trim()}}</span>
