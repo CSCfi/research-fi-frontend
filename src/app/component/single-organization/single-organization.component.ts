@@ -35,10 +35,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   ];
 
   studentCounts = [
-    {label: 'Alempi korkeakoulututkinto', field: 'studentCountBsc'},
-    {label: 'Ylempi korkeakoulututkinto', field: 'studentCountMsc'},
-    {label: 'Lisensiaatintutkinto', field: 'studentCountLic'},
-    {label: 'Tohtorintutkinto', field: 'studentCountPhd'}
+    {label: 'Alempi korkeakoulututkinto', field: 'thesisCountBsc'},
+    {label: 'Ylempi korkeakoulututkinto', field: 'thesisCountMsc'},
+    {label: 'Lisensiaatintutkinto', field: 'thesisCountLic'},
+    {label: 'Tohtorintutkinto', field: 'thesisCountPhd'}
   ];
 
   subUnitFields = [
