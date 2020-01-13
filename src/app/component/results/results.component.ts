@@ -172,8 +172,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
-      this.totalHeader.nativeElement.focus();
+    // Set focus to header
+    this.tabSub = this.tabChangeService.currentFocus.subscribe(focus => {
+      if (focus) {
+        this.totalHeader.nativeElement.focus();
+      }
     });
   }
 
