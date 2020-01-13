@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID,
-  HostListener, PLATFORM_ID, AfterViewInit } from '@angular/core';
+  HostListener, PLATFORM_ID } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { zhCnLocale } from 'ngx-bootstrap';
   templateUrl: './result-tab.component.html',
   styleUrls: ['./result-tab.component.scss']
 })
-export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;
   @ViewChildren('tabList') tabList: QueryList<ElementRef>;
   @Input() allData: any;
@@ -54,7 +54,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
   faArrowRight = faArrowRight;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   currentIndex: any;
-  tabListSub: Subscription;
   isHomePage: boolean;
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
@@ -96,7 +95,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
       // Left arrow
       case 37: {
         if (arr[currentPosition - 1]) {
-          this.tabChangeService.changeFocus(false, currentPosition - 1);
+          this.tabChangeService.changeFocus(false);
           target = arr[currentPosition - 1].nativeElement.pathname;
           this.router.navigate([target]);
         }
@@ -105,38 +104,27 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
       // Right arrow
       case 39: {
         if (arr[currentPosition + 1]) {
-          this.tabChangeService.changeFocus(false, currentPosition + 1);
+          this.tabChangeService.changeFocus(false);
           target = arr[currentPosition + 1].nativeElement.pathname;
           this.router.navigate([target]);
         }
         break;
       }
+      default: {
+        this.tabChangeService.changeFocus(true);
+      }
     }
   }
 
-  ngAfterViewInit() {
-    this.tabListSub = this.tabList.changes.subscribe(list => {
-      this.tabSub = this.tabChangeService.currentFocus.subscribe(focus => {
-        const arr = list.toArray();
-        this.tabChangeService.currentIndex.subscribe(index => {
-          if (!focus && index >= 0 && arr[index]) {
-            arr[index].nativeElement.focus();
-          }
-        });
-      });
-    });
-  }
-
   // Set focus to results header if click or enter
-  releaseFocus() {
-    this.tabChangeService.changeFocus(true, -1);
+  resetFocus(status) {
+    this.tabChangeService.changeFocus(status);
   }
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
       this.tabSub.unsubscribe();
-      this.tabListSub.unsubscribe();
       this.queryParamSub.unsubscribe();
       this.resizeSub.unsubscribe();
     }
