@@ -187,6 +187,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  // Reset focus on blur
+  resetFocus() {
+    this.tabChangeService.changeFocus(false);
+  }
+
   navigateToVisualisation() {
     // Remove empty filter properties
     const trimmedFilters = this.filters;
