@@ -86,7 +86,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
 
   // Navigate between tabs with left & right arrow when focus in tab bar
   focusNavigate(event, i) {
-    console.log(i)
     this.currentIndex = i + 1;
     const arr = this.tabList.toArray();
     let target = '';
@@ -129,7 +128,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
 
   // Set focus to results header if click or enter
   releaseFocus() {
-    console.log('setFocus');
     this.tabChangeService.changeFocus(true, -1);
   }
 
