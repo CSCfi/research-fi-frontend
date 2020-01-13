@@ -95,7 +95,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       // Left arrow
       case 37: {
         if (arr[currentPosition - 1]) {
-          this.tabChangeService.changeFocus(false);
           target = arr[currentPosition - 1].nativeElement.pathname;
           this.router.navigate([target]);
         }
@@ -104,14 +103,10 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       // Right arrow
       case 39: {
         if (arr[currentPosition + 1]) {
-          this.tabChangeService.changeFocus(false);
           target = arr[currentPosition + 1].nativeElement.pathname;
           this.router.navigate([target]);
         }
         break;
-      }
-      default: {
-        this.tabChangeService.changeFocus(true);
       }
     }
   }
