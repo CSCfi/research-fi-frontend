@@ -55,7 +55,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="subFields">
-                        <div *ngFor="let sector of response.aggregations.sector.sectorName?.buckets, let i = index">
+                        <div *ngFor="let sector of response.aggregations.sector?.sectorName?.buckets, let i = index">
                             <mat-expansion-panel 
                             (opened)="panelOpenState = i; parentPanel = 'organization'" [expanded]="panelOpenState === i && parentPanel === 'organization' ? true : false">
                                 <mat-expansion-panel-header>

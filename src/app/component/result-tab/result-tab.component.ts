@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID,
-  HostListener, PLATFORM_ID } from '@angular/core';
+  HostListener, PLATFORM_ID, AfterViewInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from '../../services/resize.service';
-import { UrlSerializer, Router } from '@angular/router';
+import { UrlSerializer, Router, ActivatedRoute } from '@angular/router';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -14,8 +14,9 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './result-tab.component.html',
   styleUrls: ['./result-tab.component.scss']
 })
-export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
+export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @ViewChildren('scroll') ref: QueryList<any>;
+  @ViewChildren('tabList') tabList: QueryList<ElementRef>;
   @Input() allData: any;
   @Input() homepageStyle: {};
 
@@ -51,12 +52,14 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
+  currentIndex: any;
+  tabListSub: Subscription;
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
-              @Inject( PLATFORM_ID ) private platformId: object) {
+              @Inject( PLATFORM_ID ) private platformId: object, private route: ActivatedRoute) {
                 this.locale = localeId;
-   }
+  }
 
   ngOnInit() {
     this.queryParams = this.tabChangeService.tabQueryParams;
@@ -81,10 +84,60 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
+  // Navigate between tabs with left & right arrow when focus in tab bar
+  focusNavigate(event, i) {
+    console.log(i)
+    this.currentIndex = i + 1;
+    const arr = this.tabList.toArray();
+    let target = '';
+    switch (event.keyCode) {
+      // Left arrow
+      case 37: {
+        if (arr[i - 1]) {
+          this.tabChangeService.changeFocus(false, i - 1);
+          arr[i - 1].nativeElement.focus();
+          target = arr[i - 1].nativeElement.pathname;
+          this.router.navigate([target]);
+        }
+        break;
+      }
+      // Right arrow
+      case 39: {
+        if (arr[i + 1]) {
+          this.tabChangeService.changeFocus(false, i + 1);
+          arr[i + 1].nativeElement.focus();
+          target = arr[i + 1].nativeElement.pathname;
+          this.router.navigate([target]);
+        }
+        break;
+      }
+    }
+  }
+
+  ngAfterViewInit() {
+    this.tabListSub = this.tabList.changes.subscribe(list => {
+      this.tabSub = this.tabChangeService.currentFocus.subscribe(focus => {
+        const arr = list.toArray();
+        this.tabChangeService.currentIndex.subscribe(index => {
+          if (!focus && index >= 0 && arr[index]) {
+            arr[index].nativeElement.focus();
+          }
+        });
+      });
+    });
+  }
+
+  // Set focus to results header if click or enter
+  releaseFocus() {
+    console.log('setFocus');
+    this.tabChangeService.changeFocus(true, -1);
+  }
+
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
       this.tabSub.unsubscribe();
+      this.tabListSub.unsubscribe();
       this.queryParamSub.unsubscribe();
       this.resizeSub.unsubscribe();
     }
