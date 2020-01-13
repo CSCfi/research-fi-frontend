@@ -7,6 +7,7 @@ import { ResizeService } from '../../services/resize.service';
 import { UrlSerializer, Router, ActivatedRoute } from '@angular/router';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
+import { zhCnLocale } from 'ngx-bootstrap';
 
 
 @Component({
@@ -54,6 +55,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   currentIndex: any;
   tabListSub: Subscription;
+  isHomePage: boolean;
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
@@ -66,6 +68,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
+      this.isHomePage = this.selectedTab.length > 0 ? false : true;
     });
 
     // Hide icons on pages other than home
@@ -85,27 +88,25 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges, AfterVi
   }
 
   // Navigate between tabs with left & right arrow when focus in tab bar
-  focusNavigate(event, i) {
-    this.currentIndex = i + 1;
+  navigate(event) {
     const arr = this.tabList.toArray();
+    const currentPosition = this.tabChangeService.tabData.findIndex(i => i.link === this.currentTab.link);
     let target = '';
     switch (event.keyCode) {
       // Left arrow
       case 37: {
-        if (arr[i - 1]) {
-          this.tabChangeService.changeFocus(false, i - 1);
-          arr[i - 1].nativeElement.focus();
-          target = arr[i - 1].nativeElement.pathname;
+        if (arr[currentPosition - 1]) {
+          this.tabChangeService.changeFocus(false, currentPosition - 1);
+          target = arr[currentPosition - 1].nativeElement.pathname;
           this.router.navigate([target]);
         }
         break;
       }
       // Right arrow
       case 39: {
-        if (arr[i + 1]) {
-          this.tabChangeService.changeFocus(false, i + 1);
-          arr[i + 1].nativeElement.focus();
-          target = arr[i + 1].nativeElement.pathname;
+        if (arr[currentPosition + 1]) {
+          this.tabChangeService.changeFocus(false, currentPosition + 1);
+          target = arr[currentPosition + 1].nativeElement.pathname;
           this.router.navigate([target]);
         }
         break;
