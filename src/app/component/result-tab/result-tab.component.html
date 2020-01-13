@@ -15,7 +15,7 @@
         <div class="arrow arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
       <div *ngFor="let tab of tabData; let i = index;" class="bundler" [ngStyle]="homepageStyle" [class.active]="selectedTab===tab.link" 
-      (keydown)="focusNavigate($event, i)" >
+      (keydown)="focusNavigate($event, i)">
         <a (click)="releaseFocus()" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" #tabList [queryParams]="queryParams[tab.link]">
           <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
           <div *ngIf="locale === 'fi-FI'" class="label text-center">{{tab.labelFi}}</div>
@@ -28,7 +28,7 @@
   </div>
   <ng-template #noData>
     <div class="row justify-content-center">
-      <div class="col" align="center" style="margin-top:25px">
+      <div class="col" align="center" style="margin: 2rem 0;">
         <mat-spinner [diameter]="40"></mat-spinner>
         <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2>
       </div>
