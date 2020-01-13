@@ -34,7 +34,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   mobile = this.width < 992;
   @ViewChild('selectedYear', { static: false }) selectedYear: MatSelectionList;
   @ViewChild('selectedSector', { static: false }) selectedSector: MatSelectionList;
-  @ViewChildren('selectedOrganization') selectedOrganization: QueryList<MatSelectionList>;
+  @ViewChildren('selectedOrganizations') selectedOrganizations: QueryList<MatSelectionList>;
   @ViewChildren('selectedFields') selectedFields: QueryList<MatSelectionList>;
   @ViewChildren('selectedPublicationTypes') selectedPublicationTypes: QueryList<MatSelectionList>;
   @ViewChild('selectedCountryCode', { static: false }) selectedCountryCode: MatSelectionList;
@@ -113,7 +113,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   // Check parent and select all
   selectAll(event, i, filter) {
-    const sector = this.selectedOrganization.toArray();
+    const sector = this.selectedOrganizations.toArray();
     const major = this.selectedFields.toArray();
     const typeClass = this.selectedPublicationTypes.toArray();
 
@@ -190,7 +190,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.juFoFilter = this.selectedJuFo.selectedOptions.selected.map(s => s.value);
     this.openAccessFilter = this.selectedOpenAccess.selectedOptions.selected.map(s => s.value);
     // Use common filtering methods
-    this.organizationFilter = this.filterMethodService.mergeChildren(this.selectedOrganization);
+    this.organizationFilter = this.filterMethodService.mergeChildren(this.selectedOrganizations);
     this.fieldOfScienceFilter = this.filterMethodService.mergeChildren(this.selectedFields);
     this.publicationTypeFilter = this.filterMethodService.mergeChildren(this.selectedPublicationTypes);
     // If international collaboration is false, prevent param initalization
@@ -202,13 +202,15 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.filterSub = this.filterService.filters.subscribe(filters => {
       // Get preselected filters from filterService
       this.preSelection = [];
-      if (filters.internationalCollaboration.length > 0) {this.internationalCollab = true; } else {this.internationalCollab = false; }
+      this.internationalCollab = filters.internationalCollaboration.length > 0 ? true : false;
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
 
       // Listen for changes in querylists
       if (this.selectedFields) {
+        this.selectedOrganizations.notifyOnChanges();
         this.selectedFields.notifyOnChanges();
         this.selectedPublicationTypes.notifyOnChanges();
+        this.cdr.detectChanges();
       }
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
@@ -239,8 +241,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngAfterViewInit() {
-    // this.filterMethodService.isChecked(this.selectedFields, 'majorFieldsOfScience');
-    // this.filterMethodService.isChecked(this.selectedPublicationTypes, 'publicationClass');
     this.parentSub();
   }
 

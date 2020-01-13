@@ -42,7 +42,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('totalHeader', { static: false }) totalHeader: ElementRef;
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
-    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[]};
+    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
   fundingFilters: {status: any[], fundingAmount: any[], sector: any[]};
   filters: any;
   mobile: boolean;
@@ -92,7 +92,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {
-          this.filters = {year: [query.year].flat().filter(x => x),
+          this.filters = {
+            year: [query.year].flat().filter(x => x),
             status: [query.status].flat().filter(x => x),
             field: [query.field].flat().filter(x => x),
             publicationType: [query.publicationType].flat().filter(x => x),
@@ -102,7 +103,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             openAccess: [query.openAccess].flat().filter(x => x),
             internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
             fundingAmount: [query.fundingAmount].flat().filter(x => x),
-            sector: [query.sector].flat().filter(x => x)};
+            sector: [query.sector].flat().filter(x => x),
+            organization: [query.organization].flat().filter(x => x)
+          };
         }
 
         const tabChanged = this.tab !== params.tab;
@@ -182,8 +185,12 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   navigateToVisualisation() {
+    // Remove empty filter properties
+    const trimmedFilters = this.filters;
+    Object.keys(trimmedFilters).forEach((key) => (trimmedFilters[key].length === 0) && delete trimmedFilters[key]);
+    // Navigate
     this.router.navigate(['visual/', this.route.snapshot.params.tab, this.searchTerm],
-    {queryParams: this.filters});
+    { queryParams: trimmedFilters });
   }
 
   getTabValues() {
