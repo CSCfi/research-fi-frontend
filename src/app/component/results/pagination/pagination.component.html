@@ -5,12 +5,19 @@
 
 <div class="row pagination-container" *ngFor="let response of responseData">
   <div class="col pagination">
-    <button [disabled]="fromPage <= 1" [class.pagination-link-active]="fromPage  > 1" (click)="previousPage()">
-      Edellinen sivu
-    </button>
-    <button [disabled]="fromPage + 10 >= response.hits.total" [class.pagination-link-active]="fromPage + 10  < response.hits.total" (click)="nextPage()">
-      Seuraava sivu
-    </button>
+    <div class="buttons">
+      <button [disabled]="fromPage <= 1" [class.pagination-link-active]="fromPage  > 1" (click)="goToPage(page-1)">
+        Edellinen sivu
+      </button>
+      <button [disabled]="fromPage + 10 >= response.hits.total" [class.pagination-link-active]="fromPage + 10  < response.hits.total" (click)="goToPage(page+1)">
+        Seuraava sivu
+      </button>
+    </div>
+    <div class="pages">
+      <button *ngFor="let number of pages" [disabled]="page === number" (click)="goToPage(number)" [class.current-page]="page === number">
+        {{number}}
+      </button>
+    </div>
   </div>
 
   <div class="col-md result-count">

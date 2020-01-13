@@ -17,6 +17,7 @@ button.pagination-link-active {
 
 .pagination {
     padding: 0;
+    flex-direction: column;
 }
 
 .pagination button {
@@ -24,6 +25,22 @@ button.pagination-link-active {
     padding: 10px 15px;
     margin: 0 5px;
     border: 0;
+}
+
+.pagination .buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.pagination .pages {
+    display: flex;
+    justify-content: space-evenly;
+    button:not(.current-page):hover {
+        text-decoration: underline;
+    }
+    .current-page {
+        background: inherit;
+    }
 }
     
 .result-count, .result-count p {

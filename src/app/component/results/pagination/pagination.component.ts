@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PaginationComponent implements OnInit {
   page: number;
   fromPage: number; // Used for HTML rendering
+  pages: number[];
   @Input() responseData: any [];
   @Input() tab: string;
   total: any;
@@ -24,8 +25,11 @@ export class PaginationComponent implements OnInit {
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+
     // Reset pagination
     this.page = this.searchService.pageNumber;
+
+    this.pages = this.generatePages(this.page);
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
@@ -34,19 +38,45 @@ export class PaginationComponent implements OnInit {
     this.searchService.currentTotal.subscribe(total => this.total = total);
   }
 
-  nextPage() {
-    this.page++;
+  generatePages(currentPage: number, length: number = 5) {
+    // Get the highest page number for the query
+    const maxPage = this.getHighestPage(this.responseData[0].hits.total);
+    // Init array to correct length, make it odd and squish if not enough pages
+    // tslint:disable-next-line: curly
+    if (!(length % 2)) length++;
+    length = Math.min(length, maxPage);
+    const res = Array(length);
+    // If page is at end, count from top
+    // tslint:disable-next-line: no-bitwise
+    if (this.page > maxPage - (length / 2 | 0)) {
+      res[length - 1] = maxPage;
+      for (let i = length - 2; i >= 0; i--) {
+        res[i] = res[i + 1] - 1;
+      }
+    // Otherwise count from bottom
+    } else {
+      // tslint:disable-next-line: no-bitwise
+      res[0] = Math.max(1, currentPage - (length / 2 | 0));
+      for (let i = 1; i < length; i++) {
+        res[i] = res[i - 1] + 1;
+      }
+
+    }
+    return res;
+  }
+
+  getHighestPage(results: number, interval: number = 10) {
+    // tslint:disable-next-line: no-bitwise
+    return ((results - 1) / interval) + 1 | 0;
+  }
+
+  goToPage(n: number) {
+    this.page = n;
     this.fromPage = (this.page - 1) * 10;
     this.searchService.updatePageNumber(this.page);
     this.navigate();
   }
 
-  previousPage() {
-    this.page--;
-    this.fromPage = (this.page - 1) * 10;
-    this.searchService.updatePageNumber(this.page);
-    this.navigate();
-  }
 
   navigate() {
     this.router.navigate(
