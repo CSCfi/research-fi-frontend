@@ -145,6 +145,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       } else {
         this.newInput(undefined, undefined);
       }
+      // Search with no suggests
     } else if (event.keyCode === 13) {
       this.newInput(undefined, undefined);
       // Continue without action. For some reason letter 'n' registers as down arrow, hacky fix:
@@ -218,6 +219,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   newInput(selectedIndex, historyLink) {
+    // Set focus to tab header via service
+    this.tabChangeService.changeFocus(true);
     // Set input to local storage & assign list to variable
     this.currentInput = this.queryField.value;
     if (this.currentInput && isPlatformBrowser(this.platformId)) {localStorage.setItem(localStorage.length.toString(), this.currentInput); }
