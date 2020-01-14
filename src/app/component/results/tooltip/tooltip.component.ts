@@ -40,6 +40,7 @@ export class TooltipComponent implements OnInit, OnDestroy {
     this.hoverIndex = index;
   }
 
+
   // Get div position and place description box where cursor fires hover
   getCoords(event, index, description) {
     description = description ? description : ' ';
@@ -47,8 +48,7 @@ export class TooltipComponent implements OnInit, OnDestroy {
     // Calculate vertical cursor position and place tooltip above or below title depending on position
     const headerHeight = this.document.getElementById('header-' + index).offsetHeight;
     if (event.clientY > 535) {
-      // Calculate tooltip height
-      console.log(headerHeight)
+      // Calculate tooltip height, 41 is character count that goes to one row
       const toolTipHeight = description.length > 41 ? 176 : 78;
       this.tooltipUpMargin = 0 - (headerHeight + toolTipHeight) + 'px';
       this.arrowPosition = 'down';
