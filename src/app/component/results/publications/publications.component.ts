@@ -51,7 +51,8 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   getOALink(publication) {
     if (publication.link) { return publication.link; }
-    const fields = ['greenOpenAccessAddress', 'doi', 'doiHandle'];
+    const fields = ['selfArchivedData.selfArchived.selfArchivedAddress', 'selfArchivedData.preprint.preprintAddress',
+    'doi', 'doiHandle'];
     let link = '';
     for (const field of fields) {
       const test = publication[field];
