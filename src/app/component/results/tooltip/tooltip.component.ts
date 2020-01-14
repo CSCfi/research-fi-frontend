@@ -48,7 +48,8 @@ export class TooltipComponent implements OnInit, OnDestroy {
     const headerHeight = this.document.getElementById('header-' + index).offsetHeight;
     if (event.clientY > 535) {
       // Calculate tooltip height
-      const toolTipHeight = description.length > 10 ? 176 : 78;
+      console.log(headerHeight)
+      const toolTipHeight = description.length > 41 ? 176 : 78;
       this.tooltipUpMargin = 0 - (headerHeight + toolTipHeight) + 'px';
       this.arrowPosition = 'down';
     } else {
