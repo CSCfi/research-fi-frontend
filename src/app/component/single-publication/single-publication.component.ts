@@ -204,7 +204,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
+    // Open Access can be added from multiple fields
     source.openAccessCode = source.openAccessCode > 0 ? 'Kyllä' : 'Ei';
+    source.openAccessCode = source.selfArchivedData ? 'Kyllä' : 'Ei';
+    // source.openAccessCode = !source.selfArchivedData && source.openAccessCode === 0 ? 'Kyllä' : 'Ei';
 
     // Get & set publication type label
     this.publicationType = this.staticDataService.publicationClass.find(val => val.class === source.publicationTypeCode.slice(0, 1));
