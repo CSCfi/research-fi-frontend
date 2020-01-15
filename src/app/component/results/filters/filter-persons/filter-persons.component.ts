@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { FilterService } from '../../../../services/filter.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-filter-persons',
@@ -46,6 +47,16 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
+    // Set to undefined so it indicates whether modal is open or closed
+    this.modalRef = undefined;
+  }
+
+  preventTab(event) {
+    UtilityService.preventTab(event);
+  }
+
+  preventTabBack(event) {
+    UtilityService.preventTabBack(event, this.modalRef !== undefined);
   }
 
   onResize(event) {

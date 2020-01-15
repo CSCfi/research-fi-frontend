@@ -17,7 +17,7 @@
         <ng-container *ngTemplateOutlet="filters"></ng-container>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn modal-close" (click)="closeModal()">Sulje</button>
+        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="preventTab($event)">Sulje</button>
     </div>
 </ng-template>
 
@@ -32,7 +32,7 @@
         <div class="filter-wrapper">
             <mat-accordion>
                 <mat-expansion-panel [expanded]="parentPanel === 'year'">
-                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
+                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()" (keydown)="preventTabBack($event)">
                         <mat-panel-title>
                             <strong>Julkaisuvuosi</strong>
                         </mat-panel-title>

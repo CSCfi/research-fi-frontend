@@ -15,6 +15,7 @@ import { FilterService } from '../../../../services/filter.service';
 import { DataService } from '../../../../services/data.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-filter-organizations',
@@ -48,6 +49,16 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
 
   closeModal() {
     this.modalRef.hide();
+    // Set to undefined so it indicates whether modal is open or closed
+    this.modalRef = undefined;
+  }
+
+  preventTab(event) {
+    UtilityService.preventTab(event);
+  }
+
+  preventTabBack(event) {
+    UtilityService.preventTabBack(event, this.modalRef !== undefined);
   }
 
   onResize(event) {

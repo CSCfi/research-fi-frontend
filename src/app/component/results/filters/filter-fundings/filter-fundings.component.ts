@@ -14,6 +14,7 @@ import { ResizeService } from '../../../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-filter-fundings',
@@ -51,6 +52,16 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
+    // Set to undefined so it indicates whether modal is open or closed
+    this.modalRef = undefined;
+  }
+
+  preventTab(event) {
+    UtilityService.preventTab(event);
+  }
+
+  preventTabBack(event) {
+    UtilityService.preventTabBack(event, this.modalRef !== undefined);
   }
 
   onResize(event) {

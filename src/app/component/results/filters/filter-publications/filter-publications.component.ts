@@ -18,6 +18,7 @@ import { DataService } from '../../../../services/data.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-filter-publications',
@@ -71,7 +72,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
-               @Inject(WINDOW) private window: Window, private modalService: BsModalService, private route: ActivatedRoute) {
+               @Inject(WINDOW) private window: Window, private modalService: BsModalService) {
                   this.height = 240;
                   this.clickCount = 0;
                   // Set year filter to expanded as default
@@ -84,6 +85,16 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   closeModal() {
     this.modalRef.hide();
+    // Set to undefined so it indicates whether modal is open or closed
+    this.modalRef = undefined;
+  }
+
+  preventTab(event) {
+    UtilityService.preventTab(event);
+  }
+
+  preventTabBack(event) {
+    UtilityService.preventTabBack(event, this.modalRef !== undefined);
   }
 
   resetHeight() {
