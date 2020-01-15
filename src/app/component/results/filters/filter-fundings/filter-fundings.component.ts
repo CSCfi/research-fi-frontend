@@ -44,7 +44,8 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
-               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService ) { }
+               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService,
+               private utilityService: UtilityService ) { }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
@@ -52,8 +53,6 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
-    // Set to undefined so it indicates whether modal is open or closed
-    this.modalRef = undefined;
   }
 
   preventTab(event) {
@@ -61,7 +60,7 @@ export class FilterFundingsComponent implements OnInit, OnDestroy {
   }
 
   preventTabBack(event) {
-    UtilityService.preventTabBack(event, this.modalRef !== undefined);
+    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
   }
 
   onResize(event) {

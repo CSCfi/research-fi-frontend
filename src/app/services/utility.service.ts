@@ -7,6 +7,8 @@ export class UtilityService {
 
   constructor() { }
 
+  modalOpen = false;
+
   // source: https://github.com/valor-software/ngx-bootstrap/issues/1819#issuecomment-556373372
 
   // prevent SHIFT+TAB so we can't go back from FIRST tab-able element outside a modal dialog

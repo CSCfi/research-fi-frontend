@@ -40,7 +40,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
                private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService,
-               private dataService: DataService, private cdr: ChangeDetectorRef ) { }
+               private dataService: DataService, private cdr: ChangeDetectorRef, private utilityService: UtilityService ) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -49,8 +49,6 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
 
   closeModal() {
     this.modalRef.hide();
-    // Set to undefined so it indicates whether modal is open or closed
-    this.modalRef = undefined;
   }
 
   preventTab(event) {
@@ -58,7 +56,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
   }
 
   preventTabBack(event) {
-    UtilityService.preventTabBack(event, this.modalRef !== undefined);
+    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
   }
 
   onResize(event) {

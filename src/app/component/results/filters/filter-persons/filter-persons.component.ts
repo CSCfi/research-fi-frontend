@@ -38,7 +38,8 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
   private filterSub: Subscription;
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
-               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService ) { }
+               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService,
+               private utilityService: UtilityService ) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -47,8 +48,6 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
-    // Set to undefined so it indicates whether modal is open or closed
-    this.modalRef = undefined;
   }
 
   preventTab(event) {
@@ -56,7 +55,7 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
   }
 
   preventTabBack(event) {
-    UtilityService.preventTabBack(event, this.modalRef !== undefined);
+    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
   }
 
   onResize(event) {

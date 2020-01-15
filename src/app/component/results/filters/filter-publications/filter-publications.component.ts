@@ -72,7 +72,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   constructor( private router: Router, private filterService: FilterService, private resizeService: ResizeService,
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
-               @Inject(WINDOW) private window: Window, private modalService: BsModalService) {
+               @Inject(WINDOW) private window: Window, private modalService: BsModalService, private utilityService: UtilityService) {
                   this.height = 240;
                   this.clickCount = 0;
                   // Set year filter to expanded as default
@@ -85,8 +85,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
   closeModal() {
     this.modalRef.hide();
-    // Set to undefined so it indicates whether modal is open or closed
-    this.modalRef = undefined;
   }
 
   preventTab(event) {
@@ -94,7 +92,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   preventTabBack(event) {
-    UtilityService.preventTabBack(event, this.modalRef !== undefined);
+    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
   }
 
   resetHeight() {

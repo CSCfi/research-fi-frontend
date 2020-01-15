@@ -19,6 +19,8 @@ import { FilterService } from '../../services/filter.service';
 import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
+import { BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-results',
@@ -56,6 +58,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   totalSub: Subscription;
   combinedRouteParams: Subscription;
   tabSub: Subscription;
+  modalHideSub: Subscription;
+  modalShowSub: Subscription;
 
   pageFallback = false;
 
@@ -63,7 +67,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
-               @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
+               @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService, private modalService: BsModalService,
+               private utilityService: UtilityService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -176,6 +181,14 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
     this.mobile = this.window.innerWidth < 992;
+
+    // Subscribe to modal show and hide
+    this.modalHideSub = this.modalService.onHide.subscribe(_ => {
+      this.utilityService.modalOpen = false;
+    });
+    this.modalShowSub = this.modalService.onShow.subscribe(_ => {
+      this.utilityService.modalOpen = true;
+    });
   }
 
   ngAfterViewInit() {
@@ -261,6 +274,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.combinedRouteParams.unsubscribe();
       this.totalSub.unsubscribe();
       this.tabSub.unsubscribe();
+      this.modalHideSub.unsubscribe();
+      this.modalShowSub.unsubscribe();
     }
   }
 
