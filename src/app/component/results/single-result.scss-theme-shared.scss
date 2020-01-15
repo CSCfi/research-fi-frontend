@@ -6,7 +6,7 @@
     app-single-publication, app-single-funding, app-single-organization {
 
         .shared {
-            tr:nth-child(even), .content:nth-child(even) {
+            tr:nth-child(odd), .content:nth-child(odd) {
                 background-color: mat-color($primary, 50);
             }
             

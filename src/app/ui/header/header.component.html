@@ -73,8 +73,9 @@
                             <i class="fa fa-angle-down mobile"></i>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">
-                                <span i18n="Main navigation item|Science news" class="label">Tiedeuutiset</span>
+                            <a class="nav-item nav-link" routerLink="/news" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+                            (click)="navbarOpen && toggleNavbar()">
+                                <span i18n="Main navigation item|News" class="label">Tiedeuutiset</span>
                             </a>
                         </li>
                         <div *ngIf="mobile" class=""></div>

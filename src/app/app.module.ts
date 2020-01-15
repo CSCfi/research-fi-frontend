@@ -80,6 +80,7 @@ import { TooltipComponent } from './component/results/tooltip/tooltip.component'
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './component/results/suggest/suggest.component';
+import { NewsComponent } from './component/news/news.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { SuggestComponent } from './component/results/suggest/suggest.component'
     TreemapComponent,
     HighlightSearch,
     TooltipComponent,
-    SuggestComponent
+    SuggestComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
