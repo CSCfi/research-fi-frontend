@@ -40,11 +40,13 @@
                         <div class="row content" *ngIf="i % 2 == 0">
                             <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
                                 <p class="th">{{row.label}}</p>
-                                <p class="td">{{item._source[row.field]}}</p>
+                                <p class="td" *ngIf="item._source[row.field] !== 'below_5'">{{item._source[row.field]}}</p>
+                                <p class="td" *ngIf="item._source[row.field] === 'below_5'">Alle 5</p>
                             </div>        
                             <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="studentCounts.slice(2).length > i+1">
                                 <p class="th">{{studentCounts.slice(2)[i + 1].label}}</p>
-                                <p class="td">{{item._source[studentCounts.slice(2)[i + 1].field]}}</p>
+                                <p class="td" *ngIf="item._source[studentCounts.slice(2)[i + 1].field] !== 'below_5'">{{item._source[studentCounts.slice(2)[i + 1].field]}}</p>
+                                <p class="td" *ngIf="item._source[studentCounts.slice(2)[i + 1].field] === 'below_5'">Alle 5</p>
                             </div>
                         </div>
                     </ng-container>
