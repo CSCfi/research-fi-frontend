@@ -140,6 +140,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       return this.responseData[0].hits.hits[0]._source[item.field] !== '-1' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
              this.responseData[0].hits.hits[0]._source[item.field] !== 'undefined' &&
+             this.responseData[0].hits.hits[0]._source[item.field].length !== 0 &&
              JSON.stringify(this.responseData[0].hits.hits[0]._source[item.field]) !== '["undefined"]' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
