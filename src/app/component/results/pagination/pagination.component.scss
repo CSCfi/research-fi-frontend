@@ -43,8 +43,10 @@ button.pagination-link-active {
     }
 }
     
-.result-count, .result-count p {
-    float: right;
+.result-count {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
     font-weight: bold;
 }
 

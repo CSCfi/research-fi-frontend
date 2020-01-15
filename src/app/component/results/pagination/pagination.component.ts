@@ -18,6 +18,7 @@ export class PaginationComponent implements OnInit {
   page: number;
   fromPage: number; // Used for HTML rendering
   pages: number[];
+  maxPage: number;
   @Input() responseData: any [];
   @Input() tab: string;
   total: any;
@@ -40,16 +41,16 @@ export class PaginationComponent implements OnInit {
 
   generatePages(currentPage: number, length: number = 5) {
     // Get the highest page number for the query
-    const maxPage = this.getHighestPage(this.responseData[0].hits.total);
+    this.maxPage = this.getHighestPage(this.responseData[0].hits.total);
     // Init array to correct length, make it odd and squish if not enough pages
     // tslint:disable-next-line: curly
     if (!(length % 2)) length++;
-    length = Math.min(length, maxPage);
+    length = Math.min(length, this.maxPage);
     const res = Array(length);
     // If page is at end, count from top
     // tslint:disable-next-line: no-bitwise
-    if (this.page > maxPage - (length / 2 | 0)) {
-      res[length - 1] = maxPage;
+    if (this.page > this.maxPage - (length / 2 | 0)) {
+      res[length - 1] = this.maxPage;
       for (let i = length - 2; i >= 0; i--) {
         res[i] = res[i + 1] - 1;
       }
