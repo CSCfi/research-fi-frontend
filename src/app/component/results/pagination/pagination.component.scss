@@ -55,9 +55,8 @@ button.pagination-link-active {
         justify-content: center;
     }
 
-    .result-count p {
-        float: none;
-        text-align: center;
+    .result-count {
+        align-items: center;
         padding-top: 1rem;
     }
 }
