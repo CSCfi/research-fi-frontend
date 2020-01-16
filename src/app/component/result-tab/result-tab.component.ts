@@ -55,6 +55,10 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   currentIndex: any;
   isHomePage: boolean;
+  scrollTo: boolean;
+  previousIndexArr = [];
+  previousIndex: any;
+  tabWidth: any;
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
@@ -68,6 +72,12 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
       this.isHomePage = this.selectedTab.length > 0 ? false : true;
+
+      // Get current index and push to arr
+      const current = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
+      this.previousIndexArr.push(current);
+      // Set previous index
+      this.previousIndex = this.previousIndexArr.slice(this.previousIndexArr.length - 2, this.previousIndexArr.length)[0];
     });
 
     // Hide icons on pages other than home
@@ -84,6 +94,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.queryParams[this.selectedTab] = params;
       this.tabChangeService.tabQueryParams = this.queryParams;
     });
+
+    // Set automatic scroll to true to make current tab visible
+    this.scrollTo = true;
   }
 
   // Navigate between tabs with left & right arrow when focus in tab bar
@@ -94,6 +107,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     switch (event.keyCode) {
       // Left arrow
       case 37: {
+        if (currentPosition < 5) {this.scrollLeft(); }
         if (arr[currentPosition - 1]) {
           target = arr[currentPosition - 1].nativeElement.pathname;
           this.router.navigate([target]);
@@ -102,6 +116,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       }
       // Right arrow
       case 39: {
+        if (currentPosition > 1) {this.scrollRight(); }
         if (arr[currentPosition + 1]) {
           target = arr[currentPosition + 1].nativeElement.pathname;
           this.router.navigate([target]);
@@ -137,6 +152,12 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         // Subscribe to current tab and get count
         this.tabChangeService.currentTab.subscribe(tab => {
           this.currentTab = tab;
+          // Get current tabs index number and scroll to position if auto scroll isn't disabled
+          if (this.scrollTo) {
+            this.currentIndex = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
+            this.scrollToPosition(this.currentIndex);
+          }
+
           if (this.currentTab.data.length) {
             // Update total count of current tab
             this.searchService.updateTotal(this.allData[0].aggregations._index.buckets[this.currentTab.data].doc_count);
@@ -158,11 +179,49 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+  // Scroll to tab position on page load and on click, disabled with arrow clicks.
+  scrollToPosition(index) {
+    // Set scroll direction by previous index position
+    let direction = index > this.previousIndex ? 'right' : 'left';
+    const distanceLeft = this.previousIndex - index;
+    const distanceRight = index - this.previousIndex;
+    // On page load both index & previous index are same
+    const onLoad = index === this.previousIndex;
+    if (index === this.previousIndex) {
+      direction = index > 2 ? 'right' : 'left';
+    }
+    switch (direction) {
+      case 'left': {
+        if (onLoad) {
+          this.scroll.nativeElement.scrollLeft -= Math.max(150, 1 + (this.scrollWidth) / 7);
+        } else if (index < 5) {
+          this.scroll.nativeElement.scrollLeft -= (distanceLeft <= 2 ? 160 : 360);
+        }
+        break;
+      }
+      case 'right': {
+        if (onLoad) {
+          this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) /
+          (this.tabChangeService.tabData.length - (index)));
+        } else if (index > 1) {
+          this.scroll.nativeElement.scrollLeft += (distanceRight <= 2 ? 160 : 360);
+        }
+        break;
+      }
+    }
+  }
+
+  disableScroll(status) {
+    this.scrollTo = status;
+  }
+
   scrollLeft() {
+    this.disableScroll(false);
     this.scroll.nativeElement.scrollLeft -= Math.max(150, 1 + (this.scrollWidth) / 4);
   }
 
   scrollRight() {
+    this.disableScroll(false);
     this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) / 4);
   }
 

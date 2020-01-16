@@ -50,7 +50,7 @@
                             <span class="open-access-image"></span>
                             <span>Avoin saatavuus</span>
                         </a>
-                        <div *ngIf="publication._source.doi.trim()" class="doi">
+                        <div *ngIf="publication._source.doi?.trim()" class="doi">
                             <span class="doi-tag">DOI</span>
                             <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}">{{publication._source.doi}}</a></span>
                         </div>

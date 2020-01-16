@@ -98,8 +98,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
             // Organization name
-            if (val.category === 'organization' && source.sector.sectorName) {
-              if (source.sector.sectorName.buckets.length > 0) {
+            if (val.category === 'organization' && source.sector) {
+              if (source.sector.sectorName && source.sector.sectorName.buckets.length > 0) {
                 source.sector.sectorName.buckets.forEach(sector => {
                   sector.organizations.buckets.forEach(org => {
                     if (org.orgId.buckets[0].key === val.value) {
