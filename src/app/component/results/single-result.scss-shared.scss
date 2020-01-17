@@ -22,7 +22,7 @@
             }
 
             .th {
-                font-weight: 500;
+                font-weight: 600;
             }
 
             p.th, p.td {
@@ -81,8 +81,7 @@
             }
 
             main h2 {
-                margin-top: 2rem;
-                margin-bottom: 1.5rem;
+                margin: 2rem 0;
                 font-size: 1.4rem;
             }
 
@@ -95,6 +94,7 @@
 
             h2.result-header {
                 padding-left: 15px;
+                line-height: 2rem;
             }
 
             a {
