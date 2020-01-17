@@ -50,6 +50,7 @@
             td {
                 vertical-align: top;
                 word-wrap: break-word;
+                word-break: break-word;
                 padding: 8px;
                 p {
                     margin-bottom: 0.2rem;
@@ -58,6 +59,12 @@
                 p:first-child {
                     font-weight: bold;
                 }
+            }
+
+            .td {
+                vertical-align: top;
+                word-wrap: break-word;
+                word-break: break-word;
             }
 
             table {
@@ -84,6 +91,10 @@
                 font-size: 1.2em;
                 line-height: 1.8;
                 font-weight: bold;
+            }
+
+            h2.result-header {
+                padding-left: 15px;
             }
 
             a {
