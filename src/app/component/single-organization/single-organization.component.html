@@ -12,7 +12,7 @@
  
 <div class="container" *ngFor="let organization of responseData" style="margin-top:25px;"  id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'organisaatio'" [resultNameField]="'nameFi'"></app-breadcrumb>
+    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
@@ -24,8 +24,9 @@
             <div *ngFor="let item of organization.hits.hits">
                 <h2 class="result-header">{{item._source.nameFi}}</h2>
                 <div id="info" class="table">
+                    <p class="header">Organisaatio</p>
                     <div class="row content" *ngFor="let row of infoFields">
-                        <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                        <div class="col-6 col-lg-3 th">{{row.label}}  <span *ngIf="row.field === 'staffCountAsFte'">({{item._source.staffYear}})</span></div>
                         <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item._source[row.fieldEn]}}</div>
                     </div>
                     <div class="row content" *ngIf="studentCounts.length > 0">
@@ -69,14 +70,14 @@
                 <mat-card>
                     <div *ngFor="let item of organization.hits.hits">
                         <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
-                        <a href="{{item._source.homePage}}">{{item._source.homePage}}</a>
-                        <div *ngIf="!item._source.homePage" class="no-links">Organisaatiolle ei ole tarjolla verkkosivua tässä portaalissa</div>
+                        <a href="{{item._source.homepage}}">{{item._source.homepage}}</a>
+                        <div *ngIf="!item._source.homepage" class="no-links">Organisaatiolle ei ole tarjolla verkkosivua tässä portaalissa</div>
                     </div>
                  </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Tutkimusorganisaation</h2></mat-card-title>
+                    <mat-card-title><h2>Organisaation</h2></mat-card-title>
                     <div class="row related">
                         <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
                             <li class=""><a routerLink="/">Julkaisut</a></li>

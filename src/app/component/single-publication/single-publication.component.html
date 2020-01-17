@@ -9,7 +9,7 @@
 </aside>
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
+    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
@@ -81,12 +81,12 @@
                             </div>
                         </div>
                     </ng-container>
-                    <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
+                    <!-- <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
                         <div class="col-6 col-lg-3 th">Organisaation alayksiköt</div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
                             <p class="td">{{item._source[row.field]}}</p>
                         </div>
-                    </div>
+                    </div> -->
                     <ng-container *ngFor="let row of organizationSubFields.slice(1)">
                         <div></div>
                         <div class="row content">
