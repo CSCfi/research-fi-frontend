@@ -46,7 +46,9 @@
                     </a>
                     <div class="tags">
                         <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
-                        <a *ngIf="publication._source.openAccessCode || publication._source.greenOpenAccess" href="{{getOALink(publication._source)}}" class="open-access div">
+                        <a *ngIf="(publication._source.openAccessCode === 1 || publication._source.openAccessCode === 2) || 
+                        publication._source.selfArchivedCode === 1" 
+                        href="{{getOALink(publication._source)}}" class="open-access div">
                             <span class="open-access-image"></span>
                             <span>Avoin saatavuus</span>
                         </a>
