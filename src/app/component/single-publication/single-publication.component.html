@@ -35,7 +35,9 @@
                                 <div *ngIf="author.author.length > 10">
                                     <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
                                         {{author.author}}
-                                        <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
+                                        <a *ngIf="author.orcid" href="https://orcid.org/{{author.orcid}}" target="_blank">
+                                            <img class="orcid-icon" src="../assets/orcid_icon.svg">
+                                        </a>
                                     </p>
                                     <div class="row" *ngIf="showSubUnits">
                                         <div class="col-1">
@@ -62,7 +64,9 @@
                                     <div *ngIf="author.author.length > 10">
                                         <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
                                             {{author.author}}
-                                            <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
+                                            <a *ngIf="author.orcid" href="https://orcid.org/{{author.orcid}}" target="_blank">
+                                                <img class="orcid-icon" src="../assets/orcid_icon.svg">
+                                            </a>
                                         </p>
                                         <div class="row" *ngIf="showSubUnits">
                                             <div class="col-1">
