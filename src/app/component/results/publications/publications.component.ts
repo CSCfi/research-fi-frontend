@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, Inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -30,7 +30,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
               @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService,
-              private searchService: SearchService) {
+              private searchService: SearchService, private cdr: ChangeDetectorRef) {
                 this.documentLang = this.document.documentElement.lang;
                }
 
@@ -47,22 +47,6 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   isReviewed(type: string) {
     if (!type) {return false; }
     return type[0] === 'A' || type[0] === 'C';
-  }
-
-  getOALink(publication) {
-    if (publication.link) { return publication.link; }
-    const fields = ['selfArchivedData.selfArchived.selfArchivedAddress', 'selfArchivedData.preprint.preprintAddress',
-    'doi', 'doiHandle'];
-    let link = '';
-    for (const field of fields) {
-      const test = publication[field];
-      if (test && test.trim() !== '') {
-        link = (field === 'doi' ? 'https://doi.org/' : '') + test;
-        break;
-      }
-    }
-    publication.link = link;
-    return link;
   }
 
   sortBy(sortBy) {
