@@ -59,8 +59,10 @@ export class SearchResultsComponent implements OnInit, OnChanges {
     // Get data, then change component
     this.searchService.getData()
     .pipe(map(responseData => [responseData]))
-    .subscribe(responseData =>
-      this.responseData = responseData,
+    .subscribe(responseData => {
+      this.responseData = responseData;
+      this.searchService.updateTotal(this.responseData[0].hits.total);
+    },
       error => this.errorMessage = error as any,
       () => this.changeComponent(this.currentTab)
     );

@@ -99,10 +99,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         // Subscribe to current tab and get count
         this.tabChangeService.currentTab.subscribe(tab => {
           this.currentTab = tab;
-          if (this.currentTab.data.length) {
-            // Update total count of current tab
-            this.searchService.updateTotal(this.allData[0].aggregations._index.buckets[this.currentTab.data].doc_count);
-          }
         });
         // Timeout to prevent value changed exception
         setTimeout(() => {
