@@ -26,6 +26,12 @@ button.pagination-link-active {
     padding: 10px 15px;
     // margin: 0 5px;
     border: 0;
+    max-width: 150px;
+    max-height: 50px;
+    align-self: flex-end;
+    &.page-button {
+        border: 2px solid black;
+    }
 }
 
 .pagination .buttons {
@@ -66,6 +72,11 @@ button.pagination-link-active {
     .pagination .buttons {
         margin: 0 1rem !important;
     }
+
+    .pagination button {
+        margin: 0 1rem !important;
+        padding: 13px 22px;
+    }
     
     .pagination {
         justify-content: center;
@@ -80,6 +91,11 @@ button.pagination-link-active {
 @media (min-width: 992px) {
     .pagination .buttons {
         margin: 0 50px !important;
+    }
+}
+@media (max-width: 576px) {
+    .pagination button {
+        max-height: unset;
     }
 }
     

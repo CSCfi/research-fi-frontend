@@ -13,7 +13,7 @@
         Seuraava sivu
       </button>
       <div class="pages col-12 col-md-6">
-        <button *ngFor="let number of pages" [disabled]="page === number" (click)="goToPage(number)" [class.current-page]="page === number">
+        <button *ngFor="let number of pages" class="page-button" [disabled]="page === number" (click)="goToPage(number)" [class.current-page]="page === number">
           {{number}}
         </button>
       </div>
