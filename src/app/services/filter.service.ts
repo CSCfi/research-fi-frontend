@@ -122,16 +122,6 @@ export class FilterService {
 
   filterByOpenAccess(code: string) {
     const res = [];
-    if (code.includes('noAccessInfo')) {
-      res.push(
-        {bool: {must_not: [
-          { term : { openAccessCode : 1 } },
-          { term : { openAccessCode : 2 } },
-          { term : { openAccessCode : 0 } },
-          { term : { selfArchivedCode : 1 } }
-        ]}}
-      );
-    }
     if (code.includes('openAccess')) {
       res.push(
         { term : { openAccessCode: 1} },
@@ -140,12 +130,20 @@ export class FilterService {
         );
     }
     if (code.includes('nonOpen')) {
-      // res.push({ term : { openAccessCode : 0 } }, {term: {selfArchivedCode: 0}});
-      // res.push({ multi_match: {query: 0, fields: ['openAccessCode', 'selfArchivedCode'], operator: 'AND'}});
       res.push(
         {bool: {must: [
           { term : { openAccessCode : 0 } },
           { term : { selfArchivedCode : 0 } }
+        ]}}
+      );
+    }
+    if (code.includes('noAccessInfo')) {
+      res.push(
+        {bool: {must_not: [
+          { term : { openAccessCode : 1 } },
+          { term : { openAccessCode : 2 } },
+          { term : { openAccessCode : 0 } },
+          { term : { selfArchivedCode : 1 } }
         ]}}
       );
     }
