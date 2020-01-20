@@ -29,9 +29,6 @@ button.pagination-link-active {
     max-width: 150px;
     max-height: 50px;
     align-self: flex-end;
-    &.page-button {
-        border: 2px solid black;
-    }
 }
 
 .pagination .buttons {
@@ -73,7 +70,7 @@ button.pagination-link-active {
         margin: 0 1rem !important;
     }
 
-    .pagination button {
+    .pagination .page-button {
         margin: 0 1rem !important;
         padding: 13px 22px;
     }
