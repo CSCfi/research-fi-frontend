@@ -282,15 +282,16 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   openAccess() {
     const combined = [];
     // Get aggregation from response
-    const source = this.responseData[0] ? this.responseData[0].aggregations.openAccess.buckets : [];
+    const source = this.responseData[0] && (this.responseData[0].aggregations.openAccess) ?
+    this.responseData[0].aggregations.openAccess.buckets : [];
     if (source && source.length > 0) {
       source.forEach(val => combined.push(val.key));
       this.openAccessCodes = [];
       // Check for matching access codes. -1 & 9 are fallbacks from old data
+      if (combined.includes(1)) {this.openAccessCodes.push({key: 1, label: 'Avoin', value: 'openAccess'}); }
+      if (combined.includes(2)) {this.openAccessCodes.push({key: 2, label: 'Ei avoin', value: 'nonOpen'}); }
       if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {this.openAccessCodes.push(
         {key: 0, label: 'Ei tietoa', value: 'noAccessInfo'}); }
-      if (combined.includes(1)) {this.openAccessCodes.push({key: 1, label: 'Open access', value: 'openAccess'}); }
-      if (combined.includes(2)) {this.openAccessCodes.push({key: 2, label: 'Hybridijulkaisu', value: 'hybridAccess'}); }
     }
   }
 

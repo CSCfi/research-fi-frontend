@@ -22,7 +22,7 @@
             }
 
             .th {
-                font-weight: 500;
+                font-weight: 600;
             }
 
             p.th, p.td {
@@ -50,6 +50,7 @@
             td {
                 vertical-align: top;
                 word-wrap: break-word;
+                word-break: break-word;
                 padding: 8px;
                 p {
                     margin-bottom: 0.2rem;
@@ -58,6 +59,12 @@
                 p:first-child {
                     font-weight: bold;
                 }
+            }
+
+            .td {
+                vertical-align: top;
+                word-wrap: break-word;
+                word-break: break-word;
             }
 
             table {
@@ -74,8 +81,7 @@
             }
 
             main h2 {
-                margin-top: 2rem;
-                margin-bottom: 1.5rem;
+                margin: 2rem 0;
                 font-size: 1.4rem;
             }
 
@@ -84,6 +90,11 @@
                 font-size: 1.2em;
                 line-height: 1.8;
                 font-weight: bold;
+            }
+
+            h2.result-header {
+                padding-left: 15px;
+                line-height: 2rem;
             }
 
             a {

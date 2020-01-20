@@ -32,12 +32,14 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
+
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'publicationName'},
     {label: 'Julkaisuvuosi', field: 'publicationYear'},
     {label: 'Julkaisutyyppi', field: 'publicationTypeCode', typeLabel: ' '},
     {label: 'Tekijät', field: 'authorsText'}
   ];
+
   authorFields = [
     {label: 'Tekijöiden määrä', field: 'author[0].nameFiSector'}
   ];
@@ -65,9 +67,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   linksFields = [
     {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
-    {label: 'Pysyvä osoite', field: 'doiHandle', path: ''},
-    {label: 'Rinnakkaistallennus', field: 'greenOpenAccessAddress', path: ''},
+    {label: 'Pysyvä osoite', field: 'doiHandle'},
+    {label: 'Rinnakkaistallennus', field: 'selfArchivedAddress'},
   ];
+
   otherFields  = [
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Avoin saatavuus', field: 'openAccessCode'},
@@ -160,6 +163,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const keywords = source.keywords;
     const author = source.author;
     const subUnits = source.publicationOrgUnits;
+    const selfArchived = source.selfArchivedData;
 
     if (fieldsOfScience && fieldsOfScience.length > 0) {
       // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
@@ -181,6 +185,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     if (subUnits && subUnits.length > 0) {
       source.publicationOrgUnits = subUnits.map(x => x.organizationUnitNameFi.trim()).join(', ');
+    }
+
+    // Extract self archived address from selfArchivedData array
+    if (selfArchived && selfArchived.length > 0) {
+      source.selfArchivedAddress = selfArchived[0].selfArchived[0].selfArchivedAddress;
     }
 
     // Get authors per organization
@@ -206,7 +215,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
     // Open Access can be added from multiple fields
-    source.openAccessCode = source.openAccessCode > 0 || source.selfArchivedData  ? 'Kyllä' : 'Ei';
+    if ((source.openAccessCode === 1 || source.openAccessCode === 2) || source.selfArchivedCode === 1) {
+      source.openAccessCode = 'Kyllä';
+    } else if (source.openAccessCode === 0  && source.selfArchivedCode === 0) {
+      source.openAccessCode = 'Ei';
+    } else {
+      source.openAccessCode = 'Ei tietoa';
+    }
 
     // Get & set publication type label
     this.publicationType = this.staticDataService.publicationClass.find(val => val.class === source.publicationTypeCode.slice(0, 1));

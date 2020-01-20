@@ -122,10 +122,31 @@ export class FilterService {
 
   filterByOpenAccess(code: string) {
     const res = [];
-    if (code.includes('noAccessInfo')) {res.push({ term : { openAccessCode : 0 } },
-      { term : { openAccessCode : -1 } }, { term : { openAccessCode : 9 } }); }
-    if (code.includes('openAccess')) {res.push({ term : { openAccessCode : 1 } }); }
-    if (code.includes('hybridAccess')) {res.push({ term : { openAccessCode : 2 } }); }
+    if (code.includes('openAccess')) {
+      res.push(
+        { term : { openAccessCode: 1} },
+        { term : { openAccessCode: 2} },
+        { term : { selfArchivedCode: 1} }
+        );
+    }
+    if (code.includes('nonOpen')) {
+      res.push(
+        {bool: {must: [
+          { term : { openAccessCode : 0 } },
+          { term : { selfArchivedCode : 0 } }
+        ]}}
+      );
+    }
+    if (code.includes('noAccessInfo')) {
+      res.push(
+        {bool: {must_not: [
+          { term : { openAccessCode : 1 } },
+          { term : { openAccessCode : 2 } },
+          { term : { openAccessCode : 0 } },
+          { term : { selfArchivedCode : 1 } }
+        ]}}
+      );
+    }
     return res;
   }
 
@@ -196,6 +217,10 @@ export class FilterService {
     const res = [];
     organization.forEach(value => { res.push({ term : { 'author.organization.organizationId.keyword' : value } }); });
     return res;
+  }
+
+  addMinMatch(min) {
+    return {minimum_should_match: min};
   }
 
   constructQuery(index: string, searchTerm: string) {
@@ -303,11 +328,6 @@ export class FilterService {
             }
           }
         },
-        openAccess: {
-          terms: {
-            field: 'openAccessCode'
-          }
-        },
         internationalCollaboration: {
           terms: {
             field: 'internationalCollaboration',
@@ -364,6 +384,16 @@ export class FilterService {
                 field: 'fields_of_science.fieldIdScience'
               }
             },
+          }
+        };
+        payLoad.aggs.selfArchived = {
+          terms: {
+            field: 'selfArchivedCode'
+          }
+        };
+        payLoad.aggs.openAccess = {
+          terms: {
+            field: 'openAccessCode'
           }
         };
         break;

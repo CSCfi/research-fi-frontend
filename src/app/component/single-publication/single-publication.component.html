@@ -9,7 +9,7 @@
 </aside>
 <div class="container" *ngFor="let publication of responseData" style="margin-top:25px;" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisu'" [resultNameField]="'publicationName'"></app-breadcrumb>
+    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
@@ -17,7 +17,7 @@
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of publication.hits.hits">
-                <h2 [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h2>
+                <h2 class="result-header" [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h2>
                 <div id="info" class="table">
                     <p class="header">Julkaisu</p>
                     <div class="row content" *ngFor="let row of infoFields">
@@ -81,12 +81,12 @@
                             </div>
                         </div>
                     </ng-container>
-                    <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
+                    <!-- <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
                         <div class="col-6 col-lg-3 th">Organisaation alayksiköt</div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
                             <p class="td">{{item._source[row.field]}}</p>
                         </div>
-                    </div>
+                    </div> -->
                     <ng-container *ngFor="let row of organizationSubFields.slice(1)">
                         <div></div>
                         <div class="row content">
@@ -96,7 +96,7 @@
                             </div>        
                         </div>
                     </ng-container>
-                    <div class="row content">
+                    <div class="row content" *ngIf="mediumFields?.length > 0">
                         <!-- Top row links, switch case to check for different search targets -->
                         <div class="col-6 col-lg-3 th">Julkaisukanavan tiedot</div>
                         <div class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
