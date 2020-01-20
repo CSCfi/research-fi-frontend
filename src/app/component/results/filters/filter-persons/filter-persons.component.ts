@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { FilterService } from '../../../../services/filter.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-filter-persons',
@@ -37,7 +38,8 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
   private filterSub: Subscription;
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
-               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService ) { }
+               private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService,
+               private utilityService: UtilityService ) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -46,6 +48,14 @@ export class FilterPersonsComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
+  }
+
+  preventTab(event) {
+    UtilityService.preventTab(event);
+  }
+
+  preventTabBack(event) {
+    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
   }
 
   onResize(event) {

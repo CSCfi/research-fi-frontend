@@ -28,6 +28,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   tab = 'fundings';
 
   infoFields = [
+    {label: 'Lyhenne', field: 'projectAcronym'},
     {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
     {label: 'Aloitusvuosi', field: 'fundingStartYear'},
     {label: 'Konsortion nimi', field: 'consortiumNameFi'},
@@ -39,7 +40,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Sukunimi', field: 'fundingContactPersonLastName'},
     {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
     {label: 'Rooli hankkeessa', field: 'fundingContactPersonTitle'},
-    {label: 'Myönnetty summa', field: 'amount'},
+    {label: 'Myönnetty summa', field: 'amount_in_EUR'},
   ];
 
   funderFields =  [

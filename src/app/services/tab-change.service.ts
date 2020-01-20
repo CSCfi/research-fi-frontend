@@ -17,14 +17,19 @@ export class TabChangeService {
   ];
 
   private tabSource = new BehaviorSubject({data: '', labelFi: '', labelEn: '', link: '', icon: ''});
+  private focusSource = new BehaviorSubject(false);
   currentTab = this.tabSource.asObservable();
+  currentFocus = this.focusSource.asObservable();
   tab: string;
   tabQueryParams: any = {};
   locale: string;
 
-  constructor( @Inject( LOCALE_ID ) protected localeId: string ) {
+  constructor( @Inject( LOCALE_ID ) protected localeId: string ) { }
 
-   }
+  // If focus is true, focus result header.
+  changeFocus(focus) {
+    this.focusSource.next(focus);
+  }
 
   changeTab(tab: {data: string; labelFi: string, labelEn: string, link: string, icon: any}) {
     this.tab = tab.link;

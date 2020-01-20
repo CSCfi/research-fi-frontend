@@ -12,8 +12,17 @@
         }
         // Prevent style bleeding
         .shared {
-            .th {
+            .header {
                 font-weight: bold;
+                padding-left: 15px;
+            }
+
+            .trHeader {
+                padding-top: 1rem;
+            }
+
+            .th {
+                font-weight: 500;
             }
 
             p.th, p.td {
@@ -166,7 +175,7 @@
             }
 
             // Show more
-            p.short {
+            .short {
                 text-overflow: ellipsis;
                 overflow: hidden;
                 display: -webkit-box;

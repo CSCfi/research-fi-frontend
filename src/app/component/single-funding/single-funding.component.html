@@ -21,13 +21,13 @@
          <main class="col-12 col-md-8">
              <div *ngFor="let item of funding.hits.hits">
                  <h2>{{item._source.projectNameFi}}</h2>
-                 <div class="table">
+                 <div id="info" class="table">
+                    <p class="header">Hanke</p>
                     <div class="content">
-                        <p class="index-name">Hanke</p>
                         <div class="row" *ngFor="let row of infoFields">
                             <div class="col-6 col-lg-3 th">{{row.label}}</div>
                             <div class="col-6 col-lg-9 td">
-                                <p [ngClass]="expand ? 'expand' : 'short'">{{item._source[row.field]}}</p>
+                                <div [ngClass]="expand ? 'expand' : 'short'">{{item._source[row.field]}}</div>
                                 <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'projectDescriptionFi' && item._source.projectDescriptionFi.length > 256" (click)="expandDescription()" 
                                 [innerHTML]="expand ? 'Näytä vähemmän' : 'Lue lisää'"></a>
                             </div>
@@ -35,12 +35,12 @@
                     </div>
                     <!-- Funded -->
                     <div class="content" *ngIf="fundedFields.length > 0">
-                        <p class="index-name">Saaja</p>
-                        <div class="row" *ngFor="let row of fundedFields">
-                            <div class="col-6 col-lg-3 td" *ngIf="row.field !== 'amount'">{{item._source[row.field]}}</div>
-                            <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount'">{{row.label}}</div>
-                            <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount'">
-                                <p>{{shapeAmount(item._source.amount)}}</p>
+                        <p class="header trHeader">Saaja</p>
+                        <div class="row " *ngFor="let row of fundedFields">
+                            <div class="col-6 col-lg-3 td" *ngIf="row.field !== 'amount_in_EUR'">{{item._source[row.field]}}</div>
+                            <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount_in_EUR'">{{row.label}}</div>
+                            <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount_in_EUR'">
+                                <p>{{shapeAmount(item._source.amount_in_EUR)}} €</p>
                             </div>
                         </div>
                     </div>

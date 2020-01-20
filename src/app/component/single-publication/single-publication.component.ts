@@ -140,6 +140,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       return this.responseData[0].hits.hits[0]._source[item.field] !== '-1' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
              this.responseData[0].hits.hits[0]._source[item.field] !== 'undefined' &&
+             this.responseData[0].hits.hits[0]._source[item.field].length !== 0 &&
              JSON.stringify(this.responseData[0].hits.hits[0]._source[item.field]) !== '["undefined"]' &&
              this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
     };
@@ -204,7 +205,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
-    source.openAccessCode = source.openAccessCode > 0 ? 'Kyllä' : 'Ei';
+    // Open Access can be added from multiple fields
+    source.openAccessCode = source.openAccessCode > 0 || source.selfArchivedData  ? 'Kyllä' : 'Ei';
 
     // Get & set publication type label
     this.publicationType = this.staticDataService.publicationClass.find(val => val.class === source.publicationTypeCode.slice(0, 1));
