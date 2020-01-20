@@ -73,6 +73,7 @@ import { ListItemComponent } from './component/search-bar/list-item/list-item.co
 import { SunburstComponent } from './component/visualisation/sunburst/sunburst.component';
 import { TreemapComponent } from './component/visualisation/treemap/treemap.component';
 import { HighlightSearch } from './pipes/highlight.pipe';
+import { LinksPipe } from './pipes/links.pipe';
 
 import { LOCALE_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -114,7 +115,8 @@ import { NewsComponent } from './component/news/news.component';
     HighlightSearch,
     TooltipComponent,
     SuggestComponent,
-    NewsComponent
+    NewsComponent,
+    LinksPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
