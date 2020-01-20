@@ -187,7 +187,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       source.publicationOrgUnits = subUnits.map(x => x.organizationUnitNameFi.trim()).join(', ');
     }
 
-    // Hacky fix to get selfArchivedAddress
+    // Extract self archived address from selfArchivedData array
     if (selfArchived && selfArchived.length > 0) {
       source.selfArchivedAddress = selfArchived[0].selfArchived[0].selfArchivedAddress;
     }
