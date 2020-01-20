@@ -17,13 +17,14 @@ button.pagination-link-active {
 
 .pagination {
     padding: 0;
+    padding-bottom: 1rem;
     flex-direction: column;
 }
 
 .pagination button {
     border: 1px solid;
     padding: 10px 15px;
-    margin: 0 5px;
+    // margin: 0 5px;
     border: 0;
 }
 
@@ -50,30 +51,35 @@ button.pagination-link-active {
     font-weight: bold;
 }
 
-@media (max-width: 767px) {
-    .pagination {
-        justify-content: center;
-    }
 
+@media (max-width: 991px) {
+    
     .result-count {
         align-items: center;
         padding-top: 1rem;
     }
-}
 
-@media (max-width: 991px) {
     .pagination-container {
         padding: 1rem 0 0;
     }
 
+    .pagination .buttons {
+        margin: 0 1rem !important;
+    }
+    
     .pagination {
+        justify-content: center;
         padding: 0;
     }
-}
 
-@media (max-width: 1200px) {
-    .pagination {
-        padding-bottom: 1rem;
+    .pages {
+        margin-top: 1rem;
     }
-
 }
+
+@media (min-width: 992px) {
+    .pagination .buttons {
+        margin: 0 50px !important;
+    }
+}
+    
