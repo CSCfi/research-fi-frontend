@@ -35,6 +35,6 @@ export class HighlightSearch implements PipeTransform {
 
         const result = match.join(' ');
         // Needs to be bypassed because of dynamic value
-        return this.sanitizer.bypassSecurityTrustHtml(result);
+        return this.sanitizer.bypassSecurityTrustResourceUrl(result);
     }
 }
