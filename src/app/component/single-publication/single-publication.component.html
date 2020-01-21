@@ -251,7 +251,7 @@
                     </div>
                 </mat-card>
             </aside>
-            <aside>
+            <aside *ngIf="authorAndOrganization[0]?.orgName.length > 0">
                 <mat-card>
                     <mat-card-title><h2>Julkaisutiedon lähde</h2></mat-card-title>
                     <div *ngFor="let org of authorAndOrganization">
