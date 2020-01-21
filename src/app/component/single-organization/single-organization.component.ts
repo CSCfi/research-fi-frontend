@@ -54,6 +54,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
   expand: boolean;
+  latestSubUnitYear: string;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {
@@ -108,7 +109,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     const source = this.responseData[0].hits.hits[0]._source;
     const predecessors = source.predecessors;
     const related = source.related;
-    const subUnits = source.subUnits;
+    let subUnits = source.subUnits;
 
     if (predecessors && predecessors.length > 0) {
       source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
@@ -119,9 +120,17 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     }
 
     if (subUnits && subUnits.length > 0) {
+      // Get latest year of subUnits. Data is in string format
+      const subUnitYears = [...new Set(subUnits.map(item => item.year))];
+      const transformedYears = subUnitYears.map(Number);
+      this.latestSubUnitYear = (Math.max(...transformedYears)).toString();
+      // Get results that match the yeat
+      subUnits = subUnits.filter((item) => {
+        return Object.keys(item).some((key) => item[key].includes(this.latestSubUnitYear));
+      });
+      // List items
       source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
     }
-
   }
 
   expandDescription() {
