@@ -1,11 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
   name: 'links'
 })
 export class LinksPipe implements PipeTransform {
-  constructor( private sanitizer: DomSanitizer ) {}
 
   // This pipe is intended to use with publications only
   transform(publication: any): any {
