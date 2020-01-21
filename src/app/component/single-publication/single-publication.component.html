@@ -26,8 +26,8 @@
                     </div>
                     <div class="row content" *ngIf="authorAndOrganization.length > 0">
                         <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
-                            <button class="show-more" *ngIf="authorAndOrganization[0].orgName.length > 0 && !showSubUnits" (click)="showSubUnits = true">Näytä alayksiköt</button>
-                            <button class="show-more" *ngIf="authorAndOrganization[0].orgName.length > 0 && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
+                            <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
+                            <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
                         </div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
                             <p class="th">{{row.orgName}}</p>
@@ -40,7 +40,7 @@
                                         </a>
                                     </p>
                                     <div class="row" *ngIf="showSubUnits">
-                                        <div class="col-1">
+                                        <div class="col-1" *ngIf="author.subUnit !== ' '">
                                             <span class="guide-line">
                                                 <span class="guide-line-top"></span>
                                             </span>
@@ -254,8 +254,8 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Julkaisutiedon lähde</h2></mat-card-title>
-                    <div *ngFor="let source of publication.hits.hits">
-                        <p>Organisaatio: {{source._source.publicationOrgId}}</p>
+                    <div *ngFor="let org of authorAndOrganization">
+                        <p>Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                     </div>
                     <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                 </mat-card>
