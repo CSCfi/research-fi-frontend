@@ -1,6 +1,6 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { faFileAlt, faUsers, faEuroSign, faSpinner, faAlignLeft, faCalculator, faUniversity } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faUsers, faBriefcase, faSpinner, faAlignLeft, faCalculator, faUniversity } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class TabChangeService {
   tabData = [
     { data: 'publications', labelFi: 'Julkaisut', labelEn: 'Publications', link: 'publications', icon: faFileAlt},
     { data: 'persons',  labelFi: 'Tutkijat', labelEn: 'People', link: 'persons', icon: faUsers },
-    { data: 'fundings', labelFi: 'Hankkeet', labelEn: 'Fundings', link: 'fundings', icon: faEuroSign },
+    { data: 'fundings', labelFi: 'Hankkeet', labelEn: 'Fundings', link: 'fundings', icon: faBriefcase },
     { data: '', labelFi: 'Aineistot', labelEn: 'Materials', link: '1', icon: faAlignLeft },
     { data: '', labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', link: '2', icon: faCalculator },
     { data: '', labelFi: 'Muut aktiviteetit', labelEn: 'Research activities', link: '3', icon: faSpinner },

@@ -1,9 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
   name: 'links'
 })
 export class LinksPipe implements PipeTransform {
+  constructor( private sanitizer: DomSanitizer ) {}
 
   // This pipe is intended to use with publications only
   transform(publication: any): any {
@@ -29,9 +31,9 @@ export class LinksPipe implements PipeTransform {
       }
     }
 
-    publication.link = linkArr[0];
+    publication.link = linkArr.length > 0 ? linkArr[0] : 'javascript:void(0);';
 
-    return linkArr[0];
+    return linkArr.length > 0 ? linkArr[0] : '';
   }
 
 }

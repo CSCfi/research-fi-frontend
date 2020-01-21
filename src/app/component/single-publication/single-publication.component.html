@@ -24,10 +24,10 @@
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
                         <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.typeLabel">, {{publicationTypeLabel}}</span></div>
                     </div>
-                    <div class="row content" *ngIf="authorAndOrganization.length > 0">
+                    <div class="row content" *ngIf="authorAndOrganization[0].orgName.length > 0 || authorAndOrganization[0].authors.length > 0">
                         <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
-                            <button class="show-more" *ngIf="authorAndOrganization[0].authors.length > 0 && !showSubUnits" (click)="showSubUnits = true">Näytä alayksiköt</button>
-                            <button class="show-more" *ngIf="authorAndOrganization[0].authors.length > 0 && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
+                            <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
+                            <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
                         </div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
                             <p class="th">{{row.orgName}}</p>
@@ -35,10 +35,12 @@
                                 <div *ngIf="author.author.length > 10">
                                     <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
                                         {{author.author}}
-                                        <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
+                                        <a *ngIf="author.orcid" href="https://orcid.org/{{author.orcid}}" target="_blank">
+                                            <img class="orcid-icon" src="../assets/orcid_icon.svg">
+                                        </a>
                                     </p>
                                     <div class="row" *ngIf="showSubUnits">
-                                        <div class="col-1">
+                                        <div class="col-1" *ngIf="author.subUnit !== ' '">
                                             <span class="guide-line">
                                                 <span class="guide-line-top"></span>
                                             </span>
@@ -62,7 +64,9 @@
                                     <div *ngIf="author.author.length > 10">
                                         <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
                                             {{author.author}}
-                                            <img *ngIf="author.orcid" class="orcid-icon" src="../assets/orcid_icon.svg">
+                                            <a *ngIf="author.orcid" href="https://orcid.org/{{author.orcid}}" target="_blank">
+                                                <img class="orcid-icon" src="../assets/orcid_icon.svg">
+                                            </a>
                                         </p>
                                         <div class="row" *ngIf="showSubUnits">
                                             <div class="col-1">
@@ -203,10 +207,11 @@
                         <mat-card-title><h2>Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="http://scholar.google.com/">Google Scholar</a>
+                                <a href="https://scholar.google.com/scholar?q={{item._source.publicationName}}" target="_blank">Google Scholar</a>
                             </div>
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="http://crossref.org/">CrossRef</a>
+                                <a href="https://search.crossref.org/?q={{item._source.doi !== ' ' ? item._source.doi : item._source.publicationName}}" 
+                                target="_blank">CrossRef</a>
                             </div>
                         </div>
                     </mat-card>
@@ -247,11 +252,11 @@
                     </div>
                 </mat-card>
             </aside>
-            <aside>
+            <aside *ngIf="authorAndOrganization[0]?.orgName.length > 0">
                 <mat-card>
                     <mat-card-title><h2>Julkaisutiedon lähde</h2></mat-card-title>
-                    <div *ngFor="let source of publication.hits.hits">
-                        <p>Organisaatio: {{source._source.publicationOrgId}}</p>
+                    <div *ngFor="let org of authorAndOrganization">
+                        <p>Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                     </div>
                     <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                 </mat-card>
