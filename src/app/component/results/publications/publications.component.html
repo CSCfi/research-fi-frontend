@@ -51,6 +51,7 @@
                             <span class="open-access-image"></span>
                             <span>Avoin saatavuus</span>
                         </a>
+                        <!-- Span is for publications that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
                         <span *ngIf="((publication._source.openAccessCode === 1 || publication._source.openAccessCode === 2) || 
                         publication._source.selfArchivedCode === 1) && !(publication._source | links)" class="open-access div">
                             <span class="open-access-image"></span>
