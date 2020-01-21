@@ -97,6 +97,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   publicationType: any;
   publicationTypeLabel: string;
   showSubUnits = false;
+  hasSubUnits: boolean;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
@@ -208,7 +209,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             }
           });
         });
-        this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi.trim(), authors: authorArr});
+        this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi.trim(), orgId: org.organization[0].organizationId,
+          authors: authorArr});
+      });
+      // Default subUnits checks to false and check if any authors have sub units. Show button if sub units
+      this.hasSubUnits = false;
+      this.authorAndOrganization[0].authors.forEach(item => {
+        if (item.subUnit !== ' ') {this.hasSubUnits = true; }
       });
     }
 
