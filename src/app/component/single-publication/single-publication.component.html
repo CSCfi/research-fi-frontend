@@ -207,10 +207,11 @@
                         <mat-card-title><h2>Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="http://scholar.google.com/">Google Scholar</a>
+                                <a href="https://scholar.google.com/scholar?q={{item._source.publicationName}}" target="_blank">Google Scholar</a>
                             </div>
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="http://crossref.org/">CrossRef</a>
+                                <a href="https://search.crossref.org/?q={{item._source.doi !== ' ' ? item._source.doi : item._source.publicationName}}" 
+                                target="_blank">CrossRef</a>
                             </div>
                         </div>
                     </mat-card>
