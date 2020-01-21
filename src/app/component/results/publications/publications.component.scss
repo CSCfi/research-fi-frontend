@@ -50,11 +50,15 @@
         padding: 3px 10px 3px 11px;
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
     .doi-link {
         padding: 3px 10px;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
         border: 2px solid #363636;
         a {
             color: #363636;
