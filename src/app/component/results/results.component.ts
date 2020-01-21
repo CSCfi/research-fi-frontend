@@ -19,6 +19,8 @@ import { FilterService } from '../../services/filter.service';
 import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
+import { BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-results',
@@ -56,6 +58,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   totalSub: Subscription;
   combinedRouteParams: Subscription;
   tabSub: Subscription;
+  modalHideSub: Subscription;
+  modalShowSub: Subscription;
 
   pageFallback = false;
 
@@ -63,7 +67,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
-               @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
+               @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService, private modalService: BsModalService,
+               private utilityService: UtilityService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -117,6 +122,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.searchService.updateInput(this.searchTerm);
         }
 
+        // Hotfix for *ngIf depending on total and not rendering search-results so new data is not fetched on empty results
+        this.total = 1;
         this.selectedTabData = this.tabData.filter(tab => tab.link === params.tab)[0];
         // Default to publications if invalid tab
         if (!this.selectedTabData) {
@@ -171,11 +178,21 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       // Add thousand separators and set total to 0 if no hits
       this.parsedTotal = this.total ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '0';
       this.cdr.detectChanges();
+      this.dataService.updateTotalResultsValue(this.total);
+      this.updateTitle(this.selectedTabData);
     });
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
     this.mobile = this.window.innerWidth < 992;
+
+    // Subscribe to modal show and hide
+    this.modalHideSub = this.modalService.onHide.subscribe(_ => {
+      this.utilityService.modalOpen = false;
+    });
+    this.modalShowSub = this.modalService.onShow.subscribe(_ => {
+      this.utilityService.modalOpen = true;
+    });
   }
 
   ngAfterViewInit() {
@@ -219,8 +236,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filterValues = filterValues;
         // Send response to data service
         this.dataService.changeResponse(this.filterValues);
-        // Send total value to service
-        this.searchService.updateTotal(this.filterValues[0].hits.total);
         // Set the title
         this.updateTitle(this.selectedTabData);
       },
@@ -230,21 +245,19 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   updateTitle(tab: { data: string; labelFi: string; labelEn: string}) {
     // Update title and <h1> with the information of the currently selected tab
-    if (this.tabValues) {
-      // Placeholder until real data is available
-      const amount = tab.data ? this.tabValues[0].aggregations._index.buckets[tab.data].doc_count : 999;
-      // Set label by locale
-      switch (this.localeId) {
-        case 'fi-FI': {
-          if (amount === 1) {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulos) - Haku - Tutkimustietovaranto');
-          } else {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto'); }
-          break;
-        }
-        case 'en': {
-          if (amount === 1) {this.setTitle(tab.labelEn + ' - (' + amount + ' search result) - Search - Research portal');
-          } else {this.setTitle(tab.labelEn + ' - (' + amount + ' search results) - Search - Research portal'); }
-          break;
-        }
+    // Placeholder until real data is available
+    const amount = tab.data ? this.dataService.totalResults : 999;
+    // Set label by locale
+    switch (this.localeId) {
+      case 'fi-FI': {
+        if (amount === 1) {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulos) - Haku - Tutkimustietovaranto');
+        } else {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto'); }
+        break;
+      }
+      case 'en': {
+        if (amount === 1) {this.setTitle(tab.labelEn + ' - (' + amount + ' search result) - Search - Research portal');
+        } else {this.setTitle(tab.labelEn + ' - (' + amount + ' search results) - Search - Research portal'); }
+        break;
       }
     }
     this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ');
@@ -261,6 +274,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.combinedRouteParams.unsubscribe();
       this.totalSub.unsubscribe();
       this.tabSub.unsubscribe();
+      this.modalHideSub.unsubscribe();
+      this.modalShowSub.unsubscribe();
     }
   }
 

@@ -15,6 +15,7 @@ import { FilterService } from '../../../../services/filter.service';
 import { DataService } from '../../../../services/data.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-filter-organizations',
@@ -39,7 +40,7 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
 
   constructor( private router: Router, private filterService: FilterService, @Inject(WINDOW) private window: Window,
                private resizeService: ResizeService, private sortService: SortService, private modalService: BsModalService,
-               private dataService: DataService, private cdr: ChangeDetectorRef ) { }
+               private dataService: DataService, private cdr: ChangeDetectorRef, private utilityService: UtilityService ) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -48,6 +49,14 @@ export class FilterOrganizationsComponent implements OnInit, OnDestroy, OnChange
 
   closeModal() {
     this.modalRef.hide();
+  }
+
+  preventTab(event) {
+    UtilityService.preventTab(event);
+  }
+
+  preventTabBack(event) {
+    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
   }
 
   onResize(event) {

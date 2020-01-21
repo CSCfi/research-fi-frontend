@@ -157,11 +157,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
             this.currentIndex = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
             this.scrollToPosition(this.currentIndex);
           }
-
-          if (this.currentTab.data.length) {
-            // Update total count of current tab
-            this.searchService.updateTotal(this.allData[0].aggregations._index.buckets[this.currentTab.data].doc_count);
-          }
         });
         // Timeout to prevent value changed exception
         setTimeout(() => {

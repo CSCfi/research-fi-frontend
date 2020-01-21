@@ -13,6 +13,7 @@ import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators'
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-header',
@@ -44,7 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object, private router: Router) {
+              @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
@@ -97,7 +98,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   escapeListener = (e: any): void => {
-    if (e.keyCode === 27 && this.mobile) {
+    if (e.keyCode === 27 && this.mobile && !this.utilityService.modalOpen) {
       this.toggleNavbar();
       this.navbarToggler.nativeElement.focus();
     }
