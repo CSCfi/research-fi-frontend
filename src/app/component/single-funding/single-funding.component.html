@@ -36,17 +36,32 @@
                     <!-- Funded -->
                     <div class="content" *ngIf="fundedFields.length > 0">
                         <p class="header trHeader">Saaja</p>
-                        <div class="row " *ngFor="let row of fundedFields">
+                        <!-- <div class="row " *ngFor="let row of fundedFields">
                             <div class="col-6 col-lg-3 td" *ngIf="row.field !== 'amount_in_EUR'">{{item._source[row.field]}}</div>
                             <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount_in_EUR'">{{row.label}}</div>
                             <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount_in_EUR'">
                                 <p>{{shapeAmount(item._source.amount_in_EUR)}} €</p>
                             </div>
+                        </div> -->
+                        <div class="row" >
+                            <div class="col-6 col-lg-3 td" *ngFor="let funded of fundedFields2[0]">
+                                {{item._source[funded.field]}}
+                            </div>
+                        </div>
+                        <div class="row" *ngFor="let org of item._source.fundedOrgs">
+                            <div class="col-6 col-lg-3 td" *ngFor="let fundedOrg of fundedFields2[1]">
+                                {{org[fundedOrg.field]}}
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-6 col-lg-3 td" *ngFor="let amount of fundedFields2[2]">
+                                {{amount.label}}{{item._source[amount.field]}}
+                            </div>
                         </div>
                     </div>
                     <!-- Funder -->
                     <div class="content" *ngIf="funderFields.length > 0">
-                        <p class="index-name">Rahoittaja</p>
+                        <p class="header trHeader">Rahoittaja</p>
                         <div class="row" *ngFor="let row of funderFields">
                             <div class="col-6 col-lg-3 th">{{row.label}}</div>
                             <div class="col-6 col-lg-9 td">{{item._source[row.field]}}</div>
@@ -54,7 +69,7 @@
                     </div>
                     <!-- Other -->
                     <div class="content" *ngIf="otherFields.length > 0">
-                        <p class="index-name">Muut tiedot</p>
+                        <p class="header trHeader">Muut tiedot</p>
                         <div class="row" *ngFor="let row of otherFields">
                             <div class="col-6 col-lg-3 th">{{row.label}}</div>
                             <div class="col-6 col-lg-9 td">{{item._source[row.field]}}</div>
