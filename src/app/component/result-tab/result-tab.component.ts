@@ -89,10 +89,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
 
+    // Subscribe to query params and get current tab params
     this.queryParamSub = this.searchService.currentQueryParams.subscribe(params => {
-      // console.log(this.selectedTab);
       this.queryParams[this.selectedTab] = params;
-      // console.log(this.queryParams[this.selectedTab]);
       this.tabChangeService.tabQueryParams = this.queryParams;
     });
 
