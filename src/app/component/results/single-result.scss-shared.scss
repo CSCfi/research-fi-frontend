@@ -25,9 +25,13 @@
                 font-weight: 600;
             }
 
-            p.th, p.td {
+            p.th, p.td, a.th, a.td {
                 padding: 0;
                 margin: 0;
+            }
+
+            a.th, a.td {
+                font-weight: bold;
             }
 
             .th, .td {
