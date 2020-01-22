@@ -30,7 +30,7 @@
                             <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
                         </div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
-                            <p class="th">{{row.orgName}}</p>
+                            <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
                             <div *ngFor="let author of row.authors">
                                 <div *ngIf="author.author.length > 10">
                                     <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
@@ -59,7 +59,7 @@
                         <div></div>
                         <div class="row content">
                             <div class="col-6 col-lg-9 offset-6 offset-lg-3 td" *ngFor="let row of authorAndOrganization.slice(1)">
-                                <p class="th">{{row.orgName}}</p>
+                                <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
                                 <div *ngFor="let author of row.authors">
                                     <div *ngIf="author.author.length > 10">
                                         <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
