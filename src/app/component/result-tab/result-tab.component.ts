@@ -9,7 +9,6 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { zhCnLocale } from 'ngx-bootstrap';
 
-
 @Component({
   selector: 'app-result-tab',
   templateUrl: './result-tab.component.html',
@@ -91,7 +90,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
 
     this.queryParamSub = this.searchService.currentQueryParams.subscribe(params => {
+      // console.log(this.selectedTab);
       this.queryParams[this.selectedTab] = params;
+      // console.log(this.queryParams[this.selectedTab]);
       this.tabChangeService.tabQueryParams = this.queryParams;
     });
 
@@ -103,14 +104,17 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   navigate(event) {
     const arr = this.tabList.toArray();
     const currentPosition = this.tabChangeService.tabData.findIndex(i => i.link === this.currentTab.link);
-    let target = '';
+    // let target = '';
     switch (event.keyCode) {
       // Left arrow
       case 37: {
         if (currentPosition < 5) {this.scrollLeft(); }
         if (arr[currentPosition - 1]) {
-          target = arr[currentPosition - 1].nativeElement.pathname;
-          this.router.navigate([target]);
+          // Get target path
+          const target = arr[currentPosition - 1].nativeElement.pathname;
+          // Get next tab link, get params according to link and navigate
+          const previousTab = this.tabChangeService.tabData[currentPosition - 1].link;
+          this.router.navigate([target], {queryParams: this.queryParams[previousTab]});
         }
         break;
       }
@@ -118,8 +122,11 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       case 39: {
         if (currentPosition > 1) {this.scrollRight(); }
         if (arr[currentPosition + 1]) {
-          target = arr[currentPosition + 1].nativeElement.pathname;
-          this.router.navigate([target]);
+          // Get target path
+          const target = arr[currentPosition + 1].nativeElement.pathname;
+          // Get next tab link, get params according to link and navigate
+          const nextTab = this.tabChangeService.tabData[currentPosition + 1].link;
+          this.router.navigate([target], {queryParams: this.queryParams[nextTab]});
         }
         break;
       }
