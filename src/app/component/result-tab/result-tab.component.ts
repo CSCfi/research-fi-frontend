@@ -140,15 +140,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.tabChangeService.changeFocus(status);
   }
 
-  ngOnDestroy() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
-      this.tabSub.unsubscribe();
-      this.queryParamSub.unsubscribe();
-      this.resizeSub.unsubscribe();
-    }
-  }
-
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
   ngOnChanges() {
@@ -230,5 +221,14 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
     this.offsetWidth = this.scroll.nativeElement.offsetWidth;
     this.scrollWidth = this.scroll.nativeElement.scrollWidth;
+  }
+
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
+      this.tabSub.unsubscribe();
+      this.queryParamSub.unsubscribe();
+      this.resizeSub.unsubscribe();
+    }
   }
 }
