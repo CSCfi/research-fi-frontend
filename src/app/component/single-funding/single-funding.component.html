@@ -84,8 +84,13 @@
                         <mat-card>
                             <mat-card-title><h2>Hankkeen verkkosivu</h2></mat-card-title>
                             <div class="row links">
-                                <div *ngFor="let row of linkFields.slice(1)" class="info-link-wrapper">
-                                    <a class="info-link" href="">></a>
+                                <div *ngFor="let row of linkFields" class="info-link-wrapper">
+                                    <div class="col-sm-2 col-md-1 icon">
+                                        <fa-icon [icon]="faIcon"></fa-icon>
+                                    </div>
+                                    <div class="col link">
+                                        <a class="info-link" href="{{item._source[row.field]}}" target="_blank">{{item._source[row.field]}}</a>
+                                    </div>
                                 </div>
                             </div>
                             <div *ngIf="!linkFields.length" class="no-links">Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</div>
