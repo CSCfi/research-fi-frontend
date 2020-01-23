@@ -231,17 +231,18 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     const field = keywords.map(x => x.keyword).join('');
     const consortiumParties = source.consortiumParties || [];
 
-
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
 
-    if (source.amount) {
-      source.amount = source.amount + '€';
+    if (source.amount_in_EUR) {
+      source.amount_in_EUR = source.amount_in_EUR + '€';
+    }
+
+    if (source.fundedOrgs) {
+      source.fundedOrgs.map(x => x.amount = x.amount + '€');
     }
 
     source.consortiumParties = consortiumParties && consortiumParties.length > 0 ?
     this.singleService.joinEntries(consortiumParties, 'party') : source.consortiumParties;
-
-
 
     switch (scheme) {
       case 'Tieteenala':
@@ -254,14 +255,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
         source.fieldsOfTheme = field;
         break;
     }
-  }
-
-  joinEntries(field, subField) {
-    // Delete empty entries
-    field.map(x => (x[subField].trim() === '') && delete x[subField] );
-    // Remove empty objects
-    const checkedArr = field.filter(value => Object.keys(value).length !== 0);
-    return checkedArr.length > 1 ? checkedArr.map(x => x[subField].trim()).join(', ') : checkedArr[0][subField];
   }
 
   shapeAmount(val) {
