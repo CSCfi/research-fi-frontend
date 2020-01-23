@@ -5,6 +5,7 @@ import { SearchService } from '../../services/search.service';
 import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
 import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
+import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -45,10 +46,15 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Alayksiköt', field: 'subUnits'}
   ];
 
+  linkFields = [
+    {label: 'Linkit', field: 'homepage'}
+  ];
+
   faTwitter = faTwitter;
   faFacebook = faFacebook;
   faLinkedin = faLinkedin;
   faMendeley = faMendeley;
+  faIcon = faFileAlt;
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
