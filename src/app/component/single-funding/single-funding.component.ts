@@ -14,6 +14,7 @@ import { SearchService } from '../../services/search.service';
 import { Subscription } from 'rxjs';
 import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-single-funding',
@@ -66,7 +67,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   linkFields = [
-    {label: 'Linkit', field: '?'}
+    {label: 'Linkit', field: 'projectHomepage'}
   ];
 
   // TEST PURPOSES
@@ -166,6 +167,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   faLinkedin = faLinkedin;
   faMendeley = faMendeley;
   faQuoteRight = faQuoteRight;
+  faIcon = faFileAlt;
 
   expand: boolean;
 
