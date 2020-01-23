@@ -65,15 +65,22 @@
                 </div>
              </div>
          </main>
-         <div class="col-12 col-md-4">
+         <div *ngFor="let item of organization.hits.hits" class="col-12 col-md-4">
             <aside>
-                <mat-card>
-                    <div *ngFor="let item of organization.hits.hits">
-                        <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
-                        <a href="{{item._source.homepage}}">{{item._source.homepage}}</a>
-                        <div *ngIf="!item._source.homepage" class="no-links">Organisaatiolle ei ole tarjolla verkkosivua tässä portaalissa</div>
+                 <mat-card>
+                    <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
+                    <div class="row links">
+                        <div *ngFor="let row of linkFields" class="info-link-wrapper">
+                            <div class="col-sm-2 col-md-1 icon">
+                                <fa-icon [icon]="faIcon"></fa-icon>
+                            </div>
+                            <div class="col link">
+                                <a class="info-link" href="{{item._source[row.field]}}" target="_blank">{{item._source[row.field]}}</a>
+                            </div>
+                        </div>
                     </div>
-                 </mat-card>
+                    <div *ngIf="!linkFields.length" class="no-links">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
+                </mat-card>
             </aside>
             <aside>
                 <mat-card>
