@@ -138,7 +138,84 @@
                 line-height: 1.275;
                 text-transform: uppercase;
             }
+            
+            // Links
+            div.links {
+                border-radius: 3px;
+                font-weight: bold;
+                margin: 15px;
+                margin-inline-start: 0;
+                // display: flex;
+                // height: fit-content;
+                white-space: nowrap;
+                .doi, .info-link-wrapper {
+                    padding: 0;
+                    display: inherit;
+                    max-width: 100%;
+                }
+                .doi-tag, span.doi-link, .link {
+                    padding: 4px 10px 3px;
+                }
+                .doi-link {
+                    padding: 3px 10px;
+                }
+            
+                .doi-tag, .doi-link {
+                    vertical-align: middle;
+                }
+            
+                .doi .link, .info-link-wrapper .link {
+                    margin-left: 14px;
+                }
+            
+                span.doi-link, .link {
+                    max-width: max-content;
+                    height: fit-content;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            
+                .link, .icon {
+                    padding: 0;
+                }
+            
+                .icon {
+                    font-size: 35px;
+                    line-height: 0;
+                    max-width: 30px;
+                }
+            
+                .link a {
+                    text-decoration: underline;
+                }
+            }
+            
+            .info-link-wrapper, .info-link {
+                width: 100%;
+                padding-top: 10px;
+            }
+            
+            .info-link {
+                display: block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            
+            .no-links {
+                font-style: italic;
+            }
+            
+            .other-links {
+                text-decoration: underline;
+            }
+            
+            .other-link {
+                padding-block-start: 0.85em;
+            }
 
+            // Related
             .row.related, .row.other-links {
                 margin-top: 20px;
             }
