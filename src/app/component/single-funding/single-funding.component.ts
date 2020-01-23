@@ -94,7 +94,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
             funderLocalOrganizationUnitId: ' ',
             funderOrganizationType: ' ',
             funderBusinessId: ' ',
-            funderNameFi: ' ',
+            funderNameFi: 'Rahoitusyhtiö Korkokatto',
             funderNameSv: ' ',
             funderNameEn: ' ',
             funderHomepage: ' ',
@@ -110,7 +110,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
             typeOfFundingId: 'SME-1',
             typeOfFundingNameFi: 'SME instrument phase 1',
             callProgrammeNameUnd: ' ',
-            callProgrammeNameFi: ' ',
+            callProgrammeNameFi: 'Hakuohjelma 2020',
             callProgrammeNameSv: ' ',
             callProgrammeNameEn: ' ',
             callProgrammeHomepage: ' ',
@@ -120,7 +120,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
             fundingStartYear: 2015,
             fundingEndDate: '2015-10-31',
             fundingContactPersonLastName: 'Sukunimi',
-            fundingContactPersonFirstNames: 'Etu Nimi',
+            fundingContactPersonFirstNames: 'Etunimi',
             fundingContactPersonOrcid: '012345',
             fundingContactPersonJobRole: ' ',
             fundingContactPersonTitle: 'Tutkija',
@@ -138,7 +138,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
             municipalitySv: ' ',
             academyConsortium: 'Suomen akatemian konsortion nimi',
             consortiumParties: [
-              {party: 'Osapuoli 1'},
+              {party: ''},
               {party: 'Osapuoli 2'},
             ],
             funded: [
@@ -195,9 +195,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.singleService.getSingleFunding(idNumber)
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
-      this.responseData = responseData;
+      // this.responseData = responseData;
       // TEST PURPOSES
-      // this.responseData = this.testData;
+      this.responseData = this.testData;
       if (this.responseData[0].hits.hits[0]) {
         this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
@@ -226,19 +226,23 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
-    const persons = source.projectPersons;
     const keywords = source.keywords || [];
     const scheme = keywords.map(x => x.scheme).join('');
     const field = keywords.map(x => x.keyword).join('');
+    const consortiumParties = source.consortiumParties || [];
+
+
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
-    source.fundingContactPersonLastName = source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName;
+
     if (source.amount) {
       source.amount = source.amount + '€';
     }
-    if (persons && persons.length > 0) {
-      source.projectPersonsNames = persons.map(x => x.projectPersonFirstNames).join(', ') + ' ' +
-      persons.map(x => x.projectPersonLastName).join(', ');
-    }
+
+    source.consortiumParties = consortiumParties && consortiumParties.length > 0 ?
+    this.singleService.joinEntries(consortiumParties, 'party') : source.consortiumParties;
+
+
+
     switch (scheme) {
       case 'Tieteenala':
         source.fieldsOfScience = field;
@@ -250,6 +254,14 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
         source.fieldsOfTheme = field;
         break;
     }
+  }
+
+  joinEntries(field, subField) {
+    // Delete empty entries
+    field.map(x => (x[subField].trim() === '') && delete x[subField] );
+    // Remove empty objects
+    const checkedArr = field.filter(value => Object.keys(value).length !== 0);
+    return checkedArr.length > 1 ? checkedArr.map(x => x[subField].trim()).join(', ') : checkedArr[0][subField];
   }
 
   shapeAmount(val) {
