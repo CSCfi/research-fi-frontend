@@ -136,7 +136,8 @@
                     <mat-card>
                         <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
                         <div *ngFor="let source of funding.hits.hits">
-                            <p>Rahoittaja: {{source._source.publicationOrgId}}</p>
+                            <p *ngIf="source._source.funderNameFi.trim().length > 0">Rahoittaja: {{source._source.funderNameFi}}</p>
+                            <p *ngIf="source._source.funderNameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
                         </div>
                         <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                         <div class="clear"></div>
