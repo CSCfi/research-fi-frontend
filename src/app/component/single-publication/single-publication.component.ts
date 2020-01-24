@@ -55,11 +55,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Emojulkaisun nimi', field: 'parentPublicationName', link: true, linkPath: '/results/publications/'},
     {label: 'Konferenssi', field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: 'Kustantaja', field: 'publisherName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
-    {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     {label: 'Volyymi', field: 'volume', link: false},
     {label: 'Numero', field: 'issueNumber', link: false},
     {label: 'Sivut', field: 'pageNumberText', link: false},
+    {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
+    {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
     {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn='},
     {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: true, linkPath: '/results/publications?page=1&juFo='},
