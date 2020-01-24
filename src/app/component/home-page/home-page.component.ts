@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, ElementRef, Inject, PLATFORM_ID, QueryList, AfterViewInit,
+  HostListener, ChangeDetectorRef } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
@@ -19,7 +20,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, AfterViewInit {
   allData: any [];
   errorMessage = [];
   status = false;
@@ -27,16 +28,57 @@ export class HomePageComponent implements OnInit {
     duration: 0.5
   };
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
-
+  @ViewChildren('shortcutHeight') shortcutHeight: QueryList<ElementRef>;
   basicStyle = {
     border: '0px',
     background: 'white',
     margin: '6px 0 6px',
     'min-width': '200px'
   };
+  maxHeight: number;
+
+  shortcuts = [
+    {
+      title: 'Suomen tieteen tila numeroina',
+      caption: 'Tutustu visualisointeihin ja tilastoihin Suomen tieteen tilasta.',
+      imgPath: '../assets/1.jpg',
+      col: 4,
+      link: '#'
+    },
+    {
+      title: 'Tutki julkaisujen määriä tieteenaloittain',
+      caption: 'Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista.',
+      imgPath: '../assets/treemap_vis.png',
+      col: 8,
+      link: '/visual/publications'
+    },
+    {
+      title: 'Suomalainen tutkimusjärjestelmä',
+      caption: 'Mistä kaikesta suomalainen tutkimusjärjestelmä koostuu?',
+      imgPath: '../assets/4.jpg',
+      col: 4,
+      link: '#'
+    },
+    {
+      title: 'Uusimmat tutkimushankkeet',
+      caption: 'Tutustu uusimpiin tutkimushankkeisiin.',
+      imgPath: '../assets/5.jpg',
+      col: 4,
+      link: '#'
+    },
+    {
+      title: 'Etsi ja löydä uutta',
+      caption: 'Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista',
+      imgPath: '../assets/6.jpg',
+      col: 4,
+      link: '#',
+      last: true
+    }
+  ];
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
-               private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object ) { }
+               private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
+               private cdr: ChangeDetectorRef ) { }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
@@ -61,6 +103,26 @@ export class HomePageComponent implements OnInit {
     //   localStorage.removeItem('Pagenumber');
     //   localStorage.setItem('Pagenumber', JSON.stringify(1));
     // }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.getHeight();
+  }
+
+  ngAfterViewInit() {
+    this.getHeight();
+  }
+
+  // Get height of div with most height
+  getHeight() {
+    const heightArr = [];
+    this.shortcutHeight.forEach(item => {
+      heightArr.push(item.nativeElement.firstElementChild.offsetHeight);
+    })
+    this.maxHeight = Math.max(...heightArr) + 30;
+
+    this.cdr.detectChanges();
   }
 
   getAllData() {
