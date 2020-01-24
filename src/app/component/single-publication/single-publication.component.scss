@@ -21,6 +21,10 @@ img.orcid-icon {
     padding-left: 0;
 }
 
+.guide {
+    padding: 0 3px;
+}
+
 .guide-line, .guide-line-top {
     display: block;
     transition: all 0.3s ease;
@@ -37,6 +41,6 @@ img.orcid-icon {
 .guide-line {
     top: 10px;
     height: 3px;
-    width: 30px;
+    width: 90%;
     position: relative;
 }
