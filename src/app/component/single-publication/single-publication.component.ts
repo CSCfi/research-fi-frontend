@@ -163,7 +163,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
-    const subUnits = source.publicationOrgUnits;
+    // const subUnits = source.publicationOrgUnits;
     const selfArchived = source.selfArchivedData;
 
     if (fieldsOfScience && fieldsOfScience.length > 0) {
@@ -184,9 +184,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
     }
 
-    if (subUnits && subUnits.length > 0) {
-      source.publicationOrgUnits = subUnits.map(x => x.organizationUnitNameFi.trim()).join(', ');
-    }
+    // if (subUnits && subUnits.length > 0) {
+    //   source.publicationOrgUnits = subUnits.map(x => x.organizationUnitNameFi.trim()).join(', ');
+    // }
 
     // Extract self archived address from selfArchivedData array
     if (selfArchived && selfArchived.length > 0) {
