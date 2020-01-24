@@ -38,7 +38,8 @@
     left: 50%;
     bottom: 0;
     width: 100%;
-    height: 160px;
+    min-height: 160px;
+    height: auto;
 }
 
 .caption .header, .news-feed h2 {

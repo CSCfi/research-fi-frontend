@@ -1,0 +1,106 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<h1 #srHeader class="sr-only"></h1>
+<aside>
+  <app-search-bar></app-search-bar>
+</aside>
+<aside>
+  <app-result-tab [homepageStyle]="basicStyle" [allData]="allData"></app-result-tab>
+</aside>
+
+<main id="main-content">
+  <div class="wrapper">
+    <div class="row">
+      <div class="col-12 col-lg-9 shortcuts">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4 link-img" routerLink="#">
+          <div class="cover-img" style="background-image: url('../assets/1.jpg')"></div>
+          <div class="caption text-center">
+            <h2 i18n="Shortcut" class="header">
+              Suomen tieteen tila numeroina
+            </h2>
+            <span class="hint">
+              Tutustu visualisointeihin ja tilastoihin Suomen tieteen tilasta.
+            </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-8 link-img" routerLink="/visual/publications">
+          <div class="cover-img" style="background-image: url('../assets/treemap_vis.png')"></div>
+          <div class="caption text-center">
+            <h2 i18n="Shortcut" class="header">
+              Tutki julkaisujen määriä tieteenaloittain
+            </h2>
+            <span class="hint">
+              Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4 link-img" routerLink="#">
+          <div class="cover-img" style="background-image: url('../assets/4.jpg')"></div>
+          <div class="caption text-center">
+            <h2 i18n="Shortcut" class="header">
+              Suomalainen tutkimusjärjestelmä
+            </h2>
+            <span class="hint">
+              Mistä kaikesta suomalainen tutkimusjärjestelmä koostuu?
+            </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4 link-img" routerLink="#">
+          <div class="cover-img" style="background-image: url('../assets/5.jpg')"></div>
+          <div class="caption text-center">
+            <h2 i18n="Shortcut" class="header">
+              Uusimmat tutkimushankkeet
+            </h2>
+            <span class="hint">
+              Tutustu uusimpiin tutkimushankkeisiin.
+            </span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-lg-4 link-img" routerLink="#">
+          <div class="cover-img" style="background-image: url('../assets/6.jpg')"></div>
+          <div class="caption text-center">
+            <h2 i18n="Shortcut" class="header">
+              Etsi ja löydä uutta
+            </h2>
+            <span class="hint">
+              Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista
+            </span>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-12 col-lg-3 news-feed">
+        <div class="news-container">
+          <h2>Uusimmat tiedeuutiset</h2>
+          <div class="news-card" tabindex="0">
+            <span class="date">01.12.2019</span>
+            <h3 class="title">Yliopistot ja yritykset kehittävät yhdessä kompostoituvaa elektroniikkaa</h3>
+            <span class="organization">Tampereen yliopisto</span>
+          </div>
+          <div class="news-card" tabindex="0">
+            <span class="date">29.11.2019</span>
+            <h3 class="title">Tie­to­kir­jal­li­suu­den Fin­lan­dia-pal­kin­to­teos 2019: Mi­ten met­säl­lä me­nee?</h3 >
+            <span class="organization">Helsingin yliopisto</span>
+          </div>
+          <div class="news-card" tabindex="0">
+            <span class="date">27.11.2019</span>
+            <h3 class="title">Suo­ma­lais­tut­ki­jat ke­hit­ti­vät te­ko­ä­ly­al­go­rit­min ai­vo­vam­ma­po­ti­lai­den te­ho­hoi­toon</h3>
+            <span class="organization">Korkeakoulu X</span>
+          </div>
+          <div class="read-more">
+            <a routerLink="/news" class="link-news">Lue lisää tiedeuutisia >></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

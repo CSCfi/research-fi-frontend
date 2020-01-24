@@ -14,6 +14,7 @@ import { SearchService } from '../../services/search.service';
 import { Subscription } from 'rxjs';
 import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-single-funding',
@@ -31,12 +32,12 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Lyhenne', field: 'projectAcronym'},
     {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
     {label: 'Aloitusvuosi', field: 'fundingStartYear'},
-    {label: 'Suomen Akatemian konsortio', field: 'academyConsortium'},
+    {label: 'Suomen Akatemian konsortio', field: 'fundingGroupPerson'},
     {label: 'Konsortion muut osapuolet', field: 'consortiumParties'},
   ];
 
   fundedFields = [
-    {label: 'Sukunimi', field: 'fundingContactPersonLastName'},
+    {label: 'Nimi', field: 'fundingContactPersonLastName'},
     {label: 'Affiliaatio', field: 'fundedAffiliation'},
     {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
     {label: 'Rooli hankkeessa', field: 'fundingContactPersonTitle'},
@@ -45,7 +46,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   // TEST PURPOSES
   fundedFields2 = [
-    [{field: 'fundingContactPersonLastName'}, {field: 'fundedAffiliation'}],
+    [{field: 'fundingContactPersonLastName'}, {field: 'fundingContactPersonTitle'}],
     [{field: 'orgName'}, {field: 'role'}, {field: 'amount'}, {field: 'contact'}],
     [{label: 'Myönnetty summa'}, {field: 'amount_in_EUR'}]
 
@@ -62,11 +63,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
     {label: 'Teema-ala', field: '?'},
     // {label: 'Avainsanat', field: 'keywords'},
-    {label: 'Muut tiedot', field: '?'}
+    {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'}
   ];
 
   linkFields = [
-    {label: 'Linkit', field: '?'}
+    {label: 'Linkit', field: 'projectHomepage'}
   ];
 
   // TEST PURPOSES
@@ -166,6 +167,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   faLinkedin = faLinkedin;
   faMendeley = faMendeley;
   faQuoteRight = faQuoteRight;
+  faIcon = faFileAlt;
 
   expand: boolean;
 
@@ -229,8 +231,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     const keywords = source.keywords || [];
     const scheme = keywords.map(x => x.scheme).join('');
     const field = keywords.map(x => x.keyword).join('');
-    const consortiumParties = source.consortiumParties || [];
+    const consortiumParties = source.fundingGroupPerson || [];
 
+    source.fundingContactPersonLastName = source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName;
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
 
     if (source.amount_in_EUR) {
@@ -241,8 +244,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       source.fundedOrgs.map(x => x.amount = x.amount + '€');
     }
 
-    source.consortiumParties = consortiumParties && consortiumParties.length > 0 ?
-    this.singleService.joinEntries(consortiumParties, 'party') : source.consortiumParties;
+    source.fundingGroupPerson = consortiumParties && consortiumParties.length > 0 ?
+    this.singleService.joinEntries(consortiumParties, 'consortiumOrganizationNameFi') : source.consortiumParties;
 
     switch (scheme) {
       case 'Tieteenala':

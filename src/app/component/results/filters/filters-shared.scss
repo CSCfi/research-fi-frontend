@@ -21,7 +21,7 @@
 
         .filter-wrapper {
             max-height: 840px;
-
+            padding-top: 1rem;
         }
 
         // Material expansion panel & accordion
@@ -75,8 +75,12 @@
         .mat-expanded mat-expansion-panel-header.mat-expanded {
             position: sticky;
             position: -webkit-sticky;
-            top: -16px;
+            top: -1rem;
             z-index: 39;
+        }
+
+        .mat-list-base {
+            padding: 0.5rem 0;
         }
 
         .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
@@ -196,6 +200,10 @@
         @media (max-width: 991px) {
             .filter-sidebar {
                 max-height: calc(100vh - 200px);
+            }
+
+            .filter-wrapper {
+                padding-top: 0;
             }
 
             .modal-body {

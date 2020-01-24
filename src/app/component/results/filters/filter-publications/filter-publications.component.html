@@ -58,7 +58,7 @@
                         <div *ngFor="let sector of response.aggregations.sector?.sectorName?.buckets, let i = index">
                             <mat-expansion-panel 
                             (opened)="panelOpenState = i; parentPanel = 'organization'" [expanded]="panelOpenState === i && parentPanel === 'organization' ? true : false">
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header expandedHeight="auto" collapsedHeight="auto">
                                     <mat-panel-title>
                                         <strong>{{sector.key}}</strong>
                                         <mat-checkbox [checked]="sector.organizations.buckets.length === selectedOrganizations.selectedOptions.selected.length" (click)="$event.stopPropagation()" 
@@ -86,7 +86,7 @@
                         <div *ngFor="let major of staticDataService.majorFieldsOfScience, let i = index">
                             <mat-expansion-panel *ngIf="combinedMajorFields[i] && combinedMajorFields[i].length > 0" 
                                 (opened)="panelOpenState = i; parentPanel = 'major'" [expanded]="panelOpenState === i && parentPanel === 'major' ? true : false">
-                                <mat-expansion-panel-header>
+                                <mat-expansion-panel-header expandedHeight="auto" collapsedHeight="auto">
                                     <mat-panel-title>
                                         <strong>{{major.label}}</strong>
                                         <mat-checkbox [checked]="major.checked" (change)="panelOpenState = -1; parentPanel = 'major'" (click)="$event.stopPropagation()" 
@@ -118,7 +118,7 @@
                             <div *ngFor="let classType of filteredPublicationClass, let i = index">
                                 <mat-expansion-panel *ngIf="class.class === classType"
                                 (opened)="panelOpenState = i; parentPanel = 'type'" [expanded]="panelOpenState === i && parentPanel === 'type' ? true : false">
-                                    <mat-expansion-panel-header>
+                                    <mat-expansion-panel-header expandedHeight="auto" collapsedHeight="auto">
                                         <mat-panel-title>
                                             <strong>{{class.class}} {{class.label}}</strong>
                                             <mat-checkbox [checked]="class.checked" (change)="panelOpenState = -1; parentPanel = 'type'" (click)="$event.stopPropagation()" 
