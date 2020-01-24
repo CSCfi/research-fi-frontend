@@ -16,66 +16,38 @@
 <main id="main-content">
   <div class="wrapper">
     <div class="row">
-      <div class="col-12 col-lg-9 shortcuts">
-      <div class="row">
-        <div class="col-12 col-sm-6 col-lg-4 link-img" routerLink="#">
-          <div class="cover-img" style="background-image: url('../assets/1.jpg')"></div>
-          <div class="caption text-center odd">
-            <h2 i18n="Shortcut" class="header">
-              Suomen tieteen tila numeroina
-            </h2>
-            <span class="hint">
-              Tutustu visualisointeihin ja tilastoihin Suomen tieteen tilasta.
-            </span>
+      <div class="col-12 col-lg-9 shortcuts" #shortcut>
+        <div class="row">
+          <div *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8}">
+            <div class="cover-img" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
+            <div class="caption text-center" #shortcutHeight [ngStyle]="{'height': maxHeight + 'px'}">
+              <div>
+                <h2 i18n="Shortcut" class="header">
+                  {{item.title}}{{maxHeight}}
+                </h2>
+                <span class="hint">
+                  {{item.caption}}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-12 col-sm-6 col-lg-8 link-img" routerLink="/visual/publications">
-          <div class="cover-img" style="background-image: url('../assets/treemap_vis.png')"></div>
-          <div class="caption text-center even">
-            <h2 i18n="Shortcut" class="header">
-              Tutki julkaisujen määriä tieteenaloittain
-            </h2>
-            <span class="hint">
-              Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista
-            </span>
+        <div class="row">
+          <div *ngFor="let item of shortcuts.slice(2)" class="col-12 link-img"
+          [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8, 'col-sm-12': item.last, 'col-sm-6': !item.last}">
+            <div class="cover-img" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
+            <div class="caption text-center" #shortcutHeight [ngStyle]="{'height': maxHeight + 'px'}">
+              <div>
+                <h2 i18n="Shortcut" class="header">
+                  {{item.title}}
+                </h2>
+                <span class="hint">
+                  {{item.caption}}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-sm-6 col-lg-4 link-img" routerLink="#">
-          <div class="cover-img" style="background-image: url('../assets/4.jpg')"></div>
-          <div class="caption text-center even">
-            <h2 i18n="Shortcut" class="header">
-              Suomalainen tutkimusjärjestelmä
-            </h2>
-            <span class="hint">
-              Mistä kaikesta suomalainen tutkimusjärjestelmä koostuu?
-            </span>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-lg-4 link-img" routerLink="#">
-          <div class="cover-img" style="background-image: url('../assets/5.jpg')"></div>
-          <div class="caption text-center odd">
-            <h2 i18n="Shortcut" class="header">
-              Uusimmat tutkimushankkeet
-            </h2>
-            <span class="hint">
-              Tutustu uusimpiin tutkimushankkeisiin.
-            </span>
-          </div>
-        </div>
-        <div class="col-12 col-sm-12 col-lg-4 link-img" routerLink="#">
-          <div class="cover-img" style="background-image: url('../assets/6.jpg')"></div>
-          <div class="caption text-center even">
-            <h2 i18n="Shortcut" class="header">
-              Etsi ja löydä uutta
-            </h2>
-            <span class="hint">
-              Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista
-            </span>
-          </div>
-        </div>
-      </div>
       </div>
       <div class="col-12 col-lg-3 news-feed">
         <div class="news-container">
