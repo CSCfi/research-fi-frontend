@@ -4,13 +4,13 @@
  :license: MIT -->
 
 <nav id="tabs">
-<div class="wrapper" *ngIf="allData; else noData" [tabindex]="isHomePage ? -1 : 0" (keydown)="isHomePage ? '' : navigate($event)">
+<div class="wrapper" *ngIf="allData; else noData" [tabindex]="isHomePage ? -1 : 0" (keyup)="isHomePage ? '' : navigate($event)">
     <div #scroll class="scroll" *ngFor="let counted of allData">
-      <div *ngIf="lastScrollLocation > 0" class="edge">
+      <div class="edge" [ngStyle]="{'display': lastScrollLocation > 0 ? 'block' : 'none'}">
         <div class="grad grad-left"></div>
         <div class="arrow arrow-left d-none d-sm-block" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
       </div>
-      <div *ngIf="offsetWidth + lastScrollLocation < scrollWidth" class="edge">
+      <div class="edge" [ngStyle]="{'display': offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'}">
         <div class="grad grad-right"></div>
         <div class="arrow arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
@@ -20,7 +20,7 @@
           <div *ngIf="locale === 'fi-FI'" class="label text-center">{{tab.labelFi}}</div>
           <div *ngIf="locale === 'se'" class="label text-center">{{tab.labelSe}}</div>
           <div *ngIf="locale === 'en'" class="label text-center">{{tab.labelEn}}</div>
-          <div class="numeric-box d-none d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
+          <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
         </a>
       </div>
     </div>

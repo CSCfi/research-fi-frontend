@@ -16,7 +16,7 @@ import { zhCnLocale } from 'ngx-bootstrap';
 })
 export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;
-  @ViewChildren('tabList') tabList: QueryList<ElementRef>;
+  @ViewChildren('tabList') tabList: QueryList<any>;
   @Input() allData: any;
   @Input() homepageStyle: {};
 
@@ -99,6 +99,51 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.scrollTo = true;
   }
 
+  // Set focus to results header if click or enter
+  resetFocus(status) {
+    this.tabChangeService.changeFocus(status);
+  }
+
+  // Update scrollWidth and offsetWidth once data is available and DOM is rendered
+  // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
+  ngOnChanges() {
+    if (this.allData) {
+      this.ref.changes.subscribe((result) => {
+        this.scroll = result.first;
+        // Subscribe to current tab and get count
+        this.tabChangeService.currentTab.subscribe(tab => {
+          this.currentTab = tab;
+          // Get current tabs index number and scroll to position if auto scroll isn't disabled
+          if (this.scrollTo) {
+            // Get current index
+            this.currentIndex = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
+            // Scroll children can have edge divs. In this case get children that are tabs
+            const difference = this.scroll.nativeElement.children.length - this.tabChangeService.tabData.length;
+            // Scroll with current index and left + width offsets
+            if (this.scroll.nativeElement.children[this.currentIndex + difference]) {
+              this.scrollToPosition(
+                this.currentIndex,
+                this.scroll.nativeElement.children[this.currentIndex + difference].offsetLeft,
+                this.scroll.nativeElement.children[this.currentIndex + difference].offsetWidth);
+            }
+          }
+        });
+        // Timeout to prevent value changed exception
+        setTimeout(() => {
+          this.scrollWidth = this.scroll.nativeElement.scrollWidth;
+          this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+          this.scroll.nativeElement.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
+        }, 1);
+      });
+    }
+  }
+
+  scrollEvent = (e: any): void => {
+    if (this.scroll) {
+      this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
+    }
+  }
+
   // Navigate between tabs with left & right arrow when focus in tab bar
   navigate(event) {
     const arr = this.tabList.toArray();
@@ -135,74 +180,34 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  // Set focus to results header if click or enter
-  resetFocus(status) {
-    this.tabChangeService.changeFocus(status);
-  }
-
-  // Update scrollWidth and offsetWidth once data is available and DOM is rendered
-  // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
-  ngOnChanges() {
-    if (this.allData) {
-      this.ref.changes.subscribe((result) => {
-        this.scroll = result.first;
-        // Subscribe to current tab and get count
-        this.tabChangeService.currentTab.subscribe(tab => {
-          this.currentTab = tab;
-          // Get current tabs index number and scroll to position if auto scroll isn't disabled
-          if (this.scrollTo) {
-            this.currentIndex = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
-            this.scrollToPosition(this.currentIndex);
-          }
-        });
-        // Timeout to prevent value changed exception
-        setTimeout(() => {
-          this.scrollWidth = this.scroll.nativeElement.scrollWidth;
-          this.offsetWidth = this.scroll.nativeElement.offsetWidth;
-          this.scroll.nativeElement.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
-        }, 1);
-      });
-    }
-  }
-
-  scrollEvent = (e: any): void => {
-    if (this.scroll) {
-      this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
-    }
-  }
-
   // Scroll to tab position on page load and on click, disabled with arrow clicks.
-  scrollToPosition(index) {
+  scrollToPosition(index, left, itemWidth) {
     // Set scroll direction by previous index position
     let direction = index > this.previousIndex ? 'right' : 'left';
-    const distanceLeft = this.previousIndex - index;
-    const distanceRight = index - this.previousIndex;
     // On page load both index & previous index are same
     const onLoad = index === this.previousIndex;
+    // Swipe to right on load
     if (index === this.previousIndex) {
-      direction = index > 2 ? 'right' : 'left';
+      direction = index > 0 ? 'right' : 'left';
     }
     switch (direction) {
       case 'left': {
-        if (onLoad) {
-          this.scroll.nativeElement.scrollLeft -= Math.max(150, 1 + (this.scrollWidth) / 7);
-        } else if (index < 5) {
-          this.scroll.nativeElement.scrollLeft -= (distanceLeft <= 2 ? 160 : 360);
-        }
+        this.scroll.nativeElement.scrollLeft -= itemWidth;
         break;
       }
       case 'right': {
         if (onLoad) {
-          this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) /
-          (this.tabChangeService.tabData.length - (index)));
+          // Calculate scroll from start of row on load
+          this.scroll.nativeElement.scrollLeft += (left - itemWidth);
         } else if (index > 1) {
-          this.scroll.nativeElement.scrollLeft += (distanceRight <= 2 ? 160 : 360);
+          this.scroll.nativeElement.scrollLeft += itemWidth;
         }
         break;
       }
     }
   }
 
+  // Disable scroll to position method
   disableScroll(status) {
     this.scrollTo = status;
   }
