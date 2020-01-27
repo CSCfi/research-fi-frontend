@@ -4,13 +4,13 @@
  :license: MIT -->
 
 <nav id="tabs">
-<div class="wrapper" *ngIf="allData; else noData" [tabindex]="isHomePage ? -1 : 0" (keydown)="isHomePage ? '' : navigate($event)">
+<div class="wrapper" *ngIf="allData; else noData" [tabindex]="isHomePage ? -1 : 0" (keyup)="isHomePage ? '' : navigate($event)">
     <div #scroll class="scroll" *ngFor="let counted of allData">
-      <div *ngIf="lastScrollLocation > 0" class="edge">
+      <div class="edge" [ngStyle]="{'display': lastScrollLocation > 0 ? 'block' : 'none'}">
         <div class="grad grad-left"></div>
         <div class="arrow arrow-left d-none d-sm-block" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
       </div>
-      <div *ngIf="offsetWidth + lastScrollLocation < scrollWidth" class="edge">
+      <div class="edge" [ngStyle]="{'display': offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'}">
         <div class="grad grad-right"></div>
         <div class="arrow arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
