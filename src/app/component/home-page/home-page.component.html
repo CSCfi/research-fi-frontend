@@ -16,11 +16,11 @@
 <main id="main-content">
   <div class="wrapper">
     <div class="row">
-      <div class="col-12 col-lg-9 shortcuts" #shortcut>
+      <div class="col-12 col-lg-9 shortcuts">
         <div class="row">
           <div *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8}">
             <div class="cover-img" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
-            <div class="caption text-center" #shortcutHeight [ngStyle]="{'height': maxHeight + 'px'}">
+            <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
               <div>
                 <h2 i18n="Shortcut" class="header">
                   {{item.title}}
@@ -36,7 +36,7 @@
           <div *ngFor="let item of shortcuts.slice(2)" class="col-12 link-img"
           [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8, 'col-sm-12': item.last, 'col-sm-6': !item.last}">
             <div class="cover-img" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
-            <div class="caption text-center" #shortcutHeight [ngStyle]="{'height': maxHeight + 'px'}">
+            <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
               <div>
                 <h2 i18n="Shortcut" class="header">
                   {{item.title}}

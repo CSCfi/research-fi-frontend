@@ -28,7 +28,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     duration: 0.5
   };
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
-  @ViewChildren('shortcutHeight') shortcutHeight: QueryList<ElementRef>;
+  @ViewChildren('shortcutItem') shortcutItem: QueryList<ElementRef>;
   basicStyle = {
     border: '0px',
     background: 'white',
@@ -107,7 +107,10 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.getHeight();
+    // Timeout needs to be added because shortcutItem list doesn't keep up with resize
+    setTimeout(x => {
+      this.getHeight();
+    }, 200);
   }
 
   ngAfterViewInit() {
@@ -117,9 +120,9 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   // Get height of div with most height
   getHeight() {
     const heightArr = [];
-    this.shortcutHeight.forEach(item => {
+    this.shortcutItem.forEach(item => {
       heightArr.push(item.nativeElement.firstElementChild.offsetHeight);
-    })
+    });
     this.maxHeight = Math.max(...heightArr) + 30;
 
     this.cdr.detectChanges();
