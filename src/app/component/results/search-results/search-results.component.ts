@@ -9,6 +9,7 @@ import { PublicationsComponent } from '../publications/publications.component';
 import { FundingsComponent } from '../fundings/fundings.component';
 import { OrganizationsComponent } from '../organizations/organizations.component';
 import { PersonsComponent } from '../persons/persons.component';
+import { InfrastructuresComponent } from '../infrastructures/infrastructures.component';
 
 @Component({
   selector: 'app-search-results',
@@ -75,12 +76,16 @@ export class SearchResultsComponent implements OnInit, OnChanges {
         child = PublicationsComponent;
         break;
 
+      case 'persons':
+        child = PersonsComponent;
+        break;
+
       case 'fundings':
         child = FundingsComponent;
         break;
 
-      case 'persons':
-        child = PersonsComponent;
+      case 'infrastructures':
+        child = InfrastructuresComponent;
         break;
 
       case 'organizations':

@@ -18,7 +18,7 @@ aggsOnly: string;
 exactField: any;
 
   constructor( private staticDataService: StaticDataService) {
-    this.indexList = 'publication,person,funding,organization' + '/_search?';
+    this.indexList = 'publication,person,funding,infrastructure,organization' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 

@@ -31,6 +31,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <app-filter-publications *ngIf="tab===tabData[0].link" [responseData]="filterValues" [tabData]="tabData[0].data"></app-filter-publications>
                     <app-filter-persons *ngIf="tab===tabData[1].link" [responseData]="filterValues"></app-filter-persons>
                     <app-filter-fundings *ngIf="tab===tabData[2].link" [responseData]="filterValues" [tabData]="tabData[2].data"></app-filter-fundings>
+                    <app-filter-infrastructures *ngIf="tab===tabData[4].link" [responseData]="filterValues" [tabData]="tabData[4].data"></app-filter-infrastructures>
                     <app-filter-organizations *ngIf="tab===tabData[6].link" [responseData]="filterValues" [tabData]="tabData[6].data"></app-filter-organizations>
                 </aside>
                 <aside class="col col-6 col-sm-6 sort">
@@ -51,6 +52,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-filter-publications *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filter-publications>
         <app-filter-persons *ngIf="tab===tabData[1].link" [responseData]="filterValues"></app-filter-persons>
         <app-filter-fundings *ngIf="tab===tabData[2].link"  [responseData]="filterValues" [tabData]="tabData[2].data"></app-filter-fundings>
+        <app-filter-infrastructures *ngIf="tab===tabData[4].link" [responseData]="filterValues" [tabData]="tabData[4].data"></app-filter-infrastructures>
         <app-filter-organizations *ngIf="tab===tabData[6].link" [responseData]="filterValues" [tabData]="tabData[6].data"></app-filter-organizations>
     </aside>
     <div class="col-8 col-xl-9 row main-content">

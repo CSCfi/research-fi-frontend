@@ -1,0 +1,66 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+ <div class="spinner-center" *ngIf="!resultData">
+    <mat-spinner [diameter]="80"></mat-spinner>
+  </div>
+  <!-- Data -->
+  <div *ngFor="let infrastructure of resultData">
+    <!-- Results -->
+    <div class="row no-margin d-flex justify-content-xl-around ">
+        <div class="col col-1 icon" style="margin-right: 10px;"></div>
+        <div class="col col-2 col-xl-1 d-none d-lg-block">
+            <span class="bold uppercase" [ngClass]="sortColumn === 'sector' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('acronym')">Lyhenne</span>
+        </div>
+        <div class="col col-3 col-lg-4 col-xl-2 d-none d-lg-block">
+            <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('name')">Nimi</span>
+        </div>
+        <div class="col col-3 col-lg-4 col-xl-2 d-none d-lg-block">
+            <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('organization')">Organisaatio</span>
+        </div>
+        <div class="col col-2 d-none d-xl-block">
+            <span class="bold uppercase" [ngClass]="sortColumn === 'sector' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('service')">Palveluita</span>
+        </div>
+        <div class="col col-2 d-none d-xl-block">
+            <span class="bold uppercase" [ngClass]="sortColumn === 'sector' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('roadmap')">Tiekartalla</span>
+        </div>
+    </div>
+  
+    <div *ngFor="let infrastructure of resultData;">
+        <div class="row no-margin single d-flex justify-content-xl-around" style="margin: 20px auto!important" *ngFor="let infra of infrastructure.hits.hits; let i = index">
+            <div class="col col-1 icon" style="margin-right: 10px; margin-top: -18px;">
+                <a class="icon" routerLink="/results/infra/{{infra._source.infraId}}" tabindex="-1">
+                  <fa-icon [icon]="faIcon"></fa-icon>
+                </a>
+            </div>
+            <div class="col col-2 col-xl-1 d-none d-lg-block">
+                <span [innerHtml]="infra._source.acronym | highlight: input"></span>
+            </div>      
+            <div class="col-lg-4 col-xl-2">
+                <!-- <a routerLink="/results/infra/{{infra._source.infraId}}"> -->
+                <a href="javascript:void(0)">
+                  <h3 class="result-title" [innerHtml]="infra._source.name.trim() | highlight: input"></h3>
+              </a>
+            </div>          
+            <div class="col-lg-4 col-xl-2">
+                <span [innerHtml]="infra._source.responsibleOrganizationNameFi.trim() | highlight: input"></span>
+            </div>
+            <div class="col-2 d-none col-sm-block d-xl-block">
+                <span [innerHtml]="infra._source.serviceName | highlight: input"></span>
+            </div>
+            <div class="col-2 d-none col-sm-block d-xl-block">
+                <span [innerHtml]="infra._source.sectorNameFi | highlight: input"></span>
+            </div>
+        </div>       
+    </div>
+    <!-- Pagination -->
+    <app-pagination [responseData]="resultData" (queryEvent)="getInfraData($event)"></app-pagination>
+  </div>   
+  

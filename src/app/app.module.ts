@@ -82,6 +82,8 @@ import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './component/results/suggest/suggest.component';
 import { NewsComponent } from './component/news/news.component';
+import { InfrastructuresComponent } from './component/results/infrastructures/infrastructures.component';
+import { FilterInfrastructuresComponent } from './component/results/filters/filter-infrastructures/filter-infrastructures.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +118,9 @@ import { NewsComponent } from './component/news/news.component';
     TooltipComponent,
     SuggestComponent,
     NewsComponent,
-    LinksPipe
+    LinksPipe,
+    InfrastructuresComponent,
+    FilterInfrastructuresComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -163,7 +167,8 @@ import { NewsComponent } from './component/news/news.component';
   } ],
 
   bootstrap: [ AppComponent ],
-  entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
+  entryComponents: [ PublicationsComponent, PersonsComponent, FundingsComponent, InfrastructuresComponent, OrganizationsComponent,
+    EmptyResultComponent ]
 })
 export class AppModule { }
 

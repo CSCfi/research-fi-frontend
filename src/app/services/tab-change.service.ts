@@ -11,7 +11,7 @@ export class TabChangeService {
     { data: 'persons',  labelFi: 'Tutkijat', labelEn: 'People', link: 'persons', icon: faUsers },
     { data: 'fundings', labelFi: 'Hankkeet', labelEn: 'Fundings', link: 'fundings', icon: faBriefcase },
     { data: '', labelFi: 'Aineistot', labelEn: 'Materials', link: '1', icon: faAlignLeft },
-    { data: '', labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', link: '2', icon: faCalculator },
+    { data: 'infrastructures', labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', link: 'infrastructures', icon: faCalculator },
     { data: '', labelFi: 'Muut aktiviteetit', labelEn: 'Research activities', link: '3', icon: faSpinner },
     { data: 'organizations', labelFi: 'Organisaatiot', labelEn: 'Organizations', link: 'organizations', icon: faUniversity }
   ];
