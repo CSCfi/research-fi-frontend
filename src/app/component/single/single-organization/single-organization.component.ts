@@ -4,7 +4,6 @@ import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
-import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 
@@ -50,17 +49,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Linkit', field: 'homepage'}
   ];
 
-  faTwitter = faTwitter;
-  faFacebook = faFacebook;
-  faLinkedin = faLinkedin;
-  faMendeley = faMendeley;
-  faIcon = faFileAlt;
-
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
   expand: boolean;
   latestSubUnitYear: string;
+  faIcon = faFileAlt;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title ) {

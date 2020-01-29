@@ -16,7 +16,6 @@ import { TabChangeService } from '../../../services/tab-change.service';
 import { StaticDataService } from '../../../services/static-data.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
-import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -88,10 +87,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   idSub: Subscription;
   juFoCode: any;
 
-  faTwitter = faTwitter;
-  faFacebook = faFacebook;
-  faLinkedin = faLinkedin;
-  faMendeley = faMendeley;
   faQuoteRight = faQuoteRight;
   faIcon = faFileAlt;
   publicationType: any;
