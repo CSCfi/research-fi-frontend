@@ -46,8 +46,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { CountUpModule } from 'countup.js-angular2';
 
-import { SinglePublicationComponent } from './component/single-publication/single-publication.component';
-import { SingleFundingComponent } from './component/single-funding/single-funding.component';
+import { SinglePublicationComponent } from './component/single/single-publication/single-publication.component';
+import { SingleFundingComponent } from './component/single/single-funding/single-funding.component';
+import { SingleOrganizationComponent } from './component/single/single-organization/single-organization.component';
 
 import { PublicationsComponent } from './component/results/publications/publications.component';
 import { PersonsComponent } from './component/results/persons/persons.component';
@@ -61,7 +62,6 @@ import { PaginationComponent } from './component/results/pagination/pagination.c
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { ActiveFiltersComponent } from './component/results/active-filters/active-filters.component';
 import { FilterFundingsComponent } from './component/results/filters/filter-fundings/filter-fundings.component';
-import { SingleOrganizationComponent } from './component/single-organization/single-organization.component';
 import { FilterOrganizationsComponent } from './component/results/filters/filter-organizations/filter-organizations.component';
 import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
@@ -82,6 +82,7 @@ import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './component/results/suggest/suggest.component';
 import { NewsComponent } from './component/news/news.component';
+import { ShareComponent } from './component/single/share/share.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { NewsComponent } from './component/news/news.component';
     TooltipComponent,
     SuggestComponent,
     NewsComponent,
-    LinksPipe
+    LinksPipe,
+    ShareComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

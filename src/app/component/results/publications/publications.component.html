@@ -33,7 +33,7 @@
         <div *ngFor="let publication of publications.hits.hits; let i = index" class="single">
             <div class="row no-margin">
                 <div class="col col-1 icon">
-                    <a routerLink="/results/publication/{{publication._source.publicationId}}" class="icon" tabindex="-1">
+                    <a routerLink="/results/publication/{{publication._source.publicationId}}" class="icon" tabindex="-1" title="Julkaisujen tiedon ikoni">
                         <fa-icon [icon]="faIcon"></fa-icon>
                     </a>
                 </div>           

@@ -8,12 +8,12 @@
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { SingleItemService } from '../../services/single-item.service';
+import { SingleItemService } from '../../../services/single-item.service';
 import { map } from 'rxjs/operators';
-import { SearchService } from '../../services/search.service';
-import { SettingsService } from '../../services/settings.service';
-import { TabChangeService } from '../../services/tab-change.service';
-import { StaticDataService } from '../../services/static-data.service';
+import { SearchService } from '../../../services/search.service';
+import { SettingsService } from '../../../services/settings.service';
+import { TabChangeService } from '../../../services/tab-change.service';
+import { StaticDataService } from '../../../services/static-data.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
