@@ -12,7 +12,6 @@ import { SingleItemService } from '../../../services/single-item.service';
 import { map } from 'rxjs/operators';
 import { SearchService } from '../../../services/search.service';
 import { Subscription } from 'rxjs';
-import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 
@@ -162,10 +161,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
 
-  faTwitter = faTwitter;
-  faFacebook = faFacebook;
-  faLinkedin = faLinkedin;
-  faMendeley = faMendeley;
   faQuoteRight = faQuoteRight;
   faIcon = faFileAlt;
 

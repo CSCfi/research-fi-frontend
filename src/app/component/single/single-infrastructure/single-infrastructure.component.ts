@@ -15,11 +15,11 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-single-organization',
-  templateUrl: './single-organization.component.html',
-  styleUrls: ['./single-organization.component.scss']
+  selector: 'app-single-infrastructure',
+  templateUrl: './single-infrastructure.component.html',
+  styleUrls: ['./single-infrastructure.component.scss']
 })
-export class SingleOrganizationComponent implements OnInit, OnDestroy {
+export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   public singleId: any;
   responseData: any [];
   searchTerm: string;
@@ -28,24 +28,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   infoFields = [
     {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
     {label: 'Muut nimet', field: 'variantNames'},
-    {label: 'Perustettu', field: 'established'},
-    {label: 'Lisätietoa', field: 'organizationBackground'},
-    {label: 'Edeltävä organisaatio', field: 'predecessors'},
-    {label: 'Liittyvä organisaatio', field: 'related'},
-    {label: 'Organisaatiomuoto', field: 'organizationType'},
-    {label: 'Organisaation tyyppi', field: 'sectorNameFi'},
-    {label: 'Käyntiosoite', field: 'visitingAddress'},
-    {label: 'Postiosoite', field: 'postalAddress'},
-    {label: 'Y-tunnus', field: 'businessId'},
-    {label: 'Tilastokeskuksen oppilaitostunnus', field: '01910'},
-    {label: 'Opetus- ja tutkimushenkilöstön määrä', field: 'staffCountAsFte'},
+
   ];
 
   studentCounts = [
     {label: 'Alempi korkeakoulututkinto', field: 'thesisCountBsc'},
-    {label: 'Ylempi korkeakoulututkinto', field: 'thesisCountMsc'},
-    {label: 'Lisensiaatintutkinto', field: 'thesisCountLic'},
-    {label: 'Tohtorintutkinto', field: 'thesisCountPhd'}
   ];
 
   subUnitFields = [
