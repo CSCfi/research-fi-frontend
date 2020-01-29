@@ -232,7 +232,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
 
     if (source.amount_in_EUR) {
-      source.amount_in_EUR = source.amount_in_EUR + '€';
+      source.amount_in_EUR = source.amount_in_EUR.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€';
     }
 
     if (source.fundedOrgs) {
