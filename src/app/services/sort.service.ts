@@ -100,7 +100,7 @@ export class SortService {
         break;
       }
       case 'organizations': {
-        this.yearField = 'thesisYear';
+        this.yearField = 'thesisYear.keyword';
         switch (this.sortColumn) {
           case 'name': {
             this.sort = [{'nameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
