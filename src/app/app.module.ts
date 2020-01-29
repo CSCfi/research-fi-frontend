@@ -82,6 +82,8 @@ import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './component/results/suggest/suggest.component';
 import { NewsComponent } from './component/news/news.component';
+import { InfrastructuresComponent } from './component/results/infrastructures/infrastructures.component';
+import { FilterInfrastructuresComponent } from './component/results/filters/filter-infrastructures/filter-infrastructures.component';
 import { ShareComponent } from './component/single/share/share.component';
 
 @NgModule({
@@ -118,6 +120,8 @@ import { ShareComponent } from './component/single/share/share.component';
     SuggestComponent,
     NewsComponent,
     LinksPipe,
+    InfrastructuresComponent,
+    FilterInfrastructuresComponent,
     ShareComponent
   ],
   imports: [
@@ -165,7 +169,8 @@ import { ShareComponent } from './component/single/share/share.component';
   } ],
 
   bootstrap: [ AppComponent ],
-  entryComponents: [PublicationsComponent, PersonsComponent, FundingsComponent, OrganizationsComponent, EmptyResultComponent]
+  entryComponents: [ PublicationsComponent, PersonsComponent, FundingsComponent, InfrastructuresComponent, OrganizationsComponent,
+    EmptyResultComponent ]
 })
 export class AppModule { }
 

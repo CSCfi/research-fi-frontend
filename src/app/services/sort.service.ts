@@ -95,8 +95,12 @@ export class SortService {
         this.yearField = 'publicationYear'; // Change this according to index
         break;
       }
+      case 'infrastructures': {
+        this.yearField = 'startYear';
+        break;
+      }
       case 'organizations': {
-        this.yearField = 'publicationYear'; // Change this according to index
+        this.yearField = 'thesisYear';
         switch (this.sortColumn) {
           case 'name': {
             this.sort = [{'nameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];

@@ -100,6 +100,10 @@ export class StaticDataService {
         res = ['projectNameFi^2', 'fundedNameFi', 'funderNameFi'];
         break;
       }
+      case 'infrastructure': {
+        res = ['acronym', 'name^2',  'responsibleOrganizationNameFi'];
+        break;
+      }
       case 'organization': {
         res = ['nameFi^2', 'sectorNameFi'];
         break;

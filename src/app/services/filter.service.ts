@@ -293,46 +293,6 @@ export class FilterService {
             size: 50,
             order: { _key : 'desc' }
           }
-        },
-        countryCode: {
-          terms: {
-            field: 'publicationCountryCode.keyword'
-          }
-        },
-        languageCode: {
-          terms: {
-            field: 'languages.languageCode.keyword'
-          },
-          aggs: {
-            language: {
-              terms: {
-                field: 'languages.' + this.langByLocale(this.localeId) + '.keyword'
-              }
-            }
-          }
-        },
-        publicationType: {
-          terms: {
-            field: 'publicationTypeCode.keyword',
-            size: 50,
-            order: {
-              _key: 'asc'
-            }
-          }
-        },
-        juFo: {
-          terms: {
-            field: 'jufoClassCode.keyword',
-            order: {
-              _key: 'desc'
-            }
-          }
-        },
-        internationalCollaboration: {
-          terms: {
-            field: 'internationalCollaboration',
-            size: 2
-          }
         }
       }
     };
@@ -368,6 +328,46 @@ export class FilterService {
                 }
               }
             }
+          }
+        };
+        payLoad.aggs.countryCode = {
+          terms: {
+            field: 'publicationCountryCode.keyword'
+          }
+        };
+        payLoad.aggs.languageCode = {
+          terms: {
+            field: 'languages.languageCode.keyword'
+          },
+          aggs: {
+            language: {
+              terms: {
+                field: 'languages.' + this.langByLocale(this.localeId) + '.keyword'
+              }
+            }
+          }
+        };
+        payLoad.aggs.publicationType = {
+          terms: {
+            field: 'publicationTypeCode.keyword',
+            size: 50,
+            order: {
+              _key: 'asc'
+            }
+          }
+        };
+        payLoad.aggs.juFo = {
+          terms: {
+            field: 'jufoClassCode.keyword',
+            order: {
+              _key: 'desc'
+            }
+          }
+        };
+        payLoad.aggs.internationalCollaboration = {
+          terms: {
+            field: 'internationalCollaboration',
+            size: 2
           }
         };
         payLoad.aggs.fieldsOfScience = {
