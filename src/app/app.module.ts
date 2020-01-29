@@ -85,6 +85,7 @@ import { NewsComponent } from './component/news/news.component';
 import { InfrastructuresComponent } from './component/results/infrastructures/infrastructures.component';
 import { FilterInfrastructuresComponent } from './component/results/filters/filter-infrastructures/filter-infrastructures.component';
 import { ShareComponent } from './component/single/share/share.component';
+import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { ShareComponent } from './component/single/share/share.component';
     LinksPipe,
     InfrastructuresComponent,
     FilterInfrastructuresComponent,
-    ShareComponent
+    ShareComponent,
+    SingleInfrastructureComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
