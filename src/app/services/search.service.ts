@@ -90,7 +90,7 @@ export class SearchService {
         }}
       }
     };
-    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList, payLoad)
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad)
       .pipe(catchError(this.handleError));
   }
 
@@ -152,7 +152,7 @@ export class SearchService {
       }
     };
     // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList, payLoad)
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad)
       .pipe(catchError(this.handleError));
   }
 

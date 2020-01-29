@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SingleItemService } from '../../services/single-item.service';
-import { SearchService } from '../../services/search.service';
+import { SingleItemService } from '../../../services/single-item.service';
+import { SearchService } from '../../../services/search.service';
 import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
 import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';

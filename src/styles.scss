@@ -23,16 +23,16 @@
 @import './app/component/result-tab/result-tab.component.scss-theme.scss';
 @import './app/component/results/results.component.scss-theme-shared.scss';
 @import './app/component/results/results.component.scss-shared.scss';
-@import './app/component/results/single-result.scss-shared.scss';
-@import './app/component/results/single-result.scss-theme-shared.scss';
+@import './app/component/single/single-result.scss-shared.scss';
+@import './app/component/single/single-result.scss-theme-shared.scss';
 @import './app/component/results/pagination/pagination.component.scss-theme.scss';
 @import './app/component/results/sort/sort.component.scss-theme.scss';
 @import './app/component/results/active-filters/active-filters.component.scss-theme.scss';
 @import './app/component/breadcrumb/breadcrumb.component.scss-theme.scss';
 @import './app/component/results/filters/filters-shared.scss';
 @import './app/component/results/filters/filters.theme-shared.scss';
-@import './app/component/single-publication/single-publication.component.scss-theme.scss';
-@import './app/component/single-funding/single-funding.component.scss-theme.scss';
+@import './app/component/single/single-publication/single-publication.component.scss-theme.scss';
+@import './app/component/single/single-funding/single-funding.component.scss-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
