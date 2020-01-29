@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Injectable  } from '@angular/core';
+import { SearchService } from './search.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,14 @@ export class SortService {
   yearField: string;
   sortColumn: string;
   sortDirection: boolean;
+  searchTerm = '';
 
   constructor() { }
+
+  // If term is available, default sort changes
+  getTerm(term) {
+    this.searchTerm = term;
+  }
 
   // Get sort method
   updateSort(sortBy: string) {
@@ -74,7 +81,11 @@ export class SortService {
             break;
           }
           default: {
-            this.sort = [];
+            this.sort = [
+              {publicationYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
+              ...(this.searchTerm.length > 0 ?
+                [{'publicationName.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [])
+            ];
             break;
           }
         }
@@ -104,7 +115,6 @@ export class SortService {
       }
       case 'fundings': {
         this.yearField = 'fundingStartYear';
-
         switch (this.sortColumn) {
           case 'name': {
             this.sort = [{'projectNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
@@ -123,7 +133,11 @@ export class SortService {
             break;
           }
           default: {
-            this.sort = [];
+            this.sort = [
+              {fundingStartYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
+              ...(this.searchTerm.length > 0 ?
+                [{'projectNameFi.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [])
+            ];
             break;
           }
         }

@@ -116,6 +116,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         const tabChanged = this.tab !== params.tab;
 
         this.searchTerm = params.input || '';
+        // Send search term to sort service
+        this.sortService.getTerm(this.searchTerm);
 
         // If there's a new search term, send it to search service
         if (this.searchTerm !== this.searchService.singleInput) {
