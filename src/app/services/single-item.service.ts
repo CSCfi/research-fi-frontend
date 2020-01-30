@@ -63,6 +63,6 @@ export class SingleItemService {
     field.map(x => (x[subField].trim() === '') && delete x[subField] );
     // Remove empty objects
     const checkedArr = field.filter(value => Object.keys(value).length !== 0);
-    return checkedArr.length > 1 ? checkedArr.map(x => x[subField].trim()).join(', ') : checkedArr[0][subField];
+    return checkedArr.length > 1 ? checkedArr.map(x => x[subField]).trim().join(', ') : checkedArr[0][subField];
   }
 }
