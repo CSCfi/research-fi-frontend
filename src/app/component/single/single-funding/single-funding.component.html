@@ -36,25 +36,28 @@
                     <!-- Funded -->
                     <div class="content" *ngIf="fundedFields.length > 0">
                         <p class="header trHeader">Saaja</p>
-                        <!-- <div class="row " *ngFor="let row of fundedFields">
-                            <div class="col-6 col-lg-3 td" *ngIf="row.field !== 'amount_in_EUR'">{{item._source[row.field]}}</div>
-                            <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount_in_EUR'">{{row.label}}</div>
-                            <div class="col-6 col-lg-3 td" *ngIf="row.field === 'amount_in_EUR'">
-                                <p>{{shapeAmount(item._source.amount_in_EUR)}} €</p>
-                            </div>
-                        </div> -->
-                        <div class="row" >
-                            <div class="col-6 col-lg-3 td" *ngFor="let funded of fundedFields2[0]">
-                                {{item._source[funded.field]}}
-                            </div>
-                        </div>
-                        <div class="row" *ngFor="let org of item._source.fundedOrgs">
-                            <div class="col-6 col-lg-3 td" *ngFor="let fundedOrg of fundedFields2[1]">
-                                {{org[fundedOrg.field]}}
+                        <!-- Person -->
+                        <div class="row d-flex justify-content-between" *ngIf="item._source.fundingContactPersonAffiliation">
+                            <div class="col-6 col-lg-3" *ngFor="let funded of fundedFields2[0]; let i = index" [ngClass]="i > 0 ? 'td' : 'th'">
+                                <span *ngIf="funded.field === 'fundingContactPersonLastName'">
+                                    {{item._source[funded.field]}}
+                                    <a *ngIf="item._source.fundingContactPersonOrcid" href="https://orcid.org/{{item._source.fundingContactPersonOrcid}}" target="_blank">
+                                        <img class="orcid-icon" src="../assets/orcid_icon.svg">
+                                    </a>
+                                </span>
+                                <span *ngIf="funded.field !== 'fundingContactPersonLastName'">{{item._source[funded.field]}}</span>
                             </div>
                         </div>
+                        <!-- Org -->
+                        <ng-container *ngIf="!item._source.fundingContactPersonAffiliation">
+                            <div class="row" *ngFor="let org of item._source.fundingGroupPerson; let i = index">
+                                <div class="col-6 col-lg-3" [ngClass]="i > 0 ? 'td' : 'th'" *ngFor="let fundedOrg of fundedFields2[1]">
+                                    {{org[fundedOrg.field]}}
+                                </div>
+                            </div>
+                        </ng-container>
                         <div class="row" >
-                            <div class="col-6 col-lg-3 td" *ngFor="let amount of fundedFields2[2]">
+                            <div class="col-6 col-lg-3" *ngFor="let amount of fundedFields2[2]; let i = index" [ngClass]="i > 0 ? 'td' : 'th'">
                                 {{amount.label}}{{item._source[amount.field]}}
                             </div>
                         </div>
