@@ -47,6 +47,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   fundedFields2 = [
     [
       {field: 'fundingContactPersonLastName'},
+      {field: ''},
       {field: 'fundingContactPersonAffiliation'}
     ],
     [
@@ -156,18 +157,18 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     }
 
     if (source.fundingGroupPerson) {
-      // Funded amount
-      source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
-      // Get Finnish Academy consortium role, found by macthing project number
       const academyConsortium = fundingGroupPerson.filter(x => x.consortiumProject === source.funderProjectNumber);
+      const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
+      // Get Finnish Academy consortium role, found by macthing project number
       source.academyConsortium = academyConsortium[0].roleInFundingGroup;
       // Get other consortium parties, all entires that mismatch project number
-      const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
       source.otherConsortium = otherConsortium.length > 1 ?
       otherConsortium.map(x => x.consortiumProject).join(', ') : otherConsortium[0].consortiumProject;
       // Set funded data by funderProjectNumber
       source.fundingGroupPerson = academyConsortium;
       source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
+      // Funded amount
+      source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
     }
 
     switch (scheme) {

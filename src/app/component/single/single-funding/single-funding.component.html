@@ -37,7 +37,7 @@
                     <div class="content" *ngIf="fundedFields.length > 0">
                         <p class="header trHeader">Saaja</p>
                         <!-- Person -->
-                        <div class="row d-flex justify-content-between" *ngIf="item._source.fundingContactPersonAffiliation">
+                        <div class="row" *ngIf="item._source.fundingContactPersonAffiliation">
                             <div class="col-6 col-lg-3" *ngFor="let funded of fundedFields2[0]; let i = index" [ngClass]="i > 0 ? 'td' : 'th'">
                                 <span *ngIf="funded.field === 'fundingContactPersonLastName'">
                                     {{item._source[funded.field]}}
