@@ -31,8 +31,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Lyhenne', field: 'projectAcronym'},
     {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
     {label: 'Aloitusvuosi', field: 'fundingStartYear'},
-    {label: 'Suomen Akatemian konsortio', field: 'fundingGroupPerson'},
-    {label: 'Konsortion muut osapuolet', field: 'consortiumParties'},
+    {label: 'Suomen Akatemian konsortio', field: 'academyConsortium'},
+    {label: 'Konsortion muut osapuolet', field: 'otherConsortium'},
   ];
 
   fundedFields = [
@@ -45,9 +45,19 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   // TEST PURPOSES
   fundedFields2 = [
-    [{field: 'fundingContactPersonLastName'}, {field: 'fundingContactPersonTitle'}],
-    [{field: 'orgName'}, {field: 'role'}, {field: 'amount'}, {field: 'contact'}],
-    [{label: 'Myönnetty summa'}, {field: 'amount_in_EUR'}]
+    [
+      {field: 'fundingContactPersonLastName'},
+      {field: 'fundingContactPersonAffiliation'}
+    ],
+    [
+      {field: 'consortiumOrganizationNameFi'},
+      {field: 'shareOfFundingInEur'},
+      {field: 'contact'}
+    ],
+    [
+      {label: 'Myönnetty summa'},
+      {field: 'amount_in_EUR'}
+    ]
 
   ];
 
@@ -68,94 +78,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   linkFields = [
     {label: 'Linkit', field: 'projectHomepage'}
   ];
-
-  // TEST PURPOSES
-  testData = [{
-    took: 79,
-    timed_out: false,
-    _shards: {
-      total: 5,
-      successful: 5,
-      skipped: 0,
-      failed: 0
-    },
-    hits: {
-      total: 1,
-      max_score: 1.0,
-      hits: [
-        {
-          _index: 'funding',
-          _type: 'document',
-          _id: '672732',
-          _score: 1.0,
-          _source: {
-            amount_in_EUR: 50000,
-            funderOrganizationId: ' ',
-            funderLocalOrganizationUnitId: ' ',
-            funderOrganizationType: ' ',
-            funderBusinessId: ' ',
-            funderNameFi: 'Rahoitusyhtiö Korkokatto',
-            funderNameSv: ' ',
-            funderNameEn: ' ',
-            funderHomepage: ' ',
-            projectId: 16786,
-            projectAcronym: 'IRIS-1',
-            projectNameFi: 'IRIS Feasibility Study – Phase 1',
-            projectDescriptionFi: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-            projectHomepage: 'http://rinicare.com/randd/rinicare/rinicare-stability/',
-            funderSectorId: ' ',
-            funderSectorNameFi: ' ',
-            funderSectorNameEn: ' ',
-            funderSectorNameSv: ' ',
-            typeOfFundingId: 'SME-1',
-            typeOfFundingNameFi: 'SME instrument phase 1',
-            callProgrammeNameUnd: ' ',
-            callProgrammeNameFi: 'Hakuohjelma 2020',
-            callProgrammeNameSv: ' ',
-            callProgrammeNameEn: ' ',
-            callProgrammeHomepage: ' ',
-            callDueDate: ' ',
-            callDate: ' ',
-            fundingApprovalDate: '2015-05-01',
-            fundingStartYear: 2015,
-            fundingEndDate: '2015-10-31',
-            fundingContactPersonLastName: 'Sukunimi',
-            fundingContactPersonFirstNames: 'Etunimi',
-            fundingContactPersonOrcid: '012345',
-            fundingContactPersonJobRole: ' ',
-            fundingContactPersonTitle: 'Tutkija',
-            fundingContactPersonNationality: ' ',
-            fundingContactPersonGender: ' ',
-            countryId: ' ',
-            regionId: ' ',
-            municipalityId: ' ',
-            countryFi: ' ',
-            countryEn: ' ',
-            countrySv: ' ',
-            regionFi: ' ',
-            regionSv: ' ',
-            municipalityFi: ' ',
-            municipalitySv: ' ',
-            academyConsortium: 'Suomen akatemian konsortion nimi',
-            consortiumParties: [
-              {party: ''},
-              {party: 'Osapuoli 2'},
-            ],
-            funded: [
-              {fundedName: 'Saaja Henkilö'},
-              {org: ''}
-            ],
-            fundedAffiliation: 'Testiaffiliaatio',
-            fundedNameFi: 'Organisaatio',
-            fundedOrgs: [
-              {orgName: 'Visma', role: 'Tutkija', amount: '45000', contact: 'Joku Nimi'},
-              {orgName: 'VR', role: 'Junakuski', amount: '15000', contact: 'Marko Messevä'},
-            ]
-          }
-        }
-      ]
-    }
-  }];
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
@@ -193,8 +115,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      // TEST PURPOSES
-      // this.responseData = this.testData;
       if (this.responseData[0].hits.hits[0]) {
         this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
@@ -226,21 +146,29 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     const keywords = source.keywords || [];
     const scheme = keywords.map(x => x.scheme).join('');
     const field = keywords.map(x => x.keyword).join('');
-    const consortiumParties = source.fundingGroupPerson || [];
+    const fundingGroupPerson = source.fundingGroupPerson || [];
 
     source.fundingContactPersonLastName = source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName;
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
 
     if (source.amount_in_EUR) {
-      source.amount_in_EUR = source.amount_in_EUR.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€';
+      source.amount_in_EUR = this.shapeAmount(source.amount_in_EUR);
     }
 
-    if (source.fundedOrgs) {
-      source.fundedOrgs.map(x => x.amount = x.amount + '€');
+    if (source.fundingGroupPerson) {
+      // Funded amount
+      source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
+      // Get Finnish Academy consortium role, found by macthing project number
+      const academyConsortium = fundingGroupPerson.filter(x => x.consortiumProject === source.funderProjectNumber);
+      source.academyConsortium = academyConsortium[0].roleInFundingGroup;
+      // Get other consortium parties, all entires that mismatch project number
+      const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
+      source.otherConsortium = otherConsortium.length > 1 ?
+      otherConsortium.map(x => x.consortiumProject).join(', ') : otherConsortium[0].consortiumProject;
+      // Set funded data by funderProjectNumber
+      source.fundingGroupPerson = academyConsortium;
+      source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
     }
-
-    source.fundingGroupPerson = consortiumParties && consortiumParties.length > 0 ?
-    this.singleService.joinEntries(consortiumParties, 'consortiumOrganizationNameFi') : source.consortiumParties;
 
     switch (scheme) {
       case 'Tieteenala':
@@ -256,7 +184,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   }
 
   shapeAmount(val) {
-    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
   }
 
   expandDescription() {
