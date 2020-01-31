@@ -86,6 +86,7 @@ import { InfrastructuresComponent } from './component/results/infrastructures/in
 import { FilterInfrastructuresComponent } from './component/results/filters/filter-infrastructures/filter-infrastructures.component';
 import { ShareComponent } from './component/single/share/share.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
+import { OrcidComponent } from './component/single/orcid/orcid.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { SingleInfrastructureComponent } from './component/single/single-infrast
     InfrastructuresComponent,
     FilterInfrastructuresComponent,
     ShareComponent,
-    SingleInfrastructureComponent
+    SingleInfrastructureComponent,
+    OrcidComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
