@@ -108,6 +108,14 @@ exactField: any;
                     ]
                   }
                 },
+                {
+                  bool: {
+                    must: [
+                      { term: { _index: 'infrastructure' }	},
+                      [this.querySettings('infrastructure', term)]
+                    ]
+                  }
+                },
                 { bool: {
                   must: [{ term: { _index: 'person' }},
                   { bool: { should: [{ multi_match: {
@@ -147,6 +155,11 @@ exactField: any;
                 funding: {
                   match: {
                     _index: 'funding'
+                  }
+                },
+                infrastructure: {
+                  match: {
+                    _index: 'infrastructure'
                   }
                 },
                 organization: {
