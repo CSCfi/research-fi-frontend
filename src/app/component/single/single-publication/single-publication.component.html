@@ -35,9 +35,7 @@
                                 <div *ngIf="author.author.length > 10">
                                     <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
                                         {{author.author}}
-                                        <a *ngIf="author.orcid" href="https://orcid.org/{{author.orcid}}" target="_blank">
-                                            <img class="orcid-icon" src="../assets/orcid_icon.svg">
-                                        </a>
+                                        <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
                                     </p>
                                     <div class="row" *ngIf="showSubUnits">
                                         <div class="col-1 guide" *ngIf="author.subUnit !== ' '">

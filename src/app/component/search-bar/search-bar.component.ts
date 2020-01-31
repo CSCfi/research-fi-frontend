@@ -44,6 +44,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     {index: 'publication', field: 'publicationName', link: 'publicationId'},
     {index: 'person', field: 'lastName'},
     {index: 'funding', field: 'projectNameFi', link: 'projectId'},
+    {index: 'infrastructure', field: 'name', link: 'urn'},
     {index: 'organization', field: 'nameFi', link: 'organizationId'}
   ];
 
@@ -51,6 +52,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     publication: 'julkaisut',
     person: 'tutkijat',
     funding: 'rahoitetut hankkeet',
+    infrastructure: 'infrastruktuurit',
     organization: 'tutkimusorganisaatiot'
   };
 
@@ -109,7 +111,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           // Show hits for top 2 indices with most results
           this.topData = arr.slice(0, 2);
           // Todo: Change value to 5 when all indices are added
-          this.otherData = arr.slice(2);
+          this.otherData = arr.slice(3);
           // Completion
           this.getCompletion();
         });
