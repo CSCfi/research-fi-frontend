@@ -2,24 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { throwError, Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
-  private errorSource = new Subject<HttpErrorResponse>();
-  currentError = this.errorSource.asObservable();
 
   handleError(error: HttpErrorResponse) {
-    // console.log(error);
-    console.log(this.errorSource);
+    this.dataService.updateError(error);
     return throwError(error);
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(catchError(this.handleError));
+    return next.handle(req).pipe(catchError(this.handleError.bind(this)));
   }
 }
