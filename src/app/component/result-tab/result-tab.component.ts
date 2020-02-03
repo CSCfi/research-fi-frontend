@@ -132,6 +132,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.scrollWidth = this.scroll.nativeElement.scrollWidth;
           this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+          this.scrollEvent(null);
           this.scroll.nativeElement.addEventListener('scroll', this.scrollEvent, {capture: true, passive: true});
         }, 1);
       });
