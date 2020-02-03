@@ -32,7 +32,7 @@ export class ErrorModalComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  closeModal(template: TemplateRef<any>) {
+  closeModal() {
     this.modalRef.hide();
   }
 
