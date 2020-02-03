@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { Subscription, Observable, throwError } from 'rxjs';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from 'src/app/services/data.service';
 import { UtilityService } from 'src/app/services/utility.service';
 
