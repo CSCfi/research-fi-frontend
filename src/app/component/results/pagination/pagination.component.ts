@@ -5,9 +5,12 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { SearchService } from '../../../services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ResizeService } from 'src/app/services/resize.service';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-pagination',
@@ -22,27 +25,35 @@ export class PaginationComponent implements OnInit {
   @Input() responseData: any [];
   @Input() tab: string;
   total: any;
+  totalSub: Subscription;
+  resizeSub: Subscription;
+  desktop = this.window.innerWidth >= 1200;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router) { }
+  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
+               private resizeService: ResizeService, @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
 
     // Reset pagination
     this.page = this.searchService.pageNumber;
 
-    this.pages = this.generatePages(this.page);
+    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
 
     // Get total value of results and send to search service
-    this.searchService.currentTotal.subscribe(total => this.total = total);
+    this.totalSub = this.searchService.currentTotal.subscribe(total => this.total = total);
+
+    // Get updates for window resize
+    this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
   }
 
   generatePages(currentPage: number, length: number = 5) {
     // Get the highest page number for the query
     this.maxPage = this.getHighestPage(this.responseData[0].hits.total);
     // Init array to correct length, make it odd and squish if not enough pages
+    // Number of pages should be odd to make centering current page easy
     // tslint:disable-next-line: curly
     if (!(length % 2)) length++;
     length = Math.min(length, this.maxPage);
@@ -76,6 +87,17 @@ export class PaginationComponent implements OnInit {
     this.fromPage = (this.page - 1) * 10;
     this.searchService.updatePageNumber(this.page);
     this.navigate();
+  }
+
+  onResize(size) {
+    const w = size.width;
+    // Change if swap to or from desktop
+    const changePages = (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
+    this.desktop = w >= 1200;
+    // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
+    if (changePages) {
+      this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
+    }
   }
 
 
