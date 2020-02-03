@@ -8,8 +8,8 @@ export class DataService {
   private responseSource = new BehaviorSubject('');
   currentResponse = this.responseSource.asObservable();
 
-  private totalReultsSource = new BehaviorSubject<number | string>(0);
-  currentTotal = this.totalReultsSource.asObservable();
+  private totalResultsSource = new BehaviorSubject<number | string>(0);
+  currentTotal = this.totalResultsSource.asObservable();
 
   totalResults: number | string = 0;
 
@@ -20,7 +20,7 @@ export class DataService {
   }
 
   updateTotalResultsValue(amount: number | string) {
-    this.totalReultsSource.next(amount);
+    this.totalResultsSource.next(amount);
     this.totalResults = amount;
   }
 }

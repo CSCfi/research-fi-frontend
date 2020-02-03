@@ -231,7 +231,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
+      if (this.scroll) {
+        this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
+      }
       this.tabSub.unsubscribe();
       this.queryParamSub.unsubscribe();
       this.resizeSub.unsubscribe();

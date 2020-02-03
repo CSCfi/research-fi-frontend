@@ -12,9 +12,10 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { MatSelectModule } from '@angular/material/select';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
