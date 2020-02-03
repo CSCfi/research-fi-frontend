@@ -48,6 +48,9 @@ button.pagination-link-active {
     }
     .current-page {
         background: inherit;
+        font-weight: bold;
+        text-decoration: underline;
+        color: inherit;
     }
 }
     
