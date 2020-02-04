@@ -29,10 +29,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     noAccessInfo: 'Ei tietoa',
     openAccess: 'Avoin saatavuus',
     nonOpen: 'Ei avoin',
-    3: 'Korkein taso',
-    2: 'Johtava taso',
-    1: 'Perustaso',
-    0: 'Muut',
     noVal: 'Ei arviota',
     over100k: 'Rahoitus yli 100 000€',
     under100k: 'Rahoitus alle 100 000€'
@@ -110,12 +106,43 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 });
               }
             }
-
+            // Country code
+            if (val.category === 'countryCode' && source.countryCode) {
+              switch (val.value) {
+                case 'c0': {
+                  val.translation = 'Julkaisumaa: Suomi';
+                  break;
+                }
+                case 'c1': {
+                  val.translation = 'Julkaisumaa: Muut';
+                  break;
+                }
+              }
+            }
+            // JuFo code
+            if (val.category === 'juFo' && source.juFo) {
+              switch (val.value) {
+                case 'j3': {
+                  val.translation = 'Korkein taso';
+                  break;
+                }
+                case 'j2': {
+                  val.translation = 'Johtava taso';
+                  break;
+                }
+                case 'j1': {
+                  val.translation = 'Perustaso';
+                  break;
+                }
+                case 'j0': {
+                  val.translation = 'JuFo: Muut';
+                  break;
+                }
+              }
+            }
           });
         }
-
       });
-
 
       // Sort active filters by numerical value
       this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
