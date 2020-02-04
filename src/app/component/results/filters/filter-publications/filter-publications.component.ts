@@ -73,7 +73,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
                @Inject(WINDOW) private window: Window, private modalService: BsModalService, private utilityService: UtilityService) {
-                  this.height = 240;
+                  this.height = 250;
                   this.clickCount = 0;
                   // Set year filter to expanded as default
                   this.parentPanel = !this.parentPanel ? 'year' : undefined;
