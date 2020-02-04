@@ -149,8 +149,9 @@
                     </mat-expansion-panel-header>
                     <mat-selection-list #selectedCountryCode (selectionChange)="onSelectionChange(); parentPanel = 'country'" [class.limit]="limitList" [style.max-height.px]="height">
                         <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.countryCode.buckets"
-                        [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
-                            <span class="label">{{code.key}}</span>
+                        [value]="'c' + code.key" [selected]="preSelection.indexOf(''+ 'c' + code.key) > -1">
+                            <span *ngIf="code.key === 0" class="label">Suomi</span>
+                            <span *ngIf="code.key === 1" class="label">Muu</span>
                         </mat-list-option>
                     </mat-selection-list>
                     <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations.countryCode.buckets.length / 5" 
@@ -183,16 +184,16 @@
                     </mat-expansion-panel-header>
                     <mat-selection-list #selectedJuFo (selectionChange)="onSelectionChange(); parentPanel = 'juFo'">
                         <div *ngFor="let code of response.aggregations.juFo.buckets">
-                            <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'3'" [selected]="preSelection.indexOf('' + 3) > -1">
+                            <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'j3'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <span class="label">{{code.key}} - Korkein taso</span>
                             </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'2'" [selected]="preSelection.indexOf('' + 2) > -1">
+                            <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'j2'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <span class="label">{{code.key}} - Johtava taso</span>
                             </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'1'" [selected]="preSelection.indexOf('' + 1) > -1">
+                            <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'j1'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <span class="label">{{code.key}} - Perustaso</span>
                             </mat-list-option>
-                            <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'0'" [selected]="preSelection.indexOf('' + 0) > -1">
+                            <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'j0'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <span class="label">{{code.key}} - Muut</span>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === ' '" checkboxPosition="before" [value]="'noVal'" [selected]="preSelection.indexOf(''+'noVal') > -1">
