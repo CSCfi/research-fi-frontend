@@ -97,9 +97,10 @@ export class FilterService {
   }
 
   filterByCountryCode(code: any[]) {
+    console.log(code)
     const codeFilters = [];
     code.forEach(value => {
-      codeFilters.push({ term : { 'publicationCountryCode.keyword' : value } });
+      codeFilters.push({ term : { internationalPublication : (value === 'c1' ? true : false) } });
     });
     return codeFilters;
   }
@@ -112,10 +113,10 @@ export class FilterService {
 
   filterByJuFoCode(code: string) {
     const res = [];
-    if (code.includes('3')) {res.push({ term : { 'jufoClassCode.keyword' : 3 } }); }
-    if (code.includes('2')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
-    if (code.includes('1')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
-    if (code.includes('0')) {res.push({ term : { 'jufoClassCode.keyword' : 0 } }); }
+    if (code.includes('j3')) {res.push({ term : { 'jufoClassCode.keyword' : 3 } }); }
+    if (code.includes('j2')) {res.push({ term : { 'jufoClassCode.keyword' : 2 } }); }
+    if (code.includes('j1')) {res.push({ term : { 'jufoClassCode.keyword' : 1 } }); }
+    if (code.includes('j0')) {res.push({ term : { 'jufoClassCode.keyword' : 0 } }); }
     if (code.includes('noVal')) {res.push({ term : { 'jufoClassCode.keyword' : ' ' } }); }
     return res;
   }
@@ -332,7 +333,8 @@ export class FilterService {
         };
         payLoad.aggs.countryCode = {
           terms: {
-            field: 'publicationCountryCode.keyword'
+            field: 'internationalPublication',
+            order: { _key : 'asc' }
           }
         };
         payLoad.aggs.languageCode = {
