@@ -97,7 +97,6 @@ export class FilterService {
   }
 
   filterByCountryCode(code: any[]) {
-    console.log(code)
     const codeFilters = [];
     code.forEach(value => {
       codeFilters.push({ term : { internationalPublication : (value === 'c1' ? true : false) } });
