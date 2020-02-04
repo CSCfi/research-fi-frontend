@@ -47,6 +47,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   }
 
   ngAfterContentInit() {
+    this.translate();
+  }
+
+  translate() {
     this.queryParams = this.filterService.filters.subscribe(filter => {
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
