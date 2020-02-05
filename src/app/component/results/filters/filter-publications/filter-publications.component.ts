@@ -73,7 +73,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
                @Inject(WINDOW) private window: Window, private modalService: BsModalService, private utilityService: UtilityService) {
-                  this.height = 250;
+                  this.height = 220;
                   this.clickCount = 0;
                   // Set year filter to expanded as default
                   this.parentPanel = !this.parentPanel ? 'year' : undefined;
@@ -96,7 +96,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   resetHeight() {
-    this.height = 240;
+    this.height = 220;
     this.clickCount = 0;
   }
 
@@ -105,7 +105,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     total = total - 5 * this.clickCount;
     if (total < 5) {
       this.height = this.height + total * 48;
-    } else {this.height = this.height + 240; }
+    } else {this.height = this.height + 220; }
   }
 
   onResize(event) {
