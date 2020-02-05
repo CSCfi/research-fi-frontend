@@ -42,7 +42,7 @@
                         [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
                         <div class="row d-flex justify-content-around">
                             <div class="col-9"><span class="label">{{year.key}}</span></div>
-                            <div class="col-3"><span class="amount" [innerHtml]="(year.doc_count | thousandSeparator)"></span></div>
+                            <div class="col-3 count"><span class="amount" [innerHtml]="(year.doc_count | thousandSeparator)"></span></div>
                         </div>
                         </mat-list-option>
                     </mat-selection-list>
@@ -72,7 +72,7 @@
                                     [value]="organization.orgId.buckets[0].key" [selected]="preSelection.indexOf(organization.orgId.buckets[0].key) > -1">
                                         <div class="row d-flex justify-content-around">
                                             <div class="col-9"><span class="label">{{organization.key.trim()}}</span></div>
-                                            <div class="col-3"><span class="amount" [innerHtml]="(organization.doc_count | thousandSeparator)"></span></div>
+                                            <div class="col-3 count"><span class="amount" [innerHtml]="(organization.doc_count | thousandSeparator)"></span></div>
                                         </div>
                                     </mat-list-option>
                                 </mat-selection-list>
@@ -106,7 +106,7 @@
                                     [value]="field.field" [selected]="preSelection.indexOf(field.field) > -1">
                                         <div class="row d-flex justify-content-around">
                                             <div class="col-9"><span class="label">{{field.field}}</span></div>
-                                            <div class="col-3"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
+                                            <div class="col-3 count"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
                                         </div>
                                     </mat-list-option>
                                 </mat-selection-list>
@@ -140,7 +140,7 @@
                                                 [value]="type.type" [selected]="preSelection.indexOf(type.type) > -1">
                                                     <div class="row d-flex justify-content-around">
                                                         <div class="col-9"><span class="label">{{type.type}}, {{type.label}}</span></div>
-                                                        <div class="col-3"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
+                                                        <div class="col-3 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
                                                     </div>
                                                 </mat-list-option>
                                             </div>
@@ -165,7 +165,7 @@
                                 <div class="col-9">
                                     <span [innerHtml]="code.key === 0 ? 'Suomi' : 'Muu'" class="label"></span>
                                 </div>
-                                <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                <div class="col-3 count"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
                             </div>
                         </mat-list-option>
                     </mat-selection-list>
@@ -185,7 +185,7 @@
                             [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{code.language.buckets[0].key}}</span></div>
-                                    <div class="col-3"><span class="amount" [innerHtml]="(code.language.buckets[0].doc_count | thousandSeparator)"></span></div>
+                                    <div class="col-3 count"><span class="amount" [innerHtml]="(code.language.buckets[0].doc_count | thousandSeparator)"></span></div>
                                 </div>
                             </mat-list-option>
                         </div>
@@ -205,31 +205,31 @@
                             <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'j3'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{code.key}} - Korkein taso</span></div>
-                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                    <div class="col-3 count"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
                                 </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'j2'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{code.key}} - Johtava taso</span></div>
-                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                    <div class="col-3 count"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
                                 </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'j1'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{code.key}} - Perustaso</span></div>
-                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                    <div class="col-3 count"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
                                 </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'j0'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{code.key}} - Muut</span></div>
-                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                    <div class="col-3 count"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
                                 </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === ' '" checkboxPosition="before" [value]="'noVal'" [selected]="preSelection.indexOf(''+'noVal') > -1">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">Ei arviota</span></div>
-                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                    <div class="col-3 count"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
                                 </div>
                             </mat-list-option>
                         </div>
@@ -247,16 +247,24 @@
                         [value]="code.value" [selected]="preSelection.indexOf(''+code.value) > -1">
                             <div class="row d-flex justify-content-around">
                                 <div class="col-9"><span class="label">{{code.label}}</span></div>
-                                <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                <div class="col-3 count"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
                             </div>
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>
-
             </mat-accordion>
 
             <div class="single-checkbox" *ngIf="response.aggregations.internationalCollaboration?.length > 0 ">
-                <mat-checkbox labelPosition="before" [checked]="internationalCollab" (change)="singleSelect($event)">Kansainvälinen yhteisjulkaisu <span class="amount">({{response.aggregations.internationalCollaboration[0]?.doc_count}})</span></mat-checkbox>
+                <div class="row single">
+                    <div class="col col-10">
+                        <mat-checkbox labelPosition="after" [checked]="internationalCollab" (change)="singleSelect($event)">
+                            <span class="label">Kansainvälinen yhteisjulkaisu</span>
+                        </mat-checkbox>
+                    </div>
+                    <div class="col col-1">
+                        <span class="amount">{{response.aggregations.internationalCollaboration[0]?.doc_count}}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
