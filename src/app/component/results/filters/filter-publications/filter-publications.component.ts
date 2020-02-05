@@ -165,12 +165,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     this.onSelectionChange();
   }
 
-  // Single checkbox
-  singleSelect(event) {
-    if (event.checked) {this.internationalCollab = true; } else {this.internationalCollab = null; }
-    this.onSelectionChange();
-  }
-
   onSelectionChange() {
     this.getSelected();
     this.router.navigate([],
@@ -246,6 +240,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
     this.separatePublicationClass();
     this.openAccess();
+    this.getSingleAmount();
     this.cdr.detectChanges();
   }
 
@@ -307,6 +302,22 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
       // Check for matching access codes for no info
       if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {this.openAccessCodes.push(
         {key: 0, doc_count: count, label: 'Ei tietoa', value: 'noAccessInfo'}); }
+    }
+  }
+
+  // Single checkbox
+  singleSelect(event) {
+    if (event.checked) {this.internationalCollab = true; } else {this.internationalCollab = null; }
+    this.onSelectionChange();
+  }
+
+  // Get doc count for international collaboration
+  getSingleAmount() {
+    const source = this.responseData[0] && (this.responseData[0].aggregations.internationalCollaboration) ?
+    this.responseData[0].aggregations.internationalCollaboration.buckets : [];
+
+    if (source.length > 0) {
+      this.responseData[0].aggregations.internationalCollaboration = source.filter(x => x.key === 1);
     }
   }
 
