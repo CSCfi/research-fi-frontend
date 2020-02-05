@@ -281,17 +281,32 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   // Open access
   openAccess() {
     const combined = [];
+    let count = 0;
     // Get aggregation from response
     const source = this.responseData[0] && (this.responseData[0].aggregations.openAccess) ?
     this.responseData[0].aggregations.openAccess.buckets : [];
     if (source && source.length > 0) {
-      source.forEach(val => combined.push(val.key));
       this.openAccessCodes = [];
-      // Check for matching access codes. -1 & 9 are fallbacks from old data
-      if (combined.includes(1)) {this.openAccessCodes.push({key: 1, label: 'Avoin', value: 'openAccess'}); }
-      if (combined.includes(2)) {this.openAccessCodes.push({key: 2, label: 'Ei avoin', value: 'nonOpen'}); }
+      source.forEach(val => {
+        // Sum up doc counts of no access info, -1 & 9 are fallbacks from old data
+        if (val.key === -1 || val.key === 0 || val.key === 9) {
+          count = count + val.doc_count;
+        }
+        switch (val.key) {
+          case 1: {
+            this.openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Avoin', value: 'openAccess'});
+            break;
+          }
+          case 2: {
+            this.openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Ei avoin', value: 'nonOpen'});
+            break;
+          }
+        }
+        combined.push(val.key);
+      });
+      // Check for matching access codes for no info
       if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {this.openAccessCodes.push(
-        {key: 0, label: 'Ei tietoa', value: 'noAccessInfo'}); }
+        {key: 0, doc_count: count, label: 'Ei tietoa', value: 'noAccessInfo'}); }
     }
   }
 
