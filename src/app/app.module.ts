@@ -87,6 +87,7 @@ import { FilterInfrastructuresComponent } from './component/results/filters/filt
 import { ShareComponent } from './component/single/share/share.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './component/single/orcid/orcid.component';
+import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { OrcidComponent } from './component/single/orcid/orcid.component';
     FilterInfrastructuresComponent,
     ShareComponent,
     SingleInfrastructureComponent,
-    OrcidComponent
+    OrcidComponent,
+    ThousandSeparatorPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
