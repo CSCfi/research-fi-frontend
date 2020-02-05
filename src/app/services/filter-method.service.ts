@@ -34,7 +34,10 @@ export class FilterMethodService {
     this.combined = [];
     // Map fields by field & nested id
     if (source && source.length > 0) {
-      mapped = source.map(majorField => ({ field: majorField.key, id: majorField.fieldId.buckets[0].key }));
+      mapped = source.map(majorField => ({
+        field: majorField.key,
+        id: majorField.fieldId.buckets[0].key,
+        doc_count: majorField.fieldId.buckets[0].doc_count }));
     }
     // Loop through major fields & push all instances as separate arrays
     for (let i = 1; i < this.staticDataService.majorFieldsOfScience.length; i++) {

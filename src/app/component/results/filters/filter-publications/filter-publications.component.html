@@ -40,15 +40,17 @@
                     <mat-selection-list #selectedYear (selectionChange)="onSelectionChange(); parentPanel = 'year'" [class.limit]="limitList" [style.max-height.px]="height">
                         <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.years.buckets" 
                         [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
-                            <span class="label">{{year.key}}</span>
-                            <!-- <span class="amount">{{year.doc_count}}</span> -->
+                        <div class="row d-flex justify-content-around">
+                            <div class="col-9"><span class="label">{{year.key}}</span></div>
+                            <div class="col-3"><span class="amount" [innerHtml]="(year.doc_count | thousandSeparator)"></span></div>
+                        </div>
                         </mat-list-option>
                     </mat-selection-list>
                     <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations.years.buckets.length / 5" 
                     (click)="showMore(response.aggregations.years.buckets.length)">Näytä lisää...</button>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel (closed)="panelOpenState = -1" [expanded]="parentPanel === 'organization'">
+                <mat-expansion-panel (closed)="panelOpenState = -1" [expanded]="parentPanel === 'organization'" *ngIf="response.aggregations.sector?.sectorName?.buckets.length > 0">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
                             <strong>Organisaatio</strong>
@@ -60,7 +62,7 @@
                             (opened)="panelOpenState = i; parentPanel = 'organization'" [expanded]="panelOpenState === i && parentPanel === 'organization' ? true : false">
                                 <mat-expansion-panel-header expandedHeight="auto" collapsedHeight="auto">
                                     <mat-panel-title>
-                                        <strong>{{sector.key}}</strong>
+                                        <span class="filter-title">{{sector.key}}</span>
                                         <mat-checkbox [checked]="sector.organizations.buckets.length === selectedOrganizations.selectedOptions.selected.length" (click)="$event.stopPropagation()" 
                                         (change)="panelOpenState = -1; parentPanel = 'organization'" (change)="selectAll($event, i, 'sector')" style="padding:0 10px;"></mat-checkbox>
                                     </mat-panel-title>
@@ -68,7 +70,10 @@
                                 <mat-selection-list #selectedOrganizations (selectionChange)="onSelectionChange()">
                                     <mat-list-option checkboxPosition="before" *ngFor="let organization of sector.organizations.buckets" 
                                     [value]="organization.orgId.buckets[0].key" [selected]="preSelection.indexOf(organization.orgId.buckets[0].key) > -1">
-                                        <span class="label">{{organization.key.trim()}}</span>
+                                        <div class="row d-flex justify-content-around">
+                                            <div class="col-9"><span class="label">{{organization.key.trim()}}</span></div>
+                                            <div class="col-3"><span class="amount" [innerHtml]="(organization.doc_count | thousandSeparator)"></span></div>
+                                        </div>
                                     </mat-list-option>
                                 </mat-selection-list>
                             </mat-expansion-panel>
@@ -88,7 +93,7 @@
                                 (opened)="panelOpenState = i; parentPanel = 'major'" [expanded]="panelOpenState === i && parentPanel === 'major' ? true : false">
                                 <mat-expansion-panel-header expandedHeight="auto" collapsedHeight="auto">
                                     <mat-panel-title>
-                                        <strong>{{major.label}}</strong>
+                                        <span class="filter-title">{{major.label}}</span>
                                         <mat-checkbox [checked]="major.checked" (change)="panelOpenState = -1; parentPanel = 'major'" (click)="$event.stopPropagation()" 
                                         (change)="selectAll($event, i, 'field')" style="padding:0 10px;"></mat-checkbox>
                                     </mat-panel-title>
@@ -99,7 +104,10 @@
                                 <mat-selection-list #selectedFields (selectionChange)="onSelectionChange()">
                                     <mat-list-option checkboxPosition="before" *ngFor="let field of combinedMajorFields[i]" 
                                     [value]="field.field" [selected]="preSelection.indexOf(field.field) > -1">
-                                        <span class="label">{{field.field}}</span>
+                                        <div class="row d-flex justify-content-around">
+                                            <div class="col-9"><span class="label">{{field.field}}</span></div>
+                                            <div class="col-3"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
+                                        </div>
                                     </mat-list-option>
                                 </mat-selection-list>
                             </mat-expansion-panel>
@@ -120,7 +128,7 @@
                                 (opened)="panelOpenState = i; parentPanel = 'type'" [expanded]="panelOpenState === i && parentPanel === 'type' ? true : false">
                                     <mat-expansion-panel-header expandedHeight="auto" collapsedHeight="auto">
                                         <mat-panel-title>
-                                            <strong>{{class.class}} {{class.label}}</strong>
+                                            <span class="filter-title">{{class.class}} {{class.label}}</span>
                                             <mat-checkbox [checked]="class.checked" (change)="panelOpenState = -1; parentPanel = 'type'" (click)="$event.stopPropagation()" 
                                             (change)="selectAll($event, i, 'type')" style="padding:0 10px;"></mat-checkbox>
                                         </mat-panel-title>
@@ -130,7 +138,10 @@
                                             <div *ngFor="let type of class.types">
                                                 <mat-list-option checkboxPosition="before" *ngIf="type.type === item.key"  
                                                 [value]="type.type" [selected]="preSelection.indexOf(type.type) > -1">
-                                                    <span class="label">{{type.type}}, {{type.label}}</span>
+                                                    <div class="row d-flex justify-content-around">
+                                                        <div class="col-9"><span class="label">{{type.type}}, {{type.label}}</span></div>
+                                                        <div class="col-3"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
+                                                    </div>
                                                 </mat-list-option>
                                             </div>
                                         </div>
@@ -150,8 +161,12 @@
                     <mat-selection-list #selectedCountryCode (selectionChange)="onSelectionChange(); parentPanel = 'country'" [class.limit]="limitList" [style.max-height.px]="height">
                         <mat-list-option checkboxPosition="before" *ngFor="let code of response.aggregations.countryCode.buckets"
                         [value]="'c' + code.key" [selected]="preSelection.indexOf(''+ 'c' + code.key) > -1">
-                            <span *ngIf="code.key === 0" class="label">Suomi</span>
-                            <span *ngIf="code.key === 1" class="label">Muu</span>
+                            <div class="row d-flex justify-content-around">
+                                <div class="col-9">
+                                    <span [innerHtml]="code.key === 0 ? 'Suomi' : 'Muu'" class="label"></span>
+                                </div>
+                                <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                            </div>
                         </mat-list-option>
                     </mat-selection-list>
                     <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations.countryCode.buckets.length / 5" 
@@ -168,7 +183,10 @@
                         <div *ngFor="let code of response.aggregations.languageCode.buckets">
                             <mat-list-option checkboxPosition="before" *ngIf="code.language.buckets[0].key !== 'undefined'"
                             [value]="code.key" [selected]="preSelection.indexOf(''+code.key) > -1">
-                                <span class="label">{{code.language.buckets[0].key}}</span>
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-9"><span class="label">{{code.language.buckets[0].key}}</span></div>
+                                    <div class="col-3"><span class="amount" [innerHtml]="(code.language.buckets[0].doc_count | thousandSeparator)"></span></div>
+                                </div>
                             </mat-list-option>
                         </div>
                     </mat-selection-list>
@@ -185,19 +203,34 @@
                     <mat-selection-list #selectedJuFo (selectionChange)="onSelectionChange(); parentPanel = 'juFo'">
                         <div *ngFor="let code of response.aggregations.juFo.buckets">
                             <mat-list-option *ngIf="code.key === '3'" checkboxPosition="before" [value]="'j3'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
-                                <span class="label">{{code.key}} - Korkein taso</span>
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-9"><span class="label">{{code.key}} - Korkein taso</span></div>
+                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === '2'" checkboxPosition="before" [value]="'j2'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
-                                <span class="label">{{code.key}} - Johtava taso</span>
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-9"><span class="label">{{code.key}} - Johtava taso</span></div>
+                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === '1'" checkboxPosition="before" [value]="'j1'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
-                                <span class="label">{{code.key}} - Perustaso</span>
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-9"><span class="label">{{code.key}} - Perustaso</span></div>
+                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === '0'" checkboxPosition="before" [value]="'j0'" [selected]="preSelection.indexOf('' + 'j' + code.key) > -1">
-                                <span class="label">{{code.key}} - Muut</span>
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-9"><span class="label">{{code.key}} - Muut</span></div>
+                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                </div>
                             </mat-list-option>
                             <mat-list-option *ngIf="code.key === ' '" checkboxPosition="before" [value]="'noVal'" [selected]="preSelection.indexOf(''+'noVal') > -1">
-                                <span class="label">Ei arviota</span>
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-9"><span class="label">Ei arviota</span></div>
+                                    <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                                </div>
                             </mat-list-option>
                         </div>
                     </mat-selection-list>
@@ -212,15 +245,18 @@
                     <mat-selection-list #selectedOpenAccess (selectionChange)="onSelectionChange(); parentPanel = 'oa'">
                         <mat-list-option checkboxPosition="before" *ngFor="let code of openAccessCodes"
                         [value]="code.value" [selected]="preSelection.indexOf(''+code.value) > -1">
-                            <span class="label">{{code.label}}</span>
+                            <div class="row d-flex justify-content-around">
+                                <div class="col-9"><span class="label">{{code.label}}</span></div>
+                                <div class="col-3"><span class="amount" [innerHtml]="(code.doc_count | thousandSeparator)"></span></div>
+                            </div>
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>
 
             </mat-accordion>
 
-            <div class="single-checkbox" *ngIf="response.aggregations.internationalCollaboration.buckets[1]">
-                <mat-checkbox labelPosition="before" [checked]="internationalCollab" (change)="singleSelect($event)">Kansainvälinen yhteisjulkaisu</mat-checkbox>
+            <div class="single-checkbox" *ngIf="response.aggregations.internationalCollaboration?.length > 0 ">
+                <mat-checkbox labelPosition="before" [checked]="internationalCollab" (change)="singleSelect($event)">Kansainvälinen yhteisjulkaisu <span class="amount">({{response.aggregations.internationalCollaboration[0]?.doc_count}})</span></mat-checkbox>
             </div>
         </div>
     </div>

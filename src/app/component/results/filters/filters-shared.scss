@@ -26,7 +26,7 @@
 
         // Material expansion panel & accordion
         mat-expansion-panel.mat-expansion-panel {
-            max-width: 297px;
+            // max-width: 297px;
         }
 
         .cdk-focused .mat-expansion-panel-header-title {
@@ -79,9 +79,9 @@
             z-index: 39;
         }
 
-        .mat-list-base {
-            padding: 0.5rem 0;
-        }
+        // .mat-list-base {
+        //     padding: 0.5rem 0;
+        // }
 
         .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
             height: auto;
@@ -114,17 +114,20 @@
             margin: 0;
         }
 
-        span.label, span.amount {
-            padding: 0px 10px!important;
+        span.filter-title {
+            width: 86%;
+            font-weight: bolder;
         }
 
         span.amount {
-            font-weight: bold!important;
+            font-size: 14px;
+            white-space: nowrap;
         }
 
         // Segments
         .mat-list-base .mat-list-item .mat-list-text, .mat-list-base .mat-list-option .mat-list-text {
             flex-direction: row!important;
+            display: block!important;
         }
 
         .mat-list-base .mat-list-option .mat-list-item-content {
@@ -133,8 +136,12 @@
             padding-right: 0;
         }
 
+        .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
         mat-selection-list.limit {
-            // max-height: 240px;
             overflow: hidden;
         }
 
