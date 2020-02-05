@@ -119,6 +119,10 @@
             font-weight: bolder;
         }
 
+        .count {
+            text-align: right;
+        }
+
         span.amount {
             font-size: 14px;
             white-space: nowrap;
@@ -158,9 +162,9 @@
 
         // Single checkbox
         .single-checkbox {
-            height: 69px;
             font-weight: bold;
             font-size: 15px;
+            padding: 10px 2px;
         }
 
         .single-checkbox .mat-checkbox {
@@ -174,11 +178,15 @@
         }
 
         .single-checkbox span.mat-checkbox-label {
-            margin-left: 25px;
+            // margin-left: 25px;
         }
 
         .mat-checkbox-layout {
             white-space: pre-wrap;
+        }
+
+        .single .col {
+            padding: 0;
         }
 
         // Hide fields
