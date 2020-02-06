@@ -262,7 +262,7 @@
                         </mat-checkbox>
                     </div>
                     <div class="col col-3 count">
-                        <span class="amount">{{response.aggregations.internationalCollaboration[0]?.doc_count}}</span>
+                        <span class="amount">{{response.aggregations.internationalCollaboration[0]?.doc_count | thousandSeparator}}</span>
                     </div>
                 </div>
             </div>
