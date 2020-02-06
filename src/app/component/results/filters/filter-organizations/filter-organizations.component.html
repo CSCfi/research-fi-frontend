@@ -40,7 +40,10 @@
                     <mat-selection-list #selectedSectors (selectionChange)="onSelectionChange()">
                         <mat-list-option checkboxPosition="before" *ngFor="let sector of response.aggregations.sector?.buckets" 
                         [value]="sector.sectorId.buckets[0].key" [selected]="preSelection.indexOf(''+sector.sectorId.buckets[0].key) > -1">
-                            <span class="label">{{sector.key}}</span>
+                            <div class="row d-flex justify-content-around">
+                                <div class="col-9"><span class="label">{{sector.key}}</span></div>
+                                <div class="col-3 count"><span class="amount" [innerHtml]="(sector.doc_count | thousandSeparator)"></span></div>
+                            </div>
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>

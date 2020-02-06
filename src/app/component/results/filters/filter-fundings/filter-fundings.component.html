@@ -40,7 +40,10 @@
                     <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()">
                         <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.years.buckets"
                         [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
-                            <span class="label">{{year.key}}</span>
+                        <div class="row d-flex justify-content-around">
+                            <div class="col-9"><span class="label">{{year.key}}</span></div>
+                            <div class="col-3 count"><span class="amount" [innerHtml]="(year.doc_count | thousandSeparator)"></span></div>
+                        </div>
                         </mat-list-option>
                     </mat-selection-list>
                 </mat-expansion-panel>
@@ -92,12 +95,12 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-selection-list #selectedFundingAmount (selectionChange)="onSelectionChange()">
-                        <mat-list-option checkboxPosition="before" [value]="'over100k'" [selected]="preSelection.indexOf('over100k') > -1">
+                        <!-- <mat-list-option checkboxPosition="before" [value]="'over100k'" [selected]="preSelection.indexOf('over100k') > -1">
                             <span class="label">Yli 100 000€</span>
                         </mat-list-option>
                         <mat-list-option checkboxPosition="before" [value]="'under100k'" [selected]="preSelection.indexOf('under100k') > -1">
                             <span class="label">Alle 100 000€</span>
-                        </mat-list-option>
+                        </mat-list-option> -->
                     </mat-selection-list>
                 </mat-expansion-panel>
     
@@ -108,14 +111,12 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-selection-list #selectedStatus (selectionChange)="onSelectionChange()">
-                        <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
+                        <!-- <mat-list-option checkboxPosition="before" [value]="'onGoing'" [selected]="preSelection.indexOf('onGoing') > -1">
                             <span class="label">Käynnissä</span>
-                            <!-- <span class="amount"></span> -->
                         </mat-list-option>
                         <mat-list-option checkboxPosition="before" [value]="'ended'" [selected]="preSelection.indexOf('ended') > -1">
                             <span class="label">Päättynyt</span>
-                            <!-- <span class="amount"></span> -->
-                        </mat-list-option>
+                        </mat-list-option> -->
                     </mat-selection-list>
                 </mat-expansion-panel>
     
@@ -126,9 +127,9 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <mat-selection-list>
-                            <mat-list-option checkboxPosition="before">
+                            <!-- <mat-list-option checkboxPosition="before">
                                 <span class="label">Kyllä</span>
-                            </mat-list-option>
+                            </mat-list-option> -->
                         </mat-selection-list>
                     </mat-expansion-panel>
             </mat-accordion>
