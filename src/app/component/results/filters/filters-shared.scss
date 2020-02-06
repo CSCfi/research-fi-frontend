@@ -79,10 +79,6 @@
             z-index: 39;
         }
 
-        // .mat-list-base {
-        //     padding: 0.5rem 0;
-        // }
-
         .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
             height: auto;
             display: flex;
@@ -101,7 +97,8 @@
         }
 
         .mat-expansion-panel-body {
-            padding: 0 8px 0;
+            // padding: 0 8px 0;
+            padding: 0;
             // margin-top: -12px;
         }
 
@@ -117,6 +114,11 @@
         span.filter-title {
             width: 86%;
             font-weight: bolder;
+        }
+
+        .count {
+            text-align: right;
+            padding: 0;
         }
 
         span.amount {
@@ -158,9 +160,13 @@
 
         // Single checkbox
         .single-checkbox {
-            height: 69px;
             font-weight: bold;
             font-size: 15px;
+            padding: 10px 2px;
+        }
+
+        .mat-checkbox-inner-container {
+            margin-right: 15px;
         }
 
         .single-checkbox .mat-checkbox {
@@ -174,11 +180,15 @@
         }
 
         .single-checkbox span.mat-checkbox-label {
-            margin-left: 25px;
+            // margin-left: 25px;
         }
 
         .mat-checkbox-layout {
             white-space: pre-wrap;
+        }
+
+        .single .col {
+            padding: 0;
         }
 
         // Hide fields

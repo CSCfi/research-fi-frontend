@@ -20,7 +20,7 @@
             color: mat-color($primary);
         }
 
-        span.mat-checkbox-label {
+        span.mat-checkbox-label, span.label {
             color: mat-contrast($primary, 200);
         }
 
