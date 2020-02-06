@@ -255,13 +255,13 @@
             </mat-accordion>
 
             <div class="single-checkbox" *ngIf="response.aggregations.internationalCollaboration?.length > 0 ">
-                <div class="row single">
-                    <div class="col col-10">
+                <div class="row single d-flex justify-content-around">
+                    <div class="col col-9">
                         <mat-checkbox labelPosition="after" [checked]="internationalCollab" (change)="singleSelect($event)">
                             <span class="label">Kansainvälinen yhteisjulkaisu</span>
                         </mat-checkbox>
                     </div>
-                    <div class="col col-1">
+                    <div class="col col-3 count">
                         <span class="amount">{{response.aggregations.internationalCollaboration[0]?.doc_count}}</span>
                     </div>
                 </div>
