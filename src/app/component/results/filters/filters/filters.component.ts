@@ -102,6 +102,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
 
       // Publication Type
       source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
+      // Country code
+      source.countryCode.buckets = this.publicationCountry(source.countryCode.buckets);
       console.log(source);
     }
 
@@ -128,7 +130,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
           doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : ''
         })}
       );
+    return result;
+  }
 
+  publicationCountry(data) {
+    const result = data.map(item => item = {key: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
     return result;
   }
 
