@@ -75,6 +75,14 @@ export class StaticDataService {
     ]}
   ];
 
+  juFoCode = [
+    {key: '3', labelFi: 'Korkein taso'},
+    {key: '2', labelFi: 'Johtava taso'},
+    {key: '1', labelFi: 'Perustaso'},
+    {key: '0', labelFi: 'Muut'},
+    {key: ' ', labelFi: 'Ei arviota'},
+  ];
+
   // Query parameters
   minScore = 10;
 
