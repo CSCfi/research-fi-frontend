@@ -1,0 +1,72 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+    
+ <div class="mobile mx-auto" id="navbar-toggle">
+    <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="openModal(filterModal)">
+        <h3>Rajaa hakua</h3>
+    </button>
+</div>
+
+<ng-template #filterModal>
+    <div class="modal-header">
+        <h5 class="modal-title">Rajaa hakua</h5>
+    </div>
+    <div class="modal-body">
+        <ng-container *ngTemplateOutlet="filters"></ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="preventTab($event)">Sulje</button>
+    </div>
+</ng-template>
+
+
+<ng-container *ngIf="!mobile">
+    <ng-container *ngTemplateOutlet="filters"></ng-container>
+</ng-container>
+
+<ng-template #filters>
+    <div class="filter-sidebar" *ngFor="let response of responseData">
+        <h3 *ngIf="!mobile">Rajaa hakua</h3>
+        <div class="filter-wrapper">
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let filter of currentFilter" [expanded]="parentPanel === 'year'" >
+                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}">
+                        <mat-panel-title>
+                            <strong>{{filter.labelFi}}</strong>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list *ngIf="!filter.hasSubFields">
+                        <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field].buckets" 
+                        [value]="item.key">
+                            <div class="row d-flex justify-content-around">
+                                <div class="col-9"><span class="label">{{item.key}}</span></div>
+                                <div class="col-3 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
+                            </div>
+                        </mat-list-option>
+                    </mat-selection-list>
+                    <div class="subFields" *ngIf="filter.hasSubFields">
+                        <mat-expansion-panel *ngFor="let item of response.aggregations[filter.field].buckets">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <span class="filter-title">{{item.key}}</span>
+                                    <mat-checkbox></mat-checkbox>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-selection-list>
+                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData" 
+                                [value]="field.key">
+                                    <div class="row d-flex justify-content-around">
+                                        <div class="col-9"><span class="label">{{field.key}}</span></div>
+                                        <div class="col-3 count"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
+                                    </div>
+                                </mat-list-option>
+                            </mat-selection-list>
+                        </mat-expansion-panel>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</ng-template>
