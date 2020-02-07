@@ -35,7 +35,7 @@ export class FilterMethodService {
     // Map fields by field & nested id
     if (source && source.length > 0) {
       mapped = source.map(majorField => ({
-        field: majorField.key,
+        key: majorField.key,
         id: majorField.fieldId.buckets[0].key,
         doc_count: majorField.fieldId.buckets[0].doc_count }));
     }
