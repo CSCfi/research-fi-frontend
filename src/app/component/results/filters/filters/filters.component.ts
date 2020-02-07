@@ -37,7 +37,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
     {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false},
     {field: 'languageCode', labelFi: 'Kieli', hasSubFields: false},
     {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false},
-    {field: 'openAccess', labelFi: 'Avaoin saatavuus', hasSubFields: false},
+    {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false},
     {field: 'sector', labelFi: 'Kansainvälinen yhteisjulkaisu', hasSubFields: false}
 
   ];
@@ -104,6 +104,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
       source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
       // Country code
       source.countryCode.buckets = this.publicationCountry(source.countryCode.buckets);
+      // Jufo code
+      source.juFo.buckets = this.juFoCode(source.juFo.buckets);
+      // Open access
+      source.openAccess.buckets = this.openAccess(source.openAccess);
       console.log(source);
     }
 
@@ -136,6 +140,52 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
   publicationCountry(data) {
     const result = data.map(item => item = {key: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
     return result;
+  }
+
+  juFoCode(data) {
+    const staticData = this.staticDataService.juFoCode;
+    const result = data.map(item => item = {
+      key: staticData.find(code => code.key === item.key).labelFi,
+      doc_count: item.doc_count,
+      value: item.key
+    });
+    return result;
+  }
+
+  openAccess(data) {
+    const combined = [];
+    const openAccessCodes = [];
+    let count = 0;
+    // Get aggregation from response
+    const source = this.responseData[0] && (this.responseData[0].aggregations.openAccess) ?
+    this.responseData[0].aggregations.openAccess.buckets : [];
+    if (source && source.length > 0) {
+
+      source.forEach(val => {
+        // Sum up doc counts of no access info, -1 & 9 are fallbacks from old data
+        if (val.key === -1 || val.key === 0 || val.key === 9) {
+          count = count + val.doc_count;
+        }
+        switch (val.key) {
+          case 1: {
+            // openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Avoin', value: 'openAccess'});
+            openAccessCodes.push({key: 'Avoin', doc_count: val.doc_count, label: 'Avoin', value: 'openAccess'});
+            break;
+          }
+          case 2: {
+            // openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Ei avoin', value: 'nonOpen'});
+            openAccessCodes.push({key: 'Ei avoin', doc_count: val.doc_count, label: 'Ei avoin', value: 'nonOpen'});
+            break;
+          }
+        }
+        combined.push(val.key);
+      });
+      // Check for matching access codes for no info
+      if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {openAccessCodes.push(
+        {key: 'Ei tietoa', doc_count: count, label: 'Ei tietoa', value: 'noAccessInfo'}); }
+    }
+    console.log(openAccessCodes);
+    return openAccessCodes;
   }
 
 }
