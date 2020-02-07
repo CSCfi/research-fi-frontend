@@ -7,7 +7,7 @@
 
 @mixin app-filters-shared {
 
-    app-filter-publications, app-filter-fundings, app-filter-infrastructures, app-filter-organizations, app-filter-persons, modal-container {
+    app-filter-publications, app-filter-fundings, app-filter-infrastructures, app-filter-organizations, app-filter-persons, modal-container, app-filters {
         .mobile {
             max-width: 95%;
         }
