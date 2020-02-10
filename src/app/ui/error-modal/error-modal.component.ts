@@ -18,12 +18,15 @@ export class ErrorModalComponent implements OnInit {
   error: HttpErrorResponse;
 
 
-  constructor(private modalService: BsModalService, private dataService: DataService) { }
+  constructor(private modalService: BsModalService, private dataService: DataService, private utilityService: UtilityService) { }
 
   ngOnInit() {
     this.errorSub = this.dataService.currentError.subscribe(error => {
       this.error = error;
-      this.openModal(this.modal);
+      // Only allow a single modal to be active at a time
+      if (!this.utilityService.modalOpen) {
+        this.openModal(this.modal);
+      }
     });
   }
 

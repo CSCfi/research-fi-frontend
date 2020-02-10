@@ -1,11 +1,23 @@
 import { Injectable } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilityService {
+  private modalHideSub: Subscription;
+  private modalShowSub: Subscription;
 
-  constructor() { }
+  constructor(private modalService: BsModalService) {
+    // Subscribe to modal show and hide
+    this.modalHideSub = this.modalService.onHide.subscribe(_ => {
+      this.modalOpen = false;
+    });
+    this.modalShowSub = this.modalService.onShow.subscribe(_ => {
+      this.modalOpen = true;
+    });
+  }
 
   modalOpen = false;
 

@@ -90,7 +90,7 @@ export class SearchService {
         }}
       }
     };
-    return this.http.post<Search[]>(this.apiUrl+'...' + this.settingsService.indexList + 'request_cache=true', payLoad)
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad);
       // .pipe(catchError(this.handleError));
   }
 

@@ -187,14 +187,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
     this.mobile = this.window.innerWidth < 992;
-
-    // Subscribe to modal show and hide
-    this.modalHideSub = this.modalService.onHide.subscribe(_ => {
-      this.utilityService.modalOpen = false;
-    });
-    this.modalShowSub = this.modalService.onShow.subscribe(_ => {
-      this.utilityService.modalOpen = true;
-    });
   }
 
   ngAfterViewInit() {
