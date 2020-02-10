@@ -38,7 +38,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-selection-list #selectedYears (selectionChange)="onSelectionChange()">
-                        <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.years.buckets"
+                        <mat-list-option checkboxPosition="before" *ngFor="let year of response.aggregations.year.buckets"
                         [value]="year.key" [selected]="preSelection.indexOf(''+year.key) > -1">
                         <div class="row d-flex justify-content-around">
                             <div class="col-9"><span class="label">{{year.key}}</span></div>
