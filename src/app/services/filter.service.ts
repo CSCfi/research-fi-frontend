@@ -298,7 +298,7 @@ export class FilterService {
     };
     switch (tab) {
       case 'publications':
-        payLoad.aggs.sector = {
+        payLoad.aggs.organization = {
           nested: {
             path: 'author'
           },
@@ -371,7 +371,7 @@ export class FilterService {
             size: 2
           }
         };
-        payLoad.aggs.fieldsOfScience = {
+        payLoad.aggs.field = {
           terms: {
             field: 'fields_of_science.nameFiScience.keyword',
             size: 250,
