@@ -287,7 +287,7 @@ export class FilterService {
         }} : []),
       size: 0,
       aggs: {
-        years: {
+        year: {
           terms: {
             field: this.sortService.yearField,
             size: 50,
