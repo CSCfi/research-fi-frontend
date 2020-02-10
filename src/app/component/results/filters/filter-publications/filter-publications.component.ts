@@ -73,7 +73,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
                private sortService: SortService, private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private dataService: DataService,
                @Inject(WINDOW) private window: Window, private modalService: BsModalService, private utilityService: UtilityService) {
-                  this.height = 240;
+                  this.height = 220;
                   this.clickCount = 0;
                   // Set year filter to expanded as default
                   this.parentPanel = !this.parentPanel ? 'year' : undefined;
@@ -96,7 +96,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   }
 
   resetHeight() {
-    this.height = 240;
+    this.height = 220;
     this.clickCount = 0;
   }
 
@@ -105,7 +105,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
     total = total - 5 * this.clickCount;
     if (total < 5) {
       this.height = this.height + total * 48;
-    } else {this.height = this.height + 240; }
+    } else {this.height = this.height + 220; }
   }
 
   onResize(event) {
@@ -162,12 +162,6 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
         break;
       }
     }
-    this.onSelectionChange();
-  }
-
-  // Single checkbox
-  singleSelect(event) {
-    if (event.checked) {this.internationalCollab = true; } else {this.internationalCollab = null; }
     this.onSelectionChange();
   }
 
@@ -246,6 +240,7 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
 
     this.separatePublicationClass();
     this.openAccess();
+    this.getSingleAmount();
     this.cdr.detectChanges();
   }
 
@@ -281,17 +276,48 @@ export class FilterPublicationsComponent implements OnInit, OnDestroy, OnChanges
   // Open access
   openAccess() {
     const combined = [];
+    let count = 0;
     // Get aggregation from response
     const source = this.responseData[0] && (this.responseData[0].aggregations.openAccess) ?
     this.responseData[0].aggregations.openAccess.buckets : [];
     if (source && source.length > 0) {
-      source.forEach(val => combined.push(val.key));
       this.openAccessCodes = [];
-      // Check for matching access codes. -1 & 9 are fallbacks from old data
-      if (combined.includes(1)) {this.openAccessCodes.push({key: 1, label: 'Avoin', value: 'openAccess'}); }
-      if (combined.includes(2)) {this.openAccessCodes.push({key: 2, label: 'Ei avoin', value: 'nonOpen'}); }
+      source.forEach(val => {
+        // Sum up doc counts of no access info, -1 & 9 are fallbacks from old data
+        if (val.key === -1 || val.key === 0 || val.key === 9) {
+          count = count + val.doc_count;
+        }
+        switch (val.key) {
+          case 1: {
+            this.openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Avoin', value: 'openAccess'});
+            break;
+          }
+          case 2: {
+            this.openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Ei avoin', value: 'nonOpen'});
+            break;
+          }
+        }
+        combined.push(val.key);
+      });
+      // Check for matching access codes for no info
       if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {this.openAccessCodes.push(
-        {key: 0, label: 'Ei tietoa', value: 'noAccessInfo'}); }
+        {key: 0, doc_count: count, label: 'Ei tietoa', value: 'noAccessInfo'}); }
+    }
+  }
+
+  // Single checkbox
+  singleSelect(event) {
+    if (event.checked) {this.internationalCollab = true; } else {this.internationalCollab = null; }
+    this.onSelectionChange();
+  }
+
+  // Get doc count for international collaboration
+  getSingleAmount() {
+    const source = this.responseData[0] && (this.responseData[0].aggregations.internationalCollaboration) ?
+    this.responseData[0].aggregations.internationalCollaboration.buckets : [];
+
+    if (source.length > 0) {
+      this.responseData[0].aggregations.internationalCollaboration = source.filter(x => x.key === 1);
     }
   }
 

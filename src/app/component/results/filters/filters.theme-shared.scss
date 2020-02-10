@@ -20,8 +20,12 @@
             color: mat-color($primary);
         }
 
-        span.mat-checkbox-label {
+        span.mat-checkbox-label, span.label {
             color: mat-contrast($primary, 200);
+        }
+
+        span.amount {
+            color: mat-contrast($primary, 400);
         }
         
         // .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
