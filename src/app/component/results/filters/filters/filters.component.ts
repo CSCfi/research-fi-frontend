@@ -28,31 +28,93 @@ import { UtilityService } from 'src/app/services/utility.service';
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Input() responseData: any [];
   @Input() tabData: string;
+  @ViewChildren('filterSelect') filterSelect: QueryList<MatSelectionList>;
 
   publicationFilterData = [
-    {field: 'years', labelFi: 'Julkaisuvuosi', hasSubFields: false},
-    {field: 'sector', labelFi: 'Organisaatio', hasSubFields: true},
-    {field: 'fieldsOfScience', labelFi: 'Tieteenala', hasSubFields: true},
-    {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true},
-    {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false},
-    {field: 'languageCode', labelFi: 'Kieli', hasSubFields: false},
-    {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false},
-    {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false},
-    {field: 'sector', labelFi: 'Kansainvälinen yhteisjulkaisu', hasSubFields: false}
+    {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, limitHeight: true},
+    {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false},
+    {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
+    {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false},
+    {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: false},
+    {field: 'languageCode', labelFi: 'Kieli', hasSubFields: false, limitHeight: false},
+    {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, limitHeight: false},
+    {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: false}
+  ];
 
+  publicationSingleFilterData = [
+    {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
   ];
 
   currentFilter: any[];
+  currentSingleFilter: any[];
+  panelOpenState: boolean;
+  parentPanel: string;
+  expandStatus: Array<boolean> = [];
+  height: number;
+  clickCount: number;
+  preSelection = [];
+  filterSub: any;
+  resizeSub: any;
+  width = this.window.innerWidth;
+  mobile = this.width < 992;
+  modalRef: BsModalRef;
 
   constructor( private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
-               private staticDataService: StaticDataService ) { }
+               private staticDataService: StaticDataService, private router: Router,
+               private filterService: FilterService, private resizeService: ResizeService,
+               @Inject(WINDOW) private window: Window, private modalService: BsModalService ) {
+                this.height = 220;
+                this.clickCount = 0;
+                }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
 
   ngOnInit() {
+    switch (this.tabData) {
+      case 'publications': {
+        this.parentPanel = 'year';
+      }
+    }
 
+    // Subscribe to filterService filters
+    this.filterSub = this.filterService.filters.subscribe(filters => {
+      // Get preselected filters from filterService
+      this.preSelection = [];
+      // this.internationalCollab = filters.internationalCollaboration.length > 0 ? true : false;
+      Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+
+      // Listen for changes in querylists
+      // if (this.selectedFields) {
+      //   this.selectedOrganizations.notifyOnChanges();
+      //   this.selectedFields.notifyOnChanges();
+      //   this.selectedPublicationTypes.notifyOnChanges();
+      //   this.cdr.detectChanges();
+      // }
+    });
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
   ngOnDestroy() {
+    this.filterSub.unsubscribe();
+    this.resizeSub.unsubscribe();
+  }
 
+  onResize(event) {
+    this.width = event.width;
+    if (this.width >= 992) {
+      this.mobile = false;
+      // Modal existence check
+      // tslint:disable-next-line: no-unused-expression
+      this.modalRef && this.closeModal();
+    } else {
+      this.mobile = true;
+    }
   }
 
   ngAfterViewInit() {
@@ -61,18 +123,49 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
 
   ngOnChanges() {
     this.responseData = this.responseData || [];
-
     if (this.responseData.length > 0) {
-      const aggs = this.responseData[0].aggregations;
-      // console.log(aggs);
       switch (this.tabData) {
         case 'publications': {
           this.currentFilter = this.publicationFilterData;
+          this.currentSingleFilter = this.publicationSingleFilterData;
         }
       }
     }
 
     this.shapeData();
+  }
+
+  onSelectionChange(filter) {
+    this.parentPanel = filter;
+    this.router.navigate([],
+      { queryParams: this.getSelected(filter),
+        queryParamsHandling: 'merge'
+      });
+  }
+
+
+  getSelected(filter) {
+    const selected = [];
+    this.filterSelect.forEach(item => {
+      if (item.selectedOptions.selected.length > 0) {
+        console.log(item.selectedOptions.selected.map(s => s.value));
+        selected[filter] = (item.selectedOptions.selected.map(s => isNaN(s.value) ? s.value.trim() : s.value));
+      }
+    });
+    return selected;
+  }
+
+  resetHeight() {
+    this.height = 220;
+    this.clickCount = 0;
+  }
+
+  showMore(total) {
+    this.clickCount++;
+    total = total - 5 * this.clickCount;
+    if (total < 5) {
+      this.height = this.height + total * 48;
+    } else {this.height = this.height + 220; }
   }
 
   shapeData() {
@@ -82,8 +175,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
       const source = this.responseData[0].aggregations;
       // Major field of science
       // check if major aggregation is available
-      const combinedMajorFields =  source.fieldsOfScience ?
-      (this.filterMethodService.separateMinor(source ? source.fieldsOfScience.buckets : []) ) : [];
+      const combinedMajorFields =  source.field ?
+      (this.filterMethodService.separateMinor(source ? source.field.buckets : []) ) : [];
 
       const major = this.staticDataService.majorFieldsOfScience;
       for (let i = 0; i < combinedMajorFields.length; i++) {
@@ -91,15 +184,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
           major[i].subData = combinedMajorFields[i];
         }
       }
-      source.fieldsOfScience.buckets = major;
+      source.field.buckets = major;
 
       // Organization & sector
-      const org = source.sector.sectorName;
-      source.sector.buckets = org.buckets;
-      source.sector.buckets.forEach(item => {
-        item.subData = item.organizations.buckets;
-      });
-
+      this.organization(source.organization);
       // Publication Type
       source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
       // Country code
@@ -107,11 +195,30 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
       // Jufo code
       source.juFo.buckets = this.juFoCode(source.juFo.buckets);
       // Open access
-      source.openAccess.buckets = this.openAccess(source.openAccess);
-      console.log(source);
-    }
+      source.openAccess.buckets = this.openAccess(source.openAccess.buckets);
+      // Internationatl collaboration
+      source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
 
+
+    }
     this.cdr.detectChanges();
+  }
+
+  organization(data) {
+    const org = data.sectorName;
+    data.buckets = org.buckets;
+    data.buckets.forEach(item => {
+      item.subData = item.organizations.buckets;
+      item.subData.map(subItem => {
+        subItem.label = subItem.key;
+        subItem.key = subItem.orgId.buckets[0].key;
+      });
+    });
+    return data;
+  }
+
+  minorField(data) {
+
   }
 
   separatePublicationClass(data) {
@@ -129,11 +236,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
       x => x = {key: x + ', ' + staticData.find(item => item.class === x).label, subData: staticData.find(item => item.class === x)
         .types.map(type => type = {
           type: type.type,
-          label: type.label,
-          key: type.type + ', ' + type.label,
+          label: type.type + ', ' + type.label,
+          key: type.type,
           doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : ''
         })}
       );
+
     return result;
   }
 
@@ -157,23 +265,18 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
     const openAccessCodes = [];
     let count = 0;
     // Get aggregation from response
-    const source = this.responseData[0] && (this.responseData[0].aggregations.openAccess) ?
-    this.responseData[0].aggregations.openAccess.buckets : [];
-    if (source && source.length > 0) {
-
-      source.forEach(val => {
+    if (data && data.length > 0) {
+      data.forEach(val => {
         // Sum up doc counts of no access info, -1 & 9 are fallbacks from old data
         if (val.key === -1 || val.key === 0 || val.key === 9) {
           count = count + val.doc_count;
         }
         switch (val.key) {
           case 1: {
-            // openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Avoin', value: 'openAccess'});
             openAccessCodes.push({key: 'Avoin', doc_count: val.doc_count, label: 'Avoin', value: 'openAccess'});
             break;
           }
           case 2: {
-            // openAccessCodes.push({key: val.key, doc_count: val.doc_count, label: 'Ei avoin', value: 'nonOpen'});
             openAccessCodes.push({key: 'Ei avoin', doc_count: val.doc_count, label: 'Ei avoin', value: 'nonOpen'});
             break;
           }
@@ -184,8 +287,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
       if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {openAccessCodes.push(
         {key: 'Ei tietoa', doc_count: count, label: 'Ei tietoa', value: 'noAccessInfo'}); }
     }
-    console.log(openAccessCodes);
     return openAccessCodes;
+  }
+
+  getSingleAmount(data) {
+    if (data.length > 0) {
+      return data.filter(x => x.key === 1);
+    }
   }
 
 }
