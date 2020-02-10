@@ -77,9 +77,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               this.activeFilters[foundIndex].translation = result.language.buckets[0].key;
             }
             // Todo: Dynamic data path for both publications and organizations
-            if (val.category === 'sector' && tab === 'publications' && source.sector.sectorName) {
-              if (source.sector.sectorName.buckets.length > 0) {
-                source.sector.sectorName.buckets.forEach(element => {
+            if (val.category === 'organization' && tab === 'publications' && source.organization.sectorName) {
+              if (source.organization.sectorName.buckets.length > 0) {
+                source.organization.sectorName.buckets.forEach(element => {
                   if (element.sectorId.buckets[0].key === val.value) {
                     const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                     this.activeFilters[foundIndex].translation = element.key;
@@ -98,9 +98,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
             // Organization name
-            if (val.category === 'organization' && source.sector) {
-              if (source.sector.sectorName && source.sector.sectorName.buckets.length > 0) {
-                source.sector.sectorName.buckets.forEach(sector => {
+            if (val.category === 'organization' && source.organization) {
+              if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
+                source.organization.sectorName.buckets.forEach(sector => {
                   sector.organizations.buckets.forEach(org => {
                     if (org.orgId.buckets[0].key === val.value) {
                       const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
