@@ -336,7 +336,7 @@ export class FilterService {
             order: { _key : 'asc' }
           }
         };
-        payLoad.aggs.languageCode = {
+        payLoad.aggs.lang = {
           terms: {
             field: 'languages.languageCode.keyword'
           },

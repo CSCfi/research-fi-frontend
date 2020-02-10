@@ -71,8 +71,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
           const tab = this.currentTab.data;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
-            if (val.category === 'lang' && source.languageCode.sum_other_doc_count > 0) {
-              const result = source.languageCode.buckets.find(({ key }) => key === val.value);
+            if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
+              const result = source.lang.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language.buckets[0].key;
             }
