@@ -5,8 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef, OnChanges, ViewChildren, QueryList,
-  ChangeDetectorRef, AfterViewInit, Inject, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
+  ChangeDetectorRef, Inject, TemplateRef, AfterContentChecked } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../../services/sort.service';
@@ -25,10 +25,11 @@ import { UtilityService } from 'src/app/services/utility.service';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterContentChecked {
   @Input() responseData: any [];
   @Input() tabData: string;
   @ViewChildren('filterSelect') filterSelect: QueryList<MatSelectionList>;
+  @ViewChildren('filterList') filterList: QueryList<MatSelectionList>;
 
   publicationFilterData = [
     {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, limitHeight: true},
@@ -36,7 +37,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
     {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
     {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false},
     {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: false},
-    {field: 'languageCode', labelFi: 'Kieli', hasSubFields: false, limitHeight: false},
+    {field: 'lang', labelFi: 'Kieli', hasSubFields: false, limitHeight: true},
     {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, limitHeight: false},
     {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: false}
   ];
@@ -58,13 +59,19 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
   width = this.window.innerWidth;
   mobile = this.width < 992;
   modalRef: BsModalRef;
+  selectedFilters: any;
+  selectedOptions: string[] = [];
+  activeFilters: any;
+  queryParamSub: Subscription;
 
   constructor( private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private router: Router,
                private filterService: FilterService, private resizeService: ResizeService,
-               @Inject(WINDOW) private window: Window, private modalService: BsModalService ) {
+               @Inject(WINDOW) private window: Window, private modalService: BsModalService,
+               private route: ActivatedRoute ) {
                 this.height = 220;
                 this.clickCount = 0;
+                this.selectedFilters = [];
                 }
 
   openModal(template: TemplateRef<any>) {
@@ -76,6 +83,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
   }
 
   ngOnInit() {
+    // Subscribe to queryParams
+    this.queryParamSub = this.route.queryParams.subscribe(params => {
+      this.activeFilters = params;
+    });
+
+
+    // Switch default open panel by index
     switch (this.tabData) {
       case 'publications': {
         this.parentPanel = 'year';
@@ -88,14 +102,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
       this.preSelection = [];
       // this.internationalCollab = filters.internationalCollaboration.length > 0 ? true : false;
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
-
-      // Listen for changes in querylists
-      // if (this.selectedFields) {
-      //   this.selectedOrganizations.notifyOnChanges();
-      //   this.selectedFields.notifyOnChanges();
-      //   this.selectedPublicationTypes.notifyOnChanges();
-      //   this.cdr.detectChanges();
-      // }
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
@@ -103,6 +109,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
   ngOnDestroy() {
     this.filterSub.unsubscribe();
     this.resizeSub.unsubscribe();
+    this.queryParamSub.unsubscribe();
   }
 
   onResize(event) {
@@ -117,11 +124,14 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
     }
   }
 
-  ngAfterViewInit() {
-
+  ngAfterContentChecked() {
+    // Prevents ExpressionChangedAfterItHasBeenCheckedError
+    this.selectedOptions = this.selectedOptions;
+    this.cdr.detectChanges();
   }
 
   ngOnChanges() {
+    // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
     if (this.responseData.length > 0) {
       switch (this.tabData) {
@@ -131,28 +141,40 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
         }
       }
     }
-
     this.shapeData();
   }
 
-  onSelectionChange(filter) {
+  // Navigate
+  selectionChange(filter, key) {
+    // Set open panel
     this.parentPanel = filter;
+    // Reset selected filters
+    if (Object.entries(this.activeFilters).length === 0) {this.selectedFilters = []; }
+
+    // If single preselected filter, transform value into array and pass active filter to selection.
+    if (this.activeFilters[filter] && !Array.isArray(this.activeFilters[filter])) {
+      const transformed = [];
+      transformed[filter] = [this.activeFilters[filter]];
+      this.activeFilters = transformed;
+      this.selectedFilters = this.activeFilters;
+    }
+
+    // Remove
+    if (this.selectedFilters[filter] && this.selectedFilters[filter].includes(key)) {
+      this.selectedFilters[filter].splice( this.selectedFilters[filter].indexOf(key), 1 );
+    } else {
+      // Add new
+      if (this.selectedFilters[filter] && this.selectedFilters[filter].length > 0) {
+        this.selectedFilters[filter].push(key);
+      } else {
+        this.selectedFilters[filter] = [key];
+      }
+    }
+
     this.router.navigate([],
-      { queryParams: this.getSelected(filter),
+      { queryParams: this.selectedFilters,
         queryParamsHandling: 'merge'
       });
-  }
-
-
-  getSelected(filter) {
-    const selected = [];
-    this.filterSelect.forEach(item => {
-      if (item.selectedOptions.selected.length > 0) {
-        console.log(item.selectedOptions.selected.map(s => s.value));
-        selected[filter] = (item.selectedOptions.selected.map(s => isNaN(s.value) ? s.value.trim() : s.value));
-      }
-    });
-    return selected;
   }
 
   resetHeight() {
@@ -163,9 +185,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
   showMore(total) {
     this.clickCount++;
     total = total - 5 * this.clickCount;
-    if (total < 5) {
-      this.height = this.height + total * 48;
-    } else {this.height = this.height + 220; }
+    this.height = total < 5 ? this.height + total * 48 : this.height = this.height * 2;
   }
 
   shapeData() {
@@ -173,21 +193,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
 
     if (this.responseData.length > 0) {
       const source = this.responseData[0].aggregations;
-      // Major field of science
-      // check if major aggregation is available
-      const combinedMajorFields =  source.field ?
-      (this.filterMethodService.separateMinor(source ? source.field.buckets : []) ) : [];
-
-      const major = this.staticDataService.majorFieldsOfScience;
-      for (let i = 0; i < combinedMajorFields.length; i++) {
-        if (major[i]) {
-          major[i].subData = combinedMajorFields[i];
-        }
-      }
-      source.field.buckets = major;
 
       // Organization & sector
       this.organization(source.organization);
+      // Major field
+      source.field.buckets = this.minorField(source.field.buckets);
       // Publication Type
       source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
       // Country code
@@ -214,11 +224,20 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterView
         subItem.key = subItem.orgId.buckets[0].key;
       });
     });
-    return data;
   }
 
   minorField(data) {
+      // check if major aggregation is available
+      const combinedMajorFields =  data ?
+      (this.filterMethodService.separateMinor(data ? data : []) ) : [];
 
+      const result = this.staticDataService.majorFieldsOfScience;
+      for (let i = 0; i < combinedMajorFields.length; i++) {
+        if (result[i]) {
+          result[i].subData = combinedMajorFields[i];
+        }
+      }
+      return result;
   }
 
   separatePublicationClass(data) {
