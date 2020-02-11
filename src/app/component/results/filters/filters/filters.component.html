@@ -31,7 +31,7 @@
         <h3 *ngIf="!mobile">Rajaa hakua</h3>
         <div class="filter-wrapper">
             <mat-accordion>
-                <mat-expansion-panel *ngFor="let filter of currentFilter" [expanded]="parentPanel === filter.field" >
+                <mat-expansion-panel #filterList *ngFor="let filter of currentFilter; let i = index" [expanded]="parentPanel === filter.field" >
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}"
                     collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
@@ -39,10 +39,10 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
-                        <mat-selection-list #filterSelect (selectionChange)="onSelectionChange(filter.field); parentPanel = filter.field" [class.limit]="filter.limitHeight"
-                        [style.max-height.px]="height">
+                        <mat-selection-list #filterSelect (selectionChange)="parentPanel = filter.field" [class.limit]="filter.limitHeight"
+                        [style.max-height.px]="height" [(ngModel)]="selectedOptions[i]">
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field].buckets" 
-                            [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1">
+                            [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{item.key}}</span></div>
                                     <div class="col-3 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
@@ -61,9 +61,10 @@
                                     <mat-checkbox></mat-checkbox>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <mat-selection-list #filterSelect (selectionChange)="onSelectionChange(filter.field); parentPanel = filter.field">
-                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData" 
-                                [value]="field.key">
+                            <mat-selection-list #filterSelect (selectionChange)="parentPanel = filter.field"
+                            [(ngModel)]="selectedOptions[i]">
+                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData" (click)="selectionChange(filter.field, field.key)"
+                                [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                     <div class="row d-flex justify-content-around">
                                         <div class="col-9"><span class="label">{{field.label}}</span></div>
                                         <div class="col-3 count"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
