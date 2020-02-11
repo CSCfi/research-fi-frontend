@@ -36,6 +36,7 @@ export class FilterMethodService {
     if (source && source.length > 0) {
       mapped = source.map(majorField => ({
         key: majorField.key,
+        label: majorField.key,
         id: majorField.fieldId.buckets[0].key,
         doc_count: majorField.fieldId.buckets[0].doc_count }));
     }
