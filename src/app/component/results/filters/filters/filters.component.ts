@@ -192,6 +192,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   }
 
   selectAll(event, i, filter) {
+    console.log(i);
+    // console.log(this.selectedOptions);
+    // console.log(this.subFilters);
     let options = [];
     switch (event.checked) {
       case true: {
@@ -208,7 +211,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       }
     }
 
-    this.selectionChange(filter, options);
+    // this.selectionChange(filter, options);
   }
 
   resetHeight() {
@@ -243,7 +246,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       // Internationatl collaboration
       source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
 
-
+      console.log(source);
     }
     this.cdr.detectChanges();
   }
