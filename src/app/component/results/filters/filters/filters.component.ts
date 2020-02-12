@@ -29,6 +29,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   @Input() responseData: any [];
   @Input() tabData: string;
   @ViewChildren('filterSelect') filterSelect: QueryList<MatSelectionList>;
+  @ViewChildren('subFilterSelect') subFilterSelect: QueryList<MatSelectionList>;
   @ViewChildren('filterList') filterList: QueryList<MatSelectionList>;
 
   publicationFilterData = [
@@ -63,6 +64,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   selectedOptions: string[] = [];
   activeFilters: any;
   queryParamSub: Subscription;
+  maxHeight = 220;
+  subFilters: MatSelectionList[];
 
   constructor( private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private router: Router,
@@ -134,6 +137,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
     if (this.responseData.length > 0) {
+
       switch (this.tabData) {
         case 'publications': {
           this.currentFilter = this.publicationFilterData;
@@ -141,33 +145,43 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         }
       }
     }
+
     this.shapeData();
+
+    // Subfilter array is used to mark subFilters as checked
+    this.subFilters = this.subFilterSelect.toArray();
   }
 
   // Navigate
   selectionChange(filter, key) {
     // Set open panel
     this.parentPanel = filter;
-    // Reset selected filters
-    if (Object.entries(this.activeFilters).length === 0) {this.selectedFilters = []; }
-
-    // If single preselected filter, transform value into array and pass active filter to selection.
-    if (this.activeFilters[filter] && !Array.isArray(this.activeFilters[filter])) {
-      const transformed = [];
-      transformed[filter] = [this.activeFilters[filter]];
-      this.activeFilters = transformed;
-      this.selectedFilters = this.activeFilters;
-    }
-
-    // Remove
-    if (this.selectedFilters[filter] && this.selectedFilters[filter].includes(key)) {
-      this.selectedFilters[filter].splice( this.selectedFilters[filter].indexOf(key), 1 );
+    if (Array.isArray(key)) {
+      this.selectedFilters[filter] = key;
     } else {
-      // Add new
-      if (this.selectedFilters[filter] && this.selectedFilters[filter].length > 0) {
-        this.selectedFilters[filter].push(key);
+      key = key.toString();
+      // Reset selected filters
+      if (Object.entries(this.activeFilters).length === 0) {this.selectedFilters = []; }
+      if (this.activeFilters[filter] && !Array.isArray(this.activeFilters[filter])) {
+        const transformed = [];
+        transformed[filter] = [this.activeFilters[filter]];
+        this.activeFilters = transformed;
+        this.selectedFilters = this.activeFilters;
+      }
+
+      if (this.activeFilters[filter]) {
+        const combined = this.activeFilters[filter].concat(this.selectedFilters[filter] ? this.selectedFilters[filter] : []);
+        this.selectedFilters[filter] = [...new Set(combined)];
+      }
+
+      if (this.selectedFilters[filter] && this.selectedFilters[filter].includes(key)) {
+        this.selectedFilters[filter].splice(this.selectedFilters[filter].indexOf(key), 1);
       } else {
-        this.selectedFilters[filter] = [key];
+        if (this.selectedFilters[filter] && this.selectedFilters[filter].length > 0) {
+          this.selectedFilters[filter].push(key);
+        } else {
+          this.selectedFilters[filter] = [key];
+        }
       }
     }
 
@@ -177,8 +191,28 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       });
   }
 
+  selectAll(event, i, filter) {
+    let options = [];
+    switch (event.checked) {
+      case true: {
+        this.subFilterSelect.toArray()[i].selectAll();
+        this.subFilterSelect.toArray()[i].options.forEach(option => {
+          options.push(option.value);
+        });
+        break;
+      }
+      case false: {
+        this.subFilterSelect.toArray()[i].deselectAll();
+        options = [];
+        break;
+      }
+    }
+
+    this.selectionChange(filter, options);
+  }
+
   resetHeight() {
-    this.height = 220;
+    this.height = this.maxHeight;
     this.clickCount = 0;
   }
 
