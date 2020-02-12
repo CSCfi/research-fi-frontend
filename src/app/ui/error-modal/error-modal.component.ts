@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from 'src/app/services/data.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
   selector: 'app-error-modal',
@@ -18,7 +19,8 @@ export class ErrorModalComponent implements OnInit {
   error: HttpErrorResponse;
 
 
-  constructor(private modalService: BsModalService, private dataService: DataService, private utilityService: UtilityService) { }
+  constructor(private modalService: BsModalService, private dataService: DataService, private utilityService: UtilityService,
+              public staticDataService: StaticDataService) { }
 
   ngOnInit() {
     this.errorSub = this.dataService.currentError.subscribe(error => {

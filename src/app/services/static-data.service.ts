@@ -78,6 +78,15 @@ export class StaticDataService {
   // Query parameters
   minScore = 10;
 
+  httpErrors = {
+    400: 'HTTP pyyntöä ei voitu käsitellä',
+    401: 'Pyyntö vaatii sen käsittelyyn oikeutetut tunnukset',
+    403: 'Ei oikeutta käsitellä pyyntöä',
+    404: 'Haluttua tietoa ei ole olemassa',
+    405: 'Pyyntömetodi ei ole sallitty',
+    500: 'Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä'
+  };
+
   constructor() { }
 
   // Query fields where exact match isn't needed
