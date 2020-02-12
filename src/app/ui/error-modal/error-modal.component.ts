@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, PLATFORM_ID, Inject } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataService } from 'src/app/services/data.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { StaticDataService } from 'src/app/services/static-data.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-error-modal',
@@ -17,17 +18,22 @@ export class ErrorModalComponent implements OnInit {
   errorSub: Subscription;
   modalRef: BsModalRef;
   error: HttpErrorResponse;
+  isBrowser: boolean;
 
 
   constructor(private modalService: BsModalService, private dataService: DataService, private utilityService: UtilityService,
-              public staticDataService: StaticDataService) { }
+              public staticDataService: StaticDataService, @Inject(PLATFORM_ID) private platformId: object) {
+                this.isBrowser = isPlatformBrowser(this.platformId);
+               }
 
   ngOnInit() {
     this.errorSub = this.dataService.currentError.subscribe(error => {
       this.error = error;
       // Only allow a single modal to be active at a time
-      if (!this.utilityService.modalOpen) {
-        this.openModal(this.modal);
+      if (isPlatformBrowser(this.platformId)) {
+        if (!this.utilityService.modalOpen) {
+          this.openModal(this.modal);
+        }
       }
     });
   }
