@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -89,6 +89,7 @@ import { SingleInfrastructureComponent } from './component/single/single-infrast
 import { OrcidComponent } from './component/single/orcid/orcid.component';
 import { InterceptService } from './services/intercept.service';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
+import { ErrorHandlerService } from './services/error-handler.service';
 
 @NgModule({
   declarations: [
@@ -164,6 +165,7 @@ import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true},
   {provide: LOCALE_ID, useValue: 'fi-FI'},
+  {provide: ErrorHandler, useClass: ErrorHandlerService},
   {
     provide: APP_INITIALIZER,
     multi: true,
