@@ -58,8 +58,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   totalSub: Subscription;
   combinedRouteParams: Subscription;
   tabSub: Subscription;
-  modalHideSub: Subscription;
-  modalShowSub: Subscription;
 
   pageFallback = false;
 
@@ -268,8 +266,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.combinedRouteParams.unsubscribe();
       this.totalSub.unsubscribe();
       this.tabSub.unsubscribe();
-      this.modalHideSub.unsubscribe();
-      this.modalShowSub.unsubscribe();
     }
   }
 
