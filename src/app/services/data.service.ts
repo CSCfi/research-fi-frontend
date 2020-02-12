@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,11 @@ export class DataService {
   private responseSource = new BehaviorSubject('');
   currentResponse = this.responseSource.asObservable();
 
-  private totalReultsSource = new BehaviorSubject<number | string>(0);
-  currentTotal = this.totalReultsSource.asObservable();
+  private totalResultsSource = new BehaviorSubject<number | string>(0);
+  currentTotal = this.totalResultsSource.asObservable();
+
+  private errorSource = new Subject<HttpErrorResponse>();
+  currentError = this.errorSource.asObservable();
 
   totalResults: number | string = 0;
 
@@ -19,8 +23,12 @@ export class DataService {
     this.responseSource.next(response);
   }
 
+  updateError(error: HttpErrorResponse) {
+    this.errorSource.next(error);
+  }
+
   updateTotalResultsValue(amount: number | string) {
-    this.totalReultsSource.next(amount);
+    this.totalResultsSource.next(amount);
     this.totalResults = amount;
   }
 }

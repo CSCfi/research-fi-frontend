@@ -6,9 +6,9 @@
 //  :license: MIT
 
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TypeaheadModule, ModalModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -87,7 +87,9 @@ import { FilterInfrastructuresComponent } from './component/results/filters/filt
 import { ShareComponent } from './component/single/share/share.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './component/single/orcid/orcid.component';
+import { InterceptService } from './services/intercept.service';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
+import { ErrorHandlerService } from './services/error-handler.service';
 
 @NgModule({
   declarations: [
@@ -161,7 +163,9 @@ import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
     ModalModule.forRoot()
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
+  {provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true},
   {provide: LOCALE_ID, useValue: 'fi-FI'},
+  {provide: ErrorHandler, useClass: ErrorHandlerService},
   {
     provide: APP_INITIALIZER,
     multi: true,
