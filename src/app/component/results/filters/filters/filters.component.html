@@ -31,7 +31,7 @@
         <h3 *ngIf="!mobile">Rajaa hakua</h3>
         <div class="filter-wrapper">
             <mat-accordion>
-                <mat-expansion-panel #filterList *ngFor="let filter of currentFilter; let i = index" [expanded]="parentPanel === filter.field" >
+                <mat-expansion-panel #filterList *ngFor="let filter of currentFilter" [expanded]="parentPanel === filter.field" >
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}"
                     collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
@@ -40,7 +40,7 @@
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
                         <mat-selection-list #filterSelect (selectionChange)="parentPanel = filter.field" [class.limit]="filter.limitHeight"
-                        [style.max-height.px]="height" [(ngModel)]="selectedOptions[i]">
+                        [style.max-height.px]="height">
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field].buckets" 
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
@@ -54,15 +54,17 @@
                     </ng-container>
                     <!-- Template for filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
-                        <mat-expansion-panel *ngFor="let item of response.aggregations[filter.field].buckets">
+                        <!-- POISTA DATA JOSSA EI SISÄLTÖÄ -->
+                        <mat-expansion-panel *ngFor="let item of response.aggregations[filter.field].buckets; let i = index"
+                        (opened)="panelOpenState = i; parentPanel = filter.field" [expanded]="panelOpenState === i && parentPanel === filter.field ? true : false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     <span class="filter-title">{{item.key}}</span>
-                                    <mat-checkbox></mat-checkbox>
+                                    <mat-checkbox (change)="selectAll($event, i, filter.field)" style="padding:0 10px;"
+                                    [checked]="item.subData.length === subFilters[i]?.selectedOptions.selected.length"></mat-checkbox>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <mat-selection-list #filterSelect (selectionChange)="parentPanel = filter.field"
-                            [(ngModel)]="selectedOptions[i]">
+                            <mat-selection-list #subFilterSelect (selectionChange)="parentPanel = filter.field">
                                 <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData" (click)="selectionChange(filter.field, field.key)"
                                 [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                     <div class="row d-flex justify-content-around">
