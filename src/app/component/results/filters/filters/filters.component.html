@@ -85,7 +85,8 @@
             <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
                 <div class="row single d-flex justify-content-around">
                     <div class="col col-9">
-                        <mat-checkbox labelPosition="after">
+                        <mat-checkbox labelPosition="after" [checked]="activeFilters[item.field]?.length > 0"
+                        (click)="selectionChange(item.field, response.aggregations[item.field]?.buckets[0].key_as_string)">
                             <span class="label">{{item.labelFi}}</span>
                         </mat-checkbox>
                     </div>
