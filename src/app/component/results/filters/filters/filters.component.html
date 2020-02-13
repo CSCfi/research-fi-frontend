@@ -37,11 +37,11 @@
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}"
                     collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
-                            <strong>{{filter.labelFi}}</strong>
+                            <strong>{{filter?.labelFi}}</strong>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
-                        <mat-selection-list #filterSelect (selectionChange)="parentPanel = filter.field" [class.limit]="filter.limitHeight"
+                        <mat-selection-list #filterSelect [class.limit]="filter.limitHeight"
                         [style.max-height.px]="height">
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field].buckets;"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
@@ -57,16 +57,15 @@
                     <!-- Template for filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
                         <div *ngFor="let item of response.aggregations[filter.field].buckets; let i = index ">
-                            <mat-expansion-panel *ngIf="item.subData.length > 0" (opened)="panelOpenState = i; parentPanel = filter.field"
-                            [expanded]="panelOpenState === i && parentPanel === filter.field ? true : false">
+                            <mat-expansion-panel *ngIf="item.subData.length > 0">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
                                         <span class="filter-title">{{item.key}}</span>
-                                        <mat-checkbox (change)="selectAll($event, filter.field)" style="padding:0 10px;" [value]="counter.inc()"
-                                        [checked]="item.subData.length === activeFilters[filter.field]?.length"></mat-checkbox>
+                                        <mat-checkbox (change)="selectAll($event, filter.field, item)" style="padding:0 10px;" [value]="counter.inc()"
+                                        [checked]="(item | filterItem: activeFilters[filter?.field])"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <mat-selection-list #subFilterSelect (selectionChange)="parentPanel = filter.field">
+                                <mat-selection-list #subFilterSelect>
                                     <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData; let x = index" (click)="selectionChange(filter.field, field.key)"
                                     [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                         <div class="row d-flex justify-content-around">
@@ -85,13 +84,13 @@
             <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
                 <div class="row single d-flex justify-content-around">
                     <div class="col col-9">
-                        <mat-checkbox labelPosition="after" [checked]="activeFilters[item.field]?.length > 0"
-                        (click)="selectionChange(item.field, response.aggregations[item.field]?.buckets[0].key_as_string)">
-                            <span class="label">{{item.labelFi}}</span>
+                        <mat-checkbox labelPosition="after" [checked]="activeFilters[item?.field]?.length > 0"
+                        (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string)">
+                            <span class="label">{{item?.labelFi}}</span>
                         </mat-checkbox>
                     </div>
                     <div class="col col-3 count">
-                        <span class="amount">{{response.aggregations[item.field]?.buckets[0].doc_count | thousandSeparator}}</span>
+                        <span class="amount" *ngIf="response.aggregations[item.field].buckets">{{response.aggregations[item.field]?.buckets[0].doc_count | thousandSeparator}}</span>
                     </div>
                 </div>
             </div>
