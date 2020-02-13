@@ -90,6 +90,7 @@ import { OrcidComponent } from './component/single/orcid/orcid.component';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { FiltersComponent } from './component/results/filters/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
+import { FilterItemPipe } from './pipes/filter-item.pipe';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { CounterPipe } from './pipes/counter.pipe';
     OrcidComponent,
     ThousandSeparatorPipe,
     FiltersComponent,
-    CounterPipe
+    CounterPipe,
+    FilterItemPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
