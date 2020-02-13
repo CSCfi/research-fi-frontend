@@ -94,7 +94,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       if (Object.entries(this.activeFilters).length === 0) {this.selectedFilters = []; }
     });
 
-
     // Switch default open panel by index
     switch (this.tabData) {
       case 'publications': {
@@ -162,6 +161,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
       this.selectedFilters[filter] = key;
+      // this.selectedFilters[filter].length > 0 ? this.selectedFilters[filter].concat(key)
     } else {
       // Filters cause problems if different data types
       key = key.toString();
@@ -199,26 +199,36 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   }
 
 
-  selectAll(event, filter) {
+  selectAll(event, filter, subFilter) {
     const index = event.source.value;
     const arr = this.subFilterSelect.toArray();
-    let options = [];
+    const itemArr = [];
+    // Push filter items into array, this is used to remove filters from active
+    subFilter.subData.forEach(item => {
+      itemArr.push(item.key);
+    });
+
+    const options = [];
+    let result = [];
     switch (event.checked) {
       case true: {
         arr[index].selectAll();
         arr[index].options.forEach(option => {
           options.push(option.value);
         });
+        // Merge selected with active filters
+        result = this.activeFilters[filter] ? this.activeFilters[filter].concat(options) : options;
         break;
       }
       case false: {
         arr[index].deselectAll();
-        options = [];
+        // Remove deselected filters
+        result = this.activeFilters[filter].filter(val => !itemArr.includes(val));
         break;
       }
     }
     // Pass selection
-    this.selectionChange(filter, options);
+    this.selectionChange(filter, result);
   }
 
   resetHeight() {
