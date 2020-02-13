@@ -157,14 +157,15 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
 
   // Navigate
   selectionChange(filter, key) {
-    console.log(this.activeFilters);
     // Set open panel
     this.parentPanel = filter;
+    // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
       this.selectedFilters[filter] = key;
     } else {
+      // Filters cause problems if different data types
       key = key.toString();
-
+      // Transform single active filter into array
       if (this.activeFilters[filter] && !Array.isArray(this.activeFilters[filter])) {
         const transformed = [];
         transformed[filter] = [this.activeFilters[filter]];
@@ -172,14 +173,17 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         this.selectedFilters = this.activeFilters;
       }
 
+      // Merge selection with active filters
       if (this.activeFilters[filter]) {
         const combined = this.activeFilters[filter].concat(this.selectedFilters[filter] ? this.selectedFilters[filter] : []);
         this.selectedFilters[filter] = [...new Set(combined)];
       }
 
+      // Remove filter if selection exists
       if (this.selectedFilters[filter] && this.selectedFilters[filter].includes(key)) {
         this.selectedFilters[filter].splice(this.selectedFilters[filter].indexOf(key), 1);
       } else {
+        // Add new filter
         if (this.selectedFilters[filter] && this.selectedFilters[filter].length > 0) {
           this.selectedFilters[filter].push(key);
         } else {
@@ -196,27 +200,24 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
 
 
   selectAll(event, filter) {
-    const source = this.responseData[0].aggregations;
-    console.log(filter, event.source.value);
     const index = event.source.value;
+    const arr = this.subFilterSelect.toArray();
     let options = [];
-    console.log(this.subFilterSelect.toArray()[index])
     switch (event.checked) {
       case true: {
-        this.subFilterSelect.toArray()[index].selectAll();
-        this.subFilterSelect.toArray()[index].options.forEach(option => {
+        arr[index].selectAll();
+        arr[index].options.forEach(option => {
           options.push(option.value);
         });
-        // source.filter.checked = true;
         break;
       }
       case false: {
-        this.subFilterSelect.toArray()[index].deselectAll();
+        arr[index].deselectAll();
         options = [];
-        // source.filter.checked = false;
         break;
       }
     }
+    // Pass selection
     this.selectionChange(filter, options);
   }
 
