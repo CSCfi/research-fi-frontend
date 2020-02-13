@@ -31,6 +31,8 @@
         <h3 *ngIf="!mobile">Rajaa hakua</h3>
         <div class="filter-wrapper">
             <mat-accordion>
+                <div *ngFor="let counter of [currentFilter | counterPipe]">
+                    {{ counter.reset() }}
                 <mat-expansion-panel #filterList *ngFor="let filter of currentFilter; let j = index" [expanded]="parentPanel === filter.field" >
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}"
                     collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
@@ -59,8 +61,8 @@
                             [expanded]="panelOpenState === i && parentPanel === filter.field ? true : false">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
-                                        <span class="filter-title">{{item.key}} {{response.aggregations[filter.previous]?.buckets.length + i}}</span>
-                                        <mat-checkbox (change)="selectAll($event, i, filter.field)" style="padding:0 10px;"
+                                        <span class="filter-title">{{item.key}}</span>
+                                        <mat-checkbox (change)="selectAll($event, filter.field)" style="padding:0 10px;" [value]="counter.inc()"
                                         [checked]="item.subData.length === subFilters[i]?.selectedOptions.selected.length"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
@@ -77,6 +79,7 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
+                </div>
             </mat-accordion>
 
             <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
