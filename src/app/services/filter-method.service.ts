@@ -37,8 +37,8 @@ export class FilterMethodService {
       mapped = source.map(majorField => ({
         key: majorField.key,
         label: majorField.key,
-        id: majorField.fieldId.buckets[0].key,
-        doc_count: majorField.fieldId.buckets[0].doc_count }));
+        id: majorField.fieldId ? majorField.fieldId.buckets[0].key : -1,
+        doc_count: majorField.fieldId ? majorField.fieldId.buckets[0].doc_count : -1}));
     }
     // Loop through major fields & push all instances as separate arrays
     for (let i = 1; i < this.staticDataService.majorFieldsOfScience.length; i++) {
