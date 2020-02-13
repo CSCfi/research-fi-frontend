@@ -63,7 +63,7 @@
                                     <mat-panel-title>
                                         <span class="filter-title">{{item.key}}</span>
                                         <mat-checkbox (change)="selectAll($event, filter.field)" style="padding:0 10px;" [value]="counter.inc()"
-                                        [checked]="item.subData.length === subFilters[i]?.selectedOptions.selected.length"></mat-checkbox>
+                                        [checked]="item.subData.length === activeFilters[filter.field]?.length"></mat-checkbox>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-selection-list #subFilterSelect (selectionChange)="parentPanel = filter.field">
