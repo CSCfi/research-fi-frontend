@@ -90,6 +90,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     // Subscribe to queryParams
     this.queryParamSub = this.route.queryParams.subscribe(params => {
       this.activeFilters = params;
+      // Reset selected filters
+      if (Object.entries(this.activeFilters).length === 0) {this.selectedFilters = []; }
     });
 
 
@@ -155,14 +157,14 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
 
   // Navigate
   selectionChange(filter, key) {
+    console.log(this.activeFilters);
     // Set open panel
     this.parentPanel = filter;
     if (Array.isArray(key)) {
       this.selectedFilters[filter] = key;
     } else {
       key = key.toString();
-      // Reset selected filters
-      if (Object.entries(this.activeFilters).length === 0) {this.selectedFilters = []; }
+
       if (this.activeFilters[filter] && !Array.isArray(this.activeFilters[filter])) {
         const transformed = [];
         transformed[filter] = [this.activeFilters[filter]];
@@ -193,28 +195,29 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   }
 
 
-  countInit(i) {
-    console.log(i)
-  }
-
-  selectAll(event, i, filter) {
-    console.log(i);
+  selectAll(event, filter) {
+    const source = this.responseData[0].aggregations;
+    console.log(filter, event.source.value);
+    const index = event.source.value;
     let options = [];
+    console.log(this.subFilterSelect.toArray()[index])
     switch (event.checked) {
       case true: {
-        this.subFilterSelect.toArray()[i].selectAll();
-        this.subFilterSelect.toArray()[i].options.forEach(option => {
+        this.subFilterSelect.toArray()[index].selectAll();
+        this.subFilterSelect.toArray()[index].options.forEach(option => {
           options.push(option.value);
         });
+        // source.filter.checked = true;
         break;
       }
       case false: {
-        this.subFilterSelect.toArray()[i].deselectAll();
+        this.subFilterSelect.toArray()[index].deselectAll();
         options = [];
+        // source.filter.checked = false;
         break;
       }
     }
-    // this.selectionChange(filter, options);
+    this.selectionChange(filter, options);
   }
 
   resetHeight() {
@@ -248,8 +251,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       source.openAccess.buckets = this.openAccess(source.openAccess.buckets);
       // Internationatl collaboration
       source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
-
-      console.log(source);
     }
     this.cdr.detectChanges();
   }
