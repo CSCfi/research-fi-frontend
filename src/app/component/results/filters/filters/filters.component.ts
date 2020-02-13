@@ -66,6 +66,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   queryParamSub: Subscription;
   maxHeight = 220;
   subFilters: MatSelectionList[];
+  totalCount = 0;
 
   constructor( private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
                private staticDataService: StaticDataService, private router: Router,
@@ -191,10 +192,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       });
   }
 
+
+  countInit(i) {
+    console.log(i)
+  }
+
   selectAll(event, i, filter) {
     console.log(i);
-    // console.log(this.selectedOptions);
-    // console.log(this.subFilters);
     let options = [];
     switch (event.checked) {
       case true: {
@@ -210,7 +214,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         break;
       }
     }
-
     // this.selectionChange(filter, options);
   }
 
