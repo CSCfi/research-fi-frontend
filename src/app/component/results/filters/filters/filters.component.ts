@@ -20,7 +20,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 
 import { PublicationFilters } from './publications';
+import { PersonFilters } from './persons';
 import { FundingFilters } from './fundings';
+import { InfrastructureFilters } from './infrastructures';
+import { OrganizationFilters } from './organizations';
 
 @Component({
   selector: 'app-filters',
@@ -53,10 +56,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   subFilters: MatSelectionList[];
   totalCount = 0;
 
-  constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService, 
+  constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
                private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
-               private publicationFilters: PublicationFilters, private fundingFilters: FundingFilters ) {
+               private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
+               private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
+               private organizationFilters: OrganizationFilters ) {
                 this.height = 220;
                 this.clickCount = 0;
                 this.selectedFilters = [];
@@ -92,8 +97,20 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         this.parentPanel = 'year';
         break;
       }
+      case 'persons': {
+        this.parentPanel = '';
+        break;
+      }
       case 'fundings': {
         this.parentPanel = 'year';
+        break;
+      }
+      case 'infrastructures': {
+        this.parentPanel = '';
+        break;
+      }
+      case 'organizations': {
+        this.parentPanel = 'sector';
         break;
       }
     }
@@ -140,15 +157,33 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
-          this.currentFilter = this.publicationFilters.publicationFilterData;
-          this.currentSingleFilter = this.publicationFilters.publicationSingleFilterData;
+          this.currentFilter = this.publicationFilters.filterData;
+          this.currentSingleFilter = this.publicationFilters.singleFilterData;
           this.publicationFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'persons': {
+          this.currentFilter = this.personFilters.filterData;
+          this.currentSingleFilter = this.personFilters.singleFilterData;
+          this.personFilters.shapeData(this.responseData);
           break;
         }
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
           this.fundingFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'infrastructures': {
+          this.currentFilter = this.infrastructureFilters.filterData;
+          this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
+          this.infrastructureFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'organizations': {
+          this.currentFilter = this.organizationFilters.filterData;
+          this.currentSingleFilter = this.organizationFilters.singleFilterData;
+          this.organizationFilters.shapeData(this.responseData);
           break;
         }
       }

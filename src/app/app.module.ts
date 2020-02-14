@@ -93,7 +93,10 @@ import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
 
 import { PublicationFilters } from './component/results/filters/filters/publications';
+import { PersonFilters } from './component/results/filters/filters/persons';
 import { FundingFilters } from './component/results/filters/filters/fundings';
+import { InfrastructureFilters } from './component/results/filters/filters/infrastructures';
+import { OrganizationFilters } from './component/results/filters/filters/organizations';
 
 @NgModule({
   declarations: [
@@ -181,7 +184,7 @@ import { FundingFilters } from './component/results/filters/filters/fundings';
         return appConfigService.loadAppConfig();
       };
     }
-  }, PublicationFilters, FundingFilters ],
+  }, PublicationFilters, PersonFilters, FundingFilters,InfrastructureFilters, OrganizationFilters ],
 
   bootstrap: [ AppComponent ],
   entryComponents: [ PublicationsComponent, PersonsComponent, FundingsComponent, InfrastructuresComponent, OrganizationsComponent,

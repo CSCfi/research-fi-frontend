@@ -14,9 +14,9 @@ import { Injectable } from '@angular/core';
   })
 
 export class PublicationFilters {
-  publicationFilterData = [
-      {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, limitHeight: true},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false},
+    filterData = [
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true},
+      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: false, limitHeight: false},
       {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
       {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false},
       {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: false},
@@ -25,7 +25,7 @@ export class PublicationFilters {
       {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: false}
     ];
 
-    publicationSingleFilterData = [
+    singleFilterData = [
       {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
     ];
 
