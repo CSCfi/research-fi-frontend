@@ -247,7 +247,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
 
     if (this.responseData.length > 0) {
       const source = this.responseData[0].aggregations;
-
       // Organization & sector
       this.organization(source.organization);
       // Major field
@@ -259,9 +258,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       // Jufo code
       source.juFo.buckets = this.juFoCode(source.juFo.buckets);
       // Open access
-      source.openAccess.buckets = this.openAccess(source.openAccess.buckets);
+      source.openAccess.buckets = this.openAccess(source.openAccess.buckets, source.selfArchived.buckets);
       // Internationatl collaboration
       source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
+      // console.log(source);
     }
     this.cdr.detectChanges();
   }
@@ -326,41 +326,93 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
-      key: staticData.find(code => code.key === item.key).labelFi,
+      key: item.key === ' ' ? 'noVal' : 'j' + item.key,
+      label: staticData.find(code => code.key === item.key).labelFi,
       doc_count: item.doc_count,
       value: item.key
     });
     return result;
   }
 
-  openAccess(data) {
-    const combined = [];
-    const openAccessCodes = [];
-    let count = 0;
+  openAccess(openAccess, selfArchived) {
+    let openAccessCodes = [];
+    const result = [];
     // Get aggregation from response
-    if (data && data.length > 0) {
-      data.forEach(val => {
-        // Sum up doc counts of no access info, -1 & 9 are fallbacks from old data
-        if (val.key === -1 || val.key === 0 || val.key === 9) {
-          count = count + val.doc_count;
-        }
+    if (openAccess && openAccess.length > 0) {
+      openAccess.forEach(val => {
         switch (val.key) {
           case 1: {
-            openAccessCodes.push({key: 'Avoin', doc_count: val.doc_count, label: 'Avoin', value: 'openAccess'});
+            openAccessCodes.push({key: 'openAccess', doc_count: val.doc_count, label: 'Open Access -lehti'});
             break;
           }
           case 2: {
-            openAccessCodes.push({key: 'Ei avoin', doc_count: val.doc_count, label: 'Ei avoin', value: 'nonOpen'});
+            openAccessCodes.push({key: 'otherOpen', doc_count: val.doc_count, label: 'Muu avoin saatavuus'});
+            break;
+          }
+          case 0: {
+            openAccessCodes.push({key: 'nonOpenAccess', doc_count: val.doc_count, label: 'Ei avoin'});
+            break;
+          }
+          default: {
+            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: 'Ei tietoa'});
             break;
           }
         }
-        combined.push(val.key);
       });
-      // Check for matching access codes for no info
-      if (combined.includes(-1) || combined.includes(0) || combined.includes(9)) {openAccessCodes.push(
-        {key: 'Ei tietoa', doc_count: count, label: 'Ei tietoa', value: 'noAccessInfo'}); }
     }
-    return openAccessCodes;
+    if (selfArchived && selfArchived.length > 0) {
+      selfArchived.forEach(val => {
+        switch (val.key) {
+          case 1: {
+            openAccessCodes.push({key: 'selfArchived', doc_count: val.doc_count, label: 'Rinnakkaistallennettu'});
+            break;
+          }
+          case 0: {
+            openAccessCodes.push({key: 'selfArchivedNonOpen', doc_count: val.doc_count, label: 'Ei avoin'});
+            break;
+          }
+          default: {
+            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: 'Ei tietoa'});
+            break;
+          }
+        }
+      });
+    }
+
+    // Get duplicate values and sum doc counts
+    const reduce = openAccessCodes.reduce((item, val) => {
+      const sum = item.filter((obj) => {
+          return obj.key === val.key;
+      }).pop() || {key: val.key, doc_count: 0, label: val.label};
+
+      sum.doc_count += val.doc_count;
+      item.push(sum);
+      return item;
+    }, []);
+
+    // Remove duplicates
+    openAccessCodes = [...new Set(reduce)];
+
+    function docCount(key) {return openAccessCodes.find(item => item.key === key).doc_count; }
+
+    // Push items by key
+    if (openAccessCodes.some(e => e.key === 'openAccess')) {
+      result.push({key: 'openAccess', doc_count: docCount('openAccess'), label: 'Open Access -lehti'});
+    }
+    if (openAccessCodes.some(e => e.key === 'otherOpen')) {
+      result.push({key: 'otherOpen', doc_count: docCount('otherOpen'), label: 'Rinnakkaistallennettu'});
+    }
+    if (openAccessCodes.some(e => e.key === 'selfArchived')) {
+      result.push({key: 'selfArchived', doc_count: docCount('selfArchived'), label: 'Muu avoin saatavuus'});
+    }
+    if (openAccessCodes.some(e => e.key === 'nonOpenAccess') && openAccessCodes.some(e => e.key === 'selfArchivedNonOpen')) {
+      result.push({key: 'nonOpen', doc_count: Math.max(docCount('nonOpenAccess'), docCount('selfArchivedNonOpen')),  label: 'Ei avoin'});
+    }
+    if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
+      result.push({key: 'noOpenAccessData', doc_count: docCount('noOpenAccessData'), label: 'Ei tietoa'});
+    }
+
+    return result;
   }
 
   getSingleAmount(data) {
