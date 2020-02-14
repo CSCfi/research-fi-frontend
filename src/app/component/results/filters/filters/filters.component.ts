@@ -20,6 +20,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 
 import { PublicationFilters } from './publications';
+import { FundingFilters } from './fundings';
 
 @Component({
   selector: 'app-filters',
@@ -55,7 +56,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService, 
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
                private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
-               private publicationFilters: PublicationFilters ) {
+               private publicationFilters: PublicationFilters, private fundingFilters: FundingFilters ) {
                 this.height = 220;
                 this.clickCount = 0;
                 this.selectedFilters = [];
@@ -89,6 +90,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     switch (this.tabData) {
       case 'publications': {
         this.parentPanel = 'year';
+        break;
+      }
+      case 'fundings': {
+        this.parentPanel = 'year';
+        break;
       }
     }
 
@@ -137,6 +143,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
           this.currentFilter = this.publicationFilters.publicationFilterData;
           this.currentSingleFilter = this.publicationFilters.publicationSingleFilterData;
           this.publicationFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'fundings': {
+          this.currentFilter = this.fundingFilters.filterData;
+          this.currentSingleFilter = this.fundingFilters.singleFilterData;
+          this.fundingFilters.shapeData(this.responseData);
+          break;
         }
       }
     }
