@@ -266,6 +266,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     this.cdr.detectChanges();
   }
 
+
   organization(data) {
     const org = data.sectorName;
     data.buckets = org.buckets;
@@ -317,7 +318,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   }
 
   publicationCountry(data) {
-    const result = data.map(item => item = {key: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
+    const result = data.map(item =>
+      item = {key: 'c' + item.key, label: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
     return result;
   }
 
