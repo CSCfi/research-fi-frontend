@@ -46,7 +46,7 @@
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field].buckets;"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
-                                    <div class="col-9"><span class="label">{{item.key}}</span></div>
+                                    <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
                                     <div class="col-3 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
                                 </div>
                             </mat-list-option>
@@ -63,6 +63,7 @@
                                         <span class="filter-title">{{item.key}}</span>
                                         <mat-checkbox (change)="selectAll($event, filter.field, item)" style="padding:0 10px;" [value]="counter.inc()"
                                         [checked]="(item | filterItem: activeFilters[filter?.field])"></mat-checkbox>
+                                        <!-- ^^^^ takasin napilla activeFilters ei kerkee lataa ennen tuota -->
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-selection-list #subFilterSelect>
