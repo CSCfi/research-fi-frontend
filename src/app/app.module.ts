@@ -93,6 +93,7 @@ import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
 
 import { PublicationFilters } from './component/results/filters/filters/publications';
+import { FundingFilters } from './component/results/filters/filters/fundings';
 
 @NgModule({
   declarations: [
@@ -180,7 +181,7 @@ import { PublicationFilters } from './component/results/filters/filters/publicat
         return appConfigService.loadAppConfig();
       };
     }
-  }, PublicationFilters ],
+  }, PublicationFilters, FundingFilters ],
 
   bootstrap: [ AppComponent ],
   entryComponents: [ PublicationsComponent, PersonsComponent, FundingsComponent, InfrastructuresComponent, OrganizationsComponent,
