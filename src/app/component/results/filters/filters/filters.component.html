@@ -33,7 +33,7 @@
             <mat-accordion>
                 <div *ngFor="let counter of [currentFilter | counterPipe]">
                     {{ counter.reset() }}
-                <mat-expansion-panel #filterList *ngFor="let filter of currentFilter; let j = index" [expanded]="parentPanel === filter.field" >
+                <mat-expansion-panel *ngFor="let filter of currentFilter; let j = index" [expanded]="parentPanel === filter.field" >
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}"
                     collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
                         <mat-panel-title>
@@ -41,7 +41,7 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
-                        <mat-selection-list #filterSelect [class.limit]="filter.limitHeight"
+                        <mat-selection-list [class.limit]="filter.limitHeight"
                         [style.max-height]="filter.limitHeight ? height + 'px' : 'auto'">
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field].buckets;"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
