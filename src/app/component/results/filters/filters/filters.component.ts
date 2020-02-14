@@ -29,24 +29,7 @@ import { PublicationFilters } from './publications';
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterContentChecked {
   @Input() responseData: any [];
   @Input() tabData: string;
-  @ViewChildren('filterSelect') filterSelect: QueryList<MatSelectionList>;
   @ViewChildren('subFilterSelect') subFilterSelect: QueryList<MatSelectionList>;
-  @ViewChildren('filterList') filterList: QueryList<MatSelectionList>;
-
-  publicationFilterData = [
-    {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, limitHeight: true},
-    {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false},
-    {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
-    {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false},
-    {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: false},
-    {field: 'lang', labelFi: 'Kieli', hasSubFields: false, limitHeight: true},
-    {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, limitHeight: false},
-    {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: false}
-  ];
-
-  publicationSingleFilterData = [
-    {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
-  ];
 
   currentFilter: any[];
   currentSingleFilter: any[];
@@ -69,12 +52,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   subFilters: MatSelectionList[];
   totalCount = 0;
 
-  constructor( private cdr: ChangeDetectorRef, private filterMethodService: FilterMethodService,
-               private staticDataService: StaticDataService, private router: Router,
-               private filterService: FilterService, private resizeService: ResizeService,
-               @Inject(WINDOW) private window: Window, private modalService: BsModalService,
-               private route: ActivatedRoute, private utilityService: UtilityService,
-               private sortService: SortService, private publicationFilters: PublicationFilters ) {
+  constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService, 
+               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
+               private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
+               private publicationFilters: PublicationFilters ) {
                 this.height = 220;
                 this.clickCount = 0;
                 this.selectedFilters = [];
@@ -150,24 +131,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     this.responseData = this.responseData || [];
     if (this.responseData.length > 0) {
 
+      // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
-          this.currentFilter = this.publicationFilterData;
-          this.currentSingleFilter = this.publicationSingleFilterData;
-        }
-      }
-    }
-
-    this.shapeData(this.tabData);
-  }
-
-  // Shape response data by index
-  shapeData(tab) {
-    this.responseData = this.responseData || [];
-
-    if (this.responseData.length > 0) {
-      switch (tab) {
-        case 'publications': {
+          this.currentFilter = this.publicationFilters.publicationFilterData;
+          this.currentSingleFilter = this.publicationFilters.publicationSingleFilterData;
           this.publicationFilters.shapeData(this.responseData);
         }
       }
