@@ -43,7 +43,7 @@
                     <ng-container *ngIf="!filter.hasSubFields">
                         <mat-selection-list [class.limit]="filter.limitHeight"
                         [style.max-height]="filter.limitHeight ? height + 'px' : 'auto'">
-                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field].buckets;"
+                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets;"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
@@ -51,12 +51,12 @@
                                 </div>
                             </mat-list-option>
                         </mat-selection-list>
-                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field].buckets.length / 5" 
-                        (click)="showMore(response.aggregations[filter.field].buckets.length)">Näytä lisää...</button>
+                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field]?.buckets.length / 5" 
+                        (click)="showMore(response.aggregations[filter.field]?.buckets.length)">Näytä lisää...</button>
                     </ng-container>
                     <!-- Template for filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
-                        <div *ngFor="let item of response.aggregations[filter.field].buckets; let i = index ">
+                        <div *ngFor="let item of response.aggregations[filter.field]?.buckets; let i = index ">
                             <mat-expansion-panel *ngIf="item.subData.length > 0">
                                 <mat-expansion-panel-header>
                                     <mat-panel-title>
