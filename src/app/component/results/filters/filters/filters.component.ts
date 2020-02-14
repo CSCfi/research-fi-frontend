@@ -14,7 +14,6 @@ import { ResizeService } from '../../../../services/resize.service';
 import { FilterService } from '../../../../services/filter.service';
 import { FilterMethodService } from '../../../../services/filter-method.service';
 import { StaticDataService } from '../../../../services/static-data.service';
-import { DataService } from '../../../../services/data.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -72,7 +71,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
                private staticDataService: StaticDataService, private router: Router,
                private filterService: FilterService, private resizeService: ResizeService,
                @Inject(WINDOW) private window: Window, private modalService: BsModalService,
-               private route: ActivatedRoute ) {
+               private route: ActivatedRoute, private utilityService: UtilityService,
+               private sortService: SortService ) {
                 this.height = 220;
                 this.clickCount = 0;
                 this.selectedFilters = [];
@@ -84,6 +84,14 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
 
   closeModal() {
     this.modalRef.hide();
+  }
+
+  preventTab(event) {
+    UtilityService.preventTab(event);
+  }
+
+  preventTabBack(event) {
+    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
   }
 
   ngOnInit() {
@@ -149,9 +157,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     }
 
     this.shapeData();
-
-    // Subfilter array is used to mark subFilters as checked
-    this.subFilters = this.subFilterSelect.toArray();
   }
 
   // Navigate
@@ -191,6 +196,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         }
       }
     }
+    // Set sort and page
+    this.selectedFilters.sort = this.sortService.sortMethod;
+    this.selectedFilters.page = 1;
 
     this.router.navigate([],
       { queryParams: this.selectedFilters,
