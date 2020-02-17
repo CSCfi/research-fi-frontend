@@ -11,7 +11,7 @@
 
 <ng-template #filterModal>
     <div class="modal-header">
-        <h5 class="modal-title">Rajaa hakua</h5>
+        <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h5>
     </div>
     <div class="modal-body">
         <ng-container *ngTemplateOutlet="filters"></ng-container>
@@ -28,7 +28,7 @@
 
 <ng-template #filters>
     <div class="filter-sidebar" *ngFor="let response of responseData">
-        <h3 *ngIf="!mobile">Rajaa hakua</h3>
+        <h3 *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h3>
         <div class="filter-wrapper">
             <mat-accordion>
                 <div *ngFor="let counter of [currentFilter | counterPipe]">
@@ -63,7 +63,6 @@
                                         <span class="filter-title">{{item.key}}</span>
                                         <mat-checkbox (change)="selectAll($event, filter.field, item)" style="padding:0 10px;" [value]="counter.inc()"
                                         [checked]="(item | filterItem: activeFilters[filter?.field])"></mat-checkbox>
-                                        <!-- ^^^^ takasin napilla activeFilters ei kerkee lataa ennen tuota -->
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-selection-list #subFilterSelect>
