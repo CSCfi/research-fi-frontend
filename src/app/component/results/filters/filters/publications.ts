@@ -51,8 +51,7 @@ export class PublicationFilters {
   }
 
   organization(data) {
-      const org = data.sectorName;
-      data.buckets = org.buckets;
+      data.buckets = data.sectorName ? data.sectorName.buckets : [];
       data.buckets.forEach(item => {
         item.subData = item.organizations.buckets;
         item.subData.map(subItem => {
