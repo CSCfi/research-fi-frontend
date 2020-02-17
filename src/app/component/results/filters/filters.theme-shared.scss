@@ -10,7 +10,7 @@
 @mixin app-filters-theme-shared($theme) {
     $primary: map-get($theme, primary);
 
-    app-filter-publications, app-filter-persons, app-filter-fundings, app-filter-infrastructures, app-filter-organizations, modal-container {
+    modal-container, app-filters {
 
         .filter-sidebar {
             background: mat-color($primary, 50);

@@ -7,7 +7,7 @@
 
 @mixin app-filters-shared {
 
-    app-filter-publications, app-filter-fundings, app-filter-infrastructures, app-filter-organizations, app-filter-persons, modal-container {
+    modal-container, app-filters {
         .mobile {
             max-width: 95%;
         }
@@ -127,6 +127,10 @@
         }
 
         // Segments
+        .mat-list-base {
+            padding: 0.5rem 1rem;
+        }
+
         .mat-list-base .mat-list-item .mat-list-text, .mat-list-base .mat-list-option .mat-list-text {
             flex-direction: row!important;
             display: block!important;
@@ -134,7 +138,7 @@
 
         .mat-list-base .mat-list-option .mat-list-item-content {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 0;
             padding-right: 0;
         }
 

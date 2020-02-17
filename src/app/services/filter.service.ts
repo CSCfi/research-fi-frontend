@@ -122,13 +122,9 @@ export class FilterService {
 
   filterByOpenAccess(code: string) {
     const res = [];
-    if (code.includes('openAccess')) {
-      res.push(
-        { term : { openAccessCode: 1} },
-        { term : { openAccessCode: 2} },
-        { term : { selfArchivedCode: 1} }
-        );
-    }
+    if (code.includes('openAccess')) {res.push({ term : { openAccessCode: 1} }); }
+    if (code.includes('otherOpen')) {res.push({ term : { openAccessCode: 2} }); }
+    if (code.includes('selfArchived')) {res.push({ term : { selfArchivedCode: 1} }); }
     if (code.includes('nonOpen')) {
       res.push(
         {bool: {must: [
@@ -137,13 +133,14 @@ export class FilterService {
         ]}}
       );
     }
-    if (code.includes('noAccessInfo')) {
+    if (code.includes('noOpenAccessData')) {
       res.push(
         {bool: {must_not: [
           { term : { openAccessCode : 1 } },
           { term : { openAccessCode : 2 } },
           { term : { openAccessCode : 0 } },
-          { term : { selfArchivedCode : 1 } }
+          { term : { selfArchivedCode : 1 } },
+          { term : { selfArchivedCode : 0 } }
         ]}}
       );
     }
@@ -287,7 +284,7 @@ export class FilterService {
         }} : []),
       size: 0,
       aggs: {
-        years: {
+        year: {
           terms: {
             field: this.sortService.yearField,
             size: 50,
@@ -298,7 +295,7 @@ export class FilterService {
     };
     switch (tab) {
       case 'publications':
-        payLoad.aggs.sector = {
+        payLoad.aggs.organization = {
           nested: {
             path: 'author'
           },
@@ -336,7 +333,7 @@ export class FilterService {
             order: { _key : 'asc' }
           }
         };
-        payLoad.aggs.languageCode = {
+        payLoad.aggs.lang = {
           terms: {
             field: 'languages.languageCode.keyword'
           },
@@ -371,7 +368,7 @@ export class FilterService {
             size: 2
           }
         };
-        payLoad.aggs.fieldsOfScience = {
+        payLoad.aggs.field = {
           terms: {
             field: 'fields_of_science.nameFiScience.keyword',
             size: 250,
@@ -395,6 +392,27 @@ export class FilterService {
         payLoad.aggs.openAccess = {
           terms: {
             field: 'openAccessCode'
+          }
+        };
+        // Composite is to get aggregation of selfarchived and open access codes of 0
+        payLoad.aggs.oaComposite = {
+          composite: {
+            sources: [
+              {
+                selfArchived: {
+                  terms: {
+                    field: 'selfArchivedCode'
+                  }
+                }
+              },
+              {
+                openAccess: {
+                  terms: {
+                    field: 'openAccessCode'
+                  }
+                }
+              }
+            ]
           }
         };
         break;

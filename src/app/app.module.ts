@@ -55,15 +55,11 @@ import { PersonsComponent } from './component/results/persons/persons.component'
 import { FundingsComponent } from './component/results/fundings/fundings.component';
 import { OrganizationsComponent } from './component/results/organizations/organizations.component';
 
-import { FilterPublicationsComponent } from './component/results/filters/filter-publications/filter-publications.component';
 import { ResultTabComponent } from './component/result-tab/result-tab.component';
 import { SortComponent } from './component/results/sort/sort.component';
 import { PaginationComponent } from './component/results/pagination/pagination.component';
 import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
 import { ActiveFiltersComponent } from './component/results/active-filters/active-filters.component';
-import { FilterFundingsComponent } from './component/results/filters/filter-fundings/filter-fundings.component';
-import { FilterOrganizationsComponent } from './component/results/filters/filter-organizations/filter-organizations.component';
-import { FilterPersonsComponent } from './component/results/filters/filter-persons/filter-persons.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
 import { RelatedResultsComponent } from './component/results/related-results/related-results.component';
 import { SearchResultsComponent, EmptyResultComponent } from './component/results/search-results/search-results.component';
@@ -83,12 +79,20 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './component/results/suggest/suggest.component';
 import { NewsComponent } from './component/news/news.component';
 import { InfrastructuresComponent } from './component/results/infrastructures/infrastructures.component';
-import { FilterInfrastructuresComponent } from './component/results/filters/filter-infrastructures/filter-infrastructures.component';
 import { ShareComponent } from './component/single/share/share.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './component/single/orcid/orcid.component';
 import { InterceptService } from './services/intercept.service';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
+import { FiltersComponent } from './component/results/filters/filters.component';
+import { CounterPipe } from './pipes/counter.pipe';
+import { FilterItemPipe } from './pipes/filter-item.pipe';
+
+import { PublicationFilters } from './component/results/filters/publications';
+import { PersonFilters } from './component/results/filters/persons';
+import { FundingFilters } from './component/results/filters/fundings';
+import { InfrastructureFilters } from './component/results/filters/infrastructures';
+import { OrganizationFilters } from './component/results/filters/organizations';
 import { ErrorHandlerService } from './services/error-handler.service';
 
 @NgModule({
@@ -100,7 +104,6 @@ import { ErrorHandlerService } from './services/error-handler.service';
     SinglePublicationComponent,
     PublicationsComponent,
     PersonsComponent,
-    FilterPublicationsComponent,
     ResultTabComponent,
     SortComponent,
     PaginationComponent,
@@ -109,10 +112,7 @@ import { ErrorHandlerService } from './services/error-handler.service';
     SingleFundingComponent,
     ActiveFiltersComponent,
     OrganizationsComponent,
-    FilterFundingsComponent,
     SingleOrganizationComponent,
-    FilterOrganizationsComponent,
-    FilterPersonsComponent,
     VisualisationComponent,
     RelatedResultsComponent,
     SearchResultsComponent,
@@ -126,11 +126,13 @@ import { ErrorHandlerService } from './services/error-handler.service';
     NewsComponent,
     LinksPipe,
     InfrastructuresComponent,
-    FilterInfrastructuresComponent,
     ShareComponent,
     SingleInfrastructureComponent,
     OrcidComponent,
-    ThousandSeparatorPipe
+    ThousandSeparatorPipe,
+    FiltersComponent,
+    CounterPipe,
+    FilterItemPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -176,7 +178,7 @@ import { ErrorHandlerService } from './services/error-handler.service';
         return appConfigService.loadAppConfig();
       };
     }
-  } ],
+  }, PublicationFilters, PersonFilters, FundingFilters, InfrastructureFilters, OrganizationFilters ],
 
   bootstrap: [ AppComponent ],
   entryComponents: [ PublicationsComponent, PersonsComponent, FundingsComponent, InfrastructuresComponent, OrganizationsComponent,

@@ -1,0 +1,100 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+    
+ <div class="mobile mx-auto" id="navbar-toggle">
+    <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="openModal(filterModal)">
+        <h3>Rajaa hakua</h3>
+    </button>
+</div>
+
+<ng-template #filterModal>
+    <div class="modal-header">
+        <h5 class="modal-title">Rajaa hakua</h5>
+    </div>
+    <div class="modal-body">
+        <ng-container *ngTemplateOutlet="filters"></ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="preventTab($event)">Sulje</button>
+    </div>
+</ng-template>
+
+
+<ng-container *ngIf="!mobile">
+    <ng-container *ngTemplateOutlet="filters"></ng-container>
+</ng-container>
+
+<ng-template #filters>
+    <div class="filter-sidebar" *ngFor="let response of responseData">
+        <h3 *ngIf="!mobile">Rajaa hakua</h3>
+        <div class="filter-wrapper">
+            <mat-accordion>
+                <div *ngFor="let counter of [currentFilter | counterPipe]">
+                    {{ counter.reset() }}
+                <mat-expansion-panel *ngFor="let filter of currentFilter; let j = index" [expanded]="parentPanel === filter.field" >
+                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}"
+                    collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
+                        <mat-panel-title>
+                            <strong>{{filter?.labelFi}}</strong>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-container *ngIf="!filter.hasSubFields">
+                        <mat-selection-list [class.limit]="filter.limitHeight"
+                        [style.max-height]="filter.limitHeight ? height + 'px' : 'auto'">
+                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets;"
+                            [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
+                                    <div class="col-3 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
+                                </div>
+                            </mat-list-option>
+                        </mat-selection-list>
+                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field]?.buckets.length / 5" 
+                        (click)="showMore(response.aggregations[filter.field]?.buckets.length)">Näytä lisää...</button>
+                    </ng-container>
+                    <!-- Template for filters with subfields -->
+                    <div class="subFields" *ngIf="filter.hasSubFields">
+                        <div *ngFor="let item of response.aggregations[filter.field]?.buckets; let i = index ">
+                            <mat-expansion-panel *ngIf="item.subData.length > 0">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        <span class="filter-title">{{item.key}}</span>
+                                        <mat-checkbox (change)="selectAll($event, filter.field, item)" style="padding:0 10px;" [value]="counter.inc()"
+                                        [checked]="(item | filterItem: activeFilters[filter?.field])"></mat-checkbox>
+                                        <!-- ^^^^ takasin napilla activeFilters ei kerkee lataa ennen tuota -->
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-selection-list #subFilterSelect>
+                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData; let x = index" (click)="selectionChange(filter.field, field.key)"
+                                    [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
+                                        <div class="row d-flex justify-content-around">
+                                            <div class="col-9"><span class="label">{{field.label}}</span></div>
+                                            <div class="col-3 count"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
+                                        </div>
+                                    </mat-list-option>
+                                </mat-selection-list>
+                            </mat-expansion-panel>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                </div>
+            </mat-accordion>
+
+            <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
+                <div class="row single d-flex justify-content-around" *ngIf="response.aggregations[item.field]?.buckets?.length > 0">
+                    <div class="col col-9">
+                        <mat-checkbox labelPosition="after" [checked]="activeFilters[item?.field]?.length > 0"
+                        (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string)">
+                            <span class="label">{{item?.labelFi}}</span>
+                        </mat-checkbox>
+                    </div>
+                    <div class="col col-3 count">
+                        <span class="amount" *ngIf="response.aggregations[item.field].buckets">{{response.aggregations[item.field]?.buckets[0]?.doc_count | thousandSeparator}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
