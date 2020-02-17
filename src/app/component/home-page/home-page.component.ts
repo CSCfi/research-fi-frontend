@@ -53,7 +53,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       col: 8,
       link: '/visual/publications',
       alt: ''
-      
+
     },
     {
       title: 'Suomalainen tutkimusjärjestelmä',

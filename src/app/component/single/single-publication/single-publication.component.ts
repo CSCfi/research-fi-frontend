@@ -184,7 +184,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // }
 
     // Extract self archived address from selfArchivedData array
-    if (selfArchived && selfArchived.length > 0) {
+    if (selfArchived && selfArchived.length > 1) {
       source.selfArchivedAddress = selfArchived[0].selfArchived[0].selfArchivedAddress;
     }
 

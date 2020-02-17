@@ -6,9 +6,9 @@
 //  :license: MIT
 
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TypeaheadModule, ModalModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -82,6 +82,7 @@ import { InfrastructuresComponent } from './component/results/infrastructures/in
 import { ShareComponent } from './component/single/share/share.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './component/single/orcid/orcid.component';
+import { InterceptService } from './services/intercept.service';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { FiltersComponent } from './component/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
@@ -92,6 +93,7 @@ import { PersonFilters } from './component/results/filters/persons';
 import { FundingFilters } from './component/results/filters/fundings';
 import { InfrastructureFilters } from './component/results/filters/infrastructures';
 import { OrganizationFilters } from './component/results/filters/organizations';
+import { ErrorHandlerService } from './services/error-handler.service';
 
 @NgModule({
   declarations: [
@@ -163,7 +165,9 @@ import { OrganizationFilters } from './component/results/filters/organizations';
     ModalModule.forRoot()
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
+  {provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true},
   {provide: LOCALE_ID, useValue: 'fi-FI'},
+  {provide: ErrorHandler, useClass: ErrorHandlerService},
   {
     provide: APP_INITIALIZER,
     multi: true,
