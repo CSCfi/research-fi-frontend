@@ -22,6 +22,7 @@ import { PersonFilters } from './persons';
 import { FundingFilters } from './fundings';
 import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-filters',
@@ -53,6 +54,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   maxHeight = 220;
   subFilters: MatSelectionList[];
   totalCount = 0;
+  faSlidersH = faSlidersH;
 
   constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
