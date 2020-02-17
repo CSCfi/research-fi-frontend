@@ -26,8 +26,13 @@ export class OrganizationFilters {
 
   shapeData(data) {
     const source = data[0].aggregations;
-    console.log(source);
+    source.sector.buckets = this.sector(source.sector.buckets);
     return source;
+  }
+
+  sector(data) {
+    const result =  data.map(item => item = {label: item.key, key: item.sectorId.buckets[0].key, doc_count: item.doc_count});
+    return result;
   }
 
 
