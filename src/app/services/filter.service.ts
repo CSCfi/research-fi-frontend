@@ -122,13 +122,9 @@ export class FilterService {
 
   filterByOpenAccess(code: string) {
     const res = [];
-    if (code.includes('openAccess')) {
-      res.push(
-        { term : { openAccessCode: 1} },
-        { term : { openAccessCode: 2} },
-        { term : { selfArchivedCode: 1} }
-        );
-    }
+    if (code.includes('openAccess')) {res.push({ term : { openAccessCode: 1} }); }
+    if (code.includes('otherOpen')) {res.push({ term : { openAccessCode: 2} }); }
+    if (code.includes('selfArchived')) {res.push({ term : { selfArchivedCode: 1} }); }
     if (code.includes('nonOpen')) {
       res.push(
         {bool: {must: [
@@ -137,13 +133,14 @@ export class FilterService {
         ]}}
       );
     }
-    if (code.includes('noAccessInfo')) {
+    if (code.includes('noOpenAccessData')) {
       res.push(
         {bool: {must_not: [
           { term : { openAccessCode : 1 } },
           { term : { openAccessCode : 2 } },
           { term : { openAccessCode : 0 } },
-          { term : { selfArchivedCode : 1 } }
+          { term : { selfArchivedCode : 1 } },
+          { term : { selfArchivedCode : 0 } }
         ]}}
       );
     }
@@ -395,6 +392,27 @@ export class FilterService {
         payLoad.aggs.openAccess = {
           terms: {
             field: 'openAccessCode'
+          }
+        };
+        // Composite is to get aggregation of selfarchived and open access codes of 0
+        payLoad.aggs.oaComposite = {
+          composite: {
+            sources: [
+              {
+                selfArchived: {
+                  terms: {
+                    field: 'selfArchivedCode'
+                  }
+                }
+              },
+              {
+                openAccess: {
+                  terms: {
+                    field: 'openAccessCode'
+                  }
+                }
+              }
+            ]
           }
         };
         break;
