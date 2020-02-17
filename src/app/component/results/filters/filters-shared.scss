@@ -106,9 +106,15 @@
             height: 1px;
         }
 
-        // Typography
+        // Typography & icons
+        .filter-icon {
+            padding-right: 1rem;
+        }
+
+
         h3 {
             margin: 0;
+            font-size: 1.3rem;
         }
 
         span.filter-title {
