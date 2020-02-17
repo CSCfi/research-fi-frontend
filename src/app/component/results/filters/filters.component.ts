@@ -9,11 +9,9 @@ import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList
   ChangeDetectorRef, Inject, TemplateRef, AfterContentChecked } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SortService } from '../../../../services/sort.service';
-import { ResizeService } from '../../../../services/resize.service';
-import { FilterService } from '../../../../services/filter.service';
-import { FilterMethodService } from '../../../../services/filter-method.service';
-import { StaticDataService } from '../../../../services/static-data.service';
+import { SortService } from '../../../services/sort.service';
+import { ResizeService } from '../../../services/resize.service';
+import { FilterService } from '../../../services/filter.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';

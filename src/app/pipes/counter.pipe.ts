@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Pipe, PipeTransform } from '@angular/core';
-import { Counter } from '../component/results/filters/filters/counter';
+import { Counter } from '../component/results/filters/counter';
 
 const counters = new WeakMap<any, Counter>();
 

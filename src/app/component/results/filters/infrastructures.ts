@@ -5,8 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { FilterMethodService } from '../../../../services/filter-method.service';
-import { StaticDataService } from '../../../../services/static-data.service';
+import { FilterMethodService } from '../../../services/filter-method.service';
+import { StaticDataService } from '../../../services/static-data.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({

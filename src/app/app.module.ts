@@ -83,15 +83,15 @@ import { ShareComponent } from './component/single/share/share.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { OrcidComponent } from './component/single/orcid/orcid.component';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
-import { FiltersComponent } from './component/results/filters/filters/filters.component';
+import { FiltersComponent } from './component/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
 
-import { PublicationFilters } from './component/results/filters/filters/publications';
-import { PersonFilters } from './component/results/filters/filters/persons';
-import { FundingFilters } from './component/results/filters/filters/fundings';
-import { InfrastructureFilters } from './component/results/filters/filters/infrastructures';
-import { OrganizationFilters } from './component/results/filters/filters/organizations';
+import { PublicationFilters } from './component/results/filters/publications';
+import { PersonFilters } from './component/results/filters/persons';
+import { FundingFilters } from './component/results/filters/fundings';
+import { InfrastructureFilters } from './component/results/filters/infrastructures';
+import { OrganizationFilters } from './component/results/filters/organizations';
 
 @NgModule({
   declarations: [
