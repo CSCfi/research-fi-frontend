@@ -30,6 +30,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     openAccess: 'Avoin saatavuus',
     nonOpen: 'Ei avoin',
     noVal: 'Ei arviota',
+    noOpenAccessData: 'Ei tietoa',
+    selfArchived: 'Rinnakkaistallennettu',
     over100k: 'Rahoitus yli 100 000€',
     under100k: 'Rahoitus alle 100 000€'
   };
