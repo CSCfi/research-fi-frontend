@@ -283,6 +283,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     this.currentFilter.find(item => item.field === parent).open = true;
   }
 
+  closePanel(parent) {
+    this.currentFilter.find(item => item.field === parent).open = false;
+  }
+
   resetHeight() {
     this.height = this.maxHeight;
     this.clickCount = 0;
