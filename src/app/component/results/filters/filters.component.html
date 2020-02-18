@@ -30,19 +30,24 @@
     <div class="filter-sidebar" *ngFor="let response of responseData">
         <h3 *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h3>
         <div class="filter-wrapper">
-            <mat-accordion>
-                <div *ngFor="let counter of [currentFilter | counterPipe]">
-                    {{ counter.reset() }}
-                <mat-expansion-panel *ngFor="let filter of currentFilter; let j = index" [expanded]="parentPanel === filter.field" >
-                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}"
-                    collapsedHeight="{{panelHeight}}" (click)="resetHeight()">
+            <div *ngFor="let counter of [currentFilter | counterPipe]">
+                {{ counter.reset() }}
+                <mat-expansion-panel *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)">
+                    <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                         <mat-panel-title>
-                            <strong>{{filter?.labelFi}}</strong>
+                            <div class="row d-flex justify-content-between">
+                                <div [ngClass]="hasSubFields ? 'col-4' : ''" class="col">{{filter?.labelFi}}</div>
+                                <div *ngIf="filter.hasSubFields" class="col col-6 text-right">
+                                    <button class="show-options">
+                                        <span *ngIf="parentPanel !== filter.field">Näytä valinnat</span>
+                                        <span *ngIf="parentPanel === filter.field">Sulje</span>
+                                    </button>
+                                </div>
+                            </div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
-                        <mat-selection-list [class.limit]="filter.limitHeight"
-                        [style.max-height]="filter.limitHeight ? height + 'px' : 'auto'">
+                        <mat-selection-list [class.limit]="filter.limitHeight" [style.max-height]="filter.limitHeight ? height + 'px' : 'auto'">
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets;"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
@@ -51,22 +56,29 @@
                                 </div>
                             </mat-list-option>
                         </mat-selection-list>
-                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field]?.buckets.length / 5" 
+                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field]?.buckets.length / 3" 
                         (click)="showMore(response.aggregations[filter.field]?.buckets.length)">Näytä lisää...</button>
                     </ng-container>
                     <!-- Template for filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
-                        <div *ngFor="let item of response.aggregations[filter.field]?.buckets; let i = index ">
-                            <mat-expansion-panel *ngIf="item.subData.length > 0">
-                                <mat-expansion-panel-header>
+                        <div *ngFor="let item of response.aggregations[filter.field]?.buckets">
+                            <mat-expansion-panel *ngIf="item.subData.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
+                                <mat-expansion-panel-header collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}" (click)="resetHeight()">
                                     <mat-panel-title>
-                                        <span class="filter-title">{{item.key}}</span>
-                                        <mat-checkbox (change)="selectAll($event, filter.field, item)" style="padding:0 10px;" [value]="counter.inc()"
-                                        [checked]="(item | filterItem: activeFilters[filter?.field])"></mat-checkbox>
+                                        <div class="row d-flex justify-content-between">
+                                            <div class="col col-8 label">{{item.key}}</div>
+                                            <div class="col col-1 amount">{{item.subData?.length}}</div>
+                                        </div>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-selection-list #subFilterSelect>
-                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData; let x = index" (click)="selectionChange(filter.field, field.key)"
+                                    <!-- Select all -->
+                                    <mat-checkbox labelPosition="after" (change)="selectAll($event, filter.field, item)" [value]="counter.inc()"
+                                    [checked]="(item | filterItem: activeFilters[filter?.field])">
+                                        <span class="label">Valitse kaikki</span>
+                                    </mat-checkbox>
+                                    <!-- Options -->
+                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData" (click)="selectionChange(filter.field, field.key)"
                                     [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                         <div class="row d-flex justify-content-around">
                                             <div class="col-9"><span class="label">{{field.label}}</span></div>
@@ -78,9 +90,8 @@
                         </div>
                     </div>
                 </mat-expansion-panel>
-                </div>
-            </mat-accordion>
-
+            </div>
+            <!-- Items with single checkbox -->
             <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
                 <div class="row single d-flex justify-content-around" *ngIf="response.aggregations[item.field]?.buckets?.length > 0">
                     <div class="col col-9">
