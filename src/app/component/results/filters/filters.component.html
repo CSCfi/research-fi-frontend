@@ -32,15 +32,15 @@
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
                 {{ counter.reset() }}
-                <mat-expansion-panel *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)">
+                <mat-expansion-panel *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                         <mat-panel-title>
                             <div class="row d-flex justify-content-between">
                                 <div [ngClass]="hasSubFields ? 'col-4' : ''" class="col">{{filter?.labelFi}}</div>
                                 <div *ngIf="filter.hasSubFields" class="col col-6 text-right">
                                     <button class="show-options">
-                                        <span *ngIf="parentPanel !== filter.field">Näytä valinnat</span>
-                                        <span *ngIf="parentPanel === filter.field">Sulje</span>
+                                        <span *ngIf="!filter.open">Näytä valinnat</span>
+                                        <span *ngIf="filter.open">Sulje</span>
                                     </button>
                                 </div>
                             </div>
