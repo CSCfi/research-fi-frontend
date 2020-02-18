@@ -15,14 +15,14 @@ import { Injectable } from '@angular/core';
 
 export class PublicationFilters {
     filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
-      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false},
-      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: false},
-      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, limitHeight: true},
-      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, limitHeight: false},
-      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: false}
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, limitHeight: true, open: true, },
+      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false, open: false},
+      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false, open: false},
+      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false, open: false},
+      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: true, open: true, },
+      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, limitHeight: true, open: true, },
+      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, limitHeight: true, open: true, },
+      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: true, open: true, }
     ];
 
     singleFilterData = [
@@ -108,7 +108,7 @@ export class PublicationFilters {
     juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
-        label: staticData.find(code => code.key === item.key).labelFi,
+        label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
         key: item.key === ' ' ? 'noVal' : 'j' + item.key,
 
         doc_count: item.doc_count,
