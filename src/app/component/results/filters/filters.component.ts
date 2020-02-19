@@ -196,9 +196,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
 
   // Navigate
   selectionChange(filter, key) {
-    // Set open panel
-    // this.parentPanel = filter;
-
     // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
       this.selectedFilters[filter] = key;
@@ -276,7 +273,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
 
   panelStatus(parent) {
     this.panelArr[parent] = !this.panelArr[parent];
-    // console.log(this.panelArr);
   }
 
   setOpenStatus(parent) {
