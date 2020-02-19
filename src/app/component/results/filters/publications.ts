@@ -41,6 +41,8 @@ export class PublicationFilters {
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
     // Country code
     source.countryCode.buckets = this.publicationCountry(source.countryCode.buckets);
+    // Language code
+    source.lang.buckets = this.lang(source.lang.buckets);
     // Jufo code
     source.juFo.buckets = this.juFoCode(source.juFo.buckets);
     // Open access
@@ -114,6 +116,16 @@ export class PublicationFilters {
         doc_count: item.doc_count,
         value: item.key
     });
+    return result;
+  }
+
+  lang(data) {
+    let result = data.map(item => item = {
+      label: item.language.buckets[0].key !== 'undefined' ? item.language.buckets[0].key : 'Ei tiedossa',
+      key: item.key,
+      doc_count: item.doc_count
+    });
+    result = result.filter(item => item.key !== ' ');
     return result;
   }
 
