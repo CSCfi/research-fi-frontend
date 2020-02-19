@@ -28,7 +28,7 @@
 
 <ng-template #filters>
     <div class="filter-sidebar" *ngFor="let response of responseData">
-        <h3 *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h3>
+        <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h3>
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
                 {{ counter.reset() }}

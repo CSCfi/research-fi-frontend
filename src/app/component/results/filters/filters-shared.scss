@@ -21,7 +21,6 @@
 
         .filter-wrapper {
             max-height: 840px;
-            padding-top: 1rem;
         }
 
         // Material expansion panel & accordion
@@ -153,16 +152,14 @@
             padding-right: 1rem;
         }
 
+        h3.header {
+            padding: 0.3rem 0;
+        }
+
         h3 {
             margin: 0;
             font-size: 1.3rem;
         }
-
-        // .filter-title {
-        //     width: 86%;
-        //     font-weight: bolder;
-        //     font-size: 1.1rem;
-        // }
 
         // Select all
         .row.select-all {
@@ -289,10 +286,6 @@
         @media (max-width: 991px) {
             .filter-sidebar {
                 max-height: calc(100vh - 200px);
-            }
-
-            .filter-wrapper {
-                padding-top: 0;
             }
 
             .modal-body {
