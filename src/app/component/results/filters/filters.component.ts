@@ -33,6 +33,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   @Input() responseData: any [];
   @Input() tabData: string;
   @ViewChildren('subFilterSelect') subFilterSelect: QueryList<MatSelectionList>;
+  @ViewChildren('parentList') parentList: QueryList<MatSelectionList>;
 
   currentFilter: any[];
   currentSingleFilter: any[];
@@ -58,6 +59,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   faSlidersH = faSlidersH;
   panelHeight = 'auto';
   panelArr = [];
+  showMoreCount: any;
 
   constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
@@ -68,6 +70,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
                 this.height = 135;
                 this.clickCount = 0;
                 this.selectedFilters = [];
+                this.showMoreCount = [];
                 }
 
   openModal(template: TemplateRef<any>) {
@@ -191,6 +194,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         }
       }
     }
+    console.log(this.responseData);
     this.cdr.detectChanges();
   }
 
@@ -288,10 +292,19 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     this.clickCount = 0;
   }
 
-  showMore(total) {
-    this.clickCount++;
-    total = total - 5 * this.clickCount;
-    this.height = total < 5 ? this.height + total * 48 : this.height = this.height * 2;
+  // showMore(total) {
+  //   this.clickCount++;
+  //   total = total - 5 * this.clickCount;
+  //   this.height = total < 5 ? this.height + total * 48 : this.height = this.height * 2;
+  // }
+
+  showMore(parent) {
+    this.showMoreCount[parent] = this.showMoreCount[parent] ? {count: this.showMoreCount[parent].count + 3} : {count: 6};
+    console.log(this.showMoreCount);
+  }
+
+  showLess(parent) {
+    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3};
   }
 
 
