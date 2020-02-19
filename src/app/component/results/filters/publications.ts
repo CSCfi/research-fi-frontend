@@ -15,14 +15,14 @@ import { Injectable } from '@angular/core';
 
 export class PublicationFilters {
     filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
-      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false},
-      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: false},
-      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, limitHeight: true},
-      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, limitHeight: false},
-      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: false}
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, },
+      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, open: false},
+      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, open: false},
+      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, open: false},
+      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, open: true, },
+      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, open: true, },
+      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, open: true, },
+      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, open: true, }
     ];
 
     singleFilterData = [
@@ -41,12 +41,15 @@ export class PublicationFilters {
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
     // Country code
     source.countryCode.buckets = this.publicationCountry(source.countryCode.buckets);
+    // Language code
+    source.lang.buckets = this.lang(source.lang.buckets);
     // Jufo code
     source.juFo.buckets = this.juFoCode(source.juFo.buckets);
     // Open access
     source.openAccess.buckets = this.openAccess(source.openAccess.buckets, source.selfArchived.buckets, source.oaComposite);
     // Internationatl collaboration
     source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
+    source.shaped = true;
     return source;
   }
 
@@ -108,13 +111,25 @@ export class PublicationFilters {
     juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
-        label: staticData.find(code => code.key === item.key).labelFi,
+        label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
         key: item.key === ' ' ? 'noVal' : 'j' + item.key,
 
         doc_count: item.doc_count,
         value: item.key
     });
     return result;
+  }
+
+  lang(data) {
+    if (data && data[0].language) {
+      let result = data.map(item => item = {
+        label: item.language.buckets[0].key !== 'undefined' ? item.language.buckets[0].key : 'Ei tiedossa',
+        key: item.key,
+        doc_count: item.doc_count
+      });
+      result = result.filter(item => item.key !== ' ');
+      return result;
+    }
   }
 
   openAccess(openAccess, selfArchived, oaComposite) {

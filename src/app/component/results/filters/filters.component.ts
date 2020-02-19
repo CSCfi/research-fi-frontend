@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  ChangeDetectorRef, Inject, TemplateRef, AfterContentChecked } from '@angular/core';
+  Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -22,24 +22,25 @@ import { PersonFilters } from './persons';
 import { FundingFilters } from './fundings';
 import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterContentChecked {
+export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
   @Input() tabData: string;
   @ViewChildren('subFilterSelect') subFilterSelect: QueryList<MatSelectionList>;
+  @ViewChildren('parentList') parentList: QueryList<MatSelectionList>;
 
   currentFilter: any[];
   currentSingleFilter: any[];
-  panelOpenState: boolean;
   parentPanel: string;
+  subPanel: string;
   expandStatus: Array<boolean> = [];
   height: number;
-  clickCount: number;
   preSelection = [];
   filterSub: any;
   resizeSub: any;
@@ -47,22 +48,23 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   mobile = this.width < 992;
   modalRef: BsModalRef;
   selectedFilters: any;
-  selectedOptions: string[] = [];
   activeFilters: any;
   queryParamSub: Subscription;
-  maxHeight = 220;
   subFilters: MatSelectionList[];
   totalCount = 0;
+  faSlidersH = faSlidersH;
+  panelHeight = 'auto';
+  panelArr = [];
+  showMoreCount: any;
 
-  constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService,
+  constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
                private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
                private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters ) {
-                this.height = 220;
-                this.clickCount = 0;
                 this.selectedFilters = [];
+                this.showMoreCount = [];
                 }
 
   openModal(template: TemplateRef<any>) {
@@ -141,12 +143,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     }
   }
 
-  ngAfterContentChecked() {
-    // Prevents ExpressionChangedAfterItHasBeenCheckedError
-    this.selectedOptions = this.selectedOptions;
-    this.cdr.detectChanges();
-  }
-
   ngOnChanges() {
     // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
@@ -157,7 +153,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          this.publicationFilters.shapeData(this.responseData);
+          if (!this.responseData[0].aggregations.shaped) {
+            this.publicationFilters.shapeData(this.responseData);
+          }
           break;
         }
         case 'persons': {
@@ -186,13 +184,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         }
       }
     }
-    this.cdr.detectChanges();
   }
 
   // Navigate
   selectionChange(filter, key) {
-    // Set open panel
-    this.parentPanel = filter;
     // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
       this.selectedFilters[filter] = key;
@@ -236,48 +231,46 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       });
   }
 
-
-  selectAll(event, filter, subFilter) {
-    const index = event.source.value;
-    const arr = this.subFilterSelect.toArray();
+  selectAll(filter, subFilter) {
+    // Push subfilter items into array
     const itemArr = [];
-    // Push filter items into array, this is used to remove filters from active
     subFilter.subData.forEach(item => {
       itemArr.push(item.key);
     });
-
-    const options = [];
     let result = [];
-    switch (event.checked) {
-      case true: {
-        arr[index].selectAll();
-        arr[index].options.forEach(option => {
-          options.push(option.value);
-        });
-        // Merge selected with active filters
-        result = this.activeFilters[filter] ? this.activeFilters[filter].concat(options) : options;
-        break;
-      }
-      case false: {
-        arr[index].deselectAll();
-        // Remove deselected filters
-        result = this.activeFilters[filter].filter(val => !itemArr.includes(val));
-        break;
-      }
+
+    // Check if all items already selected
+    if (this.activeFilters[filter]) {
+    const equal = (this.activeFilters[filter].length === itemArr.length && this.activeFilters[filter].sort().every(
+                  (value, index) => value === itemArr.sort()[index])
+                  );
+    result = equal ? [] : itemArr;
+    } else {
+      result = itemArr;
     }
     // Pass selection
     this.selectionChange(filter, result);
   }
 
-  resetHeight() {
-    this.height = this.maxHeight;
-    this.clickCount = 0;
+  panelStatus(parent) {
+    this.panelArr[parent] = !this.panelArr[parent];
   }
 
-  showMore(total) {
-    this.clickCount++;
-    total = total - 5 * this.clickCount;
-    this.height = total < 5 ? this.height + total * 48 : this.height = this.height * 2;
+  setOpenStatus(parent) {
+    this.currentFilter.find(item => item.field === parent).open = true;
   }
+
+  closePanel(parent) {
+    this.currentFilter.find(item => item.field === parent).open = false;
+  }
+
+  showMore(parent) {
+    this.showMoreCount[parent] = this.showMoreCount[parent] ? {count: this.showMoreCount[parent].count + 3} : {count: 6};
+  }
+
+  showLess(parent) {
+    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3};
+  }
+
 
 }

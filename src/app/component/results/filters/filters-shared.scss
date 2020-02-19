@@ -25,14 +25,13 @@
         }
 
         // Material expansion panel & accordion
-        mat-expansion-panel.mat-expansion-panel {
-            // max-width: 297px;
+        .mat-expansion-panel {
+            margin: 1rem 0;
         }
 
         .cdk-focused .mat-expansion-panel-header-title {
             text-decoration: underline;
         }
-
 
         .mat-expansion-panel.mat-expanded {
             overflow: inherit !important;
@@ -44,33 +43,57 @@
 
         mat-checkbox, .mat-checkbox {
             display: flex;
-        }
-
-        .mat-checkbox .mat-checkbox-frame {
-            background: #fff;
+            padding: 12px 0;
         }
 
         .mat-radio-button {
             display: block;
         }
 
+        .mat-expansion-panel.parent:not([class*=mat-elevation-z]) {
+            border-radius: 4px;
+            // border: 1px solid;
+        }
+
         .mat-expansion-panel:not([class*=mat-elevation-z]) {
             box-shadow: none;
-            border-radius: 0px;
         }
+
+        .mat-accordion .mat-expansion-panel:not(.mat-expanded), .mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing) {
+            border-radius: 4px; 
+        }
+
+        // Header
 
         .mat-expansion-panel-header:not([aria-disabled=true]) {
             cursor: pointer;
             padding: 0 5px;
+            padding-right: 1.1rem;
         }
 
         .mat-expansion-indicator::after {
-            margin-top: -8px;
+            margin-top: -0.5rem;
+            padding: 5px;
         }
 
-        .mat-expansion-panel-header {
-            flex-direction: row-reverse;
+        // Chevron on left side
+        // .mat-expansion-panel-header {
+        //     flex-direction: row-reverse;
+        // }
+
+        .mat-expansion-panel-header-title {
+            display: block;
         }
+
+        .mat-expansion-panel-header-title .row .col {
+            padding: 0;
+        }
+
+        .mat-expansion-panel-header-title .row .col.amount, span.amount {
+            font-weight: normal;
+            font-size: 1rem;
+        }
+
 
         .mat-expanded mat-expansion-panel-header.mat-expanded {
             position: sticky;
@@ -91,34 +114,73 @@
             z-index: 38;
         }
 
+        // Hide chevron for parents
+        mat-expansion-panel-header.has-children span.mat-expansion-indicator {
+            display: none;
+        }
+
+        mat-expansion-panel-header.has-children {
+            padding-right: 5px!important;
+        }
+
+        mat-expansion-panel-header.has-children .mat-expansion-panel-header-title{
+            margin-right: 0!important;
+        }
+
         .mat-expansion-panel-header-title {
-            margin-left: 20px;
-            padding: 15px 0;
+            padding: 1rem 11px;
+            font-weight: bolder;
+            font-size: 1.1rem;
+        }
+
+        button.show-options {
+            font-size: 1rem;
+            background: none;
+            border-radius: 4px;
+            min-width: 76%;
         }
 
         .mat-expansion-panel-body {
-            // padding: 0 8px 0;
             padding: 0;
-            // margin-top: -12px;
         }
 
         .separator {
             height: 1px;
         }
 
-        // Typography
-        h3 {
-            margin: 0;
+        // Typography & icons
+        .filter-icon {
+            padding-right: 1rem;
         }
 
-        span.filter-title {
-            width: 86%;
-            font-weight: bolder;
+        h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        // .filter-title {
+        //     width: 86%;
+        //     font-weight: bolder;
+        //     font-size: 1.1rem;
+        // }
+
+        // Select all
+        .row.select-all {
+            cursor: pointer;        
+        }
+
+        span.label {
+            font-size: 1.1rem;
+        }
+
+        label.mat-checkbox-layout {
+            margin-bottom: 0;
         }
 
         .count {
             text-align: right;
             padding: 0;
+
         }
 
         span.amount {
@@ -126,9 +188,14 @@
             white-space: nowrap;
         }
 
+        .show-more {
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+        }
+
         // Segments
         .mat-list-base {
-            padding: 0.5rem 1rem;
+            padding: 0 1rem;
         }
 
         .mat-list-base .mat-list-item .mat-list-text, .mat-list-base .mat-list-option .mat-list-text {
@@ -162,11 +229,16 @@
             overflow-y: auto;
         }
 
-        // Single checkbox
+        // Single checkbox filters
+        .row.single {
+            border-radius: 4px;
+            padding: 0 1rem;
+        }
+
         .single-checkbox {
             font-weight: bold;
             font-size: 15px;
-            padding: 10px 2px;
+            padding-bottom: 1rem;
         }
 
         .mat-checkbox-inner-container {
@@ -181,10 +253,6 @@
 
         .single-checkbox label.mat-checkbox-layout {
             margin: 0;
-        }
-
-        .single-checkbox span.mat-checkbox-label {
-            // margin-left: 25px;
         }
 
         .mat-checkbox-layout {

@@ -13,7 +13,11 @@
     modal-container, app-filters {
 
         .filter-sidebar {
-            background: mat-color($primary, 50);
+            background: mat-color($primary, 100);
+        }
+
+        .filter-icon {
+            color: mat-color($primary);
         }
         
         h3 {
@@ -24,6 +28,10 @@
             color: mat-contrast($primary, 200);
         }
 
+        .mat-checkbox .mat-checkbox-frame {
+            background: mat-contrast($primary, 500);
+        }
+
         span.amount {
             color: mat-contrast($primary, 400);
         }
@@ -31,14 +39,42 @@
         // .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
         //     border-bottom: 1px solid mat-color($primary, 400);
         // }
+
+        // .mat-expansion-panel {
+        //     background: unset!important;
+        // }
+
+        mat-expansion-panel.mat-expansion-panel.mat-expanded {
+            background: mat-color($primary, 50);
+        }
+
+        .mat-expansion-panel-header, .row.single {
+            background: mat-color($primary, 50);
+        }
+
+        button.show-options {
+            border: 1px solid mat-color($primary);
+            background: mat-contrast($primary, 500);
+        }
+
+        .mat-expansion-panel-header:hover button.show-options {
+            background: mat-color($primary);
+            color: mat-contrast($primary, 500);
+        }
         
         .navbar-toggler {
             background: mat-color($primary, 50);
             border: 1px solid mat-color($primary);
         }
 
-        .mat-expanded mat-expansion-panel-header, mat-expansion-panel-header, mat-expansion-panel, mat-expansion-panel-header:hover {
-            background: mat-color($primary, 50)!important;
+        // Select all
+        .row.select-all:hover {
+            background: rgba(0, 0, 0, 0.04);        
+        }
+
+        // Single checkbox items
+        .mat-checkbox:hover {
+            background: none!important;
         }
 
         .separator {
@@ -46,7 +82,7 @@
         }
 
         .show-more {
-            color: mat-color($primary, A200);
+            color: mat-color($primary);
         }
 
         .modal-close {
