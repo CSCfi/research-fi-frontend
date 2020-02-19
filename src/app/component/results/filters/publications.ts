@@ -33,7 +33,6 @@ export class PublicationFilters {
 
   shapeData(data) {
     const source = data[0].aggregations;
-    console.log(source);
     // Organization & sector
     this.organization(source.organization);
     // Major field
@@ -122,7 +121,6 @@ export class PublicationFilters {
   }
 
   lang(data) {
-    // console.log(data);
     if (data && data[0].language) {
       let result = data.map(item => item = {
         label: item.language.buckets[0].key !== 'undefined' ? item.language.buckets[0].key : 'Ei tiedossa',
