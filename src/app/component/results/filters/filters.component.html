@@ -32,7 +32,7 @@
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
                 {{ counter.reset() }}
-                <mat-expansion-panel *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
+                <mat-expansion-panel #parentList *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" (click)="resetHeight()" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                         <mat-panel-title>
                             <div class="row d-flex justify-content-between">
@@ -47,8 +47,8 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
-                        <mat-selection-list [class.limit]="filter.limitHeight" [style.max-height]="filter.limitHeight ? height + 'px' : 'auto'">
-                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets;"
+                        <mat-selection-list [class.limit]="filter.limitHeight">
+                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3));"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
@@ -56,8 +56,8 @@
                                 </div>
                             </mat-list-option>
                         </mat-selection-list>
-                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field]?.buckets?.length / 3" 
-                        (click)="showMore(response.aggregations[filter.field]?.buckets?.length)">Näytä lisää...</button>
+                        <button *ngIf="response.aggregations[filter.field]?.buckets.length > 3" mat-button class="show-more" (click)="showMore(filter.field)">Näytä lisää</button>
+                        <button *ngIf="showMoreCount[filter.field] && showMoreCount[filter.field].count > 3" mat-button class="show-more" (click)="showLess(filter.field)">Näytä vähemmän</button>
                     </ng-container>
                     <!-- Template for filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
@@ -83,7 +83,7 @@
                                         <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item | filterSum) | thousandSeparator"></span></div>
                                     </div>
                                     <!-- Options -->
-                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, 2)" (click)="selectionChange(filter.field, field.key)"
+                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : 2))" (click)="selectionChange(filter.field, field.key)"
                                     [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                         <div class="row d-flex justify-content-around">
                                             <div class="col-9"><span class="label">{{field.label}}</span></div>
@@ -91,6 +91,8 @@
                                         </div>
                                     </mat-list-option>
                                 </mat-selection-list>
+                                <button *ngIf="item.subData?.length > 2" mat-button class="show-more" (click)="showMore(item.key)">Näytä lisää</button>
+                                <button *ngIf="showMoreCount[item.key] && showMoreCount[item.key].count > 3" mat-button class="show-more" (click)="showLess(item.key)">Näytä vähemmän</button>
                             </mat-expansion-panel>
                         </div>
                     </div>
@@ -105,7 +107,7 @@
                             <span class="label">{{item?.labelFi}}</span>
                         </mat-checkbox>
                     </div>
-                    <div class="col col-3 count">
+                    <div class="col col-3 count align-self-center">
                         <span class="amount" *ngIf="response.aggregations[item.field].buckets">{{response.aggregations[item.field]?.buckets[0]?.doc_count | thousandSeparator}}</span>
                     </div>
                 </div>
