@@ -67,9 +67,10 @@
             border: 1px solid mat-color($primary);
         }
 
-        // .mat-expanded mat-expansion-panel-header, mat-expansion-panel-header, mat-expansion-panel, mat-expansion-panel-header:hover {
-        //     background: mat-color($primary, 50)!important;
-        // }
+        // Select all
+        .row.select-all:hover {
+            background: rgba(0, 0, 0, 0.04);        
+        }
 
         // Single checkbox items
         .mat-checkbox:hover {
