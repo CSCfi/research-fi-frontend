@@ -56,8 +56,8 @@
                                 </div>
                             </mat-list-option>
                         </mat-selection-list>
-                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field]?.buckets.length / 3" 
-                        (click)="showMore(response.aggregations[filter.field]?.buckets.length)">Näytä lisää...</button>
+                        <button mat-button class="show-more" *ngIf="clickCount + 1 < response.aggregations[filter.field]?.buckets?.length / 3" 
+                        (click)="showMore(response.aggregations[filter.field]?.buckets?.length)">Näytä lisää...</button>
                     </ng-container>
                     <!-- Template for filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
@@ -66,23 +66,28 @@
                                 <mat-expansion-panel-header collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}" (click)="resetHeight()">
                                     <mat-panel-title>
                                         <div class="row d-flex justify-content-between">
-                                            <div class="col col-8 label">{{item.key}}</div>
+                                            <div class="col col-6 label">{{item.key}}</div>
                                             <div class="col col-1 amount">{{item.subData?.length}}</div>
                                         </div>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-selection-list #subFilterSelect>
                                     <!-- Select all -->
-                                    <mat-checkbox labelPosition="after" (change)="selectAll($event, filter.field, item)" [value]="counter.inc()"
-                                    [checked]="(item | filterItem: activeFilters[filter?.field])">
-                                        <span class="label">Valitse kaikki</span>
-                                    </mat-checkbox>
+                                    <div class="row select-all">
+                                       <div class="col col-9 p-0">
+                                            <mat-checkbox labelPosition="after" (change)="selectAll($event, filter.field, item)" [value]="counter.inc()"
+                                            [checked]="(item | filterItem: activeFilters[filter?.field])">
+                                                <span class="font-weight-bold label">Valitse kaikki</span>
+                                            </mat-checkbox>
+                                       </div>
+                                        <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item | filterSum) | thousandSeparator"></span></div>
+                                    </div>
                                     <!-- Options -->
-                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData" (click)="selectionChange(filter.field, field.key)"
+                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, 2)" (click)="selectionChange(filter.field, field.key)"
                                     [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                         <div class="row d-flex justify-content-around">
                                             <div class="col-9"><span class="label">{{field.label}}</span></div>
-                                            <div class="col-3 count"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
+                                            <div class="col-3 count align-self-center"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
                                         </div>
                                     </mat-list-option>
                                 </mat-selection-list>
