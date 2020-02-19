@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable, EventEmitter  } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
@@ -161,6 +161,11 @@ export class SearchService {
     // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad)
       .pipe(catchError(this.handleError));
+  }
+
+  // A simple method that returns the response from the url provided
+  getFromUrl(url: string, options?: {headers: HttpHeaders}): Observable<any> {
+    return this.http.get(url, options);
   }
 
   // Error handling

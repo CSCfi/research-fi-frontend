@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
@@ -18,6 +18,9 @@ import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
+import { HttpHeaders } from '@angular/common/http';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-publication',
@@ -80,6 +83,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'Avainsanat', field: 'keywords'}
   ];
 
+  citationStyles = [
+    {label: 'APA', cslStyle: 'apa'},
+    {label: 'Chicago', cslStyle: 'chicago-author-date'},
+    {label: 'MLA', cslStyle: 'mla'}
+  ];
+
   documentLang = this.document.documentElement.lang;
 
   errorMessage = [];
@@ -94,9 +103,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   showSubUnits = false;
   hasSubUnits: boolean;
 
+  citations = [];
+  modalRef: BsModalRef;
+
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
-               private settingsService: SettingsService, private staticDataService: StaticDataService ) {
+               private settingsService: SettingsService, private staticDataService: StaticDataService,
+               private modalService: BsModalService, public utilityService: UtilityService ) {
    }
 
   public setTitle(newTitle: string) {
@@ -114,6 +127,40 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.idSub.unsubscribe();
+  }
+
+  openModal(template: TemplateRef<any>) {
+    // Get the citations if they aren't loaded yet
+    if (this.citations.length < this.citationStyles.length) {
+      this.getCitations();
+    }
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+  }
+
+  getCitations() {
+    const source = this.responseData[0].hits.hits[0]._source;
+    // Check if the doi exists (the field is filtered on init if it doesn't)
+    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    // tslint:disable-next-line: curly
+    if (!doi) return;
+    const doiUrl = source.doi;
+    const url = doi.path + doiUrl;
+
+    this.citationStyles.forEach(style => {
+      const options = {
+        headers: new HttpHeaders({
+          Accept: 'text/x-bibliography; style=' + style.cslStyle
+        }),
+        responseType: 'text'
+      };
+      this.searchService.getFromUrl(url, options).subscribe(res => {
+        this.citations.push(res);
+      });
+    });
   }
 
   getData(id: string) {
