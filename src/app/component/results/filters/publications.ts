@@ -15,14 +15,14 @@ import { Injectable } from '@angular/core';
 
 export class PublicationFilters {
     filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, limitHeight: true, open: true, },
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false, open: false},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false, open: false},
-      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, limitHeight: false, open: false},
-      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, limitHeight: true, open: true, },
-      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, limitHeight: true, open: true, },
-      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, limitHeight: true, open: true, },
-      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, limitHeight: true, open: true, }
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, },
+      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, open: false},
+      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, open: false},
+      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, open: false},
+      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, open: true, },
+      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, open: true, },
+      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, open: true, },
+      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, open: true, }
     ];
 
     singleFilterData = [
@@ -33,6 +33,7 @@ export class PublicationFilters {
 
   shapeData(data) {
     const source = data[0].aggregations;
+    console.log(source);
     // Organization & sector
     this.organization(source.organization);
     // Major field
@@ -49,6 +50,7 @@ export class PublicationFilters {
     source.openAccess.buckets = this.openAccess(source.openAccess.buckets, source.selfArchived.buckets, source.oaComposite);
     // Internationatl collaboration
     source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
+    source.shaped = true;
     return source;
   }
 
