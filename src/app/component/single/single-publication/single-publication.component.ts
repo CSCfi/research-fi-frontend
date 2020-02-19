@@ -104,6 +104,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   hasSubUnits: boolean;
 
   citations = [];
+  hasDoi = false;
   modalRef: BsModalRef;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
@@ -145,8 +146,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const source = this.responseData[0].hits.hits[0]._source;
     // Check if the doi exists (the field is filtered on init if it doesn't)
     const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    // Flag needed for template
+    this.hasDoi = !!doi;
     // tslint:disable-next-line: curly
-    if (!doi) return;
+    if (!this.hasDoi) return;
     const doiUrl = source.doi;
     const url = doi.path + doiUrl;
 

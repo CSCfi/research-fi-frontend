@@ -263,11 +263,13 @@
             <b>{{citationStyles[i].label}}: </b>
             <span>{{citation}}</span>
         </div>
-        <div *ngIf="citations.length < citationStyles.length">
-            <div class="row justify-content-center">
-                <div class="col" align="center" style="margin-top:25px">
-                    <mat-spinner [diameter]="40"></mat-spinner>
-                    <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2>
+        <div *ngIf="hasDoi; else noDoi">
+            <div *ngIf="citations.length < citationStyles.length">
+                <div class="row justify-content-center">
+                    <div class="col" align="center" style="margin-top:25px">
+                        <mat-spinner [diameter]="40"></mat-spinner>
+                        <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2>
+                    </div>
                 </div>
             </div>
         </div>
@@ -275,4 +277,8 @@
     <div class="modal-footer">
         <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="UtilityService.preventTab($event)">Sulje</button>
     </div>
+</ng-template>
+
+<ng-template #noDoi>
+    Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen
 </ng-template>
