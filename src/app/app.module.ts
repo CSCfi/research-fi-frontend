@@ -94,6 +94,7 @@ import { FundingFilters } from './component/results/filters/fundings';
 import { InfrastructureFilters } from './component/results/filters/infrastructures';
 import { OrganizationFilters } from './component/results/filters/organizations';
 import { ErrorHandlerService } from './services/error-handler.service';
+import { FilterSumPipe } from './pipes/filter-sum.pipe';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { ErrorHandlerService } from './services/error-handler.service';
     ThousandSeparatorPipe,
     FiltersComponent,
     CounterPipe,
-    FilterItemPipe
+    FilterItemPipe,
+    FilterSumPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
