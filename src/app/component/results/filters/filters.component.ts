@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  ChangeDetectorRef, Inject, TemplateRef, AfterContentChecked } from '@angular/core';
+  ChangeDetectorRef, Inject, TemplateRef } from '@angular/core';
 import { MatSelectionList, MatListOption } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -29,7 +29,7 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterContentChecked {
+export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
   @Input() tabData: string;
   @ViewChildren('subFilterSelect') subFilterSelect: QueryList<MatSelectionList>;
@@ -53,7 +53,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   selectedOptions: string[] = [];
   activeFilters: any;
   queryParamSub: Subscription;
-  maxHeight = 135;
   subFilters: MatSelectionList[];
   totalCount = 0;
   faSlidersH = faSlidersH;
@@ -67,7 +66,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
                private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters ) {
-                this.height = 135;
                 this.clickCount = 0;
                 this.selectedFilters = [];
                 this.showMoreCount = [];
@@ -149,12 +147,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
     }
   }
 
-  ngAfterContentChecked() {
-    // Prevents ExpressionChangedAfterItHasBeenCheckedError
-    this.selectedOptions = this.selectedOptions;
-    this.cdr.detectChanges();
-  }
-
   ngOnChanges() {
     // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
@@ -165,7 +157,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          this.publicationFilters.shapeData(this.responseData);
+          if (!this.responseData[0].aggregations.shaped) {
+            this.publicationFilters.shapeData(this.responseData);
+          }
           break;
         }
         case 'persons': {
@@ -194,8 +188,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
         }
       }
     }
-    console.log(this.responseData);
-    this.cdr.detectChanges();
   }
 
   // Navigate
@@ -243,33 +235,22 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
       });
   }
 
-  selectAll(event, filter, subFilter) {
-    const index = event.source.value;
-    const arr = this.subFilterSelect.toArray();
+  selectAll(filter, subFilter) {
+    // Push subfilter items into array
     const itemArr = [];
-    // Push filter items into array, this is used to remove filters from active
     subFilter.subData.forEach(item => {
       itemArr.push(item.key);
     });
-
-    const options = [];
     let result = [];
-    switch (event.checked) {
-      case true: {
-        arr[index].selectAll();
-        arr[index].options.forEach(option => {
-          options.push(option.value);
-        });
-        // Merge selected with active filters
-        result = this.activeFilters[filter] ? this.activeFilters[filter].concat(options) : options;
-        break;
-      }
-      case false: {
-        arr[index].deselectAll();
-        // Remove deselected filters
-        result = this.activeFilters[filter].filter(val => !itemArr.includes(val));
-        break;
-      }
+
+    // Check if all items already selected
+    if (this.activeFilters[filter]) {
+    const equal = (this.activeFilters[filter].length === itemArr.length && this.activeFilters[filter].sort().every(
+                  (value, index) => value === itemArr.sort()[index])
+                  );
+    result = equal ? [] : itemArr;
+    } else {
+      result = itemArr;
     }
     // Pass selection
     this.selectionChange(filter, result);
@@ -288,23 +269,16 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges, AfterCont
   }
 
   resetHeight() {
-    this.height = this.maxHeight;
     this.clickCount = 0;
   }
 
-  // showMore(total) {
-  //   this.clickCount++;
-  //   total = total - 5 * this.clickCount;
-  //   this.height = total < 5 ? this.height + total * 48 : this.height = this.height * 2;
-  // }
-
   showMore(parent) {
-    this.showMoreCount[parent] = this.showMoreCount[parent] ? {count: this.showMoreCount[parent].count + 3} : {count: 6};
-    console.log(this.showMoreCount);
+    this.showMoreCount[parent] = this.showMoreCount[parent] ?
+    {count: this.showMoreCount[parent].count + 3, height: this.showMoreCount[parent].height + 135} : {count: 6, height: 270};
   }
 
   showLess(parent) {
-    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3};
+    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3, height: this.showMoreCount[parent].height - 135};
   }
 
 
