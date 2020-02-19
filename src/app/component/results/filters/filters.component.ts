@@ -6,8 +6,8 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  ChangeDetectorRef, Inject, TemplateRef } from '@angular/core';
-import { MatSelectionList, MatListOption } from '@angular/material/list';
+  Inject, TemplateRef } from '@angular/core';
+import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { ResizeService } from '../../../services/resize.service';
@@ -37,12 +37,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   currentFilter: any[];
   currentSingleFilter: any[];
-  panelOpenState: boolean;
   parentPanel: string;
   subPanel: string;
   expandStatus: Array<boolean> = [];
   height: number;
-  clickCount: number;
   preSelection = [];
   filterSub: any;
   resizeSub: any;
@@ -50,7 +48,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   mobile = this.width < 992;
   modalRef: BsModalRef;
   selectedFilters: any;
-  selectedOptions: string[] = [];
   activeFilters: any;
   queryParamSub: Subscription;
   subFilters: MatSelectionList[];
@@ -60,13 +57,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   panelArr = [];
   showMoreCount: any;
 
-  constructor( private cdr: ChangeDetectorRef, private router: Router, private filterService: FilterService,
+  constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
                private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
                private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters ) {
-                this.clickCount = 0;
                 this.selectedFilters = [];
                 this.showMoreCount = [];
                 }
@@ -268,17 +264,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.currentFilter.find(item => item.field === parent).open = false;
   }
 
-  resetHeight() {
-    this.clickCount = 0;
-  }
-
   showMore(parent) {
-    this.showMoreCount[parent] = this.showMoreCount[parent] ?
-    {count: this.showMoreCount[parent].count + 3, height: this.showMoreCount[parent].height + 135} : {count: 6, height: 270};
+    this.showMoreCount[parent] = this.showMoreCount[parent] ? {count: this.showMoreCount[parent].count + 3} : {count: 6};
   }
 
   showLess(parent) {
-    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3, height: this.showMoreCount[parent].height - 135};
+    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3};
   }
 
 
