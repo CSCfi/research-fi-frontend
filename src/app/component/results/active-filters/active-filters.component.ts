@@ -32,6 +32,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     noVal: 'Ei arviota',
     noOpenAccessData: 'Ei tietoa',
     selfArchived: 'Rinnakkaistallennettu',
+    undefined: 'Ei tiedossa',
     over100k: 'Rahoitus yli 100 000€',
     under100k: 'Rahoitus alle 100 000€'
   };
@@ -76,7 +77,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
               const result = source.lang.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.language.buckets[0].key;
+              this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
             // Todo: Dynamic data path for both publications and organizations
             if (val.category === 'organization' && tab === 'publications' && source.organization.sectorName) {
