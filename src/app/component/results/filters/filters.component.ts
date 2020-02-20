@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef } from '@angular/core';
+  Inject, TemplateRef, ElementRef } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -34,6 +34,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() tabData: string;
   @ViewChildren('subFilterSelect') subFilterSelect: QueryList<MatSelectionList>;
   @ViewChildren('parentList') parentList: QueryList<MatSelectionList>;
+  @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
 
   currentFilter: any[];
   currentSingleFilter: any[];
@@ -184,7 +185,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
       }
-      console.log(this.responseData[0].aggregations);
     }
   }
 
@@ -266,6 +266,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       source.buckets = source.shaped;
       this.showMoreCount[parent] = {count: 3};
     }
+    // console.log(this.filterSearch.toArray()[event.target.id]);
+    this.filterSearch.toArray()[event.target.id].nativeElement.focus();
   }
 
   subFilterInput(event, parent, child) {
@@ -298,5 +300,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3};
   }
 
+  trackByFn(index: any, item: any) {
+    return index;
+  }
 
 }
