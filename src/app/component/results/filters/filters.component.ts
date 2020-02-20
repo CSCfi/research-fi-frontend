@@ -255,22 +255,30 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   filterInput(event, parent) {
-    const term = event.target.value.toLowerCase();
+    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : null;
     const source = this.responseData[0].aggregations[parent];
     source.shaped = source.shaped ? source.shaped : source.buckets;
     const matchArr = source.shaped.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
     if (matchArr.length > 0) {
       source.buckets = matchArr;
+      this.showMoreCount[parent] = {count: matchArr.length};
+    } else {
+      source.buckets = source.shaped;
+      this.showMoreCount[parent] = {count: 3};
     }
   }
 
   subFilterInput(event, parent, child) {
-    const term = event.target.value.toLowerCase();
+    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : null;
     const source = this.responseData[0].aggregations[parent].buckets.find(sub => sub.key === child);
     source.shaped = source.shaped ? source.shaped : source.subData;
     const matchArr = source.shaped.filter(subItem => subItem.label.toLowerCase().includes(term));
     if (matchArr.length > 0) {
       source.subData = matchArr;
+      this.showMoreCount[child] = {count: matchArr.length};
+    } else {
+      source.subData = source.shaped;
+      this.showMoreCount[child] = {count: 3};
     }
   }
 
