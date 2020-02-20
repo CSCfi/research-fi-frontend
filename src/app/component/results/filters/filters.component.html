@@ -59,11 +59,12 @@
                                 </div>
                             </mat-list-option>
                         </mat-selection-list>
+                        <!-- Shor more / Less -->
                         <button *ngIf="response.aggregations[filter.field]?.buckets?.length > 3 && (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3) < response.aggregations[filter.field]?.buckets?.length" 
                             mat-button class="show-more" (click)="showMore(filter.field)">Näytä lisää</button>
                         <button *ngIf="showMoreCount[filter.field] && showMoreCount[filter.field].count > 3" mat-button class="show-more" (click)="showLess(filter.field)">Näytä vähemmän</button>
                     </ng-container>
-                    <!-- Template for filters with subfields -->
+                    <!-- Filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
                         <div *ngFor="let item of response.aggregations[filter.field]?.buckets">
                             <mat-expansion-panel *ngIf="item.subData.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
@@ -86,7 +87,7 @@
                                                 <span class="font-weight-bold label">Valitse kaikki</span>
                                             </mat-checkbox>
                                        </div>
-                                        <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item | filterSum) | thousandSeparator"></span></div>
+                                        <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : item.subData.length)) | filterSum) | thousandSeparator"></span></div>
                                     </div>
                                     <!-- Options -->
                                     <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : 2))" (click)="selectionChange(filter.field, field.key)"
@@ -97,6 +98,7 @@
                                         </div>
                                     </mat-list-option>
                                 </mat-selection-list>
+                                <!-- Shor more / Less -->
                                 <button *ngIf="item.subData?.length > 2 && (showMoreCount[item.key] ? showMoreCount[item.key].count : 3) < item.subData?.length" mat-button class="show-more" (click)="showMore(item.key)">Näytä lisää</button>
                                 <button *ngIf="showMoreCount[item.key] && showMoreCount[item.key].count > 3" mat-button class="show-more" (click)="showLess(item.key)">Näytä vähemmän</button>
                             </mat-expansion-panel>
