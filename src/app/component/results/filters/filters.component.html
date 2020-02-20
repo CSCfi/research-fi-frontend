@@ -32,7 +32,7 @@
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
                 {{ counter.reset() }}
-                <mat-expansion-panel #parentList *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
+                <mat-expansion-panel #parentList *ngFor="let filter of currentFilter; trackBy: trackByFn" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                         <mat-panel-title>
                             <div class="row d-flex justify-content-between">
@@ -47,11 +47,12 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
+                        <!-- Search in Filter -->
+                        <input #filterSearch [id]="counter.inc()" *ngIf="response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.shaped?.length > 5"
+                        placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search">
                         <mat-selection-list>
-                            <!-- Search in Filter -->
-                            <input *ngIf="response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.shaped?.length > 5" placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)">
                             <!-- Options -->
-                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3));"
+                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let i = index; trackBy: trackByFn"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
@@ -76,18 +77,20 @@
                                         </div>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
+                                <!-- Search in filter -->
+                                <input #filterSearch [id]="counter.inc()" *ngIf="item.subData.length > 5 || item.shaped?.length > 5" placeholder="Hae" autocomplete="off"
+                                (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search">
                                 <mat-selection-list #subFilterSelect>
-                                    <!-- Search in filter -->
-                                    <input *ngIf="item.subData.length > 5 || item.shaped?.length > 5" placeholder="Hae" autocomplete="off" (keyup)="subFilterInput($event, filter.field, item.key)">
                                     <!-- Select all -->
                                     <div class="row select-all">
                                        <div class="col col-9 p-0">
-                                            <mat-checkbox labelPosition="after" (change)="selectAll(filter.field, item)" [value]="counter.inc()"
+                                            <mat-checkbox labelPosition="after" (change)="selectAll(filter.field, item)"
                                             [checked]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')">
                                                 <span class="font-weight-bold label">Valitse kaikki</span>
                                             </mat-checkbox>
                                        </div>
-                                        <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : item.subData.length)) | filterSum) | thousandSeparator"></span></div>
+                                        <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div>
+                                        <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : item.subData.length)) | filterSum) | thousandSeparator"></span></div> -->
                                     </div>
                                     <!-- Options -->
                                     <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : 2))" (click)="selectionChange(filter.field, field.key)"
