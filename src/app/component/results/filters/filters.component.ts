@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { ResizeService } from '../../../services/resize.service';
 import { FilterService } from '../../../services/filter.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
@@ -56,6 +56,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   panelHeight = 'auto';
   panelArr = [];
   showMoreCount: any;
+  filterTerm: any;
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
@@ -183,6 +184,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
       }
+      console.log(this.responseData[0].aggregations);
     }
   }
 
@@ -252,8 +254,24 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionChange(filter, result);
   }
 
-  panelStatus(parent) {
-    this.panelArr[parent] = !this.panelArr[parent];
+  filterInput(event, parent) {
+    const term = event.target.value.toLowerCase();
+    const source = this.responseData[0].aggregations[parent];
+    source.shaped = source.shaped ? source.shaped : source.buckets;
+    const matchArr = source.shaped.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
+    if (matchArr.length > 0) {
+      source.buckets = matchArr;
+    }
+  }
+
+  subFilterInput(event, parent, child) {
+    const term = event.target.value.toLowerCase();
+    const source = this.responseData[0].aggregations[parent].buckets.find(sub => sub.key === child);
+    source.shaped = source.shaped ? source.shaped : source.subData;
+    const matchArr = source.shaped.filter(subItem => subItem.label.toLowerCase().includes(term));
+    if (matchArr.length > 0) {
+      source.subData = matchArr;
+    }
   }
 
   setOpenStatus(parent) {
