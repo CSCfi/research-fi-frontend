@@ -48,6 +48,9 @@
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
                         <mat-selection-list>
+                            <!-- Search in Filter -->
+                            <input *ngIf="response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.shaped?.length > 5" placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)">
+                            <!-- Options -->
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3));"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
@@ -73,6 +76,8 @@
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <mat-selection-list #subFilterSelect>
+                                    <!-- Search in filter -->
+                                    <input *ngIf="item.subData.length > 5 || item.shaped?.length > 5" placeholder="Hae" autocomplete="off" (keyup)="subFilterInput($event, filter.field, item.key)">
                                     <!-- Select all -->
                                     <div class="row select-all">
                                        <div class="col col-9 p-0">
