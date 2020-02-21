@@ -20,12 +20,17 @@
         }
 
         .filter-wrapper {
-            max-height: 840px;
+            // max-height: 840px;
         }
+        
 
         // Material expansion panel & accordion
         .mat-expansion-panel {
             margin: 1rem 0;
+        }
+
+        .mat-expansion-panel-body {
+            padding: 0;
         }
 
         .cdk-focused .mat-expansion-panel-header-title {
@@ -63,7 +68,6 @@
         }
 
         // Header
-
         .mat-expansion-panel-header:not([aria-disabled=true]) {
             cursor: pointer;
             padding: 0 5px;
@@ -92,7 +96,6 @@
             font-weight: normal;
             font-size: 1rem;
         }
-
 
         .mat-expanded mat-expansion-panel-header.mat-expanded {
             position: sticky;
@@ -139,12 +142,9 @@
             min-width: 76%;
         }
 
-        .mat-expansion-panel-body {
-            padding: 0;
-        }
-
-        .separator {
-            height: 1px;
+        // Search
+        input.filter-search {
+            margin: 0 15px;
         }
 
         // Typography & icons
@@ -224,6 +224,10 @@
             margin-top: -22px;
             max-height: 344px;
             overflow-y: auto;
+        }
+
+        .separator {
+            height: 1px;
         }
 
         // Single checkbox filters
