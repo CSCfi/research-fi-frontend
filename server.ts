@@ -57,7 +57,8 @@ app.use(helmet.contentSecurityPolicy({
       'http://*.csc.fi:*',
       'https://*.csc.fi:*',
       'http://*.rahtiapp.fi:*',
-      'https://*.rahtiapp.fi:*'
+      'https://*.rahtiapp.fi:*',
+      'https://doi.org*'
     ],
     styleSrc: [
       '\'self\'',
