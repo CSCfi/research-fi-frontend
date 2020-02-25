@@ -160,25 +160,37 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'persons': {
           this.currentFilter = this.personFilters.filterData;
           this.currentSingleFilter = this.personFilters.singleFilterData;
-          this.personFilters.shapeData(this.responseData);
+          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+            this.personFilters.shapeData(this.responseData);
+            this.shapedData = this.responseData;
+          }
           break;
         }
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
-          this.fundingFilters.shapeData(this.responseData);
+          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+            this.fundingFilters.shapeData(this.responseData);
+            this.shapedData = this.responseData;
+          }
           break;
         }
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
           this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
-          this.infrastructureFilters.shapeData(this.responseData);
+          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+            this.infrastructureFilters.shapeData(this.responseData);
+            this.shapedData = this.responseData;
+          }
           break;
         }
         case 'organizations': {
           this.currentFilter = this.organizationFilters.filterData;
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
-          this.organizationFilters.shapeData(this.responseData);
+          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+            this.organizationFilters.shapeData(this.responseData);
+            this.shapedData = this.responseData;
+          }
           break;
         }
       }
