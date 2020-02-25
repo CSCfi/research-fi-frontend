@@ -255,9 +255,16 @@ p.text-right.ext-search a.increase:before {
 }
 
 // Responsive
-// @media (max-width:754px) {
-//     .auto-suggest {
-//         margin-left: 25px;
-//         margin-right: 25px;
-//     }
-// }
+@media (max-width:600px) {
+    .search {
+        padding: 30px 0!important;
+    }
+
+    .no-heading.search {
+        padding: 10px 0;
+    }
+
+    .form-group.has-search {
+        padding: 0;
+    }
+}
