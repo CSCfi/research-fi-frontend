@@ -32,7 +32,7 @@
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
                 {{ counter.reset() }}
-                <mat-expansion-panel #parentList *ngFor="let filter of currentFilter; trackBy: trackByFn" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
+                <mat-expansion-panel *ngFor="let filter of currentFilter; trackBy: trackByFn" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                         <mat-panel-title>
                             <div class="row d-flex justify-content-between">
@@ -72,15 +72,15 @@
                                 <mat-expansion-panel-header collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}">
                                     <mat-panel-title>
                                         <div class="row d-flex justify-content-between">
-                                            <div class="col col-6 label">{{item.key}}</div>
+                                            <div class="col col-10 label">{{item.key}}</div>
                                             <div class="col col-1 amount">{{item.subData?.length}}</div>
                                         </div>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <!-- Search in filter -->
                                 <input #filterSearch [id]="counter.inc()" *ngIf="item.subData.length > 5 || item.shaped?.length > 5" placeholder="Hae" autocomplete="off"
-                                (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search">
-                                <mat-selection-list #subFilterSelect>
+                                (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="filterTerm ? filterTerm : ''">
+                                <mat-selection-list>
                                     <!-- Select all -->
                                     <div class="row select-all">
                                        <div class="col col-9 p-0">
@@ -89,8 +89,7 @@
                                                 <span class="font-weight-bold label">Valitse kaikki</span>
                                             </mat-checkbox>
                                        </div>
-                                        <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div>
-                                        <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : item.subData.length)) | filterSum) | thousandSeparator"></span></div> -->
+                                        <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
                                     </div>
                                     <!-- Options -->
                                     <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : 2))" (click)="selectionChange(filter.field, field.key)"
