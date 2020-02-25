@@ -23,7 +23,6 @@
             max-height: 840px;
         }
         
-
         // Material expansion panel & accordion
         .mat-expansion-panel {
             margin: 1rem 0;
@@ -230,10 +229,15 @@
             height: 1px;
         }
 
-        // Single checkbox filters
+        // Single slider filters
         .row.single {
             border-radius: 4px;
-            padding: 0 1rem;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .row.slider {
+            padding-top: 0.5rem;
         }
 
         .single-checkbox {
