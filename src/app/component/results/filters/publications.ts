@@ -15,7 +15,7 @@ import { Injectable } from '@angular/core';
 
 export class PublicationFilters {
     filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, },
+      {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, },
       {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, open: false},
       {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, open: false},
       {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, open: false},

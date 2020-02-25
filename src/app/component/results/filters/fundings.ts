@@ -34,7 +34,7 @@ export class FundingFilters {
 
   shapeData(data) {
       const source = data[0].aggregations;
-
+      source.shaped = true;
       return source;
   }
 
