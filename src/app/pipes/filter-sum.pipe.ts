@@ -11,7 +11,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filterSum'
 })
 export class FilterSumPipe implements PipeTransform {
-
+  // Sum doc_count of filter options
   transform(value: any): any {
     let result = 0;
     value.forEach(item => {
