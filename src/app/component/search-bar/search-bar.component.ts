@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList, 
+import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
   PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
@@ -13,7 +13,7 @@ import { SortService } from '../../services/sort.service';
 import { AutosuggestService } from '../../services/autosuggest.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
@@ -28,6 +28,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
+  @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
   input: string;
   sub: Subscription;
   autoSuggestResponse: any;
@@ -60,8 +61,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   completion: string;
   inputMargin: string;
   isBrowser: boolean;
+  currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
+  selectedTab: string;
+  routeSub: Subscription;
+  topMargin: any;
 
-  constructor( public searchService: SearchService, private tabChangeService: TabChangeService,
+  constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object ) {
@@ -71,11 +76,14 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.routeSub = this.route.params.subscribe(params => {
+      this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
+    });
     this.fireAutoSuggest();
   }
 
   ngAfterViewInit() {
-    // Get item for list
+    // Get items for list
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
   }
 
