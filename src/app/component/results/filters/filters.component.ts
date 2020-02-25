@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { ResizeService } from '../../../services/resize.service';
 import { FilterService } from '../../../services/filter.service';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
@@ -32,15 +32,12 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
   @Input() tabData: string;
-  @ViewChildren('subFilterSelect') subFilterSelect: QueryList<MatSelectionList>;
-  @ViewChildren('parentList') parentList: QueryList<MatSelectionList>;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
 
   currentFilter: any[];
   currentSingleFilter: any[];
   parentPanel: string;
   subPanel: string;
-  expandStatus: Array<boolean> = [];
   height: number;
   preSelection = [];
   filterSub: any;
@@ -58,6 +55,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   panelArr = [];
   showMoreCount: any;
   filterTerm: any;
+  shapedData: any;
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
@@ -121,7 +119,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.filterSub = this.filterService.filters.subscribe(filters => {
       // Get preselected filters from filterService
       this.preSelection = [];
-      // this.internationalCollab = filters.internationalCollaboration.length > 0 ? true : false;
       Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
     });
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
@@ -149,14 +146,14 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
     if (this.responseData.length > 0) {
-
       // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          if (!this.responseData[0].aggregations.shaped) {
+          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
             this.publicationFilters.shapeData(this.responseData);
+            this.shapedData = this.responseData;
           }
           break;
         }
@@ -256,7 +253,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   filterInput(event, parent) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : null;
-    const source = this.responseData[0].aggregations[parent];
+    const source = this.shapedData[0].aggregations[parent];
     source.shaped = source.shaped ? source.shaped : source.buckets;
     const matchArr = source.shaped.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
     if (matchArr.length > 0) {
@@ -266,13 +263,14 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       source.buckets = source.shaped;
       this.showMoreCount[parent] = {count: 3};
     }
-    // console.log(this.filterSearch.toArray()[event.target.id]);
-    this.filterSearch.toArray()[event.target.id].nativeElement.focus();
+    // Set term per parent
+    source.filterTerm = term;
   }
 
   subFilterInput(event, parent, child) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : null;
-    const source = this.responseData[0].aggregations[parent].buckets.find(sub => sub.key === child);
+    this.filterTerm = term;
+    const source = this.shapedData[0].aggregations[parent].buckets.find(sub => sub.key === child);
     source.shaped = source.shaped ? source.shaped : source.subData;
     const matchArr = source.shaped.filter(subItem => subItem.label.toLowerCase().includes(term));
     if (matchArr.length > 0) {
@@ -282,6 +280,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       source.subData = source.shaped;
       this.showMoreCount[child] = {count: 3};
     }
+    // Set term per parent
+    source.filterTerm = term;
   }
 
   setOpenStatus(parent) {
