@@ -26,7 +26,7 @@ export class InfrastructureFilters {
 
   shapeData(data) {
       const source = data[0].aggregations;
-
+      source.shaped = true;
       return source;
   }
 

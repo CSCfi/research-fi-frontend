@@ -27,6 +27,7 @@ export class OrganizationFilters {
   shapeData(data) {
     const source = data[0].aggregations;
     source.sector.buckets = this.sector(source.sector.buckets);
+    source.shaped = true;
     return source;
   }
 
