@@ -27,7 +27,7 @@
 </ng-container>
 
 <ng-template #filters>
-    <div class="filter-sidebar" *ngFor="let response of responseData">
+    <div class="filter-sidebar" *ngFor="let response of filteredData ? filteredData : responseData">
         <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h3>
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
@@ -49,11 +49,11 @@
                     <ng-container *ngIf="!filter.hasSubFields">
                         <!-- Search in Filter -->
                         <input #filterSearch [id]="counter.inc()" *ngIf="response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.shaped?.length > 5"
-                        placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search">
+                        placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
                         <mat-selection-list>
                             <!-- Options -->
                             <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let i = index; trackBy: trackByFn"
-                            [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)">
+                            [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)" (keydown.enter)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
                                     <div class="col-3 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
@@ -79,7 +79,7 @@
                                 </mat-expansion-panel-header>
                                 <!-- Search in filter -->
                                 <input #filterSearch [id]="counter.inc()" *ngIf="item.subData.length > 5 || item.shaped?.length > 5" placeholder="Hae" autocomplete="off"
-                                (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="filterTerm ? filterTerm : ''">
+                                (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="filterTerm">
                                 <mat-selection-list>
                                     <!-- Select all -->
                                     <div class="row select-all">
