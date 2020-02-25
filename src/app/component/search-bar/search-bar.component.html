@@ -5,7 +5,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="full-width">
+<div class="full-width" #searchBar>
   <div class="row">
     <div class="col-12 search" [class.no-heading]="router.url !== '/'">
       <form (keydown.enter)="$event.preventDefault()">
@@ -46,7 +46,7 @@
                 <div *ngFor="let data of topData">
                   <div class="row results" *ngIf="data.source.doc_count > 0">
                     <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
-                      <h2 class="font-weight-bold">{{data.translation}}</h2>
+                      <h2 class="title">{{data.translation}}</h2>
                       <div class="top-results" *ngFor="let doc of docList">
                         <ul *ngIf="data.index === doc.index">
                           <app-list-item *ngFor="let item of data.source.index_results.hits.hits; let index = index" class="list-group-item" [doc]="data.index" [id]="item._source[doc.link]">
@@ -96,10 +96,11 @@
                   </div>
                 </ng-template>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
+  <div *ngIf="showAutoSuggest" id="overlay" (click)="showAutoSuggest === false" [ngStyle]="{'margin-top': topMargin + 'px'}"></div>
 </div>

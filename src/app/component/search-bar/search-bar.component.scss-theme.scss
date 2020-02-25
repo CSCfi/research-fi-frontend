@@ -47,6 +47,19 @@
             color: mat-contrast($primary, 200);
         }
 
+        // Auto-suggest
+        mark, .mark {
+            background-color: unset;
+        }
+
+        .auto-suggest h2, .auto-suggest h3 {
+            color: mat-contrast($primary, 300);
+        }
+
+        .list-group-item:hover {
+            background: #dc1ddf0f;
+        }
+
         // .auto-suggest .other-links ul li a {
         //     color: mat-contrast($primary, 200);
         // }
