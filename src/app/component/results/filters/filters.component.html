@@ -27,7 +27,7 @@
 </ng-container>
 
 <ng-template #filters>
-    <div class="filter-sidebar" *ngFor="let response of filteredData ? filteredData : responseData">
+    <div class="filter-sidebar" *ngFor="let response of shapedData ? shapedData : responseData">
         <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h3>
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
@@ -52,7 +52,7 @@
                         placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
                         <mat-selection-list>
                             <!-- Options -->
-                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let i = index; trackBy: trackByFn"
+                            <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let i = index;"
                             [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)" (keydown.enter)="selectionChange(filter.field, item.key)">
                                 <div class="row d-flex justify-content-around">
                                     <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
@@ -67,7 +67,7 @@
                     </ng-container>
                     <!-- Filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
-                        <div *ngFor="let item of response.aggregations[filter.field]?.buckets">
+                        <div *ngFor="let item of response.aggregations[filter.field]?.buckets;">
                             <mat-expansion-panel *ngIf="item.subData.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
                                 <mat-expansion-panel-header collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}">
                                     <mat-panel-title>
@@ -79,7 +79,7 @@
                                 </mat-expansion-panel-header>
                                 <!-- Search in filter -->
                                 <input #filterSearch [id]="counter.inc()" *ngIf="item.subData.length > 5 || item.shaped?.length > 5" placeholder="Hae" autocomplete="off"
-                                (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="filterTerm">
+                                (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="item.filterTerm ? item.filterTerm : ''">
                                 <mat-selection-list>
                                     <!-- Select all -->
                                     <div class="row select-all">
@@ -93,7 +93,7 @@
                                     </div>
                                     <!-- Options -->
                                     <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : 2))" (click)="selectionChange(filter.field, field.key)"
-                                    [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
+                                    (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                         <div class="row d-flex justify-content-around">
                                             <div class="col-9"><span class="label">{{field.label}}</span></div>
                                             <div class="col-3 count align-self-center"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
