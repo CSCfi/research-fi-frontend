@@ -75,7 +75,7 @@
                 </div>
               </div>
               <!-- Query history -->
-              <div class="row" *ngIf="queryHistory">
+              <div class="row history" *ngIf="queryHistory">
                 <div class="col" *ngIf="queryHistory[0] === '' || this.queryHistory.length === 0; else showHistory ">
                   <app-list-item *ngFor="let additional of additionalItems" [empty]="additional"></app-list-item>
                 </div>
