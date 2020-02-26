@@ -4,6 +4,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "research-fi": {
+      "i18n": {
+        "locales": {
+          "en": "src/i18n/messages.en.xlf",
+          "sv": "src/i18n/messages.sv.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,6 +19,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/browser/",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -34,23 +41,37 @@
           },
           "configurations": {
             "fi": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "outputPath": "dist/browser/",
               "baseHref": "/"
             },
             "en": {
-              "outputPath": "dist/browser/en",
-              "baseHref": "/en/",
-              "i18nFile": "src/i18n/messages.en.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "en"
-            },
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+            "localize": [
+              "en"
+            ],
+              "outputPath": "dist/browser"},
             "sv": {
-              "outputPath": "dist/browser/sv",
-              "baseHref": "/sv/",
-              "i18nFile": "src/i18n/messages.sv.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "sv"
-            },
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+            "localize": [
+              "sv"
+            ],
+              "outputPath": "dist/browser"},
             "production-fi": {
               "outputPath": "dist/browser/",
               "baseHref": "/",
@@ -74,12 +95,18 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
             "production-en": {
-              "outputPath": "dist/browser/en",
-              "baseHref": "/en/",
+            "localize": [
+              "en"
+            ],
+              "outputPath": "dist/browser",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -100,15 +127,17 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
-              ],
-              "i18nFile": "src/i18n/messages.en.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "en"
-            },
+              ]},
             "production-sv": {
-              "outputPath": "dist/browser/sv",
-              "baseHref": "/sv/",
+            "localize": [
+              "sv"
+            ],
+              "outputPath": "dist/browser",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -129,13 +158,19 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]},
+            "es5": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ],
-              "i18nFile": "src/i18n/messages.sv.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "sv"
-            },
-            "es5": {
               "tsConfig": "./tsconfig.es5.json"
             }
           }
@@ -218,6 +253,7 @@
           },
           "configurations": {
             "production-fi": {
+              "optimization": true,
               "outputPath": "dist/server/fi",
               "fileReplacements": [
                 {
@@ -227,6 +263,7 @@
               ]
             },
             "production-en": {
+              "optimization": true,
               "outputPath": "dist/server/en",
               "fileReplacements": [
                 {
@@ -239,6 +276,7 @@
               "i18nLocale": "en"
             },
             "production-sv": {
+              "optimization": true,
               "outputPath": "dist/server/sv",
               "fileReplacements": [
                 {
