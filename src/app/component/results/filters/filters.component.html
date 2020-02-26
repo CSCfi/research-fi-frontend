@@ -121,7 +121,7 @@
                         <div class="row" *ngIf="response.aggregations[item.field]?.buckets?.length > 0" 
                             (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)"
                             (keydown.enter)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)">
-                            <div class="col col-7">
+                            <div class="col col-12">
                                 <span class="label">{{item?.labelFi}}</span>
                             </div>
                         </div>
