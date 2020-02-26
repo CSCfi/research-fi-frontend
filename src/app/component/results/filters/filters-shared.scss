@@ -171,7 +171,8 @@
 
         // Select all
         .row.select-all {
-            cursor: pointer;        
+            cursor: pointer;
+            padding: 0 1rem;
         }
 
         span.label {
@@ -200,7 +201,7 @@
 
         // Segments
         .mat-list-base {
-            padding: 0 1rem;
+            padding: 0;
         }
 
         .mat-list-base .mat-list-item .mat-list-text, .mat-list-base .mat-list-option .mat-list-text {
@@ -210,8 +211,7 @@
 
         .mat-list-base .mat-list-option .mat-list-item-content {
             width: 100%;
-            padding: 12px 0;
-            padding-right: 0;
+            padding: 12px 1rem;
         }
 
         .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text {
@@ -305,6 +305,10 @@
                 max-height: calc(100vh - 200px);
             }
 
+            .filter-wrapper {
+                max-height: unset;
+            }
+
             .modal-body {
                 padding: 0;
             }
@@ -331,6 +335,10 @@
 
             mat-expansion-panel.mat-expansion-panel {
                 max-width: auto;
+            }
+
+            .mat-expanded mat-expansion-panel-header.mat-expanded {
+                top: 0;
             }
 
             h3 {
