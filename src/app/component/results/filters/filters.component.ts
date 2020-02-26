@@ -235,7 +235,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.selectedFilters.sort = this.sortService.sortMethod;
     this.selectedFilters.page = 1;
 
-    console.log(this.selectedFilters);
     this.router.navigate([],
       { queryParams: this.selectedFilters,
         queryParamsHandling: 'merge'
@@ -253,23 +252,21 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Check if all items already selected
     if (this.activeFilters[filter]) {
       const allSelected = (itemArr.every(value => this.activeFilters[filter].indexOf(value) >= 0));
-      result = this.activeFilters[filter];
-      console.log(result)
+      // 
+      result = [...new Set(this.activeFilters[filter])];
       if (allSelected) {
         // Remove all from active
         itemArr.forEach(item => result.splice(result.indexOf(item), 1));
-        console.log(result)
       } else {
         // Add all new selections and remove duplicates
         result.push(...itemArr);
         result = [...new Set(result)];
-        console.log(result)
       }
     } else {
       result = itemArr;
     }
     // Pass selection
-    console.log(result)
+
     this.selectionChange(filter, result);
   }
 
