@@ -24,7 +24,7 @@ export class FundingFilters {
     ];
 
     singleFilterData = [
-      {field: 'fundingStatus', labelFi: 'Hankkeen tila'},
+      {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet'},
       // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteistyö'}
     ];
 
