@@ -110,9 +110,9 @@
             </div>
             <!-- Items with single checkbox -->
             <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
-                <div class="row single" (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string)">
+                <div class="row single">
                     <div class="col">
-                        <div class="row" *ngIf="response.aggregations[item.field]?.buckets?.length > 0">
+                        <div class="row" *ngIf="response.aggregations[item.field]?.buckets?.length > 0" (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string)">
                             <div class="col col-7">
                                 <span class="label">{{item?.labelFi}}</span>
                             </div>
