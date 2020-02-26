@@ -42,6 +42,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { CountUpModule } from 'countup.js-angular2';
@@ -159,6 +160,7 @@ import { FilterSumPipe } from './pipes/filter-sum.pipe';
     MatExpansionModule,
     MatPaginatorModule,
     MatButtonModule,
+    MatSlideToggleModule,
     ScrollingModule,
     CountUpModule,
     PortalModule,

@@ -24,6 +24,10 @@
             color: mat-color($primary);
         }
 
+        .filter-sidebar h3 {
+            background: mat-color($primary, 100);
+        }
+
         span.mat-checkbox-label, span.label {
             color: mat-contrast($primary, 200);
         }

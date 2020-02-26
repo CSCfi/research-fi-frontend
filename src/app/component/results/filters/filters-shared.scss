@@ -14,7 +14,8 @@
 
         .filter-sidebar {
             display: block;
-            padding: 15px;
+            padding: 1rem;
+            padding-top: 0;
             overflow: auto;
             overflow-x: hidden;
         }
@@ -22,11 +23,18 @@
         .filter-wrapper {
             max-height: 840px;
         }
-        
 
+        .filter-sidebar h3 {
+            position: sticky;
+            position: -webkit-sticky;
+            z-index: 40;
+            top: 0;
+            padding: 1rem 0!important;
+        }
+        
         // Material expansion panel & accordion
         .mat-expansion-panel {
-            margin: 1rem 0;
+            margin: 0 0 1rem;
         }
 
         .mat-expansion-panel-body {
@@ -100,7 +108,7 @@
         .mat-expanded mat-expansion-panel-header.mat-expanded {
             position: sticky;
             position: -webkit-sticky;
-            top: -1rem;
+            top: 3.5rem;
             z-index: 39;
         }
 
@@ -230,10 +238,15 @@
             height: 1px;
         }
 
-        // Single checkbox filters
+        // Single slider filters
         .row.single {
             border-radius: 4px;
-            padding: 0 1rem;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .row.slider {
+            padding-top: 0.5rem;
         }
 
         .single-checkbox {

@@ -176,6 +176,10 @@ button.btn.btn-search:focus span {
     border-radius: .25rem;
 }
 
+.list-group-item a {
+    font-weight: bold;
+}
+
 .list-group-item a:hover {
     text-decoration: none;
 }
@@ -187,6 +191,7 @@ button.btn.btn-search:focus span {
 .auto-suggest li:empty {
     display: none;
 }
+
 
 .top-results ul li {
     padding: 4px 0;
@@ -214,6 +219,10 @@ button.btn.btn-search:focus span {
 
 .query-history {
     padding-top: 25px;
+}
+
+.query-history .list-group-item a {
+    font-weight: normal;
 }
 
 // extended search
@@ -255,7 +264,7 @@ p.text-right.ext-search a.increase:before {
 }
 
 // Responsive
-@media (max-width:600px) {
+@media (max-width:768px) {
     .search {
         padding: 30px 0!important;
     }
