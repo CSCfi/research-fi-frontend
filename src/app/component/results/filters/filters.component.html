@@ -48,7 +48,7 @@
                     </mat-expansion-panel-header>
                     <ng-container *ngIf="!filter.hasSubFields">
                         <!-- Search in Filter -->
-                        <input #filterSearch [id]="counter.inc()" *ngIf="response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.shaped?.length > 5"
+                        <input #filterSearch [id]="counter.inc()" *ngIf="response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5"
                         placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
                         <mat-selection-list>
                             <!-- Options -->
@@ -61,14 +61,16 @@
                             </mat-list-option>
                         </mat-selection-list>
                         <!-- Shor more / Less -->
-                        <button *ngIf="response.aggregations[filter.field]?.buckets?.length > 3 && (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3) < response.aggregations[filter.field]?.buckets?.length" 
-                            mat-button class="show-more" (click)="showMore(filter.field)">Näytä lisää</button>
-                        <button *ngIf="showMoreCount[filter.field] && showMoreCount[filter.field].count > 3" mat-button class="show-more" (click)="showLess(filter.field)">Näytä vähemmän</button>
+                        <div *ngIf="response.aggregations[filter.field]?.buckets?.length > 3" class="button-wrapper">
+                            <button [disabled]="(showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3) >= response.aggregations[filter.field]?.buckets?.length" 
+                                mat-button class="show-more" (click)="showMore(filter.field)">Näytä lisää</button>
+                            <button [disabled]="!(showMoreCount[filter.field] && showMoreCount[filter.field].count > 3)" mat-button class="show-more" (click)="showLess(filter.field)">Näytä vähemmän</button>
+                        </div>
                     </ng-container>
                     <!-- Filters with subfields -->
                     <div class="subFields" *ngIf="filter.hasSubFields">
                         <div *ngFor="let item of response.aggregations[filter.field]?.buckets;">
-                            <mat-expansion-panel *ngIf="item.subData.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
+                            <mat-expansion-panel *ngIf="item.subData.length > 0 || item.original?.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
                                 <mat-expansion-panel-header collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}">
                                     <mat-panel-title>
                                         <div class="row d-flex justify-content-between">
@@ -78,7 +80,7 @@
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <!-- Search in filter -->
-                                <input #filterSearch [id]="counter.inc()" *ngIf="item.subData.length > 5 || item.shaped?.length > 5" placeholder="Hae" autocomplete="off"
+                                <input #filterSearch [id]="counter.inc()" *ngIf="item.subData.length > 5 || item.original?.length > 5" placeholder="Hae" autocomplete="off"
                                 (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="item.filterTerm ? item.filterTerm : ''">
                                 <mat-selection-list>
                                     <!-- Select all -->
@@ -92,7 +94,7 @@
                                         <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
                                     </div>
                                     <!-- Options -->
-                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : 2))" (click)="selectionChange(filter.field, field.key)"
+                                    <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : 3))" (click)="selectionChange(filter.field, field.key)"
                                     (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
                                         <div class="row d-flex justify-content-around">
                                             <div class="col-9"><span class="label">{{field.label}}</span></div>
@@ -101,11 +103,15 @@
                                     </mat-list-option>
                                 </mat-selection-list>
                                 <!-- Shor more / Less -->
-                                <button *ngIf="item.subData?.length > 2 && (showMoreCount[item.key] ? showMoreCount[item.key].count : 3) < item.subData?.length" mat-button class="show-more" (click)="showMore(item.key)">Näytä lisää</button>
-                                <button *ngIf="showMoreCount[item.key] && showMoreCount[item.key].count > 3" mat-button class="show-more" (click)="showLess(item.key)">Näytä vähemmän</button>
+                                <div *ngIf="item.subData?.length > 3" class="button-wrapper">
+                                    <button [disabled]="(showMoreCount[item.key] ? showMoreCount[item.key].count : 3) >= item.subData?.length" mat-button class="show-more" (click)="showMore(item.key)">Näytä lisää</button>
+                                    <button [disabled]="!(showMoreCount[item.key] && showMoreCount[item.key].count > 3)" mat-button class="show-more" (click)="showLess(item.key)">Näytä vähemmän</button>
+                                </div>
                             </mat-expansion-panel>
                         </div>
                     </div>
+                    <!-- Add empty pading if there are no results -->
+                    <div *ngIf="response.aggregations[filter.field]?.buckets?.length == 0" class="empty-pad"></div>
                 </mat-expansion-panel>
             </div>
             <!-- Items with single checkbox -->
