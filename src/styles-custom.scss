@@ -67,7 +67,9 @@ span.bold {
 
 mark, .mark {
     padding: 0;
-    font-weight: bold;
+    // font-weight: bold;
+    font-weight: 400;
+    color: map-get(map-get($researchfi-primary, contrast), 200);
 }
 
 // Forms
