@@ -213,7 +213,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         this.activeFilters = transformed;
         this.selectedFilters = this.activeFilters;
       }
-
       // Merge selection with active filters
       if (this.activeFilters[filter]) {
         const combined = this.activeFilters[filter].concat(this.selectedFilters[filter] ? this.selectedFilters[filter] : []);
@@ -236,6 +235,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.selectedFilters.sort = this.sortService.sortMethod;
     this.selectedFilters.page = 1;
 
+    console.log(this.selectedFilters);
     this.router.navigate([],
       { queryParams: this.selectedFilters,
         queryParamsHandling: 'merge'
@@ -252,14 +252,24 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
     // Check if all items already selected
     if (this.activeFilters[filter]) {
-    const equal = (this.activeFilters[filter].length === itemArr.length && this.activeFilters[filter].sort().every(
-                  (value, index) => value === itemArr.sort()[index])
-                  );
-    result = equal ? [] : itemArr;
+      const allSelected = (itemArr.every(value => this.activeFilters[filter].indexOf(value) >= 0));
+      result = this.activeFilters[filter];
+      console.log(result)
+      if (allSelected) {
+        // Remove all from active
+        itemArr.forEach(item => result.splice(result.indexOf(item), 1));
+        console.log(result)
+      } else {
+        // Add all new selections and remove duplicates
+        result.push(...itemArr);
+        result = [...new Set(result)];
+        console.log(result)
+      }
     } else {
       result = itemArr;
     }
     // Pass selection
+    console.log(result)
     this.selectionChange(filter, result);
   }
 
