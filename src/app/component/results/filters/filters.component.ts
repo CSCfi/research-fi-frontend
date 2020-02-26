@@ -264,15 +264,15 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   filterInput(event, parent) {
-    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : null;
+    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     const source = this.shapedData[0].aggregations[parent];
-    source.shaped = source.shaped ? source.shaped : source.buckets;
-    const matchArr = source.shaped.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
+    source.original = source.original ? source.original : source.buckets;
+    const matchArr = source.original.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
     if (matchArr.length > 0) {
       source.buckets = matchArr;
-      this.showMoreCount[parent] = {count: matchArr.length};
+      this.showMoreCount[parent] = {count: term.length ? matchArr.length : 3};
     } else {
-      source.buckets = source.shaped;
+      source.buckets = [];
       this.showMoreCount[parent] = {count: 3};
     }
     // Set term per parent
@@ -280,16 +280,16 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   subFilterInput(event, parent, child) {
-    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : null;
-    this.filterTerm = term;
+    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
+    // this.filterTerm = term;
     const source = this.shapedData[0].aggregations[parent].buckets.find(sub => sub.key === child);
-    source.shaped = source.shaped ? source.shaped : source.subData;
-    const matchArr = source.shaped.filter(subItem => subItem.label.toLowerCase().includes(term));
+    source.original = source.original ? source.original : source.subData;
+    const matchArr = source.original.filter(subItem => subItem.label.toLowerCase().includes(term));
     if (matchArr.length > 0) {
       source.subData = matchArr;
-      this.showMoreCount[child] = {count: matchArr.length};
+      this.showMoreCount[child] = {count: term.length ? matchArr.length : 3};
     } else {
-      source.subData = source.shaped;
+      source.subData = [];
       this.showMoreCount[child] = {count: 3};
     }
     // Set term per parent
