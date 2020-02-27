@@ -211,7 +211,7 @@ export class PublicationFilters {
       result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: 'Ei avoin'});
     }
     if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
-      result.push({key: 'noOpenAccessData', doc_count: noOpenAccessData.doc_count, label: 'Ei tietoa'});
+      result.push({key: 'noOpenAccessData', doc_count: noOpenAccessData?.doc_count, label: 'Ei tietoa'});
     }
 
     return result;
