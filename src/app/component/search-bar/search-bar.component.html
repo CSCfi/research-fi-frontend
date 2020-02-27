@@ -14,12 +14,12 @@
         </label>
         <div class="form-group has-search">
           <div class="input-group" #inputGroup>
-            <input type="text" #searchInput class="form-control" [formControl]="queryField" placeholder="Esim. tutkija, julkaisu, tieteenala, asiasana"
-            value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event)"
-            (keydown)="disableKeys($event)" tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth()"/>
+            <input type="text" #searchInput class="form-control"  placeholder="Esim. tutkija, julkaisu, tieteenala, asiasana"
+            value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event); disableKeys($event)"
+            tabindex="0" (focus)="onFocus(); fireAutoSuggest($event)" (keyup)="setCompletionWidth(); fireAutoSuggest($event)"/>
             <!-- Use span to count input width -->
             <span id="completionAssist"></span>
-            <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">{{completion}}</div>
+            <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="currentInput?.length > 2 && completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">{{completion}}</div>
             <div class="input-group-append">
               <button (blur)="showAutoSuggest = false" class="btn btn-search" type="button" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
                 <span class="search-button">Hae</span>
@@ -28,20 +28,22 @@
             </div>
               <!-- Auto suggest -->
             <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest" role="listbox">
-              <div class="row helper">
-                <div class="col" *ngIf="!queryField.value || queryField.value.length < 3">
-                    <span *ngIf="searchInput.value.length < 3">Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span>
-                    <span *ngIf="searchInput.value.length >= 3">Muuta hakua saadaksesi ehdotuksia</span>
+              <div class="row helper" *ngIf="!currentInput || currentInput.length < 3">
+                <div class="col">
+                    <span *ngIf="currentInput.length < 3">Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span>
+                    <span *ngIf="currentInput.length >= 3">Muuta hakua saadaksesi ehdotuksia</span>
                 </div>
               </div>
-              <div class="row" *ngIf="topData && !topData.length > 0 && queryField.value.length > 2">
+              <div class="row" *ngIf="topData && !topData.length > 0 && currentInput.length > 2">
                 <div class="col text-center">
                   <mat-spinner [diameter]="40"></mat-spinner>
                 </div>
               </div>
               <div class="results" *ngIf="topData">
-                <div class ="col" *ngIf="topData[0] && topData[0].source.doc_count === 0">
-                  <span>Ei ehdotuksia</span>
+                <div class="row helper" *ngIf="topData[0] && topData[0].source.doc_count === 0">
+                  <div class="col">
+                    <span>Ei ehdotuksia</span>
+                  </div>
                 </div>
                 <div *ngFor="let data of topData">
                   <div class="row results" *ngIf="data.source.doc_count > 0">
