@@ -8,8 +8,10 @@
     "./main.server.ts"
   ],
   "angularCompilerOptions": {
-    "entryModule": "./app/app.server.module#AppServerModule"
-  },
+    "entryModule": "./app/app.server.module#AppServerModule",
+    "enableIvy": true
+  }
+,
   "include": [
     "src/**/*.d.ts"
   ]

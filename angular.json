@@ -6,6 +6,7 @@
     "research-fi": {
       "i18n": {
         "locales": {
+          "fi": "src/i18n/messages.fi.xlf",
           "en": "src/i18n/messages.en.xlf",
           "sv": "src/i18n/messages.sv.xlf"
         }
@@ -40,39 +41,7 @@
             "scripts": []
           },
           "configurations": {
-            "fi": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "outputPath": "dist/browser/",
-              "baseHref": "/"
-            },
-            "en": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-            "localize": [
-              "en"
-            ],
-              "outputPath": "dist/browser"},
-            "sv": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-            "localize": [
-              "sv"
-            ],
-              "outputPath": "dist/browser"},
-            "production-fi": {
+            "production": {
               "outputPath": "dist/browser/",
               "baseHref": "/",
               "fileReplacements": [
@@ -102,68 +71,6 @@
                 }
               ]
             },
-            "production-en": {
-            "localize": [
-              "en"
-            ],
-              "outputPath": "dist/browser",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ]},
-            "production-sv": {
-            "localize": [
-              "sv"
-            ],
-              "outputPath": "dist/browser",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ]},
             "es5": {
               "budgets": [
                 {
