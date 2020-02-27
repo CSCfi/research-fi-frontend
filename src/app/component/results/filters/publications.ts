@@ -98,7 +98,6 @@ export class PublicationFilters {
           doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : ''
       })}
     );
-
     return result;
   }
 
