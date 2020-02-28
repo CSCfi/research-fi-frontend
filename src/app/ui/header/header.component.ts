@@ -122,7 +122,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getLang(lang: string) {
     let current = '';
     switch (lang) {
-      case 'fi-FI': {
+      case 'fi': {
         current = 'FI';
         break;
       }
