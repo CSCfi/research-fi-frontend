@@ -79,6 +79,10 @@
               "localize": ["en"],
               "i18nLocale": "en"
             },
+            "sv": {
+              "localize": ["sv"],
+              "i18nLocale": "sv"
+            },
             "es5": {
               "budgets": [
                 {
