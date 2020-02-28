@@ -1,0 +1,443 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200228.131517.11880.0.001.json",
+    "dumpEventTime": "2020-02-28T13:15:17Z",
+    "dumpEventTimeStamp": "1582888517687",
+    "processId": 11880,
+    "cwd": "C:\\Users\\Sauli\\code\\Angular\\research-fi-frontend",
+    "commandLine": [
+      "node",
+      "C:\\Users\\Sauli\\AppData\\Roaming\\npm\\\\node_modules\\@angular\\cli\\bin\\ng",
+      "serve"
+    ],
+    "nodejsVersion": "v12.12.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.12.0",
+      "v8": "7.7.299.13-node.12",
+      "uv": "1.32.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.2",
+      "napi": "5",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019a",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.12.0/node-v12.12.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.12.0/node-v12.12.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.12.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.18362",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 7686015,
+        "nice": 0,
+        "sys": 5652453,
+        "idle": 159116156,
+        "irq": 1098828
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 7662609,
+        "nice": 0,
+        "sys": 5492875,
+        "idle": 159298671,
+        "irq": 66312
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 13651609,
+        "nice": 0,
+        "sys": 5032953,
+        "idle": 153769593,
+        "irq": 101015
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 6180484,
+        "nice": 0,
+        "sys": 2645546,
+        "idle": 163628125,
+        "irq": 56359
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 8930484,
+        "nice": 0,
+        "sys": 3608250,
+        "idle": 159915406,
+        "irq": 87000
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 8238625,
+        "nice": 0,
+        "sys": 2856468,
+        "idle": 161359046,
+        "irq": 26906
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 9874015,
+        "nice": 0,
+        "sys": 3582781,
+        "idle": 158997343,
+        "irq": 78734
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
+        "speed": 1992,
+        "user": 7027921,
+        "nice": 0,
+        "sys": 2539046,
+        "idle": 162887171,
+        "irq": 38859
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "vEthernet (DockerNAT)",
+        "internal": false,
+        "mac": "00:15:5d:2d:79:04",
+        "address": "fe80::b8e1:d4b1:147c:ac72",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 11
+      },
+      {
+        "name": "vEthernet (DockerNAT)",
+        "internal": false,
+        "mac": "00:15:5d:2d:79:04",
+        "address": "10.0.75.1",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "94:b8:6d:07:7f:1f",
+        "address": "fe80::a4a4:e714:f88:b8aa",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 7
+      },
+      {
+        "name": "Wi-Fi",
+        "internal": false,
+        "mac": "94:b8:6d:07:7f:1f",
+        "address": "10.143.5.69",
+        "netmask": "255.255.254.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "vEthernet (Default Switch)",
+        "internal": false,
+        "mac": "00:15:5d:19:1e:43",
+        "address": "fe80::54e9:e90e:1e44:7c8",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 28
+      },
+      {
+        "name": "vEthernet (Default Switch)",
+        "internal": false,
+        "mac": "00:15:5d:19:1e:43",
+        "address": "192.168.36.193",
+        "netmask": "255.255.255.240",
+        "family": "IPv4"
+      }
+    ],
+    "host": "LAPTOP-90BMO4KO"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff6f7261369",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
+    },
+    {
+      "pc": "0x00007ff6f72656fc",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28172"
+    },
+    {
+      "pc": "0x00007ff6f72646a8",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+23992"
+    },
+    {
+      "pc": "0x00007ff6f735314b",
+      "symbol": "v8::base::CPU::has_sse+37723"
+    },
+    {
+      "pc": "0x00007ff6f7b56d3e",
+      "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
+    },
+    {
+      "pc": "0x00007ff6f7b3ed81",
+      "symbol": "v8::SharedArrayBuffer::Externalize+833"
+    },
+    {
+      "pc": "0x00007ff6f7a0c64c",
+      "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
+    },
+    {
+      "pc": "0x00007ff6f7a179f0",
+      "symbol": "v8::internal::Heap::ProtectUnprotectedMemoryChunks+1312"
+    },
+    {
+      "pc": "0x00007ff6f7a14524",
+      "symbol": "v8::internal::Heap::PageFlagsAreConsistent+3204"
+    },
+    {
+      "pc": "0x00007ff6f7a09db3",
+      "symbol": "v8::internal::Heap::CollectGarbage+1283"
+    },
+    {
+      "pc": "0x00007ff6f7a08584",
+      "symbol": "v8::internal::Heap::AddRetainedMap+2356"
+    },
+    {
+      "pc": "0x00007ff6f7a29855",
+      "symbol": "v8::internal::Factory::NewFillerObject+53"
+    },
+    {
+      "pc": "0x00007ff6f7796029",
+      "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+4057"
+    },
+    {
+      "pc": "0x00007ff6f7f82a5d",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+567949"
+    },
+    {
+      "pc": "0x0000031ba927e327",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2155130880,
+    "totalCommittedMemory": 2155130880,
+    "usedMemory": 2135478008,
+    "availableMemory": 52298336,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261872,
+        "used": 32296,
+        "available": 229576
+      },
+      "new_space": {
+        "memorySize": 4194304,
+        "committedMemory": 4194304,
+        "capacity": 2094976,
+        "used": 399712,
+        "available": 1695264
+      },
+      "old_space": {
+        "memorySize": 2055319552,
+        "committedMemory": 2055319552,
+        "capacity": 2048023576,
+        "used": 2042429472,
+        "available": 5594104
+      },
+      "code_space": {
+        "memorySize": 3571712,
+        "committedMemory": 3571712,
+        "capacity": 3088000,
+        "used": 3088000,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 4460544,
+        "committedMemory": 4460544,
+        "capacity": 2684000,
+        "used": 2684000,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 86700032,
+        "committedMemory": 86700032,
+        "capacity": 86294128,
+        "used": 86294128,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 622592,
+        "committedMemory": 622592,
+        "capacity": 550400,
+        "used": 550400,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 2094976,
+        "used": 0,
+        "available": 2094976
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 292.39,
+    "kernelCpuSeconds": 12.796,
+    "cpuConsumptionPercent": 173.401,
+    "maxRss": 2256470016,
+    "pageFaults": {
+      "IORequired": 2007100,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 8036,
+      "writes": 539
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "": "C:=C:\\Users\\Sauli\\code\\Angular\\research-fi-frontend",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "APPDATA": "C:\\Users\\Sauli\\AppData\\Roaming",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "LAPTOP-90BMO4KO",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "configsetroot": "C:\\WINDOWS\\ConfigSetRoot",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\Sauli",
+    "LOCALAPPDATA": "C:\\Users\\Sauli\\AppData\\Local",
+    "LOGONSERVER": "\\\\LAPTOP-90BMO4KO",
+    "NUMBER_OF_PROCESSORS": "8",
+    "NVM_HOME": "C:\\Users\\Sauli\\AppData\\Roaming\\nvm",
+    "NVM_SYMLINK": "C:\\Program Files\\nodejs",
+    "OneDrive": "C:\\Users\\Sauli\\OneDrive",
+    "OneDriveConsumer": "C:\\Users\\Sauli\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "C:\\Program Files\\Docker\\Docker\\Resources\\bin;C:\\Program Files (x86)\\Microsoft SDKs\\Azure\\CLI2\\wbin;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\dotnet\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\140\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\140\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\140\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\140\\DTS\\Binn\\;C:\\Program Files (x86)\\Microsoft SQL Server\\140\\Tools\\Binn\\ManagementStudio\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\Program Files\\PuTTY\\;C:\\Program Files (x86)\\Yarn\\bin\\;C:\\Users\\Sauli\\AppData\\Roaming\\nvm;C:\\Program Files\\nodejs;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Users\\Sauli\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C:\\Users\\Sauli\\AppData\\Local\\Programs\\Python\\Python37\\;C:\\Users\\Sauli\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Sauli\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Sauli\\.dotnet\\tools;C:\\Users\\Sauli\\code;C:\\Users\\Sauli\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\Sauli\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Sauli\\AppData\\Local\\Yarn\\bin;C:\\Users\\Sauli\\AppData\\Roaming\\npm;C:\\Users\\Sauli\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\django\\bin",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC;.CPL",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 142 Stepping 10, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "8e0a",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "PSModulePath": "C:\\Users\\Sauli\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files (x86)\\Microsoft SQL Server\\140\\Tools\\PowerShell\\Modules\\",
+    "PUBLIC": "C:\\Users\\Public",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\Sauli\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\Sauli\\AppData\\Local\\Temp",
+    "USERDOMAIN": "LAPTOP-90BMO4KO",
+    "USERDOMAIN_ROAMINGPROFILE": "LAPTOP-90BMO4KO",
+    "USERNAME": "Sauli",
+    "USERPROFILE": "C:\\Users\\Sauli",
+    "WEBPACK_DEV_SERVER": "true",
+    "windir": "C:\\WINDOWS",
+    "WSLENV": "WT_SESSION:",
+    "WT_SESSION": "3793485c-8c69-4f26-ad82-01e136cf9ab9"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\winmmbase.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\System32\\UMPDC.dll",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\CRYPTSP.dll",
+    "C:\\WINDOWS\\system32\\rsaenh.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.dll",
+    "\\\\?\\C:\\Users\\Sauli\\code\\Angular\\research-fi-frontend\\node_modules\\node-sass\\vendor\\win32-x64-72\\binding.node",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\Windows\\System32\\rasadhlp.dll",
+    "C:\\WINDOWS\\System32\\fwpuclnt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\ntmarta.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll"
+  ]
+}

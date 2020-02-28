@@ -21,7 +21,7 @@
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
     "compile_countup.js": "babel node_modules/countup.js -d node_modules/countup.js --presets @babel/preset-env",
-    "postinstall": "npm run compile_countup.js"
+    "postinstall": "npm run compile_countup.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
   "dependencies": {
