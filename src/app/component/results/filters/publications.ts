@@ -122,7 +122,7 @@ export class PublicationFilters {
   lang(data) {
     if (data && data[0].language) {
       let result = data.map(item => item = {
-        label: item.language.buckets[0].key !== 'undefined' ? item.language.buckets[0].key : 'Ei tiedossa',
+        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : 'Ei tiedossa',
         key: item.key,
         doc_count: item.doc_count
       });
