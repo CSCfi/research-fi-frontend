@@ -33,7 +33,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 const routes = [
   {path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main')},
   //{path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
-  {path: '/fi/*', view: 'fi/index', bundle: require('./dist/server/fi/main')}
+  {path: '/*', view: 'fi/index', bundle: require('./dist/server/fi/main')}
 ];
 
 app.use(compression());
