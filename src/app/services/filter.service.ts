@@ -257,7 +257,7 @@ export class FilterService {
   langByLocale(locale) {
     let field: string;
     switch (locale) {
-      case 'fi-FI': {
+      case 'fi': {
         field = 'languageFi';
         break;
       }
