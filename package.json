@@ -20,7 +20,6 @@
     "build:client-and-server-bundles": "npm run build:prod && npm run build:server:prod:fi && npm run build:server:prod:en",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
-    
     "compile_countup.js": "babel node_modules/countup.js -d node_modules/countup.js --presets @babel/preset-env",
     "postinstall": "npm run compile_countup.js"
   },
@@ -69,8 +68,8 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.3",
-    "@angular/cli": "^9.0.3",
+    "@angular-devkit/build-angular": "~0.900.4",
+    "@angular/cli": "^9.0.4",
     "@angular/compiler-cli": "^9.0.3",
     "@angular/language-service": "^9.0.3",
     "@babel/cli": "^7.8.3",
