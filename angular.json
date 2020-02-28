@@ -5,8 +5,8 @@
   "projects": {
     "research-fi": {
       "i18n": {
+        "sourceLocale": "fi",
         "locales": {
-          "fi": "src/i18n/messages.fi.xlf",
           "en": "src/i18n/messages.en.xlf",
           "sv": "src/i18n/messages.sv.xlf"
         }
@@ -70,6 +70,14 @@
                   "maximumWarning": "6kb"
                 }
               ]
+            },
+            "fi": {
+              "localize": ["fi"],
+              "i18nLocale": "fi"
+            },
+            "en": {
+              "localize": ["en"],
+              "i18nLocale": "en"
             },
             "es5": {
               "budgets": [
