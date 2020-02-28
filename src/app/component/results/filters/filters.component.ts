@@ -248,7 +248,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       itemArr.push(item.key);
     });
     let result = [];
-    console.log(this.activeFilters[filter]);
     // Check if all items already selected
     if (this.activeFilters[filter]) {
       const allSelected = (itemArr.every(value => this.activeFilters[filter].indexOf(value) >= 0));
