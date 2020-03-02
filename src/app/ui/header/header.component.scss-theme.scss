@@ -5,13 +5,21 @@
     $accent: map-get($theme, accent);
 
     app-header {
-        >header {    
-            .navbar-light .navbar-nav .nav-link, a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang, .mat-select-value {
+        >header {
+            .logo-text {
+                color: mat-contrast($primary, 200);
+            }
+
+            .navbar-light .navbar-nav .nav-link, .mat-select-value {
+                color: mat-contrast($primary, 200);
+            }
+
+            a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang {
                 color: mat-contrast($primary, 200);
             }
             
             .navbar-light .navbar-nav .nav-link:hover {
-                color: mat-contrast($primary, 300);
+                color: mat-contrast($primary, 200);
             }
             
             .collapse.navbar-collapse.menu.mobile-bar {
@@ -29,9 +37,15 @@
                 }
             }
 
-            .active-link span.label, .desktop .active-lang {
-                border-bottom: 4px solid mat-color($primary, 400);
+            ul.dropdown {
+                background: mat-contrast($primary, 500);
+                box-shadow: 0 1rem 1rem 0 rgba(0,0,0,0.2);
             }
+
+            ul.dropdown li a {
+                color: mat-contrast($primary, 200);
+            }
+
             
             button span.fa, .separator {
                 color: mat-color($primary);
@@ -40,16 +54,18 @@
             .toggle-menu-text {
                 color: mat-contrast($primary, 300);
             }
+
+            ::ng-deep .mat-select-value-text {
+                color: mat-contrast($primary, 200);
+            }
+
+            ::ng-deep .mat-select-value-text:hover {
+                opacity: 1;
+            }
             
 
             @media (min-width: 991px) {
-                a.nav-item.nav-link.active-link {
-                    box-shadow: 0 28px 0 0 mat-color($primary, 400);
-                }
 
-                .active-link span.label, .desktop .active-lang {
-                    border-bottom: 0;
-                }
             }
         }
     }
