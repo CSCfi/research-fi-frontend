@@ -12,14 +12,22 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule,
+    MatIconModule,
+    FontAwesomeModule,
+    ClickOutsideModule
   ],
   exports: [LayoutComponent]
 })
