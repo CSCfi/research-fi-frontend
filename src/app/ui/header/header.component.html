@@ -14,15 +14,22 @@
             <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="{{currentRoute}}" disabled fragment="accessibility">Hyppää saavutettavuusselosteeseen</a></li>
         </ul>
     </div>
+
     <div offClick class="navbar navbar-expand-lg navbar-light row">
         <div class="logo col-9 col-lg-3">
-            <a class="navbar-brand" routerLink="">
-                <img src="assets/logo.png" alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
-            </a>
-            <div class="logo-text d-none d-sm-block"><span i18n="Site slogan @@appSlogan">Ikkuna tutkimukseen Suomessa</span></div>
+            <div class="row">
+                <div class="col col-auto p-0">
+                    <a class="navbar-brand" routerLink="">
+                        <img src="assets/ttv-logo-medium.svg" alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
+                    </a>
+                </div>
+                <div class="col col-auto align-self-center p-0">
+                    <div class="logo-text"><span i18n="Site slogan @@appSlogan">Tiedejatutkimus.fi</span></div>
+                </div>
+            </div>
         </div>
-        <nav class="nav-top col-3 col-lg-9 row no-padding">
-            <div class="mobile ml-auto no-padding">
+        <nav class="nav-top col-auto col-lg-9 p-lg-0">
+            <div class="mobile ml-auto">
                 <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleNavbar()" #navbarToggler>
                     <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg toggle-icon"></span>
                     <span *ngIf="navbarOpen" class="fa fa-times fa-lg toggle-icon"></span>
@@ -30,7 +37,7 @@
                 <div *ngIf="!navbarOpen" class="toggle-menu-text">Valikko</div>
                 <div *ngIf="navbarOpen" class="toggle-menu-text">Sulje</div>
             </div>
-            <div class="col-lg-12 no-padding" [class.overflow-hider]="hideOverflow && mobile" [class.absolute]="mobile" 
+            <div class="" [class.overflow-hider]="hideOverflow && mobile" [class.absolute]="mobile" 
                 [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
                 <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
@@ -52,54 +59,54 @@
                             </li>
                         </ul>
                     </div>
-                    <ul class="nav-left navbar-nav main col no-padding" [class.row]="!mobile">
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
-                            (click)="navbarOpen && toggleNavbar()">
-                                <span i18n="Main navigation item|Home" class="label">Etusivu</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
-                                <span i18n="Main navigation item|Search" class="label">Haku</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav-right navbar-nav main col no-padding" [class.row]="!mobile">
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" href="#">
-                                <span i18n="Main navigation item|Science politics" class="label">Tiedepolitiikka</span>
-                            </a>
-                            <i class="fa fa-angle-down mobile"></i>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-item nav-link" routerLink="/news" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
-                            (click)="navbarOpen && toggleNavbar()">
-                                <span i18n="Main navigation item|News" class="label">Tiedeuutiset</span>
-                            </a>
-                        </li>
-                        <div *ngIf="mobile" class=""></div>
-                    </ul>
-                    <div class="navbar-expand navbar-nav lang langSelect col-2 no-padding">
-                        <!-- <ul class="navbar-nav ml-auto desktop">
-                            <a class="nav-item nav-link" [class.active-lang]="lang==='fi'" href="/" (click)="setLang('fi')">FI</a><div class="separator"> / </div>
-                            <a class="nav-item nav-link" [class.active-lang]="lang==='sv'" href="/sv/" (click)="setLang('sv')">SV</a><div class="separator"> / </div>
-                            <a class="nav-item nav-link" [class.active-lang]="lang==='en'" href="/en/" (click)="setLang('en')">EN</a>
-                        </ul> -->
-                        <mat-form-field>
-                            <!-- <mat-label>{{currentLang}}</mat-label> -->
-                            <mat-select [(value)]="currentLang" >
-                                <a href="/">
-                                    <mat-option value="FI">FI</mat-option>
+                    <div class="col p-0">
+                        <ul class="nav-right navbar-nav main" [class.row]="!mobile">
+                            <li #navLink class="nav-item col col-auto p-0">
+                                <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+                                (click)="navbarOpen && toggleNavbar()">
+                                    <span i18n="Main navigation item|Home" class="label">Etusivu </span>
                                 </a>
-                                <a href="/sv/">
-                                    <mat-option value="SV">SV</mat-option>
+                            </li>
+                            <li #navLink class="nav-item col col-auto p-0">
+                                <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
+                                    <span i18n="Main navigation item|Search" class="label">Haku</span>
                                 </a>
-                                <a href="/en/">
-                                    <mat-option value="EN">EN</mat-option>
+                            </li>
+                            <li #navLink class="nav-item col col-auto p-0 parent" (click)="parentLink = parentLink === 'sciencePolitics' ? '' : 'sciencePolitics'" (clickOutside)="onClickedOutside($event)">
+                                <a class="nav-item nav-link parent-link" tabindex="0" routerLinkActive="active-link" href="javascript:void(0)">
+                                    Tiede- ja innovaatiopolitiikka
+                                    <fa-icon class="dropdown-icon" [icon]="parentLink === 'sciencePolitics' ? faChevronUp : faChevronDown"></fa-icon>
                                 </a>
-                            </mat-select>
-                        </mat-form-field>
+                                <ul class="dropdown" *ngIf="parentLink === 'sciencePolitics'">
+                                    <li><a href="javascript:void(0)">Tutkimus- ja innovaatiojärjestelmä</a></li>
+                                    <li><a href="javascript:void(0)">Tiede ja tutkimus lukuina</a></li>
+                                </ul>
+                            </li>
+                            <li #navLink class="nav-item col col-auto p-0" (click)="parentLink = ''">
+                                <a class="nav-item nav-link" routerLink="/news" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+                                (click)="navbarOpen && toggleNavbar()">
+                                    <span i18n="Main navigation item|News" class="label">Tiedeuutiset</span>
+                                </a>
+                            </li>
+                            <li #navLink class="col col-auto p-0">
+                                <div class="navbar-expand navbar-nav lang langSelect">
+                                    <mat-form-field>
+                                        <mat-select [(value)]="currentLang" >
+                                            <a href="/">
+                                                <mat-option value="FI">FI</mat-option>
+                                            </a>
+                                            <a href="/sv/">
+                                                <mat-option value="SV">SV</mat-option>
+                                            </a>
+                                            <a href="/en/">
+                                                <mat-option value="EN">EN</mat-option>
+                                            </a>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </li>
+                            <div *ngIf="mobile" class=""></div>
+                        </ul>
                     </div>
                 </div>
             </div>
