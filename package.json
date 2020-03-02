@@ -59,6 +59,7 @@
     "helmet": "3.19.0",
     "jquery": "^3.4.1",
     "mississippi": "^4.0.0",
+    "ng-click-outside": "^6.0.0",
     "ngx-bootstrap": "^5.3.2",
     "popper.js": "^1.16.0",
     "rxjs": "^6.5.4",
