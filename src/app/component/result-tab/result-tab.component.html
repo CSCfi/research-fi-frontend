@@ -14,15 +14,16 @@
         <div class="grad grad-right"></div>
         <div class="arrow arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
-      <div *ngFor="let tab of tabData; let i = index;" class="bundler" [class.disabled]="tab.data.length === 0" [ngStyle]="homepageStyle" [class.active]="selectedTab === tab.link">
-        <a *ngIf="tab.data.length > 0; else disabledTab" [id]="tab.link" [tabindex]="isHomePage ? 0 : -1" (click)="resetFocus(true); disableScroll(true)" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/"
-          #tabList [queryParams]="queryParams[tab.link]">
+      <a *ngFor="let tab of tabData; let i = index;" class="bundler" [class.disabled]="tab.data.length === 0" [class.disabled-home]="isHomePage && tab.data.length === 0" [ngStyle]="homepageStyle" 
+      [class.active]="selectedTab === tab.link" [queryParams]="queryParams[tab.link]" (click)="resetFocus(true); disableScroll(true)" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
+      [tabindex]="isHomePage && tab.data.length !== 0 ? 0 : -1">
+        <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
           <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
           <div *ngIf="locale === 'fi'" class="label text-center">{{tab.labelFi}}</div>
           <div *ngIf="locale === 'se'" class="label text-center">{{tab.labelSe}}</div>
           <div *ngIf="locale === 'en'" class="label text-center">{{tab.labelEn}}</div>
           <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
-        </a>
+        </div>
         <ng-template #disabledTab>
           <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
           <div *ngIf="locale === 'fi'" class="label text-center">{{tab.labelFi}}</div>
@@ -30,7 +31,7 @@
           <div *ngIf="locale === 'en'" class="label text-center">{{tab.labelEn}}</div>
           <div class="numeric-box d-sm-block">Tulossa</div>
         </ng-template>
-      </div>
+      </a>
     </div>
   </div>
   <ng-template #noData>
