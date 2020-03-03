@@ -51,6 +51,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   faChevronUp = faChevronUp;
   widthFlag: boolean;
 
+  additionalWidth = 25;
+
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
@@ -81,7 +83,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     if (!this.mobile) {
-      const widths = this.navLink.map(th => th.nativeElement.offsetWidth + 40);
+      const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
       this.navLink.forEach((item, index) => {
         this.renderer.setStyle(
           item.nativeElement,
@@ -177,7 +179,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.mobile && !this.widthFlag) {
       setTimeout(x => {
         console.log(1);
-        const widths = this.navLink.map(th => th.nativeElement.offsetWidth + 40);
+        const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
         const arr = this.navLink.toArray();
         arr.forEach((item, index) => {
           this.renderer.setStyle(
