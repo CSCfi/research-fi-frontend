@@ -175,6 +175,8 @@ ul.dropdown li:hover {
     font-weight: bold;
 }
 
+
+
 // Language selector
 ::ng-deep .mat-select-panel {
     background: white!important;
@@ -369,6 +371,7 @@ mat-form-field.mat-focused {
 
     .dropdown-icon {
         margin-left: 10px;
+        max-width: 14px;
     }
 
     ul.dropdown {
