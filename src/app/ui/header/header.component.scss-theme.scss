@@ -20,6 +20,7 @@
             
             .navbar-light .navbar-nav .nav-link:hover {
                 color: mat-contrast($primary, 200);
+                background: #E8E9F4;
             }
             
             .collapse.navbar-collapse.menu.mobile-bar {
@@ -42,11 +43,19 @@
                 box-shadow: 0 1rem 1rem 0 rgba(0,0,0,0.2);
             }
 
+            ul.dropdown li:hover, .mat-form-field:hover {
+                color: mat-contrast($primary, 200);
+                background: #E8E9F4;
+            }
+
             ul.dropdown li a {
                 color: mat-contrast($primary, 200);
             }
 
-            
+            .dropdown-open {
+                background: #E8E9F4;
+            }
+
             button span.fa, .separator {
                 color: mat-color($primary);
             }
