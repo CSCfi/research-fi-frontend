@@ -76,7 +76,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   otherFields  = [
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Avoin saatavuus', field: 'openAccessCode'},
-    {label: 'Julkaisumaa', field: 'publicationCountryCode'},
+    {label: 'Julkaisumaa', field: 'countries'},
     {label: 'Kieli', field: 'languages'},
     {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration'},
     {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'},
@@ -205,6 +205,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData[0].hits.hits[0]._source;
     const fieldsOfScience = source.fields_of_science;
+    const countries = source.countries;
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
@@ -219,6 +220,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         }
       }
       source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');
+    }
+
+    if (countries && countries.length > 0) {
+      source.countries = countries.map(x => x.countryFi);
     }
 
     if (languages && languages.length > 0) {
