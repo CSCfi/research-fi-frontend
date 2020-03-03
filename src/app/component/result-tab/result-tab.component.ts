@@ -149,7 +149,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   navigate(event) {
     const arr = this.tabList.toArray();
     const currentPosition = arr.findIndex(i => i.nativeElement.id === this.currentTab.link);
-    console.log(currentPosition);
     switch (event.keyCode) {
       // Left arrow
       case 37: {
