@@ -47,6 +47,10 @@
         .bundler:not(.active):hover {
             background: mat-color($primary, 200)!important;
         }
+
+        .bundler.disabled:hover {
+            background: unset!important;
+        }
         
         .numeric-box {
             color: mat-color($primary, 600);
