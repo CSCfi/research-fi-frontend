@@ -146,8 +146,11 @@
 
 // Disabled
 .bundler.disabled {
-    opacity: 0.5;
     cursor: default;
+}
+
+.bundler.disabled-home {
+    opacity: 0.5;
 }
 
 @media (max-width: 575px) {
