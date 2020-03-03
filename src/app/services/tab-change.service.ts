@@ -8,7 +8,7 @@ import { faFileAlt, faUsers, faBriefcase, faSpinner, faAlignLeft, faCalculator, 
 export class TabChangeService {
   tabData = [
     { data: 'publications', labelFi: 'Julkaisut', labelEn: 'Publications', link: 'publications', icon: faFileAlt},
-    { data: 'persons',  labelFi: 'Tutkijat', labelEn: 'People', link: 'persons', icon: faUsers },
+    { data: '',  labelFi: 'Tutkijat', labelEn: 'People', link: '2', icon: faUsers },
     { data: 'fundings', labelFi: 'Hankkeet', labelEn: 'Fundings', link: 'fundings', icon: faBriefcase },
     { data: '', labelFi: 'Aineistot', labelEn: 'Materials', link: '1', icon: faAlignLeft },
     { data: 'infrastructures', labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', link: 'infrastructures', icon: faCalculator },
