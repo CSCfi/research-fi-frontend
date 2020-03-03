@@ -30,11 +30,11 @@ export class FilterService {
   today: string;
 
   private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: [], status: [], fundingAmount: [], sector: [], organization: []});
+    juFo: [], openAccess: [], internationalCollaboration: [], fundingStatus: [], fundingAmount: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
 
   updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[], status: any[], fundingAmount: any[], sector: any[],
+    openAccess: any[], juFo: any[], internationalCollaboration: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
     organization: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -57,7 +57,7 @@ export class FilterService {
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
     // Funding
-    this.statusFilter = this.filterByStatus(filter.status);
+    this.statusFilter = this.filterByStatus(filter.fundingStatus);
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
@@ -178,11 +178,7 @@ export class FilterService {
     let statusFilter = {};
     switch (JSON.stringify(status)) {
       case '["onGoing"]': {
-        statusFilter = { range: { fundingEndDate: {gte : '2017-01-01' } } };
-        break;
-      }
-      case '["ended"]': {
-        statusFilter = { range: { fundingEndDate: {lte : '2017-01-01' } } };
+        statusFilter = { range: { fundingEndDate: {gte : this.today } } };
         break;
       }
       default: {
@@ -261,7 +257,7 @@ export class FilterService {
   langByLocale(locale) {
     let field: string;
     switch (locale) {
-      case 'fi-FI': {
+      case 'fi': {
         field = 'languageFi';
         break;
       }
@@ -417,6 +413,16 @@ export class FilterService {
         };
         break;
       case 'fundings':
+        payLoad.aggs.fundingStatus = {
+          range: {
+            field: 'fundingEndDate',
+            ranges: [
+              {
+                from: this.today
+              }
+            ]
+          },
+        };
         payLoad.aggs.scheme = {
           terms: {
             field: 'keywords.scheme.keyword',

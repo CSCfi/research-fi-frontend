@@ -5,7 +5,8 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID, ViewChildren,
+  AfterViewInit, ChangeDetectorRef, Renderer2} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
@@ -14,20 +15,22 @@ import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators'
 import { UtilityService } from 'src/app/services/utility.service';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
   @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
+  @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
   hideOverflow = true;
-
+  parentLink: any;
   mobile = this.window.innerWidth < 992;
 
   height = this.window.innerHeight;
@@ -42,13 +45,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showSkipLinks: boolean;
 
   countTab = 0;
+  navLinkArr: any;
+
+  faChevronDown = faChevronDown;
+  faChevronUp = faChevronUp;
+  widthFlag: boolean;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService) {
+              @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
+              private cdr: ChangeDetectorRef, private renderer: Renderer2) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
+    this.widthFlag = false;
   }
 
   // Get current url
@@ -66,6 +76,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.window.addEventListener('keydown', this.handleTabPressed);
       this.window.addEventListener('keydown', this.escapeListener);
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    }
+  }
+
+  ngAfterViewInit() {
+    if (!this.mobile) {
+      const widths = this.navLink.map(th => th.nativeElement.offsetWidth + 40);
+      this.navLink.forEach((item, index) => {
+        this.renderer.setStyle(
+          item.nativeElement,
+          'width',
+          `${widths[index]}px`
+        );
+      });
+      this.widthFlag = true;
     }
   }
 
@@ -122,7 +146,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getLang(lang: string) {
     let current = '';
     switch (lang) {
-      case 'fi-FI': {
+      case 'fi': {
         current = 'FI';
         break;
       }
@@ -149,5 +173,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.mobile = true;
     }
+
+    if (!this.mobile && !this.widthFlag) {
+      setTimeout(x => {
+        console.log(1);
+        const widths = this.navLink.map(th => th.nativeElement.offsetWidth + 40);
+        const arr = this.navLink.toArray();
+        arr.forEach((item, index) => {
+          this.renderer.setStyle(
+            item.nativeElement,
+            'width',
+            `${widths[index]}px`
+          );
+        });
+      }, 200);
+      this.widthFlag = true;
+    }
+  }
+
+  onClickedOutside(e: Event) {
+    this.parentLink = '';
   }
 }

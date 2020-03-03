@@ -79,7 +79,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
     });
-    this.fireAutoSuggest();
   }
 
   ngAfterViewInit() {
@@ -97,16 +96,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.setCompletionWidth();
   }
 
-  fireAutoSuggest() {
-    this.queryField.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged()
-    )
-    .subscribe(result => {
+  fireAutoSuggest(event) {
+    const searchTerm = event.target.value;
+    this.currentInput = searchTerm;
+    setTimeout(x => {
       this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
-      this.currentInput = result;
-      if (result.length > 2) {
-        this.autosuggestService.search(result).pipe(map(response => [response]))
+      if (searchTerm.length > 2) {
+        this.autosuggestService.search(searchTerm).pipe(map(response => [response]))
         .subscribe(response => {
           // Sort indices with highest doc count
           const arr = [];
@@ -125,7 +121,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         });
         // Reset data
       } else {this.topData = []; this.otherData = []; this.completion = ''; }
-    });
+    }, 500);
   }
 
   // Keycodes

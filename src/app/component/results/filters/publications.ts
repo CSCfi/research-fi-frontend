@@ -98,7 +98,6 @@ export class PublicationFilters {
           doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : ''
       })}
     );
-
     return result;
   }
 
@@ -123,7 +122,7 @@ export class PublicationFilters {
   lang(data) {
     if (data && data[0].language) {
       let result = data.map(item => item = {
-        label: item.language.buckets[0].key !== 'undefined' ? item.language.buckets[0].key : 'Ei tiedossa',
+        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : 'Ei tiedossa',
         key: item.key,
         doc_count: item.doc_count
       });
@@ -211,7 +210,7 @@ export class PublicationFilters {
       result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: 'Ei avoin'});
     }
     if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
-      result.push({key: 'noOpenAccessData', doc_count: noOpenAccessData.doc_count, label: 'Ei tietoa'});
+      result.push({key: 'noOpenAccessData', doc_count: noOpenAccessData?.doc_count, label: 'Ei tietoa'});
     }
 
     return result;

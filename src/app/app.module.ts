@@ -73,6 +73,12 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 import { LinksPipe } from './pipes/links.pipe';
 
 import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeFi from '@angular/common/locales/fi';
+import localeEn from '@angular/common/locales/en';
+
+registerLocaleData(localeFi, localeEn);
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipComponent } from './component/results/tooltip/tooltip.component';
 import { WINDOW_PROVIDERS } from './services/window.service';
@@ -170,7 +176,7 @@ import { FilterSumPipe } from './pipes/filter-sum.pipe';
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
   {provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true},
-  {provide: LOCALE_ID, useValue: 'fi-FI'},
+  // {provide: LOCALE_ID, useValue: 'fi-FI'},
   {provide: ErrorHandler, useClass: ErrorHandlerService},
   {
     provide: APP_INITIALIZER,

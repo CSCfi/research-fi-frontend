@@ -41,7 +41,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     {
       title: 'Suomen tieteen tila numeroina',
       caption: 'Tutustu visualisointeihin ja tilastoihin Suomen tieteen tilasta.',
-      imgPath: '../assets/1.jpg',
+      imgPath: 'assets/1.jpg',
       col: 4,
       link: '#',
       alt: ''
@@ -49,7 +49,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     {
       title: 'Tutki julkaisujen määriä tieteenaloittain',
       caption: 'Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista.',
-      imgPath: '../assets/treemap_vis.png',
+      imgPath: 'assets/treemap_vis.png',
       col: 8,
       link: '/visual/publications',
       alt: ''
@@ -58,7 +58,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     {
       title: 'Suomalainen tutkimusjärjestelmä',
       caption: 'Mistä kaikesta suomalainen tutkimusjärjestelmä koostuu?',
-      imgPath: '../assets/4.jpg',
+      imgPath: 'assets/4.jpg',
       col: 4,
       link: '#',
       alt: ''
@@ -66,7 +66,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     {
       title: 'Uusimmat tutkimushankkeet',
       caption: 'Tutustu uusimpiin tutkimushankkeisiin.',
-      imgPath: '../assets/5.jpg',
+      imgPath: 'assets/5.jpg',
       col: 4,
       link: '#',
       alt: ''
@@ -74,7 +74,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     {
       title: 'Etsi ja löydä uutta',
       caption: 'Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista',
-      imgPath: '../assets/6.jpg',
+      imgPath: 'assets/6.jpg',
       col: 4,
       link: '#',
       last: true,

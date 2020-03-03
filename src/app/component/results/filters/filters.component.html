@@ -4,7 +4,7 @@
  :license: MIT -->
     
  <div class="mobile mx-auto" id="navbar-toggle">
-    <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="openModal(filterModal)">
+    <button class="navbar-toggler navbar-toggler-right container" type="button" (click)="openModal(filterModal)">
         <h3>Rajaa hakua</h3>
     </button>
 </div>
@@ -118,15 +118,18 @@
             <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
                 <div class="row single">
                     <div class="col">
-                        <div class="row" *ngIf="response.aggregations[item.field]?.buckets?.length > 0" (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string)">
-                            <div class="col col-7">
+                        <div class="row" *ngIf="response.aggregations[item.field]?.buckets?.length > 0" 
+                            (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)"
+                            (keydown.enter)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)">
+                            <div class="col col-12">
                                 <span class="label">{{item?.labelFi}}</span>
                             </div>
                         </div>
                         <div class="row slider d-flex justify-content-between" *ngIf="response.aggregations[item.field]?.buckets?.length > 0">
                             <div class="col col-2">
                                 <mat-slide-toggle class="slider" [checked]="(activeFilters ? activeFilters[item?.field]?.length : 0) > 0" 
-                                    (change)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string)">
+                                    (change)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)"
+                                    (keydown.enter)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)">
                                 </mat-slide-toggle>
                             </div>
                             <div class="col col-3 count align-self-center">

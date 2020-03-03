@@ -39,13 +39,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   pageNumber = 1;
   page: any;
   expandStatus: Array<boolean> = [];
-  @ViewChild('singleId', { static: false }) singleId: ElementRef;
+  @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
-  @ViewChild('totalHeader', { static: false }) totalHeader: ElementRef;
+  @ViewChild('totalHeader') totalHeader: ElementRef;
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
-  fundingFilters: {status: any[], fundingAmount: any[], sector: any[]};
+  fundingFilters: {fundingStatus: any[], fundingAmount: any[], sector: any[]};
   filters: any;
   mobile: boolean;
   updateFilters: boolean;
@@ -97,7 +97,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         if (isPlatformBrowser(this.platformId)) {
           this.filters = {
             year: [query.year].flat().filter(x => x),
-            status: [query.status].flat().filter(x => x),
+            fundingStatus: [query.fundingStatus].flat().filter(x => x),
             field: [query.field].flat().filter(x => x),
             publicationType: [query.publicationType].flat().filter(x => x),
             countryCode: [query.countryCode].flat().filter(x => x),

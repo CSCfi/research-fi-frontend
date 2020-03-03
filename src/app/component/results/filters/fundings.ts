@@ -20,14 +20,12 @@ export class FundingFilters {
       {field: '', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false},
       {field: '', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false},
       {field: '', labelFi: 'Tieteenala', hasSubFields: false, limitHeight: false},
-      {field: '', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false},
-      {field: '', labelFi: 'Myönnetty rahoitus', hasSubFields: false, limitHeight: false},
-      {field: '', labelFi: 'Hankkeen tila', hasSubFields: false, limitHeight: false},
-      {field: '', labelFi: 'Kansainvälinen yhteistyö', hasSubFields: false, limitHeight: false}
+      {field: '', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false}
     ];
 
     singleFilterData = [
-      {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
+      {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet'},
+      // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteistyö'}
     ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
@@ -35,7 +33,13 @@ export class FundingFilters {
   shapeData(data) {
       const source = data[0].aggregations;
       source.shaped = true;
+      // console.log(source);
+      source.fundingStatus.buckets = this.onGoing(source.fundingStatus.buckets);
       return source;
+  }
+
+  onGoing(data) {
+    return data.map(item => item.key = {key: 'onGoing', doc_count: item.doc_count});
   }
 
 
