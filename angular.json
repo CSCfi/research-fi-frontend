@@ -101,7 +101,8 @@
           },
           "configurations": {
             "fi": {
-              "browserTarget": "research-fi:build:fi"
+              "browserTarget": "research-fi:build:fi",
+              "aot": true
             },
             "en": {
               "browserTarget": "research-fi:build:en",
