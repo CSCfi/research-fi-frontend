@@ -73,9 +73,8 @@
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 parent" (click)="parentLink = parentLink === 'sciencePolitics' ? '' : 'sciencePolitics'" (clickOutside)="onClickedOutside($event)">
-                                <a class="nav-item nav-link parent-link" tabindex="0" routerLinkActive="active-link" href="javascript:void(0)">
+                                <a class="nav-item nav-link parent-link" tabindex="0" routerLinkActive="active-link" href="javascript:void(0)" [ngClass]="parentLink === 'sciencePolitics' ? 'dropdown-open' : ''">
                                     Tiede- ja innovaatiopolitiikka
-                                    <!-- <fa-icon class="dropdown-icon" [icon]="parentLink === 'sciencePolitics' ? faChevronUp : faChevronDown"></fa-icon> -->
                                 </a>
                                 <ul class="dropdown" *ngIf="parentLink === 'sciencePolitics'">
                                     <li><a href="javascript:void(0)">Tutkimus- ja innovaatiojärjestelmä</a></li>
