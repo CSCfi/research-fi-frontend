@@ -149,16 +149,17 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   navigate(event) {
     const arr = this.tabList.toArray();
     const currentPosition = arr.findIndex(i => i.nativeElement.id === this.currentTab.link);
+    console.log(currentPosition);
     switch (event.keyCode) {
       // Left arrow
       case 37: {
         if (currentPosition < 5) {this.scrollLeft(); }
         if (arr[currentPosition - 1]) {
           // Get target path
-          const target = arr[currentPosition - 1].nativeElement.pathname;
+          const target = arr[currentPosition - 1].nativeElement.id;
           // Get next tab link, get params according to link and navigate
           const previousTab = arr[currentPosition - 1].nativeElement.id;
-          this.router.navigate([target], {queryParams: this.queryParams[previousTab]});
+          this.router.navigate(['/results/' + target], {queryParams: this.queryParams[previousTab]});
         }
         break;
       }
@@ -167,10 +168,10 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         if (currentPosition > 1) {this.scrollRight(); }
         if (arr[currentPosition + 1]) {
           // Get target path
-          const target = arr[currentPosition + 1].nativeElement.pathname;
+          const target = arr[currentPosition + 1].nativeElement.id;
           // Get next tab link, get params according to link and navigate
           const nextTab = arr[currentPosition + 1].nativeElement.id;
-          this.router.navigate([target], {queryParams: this.queryParams[nextTab]});
+          this.router.navigate(['/results/' + target], {queryParams: this.queryParams[nextTab]});
         }
         break;
       }
