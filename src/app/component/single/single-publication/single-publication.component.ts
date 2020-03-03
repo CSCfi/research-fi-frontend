@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef, LOCALE_ID } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
@@ -110,7 +110,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
-               private modalService: BsModalService, public utilityService: UtilityService ) {
+               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId ) {
+                 // Capitalize first letter of locale
+                 this.localeId = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -223,11 +225,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     }
 
     if (countries && countries.length > 0) {
-      source.countries = countries.map(x => x.countryFi);
+      const key = 'country' + this.localeId;
+      source.countries = countries.map(x => x[key]);
     }
 
     if (languages && languages.length > 0) {
-      source.languages = languages.map(x => x.languageFi);
+      const key = 'language' + this.localeId;
+      source.languages = languages.map(x => x[key]);
     }
 
     if (keywords && keywords.length > 0) {
