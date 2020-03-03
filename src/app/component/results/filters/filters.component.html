@@ -32,7 +32,7 @@
         <div class="filter-wrapper">
             <div *ngFor="let counter of [currentFilter | counterPipe]">
                 {{ counter.reset() }}
-                <mat-expansion-panel *ngFor="let filter of currentFilter; trackBy: trackByFn" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
+                <mat-expansion-panel *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                     <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                         <mat-panel-title>
                             <div class="row d-flex justify-content-between">
