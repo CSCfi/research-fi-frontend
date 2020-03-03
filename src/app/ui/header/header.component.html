@@ -73,7 +73,7 @@
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 parent" (click)="parentLink = parentLink === 'sciencePolitics' ? '' : 'sciencePolitics'" (clickOutside)="onClickedOutside($event)">
-                                <a class="nav-item nav-link parent-link" tabindex="0" routerLinkActive="active-link" href="javascript:void(0)" [ngClass]="parentLink === 'sciencePolitics' ? 'dropdown-open' : ''">
+                                <a class="nav-item nav-link parent-link" tabindex="0" routerLinkActive="active-link" href="javascript:void(0)">
                                     Tiede- ja innovaatiopolitiikka
                                 </a>
                                 <ul class="dropdown" *ngIf="parentLink === 'sciencePolitics'">
