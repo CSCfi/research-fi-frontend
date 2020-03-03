@@ -43,7 +43,7 @@
 li.breadcrumb-item.arrow_box.active {
     padding: 0 15px 0 30px;
     white-space: nowrap;
-    width: 350px;
+    max-width: 350px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
