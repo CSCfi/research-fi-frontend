@@ -151,6 +151,8 @@ button.nav-item {
     box-shadow: none;
 }
 
+// Dropdown
+
 ul.dropdown {
     position: absolute;
     z-index: 9999;
@@ -169,6 +171,12 @@ ul.dropdown li {
 ul.dropdown li:hover {
     font-weight: bold;
 }
+
+.parent-link:after {
+    font-family: "FontAwesome";
+    content: "\f078";
+}
+
 
 .nav-link:focus {
     outline: none;
@@ -382,6 +390,10 @@ mat-form-field.mat-focused {
 
     .collapse.navbar-collapse.menu.mobile-bar li {
         display: block!important;
+    }
+
+    .parent-link:after {
+        margin-left: 8px;
     }
 }
 
