@@ -6,8 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID, 
-  OnDestroy} from '@angular/core';
+  PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -26,7 +25,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
@@ -290,9 +289,5 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       localStorage.clear();
       this.showAutoSuggest = false;
     }
-  }
-
-  ngOnDestroy() {
-    this.inputSub.unsubscribe();
   }
 }
