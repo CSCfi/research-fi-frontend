@@ -144,6 +144,12 @@
     font-size: 25px;
 }
 
+// Disabled
+.bundler.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
 @media (max-width: 575px) {
     .bundler {
         min-width: auto;
