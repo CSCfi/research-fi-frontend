@@ -148,8 +148,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   // Navigate between tabs with left & right arrow when focus in tab bar
   navigate(event) {
     const arr = this.tabList.toArray();
-    const currentPosition = this.tabChangeService.tabData.findIndex(i => i.link === this.currentTab.link);
-    // let target = '';
+    const currentPosition = arr.findIndex(i => i.nativeElement.id === this.currentTab.link);
     switch (event.keyCode) {
       // Left arrow
       case 37: {
@@ -158,7 +157,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
           // Get target path
           const target = arr[currentPosition - 1].nativeElement.pathname;
           // Get next tab link, get params according to link and navigate
-          const previousTab = this.tabChangeService.tabData[currentPosition - 1].link;
+          const previousTab = arr[currentPosition - 1].nativeElement.id;
           this.router.navigate([target], {queryParams: this.queryParams[previousTab]});
         }
         break;
@@ -170,7 +169,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
           // Get target path
           const target = arr[currentPosition + 1].nativeElement.pathname;
           // Get next tab link, get params according to link and navigate
-          const nextTab = this.tabChangeService.tabData[currentPosition + 1].link;
+          const nextTab = arr[currentPosition + 1].nativeElement.id;
           this.router.navigate([target], {queryParams: this.queryParams[nextTab]});
         }
         break;
