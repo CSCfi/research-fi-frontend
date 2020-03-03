@@ -199,6 +199,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   // Navigate
   selectionChange(filter, key) {
+    // Reset selected filters
+    if (!this.activeFilters[filter]) {this.selectedFilters[filter] = []; }
     // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
       this.selectedFilters[filter] = key;
