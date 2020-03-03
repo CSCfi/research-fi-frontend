@@ -7,7 +7,7 @@
 <div class="row active-filters" *ngIf="activeFilters.length > 0">   
   <h5>Rajaukset:</h5>
   <ul>
-    <li class="filter" *ngFor="let activeFilter of activeFilters" (click)="removeFilter($event)" id="{{activeFilter.value}}"><span>{{activeFilter.translation}}</span></li>
+    <li class="filter" *ngFor="let activeFilter of activeFilters" (click)="removeFilter($event)" id="{{activeFilter.value}}"><span id="{{activeFilter.value}}">{{activeFilter.translation}}</span></li>
     <button class="clear filter" mat-flat-button color="primary" (click)="clearFilters()">Tyhjennä rajaukset</button>
   </ul>
 </div>
