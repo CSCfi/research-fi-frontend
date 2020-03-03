@@ -82,17 +82,17 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (!this.mobile) {
-      const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
-      this.navLink.forEach((item, index) => {
-        this.renderer.setStyle(
-          item.nativeElement,
-          'width',
-          `${widths[index]}px`
-        );
-      });
-      this.widthFlag = true;
-    }
+    // if (!this.mobile) {
+    //   const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
+    //   this.navLink.forEach((item, index) => {
+    //     this.renderer.setStyle(
+    //       item.nativeElement,
+    //       'width',
+    //       `${widths[index]}px`
+    //     );
+    //   });
+    //   this.widthFlag = true;
+    // }
   }
 
   ngOnDestroy() {
@@ -176,21 +176,21 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.mobile = true;
     }
 
-    if (!this.mobile && !this.widthFlag) {
-      setTimeout(x => {
-        console.log(1);
-        const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
-        const arr = this.navLink.toArray();
-        arr.forEach((item, index) => {
-          this.renderer.setStyle(
-            item.nativeElement,
-            'width',
-            `${widths[index]}px`
-          );
-        });
-      }, 200);
-      this.widthFlag = true;
-    }
+    // if (!this.mobile && !this.widthFlag) {
+    //   setTimeout(x => {
+    //     console.log(1);
+    //     const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
+    //     const arr = this.navLink.toArray();
+    //     arr.forEach((item, index) => {
+    //       this.renderer.setStyle(
+    //         item.nativeElement,
+    //         'width',
+    //         `${widths[index]}px`
+    //       );
+    //     });
+    //   }, 200);
+    //   this.widthFlag = true;
+    // }
   }
 
   onClickedOutside(e: Event) {
