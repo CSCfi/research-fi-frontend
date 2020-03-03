@@ -131,7 +131,11 @@ nav.nav-top {
 }
 
 
-.navbar-light .navbar-nav .nav-link:hover, a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang  {
+// .navbar-light .navbar-nav .nav-link:hover, a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang  {
+//     font-weight: bold!important;
+// }
+
+a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang  {
     font-weight: bold;
 }
 
@@ -152,25 +156,20 @@ button.nav-item {
 }
 
 // Dropdown
-
 ul.dropdown {
     position: absolute;
     z-index: 9999;
     text-align: left;
     list-style: none;
-    padding: 0.1rem 1rem;
     min-width: 115%;
     margin-left: 20%;
+    padding: 0;
 }
 
 ul.dropdown li {
-    padding: 0.6rem 0;
+    padding: 0.6rem 1rem;
 }
 
-
-ul.dropdown li:hover {
-    font-weight: bold;
-}
 
 .parent-link:after {
     font-family: "FontAwesome";
@@ -178,14 +177,11 @@ ul.dropdown li:hover {
 }
 
 
-.nav-link:focus {
-    outline: none;
-    font-weight: bold;
+// Language selector
+::ng-deep .mat-form-field {
+    text-align: center!important;
 }
 
-
-
-// Language selector
 ::ng-deep .mat-select-panel {
     background: white!important;
 }
