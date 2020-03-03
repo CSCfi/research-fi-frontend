@@ -6,7 +6,8 @@
 //  :license: MIT
 
 import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID } from '@angular/core';
+  PLATFORM_ID, 
+  OnDestroy} from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -25,7 +26,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit, AfterViewInit {
+export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
@@ -65,6 +66,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   selectedTab: string;
   routeSub: Subscription;
   topMargin: any;
+  currentTerm: string;
+  inputSub: Subscription;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -79,6 +82,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
     });
+    this.fireAutoSuggest();
+    // Get previous search term and set it to form control value
+    this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
+    this.queryField = new FormControl(this.currentTerm);
   }
 
   ngAfterViewInit() {
@@ -96,13 +103,16 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.setCompletionWidth();
   }
 
-  fireAutoSuggest(event) {
-    const searchTerm = event.target.value;
-    this.currentInput = searchTerm;
-    setTimeout(x => {
+  fireAutoSuggest() {
+    this.queryField.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    )
+    .subscribe(result => {
       this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
-      if (searchTerm.length > 2) {
-        this.autosuggestService.search(searchTerm).pipe(map(response => [response]))
+      this.currentInput = result;
+      if (result.length > 2) {
+        this.autosuggestService.search(result).pipe(map(response => [response]))
         .subscribe(response => {
           // Sort indices with highest doc count
           const arr = [];
@@ -121,7 +131,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         });
         // Reset data
       } else {this.topData = []; this.otherData = []; this.completion = ''; }
-    }, 500);
+    });
   }
 
   // Keycodes
@@ -280,5 +290,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       localStorage.clear();
       this.showAutoSuggest = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.inputSub.unsubscribe();
   }
 }
