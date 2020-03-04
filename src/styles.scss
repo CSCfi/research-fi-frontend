@@ -33,6 +33,7 @@
 @import './app/component/results/filters/filters.theme-shared.scss';
 @import './app/component/single/single-publication/single-publication.component.scss-theme.scss';
 @import './app/component/single/single-funding/single-funding.component.scss-theme.scss';
+@import './app/component/science-politics/figures/figures.component-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -53,6 +54,7 @@
   @include app-breadcrumb-theme($theme);
   @include app-single-publication-theme($theme);
   @include app-single-funding-theme($theme);
+  @include app-figures-theme($theme);
 
   $primary: map-get($theme, primary);
   
