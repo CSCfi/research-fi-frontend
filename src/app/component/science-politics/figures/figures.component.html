@@ -8,26 +8,42 @@
 <main id="main-content">
     <div class="wrapper">
         <div class="row">
-            <div class="col col-3">
-                <ul>
-                    <li class="header">Tiede ja tutkimus lukuina</li>
-                    <li>Tutkimuksen henkilöstövoimavarat ja rahoitus</li>
-                    <li>Julkaisutoiminta ja tieteellinen vaikuttavuus</li>
-                    <li>Tutkimus- ja kehittämistoiminnan intensiteetti</li>
-                    <li><input placeholder="Hae tilastoa"></li>
-                </ul>
-            </div>
-            <div class="col col-9">
-                <h2>Tiede ja tutkimus lukuina</h2>
-                <div class="segment">
-                    <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
-                    <p>Tilastogalleria on tuotettu yhteistyössä...</p>
-                    <div class="row">
-                        <div class="col card">Suomen Akatemia</div>
-                        <div class="col card">Tilastokeskus</div>
-                        <div class="col card">Vipunen</div>
+            <div class="col-12 col-lg-3 nav">
+                <div class="row" *ngFor="let item of navItems">
+                    <div class="col-1">
+                        <fa-icon class="icon" [icon]="item.icon"></fa-icon>
+                    </div>
+                    <div class="col">{{item.labelFi}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-1">
+                        <fa-icon class="icon" [icon]="faSearch"></fa-icon>
+                    </div>
+                    <div class="col">
+                        <input placeholder="Hae tilastoa">
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-lg-9 p-lg-0">
+                <div class="segment">
+                    <h2>Tiede ja tutkimus lukuina</h2>
+                    <div class="row">
+                        <div class="col p-1">
+                            <div class="content">
+                                <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
+                                <p>Tilastogalleria on tuotettu yhteistyössä...</p>
+                                <div class="row">
+                                    <div class="col-3 p card" *ngFor="let item of coLink">
+                                        <div class="circle-small"></div>
+                                        <span class="title">{{item.labelFi}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Tutkimuksen henkilöstövoimavarat ja rahoitus</h3>
             </div>
         </div>
     </div>
