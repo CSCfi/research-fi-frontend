@@ -4,3 +4,37 @@
 //
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
+
+.nav {
+    font-weight: 600;
+}
+
+fa-icon.ng-fa-icon.icon {
+    font-size: 1.5rem;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav ul li {
+    padding: 0.5rem 0;
+}
+
+.segment .content {
+    padding: 0 1rem;
+}
+
+.circle-small {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 1rem auto;
+}
+
+.card {
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
