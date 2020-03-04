@@ -20,16 +20,21 @@ export class FiguresComponent implements OnInit {
   faChartBar = faChartBar;
 
   navItems = [
-    {labelFi: 'Tiede ja tutkimus lukuina', icon: this.faIconCircle},
-    {labelFi: 'Tutkimuksen henkilöstövoimavarat ja rahoitus', icon: this.faChartBar},
-    {labelFi: 'Julkaisutoiminta ja tieteellinen vaikuttavuus', icon: this.faChartBar},
-    {labelFi: 'Tutkimus- ja kehittämistoiminnan intensiteetti', icon: this.faChartBar},
+    {labelFi: 'Tiede ja tutkimus lukuina', icon: this.faIconCircle, active: true},
+    {labelFi: 'Tutkimuksen henkilöstövoimavarat ja rahoitus', icon: this.faChartBar, active: false},
+    {labelFi: 'Julkaisutoiminta ja tieteellinen vaikuttavuus', icon: this.faChartBar, active: false},
+    {labelFi: 'Tutkimus- ja kehittämistoiminnan intensiteetti', icon: this.faChartBar, active: false},
   ];
 
   coLink = [
     {labelFi: 'Suomen Akatemia'},
     {labelFi: 'Tilastokeskus'},
     {labelFi: 'Vipunen'},
+  ];
+
+  content1 = [
+    {labelFi: 'Yliopistojen opetus ja tutkimushenkilöstön henkilötyövuodet uraportaittain', descriptionFi: 'Kuvaus', img: ''},
+    {labelFi: 'Yliopistojen kokonaisrahoitus, valtionrahoitus ja tutkimuksen rahoituslähteet', descriptionFi: 'Kuvaus', img: ''}
   ];
 
   constructor() { }
