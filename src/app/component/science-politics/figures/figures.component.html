@@ -5,26 +5,37 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 <div class="full-width"></div>
+<div class="bg-bubble"></div>
 <main id="main-content">
     <div class="wrapper">
         <div class="row">
             <div class="col-12 col-lg-3 nav">
-                <div class="row" *ngFor="let item of navItems">
-                    <div class="col-1">
-                        <fa-icon class="icon" [icon]="item.icon"></fa-icon>
-                    </div>
-                    <div class="col">{{item.labelFi}}</div>
-                </div>
-                <div class="row">
-                    <div class="col-1">
-                        <fa-icon class="icon" [icon]="faSearch"></fa-icon>
-                    </div>
-                    <div class="col">
-                        <input placeholder="Hae tilastoa">
-                    </div>
-                </div>
+                <ul>
+                    <li *ngFor="let item of navItems" [ngClass]="{'active': item.active}">
+                        <a href="#">
+                            <div class="row">
+                                <div class="col-auto pr-0">
+                                    <fa-icon class="icon" [icon]="item.icon"></fa-icon>
+                                </div>
+                                <div class="col">
+                                    {{item.labelFi}}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-auto icon pr-0">
+                                <fa-icon [icon]="faSearch"></fa-icon>
+                            </div>
+                            <div class="col">
+                                <input class="search" placeholder="Hae tilastoa">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="col-12 col-lg-9 p-lg-0">
+            <div class="col-12 col-lg-8 p-lg-0">
                 <div class="segment">
                     <h2>Tiede ja tutkimus lukuina</h2>
                     <div class="row">
@@ -33,17 +44,41 @@
                                 <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
                                 <p>Tilastogalleria on tuotettu yhteistyössä...</p>
                                 <div class="row">
-                                    <div class="col-3 p card" *ngFor="let item of coLink">
-                                        <div class="circle-small"></div>
-                                        <span class="title">{{item.labelFi}}</span>
+                                    <div class="col-6 col-lg-3 p-3 mr-lg-5 card text-center" *ngFor="let item of coLink">
+                                        <a href="">
+                                            <div class="circle-small"></div>
+                                            <span class="title">{{item.labelFi}}</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="segment">
+                    <h3>Tutkimuksen henkilöstövoimavarat ja rahoitus</h3>
+                    <div class="row">
+                        <div class="col p-1">
+                            <div class="content">
+                                <div class="card list" *ngFor="let item of content1">
+                                    <a href="">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <span class="title">{{item.labelFi}}</span>
+                                                <div class="description">
+                                                    {{item.descriptionFi}}
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
 
-                <h3>Tutkimuksen henkilöstövoimavarat ja rahoitus</h3>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
