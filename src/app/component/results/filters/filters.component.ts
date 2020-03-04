@@ -45,7 +45,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   width = this.window.innerWidth;
   mobile = this.width < 992;
   modalRef: BsModalRef;
-  selectedFilters: any;
   activeFilters: any;
   queryParamSub: Subscription;
   subFilters: MatSelectionList[];
@@ -63,7 +62,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
                private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters ) {
-                this.selectedFilters = [];
                 this.showMoreCount = [];
                 }
 
@@ -88,7 +86,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.queryParamSub = this.route.queryParams.subscribe(params => {
       this.activeFilters = params;
       // Reset selected filters
-      if (Object.entries(this.activeFilters).length === 0) {this.selectedFilters = []; }
     });
 
     // Switch default open panel by index
@@ -199,12 +196,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   // Navigate
   selectionChange(filter, key) {
+    let selectedFilters: any = {};
     // Reset selected filters
-    if (!this.activeFilters[filter]) {this.selectedFilters[filter] = []; }
+    if (!this.activeFilters[filter]) {selectedFilters[filter] = []; }
     // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
-      this.selectedFilters[filter] = key;
-      // this.selectedFilters[filter].length > 0 ? this.selectedFilters[filter].concat(key)
+      selectedFilters[filter] = key;
+      // selectedFilters[filter].length > 0 ? selectedFilters[filter].concat(key)
     } else {
       // Filters cause problems if different data types
       key = key.toString();
@@ -213,32 +211,32 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         const transformed = [];
         transformed[filter] = [this.activeFilters[filter]];
         this.activeFilters = transformed;
-        this.selectedFilters = this.activeFilters;
+        selectedFilters = this.activeFilters;
       }
       // Merge selection with active filters
       if (this.activeFilters[filter]) {
-        const combined = this.activeFilters[filter].concat(this.selectedFilters[filter] ? this.selectedFilters[filter] : []);
-        this.selectedFilters[filter] = [...new Set(combined)];
+        const combined = this.activeFilters[filter].concat(selectedFilters[filter] ? selectedFilters[filter] : []);
+        selectedFilters[filter] = [...new Set(combined)];
       }
 
       // Remove filter if selection exists
-      if (this.selectedFilters[filter] && this.selectedFilters[filter].includes(key)) {
-        this.selectedFilters[filter].splice(this.selectedFilters[filter].indexOf(key), 1);
+      if (selectedFilters[filter] && selectedFilters[filter].includes(key)) {
+        selectedFilters[filter].splice(selectedFilters[filter].indexOf(key), 1);
       } else {
         // Add new filter
-        if (this.selectedFilters[filter] && this.selectedFilters[filter].length > 0) {
-          this.selectedFilters[filter].push(key);
+        if (selectedFilters[filter] && selectedFilters[filter].length > 0) {
+          selectedFilters[filter].push(key);
         } else {
-          this.selectedFilters[filter] = [key];
+          selectedFilters[filter] = [key];
         }
       }
     }
     // Set sort and page
-    this.selectedFilters.sort = this.sortService.sortMethod;
-    this.selectedFilters.page = 1;
+    selectedFilters.sort = this.sortService.sortMethod;
+    selectedFilters.page = 1;
 
     this.router.navigate([],
-      { queryParams: this.selectedFilters,
+      { queryParams: selectedFilters,
         queryParamsHandling: 'merge'
       });
   }
