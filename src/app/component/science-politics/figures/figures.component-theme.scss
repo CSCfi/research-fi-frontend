@@ -11,12 +11,26 @@
     $primary: map-get($theme, primary);
 
     app-figures {
-        .segment .content {
-            border-left: 0.5rem solid mat-color($primary, 200);
+        .bg-bubble, .circle-small {
+            background: mat-color($primary, 200);
         }
 
-        .circle-small {
-            background: mat-color($primary, 200);
+        .nav a, .content a {
+            color: mat-contrast($primary, 200);
+        }
+
+        .active {
+            background: #dc1ddf0f;
+
+        }
+
+        .active .icon, .active a {
+            color: mat-color($primary);
+        }
+
+        .segment .content {
+            border-left: 0.5rem solid mat-color($primary, 200);
+            background: rgba(255, 255, 255, 0.50);
         }
 
         .card {
