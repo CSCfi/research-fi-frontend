@@ -96,18 +96,18 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {
           this.filters = {
-            year: [query.year].flat().filter(x => x),
-            fundingStatus: [query.fundingStatus].flat().filter(x => x),
-            field: [query.field].flat().filter(x => x),
-            publicationType: [query.publicationType].flat().filter(x => x),
-            countryCode: [query.countryCode].flat().filter(x => x),
-            lang: [query.lang].flat().filter(x => x),
-            juFo: [query.juFo].flat().filter(x => x),
-            openAccess: [query.openAccess].flat().filter(x => x),
-            internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x),
-            fundingAmount: [query.fundingAmount].flat().filter(x => x),
-            sector: [query.sector].flat().filter(x => x),
-            organization: [query.organization].flat().filter(x => x)
+            year: [query.year].flat().filter(x => x).sort(),
+            fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
+            field: [query.field].flat().filter(x => x).sort(),
+            publicationType: [query.publicationType].flat().filter(x => x).sort(),
+            countryCode: [query.countryCode].flat().filter(x => x).sort(),
+            lang: [query.lang].flat().filter(x => x).sort(),
+            juFo: [query.juFo].flat().filter(x => x).sort(),
+            openAccess: [query.openAccess].flat().filter(x => x).sort(),
+            internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x).sort(),
+            fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
+            sector: [query.sector].flat().filter(x => x).sort(),
+            organization: [query.organization].flat().filter(x => x).sort()
           };
         }
 
