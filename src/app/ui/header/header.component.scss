@@ -166,7 +166,8 @@ ul.dropdown {
     padding: 0;
 }
 
-ul.dropdown li {
+ul.dropdown li a {
+    display: block;
     padding: 0.6rem 1rem;
 }
 
