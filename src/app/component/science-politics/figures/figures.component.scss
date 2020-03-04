@@ -5,12 +5,24 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
+.bg-bubble {
+    position: absolute;
+    border-radius: 50%;
+    width: 500px;
+    height: 500px;
+    right: 1%;
+    margin-top: -42px;
+    z-index: -1;
+}
+
+// Sidenav
 .nav {
     font-weight: 600;
 }
 
-fa-icon.ng-fa-icon.icon {
+.icon {
     font-size: 1.5rem;
+    line-height: 1;
 }
 
 .nav ul {
@@ -19,11 +31,24 @@ fa-icon.ng-fa-icon.icon {
 }
 
 .nav ul li {
-    padding: 0.5rem 0;
+    padding: 1rem 0;
+}
+
+input.search {
+    width: 90%;
+}
+
+// Content
+.segment {
+    padding-bottom: 3rem;
+}
+
+.segment h2, .segment h3 {
+    padding-bottom: 0.5rem;
 }
 
 .segment .content {
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
 }
 
 .circle-small {
@@ -33,8 +58,14 @@ fa-icon.ng-fa-icon.icon {
     margin: 1rem auto;
 }
 
-.card {
-    text-align: center;
+.card.list:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+.card span.title {
+    font-weight: 600;
+}
+
+.card.list span.title {
     font-weight: bold;
-    cursor: pointer;
 }
