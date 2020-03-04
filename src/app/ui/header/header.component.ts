@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   navbarOpen = false;
   hideOverflow = true;
-  parentLink: any;
+  dropdownOpen: any;
   mobile = this.window.innerWidth < 992;
 
   height = this.window.innerHeight;
@@ -194,6 +194,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onClickedOutside(e: Event) {
-    this.parentLink = '';
+    this.dropdownOpen = false;
   }
 }

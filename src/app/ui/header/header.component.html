@@ -72,16 +72,16 @@
                                     <span i18n="Main navigation item|Search" class="label">Haku</span>
                                 </a>
                             </li>
-                            <li #navLink class="nav-item col col-auto p-0 parent" (click)="parentLink = parentLink === 'sciencePolitics' ? '' : 'sciencePolitics'" (clickOutside)="onClickedOutside($event)">
+                            <li #navLink class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen" (clickOutside)="onClickedOutside($event)">
                                 <a class="nav-item nav-link parent-link" tabindex="0" routerLinkActive="active-link" href="javascript:void(0)">
                                     Tiede- ja innovaatiopolitiikka
                                 </a>
-                                <ul class="dropdown" *ngIf="parentLink === 'sciencePolitics'">
+                                <ul class="dropdown" *ngIf="dropdownOpen">
                                     <li><a routerLink="/research-innovation-system/">Tutkimus- ja innovaatiojärjestelmä</a></li>
                                     <li><a routerLink="/science-research-figures/">Tiede ja tutkimus lukuina</a></li>
                                 </ul>
                             </li>
-                            <li #navLink class="nav-item col col-auto p-0" (click)="parentLink = ''">
+                            <li #navLink class="nav-item col col-auto p-0">
                                 <a class="nav-item nav-link" routerLink="/news" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
                                 (click)="navbarOpen && toggleNavbar()">
                                     <span i18n="Main navigation item|News" class="label">Tiedeuutiset</span>
