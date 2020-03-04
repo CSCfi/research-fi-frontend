@@ -77,8 +77,8 @@
                                     Tiede- ja innovaatiopolitiikka
                                 </a>
                                 <ul class="dropdown" *ngIf="parentLink === 'sciencePolitics'">
-                                    <li><a href="javascript:void(0)">Tutkimus- ja innovaatiojärjestelmä</a></li>
-                                    <li><a href="javascript:void(0)">Tiede ja tutkimus lukuina</a></li>
+                                    <li><a routerLink="/research-innovation-system/">Tutkimus- ja innovaatiojärjestelmä</a></li>
+                                    <li><a routerLink="/science-research-figures/">Tiede ja tutkimus lukuina</a></li>
                                 </ul>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0" (click)="parentLink = ''">
@@ -91,13 +91,13 @@
                                 <div class="navbar-expand navbar-nav lang langSelect">
                                     <mat-form-field>
                                         <mat-select [(value)]="currentLang" >
-                                            <a href="/">
+                                            <a routerLink="/{{currentRoute}}">
                                                 <mat-option value="FI">FI</mat-option>
                                             </a>
-                                            <a href="/sv/">
+                                            <a routerLink="/sv/{{currentRoute}}">
                                                 <mat-option value="SV">SV</mat-option>
                                             </a>
-                                            <a href="/en/">
+                                            <a routerLink="/en/{{currentRoute}}">
                                                 <mat-option value="EN">EN</mat-option>
                                             </a>
                                         </mat-select>

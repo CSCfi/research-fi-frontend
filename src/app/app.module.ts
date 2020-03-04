@@ -102,6 +102,8 @@ import { InfrastructureFilters } from './component/results/filters/infrastructur
 import { OrganizationFilters } from './component/results/filters/organizations';
 import { ErrorHandlerService } from './services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
+import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
+import { FiguresComponent } from './component/science-politics/figures/figures.component';
 
 @NgModule({
   declarations: [
@@ -141,7 +143,9 @@ import { FilterSumPipe } from './pipes/filter-sum.pipe';
     FiltersComponent,
     CounterPipe,
     FilterItemPipe,
-    FilterSumPipe
+    FilterSumPipe,
+    ResearchInnovationSystemComponent,
+    FiguresComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

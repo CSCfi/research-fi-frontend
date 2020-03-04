@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators'
 import { UtilityService } from 'src/app/services/utility.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
@@ -69,6 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       if (e instanceof NavigationEnd) {
         // Prevent multiple anchors
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
+
       }
     });
   }
