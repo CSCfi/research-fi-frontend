@@ -67,7 +67,8 @@ app.use(helmet.contentSecurityPolicy({
     ],
     scriptSrc: [
       '\'self\'',
-      '\'unsafe-inline\''
+      '\'unsafe-inline\'',
+      'https://*.csc.fi:*'
     ]
   }
 }));
