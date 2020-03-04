@@ -6,6 +6,8 @@
 // :license: MIT
 
 import { Component, OnInit } from '@angular/core';
+import { faInfoCircle, faSearch} from '@fortawesome/free-solid-svg-icons';
+import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-figures',
@@ -13,6 +15,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./figures.component.scss']
 })
 export class FiguresComponent implements OnInit {
+  faIconCircle = faInfoCircle;
+  faSearch = faSearch;
+  faChartBar = faChartBar;
+
+  navItems = [
+    {labelFi: 'Tiede ja tutkimus lukuina', icon: this.faIconCircle},
+    {labelFi: 'Tutkimuksen henkilöstövoimavarat ja rahoitus', icon: this.faChartBar},
+    {labelFi: 'Julkaisutoiminta ja tieteellinen vaikuttavuus', icon: this.faChartBar},
+    {labelFi: 'Tutkimus- ja kehittämistoiminnan intensiteetti', icon: this.faChartBar},
+  ];
+
+  coLink = [
+    {labelFi: 'Suomen Akatemia'},
+    {labelFi: 'Tilastokeskus'},
+    {labelFi: 'Vipunen'},
+  ];
 
   constructor() { }
 
