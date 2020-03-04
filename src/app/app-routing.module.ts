@@ -14,6 +14,9 @@ import { SingleFundingComponent } from './component/single/single-funding/single
 import { SingleOrganizationComponent } from './component/single/single-organization/single-organization.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
 import { NewsComponent } from './component/news/news.component';
+// tslint:disable-next-line: max-line-length
+import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
+import { FiguresComponent } from './component/science-politics/figures/figures.component';
 
 const routes: Routes = [
   {
@@ -82,6 +85,16 @@ const routes: Routes = [
     path: 'news',
     pathMatch: 'full',
     component: NewsComponent
+  },
+  {
+    path: 'research-innovation-system',
+    pathMatch: 'full',
+    component: ResearchInnovationSystemComponent
+  },
+  {
+    path: 'science-research-figures',
+    pathMatch: 'full',
+    component: FiguresComponent
   },
   {
     path: '**',
