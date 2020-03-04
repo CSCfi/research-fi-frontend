@@ -57,7 +57,8 @@
   $primary: map-get($theme, primary);
   
   .full-width {
-    background: mat-color($primary)
+    background: mat-color($primary);
+    min-height: 3rem;
   }
 
   .wrapper {
