@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       if (e instanceof NavigationEnd) {
         // Prevent multiple anchors
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
-        console.log(this.currentRoute);
+
       }
     });
   }
