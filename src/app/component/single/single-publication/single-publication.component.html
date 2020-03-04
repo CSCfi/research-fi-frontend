@@ -7,7 +7,7 @@
 <aside>
     <app-search-bar></app-search-bar>
 </aside>
-<div class="container" *ngFor="let publication of responseData" style="margin-top:25px;" id="main-content">
+<div class="container" *ngFor="let publication of responseData" id="main-content">
     <!-- Breadcrumb -->
     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">

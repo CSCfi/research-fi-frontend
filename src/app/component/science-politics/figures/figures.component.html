@@ -4,21 +4,81 @@
 #
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
-
+<div class="full-width"></div>
+<div class="bg-bubble"></div>
 <main id="main-content">
     <div class="wrapper">
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-lg-3 nav">
                 <ul>
-                    <li class="header">Tiede ja tutkimus lukuina</li>
-                    <li>Tutkimuksen henkilöstövoimavarat ja rahoitus</li>
-                    <li>Julkaisutoiminta ja tieteellinen vaikuttavuus</li>
-                    <li>Tutkimus- ja kehittämistoiminnan intensiteetti</li>
-                    <li><input placeholder="Hae tilastoa"></li>
+                    <li *ngFor="let item of navItems" [ngClass]="{'active': item.active}">
+                        <a href="#">
+                            <div class="row">
+                                <div class="col-auto pr-0">
+                                    <fa-icon class="icon" [icon]="item.icon"></fa-icon>
+                                </div>
+                                <div class="col">
+                                    {{item.labelFi}}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-auto icon pr-0">
+                                <fa-icon [icon]="faSearch"></fa-icon>
+                            </div>
+                            <div class="col">
+                                <input class="search" placeholder="Hae tilastoa">
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <div class="col">
-                Right
+            <div class="col-12 col-lg-8 p-lg-0">
+                <div class="segment">
+                    <h2>Tiede ja tutkimus lukuina</h2>
+                    <div class="row">
+                        <div class="col p-1">
+                            <div class="content">
+                                <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
+                                <p>Tilastogalleria on tuotettu yhteistyössä...</p>
+                                <div class="row">
+                                    <div class="col-6 col-lg-3 p-3 mr-lg-5 card text-center" *ngFor="let item of coLink">
+                                        <a href="">
+                                            <div class="circle-small"></div>
+                                            <span class="title">{{item.labelFi}}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <h3>Tutkimuksen henkilöstövoimavarat ja rahoitus</h3>
+                    <div class="row">
+                        <div class="col p-1">
+                            <div class="content">
+                                <div class="card list" *ngFor="let item of content1">
+                                    <a href="">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <span class="title">{{item.labelFi}}</span>
+                                                <div class="description">
+                                                    {{item.descriptionFi}}
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

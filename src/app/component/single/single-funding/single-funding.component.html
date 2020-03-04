@@ -10,7 +10,7 @@
      <app-search-bar></app-search-bar>
  </aside>
  
- <div class="container" *ngFor="let funding of responseData" style="margin-top:25px;"  id="main-content">
+ <div class="container" *ngFor="let funding of responseData" id="main-content">
      <!-- Breadcrumb -->
      <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'projectNameFi'"></app-breadcrumb>
      <div class="row shared">
