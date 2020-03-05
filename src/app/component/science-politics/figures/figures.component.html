@@ -38,9 +38,9 @@
                 </ul>
             </div>
             <div class="col-12 col-lg-9">
+                <h2>Tiede ja tutkimus lukuina</h2>
                 <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                     <div class="segment" id="s1">
-                        <h2>Tiede ja tutkimus lukuina</h2>
                         <div class="row">
                             <div class="col p-1">
                                 <div class="content">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <ng-template #noResults>
-                        <h2>Ei tuloksia</h2>
+                        <h3>Ei tuloksia</h3>
                         <p>Kokeile muuttaa hakua</p>
                     </ng-template>
                 </ng-template>
