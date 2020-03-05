@@ -104,6 +104,7 @@ import { ErrorHandlerService } from './services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
+import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 
 @NgModule({
   declarations: [
@@ -145,7 +146,8 @@ import { FiguresComponent } from './component/science-politics/figures/figures.c
     FilterItemPipe,
     FilterSumPipe,
     ResearchInnovationSystemComponent,
-    FiguresComponent
+    FiguresComponent,
+    ScrollSpyDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
