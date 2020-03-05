@@ -12,7 +12,7 @@
             <div class="col-12 col-lg-3 px-0 nav">
                 <ul>
                     <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
-                        <a href="#">
+                        <a href="javascript:void(0)" (click)="scrollTo(item.id)">
                             <div class="row">
                                 <div class="col-auto pr-0">
                                     <fa-icon class="icon" [icon]="item.icon"></fa-icon>
@@ -36,7 +36,7 @@
                 </ul>
             </div>
             <div class="col-12 col-lg-9" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
-                <div class="segment" id="1">
+                <div class="segment" id="s1">
                     <h2>Tiede ja tutkimus lukuina</h2>
                     <div class="row">
                         <div class="col p-1">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="segment" *ngFor="let content of allContent" id={{content.id}}>
-                    <h3>{{content.headerFi}} {{currentSection}}</h3>
+                    <h3>{{content.headerFi}}</h3>
                     <div class="row">
                         <div class="col p-1">
                             <div class="content">
