@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-12 col-lg-3 px-0 nav">
                 <ul>
-                    <li *ngFor="let item of navItems" [ngClass]="{'active': item.active}">
+                    <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
                         <a href="#">
                             <div class="row">
                                 <div class="col-auto pr-0">
@@ -35,8 +35,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-12 col-lg-9">
-                <div class="segment">
+            <div class="col-12 col-lg-9" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
+                <div class="segment" id="1">
                     <h2>Tiede ja tutkimus lukuina</h2>
                     <div class="row">
                         <div class="col p-1">
@@ -55,22 +55,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="segment">
-                    <h3>Tutkimuksen henkilöstövoimavarat ja rahoitus</h3>
+                <div class="segment" *ngFor="let content of allContent" id={{content.id}}>
+                    <h3>{{content.headerFi}} {{currentSection}}</h3>
                     <div class="row">
                         <div class="col p-1">
                             <div class="content">
-                                <div class="card list" *ngFor="let item of content1">
+                                <div class="card list" *ngFor="let item of content.items">
                                     <a href="">
-                                        <div class="row">
-                                            <div class="col-7">
+                                        <div class="row d-flex justify-content-around">
+                                            <div class="col-8">
                                                 <span class="title">{{item.labelFi}}</span>
                                                 <div class="description">
-                                                    {{item.descriptionFi}}
+                                                    {{description}}
                                                 </div>
                                             </div>
-                                            <div class="col-5">
-
+                                            <div class="col-4">
+                                                <img [src]="item.img">
                                             </div>
                                         </div>
                                     </a>
