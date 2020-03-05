@@ -9,6 +9,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { faInfoCircle, faSearch} from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { DOCUMENT } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-figures',
@@ -56,12 +58,37 @@ export class FiguresComponent implements OnInit {
 
   description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
   currentSection: any;
+  queryField: FormControl = new FormControl();
+  queryResults: any[];
+  combinedData: any;
+  hasResults: boolean;
+  queryTerm: any;
 
   constructor( @Inject(DOCUMENT) private document: any ) {
+    // Default to first segment
     this.currentSection = 's1';
+    this.queryResults = [];
+    this.queryTerm = '';
+    this.hasResults = true;
    }
 
   ngOnInit(): void {
+    const combined = [];
+    // Combine all items
+    this.allContent.forEach(segment => combined.push(segment.items));
+    this.combinedData = [].concat.apply([], combined);
+    // Subscribe to input changes
+    this.queryField.valueChanges.pipe(
+      distinctUntilChanged()
+      )
+      .subscribe(term => {
+        this.queryTerm = term;
+        this.queryResults = term.length > 0 ? this.combinedData.filter(item => item.labelFi.includes(term)) : [];
+        // Set results flag, used to show right template
+        this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
+        // Highlight side nav item
+        this.currentSection = this.queryResults.length > 0 ? '' : 's1';
+    });
   }
 
   onSectionChange(sectionId: any) {
@@ -69,7 +96,6 @@ export class FiguresComponent implements OnInit {
   }
 
   scrollTo(section) {
-    console.log(this.document.querySelector('[id=' + section + ']'));
     this.document.querySelector('#' + section).scrollIntoView();
   }
 }

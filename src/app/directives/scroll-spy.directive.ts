@@ -15,7 +15,6 @@ export class ScrollSpyDirective {
     const children = this.el.nativeElement.children;
     const scrollTop = event.target.firstElementChild.scrollTop;
     const parentOffset = event.target.firstElementChild.offsetTop;
-    console.log(children);
     for (const [i, v] of Object.keys(children)) {
       const element = children[i];
       if (this.spiedTags.some(spiedTag => spiedTag === element.tagName)) {

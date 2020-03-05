@@ -24,30 +24,58 @@
                         </a>
                     </li>
                     <li>
-                        <div class="row">
-                            <div class="col-auto icon pr-0">
-                                <fa-icon [icon]="faSearch"></fa-icon>
+                        <form (keydown.enter)="$event.preventDefault()">
+                            <div class="row">
+                                <div class="col-auto icon pr-0">
+                                    <fa-icon [icon]="faSearch"></fa-icon>
+                                </div>
+                                <div class="col">
+                                    <input class="search" [formControl]="queryField" placeholder="Hae tilastoa">
+                                </div>
                             </div>
-                            <div class="col">
-                                <input class="search" placeholder="Hae tilastoa">
-                            </div>
-                        </div>
+                        </form>
                     </li>
                 </ul>
             </div>
-            <div class="col-12 col-lg-9" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
-                <div class="segment" id="s1">
-                    <h2>Tiede ja tutkimus lukuina</h2>
-                    <div class="row">
-                        <div class="col p-1">
-                            <div class="content">
-                                <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
-                                <p>Tilastogalleria on tuotettu yhteistyössä...</p>
-                                <div class="row justify-content-center justify-content-lg-start">
-                                    <div class="col-6 m-3 col-lg-3 p-3 m-lg-0 mr-lg-5 card text-center" *ngFor="let item of coLink">
+            <div class="col-12 col-lg-9">
+                <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
+                    <div class="segment" id="s1">
+                        <h2>Tiede ja tutkimus lukuina</h2>
+                        <div class="row">
+                            <div class="col p-1">
+                                <div class="content">
+                                    <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
+                                    <p>Tilastogalleria on tuotettu yhteistyössä...</p>
+                                    <div class="row justify-content-center justify-content-lg-start">
+                                        <div class="col-6 m-3 col-lg-3 p-3 m-lg-0 mr-lg-5 card text-center" *ngFor="let item of coLink">
+                                            <a href="">
+                                                <div class="circle-small"></div>
+                                                <span class="title">{{item.labelFi}}</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="segment" *ngFor="let content of allContent" id={{content.id}}>
+                        <h3>{{content.headerFi}}</h3>
+                        <div class="row">
+                            <div class="col p-1">
+                                <div class="content">
+                                    <div class="card list" *ngFor="let item of content.items">
                                         <a href="">
-                                            <div class="circle-small"></div>
-                                            <span class="title">{{item.labelFi}}</span>
+                                            <div class="row d-flex justify-content-around">
+                                                <div class="col-8">
+                                                    <span class="title">{{item.labelFi}}</span>
+                                                    <div class="description">
+                                                        {{description}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <img [src]="item.img">
+                                                </div>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
@@ -55,30 +83,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="segment" *ngFor="let content of allContent" id={{content.id}}>
-                    <h3>{{content.headerFi}}</h3>
-                    <div class="row">
-                        <div class="col p-1">
-                            <div class="content">
-                                <div class="card list" *ngFor="let item of content.items">
-                                    <a href="">
-                                        <div class="row d-flex justify-content-around">
-                                            <div class="col-8">
-                                                <span class="title">{{item.labelFi}}</span>
-                                                <div class="description">
-                                                    {{description}}
+                <ng-template #queryResultTemplate>
+                    <div class="segment" *ngIf="hasResults; else noResults">
+                        <h3>Haun tulokset ({{queryResults.length}})</h3>
+                        <div class="row">
+                            <div class="col p-1">
+                                <div class="content">
+                                    <div class="card list" *ngFor="let item of queryResults">
+                                        <a href="">
+                                            <div class="row d-flex justify-content-around">
+                                                <div class="col-8">
+                                                    <span class="title">{{item.labelFi}}</span>
+                                                    <div class="description">
+                                                        {{description}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <img [src]="item.img">
                                                 </div>
                                             </div>
-                                            <div class="col-4">
-                                                <img [src]="item.img">
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <ng-template #noResults>
+                        <h2>Ei tuloksia</h2>
+                        <p>Kokeile muuttaa hakua</p>
+                    </ng-template>
+                </ng-template>
             </div>
         </div>
     </div>
