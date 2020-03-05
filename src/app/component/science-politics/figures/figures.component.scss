@@ -65,6 +65,10 @@ input.search {
     margin: 1rem auto;
 }
 
+.card.list {
+    padding: 1rem 0.5rem;
+}
+
 .card.list:not(:last-child) {
     margin-bottom: 2rem;
 }
@@ -75,6 +79,10 @@ input.search {
 
 .card.list span.title {
     font-weight: bold;
+}
+
+.description {
+    padding: 0.5rem 0;
 }
 
 //Responsive
