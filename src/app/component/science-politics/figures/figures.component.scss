@@ -85,6 +85,10 @@ input.search {
     padding: 0.5rem 0;
 }
 
+img {
+    max-width: 100%;
+}
+
 //Responsive
 @media (max-width: 991px) {
     .nav ul {
