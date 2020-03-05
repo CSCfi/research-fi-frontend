@@ -18,6 +18,7 @@
 // Sidenav
 .nav {
     font-weight: 600;
+    display: initial;
 }
 
 .icon {
@@ -28,6 +29,8 @@
 .nav ul {
     list-style: none;
     padding: 0;
+    position: sticky;
+    top: 0;
 }
 
 .nav ul li {
@@ -36,6 +39,10 @@
 
 input.search {
     width: 90%;
+}
+
+.active {
+    border-radius: 4px;
 }
 
 // Content
@@ -68,4 +75,11 @@ input.search {
 
 .card.list span.title {
     font-weight: bold;
+}
+
+//Responsive
+@media (max-width: 991px) {
+    .nav ul {
+        width: 100%;
+    }
 }
