@@ -105,6 +105,7 @@ import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
+import { CutContentPipe } from './pipes/cut-content.pipe';
 
 @NgModule({
   declarations: [
@@ -147,7 +148,8 @@ import { ScrollSpyDirective } from './directives/scroll-spy.directive';
     FilterSumPipe,
     ResearchInnovationSystemComponent,
     FiguresComponent,
-    ScrollSpyDirective
+    ScrollSpyDirective,
+    CutContentPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
