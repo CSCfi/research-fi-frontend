@@ -34,7 +34,9 @@ export class FiguresComponent implements OnInit {
 
   content1 = [
     {labelFi: 'Yliopistojen opetus ja tutkimushenkilöstön henkilötyövuodet uraportaittain', descriptionFi: 'Kuvaus', img: ''},
-    {labelFi: 'Yliopistojen kokonaisrahoitus, valtionrahoitus ja tutkimuksen rahoituslähteet', descriptionFi: 'Kuvaus', img: ''}
+    {labelFi: 'Yliopistojen kokonaisrahoitus, valtionrahoitus ja tutkimuksen rahoituslähteet', descriptionFi: 'Kuvaus', img: ''},
+    {labelFi: 'Ulkomaalaisen opetus- ja tutkimus-henkilöstön henkilötyövuodet sekä osuus kaikista henkilötyövuosista yliopistoittain ja uraportaittain', descriptionFi: 'Kuvaus', img: ''},
+    {labelFi: 'Tutkimustyövuosien indeksoitu kehitys yliopistoissa ja valtion tutkimuslaitoksissa', descriptionFi: 'Kuvaus', img: ''},
   ];
 
   constructor() { }
