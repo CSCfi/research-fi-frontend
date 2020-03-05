@@ -43,7 +43,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   docList = [
     {index: 'publication', field: 'publicationName', link: 'publicationId'},
-    {index: 'person', field: 'lastName'},
     {index: 'funding', field: 'projectNameFi', link: 'projectId'},
     {index: 'infrastructure', field: 'name', link: 'urn'},
     {index: 'organization', field: 'nameFi', link: 'organizationId'}
@@ -81,7 +80,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
     });
-    this.fireAutoSuggest();
+
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
     this.queryField = new FormControl(this.currentTerm);
@@ -93,6 +92,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   onFocus() {
+    this.fireAutoSuggest();
     // Show auto-suggest when input in focus
     this.showAutoSuggest = true;
     // Hides query history if search term isn't altered after history clear button click
