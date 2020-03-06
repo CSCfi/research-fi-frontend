@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -13,8 +13,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './single-figure.component.html',
   styleUrls: ['./single-figure.component.scss']
 })
-export class SingleFigureComponent implements OnInit {
-
+export class SingleFigureComponent implements OnInit, AfterViewInit {
+  @ViewChild('content') content: ElementRef;
   data = [
     {
       labelFi: 'Yliopistojen opetus- ja tutkimushenkilöstön henkilötyövuodet uraportaittain',
@@ -23,9 +23,21 @@ export class SingleFigureComponent implements OnInit {
     }
   ];
 
-  constructor( public sanitizer: DomSanitizer ) { }
+  colWidth: number;
+
+  constructor( public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef ) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    this.colWidth = this.content.nativeElement.offsetWidth - 15;
+    this.cdr.detectChanges();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.colWidth = this.content.nativeElement.offsetWidth - 15;
   }
 
 }
