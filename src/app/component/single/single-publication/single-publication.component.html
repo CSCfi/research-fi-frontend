@@ -9,7 +9,7 @@
 </aside>
 <div class="container" *ngFor="let publication of responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'publicationName'"></app-breadcrumb>
+    <app-breadcrumb [type]="single" [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'publicationName'"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">

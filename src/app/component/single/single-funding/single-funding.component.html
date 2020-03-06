@@ -12,7 +12,7 @@
  
  <div class="container" *ngFor="let funding of responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'projectNameFi'"></app-breadcrumb>
+     <app-breadcrumb [type]="single" [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'projectNameFi'"></app-breadcrumb>
      <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a></p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="funding.hits.total === 0">
