@@ -8,6 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../services/app-config-service.service';
+import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-footer',
@@ -16,6 +17,9 @@ import { AppConfigService } from '../../services/app-config-service.service';
 })
 export class FooterComponent implements OnInit {
   buildInfo = '';
+  faTwitter = faTwitter;
+  faFacebook = faFacebook;
+  faLinkedin = faLinkedin;
 
   constructor(private appConfigService: AppConfigService) {
     this.buildInfo = this.appConfigService.buildInfo;
