@@ -8,4 +8,18 @@
 a.back {
     padding: 1rem 0;
     display: block;
+    width: max-content;
+    font-weight: bold;
+}
+
+// Responsive
+@media (max-width: 991px) {
+    a.back {
+        padding: 1rem
+    }
+    
+    h2 {
+        padding: 0 1rem;
+    }
+
 }
