@@ -13,8 +13,12 @@
     app-single-figure {
         .content {
             border-left: 0.5rem solid mat-color($primary, 200);
-            background: rgba(255, 255, 255, 0.50);
         }
 
+        @media (max-width: 991px) {
+            .content {
+                border: 0;
+            }
+        }
     }
 }
