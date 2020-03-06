@@ -7,6 +7,7 @@
 
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-single-figure',
@@ -24,6 +25,7 @@ export class SingleFigureComponent implements OnInit, AfterViewInit {
   ];
 
   colWidth: number;
+  faQuestion = faQuestionCircle;
 
   constructor( public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef ) { }
 
