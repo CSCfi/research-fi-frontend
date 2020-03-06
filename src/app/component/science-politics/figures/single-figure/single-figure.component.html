@@ -1,0 +1,30 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+<div class="full-width"></div>
+<main id="main-content">
+    <div class="wrapper">
+        <app-breadcrumb [responseData]="data" [type]="'figure'"></app-breadcrumb>
+        <a routerLink="/science-research-figures" class="back"><< Takaisin</a>
+        <div class="row" *ngFor="let item of data">
+            <h2>{{item.labelFi}}</h2>
+            <div class="col content">
+
+                <iframe width="800" height="600" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.link)'
+                frameborder="0"></iframe>
+                <div class="row">
+                    <div class="col col-lg-8 pl-0">
+                        <p>{{item.description}}</p>
+                    </div>
+                    <div class="col col-lg-4">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
