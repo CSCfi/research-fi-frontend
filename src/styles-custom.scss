@@ -81,6 +81,11 @@ mark, .mark {
     background: #FFF;
 }
 
+// Help icon
+.help {
+    color: map-get($researchfi-primary, 500);
+}
+
 // Img alt test, delete in production
 // img:not([alt]) {
 //     transform: rotate(0.5turn);
