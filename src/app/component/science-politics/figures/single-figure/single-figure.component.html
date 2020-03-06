@@ -1,0 +1,35 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+<div class="full-width"></div>
+<main id="main-content">
+    <div class="wrapper">
+        <app-breadcrumb [responseData]="data" [type]="'figure'"></app-breadcrumb>
+        <a routerLink="/science-research-figures" class="back"><< Takaisin</a>
+        <div class="row" *ngFor="let item of data">
+            <h2>{{item.labelFi}}</h2>
+            <div class="col col-lg-10 content" #content>
+                <iframe width="{{colWidth}}" height="600" 
+                src='https://app.powerbi.com/view?r=eyJrIjoiM2Y4YjE5YjQtMTNjZC00YTk5LWE0ZjgtM2MwMzQ5OTY1MWZkIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9'
+                frameborder="0" allowFullScreen="true"></iframe>
+                <div class="row d-flex justify-content-around">
+                    <div class="col-12 col-lg-8 pl-0">
+                        <p>{{item.description}}</p>
+                        <p>{{item.description}}</p>
+                    </div>
+                    <div class="col col-lg-2 align-self-center">
+                        <fa-icon class="help" [icon]="faQuestion"></fa-icon>
+                    </div>
+                    <div class="col col-lg-2">
+                        <strong>JAA</strong>
+                        <app-social></app-social>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>

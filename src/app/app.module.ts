@@ -106,6 +106,8 @@ import { ResearchInnovationSystemComponent } from './component/science-politics/
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { CutContentPipe } from './pipes/cut-content.pipe';
+import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
+import { SocialComponent } from './component/social/social.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +151,9 @@ import { CutContentPipe } from './pipes/cut-content.pipe';
     ResearchInnovationSystemComponent,
     FiguresComponent,
     ScrollSpyDirective,
-    CutContentPipe
+    CutContentPipe,
+    SingleFigureComponent,
+    SocialComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

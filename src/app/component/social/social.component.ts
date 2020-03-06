@@ -6,23 +6,21 @@
 //  :license: MIT
 
 import { Component, OnInit } from '@angular/core';
-import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
-  selector: 'app-share',
-  templateUrl: './share.component.html',
-  styleUrls: ['./share.component.scss']
+  selector: 'app-social',
+  templateUrl: './social.component.html',
+  styleUrls: ['./social.component.scss']
 })
-export class ShareComponent implements OnInit {
-
+export class SocialComponent implements OnInit {
   faTwitter = faTwitter;
   faFacebook = faFacebook;
   faLinkedin = faLinkedin;
-  faMendeley = faMendeley;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }
