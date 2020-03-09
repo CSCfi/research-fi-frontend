@@ -77,8 +77,8 @@
                                     Tiede- ja innovaatiopolitiikka
                                 </a>
                                 <ul class="dropdown" *ngIf="dropdownOpen">
-                                    <li><a routerLink="/research-innovation-system/">Tutkimus- ja innovaatiojärjestelmä</a></li>
-                                    <li><a routerLink="/science-research-figures/">Tiede ja tutkimus lukuina</a></li>
+                                    <li><a routerLink="/research-innovation-system/" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>
+                                    <li><a routerLink="/science-research-figures/" (click)="navbarOpen && toggleNavbar()">Tiede ja tutkimus lukuina</a></li>
                                 </ul>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0">

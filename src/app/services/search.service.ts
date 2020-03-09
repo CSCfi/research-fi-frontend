@@ -168,6 +168,15 @@ export class SearchService {
     return this.http.get(url, options);
   }
 
+  getFigures() {
+    return this.http.get('assets/figures-content.json')
+  }
+
+  // News page content
+  getNews(): Observable<Search[]> {
+    return this.http.get<Search[]>(this.apiUrl + 'news' + '/_search?');
+  }
+
   // Error handling
   public handleError(err: HttpErrorResponse) {
     let errorMessage = 'HTTPError';
