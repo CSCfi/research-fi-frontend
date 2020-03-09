@@ -45,7 +45,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-12 col-lg-9">
+            <div class="col-12 col-lg-9 px-0 px-lg-3">
                 <h2 *ngIf="!mobile">Tiede ja tutkimus lukuina</h2>
                 <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                     <div class="segment" id="s1">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="segment" *ngFor="let content of allContent" id={{content.id}}>
-                        <h3>{{content.headerFi}}</h3>
+                        <h3 class="px-2 lx-lg-0">{{content.headerFi}}</h3>
                         <div class="row">
                             <div class="col p-1">
                                 <div class="content">
@@ -93,7 +93,7 @@
                 </div>
                 <ng-template #queryResultTemplate>
                     <div class="segment" *ngIf="hasResults; else noResults">
-                        <h3>Haun tulokset ({{queryResults.length}})</h3>
+                        <h3 class="px-2 lx-lg-0">Haun tulokset ({{queryResults.length}})</h3>
                         <div class="row">
                             <div class="col p-1">
                                 <div class="content">
