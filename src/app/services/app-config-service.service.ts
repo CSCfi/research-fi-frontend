@@ -21,7 +21,7 @@ use the same app version in testing and production deployment.
 The service reads configuration from file: /assets/config/config.json
 
 Add the file manually for local development. Do not include it into Git repository.
-CI/CD pipeline adds the file automatically 
+CI/CD pipeline adds the file automatically
 */
 export class AppConfigService {
   private appConfig: any;
