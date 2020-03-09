@@ -6,11 +6,19 @@
 # :license: MIT -->
 <div class="full-width"></div>
 <div class="bg-bubble d-none d-lg-block"></div>
-<main id="main-content">
+<main id="main-content" #mainContent>
     <div class="wrapper">
         <div class="row">
             <div class="col-12 col-lg-3 px-0 nav">
-                <ul>
+                <div class="row d-flex justify-content-between mobile-header" *ngIf="mobile">
+                    <div class="col-auto">
+                        <h2 >Tiede ja tutkimus lukuina</h2>
+                    </div>
+                    <div class="col-auto dropdown">
+                        <button mat-button class="dropdown" (click)="showMenu = !showMenu" href="javascript:void(0)">Hae<fa-icon class="dropdown-icon" [icon]="showMenu ? faChevronUp : faChevronDown"></fa-icon></button>
+                    </div>
+                </div>
+                <ul *ngIf="showMenu">
                     <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
                         <a href="javascript:void(0)" (click)="scrollTo(item.id)">
                             <div class="row">
@@ -38,7 +46,7 @@
                 </ul>
             </div>
             <div class="col-12 col-lg-9">
-                <h2>Tiede ja tutkimus lukuina</h2>
+                <h2 *ngIf="!mobile">Tiede ja tutkimus lukuina</h2>
                 <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                     <div class="segment" id="s1">
                         <div class="row">
