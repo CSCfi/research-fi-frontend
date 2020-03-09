@@ -11,7 +11,7 @@
 
 <ng-template #filterModal>
     <div class="modal-header">
-        <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h5>
+        <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h5>
     </div>
     <div class="modal-body">
         <ng-container *ngTemplateOutlet="filters"></ng-container>
@@ -28,7 +28,7 @@
 
 <ng-template #filters>
     <div class="filter-sidebar" *ngFor="let response of shapedData ? shapedData : responseData">
-        <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>Rajaa hakua</h3>
+        <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h3>
         <div class="filter-wrapper">
             <mat-expansion-panel *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
