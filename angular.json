@@ -177,6 +177,16 @@
             "tsConfig": "src/tsconfig.server.json"
           },
           "configurations": {
+            "production": {
+              "optimization": true,
+              "outputPath": "dist/server",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
             "production-fi": {
               "optimization": true,
               "outputPath": "dist/server/fi",
