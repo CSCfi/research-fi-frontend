@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpErrorResponse, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { throwError, Observable, Subject } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DataService } from './data.service';
 
@@ -10,7 +10,6 @@ import { DataService } from './data.service';
 export class InterceptService implements HttpInterceptor {
 
   constructor(private dataService: DataService) { }
-
 
   handleError(error: HttpErrorResponse) {
     this.dataService.updateError(error);

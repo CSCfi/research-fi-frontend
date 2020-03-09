@@ -187,9 +187,6 @@ import { SocialComponent } from './component/social/social.component';
     ModalModule.forRoot()
   ],
   providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
-  {provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true},
-  // {provide: LOCALE_ID, useValue: 'fi-FI'},
-  {provide: ErrorHandler, useClass: ErrorHandlerService},
   {
     provide: APP_INITIALIZER,
     multi: true,
@@ -200,7 +197,11 @@ import { SocialComponent } from './component/social/social.component';
         return appConfigService.loadAppConfig();
       };
     }
-  }, PublicationFilters, PersonFilters, FundingFilters, InfrastructureFilters, OrganizationFilters ],
+  },
+  {provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true},
+  // {provide: LOCALE_ID, useValue: 'fi-FI'},
+  {provide: ErrorHandler, useClass: ErrorHandlerService},
+  PublicationFilters, PersonFilters, FundingFilters, InfrastructureFilters, OrganizationFilters ],
 
   bootstrap: [ AppComponent ],
   entryComponents: [ PublicationsComponent, PersonsComponent, FundingsComponent, InfrastructuresComponent, OrganizationsComponent,

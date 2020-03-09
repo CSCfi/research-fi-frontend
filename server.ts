@@ -59,7 +59,8 @@ app.use(helmet.contentSecurityPolicy({
       'http://*.rahtiapp.fi:*',
       'https://*.rahtiapp.fi:*',
       'https://doi.org:*',
-      'https://data.crossref.org:*'
+      'https://data.crossref.org:*',
+      'https://app.powerbi.com:*'
     ],
     styleSrc: [
       '\'self\'',
@@ -69,6 +70,9 @@ app.use(helmet.contentSecurityPolicy({
       '\'self\'',
       '\'unsafe-inline\'',
       'https://*.csc.fi:*'
+    ],
+    frameSrc: [
+      'https://app.powerbi.com:*'
     ]
   }
 }));
