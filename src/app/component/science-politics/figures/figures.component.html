@@ -46,9 +46,9 @@
                 </ul>
             </div>
             <div class="col-12 col-lg-9 px-0 px-lg-3">
-                <h2 *ngIf="!mobile">Tiede ja tutkimus lukuina</h2>
                 <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                     <div class="segment" id="s1">
+                        <h2 *ngIf="!mobile">Tiede ja tutkimus lukuina</h2>
                         <div class="row">
                             <div class="col p-1">
                                 <div class="content">
