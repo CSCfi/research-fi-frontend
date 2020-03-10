@@ -135,7 +135,7 @@ nav.nav-top {
 //     font-weight: bold!important;
 // }
 
-a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang  {
+a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang, a.active-link {
     font-weight: bold;
 }
 
@@ -171,6 +171,10 @@ ul.dropdown li a {
     padding: 0.6rem 1rem;
 }
 
+.disabled-link {
+    pointer-events: none;
+    cursor: pointer;
+}
 
 .parent-link:after {
     font-family: "FontAwesome";
