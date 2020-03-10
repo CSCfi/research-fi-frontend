@@ -18,7 +18,7 @@
                 color: mat-contrast($primary, 200);
             }
             
-            .navbar-light .navbar-nav .nav-link:hover {
+            .navbar-light .navbar-nav .nav-link:hover, .parent:hover {
                 color: mat-contrast($primary, 200);
                 background: #E8E9F4;
             }
