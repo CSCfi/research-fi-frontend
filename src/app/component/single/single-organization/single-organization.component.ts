@@ -56,6 +56,14 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Linkit', field: 'homepage'}
   ];
 
+  searchByIdData = [
+    {labelFi: 'Julkaisut', tab: 'publications', disabled: false},
+    {labelFi: 'Tutkijat', tab: 'persons', disabled: true},
+    {labelFi: 'Aineistot', tab: '', disabled: true},
+    {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
+    {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
+  ]
+
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
@@ -89,7 +97,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData[0].hits.hits[0]) {
-        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
+        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi.trim() + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
