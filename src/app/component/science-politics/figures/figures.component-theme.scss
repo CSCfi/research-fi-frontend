@@ -32,6 +32,14 @@
             color: mat-color($primary);
         }
 
+        .search input {
+            border: 1px solid mat-contrast($primary, 400);
+        }
+
+        .search-icon {
+            color: mat-contrast($primary, 400);
+        }
+
         .segment .content {
             border-left: 0.5rem solid mat-color($primary, 200);
             background: rgba(255, 255, 255, 0.50);
