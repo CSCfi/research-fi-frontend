@@ -103,7 +103,7 @@ const routes: Routes = [
     component: FiguresComponent
   },
   {
-    path: 'science-research-figures/:id',
+    path: 'science-innovation-politics/science-research-figures/:id',
     component: SingleFigureComponent
   },
   {
