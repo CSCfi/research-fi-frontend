@@ -88,17 +88,22 @@ const routes: Routes = [
     component: NewsComponent
   },
   {
-    path: 'research-innovation-system',
+    path: 'science-innovation-politics',
+    component: ResearchInnovationSystemComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'science-innovation-politics/research-innovation-system',
     pathMatch: 'full',
     component: ResearchInnovationSystemComponent
   },
   {
-    path: 'science-research-figures',
+    path: 'science-innovation-politics/science-research-figures',
     pathMatch: 'full',
     component: FiguresComponent
   },
   {
-    path: 'science-research-figures/:id',
+    path: 'science-innovation-politics/science-research-figures/:id',
     component: SingleFigureComponent
   },
   {

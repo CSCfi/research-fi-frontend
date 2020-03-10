@@ -20,7 +20,7 @@
         }
 
         .nav a, .content a {
-            color: mat-contrast($primary, 200);
+            color: mat-contrast($primary, 300);
         }
 
         .active {
@@ -30,6 +30,14 @@
 
         .active .icon, .active a {
             color: mat-color($primary);
+        }
+
+        .search input {
+            border: 1px solid mat-contrast($primary, 400);
+        }
+
+        .search-icon {
+            color: mat-contrast($primary, 400);
         }
 
         .segment .content {

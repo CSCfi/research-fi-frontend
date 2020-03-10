@@ -99,7 +99,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSectionChange(sectionId: any) {
-    this.currentSection = sectionId;
+    this.currentSection = sectionId ? sectionId : 's1';
   }
 
   scrollTo(section) {

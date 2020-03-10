@@ -37,13 +37,28 @@
     padding: 1rem 0;
 }
 
-input.search {
-    width: 90%;
-}
-
 .active {
     border-radius: 4px;
 }
+
+.search {
+    display: inline-block;
+    width: 100%;
+}
+
+.search input {
+  height: 2rem;
+  border-radius: 5px;
+}
+
+.search input { text-indent: 0.8rem;}
+.search .search-icon { 
+  position: absolute;
+  top: 4px;
+  left: 10px;
+}
+
+.search .search-icon {left: auto; right: 1.7rem;;}
 
 // Content
 .segment {
@@ -111,5 +126,9 @@ img {
 @media (max-width: 991px) {
     .nav ul {
         width: 100%;
+    }
+
+    .nav ul li {
+        margin-left: 0.5rem;
     }
 }
