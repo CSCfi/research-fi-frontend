@@ -87,13 +87,18 @@
                     <mat-card-title><h2>Organisaation</h2></mat-card-title>
                     <div class="row related">
                         <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Julkaisut</a></li>
-                            <li class=""><a routerLink="/">Tutkijat</a></li>
-                            <li class=""><a routerLink="/">Aineistot</a></li>
+                            <li *ngFor="let link of searchByIdData.slice(0, 3)">
+                                <a [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': item._source.organizationId}">
+                                    {{link.labelFi}}
+                                </a>
+                            </li>
                         </ul>
                         <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Infrastruktuurit</a></li>
-                            <li class=""><a routerLink="/">Muu tutkimustoiminta</a></li>
+                            <li *ngFor="let link of searchByIdData.slice(3, searchByIdData.length)">
+                                <a [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': item._source.organizationId}">
+                                    {{link.labelFi}}
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </mat-card>
