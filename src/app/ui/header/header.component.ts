@@ -178,7 +178,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // if (!this.mobile && !this.widthFlag) {
     //   setTimeout(x => {
-    //     console.log(1);
     //     const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
     //     const arr = this.navLink.toArray();
     //     arr.forEach((item, index) => {

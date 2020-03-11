@@ -33,7 +33,6 @@ export class FundingFilters {
   shapeData(data) {
       const source = data[0].aggregations;
       source.shaped = true;
-      // console.log(source);
       source.fundingStatus.buckets = this.onGoing(source.fundingStatus.buckets);
       return source;
   }

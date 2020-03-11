@@ -51,7 +51,6 @@ export class PaginationComponent implements OnInit {
 
   generatePages(currentPage: number, length: number = 5) {
     // Get the highest page number for the query
-    console.log(this.responseData[0]);
     this.maxPage = this.getHighestPage(this.responseData[0].hits.total.value);
     // Init array to correct length, make it odd and squish if not enough pages
     // Number of pages should be odd to make centering current page easy
