@@ -31,6 +31,20 @@
                         </div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
                             <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
+                            <div *ngFor="let unit of row.orgUnits">
+                                <div class="row" *ngIf="showSubUnits">
+                                    <div class="col-1 guide">
+                                        <span class="guide-line">
+                                            <span class="guide-line-top"></span>
+                                        </span>
+                                    </div>
+                                    <div class="col sub-unit">
+                                        <p>
+                                            {{unit.subUnit}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div *ngFor="let author of row.authors">
                                 <div *ngIf="author.author.length > 10">
                                     <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
