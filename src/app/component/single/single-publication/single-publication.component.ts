@@ -277,8 +277,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       this.authorAndOrganization[0].authors.forEach(item => {
         if (item.subUnit !== ' ') {this.hasSubUnits = true; }
       });
-
-      console.log(this.authorAndOrganization);
     }
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
