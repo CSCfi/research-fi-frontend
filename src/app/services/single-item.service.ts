@@ -61,7 +61,7 @@ export class SingleItemService {
 
   // Testing purposes only
   getCount(tab, id): Observable<Search[]> {
-    console.log(id);
+    id = id || 0;
     let queryOps = {};
     switch (tab) {
       case 'publications': {
