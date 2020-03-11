@@ -60,30 +60,33 @@ export class SingleItemService {
   }
 
   // Testing purposes only
-  getCount(id): Observable<Search[]> {
-    const payload = {
-      query: {
-        bool: {
-          should: [
-            {
-              nested: {
-                path: 'author',
-                query: {
-                  bool: {
-                    should: [
-                      {
-                        term: {
-                          'author.organization.organizationId.keyword': id
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
+  getCount(tab, id): Observable<Search[]> {
+    let queryOps = {};
+    switch(tab) {
+      case 'publications': {
+        queryOps = {
+          query: {
+            bool: {
+              should: [ ]
             }
-          ]
-        }
-      },
+          }
+        };
+        break;
+      }
+      case 'organizations': {
+        queryOps = {
+          query: {
+            bool: {
+              should: [
+                {nested: {path: 'author', query: {bool: {should: [{term: {'author.organization.organizationId.keyword': id}}]}}}}
+              ]
+            }
+          }
+        };
+        break;
+      }
+    }
+    const aggs = {
       size: 0,
       aggs: {
         _index: {
@@ -119,7 +122,8 @@ export class SingleItemService {
         }
       }
     };
-    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payload);
+    const payLoad = {...queryOps, ...aggs};
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payLoad);
   }
 
   joinEntries(field, subField) {
