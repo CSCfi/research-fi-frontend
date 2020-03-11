@@ -80,8 +80,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
             // Todo: Dynamic data path for both publications and organizations
-            if (val.category === 'organization' && tab === 'publications' && source.organization.sectorName) {
-              if (source.organization.sectorName.buckets.length > 0) {
+            if (val.category === 'organization' && tab === 'publications' && source.organization?.sectorName) {
+              if (source.organization.sectorName?.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(element => {
                   if (element.sectorId.buckets[0].key === val.value) {
                     const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
