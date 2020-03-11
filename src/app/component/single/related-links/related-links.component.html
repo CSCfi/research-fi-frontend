@@ -1,0 +1,16 @@
+<div class="row related">
+    <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+        <li *ngFor="let link of relatedList.slice(0, 3)">
+            <a *ngIf="link.tab !== currentParent" [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': id}">
+                {{link.labelFi}} <span *ngIf="!link.disabled">({{docCountData[link.tab]?.doc_count}})</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+        <li *ngFor="let link of relatedList.slice(3, relatedList.length)">
+            <a *ngIf="link.tab !== currentParent" [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': id}">
+                {{link.labelFi}}
+            </a>
+        </li>
+    </ul>
+</div>
