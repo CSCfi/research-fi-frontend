@@ -32,7 +32,7 @@ export class SearchService {
   private inputSource = new BehaviorSubject<string>('');
   currentInput = this.inputSource.asObservable();
 
-  private totalSource = new Subject<number | string>();
+  private totalSource = new Subject<any>();
   currentTotal = this.totalSource.asObservable();
 
   private querySource = new BehaviorSubject({});
