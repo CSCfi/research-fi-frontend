@@ -61,13 +61,14 @@ export class SingleItemService {
 
   // Testing purposes only
   getCount(tab, id): Observable<Search[]> {
+    console.log(id);
     let queryOps = {};
-    switch(tab) {
+    switch (tab) {
       case 'publications': {
         queryOps = {
           query: {
             bool: {
-              should: [ ]
+              should: {term: {orgID: id}}
             }
           }
         };
