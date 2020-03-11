@@ -247,6 +247,7 @@ export class FilterService {
     return {
       query,
       size: 10,
+      track_total_hits: true,
       ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),
       from: fromPage,
       sort: sortOrder
