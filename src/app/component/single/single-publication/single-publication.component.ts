@@ -251,8 +251,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (author && author.length > 0) {
       author.forEach(org => {
         const authorArr = [];
+        const orgUnitArr = [];
         org.organization[0].organizationUnit.forEach(subUnit => {
-          subUnit.person.forEach(person => {
+          subUnit.person?.forEach(person => {
             // Add author if name is available
             if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
               authorArr.push({
@@ -262,15 +263,22 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
               });
             }
           });
+          if (!subUnit.person) {
+            orgUnitArr.push({
+              subUnit: subUnit.organizationUnitNameFi
+            });
+          }
         });
         this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi.trim(), orgId: org.organization[0].organizationId,
-          authors: authorArr});
+          authors: authorArr, orgUnits: orgUnitArr});
       });
       // Default subUnits checks to false and check if any authors have sub units. Show button if sub units
       this.hasSubUnits = false;
       this.authorAndOrganization[0].authors.forEach(item => {
         if (item.subUnit !== ' ') {this.hasSubUnits = true; }
       });
+
+      console.log(this.authorAndOrganization);
     }
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
