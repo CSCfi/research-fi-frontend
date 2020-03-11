@@ -10,9 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { Title } from '@angular/platform-browser';
-import { map } from 'rxjs/operators';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-single-organization',
@@ -56,7 +56,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Linkit', field: 'homepage'}
   ];
 
-  searchByIdData = [
+  relatedList = [
     {labelFi: 'Julkaisut', tab: 'publications', disabled: false},
     {labelFi: 'Tutkijat', tab: 'persons', disabled: true},
     {labelFi: 'Aineistot', tab: '', disabled: true},
@@ -80,7 +80,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
+    this.idSub = this.singleService.currentId.subscribe(id => {
+      this.getData(id);
+    });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.searchTerm = this.searchService.singleInput;
