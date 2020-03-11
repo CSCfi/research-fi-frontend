@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { Search } from '../models/search.model';
-import { Subject, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Subject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { SearchService} from './search.service';
 import { AppConfigService } from './app-config-service.service';
+import { SettingsService } from './settings.service';
 
 
 @Injectable({
@@ -20,7 +20,8 @@ export class SingleItemService {
   currentId = this.getIdSubject.asObservable();
   resultId: string;
 
-  constructor( private http: HttpClient, private searchService: SearchService, private appConfigService: AppConfigService ) {
+  constructor( private http: HttpClient, private searchService: SearchService, private appConfigService: AppConfigService,
+               private settingsService: SettingsService ) {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
@@ -56,6 +57,73 @@ export class SingleItemService {
   getSingleOrganization(id): Observable<Search[]> {
     return this.http.post<Search[]>(this.organizationApiUrl, this.constructPayload('organizationId', id))
     .pipe(catchError(this.searchService.handleError));
+  }
+
+  // Testing purposes only
+  getCount(tab, id): Observable<Search[]> {
+    let queryOps = {};
+    switch(tab) {
+      case 'publications': {
+        queryOps = {
+          query: {
+            bool: {
+              should: [ ]
+            }
+          }
+        };
+        break;
+      }
+      case 'organizations': {
+        queryOps = {
+          query: {
+            bool: {
+              should: [
+                {nested: {path: 'author', query: {bool: {should: [{term: {'author.organization.organizationId.keyword': id}}]}}}}
+              ]
+            }
+          }
+        };
+        break;
+      }
+    }
+    const aggs = {
+      size: 0,
+      aggs: {
+        _index: {
+          filters: {
+            filters: {
+              persons: {
+                match: {
+                  _index: 'person'
+                }
+              },
+              publications: {
+                match: {
+                  _index: 'publication'
+                }
+              },
+              fundings: {
+                match: {
+                  _index: 'funding'
+                }
+              },
+              infrastructures: {
+                match: {
+                  _index: 'infrastructure'
+                }
+              },
+              organizations: {
+                match: {
+                  _index: 'organization'
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+    const payLoad = {...queryOps, ...aggs};
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payLoad);
   }
 
   joinEntries(field, subField) {

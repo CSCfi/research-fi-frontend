@@ -10,9 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { Title } from '@angular/platform-browser';
-import { map } from 'rxjs/operators';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-single-organization',
@@ -56,6 +56,14 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Linkit', field: 'homepage'}
   ];
 
+  relatedList = [
+    {labelFi: 'Julkaisut', tab: 'publications', disabled: false},
+    {labelFi: 'Tutkijat', tab: 'persons', disabled: true},
+    {labelFi: 'Aineistot', tab: '', disabled: true},
+    {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
+    {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
+  ]
+
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
@@ -72,7 +80,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
+    this.idSub = this.singleService.currentId.subscribe(id => {
+      this.getData(id);
+    });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.searchTerm = this.searchService.singleInput;
@@ -89,7 +99,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData[0].hits.hits[0]) {
-        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
+        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi.trim() + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();

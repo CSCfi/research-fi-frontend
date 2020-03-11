@@ -43,7 +43,7 @@ export class PaginationComponent implements OnInit {
     this.fromPage = (this.page - 1) * 10;
 
     // Get total value of results and send to search service
-    this.totalSub = this.searchService.currentTotal.subscribe(total => this.total = total);
+    this.totalSub = this.searchService.currentTotal.subscribe(total => this.total = total.value);
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
@@ -51,7 +51,8 @@ export class PaginationComponent implements OnInit {
 
   generatePages(currentPage: number, length: number = 5) {
     // Get the highest page number for the query
-    this.maxPage = this.getHighestPage(this.responseData[0].hits.total);
+    console.log(this.responseData[0]);
+    this.maxPage = this.getHighestPage(this.responseData[0].hits.total.value);
     // Init array to correct length, make it odd and squish if not enough pages
     // Number of pages should be odd to make centering current page easy
     // tslint:disable-next-line: curly

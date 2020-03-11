@@ -174,9 +174,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
-      this.total = total || 0;
+      const totalCount = total.value;
+      this.total = total.value || 0;
       // Add thousand separators and set total to 0 if no hits
-      this.parsedTotal = this.total ? total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '0';
+      this.parsedTotal = this.total ? totalCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '0';
       this.cdr.detectChanges();
       this.dataService.updateTotalResultsValue(this.total);
       this.updateTitle(this.selectedTabData);

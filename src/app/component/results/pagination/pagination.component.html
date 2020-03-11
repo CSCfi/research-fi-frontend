@@ -9,7 +9,7 @@
       <button class="col-5 col-md-3" [disabled]="fromPage <= 1" [class.pagination-link-active]="fromPage  > 1" (click)="goToPage(page-1)">
         Edellinen sivu
       </button>
-      <button class="col-5 col-md-3 order-md-last" [disabled]="fromPage + 10 >= response.hits.total" [class.pagination-link-active]="fromPage + 10  < response.hits.total" (click)="goToPage(page+1)">
+      <button class="col-5 col-md-3 order-md-last" [disabled]="fromPage + 10 >= response.hits.total.value" [class.pagination-link-active]="fromPage + 10  < response.hits.total.value" (click)="goToPage(page+1)">
         Seuraava sivu
       </button>
       <div class="pages col-12 col-md-6">
@@ -21,8 +21,8 @@
   </div>
 
   <div class="result-count">
-    <p *ngIf="fromPage + 10 < response.hits.total ">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total}}</p>
-    <p *ngIf="fromPage + 10 >= response.hits.total">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total}}</p>
+    <p *ngIf="fromPage + 10 < response.hits.total.value">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.hits.total.value}}</p>
+    <p *ngIf="fromPage + 10 >= response.hits.total.value">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.hits.total.value}}</p>
     <p>Sivu {{page}}</p>
   </div>
 </div>

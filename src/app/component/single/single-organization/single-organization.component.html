@@ -85,17 +85,23 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Organisaation</h2></mat-card-title>
-                    <div class="row related">
+                    <!-- <div class="row related">
                         <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Julkaisut</a></li>
-                            <li class=""><a routerLink="/">Tutkijat</a></li>
-                            <li class=""><a routerLink="/">Aineistot</a></li>
+                            <li *ngFor="let link of relatedList.slice(0, 3)">
+                                <a [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': item._source.organizationId}">
+                                    {{link.labelFi}} <span *ngIf="!link.disabled">({{docCountData[link.tab]?.doc_count}})</span>
+                                </a>
+                            </li>
                         </ul>
                         <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Infrastruktuurit</a></li>
-                            <li class=""><a routerLink="/">Muu tutkimustoiminta</a></li>
+                            <li *ngFor="let link of relatedList.slice(3, relatedList.length)">
+                                <a [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': item._source.organizationId}">
+                                    {{link.labelFi}}
+                                </a>
+                            </li>
                         </ul>
-                    </div>
+                    </div> -->
+                    <app-related-links [id]="item._source.organizationId"></app-related-links>
                 </mat-card>
             </aside>
             <!-- Social icons -->

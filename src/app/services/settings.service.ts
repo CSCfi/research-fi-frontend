@@ -36,11 +36,7 @@ exactField: any;
     let targetType: string;
 
     // Use exact field when doing a search from single document page
-    if (this.exactField) {
-      targetFields = this.exactField;
-    } else {
-      targetFields = this.staticDataService.queryFields(index);
-    }
+    targetFields = this.exactField ? this.exactField : this.staticDataService.queryFields(index);
 
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
@@ -84,8 +80,6 @@ exactField: any;
         };
     return res;
   }
-
-
 
   autoSuggestSettings(term: string) {
     const res = {
