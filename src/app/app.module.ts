@@ -108,6 +108,7 @@ import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
 import { SocialComponent } from './component/social/social.component';
+import { RelatedLinksComponent } from './component/single/related-links/related-links.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +154,8 @@ import { SocialComponent } from './component/social/social.component';
     ScrollSpyDirective,
     CutContentPipe,
     SingleFigureComponent,
-    SocialComponent
+    SocialComponent,
+    RelatedLinksComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
