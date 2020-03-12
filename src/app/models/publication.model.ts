@@ -12,7 +12,7 @@ export class Publication {
     fieldsParsed: string;
 
     constructor(
-        public id: number, // publicationId
+        public id: string, // publicationId
         public title: string, // publicationName
         public publicationYear: number,
         public publicationTypeCode: string,
@@ -75,7 +75,7 @@ export class PublicationAdapter implements Adapter<Publication> {
         }
 
         return new Publication(
-            +item.publicationId,
+            item.publicationId,
             item.publicationName,
             item.publicationYear,
             item.publicationTypeCode,
