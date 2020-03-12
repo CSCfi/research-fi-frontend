@@ -170,6 +170,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       // Funded amount
       source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
     }
+    console.log(source);
 
     switch (scheme) {
       case 'Tieteenala':

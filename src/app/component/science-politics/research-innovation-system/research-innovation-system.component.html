@@ -5,4 +5,35 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<p>research-innovation-system works!</p>
+<div class="full-width"></div>
+<div class="bg-bubble d-none d-lg-block"></div>
+<main id="main-content">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col">
+                <h2>Tutkimus- ja innovaatiojärjestelmä</h2>
+            </div>
+        </div>
+        <div class="row content">
+            <div class="col-12 col-lg-8 pt-4">
+                <p>Korkeakoulujärjestelmä muodostuu yliopistoista ja ammattikorkeakouluista. Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa ja 23 ammattikorkeakoulua.</p>
+                <p>Hallinnonalan virastoista ja laitoksista korkeakoulu- ja tiedepolitiikan osaston toimialaan kuuluvat Suomen Akatemia, Kansallisarkisto, Kotimaisten kielten keskus ja Varastokirjasto.</p>
+                <p>Yliopistoissa korostuu tieteellinen tutkimus ja siihen perustuva opetus. Ammattikorkeakoulut puolestaan tarjoavat käytännönläheista ja työelämän tarpeisiin vastaavaa koulutusta.
+                    Ammattikorkeakoulujen tutkimus-, kehittämis- ja innovaatiotoiminnan pääpainopiste on soveltavassa tutkimus- ja kehitystyössä.
+                </p>
+            </div>
+        </div>
+        <div class="row content">
+            <div class="col">
+                <div class="row">
+                    <div class="col-12 col-sm-5 col-lg-3 text-center p-0 sector" *ngFor="let sector of sectorList">
+                        <fa-icon class="sector-icon" [icon]="sector.icon"></fa-icon>
+                        <div class="sector-title">
+                            {{sector.labelFi}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

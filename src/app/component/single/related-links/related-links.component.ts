@@ -17,6 +17,7 @@ import { ActivatedRoute, Router, UrlTree, UrlSegmentGroup, PRIMARY_OUTLET, UrlSe
 })
 export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() id: any;
+  @Input() relatedFilters: any;
 
   relatedList = [
     {labelFi: 'Julkaisut', tab: 'publications', disabled: true},
@@ -49,7 +50,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
 
   // Get doc counts with single service getCount method, assign to to docCountData and show in appropriate counts in template
   getDocCounts(id: string) {
-    this.singleService.getCount(this.currentParent, id).subscribe((data) => {
+    this.singleService.getCount(this.currentParent, id, this.relatedFilters).subscribe((data) => {
       this.docCountData = data;
       this.docCountData = this.docCountData.aggregations._index.buckets;
       // Set related list item to disabled to false if matching item has docs
