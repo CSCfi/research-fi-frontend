@@ -106,6 +106,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   citations = [];
   hasDoi = false;
   modalRef: BsModalRef;
+  relatedData = [];
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
@@ -249,17 +250,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     // Get authors per organization
     if (author && author.length > 0) {
-      author.forEach(org => {
+      console.log(author[0]);
+      author[0]?.organization.forEach(org => {
         const authorArr = [];
         const orgUnitArr = [];
-        org.organization[0].organizationUnit.forEach(subUnit => {
+
+        org.organizationUnit.forEach(subUnit => {
           subUnit.person?.forEach(person => {
             // Add author if name is available
             if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
               authorArr.push({
                 author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
                 orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
-                subUnit: subUnit.organizationUnitNameFi
+                subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
               });
             }
           });
@@ -269,7 +272,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             });
           }
         });
-        this.authorAndOrganization.push({orgName: org.organization[0].OrganizationNameFi.trim(), orgId: org.organization[0].organizationId,
+        this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
           authors: authorArr, orgUnits: orgUnitArr});
       });
       // Default subUnits checks to false and check if any authors have sub units. Show button if sub units
@@ -277,6 +280,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       this.authorAndOrganization[0].authors.forEach(item => {
         if (item.subUnit !== ' ') {this.hasSubUnits = true; }
       });
+
+      this.relatedData = [
+        {organizations: this.authorAndOrganization}
+      ];
+
     }
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
