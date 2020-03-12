@@ -6,7 +6,7 @@
 // # :license: MIT
 import { FieldOfScience, FieldOfScienceAdapter } from './field-of-science.model';
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter';
+import { Adapter } from './adapter.model';
 
 export class Publication {
     fieldsParsed: string;
