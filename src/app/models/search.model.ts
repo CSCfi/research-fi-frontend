@@ -7,7 +7,7 @@
 
 import { Publication, PublicationAdapter } from './publication.model';
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter';
+import { Adapter } from './adapter.model';
 
 export class Search {
 
