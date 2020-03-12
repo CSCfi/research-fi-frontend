@@ -60,15 +60,20 @@ export class SingleItemService {
   }
 
   // Testing purposes only
-  getCount(tab, id): Observable<Search[]> {
+  getCount(tab, id, filters): Observable<Search[]> {
     id = id || 0;
     let queryOps = {};
     switch (tab) {
       case 'publications': {
+        const organizationFilters = []
+        filters.organizations.forEach(value => {
+          organizationFilters.push({ term : { organizationId : value } });
+        });
+        // Use: should: organizationFilters when functionality is specified
         queryOps = {
           query: {
             bool: {
-              should: {term: {orgID: id}}
+              should: {term: {ORGID: id}}
             }
           }
         };
