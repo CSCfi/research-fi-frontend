@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-pagination',
@@ -22,7 +23,7 @@ export class PaginationComponent implements OnInit {
   fromPage: number; // Used for HTML rendering
   pages: number[];
   maxPage: number;
-  @Input() responseData: any [];
+  @Input() responseData: Search;
   @Input() tab: string;
   total: any;
   totalSub: Subscription;
@@ -51,7 +52,7 @@ export class PaginationComponent implements OnInit {
 
   generatePages(currentPage: number, length: number = 5) {
     // Get the highest page number for the query
-    this.maxPage = this.getHighestPage(this.responseData[0].hits.total.value);
+    this.maxPage = this.getHighestPage(this.responseData.total);
     // Init array to correct length, make it odd and squish if not enough pages
     // Number of pages should be odd to make centering current page easy
     // tslint:disable-next-line: curly
