@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+@mixin app-science-politics-theme-shared($theme) {
+    $primary: map-get($theme, primary);
+
+    app-figures, app-research-innovation-system {
+
+        .bg-bubble, .circle-small {
+            background: mat-color($primary, 200);
+        }    
+    }
+}
