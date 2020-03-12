@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Injector, Input, ComponentRef, OnChanges, SimpleChanges } from '@angular/core';
-import { ComponentPortal, DomPortalHost } from '@angular/cdk/portal';
+import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { createDomPortalHost } from './utils';
 import { SearchService } from '../../../services/search.service';
 import { DataService } from '../../../services/data.service';
@@ -17,7 +17,7 @@ import { InfrastructuresComponent } from '../infrastructures/infrastructures.com
 })
 export class SearchResultsComponent implements OnInit, OnChanges {
 
-  portalHost: DomPortalHost;
+  portalHost: DomPortalOutlet;
   @ViewChild('portalHost', { static: true }) elRef: ElementRef;
   componentRef: ComponentRef<any>;
 
