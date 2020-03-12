@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Search } from '../models/search.model';
+import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SearchService} from './search.service';
@@ -21,7 +21,7 @@ export class SingleItemService {
   resultId: string;
 
   constructor( private http: HttpClient, private searchService: SearchService, private appConfigService: AppConfigService,
-               private settingsService: SettingsService ) {
+               private settingsService: SettingsService, private searchAdapter: SearchAdapter ) {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
@@ -44,19 +44,17 @@ export class SingleItemService {
     return res;
   }
 
-  getSinglePublication(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.publicationApiUrl, this.constructPayload('publicationId', id))
-    .pipe(catchError(this.searchService.handleError));
+  getSinglePublication(id): Observable<Search> {
+    return this.http.post<Search>(this.publicationApiUrl, this.constructPayload('publicationId', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data)));
   }
 
   getSingleFunding(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.fundingApiUrl, this.constructPayload('projectId', id))
-    .pipe(catchError(this.searchService.handleError));
+    return this.http.post<Search[]>(this.fundingApiUrl, this.constructPayload('projectId', id));
   }
 
   getSingleOrganization(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.organizationApiUrl, this.constructPayload('organizationId', id))
-    .pipe(catchError(this.searchService.handleError));
+    return this.http.post<Search[]>(this.organizationApiUrl, this.constructPayload('organizationId', id));
   }
 
   // Testing purposes only
