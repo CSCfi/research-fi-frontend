@@ -25,13 +25,34 @@
         </div>
         <div class="row content">
             <div class="col">
+                <div class="row open-sector sector" #openSector id="slideSource" *ngIf="selectedSector !== null">
+                    <div class="col px-0">
+                        <div class="row header">
+                            <div class="col-1 align-self-center">
+                                <fa-icon class="sector-icon p-0" [icon]="sectorList[selectedSector].icon"></fa-icon>
+                            </div>
+                            <div class="col-10 align-self-center">
+                                <h3>{{sectorList[selectedSector].labelFi}}</h3>
+                            </div>
+                            <div class="col-1 align-self-center">
+                                <fa-icon class="close-icon" (click)="selectedSector = null" [icon]="faTimes"></fa-icon>
+                            </div>
+                        </div>
+                        <div class="row content pt-0">
+                            <div class="col">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-12 col-sm-5 col-lg-3 text-center p-0 sector" *ngFor="let sector of sectorList">
+                    <button class="col-12 col-sm-5 col-lg-3 text-center p-0 sector" *ngFor="let sector of rearrangedList; let i = index"
+                    (click)="selectedSector = i" [class.d-none]="selectedSector === i">
                         <fa-icon class="sector-icon" [icon]="sector.icon"></fa-icon>
                         <div class="sector-title">
                             {{sector.labelFi}}
                         </div>
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
