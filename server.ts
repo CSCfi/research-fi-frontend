@@ -101,7 +101,8 @@ routes.forEach((route) => {
     res.render(route.view, {
       req, res, engine: ngExpressEngine({
         bootstrap: route.bundle.AppServerModule,
-        providers: [provideModuleMap(route.bundle.LAZY_MODULE_MAP)]
+        providers: [provideModuleMap(route.bundle.LAZY_MODULE_MAP),
+        { req, res }]
       })
     });
   });
