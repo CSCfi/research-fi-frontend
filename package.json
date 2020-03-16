@@ -43,7 +43,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
-    "@nguniversal/common": "^9.0.2",
+    "@nguniversal/common": "^9.0.1",
     "@nguniversal/express-engine": "^9.0.1",
     "@nguniversal/module-map-ngfactory-loader": "^8.2.6",
     "array-flat-polyfill": "^1.0.1",
