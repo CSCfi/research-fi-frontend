@@ -57,7 +57,7 @@
     "d3-zoom": "^1.8.3",
     "express": "^4.15.2",
     "font-awesome": "^4.7.0",
-    "helmet": "3.19.0",
+    "helmet": "^3.21.3",
     "jquery": "^3.4.1",
     "mississippi": "^4.0.0",
     "ng-click-outside": "^6.0.0",

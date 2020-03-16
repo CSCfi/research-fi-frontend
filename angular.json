@@ -78,15 +78,21 @@
               ]
             },
             "fi": {
-              "localize": ["fi"],
+              "localize": [
+                "fi"
+              ],
               "i18nLocale": "fi"
             },
             "en": {
-              "localize": ["en"],
+              "localize": [
+                "en"
+              ],
               "i18nLocale": "en"
             },
             "sv": {
-              "localize": ["sv"],
+              "localize": [
+                "sv"
+              ],
               "i18nLocale": "sv"
             },
             "es5": {
@@ -273,5 +279,8 @@
       }
     }
   },
-  "defaultProject": "research-fi"
+  "defaultProject": "research-fi",
+  "cli": {
+    "analytics": "62223fc9-a5db-4ac2-971b-f0c9a7c7c85e"
+  }
 }
