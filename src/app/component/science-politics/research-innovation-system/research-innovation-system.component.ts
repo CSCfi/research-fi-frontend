@@ -5,8 +5,8 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit } from '@angular/core';
-import { faLandmark, faEuroSign } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef } from '@angular/core';
+import { faLandmark, faEuroSign, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -16,17 +16,38 @@ import { faLandmark, faEuroSign } from '@fortawesome/free-solid-svg-icons';
 export class ResearchInnovationSystemComponent implements OnInit {
   faLandmark = faLandmark;
   faEuroSign = faEuroSign;
+  faTimes = faTimes;
 
   sectorList = [
-    {labelFi: 'Yliopistot', icon: faLandmark},
-    {labelFi: 'Ammattikorkeakoulut', icon: faLandmark},
-    {labelFi: 'Valtion tutkimuslaitokset', icon: faLandmark},
-    {labelFi: 'Yliopistosairaalat', icon: faLandmark},
-    {labelFi: 'Muut tutkimuslaitokset', icon: faLandmark},
-    {labelFi: 'Tutkimuksen rahoittajat', icon: faEuroSign},
+    {id: 0, labelFi: 'Yliopistot', icon: faLandmark},
+    {id: 1, labelFi: 'Ammattikorkeakoulut', icon: faLandmark},
+    {id: 2, labelFi: 'Valtion tutkimuslaitokset', icon: faLandmark},
+    {id: 3, labelFi: 'Yliopistosairaalat', icon: faLandmark},
+    {id: 4, labelFi: 'Muut tutkimuslaitokset', icon: faLandmark},
+    {id: 5, labelFi: 'Tutkimuksen rahoittajat', icon: faEuroSign},
   ];
 
-  constructor() { }
+  selectedSector: any;
+  rearrangedList: any;
+  @ViewChild('openSector') openSector: ElementRef;
+
+  constructor() {
+    this.selectedSector = null;
+    this.rearrangedList = this.sectorList;
+  }
+
+  changeOrder(i) {
+    console.log(this.sectorList[i]);
+    this.rearrangedList = [];
+    let data = [...this.sectorList];
+    data.splice(i, 1);
+    data.unshift(this.sectorList[i]);
+    this.rearrangedList = data;
+  }
+
+  toggleOpen(i) {
+
+  }
 
   ngOnInit(): void {
   }
