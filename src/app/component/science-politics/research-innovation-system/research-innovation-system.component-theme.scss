@@ -11,32 +11,21 @@
     $primary: map-get($theme, primary);
 
     app-research-innovation-system {
-        .open-sector .content  {
-            border-top: none!important;
-        }
-        .open-sector .header {
-            border-bottom: 1px solid mat-contrast($primary, 400);
+
+        .mat-expansion-panel {
+            background: none;
         }
 
-        .sector  {
-            border: 1px solid mat-contrast($primary, 400);
-        }
-
-        .sector {
-            background: white;
+        .mat-expansion-panel:not([class*='mat-elevation-z']) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         }
 
         .sector-icon {
-            color: mat-color($primary, 200);
-        }
-
-        .close-icon {
-            background: mat-color($primary);
             color: white;
+            background: mat-color($primary, 200);
         }
 
         .sector-title {
-            border-top: 1px solid mat-contrast($primary, 400);
             color: mat-contrast($primary, 200);
         }
     }

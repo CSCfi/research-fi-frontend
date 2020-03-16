@@ -11,7 +11,7 @@
         <a routerLink="/science-research-figures" class="back"><< Takaisin</a>
         <div class="row" *ngFor="let item of data">
             <h2>{{item.labelFi}}</h2>
-            <div class="col col-lg-10 content" #content>
+            <div class="col col-lg-10 base content" #content>
                 <iframe width="{{colWidth}}" height="600" 
                 src='https://app.powerbi.com/view?r=eyJrIjoiNmZlZmNmYTYtNzY5ZC00MTZmLTg4Y2EtMDA2NmE4MDQ2YjQxIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9'
                 frameborder="0" allowFullScreen="true"></iframe>

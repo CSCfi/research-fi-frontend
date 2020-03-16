@@ -11,10 +11,6 @@
     $primary: map-get($theme, primary);
 
     app-single-figure {
-        .content {
-            border-left: 0.5rem solid mat-color($primary, 200);
-        }
-
         @media (max-width: 991px) {
             .content {
                 border: 0;
