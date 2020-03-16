@@ -14,7 +14,7 @@
                 <h2>Tutkimus- ja innovaatiojärjestelmä</h2>
             </div>
         </div>
-        <div class="row content">
+        <div class="row base">
             <div class="col-12 col-lg-8 pt-4">
                 <p>Korkeakoulujärjestelmä muodostuu yliopistoista ja ammattikorkeakouluista. Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa ja 23 ammattikorkeakoulua.</p>
                 <p>Hallinnonalan virastoista ja laitoksista korkeakoulu- ja tiedepolitiikan osaston toimialaan kuuluvat Suomen Akatemia, Kansallisarkisto, Kotimaisten kielten keskus ja Varastokirjasto.</p>
@@ -23,36 +23,26 @@
                 </p>
             </div>
         </div>
-        <div class="row content">
+        <div class="row base">
             <div class="col">
-                <div class="row open-sector sector" #openSector id="slideSource" *ngIf="selectedSector !== null">
-                    <div class="col px-0">
-                        <div class="row header">
-                            <div class="col-1 align-self-center">
-                                <fa-icon class="sector-icon p-0" [icon]="sectorList[selectedSector].icon"></fa-icon>
+                <div class="content">
+                    <mat-accordion>
+                        <mat-expansion-panel *ngFor="let sector of rearrangedList">
+                            <mat-expansion-panel-header collapsedHeight="61px">
+                                <mat-panel-title>
+                                    <fa-icon class="sector-icon" [icon]="sector.icon"></fa-icon>
+                                    <div class="sector-title align-self-center">
+                                        {{sector.labelFi}}
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="row">
+                                <div class="col">
+                                    Content
+                                </div>
                             </div>
-                            <div class="col-10 align-self-center">
-                                <h3>{{sectorList[selectedSector].labelFi}}</h3>
-                            </div>
-                            <div class="col-1 align-self-center">
-                                <fa-icon class="close-icon" (click)="selectedSector = null" [icon]="faTimes"></fa-icon>
-                            </div>
-                        </div>
-                        <div class="row content pt-0">
-                            <div class="col">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <button class="col-12 col-sm-5 col-lg-3 text-center p-0 sector" *ngFor="let sector of rearrangedList; let i = index"
-                    (click)="selectedSector = i" [class.d-none]="selectedSector === i">
-                        <fa-icon class="sector-icon" [icon]="sector.icon"></fa-icon>
-                        <div class="sector-title">
-                            {{sector.labelFi}}
-                        </div>
-                    </button>
+                        </mat-expansion-panel>
+                    </mat-accordion>
                 </div>
             </div>
         </div>
