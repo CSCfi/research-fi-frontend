@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef } from '@angular/core';
+  Inject, TemplateRef, ElementRef, PLATFORM_ID } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -23,6 +23,7 @@ import { FundingFilters } from './fundings';
 import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-filters',
@@ -61,7 +62,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
                private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
                private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters ) {
+               private organizationFilters: OrganizationFilters, @Inject(PLATFORM_ID) private platformId: object ) {
                 this.showMoreCount = [];
                 }
 
@@ -111,20 +112,24 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         break;
       }
     }
-
-    // Subscribe to filterService filters
-    this.filterSub = this.filterService.filters.subscribe(filters => {
-      // Get preselected filters from filterService
-      this.preSelection = [];
-      Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
-    });
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    // Browser check
+    if (isPlatformBrowser(this.platformId)) {
+      // Subscribe to filterService filters
+      this.filterSub = this.filterService.filters.subscribe(filters => {
+        // Get preselected filters from filterService
+        this.preSelection = [];
+        Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+      });
+      this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    }
   }
 
   ngOnDestroy() {
-    this.filterSub.unsubscribe();
-    this.resizeSub.unsubscribe();
-    this.queryParamSub.unsubscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.filterSub.unsubscribe();
+      this.resizeSub.unsubscribe();
+      this.queryParamSub.unsubscribe();
+    }
   }
 
   onResize(event) {
