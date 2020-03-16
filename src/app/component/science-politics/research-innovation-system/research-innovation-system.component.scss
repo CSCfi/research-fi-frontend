@@ -5,19 +5,43 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
+.open-sector .header h3, .sector-title {
+    font-weight: bold;
+}
+
 .sector {
     margin: 2rem 2rem 0 0;
     cursor: pointer;
+    transition: 0.2s linear;
+    opacity: 1;
+    height: auto;
+    width: auto;
 }
 
+// Icons
 .sector-icon {
     padding: 1.5rem 0 1rem;
     font-size: 4rem;
     display: block;
 }
 
+.close-icon {
+    padding: 0.3rem 1.2rem;
+    font-size: 3rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
 .sector-title {
     padding: 1rem 0;
     font-size: 1.3rem;
-    font-weight: bold;
 }
+
+
+// .open-sector {
+//     transition: right 0.25s ease-out;
+// }
+
+// .row [class*='col-'] {
+//     transition: all 0.5s ease-in-out;
+// }
