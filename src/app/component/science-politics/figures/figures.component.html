@@ -51,7 +51,7 @@
                         <h2 *ngIf="!mobile">Tiede ja tutkimus lukuina</h2>
                         <div class="row">
                             <div class="col p-1">
-                                <div class="content">
+                                <div class="base content">
                                     <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
                                     <p>Tilastogalleria on tuotettu yhteistyössä...</p>
                                     <div class="row justify-content-center justify-content-lg-start">
@@ -70,7 +70,7 @@
                         <h3 class="px-2 lx-lg-0">{{content.headerFi}}</h3>
                         <div class="row">
                             <div class="col p-1">
-                                <div class="content">
+                                <div class="base content">
                                     <div class="card list" *ngFor="let item of content.items">
                                         <a routerLink="{{link}}">
                                             <div class="row d-flex justify-content-around">
@@ -96,7 +96,7 @@
                         <h3 class="px-2 lx-lg-0">Haun tulokset ({{queryResults.length}})</h3>
                         <div class="row">
                             <div class="col p-1">
-                                <div class="content">
+                                <div class="base content">
                                     <div class="card list" *ngFor="let item of queryResults">
                                         <a href="">
                                             <div class="row d-flex justify-content-around">
