@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef } from '@angular/core';
-import { faLandmark, faEuroSign, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -16,14 +16,16 @@ import { faLandmark, faEuroSign, faTimes } from '@fortawesome/free-solid-svg-ico
 export class ResearchInnovationSystemComponent implements OnInit {
   faLandmark = faLandmark;
   faEuroSign = faEuroSign;
+  faHospital = faHospital;
+  faBuilding = faBuilding;
   faTimes = faTimes;
 
   sectorList = [
     {id: 0, labelFi: 'Yliopistot', icon: faLandmark},
     {id: 1, labelFi: 'Ammattikorkeakoulut', icon: faLandmark},
-    {id: 2, labelFi: 'Valtion tutkimuslaitokset', icon: faLandmark},
-    {id: 3, labelFi: 'Yliopistosairaalat', icon: faLandmark},
-    {id: 4, labelFi: 'Muut tutkimuslaitokset', icon: faLandmark},
+    {id: 2, labelFi: 'Yliopistosairaalat', icon: faHospital},
+    {id: 3, labelFi: 'Muut tutkimuslaitokset', icon: faBuilding},
+    {id: 4, labelFi: 'Valtion tutkimuslaitokset', icon: faBuilding},
     {id: 5, labelFi: 'Tutkimuksen rahoittajat', icon: faEuroSign},
   ];
 
