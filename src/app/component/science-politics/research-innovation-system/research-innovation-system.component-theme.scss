@@ -11,8 +11,18 @@
     $primary: map-get($theme, primary);
 
     app-research-innovation-system {
-        .sector {
+        .open-sector .content  {
+            border-top: none!important;
+        }
+        .open-sector .header {
+            border-bottom: 1px solid mat-contrast($primary, 400);
+        }
+
+        .sector  {
             border: 1px solid mat-contrast($primary, 400);
+        }
+
+        .sector {
             background: white;
         }
 
@@ -20,8 +30,14 @@
             color: mat-color($primary, 200);
         }
 
+        .close-icon {
+            background: mat-color($primary);
+            color: white;
+        }
+
         .sector-title {
-            outline: 1px solid mat-contrast($primary, 400)
+            border-top: 1px solid mat-contrast($primary, 400);
+            color: mat-contrast($primary, 200);
         }
     }
 }
