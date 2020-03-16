@@ -193,42 +193,6 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
-            },
-            "production-fi": {
-              "optimization": true,
-              "outputPath": "dist/server/fi",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "production-en": {
-              "optimization": true,
-              "outputPath": "dist/server/en",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "i18nFile": "src/i18n/messages.en.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "en"
-            },
-            "production-sv": {
-              "optimization": true,
-              "outputPath": "dist/server/sv",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "i18nFile": "src/i18n/messages.sv.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "sv"
             }
           }
         },
