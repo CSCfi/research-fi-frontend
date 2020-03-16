@@ -24,14 +24,16 @@
                  <div id="info" class="table">
                     <p class="header">Hanke</p>
                     <div class="content">
-                        <div class="row" *ngFor="let row of infoFields">
-                            <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                            <div class="col-6 col-lg-9 td">
-                                <div [ngClass]="expand ? 'expand' : 'short'">{{item._source[row.field]}}</div>
-                                <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'projectDescriptionFi' && item._source.projectDescriptionFi.length > 256" (click)="expandDescription()" 
-                                [innerHTML]="expand ? 'Näytä vähemmän' : 'Lue lisää'"></a>
+                        <ng-container *ngFor="let row of infoFields">
+                            <div class="row" *ngIf="item._source[row.field]">
+                                <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                                <div class="col-6 col-lg-9 td">
+                                    <div [ngClass]="expand ? 'expand' : 'short'">{{item._source[row.field]}}</div>
+                                    <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'projectDescriptionFi' && item._source.projectDescriptionFi?.length > 256" (click)="expandDescription()" 
+                                    [innerHTML]="expand ? 'Näytä vähemmän' : 'Lue lisää'"></a>
+                                </div>
                             </div>
-                        </div>
+                        </ng-container>
                     </div>
                     <!-- Funded -->
                     <div class="content" *ngIf="fundedFields.length > 0">
