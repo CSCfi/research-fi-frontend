@@ -73,6 +73,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public setTitle(newTitle: string) {
+    console.log(newTitle);
     this.titleService.setTitle(newTitle);
   }
 
@@ -242,7 +243,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     const amount = tab.data ? this.dataService.totalResults : 999;
     // Set label by locale
     switch (this.localeId) {
-      case 'fi-FI': {
+      case 'fi': {
         if (amount === 1) {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulos) - Haku - Tutkimustietovaranto');
         } else {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto'); }
         break;
