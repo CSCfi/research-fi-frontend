@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
@@ -27,9 +27,14 @@ export class SingleFigureComponent implements OnInit, AfterViewInit {
   colWidth: number;
   faQuestion = faQuestionCircle;
 
-  constructor( public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef ) { }
+  constructor( public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private titleService: Title ) { }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
 
   ngOnInit(): void {
+    this.setTitle(this.data[0].labelFi + ' - Tiede ja tutkimus lukuina - Tutkimustietovaranto');
   }
 
   ngAfterViewInit() {

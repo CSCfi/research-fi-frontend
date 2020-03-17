@@ -7,6 +7,7 @@
 
 import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef } from '@angular/core';
 import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -33,9 +34,13 @@ export class ResearchInnovationSystemComponent implements OnInit {
   rearrangedList: any;
   @ViewChild('openSector') openSector: ElementRef;
 
-  constructor() {
+  constructor( private titleService: Title ) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   changeOrder(i) {
@@ -52,6 +57,7 @@ export class ResearchInnovationSystemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tutkimustietovaranto');
   }
 
 }

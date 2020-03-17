@@ -12,6 +12,7 @@ import { DOCUMENT } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-figures',
@@ -53,7 +54,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   mobile: boolean;
   showMenu: boolean;
 
-  constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, private searchService: SearchService ) {
+  constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, private searchService: SearchService,
+  private titleService: Title ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -61,7 +63,13 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.hasResults = true;
    }
 
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
+
   ngOnInit(): void {
+    this.setTitle('Tiede ja tutkimus lukuina - Tutkimustietovaranto');
+
     // Get data from assets
     this.dataSub = this.searchService.getFigures().pipe(map(data => data)).subscribe(data => {
       const key = 'content';
