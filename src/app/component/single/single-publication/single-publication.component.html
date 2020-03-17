@@ -19,7 +19,6 @@
             <div *ngFor="let item of publication.hits.hits">
                 <h1 class="result-header" [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h1>
                 <div id="info" class="table">
-                    <p class="header">Julkaisu</p>
                     <div class="row content" *ngFor="let row of infoFields">
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
                         <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.typeLabel">, {{publicationTypeLabel}}</span></div>

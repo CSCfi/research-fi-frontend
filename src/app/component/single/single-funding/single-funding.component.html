@@ -22,7 +22,6 @@
              <div *ngFor="let item of funding.hits.hits">
                  <h1 class="result-header">{{item._source.projectNameFi}}</h1>
                  <div id="info" class="table">
-                    <p class="header">Hanke</p>
                     <div class="content">
                         <ng-container *ngFor="let row of infoFields">
                             <div class="row" *ngIf="item._source[row.field]">

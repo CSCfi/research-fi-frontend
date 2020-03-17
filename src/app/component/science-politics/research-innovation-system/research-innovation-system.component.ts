@@ -44,7 +44,6 @@ export class ResearchInnovationSystemComponent implements OnInit {
   }
 
   changeOrder(i) {
-    console.log(this.sectorList[i]);
     this.rearrangedList = [];
     let data = [...this.sectorList];
     data.splice(i, 1);
