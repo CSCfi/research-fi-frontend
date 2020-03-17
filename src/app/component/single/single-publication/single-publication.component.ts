@@ -175,7 +175,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      console.log(this.responseData)
       if (this.responseData.publications[0]) {
         this.setTitle(this.responseData.publications[0].title + ' - Julkaisut - Haku - Tutkimustietovaranto');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);

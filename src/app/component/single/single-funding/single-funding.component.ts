@@ -22,42 +22,42 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 })
 export class SingleFundingComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any [];
+  responseData: any;
   searchTerm: string;
   pageNumber: any;
   tab = 'fundings';
 
   infoFields = [
     {label: 'Lyhenne', field: 'projectAcronym'},
-    {label: 'Hankkeen kuvaus', field: 'projectDescriptionFi'},
-    {label: 'Aloitusvuosi', field: 'fundingStartYear'},
+    {label: 'Hankkeen kuvaus', field: 'descriptionFi'},
+    {label: 'Aloitusvuosi', field: 'startYear'},
     {label: 'Suomen Akatemian konsortio', field: 'academyConsortium'},
     {label: 'Konsortion muut osapuolet', field: 'otherConsortium'},
   ];
 
   fundedFields = [
-    {label: 'Nimi', field: 'fundingContactPersonLastName'},
-    {label: 'Affiliaatio', field: 'fundedAffiliation'},
-    {label: 'Rahoituksen saaja (organisaatio)', field: 'fundedNameFi'},
+    {label: 'Nimi', field: 'personName'},
+    {label: 'Affiliaatio', field: 'affiliation'},
+    {label: 'Rahoituksen saaja (organisaatio)', field: 'organizationName'},
     {label: 'Rooli hankkeessa', field: 'fundingContactPersonTitle'},
-    {label: 'Myönnetty summa', field: 'amount_in_EUR'},
+    {label: 'Myönnetty summa', field: 'amountEur'},
   ];
 
   // TEST PURPOSES
   fundedFields2 = [
     [
-      {field: 'fundingContactPersonLastName'},
+      {field: 'personName'},
       {field: ''},
-      {field: 'fundingContactPersonAffiliation'}
+      {field: 'affiliation'}
     ],
     [
-      {field: 'consortiumOrganizationNameFi'},
-      {field: 'shareOfFundingInEur'},
-      {field: 'contact'}
+      {field: 'organizationName'},
+      {field: 'shareOfFundingEur'},
+      {field: 'contactPersonName'}
     ],
     [
       {label: 'Myönnetty summa'},
-      {field: 'amount_in_EUR'}
+      {field: 'amountEur'}
     ]
 
   ];
@@ -113,11 +113,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     // Check if id is number, convert to -1 if string to get past elasticsearch number mapping
     const idNumber = parseInt(id, 10) ? id : -1;
     this.singleService.getSingleFunding(idNumber)
-    .pipe(map(responseData => [responseData]))
+    // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      if (this.responseData[0].hits.hits[0]) {
-        this.setTitle(this.responseData[0].hits.hits[0]._source.projectNameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
+      if (this.responseData.fundings[0]) {
+        this.setTitle(this.responseData.fundings[0].nameFi + ' - Hankkeet - Haku - Tutkimustietovaranto');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
@@ -129,10 +129,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== 'UNDEFINED' &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== '-1' &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
+      return this.responseData.fundings[0][item.field] !== undefined &&
+             this.responseData.fundings[0][item.field] !== 'UNDEFINED' &&
+             this.responseData.fundings[0][item.field] !== '-1' &&
+             this.responseData.fundings[0][item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -143,7 +143,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   }
 
   shapeData() {
-    const source = this.responseData[0].hits.hits[0]._source;
+    const source = this.responseData.fundings[0];
     const keywords = source.keywords || [];
     const scheme = keywords.map(x => x.scheme).join('');
     const field = keywords.map(x => x.keyword).join('');
@@ -162,7 +162,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       // Get Finnish Academy consortium role, found by macthing project number
       source.academyConsortium = academyConsortium[0].roleInFundingGroup;
       // Get other consortium parties, all entires that mismatch project number
-      console.log(otherConsortium);
+      // console.log(otherConsortium);
       // source.otherConsortium = otherConsortium.length > 1 ?
       // otherConsortium.map(x => x.consortiumProject).join(', ') : otherConsortium[0].consortiumProject;
       // Set funded data by funderProjectNumber

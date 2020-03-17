@@ -46,11 +46,12 @@ export class SingleItemService {
 
   getSinglePublication(id): Observable<Search> {
     return this.http.post<Search>(this.publicationApiUrl, this.constructPayload('publicationId', id))
-                    .pipe(map((data: any) => this.searchAdapter.adapt(data)));
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, 'publications')));
   }
 
-  getSingleFunding(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.fundingApiUrl, this.constructPayload('projectId', id));
+  getSingleFunding(id): Observable<Search> {
+    return this.http.post<Search>(this.fundingApiUrl, this.constructPayload('projectId', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, 'fundings')));
   }
 
   getSingleOrganization(id): Observable<Search[]> {
