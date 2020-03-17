@@ -162,11 +162,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       // Get Finnish Academy consortium role, found by macthing project number
       source.academyConsortium = academyConsortium[0].roleInFundingGroup;
       // Get other consortium parties, all entires that mismatch project number
-      // source.otherConsortium = otherConsortium.length > 1 ?
-      // otherConsortium.map(x => x.consortiumProject).join(', ') : otherConsortium[0].consortiumProject;
+      source.otherConsortium = otherConsortium.length > 1 ?
+      otherConsortium.map(x => x.consortiumProject).join(', ') : otherConsortium[0].consortiumProject;
       // Set funded data by funderProjectNumber
       source.fundingGroupPerson = academyConsortium;
-      source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
+      // source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
       // Funded amount
       source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
     }
