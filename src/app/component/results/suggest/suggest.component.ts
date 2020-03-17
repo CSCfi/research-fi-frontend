@@ -73,7 +73,7 @@ export class SuggestComponent implements OnInit, OnDestroy {
   updateTitle(tab) {
     // Set title by locale
     switch (this.localeId) {
-      case 'fi-FI': {
+      case 'fi': {
         this.setTitle(tab.labelFi + ' - Ei tuloksia - Haku - Tutkimustietovaranto');
         break;
       }
