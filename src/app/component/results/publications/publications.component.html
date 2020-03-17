@@ -63,12 +63,12 @@
                         </div>
                     </div>
                 </div>          
-                <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
-                    <span [innerHtml]="publication._source.authorsText | highlight: input"></span>
+                <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+                    <span [innerHtml]="(publication._source.authorsText | cutContent: 100) | highlight: input"></span>
                 </div>          
-                <div class="col col-xl-3 shorten d-none d-xl-block">
+                <div class="col col-xl-3 d-none d-xl-block">
                     <span [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null"
-                    [innerHtml]="publication._source.journalName | highlight: input">
+                    [innerHtml]="(publication._source.journalName | cutContent: 100) | highlight: input">
                     </span>
                 </div>          
                 <div class="col col-lg-1">
