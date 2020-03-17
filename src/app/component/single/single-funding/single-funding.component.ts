@@ -150,7 +150,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     const field = keywords.map(x => x.keyword).join('');
     const fundingGroupPerson = source.fundingGroupPerson || [];
 
-    source.fundingContactPersonLastName = source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName;
+    source.fundingContactPersonLastName = (source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName).trim();
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
 
     if (source.amount_in_EUR) {
@@ -162,6 +162,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
       // Get Finnish Academy consortium role, found by macthing project number
       source.academyConsortium = academyConsortium[0].roleInFundingGroup;
+      //Translate academy consortium role
       switch(source.academyConsortium) {
         case 'leader': {
           source.academyConsortium = {labelFi: 'Johtaja', labelEn: 'Leader'}
@@ -172,14 +173,13 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
           break;
         }
       }
-      console.log('label' + this.localeId);
       source.academyConsortium = source.academyConsortium['label' + this.localeId]
       // Get other consortium parties, all entries that mismatch project number
       source.otherConsortium = otherConsortium.length > 0 ?
       otherConsortium.map(x => x.consortiumProject).join(', ') : null;
       // Set funded data by funderProjectNumber
       source.fundingGroupPerson = academyConsortium;
-      // source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
+      source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
       // Funded amount
       source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
     }
