@@ -41,11 +41,11 @@
                 [index]="i">
                 </app-tooltip>
             </div>
-            <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
-                <span [innerHtml]="(funding._source.funderNameFi !== 'UNDEFINED' ? funding._source.funderNameFi : '') | highlight: input"></span>
+            <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+                <span [innerHtml]="(funding._source.funderNameFi !== 'UNDEFINED' ? funding._source.funderNameFi : '' | cutContent: 100) | highlight: input"></span>
             </div>          
-            <div class="col col-xl-3 shorten d-none d-xl-block">
-                <span [innerHtml]="(funding._source.fundedNameFi !== 'UNDEFINED' ? funding._source.fundedNameFi : '') | highlight: input"></span>
+            <div class="col col-xl-3 d-none d-xl-block">
+                <span [innerHtml]="(funding._source.fundedNameFi !== 'UNDEFINED' ? funding._source.fundedNameFi : '' | cutContent: 100) | highlight: input"></span>
             </div>          
             <div class="col col-lg-1">
                 <span [innerHtml]="funding._source.fundingStartYear | highlight: input"></span>
