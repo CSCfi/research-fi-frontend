@@ -50,7 +50,6 @@ export class PublicationFilters {
     // Internationatl collaboration
     source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
     source.shaped = true;
-    console.log(source);
     return source;
   }
 
