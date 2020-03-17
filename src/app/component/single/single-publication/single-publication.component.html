@@ -16,7 +16,7 @@
             <h2>404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8">
-            <div *ngFor="let item of responseData.hits">
+            <div *ngFor="let item of responseData.publications">
                 <h2 class="result-header" [attr.lang]="item.languageCode !== documentLang ? item.languageCode : null">{{item.title}}</h2>
                 <div id="info" class="table">
                     <p class="header">Julkaisu</p>
@@ -183,7 +183,7 @@
                 </div>
             </div>
         </main>
-        <div *ngFor="let item of responseData.hits" class="col-12 col-md-4 col-xl-4">
+        <div *ngFor="let item of responseData.publications" class="col-12 col-md-4 col-xl-4">
             <aside>
                 <aside>
                     <mat-card>

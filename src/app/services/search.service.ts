@@ -100,7 +100,7 @@ export class SearchService {
     const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
                                                         this.sortService.sort, this.tabChangeService.tab);
     return this.http.post<Search>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload)
-                    .pipe(map((data: any) => this.searchAdapter.adapt(data)));
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, this.tabChangeService.tab)));
   }
 
   // Data for results page

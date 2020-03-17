@@ -147,7 +147,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   getCitations() {
-    const source = this.responseData.hits[0];
+    const source = this.responseData.publications[0];
     // Check if the doi exists (the field is filtered on init if it doesn't)
     const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
     // Flag needed for template
@@ -176,11 +176,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       console.log(this.responseData)
-      if (this.responseData.hits[0]) {
-        this.setTitle(this.responseData.hits[0].title + ' - Julkaisut - Haku - Tutkimustietovaranto');
+      if (this.responseData.publications[0]) {
+        this.setTitle(this.responseData.publications[0].title + ' - Julkaisut - Haku - Tutkimustietovaranto');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         // juFoCode is used for exact search
-        this.juFoCode = this.responseData.hits[0].jufoCode;
+        this.juFoCode = this.responseData.publications[0].jufoCode;
         this.shapeData();
         this.filterData();
       }
@@ -191,12 +191,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.hits[0][item.field] !== '-1' &&
-             this.responseData.hits[0][item.field] !== undefined &&
-             this.responseData.hits[0][item.field] !== 'undefined' &&
-             this.responseData.hits[0][item.field].length !== 0 &&
-             JSON.stringify(this.responseData.hits[0][item.field]) !== '["undefined"]' &&
-             this.responseData.hits[0][item.field] !== ' ';
+      return this.responseData.publications[0][item.field] !== '-1' &&
+             this.responseData.publications[0][item.field] !== undefined &&
+             this.responseData.publications[0][item.field] !== 'undefined' &&
+             this.responseData.publications[0][item.field].length !== 0 &&
+             JSON.stringify(this.responseData.publications[0][item.field]) !== '["undefined"]' &&
+             this.responseData.publications[0][item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -208,7 +208,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   shapeData() {
-    const source = this.responseData.hits[0];
+    const source = this.responseData.publications[0];
     const fieldsOfScience = source.fieldsOfScience;
     const countries = source.countries;
     const languages = source.languages;
