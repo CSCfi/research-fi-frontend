@@ -17,10 +17,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-result-tab style="width:100%" [allData]="tabValues"></app-result-tab>
         <div class="row total" #totalHeader tabindex="0" (blur)="resetFocus()">
             <div class="col">
-                <h3 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''" (click)="navigateToVisualisation()">
+                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''" (click)="navigateToVisualisation()">
                     {{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span>
                     <span class="sr-only">hakutulosta</span>
-                </h3>
+                </h2>
             </div>
         </div>
     </div>

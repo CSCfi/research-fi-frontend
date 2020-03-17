@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
@@ -90,7 +90,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   expand: boolean;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string ) {
+                 this.localeId = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -149,7 +150,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     const field = keywords.map(x => x.keyword).join('');
     const fundingGroupPerson = source.fundingGroupPerson || [];
 
-    source.fundingContactPersonLastName = source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName;
+    source.fundingContactPersonLastName = (source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName).trim();
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
 
     if (source.amount_in_EUR) {
@@ -171,7 +172,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       // Funded amount
       source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
     }
-    console.log(source);
 
     switch (scheme) {
       case 'Tieteenala':

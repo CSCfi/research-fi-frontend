@@ -22,9 +22,8 @@
          </div>
          <main class="col-12 col-md-8">
              <div *ngFor="let item of infra.hits.hits">
-                 <h2 class="result-header">{{item._source.nameFi}}</h2>
+                 <h1 class="result-header">{{item._source.nameFi}}</h1>
                  <div id="info" class="table">
-                     <p class="header">Infrastruktuuri</p>
                      <div class="row content" *ngFor="let row of infoFields">
                          <div class="col-6 col-lg-3 th">{{row.label}}  <span *ngIf="row.field === 'staffCountAsFte'">({{item._source.staffYear}})</span></div>
                          <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item._source[row.fieldEn]}}</div>

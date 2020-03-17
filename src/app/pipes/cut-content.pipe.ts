@@ -8,7 +8,7 @@ export class CutContentPipe implements PipeTransform {
   transform(value: string, maxLength: number): unknown {
     let result = '';
     if (value.length > maxLength) {
-      result = value.slice(maxLength) + '...';
+      result = value.slice(0, maxLength) + '...';
     } else {
       result = value;
     }

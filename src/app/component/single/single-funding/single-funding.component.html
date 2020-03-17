@@ -20,7 +20,6 @@
              <div *ngFor="let item of responseData.fundings">
                  <h2 class="result-header">{{item.nameFi}}</h2>
                  <div id="info" class="table">
-                    <p class="header">Hanke</p>
                     <div class="content">
                         <ng-container *ngFor="let row of infoFields">
                             <div class="row" *ngIf="item[row.field]">
