@@ -20,11 +20,6 @@
             }
 
             //Expand column
-            .row.expand .col.shorten {
-                white-space: unset;
-                overflow: visible;
-                text-overflow: unset;
-            }
 
             .related-fields {
                 display: none
@@ -105,12 +100,6 @@
 
             .single {
                 margin: 10px 0;
-            }
-
-            .col.shorten {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
 
             .col.expand {
