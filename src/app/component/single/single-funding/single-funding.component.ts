@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
@@ -90,7 +90,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   expand: boolean;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string ) {
+                 this.localeId = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -161,12 +162,24 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
       // Get Finnish Academy consortium role, found by macthing project number
       source.academyConsortium = academyConsortium[0].roleInFundingGroup;
-      // Get other consortium parties, all entires that mismatch project number
-      // source.otherConsortium = otherConsortium.length > 1 ?
-      // otherConsortium.map(x => x.consortiumProject).join(', ') : otherConsortium[0].consortiumProject;
+      switch(source.academyConsortium) {
+        case 'leader': {
+          source.academyConsortium = {labelFi: 'Johtaja', labelEn: 'Leader'}
+          break;
+        }
+        case 'partner': {
+          source.academyConsortium = {labelFi: 'Partneri', labelEn: 'Partner'}
+          break;
+        }
+      }
+      console.log('label' + this.localeId);
+      source.academyConsortium = source.academyConsortium['label' + this.localeId]
+      // Get other consortium parties, all entries that mismatch project number
+      source.otherConsortium = otherConsortium.length > 0 ?
+      otherConsortium.map(x => x.consortiumProject).join(', ') : null;
       // Set funded data by funderProjectNumber
       source.fundingGroupPerson = academyConsortium;
-      source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
+      // source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
       // Funded amount
       source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
     }
