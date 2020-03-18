@@ -29,6 +29,5 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.responseData[0]);
   }
 }

@@ -53,8 +53,9 @@ export class SingleItemService {
     return this.http.post<Search[]>(this.fundingApiUrl, this.constructPayload('projectId', id));
   }
 
-  getSingleOrganization(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.organizationApiUrl, this.constructPayload('organizationId', id));
+  getSingleOrganization(id): Observable<Search> {
+    return this.http.post<Search>(this.organizationApiUrl, this.constructPayload('organizationId', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data)));
   }
 
   // Testing purposes only

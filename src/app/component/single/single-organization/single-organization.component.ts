@@ -97,6 +97,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.singleService.getSingleOrganization(id)
     .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
+      console.log(responseData);
       this.responseData = responseData;
       if (this.responseData[0].hits.hits[0]) {
         this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi.trim() + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
