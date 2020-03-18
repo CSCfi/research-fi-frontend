@@ -63,7 +63,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   funderFields =  [
-    {label: 'Nimi', field: 'funderNameFi'},
+    {label: 'Nimi', field: 'nameFi'},
     {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi'},
     {label: 'Haku', field: 'callProgrammeNameFi'}
   ];
@@ -133,12 +133,13 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       return this.responseData.fundings[0][item.field] !== undefined &&
              this.responseData.fundings[0][item.field] !== 'UNDEFINED' &&
              this.responseData.fundings[0][item.field] !== '-1' &&
+             this.responseData.fundings[0][item.field] !== '' &&
              this.responseData.fundings[0][item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
     this.fundedFields = this.fundedFields.filter(item => checkEmpty(item));
-    this.funderFields = this.funderFields.filter(item => checkEmpty(item));
+    // this.funderFields = this.funderFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
     this.linkFields = this.linkFields.filter(item => checkEmpty(item));
   }
@@ -148,7 +149,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     const keywords = source.keywords || [];
     const scheme = keywords.map(x => x.scheme).join('');
     const field = keywords.map(x => x.keyword).join('');
-    const fundingGroupPerson = source.fundingGroupPerson || [];
+    // const fundingGroupPerson = source.fundingGroupPerson || [];
 
     source.fundingContactPersonLastName = (source.fundingContactPersonFirstNames + ' ' + source.fundingContactPersonLastName).trim();
     source.keywords = keywords.length > 0 ? keywords.map(x => x.keyword).join(', ') : undefined; // set as undefined if no keywords
@@ -157,21 +158,45 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       source.amount_in_EUR = this.shapeAmount(source.amount_in_EUR);
     }
 
-    if (source.fundingGroupPerson) {
-      const academyConsortium = fundingGroupPerson.filter(x => x.consortiumProject === source.funderProjectNumber);
-      const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
-      // Get Finnish Academy consortium role, found by macthing project number
-      source.academyConsortium = academyConsortium[0].roleInFundingGroup;
-      // Get other consortium parties, all entires that mismatch project number
-      // console.log(otherConsortium);
-      // source.otherConsortium = otherConsortium.length > 1 ?
-      // otherConsortium.map(x => x.consortiumProject).join(', ') : otherConsortium[0].consortiumProject;
-      // Set funded data by funderProjectNumber
-      source.fundingGroupPerson = academyConsortium;
-      source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
-      // Funded amount
-      source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
-    }
+    // Get label by locale
+    source.academyConsortium = source?.academyConsortium['label' + this.localeId]
+
+    // Set other consortiums as single string
+    source.otherConsortium = source.otherConsortium.length > 0 ?
+    source.otherConsortium.map(x => x.consortiumProject).join(', ') : null;
+
+    // Get amoung of funding
+    source.amountEur =  this.shapeAmount(source.recipient.amountEur.toString());
+
+    // Get funder fields into separate array
+    source.funderData = [source.funder];
+    console.log(source);
+    // if (source.fundingGroupPerson) {
+    //   const academyConsortium = fundingGroupPerson.filter(x => x.consortiumProject === source.funderProjectNumber);
+    //   const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
+    //   // Get Finnish Academy consortium role, found by macthing project number
+    //   source.academyConsortium = academyConsortium[0].roleInFundingGroup;
+    //   //Translate academy consortium role
+    //   switch(source.academyConsortium) {
+    //     case 'leader': {
+    //       source.academyConsortium = {labelFi: 'Johtaja', labelEn: 'Leader'}
+    //       break;
+    //     }
+    //     case 'partner': {
+    //       source.academyConsortium = {labelFi: 'Partneri', labelEn: 'Partner'}
+    //       break;
+    //     }
+    //   }
+    //   source.academyConsortium = source.academyConsortium['label' + this.localeId]
+    //   // Get other consortium parties, all entries that mismatch project number
+    //   source.otherConsortium = otherConsortium.length > 0 ?
+    //   otherConsortium.map(x => x.consortiumProject).join(', ') : null;
+    //   // Set funded data by funderProjectNumber
+    //   source.fundingGroupPerson = academyConsortium;
+    //   source.fundingContactPersonAffiliation = academyConsortium[0].consortiumOrganizationNameFi;
+    //   // Funded amount
+    //   source.fundingGroupPerson.map(x => x.shareOfFundingInEur = this.shapeAmount(x.shareOfFundingInEur.toString()));
+    // }
 
     switch (scheme) {
       case 'Tieteenala':
