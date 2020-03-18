@@ -7,7 +7,7 @@
     <mat-spinner [diameter]="80"></mat-spinner>
 </div>
 <!-- Data -->
-<div *ngFor="let publications of resultData">
+<div *ngFor="let publications of [resultData]">
     <!-- Results -->
     <div class="row no-margin">
         <div class="col col-1 icon"></div>
@@ -29,50 +29,48 @@
         </div>
     </div>
 
-    <div *ngFor="let publications of resultData;">
-        <div *ngFor="let publication of publications.hits.hits; let i = index" class="single">
+    <div *ngFor="let publications of [resultData];">
+        <div *ngFor="let publication of publications.hits; let i = index" class="single">
             <div class="row no-margin">
                 <div class="col col-1 icon">
-                    <a routerLink="/results/publication/{{publication._source.publicationId}}" class="icon" tabindex="-1" title="Julkaisujen tiedon ikoni">
+                    <a routerLink="/results/publication/{{publication.id}}" class="icon" tabindex="-1" title="Julkaisujen tiedon ikoni">
                         <fa-icon [icon]="faIcon"></fa-icon>
                     </a>
                 </div>           
                 <div class="col col-8 col-lg-5 col-xl-4">
-                    <a routerLink="/results/publication/{{publication._source.publicationId}}">
+                    <a routerLink="/results/publication/{{publication.id}}">
                         <h3 class="result-title" 
-                        [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null"
-                        [innerHtml]="publication._source.publicationName | highlight: input">
+                        [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
+                        [innerHtml]="publication.title | highlight: input">
                         </h3>
                     </a>
                     <div class="tags">
-                        <div *ngIf="isReviewed(publication._source.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
-                        <a *ngIf="((publication._source.openAccessCode === 1 || publication._source.openAccessCode === 2) || 
-                        publication._source.selfArchivedCode === 1) && (publication._source | links)" href="{{publication._source | links}}" target="_blank" class="open-access div">
+                        <div *ngIf="isReviewed(publication.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
+                        <a *ngIf="publication.openAccess && (publication | links)" href="{{publication | links}}" target="_blank" class="open-access div">
                             <span class="open-access-image"></span>
                             <span>Avoin saatavuus</span>
                         </a>
                         <!-- Span is for publications that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-                        <span *ngIf="((publication._source.openAccessCode === 1 || publication._source.openAccessCode === 2) || 
-                        publication._source.selfArchivedCode === 1) && !(publication._source | links)" class="open-access div">
+                        <span *ngIf="publication.openAccess && !(publication | links)" class="open-access div">
                             <span class="open-access-image"></span>
                             <span>Avoin saatavuus</span>
                         </span>
-                        <div *ngIf="publication._source.doi?.trim()" class="doi">
+                        <div *ngIf="publication.doi?.trim()" class="doi">
                             <span class="doi-tag">DOI</span>
-                            <span class="doi-link"><a href="https://doi.org/{{publication._source.doi}}" target="_blank">{{publication._source.doi}}</a></span>
+                            <span class="doi-link"><a href="https://doi.org/{{publication.doi}}" target="_blank">{{publication.doi}}</a></span>
                         </div>
                     </div>
                 </div>          
-                <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-                    <span [innerHtml]="(publication._source.authorsText | cutContent: 100) | highlight: input"></span>
+                <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
+                    <span [innerHtml]="publication.authors | highlight: input"></span>
                 </div>          
-                <div class="col col-xl-3 d-none d-xl-block">
-                    <span [attr.lang]="publication._source.languageCode !== documentLang ? publication._source.languageCode : null"
-                    [innerHtml]="(publication._source.journalName | cutContent: 100) | highlight: input">
+                <div class="col col-xl-3 shorten d-none d-xl-block">
+                    <span [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
+                    [innerHtml]="publication.journalName | highlight: input">
                     </span>
                 </div>          
                 <div class="col col-lg-1">
-                    <span [innerHtml]="publication._source.publicationYear | highlight: input"></span>
+                    <span [innerHtml]="publication.publicationYear | highlight: input"></span>
                 </div>
             </div>
             <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
