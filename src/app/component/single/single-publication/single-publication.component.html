@@ -9,7 +9,7 @@
 </aside>
 <div class="container" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="single" [responseData]="[responseData]" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
@@ -17,7 +17,7 @@
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of responseData.publications">
-                <h2 class="result-header" [attr.lang]="item.languageCode !== documentLang ? item.languageCode : null">{{item.title}}</h2>
+                <h1 class="result-header" [attr.lang]="item.languageCode !== documentLang ? item.languageCode : null">{{item.title}}</h1>
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
