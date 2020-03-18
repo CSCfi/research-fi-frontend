@@ -40,7 +40,19 @@ export class Funding {
 export class FundingAdapter implements Adapter<Funding> {
     constructor(private r: RecipientAdapter, private f: FunderAdapter) {}
     adapt(item: any): Funding {
-        const recipientObj = item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
+        let recipientObj = item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
+        //Translate academy consortium role
+        switch(recipientObj.roleInFundingGroup) {
+            case 'leader': {
+                recipientObj.roleInFundingGroup = {labelFi: 'Johtaja', labelEn: 'Leader'}
+                break;
+            }
+            case 'partner': {
+                recipientObj.roleInFundingGroup = {labelFi: 'Partneri', labelEn: 'Partner'}
+                break;
+            }
+        }
+        const otherConsortiumObj =  item.fundingGroupPerson.filter(x => x.consortiumProject !== item.funderProjectNumber); 
         const recipient = this.r.adapt(item);
         const funder = this.f.adapt(item);
         const science = item.keywords.filter(x => x.scheme === 'Tieteenala').map(x => x.keyword).join(', ');
@@ -57,7 +69,7 @@ export class FundingAdapter implements Adapter<Funding> {
             item.projectDescriptionEn,
             item.fundingStartYear,
             recipientObj.roleInFundingGroup,
-            '??',
+            otherConsortiumObj,
             recipient,
             funder,
             item.funderProjectNumber,
