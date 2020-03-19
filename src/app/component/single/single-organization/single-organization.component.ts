@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -72,7 +72,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   faIcon = faFileAlt;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string ) {
    }
 
   public setTitle(newTitle: string) {
@@ -99,7 +99,16 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData[0].hits.hits[0]) {
-        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi.trim() + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
+        switch (this.localeId) {
+          case 'fi': {
+            this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi.trim() + ' - Tiedejatutkimus.fi');
+            break;
+          }
+          case 'en': {
+            this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi.trim() + ' - Research.fi');
+            break;
+          }
+        }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
