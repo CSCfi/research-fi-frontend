@@ -79,61 +79,61 @@
              </div>
          </main>
          <div *ngFor="let item of responseData.fundings" class="col-12 col-md-4 col-xl-4">
+            <aside>
                 <aside>
-                    <aside>
-                        <mat-card>
-                            <mat-card-title><h2>Hankkeen verkkosivu</h2></mat-card-title>
-                            <div class="row links">
-                                <div *ngFor="let row of linkFields" class="info-link-wrapper">
-                                    <div class="col-sm-2 col-md-1 icon">
-                                        <fa-icon [icon]="faIcon"></fa-icon>
-                                    </div>
-                                    <div class="col link">
-                                        <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}</a>
-                                    </div>
+                    <mat-card>
+                        <mat-card-title><h2>Hankkeen verkkosivu</h2></mat-card-title>
+                        <div class="row links">
+                            <div *ngFor="let row of linkFields" class="info-link-wrapper">
+                                <div class="col-sm-2 col-md-1 icon">
+                                    <fa-icon [icon]="faIcon"></fa-icon>
+                                </div>
+                                <div class="col link">
+                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}</a>
                                 </div>
                             </div>
-                            <div *ngIf="!linkFields.length" class="no-links">Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</div>
-                        </mat-card>
-                    </aside>
-                    <mat-card>
-                        <mat-card-title><h2>Tähän hankkeeseen liittyvät</h2></mat-card-title>
-                        <div class="row related">
-                            <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                                <li class=""><a routerLink="/">Julkaisut</a></li>
-                                <li class=""><a routerLink="/">Tutkijat</a></li>
-                                <li class=""><a routerLink="/">Aineistot</a></li>
-                            </ul>
-                            <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                                <li class=""><a routerLink="/">Infrastruktuurit</a></li>
-                                <li class=""><a routerLink="/">Organisaatiot</a></li>
-                            </ul>
                         </div>
+                        <div *ngIf="!linkFields.length" class="no-links">Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
-                <!-- <aside>
-                    <mat-card>
-                        <mat-card-title><h2>Viittaa</h2></mat-card-title>
-                        <div class="row">
-                            <div class="col-12 reference">
-                                <button mat-raised-button color="primary"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
-                            </div>
+                <mat-card>
+                    <mat-card-title><h2>Tähän hankkeeseen liittyvät</h2></mat-card-title>
+                    <div class="row related">
+                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+                            <li class=""><a routerLink="/">Julkaisut</a></li>
+                            <li class=""><a routerLink="/">Tutkijat</a></li>
+                            <li class=""><a routerLink="/">Aineistot</a></li>
+                        </ul>
+                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+                            <li class=""><a routerLink="/">Infrastruktuurit</a></li>
+                            <li class=""><a routerLink="/">Organisaatiot</a></li>
+                        </ul>
+                    </div>
+                </mat-card>
+            </aside>
+            <!-- <aside>
+                <mat-card>
+                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <div class="row">
+                        <div class="col-12 reference">
+                            <button mat-raised-button color="primary"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
                         </div>
-                    </mat-card>
-                </aside> -->
-                <!-- Social icons -->
-                <app-share></app-share>
-                <aside>
-                    <mat-card>
-                        <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
-                        <div *ngFor="let source of responseData.fundings">
-                            <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funderNameFi}}</p>
-                            <p *ngIf="source.funder.nameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
-                        </div>
-                        <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
-                        <div class="clear"></div>
-                    </mat-card>
-                </aside>
-            </div>
+                    </div>
+                </mat-card>
+            </aside> -->
+            <!-- Social icons -->
+            <app-share></app-share>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
+                    <div *ngFor="let source of responseData.fundings">
+                        <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funderNameFi}}</p>
+                        <p *ngIf="source.funder.nameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
+                    </div>
+                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
+                    <div class="clear"></div>
+                </mat-card>
+            </aside>
+        </div>
      </div>
  </div>
