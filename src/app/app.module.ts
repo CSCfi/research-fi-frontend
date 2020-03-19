@@ -109,6 +109,8 @@ import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
 import { SocialComponent } from './component/social/social.component';
 import { RelatedLinksComponent } from './component/single/related-links/related-links.component';
+import { Router } from '@angular/router'; // Dependency for ApmService
+import { ApmService } from '@elastic/apm-rum-angular';
 
 @NgModule({
   declarations: [
@@ -188,26 +190,53 @@ import { RelatedLinksComponent } from './component/single/related-links/related-
     TransferHttpCacheModule,
     ModalModule.forRoot()
   ],
-  providers: [ SearchService, Title, AutosuggestService, WINDOW_PROVIDERS,
-  {
-    provide: APP_INITIALIZER,
-    multi: true,
-    deps: [AppConfigService],
-    useFactory: (appConfigService: AppConfigService) => {
-      // Load configuration from file when application starts.
-      return () => {
-        return appConfigService.loadAppConfig();
-      };
+  providers: [
+    SearchService,
+    Title,
+    AutosuggestService,
+    WINDOW_PROVIDERS,
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AppConfigService],
+      useFactory: (appConfigService: AppConfigService) => {
+        // Load configuration from file when application starts.
+        return () => {
+          return appConfigService.loadAppConfig();
+        };
+      }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptService,
+      multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorHandlerService
+    },
+    PublicationFilters,
+    PersonFilters,
+    FundingFilters,
+    InfrastructureFilters,
+    OrganizationFilters,
+    {
+      provide: ApmService,
+      useClass: ApmService,
+      deps: [Router]
     }
-  },
-  {provide: HTTP_INTERCEPTORS, useClass: InterceptService, multi: true},
-  // {provide: LOCALE_ID, useValue: 'fi-FI'},
-  {provide: ErrorHandler, useClass: ErrorHandlerService},
-  PublicationFilters, PersonFilters, FundingFilters, InfrastructureFilters, OrganizationFilters ],
-
+  ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ PublicationsComponent, PersonsComponent, FundingsComponent, InfrastructuresComponent, OrganizationsComponent,
-    EmptyResultComponent ]
+  entryComponents: [
+    PublicationsComponent,
+    PersonsComponent,
+    FundingsComponent,
+    InfrastructuresComponent,
+    OrganizationsComponent,
+    EmptyResultComponent
+  ]
 })
-export class AppModule { }
 
+export class AppModule {
+}

@@ -40,12 +40,24 @@ export class AppConfigService {
   // API Url
   get apiUrl() {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }
-    return this.appConfig.apiUrl;
+    return this.appConfig.apiUrl + '/portalapi/';
+  }
+
+  // Application performance monitoring Url
+  get apmUrl() {
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.apiUrl + '/apm/';
   }
 
   // Build info
   get buildInfo() {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }
     return this.appConfig.buildInfo;
+  }
+
+  // Environment name
+  get environmentName() {
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.environmentName;
   }
 }

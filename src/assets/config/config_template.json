@@ -1,4 +1,5 @@
 {
-    "apiUrl": "<API_HOST>/portalapi/",
-    "buildInfo": "<BUILD_INFO>"
+    "apiUrl": "<API_HOST>",
+    "buildInfo": "<BUILD_INFO>",
+    "environmentName": "local|test|production"
 }

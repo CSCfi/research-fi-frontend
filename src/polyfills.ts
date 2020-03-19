@@ -26,6 +26,7 @@ import '@angular/localize/init';
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
 import 'core-js/es7/array';
 import 'core-js/es7/object';
+import 'core-js/es7/reflect';
 import 'array-flat-polyfill';
 
 /**
