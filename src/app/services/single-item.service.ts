@@ -61,7 +61,6 @@ export class SingleItemService {
 
   // Testing purposes only
   getCount(tab, id, filters): Observable<any> {
-    console.log(id);
     id = id || 0;
     let queryOps = {};
     switch (tab) {
