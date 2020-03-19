@@ -20,7 +20,7 @@
           (click)="sortBy('sector')">Organisaatio</span>
       </div>
   </div>
-  <div class="row no-margin single" style="margin: 20px auto!important" *ngFor="let organization of resultData.organizations; let i = index">
+  <div class="row no-margin single" style="margin: 20px auto!important" *ngFor="let organization of resultData?.organizations; let i = index">
       <div class="col col-1 icon" style="margin-right: 10px; margin-top: -18px;">
           <a class="icon" routerLink="/results/organization/{{organization.id}}" tabindex="-1" title="Organisaatioiden tiedon ikoni">
             <fa-icon [icon]="faIcon"></fa-icon>
