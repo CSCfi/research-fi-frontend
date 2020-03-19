@@ -38,5 +38,5 @@
       </div>       
   </div>
   <!-- Pagination -->
-  <app-pagination [responseData]="resultData"></app-pagination>
+  <app-pagination [responseData]="resultData" (queryEvent)="getOrganizationData($event)"></app-pagination>
 </div>   
