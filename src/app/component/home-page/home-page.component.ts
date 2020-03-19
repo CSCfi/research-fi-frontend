@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, ViewChild, ViewChildren, ElementRef, Inject, PLATFORM_ID, QueryList, AfterViewInit,
-  HostListener, ChangeDetectorRef } from '@angular/core';
+  HostListener, ChangeDetectorRef, LOCALE_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
@@ -84,7 +84,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef ) { }
+               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string ) { }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
@@ -101,7 +101,16 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     this.sortService.updateSort('');
 
     // Set title
-    this.setTitle('Etusivu - Tutkimustietovaranto');
+    switch (this.localeId) {
+      case 'fi': {
+        this.setTitle('Etusivu - Tiedejatutkimus.fi');
+        break;
+      }
+      case 'en': {
+        this.setTitle('Home - Research.fi');
+        break;
+      }
+    }
     this.srHeader.nativeElement.innerHTML = this.document.title.split(' - ', 1);
 
     // Reset local storage
