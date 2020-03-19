@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient-organization.model';
 
 export class Recipient {
     constructor(
@@ -17,15 +18,22 @@ export class Recipient {
         public shareOfFundingEur: number,
         public amountEur: number,
         public contactPersonName: string,
+        public contactPersonOrcid: string,
+        public organizations: RecipientOrganization[]
     ) {}
 }
 @Injectable({
     providedIn: 'root'
 })
 export class RecipientAdapter implements Adapter<Recipient> {
-    constructor() {}
+    constructor(private roa: RecipientOrganizationAdapter) {}
     adapt(item: any): Recipient {
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
+        const organizations: RecipientOrganization[] = [];
+
+        if (item.recipientType === 'organization') {
+            item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
+        }
 
         return new Recipient(
             recipientObj?.fundingGroupPersonFirstNames,
@@ -34,7 +42,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
             recipientObj?.consortiumOrganizationNameFi, // organizationName
             recipientObj?.shareOfFundingInEur,
             item.amount_in_EUR,
-            item.fundingContactPersonLastName
+            item.fundingContactPersonLastName,
+            item.fundingContactPersonOrcid,
+            organizations
         );
     }
 }
