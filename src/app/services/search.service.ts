@@ -8,15 +8,16 @@
 import { Injectable, EventEmitter  } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Search } from '../models/search.model';
+import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filter.service';
 import { TabChangeService } from './tab-change.service';
 import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
+import { Publication } from '../models/publication.model';
 
 @Injectable()
 export class SearchService {
@@ -42,7 +43,8 @@ export class SearchService {
   connError = this.errorSource.asObservable();
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
-              private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService) {
+              private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService,
+              private searchAdapter: SearchAdapter) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -94,11 +96,11 @@ export class SearchService {
       // .pipe(catchError(this.handleError));
   }
 
-  getData() {
+  getData(): Observable<Search> {
     const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
                                                         this.sortService.sort, this.tabChangeService.tab);
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload)
-    .pipe(catchError(this.handleError));
+    return this.http.post<Search>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload)
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, this.tabChangeService.tab)));
   }
 
   // Data for results page
@@ -152,15 +154,13 @@ export class SearchService {
       }
     };
     // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad)
-      .pipe(catchError(this.handleError));
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad);
   }
 
   getFilters(): Observable<Search[]> {
     const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
     // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad)
-      .pipe(catchError(this.handleError));
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad);
   }
 
   // A simple method that returns the response from the url provided
@@ -175,22 +175,5 @@ export class SearchService {
   // News page content
   getNews(): Observable<Search[]> {
     return this.http.get<Search[]>(this.apiUrl + 'news' + '/_search?');
-  }
-
-  // Error handling
-  public handleError(err: HttpErrorResponse) {
-    let errorMessage = 'HTTPError';
-    if (err.error instanceof Error) {
-      // A client-side or network error occurred. Handle it accordingly.
-      errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      this.errorSource.next('connection');
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-    }
-    console.error(errorMessage);
-    // tslint:disable-next-line: deprecation
-    return Observable.throw(errorMessage);
   }
 }

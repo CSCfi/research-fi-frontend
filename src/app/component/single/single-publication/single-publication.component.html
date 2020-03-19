@@ -7,21 +7,21 @@
 <aside>
     <app-search-bar></app-search-bar>
 </aside>
-<div class="container" *ngFor="let publication of responseData" id="main-content">
+<div class="container" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'publicationName'"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
-        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="publication.hits.total === 0">
+        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
             <h2>404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8">
-            <div *ngFor="let item of publication.hits.hits">
-                <h1 class="result-header" [attr.lang]="item._source.languageCode !== documentLang ? item._source.languageCode : null">{{item._source.publicationName}}</h1>
+            <div *ngFor="let item of responseData.publications">
+                <h1 class="result-header" [attr.lang]="item.languageCode !== documentLang ? item.languageCode : null">{{item.title}}</h1>
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                        <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.typeLabel">, {{publicationTypeLabel}}</span></div>
+                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel">, {{publicationTypeLabel}}</span></div>
                     </div>
                     <div class="row content" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
                         <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
@@ -97,7 +97,7 @@
                     <!-- <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
                         <div class="col-6 col-lg-3 th">Organisaation alayksiköt</div>
                         <div class="col-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
-                            <p class="td">{{item._source[row.field]}}</p>
+                            <p class="td">{{item[row.field]}}</p>
                         </div>
                     </div> -->
                     <ng-container *ngFor="let row of organizationSubFields.slice(1)">
@@ -105,7 +105,7 @@
                         <div class="row content">
                             <div class="col-6 col-lg-9 offset-6 offset-lg-3 td">
                                 <p class="th">{{row.label}}</p>
-                                <p class="td">{{item._source[row.field]}}</p>
+                                <p class="td">{{item[row.field]}}</p>
                             </div>        
                         </div>
                     </ng-container>
@@ -114,20 +114,20 @@
                         <div class="col-6 col-lg-3 th">Julkaisukanavan tiedot</div>
                         <div class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
                             <p class="th">{{row.label}}</p>
-                            <p class="td"*ngIf="row.link && juFoCode.length > 1 " [attr.lang]="row.lang && item._source.languageCode !== documentLang ? item._source.languageCode : null" 
+                            <p class="td"*ngIf="row.link && juFoCode.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
                              [ngSwitch]="true">
                             <!-- Check if fields are issn or isbn and target search with exact field  -->
                             <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'" (click)="navigate(row.field)" 
-                             routerLink="{{row.linkPath}}{{item._source[row.field]}}">
-                                 {{item._source[row.field]}}
+                             routerLink="{{row.linkPath}}{{item[row.field]}}">
+                                 {{item[row.field]}}
                             </a>
                             <!-- Every other link uses jufoCode as search term -->
                             <a class="td" *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
-                                 {{item._source[row.field]}}
+                                 {{item[row.field]}}
                             </a>
                             </p>
                             <!-- Show label only if no search functionality -->
-                            <p class="td" *ngIf="!row.link || juFoCode.length === 1">{{item._source[row.field]}}</p>
+                            <p class="td" *ngIf="!row.link || juFoCode.length === 1">{{item[row.field]}}</p>
                         </div>
                     </div>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
@@ -136,26 +136,26 @@
                             <!-- First col -->
                             <div class="col-6 col-lg-3 offset-6 offset-lg-3 td">
                                <p class="th">{{row.label}}</p>
-                               <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item._source[row.field]}}">
-                                    {{item._source[row.field]}}
+                               <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
+                                    {{item[row.field]}}
                                </a>
-                               <span *ngIf="!row.link">{{item._source[row.field]}}</span>
+                               <span *ngIf="!row.link">{{item[row.field]}}</span>
                             </div>
                             <!-- Second col -->    
                             <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
                                <p class="th">{{mediumFields.slice(3)[i + 1].label}}</p>
-                               <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item._source[mediumFields.slice(3)[i + 1].field]}}">
-                                    {{item._source[mediumFields.slice(3)[i + 1].field]}}
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
+                                    {{item[mediumFields.slice(3)[i + 1].field]}}
                                </a>
-                               <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item._source[mediumFields.slice(3)[i + 1].field]}}</span>
+                               <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item[mediumFields.slice(3)[i + 1].field]}}</span>
                             </div> 
                             <!-- Third col -->   
                             <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
                                <p class="th">{{mediumFields.slice(3)[i + 2].label}}</p>
-                               <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item._source[mediumFields.slice(3)[i + 2].field]}}">
-                                    {{item._source[mediumFields.slice(3)[i + 2].field]}}
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
+                                    {{item[mediumFields.slice(3)[i + 2].field]}}
                                </a>
-                               <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item._source[mediumFields.slice(3)[i + 2].field]}}</span>
+                               <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item[mediumFields.slice(3)[i + 2].field]}}</span>
                             </div>        
                         </div>
                     </ng-container>
@@ -163,7 +163,7 @@
                         <div class="col-6 col-lg-3 th">Muut tiedot</div>
                         <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
                             <p class="th">{{row.label}}</p>
-                            <p class="td">{{item._source[row.field]}}</p>
+                            <p class="td">{{item[row.field]}}</p>
                         </div>
                     </div>
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
@@ -171,18 +171,18 @@
                         <div class="row content" *ngIf="i % 2 == 0">
                             <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
                                 <p class="th">{{row.label}}</p>
-                                <p class="td">{{item._source[row.field]}}</p>
+                                <p class="td">{{item[row.field]}}</p>
                             </div>        
                             <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
                                 <p class="th">{{otherFields.slice(2)[i + 1].label}}</p>
-                                <p class="td">{{item._source[otherFields.slice(2)[i + 1].field]}}</p>
+                                <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
                             </div>
                         </div>
                     </ng-container>
                 </div>
             </div>
         </main>
-        <div *ngFor="let item of publication.hits.hits" class="col-12 col-md-4 col-xl-4">
+        <div *ngFor="let item of responseData.publications" class="col-12 col-md-4 col-xl-4">
             <aside>
                 <aside>
                     <mat-card>
@@ -195,7 +195,7 @@
                                 <div class="col link doi">
                                     <span class="doi-tag">DOI</span>
                                     <span class="doi-link">
-                                        <a [attr.href]="'https://doi.org/'+item._source.doi">{{item._source.doi}}</a>
+                                        <a [attr.href]="'https://doi.org/'+item.doi">{{item.doi}}</a>
                                     </span>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@
                                     <fa-icon [icon]="faIcon"></fa-icon>
                                 </div>
                                 <div class="col link">
-                                    <a class="info-link" href={{row.path}}{{item._source[row.field]}}>{{item._source[row.field]}}</a>
+                                    <a class="info-link" href={{row.path}}{{item[row.field]}}>{{item[row.field]}}</a>
                                 </div>
                             </div>
                         </div>
@@ -216,10 +216,10 @@
                         <mat-card-title><h2>Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="https://scholar.google.com/scholar?q={{item._source.publicationName}}" target="_blank">Google Scholar</a>
+                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar</a>
                             </div>
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="https://search.crossref.org/?q={{item._source.doi !== ' ' ? item._source.doi : item._source.publicationName}}" 
+                                <a href="https://search.crossref.org/?q={{item.doi !== ' ' ? item.doi : item.title}}" 
                                 target="_blank">CrossRef</a>
                             </div>
                         </div>

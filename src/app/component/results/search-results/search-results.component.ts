@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Injector, Input, ComponentRef, OnChanges, SimpleChanges } from '@angular/core';
-import { ComponentPortal, DomPortalHost } from '@angular/cdk/portal';
+import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { createDomPortalHost } from './utils';
 import { SearchService } from '../../../services/search.service';
 import { DataService } from '../../../services/data.service';
@@ -10,6 +10,7 @@ import { FundingsComponent } from '../fundings/fundings.component';
 import { OrganizationsComponent } from '../organizations/organizations.component';
 import { PersonsComponent } from '../persons/persons.component';
 import { InfrastructuresComponent } from '../infrastructures/infrastructures.component';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-search-results',
@@ -17,7 +18,7 @@ import { InfrastructuresComponent } from '../infrastructures/infrastructures.com
 })
 export class SearchResultsComponent implements OnInit, OnChanges {
 
-  portalHost: DomPortalHost;
+  portalHost: DomPortalOutlet;
   @ViewChild('portalHost', { static: true }) elRef: ElementRef;
   componentRef: ComponentRef<any>;
 
@@ -26,7 +27,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
   tabChanged = true;
 
-  responseData: any;
+  responseData: Search;
   filtersOn: boolean;
   filter: object;
   errorMessage: any;
@@ -59,10 +60,11 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   getResultData() {
     // Get data, then change component
     this.searchService.getData()
-    .pipe(map(responseData => [responseData]))
+    // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
+      console.log(responseData);
       this.responseData = responseData;
-      this.searchService.updateTotal(this.responseData[0].hits.total);
+      this.searchService.updateTotal(this.responseData.total);
     },
       error => this.errorMessage = error as any,
       () => this.changeComponent(this.currentTab)

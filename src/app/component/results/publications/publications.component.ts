@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-publications',
@@ -18,7 +19,7 @@ import { SearchService } from 'src/app/services/search.service';
   styleUrls: ['./publications.component.scss']
 })
 export class PublicationsComponent implements OnInit, OnDestroy {
-  @Input() resultData: any [];
+  @Input() resultData: Search;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
