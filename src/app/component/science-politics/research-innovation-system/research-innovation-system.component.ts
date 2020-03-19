@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef, LOCALE_ID, Inject } from '@angular/core';
 import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
 
@@ -34,7 +34,7 @@ export class ResearchInnovationSystemComponent implements OnInit {
   rearrangedList: any;
   @ViewChild('openSector') openSector: ElementRef;
 
-  constructor( private titleService: Title ) {
+  constructor( private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string ) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
   }
@@ -56,7 +56,17 @@ export class ResearchInnovationSystemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tutkimustietovaranto');
+    switch (this.localeId) {
+      case 'fi': {
+        this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tiedejatutkimus.fi');
+        break;
+      }
+      case 'en': {
+        // Todo: Translate
+        this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Research.fi');
+        break;
+      }
+    }
   }
 
 }
