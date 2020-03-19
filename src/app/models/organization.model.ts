@@ -12,10 +12,14 @@ export class Organization {
 
     constructor(
         public id: string,
-        public name: string,
+        public nameFi: string,
+        public nameEn: string,
+        public nameSv: string,
         public variantNames: string,
         public organizationType: string,
-        public sectorName: string,
+        public sectorNameFi: string,
+        public sectorNameEn: string,
+        public sectorNameSv: string,
         public address: string,
         public postAddress: string,
         public businessId: string,
@@ -28,7 +32,8 @@ export class Organization {
         public thesisCountMscPercentage: number,
         public thesisCountLicPercentage: number,
         public thesisCountPhdPercentage: number,
-        public subUnits: any[]
+        public subUnits: any[],
+        public homepage: string
     ) {}
 }
 
@@ -40,11 +45,15 @@ export class OrganizationAdapter implements Adapter<Organization> {
     constructor() {}
     adapt(item: any): Organization {
         return new Organization(
-            item.id,
-            item.name,
+            item.organizationId,
+            item.nameFi.trim(),
+            item.nameEn,
+            item.nameSv,
             item.variantNames,
             item.organizationType,
-            item.sectorName,
+            item.sectorNameFi,
+            item.sectorNameEn,
+            item.sectorNameSv,
             item.address,
             item.postAddress,
             item.businessId,
@@ -57,7 +66,8 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.thesisCountMscPercentage,
             item.thesisCountLicPercentage,
             item.thesisCountPhdPercentage,
-            item.subUnits
+            item.subUnits,
+            item.homepage
         )
     }
 }
