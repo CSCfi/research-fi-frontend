@@ -25,7 +25,7 @@ export class Recipient {
 export class RecipientAdapter implements Adapter<Recipient> {
     constructor() {}
     adapt(item: any): Recipient {
-        const recipientObj = item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
+        const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
 
         return new Recipient(
             recipientObj?.fundingGroupPersonFirstNames,
