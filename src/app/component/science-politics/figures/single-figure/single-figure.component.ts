@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef, Inject, LOCALE_ID } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 
@@ -27,14 +27,24 @@ export class SingleFigureComponent implements OnInit, AfterViewInit {
   colWidth: number;
   faQuestion = faQuestionCircle;
 
-  constructor( public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private titleService: Title ) { }
+  constructor( public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string ) { }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
   }
 
   ngOnInit(): void {
-    this.setTitle(this.data[0].labelFi + ' - Tiedejatutkimus.fi');
+    switch (this.localeId) {
+      case 'fi': {
+        this.setTitle(this.data[0].labelFi + ' - Tiedejatutkimus.fi');
+        break;
+      }
+      case 'en': {
+        // Change labelEn at some point
+        this.setTitle(this.data[0].labelFi + ' - Research.fi');
+        break;
+      }
+    }
   }
 
   ngAfterViewInit() {

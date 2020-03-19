@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, Inject, HostListener, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy, LOCALE_ID } from '@angular/core';
 import { faInfoCircle, faSearch, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { DOCUMENT } from '@angular/common';
@@ -55,7 +55,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   showMenu: boolean;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, private searchService: SearchService,
-  private titleService: Title ) {
+  private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -68,7 +68,17 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setTitle('Tiede ja tutkimus lukuina - Tiedejatutkimus.fi');
+    switch (this.localeId) {
+      case 'fi': {
+        this.setTitle('Tiede ja tutkimus lukuina - Tiedejatutkimus.fi');
+        break;
+      }
+      case 'en': {
+        // Todo: Translate
+        this.setTitle('Tiede ja tutkimus lukuina - Research.fi');
+        break;
+      }
+    }
 
     // Get data from assets
     this.dataSub = this.searchService.getFigures().pipe(map(data => data)).subscribe(data => {
