@@ -109,8 +109,9 @@ import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
 import { SocialComponent } from './component/social/social.component';
 import { RelatedLinksComponent } from './component/single/related-links/related-links.component';
-//import { Router } from '@angular/router'; // Dependency for ApmService
-//import { ApmService } from '@elastic/apm-rum-angular';
+import { Router } from '@angular/router'; // Required by ApmService
+import 'reflect-metadata'; // Required by ApmService
+import { ApmService } from '@elastic/apm-rum-angular';
 
 @NgModule({
   declarations: [
@@ -221,11 +222,11 @@ import { RelatedLinksComponent } from './component/single/related-links/related-
     FundingFilters,
     InfrastructureFilters,
     OrganizationFilters,
-    //{
-    //  provide: ApmService,
-    //  useClass: ApmService,
-    //  deps: [Router]
-    //}
+    {
+      provide: ApmService,
+      useClass: ApmService,
+      deps: [Router]
+    }
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
