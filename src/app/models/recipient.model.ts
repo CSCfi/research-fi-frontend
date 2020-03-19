@@ -36,13 +36,13 @@ export class RecipientAdapter implements Adapter<Recipient> {
         }
 
         return new Recipient(
-            recipientObj?.fundingGroupPersonFirstNames,
+            recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName,
             recipientObj?.fundingGroupPersonOrcid,
             recipientObj?.consortiumOrganizationNameFi, // affiliation
             recipientObj?.consortiumOrganizationNameFi, // organizationName
             recipientObj?.shareOfFundingInEur,
             item.amount_in_EUR,
-            item.fundingContactPersonLastName,
+            item.fundingContactPersonFirstNames + ' ' + item.fundingContactPersonLastName,
             item.fundingContactPersonOrcid,
             organizations
         );
