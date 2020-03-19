@@ -21,7 +21,7 @@ import { map } from 'rxjs/internal/operators/map';
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any [];
+  responseData: any;
   searchTerm: string;
   pageNumber: any;
   tab = 'organizations';
@@ -95,11 +95,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   getData(id: string) {
     this.singleService.getSingleOrganization(id)
-    .pipe(map(responseData => [responseData]))
+    // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      if (this.responseData[0].hits.hits[0]) {
-        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi.trim() + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
+      if (this.responseData.organizations[0]) {
+        this.setTitle(this.responseData.organizations[0].nameFi + ' - Tiedejatutkimus.fi');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
@@ -111,10 +111,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== 0 &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== null &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
+      return this.responseData.organizations[0][item.field] !== undefined &&
+             this.responseData.organizations[0][item.field] !== 0 &&
+             this.responseData.organizations[0][item.field] !== null &&
+             this.responseData.organizations[0][item.field] !== '' &&
+             this.responseData.organizations[0][item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -123,18 +124,18 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   shapeData() {
-    const source = this.responseData[0].hits.hits[0]._source;
-    const predecessors = source.predecessors;
-    const related = source.related;
+    const source = this.responseData.organizations[0];
+    // const predecessors = source.predecessors;
+    // const related = source.related;
     let subUnits = source.subUnits;
 
-    if (predecessors && predecessors.length > 0) {
-      source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
-    }
+    // if (predecessors && predecessors.length > 0) {
+    //   source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
+    // }
 
-    if (related && related.length > 0) {
-      source.related = related.map(x => x.nameFi.trim()).join(', ');
-    }
+    // if (related && related.length > 0) {
+    //   source.related = related.map(x => x.nameFi.trim()).join(', ');
+    // }
 
     if (subUnits && subUnits.length > 0) {
       // Get latest year of subUnits. Data is in string format

@@ -54,12 +54,13 @@ export class SingleItemService {
                     .pipe(map((data: any) => this.searchAdapter.adapt(data, 'fundings')));
   }
 
-  getSingleOrganization(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.organizationApiUrl, this.constructPayload('organizationId', id));
+  getSingleOrganization(id): Observable<Search> {
+    return this.http.post<Search>(this.organizationApiUrl, this.constructPayload('organizationId', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, 'organizations')));
   }
 
   // Testing purposes only
-  getCount(tab, id, filters): Observable<Search[]> {
+  getCount(tab, id, filters): Observable<any> {
     id = id || 0;
     let queryOps = {};
     switch (tab) {
@@ -128,7 +129,7 @@ export class SingleItemService {
       }
     };
     const payLoad = {...queryOps, ...aggs};
-    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payLoad);
+    return this.http.post(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payLoad);
   }
 
   joinEntries(field, subField) {

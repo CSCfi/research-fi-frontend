@@ -114,7 +114,11 @@
                         <div class="col-6 col-lg-3 th">Julkaisukanavan tiedot</div>
                         <div class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
                             <p class="th">{{row.label}}</p>
+<<<<<<< HEAD
                             <p class="td"*ngIf="row.link && juFoCode.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
+=======
+                            <p class="td"*ngIf="row.link && juFoCode?.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
+>>>>>>> CSCTTV-1031_2
                              [ngSwitch]="true">
                             <!-- Check if fields are issn or isbn and target search with exact field  -->
                             <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'" (click)="navigate(row.field)" 
@@ -127,7 +131,11 @@
                             </a>
                             </p>
                             <!-- Show label only if no search functionality -->
+<<<<<<< HEAD
                             <p class="td" *ngIf="!row.link || juFoCode.length === 1">{{item[row.field]}}</p>
+=======
+                            <p class="td" *ngIf="!row.link || juFoCode?.length === 1">{{item[row.field]}}</p>
+>>>>>>> CSCTTV-1031_2
                         </div>
                     </div>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
@@ -182,7 +190,11 @@
                 </div>
             </div>
         </main>
+<<<<<<< HEAD
         <div *ngFor="let item of responseData.publications" class="col-12 col-md-4 col-xl-4">
+=======
+        <div *ngFor="let item of responseData.hits" class="col-12 col-md-4 col-xl-4">
+>>>>>>> CSCTTV-1031_2
             <aside>
                 <aside>
                     <mat-card>

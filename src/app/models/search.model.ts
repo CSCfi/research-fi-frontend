@@ -9,13 +9,14 @@ import { Publication, PublicationAdapter } from './publication.model';
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { FundingAdapter, Funding } from './funding.model';
+import { OrganizationAdapter, Organization } from './organization.model';
 
 export class Search {
-
     constructor(
         public total: number,
         public publications: Publication[],
-        public fundings: Funding[]
+        public fundings: Funding[],
+        public organizations: Organization[]
     ) {}
 }
 
@@ -23,11 +24,12 @@ export class Search {
     providedIn: 'root'
 })
 export class SearchAdapter implements Adapter<Search> {
-    constructor(private publicationAdapter: PublicationAdapter, private fundingAdapter: FundingAdapter) {}
+    constructor(private publicationAdapter: PublicationAdapter, private fundingAdapter: FundingAdapter, private organizationAdapter: OrganizationAdapter) {}
     adapt(item: any, tab?: string): Search {
 
         const publications: Publication[] = [];
         const fundings: Funding[] = [];
+        const organizations: Organization[] = [];
 
         switch (tab) {
             case 'publications':
@@ -36,7 +38,8 @@ export class SearchAdapter implements Adapter<Search> {
             case 'fundings':
                 item.hits.hits.forEach(e => fundings.push(this.fundingAdapter.adapt(e._source)));
                 break;
-            default:
+            case 'organizations':
+                item.hits.hits.forEach(e => organizations.push(this.organizationAdapter.adapt(e._source)));
                 break;
         }
 
@@ -44,7 +47,8 @@ export class SearchAdapter implements Adapter<Search> {
         return new Search(
             item.hits.total.value,
             publications,
-            fundings
+            fundings,
+            organizations
         );
     }
 }
