@@ -34,7 +34,7 @@ export class SingleFigureComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.setTitle(this.data[0].labelFi + ' - Tiede ja tutkimus lukuina - Tutkimustietovaranto');
+    this.setTitle(this.data[0].labelFi + ' - Tiedejatutkimus.fi');
   }
 
   ngAfterViewInit() {

@@ -68,7 +68,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setTitle('Tiede ja tutkimus lukuina - Tutkimustietovaranto');
+    this.setTitle('Tiede ja tutkimus lukuina - Tiedejatutkimus.fi');
 
     // Get data from assets
     this.dataSub = this.searchService.getFigures().pipe(map(data => data)).subscribe(data => {

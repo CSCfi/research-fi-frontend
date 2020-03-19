@@ -56,7 +56,7 @@ export class ResearchInnovationSystemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tutkimustietovaranto');
+    this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tiedejatutkimus.fi');
   }
 
 }
