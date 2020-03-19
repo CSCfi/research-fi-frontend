@@ -23,7 +23,10 @@ export class Organization {
         public address: string,
         public postAddress: string,
         public businessId: string,
-        public staffCount: number,
+        public staffCountAsFte: number,
+        public staffCountAsPercentage: number,
+        public staffYear: string,
+        public thesisYear: string,
         public thesisCountBsc: string,
         public thesisCountMsc: string,
         public thesisCountLic: string,
@@ -33,7 +36,8 @@ export class Organization {
         public thesisCountLicPercentage: number,
         public thesisCountPhdPercentage: number,
         public subUnits: any[],
-        public homepage: string
+        public homepage: string,
+        public predecessors: string
     ) {}
 }
 
@@ -44,6 +48,9 @@ export class Organization {
 export class OrganizationAdapter implements Adapter<Organization> {
     constructor() {}
     adapt(item: any): Organization {
+        // Join predecessors with comma
+        const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
+
         return new Organization(
             item.organizationId,
             item.nameFi.trim(),
@@ -57,7 +64,10 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.address,
             item.postAddress,
             item.businessId,
-            item.staffCount,
+            item.staffCountAsFte,
+            item.staffCountAsPercentage,
+            item.staffYear,
+            item.thesisYear,
             item.thesisCountBsc,
             item.thesisCountMsc,
             item.thesisCountLic,
@@ -67,7 +77,8 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.thesisCountLicPercentage,
             item.thesisCountPhdPercentage,
             item.subUnits,
-            item.homepage
+            item.homepage,
+            predecessors
         )
     }
 }
