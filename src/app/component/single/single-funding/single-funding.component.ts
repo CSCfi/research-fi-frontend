@@ -159,7 +159,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     }
 
     // Get label by locale
-    source.academyConsortium = source?.academyConsortium['label' + this.localeId]
+    source.academyConsortium = source.academyConsortium ? source?.academyConsortium['label' + this.localeId] : '';
 
     // Set other consortiums as single string
     source.otherConsortium = source.otherConsortium.length > 0 ?
@@ -170,7 +170,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
     // Get funder fields into separate array
     source.funderData = [source.funder];
-    console.log(source);
     // if (source.fundingGroupPerson) {
     //   const academyConsortium = fundingGroupPerson.filter(x => x.consortiumProject === source.funderProjectNumber);
     //   const otherConsortium = fundingGroupPerson.filter(x => x.consortiumProject !== source.funderProjectNumber);
