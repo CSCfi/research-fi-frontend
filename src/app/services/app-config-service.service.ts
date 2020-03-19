@@ -40,7 +40,7 @@ export class AppConfigService {
   // API Url
   get apiUrl() {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }
-    return this.appConfig.apiUrl + '/portalapi/';
+    return this.appConfig.apiUrl;
   }
 
   // Application performance monitoring Url
