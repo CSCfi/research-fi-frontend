@@ -40,9 +40,9 @@ export class Funding {
 export class FundingAdapter implements Adapter<Funding> {
     constructor(private r: RecipientAdapter, private f: FunderAdapter) {}
     adapt(item: any): Funding {
-        let recipientObj = item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
+        let recipientObj = item.fundingGroupPerson ? item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift() : {};
         //Translate academy consortium role
-        switch(recipientObj.roleInFundingGroup) {
+        switch(recipientObj?.roleInFundingGroup) {
             case 'leader': {
                 recipientObj.roleInFundingGroup = {labelFi: 'Johtaja', labelEn: 'Leader'}
                 break;
@@ -52,13 +52,12 @@ export class FundingAdapter implements Adapter<Funding> {
                 break;
             }
         }
-        const otherConsortiumObj =  item.fundingGroupPerson.filter(x => x.consortiumProject !== item.funderProjectNumber); 
+        const otherConsortiumObj =  item.fundingGroupPerson ? item.fundingGroupPerson.filter(x => x.consortiumProject !== item.funderProjectNumber) : {}; 
         const recipient = this.r.adapt(item);
         const funder = this.f.adapt(item);
-        const science = item.keywords.filter(x => x.scheme === 'Tieteenala').map(x => x.keyword).join(', ');
-        const research = item.keywords.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
-        const theme = item.keywords.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
-
+        const science = item.keywords?.filter(x => x.scheme === 'Tieteenala').map(x => x.keyword).join(', ');
+        const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
+        const theme = item.keywords?.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
         return new Funding(
             item.projectId,
             item.projectNameFi,
