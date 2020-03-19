@@ -112,8 +112,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
                private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId ) {
-                 // Capitalize first letter of locale
-                 this.localeId = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -175,7 +173,18 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData[0].hits.hits[0]) {
-        this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
+        // this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
+        switch (this.localeId) {
+          case 'fi': {
+            this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Tiedejatutkimus.fi');
+            break;
+          }
+          case 'en': {
+            this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Research.fi');
+            break;
+          }
+        }
+
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         // juFoCode is used for exact search
         this.juFoCode = this.responseData[0].hits.hits[0]._source.jufoCode;
@@ -206,6 +215,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   shapeData() {
+    // Capitalize first letter of locale
+    const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     const source = this.responseData[0].hits.hits[0]._source;
     const fieldsOfScience = source.fields_of_science;
     const countries = source.countries;
@@ -226,7 +237,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     }
 
     if (countries?.length > 0) {
-      const key = 'country' + this.localeId;
+      const key = 'country' + locale;
       source.countries = countries.map(x => x[key]);
     }
 
