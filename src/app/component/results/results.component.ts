@@ -243,13 +243,15 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Set label by locale
     switch (this.localeId) {
       case 'fi': {
-        if (amount === 1) {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulos) - Haku - Tutkimustietovaranto');
-        } else {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto'); }
+        // if (amount === 1) {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulos) - Haku - Tutkimustietovaranto');
+        // } else {this.setTitle(tab.labelFi + ' - (' + amount + ' hakutulosta) - Haku - Tutkimustietovaranto'); }
+        this.setTitle('Haku - ' + tab.labelFi + ' - Tiedejatutkimus.fi')
         break;
       }
       case 'en': {
-        if (amount === 1) {this.setTitle(tab.labelEn + ' - (' + amount + ' search result) - Search - Research portal');
-        } else {this.setTitle(tab.labelEn + ' - (' + amount + ' search results) - Search - Research portal'); }
+        // if (amount === 1) {this.setTitle(tab.labelEn + ' - (' + amount + ' search result) - Search - Research portal');
+        // } else {this.setTitle(tab.labelEn + ' - (' + amount + ' search results) - Search - Research portal'); }
+        this.setTitle('Haku - ' + tab.labelEn + ' - Research.fi')
         break;
       }
     }
