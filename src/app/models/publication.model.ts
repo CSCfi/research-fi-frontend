@@ -60,8 +60,9 @@ export class Publication {
 export class PublicationAdapter implements Adapter<Publication> {
     constructor(private fs: FieldOfScienceAdapter) {}
     adapt(item: any): Publication {
-        const fieldsOfScience: FieldOfScience[] = [];
-        item.fields_of_science.forEach(field => fieldsOfScience.push(this.fs.adapt(field)));
+        let fieldsOfScience: FieldOfScience[] = [];
+        // All items don't have field_of_science field
+        item.fields_of_science ? item.fields_of_science.forEach(field => fieldsOfScience.push(this.fs.adapt(field))) : fieldsOfScience = [];
 
         const openAccess: boolean = (item.openAccessCode === 1 || item.openAccessCode === 2 || item.selfArchivedCode === 1);
         let openAccessText = '';

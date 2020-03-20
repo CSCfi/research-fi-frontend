@@ -5,7 +5,7 @@
 
 <div class="pagination-container" *ngFor="let response of [responseData]">
   <div class="pagination">
-    <div class="buttons row">
+    <div class="buttons row" *ngIf="response?.total">
       <button class="col-5 col-md-3" [disabled]="fromPage <= 1" [class.pagination-link-active]="fromPage  > 1" (click)="goToPage(page-1)">
         Edellinen sivu
       </button>
@@ -20,9 +20,9 @@
     </div>
   </div>
 
-  <div class="result-count">
-    <p *ngIf="fromPage + 10 < response.total">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.total}}</p>
-    <p *ngIf="fromPage + 10 >= response.total">Näytetään tulokset {{fromPage + 1}} - {{response.hits.total}} / {{response.total}}</p>
+  <div class="result-count" *ngIf="response?.total">
+    <p *ngIf="fromPage + 10 < response?.total">Näytetään tulokset {{fromPage + 1}} - {{fromPage + 10}} / {{response.total}}</p>
+    <p *ngIf="fromPage + 10 >= response?.total">Näytetään tulokset {{fromPage + 1}} - {{response.total}} / {{response.total}}</p>
     <p>Sivu {{page}}</p>
   </div>
 </div>
