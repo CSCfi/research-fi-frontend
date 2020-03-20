@@ -1,7 +1,5 @@
 <!--  This file is part of the research.fi API service
-
  Copyright 2019 Minisdivy of Education and Culture, Finland
-
  :author: CSC - IT Center for Science Ldiv., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
@@ -10,63 +8,78 @@
      <app-search-bar></app-search-bar>
  </aside>
  
- <div class="container" *ngFor="let funding of responseData" id="main-content">
+ <div class="container" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="single" [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'projectNameFi'"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'"></app-breadcrumb>
      <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a></p>
-         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="funding.hits.total === 0">
+         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
              <h2>404 - Virheellinen osoite</h2>
          </div>
          <main class="col-12 col-md-8">
-             <div *ngFor="let item of funding.hits.hits">
-                 <h1 class="result-header">{{item._source.projectNameFi}}</h1>
+             <div *ngFor="let item of responseData.fundings">
+                 <h1 class="result-header">{{item.nameFi}}</h1>
                  <div id="info" class="table">
                     <div class="content">
                         <ng-container *ngFor="let row of infoFields">
-                            <div class="row" *ngIf="item._source[row.field]">
+                            <div class="row" *ngIf="item[row.field]">
                                 <div class="col-6 col-lg-3 th">{{row.label}}</div>
                                 <div class="col-6 col-lg-9 td">
-                                    <div [ngClass]="expand ? 'expand' : 'short'">{{item._source[row.field]}}</div>
-                                    <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'projectDescriptionFi' && item._source.projectDescriptionFi?.length > 256" (click)="expandDescription()" 
-                                    [innerHTML]="expand ? 'Näytä vähemmän' : 'Lue lisää'"></a>
+                                    <div [ngClass]="expand ? 'expand' : 'short'">{{item[row.field]}}</div>
+                                    <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'projectDescriptionFi' && item.projectDescriptionFi?.length > 256" (click)="expandDescription()" 
+                                        [innerHTML]="expand ? 'Näytä vähemmän' : 'Lue lisää'"></a>
                                 </div>
                             </div>
                         </ng-container>
+                        <!-- Consortium info -->
+                        <div *ngIf="item.recipientType==='consortium'" class="row">
+                            <div class="col-6 col-lg-3 th">Suomen akatemian konsortio</div>
+                            <div class="col-6 col-lg-9 td">
+                                <div [ngClass]="expand ? 'expand' : 'short'">{{item.academyConsortium}}</div>
+                            </div>
+                            <div class="col-6 col-lg-3 th">Konsortion muut osapuolet</div>
+                            <div class="col-6 col-lg-9 td">
+                                <div [ngClass]="expand ? 'expand' : 'short'">{{item.otherConsortium.join(', ')}}</div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Funded -->
-                    <div class="content" *ngIf="fundedFields.length > 0">
+                    <div class="content">
                         <p class="header trHeader">Saaja</p>
                         <!-- Person -->
-                        <div class="row" *ngIf="item._source.fundingContactPersonLastName.length > 1 && item._source.fundingContactPersonAffiliation?.length > 1">
-                            <div class="col-6 col-lg-3" *ngFor="let funded of fundedFields2[0]; let i = index" [ngClass]="i > 0 ? 'td' : 'th'">
-                                <span *ngIf="funded.field === 'fundingContactPersonLastName'">
-                                    {{item._source[funded.field]}}
-                                    <app-orcid *ngIf="item._source.fundingContactPersonOrcid?.length > 1" [orcid]="item._source.fundingContactPersonOrcid"></app-orcid>
-                                </span>
-                                <span *ngIf="funded.field !== 'fundingContactPersonLastName'">{{item._source[funded.field]}}</span>
+                        <div class="row" *ngIf="!(item.recipientType === 'organization')">
+                            <div class="col-6 col-lg-3 th">
+                                {{item.recipient.personName}}
+                                <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
+                            </div>
+                            <div class="col-6 col-lg-9 td">
+                                <div>{{item.recipient.affiliation}}</div>
                             </div>
                         </div>
                         <!-- Org -->
-                        <ng-container *ngIf="!item._source.fundingContactPersonAffiliation">
-                            <div class="row" *ngFor="let org of item._source.fundingGroupPerson; let i = index">
-                                <div class="col-6 col-lg-3" [ngClass]="i > 0 ? 'td' : 'th'" *ngFor="let fundedOrg of fundedFields2[1]">
-                                    {{org[fundedOrg.field]}}
+                        <ng-container *ngIf="item.recipientType === 'organization'">
+                            <div *ngFor="let org of item.recipient.organizations" class="row">
+                                <div class="col-4 col-lg-3 th">{{org.nameFi}}</div>
+                                <div class="col-4 td">{{org.shareOfFundingEur | thousandSeparator}} €</div>
+                                <div class="col-4 col-lg-5 td">
+                                    {{item.recipient.contactPersonName}}
+                                    <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                 </div>
                             </div>
                         </ng-container>
-                        <div class="row" >
-                            <div class="col-6 col-lg-3" *ngFor="let amount of fundedFields2[2]; let i = index" [ngClass]="i > 0 ? 'td' : 'th'">
-                                {{amount.label}}{{item._source[amount.field]}}
+                        <div class="row">
+                            <div class="col-6 col-lg-3 th">Myönnetty summa</div>
+                            <div class="col-6 col-lg-9 td">
+                                <div>{{item.recipient.amountEur | thousandSeparator}} €</div>
                             </div>
                         </div>
                     </div>
                     <!-- Funder -->
-                    <div class="content" *ngIf="funderFields.length > 0">
+                    <div class="content" *ngIf="item.funder">
                         <p class="header trHeader">Rahoittaja</p>
                         <div class="row" *ngFor="let row of funderFields">
                             <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                            <div class="col-6 col-lg-9 td">{{item._source[row.field]}}</div>
+                            <div class="col-6 col-lg-9 td">{{item.funder[row.field]}}</div>
                         </div>
                     </div>
                     <!-- Other -->
@@ -74,68 +87,68 @@
                         <p class="header trHeader">Muut tiedot</p>
                         <div class="row" *ngFor="let row of otherFields">
                             <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                            <div class="col-6 col-lg-9 td">{{item._source[row.field]}}</div>
+                            <div class="col-6 col-lg-9 td">{{item[row.field]}}</div>
                         </div>
                     </div>
                 </div>
              </div>
          </main>
-         <div *ngFor="let item of funding.hits.hits" class="col-12 col-md-4 col-xl-4">
+         <div *ngFor="let item of responseData.fundings" class="col-12 col-md-4 col-xl-4">
+            <aside>
                 <aside>
-                    <aside>
-                        <mat-card>
-                            <mat-card-title><h2>Hankkeen verkkosivu</h2></mat-card-title>
-                            <div class="row links">
-                                <div *ngFor="let row of linkFields" class="info-link-wrapper">
-                                    <div class="col-sm-2 col-md-1 icon">
-                                        <fa-icon [icon]="faIcon"></fa-icon>
-                                    </div>
-                                    <div class="col link">
-                                        <a class="info-link" href="{{item._source[row.field]}}" target="_blank">{{item._source[row.field]}}</a>
-                                    </div>
+                    <mat-card>
+                        <mat-card-title><h2>Hankkeen verkkosivu</h2></mat-card-title>
+                        <div class="row links">
+                            <div *ngFor="let row of linkFields" class="info-link-wrapper">
+                                <div class="col-sm-2 col-md-1 icon">
+                                    <fa-icon [icon]="faIcon"></fa-icon>
+                                </div>
+                                <div class="col link">
+                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}</a>
                                 </div>
                             </div>
-                            <div *ngIf="!linkFields.length" class="no-links">Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</div>
-                        </mat-card>
-                    </aside>
-                    <mat-card>
-                        <mat-card-title><h2>Tähän hankkeeseen liittyvät</h2></mat-card-title>
-                        <div class="row related">
-                            <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                                <li class=""><a routerLink="/">Julkaisut</a></li>
-                                <li class=""><a routerLink="/">Tutkijat</a></li>
-                                <li class=""><a routerLink="/">Aineistot</a></li>
-                            </ul>
-                            <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                                <li class=""><a routerLink="/">Infrastruktuurit</a></li>
-                                <li class=""><a routerLink="/">Organisaatiot</a></li>
-                            </ul>
                         </div>
+                        <div *ngIf="!linkFields.length" class="no-links">Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
-                <!-- <aside>
-                    <mat-card>
-                        <mat-card-title><h2>Viittaa</h2></mat-card-title>
-                        <div class="row">
-                            <div class="col-12 reference">
-                                <button mat-raised-button color="primary"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
-                            </div>
+                <mat-card>
+                    <mat-card-title><h2>Tähän hankkeeseen liittyvät</h2></mat-card-title>
+                    <div class="row related">
+                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+                            <li class=""><a routerLink="/">Julkaisut</a></li>
+                            <li class=""><a routerLink="/">Tutkijat</a></li>
+                            <li class=""><a routerLink="/">Aineistot</a></li>
+                        </ul>
+                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
+                            <li class=""><a routerLink="/">Infrastruktuurit</a></li>
+                            <li class=""><a routerLink="/">Organisaatiot</a></li>
+                        </ul>
+                    </div>
+                </mat-card>
+            </aside>
+            <!-- <aside>
+                <mat-card>
+                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <div class="row">
+                        <div class="col-12 reference">
+                            <button mat-raised-button color="primary"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
                         </div>
-                    </mat-card>
-                </aside> -->
-                <!-- Social icons -->
-                <app-share></app-share>
-                <aside>
-                    <mat-card>
-                        <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
-                        <div *ngFor="let source of funding.hits.hits">
-                            <p *ngIf="source._source.funderNameFi.trim().length > 0">Rahoittaja: {{source._source.funderNameFi}}</p>
-                            <p *ngIf="source._source.funderNameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
-                        </div>
-                        <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
-                        <div class="clear"></div>
-                    </mat-card>
-                </aside>
-            </div>
+                    </div>
+                </mat-card>
+            </aside> -->
+            <!-- Social icons -->
+            <app-share></app-share>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
+                    <div *ngFor="let source of responseData.fundings">
+                        <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funderNameFi}}</p>
+                        <p *ngIf="source.funder.nameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
+                    </div>
+                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
+                    <div class="clear"></div>
+                </mat-card>
+            </aside>
+        </div>
      </div>
  </div>

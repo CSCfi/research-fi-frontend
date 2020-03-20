@@ -10,29 +10,29 @@
     <app-search-bar></app-search-bar>
 </aside>
  
-<div class="container" *ngFor="let organization of responseData" id="main-content">
+<div class="container" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="single" [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
         </p>
-        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="organization.hits.total === 0">
+        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
              <h2>404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8">
-            <div *ngFor="let item of organization.hits.hits">
-                <h1 class="result-header">{{item._source.nameFi}}</h1>
+            <div *ngFor="let item of responseData.organizations">
+                <h1 class="result-header">{{item.nameFi}}</h1>
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
-                        <div class="col-6 col-lg-3 th">{{row.label}}  <span *ngIf="row.field === 'staffCountAsFte'">({{item._source.staffYear}})</span></div>
-                        <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item._source[row.fieldEn]}}</div>
+                        <div class="col-6 col-lg-3 th">{{row.label}}  <span *ngIf="row.field === 'staffCountAsFte'">({{item.staffYear}})</span></div>
+                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item[row.fieldEn]}}</div>
                     </div>
                     <div class="row content" *ngIf="studentCounts.length > 0">
-                        <div class="col-6 col-lg-3 th">Tutkintojen määrä ({{item._source.thesisYear}})</div>
+                        <div class="col-6 col-lg-3 th">Tutkintojen määrä ({{item.thesisYear}})</div>
                         <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of studentCounts.slice(0,2)">
                             <p class="th">{{row.label}}</p>
-                            <p class="td">{{item._source[row.field]}}</p>
+                            <p class="td">{{item[row.field]}}</p>
                         </div>
                     </div>
                     <ng-container *ngFor="let row of studentCounts.slice(2); let i = index">
@@ -40,13 +40,13 @@
                         <div class="row content" *ngIf="i % 2 == 0">
                             <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
                                 <p class="th">{{row.label}}</p>
-                                <p class="td" *ngIf="item._source[row.field] !== 'below_5'">{{item._source[row.field]}}</p>
-                                <p class="td" *ngIf="item._source[row.field] === 'below_5'">Alle 5</p>
+                                <p class="td" *ngIf="item[row.field] !== 'below_5'">{{item[row.field]}}</p>
+                                <p class="td" *ngIf="item[row.field] === 'below_5'">Alle 5</p>
                             </div>        
                             <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="studentCounts.slice(2).length > i+1">
                                 <p class="th">{{studentCounts.slice(2)[i + 1].label}}</p>
-                                <p class="td" *ngIf="item._source[studentCounts.slice(2)[i + 1].field] !== 'below_5'">{{item._source[studentCounts.slice(2)[i + 1].field]}}</p>
-                                <p class="td" *ngIf="item._source[studentCounts.slice(2)[i + 1].field] === 'below_5'">Alle 5</p>
+                                <p class="td" *ngIf="item[studentCounts.slice(2)[i + 1].field] !== 'below_5'">{{item[studentCounts.slice(2)[i + 1].field]}}</p>
+                                <p class="td" *ngIf="item[studentCounts.slice(2)[i + 1].field] === 'below_5'">Alle 5</p>
                             </div>
                         </div>
                     </ng-container>
@@ -54,17 +54,16 @@
                         <div class="col-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})</div>
                         <div class="col-6 col-lg-9 td">
                             <p [ngClass]="expand ? 'expand' : 'short'">
-                                {{item._source[row.field]}}
+                                {{item[row.field]}}
                             </p>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'subUnits' && item._source.subUnits.length > 256" 
+                            <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'subUnits' && item.subUnits.length > 256" 
                             (click)="expandDescription()" [innerHTML]="expand ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>
                         </div>
-
                     </div>
                 </div>
              </div>
          </main>
-         <div *ngFor="let item of organization.hits.hits" class="col-12 col-md-4">
+         <div *ngFor="let item of responseData.organizations" class="col-12 col-md-4">
             <aside>
                  <mat-card>
                     <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
@@ -74,7 +73,7 @@
                                 <fa-icon [icon]="faIcon"></fa-icon>
                             </div>
                             <div class="col link">
-                                <a class="info-link" href="{{item._source[row.field]}}" target="_blank">{{item._source[row.field]}}</a>
+                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}</a>
                             </div>
                         </div>
                     </div>
@@ -84,7 +83,7 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Organisaation</h2></mat-card-title>
-                    <app-related-links [id]="item._source.organizationId"></app-related-links>
+                    <app-related-links [id]="item.id"></app-related-links>
                 </mat-card>
             </aside>
             <!-- Social icons -->
@@ -92,7 +91,7 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Organisaatiotiedon lähde</h2></mat-card-title>
-                    <div *ngFor="let source of organization.hits.hits">
+                    <div *ngFor="let source of responseData.organizations">
                         <p>Virta/Vipunen/etc?</p>
                     </div>
                     <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>

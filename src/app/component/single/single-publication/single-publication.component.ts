@@ -21,6 +21,7 @@ import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-single-publication',
@@ -29,17 +30,17 @@ import { UtilityService } from 'src/app/services/utility.service';
 })
 export class SinglePublicationComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any [];
+  responseData: Search;
   searchTerm: string;
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
 
   infoFields = [
-    // {label: 'Julkaisun nimi', field: 'publicationName'},
+    // {label: 'Julkaisun nimi', field: 'title'},
     {label: 'Julkaisuvuosi', field: 'publicationYear'},
     {label: 'Julkaisutyyppi', field: 'publicationTypeCode', typeLabel: ' '},
-    {label: 'Tekijät', field: 'authorsText'}
+    {label: 'Tekijät', field: 'authors'}
   ];
 
   authorFields = [
@@ -49,17 +50,17 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   authorAndOrganization = [];
 
   organizationSubFields = [
-    {label: 'Organisaatio', field: 'publicationOrgUnits'}
+    {label: 'Organisaatio', field: 'organizationId'}
   ];
 
   mediumFields = [
     {label: 'Lehti', field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Emojulkaisun nimi', field: 'parentPublicationName', link: true, linkPath: '/results/publications/'},
+    {label: 'Emojulkaisun nimi', field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
     {label: 'Konferenssi', field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Kustantaja', field: 'publisherName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: 'Kustantaja', field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: 'Volyymi', field: 'volume', link: false},
     {label: 'Numero', field: 'issueNumber', link: false},
-    {label: 'Sivut', field: 'pageNumberText', link: false},
+    {label: 'Sivut', field: 'pageNumbers', link: false},
     {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
     {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
@@ -74,8 +75,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   ];
 
   otherFields  = [
-    {label: 'Tieteenalat', field: 'fieldsOfScience'},
-    {label: 'Avoin saatavuus', field: 'openAccessCode'},
+    {label: 'Tieteenalat', field: 'fieldsParsed'},
+    {label: 'Avoin saatavuus', field: 'openAccessText'},
     {label: 'Julkaisumaa', field: 'countries'},
     {label: 'Kieli', field: 'languages'},
     {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration'},
@@ -144,7 +145,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   getCitations() {
-    const source = this.responseData[0].hits.hits[0]._source;
+    const source = this.responseData.publications[0];
     // Check if the doi exists (the field is filtered on init if it doesn't)
     const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
     // Flag needed for template
@@ -169,25 +170,24 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   getData(id: string) {
     this.singleService.getSinglePublication(id)
-    .pipe(map(responseData => [responseData]))
+    // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      if (this.responseData[0].hits.hits[0]) {
-        // this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Julkaisut - Haku - Tutkimustietovaranto');
+      console.log(responseData)
+      if (this.responseData.publications) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.publications[0].title + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData[0].hits.hits[0]._source.publicationName + ' - Research.fi');
+            this.setTitle(this.responseData.publications[0].title + ' - Research.fi');
             break;
           }
         }
-
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         // juFoCode is used for exact search
-        this.juFoCode = this.responseData[0].hits.hits[0]._source.jufoCode;
+        this.juFoCode = this.responseData.publications[0].jufoCode;
         this.shapeData();
         this.filterData();
       }
@@ -198,12 +198,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData[0].hits.hits[0]._source[item.field] !== '-1' &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== 'undefined' &&
-             this.responseData[0].hits.hits[0]._source[item.field].length !== 0 &&
-             JSON.stringify(this.responseData[0].hits.hits[0]._source[item.field]) !== '["undefined"]' &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
+      return this.responseData.publications[0][item.field] !== '-1' &&
+             this.responseData.publications[0][item.field] !== undefined &&
+             this.responseData.publications[0][item.field] !== 'undefined' &&
+             this.responseData.publications[0][item.field].length !== 0 &&
+             JSON.stringify(this.responseData.publications[0][item.field]) !== '["undefined"]' &&
+             this.responseData.publications[0][item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -217,8 +217,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   shapeData() {
     // Capitalize first letter of locale
     const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-    const source = this.responseData[0].hits.hits[0]._source;
-    const fieldsOfScience = source.fields_of_science;
+    const source = this.responseData.publications[0];
+    const fieldsOfScience = source.fieldsOfScience;
     const countries = source.countries;
     const languages = source.languages;
     const keywords = source.keywords;
@@ -229,11 +229,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (fieldsOfScience?.length > 0) {
       // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
       for (const [i, item] of fieldsOfScience.entries()) {
-        if ( item.fieldIdScience === 0) {
+        if ( item.id === 0) {
           fieldsOfScience.splice(i, 1);
         }
       }
-      source.fieldsOfScience = fieldsOfScience.map(x => x.nameFiScience.trim()).join(', ');
+      source.fieldsParsed = fieldsOfScience.map(x => x.nameFi.trim()).join(', ');
     }
 
     if (countries?.length > 0) {
@@ -298,13 +298,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
     // Open Access can be added from multiple fields
-    if ((source.openAccessCode === 1 || source.openAccessCode === 2) || source.selfArchivedCode === 1) {
-      source.openAccessCode = 'Kyllä';
-    } else if (source.openAccessCode === 0  && source.selfArchivedCode === 0) {
-      source.openAccessCode = 'Ei';
-    } else {
-      source.openAccessCode = 'Ei tietoa';
-    }
+    // if ((source.openAccessCode === 1 || source.openAccessCode === 2) || source.selfArchivedCode === 1) {
+    //   source.openAccessCode = 'Kyllä';
+    // } else if (source.openAccessCode === 0  && source.selfArchivedCode === 0) {
+    //   source.openAccessCode = 'Ei';
+    // } else {
+    //   source.openAccessCode = 'Ei tietoa';
+    // }
 
     // Get & set publication type label
     this.publicationType = this.staticDataService.publicationClass.find(val => val.class === source.publicationTypeCode.slice(0, 1));

@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-fundings',
@@ -17,7 +18,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   styleUrls: ['./fundings.component.scss']
 })
 export class FundingsComponent implements OnInit, OnDestroy {
-  @Input() resultData: any [];
+  @Input() resultData: Search;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;

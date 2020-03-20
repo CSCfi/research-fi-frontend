@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Search } from '../models/search.model';
+import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SearchService} from './search.service';
@@ -21,7 +21,7 @@ export class SingleItemService {
   resultId: string;
 
   constructor( private http: HttpClient, private searchService: SearchService, private appConfigService: AppConfigService,
-               private settingsService: SettingsService ) {
+               private settingsService: SettingsService, private searchAdapter: SearchAdapter ) {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
@@ -44,23 +44,23 @@ export class SingleItemService {
     return res;
   }
 
-  getSinglePublication(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.publicationApiUrl, this.constructPayload('publicationId', id))
-    .pipe(catchError(this.searchService.handleError));
+  getSinglePublication(id): Observable<Search> {
+    return this.http.post<Search>(this.publicationApiUrl, this.constructPayload('publicationId', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, 'publications')));
   }
 
-  getSingleFunding(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.fundingApiUrl, this.constructPayload('projectId', id))
-    .pipe(catchError(this.searchService.handleError));
+  getSingleFunding(id): Observable<Search> {
+    return this.http.post<Search>(this.fundingApiUrl, this.constructPayload('projectId', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, 'fundings')));
   }
 
-  getSingleOrganization(id): Observable<Search[]> {
-    return this.http.post<Search[]>(this.organizationApiUrl, this.constructPayload('organizationId', id))
-    .pipe(catchError(this.searchService.handleError));
+  getSingleOrganization(id): Observable<Search> {
+    return this.http.post<Search>(this.organizationApiUrl, this.constructPayload('organizationId', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, 'organizations')));
   }
 
   // Testing purposes only
-  getCount(tab, id, filters): Observable<Search[]> {
+  getCount(tab, id, filters): Observable<any> {
     id = id || 0;
     let queryOps = {};
     switch (tab) {
@@ -129,7 +129,7 @@ export class SingleItemService {
       }
     };
     const payLoad = {...queryOps, ...aggs};
-    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payLoad);
+    return this.http.post(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payLoad);
   }
 
   joinEntries(field, subField) {

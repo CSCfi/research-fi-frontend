@@ -5,9 +5,50 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+import { Publication, PublicationAdapter } from './publication.model';
+import { Injectable } from '@angular/core';
+import { Adapter } from './adapter.model';
+import { FundingAdapter, Funding } from './funding.model';
+import { OrganizationAdapter, Organization } from './organization.model';
+
 export class Search {
+    constructor(
+        public total: number,
+        public publications: Publication[],
+        public fundings: Funding[],
+        public organizations: Organization[]
+    ) {}
+}
 
-    constructor() {
+@Injectable({
+    providedIn: 'root'
+})
+export class SearchAdapter implements Adapter<Search> {
+    constructor(private publicationAdapter: PublicationAdapter, private fundingAdapter: FundingAdapter, private organizationAdapter: OrganizationAdapter) {}
+    adapt(item: any, tab?: string): Search {
 
+        const publications: Publication[] = [];
+        const fundings: Funding[] = [];
+        const organizations: Organization[] = [];
+
+        switch (tab) {
+            case 'publications':
+                item.hits.hits.forEach(e => publications.push(this.publicationAdapter.adapt(e._source)));
+                break;
+            case 'fundings':
+                item.hits.hits.forEach(e => fundings.push(this.fundingAdapter.adapt(e._source)));
+                break;
+            case 'organizations':
+                item.hits.hits.forEach(e => organizations.push(this.organizationAdapter.adapt(e._source)));
+                break;
+        }
+
+
+        return new Search(
+            item.hits.total.value,
+            publications,
+            fundings,
+            organizations
+        );
     }
 }
