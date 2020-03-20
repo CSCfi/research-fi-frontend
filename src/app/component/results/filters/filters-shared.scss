@@ -363,5 +363,11 @@
                 display: none;
             }
         }
+
+        @media print {
+            .mobile {
+                display: none;
+            }
+        }
     }
 }
