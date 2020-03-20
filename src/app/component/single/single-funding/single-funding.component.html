@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <!-- Funder -->
-                    <div class="content" *ngIf="item.funder?.length > 0">
+                    <div class="content" *ngIf="item.funder && funderFields.length > 0">
                         <p class="header trHeader">Rahoittaja</p>
                         <div class="row" *ngFor="let row of funderFields">
                             <div class="col-6 col-lg-3 th">{{row.label}}</div>
