@@ -153,7 +153,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+          if (!this.responseData[0].aggregations.shaped) {
             this.publicationFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -162,7 +162,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'persons': {
           this.currentFilter = this.personFilters.filterData;
           this.currentSingleFilter = this.personFilters.singleFilterData;
-          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+          if (!this.responseData[0].aggregations.shaped) {
             this.personFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -171,7 +171,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
-          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+          if (!this.responseData[0].aggregations.shaped) {
             this.fundingFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -180,7 +180,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
           this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
-          if (!this.responseData[0].aggregations.shaped && !this.shapedData) {
+          if (!this.responseData[0].aggregations.shaped) {
             this.infrastructureFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
