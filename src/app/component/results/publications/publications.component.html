@@ -60,12 +60,12 @@
                     </div>
                 </div>
             </div>          
-            <div class="col col-lg-5 col-xl-3 shorten d-none d-lg-block">
-                <span [innerHtml]="publication.authors | highlight: input"></span>
+            <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+                <span [innerHtml]="(publication.authors | cutContent: 100) | highlight: input"></span>
             </div>          
             <div class="col col-xl-3 shorten d-none d-xl-block">
                 <span [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
-                [innerHtml]="publication.journalName | highlight: input">
+                [innerHtml]="(publication.journalName | cutContent: 100) | highlight: input">
                 </span>
             </div>          
             <div class="col col-lg-1">
