@@ -143,12 +143,22 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
              this.responseData.fundings[0][item.field] !== '' &&
              this.responseData.fundings[0][item.field] !== ' ';
     };
+
+    const checkNestedEmpty = (parent: string, item: {field: string} ) =>  {
+      return this.responseData.fundings[0][parent][item.field] !== undefined &&
+             this.responseData.fundings[0][parent][item.field] !== 'UNDEFINED' &&
+             this.responseData.fundings[0][parent][item.field] !== '-1' &&
+             this.responseData.fundings[0][parent][item.field] !== '' &&
+             this.responseData.fundings[0][parent][item.field] !== ' ';
+    }
+
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
     this.fundedFields = this.fundedFields.filter(item => checkEmpty(item));
-    // this.funderFields = this.funderFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
     this.linkFields = this.linkFields.filter(item => checkEmpty(item));
+    // Same for nested fields
+    this.funderFields = this.funderFields.filter(item => checkNestedEmpty('funder', item));
   }
 
   shapeData() {
@@ -160,7 +170,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
     // Map consortiums to their ids
     source.otherConsortium = source.otherConsortium.map(x => x.consortiumProject);
-
   }
 
   shapeAmount(val) {
