@@ -90,7 +90,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string ) {
-                 this.localeId = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -154,9 +153,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   shapeData() {
     const source = this.responseData.fundings[0];
+    const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
 
     // Get label by locale
-    source.academyConsortium = source.academyConsortium ? source?.academyConsortium['label' + this.localeId] : '';
+    source.academyConsortium = source.academyConsortium ? source?.academyConsortium['label' + locale] : '';
 
     // Map consortiums to their ids
     source.otherConsortium = source.otherConsortium.map(x => x.consortiumProject);
