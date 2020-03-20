@@ -173,7 +173,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
-      console.log(responseData)
       if (this.responseData.publications) {
         switch (this.localeId) {
           case 'fi': {

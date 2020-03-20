@@ -134,6 +134,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   shapeData() {
     const source = this.responseData.organizations[0];
+    const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     // const predecessors = source.predecessors;
     // const related = source.related;
     let subUnits = source.subUnits;
