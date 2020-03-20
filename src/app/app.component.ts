@@ -6,8 +6,9 @@
 //  :license: MIT
 
 import { Component, Inject } from '@angular/core';
-//import { ApmService } from '@elastic/apm-rum-angular';
-//import { AppConfigService } from './services/app-config-service.service';
+import { AppConfigService } from './services/app-config-service.service';
+import 'reflect-metadata'; // Required by ApmService
+import { ApmService } from '@elastic/apm-rum-angular';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +20,10 @@ export class AppComponent {
   title = 'research-fi-portal';
 
   /*
-  Application performance monitoring (apm) service needs to be initialized on component init.
+  Application performance monitoring (APM) service must be initialized on component init.
   APM Configuration parameters are taken from AppConfigService. 
   */
- /*
   constructor(@Inject(ApmService) service: ApmService, private appConfigService: AppConfigService) {
-    // API is exposed through this apm instance
-    console.log("apmUrl=", this.appConfigService.apmUrl);
     const apm = service.init({
       serviceName: 'Angular',
       serverUrl: this.appConfigService.apmUrl,
@@ -40,5 +38,4 @@ export class AppComponent {
       ]
     })
   }
-  */
 }

@@ -26,7 +26,6 @@ import '@angular/localize/init';
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
 import 'core-js/es7/array';
 import 'core-js/es7/object';
-import 'core-js/es7/reflect';
 import 'array-flat-polyfill';
 
 /**
@@ -69,3 +68,4 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+import 'core-js/es7/reflect';
