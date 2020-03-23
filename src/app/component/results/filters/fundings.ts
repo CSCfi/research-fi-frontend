@@ -20,7 +20,7 @@ export class FundingFilters {
       {field: 'funder', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false, open: true},
       {field: 'typeOfFunding', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false, open: true},
       {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
-      {field: '', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false}
+      {field: 'scheme', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true}
     ];
 
     singleFilterData = [
@@ -40,7 +40,6 @@ export class FundingFilters {
       source.field.buckets = this.minorField(source.field.buckets);
       source.shaped = true;
       source.fundingStatus.buckets = this.onGoing(source.fundingStatus.buckets);
-      // console.log(source);
       return source;
   }
 
