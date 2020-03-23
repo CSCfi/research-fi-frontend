@@ -147,6 +147,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
+            // Funding
+            // Type of funding
+            if (val.category === 'typeOfFunding' && source.typeOfFunding) {
+              const result = source.typeOfFunding.buckets.find(({ key }) => key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result.typeName ? result.typeName.buckets[0].key : '';
+            }
           });
         }
       });

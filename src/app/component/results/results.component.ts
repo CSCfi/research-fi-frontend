@@ -45,7 +45,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
-  fundingFilters: {fundingStatus: any[], fundingAmount: any[], sector: any[]};
+  fundingFilters: {funder: any[], typeOfFunding: any[], scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[]};
   filters: any;
   mobile: boolean;
   updateFilters: boolean;
@@ -96,18 +96,24 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {
           this.filters = {
+            // Global
             year: [query.year].flat().filter(x => x).sort(),
-            fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
             field: [query.field].flat().filter(x => x).sort(),
+            // Publications
+            sector: [query.sector].flat().filter(x => x).sort(),
+            organization: [query.organization].flat().filter(x => x).sort(),
             publicationType: [query.publicationType].flat().filter(x => x).sort(),
             countryCode: [query.countryCode].flat().filter(x => x).sort(),
             lang: [query.lang].flat().filter(x => x).sort(),
             juFo: [query.juFo].flat().filter(x => x).sort(),
             openAccess: [query.openAccess].flat().filter(x => x).sort(),
             internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x).sort(),
+            // Fundings
+            funder: [query.funder].flat().filter(x => x).sort(),
+            typeOfFunding: [query.typeOfFunding].flat().filter(x => x).sort(),
+            scheme: [query.scheme].flat().filter(x => x).sort(),
+            fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
             fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
-            sector: [query.sector].flat().filter(x => x).sort(),
-            organization: [query.organization].flat().filter(x => x).sort()
           };
         }
 
