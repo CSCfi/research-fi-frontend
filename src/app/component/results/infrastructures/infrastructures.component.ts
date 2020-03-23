@@ -30,7 +30,6 @@ export class InfrastructuresComponent implements OnInit, OnDestroy {
               private searchService: SearchService, private sortService: SortService) { }
 
   ngOnInit() {
-    console.log(this.resultData);
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
