@@ -21,6 +21,7 @@ export class FilterService {
   countryCodeFilter: any;
   langFilter: any;
   funderFilter: any;
+  typeOfFundingFilter: any;
   statusFilter: object;
   fundingAmountFilter: any;
   openAccessFilter: any;
@@ -31,13 +32,14 @@ export class FilterService {
   today: string;
 
   private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: [], funder: [], fundingStatus: [], fundingAmount: [], sector: [], organization: []});
+    juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], fundingStatus: [],
+    fundingAmount: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
   updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
-    organization: any[]}) {
+    openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
+    fundingStatus: any[], fundingAmount: any[], sector: any[], organization: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -62,6 +64,7 @@ export class FilterService {
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
     // Funding
     this.funderFilter = this.filterByFunder(filter.funder)
+    this.typeOfFundingFilter = this.filterByFundingType(filter.typeOfFunding)
     this.statusFilter = this.filterByStatus(filter.fundingStatus);
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
     // Organization
@@ -168,6 +171,14 @@ export class FilterService {
     return res;
   }
 
+  filterByFundingType(val) {
+    const res = [];
+    val.forEach(value => {
+      res.push({ term: { 'typeOfFundingId.keyword': value }})
+    })
+    return res;
+  }
+
   filterByFundingAmount(val) {
     let res = {};
     switch (JSON.stringify(val)) {
@@ -243,6 +254,7 @@ export class FilterService {
             ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
                 [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
             ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
+            ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
@@ -437,6 +449,25 @@ export class FilterService {
             order: {
               _key: 'asc'
             }
+          }
+        };
+        // Type of funding
+        payLoad.aggs.typeOfFunding = {
+          terms: {
+            field: 'typeOfFundingId.keyword',
+            exclude: ' ',
+            size: 250,
+            order: {
+              _key: 'asc'
+            }
+          },
+          aggs: {
+            typeName: {
+              terms: {
+                field: 'typeOfFundingName' + this.localeC + '.keyword',
+                exclude: ' ',
+              }
+            },
           }
         };
         // Field of science
