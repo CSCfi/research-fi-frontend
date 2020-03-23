@@ -22,6 +22,7 @@ export class FilterService {
   langFilter: any;
   funderFilter: any;
   typeOfFundingFilter: any;
+  fundingSchemeFilter: any;
   statusFilter: object;
   fundingAmountFilter: any;
   openAccessFilter: any;
@@ -32,13 +33,13 @@ export class FilterService {
   today: string;
 
   private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], fundingStatus: [],
+    juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
     fundingAmount: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
   updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
+    openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[], scheme: any[],
     fundingStatus: any[], fundingAmount: any[], sector: any[], organization: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -53,25 +54,28 @@ export class FilterService {
 
   // Filters
   createFilters(filter: any) {
-    // Publication
+    // Global
     this.yearFilter = this.filterByYear(filter.year);
+    this.organizationFilter = this.basicFilter(filter.organization, 'author.organization.organizationId.keyword');
+    // Publication
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
-    this.fieldFilter = this.filterByFieldOfScience(filter.field);
-    this.publicationTypeFilter = this.filterByPublicationType(filter.publicationType);
+    this.fieldFilter = this.basicFilter(filter.field, 'fields_of_science.nameFiScience.keyword');
+    this.publicationTypeFilter = this.basicFilter(filter.publicationType, 'publicationTypeCode.keyword');
     this.countryCodeFilter = this.filterByCountryCode(filter.countryCode);
-    this.langFilter = this.filterByLang(filter.lang);
+    this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
     // Funding
-    this.funderFilter = this.filterByFunder(filter.funder)
-    this.typeOfFundingFilter = this.filterByFundingType(filter.typeOfFunding)
+    this.funderFilter = this.basicFilter(filter.funder, 'funderName' + this.localeC + '.keyword')
+    this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword')
+    this.fundingSchemeFilter = this.basicFilter(filter.scheme, 'keywords.scheme.keyword')
     this.statusFilter = this.filterByStatus(filter.fundingStatus);
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
-    this.organizationFilter = this.filterByOrganization(filter.organization);
   }
 
+  // Year filter is global, different year -fields per index
   filterByYear(filter: any[]) {
     const res = [];
     const currentTab = this.sortService.currentTab;
@@ -88,34 +92,22 @@ export class FilterService {
     return res;
   }
 
-  filterByFieldOfScience(field: any[]) {
-    const fieldFilters = [];
+  // Regular terms filter
+  basicFilter(field: any[], path) {
+    const res = []
     field.forEach(value => {
-      fieldFilters.push({ term : { 'fields_of_science.nameFiScience.keyword' : value } });
+      res.push({ term: {[path] : value}})
     });
-    return fieldFilters;
+    return res;
   }
 
-  filterByPublicationType(type: any[]) {
-    const typeFilters = [];
-    type.forEach(value => {
-      typeFilters.push({ term : { 'publicationTypeCode.keyword' : value } });
-    });
-    return typeFilters;
-  }
-
+  // Publciations
   filterByCountryCode(code: any[]) {
     const codeFilters = [];
     code.forEach(value => {
       codeFilters.push({ term : { internationalPublication : (value === 'c1' ? true : false) } });
     });
     return codeFilters;
-  }
-
-  filterByLang(code: any[]) {
-    const res = [];
-    code.forEach(value => { res.push({ term : { 'languages.languageCode' : value } }); });
-    return res;
   }
 
   filterByJuFoCode(code: string) {
@@ -162,23 +154,6 @@ export class FilterService {
   }
 
   // Fundings
-  filterByFunder(val) {
-    const res = [];
-    const path = 'funderName' + this.localeC + '.keyword';
-    val.forEach(value => {
-      res.push({ term : { [path] : value } });
-    });
-    return res;
-  }
-
-  filterByFundingType(val) {
-    const res = [];
-    val.forEach(value => {
-      res.push({ term: { 'typeOfFundingId.keyword': value }})
-    })
-    return res;
-  }
-
   filterByFundingAmount(val) {
     let res = {};
     switch (JSON.stringify(val)) {
@@ -231,12 +206,6 @@ export class FilterService {
     return res;
   }
 
-  filterByOrganization(organization: any[]) {
-    const res = [];
-    organization.forEach(value => { res.push({ term : { 'author.organization.organizationId.keyword' : value } }); });
-    return res;
-  }
-
   addMinMatch(min) {
     return {minimum_should_match: min};
   }
@@ -255,6 +224,7 @@ export class FilterService {
                 [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
             ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
             ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
+            ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
