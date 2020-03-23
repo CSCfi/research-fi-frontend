@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SortService } from 'src/app/services/sort.service';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-infrastructures',
@@ -17,7 +18,7 @@ import { SortService } from 'src/app/services/sort.service';
   styleUrls: ['./infrastructures.component.scss']
 })
 export class InfrastructuresComponent implements OnInit, OnDestroy {
-  @Input() resultData: any [];
+  @Input() resultData: Search;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
@@ -29,6 +30,7 @@ export class InfrastructuresComponent implements OnInit, OnDestroy {
               private searchService: SearchService, private sortService: SortService) { }
 
   ngOnInit() {
+    console.log(this.resultData);
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
