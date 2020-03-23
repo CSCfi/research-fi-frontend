@@ -17,7 +17,7 @@ export class FundingFilters {
   filterData = [
       {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true},
       {field: '', labelFi: 'Organisaatio', hasSubFields: false, limitHeight: false},
-      {field: '', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false},
+      {field: 'funder', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false, open: true},
       {field: '', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false},
       {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
       {field: '', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false}
@@ -32,11 +32,21 @@ export class FundingFilters {
 
   shapeData(data) {
       const source = data[0].aggregations;
+      // Funder
+      source.funder.buckets = this.funder(source.funder.buckets)
       // Major field
       source.field.buckets = this.minorField(source.field.buckets);
       source.shaped = true;
       source.fundingStatus.buckets = this.onGoing(source.fundingStatus.buckets);
+      console.log(source);
       return source;
+  }
+
+  funder(data) {
+    const res = data.filter(item => {
+      return item.key !== ' '
+    })
+    return res;
   }
 
   minorField(data) {
