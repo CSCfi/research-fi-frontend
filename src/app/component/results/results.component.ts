@@ -45,7 +45,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   queryParams: Subscription;
   publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
-  fundingFilters: {funder: any[], typeOfFunding: any[], fundingStatus: any[], fundingAmount: any[], sector: any[]};
+  fundingFilters: {funder: any[], typeOfFunding: any[], scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[]};
   filters: any;
   mobile: boolean;
   updateFilters: boolean;
@@ -111,6 +111,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             // Fundings
             funder: [query.funder].flat().filter(x => x).sort(),
             typeOfFunding: [query.typeOfFunding].flat().filter(x => x).sort(),
+            scheme: [query.scheme].flat().filter(x => x).sort(),
             fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
             fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
           };
