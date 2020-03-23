@@ -32,6 +32,7 @@ export class FilterService {
   private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], fundingStatus: [], fundingAmount: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
+  localeC: string;
 
   updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
     openAccess: any[], juFo: any[], internationalCollaboration: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
@@ -43,7 +44,9 @@ export class FilterService {
   }
 
   constructor(private sortService: SortService, private settingsService: SettingsService,
-              @Inject( LOCALE_ID ) protected localeId: string) { }
+              @Inject( LOCALE_ID ) protected localeId: string) {
+                this.localeC = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+               }
 
   // Filters
   createFilters(filter: any) {
@@ -367,7 +370,7 @@ export class FilterService {
         };
         payLoad.aggs.field = {
           terms: {
-            field: 'fields_of_science.nameFiScience.keyword',
+            field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
             size: 250,
             order: {
               _key: 'asc'
@@ -414,6 +417,24 @@ export class FilterService {
         };
         break;
       case 'fundings':
+        payLoad.aggs.field = {
+          terms: {
+            field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
+            exclude: ' ',
+            size: 250,
+            order: {
+              _key: 'asc'
+            }
+          },
+          aggs: {
+            fieldId: {
+              terms: {
+                field: 'fields_of_science.fieldIdScience.keyword',
+                exclude: ' ',
+              }
+            },
+          }
+        };
         payLoad.aggs.fundingStatus = {
           range: {
             field: 'fundingEndDate',
