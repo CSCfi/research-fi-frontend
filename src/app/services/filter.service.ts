@@ -20,6 +20,7 @@ export class FilterService {
   publicationTypeFilter: any;
   countryCodeFilter: any;
   langFilter: any;
+  funderFilter: any;
   statusFilter: object;
   fundingAmountFilter: any;
   openAccessFilter: any;
@@ -30,12 +31,12 @@ export class FilterService {
   today: string;
 
   private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: [], fundingStatus: [], fundingAmount: [], sector: [], organization: []});
+    juFo: [], openAccess: [], internationalCollaboration: [], funder: [], fundingStatus: [], fundingAmount: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
   updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
+    openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
     organization: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
@@ -60,6 +61,7 @@ export class FilterService {
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
     // Funding
+    this.funderFilter = this.filterByFunder(filter.funder)
     this.statusFilter = this.filterByStatus(filter.fundingStatus);
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
     // Organization
@@ -157,6 +159,15 @@ export class FilterService {
   }
 
   // Fundings
+  filterByFunder(val) {
+    const res = [];
+    const path = 'funderName' + this.localeC + '.keyword';
+    val.forEach(value => {
+      res.push({ term : { [path] : value } });
+    });
+    return res;
+  }
+
   filterByFundingAmount(val) {
     let res = {};
     switch (JSON.stringify(val)) {
@@ -231,6 +242,7 @@ export class FilterService {
             ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
             ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
                 [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
+            ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
@@ -417,6 +429,17 @@ export class FilterService {
         };
         break;
       case 'fundings':
+        // Funder
+        payLoad.aggs.funder = {
+          terms: {
+            field: 'funderName' + this.localeC + '.keyword',
+            size: 250,
+            order: {
+              _key: 'asc'
+            }
+          }
+        };
+        // Field of science
         payLoad.aggs.field = {
           terms: {
             field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
@@ -435,6 +458,7 @@ export class FilterService {
             },
           }
         };
+        // Funding status
         payLoad.aggs.fundingStatus = {
           range: {
             field: 'fundingEndDate',
@@ -445,6 +469,7 @@ export class FilterService {
             ]
           },
         };
+        // Scheme & Keywords
         payLoad.aggs.scheme = {
           terms: {
             field: 'keywords.scheme.keyword',
