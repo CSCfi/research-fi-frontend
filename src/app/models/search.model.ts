@@ -10,12 +10,14 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { FundingAdapter, Funding } from './funding.model';
 import { OrganizationAdapter, Organization } from './organization.model';
+import { InfrastructureAdapter, Infrastructure } from './infrastructure.model';
 
 export class Search {
     constructor(
         public total: number,
         public publications: Publication[],
         public fundings: Funding[],
+        public infrastructures: Infrastructure[],
         public organizations: Organization[]
     ) {}
 }
@@ -24,11 +26,13 @@ export class Search {
     providedIn: 'root'
 })
 export class SearchAdapter implements Adapter<Search> {
-    constructor(private publicationAdapter: PublicationAdapter, private fundingAdapter: FundingAdapter, private organizationAdapter: OrganizationAdapter) {}
+    constructor(private publicationAdapter: PublicationAdapter, private fundingAdapter: FundingAdapter, private organizationAdapter: OrganizationAdapter,
+        private infrastructureAdapter: InfrastructureAdapter) {}
     adapt(item: any, tab?: string): Search {
 
         const publications: Publication[] = [];
         const fundings: Funding[] = [];
+        const infrastructures: Infrastructure[] = [];
         const organizations: Organization[] = [];
 
         switch (tab) {
@@ -37,6 +41,9 @@ export class SearchAdapter implements Adapter<Search> {
                 break;
             case 'fundings':
                 item.hits.hits.forEach(e => fundings.push(this.fundingAdapter.adapt(e._source)));
+                break;
+            case 'infrastructures':
+                item.hits.hits.forEach(e => infrastructures.push(this.infrastructureAdapter.adapt(e._source)));
                 break;
             case 'organizations':
                 item.hits.hits.forEach(e => organizations.push(this.organizationAdapter.adapt(e._source)));
@@ -48,6 +55,7 @@ export class SearchAdapter implements Adapter<Search> {
             item.hits.total.value,
             publications,
             fundings,
+            infrastructures,
             organizations
         );
     }
