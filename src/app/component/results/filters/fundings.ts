@@ -19,7 +19,7 @@ export class FundingFilters {
       {field: '', labelFi: 'Organisaatio', hasSubFields: false, limitHeight: false},
       {field: '', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false},
       {field: '', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false},
-      {field: '', labelFi: 'Tieteenala', hasSubFields: false, limitHeight: false},
+      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
       {field: '', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false}
     ];
 
@@ -32,15 +32,30 @@ export class FundingFilters {
 
   shapeData(data) {
       const source = data[0].aggregations;
+      // Major field
+      source.field.buckets = this.minorField(source.field.buckets);
       source.shaped = true;
       source.fundingStatus.buckets = this.onGoing(source.fundingStatus.buckets);
       return source;
   }
 
+  minorField(data) {
+    // check if major aggregation is available
+    const combinedMajorFields =  data ?
+    (this.filterMethodService.separateMinor(data ? data : []) ) : [];
+
+    const result = this.staticDataService.majorFieldsOfScience;
+    for (let i = 0; i < combinedMajorFields.length; i++) {
+      if (result[i]) {
+          result[i].subData = combinedMajorFields[i];
+      }
+    }
+    return result;
+  }
+
   onGoing(data) {
     return data.map(item => item.key = {key: 'onGoing', doc_count: item.doc_count});
   }
-
 
   getSingleAmount(data) {
       if (data.length > 0) {
