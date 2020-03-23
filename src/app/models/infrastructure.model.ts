@@ -17,6 +17,7 @@ export class Infrastructure {
         public responsibleOrganizationNameFi: string,
         public responsibleOrganizationNameSv: string,
         public responsibleOrganizationNameEn: string,
+        public serviceName: string,
     ) {}
 }
 
@@ -35,6 +36,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item.responsibleOrganizationNameFi,
             item.responsibleOrganizationNameSv,
             item.responsibleOrganizationNameEn,
+            item.serviceName,
         )
     }
 }
