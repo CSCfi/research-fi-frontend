@@ -241,7 +241,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     }
 
     if (languages?.length > 0) {
-      const key = 'language' + this.localeId;
+      const key = 'language' + locale;
       source.languages = languages.map(x => x[key]);
     }
 
