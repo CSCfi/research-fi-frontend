@@ -62,20 +62,20 @@ input {
     z-index: 101;
 }
 
+input[placeholder] {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     font-size: 17px;
     font-style: italic;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
   
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
     font-size: 17px;
     font-style: italic;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
 p.text-right.ext-search {
