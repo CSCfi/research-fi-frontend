@@ -45,32 +45,38 @@
                     </div>
                     <!-- Funded -->
                     <div class="content">
-                        <p class="header trHeader">Saaja</p>
+                        <p class="header trHeader">Rahoituksen saaja</p>
                         <!-- Person -->
                         <div class="row" *ngIf="!(item.recipientType === 'organization')">
-                            <div class="col-6 col-lg-3 th">
+                            <div class="col-3 th">
+                                <div>Henkilö</div>
+                            </div>
+                            <div class="col-5 td">
                                 {{item.recipient.personName}}
                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                             </div>
-                            <div class="col-6 col-lg-9 td">
+                            <div class="col-4 td">
                                 <div>{{item.recipient.affiliation}}</div>
                             </div>
                         </div>
                         <!-- Org -->
-                        <ng-container *ngIf="item.recipientType === 'organization'">
-                            <div *ngFor="let org of item.recipient.organizations" class="row">
-                                <div class="col-4 col-lg-3 th">{{org.nameFi}}</div>
+                        <div *ngIf="item.recipientType === 'organization'" class="row">
+                            <div class="col-3 th">
+                                <div>Organisaatio</div>
+                            </div>
+                            <ng-container *ngFor="let org of item.recipient.organizations; let i = index;">
+                                <div class="col-5 td" [class.offset-3]="i>0">{{org.nameFi}}</div>
                                 <div class="col-4 td">{{org.shareOfFundingEur | thousandSeparator}} €</div>
-                                <div class="col-4 col-lg-5 td">
+                                <!-- <div class="col-4 col-lg-5 td">
                                     {{item.recipient.contactPersonName}}
                                     <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
-                                </div>
-                            </div>
-                        </ng-container>
+                                </div> -->
+                            </ng-container>
+                        </div>
                         <div class="row">
-                            <div class="col-6 col-lg-3 th">Myönnetty summa</div>
-                            <div class="col-6 col-lg-9 td">
-                                <div>{{item.recipient.amountEur | thousandSeparator}} €</div>
+                            <div class="col-3 th">Myönnetty summa</div>
+                            <div class="col-3 offset-5 td">
+                                <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
                             </div>
                         </div>
                     </div>
