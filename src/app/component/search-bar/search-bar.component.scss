@@ -65,11 +65,17 @@ input {
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     font-size: 17px;
     font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
     font-size: 17px;
     font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
 p.text-right.ext-search {
@@ -105,6 +111,8 @@ p.text-right.ext-search a:hover {
 // Button
 span.search-button {
     padding-right: 10px;
+    margin-top: 5px;
+    display: inline-block;
 }
 
 button.btn.btn-search {
@@ -144,18 +152,9 @@ button.btn.btn-search:focus span {
     padding: 10px 0;
 }
 
-.row.results .col, .row.helper .col, .row.history .col {
-    padding: 0;
-}
-
 .row.helper {
     padding-bottom: 1rem;
 }
-
-.auto-suggest h2, .auto-suggest h3, .helper span, .list-group-item {
-    padding: 0.4rem 1.6rem;
-}
-
 
 .auto-suggest h2, .auto-suggest h3 {
     font-size: 0.9rem;
@@ -275,5 +274,23 @@ p.text-right.ext-search a.increase:before {
 
     .form-group.has-search {
         padding: 0;
+    }
+
+    .has-search .form-control {
+        padding-left: 15px;
+    }
+
+    .list-group-item {
+        padding: 1rem 0;
+    }
+}
+
+@media (min-width:769px) {
+    .row.results .col, .row.helper .col, .row.history .col {
+        padding: 0;
+    }
+
+    .auto-suggest h2, .auto-suggest h3, .helper span, .list-group-item {
+        padding: 0.4rem 1.6rem;
     }
 }
