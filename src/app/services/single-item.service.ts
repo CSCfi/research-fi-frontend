@@ -66,7 +66,7 @@ export class SingleItemService {
     switch (tab) {
       case 'publications': {
         const organizationFilters = []
-        filters.organizations.forEach(value => {
+        filters.organizations?.forEach(value => {
           organizationFilters.push({ term : { organizationId : value } });
         });
         // Use: should: organizationFilters when functionality is specified
