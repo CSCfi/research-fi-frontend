@@ -25,6 +25,7 @@
 .has-search .form-control {
     padding-left: 25px;
     font-size: 25px;
+    border-radius: .25rem!important;
   }
   
 .has-search .form-control-feedback {
@@ -70,12 +71,12 @@ input[placeholder] {
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     font-size: 17px;
-    font-style: italic;
+    font-style: normal;
   }
   
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
     font-size: 17px;
-    font-style: italic;
+    font-style: normal;
   }
 
 p.text-right.ext-search {
@@ -109,15 +110,25 @@ p.text-right.ext-search a:hover {
 }
 
 // Button
+.input-group-append {
+    margin-left: 4px;
+}
+
 span.search-button {
     padding-right: 10px;
-    margin-top: 5px;
     display: inline-block;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.fa-search {
+    padding: 0 5px;
 }
 
 button.btn.btn-search {
-    border-left: 0px;
+    border-left: 0;
     font-size: 20px;
+    border-radius: .25rem!important;
 }
 
 
@@ -143,7 +154,7 @@ button.btn.btn-search:focus span {
     margin-left: auto;
     margin-right: auto;
     margin-top: -20px;
-    margin-top: 46px;
+    margin-top: 56px;
     max-width: 687px;
     border-radius: 0.25rem;
 }
@@ -152,9 +163,9 @@ button.btn.btn-search:focus span {
     padding: 10px 0;
 }
 
-.row.helper {
-    padding-bottom: 1rem;
-}
+// .row.helper {
+//     padding-bottom: 1rem;
+// }
 
 .auto-suggest h2, .auto-suggest h3 {
     font-size: 0.9rem;
@@ -259,7 +270,7 @@ p.text-right.ext-search a.increase:before {
     // top: 212px;
     background: rgba(0,0,0,0.5);
     width: 100%;
-    height: calc(100% - 110px);
+    height: calc(100% - 23px);
 }
 
 // Responsive
