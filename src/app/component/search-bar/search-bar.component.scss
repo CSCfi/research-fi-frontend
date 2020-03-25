@@ -235,31 +235,26 @@ button.btn.btn-search:focus span {
     font-weight: normal;
 }
 
-// extended search
-p.text-right.ext-search a.decrease:before {
+// Search help
+button.search-help.down span:after {
     font-family: "FontAwesome";
     content: "\f078";
     display: inline-block;
-    padding-right: 3px;
-    font-weight: 900;
+    padding-left: .25rem;
 }
 
-p.text-right.ext-search a.increase:before {
+button.search-help.up span:after {
     font-family: "FontAwesome";
     content: "\f077";
+    display: inline-block;
+    padding-left: .25rem;
 }
 
-.extended-search.decrease {
-    display: none;
-}
-
-.extended-search.increase {
-    display: block;
-    transition: 0.2s linear;
-}
-
-.mat-checkbox {
-    margin: 0 10px;
+.search-helper {
+    position: absolute;
+    z-index: 9999;
+    margin-top: 3rem;
+    padding: 1rem 0.5rem;
 }
 
 // Overlay
