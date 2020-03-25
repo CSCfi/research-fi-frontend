@@ -421,6 +421,71 @@ export class FilterService {
             }
           }
         };
+        // Sector & organization
+        payLoad.aggs.consortiumSector = {
+          nested: {
+            path: 'organizationConsortium'
+          },
+          aggs: {
+            sectorName: {
+              terms: {
+                field: 'organizationConsortium.consortiumSectorNameFi.keyword',
+                exclude: ' '
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    field: 'organizationConsortium.consortiumSectorId.keyword'
+                  }
+                },
+                organizations: {
+                  terms: {
+                    field: 'organizationConsortium.consortiumOrganizationNameFi.keyword'
+                  },
+                  aggs: {
+                    orgId: {
+                      terms: {
+                        field: 'organizationConsortium.consortiumOrganizationId.keyword'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        payLoad.aggs.fundingSector = {
+          nested: {
+            path: 'fundingGroupPerson'
+          },
+          aggs: {
+            sectorName: {
+              terms: {
+                field: 'fundingGroupPerson.fundedPersonSectorNameFi.keyword',
+                exclude: ' '
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    field: 'fundingGroupPerson.fundedPersonSectorId.keyword'
+                  }
+                },
+                organizations: {
+                  terms: {
+                    field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
+                  },
+                  aggs: {
+                    orgId: {
+                      terms: {
+                        field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
         // Type of funding
         payLoad.aggs.typeOfFunding = {
           terms: {
