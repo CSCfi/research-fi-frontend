@@ -127,7 +127,7 @@ span.search-button {
 
 button.btn.btn-search {
     border-left: 0;
-    font-size: 20px;
+    font-size: 1rem;
     border-radius: .25rem!important;
 }
 
@@ -236,14 +236,22 @@ button.btn.btn-search:focus span {
 }
 
 // Search help
-button.search-help.down span:after {
+.search-help {
+    margin-right: -110px;
+}
+
+.search-help button {
+    height: 52px;
+}
+
+.search-help button.down span:after {
     font-family: "FontAwesome";
     content: "\f078";
     display: inline-block;
     padding-left: .25rem;
 }
 
-button.search-help.up span:after {
+.search-help button.up span:after {
     font-family: "FontAwesome";
     content: "\f077";
     display: inline-block;
@@ -253,7 +261,7 @@ button.search-help.up span:after {
 .search-helper {
     position: absolute;
     z-index: 9999;
-    margin-top: 3rem;
+    width: 211px;
     padding: 1rem 0.5rem;
 }
 
@@ -269,6 +277,12 @@ button.search-help.up span:after {
 }
 
 // Responsive
+@media (max-width:991px) {
+    .search-help {
+        display: none;
+    }
+}
+
 @media (max-width:768px) {
     .search {
         padding: 30px 0!important;
@@ -285,6 +299,8 @@ button.search-help.up span:after {
     .has-search .form-control {
         padding-left: 15px;
     }
+
+    
 
     .list-group-item {
         padding: 1rem 0;
