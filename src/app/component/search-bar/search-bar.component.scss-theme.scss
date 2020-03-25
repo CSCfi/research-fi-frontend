@@ -19,6 +19,16 @@
             border: 1px solid mat-contrast($primary, 600);
         }
 
+        button.search-help span {
+            color: mat-contrast($primary, 500);
+        }
+
+        .search-helper {
+            background: #fff;
+            box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
+        }
+
+        // Auto-suggest
         .auto-suggest h3 {
             color: mat-contrast($primary, default-contrast);
         }
@@ -47,7 +57,6 @@
             color: mat-contrast($primary, 200);
         }
 
-        // Auto-suggest
         mark, .mark {
             background-color: unset;
         }
