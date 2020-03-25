@@ -38,6 +38,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   currentInput: any;
   showAutoSuggest = false;
   queryHistory: any;
+  showHelp = false;
   @ViewChildren(ListItemComponent) items: QueryList<any>;
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
@@ -234,6 +235,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   newInput(selectedIndex, historyLink) {
+    // Hide search helper
+    this.showHelp = false;
     // Set focus to tab header via service
     this.tabChangeService.changeFocus(true);
     // Set input to local storage & assign list to variable
