@@ -16,7 +16,7 @@ import { Injectable } from '@angular/core';
 export class FundingFilters {
   filterData = [
       {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true},
-      {field: '', labelFi: 'Organisaatio', hasSubFields: false, limitHeight: false},
+      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false},
       {field: 'funder', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false, open: true},
       {field: 'typeOfFunding', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false, open: true},
       {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
@@ -32,6 +32,8 @@ export class FundingFilters {
 
   shapeData(data) {
       const source = data[0].aggregations;
+      // Organization
+      source.organization = this.organization(source.consortiumSector.sectorName.buckets, source.fundingSector.sectorName.buckets);
       // Funder
       source.funder.buckets = this.funder(source.funder.buckets)
       // Type of funding
@@ -43,15 +45,55 @@ export class FundingFilters {
       return source;
   }
 
+  organization(cData, fData) {
+    // Find differences in consortium and funding group data, merge difference into cData
+    const parentDiff = fData.filter(item1 => !cData.some(item2 => (item2.key === item1.key)));
+    if (parentDiff.length > 0) {cData.concat(parentDiff); }
+
+    // Find differences in organizations and push into parent, sum duplicate orgs doc counts
+    cData.forEach((item, i) => {
+      const diff = fData[i]?.organizations.buckets.filter(item1 =>
+                   !cData[i].organizations?.buckets.some(item2 => (item2.key === item1.key)));
+
+      const duplicate = fData[i]?.organizations.buckets.filter(item1 =>
+                        cData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
+
+      if (duplicate?.length > 0) {
+        item.organizations.buckets.map(org => {
+          org.doc_count = org.doc_count + duplicate.find(x => x.key === org.key)?.doc_count;
+        });
+      }
+
+      if (diff?.length > 0) {
+        diff.forEach(x => {
+          item.organizations.buckets.push(x);
+        });
+      }
+    });
+
+    // Add data into buckets field, set key and label
+    cData.buckets = cData ? cData : [];
+    cData.forEach(item => {
+      item.subData = item.organizations.buckets;
+      item.subData.map(subItem => {
+          subItem.label = subItem.key.trim();
+          subItem.key = subItem.orgId.buckets[0].key;
+      });
+    });
+    return cData;
+  }
+
   funder(data) {
+    // Filter out empty keys
     const res = data.filter(item => {
-      return item.key !== ' '
+      return item.key !== ' ';
     })
     return res;
   }
 
   typeOfFunding(data) {
-    const res = data.map(item => 
+    // Map data to match template
+    const res = data.map(item =>
       item = {
         key: item.key,
         doc_count: item.doc_count,
