@@ -61,7 +61,7 @@
     <app-pagination [responseData]="resultData"></app-pagination>
 </div>   
 <ng-template #noResults>
-    <div class="row main-content" *ngIf="!sort">
+    <div class="row main-content" *ngIf="resultData && resultData.total === 0">
         <div class="col text-center no-results">
             <h2>Ei tuloksia</h2>
         </div>
