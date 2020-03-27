@@ -28,6 +28,7 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   documentLang: any;
   input: string;
   inputSub: any;
+  sort: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
               @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService,
@@ -51,6 +52,8 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   sortBy(sortBy) {
+    // Sort === true is used to hide no results
+    this.sort = true;
     const activeSort = this.route.snapshot.queryParams.sort || '';
     const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
     let newSort = sortColumn + (sortDirection ? 'Desc' : '');
