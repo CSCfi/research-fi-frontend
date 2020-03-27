@@ -13,6 +13,11 @@
   padding-top: 15px;
 }
 
+.main-content {
+  max-height: 912px;
+  overflow: auto;
+}
+
 .spinner-center {
   margin-top: 25px;
   height: 100px;
