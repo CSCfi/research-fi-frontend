@@ -8,41 +8,61 @@
 <footer>
   <nav class="footer wrapper">
     <div class="row">
-      <div class="col col-3">
-        <a href="{{okmUrl}}" target="_blank">
-          <img class="logo" src="assets/okm_logo.svg" alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla">
-        </a>
-      </div>
-      <div class="col col-3">
-        <ul>  
-          <li><a i18n="Footer-link" href="#">Tutkija, haluatko omat tietosi tänne?</a></li>
-          <li><a i18n="Footer-link" href="#">Tutkimustietovarannosta</a></li>
-          <li><a i18n="Footer-link" href="#">Saavutettavuusseloste</a></li>
-        </ul>
+      <div class="col">
+        <div class="row">
+          <div class="col-12 px-0 text-md-left text-center">
+            <span class="header">Palvelun tarjoaa</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 px-0">
+            <a href="{{okmUrl}}" target="_blank">
+              <img class="logo" src="assets/okm_logo.svg" alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla">
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 px-0 text-md-left text-center">
+            <span class="header">Yhteistyössä</span>
+          </div>
+          <div class="col-12 px-0">
+            <a href="{{okmUrl}}" target="_blank">
+              <img class="logo" src="assets/csc_logo.png" alt="">
+            </a>
+          </div>
+        </div>
       </div>
       <div class="col">
-        <ul>
-          <li><a i18n="Footer-link" href="#">Tietoa OKM:stä</a></li>
+        <span class="header">Palvelun käyttö</span>
+        <ul>  
+          <li><a i18n="Footer-link" href="#">Tietoa palvelusta</a></li>
+          <li><a i18n="Footer-link" href="#">Ajankohtaista palvelussa</a></li>
+          <li><a i18n="Footer-link" href="#">Käyttöehdot ja avoimuus</a></li>
+          <li><a i18n="Footer-link" href="#">Sivukartta</a></li>
           <li><a i18n="Footer-link" href="#">Anna palautetta</a></li>
         </ul>
       </div>
       <div class="col">
+        <span class="header">Info ja yhteystiedot</span>
         <ul>
-          <li><a i18n="Footer-link" href="#">Tietosuoja</a></li>
-          <li><a i18n="Footer-link" href="#">Sivukartta</a></li>
+          <li><a i18n="Footer-link" href="#">Ota yhteyttä</a></li>
+          <li><a i18n="Footer-link" href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a></li>
         </ul>
       </div>
       <div class="col">
-        <div class="social">
-          <div class="pull-right">
-          <ul>
-            <li i18n="@@followUs">Seuraa meitä!</li>
-          </ul>
-            <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a>
-            <a href="#" class="icon" title="Twitter -palvelun logo"><fa-icon [icon]="faTwitter"></fa-icon></a>
-            <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a>
-        </div>
+        <span class="header">Selosteet ja käytännöt</span>
+        <ul>
+          <li><a i18n="Footer-link" href="#">Saavutettavuusseloste</a></li>
+          <li><a i18n="Footer-link" href="#">Tietosuoja</a></li>
+        </ul>
       </div>
+      <div class="col col-2">
+        <div class="social">
+            <span i18n="@@followUs" class="header">Seuraa meitä!</span>
+            <!-- <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a> -->
+            <a href="#" class="icon" title="Twitter -palvelun logo"><fa-icon [icon]="faTwitter"></fa-icon></a>
+            <!-- <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a> -->
+        </div>
         <div class="build-info pull-right">
           <span>{{buildInfo}}</span>
         </div>
