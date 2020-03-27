@@ -20,21 +20,23 @@
           (click)="sortBy('sector')">Organisaatio</span>
       </div>
   </div>
-  <div class="row no-margin single" style="margin: 20px auto!important" *ngFor="let organization of resultData?.organizations; let i = index">
-      <div class="col col-1 icon" style="margin-right: 10px; margin-top: -18px;">
-          <a class="icon" routerLink="/results/organization/{{organization.id}}" tabindex="-1" title="Organisaatioiden tiedon ikoni">
-            <fa-icon [icon]="faIcon"></fa-icon>
+  <div *ngIf="resultData" class="result-container">
+    <div class="row no-margin single" style="margin: 20px auto!important" *ngFor="let organization of resultData?.organizations; let i = index">
+        <div class="col col-1 icon" style="margin-right: 10px; margin-top: -18px;">
+            <a class="icon" routerLink="/results/organization/{{organization.id}}" tabindex="-1" title="Organisaatioiden tiedon ikoni">
+              <fa-icon [icon]="faIcon"></fa-icon>
+            </a>
+        </div>          
+        <div class="col col-7">
+            <a routerLink="/results/organization/{{organization.id}}">
+              <h3 class="result-title" [innerHtml]="organization.nameFi | highlight: input"></h3>
           </a>
-      </div>          
-      <div class="col col-7">
-          <a routerLink="/results/organization/{{organization.id}}">
-            <h3 class="result-title" [innerHtml]="organization.nameFi | highlight: input"></h3>
-        </a>
-      </div>          
-      <div class="col col-4">
-          <span [innerHtml]="organization.sectorNameFi | highlight: input"></span>
-      </div>
-  </div>       
+        </div>          
+        <div class="col col-4">
+            <span [innerHtml]="organization.sectorNameFi | highlight: input"></span>
+        </div>
+    </div>
+  </div>    
   <!-- Pagination -->
   <app-pagination [responseData]="resultData"></app-pagination>
 </div>
