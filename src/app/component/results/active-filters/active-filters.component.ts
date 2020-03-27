@@ -69,8 +69,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       // Subscribe to aggregation data
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
         this.response = response;
-        if (this.response.length > 0) {
+        if (response) {
           const source = this.response[0].aggregations;
+          console.log(source);
+          console.log(source.organization);
           const tab = this.currentTab.data;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
@@ -80,16 +82,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
             // Todo: Dynamic data path for both publications and organizations
-            if (val.category === 'organization' && tab === 'publications' && source.organization?.sectorName) {
-              if (source.organization.sectorName?.buckets.length > 0) {
-                source.organization.sectorName.buckets.forEach(element => {
-                  if (element.sectorId.buckets[0].key === val.value) {
-                    const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                    this.activeFilters[foundIndex].translation = element.key;
-                  }
-                });
-              }
-            }
+            // if (val.category === 'organization' && (tab === 'publications' || tab === 'fundings') && source.organization?.sectorName) {
+            //   console.log(source.organization);
+            //   if (source.organization.sectorName?.buckets.length > 0) {
+            //     source.organization.sectorName.buckets.forEach(element => {
+            //       if (element.sectorId.buckets[0].key === val.value) {
+            //         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+            //         this.activeFilters[foundIndex].translation = element.key;
+            //       }
+            //     });
+            //   }
+            // }
             if (val.category === 'sector' && tab === 'organizations' && source.sector) {
               if (source.sector.buckets.length > 0  && !source.sector.sectorName) {
                 source.sector.buckets.forEach(element => {
@@ -100,8 +103,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 });
               }
             }
+
             // Organization name
             if (val.category === 'organization' && source.organization) {
+              console.log(1);
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
                   sector.organizations.buckets.forEach(org => {
