@@ -61,11 +61,11 @@ export class FundingFilters {
       const duplicate = fData[i]?.organizations.buckets.filter(item1 =>
                         cData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
 
-      if (duplicate?.length > 0) {
-        item.organizations.buckets.map(org => {
-          org.doc_count = org.doc_count + duplicate.find(x => x.key === org.key)?.doc_count;
-        });
-      }
+      // if (duplicate?.length > 0) {
+      //   item.organizations.buckets.map(org => {
+      //     org.doc_count = org.doc_count + duplicate.find(x => x.key === org.key)?.doc_count;
+      //   });
+      // }
 
       if (diff?.length > 0) {
         diff.forEach(x => {
