@@ -6,6 +6,10 @@
     app-footer {
         >footer {
             background-color: mat-color($primary, 50);
+
+            .header {
+                color: mat-contrast($primary, 200);
+            }
             
             li a {
                 color: mat-color($primary);
