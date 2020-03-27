@@ -9,6 +9,14 @@ footer {
     position: absolute;
     width: 100%;
     margin-top: 25px;
+    padding: 2rem 0;
+}
+
+.header {
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    padding: 1rem 0;
 }
 
 .col {
@@ -16,12 +24,11 @@ footer {
 }
 
 ul {
-    margin-top: 30px;
     padding-inline-start: 0px;
 }
 
 li {
-    padding: 4px 0px;
+    padding: 0.5rem 0;
     list-style: none;
     font-weight: bold;
 }
@@ -31,13 +38,14 @@ li a:hover {
 }
 
 img {
-    padding-top: 10px;
+    // padding-top: 10px;
 }
 
 img.logo {
     max-width: 150px;
     height: auto;
-    margin-top: 20px;
+    // margin-top: 20px;
+    display: block;
 }
 
 .social ul {
@@ -80,6 +88,7 @@ img.logo {
 
     img.logo {
         margin-top: 0;
+        margin: 0 auto;
     }
 
     footer ul {
@@ -99,14 +108,12 @@ img.logo {
     .fa {
         padding: 16px;
     }
+}
 
+@media (max-width: 991px) {
     .pull-right {
         float: none;
     }
-}
-
-@media (min-width: 992px) {
-   
 }
 
 @media (min-width: 1200px) {
