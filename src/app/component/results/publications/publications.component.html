@@ -79,7 +79,7 @@
 </div>
 
 <ng-template #noResults>
-    <div class="row main-content">
+    <div class="row main-content" *ngIf="!sort">
         <div class="col text-center no-results">
             <h2>Ei tuloksia</h2>
         </div>
