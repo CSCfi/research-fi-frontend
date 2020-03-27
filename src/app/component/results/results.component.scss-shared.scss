@@ -15,6 +15,11 @@
         // "Bleed" the styles into child components
         app-publications, app-fundings, app-infrastructures, app-organizations, app-related-results {
 
+            .result-container {
+                max-height: 880px;
+                overflow: auto;
+            }
+
             .row {
                 margin: 5px auto!important;
             }

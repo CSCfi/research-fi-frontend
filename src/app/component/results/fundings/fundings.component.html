@@ -28,7 +28,7 @@
             (click)="sortBy('year')">Aloitusvuosi</span>
         </div>
     </div> 
-    <div *ngIf="resultData">
+    <div *ngIf="resultData" class="result-container">
         <div class="row no-margin single" *ngFor="let funding of resultData.fundings; let i = index">
             <div class="col col-1 icon">
                 <a class="icon" routerLink="/results/funding/{{funding.id}}" tabindex="-1" title="Hankkeiden tiedon ikoni">
