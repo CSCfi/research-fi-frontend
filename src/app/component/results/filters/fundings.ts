@@ -33,7 +33,7 @@ export class FundingFilters {
   shapeData(data) {
       const source = data[0].aggregations;
       // Organization
-      source.organization = this.organization(source.consortiumSector.sectorName.buckets, source.fundingSector.sectorName.buckets);
+      source.organization = this.organization(source.organization, source.fundingSector);
       // Funder
       source.funder.buckets = this.funder(source.funder.buckets)
       // Type of funding
@@ -45,7 +45,10 @@ export class FundingFilters {
       return source;
   }
 
-  organization(cData, fData) {
+  organization(c, f) {
+    const cData = c.sectorName.buckets;
+    const fData = f.sectorName.buckets;
+
     // Find differences in consortium and funding group data, merge difference into cData
     const parentDiff = fData.filter(item1 => !cData.some(item2 => (item2.key === item1.key)));
     if (parentDiff.length > 0) {cData.concat(parentDiff); }
@@ -72,7 +75,7 @@ export class FundingFilters {
     });
 
     // Add data into buckets field, set key and label
-    cData.buckets = cData ? cData : [];
+    c.buckets = cData ? cData : [];
     cData.forEach(item => {
       item.subData = item.organizations.buckets;
       item.subData.map(subItem => {
@@ -80,14 +83,14 @@ export class FundingFilters {
           subItem.key = subItem.orgId.buckets[0].key;
       });
     });
-    return cData;
+    return c;
   }
 
   funder(data) {
     // Filter out empty keys
     const res = data.filter(item => {
       return item.key !== ' ';
-    })
+    });
     return res;
   }
 
