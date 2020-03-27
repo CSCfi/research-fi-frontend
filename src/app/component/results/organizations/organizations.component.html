@@ -7,7 +7,7 @@
   <mat-spinner [diameter]="80"></mat-spinner>
 </div>
 <!-- Data -->
-<div>
+<div *ngIf="resultData?.total > 0; else noResults">
   <!-- Results -->
   <div class="row no-margin">
       <div class="col col-1 icon" style="margin-right: 10px;"></div>
@@ -37,4 +37,11 @@
   </div>       
   <!-- Pagination -->
   <app-pagination [responseData]="resultData"></app-pagination>
-</div>   
+</div>
+<ng-template #noResults>
+  <div class="row main-content" *ngIf="!sort">
+      <div class="col text-center no-results">
+          <h2>Ei tuloksia</h2>
+      </div>
+  </div>
+</ng-template>
