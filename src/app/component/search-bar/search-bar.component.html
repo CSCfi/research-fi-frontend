@@ -94,7 +94,7 @@
                   <h3 class="font-weight-bold">Hait viimeeksi:</h3>
                   <ul>
                     <app-list-item *ngFor="let item of queryHistory" class="list-group-item" [historyItem]="item">
-                      <a tabindex="-1" href="javascript:void(0);" (click)="newInput(undefined, item)">{{item}}</a>
+                      <a tabindex="-1" href="javascript:void(0);" (click)="newInput(undefined, item); clearResponse()">{{item}}</a>
                     </app-list-item>
                   </ul>
                   <ul>
