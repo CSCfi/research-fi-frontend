@@ -104,7 +104,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
             // Organization name
             if (val.category === 'organization' && source.organization) {
-              console.log(1);
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
                   sector.organizations.buckets.forEach(org => {
