@@ -25,6 +25,7 @@ export class OrganizationsComponent implements OnInit, OnDestroy {
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'organizations').map(t => t.icon).pop();
   inputSub: any;
   input: string;
+  sort: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private tabChangeService: TabChangeService, 
               private searchService: SearchService, private sortService: SortService) { }
@@ -39,6 +40,8 @@ export class OrganizationsComponent implements OnInit, OnDestroy {
   }
 
   sortBy(sortBy) {
+    // Sort === true is used to hide no results
+    this.sort = true;
     const activeSort = this.route.snapshot.queryParams.sort || '';
     const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
     let newSort = sortColumn + (sortDirection ? 'Desc' : '');

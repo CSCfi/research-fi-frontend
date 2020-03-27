@@ -25,6 +25,7 @@ export class FundingsComponent implements OnInit, OnDestroy {
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'fundings').map(t => t.icon).pop();
   inputSub: any;
   input: string;
+  sort: boolean;
 
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
@@ -40,6 +41,8 @@ export class FundingsComponent implements OnInit, OnDestroy {
   }
 
   sortBy(sortBy) {
+    // Sort === true is used to hide no results
+    this.sort = true;
     const activeSort = this.route.snapshot.queryParams.sort || '';
     const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
     let newSort = sortColumn + (sortDirection ? 'Desc' : '');

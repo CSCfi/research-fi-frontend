@@ -15,6 +15,7 @@ footer {
 .header {
     text-transform: uppercase;
     font-weight: 600;
+    font-size: 1rem;
     display: block;
     padding: 1rem 0;
 }
@@ -91,6 +92,10 @@ img.logo {
         margin: 0 auto;
     }
 
+    .header {
+        padding: 3rem 0 0 0;
+    }
+
     footer ul {
         padding: 0;
         margin-top: 0;
@@ -98,7 +103,7 @@ img.logo {
     }
 
     footer li {
-        padding: 8px;
+        padding: 1rem;
     }
 
     .social {
@@ -106,7 +111,7 @@ img.logo {
     }
 
     .fa {
-        padding: 16px;
+        padding: 1rem;
     }
 }
 
