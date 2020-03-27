@@ -445,7 +445,7 @@ export class FilterService {
           }
         };
         // Sector & organization
-        payLoad.aggs.consortiumSector = {
+        payLoad.aggs.organization = {
           nested: {
             path: 'organizationConsortium'
           },
