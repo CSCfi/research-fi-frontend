@@ -56,7 +56,7 @@ export class FilterService {
   createFilters(filter: any) {
     // Global
     this.yearFilter = this.filterByYear(filter.year);
-    this.organizationFilter = this.basicFilter(filter.organization, 'author.organization.organizationId.keyword');
+    this.organizationFilter = this.filterByOrganization(filter.organization);
     // Publication
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.fieldFilter = this.basicFilter(filter.field, 'fields_of_science.nameFiScience.keyword');
@@ -92,9 +92,26 @@ export class FilterService {
     return res;
   }
 
+  filterByOrganization(filter: any[]) {
+    const res = [];
+    const currentTab = this.sortService.currentTab;
+    switch (currentTab) {
+      case 'publications': {
+        filter.forEach(value => { res.push({ term : { 'author.organization.organizationId.keyword' : value } }); });
+        break;
+      }
+      case 'fundings': {
+        filter.forEach(value => { res.push({ term : { 'organizationConsortium.consortiumOrganizationId.keyword' : value } }); });
+        filter.forEach(value => { res.push({ term : { 'fundingGroupPerson.consortiumOrganizationId.keyword' : value } }); });
+        break;
+      }
+    }
+    return res;
+  }
+
   // Regular terms filter
   basicFilter(field: any[], path) {
-    const res = []
+    const res = [];
     field.forEach(value => {
       res.push({ term: {[path] : value}})
     });
@@ -223,6 +240,12 @@ export class FilterService {
             ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
                 [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
             ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
+
+            ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+                [{bool: {should:[{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
+                {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
+
+
             ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
             ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
@@ -418,6 +441,71 @@ export class FilterService {
             size: 250,
             order: {
               _key: 'asc'
+            }
+          }
+        };
+        // Sector & organization
+        payLoad.aggs.organization = {
+          nested: {
+            path: 'organizationConsortium'
+          },
+          aggs: {
+            sectorName: {
+              terms: {
+                field: 'organizationConsortium.consortiumSectorNameFi.keyword',
+                exclude: ' '
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    field: 'organizationConsortium.consortiumSectorId.keyword'
+                  }
+                },
+                organizations: {
+                  terms: {
+                    field: 'organizationConsortium.consortiumOrganizationNameFi.keyword'
+                  },
+                  aggs: {
+                    orgId: {
+                      terms: {
+                        field: 'organizationConsortium.consortiumOrganizationId.keyword'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        payLoad.aggs.fundingSector = {
+          nested: {
+            path: 'fundingGroupPerson'
+          },
+          aggs: {
+            sectorName: {
+              terms: {
+                field: 'fundingGroupPerson.fundedPersonSectorNameFi.keyword',
+                exclude: ' '
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    field: 'fundingGroupPerson.fundedPersonSectorId.keyword'
+                  }
+                },
+                organizations: {
+                  terms: {
+                    field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
+                  },
+                  aggs: {
+                    orgId: {
+                      terms: {
+                        field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         };

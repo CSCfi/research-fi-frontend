@@ -68,7 +68,7 @@
                 <!-- Filters with subfields -->
                 <div class="subFields" *ngIf="filter.hasSubFields">
                     <div *ngFor="let item of response.aggregations[filter.field]?.buckets;">
-                        <mat-expansion-panel *ngIf="item.subData.length > 0 || item.original?.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
+                        <mat-expansion-panel *ngIf="item.subData?.length > 0 || item.original?.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
                             <mat-expansion-panel-header collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}">
                                 <mat-panel-title>
                                     <div class="row d-flex justify-content-between">
