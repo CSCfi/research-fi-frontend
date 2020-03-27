@@ -293,4 +293,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.showAutoSuggest = false;
     }
   }
+
+  clearResponse() {
+    this.topData = [];
+    this.otherData = [];
+  }
 }
