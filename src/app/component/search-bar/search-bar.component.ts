@@ -19,7 +19,6 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
     selector: 'app-search-bar',
