@@ -366,6 +366,7 @@ export class FilterService {
           terms: {
             field: 'publicationTypeCode.keyword',
             size: 50,
+            exclude: ' ',
             order: {
               _key: 'asc'
             }
