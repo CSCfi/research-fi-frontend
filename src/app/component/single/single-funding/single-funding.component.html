@@ -47,7 +47,7 @@
                     <div class="content">
                         <p class="header trHeader">Rahoituksen saaja</p>
                         <!-- Person -->
-                        <div class="row" *ngIf="!(item.recipientType === 'organization')">
+                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName.length > 0">
                             <div class="col-3 th">
                                 <div>Henkilö</div>
                             </div>
