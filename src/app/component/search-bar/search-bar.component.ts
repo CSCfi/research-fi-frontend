@@ -19,6 +19,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
     selector: 'app-search-bar',
@@ -67,6 +68,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   topMargin: any;
   currentTerm: string;
   inputSub: Subscription;
+  queryParams: any;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -78,7 +80,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.routeSub = this.route.params.subscribe(params => {
+    this.routeSub = this.route.queryParams.subscribe(params => {
+      this.queryParams = params;
       this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
     });
 
@@ -262,8 +265,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.searchService.redirecting = true;
       // Temporary default to publications
       // Change tab if clicked from auto suggest
-      if (selectedIndex) {this.router.navigate(['results/', selectedIndex + 's', this.searchService.singleInput || '']); } else {
-        this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || '']);
+      if (selectedIndex) {
+        this.router.navigate(['results/', selectedIndex + 's', this.searchService.singleInput || '']);
+        } else {
+          // Preserve queryParams with new search to same index
+          this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || ''],
+          {queryParams: this.queryParams});
       }
     });
   }
