@@ -107,10 +107,12 @@ export class PublicationFilters {
     return result;
     }
 
-    juFoCode(data) {
+  juFoCode(data) {
+    console.log(data);
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
-        label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
+        // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
+        label: item.key === ' ' ? 'Ei tietoa' : item.key,
         key: item.key === ' ' ? 'noVal' : 'j' + item.key,
 
         doc_count: item.doc_count,
