@@ -319,22 +319,26 @@ export class FilterService {
           aggs: {
             sectorName: {
               terms: {
+                size: 50,
                 field: 'author.nameFiSector.keyword',
                 exclude: ' '
               },
               aggs: {
                 sectorId: {
                   terms: {
+                    size: 50,
                     field: 'author.sectorId.keyword'
                   }
                 },
                 organizations: {
                   terms: {
+                    size: 50,
                     field: 'author.organization.OrganizationNameFi.keyword'
                   },
                   aggs: {
                     orgId: {
                       terms: {
+                        size: 50,
                         field: 'author.organization.organizationId.keyword'
                       }
                     }
