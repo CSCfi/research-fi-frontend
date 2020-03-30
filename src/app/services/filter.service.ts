@@ -319,22 +319,26 @@ export class FilterService {
           aggs: {
             sectorName: {
               terms: {
+                size: 50,
                 field: 'author.nameFiSector.keyword',
                 exclude: ' '
               },
               aggs: {
                 sectorId: {
                   terms: {
+                    size: 50,
                     field: 'author.sectorId.keyword'
                   }
                 },
                 organizations: {
                   terms: {
+                    size: 50,
                     field: 'author.organization.OrganizationNameFi.keyword'
                   },
                   aggs: {
                     orgId: {
                       terms: {
+                        size: 50,
                         field: 'author.organization.organizationId.keyword'
                       }
                     }
@@ -453,22 +457,26 @@ export class FilterService {
           aggs: {
             sectorName: {
               terms: {
+                size: 50,
                 field: 'organizationConsortium.consortiumSectorNameFi.keyword',
                 exclude: ' '
               },
               aggs: {
                 sectorId: {
                   terms: {
+                    size: 50,
                     field: 'organizationConsortium.consortiumSectorId.keyword'
                   }
                 },
                 organizations: {
                   terms: {
+                    size: 50,
                     field: 'organizationConsortium.consortiumOrganizationNameFi.keyword'
                   },
                   aggs: {
                     orgId: {
                       terms: {
+                        size: 50,
                         field: 'organizationConsortium.consortiumOrganizationId.keyword'
                       }
                     }
@@ -485,22 +493,26 @@ export class FilterService {
           aggs: {
             sectorName: {
               terms: {
+                size: 50,
                 field: 'fundingGroupPerson.fundedPersonSectorNameFi.keyword',
                 exclude: ' '
               },
               aggs: {
                 sectorId: {
                   terms: {
+                    size: 50,
                     field: 'fundingGroupPerson.fundedPersonSectorId.keyword'
                   }
                 },
                 organizations: {
                   terms: {
+                    size: 50,
                     field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
                   },
                   aggs: {
                     orgId: {
                       terms: {
+                        size: 50,
                         field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
                       }
                     }
