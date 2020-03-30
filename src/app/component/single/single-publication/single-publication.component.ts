@@ -120,7 +120,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
+    this.idSub = this.route.params.subscribe(params => {
+      this.getData(params.id)
+    });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
@@ -173,6 +175,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
+      // Reset authors & organizations on new result
+      this.authorAndOrganization = [];
       if (this.responseData.publications) {
         switch (this.localeId) {
           case 'fi': {
@@ -274,20 +278,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
               });
             }
           });
-          if (!subUnit.person) {
+          if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1') {
             orgUnitArr.push({
-              subUnit: subUnit.organizationUnitNameFi
+              subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
             });
           }
         });
         this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
           authors: authorArr, orgUnits: orgUnitArr});
       });
-      // Default subUnits checks to false and check if any authors have sub units. Show button if sub units
+      // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
-      this.authorAndOrganization[0].authors.forEach(item => {
-        if (item.subUnit !== ' ') {this.hasSubUnits = true; }
-      });
+      const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
+      this.hasSubUnits = combinedSubUnits.find(item => item.subUnit !== null) ? true : false;
 
       this.relatedData = {
           organizations: this.authorAndOrganization.map(item => item.orgId)
@@ -296,14 +299,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
-    // Open Access can be added from multiple fields
-    // if ((source.openAccessCode === 1 || source.openAccessCode === 2) || source.selfArchivedCode === 1) {
-    //   source.openAccessCode = 'Kyllä';
-    // } else if (source.openAccessCode === 0  && source.selfArchivedCode === 0) {
-    //   source.openAccessCode = 'Ei';
-    // } else {
-    //   source.openAccessCode = 'Ei tietoa';
-    // }
 
     // Get & set publication type label
     this.publicationType = this.staticDataService.publicationClass.find(val => val.class === source.publicationTypeCode.slice(0, 1));
