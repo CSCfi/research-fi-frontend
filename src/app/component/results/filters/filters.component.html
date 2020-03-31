@@ -50,28 +50,37 @@
                     <input #filterSearch *ngIf="(response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
                     placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
                     <!-- Time frame for year filter -->
+                    <div class="row">
+                        <div class="col">
+                            <p>Valitse aikaväli</p>
+                        </div>
+                    </div>
                     <div class="row" *ngIf="filter.hideSearch">
-                        <div class="col-6">
+                        <div class="col-4">
                             <mat-form-field>
                                 <mat-label>Valitse</mat-label>
-                                <mat-select [(value)]="selected">
-                                  <mat-option>None</mat-option>
-                                  <mat-option value="option1">Option 1</mat-option>
-                                  <mat-option value="option2">Option 2</mat-option>
-                                  <mat-option value="option3">Option 3</mat-option>
+                                <mat-select (selectionChange)="rangeChange($event, 'fromYear')" [(value)]="fromYear">
+                                    <mat-option>-</mat-option>
+                                    <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [value]="year.key">{{year.key}}</mat-option>
                                 </mat-select>
                               </mat-form-field>
                         </div>
-                        <div class="col-6">
+                        <div class="col-1 align-self-center pr-0">
+                            <span>-</span>
+                        </div>
+                        <div class="col-4 pl-0">
                             <mat-form-field>
                                 <mat-label>Valitse</mat-label>
-                                <mat-select [(value)]="selected">
-                                  <mat-option>None</mat-option>
-                                  <mat-option value="option1">Option 1</mat-option>
-                                  <mat-option value="option2">Option 2</mat-option>
-                                  <mat-option value="option3">Option 3</mat-option>
+                                <mat-select (selectionChange)="rangeChange($event, 'toYear')" [(value)]="toYear">
+                                    <mat-option>-</mat-option>
+                                    <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [value]="year.key">{{year.key}}</mat-option>
                                 </mat-select>
-                              </mat-form-field>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Valitse yksitellen</p>
                         </div>
                     </div>
                     <mat-selection-list>
