@@ -151,12 +151,8 @@
         }
 
         // Year filter select
-        mat-form-field {
-            max-width: 120px;
-        }
-
-        .mat-form-field-infix {
-            max-width: 120px;
+        mat-form-field, .mat-form-field-infix {
+            max-width: 100%;
         }
 
         // Search
