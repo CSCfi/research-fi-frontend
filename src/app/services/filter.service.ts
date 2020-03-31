@@ -15,6 +15,7 @@ import { SettingsService } from './settings.service';
 })
 export class FilterService {
   yearFilter: any;
+  yearRangeFilter: any;
   juFoCodeFilter: any;
   fieldFilter: any;
   publicationTypeFilter: any;
@@ -32,15 +33,15 @@ export class FilterService {
   currentFilters: any;
   today: string;
 
-  private filterSource = new BehaviorSubject({year: [], field: [], publicationType: [], countryCode: [], lang: [],
+  private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
     fundingAmount: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
-  updateFilters(filters: {year: any[], field: any[], publicationType: any[], countryCode: any[], lang: any[],
-    openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[], scheme: any[],
-    fundingStatus: any[], fundingAmount: any[], sector: any[], organization: any[]}) {
+  updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
+    lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
+    scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[], organization: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -57,6 +58,7 @@ export class FilterService {
     // Global
     this.yearFilter = this.filterByYear(filter.year);
     this.organizationFilter = this.filterByOrganization(filter.organization);
+    this.yearRangeFilter = this.rangeFilter(filter.fromYear, filter.toYear);
     // Publication
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.fieldFilter = this.basicFilter(filter.field, 'fields_of_science.nameFiScience.keyword');
@@ -89,6 +91,21 @@ export class FilterService {
         break;
       }
     }
+    return res;
+  }
+
+  rangeFilter(from, to) {
+    const f = parseInt(from[0]?.slice(1), 10);
+    const t = parseInt(to[0]?.slice(1), 10);
+    const res = [];
+    if (f && t) {
+      res.push({ range: {publicationYear: {gte : f, lte: t} } });
+    } else if (f) {
+      res.push({ range: {publicationYear: {gte : f} } });
+    } else {
+      res.push({ range: {publicationYear: {lte : t} } });
+    }
+
     return res;
   }
 
@@ -240,18 +257,16 @@ export class FilterService {
             ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
                 [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
             ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
-
             ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
                 [{bool: {should:[{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
                 {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
-
-
             ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
             ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
+            ...(this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []),
             ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
             ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
             ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),

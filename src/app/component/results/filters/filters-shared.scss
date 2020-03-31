@@ -150,6 +150,11 @@
             min-width: 76%;
         }
 
+        // Year filter select
+        mat-form-field, .mat-form-field-infix {
+            max-width: 100%;
+        }
+
         // Search
         input.filter-search {
             margin: 0 15px;
@@ -200,7 +205,7 @@
 
         .show-more {
             padding: 0.5rem 1rem;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         // Segments

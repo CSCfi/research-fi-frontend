@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID, ViewChildren,
-  AfterViewInit, ChangeDetectorRef, Renderer2} from '@angular/core';
+  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,8 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
