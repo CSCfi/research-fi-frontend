@@ -80,7 +80,7 @@ objects:
       spec:
         containers:
           - name: nginx-container
-            image: researchfi/researchfi-nginx
+            image: ts/researchfi-nginx
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
