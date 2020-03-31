@@ -7,5 +7,5 @@
 
 # Use non-root version of nginx
 FROM nginxinc/nginx-unprivileged
-COPY nginx.conf /etc/nginx/conf.d/
+COPY nginx/nginx.conf /etc/nginx/conf.d/
 EXPOSE 8080
