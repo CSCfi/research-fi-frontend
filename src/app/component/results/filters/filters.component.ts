@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef, PLATFORM_ID } from '@angular/core';
+  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -28,7 +28,8 @@ import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss']
+  styleUrls: ['./filters.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
@@ -56,6 +57,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   showMoreCount: any;
   filterTerm: any;
   shapedData: any;
+  fromYear: any;
+  toYear: any;
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
@@ -119,6 +122,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         // Get preselected filters from filterService
         this.preSelection = [];
         Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+
+        // Get from & to year filter preselection
+        this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
+        this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
       });
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     }
@@ -200,6 +207,18 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   // Navigate
+  rangeChange(event, dir) {
+    const obj = {};
+    let newFilters = {};
+    obj[dir] = event.value ? dir.slice(0, 1) + event.value : null;
+    newFilters = Object.assign({}, this.activeFilters, obj);
+
+    this.router.navigate([],
+      { queryParams: newFilters,
+        queryParamsHandling: 'merge'
+      });
+  }
+
   selectionChange(filter, key) {
     let selectedFilters: any = {};
     // Reset selected filters
