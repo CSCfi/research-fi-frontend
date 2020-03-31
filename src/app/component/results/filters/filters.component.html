@@ -35,7 +35,7 @@
                     <mat-panel-title>
                         <div class="row d-flex justify-content-between">
                             <div [ngClass]="hasSubFields ? 'col-4' : ''" class="col">{{filter?.labelFi}}</div>
-                            <div *ngIf="filter.hasSubFields" class="col col-6 text-right">
+                            <div *ngIf="filter.hasSubFields" class="col col-6 col-xl-4 text-right">
                                 <button class="show-options">
                                     <span *ngIf="!filter.open">Näytä</span>
                                     <span *ngIf="filter.open">Sulje</span>

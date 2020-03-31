@@ -37,8 +37,9 @@
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div class="row">
-                                <div class="col">
-                                    Content
+                                <p *ngIf="sector.iframeUrl.length === 0">Visualisaatio tulossa</p>
+                                <div *ngIf="sector.iframeUrl.length > 0" class="col">
+                                    <iframe width="800" height="600" [src]="sanitizer.bypassSecurityTrustResourceUrl(sector.iframeUrl)" frameborder="0" allowfullscreen='true'></iframe>
                                 </div>
                             </div>
                         </mat-expansion-panel>

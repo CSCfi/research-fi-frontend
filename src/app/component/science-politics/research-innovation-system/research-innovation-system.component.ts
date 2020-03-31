@@ -7,7 +7,7 @@
 
 import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef, LOCALE_ID, Inject } from '@angular/core';
 import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { Title } from '@angular/platform-browser';
+import { Title, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -22,19 +22,19 @@ export class ResearchInnovationSystemComponent implements OnInit {
   faTimes = faTimes;
 
   sectorList = [
-    {id: 0, labelFi: 'Yliopistot', icon: faLandmark},
-    {id: 1, labelFi: 'Ammattikorkeakoulut', icon: faLandmark},
-    {id: 2, labelFi: 'Yliopistosairaalat', icon: faHospital},
-    {id: 3, labelFi: 'Muut tutkimuslaitokset', icon: faBuilding},
-    {id: 4, labelFi: 'Valtion tutkimuslaitokset', icon: faBuilding},
-    {id: 5, labelFi: 'Tutkimuksen rahoittajat', icon: faEuroSign},
+    {id: 0, labelFi: 'Yliopistot', icon: faLandmark, iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTMwNjVkMzctNWQwMC00ZTEwLTk3ZjktMzc5OWRkNThlYjYzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9'},
+    {id: 1, labelFi: 'Ammattikorkeakoulut', icon: faLandmark, iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOTg0NzAyOGItOGQzYS00NDBhLTg3NDUtODliMGM5MDQ5MDg2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9'},
+    {id: 2, labelFi: 'Yliopistosairaalat', icon: faHospital, iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTk1N2NhODAtNDgyMC00OThkLTg1NWYtNWEwZDg3OWJhZGU5IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9'},
+    {id: 3, labelFi: 'Muut tutkimuslaitokset', icon: faBuilding, iframeUrl: ''},
+    {id: 4, labelFi: 'Valtion tutkimuslaitokset', icon: faBuilding, iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOGVmYmYwZGEtMWNiOC00ZjM3LTg1NjgtNGEwZDM2ZTkxNWIzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9'},
+    {id: 5, labelFi: 'Tutkimuksen rahoittajat', icon: faEuroSign, iframeUrl: ''},
   ];
 
   selectedSector: any;
   rearrangedList: any;
   @ViewChild('openSector') openSector: ElementRef;
 
-  constructor( private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string ) {
+  constructor( private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, public sanitizer: DomSanitizer ) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
   }
@@ -45,7 +45,7 @@ export class ResearchInnovationSystemComponent implements OnInit {
 
   changeOrder(i) {
     this.rearrangedList = [];
-    let data = [...this.sectorList];
+    const data = [...this.sectorList];
     data.splice(i, 1);
     data.unshift(this.sectorList[i]);
     this.rearrangedList = data;
