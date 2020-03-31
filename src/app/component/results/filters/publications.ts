@@ -108,7 +108,6 @@ export class PublicationFilters {
     }
 
   juFoCode(data) {
-    console.log(data);
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
         // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
