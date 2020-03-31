@@ -15,6 +15,7 @@ $researchfi-theme: map_merge($researchfi-theme, (background: $background));
 
 body {
     color: map-get(map-get($researchfi-primary, contrast), 300);
+    font-family: 'Roboto', sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
