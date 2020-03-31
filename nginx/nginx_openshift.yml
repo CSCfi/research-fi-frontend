@@ -1,0 +1,100 @@
+# This file is part of the research.fi service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: v1
+kind: Template
+metadata:
+  labels:
+    app: researchfi-nginx
+    template: researchfi-nginx
+  name: researchfi-nginx
+objects:
+
+# Service
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: researchfi-nginx-service
+    labels:
+      app: researchfi-nginx
+    annotations:
+      description: Research.fi nginx
+  spec:
+    ports:
+      - name: nginx
+        port: 8080
+        targetPort: 8080
+    selector:
+      depcfg: nginx-deploymentconfig
+
+# ImageStream
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: researchfi-nginx
+    labels:
+      app: researchfi-nginx
+
+# BuildConfig using Docker build strategy
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: researchfi-nginx-build
+    labels:
+      app: researchfi-nginx
+  spec:
+    source:
+      git:
+        uri: https://github.com/CSCfi/research-fi-frontend.git
+        ref: CSCTTV-1098
+      contextDir: .
+    strategy:
+      dockerStrategy:
+        dockerfilePath: nginx/Dockerfile
+    output:
+      to:
+        kind: ImageStreamTag
+        name: researchfi-nginx:latest
+    successfulBuildsHistoryLimit: 4 
+    failedBuildsHistoryLimit: 4
+
+# Deployment config
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: researchfi-nginx-deployment
+    labels:
+      app: researchfi-nginx
+  spec:
+    selector:
+      app: researchfi-nginx
+      depcfg: nginx-deploymentconfig
+    template:
+      metadata:
+        labels:
+          app: researchfi-nginx
+          depcfg: nginx-deploymentconfig
+      spec:
+        containers:
+          - name: nginx-container
+            image: researchfi/researchfi-nginx
+            imagePullPolicy: Always
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+    replicas: 1
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - nginx-container
+        from:
+          kind: ImageStreamTag
+          name: researchfi-nginx:latest
+    strategy:
+      type: Rolling
