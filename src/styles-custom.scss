@@ -13,6 +13,10 @@ $background: map-get($researchfi-theme, background);
 $background: map_merge($background, (card: $background-color));
 $researchfi-theme: map_merge($researchfi-theme, (background: $background));
 
+html.cdk-global-scrollblock {
+    overflow: hidden!important;
+}
+
 body {
     color: map-get(map-get($researchfi-primary, contrast), 300);
     font-family: 'Roboto', sans-serif;
