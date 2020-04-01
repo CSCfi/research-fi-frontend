@@ -44,6 +44,8 @@
                             <!-- Filter label -->
                             <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
                                 <span>{{filter?.labelFi}}</span>
+                            </div>
+                            <div class="col-1 pr-0 text-right">
                                 <app-info [content]="filter?.info" *ngIf="filter.hasSubFields"></app-info>
                             </div>
                         </div>
