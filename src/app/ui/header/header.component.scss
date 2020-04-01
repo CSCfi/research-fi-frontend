@@ -29,6 +29,10 @@ button.close {
     right: 0;
 }
 
+html.cdk-global-scrollblock button.review {
+    right: -25%;
+}
+
 // Component
 #overlay {
     position: absolute;

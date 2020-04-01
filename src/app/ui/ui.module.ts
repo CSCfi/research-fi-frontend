@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
-import { BetaReviewComponent } from './header/beta-review/beta-review.component';
+import { BetaReviewComponent } from './beta-review/beta-review.component';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, BetaReviewComponent],
