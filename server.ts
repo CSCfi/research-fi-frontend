@@ -61,11 +61,12 @@ app.use(helmet.contentSecurityPolicy({
       'https://doi.org:*',
       'https://data.crossref.org:*',
       'https://app.powerbi.com:*',
-      'https://fonts.googleapis.com*'
+      'https://fonts.googleapis.com:*'
     ],
     styleSrc: [
       '\'self\'',
-      '\'unsafe-inline\''
+      '\'unsafe-inline\'',
+      'https://fonts.googleapis.com:*'
     ],
     scriptSrc: [
       '\'self\'',
@@ -76,11 +77,10 @@ app.use(helmet.contentSecurityPolicy({
       'https://app.powerbi.com:*'
     ],
     fontSrc: [
-      'self',
-      'fonts.googleapis.com',
-      'themes.googleusercontent.com',
-      'fonts.gstatic.com'
-  ]
+      '\'self\'',
+      'fonts.googleapis.com:*',
+      'fonts.gstatic.com:*'
+    ]
   }
 }));
 
