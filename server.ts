@@ -39,7 +39,6 @@ const routes = [
 app.use(compression());
 app.use(helmet());
 app.use(helmet.referrerPolicy({policy: 'same-origin'}));
-app.use(helmet.noCache());
 app.use(helmet.featurePolicy({
   features: {
     fullscreen: ['\'self\''],
