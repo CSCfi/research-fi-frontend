@@ -205,14 +205,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dropdownOpen = false;
   }
 
-  enter() {
-    this.onReview = true;
-  }
-
-  leave() {
-    this.onReview = false;
-  }
-
+  // Review button
   close() {
     this.showReviewButton = false;
   }
