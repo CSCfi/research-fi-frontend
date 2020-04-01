@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -14,11 +14,16 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
+  @Input() content;
   faInfoCircle = faInfoCircle;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  showInfo() {
+    console.log(this.content);
   }
 
 }
