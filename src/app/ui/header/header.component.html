@@ -6,6 +6,10 @@
 # :license: MIT -->
 
 <header>
+    <div class="review-button" (click)="close()" *ngIf="showReviewButton" (mouseenter)="enter()" (mouseleave)="leave()">
+        <button class="review" (click)="toggleReview()" mat-raised-button color="primary">Jätä palautetta</button>
+        <button class="close" *ngIf="onReview" mat-stroked-button color="primary" (click)="close()"><fa-icon [icon]="faTimesCircle"></fa-icon></button>
+    </div>
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
             <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
