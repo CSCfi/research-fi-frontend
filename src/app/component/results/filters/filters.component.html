@@ -42,9 +42,9 @@
                                 </button>
                             </div>
                             <!-- Filter label -->
-                            <div [ngClass]="hasSubFields ? 'col-4' : ''" class="col px-1">
+                            <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
                                 <span>{{filter?.labelFi}}</span>
-                                <app-info *ngIf="filter.hasSubFields"></app-info>
+                                <app-info [content]="filter?.info" *ngIf="filter.hasSubFields"></app-info>
                             </div>
                         </div>
                     </mat-panel-title>
