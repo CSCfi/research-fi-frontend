@@ -74,7 +74,13 @@ app.use(helmet.contentSecurityPolicy({
     ],
     frameSrc: [
       'https://app.powerbi.com:*'
-    ]
+    ],
+    fontSrc: [
+      'self',
+      'fonts.googleapis.com',
+      'themes.googleusercontent.com',
+      'fonts.gstatic.com'
+  ]
   }
 }));
 
