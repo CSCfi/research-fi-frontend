@@ -14,7 +14,9 @@ import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BetaReviewComponent } from './beta-review/beta-review.component';
 
 @Component({
   selector: 'app-header',
@@ -49,18 +51,24 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
+  faTimesCircle = faTimesCircle;
   widthFlag: boolean;
 
   additionalWidth = 25;
+  showReviewButton: boolean;
+  onReview: boolean;
+  betaReviewDialogRef: MatDialogRef<BetaReviewComponent>;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
-              private cdr: ChangeDetectorRef, private renderer: Renderer2) {
+              private cdr: ChangeDetectorRef, private renderer: Renderer2,
+              public dialog: MatDialog) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
     this.widthFlag = false;
+    this.showReviewButton = true;
   }
 
   // Get current url
@@ -196,4 +204,22 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
   }
+
+  enter() {
+    this.onReview = true;
+  }
+
+  leave() {
+    this.onReview = false;
+  }
+
+  close() {
+    this.showReviewButton = false;
+  }
+
+  toggleReview() {
+    this.betaReviewDialogRef = this.dialog.open(BetaReviewComponent);
+  }
+
+
 }
