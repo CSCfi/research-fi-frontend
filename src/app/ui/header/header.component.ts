@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID, ViewChildren,
-  AfterViewInit, ChangeDetectorRef, Renderer2} from '@angular/core';
+  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
@@ -14,12 +14,15 @@ import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BetaReviewComponent } from '../beta-review/beta-review.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
@@ -48,18 +51,24 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
+  faTimes = faTimes;
   widthFlag: boolean;
 
   additionalWidth = 25;
+  showReviewButton: boolean;
+  onReview: boolean;
+  betaReviewDialogRef: MatDialogRef<BetaReviewComponent>;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
-              private cdr: ChangeDetectorRef, private renderer: Renderer2) {
+              private cdr: ChangeDetectorRef, private renderer: Renderer2,
+              public dialog: MatDialog) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
     this.widthFlag = false;
+    this.showReviewButton = true;
   }
 
   // Get current url
@@ -195,4 +204,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
   }
+
+  // Review button
+  close() {
+    this.showReviewButton = false;
+  }
+
+  toggleReview() {
+    this.betaReviewDialogRef = this.dialog.open(BetaReviewComponent);
+  }
+
+
 }

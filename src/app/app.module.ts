@@ -112,6 +112,7 @@ import { RelatedLinksComponent } from './component/single/related-links/related-
 import { Router } from '@angular/router'; // Required by ApmService
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
+import { InfoComponent } from './component/info/info.component';
 
 @NgModule({
   declarations: [
@@ -158,7 +159,8 @@ import { ApmService } from '@elastic/apm-rum-angular';
     CutContentPipe,
     SingleFigureComponent,
     SocialComponent,
-    RelatedLinksComponent
+    RelatedLinksComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -91,11 +91,16 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Organisaatiotiedon lähde</h2></mat-card-title>
-                    <div *ngFor="let source of responseData.organizations">
+                    <!-- <div *ngFor="let source of responseData.organizations">
                         <p>Virta/Vipunen/etc?</p>
-                    </div>
-                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
-                    <div class="clear"></div>
+                    </div> -->
+                    <ul>
+                        <li class="py-2"><a href="http://www.vipunen.fi" target="_blank">Vipunen</a></li>
+                        <li class="py-2"><a href="http://finto.fi/cn/fi/" target="_blank">Finto –palvelu</a></li>
+                        <li class="py-2"><a href="https://www.ytj.fi/ " target="_blank">Yritys – ja yhteisötietojärjestelmä (YTJ)</a></li>
+                    </ul>
+                    <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
+                    <div class="clear"></div> -->
                 </mat-card>
             </aside>
         </div>

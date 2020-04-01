@@ -43,7 +43,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('totalHeader') totalHeader: ElementRef;
   queryParams: Subscription;
-  publicationFilters: {year: any[], field: any[], publicationType: any[], countryCode: any[],
+  publicationFilters: {fromYear: any[], toYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
   fundingFilters: {funder: any[], typeOfFunding: any[], scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[]};
   filters: any;
@@ -98,6 +98,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.filters = {
             // Global
             year: [query.year].flat().filter(x => x).sort(),
+            fromYear: [query.fromYear].flat().filter(x => x).sort(),
+            toYear: [query.toYear].flat().filter(x => x).sort(),
             field: [query.field].flat().filter(x => x).sort(),
             // Publications
             sector: [query.sector].flat().filter(x => x).sort(),

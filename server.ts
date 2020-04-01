@@ -39,7 +39,6 @@ const routes = [
 app.use(compression());
 app.use(helmet());
 app.use(helmet.referrerPolicy({policy: 'same-origin'}));
-app.use(helmet.noCache());
 app.use(helmet.featurePolicy({
   features: {
     fullscreen: ['\'self\''],
@@ -60,11 +59,13 @@ app.use(helmet.contentSecurityPolicy({
       'https://*.rahtiapp.fi:*',
       'https://doi.org:*',
       'https://data.crossref.org:*',
-      'https://app.powerbi.com:*'
+      'https://app.powerbi.com:*',
+      'https://fonts.googleapis.com:*'
     ],
     styleSrc: [
       '\'self\'',
-      '\'unsafe-inline\''
+      '\'unsafe-inline\'',
+      'https://fonts.googleapis.com:*'
     ],
     scriptSrc: [
       '\'self\'',
@@ -73,6 +74,11 @@ app.use(helmet.contentSecurityPolicy({
     ],
     frameSrc: [
       'https://app.powerbi.com:*'
+    ],
+    fontSrc: [
+      '\'self\'',
+      'fonts.googleapis.com:*',
+      'fonts.gstatic.com:*'
     ]
   }
 }));

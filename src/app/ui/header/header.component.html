@@ -6,6 +6,10 @@
 # :license: MIT -->
 
 <header>
+    <div class="review-button" *ngIf="showReviewButton">
+        <button class="review" (click)="toggleReview()" mat-raised-button color="primary">Anna palautetta</button>
+        <button class="close" mat-raised-button (click)="close()"><fa-icon class="close-icon" style="font-size:1.2rem;" [icon]="faTimes"></fa-icon></button>
+    </div>
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
             <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
@@ -30,7 +34,7 @@
         </div>
         <nav class="nav-top col-auto col-lg-9 p-lg-0">
             <div class="mobile ml-auto">
-                <button class="navbar-toggler navbar-toggler-right container-fluid" type="button" (click)="toggleNavbar()" #navbarToggler>
+                <button class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
                     <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg toggle-icon"></span>
                     <span *ngIf="navbarOpen" class="fa fa-times fa-lg toggle-icon"></span>
                 </button>
@@ -89,7 +93,7 @@
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 mr-0">
                                 <div class="navbar-expand navbar-nav lang langSelect">
-                                    <mat-form-field>
+                                    <mat-form-field class="lang-select">
                                         <mat-select [(value)]="currentLang" >
                                             <a href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}">
                                                 <mat-option value="FI">FI</mat-option>

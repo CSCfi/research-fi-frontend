@@ -56,14 +56,12 @@
             background: mat-color($primary, 50);
         }
 
-        button.show-options {
-            border: 1px solid mat-color($primary);
-            background: mat-contrast($primary, 500);
+        .mat-expansion-indicator:after {
+            color: mat-color($primary)!important;
         }
 
-        .mat-expansion-panel-header:hover button.show-options {
-            background: mat-color($primary);
-            color: mat-contrast($primary, 500);
+        button.show-options {
+            color: mat-color($primary);
         }
         
         .navbar-toggler {

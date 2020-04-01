@@ -14,21 +14,27 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { BetaReviewComponent } from './beta-review/beta-review.component';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, BetaReviewComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
     MatSelectModule,
     MatMenuModule,
     MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
     FontAwesomeModule,
     ClickOutsideModule
   ],
-  exports: [LayoutComponent]
+  exports: [LayoutComponent],
+  entryComponents: [BetaReviewComponent]
 })
 export class UiModule { }

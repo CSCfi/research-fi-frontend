@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from '../../../services/tab-change.service';
@@ -13,7 +13,8 @@ import { TabChangeService } from '../../../services/tab-change.service';
 @Component({
   selector: 'app-sort',
   templateUrl: './sort.component.html',
-  styleUrls: ['./sort.component.scss']
+  styleUrls: ['./sort.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SortComponent implements OnInit, OnDestroy {
   tabLink: string;
