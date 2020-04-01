@@ -13,8 +13,20 @@
     top: 50vh;
 }
 
-.review-button button.review, .review-button button.close {
-    transition-timing-function: ease;
+button.review {
+    right: -64px;
+    transition: 0.2s;
+}
+
+button.close {
+    right: -64px;
+    width: 64px;
+    transition: 0.2s;
+}
+
+.review-button:hover > button.review, .review-button:hover > button.close {
+    transition: 0.2s;
+    right: 0;
 }
 
 // Component
