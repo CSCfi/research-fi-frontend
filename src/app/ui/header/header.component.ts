@@ -14,7 +14,7 @@ import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
-import { faChevronDown, faChevronUp, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BetaReviewComponent } from './beta-review/beta-review.component';
 
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
-  faTimesCircle = faTimesCircle;
+  faTimes = faTimes;
   widthFlag: boolean;
 
   additionalWidth = 25;
