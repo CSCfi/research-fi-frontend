@@ -60,7 +60,8 @@ app.use(helmet.contentSecurityPolicy({
       'https://*.rahtiapp.fi:*',
       'https://doi.org:*',
       'https://data.crossref.org:*',
-      'https://app.powerbi.com:*'
+      'https://app.powerbi.com:*',
+      'fonts.googleapis.com'
     ],
     styleSrc: [
       '\'self\'',
@@ -73,6 +74,9 @@ app.use(helmet.contentSecurityPolicy({
     ],
     frameSrc: [
       'https://app.powerbi.com:*'
+    ],
+    fontSrc: [
+      'fonts.googleapis.com'
     ]
   }
 }));
