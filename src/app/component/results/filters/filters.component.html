@@ -50,12 +50,13 @@
                     <input #filterSearch *ngIf="(response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
                     placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
                     <!-- Time frame for year filter -->
+                    <ng-container *ngIf="filter.hideSearch">
                     <div class="row">
                         <div class="col">
                             <p>Valitse aikaväli</p>
                         </div>
                     </div>
-                    <div class="row" *ngIf="filter.hideSearch">
+                    <div class="row" >
                         <div class="col-4">
                             <mat-form-field>
                                 <mat-label>Alku</mat-label>
@@ -83,6 +84,7 @@
                             <p>Valitse yksitellen</p>
                         </div>
                     </div>
+                 </ng-container>
                     <mat-selection-list>
                         <!-- Options -->
                         <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let i = index;"
