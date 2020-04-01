@@ -8,4 +8,5 @@
 # Use non-root version of nginx
 FROM nginxinc/nginx-unprivileged
 COPY nginx/nginx.conf /etc/nginx/
+RUN mount -t tmpfs -o size=256M tmpfs /var/cache/nginx
 EXPOSE 8080
