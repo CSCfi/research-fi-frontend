@@ -16,7 +16,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
 import { faChevronDown, faChevronUp, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BetaReviewComponent } from './beta-review/beta-review.component';
+import { BetaReviewComponent } from '../beta-review/beta-review.component';
 
 @Component({
   selector: 'app-header',
