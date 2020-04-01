@@ -22,7 +22,7 @@ import { PersonFilters } from './persons';
 import { FundingFilters } from './fundings';
 import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -52,6 +52,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   subFilters: MatSelectionList[];
   totalCount = 0;
   faSlidersH = faSlidersH;
+  faPlus = faPlus;
+  faMinus = faMinus;
   panelHeight = 'auto';
   panelArr = [];
   showMoreCount: any;

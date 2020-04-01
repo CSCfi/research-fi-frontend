@@ -34,13 +34,17 @@
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                     <mat-panel-title>
                         <div class="row d-flex justify-content-between">
-                            <div [ngClass]="hasSubFields ? 'col-4' : ''" class="col">{{filter?.labelFi}}</div>
                             <!-- Show / hide sub filters -->
-                            <div *ngIf="filter.hasSubFields" class="col col-6 text-right">
+                            <div *ngIf="filter.hasSubFields" class="col col-1">
                                 <button class="show-options">
-                                    <span *ngIf="!filter.open">Näytä</span>
-                                    <span *ngIf="filter.open">Sulje</span>
+                                    <span *ngIf="!filter.open"><fa-icon [icon]="faPlus"></fa-icon></span>
+                                    <span *ngIf="filter.open"><fa-icon [icon]="faMinus"></fa-icon></span>
                                 </button>
+                            </div>
+                            <!-- Filter label -->
+                            <div [ngClass]="hasSubFields ? 'col-4' : ''" class="col px-1">
+                                <span>{{filter?.labelFi}}</span>
+                                <app-info *ngIf="filter.hasSubFields"></app-info>
                             </div>
                         </div>
                     </mat-panel-title>
