@@ -21,7 +21,7 @@ body {
 // Override for mat select
 body div.cdk-overlay-container {
     z-index: 1051;
-  }
+}
 
 h1, h2, h3, h4, h5 {
     color: map-get(map-get($researchfi-primary, contrast), 200);

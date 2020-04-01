@@ -6,6 +6,12 @@
 
     app-header {
         >header {
+            // Beta review button
+            .review-button button.close {
+                color: mat-color($primary);
+                opacity: 1;
+            }
+
             .logo-text {
                 color: mat-contrast($primary, 200);
             }
