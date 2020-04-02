@@ -46,10 +46,20 @@
                     }
                 ]
             },
-            "applied_university": {},
-            "university_hospital": {},
-            "state_research": {},
-            "other_research": {},
-            "funders": {}
+            "applied_university": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "university_hospital": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "state_research": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "other_research": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "funders": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            }
         }
 }
