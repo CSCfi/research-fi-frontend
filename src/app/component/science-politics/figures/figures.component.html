@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="segment" *ngFor="let content of allContent" id={{content.id}}>
-                            <h3 class="px-2 lx-lg-0">{{content.headerFi}}</h3>
+                            <h2 class="px-2 lx-lg-0">{{content.headerFi}}</h2>
                             <div class="row">
                                 <div class="col p-1">
                                     <div class="base content">
@@ -79,7 +79,7 @@
                                             <a routerLink="{{link}}">
                                                 <div class="row d-flex justify-content-around">
                                                     <div class="col-8">
-                                                        <span class="title">{{item.labelFi}}</span>
+                                                        <h3 class="title">{{item.labelFi}}</h3>
                                                         <div class="description">
                                                             {{description | cutContent: 200}}
                                                         </div>
