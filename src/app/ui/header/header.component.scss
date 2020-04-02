@@ -10,10 +10,14 @@
     position: fixed;
     z-index: 999;
     right: 0;
-    top: 50vh;
+    bottom: 10%;
 }
 
 button.review {
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     right: -64px;
     transition: 0.2s;
 }
@@ -22,6 +26,7 @@ button.close {
     right: -64px;
     width: 64px;
     transition: 0.2s;
+    border-radius: 0;
 }
 
 .review-button:hover > button.review, .review-button:hover > button.close {
