@@ -13,7 +13,7 @@
 @import "~font-awesome/css/font-awesome.css";
 
 @import 'styles-custom.scss';
-// @import url( 'https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
+// @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
 
 // Component custom styles
 @import './app/ui/header/header.component.scss-theme.scss';
@@ -38,6 +38,7 @@
 @import './app/component/science-politics/figures/single-figure/single-figure.component-theme.scss';
 @import './app/component/science-politics/science-politics.scss-shared.scss';
 @import './app/component/science-politics/science-politics.scss-theme-shared.scss';
+@import './app/component/info/info.component-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -63,6 +64,7 @@
   @include app-single-figure-theme($theme);
   @include app-science-politics-shared;
   @include app-science-politics-theme-shared($theme);
+  @include app-info-component-theme($theme);
 
   $primary: map-get($theme, primary);
   

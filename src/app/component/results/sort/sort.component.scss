@@ -20,7 +20,7 @@ span.align-left.hide-mobile {
     font-weight: bold;
 }
 
-::ng-deep .mat-select {
+mat-form-field.sort-button .mat-select {
     font-family: inherit!important;
 }
 
@@ -38,23 +38,23 @@ span.align-left.hide-mobile {
         margin-bottom: 0;
     }
 
-    ::ng-deep .mat-select-value {
+    mat-form-field.sort-button .mat-select-value {
         font-size: 1.4rem!important;
     }
 
     // Chevron
-    ::ng-deep .mat-form-field-flex::after {
+    mat-form-field.sort-button .mat-form-field-flex::after {
         font-family: "FontAwesome";
         content: "\f078";
         font-size: 20px;
         margin-left: -12px;
     }
 
-    ::ng-deep .mat-select-value-text:after {
+    mat-form-field.sort-button .mat-select-value-text:after {
         content: "";
     }
 
-    ::ng-deep .mat-form-field-label-wrapper {
+    mat-form-field.sort-button .mat-form-field-label-wrapper {
         top: 0;
         padding-top: 0;
     }
@@ -72,42 +72,42 @@ span.align-left.hide-mobile {
         align-items: center;
     }
     
-    ::ng-deep .mat-select-arrow {
+    mat-form-field.sort-button .mat-select-arrow {
         border: 0 !important;
     }
 
-    ::ng-deep .mat-form-field-wrapper {
+    mat-form-field.sort-button .mat-form-field-wrapper {
         padding-bottom: 0 !important;
     }
 
-    ::ng-deep .mat-form-field-infix {
+    mat-form-field.sort-button .mat-form-field-infix {
         border: 0 !important;
         padding: 0 !important;
         width: 240px !important;
     }
 
-    ::ng-deep mat-select {
+    mat-form-field.sort-button mat-select {
         font-size: 24px;
         text-align: center;
     }
-    ::ng-deep .mat-form-field-underline {
+    mat-form-field.sort-button .mat-form-field-underline {
         display: none !important;
     }
 
-    ::ng-deep .mat-select-panel {
+    mat-form-field.sort-button .mat-select-panel {
         max-height: 100% !important;
         font-size: 20px !important;
     }
 }
 
 @media (max-width: 576px) {
-    ::ng-deep .mat-form-field-infix {
+    mat-form-field.sort-button .mat-form-field-infix {
         width: 150px !important;
     }
 }
 
 @media (max-width: 350px) {
-    ::ng-deep .mat-form-field-infix {
+    mat-form-field.sort-button .mat-form-field-infix {
         width: 135px !important;
     }
 }

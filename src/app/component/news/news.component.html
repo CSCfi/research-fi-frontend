@@ -9,23 +9,33 @@
     <div class="wrapper">
         <div class="row" *ngIf="data">
             <div class="col col-lg-2">
-                <app-filters [responseData]="data" [tabData]="'news'"></app-filters>
+                <aside>
+                    <app-filters [responseData]="data" [tabData]="'news'"></app-filters>
+                </aside>
             </div>
-            <div class="col col-lg-6">
-                <h2>Tiede- ja tutkimusuutiset</h2>
-                <ul>
-                    <li *ngFor="let item of data[0]?.hits.hits.slice(0,3)">
-                        {{item._source.title}}
-                    </li>
-                </ul>
-            </div>
-            <div class="col col-lg-4">
-                <input placeholder="Hae tiedeuutisista...">
-                <ul>
-                    <li *ngFor="let item of data[0]?.hits.hits.slice(3, data[0]?.hits.hits.length)">
-                        {{item._source.title}}
-                    </li>
-                </ul>
+            <div class="col col-lg-10">
+                <main>
+                    <div class="row">
+                        <div class="col col-lg-8">
+                            <h1>Tiede- ja tutkimusuutiset</h1>
+                            <ul>
+                                <li *ngFor="let item of data[0]?.hits.hits.slice(0,3)">
+                                    <h2>{{item._source.title}}</h2>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col col-lg-4">
+                            <nav>
+                                <input placeholder="Hae tiedeuutisista...">
+                            </nav>
+                            <ul>
+                                <li *ngFor="let item of data[0]?.hits.hits.slice(3, data[0]?.hits.hits.length)">
+                                    <h2>{{item._source.title}}</h2>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
     </div>

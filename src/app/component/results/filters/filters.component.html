@@ -34,20 +34,63 @@
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                     <mat-panel-title>
                         <div class="row d-flex justify-content-between">
-                            <div [ngClass]="hasSubFields ? 'col-4' : ''" class="col">{{filter?.labelFi}}</div>
-                            <div *ngIf="filter.hasSubFields" class="col col-6 col-xl-4 text-right">
+                            <!-- Show / hide sub filters -->
+                            <div *ngIf="filter.hasSubFields" class="col col-1">
                                 <button class="show-options">
-                                    <span *ngIf="!filter.open">Näytä</span>
-                                    <span *ngIf="filter.open">Sulje</span>
+                                    <span *ngIf="!filter.open"><fa-icon [icon]="faPlus"></fa-icon></span>
+                                    <span *ngIf="filter.open"><fa-icon [icon]="faMinus"></fa-icon></span>
                                 </button>
+                            </div>
+                            <!-- Filter label -->
+                            <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
+                                <span>{{filter?.labelFi}}</span>
+                            </div>
+                            <div class="col-1 pr-0 text-right">
+                                <app-info [content]="filter?.info" *ngIf="filter.hasSubFields"></app-info>
                             </div>
                         </div>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <ng-container *ngIf="!filter.hasSubFields">
                     <!-- Search in Filter -->
-                    <input #filterSearch *ngIf="response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5"
+                    <input #filterSearch *ngIf="(response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
                     placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
+                    <!-- Time frame for year filter -->
+                    <ng-container *ngIf="filter.hideSearch">
+                    <div class="row">
+                        <div class="col">
+                            <p>Valitse aikaväli</p>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-4">
+                            <mat-form-field>
+                                <mat-label>Alku</mat-label>
+                                <mat-select (selectionChange)="rangeChange($event, 'fromYear')" [(value)]="fromYear">
+                                    <mat-option>Ei valintaa</mat-option>
+                                    <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key >= toYear}" [value]="year.key">{{year.key}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-1 align-self-center p-0 text-center">
+                            <span>-</span>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field>
+                                <mat-label>Loppu</mat-label>
+                                <mat-select (selectionChange)="rangeChange($event, 'toYear')" [(value)]="toYear">
+                                    <mat-option>Ei valintaa</mat-option>
+                                    <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key <= fromYear}" [value]="year.key">{{year.key}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Valitse yksitellen</p>
+                        </div>
+                    </div>
+                 </ng-container>
                     <mat-selection-list>
                         <!-- Options -->
                         <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let i = index;"

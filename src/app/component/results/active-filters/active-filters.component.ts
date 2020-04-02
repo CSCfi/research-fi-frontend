@@ -72,8 +72,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         if (response) {
           const source = this.response[0].aggregations;
           const tab = this.currentTab.data;
+
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
+            if (val.category === 'fromYear') {
+              val.translation = 'Vuodesta ' + val.value.slice(1);
+            }
+
+            if (val.category === 'toYear') {
+              val.translation = 'Vuoteen ' + val.value.slice(1);
+            }
+
             if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
               const result = source.lang.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
@@ -132,19 +141,19 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'juFo' && source.juFo) {
               switch (val.value) {
                 case 'j3': {
-                  val.translation = 'Korkein taso';
+                  val.translation = 'Julkaisufoorumitaso: 3';
                   break;
                 }
                 case 'j2': {
-                  val.translation = 'Johtava taso';
+                  val.translation = 'Julkaisufoorumitaso: 2';
                   break;
                 }
                 case 'j1': {
-                  val.translation = 'Perustaso';
+                  val.translation = 'Julkaisufoorumitaso: 1';
                   break;
                 }
                 case 'j0': {
-                  val.translation = 'JuFo: Muut';
+                  val.translation = 'Julkaisufoorumitaso: 0';
                   break;
                 }
               }

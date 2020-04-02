@@ -5,6 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
+// Component
 #overlay {
     position: absolute;
     z-index: 999;
@@ -43,6 +44,11 @@ header {
 .navbar {
     padding: 1.2rem 0rem;
     margin: 0 15px 0 10px;
+}
+
+.navbar-expand .navbar-nav .nav-link {
+    padding-right: 2px;
+    padding-left: 2px;
 }
 
 ul.navbar-nav.main {
@@ -101,8 +107,9 @@ li.col-4 {
     display: none;
 }
 
-.mobile .navbar-toggler {
+button.menu {
     border: none;
+    padding: 0.25rem 1rem;
 }
 
 .toggle-menu-text {
@@ -159,8 +166,9 @@ ul.dropdown {
     z-index: 9999;
     text-align: left;
     list-style: none;
-    min-width: 115%;
+    min-width: 120%;
     margin-left: 20%;
+    margin-top: 2px;
     padding: 0;
 }
 
@@ -183,11 +191,13 @@ ul.dropdown li a {
 }
 
 // Language selector
-::ng-deep .mat-form-field {
+mat-form-field.lang-select {
     text-align: center!important;
+    width: 54px;
+    border: 0!important;
 }
 
-::ng-deep .mat-select-panel {
+mat-form-field .mat-select-panel {
     background: white!important;
 }
 
@@ -195,49 +205,36 @@ mat-form-field.mat-focused {
     outline: -webkit-focus-ring-color auto 1px;
 }
 
-.navbar-expand .navbar-nav .nav-link {
-    padding-right: 2px;
-    padding-left: 2px;
-}
-
-.no-padding {
-    padding: 0;
-}
-
-.mat-select-value-text {
+mat-form-field .mat-select-value-text {
     font-weight: 500;
 }
 
-::ng-deep .mat-form-field-infix {
-    width: 54px!important;
-}
-
-::ng-deep .mat-select-arrow {
+mat-form-field.lang-select .mat-select-arrow {
     border: 0!important;
 }
 
-::ng-deep .mat-select-value-text:after {
-    font-family: "FontAwesome";
-    margin-left: 8px;
-    content: "\f078";
+mat-form-field.lang-select .mat-form-field-infix{
+    border: 0;
 }
 
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+mat-form-field.lang-select .mat-select-value-text:after {
+    font-family: "FontAwesome";
+    margin-left: 8px;
+    content: "\f078"!important;
+}
+
+mat-form-field.lang-select.mat-form-field-appearance-legacy .mat-form-field-wrapper {
     padding-bottom: 0!important;
 }
 
-::ng-deep .mat-form-field, .mat-select {
+mat-form-field.lang-select, mat-select {
     font-size: inherit;
     font-weight: 500;
     font-family: inherit!important;
 }
 
-::ng-deep .mat-form-field-infix {
-    border: 0!important;
-}
-
-::ng-deep .mat-form-field-underline {
-    display: none;
+mat-form-field.lang-select .mat-form-field-underline {
+    display: none!important;
 }
 
 // mobile menu
