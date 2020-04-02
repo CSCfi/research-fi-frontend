@@ -18,7 +18,7 @@
 import 'zone.js/dist/zone-node';
 
 import {enableProdMode} from '@angular/core';
-import * as express from 'express';
+import express from 'express';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import {join} from 'path';
