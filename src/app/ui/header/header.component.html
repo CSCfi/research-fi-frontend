@@ -7,7 +7,7 @@
 
 <header>
     <div class="review-button" *ngIf="showReviewButton">
-        <button class="review" (click)="toggleReview()" mat-raised-button color="primary">Anna palautetta</button>
+        <button class="review" (click)="toggleReview()" mat-raised-button color="primary">Anna palautetta!</button>
         <button class="close" mat-raised-button (click)="close()"><fa-icon class="close-icon" style="font-size:1.2rem;" [icon]="faTimes"></fa-icon></button>
     </div>
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
