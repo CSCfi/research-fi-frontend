@@ -38,7 +38,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Postiosoite', field: 'postalAddress'},
     {label: 'Y-tunnus', field: 'businessId'},
     {label: 'Tilastokeskuksen oppilaitostunnus', field: '01910'},
-    {label: 'Opetus- ja tutkimushenkilöstön määrä', field: 'staffCountAsFte'},
+    {label: 'Opetus- ja tutkimushenkilöstön määrä (htv)', field: 'staffCountAsFte'},
   ];
 
   studentCounts = [
