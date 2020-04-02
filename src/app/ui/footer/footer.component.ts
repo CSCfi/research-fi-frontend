@@ -9,6 +9,9 @@ import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../services/app-config-service.service';
 import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BetaReviewComponent } from '../beta-review/beta-review.component';
 
 @Component({
   selector: 'app-footer',
@@ -23,8 +26,13 @@ export class FooterComponent implements OnInit {
   faLinkedin = faLinkedin;
   okmUrl: string;
 
-  constructor(private appConfigService: AppConfigService, @Inject(LOCALE_ID) protected localeId: string) {
+  faTimes = faTimes;
+  showReviewButton: boolean;
+  betaReviewDialogRef: MatDialogRef<BetaReviewComponent>;
+
+  constructor(private appConfigService: AppConfigService, @Inject(LOCALE_ID) protected localeId: string, public dialog: MatDialog) {
     this.buildInfo = this.appConfigService.buildInfo;
+    this.showReviewButton = true;
   }
 
   ngOnInit() {
@@ -47,5 +55,14 @@ export class FooterComponent implements OnInit {
       }
     }
   }
+
+    // Review button
+    close() {
+      this.showReviewButton = false;
+    }
+  
+    toggleReview() {
+      this.betaReviewDialogRef = this.dialog.open(BetaReviewComponent);
+    }
 
 }
