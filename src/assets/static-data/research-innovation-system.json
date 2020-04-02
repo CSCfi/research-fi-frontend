@@ -1,0 +1,65 @@
+{
+    "sector": {
+            "university": {
+                "description": "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa, joista kaksi on säätiölain mukaisia säätiöitä ja muut julkisoikeudellisia laitoksia. Sotilasalan korkeakoulututkinnot suoritetaan puolustushallinnon alaisessa Maanpuolustuskorkeakoulussa (MPKK).</p><p>Yliopistojen perustehtävänä on harjoittaa tieteellistä tutkimusta ja antaa siihen perustuvaa ylintä opetusta. Yliopistot edistävät elinikäistä oppimista, toimivat vuorovaikutuksessa yhteiskunnan kanssa ja edistävät tutkimustulosten ja taiteellisen toiminnan yhteiskunnallista vaikuttavuutta.</p><p>Yliopistoilla on itsehallinto, jolla turvataan tieteen, taiteen ja ylimmän opetuksen vapaus. Yliopistot ovat itsenäisiä oikeushenkilöitä, jolla on päätöksenteko-oikeus sisäiseen hallintoon kuuluvista asioista.</p><p>Yliopistokeskukset täydentävät Suomen yliopistokenttää niillä alueilla, joilla ei ole omaa yliopistoa ja kokoavat alueillaan toimivan yliopistollisen toiminnan. Yhteistyöhön osallistuvat usein myös alueen ammattikorkeakoulut, kunnat ja maakuntaliitto.</p>" ,
+                "subtitle": "Yliopistot suomessa",
+                "universities": [
+                    {
+                        "name": "Oulun yliopisto",
+                        "id": "01904"
+                    },
+                    {
+                        "name": "Åbo Akademi",
+                        "id": "01903"
+                    },
+                    {
+                        "name": "Lapin yliopisto",
+                        "id": "01918"
+                    },
+                    {
+                        "name": "Turun yliopisto",
+                        "id": "10089"
+                    },
+                    {
+                        "name": "Itä-Suomen yliopisto",
+                        "id": "10088"
+                    },
+                    {
+                        "name": "Aalto-yliopisto",
+                        "id": "10076"
+                    },
+                    {
+                        "name": "Lappeenrannan teknillinen yliopisto",
+                        "id": "01914"
+                    },
+                    {
+                        "name": "Taideyliopisto",
+                        "id": "10103"
+                    },
+                    {
+                        "name": "Vaasan yliopisto",
+                        "id": "01913"
+                    },
+                    {
+                        "name": "Jyväskylän yliopisto",
+                        "id": "01906"
+                    }
+                ]
+            },
+            "applied_university": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "university_hospital": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "state_research": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "other_research": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            },
+            "funders": {
+                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            }
+        }
+}
