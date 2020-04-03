@@ -12,9 +12,10 @@ import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-header',
@@ -52,11 +53,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   widthFlag: boolean;
 
   additionalWidth = 25;
+  params: any;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
-              private cdr: ChangeDetectorRef, private renderer: Renderer2) {
+              private cdr: ChangeDetectorRef, private renderer: Renderer2, private route: ActivatedRoute,
+              private tabChangeService: TabChangeService) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
@@ -68,8 +71,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.routeSub = router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         // Prevent multiple anchors
+        // console.log(e);
+        this.route.queryParams.subscribe(params => {
+          this.params = params;
+        })
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
-
       }
     });
   }
@@ -195,6 +201,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
+  }
+
+  changeFocus(target) {
+    this.tabChangeService.targetFocus(target);
   }
 
 }
