@@ -107,7 +107,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   fireAutoSuggest() {
     this.queryField.valueChanges.pipe(
-      debounceTime(500),
+      debounceTime(1000),
       distinctUntilChanged()
     )
     .subscribe(result => {
