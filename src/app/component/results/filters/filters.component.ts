@@ -24,6 +24,7 @@ import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-filters',
@@ -61,6 +62,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   shapedData: any;
   fromYear: any;
   toYear: any;
+  paramSub: Subscription;
+  currentInput: string;
+  resetFilters: boolean;
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
@@ -91,7 +95,14 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Subscribe to queryParams
     this.queryParamSub = this.route.queryParams.subscribe(params => {
       this.activeFilters = params;
-      // Reset selected filters
+    });
+
+    this.paramSub = this.route.params.subscribe(params => {
+      console.log(this.currentInput, params.input);
+      if (this.currentInput !== params.input) {
+        this.currentInput = params.input;
+        this.resetFilters = true;
+      }
     });
 
     // Switch default open panel by index
@@ -138,6 +149,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       this.filterSub.unsubscribe();
       this.resizeSub.unsubscribe();
       this.queryParamSub.unsubscribe();
+      this.paramSub.unsubscribe();
     }
   }
 
@@ -157,12 +169,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
     if (this.responseData.length > 0) {
+      // console.log(this.resetFilters);
       // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          if (!this.shapedData && !this.responseData[0].aggregations.shaped) {
+          if (this.resetFilters && !this.responseData[0].aggregations.shaped) {
             this.publicationFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -171,6 +184,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'persons': {
           this.currentFilter = this.personFilters.filterData;
           this.currentSingleFilter = this.personFilters.singleFilterData;
+          // this.shapedData is for reminder
           if (!this.shapedData && !this.responseData[0].aggregations.shaped) {
             this.personFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
@@ -180,7 +194,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
-          if (!this.shapedData && !this.responseData[0].aggregations.shaped) {
+          if (this.resetFilters && !this.responseData[0].aggregations.shaped) {
             this.fundingFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -189,7 +203,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
           this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
-          if (!this.shapedData && !this.responseData[0].aggregations.shaped) {
+          if (this.resetFilters && !this.responseData[0].aggregations.shaped) {
             this.infrastructureFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -205,6 +219,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
       }
+      this.resetFilters = false;
     }
   }
 
