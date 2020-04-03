@@ -98,7 +98,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     this.paramSub = this.route.params.subscribe(params => {
-      console.log(this.currentInput, params.input);
       if (this.currentInput !== params.input) {
         this.currentInput = params.input;
         this.resetFilters = true;
@@ -169,7 +168,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
     if (this.responseData.length > 0) {
-      // console.log(this.resetFilters);
       // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
