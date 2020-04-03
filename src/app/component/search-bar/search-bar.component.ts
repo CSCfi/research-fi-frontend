@@ -92,6 +92,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // Get items for list
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
+
+    this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'search-input') {
+        console.log(this.searchInput);
+        this.searchInput.nativeElement.focus();
+      }
+    });
   }
 
   onFocus() {
