@@ -42,6 +42,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('singleId') singleId: ElementRef;
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChild('totalHeader') totalHeader: ElementRef;
+  @ViewChild('skipToResults') skipToResults: ElementRef;
   queryParams: Subscription;
   publicationFilters: {fromYear: any[], toYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
@@ -60,6 +61,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   tabSub: Subscription;
 
   pageFallback = false;
+
+  showSkipLinks: boolean;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -199,9 +202,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Set focus to header
     this.tabSub = this.tabChangeService.currentFocus.subscribe(focus => {
       if (focus) {
-        this.totalHeader.nativeElement.focus();
+        this.showSkipLinks = true;
+        this.skipToResults.nativeElement.focus();
       }
     });
+    // Focus to skip-to results link when clicked from header skip-links
+    this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'main-link') {
+        this.skipToResults.nativeElement.focus();
+      }
+    })
   }
 
   // Reset focus on blur
@@ -266,6 +276,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   updateMobile(width) {
     this.mobile = width < 992;
+  }
+
+  changeFocusTarget(target) {
+    this.tabChangeService.targetFocus(target);
   }
 
   // Unsubscribe to prevent memory leaks
