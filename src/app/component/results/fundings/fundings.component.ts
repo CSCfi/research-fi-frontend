@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { SearchService } from 'src/app/services/search.service';
@@ -17,17 +17,20 @@ import { Search } from 'src/app/models/search.model';
   templateUrl: './fundings.component.html',
   styleUrls: ['./fundings.component.scss']
 })
-export class FundingsComponent implements OnInit, OnDestroy {
+export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
+  @ViewChild('main') mainContent: ElementRef;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'fundings').map(t => t.icon).pop();
   inputSub: any;
   input: string;
+  focusSub: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
-              private tabChangeService: TabChangeService, private searchService: SearchService) { }
+              private tabChangeService: TabChangeService, private searchService: SearchService,
+              private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
@@ -35,6 +38,16 @@ export class FundingsComponent implements OnInit, OnDestroy {
     this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe(input => {
       this.input = input;
+    });
+  }
+
+  ngAfterViewInit() {
+    // Focus first element when clicked with skip-link
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'main') {
+        this.mainContent?.nativeElement.focus();
+      }
+      this.cdr.detectChanges();
     });
   }
 
