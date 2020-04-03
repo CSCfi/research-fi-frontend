@@ -15,12 +15,18 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="container center-content" style="margin-top: 0">
     <div class="row">
         <app-result-tab style="width:100%" [allData]="tabValues"></app-result-tab>
-        <div class="row total" #totalHeader tabindex="0" (blur)="resetFocus()">
+        <div class="row total" #totalHeader>
             <div class="col">
                 <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''" (click)="navigateToVisualisation()">
                     {{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span>
                     <span class="sr-only">hakutulosta</span>
                 </h2>
+                <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
+                    <a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
+                    (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus()" href="javascript:void(0)">
+                        Hyppää hakutuloksiin
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -37,10 +43,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <aside class="col col-6 col-sm-6 sort">
                     <app-sort></app-sort>
                 </aside>
-                <main class="col-12">
+                <main class="col-12" id="main-content">
                     <app-active-filters></app-active-filters>
                     <!-- <h2 style="padding: 24px 10px;">Hakutulokset <span class="total">({{total}})</span></h2> -->
-                    <app-search-results id="main-content" [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
+                    <app-search-results [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
                 </main>
             </div>
         </div>
