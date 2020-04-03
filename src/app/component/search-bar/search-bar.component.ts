@@ -241,6 +241,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.showHelp = false;
     // Set focus to tab header via service
     this.tabChangeService.changeFocus(true);
+    this.tabChangeService.targetFocus('');
     // Set input to local storage & assign list to variable
     this.currentInput = this.queryField.value;
     if (this.currentInput && isPlatformBrowser(this.platformId)) {localStorage.setItem(localStorage.length.toString(), this.currentInput); }
