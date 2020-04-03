@@ -19,7 +19,7 @@
                         <div class="col col-lg-8">
                             <h1>Tiede- ja tutkimusuutiset</h1>
                             <ul>
-                                <li *ngFor="let item of data[0]?.hits.hits.slice(0,3)">
+                                <li tabindex="0" *ngFor="let item of data[0]?.hits.hits.slice(0,3)">
                                     <h2>{{item._source.title}}</h2>
                                 </li>
                             </ul>
@@ -29,7 +29,7 @@
                                 <input placeholder="Hae tiedeuutisista...">
                             </nav>
                             <ul>
-                                <li *ngFor="let item of data[0]?.hits.hits.slice(3, data[0]?.hits.hits.length)">
+                                <li tabindex="0" *ngFor="let item of data[0]?.hits.hits.slice(3, data[0]?.hits.hits.length)">
                                     <h2>{{item._source.title}}</h2>
                                 </li>
                             </ul>
