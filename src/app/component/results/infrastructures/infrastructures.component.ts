@@ -37,6 +37,7 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
     this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe(input => {
       this.input = input;
+      this.cdr.detectChanges();
     });
   }
 
@@ -46,7 +47,6 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
       if (target === 'main') {
         this.mainContent?.nativeElement.focus();
       }
-      this.cdr.detectChanges();
     });
   }
 

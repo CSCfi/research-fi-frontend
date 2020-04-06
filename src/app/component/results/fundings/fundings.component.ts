@@ -38,6 +38,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.sortDirection = this.sortService.sortDirection;
     this.inputSub = this.searchService.currentInput.subscribe(input => {
       this.input = input;
+      this.cdr.detectChanges();
     });
   }
 
@@ -47,8 +48,9 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (target === 'main') {
         this.mainContent?.nativeElement.focus();
       }
-      this.cdr.detectChanges();
+
     });
+
   }
 
   sortBy(sortBy) {
