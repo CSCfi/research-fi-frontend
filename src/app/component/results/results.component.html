@@ -22,8 +22,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <span class="sr-only">hakutulosta</span>
                 </h2>
                 <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
-                    <a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
-                    (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus()" href="javascript:void(0)">
+                    <a (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
+                    (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus(); showSkipLinks = false" href="javascript:void(0)">
                         Hyppää hakutuloksiin
                     </a>
                 </div>
