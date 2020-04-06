@@ -42,20 +42,22 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
-    this.inputSub = this.searchService.currentInput.subscribe(input => {
+    this.searchService.currentInput.subscribe(input => {
       this.input = input;
+      this.cdr.detectChanges();
     });
 
   }
 
   ngAfterViewInit() {
     // Focus first element when clicked with skip-link
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
+    this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'main') {
         this.mainContent?.nativeElement.focus();
       }
-      this.cdr.detectChanges();
+
     });
+
   }
 
   isReviewed(type: string) {
@@ -81,6 +83,5 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.inputSub.unsubscribe();
   }
 }
