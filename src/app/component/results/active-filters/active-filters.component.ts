@@ -63,18 +63,23 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       // Get from & to year values from filter list
       this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
       this.toYear = parseInt(filter.toYear[0]?.slice(1), 10);
+      const years = filter.year.map(item => parseInt(item, 10));
       let yearWarning = false;
+
       if (this.fromYear && this.toYear) {
         // Check if years missing between range and add warning flag
-        console.log(filter.year.filter(item => (this.fromYear <= item && item <= this.toYear)));
-        console.log(this.toYear - this.fromYear);
-
-
         if (filter.year.filter(item => (this.fromYear <= item && item <= this.toYear)).length !== this.toYear - this.fromYear + 1) {
           yearWarning = true;
         }
-        // Todo: warning myös niissä tapauksissa jos välistä otetaan vuosia pois vaikka pelkkä yksi range päällä
-      }
+      } else if (this.fromYear) {
+          if (filter.year.filter(item => (this.fromYear <= item)).length !== Math.max(...years) - this.fromYear + 1) {
+            yearWarning = true;
+          }
+      } else if (this.toYear) {
+        if (filter.year.filter(item => (this.toYear >= item)).length !== (this.toYear + 1) - Math.min(...years)) {
+          yearWarning = true;
+        }
+    }
 
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
@@ -103,11 +108,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 val.warning = yearWarning ? true : false;
               } else if (this.fromYear) {
                 val.translation = 'Julkaisuvuosi: ' + this.fromYear + ' alkaen';
+                val.warning = yearWarning ? true : false;
               }
             }
 
             if (val.category === 'toYear') {
               val.translation = 'Julkaisuvuosi: ' + this.toYear + ' päättyen';
+              val.warning = yearWarning ? true : false;
               if (this.fromYear && this.toYear) {
                 val.hide = true;
               }
