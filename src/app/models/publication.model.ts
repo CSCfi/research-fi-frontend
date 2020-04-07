@@ -75,7 +75,9 @@ export class PublicationAdapter implements Adapter<Publication> {
             openAccessText = 'Ei tietoa';
         }
 
-        item.selfArchivedAddress = item.selfArchivedData[0].selfArchived[0].selfArchivedAddress;
+        if (item.selfArchivedData) {
+            item.selfArchivedAddress = item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedAddress;
+        }
 
         return new Publication(
             item.publicationId,
