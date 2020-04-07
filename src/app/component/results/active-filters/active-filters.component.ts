@@ -43,6 +43,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   currentTab: any;
   faExclamationTriangle = faExclamationTriangle;
   hoverIndex: any;
+  fromYear: number;
+  toYear: number;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService ) {
@@ -58,23 +60,20 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   translate() {
     this.queryParams = this.filterService.filters.subscribe(filter => {
-      // Get from & to year values from filter list, remove years that are between this range. If range is available,
-      // remove fromYear from array. We translate toYear to hold both range ends.
-      const fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
-      const toYear = parseInt(filter.toYear[0]?.slice(1), 10);
+      // Get from & to year values from filter list
+      this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
+      this.toYear = parseInt(filter.toYear[0]?.slice(1), 10);
       let yearWarning = false;
-      if (fromYear && toYear) {
+      if (this.fromYear && this.toYear) {
         // Check if years missing between range and add warning flag
-        if ((toYear - fromYear + 1) !== filter.year.filter(item => parseInt(item, 10) >= fromYear && parseInt(item, 10) <= toYear).length) {
+        console.log(filter.year.filter(item => (this.fromYear <= item && item <= this.toYear)));
+        console.log(this.toYear - this.fromYear);
+
+
+        if (filter.year.filter(item => (this.fromYear <= item && item <= this.toYear)).length !== this.toYear - this.fromYear + 1) {
           yearWarning = true;
         }
-
-        filter.year = filter.year.filter(item => parseInt(item, 10) < fromYear || parseInt(item, 10) > toYear);
-        filter.toYear = filter.toYear.filter(item => item === undefined);
-      } else if (fromYear) {
-        filter.year = filter.year.filter(item => parseInt(item, 10) < fromYear);
-      } else if (toYear) {
-        filter.year = filter.year.filter(item => parseInt(item, 10) > toYear);
+        // Todo: warning myös niissä tapauksissa jos välistä otetaan vuosia pois vaikka pelkkä yksi range päällä
       }
 
       // Reset active filter so push doesn't duplicate
@@ -96,20 +95,41 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
           const tab = this.currentTab.data;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
+            // Active year filters can be displayed with range. Hide items that are within the range
             if (val.category === 'fromYear') {
-              if (fromYear && toYear) {
+              if (this.fromYear && this.toYear) {
                 // Set range and warning if values missing between range
-                val.translation = 'Julkaisuvuosi: ' + fromYear + ' - ' + toYear;
+                val.translation = 'Julkaisuvuosi: ' + this.fromYear + ' - ' + this.toYear;
                 val.warning = yearWarning ? true : false;
-              } else if (fromYear) {
-                val.translation = 'Julkaisuvuosi: ' + fromYear + ' alkaen';
+              } else if (this.fromYear) {
+                val.translation = 'Julkaisuvuosi: ' + this.fromYear + ' alkaen';
               }
             }
 
             if (val.category === 'toYear') {
-              val.translation = 'Julkaisuvuosi: ' + toYear + ' päättyen';
+              val.translation = 'Julkaisuvuosi: ' + this.toYear + ' päättyen';
+              if (this.fromYear && this.toYear) {
+                val.hide = true;
+              }
             }
 
+            if (val.category === 'year') {
+              if (this.fromYear && this.toYear) {
+                if (val.value >= this.fromYear && val.value <= this.toYear) {
+                  val.hide = true;
+                }
+              } else if (this.fromYear) {
+                if (val.value >= this.fromYear) {
+                  val.hide = true;
+                }
+              } else if (this.toYear) {
+                if (val.value <= this.toYear) {
+                  val.hide = true;
+                }
+              }
+            }
+
+            // Language, publications
             if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
               const result = source.lang.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
@@ -191,6 +211,26 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   }
 
   removeFilter(event): void {
+    // Remove range filters. Check that target active filter matches fromYear filter
+    if (event.target.id.length === 5 && event.target.id.slice(0, 1) === 'f') {
+      if (this.fromYear && this.toYear) {
+        this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'fromYear');
+        this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'toYear');
+        this.activeFilters = this.activeFilters.filter(
+          elem => !(this.fromYear <= parseInt(elem.value, 10) && parseInt(elem.value, 10) <= this.toYear));
+      } else if (this.fromYear) {
+        this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'fromYear');
+        this.activeFilters = this.activeFilters.filter(
+          elem => !(this.fromYear <= parseInt(elem.value, 10)));
+      } else if (this.toYear) {
+        this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'toYear');
+        this.activeFilters = this.activeFilters.filter(
+          elem => !(this.toYear >= parseInt(elem.value, 10)));
+      }
+    }
+
+
+
 
     this.activeFilters = this.activeFilters.filter(elem => elem.value !== event.target.id);
 
