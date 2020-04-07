@@ -16,7 +16,7 @@ export class Funding {
         public nameFi: string, // projectNameFi
         public nameSv: string, // projectNameSv
         public nameEn: string, // projectNameEn
-        public acronym: string, // ??
+        public acronym: string,
         public descriptionFi: string, // projectDescriptionFi
         public descriptionEn: string, // projectDescriptionEn
         public startYear: string, // fundingStartYear
@@ -84,7 +84,7 @@ export class FundingAdapter implements Adapter<Funding> {
             item.projectNameFi,
             item.projectNameSv,
             item.projectNameEn,
-            item.acronym, // ??
+            item.projectAcronym,
             item.projectDescriptionFi,
             item.projectDescriptionEn,
             item.fundingStartYear,
