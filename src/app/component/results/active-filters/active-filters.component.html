@@ -7,13 +7,15 @@
 <div class="row active-filters" *ngIf="activeFilters.length > 0">   
   <h5>Rajaukset:</h5>
   <ul aria-live="polite">
-    <li tabindex="0" class="filter" *ngFor="let activeFilter of activeFilters; let i = index" (click)="removeFilter($event)" id="{{activeFilter.value}}">
-      <span id="{{activeFilter.value}}">{{activeFilter.translation}}</span>
-      <fa-icon (mouseenter)="enter(i)" (mouseleave)="leave()" *ngIf="activeFilter.warning" class="icon warning" [icon]="faExclamationTriangle"></fa-icon>
-      <div class="warning-info" *ngIf="activeFilter.warning && hoverIndex === i">
-        <span>Aikaväliltä poistettu vuosia.</span>
-      </div>
-    </li>
+    <ng-container *ngFor="let activeFilter of activeFilters; let i = index">
+      <li tabindex="0" class="filter" *ngIf="!activeFilter.hide" (click)="removeFilter($event)" id="{{activeFilter.value}}">
+        <span id="{{activeFilter.value}}">{{activeFilter.translation}}</span>
+        <fa-icon (mouseenter)="enter(i)" (mouseleave)="leave()" *ngIf="activeFilter.warning" class="icon warning" [icon]="faExclamationTriangle"></fa-icon>
+        <div class="warning-info" *ngIf="activeFilter.warning && hoverIndex === i">
+          <span>Aikaväliltä poistettu vuosia.</span>
+        </div>
+      </li>
+    </ng-container>
     <button class="clear filter" mat-flat-button color="primary" (click)="clearFilters()">Tyhjennä rajaukset</button>
   </ul>
 </div>
