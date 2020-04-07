@@ -264,29 +264,33 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     // Get authors per organization
     if (author?.length > 0) {
-      author[0]?.organization.forEach(org => {
-        const authorArr = [];
-        const orgUnitArr = [];
-        org.organizationUnit.forEach(subUnit => {
-          subUnit.person?.forEach(person => {
-            // Add author if name is available
-            if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
-              authorArr.push({
-                author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
-                orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+      author.forEach(item => {
+        item.organization.forEach(org => {
+          // console.log(org);
+          const authorArr = [];
+          const orgUnitArr = [];
+          org.organizationUnit.forEach(subUnit => {
+            subUnit.person?.forEach(person => {
+              // Add author if name is available
+              if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
+                authorArr.push({
+                  author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
+                  orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+                  subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
+                });
+              }
+            });
+            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1') {
+              orgUnitArr.push({
                 subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
               });
             }
           });
-          if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1') {
-            orgUnitArr.push({
-              subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
-            });
-          }
+          this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
+            authors: authorArr, orgUnits: orgUnitArr});
         });
-        this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
-          authors: authorArr, orgUnits: orgUnitArr});
       });
+
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
       const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
