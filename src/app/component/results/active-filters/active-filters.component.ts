@@ -12,6 +12,7 @@ import { FilterService } from '../../../services/filter.service';
 import { DataService } from '../../../services/data.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { switchMapTo } from 'rxjs/operators';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-active-filters',
@@ -40,6 +41,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   response: any;
   tabSub: any;
   currentTab: any;
+  faExclamationTriangle = faExclamationTriangle;
+  hoverIndex: any;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService ) {
@@ -55,6 +58,25 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   translate() {
     this.queryParams = this.filterService.filters.subscribe(filter => {
+      // Get from & to year values from filter list, remove years that are between this range. If range is available,
+      // remove fromYear from array. We translate toYear to hold both range ends.
+      const fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
+      const toYear = parseInt(filter.toYear[0]?.slice(1), 10);
+      let yearWarning = false;
+      if (fromYear && toYear) {
+        // Check if years missing between range and add warning flag
+        if ((toYear - fromYear + 1) !== filter.year.filter(item => parseInt(item, 10) >= fromYear && parseInt(item, 10) <= toYear).length) {
+          yearWarning = true;
+        }
+
+        filter.year = filter.year.filter(item => parseInt(item, 10) < fromYear || parseInt(item, 10) > toYear);
+        filter.toYear = filter.toYear.filter(item => item === undefined);
+      } else if (fromYear) {
+        filter.year = filter.year.filter(item => parseInt(item, 10) < fromYear);
+      } else if (toYear) {
+        filter.year = filter.year.filter(item => parseInt(item, 10) > toYear);
+      }
+
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
       const newFilters = {};
@@ -72,15 +94,20 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         if (response) {
           const source = this.response[0].aggregations;
           const tab = this.currentTab.data;
-
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
             if (val.category === 'fromYear') {
-              val.translation = 'Vuodesta ' + val.value.slice(1);
+              if (fromYear && toYear) {
+                // Set range and warning if values missing between range
+                val.translation = 'Julkaisuvuosi: ' + fromYear + ' - ' + toYear;
+                val.warning = yearWarning ? true : false;
+              } else if (fromYear) {
+                val.translation = 'Julkaisuvuosi: ' + fromYear + ' alkaen';
+              }
             }
 
             if (val.category === 'toYear') {
-              val.translation = 'Vuoteen ' + val.value.slice(1);
+              val.translation = 'Julkaisuvuosi: ' + toYear + ' päättyen';
             }
 
             if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
@@ -88,18 +115,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
-            // Todo: Dynamic data path for both publications and organizations
-            // if (val.category === 'organization' && (tab === 'publications' || tab === 'fundings') && source.organization?.sectorName) {
-            //   console.log(source.organization);
-            //   if (source.organization.sectorName?.buckets.length > 0) {
-            //     source.organization.sectorName.buckets.forEach(element => {
-            //       if (element.sectorId.buckets[0].key === val.value) {
-            //         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-            //         this.activeFilters[foundIndex].translation = element.key;
-            //       }
-            //     });
-            //   }
-            // }
+
             if (val.category === 'sector' && tab === 'organizations' && source.sector) {
               if (source.sector.buckets.length > 0  && !source.sector.sectorName) {
                 source.sector.buckets.forEach(element => {
@@ -207,5 +223,14 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     this.filterResponse.unsubscribe();
     this.tabSub.unsubscribe();
   }
+
+  // Set index for warning hover
+  enter(index) {
+    this.hoverIndex = index;
+  }
+
+  leave() {
+    this.hoverIndex = null;
+}
 
 }
