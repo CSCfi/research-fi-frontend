@@ -62,6 +62,37 @@ button.clear {
     top: 0px;
 }
 
+// Warning icon
+.icon.warning {
+    padding: 0 1rem 0 0.5rem;
+}
+
+.warning-info {
+    display: block;
+    position: absolute;
+    border: 1px solid;
+    margin-top: 18px;
+    margin-left: 9rem;
+    width: 145px;
+    padding: 0 5px;
+    z-index: 1;
+}
+
+.warning-info:after, .warning-info:before {
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 33px;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+.warning-info:after {
+    border-width: 12px;
+    margin-left: -12px;
+}
+
 @media (max-width: 991px) {
     .active-filters {
         padding-inline-end: 1.4rem;
