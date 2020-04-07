@@ -266,7 +266,7 @@ export class FilterService {
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
-            ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
+            // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
             ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
             ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
             ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),

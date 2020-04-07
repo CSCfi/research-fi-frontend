@@ -98,7 +98,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     });
 
     this.paramSub = this.route.params.subscribe(params => {
-      if (this.currentInput !== params.input) {
+      if (this.currentInput !== params.input || !params.input) {
         this.currentInput = params.input;
         this.resetFilters = true;
       }
@@ -135,9 +135,16 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         this.preSelection = [];
         Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
 
+        // Reset from & to year range filters
+        // if (filters.year.length === 0) {
+        //   this.fromYear = undefined;
+        //   this.toYear = undefined;
+        // }
+
         // Get from & to year filter preselection
         this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
         this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
+
       });
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     }
@@ -173,7 +180,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          if (this.resetFilters && !this.responseData[0].aggregations.shaped) {
+          if (this.resetFilters) {
             this.publicationFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -192,7 +199,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
-          if (this.resetFilters && !this.responseData[0].aggregations.shaped) {
+          if (this.resetFilters) {
             this.fundingFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -201,7 +208,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
           this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
-          if (this.resetFilters && !this.responseData[0].aggregations.shaped) {
+          if (this.resetFilters) {
             this.infrastructureFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -210,7 +217,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'organizations': {
           this.currentFilter = this.organizationFilters.filterData;
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
-          if (!this.shapedData && !this.responseData[0].aggregations.shaped && !this.shapedData) {
+          if (this.resetFilters) {
             this.organizationFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
@@ -223,15 +230,43 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   // Navigate
   rangeChange(event, dir) {
+    // Set range query param to active filters, helps with active filters component. This query param doesn't do anything in filter service.
     const obj = {};
     let newFilters = {};
     obj[dir] = event.value ? dir.slice(0, 1) + event.value : null;
     newFilters = Object.assign({}, this.activeFilters, obj);
+    this.activeFilters = newFilters;
+  }
 
-    this.router.navigate([],
-      { queryParams: newFilters,
-        queryParamsHandling: 'merge'
-      });
+  range(event, dir) {
+    // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
+    // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
+    const source = this.shapedData ? this.shapedData[0].aggregations.year.buckets : this.responseData[0].aggregations.year.buckets;
+    const selected = [];
+    switch (dir) {
+      case 'from': {
+        this.fromYear = event.value;
+        if (event.value) {
+          this.toYear ? source.map(x => x.key >= event.value && x.key <= this.toYear ? selected.push(x.key.toString()) : null) :
+          source.map(x => x.key >= event.value ? selected.push(x.key.toString()) : null);
+        } else {
+          source.map(x => x.key <= this.toYear ? selected.push(x.key.toString()) : null);
+        }
+        break;
+      }
+      case 'to': {
+        this.toYear = event.value;
+        if (event.value) {
+          this.fromYear ? source.map(x => x.key <= event.value && x.key >= this.fromYear ? selected.push(x.key.toString()) : null) :
+          source.map(x => x.key <= event.value ? selected.push(x.key.toString()) : null);
+        } else {
+          source.map(x => x.key >= this.fromYear ? selected.push(x.key.toString()) : null);
+        }
+        break;
+      }
+    }
+
+    this.selectionChange('year', selected);
   }
 
   selectionChange(filter, key) {
@@ -252,7 +287,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         this.activeFilters = transformed;
         selectedFilters = this.activeFilters;
       }
-      // Merge selection with active filters
+      // Merge selection with active filter of dynamic key
       if (this.activeFilters[filter]) {
         const combined = this.activeFilters[filter].concat(selectedFilters[filter] ? selectedFilters[filter] : []);
         selectedFilters[filter] = [...new Set(combined)];
@@ -274,8 +309,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     selectedFilters.sort = this.sortService.sortMethod;
     selectedFilters.page = 1;
 
+    // Merge selection with active filters and navigate
+    const merged = Object.assign({}, this.activeFilters, selectedFilters);
     this.router.navigate([],
-      { queryParams: selectedFilters,
+      { queryParams: merged,
         queryParamsHandling: 'merge'
       });
   }

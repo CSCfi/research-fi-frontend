@@ -66,7 +66,7 @@
                         <div class="col-4">
                             <mat-form-field>
                                 <mat-label>Alku</mat-label>
-                                <mat-select (selectionChange)="rangeChange($event, 'fromYear')" [(value)]="fromYear">
+                                <mat-select (selectionChange)="rangeChange($event, 'fromYear'); range($event, 'from')" [(value)]="fromYear">
                                     <mat-option>Ei valintaa</mat-option>
                                     <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key >= toYear}" [value]="year.key">{{year.key}}</mat-option>
                                 </mat-select>
@@ -78,7 +78,7 @@
                         <div class="col-4">
                             <mat-form-field>
                                 <mat-label>Loppu</mat-label>
-                                <mat-select (selectionChange)="rangeChange($event, 'toYear')" [(value)]="toYear">
+                                <mat-select (selectionChange)="rangeChange($event, 'toYear'); range($event, 'to')" [(value)]="toYear">
                                     <mat-option>Ei valintaa</mat-option>
                                     <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key <= fromYear}" [value]="year.key">{{year.key}}</mat-option>
                                 </mat-select>
