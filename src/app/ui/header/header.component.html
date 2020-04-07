@@ -44,17 +44,17 @@
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
                         <ul class="navbar-nav mx-auto">
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="/" (click)="setLang('fi')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}" (click)="setLang('fi')">
                                     <span class="label">Suomi</span>
                                 </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="/sv/" (click)="setLang('sv')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="https://researchfi-test.rahtiapp.fi/sv{{currentRoute}}" (click)="setLang('sv')">
                                     <span class="label">Svenska</span>
                                 </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="/en/" (click)="setLang('en')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="https://researchfi-test-en.rahtiapp.fi{{currentRoute}}" (click)="setLang('en')">
                                     <span class="label">English</span>
                                 </a>
                             </li>
