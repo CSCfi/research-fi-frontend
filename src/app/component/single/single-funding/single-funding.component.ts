@@ -29,7 +29,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   tab = 'fundings';
 
   infoFields = [
-    {label: 'Lyhenne', field: 'projectAcronym'},
+    {label: 'Lyhenne', field: 'acronym'},
     {label: 'Hankkeen kuvaus', field: 'descriptionFi'},
     {label: 'Aloitusvuosi', field: 'startYear'},
   ];
