@@ -121,7 +121,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.idSub = this.route.params.subscribe(params => {
-      this.getData(params.id)
+      this.getData(params.id);
     });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
@@ -257,10 +257,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     //   source.publicationOrgUnits = subUnits.map(x => x.organizationUnitNameFi.trim()).join(', ');
     // }
 
-    // Extract self archived address from selfArchivedData array
-    if (selfArchived?.length > 1) {
-      source.selfArchivedAddress = selfArchived[0].selfArchived[0].selfArchivedAddress;
-    }
 
     // Get authors per organization
     if (author?.length > 0) {
