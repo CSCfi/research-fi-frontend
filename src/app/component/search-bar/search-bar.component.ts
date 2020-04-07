@@ -95,7 +95,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
     this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'search-input') {
-        console.log(this.searchInput);
         this.searchInput.nativeElement.focus();
       }
     });
