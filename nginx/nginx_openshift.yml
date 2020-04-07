@@ -49,7 +49,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: CSCTTV-1098
+        ref: devel
       contextDir: .
     strategy:
       dockerStrategy:
@@ -80,7 +80,7 @@ objects:
       spec:
         containers:
           - name: nginx-container
-            image: ts/researchfi-nginx
+            image: researchfi/researchfi-nginx
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
