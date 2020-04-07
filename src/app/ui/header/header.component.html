@@ -6,14 +6,11 @@
 # :license: MIT -->
 
 <header>
-    <div class="review-button" *ngIf="showReviewButton">
-        <button class="review" (click)="toggleReview()" mat-raised-button color="primary">Anna palautetta</button>
-        <button class="close" mat-raised-button (click)="close()"><fa-icon class="close-icon" style="font-size:1.2rem;" [icon]="faTimes"></fa-icon></button>
-    </div>
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
-            <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#searchInput'">Hyppää hakukenttään</a></li>
-            <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" [href]="currentRoute + '#main-content'">Hyppää sivun pääsisältöön</a></li>
+            <li><a (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää hakukenttään</a></li>
+            <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää sivun pääsisältöön</a></li>
+            <!-- <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" [routerLink]="" [queryParams]="params" [fragment]="'main-content'">Hyppää sivun pääsisältöön</a></li> -->
             <!-- ToDo: Link to accessibility -->
             <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="{{currentRoute}}" disabled fragment="accessibility">Hyppää saavutettavuusselosteeseen</a></li>
         </ul>
@@ -77,7 +74,8 @@
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen" (clickOutside)="onClickedOutside($event)">
-                                <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-politics/" routerLinkActive="active-link" href="javascript:void(0)">
+                                <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-politics/" routerLinkActive="active-link"
+                                (keydown.enter)="$event.preventDefault(); dropdownOpen = true" (keydown.space)="$event.preventDefault(); dropdownOpen = true">
                                     Tiede- ja innovaatiopolitiikka
                                 </a>
                                 <ul class="dropdown" *ngIf="dropdownOpen">

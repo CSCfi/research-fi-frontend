@@ -5,34 +5,6 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-// Review button
-.review-button {
-    position: fixed;
-    z-index: 999;
-    right: 0;
-    top: 50vh;
-}
-
-button.review {
-    right: -64px;
-    transition: 0.2s;
-}
-
-button.close {
-    right: -64px;
-    width: 64px;
-    transition: 0.2s;
-}
-
-.review-button:hover > button.review, .review-button:hover > button.close {
-    transition: 0.2s;
-    right: 0;
-}
-
-html.cdk-global-scrollblock button.review {
-    right: -25%;
-}
-
 // Component
 #overlay {
     position: absolute;

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, Inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, Inject, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -18,16 +18,18 @@ import { Search } from 'src/app/models/search.model';
   templateUrl: './publications.component.html',
   styleUrls: ['./publications.component.scss']
 })
-export class PublicationsComponent implements OnInit, OnDestroy {
+export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
+  @ViewChild('main') mainContent: ElementRef;
 
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'publications').map(t => t.icon).pop();
   documentLang: any;
   input: string;
   inputSub: any;
+  focusSub: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
               @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService,
@@ -40,9 +42,22 @@ export class PublicationsComponent implements OnInit, OnDestroy {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
-    this.inputSub = this.searchService.currentInput.subscribe(input => {
+    this.searchService.currentInput.subscribe(input => {
       this.input = input;
+      this.cdr.detectChanges();
     });
+
+  }
+
+  ngAfterViewInit() {
+    // Focus first element when clicked with skip-link
+    this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'main') {
+        this.mainContent?.nativeElement.focus();
+      }
+
+    });
+
   }
 
   isReviewed(type: string) {
@@ -68,6 +83,5 @@ export class PublicationsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.inputSub.unsubscribe();
   }
 }

@@ -92,6 +92,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // Get items for list
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
+
+    this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'search-input') {
+        console.log(this.searchInput);
+        this.searchInput.nativeElement.focus();
+      }
+    });
   }
 
   onFocus() {
@@ -107,7 +114,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   fireAutoSuggest() {
     this.queryField.valueChanges.pipe(
-      debounceTime(500),
+      debounceTime(1000),
       distinctUntilChanged()
     )
     .subscribe(result => {
@@ -241,6 +248,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.showHelp = false;
     // Set focus to tab header via service
     this.tabChangeService.changeFocus(true);
+    this.tabChangeService.targetFocus('');
     // Set input to local storage & assign list to variable
     this.currentInput = this.queryField.value;
     if (this.currentInput && isPlatformBrowser(this.platformId)) {localStorage.setItem(localStorage.length.toString(), this.currentInput); }

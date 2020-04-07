@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-.sector-title {
+.sector-title h2 {
     font-weight: bold;
     font-size: 1.1rem;
 }
@@ -26,6 +26,23 @@
     margin-right: 1rem;
     text-align: center;
     font-size: 1.3rem;
+}
+
+.description {
+    margin-bottom: 3rem;
+}
+
+.university {
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 2rem;
+}
+
+div.iframe-container {
+    max-width: 800px;
 }
 
 .mat-expansion-panel-header {

@@ -12,20 +12,20 @@
     <div class="row no-margin">
         <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('name')">Julkaisun nimi</span>
+            <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('name')" (keydown.enter)="sortBy('name')">Julkaisun nimi</span>
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortColumn === 'author' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('author')">Tekijät</span>
+            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'author' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('author')" (keydown.enter)="sortBy('author')">Tekijät</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
-            <span class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('medium')">Julkaisukanava</span>
+            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('medium')" (keydown.enter)="sortBy('medium')">Julkaisukanava</span>
         </div>
         <div class="col col-lg-1 d-none d-lg-block">
-            <span class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('year')">Vuosi</span>
+            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="sortBy('year')" (keydown.enter)="sortBy('year')">Vuosi</span>
         </div>
     </div>
     <div *ngIf="resultData" class="result-container">

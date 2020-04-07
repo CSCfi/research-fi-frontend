@@ -5,6 +5,44 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+// Beta review button
+.review-button {
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    bottom: 10%;
+}
+
+button.review {
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    right: -64px;
+    transition: 0.2s;
+}
+
+button.review:focus {
+    text-decoration: underline;
+}
+
+button.close {
+    right: -64px;
+    width: 64px;
+    transition: 0.2s;
+    border-radius: 0;
+}
+
+.review-button:hover > button.review, .review-button:hover > button.close {
+    transition: 0.2s;
+    right: 0;
+}
+
+html.cdk-global-scrollblock button.review {
+    right: -25%;
+}
+
+// Footer
 footer {
     position: absolute;
     width: 100%;
@@ -70,6 +108,7 @@ img.logo {
 .pull-right {
     clear: both;
 }
+
 
 //Responsive
 @media (max-width: 575px) {

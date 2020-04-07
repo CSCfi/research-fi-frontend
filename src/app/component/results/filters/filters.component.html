@@ -30,7 +30,7 @@
     <div class="filter-sidebar" *ngFor="let response of shapedData ? shapedData : responseData">
         <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h3>
         <div class="filter-wrapper">
-            <mat-expansion-panel *ngFor="let filter of currentFilter" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
+            <mat-expansion-panel *ngFor="let filter of currentFilter; let i = index" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
                     <mat-panel-title>
                         <div class="row d-flex justify-content-between">
@@ -44,6 +44,8 @@
                             <!-- Filter label -->
                             <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
                                 <span>{{filter?.labelFi}}</span>
+                            </div>
+                            <div class="col-1 pr-0 text-right">
                                 <app-info [content]="filter?.info" *ngIf="filter.hasSubFields"></app-info>
                             </div>
                         </div>
@@ -91,7 +93,7 @@
                  </ng-container>
                     <mat-selection-list>
                         <!-- Options -->
-                        <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let i = index;"
+                        <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : 3)); let j = index; trackBy: trackByFn"
                         [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)" (keydown.enter)="selectionChange(filter.field, item.key)">
                             <div class="row d-flex justify-content-around">
                                 <div class="col-9"><span class="label">{{item.label ? item.label : item.key}}</span></div>
