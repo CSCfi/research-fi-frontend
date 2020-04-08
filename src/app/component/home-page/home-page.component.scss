@@ -55,7 +55,7 @@
 
 // News feed
 .news-feed {
-    padding: 0 0 0 3px;
+    padding: 0;
 }
 
 .news-container {
@@ -67,6 +67,7 @@
     text-align: center;
     padding: 5px 0;
     font-weight: bold;
+    font-size: 1.6rem;
 }
 
 .news-feed h3 {
