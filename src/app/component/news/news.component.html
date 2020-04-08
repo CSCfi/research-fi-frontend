@@ -19,14 +19,14 @@
                         <div class="col col-lg-8">
                             <h1>Tiede- ja tutkimusuutiset</h1>
                             <ul>
-                                <li tabindex="0" *ngFor="let item of data[0]?.hits.hits.slice(0,3)">
+                                <li #mainFocus tabindex="0" *ngFor="let item of data[0]?.hits.hits.slice(0,3)">
                                     <h2>{{item._source.title}}</h2>
                                 </li>
                             </ul>
                         </div>
                         <div class="col col-lg-4">
                             <nav>
-                                <input placeholder="Hae tiedeuutisista...">
+                                <input #searchInput type="text" placeholder="Hae tiedeuutisista...">
                             </nav>
                             <ul>
                                 <li tabindex="0" *ngFor="let item of data[0]?.hits.hits.slice(3, data[0]?.hits.hits.length)">
