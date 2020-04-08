@@ -1,0 +1,4 @@
+<ng-container *ngFor="let activeFilter of data.active">
+    <li  *ngIf="!activeFilter.hide" (click)="removeFilter(activeFilter.value)">{{activeFilter.translation}}</li>
+</ng-container>
+<button mat-button color="primary" (click)="execute()">Suodata</button>
