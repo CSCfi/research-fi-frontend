@@ -65,7 +65,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
     {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn='},
-    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: true, linkPath: '/results/publications?page=1&juFo='},
+    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
   ];
 
   linksFields = [
@@ -226,8 +226,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
-    // const subUnits = source.publicationOrgUnits;
-    const selfArchived = source.selfArchivedData;
 
     if (fieldsOfScience?.length > 0) {
       // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
@@ -253,16 +251,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
     }
 
-    // if (subUnits && subUnits.length > 0) {
-    //   source.publicationOrgUnits = subUnits.map(x => x.organizationUnitNameFi.trim()).join(', ');
-    // }
-
-
     // Get authors per organization
     if (author?.length > 0) {
       author.forEach(item => {
         item.organization.forEach(org => {
-          // console.log(org);
           const authorArr = [];
           const orgUnitArr = [];
           org.organizationUnit.forEach(subUnit => {
