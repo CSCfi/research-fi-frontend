@@ -5,7 +5,8 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, Inject, HostListener, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy,
+         LOCALE_ID } from '@angular/core';
 import { faInfoCircle, faSearch, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { DOCUMENT } from '@angular/common';
@@ -13,6 +14,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
 import { Title } from '@angular/platform-browser';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-figures',
@@ -50,12 +52,15 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   hasResults: boolean;
   queryTerm: any;
   @ViewChild('mainContent') mainContent: ElementRef;
+  @ViewChild('mainFocus') mainFocus: ElementRef;
+  @ViewChild('searchInput') searchInput: ElementRef;
   dataSub: any;
   mobile: boolean;
   showMenu: boolean;
+  focusSub: any;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, private searchService: SearchService,
-  private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string ) {
+               private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -110,8 +115,17 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     // Show side menu on desktop
     this.showMenu = this.mobile ? false : true;
     this.cdr.detectChanges();
-  }
 
+    // Focus with skip-links
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'search-input') {
+        this.searchInput.nativeElement.focus();
+      }
+      if (target === 'main-link') {
+        this.mainFocus.nativeElement.focus();
+      }
+    });
+  }
   ngOnDestroy() {
     this.dataSub.unsubscribe();
   }
