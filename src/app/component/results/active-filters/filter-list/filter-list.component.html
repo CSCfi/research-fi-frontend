@@ -1,4 +1,18 @@
-<ng-container *ngFor="let activeFilter of data.active">
-    <li  *ngIf="!activeFilter.hide" (click)="removeFilter(activeFilter.value)">{{activeFilter.translation}}</li>
-</ng-container>
-<button mat-button color="primary" (click)="execute()">Suodata</button>
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row active-filters">
+    <div class="col-7" *ngFor="let activeFilter of data.active">
+        <li *ngIf="!activeFilter.hide" (click)="removeFilter(activeFilter.value)">{{activeFilter.translation}}</li>
+    </div>
+</div>
+<div class="row d-flex justify-content-around">
+    <div class="col">
+        <button mat-flat-button color="primary" (click)="execute()">Suodata</button>
+    </div>
+    <div class="col text-right">
+        <button mat-flat-button color="primary" (click)="close()">Sulje</button>
+    </div>
+</div>
