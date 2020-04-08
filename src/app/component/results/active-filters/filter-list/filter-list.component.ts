@@ -73,6 +73,10 @@ export class FilterListComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
   ngOnDestroy() {
 
   }
