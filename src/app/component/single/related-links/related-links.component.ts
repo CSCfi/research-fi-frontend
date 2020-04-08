@@ -45,9 +45,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
       const s: UrlSegment[] = g.segments;
       this.currentParent = s[1].path + 's';
-      console.log(this.currentParent);
       this.relatedList = this.relatedList.filter(item => item.tab !== this.currentParent);
-      console.log(this.relatedList);
     });
     this.getDocCounts(this.id);
   }
