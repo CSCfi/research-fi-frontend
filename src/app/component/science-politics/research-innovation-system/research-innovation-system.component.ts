@@ -5,17 +5,18 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef, LOCALE_ID, Inject } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef, LOCALE_ID, Inject, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
 import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Title, DomSanitizer } from '@angular/platform-browser';
 import { sector } from '../../../../assets/static-data/research-innovation-system.json';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-research-innovation-system',
   templateUrl: './research-innovation-system.component.html',
   styleUrls: ['./research-innovation-system.component.scss']
 })
-export class ResearchInnovationSystemComponent implements OnInit {
+export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit, OnDestroy {
   faLandmark = faLandmark;
   faEuroSign = faEuroSign;
   faHospital = faHospital;
@@ -75,8 +76,11 @@ export class ResearchInnovationSystemComponent implements OnInit {
   selectedSector: any;
   rearrangedList: any[];
   @ViewChild('openSector') openSector: ElementRef;
+  @ViewChild('mainFocus') mainFocus: ElementRef;
+  focusSub: any;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, public sanitizer: DomSanitizer) {
+  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, public sanitizer: DomSanitizer,
+              private tabChangeService: TabChangeService) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
   }
@@ -109,6 +113,24 @@ export class ResearchInnovationSystemComponent implements OnInit {
         break;
       }
     }
+    // Hide skip to input - skip-link
+    this.tabChangeService.toggleSkipToInput(false);
+  }
+
+  ngAfterViewInit() {
+    // Focus with skip-links
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
+      // console.log(this.mainFocus);
+      if (target === 'main-link') {
+        this.mainFocus.nativeElement.focus();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Reset skip to input - skip-link
+    this.tabChangeService.toggleSkipToInput(true);
+    this.tabChangeService.targetFocus('');
   }
 
 }
