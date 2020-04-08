@@ -21,7 +21,7 @@
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel">, {{publicationTypeLabel}}</span></div>
+                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
                     </div>
                     <div class="row content" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
                         <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
@@ -176,8 +176,17 @@
                     <div class="row content">
                         <div class="col-6 col-lg-3 th">Muut tiedot</div>
                         <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
-                            <p class="th">{{row.label}}</p>
-                            <p class="td">{{item[row.field]}}</p>
+                            <!-- Fields of science as list -->
+                            <ng-container *ngIf="row.field === 'fieldsParsed'; else nonField">
+                                <p class="th">{{row.label}}</p>
+                                <li *ngFor="let field of item.fieldsOfScience">
+                                    {{field.nameFi}}
+                                </li>
+                            </ng-container>
+                            <ng-template #nonField>
+                                <p class="th">{{row.label}}</p>
+                                <p class="td">{{item[row.field]}}</p>
+                            </ng-template>
                         </div>
                     </div>
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
