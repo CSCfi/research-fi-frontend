@@ -54,6 +54,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   additionalWidth = 25;
   params: any;
+  skipLinkSub: any;
+  hideInputSkip: boolean;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
@@ -86,6 +88,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.window.addEventListener('keydown', this.escapeListener);
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     }
+
+    this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(elem => {
+      this.hideInputSkip = elem;
+    });
   }
 
   ngAfterViewInit() {
