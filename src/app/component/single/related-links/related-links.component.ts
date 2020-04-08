@@ -22,6 +22,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   relatedList = [
     {labelFi: 'Julkaisut', tab: 'publications', disabled: true},
     {labelFi: 'Tutkijat', tab: 'persons', disabled: true},
+    {labelFi: 'Hankkeet', tab: 'fundings', disabled: true},
     {labelFi: 'Aineistot', tab: '', disabled: true},
     {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
     {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
@@ -44,7 +45,10 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
       const s: UrlSegment[] = g.segments;
       this.currentParent = s[1].path + 's';
-    })
+      console.log(this.currentParent);
+      this.relatedList = this.relatedList.filter(item => item.tab !== this.currentParent);
+      console.log(this.relatedList);
+    });
     this.getDocCounts(this.id);
   }
 
