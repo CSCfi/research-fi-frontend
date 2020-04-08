@@ -41,42 +41,42 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   shortcuts = [
     {
-      title: 'Suomen tieteen tila numeroina',
-      caption: 'Tutustu visualisointeihin ja tilastoihin Suomen tieteen tilasta.',
-      imgPath: 'assets/1.jpg',
-      col: 4,
+      title: 'Suomen tiede ja tutkimus lukuina',
+      caption: 'Tutustu tilastoihin mm. julkaisutoiminnasta, henkilöstövoimavaroista ja tutkimus- ja kehittämistoiminnan intensiteetistä',
+      imgPath: 'assets/img/home/finnish_science_state.jpg',
+      col: 6,
       link: '#',
       alt: ''
     },
     {
-      title: 'Tutki julkaisujen määriä tieteenaloittain',
-      caption: 'Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista.',
-      imgPath: 'assets/treemap_vis.png',
-      col: 8,
+      title: 'Suomalainen tutkimus- ja innovaatiojärjestelmä',
+      caption: 'Mistä suomalainen tutkimusjärjestelmä koostuu?',
+      imgPath: 'assets/img/home/research_innovation.jpg',
+      col: 6,
       link: '/visual/publications',
       alt: ''
 
     },
     {
-      title: 'Suomalainen tutkimusjärjestelmä',
-      caption: 'Mistä kaikesta suomalainen tutkimusjärjestelmä koostuu?',
-      imgPath: 'assets/4.jpg',
-      col: 4,
-      link: '#',
-      alt: ''
-    },
-    {
       title: 'Uusimmat tutkimushankkeet',
-      caption: 'Tutustu uusimpiin tutkimushankkeisiin.',
-      imgPath: 'assets/5.jpg',
+      caption: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
+      imgPath: 'assets/img/home/funding.jpg',
       col: 4,
       link: '#',
       alt: ''
     },
     {
-      title: 'Etsi ja löydä uutta',
-      caption: 'Etsi tietoa esim. tutkijoista, julkaisuista ja muista tutkimuksen tuotoksista sekä tutkimusinfrastruktuureista',
-      imgPath: 'assets/6.jpg',
+      title: 'Tietoa palvelusta',
+      caption: 'Mitä tiedejatutkimus.fi sisältää? Miten tutkijana saat tietosi palveluun? Miten palvelua käytetään?',
+      imgPath: 'assets/img/home/info.jpg',
+      col: 4,
+      link: '#',
+      alt: ''
+    },
+    {
+      title: 'Etsi julkaisuja!',
+      caption: 'Etsi tietoa suomalaisten tutkimusorganisaatioiden julkaisuista',
+      imgPath: 'assets/img/home/search.jpg',
       col: 4,
       link: '#',
       last: true,
