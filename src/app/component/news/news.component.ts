@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
-export class NewsComponent implements OnInit, AfterViewInit {
+export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   data: any;
   errorMessage: any;
   focusSub: any;
@@ -65,6 +65,10 @@ export class NewsComponent implements OnInit, AfterViewInit {
     .subscribe(data => {
       this.data = data;
     }, error => this.errorMessage = error as any);
+  }
+
+  ngOnDestroy() {
+    this.tabChangeService.targetFocus('');
   }
 
 }

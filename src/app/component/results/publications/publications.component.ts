@@ -83,5 +83,6 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
+    this.tabChangeService.targetFocus('');
   }
 }

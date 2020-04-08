@@ -69,6 +69,7 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngOnDestroy() {
     this.inputSub.unsubscribe();
+    this.tabChangeService.targetFocus('');
   }
 }
 

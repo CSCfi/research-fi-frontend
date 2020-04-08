@@ -72,5 +72,6 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.inputSub.unsubscribe();
+    this.tabChangeService.targetFocus('');
   }
 }
