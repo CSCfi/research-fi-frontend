@@ -126,6 +126,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
   ngOnDestroy() {
     this.dataSub.unsubscribe();
   }
