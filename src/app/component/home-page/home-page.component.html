@@ -16,20 +16,22 @@
 <main id="main-content" style="margin-top: 0">
   <div class="wrapper">
     <div class="row">
-      <div class="col-12 col-lg-9 shortcuts">
+      <div class="col-12 shortcuts">
         <div class="row">
-          <div #main tabindex="0" *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8}">
-            <div class="cover-img" title="{{item.alt}}" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
-            <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
-              <div>
-                <h2 class="header">
-                  {{item.title}}
-                </h2>
-                <span class="hint">
-                  {{item.caption}}
-                </span>
+          <div #main tabindex="0" *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-6': item.col === 6}">
+            <a routerLink="{{item.link}}">
+              <div class="cover-img" title="{{item.alt}}" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
+              <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
+                <div>
+                  <h2 class="header">
+                    {{item.title}}
+                  </h2>
+                  <span class="hint">
+                    {{item.caption}}
+                  </span>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
         <div class="row">
@@ -49,9 +51,11 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-lg-3 news-feed">
+    </div>
+    <div class="row mt-4 news-feed d-flex justify-content-around">
+      <div class="col-12 col-lg-5 p-0 ">
         <div class="news-container">
-          <h2>Uusimmat tiedeuutiset</h2>
+          <h2>Uusimmat tiede- ja tutkimusuutiset <app-info></app-info></h2>
           <div class="news-card" tabindex="0">
             <span class="date">01.12.2019</span>
             <h3 class="title">Yliopistot ja yritykset kehittävät yhdessä kompostoituvaa elektroniikkaa</h3>
