@@ -5,14 +5,15 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, AfterContentInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
 import { DataService } from '../../../services/data.service';
 import { TabChangeService } from '../../../services/tab-change.service';
-import { switchMapTo } from 'rxjs/operators';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FilterListComponent} from './filter-list/filter-list.component';
 
 @Component({
   selector: 'app-active-filters',
@@ -46,8 +47,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   fromYear: number;
   toYear: number;
 
+  filterListDialogRef: MatDialogRef<FilterListComponent>;
+
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
-               private dataService: DataService, private tabChangeService: TabChangeService ) {
+               private dataService: DataService, private tabChangeService: TabChangeService,
+               public dialog: MatDialog ) {
    }
 
   ngOnInit() {
@@ -63,6 +67,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       // Get from & to year values from filter list
       this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
       this.toYear = parseInt(filter.toYear[0]?.slice(1), 10);
+      console.log('a: ', this.toYear);
       const years = filter.year.map(item => parseInt(item, 10));
       let yearWarning = false;
 
@@ -236,9 +241,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       }
     }
 
-
-
-
     this.activeFilters = this.activeFilters.filter(elem => elem.value !== event.target.id);
 
     const params = this.activeFilters.reduce((storage, item) => {
@@ -278,6 +280,16 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   leave() {
     this.hoverIndex = null;
-}
+  }
+
+  openModal() {
+    this.filterListDialogRef = this.dialog.open(FilterListComponent, {
+      data: {
+        active: this.activeFilters,
+        fromYear: this.fromYear,
+        toYear: this.toYear
+      }
+    });
+  }
 
 }
