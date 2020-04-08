@@ -7,7 +7,7 @@
 <div class="row active-filters" *ngIf="activeFilters.length > 0">   
   <h5>Rajaukset:</h5>
   <ul aria-live="polite">
-    <ng-container *ngFor="let activeFilter of activeFilters; let i = index">
+    <ng-container *ngFor="let activeFilter of activeFilters.slice(0, 6); let i = index">
       <li tabindex="0" class="filter" *ngIf="!activeFilter.hide" (click)="removeFilter($event)" id="{{activeFilter.value}}">
         <span id="{{activeFilter.value}}">{{activeFilter.translation}}</span>
         <fa-icon (mouseenter)="enter(i)" (mouseleave)="leave()" *ngIf="activeFilter.warning" class="icon warning" [icon]="faExclamationTriangle"></fa-icon>
@@ -16,6 +16,7 @@
         </div>
       </li>
     </ng-container>
+    <button class="clear filter" mat-flat-button color="primary" (click)="openModal()">Näytä kaikki</button>
     <button class="clear filter" mat-flat-button color="primary" (click)="clearFilters()">Tyhjennä rajaukset</button>
   </ul>
 </div>
