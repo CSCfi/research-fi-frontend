@@ -19,9 +19,11 @@ export class TabChangeService {
   private tabSource = new BehaviorSubject({data: '', labelFi: '', labelEn: '', link: '', icon: ''});
   private focusSource = new BehaviorSubject(false);
   private focusTarget = new BehaviorSubject('');
+  private skipToInput = new BehaviorSubject(true);
   currentTab = this.tabSource.asObservable();
   currentFocus = this.focusSource.asObservable();
   currentFocusTarget = this.focusTarget.asObservable();
+  currentSkipToInput = this.skipToInput.asObservable();
   tab: string;
   tabQueryParams: any = {};
   locale: string;
@@ -40,6 +42,11 @@ export class TabChangeService {
   changeTab(tab: {data: string; labelFi: string, labelEn: string, link: string, icon: any}) {
     this.tab = tab.link;
     this.tabSource.next(tab);
+  }
+
+  // Show / hide skip to input - skip-link
+  toggleSkipToInput(state) {
+    this.skipToInput.next(state);
   }
 
   resetQueryParams() {
