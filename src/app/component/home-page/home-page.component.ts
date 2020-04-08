@@ -13,6 +13,7 @@ import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   providers: [SearchBarComponent],
@@ -29,6 +30,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   };
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChildren('shortcutItem') shortcutItem: QueryList<ElementRef>;
+  @ViewChild('main') mainContent: ElementRef;
   basicStyle = {
     border: '0px',
     background: 'white',
@@ -81,10 +83,13 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       alt: ''
     }
   ];
+  focusSub: any;
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string ) { }
+               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService ) {
+
+               }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
@@ -130,6 +135,12 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getHeight();
+    // Focus first element when clicked with skip-link
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'main-link') {
+        this.mainContent?.nativeElement.focus();
+      }
+    });
   }
 
   // Get height of div with most height
