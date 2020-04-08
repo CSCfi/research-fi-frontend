@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ComponentFactoryResolver, ViewChild, ElementRef, LOCALE_ID, Inject, ViewChildren, QueryList, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, LOCALE_ID, Inject, AfterViewInit, OnDestroy } from '@angular/core';
 import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Title, DomSanitizer } from '@angular/platform-browser';
 import { sector } from '../../../../assets/static-data/research-innovation-system.json';
