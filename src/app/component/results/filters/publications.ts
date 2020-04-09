@@ -90,7 +90,7 @@ export class PublicationFilters {
 
     // Map items for subData
     const result = combined.map(
-      x => x = {key: x + ', ' + staticData.find(item => item.class === x).label, subData: staticData.find(item => item.class === x)
+      x => x = {key: x + ' ' + staticData.find(item => item.class === x).label, subData: staticData.find(item => item.class === x)
       .types.map(type => type = {
           type: type.type,
           label: type.type + ' ' + type.label,
