@@ -4,10 +4,10 @@
  :license: MIT -->
 
 <!-- Active filters -->
-<div class="row active-filters" *ngIf="activeFilters.length > 0">   
+<div class="row active-filters" *ngIf="activeFilters.length > 0 && translationFlag">   
   <h5>Rajaukset:</h5>
   <ul aria-live="polite">
-    <ng-container *ngFor="let activeFilter of activeFilters; let i = index">
+    <ng-container *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index">
       <li tabindex="0" class="filter" *ngIf="!activeFilter.hide" (click)="removeFilter($event)" id="{{activeFilter.value}}">
         <span id="{{activeFilter.value}}">{{activeFilter.translation}}</span>
         <fa-icon (mouseenter)="enter(i)" (mouseleave)="leave()" *ngIf="activeFilter.warning" class="icon warning" [icon]="faExclamationTriangle"></fa-icon>
