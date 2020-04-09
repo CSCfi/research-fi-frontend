@@ -48,6 +48,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   toYear: number;
 
   filterListDialogRef: MatDialogRef<FilterListComponent>;
+  translationFlag: boolean;
+  parsedFilters: any[];
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
@@ -63,11 +65,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   }
 
   translate() {
+    this.translationFlag = false;
     this.queryParams = this.filterService.filters.subscribe(filter => {
       // Get from & to year values from filter list
       this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
       this.toYear = parseInt(filter.toYear[0]?.slice(1), 10);
-      console.log('a: ', this.toYear);
       const years = filter.year.map(item => parseInt(item, 10));
       let yearWarning = false;
 
@@ -101,6 +103,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
         this.response = response;
         if (response) {
+          console.log(response);
           const source = this.response[0].aggregations;
           const tab = this.currentTab.data;
           // Replace values with translated ones
@@ -214,6 +217,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               this.activeFilters[foundIndex].translation = result.typeName ? result.typeName.buckets[0].key : '';
             }
           });
+          // Set flag when all filters are translated & filter items that aren't hidden
+          this.translationFlag = true;
+          if (this.translationFlag === true) {
+            this.parsedFilters = this.activeFilters.filter(item => !item.hide);
+
+          }
         }
       });
 
