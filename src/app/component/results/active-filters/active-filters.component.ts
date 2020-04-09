@@ -11,7 +11,7 @@ import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
 import { DataService } from '../../../services/data.service';
 import { TabChangeService } from '../../../services/tab-change.service';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FilterListComponent} from './filter-list/filter-list.component';
 
@@ -43,6 +43,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   tabSub: any;
   currentTab: any;
   faExclamationTriangle = faExclamationTriangle;
+  faTrashAlt = faTrashAlt;
   hoverIndex: any;
   fromYear: number;
   toYear: number;

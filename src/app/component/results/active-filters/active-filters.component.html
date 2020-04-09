@@ -5,7 +5,7 @@
 
 <!-- Active filters -->
 <div class="row active-filters" *ngIf="activeFilters.length > 0 && translationFlag">   
-  <h5>Rajaukset:</h5>
+  <h5>Rajaukset ({{parsedFilters.length}}):</h5>
   <ul aria-live="polite">
     <ng-container *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index">
       <li tabindex="0" class="filter" *ngIf="!activeFilter.hide" (click)="removeFilter($event)" id="{{activeFilter.value}}">
@@ -16,7 +16,8 @@
         </div>
       </li>
     </ng-container>
-    <button class="clear filter" mat-flat-button color="primary" (click)="openModal()">Näytä kaikki</button>
-    <button class="clear filter" mat-flat-button color="primary" (click)="clearFilters()">Tyhjennä rajaukset</button>
+    <div class="ellipsis" *ngIf="parsedFilters.length > 6">...</div>
+    <button *ngIf="parsedFilters.length > 6" class="clear filter" mat-stroked-button color="primary" (click)="openModal()">Näytä kaikki</button>
+    <button class="clear filter" mat-button color="primary" (click)="clearFilters()"><fa-icon class="clear" [icon]="faTrashAlt"></fa-icon>Tyhjennä rajaukset</button>
   </ul>
 </div>
