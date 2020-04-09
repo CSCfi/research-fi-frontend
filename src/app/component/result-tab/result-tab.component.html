@@ -15,7 +15,7 @@
         <div class="arrow arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
       <a *ngFor="let tab of tabData; let i = index;" class="bundler" [class.disabled]="tab.data.length === 0" [class.disabled-home]="isHomePage && tab.data.length === 0" [ngStyle]="homepageStyle" 
-      [class.active]="selectedTab === tab.link" [queryParams]="queryParams[tab.link]" (click)="resetFocus(true); disableScroll(true)" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
+      [class.active]="selectedTab === tab.link" [queryParams]="queryParams[tab.link]" (click)="disableScroll(true)" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
       [tabindex]="isHomePage && tab.data.length !== 0 ? 0 : -1">
         <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
           <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
