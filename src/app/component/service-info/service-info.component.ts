@@ -7,10 +7,12 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./service-info.component.scss']
 })
 export class ServiceInfoComponent implements OnInit {
+  faInfo = faInfo;
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

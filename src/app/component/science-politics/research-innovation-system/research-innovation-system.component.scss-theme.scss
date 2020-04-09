@@ -12,34 +12,5 @@
 
     app-research-innovation-system {
 
-        .mat-expansion-panel {
-            background: none;
-        }
-
-        .mat-expansion-panel:not([class*='mat-elevation-z']) {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-        }
-
-        .mat-expansion-panel-content {
-            font-size: 16px;
-            color: mat-contrast($primary, 300);
-            a {
-                color: mat-contrast($primary, 50);
-                text-decoration: underline;
-                font-size: 18px;
-            }
-            strong {
-                color: mat-color($primary);
-            }
-        }
-
-        .sector-icon {
-            color: white;
-            background: mat-color($primary, 200);
-        }
-
-        .sector-title {
-            color: mat-contrast($primary, 200);
-        }
     }
 }
