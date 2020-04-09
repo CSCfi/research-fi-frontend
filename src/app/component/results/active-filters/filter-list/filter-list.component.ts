@@ -1,12 +1,14 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { SortService } from 'src/app/services/sort.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filter-list',
   templateUrl: './filter-list.component.html',
-  styleUrls: ['./filter-list.component.scss']
+  styleUrls: ['./filter-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FilterListComponent implements OnInit, OnDestroy {
   activeFilters: any;
@@ -14,6 +16,8 @@ export class FilterListComponent implements OnInit, OnDestroy {
   toYear: any;
   params: any;
   removeFlag: boolean;
+  faTimes = faTimes;
+  faTrash = faTrashAlt;
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any, private router: Router,
                private sortService: SortService, private dialogRef: MatDialogRef<FilterListComponent> ) { }
@@ -61,11 +65,17 @@ export class FilterListComponent implements OnInit, OnDestroy {
     }, {});  // initially empty object {} as storage
 
     this.params.sort = this.sortService.sortMethod;
-
+    this.router.navigate([], {queryParams: this.params});
     this.removeFlag = true;
-    console.log(this.params);
   }
 
+  clearFilters() {
+    this.activeFilters = [];
+    this.dialogRef.close();
+    this.router.navigate([]);
+  }
+
+  // Unsused for now, works if we want to filter with button click
   execute() {
     if (this.removeFlag) {
       this.router.navigate([], {queryParams: this.params});
