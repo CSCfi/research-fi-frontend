@@ -15,7 +15,9 @@
 <div class="row active-filters">
     <div class="col-12">
         <ng-container *ngFor="let activeFilter of data.active">
-            <li *ngIf="!activeFilter.hide" (click)="removeFilter(activeFilter.value)">{{activeFilter.translation}}</li>
+            <li tabindex="0" *ngIf="!activeFilter.hide" (click)="removeFilter(activeFilter.value)" (keydown.enter)="removeFilter(activeFilter.value)">
+                {{activeFilter.translation}}
+            </li>
         </ng-container>
     </div>
 </div>
