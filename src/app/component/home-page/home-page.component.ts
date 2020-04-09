@@ -45,7 +45,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       caption: 'Tutustu tilastoihin mm. julkaisutoiminnasta, henkilöstövoimavaroista ja tutkimus- ja kehittämistoiminnan intensiteetistä',
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
-      link: '/visual/publications',
+      link: '#',
       alt: ''
     },
     {
