@@ -3,8 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<!-- Active filters -->
-<div class="row active-filters" *ngIf="activeFilters.length > 0 && translationFlag">   
+<div #container class="row active-filters" *ngIf="activeFilters.length > 0 && translationFlag">   
   <h5>Rajaukset ({{parsedFilters.length}}):</h5>
   <ul aria-live="polite">
     <ng-container *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index">
