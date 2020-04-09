@@ -44,6 +44,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 import { CountUpModule } from 'countup.js-angular2';
 
@@ -187,6 +188,7 @@ import { InfoComponent } from './component/info/info.component';
     MatButtonModule,
     MatSlideToggleModule,
     ScrollingModule,
+    ClipboardModule,
     CountUpModule,
     PortalModule,
     FontAwesomeModule,

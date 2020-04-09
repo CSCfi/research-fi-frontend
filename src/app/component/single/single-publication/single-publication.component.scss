@@ -40,3 +40,16 @@
 .cite-block {
     margin-bottom: 10px;
 }
+
+.reference .no-doi-warn {
+    font-weight: bold;
+}
+
+.modal-body .copy {
+    cursor: pointer;
+    float: right;
+    margin-top: 5px;
+    &:hover {
+        text-decoration: underline;
+    }
+}

@@ -148,10 +148,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   getCitations() {
     const source = this.responseData.publications[0];
-    // Check if the doi exists (the field is filtered on init if it doesn't)
     const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
-    // Flag needed for template
-    this.hasDoi = !!doi;
     // tslint:disable-next-line: curly
     if (!this.hasDoi) return;
     const doiUrl = source.doi;
@@ -193,9 +190,17 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.juFoCode = this.responseData.publications[0].jufoCode;
         this.shapeData();
         this.filterData();
+        this.checkDoi();
       }
     },
       error => this.errorMessage = error as any);
+  }
+
+  checkDoi() {
+    // Check if the doi exists (the field is filtered on init if it doesn't)
+    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    // Flag needed for template
+    this.hasDoi = !!doi;
   }
 
   filterData() {

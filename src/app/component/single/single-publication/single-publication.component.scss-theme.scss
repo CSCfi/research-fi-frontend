@@ -9,6 +9,7 @@
 
 @mixin app-single-publication-theme($theme) {
     $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
 
     div.links {
         color: mat-contrast($primary, 500);
@@ -37,5 +38,21 @@
             background: white;
             border-radius: 2px;
         }
+    }
+
+    h3.modal-title {
+        color: mat-contrast($primary, 50)
+    }
+
+    .modal-body h4 {
+        color: mat-contrast($primary, 300)
+    }
+
+    .modal-body .copy {
+        color: mat-color($primary);
+    }
+
+    .reference .no-doi-warn {
+        color: mat-color($warn);
     }
 }
