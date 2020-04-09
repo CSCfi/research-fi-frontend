@@ -73,7 +73,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.routeSub = router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         // Prevent multiple anchors
-        // console.log(e);
         this.route.queryParams.subscribe(params => {
           this.params = params;
         })
