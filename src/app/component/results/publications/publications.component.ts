@@ -12,6 +12,7 @@ import { SortService } from '../../../services/sort.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
 import { Search } from 'src/app/models/search.model';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-publications',
@@ -24,16 +25,19 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   sortColumn: string;
   sortDirection: boolean;
   @ViewChild('main') mainContent: ElementRef;
+  @ViewChild('sortHeader') sortHeader: ElementRef;
 
   faIcon = this.tabChangeService.tabData.filter(t => t.data === 'publications').map(t => t.icon).pop();
   documentLang: any;
   input: string;
   inputSub: any;
   focusSub: any;
+  marginTop = 0;
+  heightSub: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
               @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService,
-              private searchService: SearchService, private cdr: ChangeDetectorRef) {
+              private searchService: SearchService, private cdr: ChangeDetectorRef, private dataService: DataService) {
                 this.documentLang = this.document.documentElement.lang;
                }
 
@@ -51,11 +55,16 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     // Focus first element when clicked with skip-link
-    this.tabChangeService.currentFocusTarget.subscribe(target => {
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'main') {
         this.mainContent?.nativeElement.focus();
       }
-
+    });
+    this.heightSub = this.dataService.currentActiveFilterHeight.subscribe(height => {
+      if (height > 0) {
+        this.marginTop = height;
+        this.cdr.detectChanges();
+      }
     });
 
   }
@@ -84,5 +93,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
+    this.focusSub.unsubscribe();
+    this.heightSub.unsubscribe();
   }
 }
