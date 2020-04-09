@@ -100,9 +100,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   // Set focus to results header if click or enter
-  resetFocus(status) {
-    this.tabChangeService.changeFocus(status);
-  }
+  // resetFocus(status) {
+  //   this.tabChangeService.changeFocus(status);
+  // }
 
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
