@@ -114,6 +114,7 @@ import { Router } from '@angular/router'; // Required by ApmService
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
 import { InfoComponent } from './component/info/info.component';
+import { ServiceInfoComponent } from './component/service-info/service-info.component';
 
 @NgModule({
   declarations: [
@@ -161,7 +162,8 @@ import { InfoComponent } from './component/info/info.component';
     SingleFigureComponent,
     SocialComponent,
     RelatedLinksComponent,
-    InfoComponent
+    InfoComponent,
+    ServiceInfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

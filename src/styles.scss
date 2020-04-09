@@ -34,11 +34,12 @@
 @import './app/component/single/single-publication/single-publication.component.scss-theme.scss';
 @import './app/component/single/single-funding/single-funding.component.scss-theme.scss';
 @import './app/component/science-politics/figures/figures.component-theme.scss';
-@import './app/component/science-politics/research-innovation-system/research-innovation-system.component-theme.scss';
+@import './app/component/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss';
 @import './app/component/science-politics/figures/single-figure/single-figure.component-theme.scss';
 @import './app/component/science-politics/science-politics.scss-shared.scss';
 @import './app/component/science-politics/science-politics.scss-theme-shared.scss';
 @import './app/component/info/info.component-theme.scss';
+@import './app/component/service-info/service-info.component.scss-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -65,6 +66,7 @@
   @include app-science-politics-shared;
   @include app-science-politics-theme-shared($theme);
   @include app-info-component-theme($theme);
+  @include app-service-info-theme($theme);
 
   $primary: map-get($theme, primary);
   

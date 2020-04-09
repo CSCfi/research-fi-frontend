@@ -45,7 +45,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       caption: 'Tutustu tilastoihin mm. julkaisutoiminnasta, henkilöstövoimavaroista ja tutkimus- ja kehittämistoiminnan intensiteetistä',
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
-      link: '#',
+      link: '/visual/publications',
       alt: ''
     },
     {
@@ -53,7 +53,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       caption: 'Mistä suomalainen tutkimusjärjestelmä koostuu?',
       imgPath: 'assets/img/home/research_innovation.jpg',
       col: 6,
-      link: '/visual/publications',
+      link: '/science-innovation-politics/research-innovation-system',
       alt: ''
 
     },
@@ -70,7 +70,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       caption: 'Mitä tiedejatutkimus.fi sisältää? Miten tutkijana saat tietosi palveluun? Miten palvelua käytetään?',
       imgPath: 'assets/img/home/info.jpg',
       col: 4,
-      link: '#',
+      link: '/service-info',
       alt: ''
     },
     {
