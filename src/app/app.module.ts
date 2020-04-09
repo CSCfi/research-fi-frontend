@@ -43,6 +43,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
@@ -114,6 +116,7 @@ import { Router } from '@angular/router'; // Required by ApmService
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
 import { InfoComponent } from './component/info/info.component';
+import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
 
 @NgModule({
   declarations: [
@@ -161,7 +164,8 @@ import { InfoComponent } from './component/info/info.component';
     SingleFigureComponent,
     SocialComponent,
     RelatedLinksComponent,
-    InfoComponent
+    InfoComponent,
+    FilterListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -187,6 +191,7 @@ import { InfoComponent } from './component/info/info.component';
     MatPaginatorModule,
     MatButtonModule,
     MatSlideToggleModule,
+    MatDialogModule,
     ScrollingModule,
     ClipboardModule,
     CountUpModule,

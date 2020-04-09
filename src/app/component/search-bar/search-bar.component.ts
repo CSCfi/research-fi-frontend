@@ -152,6 +152,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       const term = this.keyManager.activeItem.term || undefined;
       const history = this.keyManager.activeItem.historyItem || undefined;
       const clear = this.keyManager.activeItem.clear || undefined;
+      // Set focus to tab skip-link via service
+      this.setFocus();
 
       // Check for items that match current selected item
       if (doc && id) {
@@ -172,6 +174,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       // Search with no suggests
     } else if (event.keyCode === 13) {
       this.newInput(undefined, undefined);
+      // Set focus to skip-to link
+      this.setFocus();
       // Continue without action. For some reason letter 'n' registers as down arrow, hacky fix:
     } else if (event.keyCode !== 78)  {
       this.keyManager.onKeydown(event);
@@ -184,7 +188,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.keyCode === 39) {
       this.addCompletion();
     }
+  }
 
+  setFocus() {
+    this.tabChangeService.changeFocus(true);
   }
 
   getCompletion() {
@@ -245,8 +252,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   newInput(selectedIndex, historyLink) {
     // Hide search helper
     this.showHelp = false;
-    // Set focus to tab header via service
-    this.tabChangeService.changeFocus(true);
+    // Reset focus target
     this.tabChangeService.targetFocus('');
     // Set input to local storage & assign list to variable
     this.currentInput = this.queryField.value;

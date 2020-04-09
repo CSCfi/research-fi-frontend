@@ -28,6 +28,8 @@
 @import './app/component/results/pagination/pagination.component.scss-theme.scss';
 @import './app/component/results/sort/sort.component.scss-theme.scss';
 @import './app/component/results/active-filters/active-filters.component.scss-theme.scss';
+@import './app/component/results/active-filters/active-filters-shared.scss';
+@import './app/component/results/active-filters/active-filters-theme-shared.scss';
 @import './app/component/breadcrumb/breadcrumb.component.scss-theme.scss';
 @import './app/component/results/filters/filters-shared.scss';
 @import './app/component/results/filters/filters.theme-shared.scss';
@@ -56,6 +58,8 @@
   @include app-pagination-theme($theme);
   @include app-sort-theme($theme);
   @include app-active-filters-theme($theme);
+  @include app-active-filters-shared;
+  @include app-active-filters-shared-theme($theme);
   @include app-breadcrumb-theme($theme);
   @include app-single-publication-theme($theme);
   @include app-single-funding-theme($theme);

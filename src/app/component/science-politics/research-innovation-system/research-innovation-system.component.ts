@@ -120,7 +120,6 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   ngAfterViewInit() {
     // Focus with skip-links
     this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      // console.log(this.mainFocus);
       if (target === 'main-link') {
         this.mainFocus.nativeElement.focus();
       }

@@ -1,0 +1,26 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row mb-2">
+    <div class="col-10">
+        <h2>Rajaukset ({{data.active.length}})</h2>
+        <p>Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla hakutulosnäkymään.</p>
+    </div>
+    <div class="col-2 text-right">
+        <button mat-button color="primary" (click)="close()"><fa-icon [icon]="faTimes"></fa-icon>Sulje</button>
+    </div>
+</div>
+<div class="row active-filters">
+    <div class="col-12">
+        <ng-container *ngFor="let activeFilter of data.active">
+            <li *ngIf="!activeFilter.hide" (click)="removeFilter(activeFilter.value)">{{activeFilter.translation}}</li>
+        </ng-container>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col text-center">
+        <button mat-flat-button color="primary" (click)="clearFilters()"><fa-icon [icon]="faTrash"></fa-icon>Tyhjennä kaikki rajaukset</button>
+    </div>
+</div>
