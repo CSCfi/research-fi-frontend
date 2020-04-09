@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
@@ -20,7 +20,7 @@ import { FilterListComponent} from './filter-list/filter-list.component';
   templateUrl: './active-filters.component.html',
   styleUrls: ['./active-filters.component.scss']
 })
-export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentInit {
+export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
   queryParams: any;
   activeFilters = [];
 
@@ -51,6 +51,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   filterListDialogRef: MatDialogRef<FilterListComponent>;
   translationFlag: boolean;
   parsedFilters: any[];
+  @ViewChildren('container') container: QueryList<ElementRef>;
+  containerSub: any;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
@@ -63,6 +65,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   ngAfterContentInit() {
     this.translate();
+  }
+
+  ngAfterViewInit() {
+    // Get height of component and send to service, this is used with result header top margin
+    this.containerSub = this.container.changes.subscribe(item => {
+      const arr = item.toArray();
+      this.dataService.changeActiveFilterHeight(arr[0]?.nativeElement.offsetHeight);
+    });
+
   }
 
   translate() {
@@ -104,7 +115,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
         this.response = response;
         if (response) {
-          console.log(response);
           const source = this.response[0].aggregations;
           const tab = this.currentTab.data;
           // Replace values with translated ones
@@ -281,6 +291,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     this.queryParams.unsubscribe();
     this.filterResponse.unsubscribe();
     this.tabSub.unsubscribe();
+    this.containerSub.unsubscribe();
   }
 
   // Set index for warning hover
