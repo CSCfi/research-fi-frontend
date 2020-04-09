@@ -12,8 +12,9 @@
             font-weight: bold;
             color: mat-color($primary);
         }
+
+        .row.active-filters {
+            background: white
+        }
     }
-
-    
 }
-
