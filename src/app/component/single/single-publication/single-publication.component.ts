@@ -22,6 +22,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Search } from 'src/app/models/search.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-single-publication',
@@ -112,7 +113,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
-               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId ) {
+               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
+               private snackBar: MatSnackBar ) {
    }
 
   public setTitle(newTitle: string) {
@@ -144,6 +146,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Viite kopioitu leikepöydälle');
   }
 
   getCitations() {

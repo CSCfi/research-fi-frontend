@@ -44,6 +44,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -194,6 +195,7 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
     MatButtonModule,
     MatSlideToggleModule,
     MatDialogModule,
+    MatSnackBarModule,
     ScrollingModule,
     ClipboardModule,
     CountUpModule,
@@ -237,7 +239,11 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
       provide: ApmService,
       useClass: ApmService,
       deps: [Router]
-    }
+    },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {duration: 3000}
+    },
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
