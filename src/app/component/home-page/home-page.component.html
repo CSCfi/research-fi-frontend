@@ -18,8 +18,8 @@
     <div class="row">
       <div class="col-12 shortcuts">
         <div class="row">
-          <div #main tabindex="0" *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-6': item.col === 6}">
-            <a routerLink="{{item.link}}">
+          <div *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-6': item.col === 6}">
+            <a class="link-img" #main routerLink="{{item.link}}">
               <div class="cover-img" title="{{item.alt}}" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
               <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
                 <div>
@@ -35,21 +35,21 @@
           </div>
         </div>
         <div class="row">
-          <div tabindex="0" *ngFor="let item of shortcuts.slice(2)" class="col-12 link-img"
+          <div *ngFor="let item of shortcuts.slice(2)" class="col-12 link-img"
           [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8, 'col-sm-12': item.last, 'col-sm-6': !item.last}">
-          <a routerLink="{{item.link}}">
-          <div class="cover-img" title="{{item.alt}}" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
-            <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
-              <div>
-                <h2 class="header">
-                  {{item.title}}
-                </h2>
-                <span class="hint">
-                  {{item.caption}}
-                </span>
+            <a class="link-img" #main routerLink="{{item.link}}">
+              <div class="cover-img" title="{{item.alt}}" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
+              <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
+                <div>
+                  <h2 class="header">
+                    {{item.title}}
+                  </h2>
+                  <span class="hint">
+                    {{item.caption}}
+                  </span>
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
           </div>
         </div>
       </div>

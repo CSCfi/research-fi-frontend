@@ -7,94 +7,20 @@
 
 .row.active-filters {
     padding-inline-start: 1.4rem;
-}
-
-.active-filters h5 {
-    padding: 0 1rem 0 0;
-}
-
-.active-filters ul {
-    list-style: none;
-    padding: 0;
-}
-
-.filter {
-    display: inline-block;
-}
-
-.active-filters {
-    font-size: 0.85rem;
-}
-
-.active-filters li, button.clear {
-    padding: 2px 10px;
-    margin: 0 4px 4px 0;
-    border-radius: 10px;
-    line-height: 28px;
-    cursor: pointer;
-}
-
-button.clear {
-    border-radius: 5px;
-    padding-right: 15px;
-    padding-left: 15px;
-    font-size: inherit;
-}
-
-.active-filters li {
-    padding-right: 30px;
-    position: relative;
-    &:nth-last-child(2) {
-        margin-right: 20px;
-    }
-}
-
-.active-filters li:after {
-    position: absolute;
-    font-family: "FontAwesome";
-    content: "\f00d ";
-    font-size: 1.2rem;
-    padding-left: 5px;
-}
-
-.active-filters li:hover::after {
-    font-size: 1.5rem;
-    top: 0px;
-}
-
-// Warning icon
-.icon.warning {
-    padding: 0 1rem 0 0.5rem;
-}
-
-.warning-info {
-    display: block;
-    position: absolute;
-    border: 1px solid;
-    margin-top: 18px;
-    margin-left: 9rem;
-    width: 145px;
-    padding: 0 5px;
+    position: sticky;
+    top: 0;
     z-index: 2;
 }
 
-.warning-info:after, .warning-info:before {
-    content: " ";
-    position: absolute;
-    bottom: 100%;
-    left: 33px;
-    height: 0;
-    width: 0;
-    pointer-events: none;
+fa-icon.clear {
+    padding: 0 0.7rem 0 0;
 }
 
-.warning-info:after {
-    border-width: 12px;
-    margin-left: -12px;
-}
-
-@media (max-width: 991px) {
-    .active-filters {
-        padding-inline-end: 1.4rem;
-    }
+.ellipsis {
+    display: inline-block;
+    padding: 0 0.5rem;
+    font-size: 2rem;
+    line-height: 1rem;
+    font-weight: bold;
+    vertical-align: middle;
 }

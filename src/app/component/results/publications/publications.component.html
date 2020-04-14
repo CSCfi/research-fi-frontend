@@ -9,7 +9,7 @@
 <!-- Data -->
 <div *ngIf="resultData && resultData.total > 0; else noResults">
     <!-- Results -->
-    <div class="row no-margin sticky-header">
+    <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}">
         <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
             <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"

@@ -6,164 +6,167 @@
 // # :license: MIT
 
 // Beta review button
-.review-button {
-    position: fixed;
-    z-index: 999;
-    right: 0;
-    bottom: 10%;
-}
 
-button.review {
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    right: -64px;
-    transition: 0.2s;
-}
-
-button.review:focus {
-    text-decoration: underline;
-}
-
-button.close {
-    right: -64px;
-    width: 64px;
-    transition: 0.2s;
-    border-radius: 0;
-}
-
-.review-button:hover > button.review, .review-button:hover > button.close {
-    transition: 0.2s;
-    right: 0;
-}
-
-html.cdk-global-scrollblock button.review {
-    right: -25%;
-}
-
-// Footer
-footer {
-    position: absolute;
-    width: 100%;
-    margin-top: 25px;
-    padding: 2rem 0;
-}
-
-.header {
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 1rem;
-    display: block;
-    padding: 1rem 0;
-}
-
-.col {
-    border: 0px solid;
-}
-
-ul {
-    padding-inline-start: 0px;
-}
-
-li {
-    padding: 0.5rem 0;
-    list-style: none;
-    font-weight: bold;
-}
-
-li a:hover {
-    text-decoration: none;
-}
-
-img {
-    // padding-top: 10px;
-}
-
-img.logo {
-    max-width: 150px;
-    height: auto;
-    // margin-top: 20px;
-    display: block;
-}
-
-.social ul {
-    margin-bottom: 5px;
-}
-
-.icon {
-    font-size: 2rem;
-    padding-right: 1rem;
-}
-
-.fa:hover {
-    opacity: 0.7;
-}
-
-.build-info {
-    font-size: 9px;
-    opacity: 0.6
-}
-
-.pull-right {
-    clear: both;
-}
-
-
-//Responsive
-@media (max-width: 575px) {
-
-}
-
-@media (min-width: 576px) {
-
-}
-
-@media (max-width: 768px) {
-    footer .col {
-        min-width: 100%;
-        text-align: center;
-        padding: 0;
+app-footer {
+    .review-button {
+        position: fixed;
+        z-index: 999;
+        right: 0;
+        bottom: 10%;
     }
-
-    img.logo {
-        margin-top: 0;
-        margin: 0 auto;
+    
+    button.review {
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        right: -64px;
+        transition: 0.2s;
     }
-
+    
+    button.review:focus {
+        text-decoration: underline;
+    }
+    
+    button.close {
+        right: -64px;
+        width: 64px;
+        transition: 0.2s;
+        border-radius: 0;
+    }
+    
+    .review-button:hover > button.review, .review-button:hover > button.close {
+        transition: 0.2s;
+        right: 0;
+    }
+    
+    html.cdk-global-scrollblock button.review {
+        right: -20%;
+    }
+    
+    // Footer
+    footer {
+        position: absolute;
+        width: 100%;
+        margin-top: 25px;
+        padding: 2rem 0;
+    }
+    
     .header {
-        padding: 5rem 0 14px;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 1rem;
+        display: block;
+        padding: 1rem 0;
     }
-
-    footer ul {
-        padding: 0;
-        margin-top: 0;
-        margin-bottom: 0rem;
+    
+    .col {
+        border: 0px solid;
     }
-
-    footer li {
-        padding: 1rem;
+    
+    ul {
+        padding-inline-start: 0px;
     }
-
-    .social {
-        text-align: center;
+    
+    li {
+        padding: 0.5rem 0;
+        list-style: none;
+        font-weight: bold;
     }
-
-    .fa {
-        padding: 1rem;
+    
+    li a:hover {
+        text-decoration: none;
     }
-}
-
-@media (max-width: 991px) {
+    
+    img {
+        // padding-top: 10px;
+    }
+    
+    img.logo {
+        max-width: 150px;
+        height: auto;
+        // margin-top: 20px;
+        display: block;
+    }
+    
+    .social ul {
+        margin-bottom: 5px;
+    }
+    
+    .social-icon {
+        font-size: 2rem;
+        padding-right: 1rem;
+    }
+    
+    .fa:hover {
+        opacity: 0.7;
+    }
+    
+    .build-info {
+        font-size: 9px;
+        opacity: 0.6
+    }
+    
     .pull-right {
-        float: none;
+        clear: both;
     }
-}
-
-@media (min-width: 1200px) {
-
-}
-
-@media (min-width: 1440px) {
-
+    
+    
+    //Responsive
+    @media (max-width: 575px) {
+    
+    }
+    
+    @media (min-width: 576px) {
+    
+    }
+    
+    @media (max-width: 768px) {
+        footer .col {
+            min-width: 100%;
+            text-align: center;
+            padding: 0;
+        }
+    
+        img.logo {
+            margin-top: 0;
+            margin: 0 auto;
+        }
+    
+        .header {
+            padding: 5rem 0 14px;
+        }
+    
+        footer ul {
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 0rem;
+        }
+    
+        footer li {
+            padding: 1rem;
+        }
+    
+        .social {
+            text-align: center;
+        }
+    
+        .fa {
+            padding: 1rem;
+        }
+    }
+    
+    @media (max-width: 991px) {
+        .pull-right {
+            float: none;
+        }
+    }
+    
+    @media (min-width: 1200px) {
+    
+    }
+    
+    @media (min-width: 1440px) {
+    
+    }
 }
