@@ -268,7 +268,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
               if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
                 authorArr.push({
                   author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
-                  orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+                  orcid: person.authorOrcid?.length > 10 ? person.authorOrcid : false,
                   subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
                 });
               }
