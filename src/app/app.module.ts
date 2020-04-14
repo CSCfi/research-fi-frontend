@@ -117,6 +117,7 @@ import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
 import { InfoComponent } from './component/info/info.component';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
+import { ServiceInfoComponent } from './component/service-info/service-info.component';
 
 @NgModule({
   declarations: [
@@ -164,8 +165,9 @@ import { FilterListComponent } from './component/results/active-filters/filter-l
     SingleFigureComponent,
     SocialComponent,
     RelatedLinksComponent,
-    InfoComponent,
-    FilterListComponent
+    FilterListComponent,
+    ServiceInfoComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

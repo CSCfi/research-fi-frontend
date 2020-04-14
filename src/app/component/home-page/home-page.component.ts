@@ -71,7 +71,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
       caption: 'Mitä tiedejatutkimus.fi sisältää? Miten tutkijana saat tietosi palveluun? Miten palvelua käytetään?',
       imgPath: 'assets/img/home/info.jpg',
       col: 4,
-      link: '#',
+      link: '/service-info',
       alt: ''
     },
     {
