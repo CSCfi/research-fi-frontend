@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-filter-list',
   templateUrl: './filter-list.component.html',
   styleUrls: ['./filter-list.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  // encapsulation: ViewEncapsulation.None
 })
 export class FilterListComponent implements OnInit, OnDestroy {
   activeFilters: any;
