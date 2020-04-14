@@ -13,7 +13,7 @@
             color: mat-contrast($primary, 100);
         }
 
-        .link-img:hover, .link-img:focus {
+        .link-img:hover, .link-img:focus, .shortcut:hover, .shortcut:focus {
             .header, .caption {
                 background: mat-color($primary);
                 color: mat-contrast($primary, 500);
