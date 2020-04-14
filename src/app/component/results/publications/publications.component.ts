@@ -59,7 +59,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.mainContent?.nativeElement.focus();
       }
     });
-    this.heightSub = this.dataService.currentActiveFilterHeight.subscribe(height => {
+    this.heightSub = this.dataService.currentActiveFilterHeight?.subscribe(height => {
       if (height > 0) {
         this.marginTop = height;
         this.cdr.detectChanges();
@@ -93,6 +93,6 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
     this.focusSub.unsubscribe();
-    this.heightSub.unsubscribe();
+    this.heightSub?.unsubscribe();
   }
 }
