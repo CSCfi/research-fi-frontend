@@ -259,7 +259,7 @@
                     <div class="row">
                         <div class="col-12 reference">
                             <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
-                            <small *ngIf="!hasDoi" class="no-doi-warn">Viitetiedot eivät ole generoitavissa, koska julkaisulla ei ole DOI-tunnistetta.</small>
+                            <small *ngIf="!hasDoi" class="no-doi-warn">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
                     </div>
                 </mat-card>
@@ -273,7 +273,6 @@
                         <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                         <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
-                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div>
                 </mat-card>
             </aside>
