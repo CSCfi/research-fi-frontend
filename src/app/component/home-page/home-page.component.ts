@@ -139,6 +139,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'main-link') {
         this.mainContent?.nativeElement.focus();
+        this.tabChangeService.targetFocus(null);
       }
     });
   }
