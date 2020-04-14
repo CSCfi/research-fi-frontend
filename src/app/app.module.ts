@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+
 import { AppComponent } from './app.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -83,7 +86,6 @@ import localeEn from '@angular/common/locales/en';
 
 registerLocaleData(localeFi, localeEn);
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipComponent } from './component/results/tooltip/tooltip.component';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
@@ -257,4 +259,8 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
 })
 
 export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faExternalLinkAlt);
+    console.log(library);
+  }
 }
