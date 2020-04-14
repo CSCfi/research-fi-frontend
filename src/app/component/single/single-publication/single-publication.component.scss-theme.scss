@@ -50,9 +50,22 @@
 
     .modal-body .copy {
         color: mat-color($primary);
+        border: mat-color($primary) 2px solid;
+        &:hover {
+            color: mat-contrast($primary, 500);
+            background-color: mat-color($primary);
+        }
     }
 
     .reference .no-doi-warn {
         color: mat-color($warn);
+    }
+
+    // Hard to notice white snackbar on white background on mobile
+    @media (min-width: 992px) {
+        .mat-snack-bar-container {
+            color: mat-color($primary);
+            background-color: mat-contrast($primary, 500);
+        }
     }
 }
