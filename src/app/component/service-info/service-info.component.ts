@@ -21,12 +21,12 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tiedejatutkimus.fi');
+        this.setTitle('Tietoa palvelusta - Tiedejatutkimus.fi');
         break;
       }
       case 'en': {
         // Todo: Translate
-        this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Research.fi');
+        this.setTitle('Tietoa palvelusta - Research.fi');
         break;
       }
     }
