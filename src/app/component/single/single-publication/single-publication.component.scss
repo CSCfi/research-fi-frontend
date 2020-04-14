@@ -45,11 +45,14 @@
     font-weight: bold;
 }
 
+.modal-body.reference-modal {
+    padding: 1rem;
+}
+
 .modal-body .copy {
     cursor: pointer;
     float: right;
     margin-top: 5px;
-    &:hover {
-        text-decoration: underline;
-    }
+    transition: all 0.15s;
+    line-height: 26px;
 }
