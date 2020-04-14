@@ -65,6 +65,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   paramSub: Subscription;
   currentInput: string;
   resetFilters: boolean;
+  defaultOpen = 7;
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
@@ -352,10 +353,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     const matchArr = source.original.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
     if (matchArr.length > 0) {
       source.buckets = matchArr;
-      this.showMoreCount[parent] = {count: term.length ? matchArr.length : 3};
+      this.showMoreCount[parent] = {count: term.length ? matchArr.length : this.defaultOpen};
     } else {
       source.buckets = [];
-      this.showMoreCount[parent] = {count: 3};
+      this.showMoreCount[parent] = {count: this.defaultOpen};
     }
     // Set term per parent
     source.filterTerm = term;
@@ -369,10 +370,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     const matchArr = source.original.filter(subItem => subItem.label.toLowerCase().includes(term));
     if (matchArr.length > 0) {
       source.subData = matchArr;
-      this.showMoreCount[child] = {count: term.length ? matchArr.length : 3};
+      this.showMoreCount[child] = {count: term.length ? matchArr.length : this.defaultOpen};
     } else {
       source.subData = [];
-      this.showMoreCount[child] = {count: 3};
+      this.showMoreCount[child] = {count: this.defaultOpen};
     }
     // Set term per parent
     source.filterTerm = term;
@@ -387,11 +388,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   showMore(parent) {
-    this.showMoreCount[parent] = this.showMoreCount[parent] ? {count: this.showMoreCount[parent].count + 3} : {count: 6};
+    this.showMoreCount[parent] = this.showMoreCount[parent] ? {count: this.showMoreCount[parent].count + this.defaultOpen} :
+                                                              {count: this.defaultOpen * 2};
   }
 
   showLess(parent) {
-    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - 3};
+    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - this.defaultOpen};
   }
 
   trackByFn(index: any, item: any) {

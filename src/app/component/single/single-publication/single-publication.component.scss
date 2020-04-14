@@ -37,8 +37,8 @@
     position: relative;
 }
 
-.cite-block {
-    margin-bottom: 10px;
+.cite-block:not(:first-child) {
+    margin-top: 45px;
 }
 
 .reference .no-doi-warn {

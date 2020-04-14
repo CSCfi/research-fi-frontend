@@ -16,6 +16,7 @@
 // @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
 
 // Component custom styles
+@import './styles-custom-expansion-panel.scss';
 @import './app/ui/header/header.component.scss-theme.scss';
 @import './app/ui/footer/footer.component.scss-theme.scss';
 @import './app/component/home-page/home-page.component.scss-theme.scss';
@@ -28,20 +29,24 @@
 @import './app/component/results/pagination/pagination.component.scss-theme.scss';
 @import './app/component/results/sort/sort.component.scss-theme.scss';
 @import './app/component/results/active-filters/active-filters.component.scss-theme.scss';
+@import './app/component/results/active-filters/active-filters-shared.scss';
+@import './app/component/results/active-filters/active-filters-theme-shared.scss';
 @import './app/component/breadcrumb/breadcrumb.component.scss-theme.scss';
 @import './app/component/results/filters/filters-shared.scss';
 @import './app/component/results/filters/filters.theme-shared.scss';
 @import './app/component/single/single-publication/single-publication.component.scss-theme.scss';
 @import './app/component/single/single-funding/single-funding.component.scss-theme.scss';
 @import './app/component/science-politics/figures/figures.component-theme.scss';
-@import './app/component/science-politics/research-innovation-system/research-innovation-system.component-theme.scss';
+@import './app/component/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss';
 @import './app/component/science-politics/figures/single-figure/single-figure.component-theme.scss';
 @import './app/component/science-politics/science-politics.scss-shared.scss';
 @import './app/component/science-politics/science-politics.scss-theme-shared.scss';
 @import './app/component/info/info.component-theme.scss';
+@import './app/component/service-info/service-info.component.scss-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
+  @include mat-expansion-panel-style($theme);
   @include app-header-theme($theme);
   @include app-footer-theme($theme);
   @include app-home-page-theme($theme);
@@ -56,6 +61,8 @@
   @include app-pagination-theme($theme);
   @include app-sort-theme($theme);
   @include app-active-filters-theme($theme);
+  @include app-active-filters-shared;
+  @include app-active-filters-shared-theme($theme);
   @include app-breadcrumb-theme($theme);
   @include app-single-publication-theme($theme);
   @include app-single-funding-theme($theme);
@@ -65,6 +72,7 @@
   @include app-science-politics-shared;
   @include app-science-politics-theme-shared($theme);
   @include app-info-component-theme($theme);
+  @include app-service-info-theme($theme);
 
   $primary: map-get($theme, primary);
   

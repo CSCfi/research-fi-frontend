@@ -5,21 +5,22 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, AfterContentInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
 import { DataService } from '../../../services/data.service';
 import { TabChangeService } from '../../../services/tab-change.service';
-import { switchMapTo } from 'rxjs/operators';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FilterListComponent} from './filter-list/filter-list.component';
 
 @Component({
   selector: 'app-active-filters',
   templateUrl: './active-filters.component.html',
   styleUrls: ['./active-filters.component.scss']
 })
-export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentInit {
+export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
   queryParams: any;
   activeFilters = [];
 
@@ -42,12 +43,20 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   tabSub: any;
   currentTab: any;
   faExclamationTriangle = faExclamationTriangle;
+  faTrashAlt = faTrashAlt;
   hoverIndex: any;
   fromYear: number;
   toYear: number;
 
+  filterListDialogRef: MatDialogRef<FilterListComponent>;
+  translationFlag: boolean;
+  parsedFilters: any[];
+  @ViewChildren('container') container: QueryList<ElementRef>;
+  containerSub: any;
+
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
-               private dataService: DataService, private tabChangeService: TabChangeService ) {
+               private dataService: DataService, private tabChangeService: TabChangeService,
+               public dialog: MatDialog ) {
    }
 
   ngOnInit() {
@@ -58,7 +67,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     this.translate();
   }
 
+  ngAfterViewInit() {
+    // Get height of component and send to service, this is used with result header top margin
+    this.containerSub = this.container.changes.subscribe(item => {
+      const arr = item.toArray();
+      this.dataService.changeActiveFilterHeight(arr[0]?.nativeElement.offsetHeight);
+    });
+
+  }
+
   translate() {
+    this.translationFlag = false;
     this.queryParams = this.filterService.filters.subscribe(filter => {
       // Get from & to year values from filter list
       this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
@@ -209,6 +228,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               this.activeFilters[foundIndex].translation = result.typeName ? result.typeName.buckets[0].key : '';
             }
           });
+          // Set flag when all filters are translated & filter items that aren't hidden
+          this.translationFlag = true;
+          if (this.translationFlag === true) {
+            this.parsedFilters = this.activeFilters.filter(item => !item.hide);
+
+          }
         }
       });
 
@@ -235,9 +260,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
           elem => !(this.toYear >= parseInt(elem.value, 10)));
       }
     }
-
-
-
 
     this.activeFilters = this.activeFilters.filter(elem => elem.value !== event.target.id);
 
@@ -269,6 +291,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     this.queryParams.unsubscribe();
     this.filterResponse.unsubscribe();
     this.tabSub.unsubscribe();
+    this.containerSub.unsubscribe();
   }
 
   // Set index for warning hover
@@ -278,6 +301,16 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   leave() {
     this.hoverIndex = null;
-}
+  }
+
+  openModal() {
+    this.filterListDialogRef = this.dialog.open(FilterListComponent, {
+      data: {
+        active: this.activeFilters,
+        fromYear: this.fromYear,
+        toYear: this.toYear
+      }
+    });
+  }
 
 }
