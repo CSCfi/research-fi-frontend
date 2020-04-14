@@ -18,20 +18,17 @@
             <div class="col">
                 <div class="content" #mainFocus tabindex="0">
                     <mat-accordion>
-                        <mat-expansion-panel *ngFor="let sector of [1, 2]">
+                        <mat-expansion-panel *ngFor="let item of contents">
                             <mat-expansion-panel-header collapsedHeight="61px">
                                 <mat-panel-title>
                                     <fa-icon class="icon" [icon]="faInfo"></fa-icon>
                                     <div class="title align-self-center">
-                                        <h2>Test</h2>
+                                        <h2>{{item.title}}</h2>
                                     </div>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div class="row">
-                                <div class="col-12 description" [innerHTML]="Test"></div>
-                                <div class="col-4">
-                                    <h3>Subtitle</h3>
-                                </div>
+                                <div class="col-12 description" [innerHTML]='item.description.join("")'></div>
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>
