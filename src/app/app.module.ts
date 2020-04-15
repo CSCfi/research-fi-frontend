@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+
 import { AppComponent } from './app.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -44,8 +47,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 import { CountUpModule } from 'countup.js-angular2';
 
@@ -81,7 +86,6 @@ import localeEn from '@angular/common/locales/en';
 
 registerLocaleData(localeFi, localeEn);
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipComponent } from './component/results/tooltip/tooltip.component';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
@@ -116,6 +120,7 @@ import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
 import { InfoComponent } from './component/info/info.component';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
+import { ServiceInfoComponent } from './component/service-info/service-info.component';
 
 @NgModule({
   declarations: [
@@ -163,8 +168,9 @@ import { FilterListComponent } from './component/results/active-filters/filter-l
     SingleFigureComponent,
     SocialComponent,
     RelatedLinksComponent,
-    InfoComponent,
-    FilterListComponent
+    FilterListComponent,
+    ServiceInfoComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -191,7 +197,9 @@ import { FilterListComponent } from './component/results/active-filters/filter-l
     MatButtonModule,
     MatSlideToggleModule,
     MatDialogModule,
+    MatSnackBarModule,
     ScrollingModule,
+    ClipboardModule,
     CountUpModule,
     PortalModule,
     FontAwesomeModule,
@@ -233,7 +241,11 @@ import { FilterListComponent } from './component/results/active-filters/filter-l
       provide: ApmService,
       useClass: ApmService,
       deps: [Router]
-    }
+    },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {duration: 3000}
+    },
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
@@ -247,4 +259,8 @@ import { FilterListComponent } from './component/results/active-filters/filter-l
 })
 
 export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faExternalLinkAlt);
+    console.log(library);
+  }
 }

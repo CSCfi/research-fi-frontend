@@ -128,7 +128,7 @@
                                     <fa-icon [icon]="faIcon"></fa-icon>
                                 </div>
                                 <div class="col link">
-                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}</a>
+                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +169,6 @@
                         <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funderNameFi}}</p>
                         <p *ngIf="source.funder.nameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
-                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div>
                 </mat-card>
             </aside>

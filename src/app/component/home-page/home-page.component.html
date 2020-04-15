@@ -19,7 +19,7 @@
       <div class="col-12 shortcuts">
         <div class="row">
           <div *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-6': item.col === 6}">
-            <a class="link-img" #main routerLink="{{item.link}}">
+            <a class="shortcut" #main routerLink="{{item.link}}">
               <div class="cover-img" title="{{item.alt}}" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
               <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
                 <div>
@@ -37,7 +37,7 @@
         <div class="row">
           <div *ngFor="let item of shortcuts.slice(2)" class="col-12 link-img"
           [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8, 'col-sm-12': item.last, 'col-sm-6': !item.last}">
-            <a class="link-img" #main routerLink="{{item.link}}">
+            <a class="shortcut" #main routerLink="{{item.link}}">
               <div class="cover-img" title="{{item.alt}}" [ngStyle]="{'background-image': 'url(' + item.imgPath + ')'}"></div>
               <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
                 <div>

@@ -18,6 +18,7 @@ import { NewsComponent } from './component/news/news.component';
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
 import { SingleFigureComponent} from './component/science-politics/figures/single-figure/single-figure.component';
+import { ServiceInfoComponent } from './component/service-info/service-info.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,10 @@ const routes: Routes = [
   {
     path: 'science-innovation-politics/science-research-figures/:id',
     component: SingleFigureComponent
+  },
+  {
+    path: 'service-info',
+    component: ServiceInfoComponent
   },
   {
     path: '**',

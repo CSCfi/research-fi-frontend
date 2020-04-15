@@ -239,11 +239,11 @@
                         <mat-card-title><h2>Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar</a>
+                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar <fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
                                 <a href="https://search.crossref.org/?q={{item.doi !== ' ' ? item.doi : item.title}}" 
-                                target="_blank">CrossRef</a>
+                                target="_blank">CrossRef <fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                         </div>
                     </mat-card>
@@ -258,7 +258,8 @@
                     <mat-card-title><h2>Viittaa</h2></mat-card-title>
                     <div class="row">
                         <div class="col-12 reference">
-                            <button mat-raised-button (click)="openModal(citeModal)" color="primary"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
+                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
+                            <small *ngIf="!hasDoi" class="no-doi-warn">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
                     </div>
                 </mat-card>
@@ -272,7 +273,6 @@
                         <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                         <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
-                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div>
                 </mat-card>
             </aside>
@@ -282,12 +282,15 @@
 
 <ng-template #citeModal>
     <div class="modal-header">
-        <h5 class="modal-title">Viitetiedot</h5>
+        <h3 class="modal-title">Kopioi viitetiedot</h3>
     </div>
-    <div class="modal-body">
+    <div class="modal-body reference-modal">
         <div *ngFor="let citation of citations; let i = index" class="cite-block">
-            <b>{{citationStyles[i].label}}: </b>
+            <h4>{{citationStyles[i].label}}: </h4>
             <span>{{citation}}</span>
+            <div class="copy-wrapper">
+                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()">Kopioi leikepöydälle</button>
+            </div>
         </div>
         <div *ngIf="hasDoi; else noDoi">
             <div *ngIf="citations.length < citationStyles.length">

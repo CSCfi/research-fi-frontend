@@ -22,6 +22,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Search } from 'src/app/models/search.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-single-publication',
@@ -112,7 +113,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
-               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId ) {
+               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
+               private snackBar: MatSnackBar ) {
    }
 
   public setTitle(newTitle: string) {
@@ -146,12 +148,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.modalRef.hide();
   }
 
+  openSnackBar() {
+    this.snackBar.open('Viite kopioitu leikepöydälle');
+  }
+
   getCitations() {
     const source = this.responseData.publications[0];
-    // Check if the doi exists (the field is filtered on init if it doesn't)
     const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
-    // Flag needed for template
-    this.hasDoi = !!doi;
     // tslint:disable-next-line: curly
     if (!this.hasDoi) return;
     const doiUrl = source.doi;
@@ -193,9 +196,17 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.juFoCode = this.responseData.publications[0].jufoCode;
         this.shapeData();
         this.filterData();
+        this.checkDoi();
       }
     },
       error => this.errorMessage = error as any);
+  }
+
+  checkDoi() {
+    // Check if the doi exists (the field is filtered on init if it doesn't)
+    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    // Flag needed for template
+    this.hasDoi = !!doi;
   }
 
   filterData() {
@@ -263,7 +274,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
               if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
                 authorArr.push({
                   author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
-                  orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+                  orcid: person.Orcid?.length > 10 ? person.Orcid : false,
                   subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
                 });
               }

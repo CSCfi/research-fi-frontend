@@ -37,6 +37,22 @@
     position: relative;
 }
 
-.cite-block {
-    margin-bottom: 10px;
+.cite-block:not(:first-child) {
+    margin-top: 45px;
+}
+
+.reference .no-doi-warn {
+    font-weight: bold;
+}
+
+.modal-body.reference-modal {
+    padding: 1rem;
+}
+
+.modal-body .copy {
+    cursor: pointer;
+    float: right;
+    margin-top: 5px;
+    transition: all 0.15s;
+    line-height: 26px;
 }

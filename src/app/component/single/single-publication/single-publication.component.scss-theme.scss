@@ -9,6 +9,7 @@
 
 @mixin app-single-publication-theme($theme) {
     $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
 
     div.links {
         color: mat-contrast($primary, 500);
@@ -36,6 +37,35 @@
             border: 2px solid rgba(0, 0, 0, 0.87);
             background: white;
             border-radius: 2px;
+        }
+    }
+
+    h3.modal-title {
+        color: mat-contrast($primary, 50)
+    }
+
+    .modal-body h4 {
+        color: mat-contrast($primary, 300)
+    }
+
+    .modal-body .copy {
+        color: mat-color($primary);
+        border: mat-color($primary) 2px solid;
+        &:hover {
+            color: mat-contrast($primary, 500);
+            background-color: mat-color($primary);
+        }
+    }
+
+    .reference .no-doi-warn {
+        color: mat-color($warn);
+    }
+
+    // Hard to notice white snackbar on white background on mobile
+    @media (min-width: 992px) {
+        .mat-snack-bar-container {
+            color: mat-color($primary);
+            background-color: mat-contrast($primary, 500);
         }
     }
 }
