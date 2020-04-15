@@ -27,7 +27,7 @@
             <div class="col">
                 <div class="content" #mainFocus tabindex="0">
                     <mat-accordion>
-                        <mat-expansion-panel *ngFor="let sector of rearrangedList">
+                        <mat-expansion-panel *ngFor="let sector of rearrangedList; trackBy: trackByFn">
                             <mat-expansion-panel-header collapsedHeight="61px">
                                 <mat-panel-title>
                                     <fa-icon class="icon" [icon]="sector.icon"></fa-icon>
@@ -38,7 +38,7 @@
                             </mat-expansion-panel-header>
                             <div class="row">
                                 <div class="col-12 description" [innerHTML]=sector.data?.description></div>
-                                <div class="col-4">
+                                <div class="col-12 col-md-3">
                                     <h3>{{sector.data?.subtitle}}</h3>
                                     <ul>
                                         <li *ngFor="let org of sector.data?.organizations" class="organization">
@@ -46,9 +46,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <p *ngIf="sector.iframeUrl.length === 0" class="col-8">Visualisaatio tulossa</p>
-                                <div *ngIf="sector.iframeUrl.length > 0" class="col-8 iframe-container">
-                                    <iframe width="800" height="600" [src]="sanitizer.bypassSecurityTrustResourceUrl(sector.iframeUrl)" frameborder="0" allowfullscreen='true'></iframe>
+                                <p *ngIf="sector.iframeUrl.length === 0" class="col-12 col-md-8">Visualisaatio tulossa</p>
+                                <div *ngIf="sector.iframeUrl.length > 0" #iframe class="col-12 col-md-8 iframe-container">
+                                    <iframe width="{{colWidth}}" height="{{colWidth * 0.75}}" [src]="sector.iframeUrl | safeUrl" frameborder="0" allowfullscreen='true'></iframe>
                                     <strong>{{sector?.iframeDescription}}</strong>
                                 </div>
                             </div>

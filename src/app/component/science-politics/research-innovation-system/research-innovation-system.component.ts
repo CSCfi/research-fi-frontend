@@ -5,11 +5,13 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, LOCALE_ID, Inject, AfterViewInit, OnDestroy } from '@angular/core';
-import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { Title, DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit, ViewChild, ElementRef, LOCALE_ID, Inject, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Title, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { sector } from '../../../../assets/static-data/research-innovation-system.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -22,6 +24,8 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   faHospital = faHospital;
   faBuilding = faBuilding;
   faTimes = faTimes;
+
+  colWidth = 0;
 
   sectorList = [
     {
@@ -72,10 +76,12 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   rearrangedList: any[];
   @ViewChild('openSector') openSector: ElementRef;
   @ViewChild('mainFocus') mainFocus: ElementRef;
-  focusSub: any;
+  @ViewChild('iframe') iframe: ElementRef;
+  focusSub: Subscription;
+  resizeSub: Subscription;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, public sanitizer: DomSanitizer,
-              private tabChangeService: TabChangeService) {
+              private tabChangeService: TabChangeService, private cdr: ChangeDetectorRef, private resizeService: ResizeService) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
   }
@@ -108,8 +114,10 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         break;
       }
     }
+
     // Hide skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(false);
+    this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
   }
 
   ngAfterViewInit() {
@@ -119,12 +127,23 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         this.mainFocus.nativeElement.focus();
       }
     });
+    this.colWidth = this.iframe.nativeElement.offsetWidth;
+    this.cdr.detectChanges();
+  }
+
+  onResize() {
+    this.colWidth = this.iframe.nativeElement.offsetWidth;
+  }
+
+  trackByFn(index, item) {
+    return index;
   }
 
   ngOnDestroy() {
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.focusSub.unsubscribe();
   }
 
 }
