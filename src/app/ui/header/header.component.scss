@@ -303,7 +303,11 @@ mat-form-field.lang-select .mat-form-field-underline {
 
 }
 
-// Disable focus outline
+// Disable menu for beta
+.navbar-expand.navbar-nav.lang.langSelect.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
 
 
 // Responsive
