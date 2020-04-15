@@ -304,7 +304,7 @@ mat-form-field.lang-select .mat-form-field-underline {
 }
 
 // Disable menu for beta
-.navbar-expand.navbar-nav.lang.langSelect.disabled {
+.navbar-expand.navbar-nav.lang.langSelect.disabled, ul.navbar-nav.mx-auto.disabled {
     opacity: 0.5;
     pointer-events: none;
 }
