@@ -60,7 +60,7 @@
                                 <div>{{item.recipient.shareOfFundingEur | thousandSeparator}} €</div>
                             </div>
                         </div>
-                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName.length > 0">
+                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.affiliation.trim().length > 0">
                             <div class="col-3 th">
                                 <div>Organisaatio</div>
                             </div>
