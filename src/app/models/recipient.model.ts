@@ -30,13 +30,16 @@ export class Recipient {
 export class RecipientAdapter implements Adapter<Recipient> {
     constructor(private roa: RecipientOrganizationAdapter) {}
     adapt(item: any): Recipient {
+
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in result component
         let combined = '';
         if (item.recipientType === 'organization') {
             item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
-            combined = item.organizationConsortium.filter(x => x.consortiumOrganizationNameFi.trim() !== '').map
+            // Get Finnish organizations only (based on business id)
+            combined = item.organizationConsortium.filter(x => x.consortiumOrganizationNameFi.trim() !== '' &&
+            x.consortiumOrganizationBusinessId?.slice(-2)[0] === '-').map
             (x => x.consortiumOrganizationNameFi.trim()).join('; ');
         } else {
             combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName + ', '
