@@ -30,6 +30,7 @@ export class Recipient {
 export class RecipientAdapter implements Adapter<Recipient> {
     constructor(private roa: RecipientOrganizationAdapter) {}
     adapt(item: any): Recipient {
+        console.log(item);
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in result component
@@ -43,8 +44,8 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
                 .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
         // Check that a finnish organization is found
-        } else if (item.fundingGroupPerson.find(x => x.consortiumOrganizationBusinessId.trim().slice(-2)[0] === '-' ||
-                   x.consortiumOrganizationBusinessId.trim().slice(0, 2) === 'FI')) {
+        } else if (item.fundingGroupPerson.find(x => x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
+                   x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI')) {
                 combined = item.fundingGroupPerson?.map(x =>
                 x.fundingGroupPersonLastName.trim().length > 0 ? x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName
                 + (x.consortiumOrganizationNameFi.trim().length > 0 ? ', ' + x.consortiumOrganizationNameFi.trim() : null) :
