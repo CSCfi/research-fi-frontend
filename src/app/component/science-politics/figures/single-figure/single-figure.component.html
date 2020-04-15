@@ -9,11 +9,11 @@
     <div class="wrapper">
         <app-breadcrumb [responseData]="data" [type]="'figure'"></app-breadcrumb>
         <a routerLink="/science-research-figures" class="back"><< Takaisin</a>
-        <div class="row" *ngFor="let item of data">
+        <div class="row" *ngFor="let item of data; trackBy: trackByFn">
             <h1>{{item.labelFi}}</h1>
             <div class="col col-lg-10 base content" #content>
                 <iframe width="{{colWidth}}" height="600" 
-                src='https://app.powerbi.com/view?r=eyJrIjoiZTMwNjVkMzctNWQwMC00ZTEwLTk3ZjktMzc5OWRkNThlYjYzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9'
+                [src]="item.link | safeUrl"
                 frameborder="0" allowFullScreen="true"></iframe>
                 <div class="row d-flex justify-content-around">
                     <div class="col-12 col-lg-8 pl-0">
