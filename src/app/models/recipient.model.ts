@@ -30,7 +30,6 @@ export class Recipient {
 export class RecipientAdapter implements Adapter<Recipient> {
     constructor(private roa: RecipientOrganizationAdapter) {}
     adapt(item: any): Recipient {
-        console.log(item);
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in result component
