@@ -41,14 +41,14 @@
                                 <div class="col-4">
                                     <h3>{{sector.data?.subtitle}}</h3>
                                     <ul>
-                                        <li *ngFor="let uni of sector.data?.universities" class="university">
-                                            <a routerLink="/results/organization/{{uni.id}}"><span>{{uni.name}}</span></a>
+                                        <li *ngFor="let org of sector.data?.organizations" class="organization">
+                                            <a routerLink="/results/organization/{{org.id}}"><span>{{org.name}}</span></a>
                                         </li>
                                     </ul>
                                 </div>
                                 <p *ngIf="sector.iframeUrl.length === 0" class="col-8">Visualisaatio tulossa</p>
                                 <div *ngIf="sector.iframeUrl.length > 0" class="col-8 iframe-container">
-                                    <iframe style="border: 1px black solid;" width="800" height="600" [src]="sanitizer.bypassSecurityTrustResourceUrl(sector.iframeUrl)" frameborder="0" allowfullscreen='true'></iframe>
+                                    <iframe width="800" height="600" [src]="sanitizer.bypassSecurityTrustResourceUrl(sector.iframeUrl)" frameborder="0" allowfullscreen='true'></iframe>
                                     <strong>{{sector?.iframeDescription}}</strong>
                                 </div>
                             </div>
