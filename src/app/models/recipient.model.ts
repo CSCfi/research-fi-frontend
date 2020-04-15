@@ -30,7 +30,6 @@ export class Recipient {
 export class RecipientAdapter implements Adapter<Recipient> {
     constructor(private roa: RecipientOrganizationAdapter) {}
     adapt(item: any): Recipient {
-
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in result component
@@ -38,12 +37,20 @@ export class RecipientAdapter implements Adapter<Recipient> {
         if (item.recipientType === 'organization') {
             item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
             // Get Finnish organizations only (based on business id)
-            combined = item.organizationConsortium.filter(x => x.consortiumOrganizationNameFi.trim() !== '' &&
-            x.consortiumOrganizationBusinessId?.slice(-2)[0] === '-').map
-            (x => x.consortiumOrganizationNameFi.trim()).join('; ');
+            combined = item.organizationConsortium.filter(
+                x => x.consortiumOrganizationNameFi.trim() !== '' &&
+                (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
+                x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
+                .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
+        // Check that a finnish organization is found
+        } else if (item.fundingGroupPerson.find(x => x.consortiumOrganizationBusinessId.trim().slice(-2)[0] === '-' ||
+                   x.consortiumOrganizationBusinessId.trim().slice(0, 2) === 'FI')) {
+                combined = item.fundingGroupPerson?.map(x =>
+                x.fundingGroupPersonLastName.trim().length > 0 ? x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName
+                + (x.consortiumOrganizationNameFi.trim().length > 0 ? ', ' + x.consortiumOrganizationNameFi.trim() : null) :
+                x.consortiumOrganizationNameFi.trim()).join('; ');
         } else {
-            combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName + ', '
-            + x.consortiumOrganizationNameFi.trim()).join('; ');
+            combined = '-';
         }
 
         return new Recipient(
