@@ -68,11 +68,12 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   otherFields = [
-    {label: 'Tieteenala', field: 'fieldsOfScience'},
+    {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'},
+    {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
-    {label: 'Teema-ala', field: '?'},
+    {label: 'Teema-alat', field: '?'},
+    {label: 'Hankkeen verkkosivu', field: '?'},
     // {label: 'Avainsanat', field: 'keywords'},
-    {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'}
   ];
 
   linkFields = [

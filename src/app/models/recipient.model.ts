@@ -10,6 +10,7 @@ import { Adapter } from './adapter.model';
 import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient-organization.model';
 
 export class Recipient {
+    [x: string]: any;
     constructor(
         public personName: string,
         public personOrcid: string,
@@ -19,7 +20,8 @@ export class Recipient {
         public amountEur: number,
         public contactPersonName: string,
         public contactPersonOrcid: string,
-        public organizations: RecipientOrganization[]
+        public organizations: RecipientOrganization[],
+        public combined: string
     ) {}
 }
 @Injectable({
@@ -28,11 +30,20 @@ export class Recipient {
 export class RecipientAdapter implements Adapter<Recipient> {
     constructor(private roa: RecipientOrganizationAdapter) {}
     adapt(item: any): Recipient {
+
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
-
+        // Combine recipient names and organizations, this is used in result component
+        let combined = '';
         if (item.recipientType === 'organization') {
             item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
+            // Get Finnish organizations only (based on business id)
+            combined = item.organizationConsortium.filter(x => x.consortiumOrganizationNameFi.trim() !== '' &&
+            x.consortiumOrganizationBusinessId?.slice(-2)[0] === '-').map
+            (x => x.consortiumOrganizationNameFi.trim()).join('; ');
+        } else {
+            combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName + ', '
+            + x.consortiumOrganizationNameFi.trim()).join('; ');
         }
 
         return new Recipient(
@@ -44,7 +55,8 @@ export class RecipientAdapter implements Adapter<Recipient> {
             item.amount_in_EUR,
             item.fundingContactPersonFirstNames + ' ' + item.fundingContactPersonLastName,
             item.fundingContactPersonOrcid,
-            organizations
+            organizations,
+            combined
         );
     }
 }

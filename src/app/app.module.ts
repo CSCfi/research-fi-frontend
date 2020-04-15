@@ -261,6 +261,5 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faExternalLinkAlt);
-    console.log(library);
   }
 }
