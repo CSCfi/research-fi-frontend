@@ -122,6 +122,7 @@ import { ApmService } from '@elastic/apm-rum-angular';
 import { InfoComponent } from './component/info/info.component';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
+import { PrivacyComponent } from './component/privacy/privacy.component';
 
 @NgModule({
   declarations: [
@@ -172,7 +173,8 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
     RelatedLinksComponent,
     FilterListComponent,
     ServiceInfoComponent,
-    InfoComponent
+    InfoComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

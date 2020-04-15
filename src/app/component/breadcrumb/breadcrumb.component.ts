@@ -19,6 +19,7 @@ export class BreadcrumbComponent implements OnInit {
   @Input() tabName: any;
   @Input() resultNameField: any;
   @Input() type: any;
+  @Input() title: any;
   resultType: string;
   searchTerm: any;
   pageNumber: number;
