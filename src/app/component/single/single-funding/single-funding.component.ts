@@ -130,7 +130,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
-        console.log(this.responseData.fundings[0]);
       }
     },
       error => this.errorMessage = error as any);
