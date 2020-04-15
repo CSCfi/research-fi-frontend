@@ -1,0 +1,40 @@
+<!-- This file is part of the research.fi API service
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
+
+<div class="full-width"></div>
+<div class="bg-bubble d-none d-lg-block"></div>
+<main id="main-content">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col pb-4">
+                <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h1>Tietosuoja</h1>
+            </div>
+        </div>
+        <div class="row base">
+            <div class="col px-0">
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <br>
+                            <mat-checkbox #mainFocus>Aseta analytiikka pois käytöstä</mat-checkbox>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <iframe style="border: 0; height: 200px; width: 600px;"
+                            src="https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=&fontColor=&fontSize=&fontFamily=">
+                        </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
