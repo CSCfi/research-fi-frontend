@@ -9,9 +9,9 @@
 <!-- Data -->
 <div *ngIf="resultData && resultData.total > 0; else noResults">
     <!-- Results -->
-    <div class="row no-margin">
+    <div class="row no-margin d-flex justify-content-xl-around">
         <div class="col col-1 icon"></div>
-        <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
+        <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
             <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('name')" (keydown.enter)="sortBy('name')">Hankkeen nimi</span>
         </div>
@@ -19,7 +19,7 @@
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'funder' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('funder')" (keydown.enter)="sortBy('funder')">Rahoittaja</span>
         </div>
-        <div class="col col-xl-2 d-none d-xl-block">
+        <div class="col col-xl-3 d-none d-xl-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'funded' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('funded')" (keydown.enter)="sortBy('funded')">Saaja</span>
         </div>
@@ -29,25 +29,25 @@
         </div>
     </div> 
     <div *ngIf="resultData" class="result-container">
-        <div class="row no-margin single" *ngFor="let funding of resultData.fundings; let i = index">
+        <div class="row no-margin single d-flex justify-content-xl-around" *ngFor="let funding of resultData.fundings; let i = index">
             <div class="col col-1 icon">
                 <a class="icon" routerLink="/results/funding/{{funding.id}}" tabindex="-1" title="Hankkeiden tiedon ikoni">
                     <fa-icon [icon]="faIcon"></fa-icon>
                 </a>
             </div>
             <!-- Use tooltip component for title -->
-            <div class="col col-8 col-lg-5 col-xl-4" style="position: unset">
+            <div class="col col-8 col-lg-5 col-xl-3" style="position: unset">
                 <app-tooltip [title]="funding.nameFi" [description]="funding.descriptionFi" [id]="funding.id"
                 [index]="i">
                 </app-tooltip>
             </div>
-            <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
-                <span [innerHtml]="(funding.funder.nameFi !== 'UNDEFINED' ? funding.funder.nameFi : '' | cutContent: 100) | highlight: input"></span>
+            <div class="col col-lg-4 col-xl-3 d-none d-lg-block">
+                <span [innerHtml]="((funding.funder.nameFi !== 'UNDEFINED' ? funding.funder.nameFi : '') | cutContent: 100) | highlight: input"></span>
             </div>          
             <div class="col col-xl-3 d-none d-xl-block">
-                <span [innerHtml]="(funding.recipient.personName !== 'UNDEFINED' ? funding.personName : '' | cutContent: 100) | highlight: input"></span>
+                <span [innerHtml]="((funding.recipient.combined ? funding.recipient.combined : '')  | cutContent: 100) | highlight: input"></span>
             </div>          
-            <div class="col col-lg-1">
+            <div class="col col-lg-2 ">
                 <span [innerHtml]="funding.startYear | highlight: input"></span>
             </div>
         </div>       
