@@ -30,7 +30,6 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       icon: faLandmark,
       data: sector.university,
       iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTMwNjVkMzctNWQwMC00ZTEwLTk3ZjktMzc5OWRkNThlYjYzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: 'Tutkimusrahoitus per organisaatio'
     },
     {
       id: 1,
@@ -38,30 +37,27 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       icon: faLandmark,
       data: sector.applied_university,
       iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOTg0NzAyOGItOGQzYS00NDBhLTg3NDUtODliMGM5MDQ5MDg2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: ''
     },
     {
       id: 2,
-      labelFi: 'Yliopistosairaalat',
-      icon: faHospital,
-      data: sector.university_hospital,
-      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTk1N2NhODAtNDgyMC00OThkLTg1NWYtNWEwZDg3OWJhZGU5IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: ''
-    },
-    {
-      id: 3,
-      labelFi: 'Muut tutkimuslaitokset',
-      icon: faBuilding,
-      data: sector.other_research,
-      iframeUrl: ''
-    },
-    {
-      id: 4,
       labelFi: 'Valtion tutkimuslaitokset',
       icon: faBuilding,
       data: sector.state_research,
       iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOGVmYmYwZGEtMWNiOC00ZjM3LTg1NjgtNGEwZDM2ZTkxNWIzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: ''
+    },
+    {
+      id: 3,
+      labelFi: 'Yliopistolliset sairaalat',
+      icon: faHospital,
+      data: sector.university_hospital,
+      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTk1N2NhODAtNDgyMC00OThkLTg1NWYtNWEwZDg3OWJhZGU5IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+    },
+    {
+      id: 4,
+      labelFi: 'Muut tutkimuslaitokset',
+      icon: faBuilding,
+      data: sector.other_research,
+      iframeUrl: ''
     },
     {
       id: 5, labelFi:
@@ -69,7 +65,6 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       icon: faEuroSign,
       data: sector.funders,
       iframeUrl: '',
-      iframeDescription: ''
     },
   ];
 
