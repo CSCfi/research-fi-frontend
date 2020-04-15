@@ -141,7 +141,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (this.citations.length < this.citationStyles.length) {
       this.getCitations();
     }
-    this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
 
   closeModal() {
