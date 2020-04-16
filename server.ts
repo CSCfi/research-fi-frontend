@@ -73,7 +73,8 @@ app.use(helmet.contentSecurityPolicy({
       'https://*.csc.fi:*'
     ],
     frameSrc: [
-      'https://app.powerbi.com:*'
+      'https://app.powerbi.com:*',
+      'https://rihmatomo-analytics.csc.fi:*'
     ],
     fontSrc: [
       '\'self\'',

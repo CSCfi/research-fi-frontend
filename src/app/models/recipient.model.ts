@@ -32,32 +32,47 @@ export class RecipientAdapter implements Adapter<Recipient> {
     adapt(item: any): Recipient {
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
-        // Combine recipient names and organizations, this is used in result component
+
+        // Combine recipient names and organizations, this is used in funding results component
         let combined = '';
+
         if (item.recipientType === 'organization') {
             item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
             // Get Finnish organizations only (based on business id)
-            combined = item.organizationConsortium.filter(
-                x => x.consortiumOrganizationNameFi.trim() !== '' &&
+            combined = item.organizationConsortium.filter(x =>
+                // Check for empty and filter out uppercase organizations. Uppercased organizations are duplicates
+                // (x.consortiumOrganizationNameFi.trim() !== '' && x.consortiumOrganizationNameFi.toUpperCase() !==
+                                                                    // x.consortiumOrganizationNameFi) &&
+                (x.consortiumOrganizationNameFi.trim() !== '') &&
+                // Check for finnish business ID identifier
                 (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
                 x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
                 .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
         // Check that a finnish organization is found
         } else if (item.fundingGroupPerson.find
+                  // Check for finnish business ID identifier
                   (x => x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
                   x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI')) {
-                combined = item.fundingGroupPerson?.map(x =>
-                x.fundingGroupPersonLastName.trim().length > 0 ? x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName
-                + (x.consortiumOrganizationNameFi.trim().length > 0 ? ', ' + x.consortiumOrganizationNameFi.trim() : null) :
-                x.consortiumOrganizationNameFi.trim()).join('; ');
-        } else if (item.recipientType === 'person') {
+                // Get target recipient
+                const person = item.fundingGroupPerson.find(x => x.consortiumProject === item.funderProjectNumber);
+                // Map recipients
+                if (person) {
+                    combined = person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName + ', '
+                    + person.consortiumOrganizationNameFi;
+                } else {
+                    // If no match with funderProjectNumber
+                    combined = item.fundingGroupPerson?.map(x =>
+                        x.fundingGroupPersonLastName.trim().length > 0 ? x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName
+                        + (x.consortiumOrganizationNameFi.trim().length > 0 ? ', ' + x.consortiumOrganizationNameFi.trim() : null) :
+                        x.consortiumOrganizationNameFi.trim()).join('; ');
+                }
+        // If no match with Finnish organization
+        } else if (item.recipientType === 'person' && item.fundingGroupPerson.find(x => x.fundingGroupPersonLastName.trim().length > 0)) {
             combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonLastName.trim().length > 0 ?
             x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
         } else {
             combined = '-';
         }
-
-        console.log(combined);
 
         return new Recipient(
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',

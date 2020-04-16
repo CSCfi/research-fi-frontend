@@ -22,8 +22,8 @@
 <ng-template #noData>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb px-0 m-0" *ngIf="type === 'simple'">
-            <li class="breadcrumb-item arrow_box first" style="z-index:3;" routerLink=""><a>Etusivu</a></li>
-            <li class="breadcrumb-item arrow_box middle" style="z-index:2;"><a class="capitalize">{{title}}</a></li>
+            <li class="breadcrumb-item arrow_box first" style="z-index:3;"><a routerLink="">Etusivu</a></li>
+            <li class="breadcrumb-item arrow_box middle" style="z-index:2;"><span class="capitalize">{{title}}</span></li>
             <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
         </ol>
     </nav>
