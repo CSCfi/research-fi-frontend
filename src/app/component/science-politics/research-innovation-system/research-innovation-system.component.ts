@@ -5,11 +5,13 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, LOCALE_ID, Inject, AfterViewInit, OnDestroy } from '@angular/core';
-import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { Title, DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit, ViewChild, ElementRef, LOCALE_ID, Inject, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { Title, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { sector } from '../../../../assets/static-data/research-innovation-system.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -23,6 +25,8 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   faBuilding = faBuilding;
   faTimes = faTimes;
 
+  colWidth = 0;
+
   sectorList = [
     {
       id: 0,
@@ -30,7 +34,6 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       icon: faLandmark,
       data: sector.university,
       iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTMwNjVkMzctNWQwMC00ZTEwLTk3ZjktMzc5OWRkNThlYjYzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: 'Tutkimusrahoitus per organisaatio'
     },
     {
       id: 1,
@@ -38,30 +41,27 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       icon: faLandmark,
       data: sector.applied_university,
       iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOTg0NzAyOGItOGQzYS00NDBhLTg3NDUtODliMGM5MDQ5MDg2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: ''
     },
     {
       id: 2,
-      labelFi: 'Yliopistosairaalat',
-      icon: faHospital,
-      data: sector.university_hospital,
-      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTk1N2NhODAtNDgyMC00OThkLTg1NWYtNWEwZDg3OWJhZGU5IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: ''
-    },
-    {
-      id: 3,
-      labelFi: 'Muut tutkimuslaitokset',
-      icon: faBuilding,
-      data: sector.other_research,
-      iframeUrl: ''
-    },
-    {
-      id: 4,
       labelFi: 'Valtion tutkimuslaitokset',
       icon: faBuilding,
       data: sector.state_research,
       iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOGVmYmYwZGEtMWNiOC00ZjM3LTg1NjgtNGEwZDM2ZTkxNWIzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeDescription: ''
+    },
+    {
+      id: 3,
+      labelFi: 'Yliopistolliset sairaalat',
+      icon: faHospital,
+      data: sector.university_hospital,
+      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTk1N2NhODAtNDgyMC00OThkLTg1NWYtNWEwZDg3OWJhZGU5IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+    },
+    {
+      id: 4,
+      labelFi: 'Muut tutkimuslaitokset',
+      icon: faBuilding,
+      data: sector.other_research,
+      iframeUrl: ''
     },
     {
       id: 5, labelFi:
@@ -69,7 +69,6 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       icon: faEuroSign,
       data: sector.funders,
       iframeUrl: '',
-      iframeDescription: ''
     },
   ];
 
@@ -77,10 +76,12 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   rearrangedList: any[];
   @ViewChild('openSector') openSector: ElementRef;
   @ViewChild('mainFocus') mainFocus: ElementRef;
-  focusSub: any;
+  @ViewChild('iframe') iframe: ElementRef;
+  focusSub: Subscription;
+  resizeSub: Subscription;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, public sanitizer: DomSanitizer,
-              private tabChangeService: TabChangeService) {
+              private tabChangeService: TabChangeService, private cdr: ChangeDetectorRef, private resizeService: ResizeService) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
   }
@@ -113,8 +114,10 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         break;
       }
     }
+
     // Hide skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(false);
+    this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
   }
 
   ngAfterViewInit() {
@@ -124,12 +127,23 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         this.mainFocus.nativeElement.focus();
       }
     });
+    this.colWidth = this.iframe.nativeElement.offsetWidth;
+    this.cdr.detectChanges();
+  }
+
+  onResize() {
+    this.colWidth = this.iframe.nativeElement.offsetWidth;
+  }
+
+  trackByFn(index, item) {
+    return index;
   }
 
   ngOnDestroy() {
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.focusSub.unsubscribe();
   }
 
 }

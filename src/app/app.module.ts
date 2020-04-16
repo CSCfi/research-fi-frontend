@@ -100,6 +100,7 @@ import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { FiltersComponent } from './component/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 import { PublicationFilters } from './component/results/filters/publications';
 import { PersonFilters } from './component/results/filters/persons';
@@ -162,6 +163,7 @@ import { PrivacyComponent } from './component/privacy/privacy.component';
     CounterPipe,
     FilterItemPipe,
     FilterSumPipe,
+    SafeUrlPipe,
     ResearchInnovationSystemComponent,
     FiguresComponent,
     ScrollSpyDirective,
