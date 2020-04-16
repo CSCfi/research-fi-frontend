@@ -39,7 +39,12 @@
                             </div>
                             <div class="col-6 col-lg-3 th">Konsortion muut osapuolet</div>
                             <div class="col-6 col-lg-9 td">
-                                <div [ngClass]="expand ? 'expand' : 'short'">{{item.otherConsortium.join(', ')}}</div>
+                                <div [ngClass]="expand ? 'expand' : 'short'">
+                                        <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
+                                            {{consortium.consortiumOrganizationNameFi}} ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
+                                        </ng-container>
+                                        
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -93,7 +98,8 @@
                         </div>
                         <div class="row">
                             <div class="col-3 th">Myönnetty summa</div>
-                            <div class="col-3 td" [class.offset-5]="item.recipientType === 'organization'">
+                            <!-- <div class="col-3 td" [class.offset-5]="item.recipientType === 'organization'"> -->
+                            <div class="col-3 td offset-5">
                                 <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
                             </div>
                         </div>
