@@ -25,8 +25,8 @@
               <span class="search-button">Hae</span>
             </button>
           </div>
-          <div class="search-help">
-            <button  [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp" (clickOutside)="onClickedOutside($event)">
+          <div class="search-help" (clickOutside)="onClickedOutside($event)">
+            <button  [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp">
               <span>Hakuohje</span>
             </button>
             <div class="search-helper" *ngIf="showHelp">
