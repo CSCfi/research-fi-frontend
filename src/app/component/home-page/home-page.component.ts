@@ -42,7 +42,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   shortcuts = [
     {
       title: 'Suomen tiede ja tutkimus lukuina',
-      caption: 'Tutustu tilastoihin mm. julkaisutoiminnasta, henkilöstövoimavaroista ja tutkimus- ja kehittämistoiminnan intensiteetistä',
+      caption: 'Tutustu tilastoihin tutkimuksen henkilöstöstä, rahoituksesta ja julkaisutoiminnasta',
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
       link: '/science-innovation-politics/science-research-figures',

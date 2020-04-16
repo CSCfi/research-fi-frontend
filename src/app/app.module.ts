@@ -123,6 +123,7 @@ import { InfoComponent } from './component/info/info.component';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
+import { AccessibilityComponent } from './component/accessibility/accessibility.component';
 
 @NgModule({
   declarations: [
@@ -174,7 +175,8 @@ import { PrivacyComponent } from './component/privacy/privacy.component';
     FilterListComponent,
     ServiceInfoComponent,
     InfoComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    AccessibilityComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

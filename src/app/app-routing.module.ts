@@ -20,6 +20,7 @@ import { FiguresComponent } from './component/science-politics/figures/figures.c
 import { SingleFigureComponent} from './component/science-politics/figures/single-figure/single-figure.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
+import { AccessibilityComponent } from './component/accessibility/accessibility.component';
 
 const routes: Routes = [
   {
@@ -115,6 +116,10 @@ const routes: Routes = [
   {
     path: 'privacy',
     component: PrivacyComponent
+  },
+  {
+    path: 'accessibility',
+    component: AccessibilityComponent
   },
   {
     path: '**',
