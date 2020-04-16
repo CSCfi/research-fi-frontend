@@ -14,7 +14,7 @@ import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
@@ -50,12 +50,16 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
+  faInfoCircle = faInfoCircle;
+
   widthFlag: boolean;
 
   additionalWidth = 25;
   params: any;
   skipLinkSub: any;
   hideInputSkip: boolean;
+
+  showInfo = false;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
@@ -204,8 +208,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     // }
   }
 
+  clickOutsideBeta(e: Event) {
+    this.showInfo = !this.showInfo;
+  }
+
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
+
   }
 
   changeFocus(target) {
