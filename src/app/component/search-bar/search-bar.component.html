@@ -26,11 +26,17 @@
             </button>
           </div>
           <div class="search-help">
-            <button  [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp">
+            <button  [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp" (clickOutside)="onClickedOutside($event)">
               <span>Hakuohje</span>
             </button>
             <div class="search-helper" *ngIf="showHelp">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Kirjoita hakukenttään julkaisun nimi, asiasan, hankkeen nimi tai esimerkiksi organisaation nimi.</p>
+              <p>Hakutulosten rajaaminen onnistuu haun jälkeen Haku-näkymässä.</p>
+              <p>
+                Haku kohdistuu tutkimustietovarannon koko tietosisältöön.
+                <br>
+                Tutkimustietovannossa säilytetään tutkimukseen liittyviä metatietoja.
+              </p>
             </div>
           </div>
 
