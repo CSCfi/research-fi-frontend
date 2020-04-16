@@ -8,7 +8,7 @@
      <app-search-bar></app-search-bar>
  </aside>
  
- <div class="container" *ngIf="responseData" id="main-content">
+ <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
      <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'"></app-breadcrumb>
      <div class="row shared">

@@ -7,9 +7,6 @@
 
 @mixin app-single-result-shared {
     app-single-publication, app-single-funding, app-single-infrastructure, app-single-organization {
-        .container {
-            max-width: 1440px;
-        }
         // Prevent style bleeding
         .shared {
             .header {
