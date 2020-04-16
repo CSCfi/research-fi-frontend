@@ -43,15 +43,21 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
                 .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
         // Check that a finnish organization is found
-        } else if (item.fundingGroupPerson.find(x => x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
-                   x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI')) {
+        } else if (item.fundingGroupPerson.find
+                  (x => x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
+                  x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI')) {
                 combined = item.fundingGroupPerson?.map(x =>
                 x.fundingGroupPersonLastName.trim().length > 0 ? x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName
                 + (x.consortiumOrganizationNameFi.trim().length > 0 ? ', ' + x.consortiumOrganizationNameFi.trim() : null) :
                 x.consortiumOrganizationNameFi.trim()).join('; ');
+        } else if (item.recipientType === 'person') {
+            combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonLastName.trim().length > 0 ?
+            x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
         } else {
             combined = '-';
         }
+
+        console.log(combined);
 
         return new Recipient(
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
