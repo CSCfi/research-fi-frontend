@@ -209,7 +209,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   clickOutsideBeta(e: Event) {
-    this.showInfo = !this.showInfo;
+    this.showInfo = false;
   }
 
   onClickedOutside(e: Event) {
