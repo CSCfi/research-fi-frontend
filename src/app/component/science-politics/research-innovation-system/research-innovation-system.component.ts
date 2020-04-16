@@ -6,8 +6,8 @@
 // :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, LOCALE_ID, Inject, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { Title, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { faLandmark, faEuroSign, faTimes, faHospital, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { Title, DomSanitizer } from '@angular/platform-browser';
 import { sector } from '../../../../assets/static-data/research-innovation-system.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';

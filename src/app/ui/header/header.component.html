@@ -42,7 +42,7 @@
                 [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
                 <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
-                        <ul class="navbar-nav mx-auto">
+                        <ul class="navbar-nav mx-auto disabled">
                             <li [class.col-4]="mobile">
                                 <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}" (click)="setLang('fi')">
                                     <span class="label">Suomi</span>
@@ -90,7 +90,7 @@
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 mr-0">
-                                <div class="navbar-expand navbar-nav lang langSelect">
+                                <div class="navbar-expand navbar-nav lang langSelect disabled">
                                     <mat-form-field class="lang-select">
                                         <mat-select [(value)]="currentLang" >
                                             <a href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}">

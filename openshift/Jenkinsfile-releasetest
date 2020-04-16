@@ -21,7 +21,7 @@ pipeline {
 
   stages {
     /*
-    Build image using build config "researchfi-frontend-build-test".
+    Build image using build config "researchfi-frontend-build-releasetest".
     After build is complete, OpenShift's image change trigger automatically updates devel deployment.
     Wait until devel pod is ready. 
     */
@@ -31,7 +31,7 @@ pipeline {
           openshift.withCluster() {
             openshift.withProject() {
               // Get build config
-              def buildConfig = openshift.selector("bc", "researchfi-frontend-build-test")
+              def buildConfig = openshift.selector("bc", "researchfi-frontend-build-releasetest")
               // Start build and display logs
               buildConfig.startBuild().logs("-f")
             }

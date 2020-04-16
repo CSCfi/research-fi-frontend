@@ -68,11 +68,12 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   otherFields = [
-    {label: 'Tieteenala', field: 'fieldsOfScience'},
+    {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'},
+    {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
-    {label: 'Teema-ala', field: '?'},
+    {label: 'Teema-alat', field: '?'},
+    {label: 'Hankkeen verkkosivu', field: '?'},
     // {label: 'Avainsanat', field: 'keywords'},
-    {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'}
   ];
 
   linkFields = [
@@ -167,9 +168,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
     // Get label by locale
     source.academyConsortium = source.academyConsortium ? source?.academyConsortium['label' + locale] : '';
-
-    // Map consortiums to their ids
-    source.otherConsortium = source.otherConsortium.map(x => x.consortiumProject);
   }
 
   shapeAmount(val) {

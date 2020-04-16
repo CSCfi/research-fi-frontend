@@ -39,7 +39,12 @@
                             </div>
                             <div class="col-6 col-lg-3 th">Konsortion muut osapuolet</div>
                             <div class="col-6 col-lg-9 td">
-                                <div [ngClass]="expand ? 'expand' : 'short'">{{item.otherConsortium.join(', ')}}</div>
+                                <div [ngClass]="expand ? 'expand' : 'short'">
+                                        <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
+                                            {{consortium.consortiumOrganizationNameFi}} ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
+                                        </ng-container>
+                                        
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,14 +54,27 @@
                         <!-- Person -->
                         <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName.length > 0">
                             <div class="col-3 th">
-                                <div>Henkilö</div>
+                                <div>Nimi</div>
                             </div>
                             <div class="col-5 td">
                                 {{item.recipient.personName}}
                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                             </div>
                             <div class="col-4 td">
-                                <div>{{item.recipient.affiliation}}</div>
+                                <!-- <div>{{item.recipient.affiliation}}</div> -->
+                                <div>{{item.recipient.shareOfFundingEur | thousandSeparator}} €</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.affiliation?.trim().length > 0">
+                            <div class="col-3 th">
+                                <div>Organisaatio</div>
+                            </div>
+                            <div class="col-5 td">
+                                {{item.recipient.affiliation}}
+                            </div>
+                            <div class="col-4 td">
+                                <!-- <div>{{item.recipient.affiliation}}</div> -->
+                                <div>{{item.recipient.shareOfFundingEur | thousandSeparator}} €</div>
                             </div>
                         </div>
                         <!-- Org -->
@@ -80,7 +98,8 @@
                         </div>
                         <div class="row">
                             <div class="col-3 th">Myönnetty summa</div>
-                            <div class="col-3 offset-5 td">
+                            <!-- <div class="col-3 td" [class.offset-5]="item.recipientType === 'organization'"> -->
+                            <div class="col-3 td offset-5">
                                 <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
                             </div>
                         </div>

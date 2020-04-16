@@ -19,6 +19,8 @@ import { ResearchInnovationSystemComponent } from './component/science-politics/
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
 import { SingleFigureComponent} from './component/science-politics/figures/single-figure/single-figure.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
+import { PrivacyComponent } from './component/privacy/privacy.component';
+import { AccessibilityComponent } from './component/accessibility/accessibility.component';
 
 const routes: Routes = [
   {
@@ -110,6 +112,14 @@ const routes: Routes = [
   {
     path: 'service-info',
     component: ServiceInfoComponent
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent
+  },
+  {
+    path: 'accessibility',
+    component: AccessibilityComponent
   },
   {
     path: '**',

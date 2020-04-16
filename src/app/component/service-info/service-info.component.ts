@@ -15,6 +15,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   contents = contents;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   focusSub: any;
+  title: string;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) {}
 
@@ -32,10 +33,16 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     // Hide skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(false);
+
+    this.title = this.getTitle();
   }
 
   setTitle(title: string) {
     this.titleService.setTitle(title);
+  }
+
+  getTitle() {
+    return this.titleService.getTitle().split('-').shift().trim();
   }
 
   ngAfterViewInit() {
