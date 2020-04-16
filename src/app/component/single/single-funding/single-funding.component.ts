@@ -168,9 +168,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
     // Get label by locale
     source.academyConsortium = source.academyConsortium ? source?.academyConsortium['label' + locale] : '';
-
-    // Map consortiums to their ids
-    source.otherConsortium = source.otherConsortium.map(x => x.consortiumProject);
   }
 
   shapeAmount(val) {
