@@ -26,6 +26,10 @@ export class RecipientOrganization {
 export class RecipientOrganizationAdapter implements Adapter<RecipientOrganization> {
     constructor() {}
     adapt(item: any): RecipientOrganization {
+        // Trim all string elements
+        if (item) {
+            Object.keys(item).map(k => item[k] = typeof item[k] === 'string' ? item[k].trim() : item[k]);
+        }
         return new RecipientOrganization(
             item.consortiumOrganizationId,
             item.consortiumOrganizationBusinessId,
