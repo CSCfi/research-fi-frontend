@@ -8,48 +8,48 @@ apiVersion: v1
 kind: Template
 metadata:
   labels:
-    app: researchfi-frontend-test
-    template: researchfi-frontend-test
-  name: researchfi-frontend-test
+    app: researchfi-frontend-releasetest
+    template: researchfi-frontend-releasetest
+  name: researchfi-frontend-releasetest
 objects:
 
-# Service (test)
+# Service (release test)
 - apiVersion: v1
   kind: Service
   metadata:
-    name: researchfi-frontend-service-test
+    name: researchfi-frontend-service-releasetest
     labels:
-      app: researchfi-frontend-test
+      app: researchfi-frontend-releasetest
     annotations:
       description: Research.fi frontend service for test-branch
   spec:
     ports:
-      - name: frontend-test
+      - name: frontend-releasetest
         port: 8080
         targetPort: 8080
     selector:
-      depcfg: frontend-test
+      depcfg: frontend-releasetest
 
-# ImageStream (test)
+# ImageStream (release test)
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: researchfi-frontend-test
+    name: researchfi-frontend-releasetest
     labels:
-      app: researchfi-frontend-test
+      app: researchfi-frontend-releasetest
 
 # BuildConfig using Docker build strategy
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: researchfi-frontend-build-test
+    name: researchfi-frontend-build-releasetest
     labels:
-      app: researchfi-frontend-test
+      app: researchfi-frontend-releasetest
   spec:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: test
+        ref: releasetest
       contextDir: .
     strategy:
       dockerStrategy:
@@ -57,7 +57,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: researchfi-frontend-test:latest
+        name: researchfi-frontend-releasetest:latest
     successfulBuildsHistoryLimit: 4 
     failedBuildsHistoryLimit: 4
 
@@ -65,39 +65,39 @@ objects:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: researchfi-frontend-pipeline-test
+    name: researchfi-frontend-pipeline-releasetest
     labels:
-      app: researchfi-frontend-test
+      app: researchfi-frontend-releasetest
   spec:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: test
+        ref: releasetest
       contextDir: .
     strategy:
       jenkinsPipelineStrategy:
-        jenkinsfilePath: openshift/Jenkinsfile-test
+        jenkinsfilePath: openshift/Jenkinsfile-releasetest
 
-# Deployment config (test)
+# Deployment config (release test)
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    name: researchfi-frontend-deployment-test
+    name: researchfi-frontend-deployment-releasetest
     labels:
-      app: researchfi-frontend-test
+      app: researchfi-frontend-releasetest
   spec:
     selector:
-      app: researchfi-frontend-test
-      depcfg: frontend-test
+      app: researchfi-frontend-releasetest
+      depcfg: frontend-releasetest
     template:
       metadata:
         labels:
-          app: researchfi-frontend-test
-          depcfg: frontend-test
+          app: researchfi-frontend-releasetest
+          depcfg: frontend-releasetest
       spec:
         containers:
-          - name: frontend-test
-            image: researchfi/researchfi-frontend-test
+          - name: frontend-releasetest
+            image: researchfi/researchfi-frontend-releasetest
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
@@ -112,19 +112,19 @@ objects:
         volumes:
           - name: config-volume-fi
             configMap:
-              name: frontend-config-test
+              name: frontend-config-releasetest
               items:
               - key: configfile
                 path: config.json
           - name: config-volume-sv
             configMap:
-              name: frontend-config-test
+              name: frontend-config-releasetest
               items:
               - key: configfile
                 path: config.json
           - name: config-volume-en
             configMap:
-              name: frontend-config-test
+              name: frontend-config-releasetest
               items:
               - key: configfile
                 path: config.json
@@ -135,9 +135,9 @@ objects:
       imageChangeParams:
         automatic: true
         containerNames:
-        - frontend-test
+        - frontend-releasetest
         from:
           kind: ImageStreamTag
-          name: researchfi-frontend-test:latest
+          name: researchfi-frontend-releasetest:latest
     strategy:
       type: Rolling
