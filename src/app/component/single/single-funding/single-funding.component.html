@@ -143,17 +143,7 @@
                 </aside>
                 <mat-card>
                     <mat-card-title><h2>Tähän hankkeeseen liittyvät</h2></mat-card-title>
-                    <div class="row related">
-                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Julkaisut</a></li>
-                            <li class=""><a routerLink="/">Tutkijat</a></li>
-                            <li class=""><a routerLink="/">Aineistot</a></li>
-                        </ul>
-                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Infrastruktuurit</a></li>
-                            <li class=""><a routerLink="/">Organisaatiot</a></li>
-                        </ul>
-                    </div>
+                    <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                 </mat-card>
             </aside>
             <!-- <aside>
@@ -172,7 +162,7 @@
                 <mat-card>
                     <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
                     <div *ngFor="let source of responseData.fundings">
-                        <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funderNameFi}}</p>
+                        <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funder.nameFi}}</p>
                         <p *ngIf="source.funder.nameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>

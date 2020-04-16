@@ -76,7 +76,6 @@ export class FundingAdapter implements Adapter<Funding> {
         item.fundingGroupPerson?.forEach(element => {
             Object.keys(element).map(k => element[k] = typeof element[k] === 'string' ? element[k].trim() : element[k]);
         });
-        console.log(item.fundingGroupPerson);
         const otherConsortiumObjs = item.fundingGroupPerson ?
                                     item.fundingGroupPerson.filter(x => x.consortiumProject !== item.funderProjectNumber) : [];
         const recipient = this.r.adapt(item);

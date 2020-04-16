@@ -151,7 +151,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
              this.responseData.fundings[0][parent][item.field] !== '-1' &&
              this.responseData.fundings[0][parent][item.field] !== '' &&
              this.responseData.fundings[0][parent][item.field] !== ' ';
-    }
+    };
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));

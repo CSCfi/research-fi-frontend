@@ -38,6 +38,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit(): void {
+
     // Subscribe to route params, get current parent from current url
     this.routeSub = this.route.params.subscribe(param => {
       const currentUrl = this.router.url;
@@ -47,7 +48,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       this.currentParent = s[1].path + 's';
       this.relatedList = this.relatedList.filter(item => item.tab !== this.currentParent);
     });
-    this.getDocCounts(this.id);
+    if (this.id) {this.getDocCounts(this.id); }
   }
 
   // Get doc counts with single service getCount method, assign to to docCountData and show in appropriate counts in template

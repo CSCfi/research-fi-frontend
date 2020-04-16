@@ -20,8 +20,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;
   @ViewChild('mainFocus') mainFocus: MatCheckbox;
   title: string;
+  locale: string;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) { }
+  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) {
+    this.locale = localeId;
+   }
 
   ngOnInit(): void {
     switch (this.localeId) {
