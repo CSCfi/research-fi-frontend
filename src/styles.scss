@@ -81,11 +81,18 @@
     min-height: 3rem;
   }
 
+  
   .wrapper {
     max-width: 1440px;
     margin: auto;
   }
   
+  @media (min-width: 992px) and (max-width: 1440px) {
+    .wrapper {
+      max-width: 90vw;
+    }
+  }
+
   // Disable link
   a.disabled {
       color: mat-color($primary, lighter) !important;

@@ -10,7 +10,7 @@
      <app-search-bar></app-search-bar>
  </aside>
   
- <div class="container" *ngFor="let infra of responseData"  id="main-content">
+ <div class="wrapper" *ngFor="let infra of responseData"  id="main-content">
      <!-- Breadcrumb -->
      <app-breadcrumb [type]="single" [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'"></app-breadcrumb>
      <div class="row shared">
