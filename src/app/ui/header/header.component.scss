@@ -431,6 +431,24 @@ mat-form-field.lang-select .mat-form-field-underline {
     }
 }
 
+@media (max-width: 661px) {
+    .beta-info {
+        width: auto;
+    }
+}
+
+@media (max-width: 575px) {
+    #overlay {
+        top: 87px;
+        height: calc(100% - 87px);
+        overflow: hidden;
+    }
+
+    .collapse.navbar-collapse.menu.mobile-bar {
+        top: 58px;
+    }
+}
+
 // Logo margin for small screens to prevent menu button misplacement
 @media (max-width: 355px) {
     .navbar {
@@ -444,17 +462,5 @@ mat-form-field.lang-select .mat-form-field-underline {
     .collapse.navbar-collapse.menu.mobile-bar {
         padding-left: 30px;
         padding-right: 30px;
-    }
-}
-
-@media (max-width: 575px) {
-    #overlay {
-        top: 87px;
-        height: calc(100% - 87px);
-        overflow: hidden;
-    }
-
-    .collapse.navbar-collapse.menu.mobile-bar {
-        top: 58px;
     }
 }
