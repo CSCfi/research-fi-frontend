@@ -21,15 +21,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div class="col px-0">
                 <div class="content">
                     <div class="row">
-                        <div class="col">
+                        <!-- <div class="col">
                             <br>
                             <mat-checkbox #mainFocus>Aseta analytiikka pois käytöstä</mat-checkbox>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col">
                             <iframe style="border: 0; height: 200px; width: 600px;"
-                            [src]="'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=&fontColor=&fontSize=&fontFamily=' | safeUrl">
+                            [src]="'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' + locale + '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif' | safeUrl">
                         </iframe>
                         </div>
                     </div>
