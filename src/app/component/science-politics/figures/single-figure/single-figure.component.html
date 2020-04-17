@@ -7,25 +7,41 @@
 <div class="full-width"></div>
 <main id="main-content">
     <div class="wrapper">
-        <app-breadcrumb [responseData]="data" [type]="'figure'"></app-breadcrumb>
-        <a routerLink="/science-research-figures" class="back"><< Takaisin</a>
-        <div class="row" *ngFor="let item of data; trackBy: trackByFn">
+        <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
+        <a routerLink="/science-innovation-politics/science-research-figures/" class="back"><< Takaisin</a>
+        <div class="row" *ngFor="let item of result; trackBy: trackByFn">
             <h1>{{item.labelFi}}</h1>
             <div class="col col-lg-10 base content" #content>
-                <iframe width="{{colWidth}}" height="600" 
-                [src]="item.link | safeUrl"
-                frameborder="0" allowFullScreen="true"></iframe>
+                <!-- <iframe width="{{colWidth}}" height="600" 
+                [src]="item.iframe | safeUrl"
+                frameborder="0" allowFullScreen="true"></iframe> -->
                 <div class="row d-flex justify-content-around">
                     <div class="col-12 col-lg-8 pl-0">
-                        <p>{{item.description}}</p>
-                        <p>{{item.description}}</p>
+                        <p>{{item.descriptionFi}}</p>
                     </div>
-                    <div class="col col-lg-2 align-self-center">
-                        <fa-icon class="help" [icon]="faQuestion"></fa-icon>
-                    </div>
-                    <div class="col col-lg-2">
-                        <strong>JAA</strong>
-                        <app-social></app-social>
+                    <div class="col col-lg-3">
+                        <div class="row pb-2">
+                            <div tabindex="0" class="col align-self-center pointer" (click)="showInfo = !showInfo">
+                                <fa-icon class="help" icon="info-circle"></fa-icon><span class="strong text-uppercase pl-2 info-label">Lisätietoa</span>
+                            </div>
+                            <div *ngIf="showInfo" class="info" [ngClass]="mobile ? 'right' : 'left'">
+                                <strong class="d-block pb-2">Lisätietoa</strong>
+                                <p [innerHtml]="item.info"></p>
+                            </div>
+                        </div>
+                        <div class="row pb-2">
+                           <div class="col">
+                                <span class="strong d-block">Lähde:</span>
+                                <span>{{item.source}}</span>
+                           </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <strong>Jaa tämä sivu:</strong>
+                                <app-social></app-social>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
