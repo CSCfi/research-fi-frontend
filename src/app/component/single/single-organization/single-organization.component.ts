@@ -112,7 +112,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
-        console.log(this.responseData)
       }
     },
       error => this.errorMessage = error as any);
