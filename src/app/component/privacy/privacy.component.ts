@@ -21,9 +21,12 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: MatCheckbox;
   title: string;
   locale: string;
-
+  matomoUrl: string;
+  
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) {
     this.locale = localeId;
+    this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
+                      this.locale + '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif';
    }
 
   ngOnInit(): void {
