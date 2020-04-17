@@ -163,7 +163,7 @@
         },
         "university_hospital": {
             "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
-            "subtitle": "Yliopistolliset sairaalat Suomessa",
+            "subtitle": "Yliopistollisten sairaaloiden erityisvastuualueet",
             "organizations": [
                 {
                     "name": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
