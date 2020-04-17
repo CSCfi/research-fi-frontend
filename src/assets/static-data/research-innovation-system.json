@@ -10,6 +10,10 @@
                     "id": "10076"
                 },
                 {
+                    "name": "Helsingin yliopisto",
+                    "id": "01901"
+                },
+                {
                     "name": "Itä-Suomen yliopisto",
                     "id": "10088"
                 },
@@ -30,8 +34,16 @@
                     "id": "01904"
                 },
                 {
+                    "name": "Svenska handelshögskolan",
+                    "id": "01910"
+                },
+                {
                     "name": "Taideyliopisto",
                     "id": "10103"
+                },
+                {
+                    "name": "Tampereen yliopisto",
+                    "id": "10122"
                 },
                 {
                     "name": "Turun yliopisto",
@@ -154,23 +166,23 @@
             "subtitle": "Yliopistolliset sairaalat Suomessa",
             "organizations": [
                 {
-                    "name": "Helsingin seudun yliopistollinen keskussairaala",
+                    "name": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
                     "id": "15675350"
                 },
                 {
-                    "name": "Kuopion yliopistollinen sairaala",
+                    "name": "Kuopion yliopistollisen sairaalan erityisvastuualue",
                     "id": "01714953"
                 },
                 {
-                    "name": "Oulun yliopistollinen sairaala",
+                    "name": "Oulun yliopistollisen sairaalan erityisvastuualue",
                     "id": "06794809"
                 },
                 {
-                    "name": "Tampereen yliopistollinen sairaala",
+                    "name": "Tampereen yliopistollisen sairaalan erityisvastuualue",
                     "id": "08265978"
                 },
                 {
-                    "name": "Turun yliopistollinen sairaala",
+                    "name": "Turun yliopistollisen sairaalan erityisvastuualue",
                     "id": "08282559"
                 }
             ]
