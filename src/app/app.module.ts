@@ -124,6 +124,7 @@ import { FilterListComponent } from './component/results/active-filters/filter-l
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { AccessibilityComponent } from './component/accessibility/accessibility.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -210,7 +211,8 @@ import { AccessibilityComponent } from './component/accessibility/accessibility.
     PortalModule,
     FontAwesomeModule,
     TransferHttpCacheModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ClickOutsideModule
   ],
   providers: [
     SearchService,

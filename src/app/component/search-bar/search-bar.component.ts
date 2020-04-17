@@ -317,4 +317,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.topData = [];
     this.otherData = [];
   }
+
+  onClickedOutside(e: Event) {
+    this.showHelp = false;
+  }
 }
