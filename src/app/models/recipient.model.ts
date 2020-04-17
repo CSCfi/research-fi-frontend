@@ -35,19 +35,23 @@ export class RecipientAdapter implements Adapter<Recipient> {
 
         // Combine recipient names and organizations, this is used in funding results component
         let combined = '';
-
         if (item.recipientType === 'organization') {
             item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
             // Get Finnish organizations only (based on business id)
-            combined = item.organizationConsortium.filter(x =>
-                // Check for empty and filter out uppercase organizations. Uppercased organizations are duplicates
-                // (x.consortiumOrganizationNameFi.trim() !== '' && x.consortiumOrganizationNameFi.toUpperCase() !==
-                                                                    // x.consortiumOrganizationNameFi) &&
-                (x.consortiumOrganizationNameFi.trim() !== '') &&
-                // Check for finnish business ID identifier
-                (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
-                x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
-                .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
+            if (item.organizationConsortium.find(org => org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-')) {
+                combined = item.organizationConsortium.find(org =>
+                    org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-').consortiumOrganizationNameFi;
+            } else {
+                combined = item.organizationConsortium.filter(x =>
+                    // Check for empty and filter out uppercase organizations. Uppercased organizations are duplicates
+                    // (x.consortiumOrganizationNameFi.trim() !== '' && x.consortiumOrganizationNameFi.toUpperCase() !==
+                                                                        // x.consortiumOrganizationNameFi) &&
+                    (x.consortiumOrganizationNameFi.trim() !== '') &&
+                    // Check for finnish business ID identifier
+                    (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
+                    x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
+                    .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
+            }
         // Check that a finnish organization is found
         } else if (item.fundingGroupPerson.find
                   // Check for finnish business ID identifier
