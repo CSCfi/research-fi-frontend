@@ -21,6 +21,68 @@ a.back {
     font-size: 2rem;
 }
 
+.info-label {
+    vertical-align: super;
+}
+
+.info {
+    left: 0;
+    position: absolute;
+    z-index: 1;
+    max-width: 320px;
+    padding: .5rem;
+}
+
+.info.left {
+    left: -305px;
+}
+
+.info.right {
+    left: 175px;
+}
+
+.info.left:after, .info.left:before {
+	left: 100%;
+	top: 22px;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.info.left:after {
+	border-width: 6px;
+	margin-top: -6px;
+}
+.info.left:before {
+	border-width: 7px;
+	margin-top: -7px;
+}
+
+.info.right:after, .info.right:before {
+	right: 100%;
+	top: 22px;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.info.right:after {
+	border-width: 6px;
+	margin-top: -6px;
+}
+.info.right:before {
+	border-width: 7px;
+	margin-top: -7px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 // Responsive
 @media (max-width: 991px) {
     a.back {
