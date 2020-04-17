@@ -270,6 +270,5 @@ import { ClickOutsideModule } from 'ng-click-outside';
 export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIcons(faExternalLinkAlt, faInfoCircle);
-    console.log(library);
   }
 }
