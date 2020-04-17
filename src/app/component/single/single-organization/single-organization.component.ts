@@ -29,7 +29,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
     {label: 'Muut nimet', field: 'variantNames'},
     {label: 'Perustettu', field: 'established'},
-    {label: 'Lisätietoa', field: 'organizationBackground'},
+    {label: 'Lisätietoa', field: 'background'},
     {label: 'Edeltävä organisaatio', field: 'predecessors'},
     {label: 'Liittyvä organisaatio', field: 'related'},
     {label: 'Organisaatiomuoto', field: 'organizationType'},
@@ -37,7 +37,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: 'Käyntiosoite', field: 'visitingAddress'},
     {label: 'Postiosoite', field: 'postalAddress'},
     {label: 'Y-tunnus', field: 'businessId'},
-    {label: 'Tilastokeskuksen oppilaitostunnus', field: '01910'},
+    {label: 'Tilastokeskuksen oppilaitostunnus', field: 'statCenterId'},
     {label: 'Opetus- ja tutkimushenkilöstön määrä (htv)', field: 'staffCountAsFte'},
   ];
 
@@ -112,6 +112,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
+        console.log(this.responseData)
       }
     },
       error => this.errorMessage = error as any);
