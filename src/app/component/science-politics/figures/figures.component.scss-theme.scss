@@ -23,6 +23,10 @@
             color: mat-contrast($primary, 300);
         }
 
+        .intro a {
+            color: mat-color($primary);
+        }
+
         .active {
             background: #dc1ddf0f;
         }
