@@ -16,13 +16,19 @@ export class Organization {
         public nameEn: string,
         public nameSv: string,
         public variantNames: string,
+        public established: string,
+        public background: string,
+        public predecessors: string,
+        public related: string,
         public organizationType: string,
+        public homepage: string,
+        public address: string,
+        public postalAddress: string,
+        public businessId: string,
+        public statCenterId: string,
         public sectorNameFi: string,
         public sectorNameEn: string,
         public sectorNameSv: string,
-        public address: string,
-        public postAddress: string,
-        public businessId: string,
         public staffCountAsFte: number,
         public staffCountAsPercentage: number,
         public staffYear: string,
@@ -36,8 +42,6 @@ export class Organization {
         public thesisCountLicPercentage: number,
         public thesisCountPhdPercentage: number,
         public subUnits: any[],
-        public homepage: string,
-        public predecessors: string
     ) {}
 }
 
@@ -50,6 +54,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
     adapt(item: any): Organization {
         // Join predecessors with comma
         const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
+        const related = item.related ? item.related.map(x => x.nameFi.trim()).join(', '): '';
 
         return new Organization(
             item.organizationId,
@@ -57,13 +62,19 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.nameEn,
             item.nameSv,
             item.variantNames,
+            item.established,
+            item.organizationBackground,
+            predecessors,
+            related,
             item.organizationType,
+            item.homepage,
+            item.visitingAddress,
+            item.postalAddress,
+            item.businessId,
+            item.TKOppilaitosTunnus,
             item.sectorNameFi,
             item.sectorNameEn,
             item.sectorNameSv,
-            item.address,
-            item.postAddress,
-            item.businessId,
             item.staffCountAsFte,
             item.staffCountAsPercentage,
             item.staffYear,
@@ -77,8 +88,6 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.thesisCountLicPercentage,
             item.thesisCountPhdPercentage,
             item.subUnits,
-            item.homepage,
-            predecessors
-        )
+        );
     }
-}
+};
