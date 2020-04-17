@@ -4,7 +4,7 @@
  :license: MIT -->
 
 <div #container class="row active-filters" *ngIf="activeFilters.length > 0 && translationFlag">   
-  <h5>Rajaukset ({{parsedFilters.length}}):</h5>
+  <h4>Rajaukset ({{parsedFilters.length}}):</h4>
   <ul aria-live="polite">
     <ng-container *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index">
       <li tabindex="0" class="filter" *ngIf="!activeFilter.hide" (click)="removeFilter($event)" id="{{activeFilter.value}}">
