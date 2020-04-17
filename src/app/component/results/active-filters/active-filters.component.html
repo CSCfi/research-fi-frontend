@@ -9,7 +9,8 @@
     <ng-container *ngFor="let activeFilter of parsedFilters.slice(0, 7); let i = index">
       <li tabindex="0" class="filter" *ngIf="!activeFilter.hide" (click)="removeFilter($event)" id="{{activeFilter.value}}">
         <span id="{{activeFilter.value}}">{{activeFilter.translation}}</span>
-        <fa-icon (mouseenter)="enter(i)" (mouseleave)="leave()" *ngIf="activeFilter.warning" class="icon warning" [icon]="faExclamationTriangle"></fa-icon>
+        <fa-icon tabindex="0" (focus)="enter(i)" (blur)="leave()" (mouseenter)="enter(i)" (mouseleave)="leave()" *ngIf="activeFilter.warning" class="icon warning" 
+        [icon]="faExclamationTriangle"></fa-icon>
         <div class="warning-info" *ngIf="activeFilter.warning && hoverIndex === i">
           <span>Aikavälissä ei ole kaikkia vuosia. Voit tarkistaa vuodet "Rajaukset" -valikosta vasemmalla.</span>
         </div>
