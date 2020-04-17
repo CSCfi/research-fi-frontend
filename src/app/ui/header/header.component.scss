@@ -344,7 +344,9 @@ mat-form-field.lang-select .mat-form-field-underline {
 // Responsive
 
 // Desktop size (xl)
-@media (min-width: 992px) {
+// @media (min-width: 992px) {
+// Temporary width for beta
+@media (min-width: 1200px) {
     .mobile {
         display: none;
     }
@@ -357,7 +359,9 @@ mat-form-field.lang-select .mat-form-field-underline {
 }
 
 // Mobile size (sm md lg)
-@media (max-width: 991px) {
+// @media (max-width: 991px) {
+// Temporary width for beta
+@media (max-width: 1199px) {
     .desktop {
         display: none;
     }
