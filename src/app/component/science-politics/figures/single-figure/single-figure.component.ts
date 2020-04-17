@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ElementRef, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID, OnDestroy,
-         ViewChildren, QueryList } from '@angular/core';
+         ViewChildren, QueryList, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -101,6 +101,16 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
 
   trackByFn(index, item) {
     return index;
+  }
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+        this.showInfo = false;
+    }
+  }
+
+  onClickedOutside(event) {
+    this.showInfo = false;
   }
 
   ngOnDestroy() {
