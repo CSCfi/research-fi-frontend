@@ -1,0 +1,98 @@
+{
+	"content": [
+		{
+			"id": "s2",
+			"headerFi": "Tutkimuksen rahoitus",
+			"items": [
+				{
+					"labelFi": "Suomen ja vertailumaaryhmien ja -maiden tutkimus- ja kehittämistoiminnan menot osuutena bruttokansantuotteesta",
+					"descriptionFi": "Kuvassa esitetään Suomen ja vertailumaaryhmien ja -maiden tutkimus- ja kehittämistoiminnan menojen (t&k-menojen) kehitys osuutena bruttokansantuotteesta (BKT) vuodesta 2000 lähtien. Voit tarkastella erikseen maaryhmien ja maiden kehitystä. ",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiMThiZjFkOWMtMmRlMS00MTYxLWFhYmMtMGI5YjYzMTM2YmQyIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s2_1",
+					"source": "OECD.Stat",
+					"info": "Katso, mitä tarkoittavat EU 15 -maat ja OECD: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>Tutkimus- ja kehittämistoimintaan liittyviä käsitteitä</a>"
+				},
+				{
+					"labelFi": "Yliopistojen kokonaisrahoitus, valtionrahoitus ja tutkimuksen rahoituslähteet",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s2_2"
+					
+				},
+				{
+					"labelFi": "Ulkomaalaisen opetus- ja tutkimus-henkilöstön henkilötyövuodet sekä osuus kaikista henkilötyövuosista yliopistoittain ja uraportaittain",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s2_3"
+				},
+				{
+					"labelFi": "Tutkimustyövuosien indeksoitu kehitys yliopistoissa ja valtion tutkimuslaitoksissa",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s2_4"
+				}
+			]
+		},
+		{
+			"id": "s3",
+			"headerFi": "Tutkimuksen henkilövoimavarat",
+			"items": [
+				{
+					"labelFi": "OECD-maiden ja Kiinan tieteellisen vaikuttavuuden kehitys Top 10 -indeksillä tarkasteltuna",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s3_1"
+				},
+				{
+					"labelFi": "Suomen julkaisumäärän suhteellinen muutos",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s3_2"
+				},
+				{
+					"labelFi": "Suomen julkaisujen tieteellinen vaikuttavuus julkaisuyhteistyön mukaan",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s3_3"
+				},
+				{
+					"labelFi": "Suomen yhteistyömaat",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s3_4"
+				},
+				{
+					"labelFi": "Yliopiston osuus tieteenalaryhmän julkaisuista yliopistoissa",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "s3_5"
+				}
+			]
+		},
+		{
+			"id": "s4",
+			"headerFi": "Julkaisutoiminta ja tieteellinen vaikuttavuus",
+			"items": [
+				{
+					"labelFi": "Tohtoreiden tutkimustyövuodet sektoreittain",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "f4_1"
+				},
+				{
+					"labelFi": "Suomen t&k menot ja t&k intensiteetti suorittajasektoreittain",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "f4_2"
+				},
+				{
+					"labelFi": "Suomen t&k intensiteetti kansainvälisessä vertailussa",
+					"descriptionFi": "Kuvaus",
+					"img": "assets/img/figure.jpg",
+					"link": "f4_3"
+				}
+			]
+		}
+	]
+}
