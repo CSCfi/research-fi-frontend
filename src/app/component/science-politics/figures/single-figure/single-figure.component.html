@@ -21,7 +21,8 @@
                     </div>
                     <div class="col col-lg-3">
                         <div class="row pb-2">
-                            <div tabindex="0" class="col align-self-center pointer" (click)="showInfo = !showInfo">
+                            <div class="col align-self-center pointer" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
+                            tabindex="0" (keydown.enter)="showInfo = !showInfo" (blur)="showInfo = false">
                                 <fa-icon class="help" icon="info-circle"></fa-icon><span class="strong text-uppercase pl-2 info-label">Lisätietoa</span>
                             </div>
                             <div *ngIf="showInfo" class="info" [ngClass]="mobile ? 'right' : 'left'">
