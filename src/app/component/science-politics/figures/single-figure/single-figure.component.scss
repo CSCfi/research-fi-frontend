@@ -39,7 +39,7 @@ a.back {
 .info {
     overflow-wrap: break-word;
     min-width: 528px;
-    bottom: 105px;
+    bottom: calc(100% - 33px);
 }
 
 .info li {
@@ -49,42 +49,41 @@ a.back {
 }
 
 .info.left {
-    // left: -313px;
     right: 100%;
 }
 
 .info.right {
-    left: 135px;
+    left: 145px;
 }
 
-// .info.left:after, .info.left:before {
-// 	left: 100%;
-// 	top: 15px;
-// 	content: " ";
-// 	height: 0;
-// 	width: 0;
-// 	position: absolute;
-// 	pointer-events: none;
-// }
+.info.left:after, .info.left:before {
+	left: 100%;
+    bottom: 11px;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
 
-// .info.left:after, .info.right:after {
-// 	border-width: 6px!important;
-// 	margin-top: -6px;
-// }
-// .info.left:before, .info.right::before {
-// 	border-width: 7px!important;
-// 	margin-top: -7px;
-// }
+.info.left:after, .info.right:after {
+    border-width: 7px !important;
+    margin-bottom: -1px;
+}
+.info.left:before, .info.right::before {
+    border-width: 8px !important;
+    margin-bottom: -2px;
+}
 
-// .info.right:after, .info.right:before {
-// 	right: 100%;
-// 	top: 15px;
-// 	content: " ";
-// 	height: 0;
-// 	width: 0;
-// 	position: absolute;
-// 	pointer-events: none;
-// }
+.info.right:after, .info.right:before {
+	right: 100%;
+    bottom: 11px;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
 
 .pointer {
     cursor: pointer;
@@ -103,6 +102,7 @@ a.back {
     .info {
         min-width: auto;
         max-width: 70%;
+        bottom: calc(100% - 35px);
     }
 
 }
