@@ -31,7 +31,7 @@
                                 <fa-icon class="help" icon="info-circle"></fa-icon>
                                 <a class="strong text-uppercase pl-2 info-label">Lisätietoa</a>
                             </div>
-                            <div *ngIf="showInfo" class="info" [ngClass]="mobile ? 'right' : 'left'">
+                            <div #info *ngIf="showInfo" class="info" [ngClass]="mobile ? 'right' : 'left'">
                                 <strong class="d-block pb-2">Lisätietoa</strong>
                                 <p [innerHtml]="item.info"></p>
                             </div>
