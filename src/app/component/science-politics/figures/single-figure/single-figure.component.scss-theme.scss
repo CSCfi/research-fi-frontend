@@ -11,7 +11,7 @@
     $primary: map-get($theme, primary);
 
     app-single-figure {
-        .info {
+        .help, .info {
             background: white;
             border: 1px solid;
             box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
