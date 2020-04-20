@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ElementRef, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID, OnDestroy,
-         ViewChildren, QueryList, HostListener, ViewEncapsulation } from '@angular/core';
+         ViewChildren, QueryList, HostListener, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -83,11 +83,17 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // It takes some time to load data so we need to subscribe to content ref changes to get first width
-    this.contentSub = this.content.changes.subscribe(item => {
-      this.colWidth = item.first.nativeElement.offsetWidth - 15;
+    // Sometimes content can't be rendered fast enough so we use changes subsciption as fallback
+    if (this.content && this.content.first) {
+      this.colWidth = this.content.first.nativeElement.offsetWidth - 15;
       this.cdr.detectChanges();
-    });
+    } else {
+      // It takes some time to load data so we need to subscribe to content ref changes to get first width
+      this.contentSub = this.content.changes.subscribe(item => {
+        this.colWidth = item.first.nativeElement.offsetWidth - 15;
+        this.cdr.detectChanges();
+      });
+    }
   }
 
   onResize(dims) {
@@ -124,6 +130,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     this.resizeSub.unsubscribe();
     this.routeSub.unsubscribe();
     this.dataSub.unsubscribe();
-    this.contentSub.unsubscribe();
+    this.contentSub?.unsubscribe();
   }
 }
