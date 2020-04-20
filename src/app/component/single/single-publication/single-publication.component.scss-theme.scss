@@ -50,6 +50,11 @@
 
     .modal-body .copy {
         color: mat-color($primary);
+        border: mat-color($primary) 2px solid;
+        &:hover {
+            color: mat-contrast($primary, 500);
+            background-color: mat-color($primary);
+        }
     }
 
     .reference .no-doi-warn {

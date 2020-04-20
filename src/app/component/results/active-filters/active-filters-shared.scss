@@ -13,7 +13,7 @@
         //     padding-inline-start: 1.4rem;
         // }
 
-        .active-filters h5 {
+        .active-filters h4 {
             padding: 0 1rem 0 0;
         }
 
@@ -75,10 +75,10 @@
             display: block;
             position: absolute;
             border: 1px solid;
-            margin-top: 18px;
+            margin-top: 1.1rem;
             margin-left: 9rem;
-            width: 145px;
-            padding: 0 5px;
+            width: 230px;
+            padding: .5rem;
             z-index: 2;
         }
 
@@ -93,7 +93,7 @@
         }
 
         .warning-info:after {
-            border-width: 12px;
+            border-width: 12px!important;
             margin-left: -12px;
         }
 

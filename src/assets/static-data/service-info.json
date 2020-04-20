@@ -43,21 +43,21 @@
             "description": [
                 "<p>Päivitetty (pvm) </p>",
                 "<p>Palvelussa voit selata ja hakea tietoja sekä jakaa yksittäisiä sivuja tai tietueita esimerkiksi sosiaaliseen mediaan. Tavoitteena on, että palvelun seuraavassa kehitysvaiheessa tiedot ovat myös ladattavissa tiedostoon tai haettavissa koneluettavan rajapinnan kautta.  <br>Palvelua kehitetään jatkuvasti. Voit antaa palautetta, mikäli havaitset palvelussa ongelmia tai sinulla ehdotuksia palvelun kehittämiseksi tai mikäli havaitset tiedoissa virheitä <linkki>  </p>",
-                "<p>Mitä tietoja minusta käyttäjänä kerätään? <a href=\"/\">Tietosuojaseloste</a> <br>Onko palvelu saavutettava? <a href=\"/\">Saavutettavuusseloste</a> </p> "
+                "<p>Mitä tietoja minusta käyttäjänä kerätään? <a href=\"/privacy\">Tietosuojaseloste</a> <br>Onko palvelu saavutettava? <a href=\"/accessibility\">Saavutettavuusseloste</a> </p> "
             ]
         },
         {
             "title": "Tietosuoja",
             "description": [
                 "<p>Päivitetty (pvm) </p>",
-                "<p>Tietosuojailmoitus ja evästekäytännöt tässä </p> "
+                "<p>Tietosuojailmoitus ja evästekäytännöt <a href=\"/privacy\">tässä</a> </p> "
             ]
         },
         {
             "title": "Saavutettavuus",
             "description": [
                 "<p>Päivitetty (pvm) </p>",
-                "<p>Saavutettavuusseloste </p> "
+                "<a href=\"/accessibility\">Saavutettavuusseloste</a>"
             ]
         },
         {

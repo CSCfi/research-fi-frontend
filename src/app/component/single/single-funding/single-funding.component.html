@@ -8,7 +8,7 @@
      <app-search-bar></app-search-bar>
  </aside>
  
- <div class="container" *ngIf="responseData" id="main-content">
+ <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
      <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'"></app-breadcrumb>
      <div class="row shared">
@@ -39,7 +39,12 @@
                             </div>
                             <div class="col-6 col-lg-3 th">Konsortion muut osapuolet</div>
                             <div class="col-6 col-lg-9 td">
-                                <div [ngClass]="expand ? 'expand' : 'short'">{{item.otherConsortium.join(', ')}}</div>
+                                <div [ngClass]="expand ? 'expand' : 'short'">
+                                        <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
+                                            {{consortium.consortiumOrganizationNameFi}} ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
+                                        </ng-container>
+                                        
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,14 +54,27 @@
                         <!-- Person -->
                         <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName.length > 0">
                             <div class="col-3 th">
-                                <div>Henkilö</div>
+                                <div>Nimi</div>
                             </div>
                             <div class="col-5 td">
                                 {{item.recipient.personName}}
                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                             </div>
                             <div class="col-4 td">
-                                <div>{{item.recipient.affiliation}}</div>
+                                <!-- <div>{{item.recipient.affiliation}}</div> -->
+                                <div>{{item.recipient.shareOfFundingEur | thousandSeparator}} €</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.affiliation?.trim().length > 0">
+                            <div class="col-3 th">
+                                <div>Organisaatio</div>
+                            </div>
+                            <div class="col-5 td">
+                                {{item.recipient.affiliation}}
+                            </div>
+                            <div class="col-4 td">
+                                <!-- <div>{{item.recipient.affiliation}}</div> -->
+                                <div>{{item.recipient.shareOfFundingEur | thousandSeparator}} €</div>
                             </div>
                         </div>
                         <!-- Org -->
@@ -80,7 +98,8 @@
                         </div>
                         <div class="row">
                             <div class="col-3 th">Myönnetty summa</div>
-                            <div class="col-3 offset-5 td">
+                            <!-- <div class="col-3 td" [class.offset-5]="item.recipientType === 'organization'"> -->
+                            <div class="col-3 td offset-5">
                                 <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
                             </div>
                         </div>
@@ -115,7 +134,7 @@
                                     <fa-icon [icon]="faIcon"></fa-icon>
                                 </div>
                                 <div class="col link">
-                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}</a>
+                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -124,17 +143,7 @@
                 </aside>
                 <mat-card>
                     <mat-card-title><h2>Tähän hankkeeseen liittyvät</h2></mat-card-title>
-                    <div class="row related">
-                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Julkaisut</a></li>
-                            <li class=""><a routerLink="/">Tutkijat</a></li>
-                            <li class=""><a routerLink="/">Aineistot</a></li>
-                        </ul>
-                        <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                            <li class=""><a routerLink="/">Infrastruktuurit</a></li>
-                            <li class=""><a routerLink="/">Organisaatiot</a></li>
-                        </ul>
-                    </div>
+                    <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                 </mat-card>
             </aside>
             <!-- <aside>
@@ -153,10 +162,9 @@
                 <mat-card>
                     <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
                     <div *ngFor="let source of responseData.fundings">
-                        <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funderNameFi}}</p>
+                        <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funder.nameFi}}</p>
                         <p *ngIf="source.funder.nameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
-                    <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div>
                 </mat-card>
             </aside>

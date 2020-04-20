@@ -15,6 +15,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faExternalLinkAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
 import { AppComponent } from './app.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -44,6 +48,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -82,7 +87,6 @@ import localeEn from '@angular/common/locales/en';
 
 registerLocaleData(localeFi, localeEn);
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TooltipComponent } from './component/results/tooltip/tooltip.component';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
@@ -97,6 +101,7 @@ import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { FiltersComponent } from './component/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 import { PublicationFilters } from './component/results/filters/publications';
 import { PersonFilters } from './component/results/filters/persons';
@@ -118,6 +123,9 @@ import { ApmService } from '@elastic/apm-rum-angular';
 import { InfoComponent } from './component/info/info.component';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
+import { PrivacyComponent } from './component/privacy/privacy.component';
+import { AccessibilityComponent } from './component/accessibility/accessibility.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -158,6 +166,7 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
     CounterPipe,
     FilterItemPipe,
     FilterSumPipe,
+    SafeUrlPipe,
     ResearchInnovationSystemComponent,
     FiguresComponent,
     ScrollSpyDirective,
@@ -167,7 +176,9 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
     RelatedLinksComponent,
     FilterListComponent,
     ServiceInfoComponent,
-    InfoComponent
+    InfoComponent,
+    PrivacyComponent,
+    AccessibilityComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -194,13 +205,15 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
     MatButtonModule,
     MatSlideToggleModule,
     MatDialogModule,
+    MatSnackBarModule,
     ScrollingModule,
     ClipboardModule,
     CountUpModule,
     PortalModule,
     FontAwesomeModule,
     TransferHttpCacheModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ClickOutsideModule
   ],
   providers: [
     SearchService,
@@ -237,7 +250,11 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
       provide: ApmService,
       useClass: ApmService,
       deps: [Router]
-    }
+    },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {duration: 3000}
+    },
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
@@ -251,4 +268,7 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
 })
 
 export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faExternalLinkAlt, faInfoCircle);
+  }
 }

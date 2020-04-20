@@ -22,6 +22,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Search } from 'src/app/models/search.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-single-publication',
@@ -112,7 +113,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
-               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId ) {
+               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
+               private snackBar: MatSnackBar ) {
    }
 
   public setTitle(newTitle: string) {
@@ -139,11 +141,15 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (this.citations.length < this.citationStyles.length) {
       this.getCitations();
     }
-    this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
 
   closeModal() {
     this.modalRef.hide();
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Viite kopioitu leikepöydälle');
   }
 
   getCitations() {
@@ -268,7 +274,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
               if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
                 authorArr.push({
                   author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
-                  orcid: person.authorOrcid.length > 10 ? person.authorOrcid : false,
+                  orcid: person.Orcid?.length > 10 ? person.Orcid : false,
                   subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
                 });
               }

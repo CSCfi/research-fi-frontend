@@ -5,7 +5,7 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
-<header>
+<header class="wrapper">
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
             <li *ngIf="hideInputSkip"><a (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää hakukenttään</a></li>
@@ -16,8 +16,8 @@
         </ul>
     </div>
 
-    <div offClick class="navbar navbar-expand-lg navbar-light row">
-        <div class="logo col-9 col-lg-3">
+    <div offClick class="navbar navbar-expand-xl navbar-light row">
+        <div class="logo col-9 col-xl-4">
             <div class="row">
                 <div class="col col-auto p-0">
                     <a class="navbar-brand" routerLink="">
@@ -27,9 +27,18 @@
                 <div class="col col-auto align-self-center p-0">
                     <a class="logo-text" routerLink=""><span i18n="Site slogan @@appSlogan">Tiedejatutkimus.fi</span></a>
                 </div>
+                <div class="col col-auto align-self-center" (clickOutside)="clickOutsideBeta($event)">
+                    <button mat-flat-button color="primary" (click)="showInfo = !showInfo" >
+                        BETA <fa-icon [icon]="faInfoCircle"></fa-icon>
+                    </button>
+                    <div class="beta-info" *ngIf="showInfo">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <nav class="nav-top col-auto col-lg-9 p-lg-0">
+        <nav class="nav-top col-auto col-xl-8 p-xl-0">
             <div class="mobile ml-auto">
                 <button class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
                     <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg toggle-icon"></span>
@@ -42,7 +51,7 @@
                 [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
                 <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
-                        <ul class="navbar-nav mx-auto">
+                        <ul class="navbar-nav mx-auto disabled">
                             <li [class.col-4]="mobile">
                                 <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}" (click)="setLang('fi')">
                                     <span class="label">Suomi</span>
@@ -90,7 +99,7 @@
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 mr-0">
-                                <div class="navbar-expand navbar-nav lang langSelect">
+                                <div class="navbar-expand navbar-nav lang langSelect disabled">
                                     <mat-form-field class="lang-select">
                                         <mat-select [(value)]="currentLang" >
                                             <a href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}">

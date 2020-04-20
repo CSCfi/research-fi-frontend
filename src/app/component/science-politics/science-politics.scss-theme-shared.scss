@@ -3,7 +3,7 @@
 @mixin app-science-politics-theme-shared($theme) {
     $primary: map-get($theme, primary);
 
-    app-figures, app-research-innovation-system, app-single-figure {
+    app-figures, app-research-innovation-system, app-single-figure, app-service-info {
 
         .bg-bubble, .circle-small {
             background: mat-color($primary, 200);
@@ -14,7 +14,7 @@
         }
 
         .content {
-            border-left: 0.5rem solid mat-color($primary);
+            border-left: 0.5rem solid mat-color($primary, 200);
         }
     }
 }

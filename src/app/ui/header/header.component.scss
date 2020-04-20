@@ -303,13 +303,50 @@ mat-form-field.lang-select .mat-form-field-underline {
 
 }
 
-// Disable focus outline
+// Disable menu for beta
+.navbar-expand.navbar-nav.lang.langSelect.disabled, ul.navbar-nav.mx-auto.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+// Beta info
+.beta-info {
+    margin-right: -110px;
+}
+
+.beta-info button {
+    height: 52px;
+}
+
+.beta-info button.down span:after {
+    font-family: "FontAwesome";
+    content: "\f078";
+    display: inline-block;
+    padding-left: .25rem;
+}
+
+.beta-info button.up span:after {
+    font-family: "FontAwesome";
+    content: "\f077";
+    display: inline-block;
+    padding-left: .25rem;
+}
+
+.beta-info {
+    position: absolute;
+    z-index: 9999;
+    width: 360px;
+    padding: 1rem 0.5rem;
+    border-radius: .25rem;
+}
 
 
 // Responsive
 
 // Desktop size (xl)
-@media (min-width: 992px) {
+// @media (min-width: 992px) {
+// Temporary width for beta
+@media (min-width: 1200px) {
     .mobile {
         display: none;
     }
@@ -322,7 +359,9 @@ mat-form-field.lang-select .mat-form-field-underline {
 }
 
 // Mobile size (sm md lg)
-@media (max-width: 991px) {
+// @media (max-width: 991px) {
+// Temporary width for beta
+@media (max-width: 1199px) {
     .desktop {
         display: none;
     }
@@ -396,6 +435,24 @@ mat-form-field.lang-select .mat-form-field-underline {
     }
 }
 
+@media (max-width: 661px) {
+    .beta-info {
+        width: auto;
+    }
+}
+
+@media (max-width: 575px) {
+    #overlay {
+        top: 87px;
+        height: calc(100% - 87px);
+        overflow: hidden;
+    }
+
+    .collapse.navbar-collapse.menu.mobile-bar {
+        top: 58px;
+    }
+}
+
 // Logo margin for small screens to prevent menu button misplacement
 @media (max-width: 355px) {
     .navbar {
@@ -409,17 +466,5 @@ mat-form-field.lang-select .mat-form-field-underline {
     .collapse.navbar-collapse.menu.mobile-bar {
         padding-left: 30px;
         padding-right: 30px;
-    }
-}
-
-@media (max-width: 575px) {
-    #overlay {
-        top: 87px;
-        height: calc(100% - 87px);
-        overflow: hidden;
-    }
-
-    .collapse.navbar-collapse.menu.mobile-bar {
-        top: 58px;
     }
 }

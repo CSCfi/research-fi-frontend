@@ -15,27 +15,34 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   contents = contents;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   focusSub: any;
+  title: string;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) {}
 
   ngOnInit(): void {
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tiedejatutkimus.fi');
+        this.setTitle('Tietoa palvelusta - Tiedejatutkimus.fi');
         break;
       }
       case 'en': {
         // Todo: Translate
-        this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Research.fi');
+        this.setTitle('Tietoa palvelusta - Research.fi');
         break;
       }
     }
     // Hide skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(false);
+
+    this.title = this.getTitle();
   }
 
   setTitle(title: string) {
     this.titleService.setTitle(title);
+  }
+
+  getTitle() {
+    return this.titleService.getTitle().split('-').shift().trim();
   }
 
   ngAfterViewInit() {

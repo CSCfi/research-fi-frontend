@@ -55,17 +55,32 @@
                             <h1 *ngIf="!mobile">Tiede ja tutkimus lukuina</h1>
                             <div class="row">
                                 <div class="col p-1">
-                                    <div class="base content">
-                                        <p>Tiedepolitiikan tilastogalleriasta löydät sisältöjä, jotka tuodaan Opetushallituksen Vipunen-palvelusta...</p>
-                                        <p>Tilastogalleria on tuotettu yhteistyössä...</p>
-                                        <div class="row justify-content-center justify-content-lg-start">
+                                    <div class="base content intro">
+                                        <p>Tiede ja tutkimus lukuina -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
+                                        <p>Tiedot perustuvat Opetushallituksen Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</p>
+                                        <p>Tiede ja tutkimus lukuina on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
+                                        <br>
+                                        <span class="strong pb-2 d-block">Aineistolähteet</span>
+                                        <ul>
+                                            <li>- Vipunen: <a href="https://vipunen.fi/">vipunen.fi</a></li>
+                                            <li>- Tilastokeskus: <a href="http://www.tilastokeskus.fi/">www.tilastokeskus.fi</a></li>
+                                            <li>- OECD: <a href="http://www.oecd.org/">www.oecd.org</a></li>
+                                        </ul>
+                                        <span class="strong pb-2 d-block">Tuottajat</span>
+                                        <ul>
+                                            <li>- Opetus- ja kulttuuriministeriö: <a href="http://www.minedu.fi/">www.minedu.fi</a></li>
+                                            <li>- Suomen Akatemia: <a href="http://www.aka.fi/">www.aka.fi</a></li>
+                                            <li>- CSC: <a href="http://www.csc.fi/">www.csc.fi</a></li>
+                                        </ul>
+                                        <p>Bibliometric results presented here are derived from the Web of Science® prepared by CLARIVATE ANALYTICS®, Inc. (Formerly the IP & Science business of Thomson Reuters®), Philadelphia, Pennsylvania, USA: © Copyright CLARIVATE ANALYTICS® 2019. All rights reserved. Results are taken with permission from the bibliometric analysis system provided by CSC - IT Center for Science Ltd., Espoo, Finland.</p>
+                                        <!-- <div class="row justify-content-center justify-content-lg-start">
                                             <div class="col-6 m-3 col-lg-3 p-3 m-lg-0 mr-lg-5 card text-center" *ngFor="let item of coLink">
                                                 <a href="">
                                                     <div class="circle-small"></div>
                                                     <span class="title">{{item.labelFi}}</span>
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -76,12 +91,12 @@
                                 <div class="col p-1">
                                     <div class="base content">
                                         <div class="card list" *ngFor="let item of content.items">
-                                            <a #mainFocus routerLink="{{link}}">
+                                            <a #mainFocus routerLink="{{item.link}}">
                                                 <div class="row d-flex justify-content-around">
                                                     <div class="col-8">
                                                         <h3 class="title">{{item.labelFi}}</h3>
                                                         <div class="description">
-                                                            {{description | cutContent: 200}}
+                                                            <p [innerHtml]="item.descriptionFi | cutContent: 200"></p>
                                                         </div>
                                                     </div>
                                                     <div class="col-4">

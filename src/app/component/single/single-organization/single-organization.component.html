@@ -10,7 +10,7 @@
     <app-search-bar></app-search-bar>
 </aside>
  
-<div class="container" *ngIf="responseData" id="main-content">
+<div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'"></app-breadcrumb>
     <div class="row shared">
@@ -73,7 +73,7 @@
                                 <fa-icon [icon]="faIcon"></fa-icon>
                             </div>
                             <div class="col link">
-                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}</a>
+                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                         </div>
                     </div>
@@ -95,9 +95,9 @@
                         <p>Virta/Vipunen/etc?</p>
                     </div> -->
                     <ul>
-                        <li class="py-2"><a href="http://www.vipunen.fi" target="_blank">Vipunen</a></li>
-                        <li class="py-2"><a href="http://finto.fi/cn/fi/" target="_blank">Finto –palvelu</a></li>
-                        <li class="py-2"><a href="https://www.ytj.fi/ " target="_blank">Yritys – ja yhteisötietojärjestelmä (YTJ)</a></li>
+                        <li class="py-2"><a href="http://www.vipunen.fi" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a href="http://finto.fi/cn/fi/" target="_blank">Finto –palvelu <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a href="https://www.ytj.fi/ " target="_blank">Yritys – ja yhteisötietojärjestelmä (YTJ) <fa-icon icon="external-link-alt"></fa-icon></a></li>
                     </ul>
                     <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div> -->

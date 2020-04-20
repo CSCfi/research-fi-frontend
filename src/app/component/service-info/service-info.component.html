@@ -10,8 +10,13 @@
 <main id="main-content">
     <div class="wrapper">
         <div class="row">
+            <div class="col pb-4">
+                <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
+            </div>
+        </div>
+        <div class="row">
             <div class="col">
-                <h1>Tietoa palvelusta</h1>
+                <h1 class="pb-4">Tietoa palvelusta</h1>
             </div>
         </div>
         <div class="row base">
@@ -23,7 +28,7 @@
                                 <mat-panel-title>
                                     <fa-icon class="icon" [icon]="faInfo"></fa-icon>
                                     <div class="title align-self-center">
-                                        <h2>{{item.title}}</h2>
+                                        <h2 [id]="item.title">{{item.title}}</h2>
                                     </div>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>

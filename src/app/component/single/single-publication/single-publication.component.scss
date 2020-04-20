@@ -38,18 +38,21 @@
 }
 
 .cite-block:not(:first-child) {
-    margin-top: 45px;
+    margin-top: 72px;
 }
 
 .reference .no-doi-warn {
     font-weight: bold;
 }
 
+.modal-body.reference-modal {
+    padding: 1rem 2rem;
+}
+
 .modal-body .copy {
     cursor: pointer;
     float: right;
     margin-top: 5px;
-    &:hover {
-        text-decoration: underline;
-    }
+    transition: all 0.15s;
+    line-height: 26px;
 }

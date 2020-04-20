@@ -169,7 +169,7 @@ export class SearchService {
   }
 
   getFigures() {
-    return this.http.get('assets/figures-content.json')
+    return this.http.get('assets/static-data/figures-content.json');
   }
 
   // News page content

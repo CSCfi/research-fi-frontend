@@ -1,65 +1,239 @@
 {
     "sector": {
-            "university": {
-                "description": "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa, joista kaksi on säätiölain mukaisia säätiöitä ja muut julkisoikeudellisia laitoksia. Sotilasalan korkeakoulututkinnot suoritetaan puolustushallinnon alaisessa Maanpuolustuskorkeakoulussa (MPKK).</p><p>Yliopistojen perustehtävänä on harjoittaa tieteellistä tutkimusta ja antaa siihen perustuvaa ylintä opetusta. Yliopistot edistävät elinikäistä oppimista, toimivat vuorovaikutuksessa yhteiskunnan kanssa ja edistävät tutkimustulosten ja taiteellisen toiminnan yhteiskunnallista vaikuttavuutta.</p><p>Yliopistoilla on itsehallinto, jolla turvataan tieteen, taiteen ja ylimmän opetuksen vapaus. Yliopistot ovat itsenäisiä oikeushenkilöitä, jolla on päätöksenteko-oikeus sisäiseen hallintoon kuuluvista asioista.</p><p>Yliopistokeskukset täydentävät Suomen yliopistokenttää niillä alueilla, joilla ei ole omaa yliopistoa ja kokoavat alueillaan toimivan yliopistollisen toiminnan. Yhteistyöhön osallistuvat usein myös alueen ammattikorkeakoulut, kunnat ja maakuntaliitto.</p>" ,
-                "subtitle": "Yliopistot suomessa",
-                "universities": [
-                    {
-                        "name": "Oulun yliopisto",
-                        "id": "01904"
-                    },
-                    {
-                        "name": "Åbo Akademi",
-                        "id": "01903"
-                    },
-                    {
-                        "name": "Lapin yliopisto",
-                        "id": "01918"
-                    },
-                    {
-                        "name": "Turun yliopisto",
-                        "id": "10089"
-                    },
-                    {
-                        "name": "Itä-Suomen yliopisto",
-                        "id": "10088"
-                    },
-                    {
-                        "name": "Aalto-yliopisto",
-                        "id": "10076"
-                    },
-                    {
-                        "name": "Lappeenrannan teknillinen yliopisto",
-                        "id": "01914"
-                    },
-                    {
-                        "name": "Taideyliopisto",
-                        "id": "10103"
-                    },
-                    {
-                        "name": "Vaasan yliopisto",
-                        "id": "01913"
-                    },
-                    {
-                        "name": "Jyväskylän yliopisto",
-                        "id": "01906"
-                    }
-                ]
-            },
-            "applied_university": {
-                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
-            },
-            "university_hospital": {
-                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
-            },
-            "state_research": {
-                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
-            },
-            "other_research": {
-                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
-            },
-            "funders": {
-                "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
-            }
+        "university": {
+            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
+            "tmp_description": "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa, joista kaksi on säätiölain mukaisia säätiöitä ja muut julkisoikeudellisia laitoksia. Sotilasalan korkeakoulututkinnot suoritetaan puolustushallinnon alaisessa Maanpuolustuskorkeakoulussa (MPKK).</p><p>Yliopistojen perustehtävänä on harjoittaa tieteellistä tutkimusta ja antaa siihen perustuvaa ylintä opetusta. Yliopistot edistävät elinikäistä oppimista, toimivat vuorovaikutuksessa yhteiskunnan kanssa ja edistävät tutkimustulosten ja taiteellisen toiminnan yhteiskunnallista vaikuttavuutta.</p><p>Yliopistoilla on itsehallinto, jolla turvataan tieteen, taiteen ja ylimmän opetuksen vapaus. Yliopistot ovat itsenäisiä oikeushenkilöitä, jolla on päätöksenteko-oikeus sisäiseen hallintoon kuuluvista asioista.</p><p>Yliopistokeskukset täydentävät Suomen yliopistokenttää niillä alueilla, joilla ei ole omaa yliopistoa ja kokoavat alueillaan toimivan yliopistollisen toiminnan. Yhteistyöhön osallistuvat usein myös alueen ammattikorkeakoulut, kunnat ja maakuntaliitto.</p>" ,
+            "subtitle": "Yliopistot Suomessa",
+            "organizations": [
+                {
+                    "name": "Aalto-yliopisto",
+                    "id": "10076"
+                },
+                {
+                    "name": "Helsingin yliopisto",
+                    "id": "01901"
+                },
+                {
+                    "name": "Itä-Suomen yliopisto",
+                    "id": "10088"
+                },
+                {
+                    "name": "Jyväskylän yliopisto",
+                    "id": "01906"
+                },
+                {
+                    "name": "Lapin yliopisto",
+                    "id": "01918"
+                },
+                {
+                    "name": "Lappeenrannan teknillinen yliopisto",
+                    "id": "01914"
+                },
+                {
+                    "name": "Oulun yliopisto",
+                    "id": "01904"
+                },
+                {
+                    "name": "Svenska handelshögskolan",
+                    "id": "01910"
+                },
+                {
+                    "name": "Taideyliopisto",
+                    "id": "10103"
+                },
+                {
+                    "name": "Tampereen yliopisto",
+                    "id": "10122"
+                },
+                {
+                    "name": "Turun yliopisto",
+                    "id": "10089"
+                },
+                {
+                    "name": "Vaasan yliopisto",
+                    "id": "01913"
+                },
+                {
+                    "name": "Åbo Akademi",
+                    "id": "01903"
+                }
+            ]
+        },
+        "applied_university": {
+            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
+            "subtitle": "Ammattikorkeakoulut Suomessa",
+            "organizations": [
+                {
+                    "name": "Centria-ammattikorkeakoulu",
+                    "id": "02536"
+                },
+                {
+                    "name": "Diakonia ammattikorkeakoulu",
+                    "id": "02624"
+                },
+                {
+                    "name": "Haaga-Helia ammattikorkeakoulu",
+                    "id": "10056"
+                },
+                {
+                    "name": "Humanistinen ammattikorkeakoulu",
+                    "id": "02631"
+                },
+                {
+                    "name": "Hämeen ammattikorkeakoulu",
+                    "id": "02467"
+                },
+                {
+                    "name": "Jyväskylän ammattikorkeakoulu",
+                    "id": "02504"
+                },
+                {
+                    "name": "Kaakkois-Suomen ammattikorkeakoulu",
+                    "id": "10118"
+                },
+                {
+                    "name": "Kajaanin ammattikorkeakoulu",
+                    "id": "02473"
+                },
+                {
+                    "name": "Karelia ammattikorkeakoulu",
+                    "id": "20469"
+                },
+                {
+                    "name": "Lahden ammattikorkeakoulu",
+                    "id": "02470"
+                },
+                {
+                    "name": "Lapin ammattikorkeakoulu",
+                    "id": "10108"
+                },
+                {
+                    "name": "Laurea ammattikorkeakoulu",
+                    "id": "02629"
+                },
+                {
+                    "name": "Metropolia ammattikorkeakoulu",
+                    "id": "10065"
+                },
+                {
+                    "name": "Oulun ammattikorkeakoulu",
+                    "id": "02471"
+                },
+                {
+                    "name": "Poliisiammattikorkeakoulu",
+                    "id": "02557"
+                },
+                {
+                    "name": "Saimaan ammattikorkeakoulu",
+                    "id": "02609"
+                },
+                {
+                    "name": "Satakunnan ammattikorkeakoulu",
+                    "id": "02507"
+                },
+                {
+                    "name": "Savonia-ammattikorkeakoulu",
+                    "id": "02537"
+                },
+                {
+                    "name": "Seinäjoen ammattikorkeakoulu",
+                    "id": "02472"
+                },
+                {
+                    "name": "Tampereen ammattikorkeakoulu",
+                    "id": "02630"
+                },
+                {
+                    "name": "Turun ammattikorkeakoulu",
+                    "id": "02509"
+                },
+                {
+                    "name": "Vaasan ammattikorkeakoulu",
+                    "id": "02627"
+                },
+                {
+                    "name": "Yrkeshögksolan Arcada",
+                    "id": "02535"
+                },
+                {
+                    "name": "Yrkeshögksolan Novia",
+                    "id": "10066"
+                }
+            ]
+        },
+        "university_hospital": {
+            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
+            "subtitle": "Yliopistollisten sairaaloiden erityisvastuualueet",
+            "organizations": [
+                {
+                    "name": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "id": "15675350"
+                },
+                {
+                    "name": "Kuopion yliopistollisen sairaalan erityisvastuualue",
+                    "id": "01714953"
+                },
+                {
+                    "name": "Oulun yliopistollisen sairaalan erityisvastuualue",
+                    "id": "06794809"
+                },
+                {
+                    "name": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "id": "08265978"
+                },
+                {
+                    "name": "Turun yliopistollisen sairaalan erityisvastuualue",
+                    "id": "08282559"
+                }
+            ]
+        },
+        "state_research": {
+            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
+            "subtitle": "Valtion tutkimuslaitokset",
+            "organizations": [
+                {
+                    "name": "Geologian tutkimuskeskus",
+                    "id": "5040011"
+                },
+                {
+                    "name": "Ilmatieteen laitos",
+                    "id": "4940015"
+                },
+                {
+                    "name": "Luonnonvarakeskus",
+                    "id": "4100010"
+                },
+                {
+                    "name": "Maanmittauslaitos",
+                    "id": "4020217"
+                },
+                {
+                    "name": "Suomen ympäristökeskus",
+                    "id": "7020017"
+                },
+                {
+                    "name": "Teknologian tutkimuskeskus VTT Oy",
+                    "id": "26473754"
+                },
+                {
+                    "name": "Terveyden ja hyvinvoinnin laitos",
+                    "id": "5610017"
+                },
+                {
+                    "name": "Työterveyslaitos",
+                    "id": "02202669"
+                },
+                {
+                    "name": "Ulkopoliittinen instituutti",
+                    "id": "1120017"
+                }
+            ]
+        },
+        "other_research": {
+            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+        },
+        "funders": {
+            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
         }
+    }
 }
