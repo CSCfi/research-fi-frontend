@@ -17,7 +17,7 @@ a.back {
     font-weight: bold;
 }
 
-.help {
+.info-icon {
     font-size: 1.4rem;
 }
 
@@ -25,11 +25,18 @@ a.back {
     vertical-align: .125em;
 }
 
-.info {
+.help, .info {
     position: absolute;
     z-index: 1;
-    // max-width: 320px;
     padding: .5rem;
+    overflow-wrap: break-word;
+}
+
+.help {
+    max-width: 320px;
+}
+
+.info {
     overflow-wrap: break-word;
     min-width: 528px;
     bottom: 105px;
