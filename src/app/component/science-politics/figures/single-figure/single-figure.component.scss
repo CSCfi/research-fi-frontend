@@ -39,7 +39,7 @@ a.back {
 .info {
     overflow-wrap: break-word;
     min-width: 528px;
-    bottom: 87%;
+    bottom: calc(100% - 33px);
 }
 
 .info li {
@@ -49,12 +49,11 @@ a.back {
 }
 
 .info.left {
-    // left: -313px;
     right: 100%;
 }
 
 .info.right {
-    left: 135px;
+    left: 145px;
 }
 
 .info.left:after, .info.left:before {
