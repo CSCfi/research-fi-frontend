@@ -102,7 +102,7 @@ a.back {
     .info {
         min-width: auto;
         max-width: 70%;
-        bottom: 82%;
+        bottom: calc(100% - 35px);
     }
 
 }
