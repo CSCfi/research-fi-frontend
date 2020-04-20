@@ -1,0 +1,149 @@
+{
+	"content": [
+		{
+			"id": "s2",
+			"headerFi": "Tutkimuksen rahoitus",
+			"items": [
+				{
+					"labelFi": "Suomen ja vertailumaaryhmien ja -maiden tutkimus- ja kehittämistoiminnan menot osuutena bruttokansantuotteesta",
+					"descriptionFi": "<p>Kuvassa esitetään Suomen ja vertailumaaryhmien ja -maiden tutkimus- ja kehittämistoiminnan menojen (t&k-menojen) kehitys osuutena bruttokansantuotteesta (BKT) vuodesta 2000 lähtien. Voit tarkastella erikseen maaryhmien ja maiden kehitystä.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiMThiZjFkOWMtMmRlMS00MTYxLWFhYmMtMGI5YjYzMTM2YmQyIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s2_1",
+					"source": "OECD.Stat",
+					"info": "Katso, mitä tarkoittavat EU 15 -maat ja OECD: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>Tutkimus- ja kehittämistoimintaan liittyviä käsitteitä</a>"
+				},
+				{
+					"labelFi": "Suomen tutkimus- ja kehittämistoiminnan menot sektoreittain",
+					"descriptionFi": "<p>Kuva esittää yritysten, korkeakoulujen sekä julkisen sektorin organisaatioiden ja yksityisten voittoa tavoittelemattomien (YVT) yhteisöjen tutkimus- ja kehittämistoiminnan menojen (t&k-menojen) kehitystä vuodesta 2000 lähtien. Menot esitetään miljardeina euroina.</p><p>Yritysten t&k-menojen osuus on merkittävä, noin kaksi kolmasosaa kaikista t&k-menoista.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiYzM0MTJhYTctZjljZS00ZTAyLTkxNjAtMWZhNGNhZDg0MWZmIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s2_2",
+					"source": "Tilastokeskus, tutkimus- ja kehittämistoiminta",
+					"info": "<ul><li>Katso mitä tarkoittavat korkeakoulusektori, julkinen sektori sekä yksityiset voittoa tavoittelemattomat yhteisöt (YVT): <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>Tutkimus- ja kehittämistoimintaan liittyviä käsitteitä</a></li><li>Tutustu tarkemmin suomalaiseen tutkimus- ja innovaatiojärjestelmään: <a href='/science-innovation-politics/research-innovation-system/'>Tutkimus- ja innovaatiojärjestelmä</a></li></ul>"
+					
+				},
+				{
+					"labelFi": "Korkeakoulujen ja valtion tutkimuslaitosten tutkimusrahoitus ",
+					"descriptionFi": "<p>Kuvassa esitetään Suomen korkeakoulujen ja valtion tutkimuslaitosten tutkimusrahoitus (miljoonaa euroa) vuodesta 2011 lähtien. Pääjako tutkimusrahoituksessa on valtion budjettirahoituksen ja täydentävän rahoituksen välillä (Rahoituslähteen tyyppi -valikko).</p><p>Huom. Tutkimuslaitossektorilla on toteutettu rakenneuudistus 2010-luvulla.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiMmVlMDRkNzEtNmY5YS00YjZlLThiYmYtZWMzNjBmZTFiODU2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s2_3",
+					"source": "Tilastokeskus, tutkimus- ja kehittämistoiminta",
+					"info": "<ul><li>Katso mitä tarkoittavat tutkimukseen käytetty budjettirahoitus, oma rahoitus ja täydentävä rahoitus: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>Tutkimus- ja kehittämistoimintaan liittyviä käsitteitä</a></li><li>Päätieteenala- ja tieteenalatiedot ovat saatavilla ainoastaan yliopistoille. Ammattikorkeakoulujen, Maanpuolustuskorkeakoulun ja tutkimuslaitosten kohdalla budjettirahoitus sisältää myös oman rahoituksen ennen vuotta 2017.</li><li>Tutkimuslaitossektorin rakenteellisten muutosten seurauksena vuonna 2014 tutkimuslaitoksia oli 16 ja vuodesta 2015 alkaen 12.</li><li>Maanpuolustuskorkeakoulu sisältyy yliopistojen tietoihin vuodesta 2016 alkaen. Ulkopoliittinen instituutti sisältyy tutkimuslaitosten tietoihin vuodesta 2015 alkaen.</li></ul>"
+				}
+			]
+		},
+		{
+			"id": "s3",
+			"headerFi": "Tutkimuksen henkilövoimavarat",
+			"items": [
+				{
+					"labelFi": "Tutkimustyövuosien kehitys korkeakouluissa ja valtion tutkimuslaitoksissa",
+					"descriptionFi": "<p>Kuvassa tarkastellaan Suomen tutkimustyövuosien kehitystä korkeakouluissa ja valtion tutkimuslaitoksissa vuodesta 2012 alkaen. Tutkimustyövuodet on suhteutettu vuoden 2012 tutkimustyövuosien määrään.</p><p>Huom. Tutkimuslaitossektorilla on toteutettu rakenneuudistus 2010-luvulla.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiMzVhMWE1ZDktMDA5Mi00Mjc5LWJjZTgtZTA1YTg1NjQ3OWJkIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s3_1",
+					"source": "Tilastokeskus, tutkimus- ja kehittämistoiminta",
+					"info": "<ul><li>Yliopistojen tutkimushenkilöstön ajankäyttökertoimet on päivitetty 2014 ja 2017. Ajankäyttökertoimien päivitykset nostivat tutkimuksen osuutta työajasta, mikä osaltaan kasvattaa yliopistojen tutkimustyövuosien kokonaismäärää.</li><li>Tutkimuslaitossektorin rakenteellisten muutosten seurauksena vuonna 2014 tutkimuslaitoksia oli 16 ja vuodesta 2015 alkaen 12.</li><li>Maanpuolustuskorkeakoulu sisältyy yliopistojen tietoihin vuodesta 2016 alkaen. Ulkopoliittinen instituutti sisältyy tutkimuslaitosten tietoihin vuodesta 2015 alkaen.</li><li>Katso lisätietoja koulutus-valikossa mainituista koulutustasoista: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244</a></li><li>Katso tutkimustyövuoden määritelmä: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244</a></li><li>Tutustu tarkemmin suomalaiseen tutkimus- ja innovaatiojärjestelmään: <a href='/science-innovation-politics/research-innovation-system/'>Tutkimus- ja innovaatiojärjestelmä</a></li></ul>"
+				},
+				{
+					"labelFi": "Tohtoreiden tekemien tutkimustyövuosien määrä ja osuus Suomessa sektoreittain",
+					"descriptionFi": "<p>Kuva esittää tohtoreiden tekemien tutkimustyövuosien määrän ja osuuden kehitystä yrityksissä, korkeakouluissa sekä julkisen sektorin organisaatioissa ja yksityisissä voittoa tuottamattomissa (YVT) yhteisöissä vuodesta 2000 lähtien. Voit tarkastella erikseen tohtorien tutkimustyövuosien määrää ja osuutta kaikista tutkimustyövuosista.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiYjRmZDE5ODYtNWQ3Zi00NTdkLWIyMjItNGZiNDkyZmM2OGZkIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s3_2",
+					"source": "Tilastokeskus, tutkimus- ja kehittämistoiminta",
+					"info": "<ul><li>Katso tutkimustyövuoden määritelmä: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244.</a></li><li>Katso mitä tarkoittavat korkeakoulusektori, julkinen sektori sekä yksityiset voittoa tavoittelemattomat yhteisöt (YVT): <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>Tutkimus- ja kehittämistoimintaan liittyviä käsitteitä</a></li><li>Tilastokeskuksen mukaan muutamien yliopistojen perusrahoituksen työvuositietoja on arvioitu vuonna 2010 aineistopuutteiden vuoksi. Lisäksi korkeakoulusektorin tilastomenetelmän muutos vuodesta 2011 alkaen sekä yliopistojen opettajien ja tutkijoiden ajankäyttökertoimien päivitykset vuosina 2014 ja 2017 vaikuttavat yliopistotietojen ajalliseen vertailtavuuteen.</li><li>Tutustu tarkemmin suomalaiseen tutkimus- ja innovaatiojärjestelmään: <a href='/science-innovation-politics/research-innovation-system/'>Tutkimus- ja innovaatiojärjestelmä</a></li></ul>"
+				},
+				{
+					"labelFi": "Yliopistojen opetus- ja tutkimushenkilöstön henkilötyövuodet",
+					"descriptionFi": "<p>Kuvassa esitetään Suomen yliopistojen opetus- ja tutkimushenkilöstön henkilötyövuosien kehitys tutkijanuraportaiden mukaan vuodesta 2012 lähtien. Voit tarkastella henkilötyövuosien kehitystä eri uraportailla muun muassa sukupuolen mukaan. Yliopistoissa on käytössä neliportainen tutkijanurajärjestelmä (I-IV). Esimerkkejä eri uraportaiden tyypillisistä tehtävänimekkeistä:</p><ul><li>I uraporras: nuoremmat tutkijat ja tohtorikoulutettavat</li><li>II uraporras: tutkijatohtorit</li><li>III uraporras: yliopistonlehtorit</li><li>IV uraporras: professorit ja tutkimusjohtajat</li></ul>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiYjAwM2U0MWUtYzQ2Yi00NjJjLWIxOTUtM2VmZjRlYjI5YThhIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s3_3",
+					"source": "OKM:n vuosittainen tiedonkeruu",
+					"info": "<ul><li>Katso henkilötyövuoden määritelmä sekä lisätietoa tutkijanuravaiheista: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244</a></li><li>Helsingin yliopisto muutti tilastointikäytänteitään yhdenmukaiseksi muiden yliopistojen kanssa raportoimalla vuoden 2017 tiedoissa opetus- ja tutkimusavustajat opetuksen ja tutkimuksen tukihenkilöstönä. Muutoksen myötä opetus- ja tutkimushenkilöstön I uraportaalta siirtyi noin 250 henkilötyövuotta opetuksen ja tutkimuksen tukihenkilöstöön. Tämän takia I uraportaan henkilötyövuosien väheneminen 2016-2017 ei kuvaa todellista muutosta Helsingin yliopistossa.</li></ul>"
+				},
+				{
+					"labelFi": "Korkeakoulujen ulkomaisen opetus- ja tutkimushenkilöstön henkilötyövuodet",
+					"descriptionFi": "<p>Kuvassa esitetään Suomen ammattikorkeakoulujen ja yliopistojen ulkomaisen opetus- ja tutkimushenkilöstön kehitystä vuodesta 2012 lähtien. Voit tarkastella erikseen ulkomaisen henkilöstön määrää ja osuutta. Ammattikorkeakoulujen kohdalla ulkomaiden kansalaisten tekemät työvuodet on esitetty kokonaisuutena, yliopistojen kohdalla eriteltynä tutkijanuraportaisiin I-II ja III-IV. Yliopistoissa on käytössä neliportainen tutkijanurajärjestelmä (I-IV). Esimerkkejä eri uraportaiden tyypillisistä tehtävänimekkeistä:</p><ul><li>I uraporras: nuoremmat tutkijat ja tohtorikoulutettavat; II uraporras: tutkijatohtorit</li><li>III uraporras: yliopistonlehtorit; IV uraporras: professorit ja tutkimusjohtajat</li</ul>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiODBjMWU4YWQtMDJjNS00NWJmLThjZDQtMThmMjJkMjRhZjFlIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s3_4",
+					"source": "OKM:n vuosittainen tiedonkeruu",
+					"info": "<ul><li>Katso henkilötyövuoden määritelmä sekä lisätietoa tutkijanuravaiheista: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244.</a></li><li>Kaksoiskansalaisuuden omaavat määritellään suomalaisiksi.</li></ul>"
+				}
+			]
+		},
+		{
+			"id": "s4",
+			"headerFi": "Julkaisutoiminta ja tieteellinen vaikuttavuus",
+			"items": [
+				{
+					"labelFi": "Suomen ja vertailumaaryhmien ja -maiden julkaisumäärät",
+					"descriptionFi": "<p>Suomen tieteellisten julkaisujen määrän kehitystä verrataan vertailumaaryhmien ja -maiden kehitykseen. Julkaisumäärät on suhteutettu nelivuotiskauden 1992-1995 julkaisumäärään. Voit tarkastella erikseen maaryhmien ja maiden kehitystä.</p><p>Julkaisumäärä on kasvanut koko maailmassa. Maailman julkaisumäärän kasvusta suurin osa on tapahtunut Kiinassa. Suomen julkaisumäärän kasvu on Pohjoismaiden tasoa.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiYmI1YTVmNjAtYmEzZi00YWUyLWFmZGEtZDY3MzI0MTZlNDJjIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s4_1",
+					"source": "Clarivate Analyticsin Web of Science -pohjainen aineisto, bibliometrinen laskenta CSC Oy, 2019",
+					"info": "<ul><li>Kansainväliset yhteisjulkaisut on ositettu julkaisuun osallistuneiden maiden kesken. </li><li>Katso, mitä tarkoittaa julkaisujen osittaminen: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li></ul>"
+				},
+				{
+					"labelFi": "Suomen ja vertailumaiden julkaisuprofiili",
+					"descriptionFi": "<p>Taulukossa esitetään Suomen ja vertailumaiden julkaisuprofiileja tieteenaloittain. Suomen ja vertailumaiden tieteellisten julkaisujen jakautuminen tieteenalaryhmittäin on suhteutettu koko maailman julkaisuihin tieteenalaryhmittäin. Värillä on korostettu tieteenalaryhmän julkaisuosuus maan kokonaisjulkaisumäärästä, kun se on vähintään 0,5 prosenttiyksikköä suurempi kuin maailmassa keskimäärin.   </p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiNDY1MGE0ZTEtMDQzYS00ZmM5LTljZDItNjE1MzkzYTA3MzUzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s4_2",
+					"source": "Clarivate Analyticsin Web of Science -pohjainen aineisto, bibliometrinen laskenta CSC Oy, 2019",
+					"info": "<ul><li>Kansainväliset yhteisjulkaisut ja usealle eri tieteenalalle luokitellut julkaisut on ositettu.  </li><li>Katso, mitä tarkoittaa julkaisujen osittaminen: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li><li>Erityisesti monien yhteiskuntatieteiden ja humanististen alojen julkaisut ovat puutteellisesti edustettuna Web of Science -pohjaisessa aineistossa, joten WoS-julkaisujen määrä ei anna todellista kuvaa näiden alojen tieteellisen julkaisutoiminnan laajuudesta. </li><li>Katso, mitkä maat kuuluvat EU 15 -maihin: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244.</a></li><li>Taulukossa näkyy kerrallaan korkeintaan sata maata. </li></ul>"
+				},
+				{
+					"labelFi": "Suomen ja vertailumaiden julkaisumäärä ja tieteellinen vaikuttavuus",
+					"descriptionFi": "<p>Taulukko esittää Suomen ja vertailumaiden julkaisumääriä nelivuotiskaudesta 1993-1996 lähtien. Kuva havainnollistaa taulukon tietoja. Voit tarkastella myös Suomen ja vertailumaiden tieteellistä vaikuttavuutta top 10 -indeksin avulla. Tällöin taulukossa on vaaleansinisellä korostettu maat, joiden top 10 -indeksi on suurempi kuin 1,1 mutta pienempi kuin 1,2. Tummansinisellä on puolestaan korostettu maat, joiden top 10 -indeksi on suurempi kuin 1,2. Kuva havainnollistaa taulukon tietoja.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiZWM1ZjU2OTgtNmYyNS00YmQ3LWE3MzMtNDY4NTkzNzUyZDdmIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s4_3",
+					"source": "Clarivate Analyticsin Web of Science -pohjainen aineisto, bibliometrinen laskenta CSC Oy, 2019",
+					"info": "<ul><li>Top 10 -indeksi tarkastelee eniten viitattuun 10 prosenttiin kuuluvien tieteellisten julkaisujen suhteellista osuutta. Maailman keskitaso on 1.</li><li>Katso lisätietoa top 10 -indeksistä: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li>    <li>Kansainväliset yhteisjulkaisut on ositettu julkaisuun osallistuneiden maiden kesken. </li>    <li>Katso, mitä tarkoittaa julkaisujen osittaminen: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li>    <li>Katso, mitkä maat kuuluvat EU 15 -maihin: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244</a></li></ul>"
+				},
+				{
+					"labelFi": "Suomen ja vertailumaiden julkaisujen tieteellinen vaikuttavuus yhteistyön mukaan",
+					"descriptionFi": "<p>Kuvassa tarkastellaan Suomen ja vertailumaiden julkaisujen tieteellisen vaikuttavuuden kehitystä yhteistyön mukaan. Voit tarkastella erikseen kansainvälisiä yhteisjulkaisuja (vähintään yhden kirjoittajan taustaorganisaatio on muussa kuin tarkasteltavassa maassa, katkoviiva) ja kansallisia julkaisuja (kaikki tekijät työskentelevät tarkasteltavassa maassa, yhtenäinen viiva).</p><p>Kansainväliset yhteisjulkaisut ovat selvästi tieteellisesti vaikuttavampia kuin kansalliset julkaisut.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiOWQ0ZmJkOWEtYjg4OS00YzNmLWFhMzQtZjEwNzRkZTkyOWRjIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s4_4",
+					"source": "Clarivate Analyticsin Web of Science -pohjainen aineisto, bibliometrinen laskenta CSC Oy, 2019",
+					"info": "<ul><li>Top 10 -indeksi tarkastelee eniten viitattuun 10 prosenttiin kuuluvien tieteellisten julkaisujen suhteellista osuutta. Maailman keskitaso on 1.</li><li>Katso lisätietoa top 10 -indeksistä: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li><li>Kansainväliset yhteisjulkaisut ja usealle eri tieteenalalle luokitellut julkaisut on ositettu.</li><li>Katso, mitä tarkoittaa julkaisujen osittaminen: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li><li>Katso lisätietoa OECD:stä ja EU 15 -maista: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=142003244</a></li></ul>"
+				},
+				{
+					"labelFi": "Suomen julkaisumäärä ja tieteellinen vaikuttavuus yhteistyön mukaan",
+					"descriptionFi": "<p>Kuvassa esitetään Suomen julkaisumääriä ja tieteellisen vaikuttavuuden kehitystä yhteistyön mukaan. Voit tarkastella erikseen Suomen kaikkia julkaisuja, kansainvälisiä yhteisjulkaisuja (tekijöitä vähintään kahdesta maasta), kotimaisia yhteisjulkaisuja (tekijöitä vähintään kahdesta suomalaisesta organisaatiosta) ja yhden suomalaisen organisaation julkaisuja sekä niiden tieteellistä vaikuttavuutta (top 10 -indeksi).</p><p>Suomen kansainvälisten yhteisjulkaisujen tieteellinen vaikuttavuus on ollut selvästi maailman keskitason yläpuolella jo 1990-luvulta alkaen. Kansainvälinen yhteisjulkaiseminen on lisääntynyt Suomessa.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiMjkyMmI1ZTEtN2RlZS00NmViLTg1NjItNzY1MjEzODczZjBkIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s4_5",
+					"source": "Clarivate Analyticsin Web of Science -pohjainen aineisto, bibliometrinen laskenta CSC Oy, 2019",
+					"info": "<ul><li>Top 10 -indeksi tarkastelee eniten viitattuun 10 prosenttiin kuuluvien tieteellisten julkaisujen suhteellista osuutta. Maailman keskitaso on 1.</li><li>Katso lisätietoa top 10 -indeksistä: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li><li>Kansainväliset yhteisjulkaisut ja usealle eri tieteenalalle luokitellut julkaisut on ositettu.</li><li>Katso, mitä tarkoittaa julkaisujen osittaminen: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334</a></li></ul>"
+				},
+				{
+					"labelFi": "Suomen yhteistyömaat kansainvälisissä yhteisjulkaisuissa",
+					"descriptionFi": "<p>Kuva esittää Suomen yhteistyömaita kansainvälisissä yhteisjulkaisuissa nelivuotiskaudesta 1991-1994 lähtien. Voit tarkastella myös Suomen ja eri maiden välisten yhteisjulkaisujen määriä ja maiden osuuksia Suomen kaikkien kansainvälisten yhteisjulkaisujen määrästä. Julkaisumäärät ovat osittamattomia, eli julkaisumäärä kertoo siitä, kuinka moneen yhteisjulkaisuun Suomi on osallistunut. Tuloksiin voi tutustua tarkemmin painamalla maan kohdalla hiiren oikeaa nappia ja valitsemalla \"Poraudu alaspäin\".</p><p>Suomen yleisimmät yhteistyömaat kansainvälisissä yhteisjulkaisuissa ovat Länsi-Euroopasta ja Pohjois-Amerikasta.  </p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiZTk4OWVjNjQtOTA1YS00YjM5LTk1NWYtMDBlNzM4YjY4Y2E0IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s4_6",
+					"source": "Clarivate Analyticsin Web of Science -pohjainen aineisto, bibliometrinen laskenta CSC Oy, 2019",
+					"info": "<ul><li>Lue lisää osittamattomista julkaisuista: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334.</a></li><li>Prosenttiosuudet on laskettu osittamattomista julkaisuista, joten niiden summa on yli 100.</li><li>Voit valita vain yhden nelivuotiskauden kerrallaan.</li></ul>"
+				},
+				{
+					"labelFi": "Korkeakoulujen julkaisujen määrä julkaisutyypeittäin",
+					"descriptionFi": "<p>Kuva esittää Suomen korkeakoulujen julkaisujen jakautumista eri julkaisutyyppeihin. Tarkasteltavat julkaisutyyppien pääluokat ovat vertaisarvioidut tieteelliset artikkelit, vertaisarvioimattomat tieteelliset kirjoitukset, tieteelliset kirjat, ammattiyleisölle suunnatut julkaisut sekä suurelle yleisölle suunnatut julkaisut.</p>",
+					"img": "assets/img/figure.jpg",
+					"iframe": "https://app.powerbi.com/view?r=eyJrIjoiOTk1NGMyYzItYjVlZS00MzQ2LTg0MTMtYzljOTQ2NDA5ODFmIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9",
+					"link": "s4_7",
+					"source": "OKM:n vuosittainen tiedonkeruu",
+					"info": "<ul><li>Huom. Viimeisen vuoden julkaisumäärästä puuttuu julkaisuja,  joten se ei ole vertailukelpoinen edellisten vuosien kanssa.</li><li>Julkaisutyypit perustuvat opetus- ja kulttuuriministeriön julkaisutyyppiluokitukseen. Katso lisää julkaisutyyppiluokituksesta: <a href='https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334'>https://wiki.eduuni.fi/pages/viewpage.action?pageId=138151334.</a></li></ul>"
+				}
+			]
+		}
+	]
+}

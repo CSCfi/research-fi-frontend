@@ -14,7 +14,7 @@
         }
 
         .content {
-            border-left: 0.5rem solid mat-color($primary);
+            border-left: 0.5rem solid mat-color($primary, 200);
         }
     }
 }

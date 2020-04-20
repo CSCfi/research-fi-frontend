@@ -15,8 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLinkAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { AppComponent } from './app.component';
 
@@ -268,6 +269,6 @@ import { ClickOutsideModule } from 'ng-click-outside';
 
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faExternalLinkAlt);
+    library.addIcons(faExternalLinkAlt, faInfoCircle);
   }
 }
