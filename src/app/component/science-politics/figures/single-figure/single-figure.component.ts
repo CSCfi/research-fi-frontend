@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ElementRef, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID, OnDestroy,
-         ViewChildren, QueryList, HostListener } from '@angular/core';
+         ViewChildren, QueryList, HostListener, ViewEncapsulation } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -19,7 +19,8 @@ import { WINDOW } from 'src/app/services/window.service';
 @Component({
   selector: 'app-single-figure',
   templateUrl: './single-figure.component.html',
-  styleUrls: ['./single-figure.component.scss']
+  styleUrls: ['./single-figure.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;
@@ -40,6 +41,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   height = this.window.innerHeight;
   width = this.window.innerWidth;
   showInfo = false;
+  showHelp = false;
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
                private resizeService: ResizeService, private searchService: SearchService, private route: ActivatedRoute,
@@ -106,11 +108,16 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if (event.key === 'Escape') {
         this.showInfo = false;
+        this.showHelp = false;
     }
   }
 
   onClickedOutside(event) {
     this.showInfo = false;
+  }
+
+  onClickedOutsideHelp(event) {
+    this.showHelp = false;
   }
 
   ngOnDestroy() {
