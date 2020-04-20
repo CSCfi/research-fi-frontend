@@ -110,6 +110,11 @@ mark, .mark {
     color: map-get($researchfi-primary, 500);
 }
 
+// Dialog
+body .mat-dialog-container {
+    min-width: 400px;
+}
+
 // Img alt test, delete in production
 // img:not([alt]) {
 //     transform: rotate(0.5turn);
