@@ -35,7 +35,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
 
         // Combine recipient names and organizations, this is used in funding results component
         let combined = '';
-        if (item.recipientType === 'organization') {
+        if (item.recipientType === 'organization' && item.organizationConsortium) {
             item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
             // Get Finnish organizations only (based on business id)
             if (item.organizationConsortium.find(org => org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-')) {
@@ -53,7 +53,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                     .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
             }
         // Check that a finnish organization is found
-        } else if (item.fundingGroupPerson.find
+        } else if (item.fundingGroupPerson && item.fundingGroupPerson.find
                   // Check for finnish business ID identifier
                   (x => x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
                   x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI')) {
