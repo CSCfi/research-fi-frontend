@@ -19,7 +19,15 @@ export class OrganizationFilters {
   ];
 
   singleFilterData = [
-    {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
+    // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
+  ];
+
+  infoData = [
+    {id: '1', tooltipFi: 'Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi -palveluun.'},
+    {id: '2', tooltipFi: 'OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi -palveluun.'},
+    {id: '3', tooltipFi: 'Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi -palveluun.'},
+    {id: '4', tooltipFi: 'Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi -palveluun.'},
+    {id: '5', tooltipFi: 'Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi -palveluun.'} 
   ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
@@ -41,7 +49,12 @@ export class OrganizationFilters {
   }
 
   sector(data) {
-    const result =  data.map(item => item = {label: item.key, key: item.sectorId.buckets[0].key, doc_count: item.doc_count});
+    const result = data.map(item => item = {
+      label: item.key,
+      key: item.sectorId.buckets[0].key,
+      doc_count: item.doc_count,
+      tooltipFi: this.infoData.find(el => el.id === item.sectorId.buckets[0].key).tooltipFi
+    });
     return result;
   }
 
