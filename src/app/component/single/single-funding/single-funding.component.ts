@@ -30,8 +30,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   infoFields = [
     {label: 'Lyhenne', field: 'acronym'},
-    {label: 'Hankkeen kuvaus', field: 'descriptionFi'},
-    {label: 'Aloitusvuosi', field: 'startYear'},
+    {label: 'Hankkeen kuvaus', field: 'descriptionFi', tooltipFi: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta'},
+    {label: 'Aloitusvuosi', field: 'startYear', tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
   ];
 
   fundedFields = [
@@ -42,29 +42,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Myönnetty summa', field: 'amountEur'},
   ];
 
-  // TEST PURPOSES
-  fundedFields2 = [
-    [
-      {field: 'personName'},
-      {field: ''},
-      {field: 'affiliation'}
-    ],
-    [
-      {field: 'organizationName'},
-      {field: 'shareOfFundingEur'},
-      {field: 'contactPersonName'}
-    ],
-    [
-      {label: 'Myönnetty summa'},
-      {field: 'amountEur'}
-    ]
-
-  ];
-
   funderFields =  [
     {label: 'Nimi', field: 'nameFi'},
-    {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi'},
-    {label: 'Haku', field: 'callProgrammeNameFi'}
+    {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi', tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.'},
+    {label: 'Haku', field: 'callProgrammeNameFi', tooltipFi: 'Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.'}
   ];
 
   otherFields = [

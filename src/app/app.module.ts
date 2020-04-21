@@ -82,7 +82,7 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 import { LinksPipe } from './pipes/links.pipe';
 
 import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { registerLocaleData, Location, LocationStrategy, PathLocationStrategy, ViewportScroller } from '@angular/common';
 import localeFi from '@angular/common/locales/fi';
 import localeEn from '@angular/common/locales/en';
 
@@ -118,7 +118,7 @@ import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
 import { SocialComponent } from './component/social/social.component';
 import { RelatedLinksComponent } from './component/single/related-links/related-links.component';
-import { Router } from '@angular/router'; // Required by ApmService
+import { Event, Scroll, Router } from '@angular/router'; // Router equired by ApmService and scroll logic
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
@@ -128,6 +128,7 @@ import { AccessibilityComponent } from './component/accessibility/accessibility.
 import { ClickOutsideModule } from 'ng-click-outside';
 
 import { CommonComponentsModule} from './common-components/common-components.module';
+import { filter } from 'rxjs/operators';
 
 @NgModule({
   declarations: [
@@ -275,7 +276,25 @@ import { CommonComponentsModule} from './common-components/common-components.mod
 })
 
 export class AppModule {
-  constructor(library: FaIconLibrary) {
+
+  startPage;
+  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller) {
+    this.startPage = router.parseUrl(router.url).queryParams.page || 1;
+    // Used to prevent scroll to top when filters are selected
+    router.events
+    .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
+    .subscribe(e => {
+      if ((e.routerEvent.url.includes('/results'))) {
+        const targetPage = +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+        if (this.startPage !== targetPage) {
+          viewportScroller.scrollToPosition([0, 0]);
+        }
+        this.startPage = targetPage;
+      } else {
+        viewportScroller.scrollToPosition([0, 0]);
+      }
+    });
+    // Add global icons
     library.addIcons(faExternalLinkAlt, faInfoCircle);
   }
 }

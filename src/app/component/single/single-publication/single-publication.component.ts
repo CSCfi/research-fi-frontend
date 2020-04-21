@@ -40,12 +40,15 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
     {label: 'Julkaisuvuosi', field: 'publicationYear'},
-    {label: 'Julkaisutyyppi', field: 'publicationTypeCode', typeLabel: ' '},
-    {label: 'Tekijät', field: 'authors'}
+    {label: 'Julkaisutyyppi', field: 'publicationTypeCode', typeLabel: ' ',
+    tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.'},
+    {label: 'Tekijät', field: 'authors',
+    tooltipFi: 'Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.'}
   ];
 
   authorFields = [
-    {label: 'Tekijöiden määrä', field: 'author[0].nameFiSector'}
+    {label: 'Tekijöiden määrä', field: 'author[0].nameFiSector',
+    tooltipFi: 'Julkaisun tekijät, joilla on suomalainen organisaatio'}
   ];
 
   authorAndOrganization = [];
@@ -65,7 +68,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
     {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
-    {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn='},
+    {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
+    tooltipFi: 'Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).'},
     {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
   ];
 
@@ -76,12 +80,15 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   ];
 
   otherFields  = [
-    {label: 'Tieteenalat', field: 'fieldsParsed'},
-    {label: 'Avoin saatavuus', field: 'openAccessText'},
+    {label: 'Tieteenalat', field: 'fieldsParsed', tooltipFi: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
+    {label: 'Avoin saatavuus', field: 'openAccessText',
+    tooltipFi: '<p><strong>Open access -lehti: </strong>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu: </strong>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus: </strong>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>'},
     {label: 'Julkaisumaa', field: 'countries'},
     {label: 'Kieli', field: 'languages'},
-    {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration'},
-    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration'},
+    {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration',
+    tooltipFi: 'Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista'},
+    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration',
+    tooltipFi: 'Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.'},
     {label: 'Avainsanat', field: 'keywords'}
   ];
 

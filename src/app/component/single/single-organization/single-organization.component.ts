@@ -27,18 +27,18 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   tab = 'organizations';
   infoFields = [
     {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
-    {label: 'Muut nimet', field: 'variantNames'},
-    {label: 'Perustettu', field: 'established'},
-    {label: 'Lisätietoa', field: 'background'},
-    {label: 'Edeltävä organisaatio', field: 'predecessors'},
-    {label: 'Liittyvä organisaatio', field: 'related'},
-    {label: 'Organisaatiomuoto', field: 'organizationType'},
-    {label: 'Organisaation tyyppi', field: 'sectorNameFi'},
-    {label: 'Käyntiosoite', field: 'visitingAddress'},
-    {label: 'Postiosoite', field: 'postalAddress'},
-    {label: 'Y-tunnus', field: 'businessId'},
-    {label: 'Tilastokeskuksen oppilaitostunnus', field: 'statCenterId'},
-    {label: 'Opetus- ja tutkimushenkilöstön määrä (htv)', field: 'staffCountAsFte'},
+    {label: 'Muut nimet', field: 'variantNames', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
+    {label: 'Perustettu', field: 'established', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
+    {label: 'Lisätietoa', field: 'background', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
+    {label: 'Edeltävä organisaatio', field: 'predecessors', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
+    {label: 'Liittyvä organisaatio', field: 'related', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
+    {label: 'Organisaatiomuoto', field: 'organizationType', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
+    {label: 'Organisaation tyyppi', field: 'sectorNameFi', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
+    {label: 'Käyntiosoite', field: 'visitingAddress', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
+    {label: 'Postiosoite', field: 'postalAddress', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
+    {label: 'Y-tunnus', field: 'businessId', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
+    {label: 'Tilastokeskuksen oppilaitostunnus', field: 'statCenterId', tooltipFi: 'Lähde: Tilastokeskus'},
+    {label: 'Opetus- ja tutkimushenkilöstön määrä (htv)', field: 'staffCountAsFte', tooltipFi: 'Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi'},
   ];
 
   studentCounts = [
@@ -49,7 +49,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   ];
 
   subUnitFields = [
-    {label: 'Alayksiköt', field: 'subUnits'}
+    {label: 'Alayksiköt', field: 'subUnits', tooltipFi: 'Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi'}
   ];
 
   linkFields = [
