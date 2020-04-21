@@ -82,7 +82,7 @@ import { HighlightSearch } from './pipes/highlight.pipe';
 import { LinksPipe } from './pipes/links.pipe';
 
 import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData, ViewportScroller } from '@angular/common';
+import { registerLocaleData, Location, LocationStrategy, PathLocationStrategy, ViewportScroller } from '@angular/common';
 import localeFi from '@angular/common/locales/fi';
 import localeEn from '@angular/common/locales/en';
 
@@ -225,6 +225,10 @@ import { filter } from 'rxjs/operators';
     AutosuggestService,
     WINDOW_PROVIDERS,
     AppConfigService,
+    Location,
+    {
+      provide: LocationStrategy, useClass: PathLocationStrategy
+    },
     {
       provide: APP_INITIALIZER,
       multi: true,

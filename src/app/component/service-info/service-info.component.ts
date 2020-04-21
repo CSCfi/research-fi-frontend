@@ -3,6 +3,7 @@ import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
 import { contents } from '../../../assets/static-data/service-info.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-service-info',
@@ -16,8 +17,10 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;
   focusSub: any;
   title: string;
+  openedIdx = -1;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) {}
+  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+              private location: Location) {}
 
   ngOnInit(): void {
     switch (this.localeId) {
@@ -35,6 +38,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(false);
 
     this.title = this.getTitle();
+    this.openedIdx = +this.location.path(true).split('#')[1];
   }
 
   setTitle(title: string) {
@@ -53,6 +57,18 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  open(id: number) {
+    this.openedIdx = id;
+    // Timeout because by default open() is executed before close()
+    setTimeout(() => {
+      this.location.replaceState(this.location.path() + '#' + id);
+    }, 1);
+  }
+
+  close() {
+    this.openedIdx = -1;
+    this.location.replaceState(this.location.path());
+  }
 
   ngOnDestroy() {
     // Reset skip to input - skip-link

@@ -3,68 +3,80 @@
         {
             "title": "Mikä on tiedejatutkimus.fi?",
             "description": [
-                "<p>Päivitetty (pvm)</p>",
-                "<p>Tiedejatutkimus.fi on opetus- ja kulttuuriministeriön (OKM) tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta. Palvelu parantaa tutkimusta koskevan tiedon ja asiantuntijoiden löytymistä sekä lisää suomalaisen tutkimuksen näkyvyyttä ja yhteiskunnallista vaikuttavuutta. </p>",
-                "<p>Palvelu on otettu käyttöön kesäkuussa 2020, ja sitä kehitetään vaiheittain. Tällä hetkellä se sisältää tietoa mm. suomalaisesta tutkimusjärjestelmästä, suomalaisten organisaatioiden julkaisuista, julkisten ja yksityisten tutkimusrahoittajien rahoittamista hankkeista sekä tilastotietoa tutkimuksen resurssien sekä vaikuttavuuden kehityksestä. </p>",
-                "<p>Jatkossa palvelua parannetaan mm. tietojen kattavuuden sekä laajennetaan uusilla tietokokonaisuuksilla. Se tulee sisältämään tietoa lisäksi mm. Suomessa toimivista tutkijoista, näiden tuottamista tutkimusaineistoista ja muista tutkimusaktiviteeteista sekä laajemmin suomalaisesta tutkimusjärjestelmästä.</p>",
-                "<p>Palvelua toteuttaa OKM:n toimeksiannostaâ€¯CSC â€“ Tieteen tietotekniikan keskusâ€¯yhteistyössä korkeakoulujen, muiden tutkimusorganisaatioiden ja tutkimusrahoittajien kanssa.</p>"
+                "<small>Päivitetty (pvm)</small>",
+                "<p><a target=\"_blank\" href=\"https://www.tiedejatutkimus.fi\">Tiedejatutkimus.fi</a> on opetus- ja kulttuuriministeriön (OKM) tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta. Palvelu parantaa tutkimusta koskevan tiedon ja asiantuntijoiden löytymistä sekä lisää suomalaisen tutkimuksen näkyvyyttä ja yhteiskunnallista vaikuttavuutta. </p>",
+                "<p>Palvelu on otettu käyttöön kesäkuussa 2020, ja sitä kehitetään vaiheittain. Tällä hetkellä palvelu sisältää tietoa mm. suomalaisesta tutkimusjärjestelmästä, suomalaisten organisaatioiden julkaisuista, julkisten ja yksityisten tutkimusrahoittajien rahoittamista hankkeista sekä tilastotietoa tutkimuksen resurssien sekä vaikuttavuuden kehityksestä. </p>",
+                "<p>Jatkossa palvelua parannetaan mm. tietojen kattavuuden sekä laajennetaan uusilla tietokokonaisuuksilla. Nykyisen sisällön lisäksi palveluun tulee myöhemmin tietoa mm. Suomessa toimivista tutkijoista, näiden tuottamista tutkimusaineistoista ja muista tutkimusaktiviteeteista sekä laajemmin suomalaisesta tutkimusjärjestelmästä. Palvelun hakuominaisuuksia parannetaan ja siihen lisätään toiminnallisuuksia tietojen tarkasteluun graafisessa muodossa.</p>",
+                "<p>Palvelua toteuttaa OKM:n toimeksiannosta <a target=\"_blank\" href=\"https://www.csc.fi\">CSC – Tieteen tietotekniikan keskus</a> yhteistyössä korkeakoulujen, muiden tutkimusorganisaatioiden ja tutkimusrahoittajien kanssa.</p>"
             ]
         },
         {
             "title": "Mitä tietoa palvelu sisältää ja mistä tiedot tulevat?",
             "description": [
-                "<p>Päivitetty (pvm)</p>",
-                "<p>Alaotsikot esim. laatikoina. Ao. julkaisujen /hankkeiden/infrojen jne. kuvauksiin pääsee myös suoraan portaalin kunkin osion hakunäkymän linkistä, esim. â€Mitä julkaisuja palvelu sisältää?â€ <br>Palveluun siirtyy automaattisesti mm. yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten, yliopistollisten sairaaloiden sekä tutkimusrahoittajien järjestelmissä jo valmiiksi olevia tietoja.  <br>Palveluun ei syötetä tietoa käsin, eikä se näin ollen lisää tutkijoiden raportointiin tai muuhun hallinnolliseen työhön käyttämää aikaa. Palvelu sisältää riittävät kuvailutiedot, joiden avulla esimerkiksi avoimesti saatavilla olevat julkaisut ja aineistot ovat helposti löydettävissä. <br>Tietojen kattavuus riippuu tietoja toimittavista organisaatioista ja nämä vastaavat tietojen oikeellisuudesta. Ainoastaan julkaisutietojen toimittaminen on pakollista.</p>",
+                "<small>Päivitetty (pvm)</small>",
+                "<p>Palveluun päivittyy automaattisesti mm. yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten, yliopistollisten sairaaloiden sekä tutkimusrahoittajien järjestelmissä jo valmiiksi olevia tietoja.</p>",
+                "<p>Palveluun ei syötetä tietoa käsin, eikä se näin ollen lisää tutkijoiden raportointiin tai muuhun hallinnolliseen työhön käyttämää aikaa. Palvelu sisältää kuvailutiedot, joiden avulla esimerkiksi avoimesti saatavilla olevat julkaisut ja aineistot ovat helposti löydettävissä.</p>",
+                "<p>Tietojen kattavuus ja ajantasaisuus riippuu tietoja toimittavista organisaatioista ja kukin organisaatio vastaa omien tietojensa oikeellisuudesta. Tietojen toimittaminen on pääosin vapaaehtoista. Ainoastaan julkaisutietojen toimittaminen on pakollista korkeakouluille.</p>",
                 
                 "<h3>Julkaisut </h3>",
                 "<p>Julkaisutiedot koostuvat suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistollisten sairaaloiden OKM:n tiedonkeruissa toimittamista tiedoista. Palvelu sisältää yli 400 000 Suomessa tehdyn julkaisun metatiedot. </p>",
-                "<p>Julkaisutietojen toimittaminen OKM:lle on ollut pakollista yliopistoille ja ammattikorkeakouluille vuodesta 2011 lähtien. Tiedot kerätään valtakunnallisen VIRTA-julkaisutietopalvelun kautta ja tietoja käytetään mm. korkeakoulujen perusrahoituksen laskentakriteereinä (ks. OKM/2018/116 ja OKM/2018/119). Osa organisaatioista on toimittanut myös vanhempia julkaisuja, jopa 1970-luvulta lähtien.</p>",
-                "<p>Muille organisaatioille kuin yliopistoille ja ammattikorkeakouluille opetus- ja kulttuuriministeriön julkaisutiedonkeruu on vapaaehtoista. Yliopistolliset sairaalat ovat toimittaneet tietonsa niin ikään vuodesta 2011 alkaen ja tutkimuslaitoksia on liittynyt tiedonkeruuseen vuodesta 2014 alkaen.  <br>Ks. lista julkaisutietoja toimittavista organisaatioista: <a href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">linkki wikisivulle</a></p>",
+                "<p>Julkaisutietojen toimittaminen OKM:lle on ollut pakollista yliopistoille ja ammattikorkeakouluille vuodesta 2011 lähtien. Osa organisaatioista on toimittanut myös vanhempia julkaisuja, jopa 1970-luvulta lähtien.</p>",
+                "<p>Tiedot kerätään valtakunnallisen <a target=\"_blank\" href=\"https://wiki.eduuni.fi/display/cscvirtajtp/VIRTA-julkaisutietopalvelu\">VIRTA-julkaisutietopalvelun</a> kautta ja tietoja käytetään mm. korkeakoulujen perusrahoituksen laskentakriteereinä (ks. <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608982\">OKM/2018/116</a> ja <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608987\">OKM/2018/119</a>). Tiedot on tähän asti julkaistu JUULI – julkaisutietoportaalissa.</p>",
+                "<p>Muille organisaatioille kuin yliopistoille ja ammattikorkeakouluille opetus- ja kulttuuriministeriön julkaisutiedonkeruu on vapaaehtoista. Yliopistolliset sairaalat ovat toimittaneet tietonsa niin ikään vuodesta 2011 alkaen ja tutkimuslaitoksia on liittynyt tiedonkeruuseen vuodesta 2014 alkaen.</p>",
+                "<p>Ks. <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">lista julkaisutietoja toimittavista organisaatioista</a>.</p>",
                 
                 "<h3>Hankkeet </h3>",
-                "<p>Palvelu kokoaa tietoja eri julkisten ja yksityisten tutkimusrahoittajien rahoittamista hankkeista. Rahoittajat siirtävät hanketietovarantoon rahoituspäätöstensä tiedot omista hankerekistereistään tai -järjestelmistään haluamallaan aikataululla. Palvelussa on tällä hetkellä Suomen Akatemian ja Business Finlandin sekä muutamien yksityisten tutkimusta rahoittavien säätiöiden tuoreimpia rahoituspäätöksiä. Lisäksi palveluun on siirretty Euroopan komission CORDIS-tietokannasta tiedot suomalaisten organisaatioiden Horizon2020- ja FP7-rahoitusohjelmista saamasta rahoituksesta vuodesta xx lähtien. <br>Myöhemmässä vaiheessa hanketietoja on mahdollista kerätä tietovarantoon myös esimerkiksi korkeakoulujen ja muiden tutkimusorganisaatioiden järjestelmistä. <br>Ks. lista hanketietoja toimittavista organisaatioista. <a href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">LISÄÄ OIKEA LINKKI WIKSIVULLE</a></p>",
+                "<p><a target=\"_blank\" href=\"https://www.tiedejatutkimus.fi\">Tiedejatutkimus.fi</a> kokoaa tietoja julkisten ja yksityisten tutkimusrahoittajien rahoittamista hankkeista. Rahoittajat siirtävät hanketietovarantoon rahoituspäätöstensä tiedot omista rahoitusjärjestelmistään haluamallaan aikataululla.</p>",
+                "<p>Palvelussa on tällä hetkellä Suomen Akatemian ja Business Finlandin sekä muutamien yksityisten tutkimusta rahoittavien säätiöiden tuoreimpia rahoituspäätöksiä. Lisäksi palveluun on tuotu Euroopan komission CORDIS-tietokannasta tiedot suomalaisten organisaatioiden Horizon2020-rahoitusohjelmasta saamasta rahoituksesta.</p>",
+                "<p>Rahoituspäätöstiedot sisältävät vain rahoittajien rahoituspäätöksen myöntösumman, eivät hankkeen kokonaiskustannuksia. Myöhemmässä vaiheessa hanketietoja on mahdollista kerätä tietovarantoon myös esimerkiksi korkeakoulujen ja muiden tutkimusorganisaatioiden järjestelmistä.</p>",
+                "<p>Ks. <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">lista hanketietoja toimittavista organisaatioista</a>.</p>",
                 
                 "<h3>Infrastruktuurit </h3>",
                 "<p>Tutkimusinfrastruktuurit ovat kansallisesti merkittäviä tutkimusvälineitä, laitteistoja, aineistoja ja palveluita, jotka mahdollistavat ja tukevat tutkimustyötä, tutkijan koulutusta ja opetusta sekä kehittävät tutkimus- ja innovaatiokapasiteettia. Tiedejatutkimus.fi edistää tutkimusinfrastruktuurien yhteiskäyttöä ja avoimuutta kuvailemalla ja esittelemällä tutkimusinfrastruktuurit ja niiden palvelut yhtenäisellä tavalla.</p>",
-                "<p>Tutkimusinfrastruktuuri voi olla useamman organisaation yhteistyönä hallinnoitu laaja kansallinen tai kansainvälinen kokonaisuus. Se voi olla myös yhden organisaation hallinnoima, ja sitä käyttää vain sen oma tutkimusryhmä. Tutkimusinfrastruktuurilla voi olla myös esimerkiksi yrityksille suunnattuja palveluita.  <br>Tutkimusinfrastrutktuureja koskevien tietojen toimittamisesta sekä tietojen kattavuudesta ja oikeellisuudesta vastaavat infrastruktuureita hallinnoivat organisaatiot ja tahot. <br>Ks. lista infrastruktuuritietoja toimittavista organisaatioista. <a href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">LISÄÄ OIKEA LINKKI WIKISIVULLE</a></p>",
+                "<p>Tutkimusinfrastruktuuri voi olla useamman organisaation yhteistyönä hallinnoitu laaja kansallinen tai kansainvälinen kokonaisuus. Se voi olla myös yhden organisaation hallinnoima, ja sitä käyttää vain sen oma tutkimusryhmä. Tutkimusinfrastruktuurilla voi olla myös esimerkiksi yrityksille suunnattuja palveluita.</p>",
+                "<p>Tutkimusinfrastruktuureja koskevien tietojen toimittamisesta sekä tietojen kattavuudesta ja oikeellisuudesta vastaavat infrastruktuureita hallinnoivat organisaatiot ja tahot.</p>",
+                "<p>Ks. <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">lista infrastruktuuritietoja toimittavista organisaatioista</a>.</p>",
                 
                 "<h3>Organisaatiot</h3>",
-                "<p>Palvelu sisältää tarkempia tietoja niistä tutkimusta tekevistä ja rahoittavista organisaatioista, jotka toimittavat tietojaan palveluun. Organisaatioiden tiedot on koottu automaattisesti seuraavista lähteistä: <br>Yritys- ja yhteistietojärjestelmä <a href=\"https://www.ytj.fi\">www.ytj.fi</a> <br>Finto â€“ suomalainen asiasanasto- ja ontologiapalvelu: Suomalaiset yhteisönimet <a href=\"http://finto.fi/cn/fi/\">http://finto.fi/cn/fi/</a>  <br>Vipunen â€“ opetushallinnon tilastopalvelu <a href=\"https://www.vipunen.fi\">www.vipunen.fi</a> </p>",
-                
+                "<p>Palvelu sisältää tarkempia tietoja niistä tutkimusta tekevistä ja rahoittavista organisaatioista, jotka toimittavat tietojaan palveluun. Organisaatioiden tiedot on koottu automaattisesti seuraavista lähteistä:</p>",
+                "<ul><li><a target=\"_blank\" href=\"https://www.ytj.fi/\">Yritys- ja yhteisötietojärjestelmä</a></li><li><a target=\"_blank\" href=\"https://finto.fi/cn/fi\">Finto – suomalainen asiasanasto- ja ontologiapalvelu: Suomalaiset yhteisönimet</a></li><li><a target=\"_blank\" href=\"https://www.vipunen.fi\">Vipunen – opetushallinnon tilastopalvelu</a></li></ul>",
+
+                "<h3>Tiede- ja tutkimusuutiset</h3>",
+                "<p>Tuoreet tiede- ja tutkimusuutiset päivitetään automaattisesti tutkimusorganisaatioiden tarjoamista RSS-syötteistä. Palvelussa säilytetään uutisia viimeisten kuuden kuukauden ajalta.</p>",
+                "<p>Ks. <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">lista uutisia toimittavista organisaatioista</a>.</p>",
+
                 "<h3>Tutkijat (tulossa)</h3>",
-                "<p>Palveluun ollaan kehittämässä toimintoa, jossa tutkija voi antaa luvan jo olemassa olevien tietojensa siirtämiseksi ORCID-palvelusta tai kotiorganisaatiostaan tiedejatutkimus.fi-palvelussa julkaistavaksi. Tutkija luo tällöin palveluun itselleen profiilin ja valita siinä näytettävät tiedot.  <br>Tutkijaa koskevia tietoja ovat esimerkiksi yhteystiedot, affiliaatiot, koulutus ja pätevyydet, oman tutkimuksen kuvaus, julkaisut, aineistot, hankkeet ja muut tutkimusaktiviteetit.</p>",
+                "<p>Palveluun ollaan kehittämässä toimintoa, jossa tutkija voi antaa luvan jo olemassa olevien tietojensa siirtämiseksi ORCID-palvelusta tai kotiorganisaatiostaan tiedejatutkimus.fi-palvelussa julkaistavaksi. Tutkijaa koskevia tietoja ovat esimerkiksi yhteystiedot, affiliaatiot, koulutus ja pätevyydet, oman tutkimuksen kuvaus, julkaisut, aineistot, hankkeet ja muut tutkimusaktiviteetit.</p>",
+                "<p>Tutkijalla on mahdollisuus luoda palveluun itselleen profiili ja valita siinä näytettävät tiedot. Tutkijan profiilipalvelu on tarkoitus ottaa käyttöön vuonna 2021.</p>",
                 
                 "<h3>Tutkimusaineistot (tulossa) </h3>",
-                "<p>Palvelu käyttää tutkimusaineistojen tietolähteenä kansallisia Fairdata-palveluja (www.fairdata.fi), jotka sisältävät tietoja suomalaisista tutkimusaineistoista. Fairdata-palveluissa on mm. tutkijoiden itsensä tallentamia sekä tutkimusorganisaatioista siirrettyjä tutkimusaineistojen kuvailutietoja. <br>Tavoitteena on sisällyttää tutkimusaineistot osaksi tiedejatutkimus.fi-palvelua vuoden 2020 loppuun mennessä. </p>"
+                "<p>Palvelu käyttää tutkimusaineistojen tietolähteenä kansallisia <a target=\"_blank\" href\"https://www.fairdata.fi/en/\">Fairdata-palveluja</a>, jotka sisältävät tietoja suomalaisista tutkimusaineistoista. Fairdata-palveluissa on mm. tutkijoiden itsensä tallentamia sekä tutkimusorganisaatioista siirrettyjä tutkimusaineistojen kuvailutietoja.</p>",
+                "<p>Tavoitteena on sisällyttää tutkimusaineistot osaksi tiedejatutkimus.fi-palvelua vuoden 2020 loppuun mennessä.</p>"
             ]
         },
         {
             "title": "Miten käytän palvelua?",
             "description": [
-                "<p>Päivitetty (pvm) </p>",
-                "<p>Palvelussa voit selata ja hakea tietoja sekä jakaa yksittäisiä sivuja tai tietueita esimerkiksi sosiaaliseen mediaan. Tavoitteena on, että palvelun seuraavassa kehitysvaiheessa tiedot ovat myös ladattavissa tiedostoon tai haettavissa koneluettavan rajapinnan kautta.  <br>Palvelua kehitetään jatkuvasti. Voit antaa palautetta, mikäli havaitset palvelussa ongelmia tai sinulla ehdotuksia palvelun kehittämiseksi tai mikäli havaitset tiedoissa virheitä <linkki>  </p>",
-                "<p>Mitä tietoja minusta käyttäjänä kerätään? <a href=\"/privacy\">Tietosuojaseloste</a> <br>Onko palvelu saavutettava? <a href=\"/accessibility\">Saavutettavuusseloste</a> </p> "
+                "<small>Päivitetty (pvm) </small>",
+                "<p>Palvelussa voit selata ja hakea tietoja sekä jakaa yksittäisiä sivuja tai tietueita esimerkiksi sosiaaliseen mediaan.</p>",
+                "<p>Myöhemmässä vaiheessa tavoitteena on, että palvelun tiedot saa myös ladattua tiedostoon tai haettua koneluettavan rajapinnan kautta.</p>",
+                "<p>Palvelua kehitetään jatkuvasti. Voit antaa palautetta, mikäli havaitset palvelussa ongelmia tai sinulla ehdotuksia palvelun kehittämiseksi tai mikäli havaitset tiedoissa virheitä.</p>",
+                "<p></p>",
+                "<p><a href=\"/privacy\">Mitä tietoja minusta käyttäjänä kerätään?</a> <br><a href=\"/accessibility\">Onko palvelu saavutettava?</a><br><a target=\"_blank\" href=\"/https://link.webropolsurveys.com/Participation/Public/b2c1524e-aed2-4e76-9783-29e7938ef275?displayId=Fin1982953\">Anna palautetta</a></p> "
             ]
         },
         {
             "title": "Tietosuoja",
             "description": [
-                "<p>Päivitetty (pvm) </p>",
-                "<p>Tietosuojailmoitus ja evästekäytännöt <a href=\"/privacy\">tässä</a> </p> "
+                "<small>Päivitetty (pvm) </small>",
+                "Ks. palvelun <a href=\"/privacy\">tietosuojailmoitus ja evästekäytännöt</a>.</p> "
             ]
         },
         {
             "title": "Saavutettavuus",
             "description": [
-                "<p>Päivitetty (pvm) </p>",
-                "<a href=\"/accessibility\">Saavutettavuusseloste</a>"
-            ]
-        },
-        {
-            "title": "Ajankohtaista palvelusta",
-            "description": [
-                "<p>Päivitetty (pvm) </p>",
-                "<p>Uutisia palvelusta... </p> "
+                "<small>Päivitetty (pvm) </small>",
+                "Ks. palvelun <a href=\"/accessibility\">saavutettavuusseloste</a>"
             ]
         }
     ]
