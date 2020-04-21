@@ -8,15 +8,15 @@
     <div #scroll class="scroll" *ngFor="let counted of allData">
       <div class="edge" [ngStyle]="{'display': lastScrollLocation > 0 ? 'block' : 'none'}">
         <div class="grad grad-left"></div>
-        <div class="arrow arrow-left d-none d-sm-block" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-left d-none d-sm-block" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
       </div>
       <div class="edge" [ngStyle]="{'display': offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'}">
         <div class="grad grad-right"></div>
-        <div class="arrow arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
       <a *ngFor="let tab of tabData; let i = index;" class="bundler" [class.disabled]="tab.data.length === 0" [class.disabled-home]="isHomePage && tab.data.length === 0" [ngStyle]="homepageStyle" 
       [class.active]="selectedTab === tab.link" [queryParams]="queryParams[tab.link]" (click)="disableScroll(true)" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
-      [tabindex]="isHomePage && tab.data.length !== 0 ? 0 : -1">
+      [tabindex]="isHomePage && tab.data.length !== 0 ? 0 : -1" [tooltip]="tab.tooltipFi" placement="left">
         <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
           <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
           <div *ngIf="locale === 'fi'" class="label text-center">{{tab.labelFi}}</div>

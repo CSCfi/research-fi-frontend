@@ -41,8 +41,9 @@
 @import './app/component/science-politics/figures/single-figure/single-figure.component.scss-theme.scss';
 @import './app/component/science-politics/science-politics.scss-shared.scss';
 @import './app/component/science-politics/science-politics.scss-theme-shared.scss';
-@import './app/component/info/info.component-theme.scss';
 @import './app/component/service-info/service-info.component.scss-theme.scss';
+@import './app/common-components/info/info.component-theme.scss';
+
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
