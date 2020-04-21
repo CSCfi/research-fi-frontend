@@ -20,7 +20,8 @@
             (click)="sortBy('author')" (keydown.enter)="sortBy('author')">Tekijät</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
-            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            <span tabindex="0" tooltip="Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt." placement="bottom" 
+            class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('medium')" (keydown.enter)="sortBy('medium')">Julkaisukanava</span>
         </div>
         <div class="col col-lg-1 d-none d-lg-block">

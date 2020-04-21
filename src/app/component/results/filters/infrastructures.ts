@@ -15,11 +15,12 @@ import { Injectable } from '@angular/core';
 
 export class InfrastructureFilters {
   filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true},
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true,
+      tooltipFi: 'Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.'},
     ];
 
     singleFilterData = [
-      {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
+      // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
     ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}

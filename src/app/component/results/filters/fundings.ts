@@ -15,16 +15,23 @@ import { Injectable } from '@angular/core';
 
 export class FundingFilters {
   filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false},
-      {field: 'funder', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false, open: true},
-      {field: 'typeOfFunding', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false, open: true},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false},
-      {field: 'scheme', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true}
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true,
+      tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
+      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false,
+      tooltipFi: 'Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.'},
+      {field: 'funder', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false, open: true,
+      tooltipFi: 'Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.'},
+      {field: 'typeOfFunding', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false, open: true,
+      tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.'},
+      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false,
+      tooltipFi: 'Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.'},
+      {field: 'scheme', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
+      tooltipFi: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
     ];
 
     singleFilterData = [
-      {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet'},
+      {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet',
+      tooltipFi: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
       // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteistyö'}
     ];
 

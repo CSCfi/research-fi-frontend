@@ -16,8 +16,8 @@
             display: block;
             padding: 1rem;
             padding-top: 0;
-            overflow: auto;
-            overflow-x: hidden;
+            // overflow: auto;
+            // overflow-x: hidden;
         }
 
         // .filter-wrapper {
@@ -25,16 +25,17 @@
         // }
 
         .filter-sidebar h3 {
-            position: sticky;
-            position: -webkit-sticky;
-            z-index: 40;
-            top: 0;
+            // position: sticky;
+            // position: -webkit-sticky;
+            // z-index: 40;
+            // top: 0;
             padding: 1rem 0!important;
         }
         
         // Material expansion panel & accordion
         .mat-expansion-panel {
             margin: 0 0 1rem;
+            overflow: visible;
         }
 
         .mat-expansion-panel-body {
@@ -106,9 +107,9 @@
         }
 
         .mat-expanded mat-expansion-panel-header.mat-expanded {
-            position: sticky;
-            position: -webkit-sticky;
-            top: 3.5rem;
+            // position: sticky;
+            // position: -webkit-sticky;
+            // top: 3.5rem;
             z-index: 39;
         }
 
@@ -151,6 +152,11 @@
             border: 0;
         }
 
+        // Content
+        .mat-content {
+            overflow: visible!important;
+        }
+
         // Year filter select
         mat-form-field, .mat-form-field-infix {
             max-width: 100%;
@@ -181,6 +187,10 @@
         h3 {
             margin: 0;
             font-size: 1.3rem;
+        }
+
+        .info-icon {
+            font-size: 1.1rem;
         }
 
         // Select all
