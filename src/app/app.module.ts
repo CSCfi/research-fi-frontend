@@ -11,6 +11,7 @@ import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TypeaheadModule, ModalModule } from 'ngx-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -120,12 +121,13 @@ import { RelatedLinksComponent } from './component/single/related-links/related-
 import { Router } from '@angular/router'; // Required by ApmService
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
-import { InfoComponent } from './component/info/info.component';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { AccessibilityComponent } from './component/accessibility/accessibility.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+
+import { CommonComponentsModule} from './common-components/common-components.module';
 
 @NgModule({
   declarations: [
@@ -176,7 +178,6 @@ import { ClickOutsideModule } from 'ng-click-outside';
     RelatedLinksComponent,
     FilterListComponent,
     ServiceInfoComponent,
-    InfoComponent,
     PrivacyComponent,
     AccessibilityComponent
   ],
@@ -213,7 +214,9 @@ import { ClickOutsideModule } from 'ng-click-outside';
     FontAwesomeModule,
     TransferHttpCacheModule,
     ModalModule.forRoot(),
-    ClickOutsideModule
+    ClickOutsideModule,
+    CommonComponentsModule,
+    TooltipModule.forRoot()
   ],
   providers: [
     SearchService,
