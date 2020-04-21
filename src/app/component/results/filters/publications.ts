@@ -15,18 +15,26 @@ import { Injectable } from '@angular/core';
 
 export class PublicationFilters {
     filterData = [
-      {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, hideSearch: true},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, open: false, info: 'Test info'},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, open: false},
-      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, open: false},
-      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, open: true},
-      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, open: true},
-      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, open: true},
-      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, open: true}
+      {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, hideSearch: true, hideInfo: true},
+      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, open: false,
+      tooltipFi: 'Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.'},
+      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, open: false,
+      tooltipFi: 'Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.'},
+      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, open: false,
+      tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.'},
+      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, open: true,
+      tooltipFi: 'Julkaisijan maa.'},
+      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, open: true,
+      tooltipFi: 'Kieli, jolla julkaisu on kirjoitettu.'},
+      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, open: true,
+      tooltipFi: 'Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.'},
+      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, open: true,
+      tooltipFi: '<p><strong>Open access -lehti:</strong> Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu:</strong> Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus:</strong> Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>'}
     ];
 
     singleFilterData = [
-      {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
+      {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu',
+      tooltipFi: 'Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.'}
     ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
