@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID,
-  HostListener, PLATFORM_ID } from '@angular/core';
+  HostListener, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,8 @@ import { zhCnLocale } from 'ngx-bootstrap';
 @Component({
   selector: 'app-result-tab',
   templateUrl: './result-tab.component.html',
-  styleUrls: ['./result-tab.component.scss']
+  styleUrls: ['./result-tab.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;
