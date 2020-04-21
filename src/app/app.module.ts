@@ -272,12 +272,21 @@ import { filter } from 'rxjs/operators';
 })
 
 export class AppModule {
+
+  startPage;
   constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller) {
+    this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
-    router.events.pipe(
-      filter((e: Event): e is Scroll => e instanceof Scroll)
-    ).subscribe(e => {
-      if (!router.url.includes('/results')) {
+    router.events
+    .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
+    .subscribe(e => {
+      if ((e.routerEvent.url.includes('/results'))) {
+        const targetPage = +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+        if (this.startPage !== targetPage) {
+          viewportScroller.scrollToPosition([0, 0]);
+        }
+        this.startPage = targetPage;
+      } else {
         viewportScroller.scrollToPosition([0, 0]);
       }
     });
