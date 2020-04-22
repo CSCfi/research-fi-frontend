@@ -15,6 +15,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="container center-content wrapper" style="margin-top: 0">
     <div class="row">
         <app-result-tab style="width:100%" [allData]="tabValues"></app-result-tab>
+        <div class="col-12 px-0">
         <div class="row total" #totalHeader>
             <div class="col">
                 <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''" (click)="navigateToVisualisation()">
@@ -28,6 +29,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     </a>
                 </div>
             </div>
+            <div class="col-auto text-right align-self-center">
+                <a routerLink="/service-info"><strong>Mitä {{selectedTabData.singularFi}}tietoja palvelu sisältää?</strong></a>
+            </div>
+        </div>
         </div>
     </div>
     <div *ngIf="page <= 1000; else pageOverflow">
