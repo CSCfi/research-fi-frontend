@@ -32,7 +32,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   input: Subscription;
   tabData = this.tabChangeService.tabData;
   tab: any = [];
-  selectedTabData: {data: string, labelFi: string, labelEn: string, link: string, icon: any};
+  selectedTabData: {data: string, labelFi: string, labelEn: string, link: string, icon: any, singularFi: any};
   public tabValues: any;
   public filterValues: any;
   errorMessage = [];
@@ -143,6 +143,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         this.tab = this.selectedTabData.link;
+        console.log(this.selectedTabData);
 
         if (tabChanged) {
           this.tabChangeService.changeTab(this.selectedTabData);
@@ -285,7 +286,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: ''});
+      this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: '', singularFi: ''});
       this.combinedRouteParams.unsubscribe();
       this.totalSub.unsubscribe();
       this.tabSub.unsubscribe();
