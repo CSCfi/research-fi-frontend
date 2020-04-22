@@ -35,25 +35,17 @@ export class OrganizationFilters {
   shapeData(data) {
     const source = data[0].aggregations;
     source.sector.buckets = this.sector(source.sector.buckets);
-
-    // Move universities to first element
-    function changeOrder(arr, fromIndex, toIndex) {
-      const element = arr[fromIndex];
-      arr.splice(fromIndex, 1);
-      arr.splice(toIndex, 0, element);
-    }
-    changeOrder(source.sector.buckets, [1], [0]);
-
     source.shaped = true;
     return source;
   }
 
   sector(data) {
+    console.log(data);
     const result = data.map(item => item = {
-      label: item.key,
-      key: item.sectorId.buckets[0].key,
+      key: item.key,
+      label: item.sectorId.buckets[0].key,
       doc_count: item.doc_count,
-      tooltipFi: this.infoData.find(el => el.id === item.sectorId.buckets[0].key).tooltipFi
+      tooltipFi: this.infoData.find(el => el.id === item.key).tooltipFi
     });
     return result;
   }

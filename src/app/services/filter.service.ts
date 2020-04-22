@@ -604,13 +604,16 @@ export class FilterService {
         case 'organizations':
           payLoad.aggs.sector = {
             terms: {
-              field: 'sectorNameFi.keyword',
-              size: 50
+              field: 'sectorId.keyword',
+              size: 50,
+              order: {
+                _key: 'asc'
+              }
             },
             aggs: {
               sectorId: {
                 terms: {
-                  field: 'sectorId.keyword'
+                  field: 'sectorNameFi.keyword'
                 }
               },
             }
