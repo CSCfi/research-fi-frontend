@@ -40,7 +40,6 @@ export class OrganizationFilters {
   }
 
   sector(data) {
-    console.log(data);
     const result = data.map(item => item = {
       key: item.key,
       label: item.sectorId.buckets[0].key,

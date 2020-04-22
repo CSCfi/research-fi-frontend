@@ -12,13 +12,24 @@
         <button mat-button color="primary" (click)="close()"><fa-icon [icon]="faTimes"></fa-icon>Sulje</button>
     </div>
 </div>
-<div class="row active-filters">
+<div class="row active-filters list">
     <div class="col-12">
-        <ng-container *ngFor="let activeFilter of data.active">
+        <div class="" *ngFor="let category of categories">
+            <h3 class="label">{{translationsFi[category]}}</h3>
+            <ul>
+                <ng-container *ngFor="let activeFilter of data.active">
+                    <li tabindex="0" *ngIf="!activeFilter.hide && activeFilter.category === category" (click)="removeFilter(activeFilter.value)" 
+                    (keydown.enter)="removeFilter(activeFilter.value)">
+                        {{activeFilter.translation}}
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+        <!-- <ng-container *ngFor="let activeFilter of data.active">
             <li tabindex="0" *ngIf="!activeFilter.hide" (click)="removeFilter(activeFilter.value)" (keydown.enter)="removeFilter(activeFilter.value)">
                 {{activeFilter.translation}}
             </li>
-        </ng-container>
+        </ng-container> -->
     </div>
 </div>
 <div class="row mt-4">

@@ -23,7 +23,7 @@ export class InfoComponent implements OnInit {
   }
 
   showInfo() {
-    console.log(this.content);
+
   }
 
 }

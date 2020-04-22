@@ -8,6 +8,10 @@
 @mixin app-filters-shared {
 
     modal-container, app-filters {
+        .col {
+            position: unset;
+        }
+
         .mobile {
             max-width: 95%;
         }
@@ -35,7 +39,7 @@
         // Material expansion panel & accordion
         .mat-expansion-panel {
             margin: 0 0 1rem;
-            overflow: visible;
+            // overflow: visible;
         }
 
         .mat-expansion-panel-body {
@@ -154,7 +158,7 @@
 
         // Content
         .mat-content {
-            overflow: visible!important;
+            // overflow: visible!important;
         }
 
         // Year filter select
