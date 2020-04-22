@@ -116,7 +116,6 @@ import { FiguresComponent } from './component/science-politics/figures/figures.c
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
-import { SocialComponent } from './component/social/social.component';
 import { RelatedLinksComponent } from './component/single/related-links/related-links.component';
 import { Event, Scroll, Router } from '@angular/router'; // Router equired by ApmService and scroll logic
 import 'reflect-metadata'; // Required by ApmService
@@ -175,7 +174,6 @@ import { filter } from 'rxjs/operators';
     ScrollSpyDirective,
     CutContentPipe,
     SingleFigureComponent,
-    SocialComponent,
     RelatedLinksComponent,
     FilterListComponent,
     ServiceInfoComponent,
