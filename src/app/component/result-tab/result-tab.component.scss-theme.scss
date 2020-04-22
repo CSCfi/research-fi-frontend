@@ -30,14 +30,6 @@
             border-left: 1px solid mat-color($primary);
             box-shadow: 13px 0 22px -13px rgba(0,0,0,0.2), -13px 0 22px -13px rgba(0,0,0,0.2);
         }
-
-        .bundler .label {
-            font-size: 18px;
-        }
-        
-        .bundler .numeric-box {
-            font-size: 16px;
-        }
         
         .bundler {
             background: mat-color($primary, 100);

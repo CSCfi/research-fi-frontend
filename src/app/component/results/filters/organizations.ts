@@ -23,11 +23,11 @@ export class OrganizationFilters {
   ];
 
   infoData = [
-    {id: '1', tooltipFi: 'Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi -palveluun.'},
-    {id: '2', tooltipFi: 'OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi -palveluun.'},
-    {id: '3', tooltipFi: 'Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi -palveluun.'},
-    {id: '4', tooltipFi: 'Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi -palveluun.'},
-    {id: '5', tooltipFi: 'Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi -palveluun.'} 
+    {id: '1', tooltipFi: 'Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.'},
+    {id: '2', tooltipFi: 'OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä Poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.'},
+    {id: '3', tooltipFi: 'Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi &#8209;palveluun.'},
+    {id: '4', tooltipFi: 'Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi &#8209;palveluun.'},
+    {id: '5', tooltipFi: 'Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi &#8209;palveluun.'}
   ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
@@ -40,7 +40,6 @@ export class OrganizationFilters {
   }
 
   sector(data) {
-    console.log(data);
     const result = data.map(item => item = {
       key: item.key,
       label: item.sectorId.buckets[0].key,

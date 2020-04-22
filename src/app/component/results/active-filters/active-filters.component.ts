@@ -37,6 +37,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     openAccess: 'Avoin saatavuus',
     nonOpen: 'Ei avoin',
     noVal: 'Ei arviota',
+    otherOpen: 'Muu avoin saatavuus',
     noOpenAccessData: 'Ei tietoa',
     selfArchived: 'Rinnakkaistallennettu',
     undefined: 'Ei tiedossa',
