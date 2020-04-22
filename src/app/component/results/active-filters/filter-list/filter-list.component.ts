@@ -18,12 +18,25 @@ export class FilterListComponent implements OnInit, OnDestroy {
   removeFlag: boolean;
   faTimes = faTimes;
   faTrash = faTrashAlt;
+  categories: unknown[];
+
+  translationsFi = {
+    year: 'Vuosi',
+    organization: 'Organisaatio',
+    field: 'Tieteenala',
+    publicationType: 'Julkaisutyyppi',
+    countryCode: 'Julkaisumaa',
+    lang: 'Kieli',
+    juFo: 'Julkaisufoorumitaso',
+    openAccess: 'Avoin saatavuus',
+    internationalCollaboration: 'Kansainvälinen yhteisjulkaisu'
+  };
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any, private router: Router,
                private sortService: SortService, private dialogRef: MatDialogRef<FilterListComponent> ) { }
 
   ngOnInit(): void {
-    console.log(this.data.active);
+    this.categories = [...new Set(this.data.active.map(item => item.category))];
     this.activeFilters = this.data.active;
     this.fromYear = this.data.fromYear;
     this.toYear = this.data.toYear;
