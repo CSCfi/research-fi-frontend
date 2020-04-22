@@ -5,11 +5,10 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-privacy',
@@ -18,11 +17,11 @@ import { MatCheckbox } from '@angular/material/checkbox';
 })
 export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;
-  @ViewChild('mainFocus') mainFocus: MatCheckbox;
+  @ViewChild('mainFocus') mainFocus: ElementRef;
   title: string;
   locale: string;
   matomoUrl: string;
-  
+
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) {
     this.locale = localeId;
     this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
@@ -58,7 +57,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'main-link') {
-        this.mainFocus.focus();
+        this.mainFocus.nativeElement.focus();
       }
     });
   }

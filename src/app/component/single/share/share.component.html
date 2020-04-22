@@ -1,11 +1,11 @@
-<aside>
-    <mat-card>
-        <mat-card-title><h2>Jaa</h2></mat-card-title>
-        <div class="social">
-            <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a>
-            <a href="#" class="icon" title="Twitter -palvelun logo"><fa-icon [icon]="faTwitter"></fa-icon></a>
-            <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a>
-            <a href="#" class="icon" title="Mendeley -palvelun logo"><fa-icon [icon]="faMendeley"></fa-icon></a>
-        </div>
-    </mat-card>
-</aside>
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="share">
+    <button mat-raised-button [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()" color="primary" >
+        <fa-icon [icon]="faCopy" class="copy"></fa-icon>
+        Kopioi linkki
+    </button>
+</div>
