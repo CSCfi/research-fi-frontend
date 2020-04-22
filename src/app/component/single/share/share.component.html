@@ -3,14 +3,9 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<aside>
-    <mat-card>
-        <mat-card-title><h2>Jaa</h2></mat-card-title>
-        <div class="social">
-            <button mat-raised-button [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()" color="primary" >
-                <fa-icon [icon]="faCopy" class="copy"></fa-icon>
-                Kopioi linkki
-            </button>
-        </div>
-    </mat-card>
-</aside>
+<div class="share">
+    <button mat-raised-button [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()" color="primary" >
+        <fa-icon [icon]="faCopy" class="copy"></fa-icon>
+        Kopioi linkki
+    </button>
+</div>
