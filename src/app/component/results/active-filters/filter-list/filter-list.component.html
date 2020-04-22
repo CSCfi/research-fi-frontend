@@ -14,7 +14,7 @@
 </div>
 <div class="row active-filters">
     <div *ngFor="let category of objectKeys(grouped)">
-        <h3 class="col-12">{{filterTranslation[category]}}</h3>
+        <h3>{{filterTranslation[category]}}</h3>
         <ul>
             <ng-container *ngFor="let filter of grouped[category]">
                 <li tabindex="0" *ngIf="!filter.hide" (click)="removeFilter(filter.value)" (keydown.enter)="removeFilter(filter.value)" class="filter modal-filter">
