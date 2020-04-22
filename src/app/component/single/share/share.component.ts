@@ -5,8 +5,10 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit } from '@angular/core';
-import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free-brands-svg-icons';
+import { Component, OnInit, Inject } from '@angular/core';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-share',
@@ -15,14 +17,17 @@ import { faTwitter, faFacebook, faLinkedin, faMendeley } from '@fortawesome/free
 })
 export class ShareComponent implements OnInit {
 
-  faTwitter = faTwitter;
-  faFacebook = faFacebook;
-  faLinkedin = faLinkedin;
-  faMendeley = faMendeley;
+  faCopy = faCopy;
+  currentUrl: string;
 
-  constructor() { }
+  constructor( private snackBar: MatSnackBar, @Inject(DOCUMENT) private document: Document ) { }
 
   ngOnInit() {
+    this.currentUrl = this.document.location.href;
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Linkki kopioitu leikepöydälle');
   }
 
 }
