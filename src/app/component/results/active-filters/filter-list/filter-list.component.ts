@@ -14,32 +14,46 @@ export class FilterListComponent implements OnInit, OnDestroy {
   activeFilters: any;
   fromYear: any;
   toYear: any;
+  tabFilters: any;
   params: any;
   removeFlag: boolean;
   faTimes = faTimes;
   faTrash = faTrashAlt;
-  categories: unknown[];
-
-  translationsFi = {
-    year: 'Vuosi',
-    organization: 'Organisaatio',
-    field: 'Tieteenala',
-    publicationType: 'Julkaisutyyppi',
-    countryCode: 'Julkaisumaa',
-    lang: 'Kieli',
-    juFo: 'Julkaisufoorumitaso',
-    openAccess: 'Avoin saatavuus',
-    internationalCollaboration: 'Kansainvälinen yhteisjulkaisu'
-  };
+  grouped: any;
+  filterTranslation: any;
+  objectKeys = Object.keys;
 
   constructor( @Inject(MAT_DIALOG_DATA) public data: any, private router: Router,
                private sortService: SortService, private dialogRef: MatDialogRef<FilterListComponent> ) { }
 
   ngOnInit(): void {
-    this.categories = [...new Set(this.data.active.map(item => item.category))];
     this.activeFilters = this.data.active;
     this.fromYear = this.data.fromYear;
     this.toYear = this.data.toYear;
+    this.tabFilters = this.data.tabFilters;
+
+    // Group the filters by category
+    this.grouped = this.groupBy(this.activeFilters, 'category');
+
+    // Get the translations for the filter field values
+    this.filterTranslation = this.groupBy(this.tabFilters, 'field');
+    Object.keys(this.filterTranslation).forEach(x => this.filterTranslation[x] = this.filterTranslation[x][0].labelFi);
+  }
+
+  groupBy(arr, key, value?) {
+    return arr.reduce((storage, item) => {
+      // get the first instance of the category
+      const group = item[key];
+
+      // set storage or initialize it
+      storage[group] = storage[group] || [];
+
+      // add the current item to storage
+      storage[group].push(item[value] || item);
+
+      // return the updated storage to the next iteration
+      return storage;
+    }, {});  // initially empty object {} as storage
   }
 
   removeFilter(filter) {
@@ -64,19 +78,8 @@ export class FilterListComponent implements OnInit, OnDestroy {
     this.activeFilters = this.activeFilters.filter(elem => elem.value !== filter);
     this.data.active = this.activeFilters.filter(elem => elem.value !== filter);
 
-    this.params = this.activeFilters.reduce((storage, item) => {
-      // get the first instance of the category
-      const group = item.category;
-
-      // set storage or initialize it
-      storage[group] = storage[group] || [];
-
-      // add the current item to storage
-      storage[group].push(item.value);
-
-      // return the updated storage to the next iteration
-      return storage;
-    }, {});  // initially empty object {} as storage
+    this.params = this.groupBy(this.activeFilters, 'category', 'value');
+    this.grouped = this.groupBy(this.activeFilters, 'category');
 
     this.params.sort = this.sortService.sortMethod;
     this.router.navigate([], {queryParams: this.params});
