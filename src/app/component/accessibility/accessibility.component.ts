@@ -6,11 +6,10 @@
 //  :license: MIT
 
 
-import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-accessibility',
@@ -19,7 +18,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 })
 export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;
-  @ViewChild('mainFocus') mainFocus: MatCheckbox;
+  @ViewChild('mainFocus') mainFocus: ElementRef;
   title: string;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) { }
@@ -53,7 +52,7 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   ngAfterViewInit() {
     this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'main-link') {
-        this.mainFocus.focus();
+        this.mainFocus.nativeElement.focus();
       }
     });
   }
