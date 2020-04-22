@@ -10,8 +10,9 @@
 }
 
 .active-filters {
-    max-height: 500px;
-    overflow: auto;
+    // max-height: 500px;
+    // overflow: auto;
+    flex-direction: column;
 }
 
 li {

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
@@ -14,6 +14,7 @@ import { TabChangeService } from '../../../services/tab-change.service';
 import { faExclamationTriangle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FilterListComponent} from './filter-list/filter-list.component';
+import { PublicationFilters } from '../filters/publications';
 
 @Component({
   selector: 'app-active-filters',
@@ -39,6 +40,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     under100k: 'Rahoitus alle 100 000€'
   };
   filterResponse: any;
+  tabFilters: any;
   response: any;
   tabSub: any;
   currentTab: any;
@@ -56,11 +58,21 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
-               public dialog: MatDialog ) {
+               public dialog: MatDialog, private publicationFilters: PublicationFilters ) {
    }
 
   ngOnInit() {
-    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => this.currentTab = tab);
+    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
+      this.currentTab = tab;
+      switch (this.currentTab.link) {
+        case 'publications':
+          this.tabFilters = this.publicationFilters.filterData;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 
   ngAfterContentInit() {
@@ -308,7 +320,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       data: {
         active: this.activeFilters,
         fromYear: this.fromYear,
-        toYear: this.toYear
+        toYear: this.toYear,
+        tabFilters: this.tabFilters
       }
     });
   }
