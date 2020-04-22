@@ -15,6 +15,10 @@ import { faExclamationTriangle, faTrashAlt } from '@fortawesome/free-solid-svg-i
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FilterListComponent} from './filter-list/filter-list.component';
 import { PublicationFilters } from '../filters/publications';
+import { PersonFilters } from '../filters/persons';
+import { FundingFilters } from '../filters/fundings';
+import { InfrastructureFilters } from '../filters/infrastructures';
+import { OrganizationFilters } from '../filters/organizations';
 
 @Component({
   selector: 'app-active-filters',
@@ -58,7 +62,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
-               public dialog: MatDialog, private publicationFilters: PublicationFilters ) {
+               public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
+               private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
+               private organizationFilters: OrganizationFilters, ) {
    }
 
   ngOnInit() {
@@ -67,6 +73,18 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       switch (this.currentTab.link) {
         case 'publications':
           this.tabFilters = this.publicationFilters.filterData;
+          break;
+        case 'fundings':
+          this.tabFilters = this.fundingFilters.filterData;
+          break;
+        case 'infrastructures':
+          this.tabFilters = this.infrastructureFilters.filterData;
+          break;
+        case 'persons':
+          this.tabFilters = this.personFilters.filterData;
+          break;
+        case 'organizations':
+          this.tabFilters = this.organizationFilters.filterData;
           break;
 
         default:
