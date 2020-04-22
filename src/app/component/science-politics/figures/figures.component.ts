@@ -99,7 +99,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         )
         .subscribe(term => {
           this.queryTerm = term;
-          this.queryResults = term.length > 0 ? this.combinedData.filter(item => item.labelFi.includes(term)) : [];
+          this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
+            item.labelFi.toLowerCase().includes(term.toLowerCase())) : [];
           // Set results flag, used to show right template
           this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
           // Highlight side nav item
