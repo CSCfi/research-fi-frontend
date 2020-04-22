@@ -41,6 +41,10 @@ a {
     color: map-get($researchfi-primary, 500)
 }
 
+a:hover {
+    color: map-get($researchfi-primary, lighter);
+}
+
 ul {
     list-style: none;
     padding-inline-start: 0;
