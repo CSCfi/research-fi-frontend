@@ -12,7 +12,7 @@
     <div class="row no-margin  d-flex justify-content-between">
         <div class="col col-1 icon"></div>
         <div class="col col-2 col-xl-2 d-none d-lg-block">
-            <span #main tabindex="0" tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.I" placement="bottom"
+            <span #main tabindex="0" tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." placement="bottom"
             class="bold uppercase" [ngClass]="sortColumn === 'sector' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('acronym')" (keydown.enter)="sortBy('acronym')">Lyhenne</span>
         </div>

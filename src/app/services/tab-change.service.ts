@@ -20,7 +20,7 @@ export class TabChangeService {
     { data: '', labelFi: 'Muut aktiviteetit', labelEn: 'Research activities', link: '3', icon: faSpinner, singularFi: 'muu aktiviteetti',
       tooltipFi: 'Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.'  },
     { data: 'organizations', labelFi: 'Organisaatiot', labelEn: 'Organizations', link: 'organizations', icon: faUniversity, singularFi: 'organisaatio',
-      tooltipFi: 'Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja -rahoittajat.'  }
+      tooltipFi: 'Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.'  }
   ];
 
   private tabSource = new BehaviorSubject({data: '', labelFi: '', labelEn: '', link: '', icon: '', singularFi: ''});
