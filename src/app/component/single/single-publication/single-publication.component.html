@@ -240,7 +240,7 @@
                                 <div class="col link doi">
                                     <span class="doi-tag">DOI</span>
                                     <span class="doi-link">
-                                        <a [attr.href]="'https://doi.org/'+item.doi">{{item.doi}}</a>
+                                        <a [attr.href]="'https://doi.org/'+item.doi" target="_blank">{{item.doi}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                     </span>
                                 </div>
                             </div>
@@ -249,7 +249,7 @@
                                     <fa-icon [icon]="faIcon"></fa-icon>
                                 </div>
                                 <div class="col link">
-                                    <a class="info-link" href={{row.path}}{{item[row.field]}}>{{item[row.field]}}</a>
+                                    <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
