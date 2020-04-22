@@ -59,12 +59,12 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.mainContent?.nativeElement.focus();
       }
     });
-    this.heightSub = this.dataService.currentActiveFilterHeight?.subscribe(height => {
-      if (height > 0) {
-        this.marginTop = height;
-        this.cdr.detectChanges();
-      }
-    });
+    // this.heightSub = this.dataService.currentActiveFilterHeight?.subscribe(height => {
+    //   if (height > 0) {
+    //     this.marginTop = height;
+    //     this.cdr.detectChanges();
+    //   }
+    // });
 
   }
 
