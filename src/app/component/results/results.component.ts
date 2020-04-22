@@ -143,7 +143,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         this.tab = this.selectedTabData.link;
-        console.log(this.selectedTabData);
 
         if (tabChanged) {
           this.tabChangeService.changeTab(this.selectedTabData);

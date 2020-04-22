@@ -23,6 +23,7 @@ export class FilterListComponent implements OnInit, OnDestroy {
                private sortService: SortService, private dialogRef: MatDialogRef<FilterListComponent> ) { }
 
   ngOnInit(): void {
+    console.log(this.data.active);
     this.activeFilters = this.data.active;
     this.fromYear = this.data.fromYear;
     this.toYear = this.data.toYear;
