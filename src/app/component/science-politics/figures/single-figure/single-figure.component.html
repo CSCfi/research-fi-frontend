@@ -14,7 +14,11 @@
                 <h1>{{item.labelFi}}</h1>
                 <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)">Ohje näppäimistökäyttäjälle</a>
                 <div *ngIf="showHelp" class="help p-3">
-                    <p class="m-0">Saat näppäimistöohjeet esiin näppäinyhdistelmällä "shift + ?" silloin, kun selaimen fokus on allaolevassa visualisoinnissa.</p>                    
+                    <p class="m-0">
+                        Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.
+                        <br>
+                        Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.
+                    </p>                    
                 </div>
             </div>
             <div class="col col-lg-10 base content" #content>
