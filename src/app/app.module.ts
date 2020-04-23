@@ -291,12 +291,6 @@ export class AppModule {
           viewportScroller.scrollToPosition([0, 0]);
         }
         this.startPage = targetPage;
-      } else if ((e.routerEvent.url.includes('/science-research-figures'))) {
-        const tree = router.parseUrl(e.routerEvent.url);
-        const children = tree.root.children[PRIMARY_OUTLET].segments;
-        if (children.length > 2) {
-          viewportScroller.scrollToPosition([0, 0]);
-        }
       } else {
         viewportScroller.scrollToPosition([0, 0]);
       }
