@@ -56,7 +56,8 @@
                             <div class="col-6 col-lg-9 td">
                                 <div [ngClass]="expand ? 'expand' : 'short'">
                                         <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
-                                            <a routerLink="/results/organization/{{consortium.consortiumOrganizationId}}">{{consortium.consortiumOrganizationNameFi}}</a> 
+                                            <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/organization/{{consortium.consortiumOrganizationId}}">{{consortium.consortiumOrganizationNameFi}}</a>
+                                            <ng-container *ngIf="!consortium.consortiumOrganizationId">{{consortium.consortiumOrganizationNameFi}}</ng-container>
                                                 ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
                                         </ng-container>
                                         
@@ -98,7 +99,8 @@
                                 </div>
                             </div>
                             <div class="col-5 td">
-                                <a routerLink="/results/organization/{{item.recipient.organizationId}}">{{item.recipient.affiliation}}</a>
+                                <a *ngIf="item.recipient.organizationId" routerLink="/results/organization/{{item.recipient.organizationId}}">{{item.recipient.affiliation}}</a>
+                                <ng-container *ngIf="!item.recipient.organizationId">{{item.recipient.affiliation}}</ng-container>
                             </div>
                             <div class="col-4 td">
                                 <!-- <div>{{item.recipient.affiliation}}</div> -->
