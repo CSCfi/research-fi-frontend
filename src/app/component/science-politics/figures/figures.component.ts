@@ -17,6 +17,9 @@ import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { ScrollService } from 'src/app/services/scroll.service';
+import { DataService } from 'src/app/services/data.service';
+import { content } from '../../../../assets/static-data/figures-content.json';
 
 @Component({
   selector: 'app-figures',
@@ -43,7 +46,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     {labelFi: 'Vipunen'},
   ];
 
-  allContent: any;
+  allContent = content;
 
   description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
   link = 'test';
@@ -56,15 +59,16 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainContent') mainContent: ElementRef;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('searchInput') searchInput: ElementRef;
-  dataSub: Subscription;
+  querySub: Subscription;
   resizeSub: Subscription;
+  scrollSub: Subscription;
   mobile: boolean;
   showMenu: boolean;
   focusSub: any;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, private searchService: SearchService,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService ) {
+               private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -90,28 +94,25 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
+    this.scrollSub = this.scrollService.onScroll.pipe(debounceTime(300)).subscribe(e => this.onScroll(e.y));
 
     // Get data from assets
-    this.dataSub = this.searchService.getFigures().pipe(map(data => data)).subscribe(data => {
-      const key = 'content';
-      this.allContent = data[key];
-      const combined = [];
-      // Combine all items
-      this.allContent.forEach(segment => combined.push(segment.items));
-      this.combinedData = [].concat.apply([], combined);
-      // Subscribe to input changes
-      this.queryField.valueChanges.pipe(
-        distinctUntilChanged()
-        )
-        .subscribe(term => {
-          this.queryTerm = term;
-          this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
-            item.labelFi.toLowerCase().includes(term.toLowerCase())) : [];
-          // Set results flag, used to show right template
-          this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
-          // Highlight side nav item
-          this.currentSection = this.queryResults.length > 0 ? '' : 's1';
-      });
+    const combined = [];
+    // Combine all items
+    this.allContent.forEach(segment => combined.push(segment.items));
+    this.combinedData = [].concat.apply([], combined);
+    // Subscribe to input changes
+    this.querySub = this.queryField.valueChanges.pipe(
+      distinctUntilChanged()
+      )
+      .subscribe(term => {
+        this.queryTerm = term;
+        this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
+          item.labelFi.toLowerCase().includes(term.toLowerCase())) : [];
+        // Set results flag, used to show right template
+        this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
+        // Highlight side nav item
+        this.currentSection = this.queryResults.length > 0 ? '' : 's1';
     });
 
   }
@@ -132,11 +133,16 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         this.mainFocus.nativeElement.focus();
       }
     });
+    // Timeout to allow page to render so scroll goes to its correct position
+    setTimeout(() => {
+      window.scrollTo(0, this.dataService.researchFigureScrollLocation);
+    }, 10);
   }
 
   ngOnDestroy() {
-    this.dataSub.unsubscribe();
+    this.querySub.unsubscribe();
     this.resizeSub.unsubscribe();
+    this.scrollSub.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 
@@ -147,5 +153,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   onResize() {
     this.mobile = this.mainContent.nativeElement.offsetWidth > 991 ? false : true;
     this.showMenu = this.mobile ? false : true;
+  }
+
+  onScroll(y: number) {
+    this.dataService.updateResearchScroll(y);
   }
 }

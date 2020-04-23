@@ -118,7 +118,7 @@ import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
 import { RelatedLinksComponent } from './component/single/related-links/related-links.component';
-import { Event, Scroll, Router } from '@angular/router'; // Router equired by ApmService and scroll logic
+import { Event, Scroll, Router, PRIMARY_OUTLET } from '@angular/router'; // Router required by ApmService and scroll logic
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
 import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
@@ -278,6 +278,7 @@ import { filter } from 'rxjs/operators';
 export class AppModule {
 
   startPage;
+
   constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
@@ -290,6 +291,12 @@ export class AppModule {
           viewportScroller.scrollToPosition([0, 0]);
         }
         this.startPage = targetPage;
+      } else if ((e.routerEvent.url.includes('/science-research-figures'))) {
+        const tree = router.parseUrl(e.routerEvent.url);
+        const children = tree.root.children[PRIMARY_OUTLET].segments;
+        if (children.length > 2) {
+          viewportScroller.scrollToPosition([0, 0]);
+        }
       } else {
         viewportScroller.scrollToPosition([0, 0]);
       }
