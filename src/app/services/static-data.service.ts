@@ -131,7 +131,7 @@ export class StaticDataService {
       }
       case 'organization': {
         res = ['nameFi^2', 'nameEn^2', 'nameSv^2', 'variantNames', 'organizationBackground', 'predecessors.nameFi', 'related', 'homepage',
-        'visitingAddress', 'businessId', 'TKOppilaitosTunnus', 'subUnits'];
+        'visitingAddress', 'businessId', 'subUnits'];
         break;
       }
     }
