@@ -115,7 +115,9 @@ export class StaticDataService {
         break;
       }
       case 'funding': {
-        res = ['projectNameFi^2', 'fundedNameFi', 'funderNameFi'];
+        res = ['projectNameFi^2', 'projectNameEn^2', 'projectNameSv^2', 'projectAcronym', 'projectDescriptionFi', 'projectDescriptionEn',
+        'projectDescriptionSv', 'fundingStartYear',  'fundedNameFi',
+        'funderNameFi'];
         break;
       }
       case 'infrastructure': {
@@ -139,9 +141,29 @@ export class StaticDataService {
           'author.nameFiSector',
           'author.organization.OrganizationNameFi',
           'author.organization.organizationUnit.organizationUnitNameFi',
+          'author.organization.organizationUnit.organizationUnitNameEn',
+          'author.organization.organizationUnit.organizationUnitNameSv',
           'author.organization.organizationUnit.person.authorFirstNames',
           'author.organization.organizationUnit.person.authorLastName'
         ];
+        break;
+      }
+      case 'funding': {
+        res = [
+          'organizationConsortium.consortiumOrganizationBusinessId',
+          'organizationConsortium.consortiumOrganizationNameFi',
+          'organizationConsortium.consortiumOrganizationNameEn',
+          'organizationConsortium.consortiumOrganizationNameSv',
+          'organizationConsortium.roleInConsortium',
+          'fundingGroupPerson.fundingGroupPersonFirstNames',
+          'fundingGroupPerson.fundingGroupPersonLastName',
+          'fundingGroupPerson.consortiumOrganizationBusinessId',
+          'fundingGroupPerson.consortiumOrganizationNameFi',
+          'fundingGroupPerson.consortiumOrganizationNameEn',
+          'fundingGroupPerson.consortiumOrganizationNameSv',
+          'fundingGroupPerson.roleInFundingGroup',
+          'fundingGroupPerson.consortiumProject'
+        ]
       }
     }
   }
