@@ -30,8 +30,8 @@ export class FundingFilters {
     ];
 
     singleFilterData = [
-      {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet',
-      tooltipFi: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
+      // {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet',
+      // tooltipFi: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
       // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteistyö'}
     ];
 
