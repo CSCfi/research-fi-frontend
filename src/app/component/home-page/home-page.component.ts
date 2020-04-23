@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, ViewChild, ViewChildren, ElementRef, Inject, PLATFORM_ID, QueryList, AfterViewInit,
-  HostListener, ChangeDetectorRef, LOCALE_ID } from '@angular/core';
+  HostListener, ChangeDetectorRef, LOCALE_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
@@ -14,6 +14,8 @@ import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   providers: [SearchBarComponent],
@@ -21,7 +23,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit, AfterViewInit {
+export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   allData: any [];
   errorMessage = [];
   status = false;
@@ -38,6 +40,8 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     'min-width': '200px'
   };
   maxHeight: number;
+
+  resizeSub: Subscription;
 
   shortcuts = [
     {
@@ -88,7 +92,8 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService ) {
+               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService,
+               private resizeService: ResizeService ) {
 
                }
 
@@ -119,6 +124,8 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     }
     this.srHeader.nativeElement.innerHTML = this.document.title.split(' - ', 1);
 
+    this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
+
     // Reset local storage
     // if (isPlatformBrowser(this.platformId)) {
     //   localStorage.removeItem('Pagenumber');
@@ -126,8 +133,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize() {
     // Timeout needs to be added because shortcutItem list doesn't keep up with resize
     setTimeout(x => {
       this.getHeight();
@@ -161,5 +167,9 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     .pipe(map(allData => [allData]))
     .subscribe(allData => this.allData = allData,
       error => this.errorMessage = error as any);
+  }
+
+  ngOnDestroy() {
+    this.resizeSub.unsubscribe();
   }
 }

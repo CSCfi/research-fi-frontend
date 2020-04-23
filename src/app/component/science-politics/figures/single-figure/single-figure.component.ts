@@ -15,6 +15,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from 'src/app/services/window.service';
+import { content } from '../../../../../assets/static-data/figures-content.json';
 
 @Component({
   selector: 'app-single-figure',
@@ -24,6 +25,8 @@ import { WINDOW } from 'src/app/services/window.service';
 })
 export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;
+
+  dataContent = content;
 
   colWidth: number;
   faQuestion = faQuestionCircle;
@@ -59,25 +62,22 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     // Get data from assets by parent and content link
-    this.dataSub = this.searchService.getFigures().pipe(map(data => data)).subscribe(data => {
-      const key = 'content';
-      const parent = data[key].find(item => item.id === this.currentParent);
-      this.result = [parent.items.find(item => item.link === this.currentItem)];
+    const parent = this.dataContent.find(item => item.id === this.currentParent);
+    this.result = [parent.items.find(item => item.link === this.currentItem)];
 
-      // Set title
-      this.label = this.result[0].labelFi;
-      switch (this.localeId) {
-        case 'fi': {
-          this.setTitle(this.label + ' - Tiedejatutkimus.fi');
-          break;
-        }
-        case 'en': {
-          // Change labelEn at some point
-          this.setTitle(this.label + ' - Research.fi');
-          break;
-        }
+    // Set title
+    this.label = this.result[0].labelFi;
+    switch (this.localeId) {
+      case 'fi': {
+        this.setTitle(this.label + ' - Tiedejatutkimus.fi');
+        break;
       }
-    });
+      case 'en': {
+        // Change labelEn at some point
+        this.setTitle(this.label + ' - Research.fi');
+        break;
+      }
+    }
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
@@ -129,7 +129,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.resizeSub.unsubscribe();
     this.routeSub.unsubscribe();
-    this.dataSub.unsubscribe();
     this.contentSub?.unsubscribe();
   }
 }

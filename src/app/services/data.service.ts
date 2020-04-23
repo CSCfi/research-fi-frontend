@@ -20,6 +20,8 @@ export class DataService {
 
   totalResults: number | string = 0;
 
+  researchFigureScrollLocation = 0;
+
   constructor() { }
 
   changeResponse(response: any) {
@@ -37,5 +39,9 @@ export class DataService {
   updateTotalResultsValue(amount: number | string) {
     this.totalResultsSource.next(amount);
     this.totalResults = amount;
+  }
+
+  updateResearchScroll(value: number) {
+    this.researchFigureScrollLocation = value;
   }
 }

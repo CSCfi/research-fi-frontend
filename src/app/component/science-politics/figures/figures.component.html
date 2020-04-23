@@ -21,7 +21,7 @@
                 <nav *ngIf="showMenu">
                     <ul>
                         <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
-                            <a href="javascript:void(0)" (click)="scrollTo(item.id)">
+                            <a [routerLink]="['.']" fragment="{{item.id}}">
                                 <div class="row">
                                     <div class="col-auto pr-0">
                                         <fa-icon class="icon" [icon]="item.icon"></fa-icon>
