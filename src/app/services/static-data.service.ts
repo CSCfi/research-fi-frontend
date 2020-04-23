@@ -102,11 +102,12 @@ export class StaticDataService {
     let res = [];
     switch (index) {
       case 'publication': {
-        res = ['publicationName^2', 'authorsText', 'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
-              'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress', 'fields_of_science.nameFiScience',
-              'fields_of_science.nameEnScience', 'fields_of_science.nameSvScience', 'fields_of_education', 'keywords', 'publicationYear',
-              'publicationTypeCode', 'publicationOrgId', 'issn', 'issn2', 'volume', 'issueNumber', 'pageNumberText','articleNumberText', 
-              'isbn', 'isbn2', 'jufoCode', 'jufoClassCode'];
+        res = ['publicationName^2', 'publicationYear', 'authorsText',
+              'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
+              'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress',  'fields_of_education',
+              'issn', 'issn2', 'isbn', 'isbn2', 'keywords.keyword', 'publicationOrgId',
+              'jufoCode', 'jufoClassCode', 'fields_of_science.nameFiScience', 'fields_of_science.nameEnScience',
+              'fields_of_science.nameSvScience',];
         break;
       }
       case 'person': {
@@ -114,18 +115,61 @@ export class StaticDataService {
         break;
       }
       case 'funding': {
-        res = ['projectNameFi^2', 'fundedNameFi', 'funderNameFi'];
+        res = ['projectNameFi^2', 'projectNameEn^2', 'projectNameSv^2', 'projectAcronym', 'projectDescriptionFi', 'projectDescriptionEn',
+        'projectDescriptionSv', 'fundingStartYear', 'fundingContactPersonLastName', 'fundingContactPersonFirstNames',
+        'funderNameFi', 'funderNameEn', 'funderNameSv', 'funderNameUnd', '' , 'typeOfFundingId', 'typeOfFundingNameFi',
+        'typeOfFundingNameEn', 'typeOfFundingNameSv', 'callProgrammeNameFi', 'callProgrammeNameEn', 'callProgrammeNameSv',
+        'callProgrammeHomepage', 'callProgrammeUnd', 'funderProjectNumber', 'keywords.keyword', 'keyword.scheme',
+        'fundedNameFi', 'funderNameFi'];
         break;
       }
       case 'infrastructure': {
-        res = ['acronym', 'name^2',  'responsibleOrganizationNameFi'];
+        res = ['name^2', 'description', 'scientificDescription', 'startYear', 'acronym', 'responsibleOrganizationNameFi',
+        'responsibleOrganizationNameEn', 'responsibleOrganizationNameSv', 'keywords.keyword', 'services.serviceName',
+        'services.serviceDescription', 'services.serviceType', 'services.servicePointName', ''];
         break;
       }
       case 'organization': {
-        res = ['nameFi^2', 'sectorNameFi'];
+        res = ['nameFi^2', 'nameEn^2', 'nameSv^2', 'variantNames', 'organizationBackground', 'predecessors.nameFi', 'related', 'homepage',
+        'visitingAddress', 'businessId', 'subUnits'];
         break;
       }
     }
     return res;
+  }
+
+  nestedQueryFields(index) {
+    let res = [];
+    switch (index) {
+      case 'publication': {
+        res = [
+          'author.nameFiSector',
+          'author.organization.OrganizationNameFi',
+          'author.organization.organizationUnit.organizationUnitNameFi',
+          'author.organization.organizationUnit.organizationUnitNameEn',
+          'author.organization.organizationUnit.organizationUnitNameSv',
+          'author.organization.organizationUnit.person.authorFirstNames',
+          'author.organization.organizationUnit.person.authorLastName'
+        ];
+        break;
+      }
+      case 'funding': {
+        res = [
+          'organizationConsortium.consortiumOrganizationBusinessId',
+          'organizationConsortium.consortiumOrganizationNameFi',
+          'organizationConsortium.consortiumOrganizationNameEn',
+          'organizationConsortium.consortiumOrganizationNameSv',
+          'organizationConsortium.roleInConsortium',
+          'fundingGroupPerson.fundingGroupPersonFirstNames',
+          'fundingGroupPerson.fundingGroupPersonLastName',
+          'fundingGroupPerson.consortiumOrganizationBusinessId',
+          'fundingGroupPerson.consortiumOrganizationNameFi',
+          'fundingGroupPerson.consortiumOrganizationNameEn',
+          'fundingGroupPerson.consortiumOrganizationNameSv',
+          'fundingGroupPerson.roleInFundingGroup',
+          'fundingGroupPerson.consortiumProject'
+        ]
+      }
+    }
   }
 }
