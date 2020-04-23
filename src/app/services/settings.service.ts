@@ -37,7 +37,7 @@ exactField: any;
 
     // Use exact field when doing a search from single document page
     targetFields = this.exactField ? this.exactField : this.staticDataService.queryFields(index);
-    const nestedFields = this.staticDataService.nestedQueryFields(index);
+    // const nestedFields = this.staticDataService.nestedQueryFields(index);
 
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
@@ -56,43 +56,96 @@ exactField: any;
     }
 
     const res = { bool: {
-            should: [
-              {
-                multi_match: {
-                  query: term,
-                  analyzer: targetAnalyzer,
-                  type: targetType,
-                  fields: targetFields,
-                  operator: 'AND',
-                  lenient: 'true'
-                }
-              },
-              {
-                multi_match: {
-                  query: term,
-                  type: 'cross_fields',
-                  fields: targetFields,
-                  operator: 'AND',
-                  lenient: 'true'
-                }
-              },
-              {
-                nested: {
-                  path: 'author',
-                  query: {
-                    multi_match: {
-                      query: term,
-                      type: 'cross_fields',
-                      fields: nestedFields,
-                      operator: 'AND',
-                      lenient: 'true'
-                    }
-                  }
-                }
+      must: [{
+        term: {
+          _index: index
+        }
+      },
+      {
+        bool: {
+          should: [
+            {
+              multi_match: {
+                query: term,
+                analyzer: targetAnalyzer,
+                type: targetType,
+                fields: targetFields,
+                operator: 'AND',
+                lenient: 'true'
               }
-            ]
+            },
+            {
+              multi_match: {
+                query: term,
+                type: 'cross_fields',
+                fields: targetFields,
+                operator: 'AND',
+                lenient: 'true'
+              }
+            },
+            ...(index === 'publication' ? [{ bool: { should: this.generateNested('publication', term) } }] : []),
+            ...(index === 'funding' ? [{ bool: { should: this.generateNested('funding', term) } }] : []),
+          ]
+        }
+      }
+    ]
+    }
+  };
+    return res;
+  }
+
+  generateNested(index, term) {
+    let res;
+    switch (index) {
+      case 'publication': {
+        res = {
+          nested: {
+            path: 'author',
+            query: {
+              multi_match: {
+                query: term,
+                type: 'cross_fields',
+                fields: this.staticDataService.nestedQueryFields(index),
+                operator: 'AND',
+                lenient: 'true'
+              }
+            }
           }
         };
+        break;
+      }
+      case 'funding': {
+        res = [{
+          nested: {
+            path: 'organizationConsortium',
+            query: {
+              multi_match: {
+                query: term,
+                type: 'cross_fields',
+                fields: this.staticDataService.nestedQueryFields(index),
+                operator: 'AND',
+                lenient: 'true'
+              }
+            }
+          }
+        },
+        {
+          nested: {
+            path: 'fundingGroupPerson',
+            query: {
+              multi_match: {
+                query: term,
+                type: 'cross_fields',
+                fields: this.staticDataService.nestedQueryFields(index),
+                operator: 'AND',
+                lenient: 'true'
+              }
+            }
+          }
+        }];
+        break;
+      }
+    }
     return res;
   }
 
