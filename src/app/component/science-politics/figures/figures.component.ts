@@ -5,14 +5,13 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, Inject, HostListener, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy,
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy,
          LOCALE_ID } from '@angular/core';
 import { faInfoCircle, faSearch, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { DOCUMENT } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { SearchService } from 'src/app/services/search.service';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
@@ -20,6 +19,9 @@ import { Subscription } from 'rxjs';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { DataService } from 'src/app/services/data.service';
 import { content } from '../../../../assets/static-data/figures-content.json';
+import { WINDOW } from 'src/app/services/window.service';
+import { Router } from '@angular/router';
+import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
   selector: 'app-figures',
@@ -66,9 +68,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   showMenu: boolean;
   focusSub: any;
 
-  constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, private searchService: SearchService,
+  constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService ) {
+               private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService,
+               private historyService: HistoryService ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -134,9 +137,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     // Timeout to allow page to render so scroll goes to its correct position
-    setTimeout(() => {
-      window.scrollTo(0, this.dataService.researchFigureScrollLocation);
-    }, 10);
+    if (this.historyService.history.slice(-2, -1).shift()?.includes('/science-research-figures/s')) {
+      setTimeout(() => {
+        this.window.scrollTo(0, this.dataService.researchFigureScrollLocation);
+      }, 10);
+    }
   }
 
   ngOnDestroy() {
