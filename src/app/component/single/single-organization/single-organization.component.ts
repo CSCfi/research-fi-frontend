@@ -147,6 +147,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     //   source.related = related.map(x => x.nameFi.trim()).join(', ');
     // }
 
+    if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
+      source.statCenterId = '';
+    }
+
     if (subUnits && subUnits.length > 0) {
       // Get latest year of subUnits. Data is in string format
       const subUnitYears = [...new Set(subUnits.map(item => item.year))];
