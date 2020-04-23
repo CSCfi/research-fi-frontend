@@ -135,7 +135,6 @@ export class StaticDataService {
         break;
       }
     }
-    console.log(res);
     return res;
   }
 
