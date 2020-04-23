@@ -15,6 +15,8 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchService } from 'src/app/services/search.service';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-figures',
@@ -54,13 +56,15 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainContent') mainContent: ElementRef;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('searchInput') searchInput: ElementRef;
-  dataSub: any;
+  dataSub: Subscription;
+  resizeSub: Subscription;
   mobile: boolean;
   showMenu: boolean;
   focusSub: any;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, private searchService: SearchService,
-               private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService ) {
+               private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
+               private resizeService: ResizeService ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -84,6 +88,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
     }
+
+    this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
 
     // Get data from assets
     this.dataSub = this.searchService.getFigures().pipe(map(data => data)).subscribe(data => {
@@ -130,6 +136,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.dataSub.unsubscribe();
+    this.resizeSub.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 
@@ -137,12 +144,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.currentSection = sectionId ? sectionId : 's1';
   }
 
-  scrollTo(section) {
-    this.document.querySelector('#' + section).scrollIntoView();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize() {
     this.mobile = this.mainContent.nativeElement.offsetWidth > 991 ? false : true;
     this.showMenu = this.mobile ? false : true;
   }
