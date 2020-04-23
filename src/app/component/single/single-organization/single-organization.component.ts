@@ -134,6 +134,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
     this.studentCounts = this.studentCounts.filter(item => checkEmpty(item));
     this.subUnitFields = this.subUnitFields.filter(item => checkEmpty(item));
+    this.linkFields = this.linkFields.filter(item => checkEmpty(item));
   }
 
   shapeData() {
