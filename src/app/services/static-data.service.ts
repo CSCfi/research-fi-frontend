@@ -116,12 +116,17 @@ export class StaticDataService {
       }
       case 'funding': {
         res = ['projectNameFi^2', 'projectNameEn^2', 'projectNameSv^2', 'projectAcronym', 'projectDescriptionFi', 'projectDescriptionEn',
-        'projectDescriptionSv', 'fundingStartYear',  'fundedNameFi',
-        'funderNameFi'];
+        'projectDescriptionSv', 'fundingStartYear', 'fundingContactPersonLastName', 'fundingContactPersonFirstNames',
+        'funderNameFi', 'funderNameEn', 'funderNameSv', 'funderNameUnd', '' , 'typeOfFundingId', 'typeOfFundingNameFi',
+        'typeOfFundingNameEn', 'typeOfFundingNameSv', 'callProgrammeNameFi', 'callProgrammeNameEn', 'callProgrammeNameSv',
+        'callProgrammeHomepage', 'callProgrammeUnd', 'funderProjectNumber', 'keywords.keyword', 'keyword.scheme',
+        'fundedNameFi', 'funderNameFi'];
         break;
       }
       case 'infrastructure': {
-        res = ['acronym', 'name^2',  'responsibleOrganizationNameFi'];
+        res = ['name^2', 'description', 'scientificDescription', 'startYear', 'acronym', 'responsibleOrganizationNameFi',
+        'responsibleOrganizationNameEn', 'responsibleOrganizationNameSv', 'keywords.keyword', 'services.serviceName',
+        'services.serviceDescription', 'services.serviceType', 'services.servicePointName', ''];
         break;
       }
       case 'organization': {
@@ -130,6 +135,7 @@ export class StaticDataService {
         break;
       }
     }
+    console.log(res);
     return res;
   }
 
