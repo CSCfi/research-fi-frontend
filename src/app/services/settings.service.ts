@@ -37,6 +37,7 @@ exactField: any;
 
     // Use exact field when doing a search from single document page
     targetFields = this.exactField ? this.exactField : this.staticDataService.queryFields(index);
+    const nestedFields = this.staticDataService.nestedQueryFields(index);
 
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
@@ -73,6 +74,20 @@ exactField: any;
                   fields: targetFields,
                   operator: 'AND',
                   lenient: 'true'
+                }
+              },
+              {
+                nested: {
+                  path: 'author',
+                  query: {
+                    multi_match: {
+                      query: term,
+                      type: 'cross_fields',
+                      fields: nestedFields,
+                      operator: 'AND',
+                      lenient: 'true'
+                    }
+                  }
                 }
               }
             ]
