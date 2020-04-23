@@ -102,11 +102,12 @@ export class StaticDataService {
     let res = [];
     switch (index) {
       case 'publication': {
-        res = ['publicationName^2', 'authorsText', 'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
-              'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress', 'fields_of_science.nameFiScience',
-              'fields_of_science.nameEnScience', 'fields_of_science.nameSvScience', 'fields_of_education', 'keywords', 'publicationYear',
-              'publicationTypeCode', 'publicationOrgId', 'issn', 'issn2', 'volume', 'issueNumber', 'pageNumberText','articleNumberText', 
-              'isbn', 'isbn2', 'jufoCode', 'jufoClassCode'];
+        res = ['publicationName^2', 'publicationYear', 'authorsText',
+              'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
+              'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress',  'fields_of_education',
+              'issn', 'issn2', 'isbn', 'isbn2', 'keywords.keyword', 'publicationOrgId',
+              'jufoCode', 'jufoClassCode', 'fields_of_science.nameFiScience', 'fields_of_science.nameEnScience',
+              'fields_of_science.nameSvScience',];
         break;
       }
       case 'person': {
@@ -122,10 +123,26 @@ export class StaticDataService {
         break;
       }
       case 'organization': {
-        res = ['nameFi^2', 'sectorNameFi'];
+        res = ['nameFi^2', 'nameEn^2', 'nameSv^2', 'variantNames', 'organizationBackground', 'predecessors.nameFi', 'related', 'homepage',
+        'visitingAddress', 'businessId', 'TKOppilaitosTunnus', 'subUnits'];
         break;
       }
     }
     return res;
+  }
+
+  nestedQueryFields(index) {
+    let res = [];
+    switch (index) {
+      case 'publication': {
+        res = [
+          'author.nameFiSector',
+          'author.organization.OrganizationNameFi',
+          'author.organization.organizationUnit.organizationUnitNameFi',
+          'author.organization.organizationUnit.person.authorFirstNames',
+          'author.organization.organizationUnit.person.authorLastName'
+        ];
+      }
+    }
   }
 }
