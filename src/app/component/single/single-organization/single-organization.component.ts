@@ -13,6 +13,7 @@ import { Title } from '@angular/platform-browser';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -24,6 +25,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   responseData: any;
   searchTerm: string;
   pageNumber: any;
+  tabQueryParams: any;
+
   tab = 'organizations';
   infoFields = [
     {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
@@ -72,7 +75,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   faIcon = faFileAlt;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
    }
 
   public setTitle(newTitle: string) {
@@ -80,13 +83,14 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.idSub = this.singleService.currentId.subscribe(id => {
-      this.getData(id);
+    this.idSub = this.route.params.subscribe(params => {
+      this.getData(params.id);
     });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
-    this.searchTerm = this.searchService.singleInput;
     this.pageNumber = this.searchService.pageNumber || 1;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.organizations;
+    this.searchTerm = this.searchService.singleInput;
   }
 
   ngOnDestroy() {

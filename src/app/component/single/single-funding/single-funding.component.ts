@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/models/search.model';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-single-funding',
@@ -26,6 +27,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   responseData: Search;
   searchTerm: string;
   pageNumber: any;
+  tabQueryParams: any;
   tab = 'fundings';
 
   infoFields = [
@@ -71,7 +73,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   expand: boolean;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
    }
 
   public setTitle(newTitle: string) {
@@ -79,11 +81,14 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
+    this.idSub = this.route.params.subscribe(params => {
+      this.getData(params.id);
+    });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
-    this.searchTerm = this.searchService.singleInput;
     this.pageNumber = this.searchService.pageNumber || 1;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.fundings;
+    this.searchTerm = this.searchService.singleInput;
   }
 
   ngOnDestroy() {
