@@ -278,8 +278,8 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Viittaa</h2></mat-card-title>
-                    <div class="row">
-                        <div class="col-12 reference">
+                    <div>
+                        <div class="reference">
                             <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
                             <small *ngIf="!hasDoi" class="no-doi-warn">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
