@@ -315,7 +315,7 @@
     <div class="modal-body reference-modal">
         <div *ngFor="let citation of citations; let i = index" class="cite-block">
             <h4>{{citationStyles[i].label}}: </h4>
-            <span>{{citation}}</span>
+            <span>{{citation | cleanCitation}}</span>
             <div class="copy-wrapper">
                 <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()">Kopioi leikepöydälle</button>
             </div>

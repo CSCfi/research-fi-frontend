@@ -103,6 +103,7 @@ import { FiltersComponent } from './component/results/filters/filters.component'
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { CleanCitationPipe } from './pipes/clean-citation';
 
 import { PublicationFilters } from './component/results/filters/publications';
 import { PersonFilters } from './component/results/filters/persons';
@@ -173,6 +174,7 @@ import { filter } from 'rxjs/operators';
     FiguresComponent,
     ScrollSpyDirective,
     CutContentPipe,
+    CleanCitationPipe,
     SingleFigureComponent,
     RelatedLinksComponent,
     FilterListComponent,
