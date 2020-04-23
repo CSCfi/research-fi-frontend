@@ -18,7 +18,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <div class="col-12 px-0">
         <div class="row total" #totalHeader>
             <div class="col">
-                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''" (click)="navigateToVisualisation()">
+                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''">
                     {{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span>
                     <span class="sr-only">hakutulosta</span>
                 </h2>

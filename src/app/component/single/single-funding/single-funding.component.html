@@ -21,6 +21,7 @@
                  <h1 class="result-header">{{item.nameFi}}</h1>
                  <div id="info" class="table">
                     <div class="content">
+                        <p class="header trHeader">Hanke</p>
                         <ng-container *ngFor="let row of infoFields">
                             <div class="row" *ngIf="item[row.field]">
                                 <div class="col-6 col-lg-3 th">
@@ -55,7 +56,8 @@
                             <div class="col-6 col-lg-9 td">
                                 <div [ngClass]="expand ? 'expand' : 'short'">
                                         <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
-                                            {{consortium.consortiumOrganizationNameFi}} ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
+                                            <a routerLink="/results/organization/{{consortium.consortiumOrganizationId}}">{{consortium.consortiumOrganizationNameFi}}</a> 
+                                                ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
                                         </ng-container>
                                         
                                 </div>
@@ -96,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="col-5 td">
-                                {{item.recipient.affiliation}}
+                                <a routerLink="/results/organization/{{item.recipient.organizationId}}">{{item.recipient.affiliation}}</a>
                             </div>
                             <div class="col-4 td">
                                 <!-- <div>{{item.recipient.affiliation}}</div> -->

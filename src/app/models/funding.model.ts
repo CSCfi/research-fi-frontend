@@ -20,16 +20,16 @@ export class Funding {
         public descriptionFi: string, // projectDescriptionFi
         public descriptionEn: string, // projectDescriptionEn
         public startYear: string, // fundingStartYear
+        public endYear: string, // FundingEndYear
         public academyConsortium: string, // fundingGroupPerson ->
         public otherConsortium: any[], // fundingGroupPerson ->
         public recipient: Recipient,
         public funder: Funder,
         public funderProjectNumber: string,
-        // public fieldsOfScience: FieldOfScience[],
         public fieldsOfScience: string,
         public fieldsOfResearch: string,
         public fieldsOfTheme: string,
-        public projectHomePage: string,
+        public projectHomepage: string,
         public recipientType: string
 
     ) {}
@@ -92,6 +92,7 @@ export class FundingAdapter implements Adapter<Funding> {
             item.projectDescriptionFi,
             item.projectDescriptionEn,
             item.fundingStartYear,
+            item.FundingEndYear,
             recipientObj?.roleInFundingGroup,
             otherConsortiumObjs,
             recipient,
@@ -100,7 +101,7 @@ export class FundingAdapter implements Adapter<Funding> {
             science,
             research,
             theme,
-            item.projetHomePage,
+            item.projetHomepage,
             item.recipientType
         );
     }
