@@ -130,6 +130,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { CommonComponentsModule} from './common-components/common-components.module';
 import { filter } from 'rxjs/operators';
 import { NewsCardComponent } from './component/news/news-card/news-card.component';
+import { SitemapComponent } from './component/sitemap/sitemap.component';
 
 @NgModule({
   declarations: [
@@ -182,7 +183,8 @@ import { NewsCardComponent } from './component/news/news-card/news-card.componen
     ServiceInfoComponent,
     PrivacyComponent,
     AccessibilityComponent,
-    NewsCardComponent
+    NewsCardComponent,
+    SitemapComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
