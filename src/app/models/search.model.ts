@@ -26,8 +26,10 @@ export class Search {
     providedIn: 'root'
 })
 export class SearchAdapter implements Adapter<Search> {
-    constructor(private publicationAdapter: PublicationAdapter, private fundingAdapter: FundingAdapter, private organizationAdapter: OrganizationAdapter,
-        private infrastructureAdapter: InfrastructureAdapter) {}
+    constructor(private publicationAdapter: PublicationAdapter,
+                private fundingAdapter: FundingAdapter,
+                private organizationAdapter: OrganizationAdapter,
+                private infrastructureAdapter: InfrastructureAdapter) {}
     adapt(item: any, tab?: string): Search {
 
         const publications: Publication[] = [];

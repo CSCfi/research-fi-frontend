@@ -18,6 +18,7 @@ import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
 import { Publication } from '../models/publication.model';
+import { News, NewsAdapter } from '../models/news.model';
 
 @Injectable()
 export class SearchService {
@@ -44,7 +45,7 @@ export class SearchService {
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService,
-              private searchAdapter: SearchAdapter) {
+              private searchAdapter: SearchAdapter, private newsAdapter: NewsAdapter) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -169,7 +170,7 @@ export class SearchService {
   }
 
   // News page content
-  getNews(): Observable<Search[]> {
-    return this.http.get<Search[]>(this.apiUrl + 'news' + '/_search?');
+  getNews(): Observable<News[]> {
+    return this.http.get<News[]>(this.apiUrl + 'news' + '/_search?').pipe(map(data => this.newsAdapter.adaptMany(data)));
   }
 }
