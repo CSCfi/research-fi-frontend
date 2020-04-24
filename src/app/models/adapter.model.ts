@@ -7,4 +7,5 @@
 
 export interface Adapter<T> {
     adapt(item: any): T;
+    adaptMany?(item: any): T[];
 }
