@@ -311,8 +311,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
 
     // Get & set publication type label
-    this.publicationType = this.staticDataService.publicationClass.find(val => val.class === source.publicationTypeCode.slice(0, 1));
-    this.publicationTypeLabel = this.publicationType.label;
+    this.publicationTypeLabel = this.staticDataService.publicationClass.find
+    (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find(type => type.type === source.publicationTypeCode).label;
   }
 
   navigate(field) {
