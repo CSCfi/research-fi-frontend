@@ -1,0 +1,110 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+  
+// Pagination
+button {
+    border: 0;       
+}
+
+.pagination-container {
+    padding-top: 56px;
+}
+
+button.pagination-link-active {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pagination {
+    padding: 0;
+    padding-bottom: 1rem;
+    flex-direction: column;
+}
+
+.pagination button {
+    border: 1px solid;
+    padding: 10px 15px;
+    // margin: 0 5px;
+    border: 0;
+    max-width: 150px;
+    // max-height: 50px;
+    align-self: flex-end;
+}
+
+.pagination .buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.pagination .pages {
+    display: flex;
+    justify-content: space-evenly;
+    button:not(.current-page):hover {
+        text-decoration: underline;
+    }
+    .current-page {
+        background: inherit;
+        font-weight: bold;
+        text-decoration: underline;
+        color: inherit;
+    }
+}
+    
+.result-count {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    font-weight: bold;
+}
+
+
+@media (max-width: 991px) {
+    
+    .result-count {
+        align-items: center;
+        padding-top: 1rem;
+    }
+
+    .pagination-container {
+        padding: 1rem 0 0;
+    }
+
+    .pagination .buttons {
+        margin: 0 1rem !important;
+    }
+
+    .pagination .page-button {
+        margin: 0 1rem !important;
+        padding: 13px 22px;
+    }
+    
+    .pagination {
+        justify-content: center;
+        padding: 0;
+    }
+    
+    .pages {
+        margin-top: 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .pagination .buttons {
+        margin: unset !important;
+        justify-content: center;
+    }
+}
+@media (max-width: 576px) {
+    .pagination button {
+        max-height: unset;
+    }
+
+    .pagination .page-button {
+        padding: 13px 10px;
+    }
+}
+    

@@ -1,0 +1,49 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="spinner-center" *ngIf="!resultData">
+  <mat-spinner [diameter]="80"></mat-spinner>
+</div>
+<!-- Data -->
+<div *ngIf="resultData?.total > 0; else noResults">
+  <!-- Results -->
+  <div class="row no-margin">
+      <div class="col col-1 icon" style="margin-right: 10px;"></div>
+      <div class="col col-7 d-none d-lg-block">
+          <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+          (click)="sortBy('name')" (keydown.enter)="sortBy('name')">Nimi</span>
+      </div>
+      <div class="col col-4 d-none d-lg-block">
+          <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'sector' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+          (click)="sortBy('sector')" (keydown.enter)="sortBy('sector')">Organisaatio</span>
+      </div>
+  </div>
+  <div *ngIf="resultData" class="result-container">
+    <div class="row no-margin single" style="margin: 20px auto!important" *ngFor="let organization of resultData?.organizations; let i = index">
+        <div class="col col-1 icon" style="margin-right: 10px; margin-top: -18px;">
+            <a class="icon" routerLink="/results/organization/{{organization.id}}" tabindex="-1" title="Organisaatioiden tiedon ikoni">
+              <fa-icon [icon]="faIcon"></fa-icon>
+            </a>
+        </div>          
+        <div class="col col-7">
+            <a routerLink="/results/organization/{{organization.id}}">
+              <h3 class="result-title" [innerHtml]="organization.nameFi | highlight: input"></h3>
+          </a>
+        </div>          
+        <div class="col col-4">
+            <span [innerHtml]="organization.sectorNameFi | highlight: input"></span>
+        </div>
+    </div>
+  </div>    
+  <!-- Pagination -->
+  <app-pagination [responseData]="resultData"></app-pagination>
+</div>
+<ng-template #noResults>
+  <div class="row main-content" *ngIf="resultData && resultData.total === 0">
+      <div class="col text-center no-results">
+          <h2>Ei organisaatioita</h2>
+      </div>
+  </div>
+</ng-template>

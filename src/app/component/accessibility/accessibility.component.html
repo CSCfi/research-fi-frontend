@@ -1,0 +1,74 @@
+<!-- This file is part of the research.fi API service
+Copyright 2019 Ministry of Education and Culture, Finland
+:author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+:license: MIT -->
+
+<div class="full-width"></div>
+
+<main id="main-content">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col pb-4">
+                <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h1>Saavutettavuusseloste</h1>
+            </div>
+        </div>
+        <div class="row base">
+            <div class="col px-0">
+                <div class="content" #mainFocus tabindex="0">
+                    <div class="row">
+                        <div class="col">
+                            <p>Tämä on Tiedejatutkimus.fi -verkkopalvelun saavutettavuusseloste.
+                            Verkkopalvelun saavutettavuusvaatimukset perustuvat kansalliseen lakiin digitaalisten palveluiden tarjoamisesta (306/2019), joka on laadittu EU:n saavutettavuusdirektiivin mukaisesti.
+                            Tämä saavutettavuusseloste on laadittu 24.04.2020.</p>
+
+                            <p>Tiedejatutkimus.fi -verkkopalvelun saavutettavuuden on arvioinut CSC - Tieteen ja tietotekniikan keskus.</p>
+
+                            <h2>Verkkopalvelun saavutettavuuden tila</h2>
+                            <p>Verkkopalvelu täyttää WCAG 2.1 AA -tason kriittiset saavutettavuusvaatimukset.</p>
+
+                            <h2>Verkkopalvelun ei-saavutettava sisältö</h2>
+                            <h3>Saavuttamaton sisältö: </h3>
+                            <p>Portaalin "Tiede ja tutkimus lukuina" -osion tilastosisällöt ovat ongelmallisia ruudunlukijakäyttäjille, koska niiden kieliattribuuttina on englanti.
+                            Tämä kieliattribuutti luo ristiriitaisen tilanteen, jossa ruudunlukija lukee tilaston suomenkielisen sisällön englanniksi ääntäen.
+                            Kieliattribuuttivirhe koskee ainakin selaimia Safari ja Mozilla Firefox. Kieliattribuutti on kuitenkin pääsäntöisesti toiminut selaimilla Chrome ja Edge.</p>
+                            <h4>WCAG-vaatimus, joka ei tällöin toteudu</h4>
+                            <p>3.1.2 Osien kieli (AA)</p>
+                            <h4>Syy noudattamatta jättämiselle </h4>
+                            <p>Kolmannen osapuolen sisältö</p>
+                            <p>Taustaa: Tilastot tuodaan portaaliin iframe-sisällöksi toisesta verkkopalvelusta, joka taas hyödyntää sellaista teknologiaa, jolla ei ole mahdollista konfiguroida iframeksi tarjottavan sisällön kieliattribuuttia kattavasti.</p>
+
+                            <p>Jos havaitset ongelmia edellämainitussa toiminnallisuudessa tai missä tahansa muussa verkkopalvelun saavutettavuudessa, ole meihin yhteydessä allaolevan palautelomake-linkin kautta. Kiitos!</p>
+
+                            <h2>Saavutettavuuspalaute</h2>
+                            <p>Anna meille saavutettavuuspalautetta tällä verkkolomakkeella (linkki tähän)</p>
+                            <p>tai voit vaihtoehtoisesti myös lähettää meille sähköpostia osoitteeseen: <a href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a></p>
+
+                            <h2>Valvontaviranomainen</h2>
+                            <p>Jos huomaat verkkopalvelussa saavutettavuusongelmia, anna palautetta ensin meille, eli verkkopalvelun ylläpitäjälle. Vastaamme yhteydenottoosi 14 päivän kuluessa.</p>
+
+                            <p>Jos et ole tyytyväinen meiltä saamaasi vastaukseen, tai vastauksemme ei saavu 14 päivän kuluessa, voit tehdä ilmoituksen Etelä-Suomen aluehallintavirastoon.
+                            <br>
+                            <a href="https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/" target="_blank">https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <fa-icon icon="external-link-alt"></fa-icon></a></p>
+
+                            <h3>Valvontaviranomaisen yhteystiedot</h3>
+                            <p>Etelä-Suomen aluehallintovirasto<br>
+                            Saavutettavuuden valvonnan yksikkö<br>
+                            www.saavutettavuusvaatimukset.fi<br>
+                            saavutettavuus@avi.fi<br>
+                            Puhelinnumero vaihde 0295 016 000</p>
+
+                            <h2>Kehitämme jatkuvasti verkkopalvelun saavutettavuutta</h2>
+                            <p>Tämä verkkopalvelu on julkaistu 24.04.2020<br>
+                            Tämä saavutettavuusseloste on päivitetty viimeksi 24.04.2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

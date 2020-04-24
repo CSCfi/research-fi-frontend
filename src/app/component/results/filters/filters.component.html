@@ -1,0 +1,202 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+    
+ <div class="mobile mx-auto" id="navbar-toggle">
+    <button class="navbar-toggler navbar-toggler-right container" type="button" (click)="openModal(filterModal)">
+        <h3>Rajaa hakua</h3>
+    </button>
+</div>
+
+<ng-template #filterModal>
+    <div class="modal-header">
+        <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h5>
+    </div>
+    <div class="modal-body">
+        <ng-container *ngTemplateOutlet="filters"></ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="preventTab($event)">Sulje</button>
+    </div>
+</ng-template>
+
+
+<ng-container *ngIf="!mobile">
+    <ng-container *ngTemplateOutlet="filters"></ng-container>
+</ng-container>
+
+<ng-template #filters>
+    <div class="filter-sidebar" *ngFor="let response of shapedData ? shapedData : responseData">
+        <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h3>
+        <div class="filter-wrapper">
+            <mat-expansion-panel *ngFor="let filter of currentFilter; let i = index" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
+                <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
+                    <mat-panel-title>
+                        <div class="row d-flex justify-content-between">
+                            <!-- Show / hide sub filters -->
+                            <div *ngIf="filter.hasSubFields" class="col col-1">
+                                <button class="show-options">
+                                    <span *ngIf="!filter.open"><fa-icon [icon]="faPlus"></fa-icon></span>
+                                    <span *ngIf="filter.open"><fa-icon [icon]="faMinus"></fa-icon></span>
+                                </button>
+                            </div>
+                            <!-- Filter label -->
+                            <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
+                                <span>{{filter?.labelFi}}</span>
+                                <ng-container *ngIf="filter.tooltipFi">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltipFi"></div></ng-template>
+                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </ng-container>
+                            </div>
+                            <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-left' : 'col-1 pr-0 text-right'" *ngIf="filter?.tooltipFi">
+                                <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltipFi"></div></ng-template>
+                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                            </div>
+                            <div class="col" *></div> -->
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ng-container *ngIf="!filter.hasSubFields">
+                    <!-- Search in Filter -->
+                    <input #filterSearch *ngIf="(response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
+                    placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
+                    <!-- Time frame for year filter -->
+                    <ng-container *ngIf="filter.hideSearch">
+                    <div class="row">
+                        <div class="col">
+                            <p>Valitse aikaväli</p>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-4">
+                            <mat-form-field>
+                                <mat-label>Alku</mat-label>
+                                <mat-select (selectionChange)="rangeChange($event, 'fromYear'); range($event, 'from')" [(value)]="fromYear">
+                                    <mat-option>Ei valintaa</mat-option>
+                                    <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key >= toYear}" [value]="year.key">{{year.key}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-1 align-self-center p-0 text-center">
+                            <span>-</span>
+                        </div>
+                        <div class="col-4">
+                            <mat-form-field>
+                                <mat-label>Loppu</mat-label>
+                                <mat-select (selectionChange)="rangeChange($event, 'toYear'); range($event, 'to')" [(value)]="toYear">
+                                    <mat-option>Ei valintaa</mat-option>
+                                    <mat-option *ngFor="let year of response.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key <= fromYear}" [value]="year.key">{{year.key}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Valitse yksitellen</p>
+                        </div>
+                    </div>
+                 </ng-container>
+                    <mat-selection-list>
+                        <!-- Options -->
+                        <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
+                        [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)" (keydown.enter)="selectionChange(filter.field, item.key)">
+                            <div class="row d-flex justify-content-around">
+                                <div class="col-8"><span class="label">{{item.label ? item.label : item.key}}</span></div>
+                                <div class="col-2 pr-0 text-right" *ngIf="item.tooltipFi">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="item?.tooltipFi"></div></ng-template>
+                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                </div>
+                                <div class="col-2 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
+                            </div>
+                        </mat-list-option>
+                    </mat-selection-list>
+                    <!-- Shor more / Less -->
+                    <div *ngIf="response.aggregations[filter.field]?.buckets?.length > defaultOpen" class="button-wrapper">
+                        <button [disabled]="(showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen) >= response.aggregations[filter.field]?.buckets?.length" 
+                            mat-button class="show-more" (click)="showMore(filter.field)">Näytä lisää</button>
+                        <button [disabled]="!(showMoreCount[filter.field] && showMoreCount[filter.field].count > defaultOpen)" mat-button class="show-more" (click)="showLess(filter.field)">Näytä vähemmän</button>
+                    </div>
+                </ng-container>
+                <!-- Filters with subfields -->
+                <div class="subFields" *ngIf="filter.hasSubFields">
+                    <div *ngFor="let item of response.aggregations[filter.field]?.buckets;">
+                        <mat-expansion-panel *ngIf="item.subData?.length > 0 || item.original?.length > 0" [expanded]="subPanel === item.key" (opened)="subPanel = item.key">
+                            <mat-expansion-panel-header collapsedHeight="{{panelHeight}}" expandedHeight="{{panelHeight}}">
+                                <mat-panel-title>
+                                    <div class="row d-flex justify-content-between">
+                                        <div class="col col-10 label">{{item.key}}</div>
+                                        <!-- <div class="col col-1 amount">{{item.subData?.length}}</div> -->
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <!-- Search in filter -->
+                            <input #filterSearch *ngIf="item.subData.length > 5 || item.original?.length > 5" placeholder="Hae" autocomplete="off"
+                            (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="item.filterTerm ? item.filterTerm : ''">
+                            <mat-selection-list>
+                                <!-- Select all -->
+                                <div class="row select-all">
+                                    <div class="col col-9 p-0">
+                                        <mat-checkbox labelPosition="after" (change)="selectAll(filter.field, item)"
+                                        [checked]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')">
+                                            <span class="font-weight-bold label">Valitse kaikki</span>
+                                        </mat-checkbox>
+                                    </div>
+                                    <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
+                                </div>
+                                <!-- Options -->
+                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen))" (click)="selectionChange(filter.field, field.key)"
+                                (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
+                                    <div class="row d-flex justify-content-around">
+                                        <div class="col-9"><span class="label">{{field.label}}</span></div>
+                                        <div class="col-3 count align-self-center"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
+                                    </div>
+                                </mat-list-option>
+                            </mat-selection-list>
+                            <!-- Shor more / Less -->
+                            <div *ngIf="item.subData?.length > defaultOpen" class="button-wrapper">
+                                <button [disabled]="(showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen) >= item.subData?.length" mat-button class="show-more" (click)="showMore(item.key)">Näytä lisää</button>
+                                <button [disabled]="!(showMoreCount[item.key] && showMoreCount[item.key].count > defaultOpen)" mat-button class="show-more" (click)="showLess(item.key)">Näytä vähemmän</button>
+                            </div>
+                        </mat-expansion-panel>
+                    </div>
+                </div>
+                <!-- Add empty pading if there are no results -->
+                <div *ngIf="response.aggregations[filter.field]?.buckets?.length == 0" class="empty-pad"></div>
+            </mat-expansion-panel>
+            <!-- Items with single checkbox -->
+            <div class="single-checkbox" *ngFor="let item of currentSingleFilter">
+                <div class="row single">
+                    <div class="col">
+                        <div class="row" *ngIf="response.aggregations[item.field]?.buckets?.length > 0" 
+                            (click)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)"
+                            (keydown.enter)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)">
+                            <div class="col col-11">
+                                <span class="label">{{item?.labelFi}}</span>
+                                <ng-container *ngIf="item.tooltipFi">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="item.tooltipFi"></div></ng-template>
+                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </ng-container>
+                            </div>
+                            <!-- <div class="col-1 px-0 text-right" *ngIf="!filter?.hideInfo">
+                                <ng-template #tooltipTemplate><div [innerHtml]="item?.tooltipFi"></div></ng-template>
+                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                            </div> -->
+                        </div>
+                        <div class="row slider d-flex justify-content-between" *ngIf="response.aggregations[item.field]?.buckets?.length > 0">
+                            <div class="col col-2">
+                                <mat-slide-toggle class="slider" [checked]="(activeFilters ? activeFilters[item?.field]?.length : 0) > 0" 
+                                    (change)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)"
+                                    (keydown.enter)="selectionChange(item.field, response.aggregations[item?.field]?.buckets[0].key_as_string ? response.aggregations[item?.field]?.buckets[0].key_as_string : response.aggregations[item?.field]?.buckets[0].key)">
+                                </mat-slide-toggle>
+                            </div>
+                            <div class="col col-3 count align-self-center">
+                                <span class="amount" *ngIf="response.aggregations[item.field].buckets">{{response.aggregations[item.field]?.buckets[0]?.doc_count | thousandSeparator}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

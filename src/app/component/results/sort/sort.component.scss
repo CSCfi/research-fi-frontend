@@ -1,0 +1,113 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
+// Sort
+.sort {
+    text-align: center;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+}
+
+span.align-left.hide-mobile {
+    margin-right: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+mat-form-field.sort-button .mat-select {
+    font-family: inherit!important;
+}
+
+@media (max-width: 991px) {
+    .hide-mobile {
+        display: none;
+    }
+    
+    .sort {
+        text-align: center;
+        min-width: 152px;
+        max-width: 95%;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 0;
+    }
+
+    mat-form-field.sort-button .mat-select-value {
+        font-size: 1.4rem!important;
+    }
+
+    // Chevron
+    mat-form-field.sort-button .mat-form-field-flex::after {
+        font-family: "FontAwesome";
+        content: "\f078";
+        font-size: 20px;
+        margin-left: -12px;
+    }
+
+    mat-form-field.sort-button .mat-select-value-text:after {
+        content: "";
+    }
+
+    mat-form-field.sort-button .mat-form-field-label-wrapper {
+        top: 0;
+        padding-top: 0;
+    }
+
+    mat-form-field.mat-focused {
+        outline: -webkit-focus-ring-color auto 1px;
+    }
+
+    mat-form-field.mat-form-field {
+        width: 100%;
+        border-radius: 0.25rem;
+        padding: 15.5px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    mat-form-field.sort-button .mat-select-arrow {
+        border: 0 !important;
+    }
+
+    mat-form-field.sort-button .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+    }
+
+    mat-form-field.sort-button .mat-form-field-infix {
+        border: 0 !important;
+        padding: 0 !important;
+        width: 240px !important;
+    }
+
+    mat-form-field.sort-button mat-select {
+        font-size: 24px;
+        text-align: center;
+    }
+    mat-form-field.sort-button .mat-form-field-underline {
+        display: none !important;
+    }
+
+    mat-form-field.sort-button .mat-select-panel {
+        max-height: 100% !important;
+        font-size: 20px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    mat-form-field.sort-button .mat-form-field-infix {
+        width: 150px !important;
+    }
+}
+
+@media (max-width: 350px) {
+    mat-form-field.sort-button .mat-form-field-infix {
+        width: 135px !important;
+    }
+}

@@ -1,0 +1,106 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+.col-9.row.main-content {
+  padding-top: 15px;
+}
+
+// .main-content {
+//   max-height: 912px;
+//   overflow: auto;
+// }
+
+.spinner-center {
+  margin-top: 25px;
+  height: 100px;
+  padding-left: 40%;
+}
+
+// Breadcrumbs
+.breadcrumb {
+  position: absolute;
+  background-color: transparent;
+  color: #000;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+// Hard coded breadcrumb for demo purpose
+.row.breadcrumbs {
+  padding: 15px 0px;
+}
+
+span.arrow:after {
+  font-family: "FontAwesome";
+  content: "\f061";
+  padding: 0 6px;
+}
+
+// Total
+h2 {
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+// .row.total {
+//   display: inline;
+// }
+
+span.total {
+  font-style: italic;
+}
+
+// Filters
+.filters {
+  padding: 0;
+  align-self: flex-start;
+}
+
+.sort {
+  padding: 0;
+}
+
+.main-content {
+  align-content: flex-start;
+}
+
+// No results
+.no-results {
+  min-height: 420px;
+}
+
+// Responsive
+@media (min-width: 1440px) {
+  // .container {
+  //   max-width: 100%;
+  // }
+}
+
+@media (min-width: 992px) {
+}
+
+@media (max-width: 991px) {
+  main {
+    padding: 5px 0;
+  }
+
+  .filters {
+    align-self: center;
+  }
+
+  h2 {
+    font-size: 28px;
+    padding: 24px 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .filters {
+    margin-bottom: 5px;
+  }
+}

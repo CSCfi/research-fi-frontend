@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+@mixin app-sort-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-sort {
+        .sort {
+            background: mat-color($primary, 100);
+        }
+
+        @media (max-width: 991px) {
+            mat-form-field.mat-form-field {
+                background: mat-color($primary, 50);
+                border: 1px solid mat-color($primary);
+            }
+            .mat-select-value {
+                color: mat-contrast($primary, 200);
+                font-weight: 500;
+            }
+            .mat-form-field-flex::after {
+                color: mat-color($primary, 900);
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+@import '~@angular/material/theming';
+
+@mixin app-home-page-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-home-page {
+        .link-img {
+            outline: 6px solid mat-contrast($primary, 500);
+        }
+
+        .header, .caption {
+            background: mat-color($primary, 100);
+            color: mat-contrast($primary, 100);
+        }
+
+        .link-img:hover, .link-img:focus, .shortcut:hover, .shortcut:focus {
+            .header, .caption {
+                background: mat-color($primary);
+                color: mat-contrast($primary, 500);
+            }
+        }
+
+        .news-feed {
+            outline: 3px solid mat-contrast($primary, 500);
+        }
+
+        // .news-feed .news-container {
+        //     background: mat-color($primary, 100);
+        // }
+
+        .news-feed .news-card {
+            background: mat-contrast($primary, 500);
+        }
+
+        @media (max-width: 991px) {
+            .news-feed {
+                outline: 6px solid mat-contrast($primary, 500);
+            }
+        }
+    }
+}

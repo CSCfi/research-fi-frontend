@@ -1,0 +1,113 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
+.wrapper {
+    overflow: hidden;
+}
+
+.row {
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+}
+
+.shortcuts {
+    padding: 0;
+}
+
+.cover-img {
+    height: 150px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.link-img {
+    padding: 0;
+    transition: 0.2s linear;
+    cursor: pointer;
+}
+
+.link-img img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    transition: 0.2s linear;
+}
+
+.link-img .caption.text-center {
+    padding: 10px;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+}
+
+.caption .header, .news-feed h2 {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+}
+
+// News feed
+.news-feed {
+    padding: 0;
+}
+
+.news-container {
+    padding: 10px;
+    height: 100%;
+}
+
+.news-feed h2 {
+    text-align: center;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.news-feed h3 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.news-feed .news-card {
+    padding: 8px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+span.date {
+    font-weight: bold;
+}
+
+.read-more {
+    text-align: center;
+}
+
+a.link-news {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+
+//responsive
+@media (max-width: 991px) {
+    .shortcuts {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .news-feed {
+        padding: 0px 15px 0;
+    }
+}
+
+@media (max-width: 621px) {
+    .col-6.link-img {
+        max-width: 100%;
+        flex: auto;
+    }
+}
