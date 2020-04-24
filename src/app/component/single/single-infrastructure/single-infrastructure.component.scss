@@ -1,0 +1,24 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
+.subtitle {
+    cursor: pointer;
+}
+
+.subtitle.open::after {
+    font-family: "FontAwesome";
+    content: "\f0de";
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.subtitle.closed::after {
+    font-family: "FontAwesome";
+    content: "\f0dd";
+    vertical-align: text-bottom;
+    margin-left: 10px;
+}

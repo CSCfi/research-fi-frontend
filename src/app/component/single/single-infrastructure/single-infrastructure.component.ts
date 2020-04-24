@@ -36,15 +36,23 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Toiminta alkanut', field: 'startYear'},
     {label: 'Toiminta päättynyt', field: 'endYear'},
     {label: 'Vastuuorganisaatio', field: 'responsibleOrganizationNameFi'},
+    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'Avainsanat', field: 'keywordsString'},
   ];
 
-  studentCounts = [
-    {label: 'Nimi', field: 'name'},
+  serviceFields = [
+    {label: 'Palvelun kuvaus', field: 'description'},
+    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
+    {label: 'Palvelun tyyppi', field: 'type'},
   ];
 
-  subUnitFields = [
-    {label: 'Nimi', field: 'name'},
+  servicePointFields = [
+    {label: 'Palvelupisteen kuvaus', field: 'description'},
+    {label: 'Sähköposti', field: 'emailAddress'},
+    {label: 'Puhelinnumero', field: 'phoneNumber'},
+    {label: 'Käyntiosoite', field: 'visitingAddress'},
+    {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
+    {label: 'Linkki', field: 'infoUrl'},
   ];
 
   linkFields = [
@@ -53,7 +61,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
-  expand: boolean[] = [];
+  infoExpand: boolean[] = [];
+  serviceExpand: boolean[] = [];
+  showService: boolean[] = [];
+  showServicePoint: boolean[][] = [];
   faIcon = faFileAlt;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
@@ -71,7 +82,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.infrastructures;
     this.searchTerm = this.searchService.singleInput;
-    this.infoFields.forEach(_ => this.expand.push(false));
   }
 
   ngOnDestroy() {
@@ -109,18 +119,45 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
              this.responseData.infrastructures[0][item.field] !== 0 &&
              this.responseData.infrastructures[0][item.field] !== null &&
              this.responseData.infrastructures[0][item.field] !== '' &&
-             this.responseData.infrastructures[0][item.field] !== ' ';
+             this.responseData.infrastructures[0][item.field] !== ' ' &&
+             this.responseData.infrastructures[0][item.field] !== '#N/A';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    this.studentCounts = this.studentCounts.filter(item => checkEmpty(item));
-    this.subUnitFields = this.subUnitFields.filter(item => checkEmpty(item));
+    // this.serviceFields = this.serviceFields.filter(item => checkEmpty(item));
+
+    // Init expand and show lists
+    this.infoFields.forEach(_ => this.infoExpand.push(false));
+    this.serviceFields.forEach(_ => this.serviceExpand.push(false));
+    this.responseData.infrastructures[0].services.forEach((service, idx) => {
+      this.showService.push(false);
+      this.showServicePoint.push([]);
+      service.servicePoints.forEach(_ => this.showServicePoint[idx].push(false));
+    });
   }
 
   shapeData() {
+    const source = this.responseData.infrastructures[0];
+    source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
   }
 
-  expandDescription(idx: number) {
-    this.expand[idx] = !this.expand[idx];
+  expandInfoDescription(idx: number) {
+    this.infoExpand[idx] = !this.infoExpand[idx];
+  }
+
+  expandServiceDescription(idx: number) {
+    this.serviceExpand[idx] = !this.serviceExpand[idx];
+  }
+
+  toggleService(idx: number) {
+    this.showService[idx] = !this.showService[idx];
+  }
+
+  toggleServicePoint(service: number, point: number) {
+    this.showServicePoint[service][point] = !this.showServicePoint[service][point];
+  }
+
+  serviceExpandId(serviceId: number, fieldId: number) {
+    return this.serviceFields.length * serviceId + fieldId;
   }
 }

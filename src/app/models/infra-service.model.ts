@@ -37,7 +37,7 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
             item.serviceName,
             item.serviceDescription,
             item.serviceScientificDescription,
-            item.acronym,
+            item.serviceAcronym,
             item.serviceType,
             servicePoints,
         );
