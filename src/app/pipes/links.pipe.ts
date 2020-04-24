@@ -17,9 +17,8 @@ export class LinksPipe implements PipeTransform {
     const fields = ['doi', 'doiHandle'];
     const linkArr = [];
     let link = '';
-
     // Push links to array, self archived is priority
-    if (publication.selfArchivedData) {
+    if (publication.selfArchivedData && publication.selfArchivedAddress) {
       for (const selfArchived of publication.selfArchivedData) {
         if (selfArchived.selfArchived && selfArchived.selfArchived[0].selfArchivedAddress.length > 0) {
           linkArr.push(selfArchived.selfArchived[0].selfArchivedAddress);

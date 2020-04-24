@@ -11,53 +11,55 @@
     $primary: map-get($theme, primary);
     $warn: map-get($theme, warn);
 
-    div.links {
-        color: mat-contrast($primary, 500);
-        
-        .icon {
-            color: mat-color($primary);
-        }
-
-        .doi-tag {
-            background: mat-contrast($primary, 200);
+    app-single-publication {
+        div.links {
             color: mat-contrast($primary, 500);
-        }
-        .doi-link {
-            a {
+            
+            .icon {
                 color: mat-color($primary);
+            }
+
+            .doi-tag {
+                background: mat-contrast($primary, 200);
+                color: mat-contrast($primary, 500);
+            }
+            .doi-link {
+                a {
+                    color: mat-color($primary);
+                }
+            }
+
+            .doi-tag, .doi-link {
+                vertical-align: middle;
+            }
+
+            .link.doi {
+                color: black;
+                border: 2px solid rgba(0, 0, 0, 0.87);
+                background: white;
+                border-radius: 2px;
             }
         }
 
-        .doi-tag, .doi-link {
-            vertical-align: middle;
+        h3.modal-title {
+            color: mat-contrast($primary, 50)
         }
 
-        .link.doi {
-            color: black;
-            border: 2px solid rgba(0, 0, 0, 0.87);
-            background: white;
-            border-radius: 2px;
+        .modal-body h4 {
+            color: mat-contrast($primary, 300)
         }
-    }
 
-    h3.modal-title {
-        color: mat-contrast($primary, 50)
-    }
-
-    .modal-body h4 {
-        color: mat-contrast($primary, 300)
-    }
-
-    .modal-body .copy {
-        color: mat-color($primary);
-        border: mat-color($primary) 2px solid;
-        &:hover {
-            color: mat-contrast($primary, 500);
-            background-color: mat-color($primary);
+        .modal-body .copy {
+            color: mat-color($primary);
+            border: mat-color($primary) 2px solid;
+            &:hover {
+                color: mat-contrast($primary, 500);
+                background-color: mat-color($primary);
+            }
         }
-    }
 
-    .reference .no-doi-warn {
-        color: mat-color($warn);
+        .reference .no-doi-warn {
+            color: mat-color($warn);
+        }
     }
 }

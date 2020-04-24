@@ -51,6 +51,10 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         }
 
+        .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']) {
+            outline: 5px auto -webkit-focus-ring-color!important;
+        }
+
         .mat-expansion-panel-content {
             font-size: 16px;
             color: mat-contrast($primary, 300);
