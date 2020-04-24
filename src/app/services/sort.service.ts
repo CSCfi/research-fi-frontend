@@ -117,7 +117,7 @@ export class SortService {
             break;
           }
           default: {
-            this.sort = [];
+            this.sort = [{'nameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
         }
