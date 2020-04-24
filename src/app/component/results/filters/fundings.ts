@@ -15,7 +15,7 @@ import { Injectable } from '@angular/core';
 
 export class FundingFilters {
   filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true,
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
       tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
       {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false,
       tooltipFi: 'Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.'},
@@ -27,6 +27,7 @@ export class FundingFilters {
       tooltipFi: 'Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.'},
       // {field: 'scheme', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
       // tooltipFi: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
+      {field: 'faField', labelFi: 'Suomen Akatemian tutkimusalat', hasSubFields: false,  open: true}
     ];
 
     singleFilterData = [

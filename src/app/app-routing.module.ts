@@ -21,6 +21,7 @@ import { SingleFigureComponent} from './component/science-politics/figures/singl
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { AccessibilityComponent } from './component/accessibility/accessibility.component';
+import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 
 const routes: Routes = [
@@ -125,6 +126,10 @@ const routes: Routes = [
   {
     path: 'accessibility',
     component: AccessibilityComponent
+  },
+  {
+    path: 'sitemap',
+    component: SitemapComponent
   },
   {
     path: '**',
