@@ -15,7 +15,7 @@ import { Injectable } from '@angular/core';
 
 export class FundingFilters {
   filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true,
+      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
       tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
       {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false,
       tooltipFi: 'Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.'},
