@@ -22,7 +22,6 @@ export class HighlightSearch implements PipeTransform {
         }
         // Parantheses are removed because of regexp. Asterisk doesn't work with titles containing mulptiple different integers
         args = args.replace(/[\])}[{(]/g, '').replace(/\*/g, '');
-        // console.log(value);
         const valueArr = value.split(' ');
         // Remove empty strings
         const argsArr = args.split(' ').filter(Boolean);
@@ -42,7 +41,6 @@ export class HighlightSearch implements PipeTransform {
         });
 
         const result = match.join(' ');
-        // console.log(result);
         // Needs to be bypassed because of dynamic value
         return this.sanitizer.bypassSecurityTrustHtml(result);
     }
