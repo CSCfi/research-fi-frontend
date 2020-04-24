@@ -29,19 +29,20 @@ export class FilterService {
   openAccessFilter: any;
   internationalCollaborationFilter: any;
   sectorFilter: any;
+  faFieldFilter: any;
   organizationFilter: any;
   currentFilters: any;
   today: string;
 
   private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], sector: [], organization: []});
+    fundingAmount: [], faFieldFilter: [], sector: [], organization: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
-    scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[], organization: any[]}) {
+    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -73,6 +74,7 @@ export class FilterService {
     this.fundingSchemeFilter = this.basicFilter(filter.scheme, 'keywords.scheme.keyword')
     this.statusFilter = this.filterByStatus(filter.fundingStatus);
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
+    this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
   }
@@ -264,6 +266,7 @@ export class FilterService {
             ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
+            ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
             // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
@@ -600,6 +603,12 @@ export class FilterService {
             },
           }
         };
+        payLoad.aggs.faField = {
+          terms: {
+            field: 'keywords.keyword.keyword',
+            size: 50
+          },
+        }
         break;
         case 'organizations':
           payLoad.aggs.sector = {
