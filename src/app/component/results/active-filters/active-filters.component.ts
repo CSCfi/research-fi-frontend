@@ -131,8 +131,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         }
       }
 
-      console.log(filter);
-
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
       const newFilters = {};
