@@ -129,7 +129,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         if (filter.year.filter(item => (this.toYear >= item)).length !== (this.toYear + 1) - Math.min(...years)) {
           yearWarning = true;
         }
-    }
+      }
+
+      console.log(filter);
 
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
@@ -258,6 +260,14 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.typeName ? result.typeName.buckets[0].key : '';
             }
+
+            // Organization, sector
+            if (val.category === 'sector' && source.sector) {
+              const result = source.sector.buckets.find(({ key }) => key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result.sectorId ? result.sectorId.buckets[0].key : '';
+            }
+
           });
           // Set flag when all filters are translated & filter items that aren't hidden
           this.translationFlag = true;
