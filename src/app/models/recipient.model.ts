@@ -16,6 +16,7 @@ export class Recipient {
         public personOrcid: string,
         public affiliation: string,
         public organizationName: string,
+        public organizationId: string,
         public shareOfFundingEur: number,
         public amountEur: number,
         public contactPersonName: string,
@@ -83,6 +84,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             recipientObj?.fundingGroupPersonOrcid,
             recipientObj?.consortiumOrganizationNameFi, // affiliation
             recipientObj?.consortiumOrganizationNameFi, // organizationName
+            recipientObj?.consortiumOrganizationId,
             recipientObj?.shareOfFundingInEur,
             item.amount_in_EUR,
             item.fundingContactPersonFirstNames + ' ' + item.fundingContactPersonLastName,

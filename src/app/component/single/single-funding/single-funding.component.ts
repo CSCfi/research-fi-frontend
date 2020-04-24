@@ -31,9 +31,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   tab = 'fundings';
 
   infoFields = [
-    {label: 'Lyhenne', field: 'acronym'},
+    {label: 'Akronyymi', field: 'acronym'},
     {label: 'Hankkeen kuvaus', field: 'descriptionFi', tooltipFi: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta'},
     {label: 'Aloitusvuosi', field: 'startYear', tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
+    {label: 'Päättymisvuosi', field: 'endYear'},
   ];
 
   fundedFields = [
@@ -54,7 +55,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'},
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
-    {label: 'Teema-alat', field: '?'},
+    {label: 'Teema-alat', field: 'fieldsOfTheme'},
     {label: 'Hankkeen verkkosivu', field: '?'},
     // {label: 'Avainsanat', field: 'keywords'},
   ];
