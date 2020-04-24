@@ -3,7 +3,7 @@
         {
             "title": "Mikä on tiedejatutkimus.fi?",
             "description": [
-                "<small>Päivitetty 20.04.2020</small>",
+                "<small>Päivitetty 24.04.2020</small>",
                 "<p><a target=\"_blank\" href=\"https://www.tiedejatutkimus.fi\">Tiedejatutkimus.fi</a> on opetus- ja kulttuuriministeriön (OKM) tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta. Palvelu parantaa tutkimusta koskevan tiedon ja asiantuntijoiden löytymistä sekä lisää suomalaisen tutkimuksen näkyvyyttä ja yhteiskunnallista vaikuttavuutta. </p>",
                 "<p>Palvelu on otettu käyttöön kesäkuussa 2020, ja sitä kehitetään vaiheittain. Tällä hetkellä palvelu sisältää tietoa mm. suomalaisesta tutkimusjärjestelmästä, suomalaisten organisaatioiden julkaisuista, julkisten ja yksityisten tutkimusrahoittajien rahoittamista hankkeista sekä tilastotietoa tutkimuksen resurssien sekä vaikuttavuuden kehityksestä. </p>",
                 "<p>Jatkossa palvelua parannetaan mm. tietojen kattavuuden sekä laajennetaan uusilla tietokokonaisuuksilla. Nykyisen sisällön lisäksi palveluun tulee myöhemmin tietoa mm. Suomessa toimivista tutkijoista, näiden tuottamista tutkimusaineistoista ja muista tutkimusaktiviteeteista sekä laajemmin suomalaisesta tutkimusjärjestelmästä. Palvelun hakuominaisuuksia parannetaan ja siihen lisätään toiminnallisuuksia tietojen tarkasteluun graafisessa muodossa.</p>",
@@ -13,7 +13,7 @@
         {
             "title": "Mitä tietoa palvelu sisältää ja mistä tiedot tulevat?",
             "description": [
-                "<small>Päivitetty 20.04.2020</small>",
+                "<small>Päivitetty 24.04.2020</small>",
                 "<p>Palveluun päivittyy automaattisesti mm. yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten, yliopistollisten sairaaloiden sekä tutkimusrahoittajien järjestelmissä jo valmiiksi olevia tietoja.</p>",
                 "<p>Palveluun ei syötetä tietoa käsin, eikä se näin ollen lisää tutkijoiden raportointiin tai muuhun hallinnolliseen työhön käyttämää aikaa. Palvelu sisältää kuvailutiedot, joiden avulla esimerkiksi avoimesti saatavilla olevat julkaisut ja aineistot ovat helposti löydettävissä.</p>",
                 "<p>Tietojen kattavuus ja ajantasaisuus riippuu tietoja toimittavista organisaatioista ja kukin organisaatio vastaa omien tietojensa oikeellisuudesta. Tietojen toimittaminen on pääosin vapaaehtoista. Ainoastaan julkaisutietojen toimittaminen on pakollista korkeakouluille.</p>",
@@ -57,7 +57,7 @@
         {
             "title": "Miten käytän palvelua?",
             "description": [
-                "<small>Päivitetty 20.04.2020 </small>",
+                "<small>Päivitetty 24.04.2020 </small>",
                 "<p>Palvelussa voit selata ja hakea tietoja sekä jakaa yksittäisiä sivuja tai tietueita esimerkiksi sosiaaliseen mediaan.</p>",
                 "<p>Myöhemmässä vaiheessa tavoitteena on, että palvelun tiedot saa myös ladattua tiedostoon tai haettua koneluettavan rajapinnan kautta.</p>",
                 "<p>Palvelua kehitetään jatkuvasti. Voit antaa palautetta, mikäli havaitset palvelussa ongelmia tai sinulla ehdotuksia palvelun kehittämiseksi tai mikäli havaitset tiedoissa virheitä.</p>",
@@ -68,14 +68,14 @@
         {
             "title": "Tietosuoja",
             "description": [
-                "<small>Päivitetty 20.04.2020 </small>",
+                "<small>Päivitetty 24.04.2020 </small>",
                 "Ks. palvelun <a href=\"/privacy\">tietosuojailmoitus ja evästekäytännöt</a>.</p> "
             ]
         },
         {
             "title": "Saavutettavuus",
             "description": [
-                "<small>Päivitetty 20.04.2020 </small>",
+                "<small>Päivitetty 24.04.2020 </small>",
                 "Ks. palvelun <a href=\"/accessibility\">saavutettavuusseloste</a>"
             ]
         }
