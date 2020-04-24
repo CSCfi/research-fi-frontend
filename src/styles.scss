@@ -43,7 +43,8 @@
 @import './app/component/science-politics/science-politics.scss-shared.scss';
 @import './app/component/science-politics/science-politics.scss-theme-shared.scss';
 @import './app/component/service-info/service-info.component.scss-theme.scss';
-@import './app/component/news/news.component.scss-theme.scss';
+@import './app/component/news/news/news.component.scss-theme.scss';
+@import './app/component/news/news-card/news-card.component.scss-theme.scss';
 @import './app/common-components/info/info.component-theme.scss';
 
 
@@ -77,6 +78,7 @@
   @include app-info-component-theme($theme);
   @include app-service-info-theme($theme);
   @include app-news-theme($theme);
+  @include app-news-card-theme($theme);
 
 
   $primary: map-get($theme, primary);

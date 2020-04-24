@@ -92,7 +92,7 @@ import { TooltipComponent } from './component/results/tooltip/tooltip.component'
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './component/results/suggest/suggest.component';
-import { NewsComponent } from './component/news/news.component';
+import { NewsComponent } from './component/news/news/news.component';
 import { InfrastructuresComponent } from './component/results/infrastructures/infrastructures.component';
 import { ShareComponent } from './component/single/share/share.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
@@ -129,6 +129,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 
 import { CommonComponentsModule} from './common-components/common-components.module';
 import { filter } from 'rxjs/operators';
+import { NewsCardComponent } from './component/news/news-card/news-card.component';
 
 @NgModule({
   declarations: [
@@ -180,7 +181,8 @@ import { filter } from 'rxjs/operators';
     FilterListComponent,
     ServiceInfoComponent,
     PrivacyComponent,
-    AccessibilityComponent
+    AccessibilityComponent,
+    NewsCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

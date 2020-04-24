@@ -7,7 +7,6 @@
 
 import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
-import { map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 
