@@ -16,6 +16,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { News } from 'src/app/models/news.model';
 
 @Component({
   providers: [SearchBarComponent],
@@ -27,6 +28,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   allData: any [];
   errorMessage = [];
   status = false;
+  news: News[] = [];
   myOps = {
     duration: 0.5
   };
@@ -107,6 +109,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Get data for count-ups
     this.getAllData();
+
+    // Get news data
+    this.searchService.getNews(3).subscribe(data => this.news = data);
 
     // Reset sort
     this.sortService.updateSort('');

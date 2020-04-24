@@ -13,7 +13,7 @@ import { SinglePublicationComponent } from './component/single/single-publicatio
 import { SingleFundingComponent } from './component/single/single-funding/single-funding.component';
 import { SingleOrganizationComponent } from './component/single/single-organization/single-organization.component';
 import { VisualisationComponent } from './component/visualisation/visualisation.component';
-import { NewsComponent } from './component/news/news.component';
+import { NewsComponent } from './component/news/news/news.component';
 // tslint:disable-next-line: max-line-length
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
