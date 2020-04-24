@@ -7,17 +7,27 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { InfraService, InfraServiceAdapter } from './infra-service.model';
 
 export class Infrastructure {
 
     constructor(
-        public infraId: string,
+        public id: string,
         public name: string,
+        public description: string,
+        public scientificDescription: string,
+        public startYear: string,
+        public endYear: string,
         public acronym: string,
+        public finlandRoadmap: string,
+        public urn: string,
         public responsibleOrganizationNameFi: string,
         public responsibleOrganizationNameSv: string,
         public responsibleOrganizationNameEn: string,
-        public serviceName: string,
+        public statCenterId: string,
+        public keywords: string[],
+        public services: InfraService[],
+        public keywordsString: string,
     ) {}
 }
 
@@ -26,17 +36,35 @@ export class Infrastructure {
 })
 
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
-    constructor() {}
+    constructor(private isa: InfraServiceAdapter) {}
     adapt(item: any): Infrastructure {
 
+        const services: InfraService[] = [];
+        const keywords: string[] = [];
+
+        item.services.forEach(service => services.push(this.isa.adapt(service)));
+        item.keywords.forEach(obj => keywords.push(obj.keyword));
+
+        const keywordsString = keywords.join(', ');
+
+
         return new Infrastructure(
-            item.urn,
             item.name,
+            item.name,
+            item.description,
+            item.scientificDescription,
+            item.startYear,
+            item.endYear,
             item.acronym,
+            item.finlandRoadmap,
+            item.urn,
             item.responsibleOrganizationNameFi,
             item.responsibleOrganizationNameSv,
             item.responsibleOrganizationNameEn,
-            item.serviceName,
-        )
+            item.TKOppilaitosTunnus,
+            keywords,
+            services,
+            keywordsString,
+        );
     }
 }

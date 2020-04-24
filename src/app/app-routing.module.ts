@@ -22,6 +22,7 @@ import { ServiceInfoComponent } from './component/service-info/service-info.comp
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { AccessibilityComponent } from './component/accessibility/accessibility.component';
 import { SitemapComponent } from './component/sitemap/sitemap.component';
+import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'results/organization/:id',
     component: SingleOrganizationComponent
+  },
+  {
+    path: 'results/infrastructure/:id',
+    component: SingleInfrastructureComponent
   },
   {
     path: 'results',
