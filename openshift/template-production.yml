@@ -74,7 +74,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: master
+        ref: production
       contextDir: .
     strategy:
       dockerStrategy:
@@ -83,8 +83,8 @@ objects:
       to:
         kind: ImageStreamTag
         name: researchfi-frontend-production-staging:latest
-    successfulBuildsHistoryLimit: 4 
-    failedBuildsHistoryLimit: 4
+    successfulBuildsHistoryLimit: 20 
+    failedBuildsHistoryLimit: 20
 
 # Jenkins pipeline
 - apiVersion: v1
@@ -97,7 +97,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: master
+        ref: production
       contextDir: .
     strategy:
       jenkinsPipelineStrategy:
