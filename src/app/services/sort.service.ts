@@ -58,6 +58,12 @@ export class SortService {
   private updateSortParam(sort: string, tab: string) {
     this.currentTab = tab;
     this.sortMethod = sort;
+    const randomize = {
+      script: 'Math.random()',
+			type: 'number',
+			order: 'asc'
+    };
+
     this.initSort(sort || '');
     switch (this.currentTab) {
       case 'publications': {
@@ -84,7 +90,7 @@ export class SortService {
             this.sort = [
               {publicationYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
               ...(this.searchTerm.length > 0 ?
-                [{'publicationName.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [])
+                [{'publicationName.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
             ];
             break;
           }
@@ -140,7 +146,7 @@ export class SortService {
             this.sort = [
               {fundingStartYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
               ...(this.searchTerm.length > 0 ?
-                [{'projectNameFi.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [])
+                [{'projectNameFi.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
             ];
             break;
           }
