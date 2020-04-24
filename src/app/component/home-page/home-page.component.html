@@ -55,27 +55,13 @@
       </div>
     </div>
     <div class="row mt-4 news-feed d-flex justify-content-around">
-      <div class="col-12 col-lg-5 p-0 ">
+      <div class="col-12 p-0">
         <div class="news-container">
           <h2>Uusimmat tiede- ja tutkimusuutiset 
             <fa-icon tabindex="0" tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." placement="right" class="info-icon" icon="info-circle"></fa-icon>
             <!-- <app-info tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta."></app-info> -->
           </h2>
-          <div class="news-card" tabindex="0">
-            <span class="date">01.12.2019</span>
-            <h3 class="title">Yliopistot ja yritykset kehittävät yhdessä kompostoituvaa elektroniikkaa</h3>
-            <span class="organization">Tampereen yliopisto</span>
-          </div>
-          <div class="news-card" tabindex="0">
-            <span class="date">29.11.2019</span>
-            <h3 class="title">Tie­to­kir­jal­li­suu­den Fin­lan­dia-pal­kin­to­teos 2019: Mi­ten met­säl­lä me­nee?</h3 >
-            <span class="organization">Helsingin yliopisto</span>
-          </div>
-          <div class="news-card" tabindex="0">
-            <span class="date">27.11.2019</span>
-            <h3 class="title">Suo­ma­lais­tut­ki­jat ke­hit­ti­vät te­ko­ä­ly­al­go­rit­min ai­vo­vam­ma­po­ti­lai­den te­ho­hoi­toon</h3>
-            <span class="organization">Korkeakoulu X</span>
-          </div>
+          <app-news-card *ngFor="let item of news" [item]="item" tabindex="0" class="d-flex justify-content-center"></app-news-card>
           <div class="read-more">
             <a routerLink="/news" class="link-news">Lue lisää tiedeuutisia >></a>
           </div>

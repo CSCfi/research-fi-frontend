@@ -29,6 +29,11 @@
             mat-card-content {
                 margin: 0 16px;
             }
+
+            mat-card-actions {
+                font-size: 14px;
+                margin: 0 16px !important;
+            }
         }
     }
 }
