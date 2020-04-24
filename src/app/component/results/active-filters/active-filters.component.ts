@@ -60,6 +60,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   parsedFilters: any[];
   @ViewChildren('container') container: QueryList<ElementRef>;
   containerSub: any;
+  yearRange: string;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
@@ -74,12 +75,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       switch (this.currentTab.link) {
         case 'publications':
           this.tabFilters = this.publicationFilters.filterData;
+          this.yearRange = 'Julkaisuvuosi: ';
           break;
         case 'fundings':
           this.tabFilters = this.fundingFilters.filterData;
+          this.yearRange = 'Aloitusvuosi: ';
           break;
         case 'infrastructures':
           this.tabFilters = this.infrastructureFilters.filterData;
+          this.yearRange = 'Aloitusvuosi: ';
           break;
         case 'persons':
           this.tabFilters = this.personFilters.filterData;
@@ -154,16 +158,16 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'fromYear') {
               if (this.fromYear && this.toYear) {
                 // Set range and warning if values missing between range
-                val.translation = 'Julkaisuvuosi: ' + this.fromYear + ' - ' + this.toYear;
+                val.translation = this.yearRange + this.fromYear + ' - ' + this.toYear;
                 val.warning = yearWarning ? true : false;
               } else if (this.fromYear) {
-                val.translation = 'Julkaisuvuosi: ' + this.fromYear + ' alkaen';
+                val.translation = this.yearRange + this.fromYear + ' alkaen';
                 val.warning = yearWarning ? true : false;
               }
             }
 
             if (val.category === 'toYear') {
-              val.translation = 'Julkaisuvuosi: ' + this.toYear + ' päättyen';
+              val.translation = this.yearRange + this.toYear + ' päättyen';
               val.warning = yearWarning ? true : false;
               if (this.fromYear && this.toYear) {
                 val.hide = true;
