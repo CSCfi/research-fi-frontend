@@ -88,15 +88,19 @@
                     <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
                     <div class="row links">
                         <div *ngFor="let row of linkFields" class="info-link-wrapper">
-                            <div class="col-sm-2 col-md-1 icon">
-                                <fa-icon [icon]="faIcon"></fa-icon>
-                            </div>
-                            <div class="col link">
-                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
-                            </div>
+                            <ng-container *ngIf="item[row.field]; else noHomePage">
+                                <div class="col-sm-2 col-md-1 icon">
+                                    <fa-icon [icon]="faIcon"></fa-icon>
+                                </div>
+                                <div class="col link">
+                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
-                    <div *ngIf="!linkFields.length" class="no-links">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
+                    <ng-template #noHomePage>
+                        <div class="no-links">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
+                    </ng-template>
                 </mat-card>
             </aside>
             <aside>
@@ -105,8 +109,13 @@
                     <app-related-links [id]="item.id"></app-related-links>
                 </mat-card>
             </aside>
-            <!-- Social icons -->
-            <app-share></app-share>
+            <!-- Copy url -->
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <app-share></app-share>
+                </mat-card>
+            </aside>
             <aside>
                 <mat-card>
                     <mat-card-title><h2>Organisaatiotiedon lähde</h2></mat-card-title>
