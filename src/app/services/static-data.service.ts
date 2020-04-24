@@ -25,17 +25,17 @@ export class StaticDataService {
   // Filters, Publication class
   publicationClass = [
     {id: 1, class: 'A', label: 'Vertaisarvioidut tieteelliset artikkelit', types: [
-      {type: 'A1', label: 'Kirjoitus tieteellisessä aikakauslehdessä', key: '', doc_count: 0},
-      {type: 'A2', label: 'Kirjan tai muun kokoomateoksen osa', key: '', doc_count: 0},
-      {type: 'A3', label: 'Vertaisarvioimaton artikkeli konferenssijulkaisussa', key: '', doc_count: 0},
+      {type: 'A1', label: 'Alkuperäisartikkeli tieteellisessä aikakauslehdessä', key: '', doc_count: 0},
+      {type: 'A2', label: 'Katsausartikkeli tieteellisessä aikakauslehdessä', key: '', doc_count: 0},
+      {type: 'A3', label: 'Kirjan tai muun kokoomateoksen osa', key: '', doc_count: 0},
       {type: 'A4', label: 'Artikkeli konferenssijulkaisussa', key: '', doc_count: 0}
     ],
     checked: false
     },
     {id: 2, class: 'B', label: 'Vertaisarvioimattomat tieteelliset kirjoitukset', types: [
-      {type: 'B1', label: 'Alkuperäisartikkeli tieteellisessä aikakauslehdessä', key: '', doc_count: 0},
-      {type: 'B2', label: 'Katsausartikkeli tieteellisessä aikakauslehdessä', key: '', doc_count: 0},
-      {type: 'B3', label: 'Kirjan tai muun kokoomateoksen osa', key: '', doc_count: 0}
+      {type: 'B1', label: 'Kirjoitus tieteellisessä aikakauslehdessä', key: '', doc_count: 0},
+      {type: 'B2', label: 'Kirjan tai muun kokoomateoksen osa', key: '', doc_count: 0},
+      {type: 'B3', label: 'Vertaisarvioimaton artikkeli konferenssijulkaisussa', key: '', doc_count: 0}
     ],
     checked: false
     },
