@@ -27,6 +27,7 @@ export class Infrastructure {
         public statCenterId: string,
         public keywords: string[],
         public services: InfraService[],
+        public keywordsString: string,
     ) {}
 }
 
@@ -43,6 +44,8 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
         item.services.forEach(service => services.push(this.isa.adapt(service)));
         item.keywords.forEach(obj => keywords.push(obj.keyword));
+
+        const keywordsString = keywords.join(', ');
 
 
         return new Infrastructure(
@@ -61,6 +64,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item.TKOppilaitosTunnus,
             keywords,
             services,
+            keywordsString,
         );
     }
 }

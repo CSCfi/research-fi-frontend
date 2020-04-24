@@ -38,7 +38,7 @@
     <div *ngIf="resultData" class="result-container">
         <div class="row no-margin single d-flex justify-content-between" style="margin: 20px auto!important" *ngFor="let infra of resultData?.infrastructures; let i = index">
             <div class="col col-1 icon" style="margin-top: -18px;">
-                <a class="icon" routerLink="/results/infra/{{infra.infraId}}" tabindex="-1">
+                <a class="icon" routerLink="/results/infrastructure/{{infra.id}}" tabindex="-1">
                     <fa-icon [icon]="faIcon"></fa-icon>
                 </a>
             </div>
@@ -46,8 +46,7 @@
                 <span [innerHtml]="infra.acronym | highlight: input"></span>
             </div>      
             <div class="col col-lg-4 col-xl-4">
-                <!-- <a routerLink="/results/infra/{{infra.infraId}}"> -->
-                <a href="javascript:void(0)">
+                <a routerLink="/results/infrastructure/{{infra.id}}">
                     <h3 class="result-title" [innerHtml]="infra.name.trim() | highlight: input"></h3>
                 </a>
             </div>          

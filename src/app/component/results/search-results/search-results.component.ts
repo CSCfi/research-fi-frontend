@@ -64,6 +64,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
     .subscribe(responseData => {
       this.responseData = responseData;
       this.searchService.updateTotal(this.responseData.total);
+      console.log(this.responseData);
     },
       error => this.errorMessage = error as any,
       () => this.changeComponent(this.currentTab)

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, LOCALE_ID, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
@@ -13,6 +13,8 @@ import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
+import { Search } from 'src/app/models/search.model';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -21,37 +23,41 @@ import { Subscription } from 'rxjs';
 })
 export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any [];
+  responseData: Search;
   searchTerm: string;
   pageNumber: any;
-  tab = 'organizations';
-  infoFields = [
-    {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
-    {label: 'Muut nimet', field: 'variantNames'},
+  tabQueryParams: any;
 
+  tab = 'infrastructures';
+  infoFields = [
+    {label: 'Lyhenne', field: 'acronym'},
+    {label: 'Infrastruktuurin kuvaus', field: 'description'},
+    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
+    {label: 'Toiminta alkanut', field: 'startYear'},
+    {label: 'Toiminta päättynyt', field: 'endYear'},
+    {label: 'Vastuuorganisaatio', field: 'responsibleOrganizationNameFi'},
+    {label: 'Avainsanat', field: 'keywordsString'},
   ];
 
   studentCounts = [
-    {label: 'Alempi korkeakoulututkinto', field: 'thesisCountBsc'},
+    {label: 'Nimi', field: 'name'},
   ];
 
   subUnitFields = [
-    {label: 'Alayksiköt', field: 'subUnits'}
+    {label: 'Nimi', field: 'name'},
   ];
 
   linkFields = [
-    {label: 'Linkit', field: 'homepage'}
   ];
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
-  expand: boolean;
-  latestSubUnitYear: string;
+  expand: boolean[] = [];
   faIcon = faFileAlt;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title ) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string) {
    }
 
   public setTitle(newTitle: string) {
@@ -62,8 +68,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.idSub = this.singleService.currentId.subscribe(id => this.getData(id));
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
-    this.searchTerm = this.searchService.singleInput;
     this.pageNumber = this.searchService.pageNumber || 1;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.infrastructures;
+    this.searchTerm = this.searchService.singleInput;
+    this.infoFields.forEach(_ => this.expand.push(false));
   }
 
   ngOnDestroy() {
@@ -71,12 +79,21 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   }
 
   getData(id: string) {
-    this.singleService.getSingleOrganization(id)
-    .pipe(map(responseData => [responseData]))
+    this.singleService.getSingleInfrastructure(id)
     .subscribe(responseData => {
       this.responseData = responseData;
-      if (this.responseData[0].hits.hits[0]) {
-        this.setTitle(this.responseData[0].hits.hits[0]._source.nameFi + ' - Tutkimusorganisaatiot - Haku - Tutkimustietovaranto');
+      if (this.responseData.infrastructures[0]) {
+        switch (this.localeId) {
+          case 'fi': {
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Tiedejatutkimus.fi');
+            break;
+          }
+          case 'en': {
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Research.fi'); // English name??
+            break;
+          }
+
+        }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
@@ -88,10 +105,11 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData[0].hits.hits[0]._source[item.field] !== undefined &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== 0 &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== null &&
-             this.responseData[0].hits.hits[0]._source[item.field] !== ' ';
+      return this.responseData.infrastructures[0][item.field] !== undefined &&
+             this.responseData.infrastructures[0][item.field] !== 0 &&
+             this.responseData.infrastructures[0][item.field] !== null &&
+             this.responseData.infrastructures[0][item.field] !== '' &&
+             this.responseData.infrastructures[0][item.field] !== ' ';
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -100,34 +118,9 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   }
 
   shapeData() {
-    const source = this.responseData[0].hits.hits[0]._source;
-    const predecessors = source.predecessors;
-    const related = source.related;
-    let subUnits = source.subUnits;
-
-    if (predecessors && predecessors.length > 0) {
-      source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
-    }
-
-    if (related && related.length > 0) {
-      source.related = related.map(x => x.nameFi.trim()).join(', ');
-    }
-
-    if (subUnits && subUnits.length > 0) {
-      // Get latest year of subUnits. Data is in string format
-      const subUnitYears = [...new Set(subUnits.map(item => item.year))];
-      const transformedYears = subUnitYears.map(Number);
-      this.latestSubUnitYear = (Math.max(...transformedYears)).toString();
-      // Get results that match the yeat
-      subUnits = subUnits.filter((item) => {
-        return Object.keys(item).some((key) => item[key].includes(this.latestSubUnitYear));
-      });
-      // List items
-      source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
-    }
   }
 
-  expandDescription() {
-    this.expand = !this.expand;
+  expandDescription(idx: number) {
+    this.expand[idx] = !this.expand[idx];
   }
 }

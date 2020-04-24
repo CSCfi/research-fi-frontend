@@ -10,71 +10,56 @@
      <app-search-bar></app-search-bar>
  </aside>
   
- <div class="wrapper" *ngFor="let infra of responseData"  id="main-content">
+ <div class="wrapper" *ngIf="responseData"  id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="single" [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'"></app-breadcrumb>
+     <app-breadcrumb [type]="single" [responseData]="[responseData]" [tab]="tab" [tabName]="'infrastruktuurit'" [resultNameField]="'name'"></app-breadcrumb>
      <div class="row shared">
          <p class="back col-12">
-             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="{'page': pageNumber}">&lt; Takaisin hakutuloksiin</a>
+             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
          </p>
-         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="infra.hits.total === 0">
+         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
               <h2>404 - Virheellinen osoite</h2>
          </div>
          <main class="col-12 col-md-8">
-             <div *ngFor="let item of infra.hits.hits">
-                 <h1 class="result-header">{{item._source.nameFi}}</h1>
+             <div *ngFor="let item of responseData.infrastructures">
+                 <h1 class="result-header">{{item.name}}</h1>
                  <div id="info" class="table">
-                     <div class="row content" *ngFor="let row of infoFields">
-                         <div class="col-6 col-lg-3 th">{{row.label}}  <span *ngIf="row.field === 'staffCountAsFte'">({{item._source.staffYear}})</span></div>
-                         <div class="col-6 col-lg-9 td">{{item._source[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item._source[row.fieldEn]}}</div>
+                     <div class="content">
+                         <ng-container *ngFor="let row of infoFields; let i = index;">
+                            <div class="row" *ngIf="item[row.field]">
+                                <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                                <div class="col-6 col-lg-9 td">
+                                    <p [ngClass]="expand[i] ? 'expand' : 'short'">
+                                        {{item[row.field]}}
+                                    </p>
+                                    <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
+                                       (click)="expandDescription(i)" [innerHTML]="expand[i] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
+                               </div>
+                            </div>
+                         </ng-container>
                      </div>
-                     <div class="row content" *ngIf="studentCounts.length > 0">
-                         <div class="col-6 col-lg-3 th">Tutkintojen määrä ({{item._source.thesisYear}})</div>
-                         <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of studentCounts.slice(0,2)">
-                             <p class="th">{{row.label}}</p>
-                             <p class="td">{{item._source[row.field]}}</p>
-                         </div>
-                     </div>
-                     <ng-container *ngFor="let row of studentCounts.slice(2); let i = index">
-                         <div *ngIf="i % 2 == 0"></div>
-                         <div class="row content" *ngIf="i % 2 == 0">
-                             <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
-                                 <p class="th">{{row.label}}</p>
-                                 <p class="td" *ngIf="item._source[row.field] !== 'below_5'">{{item._source[row.field]}}</p>
-                                 <p class="td" *ngIf="item._source[row.field] === 'below_5'">Alle 5</p>
-                             </div>        
-                             <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="studentCounts.slice(2).length > i+1">
-                                 <p class="th">{{studentCounts.slice(2)[i + 1].label}}</p>
-                                 <p class="td" *ngIf="item._source[studentCounts.slice(2)[i + 1].field] !== 'below_5'">{{item._source[studentCounts.slice(2)[i + 1].field]}}</p>
-                                 <p class="td" *ngIf="item._source[studentCounts.slice(2)[i + 1].field] === 'below_5'">Alle 5</p>
-                             </div>
-                         </div>
-                     </ng-container>
-                     <div class="row content" *ngFor="let row of subUnitFields">
-                         <div class="col-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})</div>
-                         <div class="col-6 col-lg-9 td">
-                             <p [ngClass]="expand ? 'expand' : 'short'">
-                                 {{item._source[row.field]}}
-                             </p>
-                             <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'subUnits' && item._source.subUnits.length > 256" 
-                             (click)="expandDescription()" [innerHTML]="expand ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>
-                         </div>
- 
-                     </div>
+                     <div class="row content" *ngFor="let row of studentCounts">
+                         <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                         <div class="col-6 col-lg-9 td">{{item[row.field]}}</div>
+                    </div>
+                    <div class="row content" *ngFor="let row of subUnitFields">
+                        <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                        <div class="col-6 col-lg-9 td">{{item[row.field]}}</div>
+                    </div>
                  </div>
               </div>
           </main>
-          <div *ngFor="let item of infra.hits.hits" class="col-12 col-md-4">
+          <div *ngFor="let item of responseData.infrastructures" class="col-12 col-md-4">
              <aside>
                   <mat-card>
-                     <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
+                     <mat-card-title><h2>Infrastruktuurin verkkosivu</h2></mat-card-title>
                      <div class="row links">
                          <div *ngFor="let row of linkFields" class="info-link-wrapper">
                              <div class="col-sm-2 col-md-1 icon">
                                  <fa-icon [icon]="faIcon"></fa-icon>
                              </div>
                              <div class="col link">
-                                 <a class="info-link" href="{{item._source[row.field]}}" target="_blank">{{item._source[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                 <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
                              </div>
                          </div>
                      </div>
@@ -83,26 +68,16 @@
              </aside>
              <aside>
                  <mat-card>
-                     <mat-card-title><h2>Organisaation</h2></mat-card-title>
-                     <div class="row related">
-                         <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                             <li class=""><a routerLink="/">Julkaisut</a></li>
-                             <li class=""><a routerLink="/">Tutkijat</a></li>
-                             <li class=""><a routerLink="/">Aineistot</a></li>
-                         </ul>
-                         <ul class="col-12 col-sm-6 col-md-12 col-xl-6">
-                             <li class=""><a routerLink="/">Organisaatiot</a></li>
-                             <li class=""><a routerLink="/">Muu tutkimustoiminta</a></li>
-                         </ul>
-                     </div>
+                     <mat-card-title><h2>Infrastruktuurin</h2></mat-card-title>
+                     <app-related-links [id]="item.id"></app-related-links>
                  </mat-card>
              </aside>
              <!-- Social icons -->
              <app-share></app-share>
              <aside>
                  <mat-card>
-                     <mat-card-title><h2>Infrastruktuuritiedontiedon lähde</h2></mat-card-title>
-                     <div *ngFor="let source of infra.hits.hits">
+                     <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
+                     <div *ngFor="let source of responseData.infrastructures">
                          <p>Virta/Vipunen/etc?</p>
                      </div>
                      <div class="clear"></div>
