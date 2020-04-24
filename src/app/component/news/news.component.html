@@ -19,13 +19,8 @@
                             <h1 class="col col-lg-8">Tiede- ja tutkimusuutiset</h1>
                             <div class="col col-lg-4">
                                 <nav>
-                                    <input #searchInput type="text" placeholder="Hae tiedeuutisista...">
+                                    <input #searchInput disabled="true" type="text" placeholder="Hae tiedeuutisista...">
                                 </nav>
-                                <ul>
-                                    <!-- <li tabindex="0" *ngFor="let item of data[0]?.hits.hits.slice(3, data[0]?.hits.hits.length)">
-                                        <h2>{{item._source.title}}</h2>
-                                    </li> -->
-                                </ul>
                             </div>    
                             <mat-card *ngFor="let item of data" class="col-12 news-card">
                                 <mat-card-header>
