@@ -22,16 +22,17 @@ export class HighlightSearch implements PipeTransform {
         }
         // Parantheses are removed because of regexp. Asterisk doesn't work with titles containing mulptiple different integers
         args = args.replace(/[\])}[{(]/g, '').replace(/\*/g, '');
+        // console.log(value);
         const valueArr = value.split(' ');
         // Remove empty strings
         const argsArr = args.split(' ').filter(Boolean);
 
         // Map value keys and loop through args, replace with tags
         const match = valueArr.map((e) => {
-            argsArr.forEach(x => {
-                if (e.toLowerCase().includes(x.toLowerCase())) {
+            argsArr.forEach(word => {
+                if (word.length > 2 && e.toLowerCase().includes(word.toLowerCase())) {
                     // 'gi' stands for case insensitive, use 'g' if needed for case sensitive
-                    const src = new RegExp(x, 'gi');
+                    const src = new RegExp(word, 'gi');
                     const found = e.match(src);
                     if (!found) {return e; }
                     e = e.replace(src, ('<mark>' + found[0] + '</mark>'));
@@ -41,6 +42,7 @@ export class HighlightSearch implements PipeTransform {
         });
 
         const result = match.join(' ');
+        // console.log(result);
         // Needs to be bypassed because of dynamic value
         return this.sanitizer.bypassSecurityTrustHtml(result);
     }

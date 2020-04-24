@@ -25,13 +25,13 @@ export class FundingFilters {
       tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.'},
       {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false,
       tooltipFi: 'Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.'},
-      {field: 'scheme', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
-      tooltipFi: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
+      // {field: 'scheme', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
+      // tooltipFi: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
     ];
 
     singleFilterData = [
-      {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet',
-      tooltipFi: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
+      // {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet',
+      // tooltipFi: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
       // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteistyö'}
     ];
 
