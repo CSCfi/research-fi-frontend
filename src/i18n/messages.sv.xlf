@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="fi" datatype="plaintext" original="ng2.template" target-language="sv">
+    <body>
+      <trans-unit id="searchSlogan" datatype="html">
+        <source>
+          Hae tietoa tutkimuksesta Suomessa
+        </source><target state="new">
+          Hae tietoa tutkimuksesta Suomessa
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="df827dd350285c7193dbc58d33f26ca5807de0bf" datatype="html">
+        <source>
+            Hae tietoa
+          </source><target state="new">
+            Hae tietoa
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <note priority="1" from="description">Shortcut</note>
+      </trans-unit>
+      <trans-unit id="47bda0adb4909a520d9584a30f65641dcff4e217" datatype="html">
+        <source>
+            Tutki julkaisujen määriä tieteenaloittain
+          </source><target state="new">
+            Tutki julkaisujen määriä tieteenaloittain
+          </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">Shortcut</note>
+      </trans-unit>
+      <trans-unit id="appSlogan" datatype="html">
+        <source>Ikkuna tutkimukseen Suomessa</source><target state="new">Ikkuna tutkimukseen Suomessa</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Site slogan </note>
+      </trans-unit>
+      <trans-unit id="35d161e1bc5e3a23ce638f59ffbc99522e21b357" datatype="html">
+        <source>Etusivu</source><target state="new">Etusivu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <note priority="1" from="description">Home</note>
+        <note priority="1" from="meaning">Main navigation item</note>
+      </trans-unit>
+      <trans-unit id="213eb37128c2b5c0099983865d7fe498ea291a15" datatype="html">
+        <source>Haku</source><target state="new">Haku</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <note priority="1" from="description">Search</note>
+        <note priority="1" from="meaning">Main navigation item</note>
+      </trans-unit>
+      <trans-unit id="e74d6efc1c3b7bc17d6720b6003e51eafd2c99bd" datatype="html">
+        <source>Tiedepolitiikka</source><target state="new">Tiedepolitiikka</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+        <note priority="1" from="description">Science politics</note>
+        <note priority="1" from="meaning">Main navigation item</note>
+      </trans-unit>
+      <trans-unit id="bbfe3938a7facf1187307108fa655af2878f8946" datatype="html">
+        <source>Tiedeuutiset</source><target state="new">Tiedeuutiset</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+        <note priority="1" from="description">Science news</note>
+        <note priority="1" from="meaning">Main navigation item</note>
+      </trans-unit>
+      <trans-unit id="c6084842c6090c106e6fee6d90b6a3dd34ca631b" datatype="html">
+        <source>Tutkija, haluatko omat tietosi tänne?</source><target state="new">Tutkija, haluatko omat tietosi tänne?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="c5f907422ff82d9cad02865defb851af5a4dd856" datatype="html">
+        <source>Tutkimustietovarannosta</source><target state="new">Tutkimustietovarannosta</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="0fa9a4e6ab75285d86901381e36a9304f3a1ee70" datatype="html">
+        <source>Tietoa OKM:stä</source><target state="new">Tietoa OKM:stä</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="c06dcaeffc087ee4b275cada665f2f182d4a7712" datatype="html">
+        <source>Anna palautetta</source><target state="new">Anna palautetta</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="2478afc30086dde141dd463ea41c514f42bf7cf2" datatype="html">
+        <source>Tietosuoja</source><target state="new">Tietosuoja</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="d75548bed1154d4c865424c4bb6f6a0e6c0b9ba4" datatype="html">
+        <source>Sivukartta</source><target state="new">Sivukartta</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <note priority="1" from="description">Footer-link</note>
+      </trans-unit>
+      <trans-unit id="followUs" datatype="html">
+        <source>Seuraa meitä!</source><target state="new">Seuraa meitä!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

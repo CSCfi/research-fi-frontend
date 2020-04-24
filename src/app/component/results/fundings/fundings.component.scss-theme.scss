@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin app-fundings-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    app-fundings {   
+    }
+}
+

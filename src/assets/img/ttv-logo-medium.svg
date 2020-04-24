@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2418" data-name="Rectangle 2418" width="40" height="40"/>
+    </clipPath>
+  </defs>
+  <g id="ttv-logo-medium" clip-path="url(#clip-path)">
+    <rect width="40" height="40" fill="#fff"/>
+    <g id="Artboard_60" data-name="Artboard – 60" clip-path="url(#clip-path)">
+      <rect id="Rectangle_2417" data-name="Rectangle 2417" width="40" height="40" fill="#fff"/>
+      <g id="Path_179" data-name="Path 179">
+        <path id="Path_185" data-name="Path 185" d="M20,37.75A17.75,17.75,0,0,1,7.449,7.449a17.75,17.75,0,1,1,25.1,25.1A17.634,17.634,0,0,1,20,37.75Z" fill="#fff"/>
+        <path id="Path_186" data-name="Path 186" d="M20,4.5A15.5,15.5,0,0,0,9.04,30.96,15.5,15.5,0,1,0,30.96,9.04,15.4,15.4,0,0,0,20,4.5M20,0A20,20,0,1,1,0,20,20,20,0,0,1,20,0Z" fill="#402bb3"/>
+      </g>
+      <rect id="Rectangle_2216" data-name="Rectangle 2216" width="6" height="12" rx="1" transform="translate(11 15)" fill="#40cbb3"/>
+      <path id="Path_180" data-name="Path 180" d="M.75,0h4.5C5.664,0,6,.244,6,.545v4.91c0,.3-.336.545-.75.545H.75C.336,6,0,5.756,0,5.455V.545C0,.244.336,0,.75,0Z" transform="translate(18 21)" fill="#40a3b3"/>
+      <rect id="Rectangle_2219" data-name="Rectangle 2219" width="6" height="14" rx="1" transform="translate(25 13)" fill="#407bb3"/>
+      <rect id="Rectangle_2399" data-name="Rectangle 2399" width="19" height="13" transform="translate(21 27)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

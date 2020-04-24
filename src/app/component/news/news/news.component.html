@@ -1,0 +1,31 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<main id="main-content">
+    <div class="wrapper">
+        <div class="row" *ngIf="data">
+            <div class="col col-lg-2">
+                <aside>
+                    <app-filters [responseData]="[data]" [tabData]="'news'"></app-filters>
+                </aside>
+            </div>
+            <div class="col col-lg-10">
+                <main>
+                    <div class="row">
+                        <h1 class="col col-lg-8">Tiede- ja tutkimusuutiset</h1>
+                        <div class="col col-lg-4">
+                            <nav>
+                                <input #searchInput disabled="true" type="text" placeholder="Hae tiedeuutisista...">
+                            </nav>
+                        </div>
+                        <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</main>

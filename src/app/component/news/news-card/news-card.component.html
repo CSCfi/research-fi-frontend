@@ -1,0 +1,18 @@
+<mat-card class="col-12 news-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h2>{{item.headline}}</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <div class="row justify-content-between">
+                <span class="col-4">{{item.timestamp | date:'dd-MM-yyyy'}}</span>
+                <span *ngIf="item.author" class="col-2">{{item.author}}</span>
+                <span class="col-4 text-right">{{item.organizationNameFi}}</span>
+            </div>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content [innerHTML]="item.content"></mat-card-content>
+    <mat-card-actions>
+        <a href="{{item.url}}" target="_blank">Lue koko uutinen <fa-icon icon="external-link-alt"></fa-icon></a>
+    </mat-card-actions>
+</mat-card>

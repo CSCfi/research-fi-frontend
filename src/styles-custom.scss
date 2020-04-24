@@ -1,0 +1,149 @@
+@import './styles-custom-palettes.scss';
+
+$researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
+$researchfi-accent:  mat-palette($mat-green);
+$researchfi-warn:    mat-palette($mat-deep-orange);
+
+$researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $researchfi-warn);
+
+// Insert custom background color
+// https://stackoverflow.com/questions/43919927/angular-material2-theming-how-to-set-app-background
+$background-color: map-get($researchfi-primary, 100);
+$background: map-get($researchfi-theme, background);
+$background: map_merge($background, (card: $background-color));
+$researchfi-theme: map_merge($researchfi-theme, (background: $background));
+
+html.cdk-global-scrollblock {
+    overflow: hidden!important;
+}
+
+body {
+    color: map-get(map-get($researchfi-primary, contrast), 300);
+    font-family: 'Roboto', sans-serif;
+}
+
+// Override for mat select
+body div.cdk-overlay-container {
+    z-index: 1051;
+}
+
+h1, h2, h3, h4, h5 {
+    color: map-get(map-get($researchfi-primary, contrast), 200);
+    // line-height: 1.5;
+}
+
+h1 { font-size: 2rem; font-weight: bold;}
+h2 { font-size: 1.7rem;}
+h3 { font-size: 1.5rem;}
+h4 { font-size: 1.2rem;}
+
+a {
+    color: map-get($researchfi-primary, 500)
+}
+
+a:hover {
+    color: map-get($researchfi-primary, lighter);
+}
+
+ul {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+#main-content {
+    margin-top: 1.5rem;
+}
+
+.row {
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+}
+
+.full-width .row {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.container-fluid {
+    padding: 0px!important;
+}
+
+.container {
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+}
+
+// Disable link
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
+// Typography
+h2 {
+    font-weight: 700;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+mark, .mark {
+    padding: 0;
+    // font-weight: bold;
+    font-weight: 400;
+    color: map-get(map-get($researchfi-primary, contrast), 200);
+}
+
+// Forms
+.mat-pseudo-checkbox {
+    background: #FFF;
+}
+
+// Help icon
+.info-icon {
+    color: map-get($researchfi-primary, 500);
+}
+
+// Dialog
+body .mat-dialog-container {
+    min-width: 400px;
+}
+
+// Tooltip
+.tooltip-inner {
+    max-width: 276px;
+    width: max-content;
+}
+// .tooltip-inner {
+//     color: #000;
+//     background-color: #fff;
+//     box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
+// }
+
+// .tooltip.show {
+//     opacity: 1;
+// }
+
+// .bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
+//     border-top-color: #fff;
+// }
+
+// .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
+//     border-right-color: #fff;
+// }
+
+// Img alt test, delete in production
+// img:not([alt]) {
+//     transform: rotate(0.5turn);
+//     filter: blur(5px);
+// }

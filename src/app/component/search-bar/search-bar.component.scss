@@ -1,0 +1,320 @@
+//  This file is part of the research.fi API service
+// 
+//  Copyright 2019 Ministry of Education and Culture, Finland
+// 
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+.search {
+    padding: 2rem 0;
+    transition: 0.2s linear;
+}
+
+.no-heading.search {
+    padding: 10px;
+}
+
+.form-control {
+    border: 0px solid #ced4da;
+}
+
+.col-12.search.increase {
+    padding-bottom: 100px;
+}
+
+.has-search .form-control {
+    padding-left: 25px;
+    font-size: 25px;
+    border-radius: .25rem!important;
+  }
+  
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 100;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+// Hide "blue glow" on focus
+.form-control:focus {
+    box-shadow: none;
+}
+
+.input-group > .form-control:focus {
+    z-index: 104;
+}
+
+.form-group.has-search {
+    max-width: 717px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+input {
+    z-index: 102;
+}
+
+.input-group-append {
+    z-index: 101;
+}
+
+input[placeholder] {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-size: 17px;
+    font-style: normal;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-size: 17px;
+    font-style: normal;
+  }
+
+p.text-right.ext-search {
+    margin-top: 16px;
+    margin-bottom: -16px;
+}
+
+p.text-right.ext-search a {
+    cursor: pointer;
+}
+
+p.text-right.ext-search a:hover {
+    -webkit-filter: opacity(.7);
+    filter: opacity(.7);
+    text-decoration: none;
+}
+
+// Completion
+// input width count span
+#completionAssist{
+    overflow: auto;
+    font-size: 25px;
+    position: absolute;
+    z-index: -999;
+}
+
+.completion {
+    font-size: 25px;
+    margin-top: 8px;
+    opacity: 0.4;
+}
+
+// Button
+.input-group-append {
+    margin-left: 4px;
+}
+
+span.search-button {
+    padding-right: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.fa-search {
+    padding: 0 5px;
+}
+
+button.btn.btn-search {
+    border-left: 0;
+    font-size: 1rem;
+    border-radius: .25rem!important;
+}
+
+
+button.btn.btn-search:focus {
+    box-shadow: none;
+}
+
+button.btn.btn-search:focus span {
+    text-decoration: underline;
+}
+
+.input-group > .input-group-append:not(:last-child) > .btn {
+    border-top-right-radius: 0.25rem;
+}
+
+// Auto suggest
+.auto-suggest {
+    padding: 10px 0;
+    background: #fff;
+    z-index: 100;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+    margin-top: 56px;
+    max-width: 687px;
+    border-radius: 0.25rem;
+}
+
+.row.results {
+    padding: 10px 0;
+}
+
+// .row.helper {
+//     padding-bottom: 1rem;
+// }
+
+.auto-suggest h2, .auto-suggest h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.auto-suggest h2::first-letter, .auto-suggest h3::first-letter {
+    text-transform: uppercase;
+}
+
+.auto-suggest ul {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.list-group-item {
+    border: none;
+    border-radius: .25rem;
+}
+
+.list-group-item a {
+    font-weight: bold;
+    display: block;
+}
+
+.list-group-item a:hover {
+    text-decoration: none;
+}
+
+.list-group-item.active {
+    border: 0;
+}
+
+.auto-suggest li:empty {
+    display: none;
+}
+
+
+.top-results ul li {
+    padding: 4px 0;
+}
+
+.top-results ul li.active {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.auto-suggest .other-links a:after {
+    font-family: "FontAwesome";
+    margin-left: 8px;
+    content: "\f061";
+}
+
+.other-links ul {
+    margin: 0;
+    padding: 0;
+}
+
+.other-links ul li {
+    padding-top: 20px;
+}
+
+.query-history {
+    padding-top: 25px;
+}
+
+.query-history .list-group-item a {
+    font-weight: normal;
+}
+
+// Search help
+.search-help {
+    margin-right: -110px;
+}
+
+.search-help button {
+    height: 52px;
+}
+
+.search-help button.down span:after {
+    font-family: "FontAwesome";
+    content: "\f078";
+    display: inline-block;
+    padding-left: .25rem;
+}
+
+.search-help button.up span:after {
+    font-family: "FontAwesome";
+    content: "\f077";
+    display: inline-block;
+    padding-left: .25rem;
+}
+
+.search-helper {
+    position: absolute;
+    z-index: 9999;
+    width: 211px;
+    padding: 1rem 0.5rem;
+    right: -110px;
+    margin-top: 4px;
+    border-radius: .25rem;
+}
+
+// Overlay
+#overlay {
+    position: absolute;
+    z-index: 98;
+    left: 0;
+    // top: 212px;
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: calc(100% - 23px);
+}
+
+// Responsive
+@media (max-width:991px) {
+    .search-help {
+        display: none;
+    }
+}
+
+@media (max-width:768px) {
+    .search {
+        padding: 30px 0!important;
+    }
+
+    .no-heading.search {
+        padding: 10px 0;
+    }
+
+    .form-group.has-search {
+        padding: 0;
+    }
+
+    .has-search .form-control {
+        padding-left: 15px;
+    }
+
+    .list-group-item {
+        margin: 0 -15px;
+    }
+}
+
+@media (min-width:769px) {
+    .row.results .col, .row.helper .col, .row.history .col {
+        padding: 0;
+    }
+
+    .auto-suggest h2, .auto-suggest h3, .helper span, .list-group-item {
+        padding: 0.4rem 1.6rem;
+    }
+}

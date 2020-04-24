@@ -1,0 +1,341 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<h1 #srHeader class="sr-only"></h1>
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
+<div class="wrapper" *ngIf="responseData" id="main-content">
+    <!-- Breadcrumb -->
+    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'"></app-breadcrumb>
+    <div class="row shared">
+        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
+        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
+            <h2>404 - Virheellinen osoite</h2>
+        </div>
+        <main class="col-12 col-md-8">
+            <div *ngFor="let item of responseData.publications">
+                <h1 class="result-header" [attr.lang]="item.languageCode !== documentLang ? item.languageCode : null">{{item.title}}</h1>
+                <div id="info" class="table">
+                    <div class="row content" *ngFor="let row of infoFields">
+                        <div class="col-6 col-lg-3 th">
+                            {{row.label}}
+                            <ng-container *ngIf="row.tooltipFi">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltipFi"></div></ng-template>
+                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                            </ng-container>
+                        </div>
+                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
+                    </div>
+                    <div class="row content" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
+                        <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
+                            <ng-container>
+                                <fa-icon tabindex="0" tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." placement="right" class="info-icon" 
+                                icon="info-circle"></fa-icon>
+                            </ng-container>
+                            <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
+                            <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
+                        </div>
+                        <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
+                            <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
+                            <div *ngFor="let unit of row.orgUnits">
+                                <div class="row" *ngIf="showSubUnits">
+                                    <div class="col-1 guide">
+                                        <span class="guide-line">
+                                            <span class="guide-line-top"></span>
+                                        </span>
+                                    </div>
+                                    <div class="col sub-unit">
+                                        <p>
+                                            {{unit.subUnit}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngFor="let author of row.authors">
+                                <div *ngIf="author.author.trim().length > 2">
+                                    <p class="td" [ngClass]="author.orcid ? 'has-orcid' : ''">
+                                        {{author.author}}
+                                        <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
+                                    </p>
+                                    <div class="row" *ngIf="showSubUnits && author.subUnit !== null">
+                                        <div class="col-1 guide">
+                                            <span class="guide-line">
+                                                <span class="guide-line-top"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col sub-unit">
+                                            <p>
+                                                {{author.subUnit}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container>
+                        <div></div>
+                        <div class="row content">
+                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td" *ngFor="let row of authorAndOrganization.slice(1)">
+                                <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
+                                <div *ngFor="let unit of row.orgUnits">
+                                    <div class="row" *ngIf="showSubUnits">
+                                        <div class="col-1 guide">
+                                            <span class="guide-line">
+                                                <span class="guide-line-top"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col sub-unit">
+                                            <p>
+                                                {{unit.subUnit}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngFor="let author of row.authors">
+                                    <div *ngIf="author.author.length > 10">
+                                        <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
+                                            {{author.author}}
+                                            <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
+                                        </p>
+                                        <div class="row" *ngIf="showSubUnits && author.subUnit !== null">
+                                            <div class="col-1 guide">
+                                                <span class="guide-line">
+                                                    <span class="guide-line-top"></span>
+                                                </span>
+                                            </div>
+                                            <div class="col sub-unit">
+                                                <p>
+                                                    {{author.subUnit}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
+                        <div class="col-6 col-lg-3 th">Organisaation alayksiköt</div>
+                        <div class="col-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
+                            <p class="td">{{item[row.field]}}</p>
+                        </div>
+                    </div> -->
+                    <ng-container *ngFor="let row of organizationSubFields.slice(1)">
+                        <div></div>
+                        <div class="row content">
+                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td">
+                                <p class="th">{{row.label}}</p>
+                                <p class="td">{{item[row.field]}}</p>
+                            </div>        
+                        </div>
+                    </ng-container>
+                    <div class="row content" *ngIf="mediumFields?.length > 0">
+                        <!-- Top row links, switch case to check for different search targets -->
+                        <div class="col-6 col-lg-3 th">Julkaisukanavan tiedot</div>
+                        <div class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
+                            <p class="th">
+                                {{row.label}}
+                                <ng-container *ngIf="row.tooltipFi">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                </ng-container>
+                            </p>
+                            <p class="td"*ngIf="row.link && juFoCode?.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
+                             [ngSwitch]="true">
+                            <!-- Check if fields are issn or isbn and target search with exact field  -->
+                            <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'" (click)="navigate(row.field)" 
+                             routerLink="{{row.linkPath}}{{item[row.field]}}">
+                                 {{item[row.field]}}
+                            </a>
+                            <!-- Every other link uses jufoCode as search term -->
+                            <a class="td" *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
+                                 {{item[row.field]}}
+                            </a>
+                            </p>
+                            <!-- Show label only if no search functionality -->
+                            <p class="td" *ngIf="!row.link || (!juFoCode || juFoCode?.length === 1)">{{item[row.field]}}</p>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
+                        <div *ngIf="i % 3 == 0"></div>
+                        <div class="row content" *ngIf="i % 3 == 0">
+                            <!-- First col -->
+                            <div class="col-6 col-lg-3 offset-6 offset-lg-3 td">
+                               <p class="th">{{row.label}}</p>
+                               <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
+                                    {{item[row.field]}}
+                               </a>
+                               <span *ngIf="!row.link">{{item[row.field]}}</span>
+                            </div>
+                            <!-- Second col -->    
+                            <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
+                               <p class="th">{{mediumFields.slice(3)[i + 1].label}}</p>
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
+                                    {{item[mediumFields.slice(3)[i + 1].field]}}
+                               </a>
+                               <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item[mediumFields.slice(3)[i + 1].field]}}</span>
+                            </div> 
+                            <!-- Third col -->   
+                            <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
+                               <p class="th">{{mediumFields.slice(3)[i + 2].label}}</p>
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
+                                    {{item[mediumFields.slice(3)[i + 2].field]}}
+                               </a>
+                               <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item[mediumFields.slice(3)[i + 2].field]}}</span>
+                            </div>        
+                        </div>
+                    </ng-container>
+                    <div class="row content">
+                        <div class="col-6 col-lg-3 th">Muut tiedot</div>
+                        <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
+                            <p class="th">
+                                {{row.label}}
+                                <ng-container *ngIf="row.tooltipFi">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                </ng-container>
+                            </p>
+                            <!-- Fields of science as list -->
+                            <ng-container *ngIf="row.field === 'fieldsParsed'; else nonField">
+                                <li *ngFor="let field of item.fieldsOfScience">
+                                    {{field.nameFi}}
+                                </li>
+                            </ng-container>
+                            <!-- Normal lists -->
+                            <ng-template #nonField>
+                                <p class="td">{{item[row.field]}}</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
+                        <div *ngIf="i % 2 == 0"></div>
+                        <div class="row content" *ngIf="i % 2 == 0">
+                            <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
+                                <p class="th">{{row.label}}</p>
+                                <p class="td">{{item[row.field]}}</p>
+                            </div>        
+                            <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
+                                <p class="th">{{otherFields.slice(2)[i + 1].label}}</p>
+                                <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </main>
+        <div *ngFor="let item of responseData.publications" class="col-12 col-md-4 col-xl-4">
+            <aside>
+                <aside>
+                    <mat-card>
+                        <mat-card-title><h2>Linkit julkaisuun</h2></mat-card-title>
+                        <div class="row links" *ngFor="let row of linksFields">
+                            <div *ngIf="row.field === 'doi'" class=" info-link-wrapper">
+                                <div class="col-sm-2 col-md-1 icon">
+                                    <fa-icon [icon]="faIcon"></fa-icon>
+                                </div>
+                                <div class="col link doi">
+                                    <span class="doi-tag">DOI</span>
+                                    <span class="doi-link">
+                                        <a [attr.href]="'https://doi.org/'+item.doi" target="_blank">{{item.doi}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="row.field !== 'doi'" class="info-link-wrapper">
+                                <div class="col-sm-2 col-md-1 icon">
+                                    <fa-icon [icon]="faIcon"></fa-icon>
+                                </div>
+                                <div class="col link">
+                                    <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="!linksFields.length" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
+                    </mat-card>
+                </aside>
+                <aside>
+                    <mat-card>
+                        <mat-card-title><h2>Hae julkaisua muualta</h2></mat-card-title>
+                        <div class="row other-links">
+                            <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
+                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar <fa-icon icon="external-link-alt"></fa-icon></a>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
+                                <a href="https://search.crossref.org/?q={{item.doi !== ' ' ? item.doi : item.title}}" 
+                                target="_blank">CrossRef <fa-icon icon="external-link-alt"></fa-icon></a>
+                            </div>
+                        </div>
+                    </mat-card>
+                </aside>
+                <mat-card>
+                    <mat-card-title><h2>Hae julkaisuun liittyvät</h2></mat-card-title>
+                    <app-related-links [id]="authorAndOrganization[0]?.orgId" [relatedFilters]="relatedData"></app-related-links>
+               </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <div>
+                        <div class="reference">
+                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
+                            <small *ngIf="!hasDoi" class="no-doi-warn">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
+                        </div>
+                    </div>
+                </mat-card>
+            </aside>
+            <!-- Social icons -->
+
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <app-share></app-share>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Julkaisutiedon lähde</h2></mat-card-title>
+                    <div *ngFor="let org of authorAndOrganization">
+                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
+                        <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
+                    </div>
+                    <div class="clear"></div>
+                </mat-card>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<ng-template #citeModal>
+    <div class="modal-header">
+        <h3 class="modal-title">Kopioi viitetiedot</h3>
+    </div>
+    <div class="modal-body reference-modal">
+        <div *ngFor="let citation of citations; let i = index" class="cite-block">
+            <h4>{{citationStyles[i].label}}: </h4>
+            <span>{{citation | cleanCitation}}</span>
+            <div class="copy-wrapper">
+                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()">Kopioi leikepöydälle</button>
+            </div>
+        </div>
+        <div *ngIf="hasDoi; else noDoi">
+            <div *ngIf="citations.length < citationStyles.length">
+                <div class="row justify-content-center">
+                    <div class="col" align="center" style="margin-top:25px">
+                        <mat-spinner [diameter]="40"></mat-spinner>
+                        <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="UtilityService.preventTab($event)">Sulje</button>
+    </div>
+</ng-template>
+
+<ng-template #noDoi>
+    Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen
+</ng-template>

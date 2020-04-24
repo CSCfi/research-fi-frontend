@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <clipPath id="clip-tiedejatutkimus-logo-40">
+      <rect width="40" height="40"/>
+    </clipPath>
+  </defs>
+  <g id="tiedejatutkimus-logo-40" clip-path="url(#clip-tiedejatutkimus-logo-40)">
+    <rect width="40" height="40" fill="#fff"/>
+    <path id="Rectangle_2452" data-name="Rectangle 2452" d="M1,0H14a2,2,0,0,1,2,2V15a1,1,0,0,1-1,1H2a2,2,0,0,1-2-2V1A1,1,0,0,1,1,0Z" transform="translate(3 3)" fill="#3f5cad"/>
+    <path id="Rectangle_2454" data-name="Rectangle 2454" d="M8,0h7a1,1,0,0,1,1,1V8a8,8,0,0,1-8,8H1a1,1,0,0,1-1-1V8A8,8,0,0,1,8,0Z" transform="translate(3 21)" fill="#0eac1a"/>
+    <rect id="Rectangle_2453" data-name="Rectangle 2453" width="3" height="10" rx="1" transform="translate(21 9)" fill="#0eac1a"/>
+    <rect id="Rectangle_2456" data-name="Rectangle 2456" width="3" height="14" rx="1" transform="translate(25 5)" fill="#0eac1a"/>
+    <rect id="Rectangle_2457" data-name="Rectangle 2457" width="3" height="6" rx="1" transform="translate(29 13)" fill="#0eac1a"/>
+    <rect id="Rectangle_2458" data-name="Rectangle 2458" width="3" height="9" rx="1" transform="translate(33 10)" fill="#0eac1a"/>
+    <path id="Rectangle_2455" data-name="Rectangle 2455" d="M1,0H14a2,2,0,0,1,2,2V15a1,1,0,0,1-1,1H2a2,2,0,0,1-2-2V1A1,1,0,0,1,1,0Z" transform="translate(21 21)" fill="#3f5cad"/>
+  </g>
+</svg>

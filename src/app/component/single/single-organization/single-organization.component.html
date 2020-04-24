@@ -1,0 +1,127 @@
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<h1 #srHeader class="sr-only"></h1>
+<aside>
+    <app-search-bar></app-search-bar>
+</aside>
+ 
+<div class="wrapper" *ngIf="responseData" id="main-content">
+    <!-- Breadcrumb -->
+    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'"></app-breadcrumb>
+    <div class="row shared">
+        <p class="back col-12">
+            <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
+        </p>
+        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
+             <h2>404 - Virheellinen osoite</h2>
+        </div>
+        <main class="col-12 col-md-8">
+            <div *ngFor="let item of responseData.organizations">
+                <h1 class="result-header">{{item.nameFi}}</h1>
+                <div id="info" class="table">
+                    <div class="row content" *ngFor="let row of infoFields">
+                        <!-- Labels -->
+                        <div class="col-6 col-lg-3 th">
+                            {{row.label}}
+                            <!-- Show year with staff count -->
+                            <span *ngIf="row.field === 'staffCountAsFte'">({{item.staffYear}})</span>
+                            <ng-container *ngIf="row.tooltipFi">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                            </ng-container>
+                        </div>
+                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item[row.fieldEn]}}</div>
+                    </div>
+                    <div class="row content" *ngIf="studentCounts.length > 0">
+                        <div class="col-6 col-lg-3 th">
+                            Tutkintojen määrä ({{item.thesisYear}})
+                            <fa-icon tabindex="0" tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" placement="right"
+                            class="info-icon" icon="info-circle"></fa-icon>
+                        </div>
+                        <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of studentCounts.slice(0,2)">
+                            <p class="th">{{row.label}}</p>
+                            <p class="td">{{item[row.field]}}</p>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let row of studentCounts.slice(2); let i = index">
+                        <div *ngIf="i % 2 == 0"></div>
+                        <div class="row content" *ngIf="i % 2 == 0">
+                            <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
+                                <p class="th">{{row.label}}</p>
+                                <p class="td" *ngIf="item[row.field] !== 'below_5'">{{item[row.field]}}</p>
+                                <p class="td" *ngIf="item[row.field] === 'below_5'">Alle 5</p>
+                            </div>        
+                            <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="studentCounts.slice(2).length > i+1">
+                                <p class="th">{{studentCounts.slice(2)[i + 1].label}}</p>
+                                <p class="td" *ngIf="item[studentCounts.slice(2)[i + 1].field] !== 'below_5'">{{item[studentCounts.slice(2)[i + 1].field]}}</p>
+                                <p class="td" *ngIf="item[studentCounts.slice(2)[i + 1].field] === 'below_5'">Alle 5</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- Content -->
+                    <div class="row content" *ngFor="let row of subUnitFields">
+                        <div class="col-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})
+                            <ng-container *ngIf="row.tooltipFi">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                            </ng-container>
+                        </div>
+                        <div class="col-6 col-lg-9 td">
+                            <p [ngClass]="expand ? 'expand' : 'short'">
+                                {{item[row.field]}}
+                            </p>
+                            <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'subUnits' && item.subUnits.length > 256" 
+                            (click)="expandDescription()" [innerHTML]="expand ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>
+                        </div>
+                    </div>
+                </div>
+             </div>
+         </main>
+         <div *ngFor="let item of responseData.organizations" class="col-12 col-md-4">
+            <aside>
+                 <mat-card>
+                    <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
+                    <div class="row links">
+                        <div *ngFor="let row of linkFields" class="info-link-wrapper">
+                            <div class="col-sm-2 col-md-1 icon">
+                                <fa-icon [icon]="faIcon"></fa-icon>
+                            </div>
+                            <div class="col link">
+                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!linkFields.length" class="no-links">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Organisaation</h2></mat-card-title>
+                    <app-related-links [id]="item.id"></app-related-links>
+                </mat-card>
+            </aside>
+            <!-- Social icons -->
+            <app-share></app-share>
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Organisaatiotiedon lähde</h2></mat-card-title>
+                    <!-- <div *ngFor="let source of responseData.organizations">
+                        <p>Virta/Vipunen/etc?</p>
+                    </div> -->
+                    <ul>
+                        <li class="py-2"><a href="http://www.vipunen.fi" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a href="http://finto.fi/cn/fi/" target="_blank">Finto –palvelu <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a href="https://www.ytj.fi/ " target="_blank">Yritys – ja yhteisötietojärjestelmä (YTJ) <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                    </ul>
+                    <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
+                    <div class="clear"></div> -->
+                </mat-card>
+            </aside>
+        </div>
+    </div>
+</div>
