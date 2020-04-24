@@ -38,6 +38,7 @@
                             </div>
                          </ng-container>
                      </div>
+                     <p class="subheader trHeader">Tutkimusinfrastruktuurin palvelut</p>
                      <div class="content" *ngFor="let service of item.services; let i = index;">
                         <p class="header trHeader subtitle" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</p>
                         <ng-container *ngIf="showService[i]">
@@ -58,14 +59,15 @@
                                     <div class="col-6 col-lg-3 th subtitle" [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'">Palvelupiste</div>
                                     <div class="col-6 col-lg-9 td">{{servicePoint.name}}</div>
                                 </div>
-                                <ng-container *ngIf="showServicePoint[i][j]">
-                                    <div *ngFor="let row of servicePointFields" class="row">
+                                <div *ngIf="showServicePoint[i][j]" class="pl-4">
+                                    <div class="th">Yhteystiedot</div>
+                                    <div *ngFor="let row of servicePointFields" class="row ">
                                         <ng-container *ngIf="servicePoint[row.field]?.trim()">
-                                            <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                                            <div class="col-6 col-lg-3 th pl-4">{{row.label}}</div>
                                             <div class="col-6 col-lg-9 td">{{servicePoint[row.field]}}</div>
                                         </ng-container>
                                     </div>
-                                </ng-container>
+                                </div>
                             </div>
                         </ng-container>
                     </div>
