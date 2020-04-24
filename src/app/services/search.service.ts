@@ -170,7 +170,16 @@ export class SearchService {
   }
 
   // News page content
-  getNews(): Observable<News[]> {
-    return this.http.get<News[]>(this.apiUrl + 'news' + '/_search?').pipe(map(data => this.newsAdapter.adaptMany(data)));
+  getNews(size?: number): Observable<News[]> {
+    const payload = {
+      size,
+      sort: [
+        {
+          timestamp: {order: 'desc'}
+        }
+      ]
+    };
+
+    return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
   }
 }

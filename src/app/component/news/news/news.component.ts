@@ -59,7 +59,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getNews() {
-    this.searchService.getNews()
+    this.searchService.getNews(100)
     .subscribe(data => {
       this.data = data;
       console.log(this.data);
