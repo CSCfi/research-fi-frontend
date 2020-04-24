@@ -78,7 +78,6 @@ export class RecipientAdapter implements Adapter<Recipient> {
         } else {
             combined = '-';
         }
-
         return new Recipient(
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
             recipientObj?.fundingGroupPersonOrcid,
@@ -87,7 +86,8 @@ export class RecipientAdapter implements Adapter<Recipient> {
             recipientObj?.consortiumOrganizationId,
             recipientObj?.shareOfFundingInEur,
             item.amount_in_EUR,
-            item.fundingContactPersonFirstNames + ' ' + item.fundingContactPersonLastName,
+            // tslint:disable-next-line: max-line-length
+            (item.fundingContactPersonFirstNames || '') + ' ' + (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
             item.fundingContactPersonOrcid,
             organizations,
             combined
