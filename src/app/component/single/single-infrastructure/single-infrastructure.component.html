@@ -94,7 +94,7 @@
              <aside>
                  <mat-card>
                      <mat-card-title><h2>Infrastruktuurin</h2></mat-card-title>
-                     <app-related-links [id]="item.id"></app-related-links>
+                     <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                  </mat-card>
              </aside>
              <!-- Social icons -->
@@ -103,7 +103,7 @@
                  <mat-card>
                      <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
                      <div *ngFor="let source of responseData.infrastructures">
-                         <p>Virta/Vipunen/etc?</p>
+                         <p>{{source.responsibleOrganizationNameFi}}</p>
                      </div>
                      <div class="clear"></div>
                  </mat-card>
