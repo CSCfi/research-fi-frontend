@@ -408,6 +408,7 @@ export class FilterService {
         payLoad.aggs.field = {
           terms: {
             field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
+            exclude: ' ',
             size: 250,
             order: {
               _key: 'asc'
