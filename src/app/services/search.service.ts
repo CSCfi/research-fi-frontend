@@ -164,6 +164,28 @@ export class SearchService {
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad);
   }
 
+  getNewsFilters(): Observable<Search[]> {
+    // const payLoad = this.filterService.constructFilterPayload('news', this.singleInput);
+    const payLoad: any = {
+      size: 0,
+      aggs: {
+        organization: {
+          terms: {
+            field: 'organizationId.keyword'
+          },
+          aggs: {
+            orgName: {
+              terms: {
+                field: 'organizationNameFi.keyword'
+              }
+            }
+          }
+        }
+      }
+    };
+    return this.http.post<Search[]>(this.apiUrl + 'news/_search?', payLoad);
+  }
+
   // A simple method that returns the response from the url provided
   getFromUrl(url: string, options?: {headers: HttpHeaders}): Observable<any> {
     return this.http.get(url, options);
@@ -172,6 +194,7 @@ export class SearchService {
   // News page content
   getNews(size?: number): Observable<News[]> {
     const payload = {
+      query: this.filterService.constructNewsPayload(),
       size,
       sort: [
         {

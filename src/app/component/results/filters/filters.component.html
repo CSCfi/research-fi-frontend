@@ -5,7 +5,7 @@
     
  <div class="mobile mx-auto" id="navbar-toggle">
     <button class="navbar-toggler navbar-toggler-right container" type="button" (click)="openModal(filterModal)">
-        <h3>Rajaa hakua</h3>
+        <h3>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h3>
     </button>
 </div>
 

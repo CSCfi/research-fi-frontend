@@ -124,6 +124,9 @@ export class FilterService {
         filter.forEach(value => { res.push({ term : { 'fundingGroupPerson.consortiumOrganizationId.keyword' : value } }); });
         break;
       }
+      case 'news': {
+        filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
+      }
     }
     return res;
   }
@@ -268,6 +271,7 @@ export class FilterService {
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
+            ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
             // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
             ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
@@ -290,6 +294,11 @@ export class FilterService {
       from: fromPage,
       sort: sortOrder
     };
+  }
+
+  constructNewsPayload() {
+    const query = this.constructQuery('news', undefined);
+    return query;
   }
 
   // Check current ui language
@@ -609,27 +618,40 @@ export class FilterService {
             field: 'keywords.keyword.keyword',
             size: 50
           },
-        }
+        };
         break;
-        case 'organizations':
-          payLoad.aggs.sector = {
-            terms: {
-              field: 'sectorId.keyword',
-              size: 50,
-              order: {
-                _key: 'asc'
+      case 'organizations':
+        payLoad.aggs.sector = {
+          terms: {
+            field: 'sectorId.keyword',
+            size: 50,
+            order: {
+              _key: 'asc'
+            }
+          },
+          aggs: {
+            sectorId: {
+              terms: {
+                field: 'sectorNameFi.keyword'
               }
             },
-            aggs: {
-              sectorId: {
-                terms: {
-                  field: 'sectorNameFi.keyword'
-                }
-              },
+          }
+        };
+        break;
+      case 'news':
+        payLoad.aggs.organization = {
+          terms: {
+            field: 'organizationId.keyword'
+          },
+          aggs: {
+            orgName: {
+              terms: {
+                field: 'organizationNameFi.keyword'
+              }
             }
-          };
-          break;
-
+          }
+        };
+        break;
       default:
         break;
     }
