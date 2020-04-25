@@ -21,7 +21,7 @@
               <h2>404 - Virheellinen osoite</h2>
          </div>
          <main class="col-12 col-md-8">
-             <div *ngFor="let item of responseData.infrastructures">
+             <div *ngFor="let item of [responseData.infrastructures[0]]">
                  <h1 class="result-header">{{item.name}}</h1>
                  <div id="info" class="table">
                      <div class="content">
@@ -74,7 +74,7 @@
                  </div>
               </div>
           </main>
-          <div *ngFor="let item of responseData.infrastructures" class="col-12 col-md-4">
+          <div *ngFor="let item of [responseData.infrastructures[0]]" class="col-12 col-md-4">
              <aside>
                   <mat-card>
                      <mat-card-title><h2>Infrastruktuurin verkkosivu</h2></mat-card-title>
@@ -102,7 +102,7 @@
              <aside>
                  <mat-card>
                      <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
-                     <div *ngFor="let source of responseData.infrastructures">
+                     <div *ngFor="let source of [responseData.infrastructures[0]]">
                          <p>{{source.responsibleOrganizationNameFi}}</p>
                      </div>
                      <div class="clear"></div>
