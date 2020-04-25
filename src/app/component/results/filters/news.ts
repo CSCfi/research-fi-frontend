@@ -26,6 +26,7 @@ export class NewsFilters {
   }
 
   organization(data) {
+    // Hotfix to reorder array
     function move(array, from, to) {
       if ( to === from ) {return array; }
       const target = array[from];
@@ -43,7 +44,7 @@ export class NewsFilters {
       label: item.orgName ? item.orgName.buckets[0].key : item.key,
       doc_count: item.doc_count
     });
-
+    // Move Turun yliopisto after Luonnonvarakeskus
     move(result, 1, 2);
     return result;
   }
