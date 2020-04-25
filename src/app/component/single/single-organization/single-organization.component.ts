@@ -99,7 +99,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   getData(id: string) {
     this.singleService.getSingleOrganization(id)
-    // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.organizations[0]) {

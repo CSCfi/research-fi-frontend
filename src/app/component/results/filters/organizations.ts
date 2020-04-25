@@ -15,7 +15,7 @@ import { Injectable } from '@angular/core';
 
 export class OrganizationFilters {
   filterData = [
-    {field: 'sector', labelFi: 'Organisaatio', hasSubFields: false, limitHeight: false, open: true},
+    {field: 'sector', labelFi: 'Sektori', hasSubFields: false, limitHeight: false, open: true},
   ];
 
   singleFilterData = [
