@@ -286,7 +286,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 });
               }
             });
-            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1') {
+            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
+            && subUnit.OrgUnitId !== '-1') {
               orgUnitArr.push({
                 subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
               });
@@ -296,7 +297,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             authors: authorArr, orgUnits: orgUnitArr});
         });
       });
-
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
       const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
