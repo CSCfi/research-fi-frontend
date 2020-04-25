@@ -101,28 +101,6 @@ export class SortService {
         this.yearField = 'publicationYear'; // Change this according to index
         break;
       }
-      case 'infrastructures': {
-        this.yearField = 'startYear';
-        break;
-      }
-      case 'organizations': {
-        this.yearField = 'thesisYear.keyword';
-        switch (this.sortColumn) {
-          case 'name': {
-            this.sort = [{'nameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-          case 'sector': {
-            this.sort = [{'sectorNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-          default: {
-            this.sort = [{'nameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
-            break;
-          }
-        }
-        break;
-      }
       case 'fundings': {
         this.yearField = 'fundingStartYear';
         switch (this.sortColumn) {
@@ -148,6 +126,53 @@ export class SortService {
               ...(this.searchTerm.length > 0 ?
                 [{'projectNameFi.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
             ];
+            break;
+          }
+        }
+        break;
+      }
+      case 'infrastructures': {
+        this.yearField = 'startYear';
+        switch (this.sortColumn) {
+          case 'acronym': {
+            this.sort = [{'acronym.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'name': {
+            this.sort = [{'name.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'organization': {
+            this.sort = [{'responsibleOrganizationNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          // case 'sector': {
+          //   this.sort = [{'responsibleOrganizationNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+          //   break;
+          // }
+          default: {
+            this.sort = [
+              ...(this.searchTerm.length > 0 ?
+                [{'name.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
+            ];
+            break;
+          }
+        }
+        break;
+      }
+      case 'organizations': {
+        this.yearField = 'thesisYear.keyword';
+        switch (this.sortColumn) {
+          case 'name': {
+            this.sort = [{'nameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'sector': {
+            this.sort = [{'sectorNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          default: {
+            this.sort = [{'nameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
             break;
           }
         }

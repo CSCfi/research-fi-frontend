@@ -26,11 +26,26 @@ export class NewsFilters {
   }
 
   organization(data) {
+    // Hotfix to reorder array
+    function move(array, from, to) {
+      if ( to === from ) {return array; }
+      const target = array[from];
+      const increment = to < from ? -1 : 1;
+
+      for (let k = from; k != to; k += increment) {
+        array[k] = array[k + increment];
+      }
+      array[to] = target;
+      return array;
+    }
+
     const result = data.map(item => item = {
       key: item.key,
       label: item.orgName ? item.orgName.buckets[0].key : item.key,
       doc_count: item.doc_count
     });
+    // Move Turun yliopisto after Luonnonvarakeskus
+    move(result, 1, 2);
     return result;
   }
 
