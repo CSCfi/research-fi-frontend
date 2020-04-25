@@ -286,7 +286,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 });
               }
             });
-            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1') {
+            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' ') {
               orgUnitArr.push({
                 subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
               });
