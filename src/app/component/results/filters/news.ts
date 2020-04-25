@@ -28,7 +28,7 @@ export class NewsFilters {
   organization(data) {
     const result = data.map(item => item = {
       key: item.key,
-      label: item.orgName?.buckets[0].key,
+      label: item.orgName ? item.orgName.buckets[0].key : item.key,
       doc_count: item.doc_count
     });
     return result;
