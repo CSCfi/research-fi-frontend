@@ -23,6 +23,10 @@
                                 <input #searchInput disabled="true" type="text" placeholder="Hae tiedeuutisista...">
                             </nav>
                         </div>
+                        <aside>
+                            <!-- results/active-filters -->
+                            <app-active-filters></app-active-filters>
+                        </aside>
                         <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
                     </div>
                 </main>
