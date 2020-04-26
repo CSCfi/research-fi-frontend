@@ -55,7 +55,7 @@
                             <div class="col-6 col-lg-9 td">
                                 <div [ngClass]="expand ? 'expand' : 'short'">
                                         <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
-                                            <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/organization/{{consortium.consortiumOrganizationId}}">{{consortium.consortiumOrganizationNameFi}}</a>
+                                            <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">{{consortium.consortiumOrganizationNameFi}}</a>
                                             <ng-container *ngIf="!consortium.consortiumOrganizationId">{{consortium.consortiumOrganizationNameFi}}</ng-container>
                                                 ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
                                         </ng-container>
