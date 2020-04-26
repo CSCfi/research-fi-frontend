@@ -261,6 +261,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               this.activeFilters[foundIndex].translation = result.typeName ? result.typeName.buckets[0].key : '';
             }
 
+            // Infrastructure
+            if (val.category === 'type' && source.type) {
+              val.translation = val.translation.charAt(0).toUpperCase() + val.translation.slice(1);
+            }
+
             // Organization, sector
             if (val.category === 'sector' && source.sector) {
               const result = source.sector.buckets.find(({ key }) => key === val.value);
