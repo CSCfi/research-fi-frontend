@@ -75,6 +75,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
           fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
           fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
           faField: [query.faField].flat().filter(x => x).sort(),
+          // Infrastructures
+          type: [query.type].flat().filter(x => x).sort(),
         };
       }
 
