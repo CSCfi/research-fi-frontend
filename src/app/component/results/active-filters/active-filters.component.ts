@@ -71,7 +71,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   ngOnInit() {
     this.currentTab = this.sortService.currentTab;
-    switch (this.currentTab.link) {
+    switch (this.currentTab) {
       case 'publications':
         this.tabFilters = this.publicationFilters.filterData;
         this.yearRange = 'Julkaisuvuosi: ';
@@ -258,7 +258,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
               const result = source.typeOfFunding.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.typeName ? result.typeName.buckets[0].key : '';
+              this.activeFilters[foundIndex].translation = result.typeName.buckets[0]?.key ? result.typeName.buckets[0].key :
+              val.value;
             }
 
             // Infrastructure
@@ -288,7 +289,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
           }
         }
       });
-
       // Sort active filters by numerical value
       this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
