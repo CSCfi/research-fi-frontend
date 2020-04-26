@@ -12,6 +12,7 @@ import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient
 export class Recipient {
     [x: string]: any;
     constructor(
+        public projectId: string,
         public personName: string,
         public personOrcid: string,
         public affiliation: string,
@@ -79,6 +80,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             combined = '-';
         }
         return new Recipient(
+            recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
             recipientObj?.fundingGroupPersonOrcid,
             recipientObj?.consortiumOrganizationNameFi, // affiliation
