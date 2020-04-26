@@ -42,11 +42,10 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const services: InfraService[] = [];
         const keywords: string[] = [];
 
-        item.services.forEach(service => services.push(this.isa.adapt(service)));
-        item.keywords.forEach(obj => keywords.push(obj.keyword));
+        item.services?.forEach(service => services.push(this.isa.adapt(service)));
+        item.keywords?.forEach(obj => keywords.push(obj.keyword));
 
-        const keywordsString = keywords.join(', ');
-
+        const keywordsString = keywords?.join(', ');
 
         return new Infrastructure(
             item.name,
