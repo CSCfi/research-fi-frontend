@@ -117,7 +117,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
-        console.log(this.responseData.fundings[0]);
       }
     },
       error => this.errorMessage = error as any);
@@ -148,6 +147,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.linkFields = this.linkFields.filter(item => checkEmpty(item));
     // Same for nested fields
     this.funderFields = this.funderFields.filter(item => checkNestedEmpty('funder', item));
+    // Filter out empty organization names
+    this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(item =>
+      item.nameFi !== '');
   }
 
   shapeData() {
