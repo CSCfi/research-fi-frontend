@@ -491,7 +491,7 @@ export class FilterService {
               terms: {
                 size: 50,
                 field: 'organizationConsortium.consortiumSectorNameFi.keyword',
-                exclude: ' '
+                exclude: ' |Rahoittaja'
               },
               aggs: {
                 sectorId: {
@@ -527,7 +527,7 @@ export class FilterService {
               terms: {
                 size: 50,
                 field: 'fundingGroupPerson.fundedPersonSectorNameFi.keyword',
-                exclude: ' '
+                exclude: ' |Rahoittaja'
               },
               aggs: {
                 sectorId: {
