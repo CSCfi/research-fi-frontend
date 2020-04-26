@@ -117,6 +117,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData.infrastructures[0][item.field] !== undefined &&
              this.responseData.infrastructures[0][item.field] !== 0 &&
+             this.responseData.infrastructures[0][item.field] !== '0' &&
              this.responseData.infrastructures[0][item.field] !== null &&
              this.responseData.infrastructures[0][item.field] !== '' &&
              this.responseData.infrastructures[0][item.field] !== ' ' &&
