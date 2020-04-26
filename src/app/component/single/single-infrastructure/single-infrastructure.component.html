@@ -38,39 +38,48 @@
                             </div>
                          </ng-container>
                      </div>
-                     <p class="subheader trHeader">Tutkimusinfrastruktuurin palvelut</p>
-                     <div class="content" *ngFor="let service of item.services; let i = index;">
-                        <p class="header trHeader subtitle" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</p>
-                        <ng-container *ngIf="showService[i]">
-                            <div *ngFor="let row of serviceFields; let j = index;" class="row">
-                                <ng-container *ngIf="service[row.field]">
-                                    <div class="col-6 col-lg-3 th">{{row.label}}</div>
-                                    <div class="col-6 col-lg-9 td">
-                                        <p [ngClass]="serviceExpand[serviceExpandId(i, j)] ? 'expand' : 'short'">
-                                            {{service[row.field]}}
-                                        </p>
-                                        <a href="javascript:void(0)" class="read-more" *ngIf="service[row.field].length > 256" 
-                                            (click)="expandServiceDescription(serviceExpandId(i, j))" [innerHTML]="serviceExpand[serviceExpandId(i, j)] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
-                                    </div>
-                                </ng-container>
-                            </div>
-                            <div *ngFor="let servicePoint of service.servicePoints; let j = index;">
-                                <div class="row" (click)="toggleServicePoint(i, j)">
-                                    <div class="col-6 col-lg-3 th subtitle" [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'">Palvelupiste</div>
-                                    <div class="col-6 col-lg-9 td">{{servicePoint.name}}</div>
-                                </div>
-                                <div *ngIf="showServicePoint[i][j]" class="pl-4">
-                                    <div class="th">Yhteystiedot</div>
-                                    <div *ngFor="let row of servicePointFields" class="row ">
-                                        <ng-container *ngIf="servicePoint[row.field]?.trim()">
-                                            <div class="col-6 col-lg-3 th pl-4">{{row.label}}</div>
-                                            <div class="col-6 col-lg-9 td">{{servicePoint[row.field]}}</div>
+                     <ng-container *ngIf="item.services.length > 0">
+                        <p class="subheader trHeader">Tutkimusinfrastruktuurin palvelut</p>
+                        <div class="content" *ngFor="let service of item.services; let i = index;">
+                            <ng-container *ngIf="(service.name !== '#N/A' || service.name !== '0') && !service.servicePoints.hide; else simpleServicePoints">
+                                <p class="header trHeader subtitle" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</p>
+                                <ng-container *ngIf="showService[i]">
+                                    <div *ngFor="let row of serviceFields; let j = index;" class="row">
+                                        <ng-container *ngIf="service[row.field]">
+                                            <div class="col-6 col-lg-3 th">{{row.label}}</div>
+                                            <div class="col-6 col-lg-9 td">
+                                                <p [ngClass]="serviceExpand[serviceExpandId(i, j)] ? 'expand' : 'short'">
+                                                    {{service[row.field]}}
+                                                </p>
+                                                <a href="javascript:void(0)" class="read-more" *ngIf="service[row.field].length > 256" 
+                                                    (click)="expandServiceDescription(serviceExpandId(i, j))" [innerHTML]="serviceExpand[serviceExpandId(i, j)] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
+                                            </div>
                                         </ng-container>
                                     </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
+                                    <ng-container *ngIf="!service.servicePoints.hide">
+                                        <div *ngFor="let servicePoint of service.servicePoints; let j = index;">
+                                            <div class="row" (click)="toggleServicePoint(i, j)">
+                                                <div class="col-6 col-lg-3 th subtitle" [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'">Palvelupiste</div>
+                                                <div class="col-6 col-lg-9 td">{{servicePoint.name}}</div>
+                                            </div>
+                                            <div *ngIf="showServicePoint[i][j]" class="pl-4">
+                                                <div class="th">Yhteystiedot</div>
+                                                <div *ngFor="let row of servicePointFields" class="row ">
+                                                    <ng-container *ngIf="servicePoint[row.field]?.trim()">
+                                                        <div class="col-6 col-lg-3 th pl-4">{{row.label}}</div>
+                                                        <div class="col-6 col-lg-9 td">{{servicePoint[row.field]}}</div>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <ng-template #simpleServicePoints>
+                                <p class="header trHeader">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</p>
+                            </ng-template>
+                        </div>
+                    </ng-container>
                  </div>
               </div>
           </main>
@@ -99,11 +108,15 @@
              </aside>
              <!-- Social icons -->
              <app-share></app-share>
+             <!-- Source -->
              <aside>
                  <mat-card>
                      <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
                      <div *ngFor="let source of [responseData.infrastructures[0]]">
-                         <p>{{source.responsibleOrganizationNameFi}}</p>
+                         <p *ngIf="source.responsibleOrganizationNameFi?.trim().length > 0; else noSource">{{source.responsibleOrganizationNameFi}}</p>
+                         <ng-template #noSource>
+                             <p class="font-italic m-0">Infrastruktuuritiedon lähde puuttuu.</p>
+                         </ng-template>
                      </div>
                      <div class="clear"></div>
                  </mat-card>
