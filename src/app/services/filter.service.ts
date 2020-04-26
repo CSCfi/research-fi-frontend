@@ -31,18 +31,19 @@ export class FilterService {
   sectorFilter: any;
   faFieldFilter: any;
   organizationFilter: any;
+  typeFilter: any;
   currentFilters: any;
   today: string;
 
   private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], faFieldFilter: [], sector: [], organization: []});
+    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
-    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[]}) {
+    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -69,12 +70,14 @@ export class FilterService {
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
     // Funding
-    this.funderFilter = this.basicFilter(filter.funder, 'funderName' + this.localeC + '.keyword')
-    this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword')
-    this.fundingSchemeFilter = this.basicFilter(filter.scheme, 'keywords.scheme.keyword')
+    this.funderFilter = this.basicFilter(filter.funder, 'funderName' + this.localeC + '.keyword');
+    this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword');
+    this.fundingSchemeFilter = this.basicFilter(filter.scheme, 'keywords.scheme.keyword');
     this.statusFilter = this.filterByStatus(filter.fundingStatus);
     this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword');
+    // Infrastructure
+    this.typeFilter = this.basicFilter(filter.type, 'services.serviceType.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
   }
@@ -270,6 +273,7 @@ export class FilterService {
             ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
             ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
             ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
+            ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
             ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
             ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
             ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
@@ -620,6 +624,16 @@ export class FilterService {
           },
         };
         break;
+      // Infrastructures
+      case 'infrastructures': {
+        payLoad.aggs.type = {
+          terms: {
+            field: 'services.serviceType.keyword'
+          }
+        }
+        break;
+      }
+      // Organizations
       case 'organizations':
         payLoad.aggs.sector = {
           terms: {
@@ -638,6 +652,7 @@ export class FilterService {
           }
         };
         break;
+      // News
       case 'news':
         payLoad.aggs.organization = {
           terms: {
