@@ -48,6 +48,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
   fundingFilters: {funder: any[], typeOfFunding: any[], scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
     faField: any[]};
+  infrastructureFilters: {type: any[]};
   filters: any;
   mobile: boolean;
   updateFilters: boolean;
@@ -121,6 +122,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
             fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
             faField: [query.faField].flat().filter(x => x).sort(),
+            // Infrastructures
+            type: [query.type].flat().filter(x => x).sort(),
           };
         }
 
