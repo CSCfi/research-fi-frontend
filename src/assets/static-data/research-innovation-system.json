@@ -6,7 +6,7 @@
                 "<p>Keskeisiä toimijoita tutkimus- ja innovaatiojärjestelmässä ovat yliopistot ja ammattikorkeakoulut, tutkimuslaitokset sekä yritysten tutkimusyksiköt. Noin kaksi kolmasosaa tutkimus- ja tuotekehitystyöstä tehdään yritysten toimesta. Rahoittajista merkittävimpiä ovat Suomen Akatemia, Business Finland sekä säätiöt.</p>",
                 "<p>Valtioneuvoston ministeriöt kehittävät yhdessä tutkimus- ja innovaatiojärjestelmää koskevia politiikkatoimia. Pääministerin johtama tutkimus- ja innovaationeuvosto tukee valtioneuvostoa pitkäjänteisen tiede-, teknologia- ja innovaatiopolitiikan (TKI-politiikka) kehittämisessä ja yhteensovittamisessa. Se seuraa alan toimintaympäristön muutoksia sekä tekee TKI-politiikkaan liittyviä aloitteita.</p>",
                 "<p>Suomen hallitus on asettanut tavoitteeksi nostaa Suomen tutkimus- ja kehittämismenojen osuus nykyisestä 2,7 prosentin bruttokansantuoteosuudesta 4 prosenttiin 2030 mennessä. Tähän pääsemiseksi tarvitaan yhteistä näkemystä ja missioita, kunnianhimoisempaa TKI-toimintaa sekä investointeja niin julkiselta kuin yksityiseltä sektorilta. Ilman yksityisen sektorin investointien merkittävää kasvua tavoite ei voi toteutua.</p>",
-                "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\">TKI-tiekartta <i class='fas fa-external-link-alt'></i></a> on laadittu edistämään tämän tavoitteen saavuttamista ja sen myötä syntyvää kestävää kasvua sekä luomaan toimintaympäristö, joka kannustaa sekä suomalaisia että ulkomaisia yrityksiä investoimaan TKI-toimintaan Suomessa. Tavoitteena on, että Suomi pysyy uuden tiedon tuottamisen sekä teknologian kehittämisen ja soveltamisen eturintamassa. Tärkeää on, että Suomi myös nopeasti omaksuu muualla tuotettua tietoa ja osaamista. Keskeisessä asemassa tiekartassa on vaadittavien inhimillisten voimavarojen saatavuuden turvaaminen.</p>"
+                "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\" target=\"_blank\">TKI-tiekartta <i class='fas fa-external-link-alt'></i></a> on laadittu edistämään tämän tavoitteen saavuttamista ja sen myötä syntyvää kestävää kasvua sekä luomaan toimintaympäristö, joka kannustaa sekä suomalaisia että ulkomaisia yrityksiä investoimaan TKI-toimintaan Suomessa. Tavoitteena on, että Suomi pysyy uuden tiedon tuottamisen sekä teknologian kehittämisen ja soveltamisen eturintamassa. Tärkeää on, että Suomi myös nopeasti omaksuu muualla tuotettua tietoa ja osaamista. Keskeisessä asemassa tiekartassa on vaadittavien inhimillisten voimavarojen saatavuuden turvaaminen.</p>"
             ]
         },
         "university": {
@@ -39,6 +39,10 @@
                 {
                     "name": "Lappeenrannan teknillinen yliopisto",
                     "id": "01914"
+                },
+                {
+                    "name": "Maanpuolustuskorkeakoulu",
+                    "id": "02358"
                 },
                 {
                     "name": "Oulun yliopisto",
@@ -228,8 +232,16 @@
                     "id": "4020217"
                 },
                 {
+                    "name": "Ruokavirasto",
+                    "id": "430001"
+                },
+                {
                     "name": "Suomen ympäristökeskus",
                     "id": "7020017"
+                },
+                {
+                    "name": "Säteilyturvakeskus",
+                    "id": "5550012"
                 },
                 {
                     "name": "Teknologian tutkimuskeskus VTT Oy",
@@ -246,6 +258,10 @@
                 {
                     "name": "Ulkopoliittinen instituutti",
                     "id": "1120017"
+                },
+                {
+                    "name": "Valtion taloudellinen tutkimuskeskus",
+                    "id": "3060016"
                 }
             ]
         },
