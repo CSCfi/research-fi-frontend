@@ -17,6 +17,7 @@ export class RecipientOrganization {
         public nameEn: string,
         public role: string,
         public shareOfFundingEur: number,
+        public pic: string,
     ) {}
 }
 
@@ -30,6 +31,7 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
         if (item) {
             Object.keys(item).map(k => item[k] = typeof item[k] === 'string' ? item[k].trim() : item[k]);
         }
+        console.log(item)
         return new RecipientOrganization(
             item.consortiumOrganizationId,
             item.consortiumOrganizationBusinessId,
@@ -37,7 +39,8 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
             item.consortiumOrganizationNameSv,
             item.consortiumOrganizationNameEn,
             item.roleInConsortium,
-            item.shareOfFundingInEur
+            item.shareOfFundingInEur,
+            item.consortiumOrganizationPic
         );
     }
 }
