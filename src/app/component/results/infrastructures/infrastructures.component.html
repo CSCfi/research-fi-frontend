@@ -44,7 +44,7 @@
                     </a>
                 </div>
                 <div class="col col-3 col-xl-2 d-none d-lg-block">
-                    <span [innerHtml]="infra.acronym?.length > 0 ? infra.acronym : '-' | highlight: input"></span>
+                    <span [innerHtml]="infra.acronym?.length > 0 && infra.acronym !== '0' ? infra.acronym : '-' | highlight: input"></span>
                 </div>      
                 <div class="col col-lg-4 col-xl-4">
                     <a routerLink="/results/infrastructure/{{infra.id}}">
