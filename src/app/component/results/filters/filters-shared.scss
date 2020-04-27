@@ -205,6 +205,9 @@
 
         span.label {
             font-size: 1.1rem;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: block;
         }
 
         label.mat-checkbox-layout {
