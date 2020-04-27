@@ -72,7 +72,7 @@
                             class="info-icon" icon="info-circle"></fa-icon>
                         </p>
                         <!-- Person -->
-                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName.trim().length > 0">
+                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName?.trim().length > 0">
                             <div class="col-3 th">
                                 <div>
                                     Nimi
