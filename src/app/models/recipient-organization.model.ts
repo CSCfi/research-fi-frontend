@@ -31,7 +31,7 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
         if (item) {
             Object.keys(item).map(k => item[k] = typeof item[k] === 'string' ? item[k].trim() : item[k]);
         }
-        console.log(item)
+
         return new RecipientOrganization(
             item.consortiumOrganizationId,
             item.consortiumOrganizationBusinessId,
