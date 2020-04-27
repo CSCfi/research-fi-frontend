@@ -117,7 +117,8 @@
                             </div>
                             <ng-container *ngFor="let org of item.recipient.organizations; let i = index;">
                                 <div class="col-5 td" [class.offset-3]="i>0">
-                                    <a *ngIf="org.id" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
+                                    <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
+                                    <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
                                     <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>    
                                 </div>
                                 <div class="col-4 td">{{org.shareOfFundingEur | thousandSeparator}} €</div>
