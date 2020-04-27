@@ -123,7 +123,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.getNews(100)
     .subscribe(data => {
       this.data = data;
-      // console.log(this.data);
     }, error => this.errorMessage = error as any);
   }
 

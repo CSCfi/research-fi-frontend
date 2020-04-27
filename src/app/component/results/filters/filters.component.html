@@ -102,7 +102,7 @@
                         <mat-list-option checkboxPosition="before" *ngFor="let item of response.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
                         [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)" (keydown.enter)="selectionChange(filter.field, item.key)">
                             <div class="row d-flex justify-content-around">
-                                <div class="col-8"><span class="label">{{item.label ? item.label : item.key}}</span></div>
+                                <div class="col-8 pr-0"><span class="label">{{item.label ? item.label : item.key}}</span></div>
                                 <div class="col-2 pr-0 text-right" *ngIf="item.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="item?.tooltipFi"></div></ng-template>
                                     <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
