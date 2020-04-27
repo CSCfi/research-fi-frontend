@@ -60,8 +60,8 @@ export class SortService {
     this.sortMethod = sort;
     const randomize = {
       script: 'Math.random()',
-			type: 'number',
-			order: 'asc'
+      type: 'number',
+      order: 'asc'
     };
 
     this.initSort(sort || '');
