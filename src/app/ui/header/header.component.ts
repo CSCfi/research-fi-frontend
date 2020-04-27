@@ -224,7 +224,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   toggleBetaInfo() {
-    this.betaReviewDialogRef = this.dialog.open(BetaInfoComponent);
+    this.betaReviewDialogRef = this.dialog.open(BetaInfoComponent, {
+      height: '600px',
+      width: '700px',
+      autoFocus: false,
+    });
   }
 
 }
