@@ -41,13 +41,14 @@ export class RecipientAdapter implements Adapter<Recipient> {
             item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
             // Get Finnish organizations only (based on business id)
             if (item.organizationConsortium.find(org => org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-')) {
-                combined = item.organizationConsortium.find(org =>
+                const finnish = item.organizationConsortium.filter
+                                (org => org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-');
+
+                combined = finnish.length > 1 ? finnish.map
+                    (x => x.consortiumOrganizationNameFi).join('; ') : finnish.find(org =>
                     org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-').consortiumOrganizationNameFi;
             } else {
                 combined = item.organizationConsortium.filter(x =>
-                    // Check for empty and filter out uppercase organizations. Uppercased organizations are duplicates
-                    // (x.consortiumOrganizationNameFi.trim() !== '' && x.consortiumOrganizationNameFi.toUpperCase() !==
-                                                                        // x.consortiumOrganizationNameFi) &&
                     (x.consortiumOrganizationNameFi.trim() !== '') &&
                     // Check for finnish business ID identifier
                     (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
@@ -79,6 +80,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
         } else {
             combined = '-';
         }
+        console.log(combined);
         return new Recipient(
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',

@@ -45,7 +45,7 @@
                                 <p class="header trHeader subtitle" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</p>
                                 <ng-container *ngIf="showService[i]">
                                     <div *ngFor="let row of serviceFields; let j = index;" class="row">
-                                        <ng-container *ngIf="service[row.field] && service[row.field] !== '0'">
+                                        <ng-container *ngIf="service[row.field] && service[row.field] !== '0'  && service[row.field] !== '#N/A'">
                                             <div class="col-6 col-lg-3 th">{{row.label}}</div>
                                             <div class="col-6 col-lg-9 td">
                                                 <p [ngClass]="serviceExpand[serviceExpandId(i, j)] ? 'expand' : 'short'">
