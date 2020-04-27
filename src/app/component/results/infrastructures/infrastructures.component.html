@@ -54,7 +54,7 @@
                         <div class="col pl-0">
                             <span>Palveluita: {{infra.services.length}}</span>
                         </div>
-                        <div class="col">
+                        <div class="col" *ngIf="infra.finlandRoadmap">
                             <span>Tiekartalla <fa-icon class="check-icon" [icon]="faCheckCircle"></fa-icon></span>
                         </div>
                     </div>
