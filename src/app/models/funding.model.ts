@@ -52,6 +52,7 @@ export class FundingAdapter implements Adapter<Funding> {
             }
             // One person -> person, don't show consortium
             case 1: {
+                // item.recipientType = item.fundingGroupPerson[0].consortiumOrganizationNameFi === ' ' ? 'organization' : 'person';
                 item.recipientType = 'person';
                 break;
             }
