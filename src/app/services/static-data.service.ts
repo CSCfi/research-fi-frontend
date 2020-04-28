@@ -15,7 +15,7 @@ export class StaticDataService {
   majorFieldsOfScience = [
     {id: 1, key: 'Luonnontieteet', checked: false, subData: [], doc_count: 0},
     {id: 2, key: 'Tekniikka', checked: false, subData: [], doc_count: 0},
-    {id: 3, key: 'Lääke- ja yritystieteet', checked: false, subData: [], doc_count: 0},
+    {id: 3, key: 'Lääke- ja yrttitieteet', checked: false, subData: [], doc_count: 0},
     {id: 4, key: 'Maatalous- ja metsätieteet', checked: false, subData: [], doc_count: 0},
     {id: 5, key: 'Yhteiskuntatieteet', checked: false, subData: [], doc_count: 0},
     {id: 6, key: 'Humanistiset tieteet', checked: false, subData: [], doc_count: 0},
