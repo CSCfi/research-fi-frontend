@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule, Title, Meta } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -227,6 +227,7 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
   providers: [
     SearchService,
     Title,
+    Meta,
     AutosuggestService,
     WINDOW_PROVIDERS,
     AppConfigService,
