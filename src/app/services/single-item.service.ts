@@ -41,7 +41,8 @@ export class SingleItemService {
         match: {
           [field]: term
         }
-      }
+      },
+      size: 1
     };
     return res;
   }

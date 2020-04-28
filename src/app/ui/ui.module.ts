@@ -20,9 +20,10 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { BetaReviewComponent } from './beta-review/beta-review.component';
+import { BetaInfoComponent } from './beta-info/beta-info.component';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, BetaReviewComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, BetaReviewComponent, BetaInfoComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

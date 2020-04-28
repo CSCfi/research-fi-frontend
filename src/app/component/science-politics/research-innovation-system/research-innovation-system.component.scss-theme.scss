@@ -11,6 +11,10 @@
     $primary: map-get($theme, primary);
 
     app-research-innovation-system {
+        .mat-expansion-panel-content .org-links a {
+            color: mat-contrast($primary, 50);
+            text-decoration: underline;
+        }
 
     }
 }

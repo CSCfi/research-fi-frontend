@@ -273,7 +273,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (author?.length > 0) {
       author.forEach(item => {
         item.organization.forEach(org => {
-          const authorArr = [];
+          let authorArr = [];
           const orgUnitArr = [];
           org.organizationUnit.forEach(subUnit => {
             subUnit.person?.forEach(person => {
@@ -286,17 +286,28 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 });
               }
             });
-            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1') {
+            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
+            && subUnit.OrgUnitId !== '-1') {
               orgUnitArr.push({
                 subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
               });
             }
           });
+
+          // Find duplicates and filter authors with subUnit
+          const duplicates = authorArr.filter((obj, index, self) =>
+            index === self.findIndex((t) => (
+             t.author === obj.author && t.subUnit !== null
+            ))
+          );
+
+          authorArr = duplicates.length > 0 ? duplicates : authorArr;
+
+          // authorArr = authorArr.filter(x => x.subUnit !== null);
           this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
             authors: authorArr, orgUnits: orgUnitArr});
         });
       });
-
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
       const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
@@ -306,6 +317,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           organizations: this.authorAndOrganization.map(item => item.orgId)
       };
     }
+
+    // console.log(this.authorAndOrganization[0].authors.filter(x => x.subUnit !== null));
+
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';

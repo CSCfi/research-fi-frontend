@@ -30,14 +30,14 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   tabQueryParams: any;
   tab = 'fundings';
 
-  infoFields = [
+  info = [
     {label: 'Akronyymi', field: 'acronym'},
     {label: 'Hankkeen kuvaus', field: 'descriptionFi', tooltipFi: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta'},
     {label: 'Aloitusvuosi', field: 'startYear', tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
     {label: 'Päättymisvuosi', field: 'endYear'},
   ];
 
-  fundedFields = [
+  funded = [
     {label: 'Nimi', field: 'personName'},
     {label: 'Affiliaatio', field: 'affiliation'},
     {label: 'Rahoituksen saaja (organisaatio)', field: 'organizationName'},
@@ -45,13 +45,13 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Myönnetty summa', field: 'amountEur'},
   ];
 
-  funderFields =  [
+  funder =  [
     {label: 'Nimi', field: 'nameFi'},
     {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi', tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.'},
     {label: 'Haku', field: 'callProgrammeNameFi', tooltipFi: 'Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.'}
   ];
 
-  otherFields = [
+  other = [
     {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'},
     {label: 'Tieteenalat', field: 'fieldsOfScience'},
     {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
@@ -60,7 +60,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     // {label: 'Avainsanat', field: 'keywords'},
   ];
 
-  linkFields = [
+  link = [
     {label: 'Linkit', field: 'projectHomepage'}
   ];
 
@@ -72,6 +72,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   faIcon = faFileAlt;
 
   expand: boolean;
+  infoFields: any[];
+  fundedFields: any[];
+  otherFields: any[];
+  linkFields: any[];
+  funderFields: ({ label: string; field: string; tooltipFi?: undefined; } | { label: string; field: string; tooltipFi: string; })[];
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
@@ -141,12 +146,15 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     };
 
     // Filter all the fields to only include properties with defined data
-    this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    this.fundedFields = this.fundedFields.filter(item => checkEmpty(item));
-    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
-    this.linkFields = this.linkFields.filter(item => checkEmpty(item));
+    this.infoFields = Object.assign(this.info.filter(item => checkEmpty(item)));
+    this.fundedFields = Object.assign(this.funded.filter(item => checkEmpty(item)));
+    this.otherFields = Object.assign(this.other.filter(item => checkEmpty(item)));
+    this.linkFields = Object.assign(this.link.filter(item => checkEmpty(item)));
     // Same for nested fields
-    this.funderFields = this.funderFields.filter(item => checkNestedEmpty('funder', item));
+    this.funderFields = Object.assign(this.funder.filter(item => checkNestedEmpty('funder', item)));
+    // Filter out empty organization names
+    this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(item =>
+      item.nameFi !== '');
   }
 
   shapeData() {

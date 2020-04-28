@@ -15,14 +15,7 @@
             </div>
         </div>
         <div class="row base">
-            <div class="col-12 col-lg-8 pt-4">
-                <!-- <p>Korkeakoulujärjestelmä muodostuu yliopistoista ja ammattikorkeakouluista. Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa ja 23 ammattikorkeakoulua.</p>
-                <p>Hallinnonalan virastoista ja laitoksista korkeakoulu- ja tiedepolitiikan osaston toimialaan kuuluvat Suomen Akatemia, Kansallisarkisto, Kotimaisten kielten keskus ja Varastokirjasto.</p>
-                <p>Yliopistoissa korostuu tieteellinen tutkimus ja siihen perustuva opetus. Ammattikorkeakoulut puolestaan tarjoavat käytännönläheista ja työelämän tarpeisiin vastaavaa koulutusta.
-                    Ammattikorkeakoulujen tutkimus-, kehittämis- ja innovaatiotoiminnan pääpainopiste on soveltavassa tutkimus- ja kehitystyössä.
-                </p> -->
-                <p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. 
-                   If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>
+            <div class="col-12 col-lg-8 pt-4" [innerHTML]="introText">
             </div>
         </div>
         <div class="row base">
@@ -39,16 +32,15 @@
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div class="row">
-                                <div class="col-12 description" [innerHTML]=sector.data?.description></div>
+                                <div class="col-12 description" [innerHTML]="sector.data?.description.join('')"></div>
                                 <div class="col-12 col-md-3">
                                     <h3>{{sector.data?.subtitle}}</h3>
-                                    <ul>
+                                    <ul class="org-links">
                                         <li *ngFor="let org of sector.data?.organizations" class="organization">
                                             <a routerLink="/results/organization/{{org.id}}"><span>{{org.name}}</span></a>
                                         </li>
                                     </ul>
                                 </div>
-                                <p *ngIf="sector.iframeUrl.length === 0" class="col-12 col-md-8">Visualisaatio tulossa</p>
                                 <div *ngIf="sector.iframeUrl.length > 0" #iframe class="col-12 col-md-8 iframe-container">
                                     <iframe width="{{colWidth}}" height="{{colWidth * 0.75}}" [src]="sector.iframeUrl | safeUrl" frameborder="0" allowfullscreen='true'></iframe>
                                     <strong>{{sector?.iframeDescription}}</strong>

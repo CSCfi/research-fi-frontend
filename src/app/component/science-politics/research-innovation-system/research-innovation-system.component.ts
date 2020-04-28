@@ -27,6 +27,8 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
 
   colWidth = 0;
 
+  introText = sector.intro.description.join('');
+
   sectorList = [
     {
       id: 0,

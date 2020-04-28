@@ -11,6 +11,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SortService } from 'src/app/services/sort.service';
 import { Search } from 'src/app/models/search.model';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-infrastructures',
@@ -27,6 +28,7 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
   inputSub: any;
   input: string;
   focusSub: any;
+  faCheckCircle = faCheckCircle;
 
   constructor(private router: Router, private route: ActivatedRoute, private tabChangeService: TabChangeService,
               private searchService: SearchService, private sortService: SortService, private cdr: ChangeDetectorRef) { }

@@ -16,6 +16,8 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
 import { faChevronDown, faChevronUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BetaInfoComponent } from '../beta-info/beta-info.component';
 
 @Component({
   selector: 'app-header',
@@ -61,13 +63,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   skipLinkSub: any;
   hideInputSkip: boolean;
 
-  showInfo = false;
+  betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
               private cdr: ChangeDetectorRef, private renderer: Renderer2, private route: ActivatedRoute,
-              private tabChangeService: TabChangeService) {
+              private tabChangeService: TabChangeService, public dialog: MatDialog) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
@@ -212,17 +214,22 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     // }
   }
 
-  clickOutsideBeta(e: Event) {
-    this.showInfo = false;
-  }
 
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
-
   }
 
   changeFocus(target) {
     this.tabChangeService.targetFocus(target);
+  }
+
+  toggleBetaInfo() {
+    this.betaReviewDialogRef = this.dialog.open(BetaInfoComponent, {
+      height: '700px',
+      maxWidth: '60vw',
+      minWidth: '400px',
+      autoFocus: false,
+    });
   }
 
 }

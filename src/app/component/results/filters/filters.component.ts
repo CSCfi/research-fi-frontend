@@ -22,6 +22,7 @@ import { PersonFilters } from './persons';
 import { FundingFilters } from './fundings';
 import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
+import { NewsFilters } from './news';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from 'src/app/services/search.service';
@@ -72,7 +73,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
                private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
                private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, @Inject(PLATFORM_ID) private platformId: object ) {
+               private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
+               @Inject(PLATFORM_ID) private platformId: object ) {
                 this.showMoreCount = [];
                 }
 
@@ -125,6 +127,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       }
       case 'organizations': {
         this.parentPanel = 'sector';
+        break;
+      }
+      case 'news': {
+        this.parentPanel = '';
         break;
       }
     }
@@ -220,6 +226,17 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
           if (this.resetFilters) {
             this.organizationFilters.shapeData(this.responseData);
+            this.shapedData = this.responseData;
+          }
+          break;
+        }
+        case 'news': {
+          this.currentFilter = this.newsFilters.filterData;
+          // this.currentSingleFilter = this.newsFilters.singleFilterData;
+          this.newsFilters.shapeData(this.responseData);
+          this.shapedData = this.responseData;
+          if (this.resetFilters) {
+            this.newsFilters.shapeData(this.responseData);
             this.shapedData = this.responseData;
           }
           break;

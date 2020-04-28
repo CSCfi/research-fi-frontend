@@ -108,7 +108,7 @@ export class FundingFilters {
       item = {
         key: item.key,
         doc_count: item.doc_count,
-        label: item.typeName.buckets[0].key
+        label: item.typeName.buckets[0]?.key
     })
     return res;
   }

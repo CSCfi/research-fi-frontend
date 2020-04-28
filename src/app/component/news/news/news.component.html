@@ -5,15 +5,17 @@
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
 
+<div class="full-width"></div>
 <main id="main-content">
     <div class="wrapper">
         <div class="row" *ngIf="data">
-            <div class="col col-lg-2">
+            <div class="col col-xl-3" [ngClass]="mobile ? 'col-12 pb-4' : 'col-4 px-0'">
                 <aside>
-                    <app-filters [responseData]="[data]" [tabData]="'news'"></app-filters>
+                    <!-- results/filters -->
+                    <app-filters [responseData]="filterValues" [tabData]="'news'"></app-filters>
                 </aside>
             </div>
-            <div class="col col-lg-10">
+            <div class="col" [ngClass]="mobile ? 'col-12' : 'col-8'">
                 <main>
                     <div class="row">
                         <h1 class="col col-lg-8">Tiede- ja tutkimusuutiset</h1>
@@ -22,6 +24,10 @@
                                 <input #searchInput disabled="true" type="text" placeholder="Hae tiedeuutisista...">
                             </nav>
                         </div>
+                        <aside>
+                            <!-- results/active-filters -->
+                            <app-active-filters></app-active-filters>
+                        </aside>
                         <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
                     </div>
                 </main>

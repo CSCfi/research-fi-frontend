@@ -70,32 +70,30 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
    }
 
   ngOnInit() {
-    this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
-      this.currentTab = tab;
-      switch (this.currentTab.link) {
-        case 'publications':
-          this.tabFilters = this.publicationFilters.filterData;
-          this.yearRange = 'Julkaisuvuosi: ';
-          break;
-        case 'fundings':
-          this.tabFilters = this.fundingFilters.filterData;
-          this.yearRange = 'Aloitusvuosi: ';
-          break;
-        case 'infrastructures':
-          this.tabFilters = this.infrastructureFilters.filterData;
-          this.yearRange = 'Aloitusvuosi: ';
-          break;
-        case 'persons':
-          this.tabFilters = this.personFilters.filterData;
-          break;
-        case 'organizations':
-          this.tabFilters = this.organizationFilters.filterData;
-          break;
+    this.currentTab = this.sortService.currentTab;
+    switch (this.currentTab) {
+      case 'publications':
+        this.tabFilters = this.publicationFilters.filterData;
+        this.yearRange = 'Julkaisuvuosi: ';
+        break;
+      case 'fundings':
+        this.tabFilters = this.fundingFilters.filterData;
+        this.yearRange = 'Aloitusvuosi: ';
+        break;
+      case 'infrastructures':
+        this.tabFilters = this.infrastructureFilters.filterData;
+        this.yearRange = 'Aloitusvuosi: ';
+        break;
+      case 'persons':
+        this.tabFilters = this.personFilters.filterData;
+        break;
+      case 'organizations':
+        this.tabFilters = this.organizationFilters.filterData;
+        break;
 
-        default:
-          break;
-      }
-    });
+      default:
+        break;
+    }
   }
 
   ngAfterContentInit() {
@@ -260,7 +258,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
               const result = source.typeOfFunding.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.typeName ? result.typeName.buckets[0].key : '';
+              this.activeFilters[foundIndex].translation = result.typeName.buckets[0]?.key ? result.typeName.buckets[0].key :
+              val.value;
+            }
+
+            // Infrastructure
+            if (val.category === 'type' && source.type) {
+              val.translation = val.translation.charAt(0).toUpperCase() + val.translation.slice(1);
             }
 
             // Organization, sector
@@ -270,6 +274,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               this.activeFilters[foundIndex].translation = result.sectorId ? result.sectorId.buckets[0].key : '';
             }
 
+            // News, organization
+            if (this.currentTab === 'news' && source.organization) {
+              const result = source.organization.buckets.find(({ key }) => key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result.label;
+            }
           });
           // Set flag when all filters are translated & filter items that aren't hidden
           this.translationFlag = true;
@@ -279,7 +289,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
           }
         }
       });
-
       // Sort active filters by numerical value
       this.activeFilters = this.activeFilters.sort((a, b) => b.translation - a.translation);
     });
@@ -333,7 +342,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   ngOnDestroy() {
     this.queryParams.unsubscribe();
     this.filterResponse.unsubscribe();
-    this.tabSub.unsubscribe();
+    // this.tabSub.unsubscribe();
     this.containerSub.unsubscribe();
   }
 

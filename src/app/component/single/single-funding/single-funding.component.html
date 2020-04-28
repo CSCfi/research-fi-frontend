@@ -10,7 +10,7 @@
  
  <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
@@ -21,7 +21,6 @@
                  <h1 class="result-header">{{item.nameFi}}</h1>
                  <div id="info" class="table">
                     <div class="content">
-                        <p class="header trHeader">Hanke</p>
                         <ng-container *ngFor="let row of infoFields">
                             <div class="row" *ngIf="item[row.field]">
                                 <div class="col-6 col-lg-3 th">
@@ -56,7 +55,7 @@
                             <div class="col-6 col-lg-9 td">
                                 <div [ngClass]="expand ? 'expand' : 'short'">
                                         <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
-                                            <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/organization/{{consortium.consortiumOrganizationId}}">{{consortium.consortiumOrganizationNameFi}}</a>
+                                            <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">{{consortium.consortiumOrganizationNameFi}}</a>
                                             <ng-container *ngIf="!consortium.consortiumOrganizationId">{{consortium.consortiumOrganizationNameFi}}</ng-container>
                                                 ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
                                         </ng-container>
@@ -73,7 +72,7 @@
                             class="info-icon" icon="info-circle"></fa-icon>
                         </p>
                         <!-- Person -->
-                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName.length > 0">
+                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName?.trim().length > 0">
                             <div class="col-3 th">
                                 <div>
                                     Nimi
@@ -109,19 +108,33 @@
                         </div>
                         <!-- Org -->
                         <div *ngIf="item.recipientType === 'organization'" class="row">
-                            <div class="col-3 th">
+                            <div class="col-3 th" *ngIf="item.recipient.organizations.length > 0">
                                 <div>
                                     Organisaatio
                                     <fa-icon tabindex="0" tooltip="Organisaatio tai organisaatiot, joiden hankkeiden kustannuksiin rahoitus on myönnetty. Organisaatioiden rahoitusosuudet näytetään, jos ne ovat tiedossa." placement="right" 
                                     class="info-icon" icon="info-circle"></fa-icon>
                                 </div>
                             </div>
-                            <ng-container *ngFor="let org of item.recipient.organizations; let i = index;">
-                                <div class="col-5 td" [class.offset-3]="i>0">
-                                    <a *ngIf="org.id" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
-                                    <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>    
-                                </div>
-                                <div class="col-4 td">{{org.shareOfFundingEur | thousandSeparator}} €</div>
+                            <ng-container *ngIf="item.recipient.organizations.length > 0; else noOrganizations">
+                                <ng-container *ngFor="let org of item.recipient.organizations; let i = index;">
+                                    <div class="col-5 td" [class.offset-3]="i>0">
+                                        <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
+                                        <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
+                                        <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>    
+                                    </div>
+                                    <div class="col-4 td">{{org.shareOfFundingEur | thousandSeparator}} €</div>
+                                    <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
+                                        <div class="col-3 th">
+                                            <span>Yhteyshenkilö</span>
+                                        </div>
+                                        <div class="col-4 col-lg-5 td">
+                                            {{item.recipient.contactPersonName}}
+                                            <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <ng-template #noOrganizations>
                                 <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
                                     <div class="col-3 th">
                                         <span>Yhteyshenkilö</span>
@@ -131,7 +144,8 @@
                                         <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                     </div>
                                 </ng-container>
-                            </ng-container>
+                            </ng-template>
+
                         </div>
                         <div class="row">
                             <div class="col-3 th">

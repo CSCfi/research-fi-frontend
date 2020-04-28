@@ -117,14 +117,28 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     const checkEmpty = (item: {field: string} ) =>  {
       return this.responseData.infrastructures[0][item.field] !== undefined &&
              this.responseData.infrastructures[0][item.field] !== 0 &&
+             this.responseData.infrastructures[0][item.field] !== '0' &&
              this.responseData.infrastructures[0][item.field] !== null &&
              this.responseData.infrastructures[0][item.field] !== '' &&
              this.responseData.infrastructures[0][item.field] !== ' ' &&
              this.responseData.infrastructures[0][item.field] !== '#N/A';
     };
+
+    const isNull = (obj) => Object.values(obj).every(x => (x === null));
+    // Check if every field null in service points and set flag. This is used to hide service from list
+    this.responseData.infrastructures[0].services.forEach(item => {
+
+      if (item.servicePoints.every(isNull)) {
+        const hideFlag = 'hide';
+        item.servicePoints[hideFlag] = 'true';
+      }
+    });
+    // Filter out invalid services
+    this.responseData.infrastructures[0].services = this.responseData.infrastructures[0].services.filter(
+      item => item.name !== '0' && item.name !== '#N/A');
+
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    // this.serviceFields = this.serviceFields.filter(item => checkEmpty(item));
 
     // Init expand and show lists
     this.infoFields.forEach(_ => this.infoExpand.push(false));
