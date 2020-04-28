@@ -309,38 +309,6 @@ mat-form-field.lang-select .mat-form-field-underline {
     pointer-events: none;
 }
 
-// Beta info
-.beta-info {
-    margin-right: -110px;
-}
-
-.beta-info button {
-    height: 52px;
-}
-
-.beta-info button.down span:after {
-    font-family: "FontAwesome";
-    content: "\f078";
-    display: inline-block;
-    padding-left: .25rem;
-}
-
-.beta-info button.up span:after {
-    font-family: "FontAwesome";
-    content: "\f077";
-    display: inline-block;
-    padding-left: .25rem;
-}
-
-.beta-info {
-    position: absolute;
-    z-index: 9999;
-    width: 360px;
-    padding: 1rem 0.5rem;
-    border-radius: .25rem;
-}
-
-
 // Responsive
 
 // Desktop size (xl)
@@ -443,13 +411,13 @@ mat-form-field.lang-select .mat-form-field-underline {
 
 @media (max-width: 575px) {
     #overlay {
-        top: 87px;
-        height: calc(100% - 87px);
+        top: 124px;
+        height: calc(100% - 124px);
         overflow: hidden;
     }
 
     .collapse.navbar-collapse.menu.mobile-bar {
-        top: 58px;
+        top: 90px;
     }
 }
 
