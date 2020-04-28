@@ -34,8 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   navbarOpen = false;
   hideOverflow = true;
   dropdownOpen: any;
-  // mobile = this.window.innerWidth < 992;
-  // Temporary width for beta
   mobile = this.window.innerWidth < 1200;
 
   height = this.window.innerHeight;
@@ -188,8 +186,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   onResize(dims) {
     this.height = dims.height;
     this.width = dims.width;
-    // if (this.width >= 1200) {
-    // Temporary width for beta
     if (this.width >= 1200) {
       this.mobile = false;
       if (this.navbarOpen) { this.toggleNavbar(); }

@@ -94,7 +94,12 @@
     margin: auto;
   }
   
-  @media (min-width: 992px) and (max-width: 1440px) {
+  @media (max-width: 1199px) {
+    .wrapper {
+      padding: 0 8px;
+    }
+  }
+  @media (min-width: 1200px) and (max-width: 1440px) {
     .wrapper {
       max-width: 90vw;
     }
