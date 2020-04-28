@@ -17,8 +17,8 @@
     </div>
 
     <div offClick class="navbar navbar-expand-xl navbar-light row">
-        <div class="logo col-9 col-xl-4">
-            <div class="row">
+        <div class="logo col-7 col-xs-9 col-xl-4">
+            <div class="row logo-wrapper">
                 <div class="col col-auto p-0">
                     <a class="navbar-brand" routerLink="">
                         <img src="assets/img/logo.svg" alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
@@ -29,14 +29,12 @@
                 </div>
             </div>
         </div>
-        <nav class="nav-top col-auto col-xl-8 p-xl-0">
-            <div class="mobile ml-auto">
+        <nav class="nav-top col-auto col-5 col-xs-3 col-xl-8 p-xl-0">
+            <div class="mobile ml-auto toggle-button-wrapper">
                 <button class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
-                    <span *ngIf="!navbarOpen" class="fa fa-bars fa-lg toggle-icon"></span>
-                    <span *ngIf="navbarOpen" class="fa fa-times fa-lg toggle-icon"></span>
+                    <div *ngIf="!navbarOpen" class="toggle-menu-text closed">Valikko</div>
+                    <div *ngIf="navbarOpen" class="toggle-menu-text open">Sulje</div>
                 </button>
-                <div *ngIf="!navbarOpen" class="toggle-menu-text">Valikko</div>
-                <div *ngIf="navbarOpen" class="toggle-menu-text">Sulje</div>
             </div>
             <div class="" [class.overflow-hider]="hideOverflow && mobile" [class.absolute]="mobile" 
                 [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
