@@ -59,7 +59,8 @@
                 </mat-expansion-panel-header>
                 <ng-container *ngIf="!filter.hasSubFields">
                     <!-- Search in Filter -->
-                    <input #filterSearch *ngIf="(response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
+                    <label for="filter-query" class="sr-only">Hae</label>
+                    <input id="filter-query" #filterSearch *ngIf="(response.aggregations[filter.field]?.buckets?.length > 5 || response.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
                     placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="response.aggregations[filter.field]?.filterTerm ? response.aggregations[filter.field]?.filterTerm : ''">
                     <!-- Time frame for year filter -->
                     <ng-container *ngIf="filter.hideSearch">
@@ -131,7 +132,8 @@
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <!-- Search in filter -->
-                            <input #filterSearch *ngIf="item.subData.length > 5 || item.original?.length > 5" placeholder="Hae" autocomplete="off"
+                            <label for="filter-query" class="sr-only">Hae</label>
+                            <input id="filter-query" #filterSearch *ngIf="item.subData.length > 5 || item.original?.length > 5" placeholder="Hae" autocomplete="off"
                             (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="item.filterTerm ? item.filterTerm : ''">
                             <mat-selection-list>
                                 <!-- Select all -->
