@@ -357,6 +357,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   openModal() {
     this.filterListDialogRef = this.dialog.open(FilterListComponent, {
+      maxWidth: '60vw',
+      minWidth: '400px',
       data: {
         active: this.activeFilters,
         fromYear: this.fromYear,
