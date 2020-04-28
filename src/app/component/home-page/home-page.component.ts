@@ -8,7 +8,7 @@
 import { Component, OnInit, ViewChild, ViewChildren, ElementRef, Inject, PLATFORM_ID, QueryList, AfterViewInit,
   HostListener, ChangeDetectorRef, LOCALE_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -95,7 +95,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService,
-               private resizeService: ResizeService ) {
+               private resizeService: ResizeService, private metaService: Meta ) {
 
                }
 
@@ -120,6 +120,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Etusivu - Tiedejatutkimus.fi');
+        this.metaService.addTags([
+          { name: 'description', content: 'Tiedejatutkimus.fi - Betaversion etusivu' },
+          { property: 'og:title', content: 'Tiedejatutkimus.fi - Betaversion etusivu' },
+          { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
+          { property: 'og:image', content: 'assets/img/logo.svg' },
+          { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
+          { property: 'og:image:height', content: '100' },
+          { property: 'og:image:width', content: '100' },
+       ]);
         break;
       }
       case 'en': {
