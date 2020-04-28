@@ -10,7 +10,7 @@
  
  <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">

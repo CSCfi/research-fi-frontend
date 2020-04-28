@@ -12,7 +12,7 @@
   
  <div class="wrapper" *ngIf="responseData"  id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'infrastruktuurit'" [resultNameField]="'name'"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'infrastruktuurit'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
          <p class="back col-12">
              <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
@@ -107,7 +107,12 @@
                  </mat-card>
              </aside>
              <!-- Social icons -->
-             <app-share></app-share>
+             <aside>
+                <mat-card>
+                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <app-share></app-share>
+                </mat-card>
+            </aside>
              <!-- Source -->
              <aside>
                  <mat-card>

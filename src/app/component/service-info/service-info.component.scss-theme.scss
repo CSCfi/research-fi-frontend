@@ -4,8 +4,5 @@
     $primary: map-get($theme, primary);
 
     app-service-info {
-        .mat-expansion-panel-content a {
-            color: mat-color($primary);
-        }
     }
 }
