@@ -96,7 +96,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService,
                private resizeService: ResizeService, private metaService: Meta ) {
-
+                this.metaService.addTags([
+                  { name: 'description', content: 'Tiedejatutkimus.fi - Betaversion etusivu' },
+                  { property: 'og:title', content: 'Tiedejatutkimus.fi - Betaversion etusivu' },
+                  { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
+                  { property: 'og:image', content: 'assets/img/logo.svg' },
+                  { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
+                  { property: 'og:image:height', content: '100' },
+                  { property: 'og:image:width', content: '100' },
+               ]);
                }
 
   public setTitle( newTitle: string) {
@@ -111,7 +119,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAllData();
 
     // Get news data
-    this.searchService.getNews(3).subscribe(data => this.news = data);
+    this.searchService.getNews(3).subscribe(data => {
+      this.news = data;
+    });
 
     // Reset sort
     this.sortService.updateSort('');
@@ -120,15 +130,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Etusivu - Tiedejatutkimus.fi');
-        this.metaService.addTags([
-          { name: 'description', content: 'Tiedejatutkimus.fi - Betaversion etusivu' },
-          { property: 'og:title', content: 'Tiedejatutkimus.fi - Betaversion etusivu' },
-          { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
-          { property: 'og:image', content: 'assets/img/logo.svg' },
-          { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
-          { property: 'og:image:height', content: '100' },
-          { property: 'og:image:width', content: '100' },
-       ]);
+
         break;
       }
       case 'en': {
