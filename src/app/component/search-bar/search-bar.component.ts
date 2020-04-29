@@ -45,7 +45,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   docList = [
     {index: 'publication', field: 'publicationName', link: 'publicationId'},
     {index: 'funding', field: 'projectNameFi', link: 'projectId'},
-    {index: 'infrastructure', field: 'name', link: 'urn'},
+    {index: 'infrastructure', field: 'name', link: 'name'},
     {index: 'organization', field: 'nameFi', link: 'organizationId'}
   ];
 
