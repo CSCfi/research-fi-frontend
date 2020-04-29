@@ -203,9 +203,13 @@ ul.dropdown li a {
     cursor: pointer;
 }
 
-.parent-link:after {
+.parent-link::after {
     font-family: "FontAwesome";
     content: "\f078";
+}
+
+.parent-link.open::after {
+    content: "\f077";
 }
 
 // Language selector
@@ -264,12 +268,13 @@ mat-form-field.lang-select .mat-form-field-underline {
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: -110vw;
-    top: 45px;
+    top: 44px;
     z-index: 1000;
-    padding: 10px 50px 40px 50px;
+    padding: 10px 8px 40px 8px;
     transition: right 0.25s ease-out;
     display: block !important;
-    width: 100vw;
+    // 100vw - padding
+    width: calc(100vw - 16px);
 
     .lang.mobile {
         margin-bottom: 20px;
@@ -287,6 +292,7 @@ mat-form-field.lang-select .mat-form-field-underline {
         display: flex;
         padding: 0;
         align-items: center;
+        margin: 0 3px;
     }
     
     li a {
@@ -309,8 +315,7 @@ mat-form-field.lang-select .mat-form-field-underline {
         width: 100%;
         border-radius: 5px;
         margin: 0 1px;
-        padding-left: 0;
-        padding-right: 0;
+        padding: 0.5rem 0;
         display: flex;
         justify-content: center;
     }
@@ -409,6 +414,12 @@ mat-form-field.lang-select .mat-form-field-underline {
         position: relative;
         min-width: 100%;
         margin-left: 0;
+        li {
+            margin-left: 1.5rem !important;
+        }
+        a {
+            text-transform: unset;
+        }
     }
 
     .collapse.navbar-collapse.menu.mobile-bar li {
@@ -435,17 +446,16 @@ mat-form-field.lang-select .mat-form-field-underline {
 }
 
 // Logo margin for small screens to prevent menu button misplacement
-@media (max-width: 355px) {
-    .navbar {
-        margin-left: 4px;
+@media (max-width: 400px) {
+    .navbar-toggler, .navbar-toggler-right {
+        font-size: 0.9rem;
     }
 
-    .logo {
+    .logo-text {
+        font-size: 0.9rem;
+    }
+    
+    nav.nav-top {
         padding-right: 0;
-    }
-
-    .collapse.navbar-collapse.menu.mobile-bar {
-        padding-left: 30px;
-        padding-right: 30px;
     }
 }
