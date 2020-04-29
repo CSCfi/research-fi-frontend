@@ -74,7 +74,7 @@
                             <li #navLink class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen" (clickOutside)="onClickedOutside($event)">
                                 <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-politics/" routerLinkActive="active-link"
                                 (keydown.enter)="$event.preventDefault(); dropdownOpen = true" (keydown.space)="$event.preventDefault(); dropdownOpen = true" [class.open]="dropdownOpen">
-                                    <span>Tiede- ja innovaatiopolitiikka</span>
+                                    <span class="label">Tiede- ja innovaatiopolitiikka</span>
                                 </a>
                                 <ul class="dropdown" *ngIf="dropdownOpen">
                                     <li><a routerLink="/science-innovation-politics/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>

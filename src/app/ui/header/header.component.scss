@@ -273,6 +273,8 @@ mat-form-field.lang-select .mat-form-field-underline {
     padding: 10px 8px 40px 8px;
     transition: right 0.25s ease-out;
     display: block !important;
+    box-sizing: content-box;
+    overflow-x: hidden;
     // 100vw - padding
     width: calc(100vw - 16px);
 
@@ -402,7 +404,6 @@ mat-form-field.lang-select .mat-form-field-underline {
     .parent a {
         text-transform: uppercase;
         padding: 0;
-        font-size: 1.1rem;
     }
 
     .dropdown-icon {
