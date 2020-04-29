@@ -112,9 +112,23 @@ button.menu {
     padding: 0.25rem 1rem;
 }
 
+.toggle-button-wrapper {
+    float: right;
+}
+
 .toggle-menu-text {
     font-weight: bold;
-    text-align: center;
+    text-align: end;
+    &::after {
+        font-family: "FontAwesome";
+        margin-left: 10px;
+    }
+    &.closed::after {
+        content: "\f078";
+    }
+    &.open::after {
+        content: "\f077";
+    }
 }
 
 .logo {
@@ -131,6 +145,10 @@ button.menu {
     font-weight: bolder;
     letter-spacing: 0.02em;
     font-size: 1.3rem;
+}
+
+.logo-wrapper {
+    min-width: 235px;
 }
 
 nav.nav-top {
@@ -239,13 +257,14 @@ mat-form-field.lang-select .mat-form-field-underline {
 
 // mobile menu
 .collapse.navbar-collapse.menu.mobile-bar.open {
-    right: 0;
+    // -8px because of .wrapper padding (styles.scss)
+    right: -8px;
 }
 
 .collapse.navbar-collapse.menu.mobile-bar {
     position: absolute;
     right: -110vw;
-    top: 70px;
+    top: 45px;
     z-index: 1000;
     padding: 10px 50px 40px 50px;
     transition: right 0.25s ease-out;
@@ -312,8 +331,6 @@ mat-form-field.lang-select .mat-form-field-underline {
 // Responsive
 
 // Desktop size (xl)
-// @media (min-width: 992px) {
-// Temporary width for beta
 @media (min-width: 1200px) {
     .mobile {
         display: none;
@@ -327,8 +344,6 @@ mat-form-field.lang-select .mat-form-field-underline {
 }
 
 // Mobile size (sm md lg)
-// @media (max-width: 991px) {
-// Temporary width for beta
 @media (max-width: 1199px) {
     .desktop {
         display: none;
@@ -340,10 +355,12 @@ mat-form-field.lang-select .mat-form-field-underline {
 
     .navbar {
         margin-right: 0;
+        padding: 8px 0;
     }
 
     .navbar-toggler, .navbar-toggler-right {
         display: block;
+        font-size: 1rem;
     }
 
     .navbar-expand-lg .navbar-collapse {
@@ -414,10 +431,6 @@ mat-form-field.lang-select .mat-form-field-underline {
         top: 124px;
         height: calc(100% - 124px);
         overflow: hidden;
-    }
-
-    .collapse.navbar-collapse.menu.mobile-bar {
-        top: 90px;
     }
 }
 
