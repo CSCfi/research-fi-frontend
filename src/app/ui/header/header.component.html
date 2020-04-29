@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <nav class="nav-top col-auto col-5 col-xs-3 col-xl-8 p-xl-0">
+        <nav class="nav-top col-auto col-5 col-xs-3 col-xl-8 p-0">
             <div class="mobile ml-auto toggle-button-wrapper">
                 <button class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
                     <div *ngIf="!navbarOpen" class="toggle-menu-text closed">Valikko</div>
@@ -74,7 +74,7 @@
                             <li #navLink class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen" (clickOutside)="onClickedOutside($event)">
                                 <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-politics/" routerLinkActive="active-link"
                                 (keydown.enter)="$event.preventDefault(); dropdownOpen = true" (keydown.space)="$event.preventDefault(); dropdownOpen = true" [class.open]="dropdownOpen">
-                                    Tiede- ja innovaatiopolitiikka
+                                    <span>Tiede- ja innovaatiopolitiikka</span>
                                 </a>
                                 <ul class="dropdown" *ngIf="dropdownOpen">
                                     <li><a routerLink="/science-innovation-politics/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>

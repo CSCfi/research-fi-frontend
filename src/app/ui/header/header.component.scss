@@ -10,7 +10,7 @@
     position: absolute;
     z-index: 999;
     left: 0;
-    top: 90px;
+    top: 66px;
     background: rgba(0,0,0,0.5);
     width: 100%;
     height: calc(100% - 110px);
@@ -109,7 +109,7 @@ li.col-4 {
 
 button.menu {
     border: none;
-    padding: 0.25rem 1rem;
+    padding: 0.25rem 0;
 }
 
 .toggle-button-wrapper {
@@ -138,7 +138,7 @@ button.menu {
 
 .logo img {
     max-width: 235px;
-    padding: 0 0.5rem;
+    padding: 0;
 }
 
 .logo-text {
@@ -308,7 +308,7 @@ mat-form-field.lang-select .mat-form-field-underline {
     li .label {
         text-transform: uppercase;
         padding: 0;
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     li a.lang-box {
@@ -437,14 +437,6 @@ mat-form-field.lang-select .mat-form-field-underline {
     }
 }
 
-@media (max-width: 575px) {
-    #overlay {
-        top: 124px;
-        height: calc(100% - 124px);
-        overflow: hidden;
-    }
-}
-
 // Logo margin for small screens to prevent menu button misplacement
 @media (max-width: 400px) {
     .navbar-toggler, .navbar-toggler-right {
@@ -457,13 +449,5 @@ mat-form-field.lang-select .mat-form-field-underline {
     
     nav.nav-top {
         padding-right: 0;
-    }
-
-    .logo img {
-        padding: 0;
-    }
-
-    button.menu {
-        padding: 0.25rem 0;
     }
 }
