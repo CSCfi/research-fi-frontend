@@ -62,7 +62,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.routeSub.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
 }
