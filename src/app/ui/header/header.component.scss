@@ -382,6 +382,9 @@ mat-form-field.lang-select .mat-form-field-underline {
         flex-direction: row;
         width: 100%;
         max-width: 800px;
+        li:first-child {
+            margin-left: 0;
+        }
     }
 
     nav.nav-top {
@@ -428,7 +431,9 @@ mat-form-field.lang-select .mat-form-field-underline {
     }
 
     .parent-link:after {
-        margin-left: 8px;
+        margin-left: 15px;
+        position: relative;
+        top: -3px;
     }
 }
 
