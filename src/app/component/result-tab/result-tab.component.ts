@@ -60,6 +60,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   previousIndex: any;
   tabWidth: any;
 
+  nofTabs = 7;
+  tabsOpen = false;
+
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
               @Inject( PLATFORM_ID ) private platformId: object, private route: ActivatedRoute) {
@@ -222,10 +225,19 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) / 4);
   }
 
+  toggleTabs() {
+    this.tabsOpen = !this.tabsOpen;
+  }
+
   onResize(event) {
     this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
     this.offsetWidth = this.scroll.nativeElement.offsetWidth;
     this.scrollWidth = this.scroll.nativeElement.scrollWidth;
+
+    if (this.isHomepage) {
+      this.nofTabs = Math.floor(event.width / 400);
+      console.log(this.nofTabs);
+    }
   }
 
   ngOnDestroy() {

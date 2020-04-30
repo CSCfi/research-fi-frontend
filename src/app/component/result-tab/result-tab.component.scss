@@ -152,7 +152,7 @@ app-result-tab {
         cursor: default;
     }
 
-    .bundler.disabled-home {
+    .disabled-home {
         opacity: 0.5;
     }
 
@@ -166,9 +166,13 @@ app-result-tab {
     //     margin-top: -88px;
     // }
 
+    .toggle-more {
+        display: flex;
+        align-items: center;
+    }
 
     // Homepage styles
-    .bundler.homepage {
+    .homepage {
         border: 0px !important;
         margin: 6px 0 6px !important;
         min-width: 180px !important;
@@ -196,7 +200,7 @@ app-result-tab {
             font-size: 1.2em;
         }
 
-        .bundler.homepage {
+        .homepage {
             min-width: 148px !important;
         }
 
