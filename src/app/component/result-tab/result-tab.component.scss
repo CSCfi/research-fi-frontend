@@ -166,6 +166,18 @@ app-result-tab {
     //     margin-top: -88px;
     // }
 
+
+    // Homepage styles
+    .bundler.homepage {
+        border: 0px !important;
+        margin: 6px 0 6px !important;
+        min-width: 180px !important;
+    }
+
+    .label.homepage {
+        font-size: 14px !important;
+    }
+
     @media (max-width: 575px) {
         .bundler {
             min-width: auto;
@@ -182,6 +194,14 @@ app-result-tab {
         .text-center {
             display: table-cell;
             font-size: 1.2em;
+        }
+
+        .bundler.homepage {
+            min-width: 148px !important;
+        }
+
+        .label.homepage {
+            font-size: 12px !important;
         }
     }
 }

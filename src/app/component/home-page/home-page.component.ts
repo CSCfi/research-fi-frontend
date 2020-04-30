@@ -39,7 +39,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     border: '0px',
     background: 'white',
     margin: '6px 0 6px',
-    'min-width': '200px'
+    minWidth: '180px',
   };
   maxHeight: number;
 

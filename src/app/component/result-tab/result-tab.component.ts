@@ -20,6 +20,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('tabList') tabList: QueryList<any>;
   @Input() allData: any;
   @Input() homepageStyle: {};
+  @Input() isHomepage = false;
 
   errorMessage: any [];
   selectedTab: string;
@@ -54,7 +55,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   faArrowRight = faArrowRight;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   currentIndex: any;
-  isHomePage: boolean;
   scrollTo: boolean;
   previousIndexArr = [];
   previousIndex: any;
@@ -71,7 +71,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
-      this.isHomePage = this.selectedTab.length > 0 ? false : true;
 
       // Get current index and push to arr
       const current = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);

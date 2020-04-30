@@ -17,7 +17,7 @@ export class TabChangeService {
       tooltipFi: 'Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.' },
     { data: 'infrastructures', labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', link: 'infrastructures', icon: faCalculator, singularFi: 'infrastruktuuri',
       tooltipFi: 'Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.'  },
-    { data: '', labelFi: 'Muut aktiviteetit', labelEn: 'Research activities', link: '3', icon: faSpinner, singularFi: 'muu aktiviteetti',
+    { data: '', labelFi: 'Muut tutkimusaktiviteetit', labelEn: 'Research activities', link: '3', icon: faSpinner, singularFi: 'muu tutkimusaktiviteetti',
       tooltipFi: 'Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.'  },
     { data: 'organizations', labelFi: 'Organisaatiot', labelEn: 'Organizations', link: 'organizations', icon: faUniversity, singularFi: 'organisaatio',
       tooltipFi: 'Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.'  }
