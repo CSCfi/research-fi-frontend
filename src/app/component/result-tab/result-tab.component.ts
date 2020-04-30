@@ -8,6 +8,7 @@ import { UrlSerializer, Router, ActivatedRoute } from '@angular/router';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { zhCnLocale } from 'ngx-bootstrap';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-result-tab',
@@ -62,14 +63,19 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   nofTabs = 7;
   tabsOpen = false;
+  rows = this.isHomepage ? [] : [1];
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
-              @Inject( PLATFORM_ID ) private platformId: object, private route: ActivatedRoute) {
+              @Inject( PLATFORM_ID ) private platformId: object, private route: ActivatedRoute, @Inject(WINDOW) private window: Window) {
                 this.locale = localeId;
   }
 
   ngOnInit() {
+    if (this.isHomepage) {
+      this.calcTabsAndRows(this.window.innerWidth);
+    }
+
     this.queryParams = this.tabChangeService.tabQueryParams;
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
@@ -235,8 +241,22 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.scrollWidth = this.scroll.nativeElement.scrollWidth;
 
     if (this.isHomepage) {
-      this.nofTabs = Math.floor(event.width / 400);
-      console.log(this.nofTabs);
+      this.calcTabsAndRows(event.width);
+      console.log(this.nofTabs)
+      console.log(this.rows)
+    }
+  }
+
+  calcTabsAndRows(width: number) {
+    this.nofTabs = Math.max(1, Math.floor(width / 200) - 1);
+    this.rows = Array(Math.floor((8 / (this.nofTabs + 1)) - 0.001) + 1).fill(0);
+  }
+
+  checkLast(row, col) {
+    if (this.tabsOpen) {
+      return row * (this.nofTabs + 1) + col === 6;
+    } else {
+      return col === this.nofTabs - 1;
     }
   }
 

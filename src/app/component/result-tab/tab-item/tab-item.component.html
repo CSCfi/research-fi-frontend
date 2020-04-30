@@ -1,21 +1,19 @@
-<div [class.disabled-home]="isHomepage && tab.data.length === 0" [class.homepage]="isHomepage">
-    <ng-template #tooltipTemplate><div [innerHtml]="tab.tooltipFi"></div></ng-template>
-    <a class="bundler" [class.disabled]="tab.data.length === 0"
-    [class.active]="selectedTab === tab.link" [queryParams]="queryParams[tab.link]" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
-    [tabindex]="isHomepage && tab.data.length !== 0 ? 0 : -1" [tooltip]="tooltipTemplate" placement="left">
-    <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
-        <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
-        <div *ngIf="locale === 'fi'" class="label text-center" [class.homepage]="isHomepage">{{tab.labelFi}}</div>
-        <div *ngIf="locale === 'se'" class="label text-center" [class.homepage]="isHomepage">{{tab.labelSe}}</div>
-        <div *ngIf="locale === 'en'" class="label text-center" [class.homepage]="isHomepage">{{tab.labelEn}}</div>
-        <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
-    </div>
-    <ng-template #disabledTab>
-        <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
-        <div *ngIf="locale === 'fi'" class="label text-center" [class.homepage]="isHomepage">{{tab.labelFi}}</div>
-        <div *ngIf="locale === 'se'" class="label text-center" [class.homepage]="isHomepage">{{tab.labelSe}}</div>
-        <div *ngIf="locale === 'en'" class="label text-center" [class.homepage]="isHomepage">{{tab.labelEn}}</div>
-        <div class="numeric-box d-sm-block">Tulossa</div>
-    </ng-template>
-    </a>
+<ng-template #tooltipTemplate><div [innerHtml]="tab.tooltipFi"></div></ng-template>
+<a class="bundler item-wrapper" [class.disabled]="tab.data.length === 0" [class.disabled-home]="isHomepage && tab.data.length === 0" [class.homepage]="isHomepage"
+[class.active]="selectedTab === tab.link" [queryParams]="queryParams[tab.link]" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
+[tabindex]="isHomepage && tab.data.length !== 0 ? 0 : -1" [tooltip]="tooltipTemplate" placement="left">
+<div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
+    <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
+    <div *ngIf="locale === 'fi'" class="label text-center" [class.homepage-label]="isHomepage">{{tab.labelFi}}</div>
+    <div *ngIf="locale === 'se'" class="label text-center" [class.homepage-label]="isHomepage">{{tab.labelSe}}</div>
+    <div *ngIf="locale === 'en'" class="label text-center" [class.homepage-label]="isHomepage">{{tab.labelEn}}</div>
+    <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
 </div>
+<ng-template #disabledTab>
+    <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
+    <div *ngIf="locale === 'fi'" class="label text-center" [class.homepage-label]="isHomepage">{{tab.labelFi}}</div>
+    <div *ngIf="locale === 'se'" class="label text-center" [class.homepage-label]="isHomepage">{{tab.labelSe}}</div>
+    <div *ngIf="locale === 'en'" class="label text-center" [class.homepage-label]="isHomepage">{{tab.labelEn}}</div>
+    <div class="numeric-box d-sm-block">Tulossa</div>
+</ng-template>
+</a>

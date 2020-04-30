@@ -14,17 +14,16 @@
         <div class="grad grad-right"></div>
         <div class="nav-arrow nav-arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
-      <ng-container *ngFor="let tab of tabData.slice(0, nofTabs); let i = index;">
-        <app-tab-item [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale"></app-tab-item>
-      </ng-container>
-      
-      <a *ngIf="isHomepage && nofTabs < 7" class="bundler homepage toggle-more" (click)="toggleTabs()">
-        <div class="label text-center homepage">Näytä kaikki</div> 
-      </a>
-    </div>
-    <div *ngIf="tabsOpen && allData">
-      <ng-container *ngFor="let tab of tabData.slice(nofTabs); let i = index;">
-        <app-tab-item [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="allData[0]" [locale]="locale"></app-tab-item>
+      <ng-container *ngFor="let row of tabsOpen ? rows : [1]; let i = index;">
+        <div class="row-wrapper">
+          <ng-container *ngFor="let tab of tabData.slice(i * (nofTabs + tabsOpen), (i+1) * (nofTabs + tabsOpen)); let j = index;">
+            <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale"></app-tab-item>
+            <div *ngIf="isHomepage && nofTabs < 7 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()">
+              <div *ngIf="!tabsOpen" class="label text-center homepage">Näytä kaikki</div> 
+              <div *ngIf="tabsOpen" class="label text-center homepage">Näytä vähemmän</div> 
+            </div>
+          </ng-container>
+        </div>
       </ng-container>
     </div>
   </div>

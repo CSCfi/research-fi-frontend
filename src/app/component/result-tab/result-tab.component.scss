@@ -11,7 +11,7 @@ app-result-tab {
     .scroll {
         scroll-behavior: smooth;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         overflow: auto;
         white-space: nowrap; 
         justify-content: space-between;
@@ -48,6 +48,7 @@ app-result-tab {
     }
 
     .bundler {
+        display: block;
         cursor: pointer;
         min-width: 205.7px;
         margin: 23px 0 0;
@@ -166,9 +167,11 @@ app-result-tab {
     //     margin-top: -88px;
     // }
 
-    .toggle-more {
+    .bundler.toggle-more {
         display: flex;
         align-items: center;
+        padding: unset;
+        margin: 12px 0 12px !important;
     }
 
     // Homepage styles
@@ -178,8 +181,14 @@ app-result-tab {
         min-width: 180px !important;
     }
 
-    .label.homepage {
+    .label.homepage-label {
         font-size: 14px !important;
+    }
+
+    .row-wrapper {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
     }
 
     @media (max-width: 575px) {

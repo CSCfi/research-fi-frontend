@@ -17,8 +17,6 @@ export class TabItemComponent implements OnInit {
   constructor(public searchService: SearchService) { }
 
   ngOnInit(): void {
-    console.log(this.tab);
-    console.log(this.isHomepage)
   }
 
 }
