@@ -50,8 +50,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   locale: string;
 
-  homepageIcons: object;
-
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
@@ -63,7 +61,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   nofTabs = 7;
   tabsOpen = false;
-  rows = this.isHomepage ? [] : [1];
+  rows = [];
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
@@ -88,12 +86,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.previousIndex = this.previousIndexArr.slice(this.previousIndexArr.length - 2, this.previousIndexArr.length)[0];
     });
 
-    // Hide icons on pages other than home
-    if (this.router.url !== '/') {
-      this.homepageIcons = {
-        display: 'none'
-      };
-    }
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
@@ -242,8 +234,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
     if (this.isHomepage) {
       this.calcTabsAndRows(event.width);
-      console.log(this.nofTabs)
-      console.log(this.rows)
     }
   }
 

@@ -45,6 +45,7 @@ app-result-tab {
         border-bottom: 0px;
         background: none;
         z-index: 1;
+        padding-bottom: 18px;
     }
 
     .bundler {
@@ -187,8 +188,10 @@ app-result-tab {
 
     .row-wrapper {
         display: flex;
-        width: 100%;
         justify-content: space-evenly;
+        &-homepage {
+            width: 100%;
+        }
     }
 
     @media (max-width: 575px) {

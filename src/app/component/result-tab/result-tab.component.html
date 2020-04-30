@@ -15,7 +15,7 @@
         <div class="nav-arrow nav-arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
       <ng-container *ngFor="let row of tabsOpen ? rows : [1]; let i = index;">
-        <div class="row-wrapper">
+        <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
           <ng-container *ngFor="let tab of tabData.slice(i * (nofTabs + tabsOpen), (i+1) * (nofTabs + tabsOpen)); let j = index;">
             <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale"></app-tab-item>
             <div *ngIf="isHomepage && nofTabs < 7 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()">
