@@ -132,6 +132,7 @@ import { CommonComponentsModule} from './common-components/common-components.mod
 import { filter } from 'rxjs/operators';
 import { NewsCardComponent } from './component/news/news-card/news-card.component';
 import { SitemapComponent } from './component/sitemap/sitemap.component';
+import { TabItemComponent } from './component/result-tab/tab-item/tab-item.component';
 
 @NgModule({
   declarations: [
@@ -185,7 +186,8 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
     PrivacyComponent,
     AccessibilityComponent,
     NewsCardComponent,
-    SitemapComponent
+    SitemapComponent,
+    TabItemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

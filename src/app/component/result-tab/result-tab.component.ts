@@ -8,6 +8,7 @@ import { UrlSerializer, Router, ActivatedRoute } from '@angular/router';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { zhCnLocale } from 'ngx-bootstrap';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-result-tab',
@@ -20,6 +21,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('tabList') tabList: QueryList<any>;
   @Input() allData: any;
   @Input() homepageStyle: {};
+  @Input() isHomepage = false;
 
   errorMessage: any [];
   selectedTab: string;
@@ -48,30 +50,34 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   locale: string;
 
-  homepageIcons: object;
-
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   currentIndex: any;
-  isHomePage: boolean;
   scrollTo: boolean;
   previousIndexArr = [];
   previousIndex: any;
   tabWidth: any;
 
+  nofTabs = 7;
+  tabsOpen = false;
+  rows = [];
+
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
-              @Inject( PLATFORM_ID ) private platformId: object, private route: ActivatedRoute) {
+              @Inject( PLATFORM_ID ) private platformId: object, private route: ActivatedRoute, @Inject(WINDOW) private window: Window) {
                 this.locale = localeId;
   }
 
   ngOnInit() {
+    if (this.isHomepage) {
+      this.calcTabsAndRows(this.window.innerWidth);
+    }
+
     this.queryParams = this.tabChangeService.tabQueryParams;
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
-      this.isHomePage = this.selectedTab.length > 0 ? false : true;
 
       // Get current index and push to arr
       const current = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
@@ -80,12 +86,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.previousIndex = this.previousIndexArr.slice(this.previousIndexArr.length - 2, this.previousIndexArr.length)[0];
     });
 
-    // Hide icons on pages other than home
-    if (this.router.url !== '/') {
-      this.homepageIcons = {
-        display: 'none'
-      };
-    }
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
@@ -223,10 +223,31 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) / 4);
   }
 
+  toggleTabs() {
+    this.tabsOpen = !this.tabsOpen;
+  }
+
   onResize(event) {
     this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
     this.offsetWidth = this.scroll.nativeElement.offsetWidth;
     this.scrollWidth = this.scroll.nativeElement.scrollWidth;
+
+    if (this.isHomepage) {
+      this.calcTabsAndRows(event.width);
+    }
+  }
+
+  calcTabsAndRows(width: number) {
+    this.nofTabs = Math.max(1, Math.floor(width / 200) - 1);
+    this.rows = Array(Math.floor((8 / (this.nofTabs + 1)) - 0.001) + 1).fill(0);
+  }
+
+  checkLast(row, col) {
+    if (this.tabsOpen) {
+      return row * (this.nofTabs + 1) + col === 6;
+    } else {
+      return col === this.nofTabs - 1;
+    }
   }
 
   ngOnDestroy() {
