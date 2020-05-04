@@ -85,18 +85,11 @@ app.use(helmet.contentSecurityPolicy({
 }));
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const {AppServerModule, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/en/main');
+const {AppServerModule:AppServerModule_fi, LAZY_MODULE_MAP:LAZY_MODULE_MAP_FI, ngExpressEngine:ngExpressEngine_fi, provideModuleMap:provideModuleMap_fi} = require('./dist/server/fi/main');
+const {AppServerModule:AppServerModule_en, LAZY_MODULE_MAP:LAZY_MODULE_MAP_EN, ngExpressEngine:ngExpressEngine_en, provideModuleMap:provideModuleMap_en} = require('./dist/server/en/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-app.engine('html', ngExpressEngine({
-  bootstrap: AppServerModule,
-  providers: [
-    provideModuleMap(LAZY_MODULE_MAP)
-  ]
-}));
 
-app.set('view engine', 'html');
-app.set('views', join(DIST_FOLDER, 'browser'));
 
 // Example Express Rest API endpoints
 // app.get('/api/**', (req, res) => { });
@@ -104,15 +97,53 @@ app.set('views', join(DIST_FOLDER, 'browser'));
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
 routes.forEach((route) => {
-  app.get(route.path, (req, res) => {
-    res.render(route.view, {
-      req, res, engine: ngExpressEngine({
-        bootstrap: route.bundle.AppServerModule,
-        providers: [provideModuleMap(route.bundle.LAZY_MODULE_MAP),
-        { req, res }]
-      })
+  if (route.path.startsWith('/en')) {
+    // EN routes
+    app.get(route.path, (req, res) => {
+      console.log("ROUTE EN", route);
+
+      app.engine('html', ngExpressEngine_en({
+        bootstrap: AppServerModule_en,
+        providers: [
+          provideModuleMap_en(LAZY_MODULE_MAP_EN)
+        ]
+      }));
+      app.set('view engine', 'html');
+      app.set('views', join(DIST_FOLDER, 'browser'));
+
+      res.render(route.view, {
+        req,
+        res,
+        engine: ngExpressEngine_en({
+          bootstrap: AppServerModule_en,
+          providers: [provideModuleMap_en(LAZY_MODULE_MAP_EN),
+          { req, res }]
+        })
+      });
     });
-  });
+  } else {
+    // FI routes
+    app.get(route.path, (req, res) => {
+      console.log("ROUTE FI", route);
+
+      app.engine('html', ngExpressEngine_fi({
+        bootstrap: AppServerModule_fi,
+        providers: [
+          provideModuleMap_fi(LAZY_MODULE_MAP_FI)
+        ]
+      }));
+      app.set('view engine', 'html');
+      app.set('views', join(DIST_FOLDER, 'browser'));
+
+      res.render(route.view, {
+        req, res, engine: ngExpressEngine_fi({
+          bootstrap: AppServerModule_fi,
+          providers: [provideModuleMap_fi(LAZY_MODULE_MAP_FI),
+          { req, res }]
+        })
+      });
+    });
+  }
 });
 
 // Start up the Node server
