@@ -172,23 +172,24 @@ app-result-tab {
         display: flex;
         align-items: center;
         padding: unset;
-        margin: 12px 0 12px !important;
+        margin: 12px 2px !important;
     }
 
     // Homepage styles
     .homepage {
         border: 0px !important;
-        margin: 6px 0 6px !important;
+        margin: 6px 2px !important;
         min-width: 180px !important;
     }
 
     .label.homepage-label {
         font-size: 14px !important;
+        display: block;
     }
 
     .row-wrapper {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         &-homepage {
             width: 100%;
         }
@@ -216,7 +217,7 @@ app-result-tab {
             min-width: 148px !important;
         }
 
-        .label.homepage {
+        .label.homepage-label {
             font-size: 12px !important;
         }
     }
