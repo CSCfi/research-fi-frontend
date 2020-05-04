@@ -5,7 +5,7 @@ import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from '../../services/resize.service';
 import { UrlSerializer, Router, ActivatedRoute } from '@angular/router';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { zhCnLocale } from 'ngx-bootstrap';
 import { WINDOW } from 'src/app/services/window.service';
@@ -52,6 +52,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   faArrowLeft = faArrowLeft;
   faArrowRight = faArrowRight;
+  faAngleUp = faAngleUp;
+  faAngleDown = faAngleDown;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   currentIndex: any;
   scrollTo: boolean;
@@ -238,7 +240,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   calcTabsAndRows(width: number) {
-    this.nofTabs = Math.max(1, Math.floor(width / 200) - 1);
+    this.nofTabs = Math.max(1, Math.floor(width / 206) - 1);
     this.rows = Array(Math.floor((8 / (this.nofTabs + 1)) - 0.001) + 1).fill(0);
   }
 
