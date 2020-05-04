@@ -31,9 +31,9 @@ const app = express();
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
 const routes = [
-  {path: '/en/*', view: 'en/index', bundle: require('./dist/server/main')},
+  {path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main')},
   //{path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
-  {path: '/*', view: 'fi/index', bundle: require('./dist/server/main')}
+  {path: '/*', view: 'fi/index', bundle: require('./dist/server/fi/main')}
 ];
 
 app.use(compression());
@@ -85,7 +85,7 @@ app.use(helmet.contentSecurityPolicy({
 }));
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const {AppServerModule, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/main');
+const {AppServerModule, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/en/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', ngExpressEngine({
@@ -95,7 +95,7 @@ app.engine('html', ngExpressEngine({
   ]
 }));
 
-app.set('view engine', 'html');3
+app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
 
 // Example Express Rest API endpoints
