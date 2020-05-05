@@ -159,9 +159,18 @@ export class SearchService {
   }
 
   getFilters(): Observable<Search[]> {
-    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
     // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
+  }
+
+  //
+  getQueryFilters(): Observable<Search[]> {
+    const query = this.filterService.constructPayload(this.singleInput, this.fromPage,
+      this.sortService.sort, this.tabChangeService.tab);
+    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    const payload = Object.assign(query, aggs);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload);
   }
 
   getNewsFilters(): Observable<Search[]> {
