@@ -171,6 +171,7 @@ app-result-tab {
     .bundler.toggle-more {
         display: flex;
         align-items: center;
+        justify-content: center;
         padding: unset;
         margin: 12px 2px !important;
     }
@@ -195,7 +196,7 @@ app-result-tab {
         }
     }
 
-    @media (max-width: 575px) {
+    @media (max-width: 617px) {
         .bundler {
             min-width: auto;
             border-radius: 0;
@@ -215,10 +216,18 @@ app-result-tab {
 
         .homepage {
             min-width: 148px !important;
+            width: 48% !important;
+        }
+
+        app-tab-item .homepage {
+            width: 100% !important;
         }
 
         .label.homepage-label {
             font-size: 12px !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
     }
 }
