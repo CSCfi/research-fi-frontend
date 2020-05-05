@@ -59,9 +59,11 @@
       <div class="col col-2">
         <div class="social">
             <h2 i18n="@@followUs" class="header">Seuraa meitä!</h2>
-            <!-- <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a> -->
-            <a href="https://twitter.com/tiedejatutkimus" target="_blank" class="social-icon" title="Twitter -palvelun logo"><fa-icon [icon]="faTwitter"></fa-icon></a>
-            <!-- <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a> -->
+            <ul>
+              <!-- <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a> -->
+              <li><a href="https://twitter.com/tiedejatutkimus" class="d-flex" target="_blank" title="Twitter -palvelun logo"><fa-icon class="social-icon" [icon]="faTwitter"></fa-icon>Tiedejatutkimus.fi Twitterissä</a></li>
+              <!-- <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a> -->
+            </ul>
         </div>
         <div class="build-info pull-right">
           <span>{{buildInfo}}</span>

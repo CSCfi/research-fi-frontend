@@ -79,6 +79,9 @@
     <div class="row main-content" *ngIf="resultData && resultData.total === 0">
         <div class="col text-center no-results">
             <h2>Ei infrastruktuureja</h2>
+            <p>Hakusanallasi ei löytynyt tuloksia.</p>
+            <p>Tarkista onko hakusanassa kirjoitusvirheitä.<br>Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä portaalissa.</p>
+            <p><a routerLink="/service-info" fragment="1">Mitä tietoja palvelu sisältää?</a></p>
         </div>
     </div>
 </ng-template>

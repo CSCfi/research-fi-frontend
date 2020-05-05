@@ -22,7 +22,7 @@
             <div class="col">
                 <div class="content" #mainFocus tabindex="0">
                     <mat-accordion>
-                        <mat-expansion-panel *ngFor="let sector of rearrangedList; trackBy: trackByFn">
+                        <mat-expansion-panel *ngFor="let sector of rearrangedList; let i = index; trackBy: trackByFn" [expanded]="openedIdx === i" (opened)="openedIdx = i" (closed)="openedIdx = -1">
                             <mat-expansion-panel-header collapsedHeight="61px">
                                 <mat-panel-title>
                                     <fa-icon class="icon" [icon]="sector.icon"></fa-icon>
@@ -30,6 +30,8 @@
                                         <h2>{{sector.labelFi}}</h2>
                                     </div>
                                 </mat-panel-title>
+                                <span *ngIf="openedIdx !== i" class="align-self-center mr-2">Avaa</span>
+                                <span *ngIf="openedIdx === i" class="align-self-center mr-2">Sulje</span>
                             </mat-expansion-panel-header>
                             <div class="row">
                                 <div class="col-12 description" [innerHTML]="sector.data?.description.join('')"></div>
