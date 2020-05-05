@@ -132,6 +132,8 @@ import { CommonComponentsModule} from './common-components/common-components.mod
 import { filter } from 'rxjs/operators';
 import { NewsCardComponent } from './component/news/news-card/news-card.component';
 import { SitemapComponent } from './component/sitemap/sitemap.component';
+import { TabItemComponent } from './component/result-tab/tab-item/tab-item.component';
+import { HistoryService } from './services/history.service';
 
 @NgModule({
   declarations: [
@@ -185,7 +187,8 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
     PrivacyComponent,
     AccessibilityComponent,
     NewsCardComponent,
-    SitemapComponent
+    SitemapComponent,
+    TabItemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -286,7 +289,7 @@ export class AppModule {
 
   startPage;
 
-  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller) {
+  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller, private historyService: HistoryService) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
     router.events
@@ -294,7 +297,8 @@ export class AppModule {
     .subscribe(e => {
       if ((e.routerEvent.url.includes('/results'))) {
         const targetPage = +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
-        if (this.startPage !== targetPage) {
+        // Different page or coming from different route
+        if (this.startPage !== targetPage || !this.historyService.history[this.historyService.history.length - 2]?.includes('/results')) {
           viewportScroller.scrollToPosition([0, 0]);
         }
         this.startPage = targetPage;
