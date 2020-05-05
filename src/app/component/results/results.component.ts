@@ -184,7 +184,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Get data filter data
         this.getFilterData();
-        this.getQueryFilterData();
+        // this.getQueryFilterData();
 
         // Reset flags
         this.searchService.redirecting = false;
