@@ -35,6 +35,7 @@ import { SearchService } from 'src/app/services/search.service';
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
+  @Input() queryResponse: any [];
   @Input() tabData: string;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
 
@@ -181,10 +182,13 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges() {
     // Initialize data and set filter data by index
     this.responseData = this.responseData || [];
-    if (this.responseData.length > 0) {
+    this.queryResponse = this.queryResponse || [];
+    if (this.responseData.length > 0 && this.queryResponse.length > 0) {
       // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
+          console.log(this.responseData)
+          console.log(this.queryResponse);
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
           if (this.resetFilters) {
