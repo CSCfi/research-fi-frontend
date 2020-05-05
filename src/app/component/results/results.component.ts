@@ -35,6 +35,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedTabData: {data: string, labelFi: string, labelEn: string, link: string, icon: any, singularFi: any};
   public tabValues: any;
   public filterValues: any;
+  public filterQueryValues: any;
   errorMessage = [];
   pageNumber = 1;
   page: any;
@@ -183,6 +184,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Get data filter data
         this.getFilterData();
+        this.getQueryFilterData();
 
         // Reset flags
         this.searchService.redirecting = false;
@@ -251,6 +253,22 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.filterValues = filterValues;
         // Send response to data service
         this.dataService.changeResponse(this.filterValues);
+        // Set the title
+        this.updateTitle(this.selectedTabData);
+      },
+        error => this.errorMessage = error as any);
+    }
+  }
+
+  getQueryFilterData() {
+    // Check for Angular Univeral SSR, get filter data if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.searchService.getQueryFilters()
+      .pipe(map(data => [data]))
+      .subscribe(filterValues => {
+        this.filterQueryValues = filterValues;
+        // Send response to data service
+        // this.dataService.changeResponse(this.filterValues);
         // Set the title
         this.updateTitle(this.selectedTabData);
       },
