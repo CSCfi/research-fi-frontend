@@ -52,7 +52,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
       link: '/science-innovation-politics/science-research-figures',
-      alt: ''
+      alt: ' '
     },
     {
       title: 'Suomalainen tutkimus- ja innovaatiojärjestelmä',
@@ -61,7 +61,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       col: 6,
       // link: '/visual/publications',
       link: '/science-innovation-politics/research-innovation-system',
-      alt: ''
+      alt: ' '
 
     },
     {
@@ -70,7 +70,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       imgPath: 'assets/img/home/funding.jpg',
       col: 4,
       link: '/results/fundings',
-      alt: ''
+      alt: ' '
     },
     {
       title: 'Tietoa palvelusta',
@@ -78,7 +78,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       imgPath: 'assets/img/home/info.jpg',
       col: 4,
       link: '/service-info',
-      alt: ''
+      alt: ' '
     },
     {
       title: 'Etsi julkaisuja!',
@@ -87,7 +87,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       col: 4,
       link: '/results/publications',
       last: true,
-      alt: ''
+      alt: ' '
     }
   ];
   focusSub: any;
