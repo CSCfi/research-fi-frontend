@@ -182,7 +182,7 @@
           "options": {
             "main": "src/main.server.ts",
             "tsConfig": "src/tsconfig.server.json",
-            "localize": ["fi", "en"]
+            "localize": ["fi", "en", "sv"]
           },
           "configurations": {
             "production": {
