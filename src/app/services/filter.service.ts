@@ -138,7 +138,7 @@ export class FilterService {
   basicFilter(field: any[], path) {
     const res = [];
     field.forEach(value => {
-      res.push({ term: {[path] : value}})
+      res.push({ term: {[path] : value}});
     });
     return res;
   }
@@ -252,6 +252,35 @@ export class FilterService {
     return {minimum_should_match: min};
   }
 
+  constructFilters(index) {
+    const filters = [
+      ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
+      ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
+      ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
+      ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+          [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
+      ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
+      ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
+          {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
+      ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
+      ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
+      ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
+      ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
+      ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
+      ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
+      ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
+      ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
+      ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
+      // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
+      ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
+      ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
+      ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
+      ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
+    ];
+    return filters;
+  }
+
   constructQuery(index: string, searchTerm: string) {
     const query = this.settingsService.querySettings(index, searchTerm);
     return {
@@ -259,29 +288,30 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [query] : []),
-            ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
-            ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
-            ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
-            ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-                [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
-            ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
-            ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-                [{bool: {should:[{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
-                {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
-            ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
-            ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
-            ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
-            ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
-            ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
-            ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
-            ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
-            ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
-            ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
-            // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
-            ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
-            ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
-            ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
-            ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
+            this.constructFilters(index)
+            // ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
+            // ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
+            // ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
+            // ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+            //     [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
+            // ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
+            // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+            //     [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
+            //     {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
+            // ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
+            // ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
+            // ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
+            // ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
+            // ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
+            // ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
+            // ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
+            // ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
+            // ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
+            // // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
+            // ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
+            // ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
+            // ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
+            // ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
           ],
         }
     };
@@ -326,6 +356,13 @@ export class FilterService {
   }
 
   constructFilterPayload(tab: string, searchTerm: string) {
+
+    const active = this.constructFilters(tab.slice(0, -1)).filter(item => item.bool.should.length > 0);
+
+    function filterActive(field) {
+      return active.filter(item => Object.keys(item.bool.should[0].term).toString() !== field);
+    }
+
     const payLoad: any = {
       ...(searchTerm ? { query: {
         bool: { should: [ this.settingsService.querySettings(tab.slice(0, -1), searchTerm) ] }
@@ -333,10 +370,18 @@ export class FilterService {
       size: 0,
       aggs: {
         year: {
-          terms: {
-            field: this.sortService.yearField,
-            size: 50,
-            order: { _key : 'desc' }
+          filter: {
+            bool: {
+              filter: filterActive(this.sortService.yearField)
+            }
+          },
+          aggs: {
+            years: {
+              terms: {
+                field: this.sortService.yearField,
+                order: { _key : 'desc' }
+              }
+            }
           }
         }
       }
@@ -361,16 +406,25 @@ export class FilterService {
                     field: 'author.sectorId.keyword'
                   }
                 },
-                organizations: {
-                  terms: {
-                    size: 50,
-                    field: 'author.organization.OrganizationNameFi.keyword'
+                organization: {
+                  filter: {
+                    bool: {
+                      filter: filterActive('author.organization.OrganizationNameFi.keyword')
+                    }
                   },
                   aggs: {
-                    orgId: {
+                    organizations: {
                       terms: {
                         size: 50,
-                        field: 'author.organization.organizationId.keyword'
+                        field: 'author.organization.OrganizationNameFi.keyword'
+                      },
+                      aggs: {
+                        orgId: {
+                          terms: {
+                            size: 50,
+                            field: 'author.organization.organizationId.keyword'
+                          }
+                        }
                       }
                     }
                   }
@@ -380,11 +434,21 @@ export class FilterService {
           }
         };
         payLoad.aggs.countryCode = {
-          terms: {
-            field: 'internationalPublication',
-            order: { _key : 'asc' }
+          filter: {
+            bool: {
+              filter: filterActive('internationalPublication')
+            }
+          },
+          aggs: {
+            countryCodes: {
+              terms: {
+                field: 'internationalPublication',
+                order: { _key : 'asc' }
+              }
+            }
           }
         };
+        // Different agg
         payLoad.aggs.lang = {
           terms: {
             field: 'languages.languageCode.keyword'
@@ -398,27 +462,56 @@ export class FilterService {
           }
         };
         payLoad.aggs.publicationType = {
-          terms: {
-            field: 'publicationTypeCode.keyword',
-            size: 50,
-            exclude: ' ',
-            order: {
-              _key: 'asc'
+          filter: {
+            bool: {
+              filter: filterActive('publicationTypeCode.keyword')
+            }
+          },
+          aggs: {
+            publicationTypes: {
+              terms: {
+                field: 'publicationTypeCode.keyword',
+                size: 50,
+                exclude: ' ',
+                order: {
+                  _key: 'asc'
+                }
+              }
             }
           }
         };
         payLoad.aggs.juFo = {
-          terms: {
-            field: 'jufoClassCode.keyword',
-            order: {
-              _key: 'desc'
+          filter: {
+            bool: {
+              filter: filterActive('jufoClassCode.keyword')
+            }
+          },
+          aggs: {
+            juFoCodes: {
+              terms: {
+                field: 'jufoClassCode.keyword',
+                size: 50,
+                exclude: ' ',
+                order: {
+                  _key: 'desc'
+                }
+              }
             }
           }
         };
         payLoad.aggs.internationalCollaboration = {
-          terms: {
-            field: 'internationalCollaboration',
-            size: 2
+          filter: {
+            bool: {
+              filter: filterActive('internationalCollaboration')
+            }
+          },
+          aggs: {
+            internationalCollaborationCodes: {
+              terms: {
+                field: 'internationalCollaboration',
+                size: 2,
+              }
+            }
           }
         };
         payLoad.aggs.field = {
@@ -630,7 +723,7 @@ export class FilterService {
           terms: {
             field: 'services.serviceType.keyword'
           }
-        }
+        };
         break;
       }
       // Organizations
