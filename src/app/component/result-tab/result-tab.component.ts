@@ -72,7 +72,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    if (this.isHomepage) {
+    if (this.isHomepage && isPlatformBrowser(this.platformId)) {
       this.calcTabsAndRows(this.window.innerWidth);
     }
 
@@ -234,7 +234,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.offsetWidth = this.scroll.nativeElement.offsetWidth;
     this.scrollWidth = this.scroll.nativeElement.scrollWidth;
 
-    if (this.isHomepage) {
+    if (this.isHomepage && isPlatformBrowser(this.platformId)) {
       this.calcTabsAndRows(event.width);
     }
   }
