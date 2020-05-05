@@ -8,6 +8,12 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UniversalInterceptor } from './universal-interceptor';
 
+import { registerLocaleData } from '@angular/common';
+import localeFi from '@angular/common/locales/fi';
+import localeEn from '@angular/common/locales/en';
+
+registerLocaleData(localeFi, localeEn);
+
 @NgModule({
   imports: [
     AppModule,

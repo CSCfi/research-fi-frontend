@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef, LOCALE_ID } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { map } from 'rxjs/operators';
@@ -121,7 +121,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
                private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
-               private snackBar: MatSnackBar ) {
+               private snackBar: MatSnackBar, private metaService: Meta ) {
    }
 
   public setTitle(newTitle: string) {
@@ -185,9 +185,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
+
       // Reset authors & organizations on new result
       this.authorAndOrganization = [];
       if (this.responseData.publications) {
+        this.metaService.addTags([
+          { name: 'description', content: 'Julkaisusivu: ' + this.localeId },
+          { property: 'og:title', content: this.responseData.publications[0].title },
+          { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
+          { property: 'og:image', content: 'assets/img/logo.svg' },
+          { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
+          { property: 'og:image:height', content: '100' },
+          { property: 'og:image:width', content: '100' },
+       ]);
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.publications[0].title + ' - Tiedejatutkimus.fi');
