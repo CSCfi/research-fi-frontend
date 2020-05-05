@@ -103,6 +103,10 @@ app-result-tab {
         box-shadow: 1px 3px 3px;
         font-size: 2em;
         text-align: center;
+        fa-icon {
+            display: block;
+            margin-top: 2px;
+        }
     }
 
     .nav-arrow-left, .nav-arrow-right {

@@ -63,7 +63,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   nofTabs = 7;
   tabsOpen = false;
-  rows = [];
+  rowsOpen = [];
+  rowsClosed = [];
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
               private resizeService: ResizeService, private searchService: SearchService, private router: Router,
@@ -72,9 +73,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    if (this.isHomepage) {
-      this.calcTabsAndRows(this.window.innerWidth);
-    }
+    this.calcTabsAndRows(this.window.innerWidth);
 
     this.queryParams = this.tabChangeService.tabQueryParams;
     // Update active tab visual after change
@@ -115,6 +114,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
         this.scroll = result.first;
         // Subscribe to current tab and get count
         this.tabChangeService.currentTab.subscribe(tab => {
+          // Recalculate tabs and rows for navigations from homePage
           this.currentTab = tab;
           // Get current tabs index number and scroll to position if auto scroll isn't disabled
           if (this.scrollTo) {
@@ -240,15 +240,46 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   calcTabsAndRows(width: number) {
+    // No calculations if not on homepage
+    if (!this.isHomepage) {
+      this.rowsClosed = [1];
+      this.nofTabs = 6;
+      return;
+    }
     this.nofTabs = Math.max(1, Math.floor(width / 206) - 1);
-    this.rows = Array(Math.floor((8 / (this.nofTabs + 1)) - 0.001) + 1).fill(0);
+    this.rowsOpen = Array(Math.floor((8 / (this.nofTabs + 1)) - 0.001) + 1).fill(0);
+    if (this.nofTabs === 1) {
+      this.rowsClosed = [1, 1];
+    } else {
+      this.rowsClosed = [1];
+    }
   }
 
+  // Logic to find the right indices to slice the tab array
+  slicedRow(i) {
+    // Exceptions on first two rows with tab length 1 while closed on homepage
+    const smallFirstRowClosed = +(i === 0 && this.nofTabs === 1 && !this.tabsOpen && this.isHomepage);
+    const smallSecondRowClosed = +(i === 1 && this.nofTabs === 1 && !this.tabsOpen && this.isHomepage);
+
+    // Check row and multiply by number of tabs + exception at second row's start on small widths
+    const startIdx = i * (this.nofTabs + +this.tabsOpen) + smallSecondRowClosed;
+    // Check row, add 1 and multiply by number of tabs, or show all instead if possible. Exception rules as described above
+    const endIdx = (i + 1) * (this.nofTabs + +(this.tabsOpen || this.nofTabs === 6)) + smallSecondRowClosed + smallFirstRowClosed;
+    console.log(this.tabData.slice(startIdx, endIdx))
+    return this.tabData.slice(startIdx, endIdx);
+  }
+
+  // Logic to determie when to add the 'show-more/less' button
   checkLast(row, col) {
+    // Show on the last position if tabs open
     if (this.tabsOpen) {
       return row * (this.nofTabs + 1) + col === 6;
-    } else {
+    // Otherwise if large rows, show at the end
+    } else if (this.rowsClosed.length === 1) {
       return col === this.nofTabs - 1;
+    // Otherwise at the end of the second row
+    } else {
+      return row === 1;
     }
   }
 
