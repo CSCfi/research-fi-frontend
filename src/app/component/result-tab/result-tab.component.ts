@@ -265,7 +265,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     const startIdx = i * (this.nofTabs + +this.tabsOpen) + smallSecondRowClosed;
     // Check row, add 1 and multiply by number of tabs, or show all instead if possible. Exception rules as described above
     const endIdx = (i + 1) * (this.nofTabs + +(this.tabsOpen || this.nofTabs === 6)) + smallSecondRowClosed + smallFirstRowClosed;
-    console.log(this.tabData.slice(startIdx, endIdx))
     return this.tabData.slice(startIdx, endIdx);
   }
 
