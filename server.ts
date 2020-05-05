@@ -87,7 +87,7 @@ app.use(helmet.contentSecurityPolicy({
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 // We have one configuration per locale and use designated server file for matching route.
-const {AppServerModule, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/main');
+const {AppServerModule, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/fi/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', ngExpressEngine({
