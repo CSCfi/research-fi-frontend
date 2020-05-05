@@ -32,9 +32,9 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // We have a routes configuration to define where to serve every app with the according language.
 const routes = [
-  {path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main')},
+  {path: '/en/*', view: 'en/index', bundle: require('./dist/server/main')},
   //{path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
-  {path: '/*', view: 'fi/index', bundle: require('./dist/server/fi/main')}
+  {path: '/*', view: 'fi/index', bundle: require('./dist/server/main')}
 ];
 
 app.use(compression());
@@ -87,7 +87,7 @@ app.use(helmet.contentSecurityPolicy({
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 // We have one configuration per locale and use designated server file for matching route.
-const {AppServerModule, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/fi/main');
+const {AppServerModule, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap} = require('./dist/server/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', ngExpressEngine({
