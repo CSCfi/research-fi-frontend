@@ -33,7 +33,7 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 // We have a routes configuration to define where to serve every app with the according language.
 const routes = [
   {path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main')},
-  //{path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
+  {path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
   {path: '/*', view: 'fi/index', bundle: require('./dist/server/fi/main')}
 ];
 
@@ -87,13 +87,14 @@ app.use(helmet.contentSecurityPolicy({
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 // We have one configuration per locale and use designated server file for matching route.
-const {AppServerModule: AppServerModule_fi, LAZY_MODULE_MAP: LAZY_MODULE_MAP_FI, ngExpressEngine: ngExpressEngine_fi,
-  provideModuleMap: provideModuleMap_fi} = require('./dist/server/fi/main');
-const {AppServerModule: AppServerModule_en, LAZY_MODULE_MAP:LAZY_MODULE_MAP_EN, ngExpressEngine:ngExpressEngine_en,
-  provideModuleMap: provideModuleMap_en} = require('./dist/server/en/main');
+const {AppServerModule: AppServerModuleFi, LAZY_MODULE_MAP: LAZY_MODULE_MAP_FI, ngExpressEngine: ngExpressEngineFi,
+  provideModuleMap: provideModuleMapFi} = require('./dist/server/fi/main');
+const {AppServerModule: AppServerModuleEn, LAZY_MODULE_MAP: LAZY_MODULE_MAP_EN, ngExpressEngine: ngExpressEngineEn,
+  provideModuleMap: provideModuleMapEn} = require('./dist/server/en/main');
+const {AppServerModule: AppServerModuleSv, LAZY_MODULE_MAP: LAZY_MODULE_MAP_SV, ngExpressEngine: ngExpressEngineSv,
+    provideModuleMap: provideModuleMapSv} = require('./dist/server/sv/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-
 
 // Example Express Rest API endpoints
 // app.get('/api/**', (req, res) => { });
@@ -105,10 +106,10 @@ routes.forEach((route) => {
     // EN routes
     app.get(route.path, (req, res) => {
 
-      app.engine('html', ngExpressEngine_en({
-        bootstrap: AppServerModule_en,
+      app.engine('html', ngExpressEngineEn({
+        bootstrap: AppServerModuleEn,
         providers: [
-          provideModuleMap_en(LAZY_MODULE_MAP_EN)
+          provideModuleMapEn(LAZY_MODULE_MAP_EN)
         ]
       }));
       app.set('view engine', 'html');
@@ -117,9 +118,32 @@ routes.forEach((route) => {
       res.render(route.view, {
         req,
         res,
-        engine: ngExpressEngine_en({
-          bootstrap: AppServerModule_en,
-          providers: [provideModuleMap_en(LAZY_MODULE_MAP_EN),
+        engine: ngExpressEngineEn({
+          bootstrap: AppServerModuleEn,
+          providers: [provideModuleMapEn(LAZY_MODULE_MAP_EN),
+          { req, res }]
+        })
+      });
+    });
+  } else if (route.path.startsWith('/sv')) {
+    // SV routes
+    app.get(route.path, (req, res) => {
+
+      app.engine('html', ngExpressEngineSv({
+        bootstrap: AppServerModuleSv,
+        providers: [
+          provideModuleMapSv(LAZY_MODULE_MAP_SV)
+        ]
+      }));
+      app.set('view engine', 'html');
+      app.set('views', join(DIST_FOLDER, 'browser'));
+
+      res.render(route.view, {
+        req,
+        res,
+        engine: ngExpressEngineSv({
+          bootstrap: AppServerModuleSv,
+          providers: [provideModuleMapSv(LAZY_MODULE_MAP_SV),
           { req, res }]
         })
       });
@@ -128,19 +152,19 @@ routes.forEach((route) => {
     // FI routes
     app.get(route.path, (req, res) => {
 
-      app.engine('html', ngExpressEngine_fi({
-        bootstrap: AppServerModule_fi,
+      app.engine('html', ngExpressEngineFi({
+        bootstrap: AppServerModuleFi,
         providers: [
-          provideModuleMap_fi(LAZY_MODULE_MAP_FI)
+          provideModuleMapFi(LAZY_MODULE_MAP_FI)
         ]
       }));
       app.set('view engine', 'html');
       app.set('views', join(DIST_FOLDER, 'browser'));
 
       res.render(route.view, {
-        req, res, engine: ngExpressEngine_fi({
-          bootstrap: AppServerModule_fi,
-          providers: [provideModuleMap_fi(LAZY_MODULE_MAP_FI),
+        req, res, engine: ngExpressEngineFi({
+          bootstrap: AppServerModuleFi,
+          providers: [provideModuleMapFi(LAZY_MODULE_MAP_FI),
           { req, res }]
         })
       });
@@ -151,5 +175,5 @@ routes.forEach((route) => {
 // Start up the Node server
 app.listen(EXPRESS_HTTP_PORT, () => {
   console.log(`Node Express server listening on http://localhost:${EXPRESS_HTTP_PORT}`);
-  console.log("DIST_FOLDER " + DIST_FOLDER);
+  console.log('DIST_FOLDER ' + DIST_FOLDER);
 });
