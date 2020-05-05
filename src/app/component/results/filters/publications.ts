@@ -41,35 +41,39 @@ export class PublicationFilters {
 
   shapeData(data) {
     const source = data[0].aggregations;
+    // Year
+    source.year.buckets = source.year.years.buckets;
     // Organization & sector
     this.organization(source.organization);
     // Major field
     source.field.buckets = this.minorField(source.field.buckets);
     // Publication Type
-    source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
+    source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
     // Country code
-    source.countryCode.buckets = this.publicationCountry(source.countryCode.buckets);
+    source.countryCode.buckets = this.publicationCountry(source.countryCode.countryCodes.buckets);
     // Language code
     source.lang.buckets = this.lang(source.lang.buckets);
     // Jufo code
-    source.juFo.buckets = this.juFoCode(source.juFo.buckets);
+    source.juFo.buckets = this.juFoCode(source.juFo.juFoCodes.buckets);
     // Open access
     source.openAccess.buckets = this.openAccess(source.openAccess.buckets, source.selfArchived.buckets, source.oaComposite);
     // Internationatl collaboration
-    source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
+    source.internationalCollaboration.buckets =
+      this.getSingleAmount(source.internationalCollaboration.internationalCollaborationCodes.buckets);
     source.shaped = true;
     return source;
   }
 
   organization(data) {
-      data.buckets = data.sectorName ? data.sectorName.buckets : [];
-      data.buckets.forEach(item => {
-      item.subData = item.organizations.buckets;
-      item.subData.map(subItem => {
-          subItem.label = subItem.key;
-          subItem.key = subItem.orgId.buckets[0].key;
-      });
-      });
+    console.log(data);
+    data.buckets = data.sectorName ? data.sectorName.buckets : [];
+    data.buckets.forEach(item => {
+    item.subData = item.organization.organizations.buckets;
+    item.subData.map(subItem => {
+        subItem.label = subItem.key;
+        subItem.key = subItem.orgId.buckets[0].key;
+    });
+    });
   }
 
   minorField(data) {
