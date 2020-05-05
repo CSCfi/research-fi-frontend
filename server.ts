@@ -30,6 +30,7 @@ enableProdMode();
 const app = express();
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
+// We have a routes configuration to define where to serve every app with the according language.
 const routes = [
   {path: '/en/*', view: 'en/index', bundle: require('./dist/server/en/main')},
   //{path: '/sv/*', view: 'sv/index', bundle: require('./dist/server/sv/main')},
@@ -85,8 +86,11 @@ app.use(helmet.contentSecurityPolicy({
 }));
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const {AppServerModule:AppServerModule_fi, LAZY_MODULE_MAP:LAZY_MODULE_MAP_FI, ngExpressEngine:ngExpressEngine_fi, provideModuleMap:provideModuleMap_fi} = require('./dist/server/fi/main');
-const {AppServerModule:AppServerModule_en, LAZY_MODULE_MAP:LAZY_MODULE_MAP_EN, ngExpressEngine:ngExpressEngine_en, provideModuleMap:provideModuleMap_en} = require('./dist/server/en/main');
+// We have one configuration per locale and use designated server file for matching route.
+const {AppServerModule: AppServerModule_fi, LAZY_MODULE_MAP: LAZY_MODULE_MAP_FI, ngExpressEngine: ngExpressEngine_fi,
+  provideModuleMap: provideModuleMap_fi} = require('./dist/server/fi/main');
+const {AppServerModule: AppServerModule_en, LAZY_MODULE_MAP:LAZY_MODULE_MAP_EN, ngExpressEngine:ngExpressEngine_en,
+  provideModuleMap: provideModuleMap_en} = require('./dist/server/en/main');
 
 // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 
@@ -100,7 +104,6 @@ routes.forEach((route) => {
   if (route.path.startsWith('/en')) {
     // EN routes
     app.get(route.path, (req, res) => {
-      console.log("ROUTE EN", route);
 
       app.engine('html', ngExpressEngine_en({
         bootstrap: AppServerModule_en,
@@ -124,7 +127,6 @@ routes.forEach((route) => {
   } else {
     // FI routes
     app.get(route.path, (req, res) => {
-      console.log("ROUTE FI", route);
 
       app.engine('html', ngExpressEngine_fi({
         bootstrap: AppServerModule_fi,

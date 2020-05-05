@@ -11,7 +11,7 @@ app-result-tab {
     .scroll {
         scroll-behavior: smooth;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         overflow: auto;
         white-space: nowrap; 
         justify-content: space-between;
@@ -45,9 +45,11 @@ app-result-tab {
         border-bottom: 0px;
         background: none;
         z-index: 1;
+        padding-bottom: 18px;
     }
 
     .bundler {
+        display: block;
         cursor: pointer;
         min-width: 205.7px;
         margin: 23px 0 0;
@@ -152,7 +154,7 @@ app-result-tab {
         cursor: default;
     }
 
-    .bundler.disabled-home {
+    .disabled-home {
         opacity: 0.5;
     }
 
@@ -165,6 +167,33 @@ app-result-tab {
     // bs-tooltip-container {
     //     margin-top: -88px;
     // }
+
+    .bundler.toggle-more {
+        display: flex;
+        align-items: center;
+        padding: unset;
+        margin: 12px 2px !important;
+    }
+
+    // Homepage styles
+    .homepage {
+        border: 0px !important;
+        margin: 6px 2px !important;
+        min-width: 180px !important;
+    }
+
+    .label.homepage-label {
+        font-size: 14px !important;
+        display: block;
+    }
+
+    .row-wrapper {
+        display: flex;
+        justify-content: center;
+        &-homepage {
+            width: 100%;
+        }
+    }
 
     @media (max-width: 575px) {
         .bundler {
@@ -182,6 +211,14 @@ app-result-tab {
         .text-center {
             display: table-cell;
             font-size: 1.2em;
+        }
+
+        .homepage {
+            min-width: 148px !important;
+        }
+
+        .label.homepage-label {
+            font-size: 12px !important;
         }
     }
 }

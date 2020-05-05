@@ -15,7 +15,7 @@
 }
 
 .form-control {
-    border: 0px solid #ced4da;
+    border: 1px solid #ced4da;
 }
 
 .col-12.search.increase {
@@ -281,13 +281,17 @@ button.btn.btn-search:focus span {
 }
 
 // Responsive
-@media (max-width:991px) {
+@media (max-width: 991px) {
     .search-help {
         display: none;
     }
+
+    .h1 {
+        font-size: 2rem;
+    }
 }
 
-@media (max-width:768px) {
+@media (max-width: 768px) {
     .search {
         padding: 30px 0!important;
     }
@@ -298,6 +302,7 @@ button.btn.btn-search:focus span {
 
     .form-group.has-search {
         padding: 0;
+        padding-top: 15px;
     }
 
     .has-search .form-control {
@@ -307,14 +312,45 @@ button.btn.btn-search:focus span {
     .list-group-item {
         margin: 0 -15px;
     }
+
+    i.fa.fa-search {
+        display: none;
+    }
+
+    span.search-button {
+        padding: 0;
+    }
+    
+    .input-group-append {
+        margin-left: 0.8rem;
+    }
+
+    button.btn.btn-search {
+        padding: 0 1.5rem;
+    }
 }
 
-@media (min-width:769px) {
+@media (min-width: 769px) {
     .row.results .col, .row.helper .col, .row.history .col {
         padding: 0;
     }
-
+    
     .auto-suggest h2, .auto-suggest h3, .helper span, .list-group-item {
         padding: 0.4rem 1.6rem;
     }
+}
+
+@media (max-width: 400px) {
+    .h1 {
+        font-size: 1.6rem;
+    }
+
+    .form-group.has-search .form-control{
+        font-size: 1rem;
+    }
+
+    button.btn.btn-search {
+        padding: 0 1rem;
+    }
+
 }
