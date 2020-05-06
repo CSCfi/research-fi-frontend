@@ -357,14 +357,24 @@ export class FilterService {
 
   constructFilterPayload(tab: string, searchTerm: string) {
 
-    const active = this.constructFilters(tab.slice(0, -1)).filter(item => item.bool.should.length > 0);
-
+    const active = this.constructFilters(tab.slice(0, -1)).filter(item => item.bool?.should.length > 0);
+    const activeNested = this.constructFilters(tab.slice(0, -1)).filter(item => item.nested?.query.bool.should.length > 0);
+    // console.log(active);
+    // console.log(activeNested);
     function filterActive(field) {
-      return active.filter(item => Object.keys(item.bool.should[0].term).toString() !== field);
+      return active.filter(item => Object.keys(item.bool.should[0].term).toString() !== field).concat(activeNested);
     }
+
+    function filterActiveNested(path) {
+      return activeNested.filter(item => item.nested.path !== path);
+    }
+
+    // console.log(filterActive('languages.languageCode').concat(activeNested))
 
     const payLoad: any = {
       ...(searchTerm ? { query: {
+        // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
+        // outside path.
         bool: { should: [ this.settingsService.querySettings(tab.slice(0, -1), searchTerm) ] }
         }} : []),
       size: 0,
@@ -407,24 +417,27 @@ export class FilterService {
                   }
                 },
                 organization: {
-                  filter: {
-                    bool: {
-                      filter: filterActive('author.organization.OrganizationNameFi.keyword')
-                    }
+                  terms: {
+                    size: 50,
+                    field: 'author.organization.OrganizationNameFi.keyword'
                   },
                   aggs: {
-                    organizations: {
-                      terms: {
-                        size: 50,
-                        field: 'author.organization.OrganizationNameFi.keyword'
-                      },
+                    filtered: {
+                      reverse_nested: {},
                       aggs: {
-                        orgId: {
-                          terms: {
-                            size: 50,
-                            field: 'author.organization.organizationId.keyword'
+                        filterCount: {
+                          filter: {
+                            bool: {
+                              filter: filterActive('publicationTypeCode.keyword')
+                            }
                           }
                         }
+                      }
+                    },
+                    orgId: {
+                      terms: {
+                        size: 1,
+                        field: 'author.organization.organizationId.keyword'
                       }
                     }
                   }
@@ -448,15 +461,23 @@ export class FilterService {
             }
           }
         };
-        // Different agg
         payLoad.aggs.lang = {
-          terms: {
-            field: 'languages.languageCode.keyword'
+          filter: {
+            bool: {
+              filter: filterActive('languages.languageCode')
+            }
           },
           aggs: {
-            language: {
+            langs: {
               terms: {
-                field: 'languages.' + this.langByLocale(this.localeId) + '.keyword'
+                field: 'languages.languageCode.keyword'
+              },
+              aggs: {
+                language: {
+                  terms: {
+                    field: 'languages.' + this.langByLocale(this.localeId) + '.keyword'
+                  }
+                }
               }
             }
           }
@@ -490,8 +511,6 @@ export class FilterService {
             juFoCodes: {
               terms: {
                 field: 'jufoClassCode.keyword',
-                size: 50,
-                exclude: ' ',
                 order: {
                   _key: 'desc'
                 }
@@ -515,33 +534,62 @@ export class FilterService {
           }
         };
         payLoad.aggs.field = {
-          terms: {
-            field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
-            exclude: ' ',
-            size: 250,
-            order: {
-              _key: 'asc'
+          filter: {
+            bool: {
+              filter: filterActive('fields_of_science.name' + this.localeC + 'Science.keyword')
             }
           },
           aggs: {
-            fieldId: {
+            fields: {
               terms: {
-                field: 'fields_of_science.fieldIdScience'
+                field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
+                exclude: ' ',
+                size: 250,
+                order: {
+                  _key: 'asc'
+                }
+              },
+              aggs: {
+                fieldId: {
+                  terms: {
+                    field: 'fields_of_science.fieldIdScience'
+                  }
+                }
               }
-            },
+            }
           }
         };
         payLoad.aggs.selfArchived = {
-          terms: {
-            field: 'selfArchivedCode'
+          filter: {
+            bool: {
+              filter: filterActive('publicationTypeCode.keyword')
+            }
+          },
+          aggs: {
+            selfArchivedCodes: {
+              terms: {
+                field: 'publicationTypeCode.keyword'
+              }
+            }
           }
         };
+
         payLoad.aggs.openAccess = {
-          terms: {
-            field: 'openAccessCode'
+          filter: {
+            bool: {
+              filter: filterActive('openAccessCode')
+            }
+          },
+          aggs: {
+            openAccessCodes: {
+              terms: {
+                field: 'openAccessCode'
+              }
+            }
           }
         };
         // Composite is to get aggregation of selfarchived and open access codes of 0
+        // Doesn't result anything. TODO: Check if this is needed and filter with filterActive function
         payLoad.aggs.oaComposite = {
           composite: {
             sources: [
