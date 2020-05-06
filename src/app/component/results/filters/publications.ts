@@ -46,17 +46,18 @@ export class PublicationFilters {
     // Organization & sector
     this.organization(source.organization);
     // Major field
-    source.field.buckets = this.minorField(source.field.buckets);
+    source.field.buckets = this.minorField(source.field.fields.buckets);
     // Publication Type
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
     // Country code
     source.countryCode.buckets = this.publicationCountry(source.countryCode.countryCodes.buckets);
     // Language code
-    source.lang.buckets = this.lang(source.lang.buckets);
+    source.lang.buckets = this.lang(source.lang.langs.buckets);
     // Jufo code
     source.juFo.buckets = this.juFoCode(source.juFo.juFoCodes.buckets);
     // Open access
-    source.openAccess.buckets = this.openAccess(source.openAccess.buckets, source.selfArchived.buckets, source.oaComposite);
+    source.openAccess.buckets = this.openAccess(source.openAccess.openAccessCodes.buckets, source.selfArchived.selfArchivedCodes.buckets,
+                                                source.oaComposite);
     // Internationatl collaboration
     source.internationalCollaboration.buckets =
       this.getSingleAmount(source.internationalCollaboration.internationalCollaborationCodes.buckets);
@@ -65,13 +66,13 @@ export class PublicationFilters {
   }
 
   organization(data) {
-    console.log(data);
     data.buckets = data.sectorName ? data.sectorName.buckets : [];
     data.buckets.forEach(item => {
-    item.subData = item.organization.organizations.buckets;
+    item.subData = item.organization.buckets;
     item.subData.map(subItem => {
         subItem.label = subItem.key;
         subItem.key = subItem.orgId.buckets[0].key;
+        subItem.doc_count = subItem.filtered.filterCount.doc_count;
     });
     });
   }
@@ -117,7 +118,7 @@ export class PublicationFilters {
     const result = data.map(item =>
         item = {key: 'c' + item.key, label: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
     return result;
-    }
+  }
 
   juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
