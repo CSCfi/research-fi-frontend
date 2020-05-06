@@ -260,6 +260,7 @@ export class FilterService {
       ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
           [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
       ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
+      // Funding / Organization filter data comes from two different nested aggregations
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
           [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
           {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
@@ -289,29 +290,6 @@ export class FilterService {
             { term: { _index: index } },
             ...(searchTerm ? [query] : []),
             this.constructFilters(index)
-            // ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
-            // ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
-            // ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
-            // ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-            //     [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
-            // ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
-            // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-            //     [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
-            //     {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
-            // ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
-            // ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
-            // ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
-            // ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
-            // ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
-            // ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
-            // ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
-            // ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
-            // ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
-            // // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
-            // ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
-            // ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
-            // ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
-            // ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
           ],
         }
     };
@@ -356,21 +334,28 @@ export class FilterService {
   }
 
   constructFilterPayload(tab: string, searchTerm: string) {
-
-    const active = this.constructFilters(tab.slice(0, -1)).filter(item => item.bool?.should.length > 0);
+    // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
+    const active = this.constructFilters(tab.slice(0, -1)).filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested);
     const activeNested = this.constructFilters(tab.slice(0, -1)).filter(item => item.nested?.query.bool.should.length > 0);
+    const activeMultipleNested = this.constructFilters(tab.slice(0, -1)).filter(item => item.bool?.should.length > 0 &&
+                                                                                        item.bool.should[0]?.nested);
     // console.log(active);
-    // console.log(activeNested);
+    // Functions to filter out active filters. These prevents doc count changes on active filters
     function filterActive(field) {
-      return active.filter(item => Object.keys(item.bool.should[0].term).toString() !== field).concat(activeNested);
+      return active.filter(item => Object.keys(item.bool.should[0].term).toString() !== field).concat(activeNested, activeMultipleNested);
     }
 
     function filterActiveNested(path) {
-      return activeNested.filter(item => item.nested.path !== path);
+      return activeNested.filter(item => item.nested.path !== path).concat(active, activeMultipleNested);
     }
 
-    // console.log(filterActive('languages.languageCode').concat(activeNested))
+    function filterActiveMultipleNested(path1, path2) {
+      const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path1)
+                  .concat(activeMultipleNested.filter(item => item.bool.should[1].nested.path !== path2));
+      return res.concat(active, activeNested);
+    }
 
+    // Aggregations
     const payLoad: any = {
       ...(searchTerm ? { query: {
         // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
@@ -428,7 +413,7 @@ export class FilterService {
                         filterCount: {
                           filter: {
                             bool: {
-                              filter: filterActive('publicationTypeCode.keyword')
+                              filter: filterActiveNested('author')
                             }
                           }
                         }
@@ -573,7 +558,6 @@ export class FilterService {
             }
           }
         };
-
         payLoad.aggs.openAccess = {
           filter: {
             bool: {
@@ -614,11 +598,20 @@ export class FilterService {
       case 'fundings':
         // Funder
         payLoad.aggs.funder = {
-          terms: {
-            field: 'funderName' + this.localeC + '.keyword',
-            size: 250,
-            order: {
-              _key: 'asc'
+          filter: {
+            bool: {
+              filter: filterActive('funderName' + this.localeC + '.keyword')
+            }
+          },
+          aggs: {
+            funders: {
+              terms: {
+                field: 'funderName' + this.localeC + '.keyword',
+                size: 250,
+                order: {
+                  _key: 'asc'
+                }
+              }
             }
           }
         };
@@ -647,9 +640,21 @@ export class FilterService {
                     field: 'organizationConsortium.consortiumOrganizationNameFi.keyword'
                   },
                   aggs: {
+                    filtered: {
+                      reverse_nested: {},
+                      aggs: {
+                        filterCount: {
+                          filter: {
+                            bool: {
+                              filter: filterActiveMultipleNested('organizationConsortium', 'fundingGroupPerson')
+                            }
+                          }
+                        }
+                      }
+                    },
                     orgId: {
                       terms: {
-                        size: 50,
+                        size: 1,
                         field: 'organizationConsortium.consortiumOrganizationId.keyword'
                       }
                     }
@@ -659,6 +664,7 @@ export class FilterService {
             }
           }
         };
+        // TODO: Check if this is needed
         payLoad.aggs.fundingSector = {
           nested: {
             path: 'fundingGroupPerson'
@@ -697,72 +703,116 @@ export class FilterService {
         };
         // Type of funding
         payLoad.aggs.typeOfFunding = {
-          terms: {
-            field: 'typeOfFundingId.keyword',
-            exclude: ' ',
-            size: 250,
-            order: {
-              _key: 'asc'
+          filter: {
+            bool: {
+              filter: filterActive('typeOfFundingId.keyword')
             }
           },
           aggs: {
-            typeName: {
+            types: {
               terms: {
-                field: 'typeOfFundingName' + this.localeC + '.keyword',
+                field: 'typeOfFundingId.keyword',
                 exclude: ' ',
+                size: 250,
+                order: {
+                  _key: 'asc'
+                }
+              },
+              aggs: {
+                typeName: {
+                  terms: {
+                    field: 'typeOfFundingName' + this.localeC + '.keyword',
+                    exclude: ' ',
+                  }
+                }
               }
-            },
+            }
           }
         };
         // Field of science
         payLoad.aggs.field = {
-          terms: {
-            field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
-            exclude: ' ',
-            size: 250,
-            order: {
-              _key: 'asc'
+          filter: {
+            bool: {
+              filter: filterActive('fields_of_science.name' + this.localeC + 'Science.keyword')
             }
           },
           aggs: {
-            fieldId: {
+            fields: {
               terms: {
-                field: 'fields_of_science.fieldIdScience.keyword',
+                field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
                 exclude: ' ',
+                size: 250,
+                order: {
+                  _key: 'asc'
+                }
+              },
+              aggs: {
+                fieldId: {
+                  terms: {
+                    field: 'fields_of_science.fieldIdScience.keyword'
+                  }
+                }
               }
-            },
+            }
           }
         };
         // Funding status
         payLoad.aggs.fundingStatus = {
-          range: {
-            field: 'fundingEndDate',
-            ranges: [
-              {
-                from: this.today
-              }
-            ]
+          filter: {
+            bool: {
+              filter: filterActive('fundingEndDate')
+            }
           },
+          aggs: {
+            status: {
+              range: {
+                field: 'fundingEndDate',
+                ranges: [
+                  {
+                    from: this.today
+                  }
+                ]
+              }
+            }
+          }
         };
         // Scheme & Keywords
         payLoad.aggs.scheme = {
-          terms: {
-            field: 'keywords.scheme.keyword',
-            size: 10
+          filter: {
+            bool: {
+              filter: filterActive('keywords.scheme.keyword')
+            }
           },
           aggs: {
-            field: {
+            types: {
               terms: {
-                field: 'keywords.keyword.keyword'
+                field: 'keywords.scheme.keyword',
+                size: 10,
+              },
+              aggs: {
+                typeName: {
+                  terms: {
+                    field: 'keywords.keyword.keyword' + this.localeC + '.keyword',
+                  }
+                }
               }
-            },
+            }
           }
         };
         payLoad.aggs.faField = {
-          terms: {
-            field: 'keywords.keyword.keyword',
-            size: 50
+          filter: {
+            bool: {
+              filter: filterActive('keywords.keyword.keyword')
+            }
           },
+          aggs: {
+            faFields: {
+              terms: {
+                field: 'keywords.keyword.keyword',
+                size: 50,
+              }
+            }
+          }
         };
         break;
       // Infrastructures
