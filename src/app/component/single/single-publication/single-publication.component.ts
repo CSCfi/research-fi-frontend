@@ -328,8 +328,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       };
     }
 
-    // console.log(this.authorAndOrganization[0].authors.filter(x => x.subUnit !== null));
-
 
     source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
