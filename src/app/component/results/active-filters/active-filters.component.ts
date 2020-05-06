@@ -34,7 +34,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     ended: 'Päättynyt',
     true: 'Kansainvälinen yhteisjulkaisu',
     noAccessInfo: 'Ei tietoa',
-    openAccess: 'Avoin saatavuus',
+    openAccess: 'Open Access -lehti',
     nonOpen: 'Ei avoin',
     noVal: 'Ei arviota',
     otherOpen: 'Muu avoin saatavuus',
@@ -189,8 +189,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             // Language, publications
-            if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
-              const result = source.lang.buckets.find(({ key }) => key === val.value);
+            if (val.category === 'lang' && source.lang.langs.sum_other_doc_count > 0) {
+              const result = source.lang.langs.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
@@ -210,7 +210,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'organization' && source.organization) {
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
-                  sector.organizations.buckets.forEach(org => {
+                  sector.organization.buckets.forEach(org => {
                     if (org.orgId.buckets[0].key === val.value) {
                       const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                       this.activeFilters[foundIndex].translation = org.key.trim();
