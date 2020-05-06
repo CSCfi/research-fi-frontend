@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef, OnDestroy, ViewChildren, QueryList, OnChanges, Inject, LOCALE_ID,
-  HostListener, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+  HostListener, PLATFORM_ID, ViewEncapsulation, ViewChild } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
@@ -19,6 +19,7 @@ import { WINDOW } from 'src/app/services/window.service';
 export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;
   @ViewChildren('tabList') tabList: QueryList<any>;
+  @ViewChild('toggleButton') toggleButton: ElementRef;
   @Input() allData: any;
   @Input() homepageStyle: {};
   @Input() isHomepage = false;
@@ -227,6 +228,10 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   toggleTabs() {
     this.tabsOpen = !this.tabsOpen;
+    // Timeout so "new" button has time to render
+    setTimeout(() => {
+      this.toggleButton.nativeElement.focus();
+    }, 10);
   }
 
   onResize(event) {
@@ -246,8 +251,11 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.nofTabs = 6;
       return;
     }
+    // Find the amount of tabs that fit on the screen (206px per tab)
     this.nofTabs = Math.max(1, Math.floor(width / 206) - 1);
+    // Calculate how many rows are needed to display all tabs + toggle button with current number of tabs per row
     this.rowsOpen = Array(Math.floor((8 / (this.nofTabs + 1)) - 0.001) + 1).fill(0);
+    // Always one row when closed except when only two tabs are displayed
     if (this.nofTabs === 1) {
       this.rowsClosed = [1, 1];
     } else {
