@@ -207,10 +207,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.fundingFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.fundingFilters.shapeData(this.responseData);
+          // if (this.resetFilters) {
+          //   this.fundingFilters.shapeData(this.responseData);
+          //   this.shapedData = this.responseData;
+          // }
           break;
         }
         case 'infrastructures': {
