@@ -210,7 +210,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'organization' && source.organization) {
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
-                  sector.organization.buckets.forEach(org => {
+                  sector.organizations.buckets.forEach(org => {
                     if (org.orgId.buckets[0].key === val.value) {
                       const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                       this.activeFilters[foundIndex].translation = org.key.trim();
@@ -256,7 +256,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Funding
             // Type of funding
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
-              const result = source.typeOfFunding.buckets.find(({ key }) => key === val.value);
+              const result = source.typeOfFunding.types.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.typeName?.buckets[0]?.key ? result.typeName.buckets[0].key :
               val.value;
