@@ -14,7 +14,7 @@
     <mat-card-content >
         <div class="row">
             <div class="pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'" [innerHTML]="item.content"></div>
-            <div *ngIf="item.mediaUri?.length > 0" class="pr-0" [ngClass]="item.mediaUri?.length > 0 ? 'col-2' : 'd-none'">
+            <div *ngIf="item.mediaUri?.length > 0" class="col-2 pr-0">
                 <img [src]="item.mediaUri | safeUrl">
             </div>
         </div>
