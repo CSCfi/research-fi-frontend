@@ -74,7 +74,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    if (this.isHomepage && isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId)) {
       this.calcTabsAndRows(this.window.innerWidth);
     }
 
