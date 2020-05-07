@@ -81,6 +81,11 @@ app.use(helmet.contentSecurityPolicy({
       '\'self\'',
       'fonts.googleapis.com:*',
       'fonts.gstatic.com:*'
+    ],
+    imgSrc: [
+      '\'self\'',
+      'ws://localhost:4200',
+      'http://localhost:*',
     ]
   }
 }));
