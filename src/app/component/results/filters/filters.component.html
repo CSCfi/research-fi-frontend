@@ -27,7 +27,7 @@
 </ng-container>
 
 <ng-template #filters>
-    <div class="filter-sidebar" *ngFor="let response of shapedData ? shapedData : responseData">
+    <div class="filter-sidebar" *ngFor="let response of responseData">
         <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h3>
         <div class="filter-wrapper">
             <mat-expansion-panel *ngFor="let filter of currentFilter; let i = index" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">

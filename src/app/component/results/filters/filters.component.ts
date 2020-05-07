@@ -60,12 +60,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   panelArr = [];
   showMoreCount: any;
   filterTerm: any;
-  shapedData: any;
   fromYear: any;
   toYear: any;
   paramSub: Subscription;
   currentInput: string;
-  resetFilters: boolean;
   defaultOpen = 7;
 
   constructor( private router: Router, private filterService: FilterService,
@@ -103,7 +101,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.paramSub = this.route.params.subscribe(params => {
       if (this.currentInput !== params.input || !params.input) {
         this.currentInput = params.input;
-        this.resetFilters = true;
       }
     });
 
@@ -141,13 +138,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         // Get preselected filters from filterService
         this.preSelection = [];
         Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
-
-        // Reset from & to year range filters
-        // if (filters.year.length === 0) {
-        //   this.fromYear = undefined;
-        //   this.toYear = undefined;
-        // }
-
         // Get from & to year filter preselection
         this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
         this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
@@ -188,65 +178,39 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
           this.publicationFilters.shapeData(this.responseData);
-          // if (this.resetFilters) {
-          //   this.publicationFilters.shapeData(this.responseData);
-          //   this.shapedData = this.responseData;
-          // }
           break;
         }
         case 'persons': {
           this.currentFilter = this.personFilters.filterData;
           this.currentSingleFilter = this.personFilters.singleFilterData;
-          // this.shapedData is for reminder
-          if (!this.shapedData && !this.responseData[0].aggregations.shaped) {
-            this.personFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          // TODO: Shape data
           break;
         }
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
           this.fundingFilters.shapeData(this.responseData);
-          // if (this.resetFilters) {
-          //   this.fundingFilters.shapeData(this.responseData);
-          //   this.shapedData = this.responseData;
-          // }
           break;
         }
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
           this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
           this.infrastructureFilters.shapeData(this.responseData);
-          // if (this.resetFilters) {
-          //   this.infrastructureFilters.shapeData(this.responseData);
-          //   this.shapedData = this.responseData;
-          // }
           break;
         }
         case 'organizations': {
           this.currentFilter = this.organizationFilters.filterData;
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
           this.organizationFilters.shapeData(this.responseData);
-          // if (this.resetFilters) {
-          //   this.organizationFilters.shapeData(this.responseData);
-          //   this.shapedData = this.responseData;
-          // }
           break;
         }
         case 'news': {
           this.currentFilter = this.newsFilters.filterData;
           // this.currentSingleFilter = this.newsFilters.singleFilterData;
           this.newsFilters.shapeData(this.responseData);
-          this.shapedData = this.responseData;
-          if (this.resetFilters) {
-            this.newsFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
           break;
         }
       }
-      this.resetFilters = false;
     }
   }
 
@@ -263,7 +227,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   range(event, dir) {
     // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
     // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
-    const source = this.shapedData ? this.shapedData[0].aggregations.year.buckets : this.responseData[0].aggregations.year.buckets;
+    const source = this.responseData[0].aggregations.year.buckets;
     const selected = [];
     switch (dir) {
       case 'from': {
@@ -369,7 +333,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   filterInput(event, parent) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
-    const source = this.shapedData[0].aggregations[parent];
+    const source = this.responseData[0].aggregations[parent];
     source.original = source.original ? source.original : source.buckets;
     const matchArr = source.original.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
     if (matchArr.length > 0) {
@@ -386,7 +350,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   subFilterInput(event, parent, child) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     // this.filterTerm = term;
-    const source = this.shapedData[0].aggregations[parent].buckets.find(sub => sub.key === child);
+    const source = this.responseData[0].aggregations[parent].buckets.find(sub => sub.key === child);
     source.original = source.original ? source.original : source.subData;
     const matchArr = source.original.filter(subItem => subItem.label.toLowerCase().includes(term));
     if (matchArr.length > 0) {
