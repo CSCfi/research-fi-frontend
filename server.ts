@@ -86,6 +86,7 @@ app.use(helmet.contentSecurityPolicy({
       '\'self\'',
       'ws://localhost:4200',
       'http://localhost:*',
+      'https://apps.utu.fi:*'
     ]
   }
 }));
