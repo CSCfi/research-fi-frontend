@@ -46,7 +46,7 @@
                 <div class="col col-3 col-xl-2 d-none d-lg-block">
                     <span [innerHtml]="infra.acronym?.length > 0 && infra.acronym !== '0' ? infra.acronym : '-' | highlight: input"></span>
                 </div>      
-                <div class="col col-lg-4 col-xl-4">
+                <div class="col col-lg-4 col-xl-4 title">
                     <a routerLink="/results/infrastructure/{{infra.id}}">
                         <h3 class="result-title" [innerHtml]="infra.name.trim() | highlight: input"></h3>
                     </a>
