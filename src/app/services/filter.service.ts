@@ -840,19 +840,28 @@ export class FilterService {
       // Organizations
       case 'organizations':
         payLoad.aggs.sector = {
-          terms: {
-            field: 'sectorId.keyword',
-            size: 50,
-            order: {
-              _key: 'asc'
+          filter: {
+            bool: {
+              filter: filterActive('sectorId.keyword')
             }
           },
           aggs: {
             sectorId: {
               terms: {
-                field: 'sectorNameFi.keyword'
+                field: 'sectorId.keyword',
+                size: 50,
+                order: {
+                  _key: 'asc'
+                }
+              },
+              aggs: {
+                sectorName: {
+                  terms: {
+                    field: 'sectorNameFi.keyword',
+                  }
+                }
               }
-            },
+            }
           }
         };
         break;
