@@ -10,16 +10,9 @@ version: '3.7'
 services:
   angular:
     build:
-      # Use stage 'angulardev' from the Dockerfile
       context: .
-      target: anguladev
-    volumes:
-      # Bind mount for source code
-      - type: bind
-        source: .
-        target: /usr/src/app
-      # Volume for node_modules
-      - /usr/src/app/node_modules
+      dockerfile: openshift/Dockerfile
+      target: angular
     ports:
-      - "4200:4200"
-      - "49153:49153"
+      - "80:8080"
+    restart: unless-stopped

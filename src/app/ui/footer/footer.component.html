@@ -8,20 +8,16 @@
 <footer>
   <nav class="footer wrapper">
     <div class="row">
-      <div class="col">
+      <div class="col col-12 col-md-4 col-xl-2">
         <div class="row">
           <div class="col-12 px-0 text-md-left text-center">
             <h2 class="header pt-3">Palvelun tarjoaa</h2>
           </div>
-        </div>
-        <div class="row">
           <div class="col-12 px-0">
             <a href="{{okmUrl}}" target="_blank">
               <img class="logo" src="assets/img/okm_logo.svg" alt="Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla">
             </a>
           </div>
-        </div>
-        <div class="row">
           <div class="col-12 px-0 text-md-left text-center">
             <h2 class="header">Yhteistyössä</h2>
           </div>
@@ -33,38 +29,48 @@
         </div>
       </div>
       <div class="col">
-        <h2 class="header">Palvelun käyttö</h2>
-        <ul>  
-          <li><a i18n="Footer-link" routerLink="/service-info">Tietoa palvelusta</a></li>
-          <!-- <li><a i18n="Footer-link" href="#" class="disabled">Ajankohtaista palvelussa</a></li> -->
-          <!-- <li><a i18n="Footer-link" href="#" class="disabled">Käyttöehdot ja avoimuus</a></li> -->
-          <li><a i18n="Footer-link" routerLink="/sitemap">Sivukartta</a></li>
-          <li><a i18n="Footer-link" href="https://link.webropolsurveys.com/S/6674722BF7A4A917" target="_blank">Anna palautetta <fa-icon icon="external-link-alt"></fa-icon></a></li>
-        </ul>
-      </div>
-      <div class="col">
-        <h2 class="header">Info ja yhteystiedot</h2>
-        <ul>
-          <li><a i18n="Footer-link" href="https://link.webropolsurveys.com/S/6674722BF7A4A917" target="_blank">Ota yhteyttä <fa-icon icon="external-link-alt"></fa-icon></a></li>
-          <li><a i18n="Footer-link" href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a></li>
-        </ul>
-      </div>
-      <div class="col">
-        <h2 class="header">Selosteet ja käytännöt</h2>
-        <ul>
-          <li><a i18n="Footer-link" routerLink="/accessibility">Saavutettavuusseloste</a></li>
-          <li><a i18n="Footer-link" routerLink="/privacy">Tietosuoja</a></li>
-        </ul>
-      </div>
-      <div class="col col-2">
-        <div class="social">
-            <h2 i18n="@@followUs" class="header">Seuraa meitä!</h2>
-            <!-- <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a> -->
-            <a href="https://twitter.com/tiedejatutkimus" target="_blank" class="social-icon" title="Twitter -palvelun logo"><fa-icon [icon]="faTwitter"></fa-icon></a>
-            <!-- <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a> -->
+        <div class="row">
+          <div class="col-12 col-xl-6">
+            <h2 class="header">Palvelun käyttö</h2>
+            <ul>  
+              <li><a i18n="Footer-link" routerLink="/service-info">Tietoa palvelusta</a></li>
+              <!-- <li><a i18n="Footer-link" href="#" class="disabled">Ajankohtaista palvelussa</a></li> -->
+              <!-- <li><a i18n="Footer-link" href="#" class="disabled">Käyttöehdot ja avoimuus</a></li> -->
+              <li><a i18n="Footer-link" routerLink="/sitemap">Sivukartta</a></li>
+              <li><a i18n="Footer-link" href="https://link.webropolsurveys.com/S/6674722BF7A4A917" target="_blank">Anna palautetta <fa-icon icon="external-link-alt"></fa-icon></a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-xl-6">
+            <h2 class="header">Info ja yhteystiedot</h2>
+            <ul>
+              <li><a i18n="Footer-link" href="https://link.webropolsurveys.com/S/6674722BF7A4A917" target="_blank">Ota yhteyttä <fa-icon icon="external-link-alt"></fa-icon></a></li>
+              <li><a i18n="Footer-link" href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="build-info pull-right">
-          <span>{{buildInfo}}</span>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col-12 col-xl-6">
+            <h2 class="header">Selosteet ja käytännöt</h2>
+            <ul>
+              <li><a i18n="Footer-link" routerLink="/accessibility">Saavutettavuusseloste</a></li>
+              <li><a i18n="Footer-link" routerLink="/privacy">Tietosuoja</a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-xl-6">
+            <div class="social">
+                <h2 i18n="@@followUs" class="header">Seuraa meitä!</h2>
+                <ul>
+                  <!-- <a href="#" class="icon" title="Facebook -palvelun logo"><fa-icon [icon]="faFacebook"></fa-icon></a> -->
+                  <li><a href="https://twitter.com/tiedejatutkimus" class="d-flex justify-content-center justify-content-md-start align-items-center" target="_blank" title="Twitter -palvelun logo"><fa-icon class="social-icon" [icon]="faTwitter"></fa-icon>Tiedejatutkimus.fi Twitterissä</a></li>
+                  <!-- <a href="#" class="icon" title="LinkedIn -palvelun logo"><fa-icon [icon]="faLinkedin"></fa-icon></a> -->
+                </ul>
+            </div>
+            <div class="build-info pull-right">
+              <span>{{buildInfo}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

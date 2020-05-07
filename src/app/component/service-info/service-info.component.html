@@ -31,6 +31,8 @@
                                         <h2 [id]="item.title">{{item.title}}</h2>
                                     </div>
                                 </mat-panel-title>
+                                <span *ngIf="openedIdx !== i" class="align-self-center mr-2">Avaa</span>
+                                <span *ngIf="openedIdx === i" class="align-self-center mr-2">Sulje</span>
                             </mat-expansion-panel-header>
                             <div class="row">
                                 <div class="col-12 description" [innerHTML]='item.description.join("")'></div>

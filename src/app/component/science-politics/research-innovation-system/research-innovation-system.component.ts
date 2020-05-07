@@ -24,6 +24,7 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   faHospital = faHospital;
   faBuilding = faBuilding;
   faTimes = faTimes;
+  openedIdx = -1;
 
   colWidth = 0;
 

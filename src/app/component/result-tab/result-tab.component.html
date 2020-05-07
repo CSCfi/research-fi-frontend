@@ -8,20 +8,20 @@
     <div #scroll class="scroll" *ngFor="let counted of allData">
       <div *ngIf="!isHomepage" class="edge" [ngStyle]="{'display': lastScrollLocation > 0 ? 'block' : 'none'}">
         <div class="grad grad-left"></div>
-        <div class="nav-arrow nav-arrow-left d-none d-sm-block" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-left" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
       </div>
       <div *ngIf="!isHomepage" class="edge" [ngStyle]="{'display': offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'}">
         <div class="grad grad-right"></div>
-        <div class="nav-arrow nav-arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-right" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
-      <ng-container *ngFor="let row of tabsOpen ? rows : [1]; let i = index;">
+      <ng-container *ngFor="let row of tabsOpen ? rowsOpen : rowsClosed; let i = index;">
         <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
-          <ng-container *ngFor="let tab of tabData.slice(i * (nofTabs + tabsOpen), (i+1) * (nofTabs + (tabsOpen || nofTabs === 6))); let j = index;">
+          <ng-container *ngFor="let tab of slicedRow(i); let j = index;">
             <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale"></app-tab-item>
-            <div *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()">
+            <button *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()" #toggleButton>
               <div *ngIf="!tabsOpen" class="label text-center homepage homepage-label">Näytä kaikki <div><fa-icon [icon]="faAngleDown"></fa-icon></div></div> 
               <div *ngIf="tabsOpen" class="label text-center homepage homepage-label">Näytä vähemmän <div><fa-icon [icon]="faAngleUp"></fa-icon></div></div> 
-            </div>
+            </button>
           </ng-container>
         </div>
       </ng-container>
