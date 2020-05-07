@@ -293,7 +293,7 @@ export class FilterService {
           must: [
             { term: { _index: index } },
             ...(searchTerm ? [query] : []),
-            this.constructFilters(index)
+            ...this.constructFilters(index)
           ],
         }
     };
