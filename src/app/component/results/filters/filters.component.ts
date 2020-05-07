@@ -187,10 +187,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.publicationFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.publicationFilters.shapeData(this.responseData);
+          // if (this.resetFilters) {
+          //   this.publicationFilters.shapeData(this.responseData);
+          //   this.shapedData = this.responseData;
+          // }
           break;
         }
         case 'persons': {
@@ -206,28 +207,31 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.fundingFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.fundingFilters.shapeData(this.responseData);
+          // if (this.resetFilters) {
+          //   this.fundingFilters.shapeData(this.responseData);
+          //   this.shapedData = this.responseData;
+          // }
           break;
         }
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
           this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.infrastructureFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.infrastructureFilters.shapeData(this.responseData);
+          // if (this.resetFilters) {
+          //   this.infrastructureFilters.shapeData(this.responseData);
+          //   this.shapedData = this.responseData;
+          // }
           break;
         }
         case 'organizations': {
           this.currentFilter = this.organizationFilters.filterData;
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.organizationFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.organizationFilters.shapeData(this.responseData);
+          // if (this.resetFilters) {
+          //   this.organizationFilters.shapeData(this.responseData);
+          //   this.shapedData = this.responseData;
+          // }
           break;
         }
         case 'news': {

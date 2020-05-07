@@ -39,18 +39,22 @@ export class FundingFilters {
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
   shapeData(data) {
-      const source = data[0].aggregations;
-      // Organization
-      source.organization = this.organization(source.organization, source.fundingSector);
-      // Funder
-      source.funder.buckets = this.funder(source.funder.buckets)
-      // Type of funding
-      source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.buckets)
-      // Major field
-      source.field.buckets = this.minorField(source.field.buckets);
-      source.shaped = true;
-      source.fundingStatus.buckets = this.onGoing(source.fundingStatus.buckets);
-      return source;
+    const source = data[0].aggregations;
+    // Year
+    source.year.buckets = source.year.years.buckets;
+    // Organization
+    source.organization = this.organization(source.organization, source.fundingSector);
+    // Funder
+    source.funder.buckets = this.funder(source.funder.funders.buckets);
+    // Type of funding
+    source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
+    // Major field
+    source.field.buckets = this.minorField(source.field.fields.buckets);
+    // Finnish Academy field
+    source.faField = source.faField.faFields;
+    source.shaped = true;
+    source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
+    return source;
   }
 
   organization(c, f) {
@@ -84,11 +88,13 @@ export class FundingFilters {
 
     // Add data into buckets field, set key and label
     c.buckets = cData ? cData : [];
+
     cData.forEach(item => {
       item.subData = item.organizations.buckets;
       item.subData.map(subItem => {
           subItem.label = subItem.key.trim();
           subItem.key = subItem.orgId.buckets[0].key;
+          subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
     });
     return c;

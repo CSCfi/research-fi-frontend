@@ -28,7 +28,10 @@ export class InfrastructureFilters {
 
   shapeData(data) {
     const source = data[0].aggregations;
-    source.type.buckets = this.typeLabel(source.type.buckets);
+    // Year
+    source.year.buckets = source.year.years.buckets;
+    // Type
+    source.type.buckets = this.typeLabel(source.type.types.buckets);
     source.shaped = true;
     return source;
   }

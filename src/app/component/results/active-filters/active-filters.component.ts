@@ -34,7 +34,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     ended: 'Päättynyt',
     true: 'Kansainvälinen yhteisjulkaisu',
     noAccessInfo: 'Ei tietoa',
-    openAccess: 'Avoin saatavuus',
+    openAccess: 'Open Access -lehti',
     nonOpen: 'Ei avoin',
     noVal: 'Ei arviota',
     otherOpen: 'Muu avoin saatavuus',
@@ -189,8 +189,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             // Language, publications
-            if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
-              const result = source.lang.buckets.find(({ key }) => key === val.value);
+            if (val.category === 'lang' && source.lang.langs.sum_other_doc_count > 0) {
+              const result = source.lang.langs.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
@@ -206,8 +206,21 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
 
-            // Organization name
-            if (val.category === 'organization' && source.organization) {
+            // Publication organization name
+            if (tab === 'publications' && val.category === 'organization' && source.organization) {
+              if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
+                source.organization.sectorName.buckets.forEach(sector => {
+                  sector.organization.buckets.forEach(org => {
+                    if (org.orgId.buckets[0].key === val.value) {
+                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                      this.activeFilters[foundIndex].translation = org.key.trim();
+                    }
+                  });
+                });
+              }
+            }
+            // Funding organization name
+            if (this.currentTab === 'fundings' && val.category === 'organization' && source.organization) {
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
                   sector.organizations.buckets.forEach(org => {
@@ -219,6 +232,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 });
               }
             }
+
             // Country code
             if (val.category === 'countryCode' && source.countryCode) {
               switch (val.value) {
@@ -256,7 +270,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Funding
             // Type of funding
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
-              const result = source.typeOfFunding.buckets.find(({ key }) => key === val.value);
+              const result = source.typeOfFunding.types.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.typeName?.buckets[0]?.key ? result.typeName.buckets[0].key :
               val.value;
@@ -269,9 +283,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
             // Organization, sector
             if (val.category === 'sector' && source.sector) {
-              const result = source.sector.buckets.find(({ key }) => key === val.value);
+              const result = source.sector.sectorId.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.sectorId ? result.sectorId.buckets[0].key : '';
+              this.activeFilters[foundIndex].translation = result.sectorName ? result.sectorName.buckets[0].key : '';
             }
 
             // News, organization

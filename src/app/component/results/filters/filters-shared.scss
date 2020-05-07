@@ -39,7 +39,7 @@
         // Material expansion panel & accordion
         .mat-expansion-panel {
             margin: 0 0 1rem;
-            // overflow: visible;
+            overflow: visible;
         }
 
         .mat-expansion-panel-body {
@@ -125,7 +125,7 @@
 
         // Preserve space for parent header
         .subFields .mat-expanded mat-expansion-panel-header.mat-expanded {
-            top: 32px;
+            // top: 32px;
             z-index: 38;
         }
 
