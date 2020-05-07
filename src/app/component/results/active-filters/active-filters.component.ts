@@ -207,7 +207,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             // Publication organization name
-            if (tab === 'publications' && val.category === 'organization' && source.organization) {
+            if (this.currentTab === 'publications' && val.category === 'organization' && source.organization) {
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
                   sector.organization.buckets.forEach(org => {
