@@ -19,7 +19,7 @@ export class News {
         public timestamp: number,
         public organizationNameFi: string,
         public organizationId: string,
-        public mediaUrl: string,
+        public mediaUri: string,
     ) {}
 }
 
@@ -40,7 +40,7 @@ export class NewsAdapter implements Adapter<News> {
             Date.parse(item.timestamp),
             item.organizationNameFi,
             item.organizationId,
-            item.mediaUrl,
+            item.mediaUri,
         );
     }
 
