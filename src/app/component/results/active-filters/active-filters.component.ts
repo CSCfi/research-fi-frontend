@@ -283,9 +283,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
             // Organization, sector
             if (val.category === 'sector' && source.sector) {
-              const result = source.sector.buckets.find(({ key }) => key === val.value);
+              const result = source.sector.sectorId.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.sectorId ? result.sectorId.buckets[0].key : '';
+              this.activeFilters[foundIndex].translation = result.sectorName ? result.sectorName.buckets[0].key : '';
             }
 
             // News, organization
