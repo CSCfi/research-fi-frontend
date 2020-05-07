@@ -34,7 +34,7 @@ export class OrganizationFilters {
 
   shapeData(data) {
     const source = data[0].aggregations;
-    source.sector.buckets = this.sector(source.sector.buckets);
+    source.sector.buckets = this.sector(source.sector.sectorId.buckets);
     source.shaped = true;
     return source;
   }
@@ -42,7 +42,7 @@ export class OrganizationFilters {
   sector(data) {
     const result = data.map(item => item = {
       key: item.key,
-      label: item.sectorId.buckets[0].key,
+      label: item.sectorName.buckets[0].key,
       doc_count: item.doc_count,
       tooltipFi: this.infoData.find(el => el.id === item.key).tooltipFi
     });
