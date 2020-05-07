@@ -74,7 +74,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnInit() {
-    this.calcTabsAndRows(this.window.innerWidth);
+    if (isPlatformBrowser(this.platformId)) {
+      this.calcTabsAndRows(this.window.innerWidth);
+    }
 
     this.queryParams = this.tabChangeService.tabQueryParams;
     // Update active tab visual after change
@@ -239,7 +241,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.offsetWidth = this.scroll.nativeElement.offsetWidth;
     this.scrollWidth = this.scroll.nativeElement.scrollWidth;
 
-    if (this.isHomepage) {
+    if (this.isHomepage && isPlatformBrowser(this.platformId)) {
       this.calcTabsAndRows(event.width);
     }
   }

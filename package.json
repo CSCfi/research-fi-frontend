@@ -14,7 +14,7 @@
     "start-en": "ng serve --configuration=en",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "build:prod": "ng build --configuration=production --localize",
-    "build:server:prod": "ng run research-fi:server:production",
+    "build:server:prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng run research-fi:server:production",
     "build:client-and-server-bundles": "npm run build:prod && npm run build:server:prod",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
