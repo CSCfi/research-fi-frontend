@@ -87,12 +87,16 @@ export class FilterService {
     const res = [];
     const currentTab = this.sortService.currentTab;
     switch (currentTab) {
+      case 'publications': {
+        filter.forEach(value => { res.push({ term : { publicationYear : value } }); });
+        break;
+      }
       case 'fundings': {
         filter.forEach(value => { res.push({ term : { fundingStartYear : value } }); });
         break;
       }
-      case 'publications': {
-        filter.forEach(value => { res.push({ term : { publicationYear : value } }); });
+      case 'infrastructures': {
+        filter.forEach(value => { res.push({ term : { startYear : value } }); });
         break;
       }
     }
@@ -339,7 +343,7 @@ export class FilterService {
     const activeNested = this.constructFilters(tab.slice(0, -1)).filter(item => item.nested?.query.bool.should.length > 0);
     const activeMultipleNested = this.constructFilters(tab.slice(0, -1)).filter(item => item.bool?.should.length > 0 &&
                                                                                         item.bool.should[0]?.nested);
-    // console.log(active);
+
     // Functions to filter out active filters. These prevents doc count changes on active filters
     function filterActive(field) {
       return active.filter(item => Object.keys(item.bool.should[0].term).toString() !== field).concat(activeNested, activeMultipleNested);
@@ -818,8 +822,17 @@ export class FilterService {
       // Infrastructures
       case 'infrastructures': {
         payLoad.aggs.type = {
-          terms: {
-            field: 'services.serviceType.keyword'
+          filter: {
+            bool: {
+              filter: filterActive('services.serviceType.keyword')
+            }
+          },
+          aggs: {
+            types: {
+              terms: {
+                field: 'services.serviceType.keyword'
+              }
+            }
           }
         };
         break;
