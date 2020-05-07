@@ -20,25 +20,27 @@
                 <h1 class="result-header" [attr.lang]="item.languageCode !== documentLang ? item.languageCode : null">{{item.title}}</h1>
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
-                        <div class="col-6 col-lg-3 th">
+                        <div class="col-12 col-sm-6 col-lg-3 th">
                             {{row.label}}
                             <ng-container *ngIf="row.tooltipFi">
                                 <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltipFi"></div></ng-template>
                                 <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
                             </ng-container>
                         </div>
-                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
+                        <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
                     </div>
                     <div class="row content" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
-                        <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
+                        <div class="col-12 col-sm-6 col-lg-3 th">Organisaatiot ja tekijät
                             <ng-container>
                                 <fa-icon tabindex="0" tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." placement="right" class="info-icon" 
                                 icon="info-circle"></fa-icon>
                             </ng-container>
-                            <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
-                            <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
+                            <div>
+                                <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
+                                <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
+                            </div>
                         </div>
-                        <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
+                        <div class="col-12 col-sm-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
                             <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
                             <div *ngFor="let unit of row.orgUnits">
                                 <div class="row" *ngIf="showSubUnits">
@@ -79,7 +81,7 @@
                     <ng-container>
                         <div></div>
                         <div class="row content">
-                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td" *ngFor="let row of authorAndOrganization.slice(1)">
+                            <div class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td" *ngFor="let row of authorAndOrganization.slice(1)">
                                 <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
                                 <div *ngFor="let unit of row.orgUnits">
                                     <div class="row" *ngIf="showSubUnits">
@@ -119,15 +121,15 @@
                         </div>
                     </ng-container>
                     <!-- <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
-                        <div class="col-6 col-lg-3 th">Organisaation alayksiköt</div>
-                        <div class="col-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
+                        <div class="col-12 col-sm-6 col-lg-3 th">Organisaation alayksiköt</div>
+                        <div class="col-12 col-sm-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
                             <p class="td">{{item[row.field]}}</p>
                         </div>
                     </div> -->
                     <ng-container *ngFor="let row of organizationSubFields.slice(1)">
                         <div></div>
                         <div class="row content">
-                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td">
+                            <div class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td">
                                 <p class="th">{{row.label}}</p>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
@@ -135,8 +137,8 @@
                     </ng-container>
                     <div class="row content" *ngIf="mediumFields?.length > 0">
                         <!-- Top row links, switch case to check for different search targets -->
-                        <div class="col-6 col-lg-3 th">Julkaisukanavan tiedot</div>
-                        <div class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
+                        <div class="col-12 col-sm-6 col-lg-3 th">Julkaisukanavan tiedot</div>
+                        <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
                             <p class="th">
                                 {{row.label}}
                                 <ng-container *ngIf="row.tooltipFi">
@@ -164,7 +166,7 @@
                         <div *ngIf="i % 3 == 0"></div>
                         <div class="row content" *ngIf="i % 3 == 0">
                             <!-- First col -->
-                            <div class="col-6 col-lg-3 offset-6 offset-lg-3 td">
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
                                <p class="th">{{row.label}}</p>
                                <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
                                     {{item[row.field]}}
@@ -172,7 +174,7 @@
                                <span *ngIf="!row.link">{{item[row.field]}}</span>
                             </div>
                             <!-- Second col -->    
-                            <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
                                <p class="th">{{mediumFields.slice(3)[i + 1].label}}</p>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
                                     {{item[mediumFields.slice(3)[i + 1].field]}}
@@ -180,7 +182,7 @@
                                <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item[mediumFields.slice(3)[i + 1].field]}}</span>
                             </div> 
                             <!-- Third col -->   
-                            <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
                                <p class="th">{{mediumFields.slice(3)[i + 2].label}}</p>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
                                     {{item[mediumFields.slice(3)[i + 2].field]}}
@@ -190,8 +192,8 @@
                         </div>
                     </ng-container>
                     <div class="row content">
-                        <div class="col-6 col-lg-3 th">Muut tiedot</div>
-                        <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
+                        <div class="col-12 col-sm-6 col-lg-3 th">Muut tiedot</div>
+                        <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
                             <p class="th">
                                 {{row.label}}
                                 <ng-container *ngIf="row.tooltipFi">
@@ -214,11 +216,11 @@
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
                         <div *ngIf="i % 2 == 0"></div>
                         <div class="row content" *ngIf="i % 2 == 0">
-                            <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
+                            <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td">
                                 <p class="th">{{row.label}}</p>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
-                            <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
+                            <div class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
                                 <p class="th">{{otherFields.slice(2)[i + 1].label}}</p>
                                 <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
                             </div>
