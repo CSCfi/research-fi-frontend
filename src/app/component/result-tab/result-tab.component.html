@@ -15,7 +15,6 @@
         <div class="nav-arrow nav-arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
       <ng-container *ngFor="let row of tabsOpen ? rowsOpen : rowsClosed; let i = index;">
-        <p>1</p>
         <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
           <ng-container *ngFor="let tab of slicedRow(i); let j = index;">
             <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale"></app-tab-item>
