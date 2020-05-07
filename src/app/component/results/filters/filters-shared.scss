@@ -171,8 +171,12 @@
         }
 
         // Search
-        input.filter-search {
+        input.filter-search, .empty-filter-search {
             margin: 0 15px;
+        }
+
+        .empty-filter-search {
+            margin-top: 10px;
         }
 
         .empty-pad {

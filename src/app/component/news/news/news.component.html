@@ -21,7 +21,7 @@
                         <h1 class="col col-lg-8">Tiede- ja tutkimusuutiset</h1>
                         <div class="col col-lg-4">
                             <nav>
-                                <input #searchInput disabled="true" type="text" placeholder="Hae tiedeuutisista...">
+                                <input #searchInput type="text" placeholder="Hae tiedeuutisista...">
                             </nav>
                         </div>
                         <aside>
@@ -29,6 +29,7 @@
                             <app-active-filters></app-active-filters>
                         </aside>
                         <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
+                        <div *ngIf="!data?.length" role="alert" class="col-12">Ei tuloksia. Kokeile muuttaa hakua.</div>
                     </div>
                 </main>
             </div>
