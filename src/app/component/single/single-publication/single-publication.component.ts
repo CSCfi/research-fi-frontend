@@ -333,7 +333,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
 
     // Filter empty self archived addresses
-    source.selfArchivedData[0].selfArchived = source.selfArchivedData[0].selfArchived.filter(item => item.selfArchivedAddress !== ' ');
+    if (source.selfArchivedData) {
+      source.selfArchivedData[0].selfArchived = source.selfArchivedData[0].selfArchived.filter(item => item.selfArchivedAddress !== ' ');
+    }
 
     // Get & set publication type label
     this.publicationTypeLabel = this.staticDataService.publicationClass.find
