@@ -176,6 +176,7 @@ export class PublicationFilters {
         }
       });
     }
+
     if (selfArchived && selfArchived.length > 0) {
       selfArchived.forEach(val => {
         switch (val.key) {
@@ -207,7 +208,6 @@ export class PublicationFilters {
 
     // Remove duplicates
     openAccessCodes = [...new Set(reduce)];
-
     function docCount(key) {return openAccessCodes.find(item => item.key === key).doc_count; }
 
     // Push items by key
@@ -224,9 +224,9 @@ export class PublicationFilters {
       result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: 'Ei avoin'});
     }
     if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
-      result.push({key: 'noOpenAccessData', doc_count: noOpenAccessData?.doc_count, label: 'Ei tietoa'});
+      result.push({key: 'noOpenAccessData', doc_count: openAccessCodes.find
+      (item => item.key === 'noOpenAccessData')?.doc_count, label: 'Ei tietoa'});
     }
-
     return result;
   }
 
