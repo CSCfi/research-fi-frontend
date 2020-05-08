@@ -87,7 +87,9 @@ app.use(helmet.contentSecurityPolicy({
       'ws://localhost:4200',
       'http://localhost:*',
       'https://apps.utu.fi:*',
-      'https://tt.eduuni.fi:*'
+      'https://tt.eduuni.fi:*',
+      'https://www.maanmittauslaitos.fi:*',
+      'https://rihmatomo-analytics.csc.fi:*'
     ]
   }
 }));

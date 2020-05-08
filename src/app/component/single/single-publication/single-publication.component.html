@@ -255,7 +255,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!linksFields.length" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <!-- Self archived addresses -->
+                        <ng-container *ngFor="let selfArchived of item.selfArchivedData">
+                            <ng-container *ngFor="let row of selfArchived.selfArchived">
+                                <div class="row links">
+                                    <div class="info-link-wrapper">
+                                        <div class="col-sm-2 col-md-1 icon">
+                                            <fa-icon [icon]="faIcon"></fa-icon>
+                                        </div>
+                                        <div class="col link">
+                                            <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <div *ngIf="!linksFields.length && item.selfArchivedData[0]?.selfArchived.length === 0" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
                 <aside>

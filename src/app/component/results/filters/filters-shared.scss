@@ -39,7 +39,7 @@
         // Material expansion panel & accordion
         .mat-expansion-panel {
             margin: 0 0 1rem;
-            overflow: visible;
+            position: unset;
         }
 
         .mat-expansion-panel-body {
@@ -81,6 +81,10 @@
         }
 
         // Header
+        .mat-expansion-panel-header {
+            position: unset;
+        }
+
         .mat-expansion-panel-header:not([aria-disabled=true]) {
             cursor: pointer;
             padding: 0 5px;
