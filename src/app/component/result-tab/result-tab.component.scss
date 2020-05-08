@@ -234,4 +234,10 @@ app-result-tab {
             white-space: nowrap;
         }
     }
+
+    @media (max-width: 991px) {
+        .tooltip {
+            display: none!important;
+        }
+    }
 }
