@@ -10,6 +10,12 @@
     background-color: transparent;
 }
 
+.recipient {
+    div.col-12.col-sm-3, .amount {
+        padding: 0;
+    }
+}
+
 th {
     font-weight: 400;
 }
