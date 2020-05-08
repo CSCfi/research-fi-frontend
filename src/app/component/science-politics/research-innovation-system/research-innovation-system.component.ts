@@ -35,7 +35,7 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       labelFi: 'Yliopistot',
       icon: faLandmark,
       data: sector.university,
-      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTMwNjVkMzctNWQwMC00ZTEwLTk3ZjktMzc5OWRkNThlYjYzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiMTY3NzI5YjgtMGU1MC00MzA3LTkyNDYtN2UxZmI1ZDE4Y2UwIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
     },
     {
       id: 1,
