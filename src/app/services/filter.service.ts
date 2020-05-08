@@ -340,13 +340,13 @@ export class FilterService {
   constructFilterPayload(tab: string, searchTerm: string) {
     const filters = this.constructFilters(tab.slice(0, -1));
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
-    const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested);
+    const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
     const activeNested = filters.filter(item => item.nested?.query.bool.should.length > 0);
     const activeMultipleNested = filters.filter(item => item.bool?.should.length > 0 && item.bool.should[0]?.nested);
 
     // Functions to filter out active filters. These prevents doc count changes on active filters
     function filterActive(field) {
-      return active.filter(item => Object.keys(item.bool.should[0].term).toString() !== field).concat(activeNested, activeMultipleNested);
+      return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field).concat(activeNested, activeMultipleNested);
     }
 
     function filterActiveNested(path) {
@@ -551,13 +551,13 @@ export class FilterService {
         payLoad.aggs.selfArchived = {
           filter: {
             bool: {
-              filter: filterActive('publicationTypeCode.keyword')
+              filter: filterActive('selfArchivedCode')
             }
           },
           aggs: {
             selfArchivedCodes: {
               terms: {
-                field: 'publicationTypeCode.keyword'
+                field: 'selfArchivedCode'
               }
             }
           }
