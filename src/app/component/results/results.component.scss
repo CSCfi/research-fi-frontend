@@ -59,8 +59,6 @@ span.total {
 .filters {
   padding: 0;
   align-self: flex-start;
-  // Fix for overflow on 320px width
-  max-width: 49%;
 }
 
 .sort {
@@ -104,5 +102,7 @@ span.total {
 @media (max-width: 575px) {
   .filters {
     margin-bottom: 5px;
+    // Fix for overflow on 320px width
+    max-width: 49%;
   }
 }
