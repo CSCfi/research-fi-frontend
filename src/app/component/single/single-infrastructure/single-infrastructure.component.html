@@ -27,7 +27,7 @@
                      <div class="content">
                          <ng-container *ngFor="let row of infoFields; let i = index;">
                             <div class="row" *ngIf="item[row.field]">
-                                <div class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</div>
+                                <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
                                     <p [ngClass]="infoExpand[i] ? 'expand' : 'short'">
                                         {{item[row.field]}}
@@ -39,14 +39,14 @@
                          </ng-container>
                      </div>
                      <ng-container *ngIf="item.services.length > 0">
-                        <p class="subheader trHeader">Tutkimusinfrastruktuurin palvelut</p>
+                        <h2 class="subheader trHeader">Tutkimusinfrastruktuurin palvelut</h2>
                         <div class="content" *ngFor="let service of item.services; let i = index;">
                             <ng-container *ngIf="service.name !== '#N/A' || service.name !== '0'; else simpleServicePoints">
-                                <p class="header trHeader subtitle" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</p>
+                                <h3 class="header trHeader subtitle service-name" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</h3>
                                 <ng-container *ngIf="showService[i]">
                                     <div *ngFor="let row of serviceFields; let j = index;" class="row">
                                         <ng-container *ngIf="service[row.field] && service[row.field] !== '0'  && service[row.field] !== '#N/A'">
-                                            <div class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</div>
+                                            <h4 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h4>
                                             <div class="col-12 col-sm-6 col-lg-9 td">
                                                 <p [ngClass]="serviceExpand[serviceExpandId(i, j)] ? 'expand' : 'short'">
                                                     {{service[row.field]}}
@@ -59,14 +59,14 @@
                                     <ng-container *ngIf="!service.servicePoints.hide">
                                         <div *ngFor="let servicePoint of service.servicePoints; let j = index;">
                                             <div class="row" (click)="toggleServicePoint(i, j)">
-                                                <div class="col-12 col-sm-6 col-lg-3 th subtitle" [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'">Palvelupiste</div>
+                                                <h4 class="col-12 col-sm-6 col-lg-3 th subtitle" [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'">Palvelupiste</h4>
                                                 <div class="col-12 col-sm-6 col-lg-9 td">{{servicePoint.name}}</div>
                                             </div>
                                             <div *ngIf="showServicePoint[i][j]" class="pl-4">
-                                                <div class="th">Yhteystiedot</div>
+                                                <h5 class="th">Yhteystiedot</h5>
                                                 <div *ngFor="let row of servicePointFields" class="row ">
                                                     <ng-container *ngIf="servicePoint[row.field]?.trim()">
-                                                        <div class="col-12 col-sm-6 col-lg-3 th pl-4">{{row.label}}</div>
+                                                        <h6 class="col-12 col-sm-6 col-lg-3 th pl-4">{{row.label}}</h6>
                                                         <div class="col-12 col-sm-6 col-lg-9 td pl-4 pl-sm-0">{{servicePoint[row.field]}}</div>
                                                     </ng-container>
                                                 </div>
