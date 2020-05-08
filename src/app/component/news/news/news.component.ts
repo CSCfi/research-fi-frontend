@@ -26,6 +26,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 })
 export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   data: any;
+  dataCopy: any;
+  emptyData = false;
   errorMessage: any;
   focusSub: any;
   @ViewChild('searchInput') searchInput: ElementRef;
@@ -123,6 +125,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.getNews(100)
     .subscribe(data => {
       this.data = data;
+      this.dataCopy = data;
     }, error => this.errorMessage = error as any);
   }
 
@@ -150,6 +153,11 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeModal() {
     this.modalRef.hide();
+  }
+
+  toggleData() {
+    this.emptyData = !this.emptyData;
+    this.emptyData ? this.data = [] : this.data = this.dataCopy;
   }
 
   onResize(event) {

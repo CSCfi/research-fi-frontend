@@ -136,8 +136,10 @@
                             </div>
                         </div>
                         <ng-template #noResults>
-                            <h3>Ei tuloksia</h3>
-                            <p>Kokeile muuttaa hakua</p>
+                            <div role="alert" class="col-auto">
+                                <h3>Ei tuloksia</h3>
+                                <p>Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä portaalissa.</p>
+                            </div>
                         </ng-template>
                     </ng-template>
                 </main>
