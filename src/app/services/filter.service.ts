@@ -260,7 +260,7 @@ export class FilterService {
     const filters = [
       ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
       ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
-      ...(index === 'publication' ? (this.internationalCollaborationFilter ? [this.internationalCollaborationFilter] : []) : []),
+      ...(index === 'publication' ? (this.internationalCollaborationFilter ? [{ bool: { should: [this.internationalCollaborationFilter] } }] : []) : []),
       ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
           [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
       ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
