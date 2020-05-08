@@ -26,9 +26,15 @@
                 font-weight: 500;
             }
 
-            h2.th, h3.th {
-                font-weight: 600;
-                font-size: inherit;
+            h2, h3, h4, h5, h6 {
+                &.th, &.header {
+                    font-weight: 600;
+                    font-size: inherit;
+                }
+            }
+
+            h2.th, h2.header {
+                margin-bottom: 0;
             }
 
             h3.th {
