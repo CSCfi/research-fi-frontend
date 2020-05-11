@@ -33,3 +33,33 @@ img {
     max-width: 800px;
     display: block;
 }
+
+@media (max-width: 575px) {
+    ::ng-deep {
+        .mat-tab-group {
+            max-width: 80vw;       
+            word-wrap: break-word;
+            flex-direction: row;
+        }
+        
+        .mat-tab-labels {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .mat-tab-body-wrapper {
+            flex: 1 1 auto;
+        }
+
+        .mat-ink-bar {
+            top: 0;
+            height: 100% !important;
+            width: 2px !important;
+            position: absolute;
+        }
+
+        .mat-tab-header {
+            border-bottom: 0 !important;
+        }
+    }
+}
