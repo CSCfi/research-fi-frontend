@@ -236,9 +236,6 @@
                         <mat-card-title><h2>Linkit julkaisuun</h2></mat-card-title>
                         <div class="row links" *ngFor="let row of linksFields">
                             <div *ngIf="row.field === 'doi'" class=" info-link-wrapper">
-                                <div class="col-sm-2 col-md-1 icon">
-                                    <fa-icon [icon]="faIcon"></fa-icon>
-                                </div>
                                 <div class="col link doi">
                                     <span class="doi-tag">DOI</span>
                                     <span class="doi-link">
@@ -247,9 +244,6 @@
                                 </div>
                             </div>
                             <div *ngIf="row.field !== 'doi'" class="info-link-wrapper">
-                                <div class="col-sm-2 col-md-1 icon">
-                                    <fa-icon [icon]="faIcon"></fa-icon>
-                                </div>
                                 <div class="col link">
                                     <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
@@ -260,9 +254,6 @@
                             <ng-container *ngFor="let row of selfArchived.selfArchived">
                                 <div class="row links">
                                     <div class="info-link-wrapper">
-                                        <div class="col-sm-2 col-md-1 icon">
-                                            <fa-icon [icon]="faIcon"></fa-icon>
-                                        </div>
                                         <div class="col link">
                                             <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                         </div>
