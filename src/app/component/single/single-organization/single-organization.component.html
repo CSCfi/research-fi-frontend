@@ -89,9 +89,6 @@
                     <div class="row links">
                         <div *ngFor="let row of linkFields" class="info-link-wrapper">
                             <ng-container *ngIf="item[row.field]; else noHomePage">
-                                <div class="col-sm-2 col-md-1 icon">
-                                    <fa-icon [icon]="faIcon"></fa-icon>
-                                </div>
                                 <div class="col link">
                                     <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
