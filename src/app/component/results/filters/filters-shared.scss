@@ -351,6 +351,9 @@
 
             .modal-body {
                 padding: 0;
+                // "Sticky header"
+                max-height: 80vh;
+                overflow-y: auto;
             }
 
             .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
