@@ -15,8 +15,8 @@
                 <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)">Ohje näppäimistökäyttäjälle</a>
                 <div *ngIf="showHelp" class="help p-3">
                     <div class="m-0">
-                        <p>Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>
-                        <p>Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.</p>
+                        <p i18n="@@figureKeyboardHelp1">Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>
+                        <p i18n="@@figureKeyboardHelp2">Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.</p>
                     </div>                    
                 </div>
             </div>
@@ -32,22 +32,22 @@
                             <div class="col align-self-center pointer pl-0" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
                             tabindex="0" (keydown.enter)="showInfo = !showInfo">
                                 <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-                                <a class="strong text-uppercase pl-2 info-label">Lisätietoa</a>
+                                <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
                             </div>
                             <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
-                                <strong class="d-block pb-2">Lisätietoa</strong>
+                                <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
                                 <p [innerHtml]="item.info"></p>
                             </div>
                         </div>
                         <div class="row pb-3">
                            <div class="col pl-0">
-                                <span class="strong d-block">Lähde:</span>
+                                <span class="strong d-block" i18n="@@figureSource">Lähde:</span>
                                 <span>{{item.source}}</span>
                            </div> 
                         </div>
                         <div class="row">
                             <div class="col pl-0">
-                                <strong>Jaa tämä sivu:</strong>
+                                <strong i18n="@@shareThisPage">Jaa tämä sivu:</strong>
                                 <app-share></app-share>
                             </div>
 

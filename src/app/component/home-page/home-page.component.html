@@ -57,13 +57,13 @@
     <div class="row mt-4 news-feed d-flex justify-content-around">
       <div class="col-12 p-0">
         <div class="news-container">
-          <h2>Uusimmat tiede- ja tutkimusuutiset 
-            <fa-icon tabindex="0" tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." placement="right" class="info-icon" icon="info-circle"></fa-icon>
+          <h2 i18n="Home page news header@@homeNewsHeader">Uusimmat tiede- ja tutkimusuutiset 
+            <fa-icon tabindex="0" i18n-tooltip tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." placement="right" class="info-icon" icon="info-circle"></fa-icon>
             <!-- <app-info tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta."></app-info> -->
           </h2>
           <app-news-card *ngFor="let item of news" [item]="item" tabindex="0" class="d-flex justify-content-center"></app-news-card>
           <div class="read-more">
-            <a routerLink="/news" class="link-news">Lue lisää tiedeuutisia >></a>
+            <a routerLink="/news" class="link-news" i18n="Home page read more news link@@homeReadMoreNewsLink">Lue lisää tiedeuutisia >></a>
           </div>
         </div>
       </div>

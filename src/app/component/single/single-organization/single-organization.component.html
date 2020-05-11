@@ -15,10 +15,10 @@
     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
-            <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
+            <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a>
         </p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
-             <h2>404 - Virheellinen osoite</h2>
+             <h2 i18n="@@404">404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of responseData.organizations">
@@ -39,8 +39,8 @@
                     </div>
                     <div class="row content" *ngIf="studentCounts.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            Tutkintojen määrä ({{item.thesisYear}})
-                            <fa-icon tabindex="0" tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" placement="right"
+                            <ng-container i18n="@@thesisCount"></ng-container>Tutkintojen määrä ({{item.thesisYear}})
+                            <fa-icon tabindex="0" i18n-tooltip tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" placement="right"
                             class="info-icon" icon="info-circle"></fa-icon>
                         </h2>
                         <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of studentCounts.slice(0,2)">
@@ -85,7 +85,7 @@
          <div *ngFor="let item of responseData.organizations" class="col-12 col-md-4">
             <aside>
                  <mat-card>
-                    <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@organizationHomepage">Organisaation verkkosivu</h2></mat-card-title>
                     <div class="row links">
                         <div *ngFor="let row of linkFields" class="info-link-wrapper">
                             <ng-container *ngIf="item[row.field]; else noHomePage">
@@ -99,26 +99,26 @@
                         </div>
                     </div>
                     <ng-template #noHomePage>
-                        <div class="no-links">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <div class="no-links" i18n="@@noOrganizationLinks">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
                     </ng-template>
                 </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Organisaation</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@relatedOrganizations">Organisaation</h2></mat-card-title>
                     <app-related-links [id]="item.id"></app-related-links>
                 </mat-card>
             </aside>
             <!-- Copy url -->
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
                     <app-share></app-share>
                 </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Organisaatiotiedon lähde</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@orgInfoSource">Organisaatiotiedon lähde</h2></mat-card-title>
                     <!-- <div *ngFor="let source of responseData.organizations">
                         <p>Virta/Vipunen/etc?</p>
                     </div> -->

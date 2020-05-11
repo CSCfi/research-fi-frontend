@@ -18,7 +18,7 @@
             <div class="col" [ngClass]="mobile ? 'col-12' : 'col-8'">
                 <main>
                     <div class="row">
-                        <h1 class="col col-lg-8">Tiede- ja tutkimusuutiset</h1>
+                        <h1 class="col col-lg-8" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
                         <div class="col col-lg-4">
                             <nav>
                                 <input #searchInput type="text" placeholder="Hae tiedeuutisista...">
@@ -31,8 +31,8 @@
                         </aside>
                         <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
-                            <h3>Ei tuloksia.</h3><br>
-                            <p>Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
+                            <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
+                            <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
                         </div>
                     </div>
                 </main>

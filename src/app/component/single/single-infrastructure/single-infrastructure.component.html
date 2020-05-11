@@ -15,10 +15,10 @@
      <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'infrastruktuurit'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
          <p class="back col-12">
-             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
+             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a>
          </p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
-              <h2>404 - Virheellinen osoite</h2>
+              <h2 i18n="@@404">404 - Virheellinen osoite</h2>
          </div>
          <main class="col-12 col-md-8">
              <div *ngFor="let item of [responseData.infrastructures[0]]">
@@ -39,7 +39,7 @@
                          </ng-container>
                      </div>
                      <ng-container *ngIf="item.services.length > 0">
-                        <h2 class="subheader trHeader">Tutkimusinfrastruktuurin palvelut</h2>
+                        <h2 class="subheader trHeader" i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut</h2>
                         <div class="content" *ngFor="let service of item.services; let i = index;">
                             <ng-container *ngIf="service.name !== '#N/A' || service.name !== '0'; else simpleServicePoints">
                                 <h3 class="header trHeader subtitle service-name" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</h3>
@@ -86,7 +86,7 @@
           <div *ngFor="let item of [responseData.infrastructures[0]]" class="col-12 col-md-4">
              <aside>
                   <mat-card>
-                     <mat-card-title><h2>Infrastruktuurin verkkosivu</h2></mat-card-title>
+                     <mat-card-title><h2 i18n="@@infraHomePage">Infrastruktuurin verkkosivu</h2></mat-card-title>
                      <div class="row links">
                          <div *ngFor="let row of linkFields" class="info-link-wrapper">
                              <div class="col-sm-2 col-md-1 icon">
@@ -97,30 +97,30 @@
                              </div>
                          </div>
                      </div>
-                     <div *ngIf="!linkFields.length" class="no-links">Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa</div>
+                     <div *ngIf="!linkFields.length" class="no-links" i18n="@@noInfraLinks">Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa</div>
                  </mat-card>
              </aside>
              <aside>
                  <mat-card>
-                     <mat-card-title><h2>Infrastruktuurin</h2></mat-card-title>
+                     <mat-card-title><h2 i18n="@@relatedInfrastructures">Infrastruktuurin</h2></mat-card-title>
                      <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                  </mat-card>
              </aside>
              <!-- Social icons -->
              <aside>
                 <mat-card>
-                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
                     <app-share></app-share>
                 </mat-card>
             </aside>
              <!-- Source -->
              <aside>
                  <mat-card>
-                     <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
+                     <mat-card-title><h2 i18n="@@infraSource">Infrastruktuuritiedon lähde</h2></mat-card-title>
                      <div *ngFor="let source of [responseData.infrastructures[0]]">
                          <p *ngIf="source.responsibleOrganizationNameFi?.trim().length > 0; else noSource">{{source.responsibleOrganizationNameFi}}</p>
                          <ng-template #noSource>
-                             <p class="font-italic m-0">Infrastruktuuritiedon lähde puuttuu.</p>
+                             <p class="font-italic m-0" i18n="@@missingInfraSource">Infrastruktuuritiedon lähde puuttuu.</p>
                          </ng-template>
                      </div>
                      <div class="clear"></div>

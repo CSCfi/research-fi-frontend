@@ -22,7 +22,7 @@
     <mat-card-actions>
         <div class="row">
             <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
-                <a class="org-link" href="{{item.url}}" target="_blank">Lue koko uutinen <fa-icon icon="external-link-alt"></fa-icon></a>
+                <a class="org-link" href="{{item.url}}" target="_blank"><ng-container i18n="@@readOriginialNews">Lue koko uutinen</ng-container> <fa-icon icon="external-link-alt"></fa-icon></a>
             </div>
             <div *ngIf="item.mediaUri?.length > 0" class="col pr-0 text-right">
                 <img [src]="item.mediaUri | safeUrl">

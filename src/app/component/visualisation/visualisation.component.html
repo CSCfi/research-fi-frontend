@@ -7,7 +7,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div class="row">
         <h1 class="col-12">{{title}}</h1>
         <p class="col-6 offset-3">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p>
-        <button class="col-3" mat-raised-button color="primary" (click)="swapVis()">Vaihda visualisaation tyyppiä</button>
+        <button class="col-3" mat-raised-button color="primary" (click)="swapVis()" i18n="@@visualType">Vaihda visualisaation tyyppiä</button>
     </div>
     <div class="visual-container">
         <app-treemap *ngIf="!visType" (title)="updateTitle($event)" [style.min-height.px]="height + 90" [data]="allData" [width]="width" [hierarchy]="hierarchy" [height]="height"></app-treemap>

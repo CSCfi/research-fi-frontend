@@ -12,18 +12,18 @@
     <div class="row no-margin">
         <div class="col col-1 icon"></div>
         <div class="col col-3 col-xl-2 d-none d-lg-block">
-            <span #main tabindex="0" tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." placement="bottom"
+            <span #main tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." placement="bottom"
             class="bold uppercase" [ngClass]="sortColumn === 'acronym' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('acronym')" (keydown.enter)="sortBy('acronym')">Lyhenne</span>
+            (click)="sortBy('acronym')" (keydown.enter)="sortBy('acronym')" i18n="@@infraAcronym">Lyhenne</span>
         </div>
         <div class="col col-3 col-lg-4 col-xl-4 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('name')" (keydown.enter)="sortBy('name')">Nimi</span>
+            (click)="sortBy('name')" (keydown.enter)="sortBy('name')" i18n="@@infraName">Nimi</span>
         </div>
         <div class="col col-3 col-lg-4 col-xl-4 d-none d-lg-block">
-            <span tabindex="0" tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." placement="bottom"
+            <span tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." placement="bottom"
             class="bold uppercase" [ngClass]="sortColumn === 'organization' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('organization')" (keydown.enter)="sortBy('organization')">Organisaatio</span>
+            (click)="sortBy('organization')" (keydown.enter)="sortBy('organization')" i18n="@@infraOrganization">Organisaatio</span>
         </div>
         <!-- <div class="col col-2 d-none d-xl-block">
             <span tabindex="0" tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä." placement="bottom"
@@ -78,11 +78,11 @@
 <ng-template #noResults>
     <div class="row main-content" *ngIf="resultData && resultData.total === 0">
         <div class="col text-center no-results" role="alert">
-            <h2>Ei infrastruktuureja</h2>
+            <h2 i18n="@@noInfrastructures">Ei infrastruktuureja</h2>
             <br>
-            <p>Tarkista, onko hakutermissä kirjoitusvirheitä.<br>
+            <p i18n="@@resultSearchTermWarning">Tarkista, onko hakutermissä kirjoitusvirheitä.<br>
                Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä verkkopalvelussa.</p>
-            <p><a routerLink="/service-info" fragment="1">Mitä tietoja Tiedejatutkimus.fi sisältää?</a></p>
+            <p><a routerLink="/service-info" fragment="1" i18n="@@resultsAboutService">Mitä tietoja Tiedejatutkimus.fi sisältää?</a></p>
         </div>
     </div>
 </ng-template>

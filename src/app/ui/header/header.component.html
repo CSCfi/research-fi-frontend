@@ -8,11 +8,9 @@
 <header class="wrapper">
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
-            <li *ngIf="hideInputSkip"><a (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää hakukenttään</a></li>
-            <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää sivun pääsisältöön</a></li>
-            <!-- <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" [routerLink]="" [queryParams]="params" [fragment]="'main-content'">Hyppää sivun pääsisältöön</a></li> -->
-            <!-- ToDo: Link to accessibility -->
-            <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a></li>
+            <li *ngIf="hideInputSkip"><a i18n="@@skipToInput" (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää hakukenttään</a></li>
+            <li><a i18n="@@skipToMain" (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää sivun pääsisältöön</a></li>
+            <li><a i18n="@@skipToAccessibility" (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a></li>
         </ul>
     </div>
 
@@ -21,11 +19,11 @@
             <div class="row logo-wrapper">
                 <div class="col col-auto p-0">
                     <a class="navbar-brand" routerLink="">
-                        <img src="assets/img/logo.svg" alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
+                        <img src="assets/img/logo.svg" i18n-alt alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
                     </a>
                 </div>
                 <div class="col col-auto align-self-center p-0">
-                    <a class="logo-text" routerLink=""><span i18n="Site slogan @@appSlogan">Tiedejatutkimus.fi</span></a>
+                    <a class="logo-text" routerLink=""><span i18n="@@appSlogan">Tiedejatutkimus.fi</span></a>
                 </div>
             </div>
         </div>
@@ -63,28 +61,28 @@
                             <li #navLink class="nav-item col col-auto p-0">
                                 <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
                                 (click)="navbarOpen && toggleNavbar()">
-                                    <span i18n="Main navigation item|Home" class="label">Etusivu</span>
+                                    <span i18n="Header@@headerLink1" class="label">Etusivu</span>
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0">
                                 <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
-                                    <span i18n="Main navigation item|Search" class="label">Haku</span>
+                                    <span i18n="Header@@headerLink2" class="label">Haku</span>
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen" (clickOutside)="onClickedOutside($event)">
                                 <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-politics/" routerLinkActive="active-link"
                                 (keydown.enter)="$event.preventDefault(); dropdownOpen = true" (keydown.space)="$event.preventDefault(); dropdownOpen = true" [class.open]="dropdownOpen" [class.font-weight-bold]="dropdownOpen">
-                                    <span class="label">Tiede- ja innovaatiopolitiikka</span>
+                                    <span i18n="Header@@headerLink3" class="label">Tiede- ja innovaatiopolitiikka</span>
                                 </a>
                                 <ul class="dropdown" *ngIf="dropdownOpen">
-                                    <li><a routerLink="/science-innovation-politics/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>
-                                    <li><a routerLink="/science-innovation-politics/science-research-figures/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tiede ja tutkimus lukuina</a></li>
+                                    <li><a i18n="Header@@headerLink4" routerLink="/science-innovation-politics/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>
+                                    <li><a i18n="Header@@headerLink5" routerLink="/science-innovation-politics/science-research-figures/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tiede ja tutkimus lukuina</a></li>
                                 </ul>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0">
                                 <a class="nav-item nav-link" routerLink="/news" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
                                 (click)="navbarOpen && toggleNavbar()">
-                                    <span i18n="Main navigation item|News" class="label">Tiede- ja tutkimusuutiset</span>
+                                    <span i18n="Header@@headerLink6" i18n="Header|Uutiset" class="label">Tiede- ja tutkimusuutiset</span>
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 mr-0">

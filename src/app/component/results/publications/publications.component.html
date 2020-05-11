@@ -14,20 +14,20 @@
         <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
             <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('name')" (keydown.enter)="sortBy('name')">Julkaisun nimi</span>
+            (click)="sortBy('name')" (keydown.enter)="sortBy('name')" i18n="@@publicationName">Julkaisun nimi</span>
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'author' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('author')" (keydown.enter)="sortBy('author')">Tekijät</span>
+            (click)="sortBy('author')" (keydown.enter)="sortBy('author')" i18n="@@publicationAuthors">Tekijät</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
             <span tabindex="0" tooltip="Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt." placement="bottom" 
             class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('medium')" (keydown.enter)="sortBy('medium')">Julkaisukanava</span>
+            (click)="sortBy('medium')" (keydown.enter)="sortBy('medium')" i18n="@@publicationMedium">Julkaisukanava</span>
         </div>
         <div class="col col-lg-1 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('year')" (keydown.enter)="sortBy('year')">Vuosi</span>
+            (click)="sortBy('year')" (keydown.enter)="sortBy('year')" i18n="@@publicationYear">Vuosi</span>
         </div>
     </div>
     <div *ngIf="resultData" class="result-container">
@@ -46,15 +46,15 @@
                         </h3>
                     </a>
                     <div class="tags">
-                        <div *ngIf="isReviewed(publication.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>
+                        <div *ngIf="isReviewed(publication.publicationTypeCode)" class="peer-reviewed" i18n="@@peerReviewed">Vertaisarvioitu</div>
                         <a *ngIf="publication.openAccess && (publication | links)" href="{{publication | links}}" target="_blank" class="open-access div">
                             <span class="open-access-image"></span>
-                            <span>Avoin saatavuus <fa-icon icon="external-link-alt"></fa-icon></span>
+                            <span i18n="@@openAccess">Avoin saatavuus <fa-icon icon="external-link-alt"></fa-icon></span>
                         </a>
                         <!-- Span is for publications that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
                         <span *ngIf="publication.openAccess && !(publication | links)" class="open-access div">
                             <span class="open-access-image"></span>
-                            <span>Avoin saatavuus</span>
+                            <span i18n="@@openAccess">Avoin saatavuus</span>
                         </span>
                         <div *ngIf="publication.doi?.trim()" class="doi">
                             <span class="doi-tag">DOI</span>
@@ -84,11 +84,11 @@
 <ng-template #noResults>
     <div class="row main-content" *ngIf="resultData && resultData.total === 0">
         <div class="col text-center no-results" role="alert">
-            <h2>Ei julkaisuja</h2>
+            <h2 i18n="@@noPublications">Ei julkaisuja</h2>
             <br>
-            <p>Tarkista, onko hakutermissä kirjoitusvirheitä.<br>
+            <p i18n="@@resultSearchTermWarning">Tarkista, onko hakutermissä kirjoitusvirheitä.<br>
                Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä verkkopalvelussa.</p>
-            <p><a routerLink="/service-info" fragment="1">Mitä tietoja Tiedejatutkimus.fi sisältää?</a></p>
+            <p><a routerLink="/service-info" fragment="1" i18n="@@resultsAboutService">Mitä tietoja Tiedejatutkimus.fi sisältää?</a></p>
         </div>
     </div>
 </ng-template>

@@ -12,7 +12,7 @@
             <div class="col-12 col-lg-3 px-0 nav">
                 <div class="row d-flex justify-content-between mobile-header" *ngIf="mobile">
                     <div class="col-auto">
-                        <h1 >Tiede ja tutkimus lukuina</h1>
+                        <h1 i18n="@@figuresHeader">Tiede ja tutkimus lukuina</h1>
                     </div>
                     <div class="col-auto dropdown">
                         <button mat-button class="dropdown" (click)="showMenu = !showMenu" href="javascript:void(0)">Hae<fa-icon class="dropdown-icon" [icon]="showMenu ? faChevronUp : faChevronDown"></fa-icon></button>
@@ -52,24 +52,24 @@
                 <main>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                         <div class="segment" id="s1">
-                            <h1 *ngIf="!mobile">Tiede ja tutkimus lukuina</h1>
+                            <h1 *ngIf="!mobile" i18n="@@figuresHeader">Tiede ja tutkimus lukuina</h1>
                             <div class="row">
                                 <div class="col p-1">
                                     <div class="base content intro">
-                                        <p>Tiede ja tutkimus lukuina -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
-                                        <p>Tiedot perustuvat Opetushallituksen Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</p>
-                                        <p>Tiede ja tutkimus lukuina on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
+                                        <p i18n="@@figuresIntro1">Tiede ja tutkimus lukuina -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
+                                        <p i18n="@@figuresIntro2">Tiedot perustuvat Opetushallituksen Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</p>
+                                        <p i18n="@@figuresIntro3">Tiede ja tutkimus lukuina on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
                                         <br>
-                                        <span class="strong pb-2 d-block">Aineistolähteet</span>
+                                        <span class="strong pb-2 d-block" i18n="@@figuresIntroBlockHeader1">Aineistolähteet</span>
                                         <ul class="disc">
                                             <li><a href="https://vipunen.fi/" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a href="http://www.tilastokeskus.fi/" target="_blank">Tilastokeskus <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                                            <li><a href="http://www.tilastokeskus.fi/" target="_blank"><ng-container i18n="@@tilastokeskus">Tilastokeskus</ng-container> <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                             <li><a href="http://www.oecd.org/" target="_blank">OECD <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                         </ul>
-                                        <span class="strong pb-2 d-block">Tuottajat</span>
+                                        <span class="strong pb-2 d-block" i18n="@@figuresIntroBlockHeader2">Tuottajat</span>
                                         <ul class="disc">
-                                            <li><a href="http://www.minedu.fi/" target="_blank">Opetus- ja kulttuuriministeriö <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a href="http://www.aka.fi/" target="_blank">Suomen Akatemia <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                                            <li><a href="http://www.minedu.fi/" target="_blank"><ng-container i18n="@@okm">Opetus- ja kulttuuriministeriö</ng-container> <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                                            <li><a href="http://www.aka.fi/" target="_blank"><ng-container i18n="@@suomenAkatemia">Suomen Akatemia</ng-container> <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                             <li><a href="http://www.csc.fi/" target="_blank">CSC <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                         </ul>
                                         <p>Bibliometric results presented here are derived from the Web of Science® prepared by CLARIVATE ANALYTICS®, Inc. (Formerly the IP & Science business of Thomson Reuters®), Philadelphia, Pennsylvania, USA: © Copyright CLARIVATE ANALYTICS® 2019. All rights reserved. Results are taken with permission from the bibliometric analysis system provided by CSC - IT Center for Science Ltd., Espoo, Finland.</p>
@@ -112,7 +112,7 @@
                     </div>
                     <ng-template #queryResultTemplate>
                         <div class="segment" *ngIf="hasResults; else noResults">
-                            <h3 class="px-2 lx-lg-0">Haun tulokset ({{queryResults.length}})</h3>
+                            <h3 class="px-2 lx-lg-0"><ng-container i18n="@@figureSearchResults">Haun tulokset</ng-container> ({{queryResults.length}})</h3>
                             <div class="row">
                                 <div class="col p-1">
                                     <div class="base content">
@@ -137,8 +137,8 @@
                         </div>
                         <ng-template #noResults>
                             <div role="alert" class="col-auto">
-                                <h3>Ei tuloksia</h3>
-                                <p>Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä portaalissa.</p>
+                                <h3 i18n="@@noResults">Ei tuloksia</h3>
+                                <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä portaalissa.</p>
                             </div>
                         </ng-template>
                     </ng-template>

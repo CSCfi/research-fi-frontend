@@ -11,9 +11,9 @@
     <!-- Breadcrumb -->
     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
-        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
+        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
-            <h2>404 - Virheellinen osoite</h2>
+            <h2 i18n="@@404">404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of responseData.publications">
@@ -30,14 +30,14 @@
                         <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
                     </div>
                     <div class="row content" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">Organisaatiot ja tekijät
+                        <h2 class="col-12 col-sm-6 col-lg-3 th"><ng-container i18n="@@authorOrganization">Organisaatiot ja tekijät</ng-container>
                             <ng-container>
-                                <fa-icon tabindex="0" tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." placement="right" class="info-icon" 
+                                <fa-icon tabindex="0" i18n-tooltip tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." placement="right" class="info-icon" 
                                 icon="info-circle"></fa-icon>
                             </ng-container>
                             <div>
-                                <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
-                                <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
+                                <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true" i18n="@@showSpecific">Näytä tarkemmin</button>
+                                <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false" i18n="@@hideSubUnits">Piilota alayksiköt</button>
                             </div>
                         </h2>
                         <div class="col-12 col-sm-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
@@ -137,7 +137,7 @@
                     </ng-container>
                     <div class="row content" *ngIf="mediumFields?.length > 0">
                         <!-- Top row links, switch case to check for different search targets -->
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">Julkaisukanavan tiedot</h2>
+                        <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationMediumInfo">Julkaisukanavan tiedot</h2>
                         <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
                             <h3 class="th">
                                 {{row.label}}
@@ -192,7 +192,7 @@
                         </div>
                     </ng-container>
                     <div class="row content">
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">Muut tiedot</h2>
+                        <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherPublicationInfo">Muut tiedot</h2>
                         <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
                             <h3 class="th">
                                 {{row.label}}
@@ -233,7 +233,7 @@
             <aside>
                 <aside>
                     <mat-card>
-                        <mat-card-title><h2>Linkit julkaisuun</h2></mat-card-title>
+                        <mat-card-title><h2 i18n="@@publicationLinks">Linkit julkaisuun</h2></mat-card-title>
                         <div class="row links" *ngFor="let row of linksFields">
                             <div *ngIf="row.field === 'doi'" class=" info-link-wrapper">
                                 <div class="col-sm-2 col-md-1 icon">
@@ -270,12 +270,12 @@
                                 </div>
                             </ng-container>
                         </ng-container>
-                        <div *ngIf="!linksFields.length && item.selfArchivedData[0]?.selfArchived.length === 0" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <div *ngIf="!linksFields.length && item.selfArchivedData[0]?.selfArchived.length === 0" class="no-links" i18n="@@noPublicationLinks">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
                 <aside>
                     <mat-card>
-                        <mat-card-title><h2>Hae julkaisua muualta</h2></mat-card-title>
+                        <mat-card-title><h2 i18n="@@externalLinks">Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
                                 <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar <fa-icon icon="external-link-alt"></fa-icon></a>
@@ -288,7 +288,7 @@
                     </mat-card>
                 </aside>
                 <mat-card>
-                    <mat-card-title><h2>Hae julkaisuun liittyvät</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@relatedPublications">Hae julkaisuun liittyvät</h2></mat-card-title>
                     <app-related-links [id]="authorAndOrganization[0]?.orgId" [relatedFilters]="relatedData"></app-related-links>
                </mat-card>
             </aside>
@@ -298,7 +298,7 @@
                     <div>
                         <div class="reference">
                             <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
-                            <small *ngIf="!hasDoi" class="no-doi-warn">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
+                            <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
                     </div>
                 </mat-card>
@@ -312,7 +312,7 @@
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Julkaisutiedon lähde</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2></mat-card-title>
                     <div *ngFor="let org of authorAndOrganization">
                         <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                         <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
@@ -353,5 +353,5 @@
 </ng-template>
 
 <ng-template #noDoi>
-    Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen
+    <ng-container i18n="@@doiHelp">Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen</ng-container>
 </ng-template>
