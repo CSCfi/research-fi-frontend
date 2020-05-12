@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -26,6 +26,8 @@ import { NewsFilters } from './news';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
 import { SearchService } from 'src/app/services/search.service';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filters',
@@ -37,6 +39,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any [];
   @Input() tabData: string;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
+  @ViewChild('openFilters') openFiltersButton: ElementRef;
 
   currentFilter: any[];
   currentSingleFilter: any[];
@@ -79,20 +82,22 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
-
+  
   closeModal() {
     this.modalRef.hide();
   }
-
-  preventTab(event) {
-    UtilityService.preventTab(event);
-  }
-
-  preventTabBack(event) {
-    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
-  }
-
+  
   ngOnInit() {
+    // Focus on the close button when modal opens
+    this.modalService.onShown
+    .pipe(tap(() => (document.querySelector('[autofocus]') as HTMLElement).focus() ))
+    .subscribe();
+
+    // Focus on open filters button when modal closes
+    this.modalService.onHidden
+    .pipe(tap(() => this.openFiltersButton.nativeElement.focus() ))
+    .subscribe();
+
     // Subscribe to queryParams
     this.queryParamSub = this.route.queryParams.subscribe(params => {
       this.activeFilters = params;

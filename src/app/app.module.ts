@@ -53,6 +53,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { A11yModule } from '@angular/cdk/a11y';
 
 import { CountUpModule } from 'countup.js-angular2';
 
@@ -225,6 +226,7 @@ import { HistoryService } from './services/history.service';
     ModalModule.forRoot(),
     ClickOutsideModule,
     CommonComponentsModule,
+    A11yModule,
     TooltipModule.forRoot()
   ],
   providers: [

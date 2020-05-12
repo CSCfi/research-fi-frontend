@@ -4,18 +4,20 @@
  :license: MIT -->
     
  <div class="mobile mx-auto" id="navbar-toggle">
-    <button class="navbar-toggler navbar-toggler-right container" type="button" (click)="openModal(filterModal)">
+    <button class="navbar-toggler navbar-toggler-right container" type="button" (click)="openModal(filterModal)" #openFilters>
         <h3>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h3>
     </button>
 </div>
 
 <ng-template #filterModal>
-    <div class="modal-header">
-        <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h5>
-        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="preventTab($event)">Sulje</button>
-    </div>
-    <div class="modal-body">
-        <ng-container *ngTemplateOutlet="filters"></ng-container>
+    <div cdkTrapFocus>
+        <div class="modal-header">
+            <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h5>
+            <button type="button" class="btn modal-close" (click)="closeModal()" autofocus>Sulje</button>
+        </div>
+        <div class="modal-body">
+            <ng-container *ngTemplateOutlet="filters"></ng-container>
+        </div>
     </div>
 </ng-template>
 
