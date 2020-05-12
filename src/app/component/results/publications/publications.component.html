@@ -67,7 +67,7 @@
                 </div>          
                 <div class="col col-xl-3 shorten d-none d-xl-block">
                     <span [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
-                    [innerHtml]="(publication.journalName | cutContent: 100) | highlight: input">
+                    [innerHtml]="(publication.journalName ? publication.journalName : publication.conferenceName | cutContent: 100) | highlight: input">
                     </span>
                 </div>          
                 <div class="col col-lg-1">
