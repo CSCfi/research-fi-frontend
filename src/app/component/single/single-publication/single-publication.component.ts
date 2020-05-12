@@ -214,6 +214,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.shapeData();
         this.filterData();
         this.checkDoi();
+        console.log(this.responseData.publications[0]);
       }
     },
       error => this.errorMessage = error as any);
@@ -296,10 +297,16 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 });
               }
             });
+            // Add sub units under organization if no person sub units
             if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
             && subUnit.OrgUnitId !== '-1') {
               orgUnitArr.push({
                 subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
+              });
+              // List sub unit IDs if no name available
+            } else if (!subUnit.person && subUnit.organizationUnitNameFi === ' ') {
+              orgUnitArr.push({
+                subUnit: subUnit.OrgUnitId
               });
             }
           });
