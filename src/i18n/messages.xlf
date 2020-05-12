@@ -2,6 +2,25 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="fi" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="404" datatype="html">
+        <source>404 - Virheellinen osoite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="searchSlogan" datatype="html">
         <source>Hae tietoa tutkimuksesta Suomessa</source>
         <context-group purpose="location">
@@ -180,6 +199,116 @@
           <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="backToResults" datatype="html">
+        <source>Takaisin hakutuloksiin</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="authorOrganization" datatype="html">
+        <source>Organisaatiot ja tekijät</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="736db59efa202cb6c4ddda729570e44719b2109e" datatype="html">
+        <source>Julkaisun tekijät, joilla on suomalainen organisaatio.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="showSpecific" datatype="html">
+        <source>Näytä tarkemmin</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hideSubUnits" datatype="html">
+        <source>Piilota alayksiköt</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publicationMediumInfo" datatype="html">
+        <source>Julkaisukanavan tiedot</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="otherPublicationInfo" datatype="html">
+        <source>Muut tiedot</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publicationLinks" datatype="html">
+        <source>Linkit julkaisuun</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">236</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noPublicationLinks" datatype="html">
+        <source>Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">273</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="externalLinks" datatype="html">
+        <source>Hae julkaisua muualta</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">278</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="relatedPublications" datatype="html">
+        <source>Hae julkaisuun liittyvät</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">291</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="doiWarning" datatype="html">
+        <source>Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">301</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publicationSource" datatype="html">
+        <source>Julkaisutiedon lähde</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">315</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="doiHelp" datatype="html">
+        <source>Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">356</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="publicationName" datatype="html">
         <source>Julkaisun nimi</source>
         <context-group purpose="location">
@@ -329,6 +458,10 @@
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
           <context context-type="linenumber">140</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="researchInnovationPolitics" datatype="html">
         <source>Tiede- ja innovaatiopolitiikka</source>
@@ -358,6 +491,10 @@
           <context context-type="sourcefile">app/component/breadcrumb/breadcrumb.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="fundingName" datatype="html">
         <source>Hankkeen nimi</source>
@@ -371,6 +508,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">247</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingFunded" datatype="html">
@@ -392,6 +537,166 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="academyConsortium" datatype="html">
+        <source>Suomen akatemian konsortio</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a19b515e61c5f3bd03aeb190c531f5f7d3631b04" datatype="html">
+        <source>Suomen Akatemian konsortiossa rooli voi olla joko johtaja tai partneri</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="otherConsortium" datatype="html">
+        <source>Konsortion muut osapuolet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4186cc82c1bbc6b5ab14d9b2c6c2609088810f01" datatype="html">
+        <source>Suomen Akatemian konsortion muut osapuolet ja rahoituspäätösten numerot.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ac1e2e4804de0a2004143749d6219c290358fa06" datatype="html">
+        <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="recipientPerson" datatype="html">
+        <source>Nimi</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8ec853c389450131255dacaaa0b50a0b57592d7d" datatype="html">
+        <source>Henkilö, jolle rahoitus on myönnetty tai jonka johtaman hankkeen kustannuksiin rahoitus on tarkoitettu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="recipientOrganization" datatype="html">
+        <source>Organisaatio</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dd1f6dcad8ae569947f3bb16621cdc2ed9186db9" datatype="html">
+        <source>Organisaatio tai organisaatiot, joiden hankkeiden kustannuksiin rahoitus on myönnetty. Organisaatioiden rahoitusosuudet näytetään, jos ne ovat tiedossa.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactPerson" datatype="html">
+        <source>Yhteyshenkilö</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fundedAmount" datatype="html">
+        <source>Myönnetty summa</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7bba2ea75ba95e1a56ba17763160cd3189c3db7" datatype="html">
+        <source>Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bcfdc982f650a5ee937d05c8a5bc54c1120924a0" datatype="html">
+        <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fundingOtherInfo" datatype="html">
+        <source>Muut tiedot</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">184</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fundingHomePage" datatype="html">
+        <source>Hankkeen verkkosivu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">204</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7da8803c6c52847be5521d1a9502a72086e973ff" datatype="html">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="relatedFundings" datatype="html">
+        <source>Tähän hankkeeseen liittyvät</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">222</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="share" datatype="html">
+        <source>Jaa</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">239</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fundingSource" datatype="html">
+        <source>Hanketiedon lähde</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">245</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noInformationSource" datatype="html">
+        <source>Tiedon lähde ei saatavilla.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">248</context>
         </context-group>
       </trans-unit>
       <trans-unit id="activeFilters" datatype="html">
@@ -470,6 +775,48 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
           <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="76a928712c0881e35f96e4e318d7ea9d063cd686" datatype="html">
+        <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="organizationHomepage" datatype="html">
+        <source>Organisaation verkkosivu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noOrganizationLinks" datatype="html">
+        <source>Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="relatedOrganizations" datatype="html">
+        <source>Organisaation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="orgInfoSource" datatype="html">
+        <source>Organisaatiotiedon lähde</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="visualType" datatype="html">
+        <source>Vaihda visualisaation tyyppiä</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/visualisation/visualisation.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="infraAcronym" datatype="html">
@@ -572,6 +919,55 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="copyLink" datatype="html">
+        <source>Kopioi linkki</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/share/share.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="infraServices" datatype="html">
+        <source>Tutkimusinfrastruktuurin palvelut</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="infraHomePage" datatype="html">
+        <source>Infrastruktuurin verkkosivu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noInfraLinks" datatype="html">
+        <source>Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="relatedInfrastructures" datatype="html">
+        <source>Infrastruktuurin</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="infraSource" datatype="html">
+        <source>Infrastruktuuritiedon lähde</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="missingInfraSource" datatype="html">
+        <source>Infrastruktuuritiedon lähde puuttuu.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="closeButton" datatype="html">
@@ -1146,6 +1542,129 @@
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="sitemapHeader" datatype="html">
+        <source>Sivukartta</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publications" datatype="html">
+        <source>Julkaisut</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fundings" datatype="html">
+        <source>Hankkeet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fe9eec45a06bd2b602244b97d11d8cb23970b8d3" datatype="html">
+        <source>Infrastruktuurit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0468bbd09c015e4104752d779259de74c0b87042" datatype="html">
+        <source>Organisaatiot</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="headerLink3" datatype="html">
+        <source>Tiede- ja innovaatiopolitiikka</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="headerLink4" datatype="html">
+        <source>Tutkimus- ja innovaatiojärjestelmä</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="headerLink5" datatype="html">
+        <source>Tiede ja tutkimus lukuina</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="headerLink6" datatype="html">
+        <source>Tiede- ja tutkimusuutiset</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink1" datatype="html">
+        <source>Tietoa palvelusta</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink4" datatype="html">
+        <source>Sivukartta</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink8" datatype="html">
+        <source>Saavutettavuusseloste</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footerLink9" datatype="html">
+        <source>Tietosuoja</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
         <context-group purpose="location">
@@ -1181,59 +1700,21 @@
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="c338c9580a784632c9ee129f5f72739cb008d2e1" datatype="html">
+      <trans-unit id="headerLink1" datatype="html">
         <source>Etusivu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
           <context context-type="linenumber">64</context>
         </context-group>
-        <note priority="1" from="description">1</note>
-        <note priority="1" from="meaning">Header</note>
+        <note priority="1" from="description">Header</note>
       </trans-unit>
-      <trans-unit id="5170ac7714eb30c29b8bb1efc194893c2eb7a282" datatype="html">
+      <trans-unit id="headerLink2" datatype="html">
         <source>Haku</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
           <context context-type="linenumber">69</context>
         </context-group>
-        <note priority="1" from="description">2</note>
-        <note priority="1" from="meaning">Header</note>
-      </trans-unit>
-      <trans-unit id="437bcd5dec4e81e21142d52cab067c8af8a1c555" datatype="html">
-        <source>Tiede- ja innovaatiopolitiikka</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">75</context>
-        </context-group>
-        <note priority="1" from="description">3</note>
-        <note priority="1" from="meaning">Header</note>
-      </trans-unit>
-      <trans-unit id="1cad4f5faf6f267eac01530e61910e21023297cf" datatype="html">
-        <source>Tutkimus- ja innovaatiojärjestelmä</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">78</context>
-        </context-group>
-        <note priority="1" from="description">4</note>
-        <note priority="1" from="meaning">Header</note>
-      </trans-unit>
-      <trans-unit id="afeb6c78ff0815e9cc83e0b10fe379165c654f3a" datatype="html">
-        <source>Tiede ja tutkimus lukuina</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">79</context>
-        </context-group>
-        <note priority="1" from="description">5</note>
-        <note priority="1" from="meaning">Header</note>
-      </trans-unit>
-      <trans-unit id="b2614f405e3348c5c178cdef751046afb8d18e9e" datatype="html">
-        <source>Tiede- ja tutkimusuutiset</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">85</context>
-        </context-group>
-        <note priority="1" from="description">6</note>
-        <note priority="1" from="meaning">Header</note>
+        <note priority="1" from="description">Header</note>
       </trans-unit>
       <trans-unit id="footerHeader1" datatype="html">
         <source>Palvelun tarjoaa</source>
@@ -1272,22 +1753,6 @@
           <context context-type="linenumber">34</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
-      </trans-unit>
-      <trans-unit id="footerLink1" datatype="html">
-        <source>Tietoa palvelusta</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">36</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
-      </trans-unit>
-      <trans-unit id="footerLink4" datatype="html">
-        <source>Sivukartta</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
       </trans-unit>
       <trans-unit id="footerLink5" datatype="html">
         <source>Anna palautetta <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/></source>
@@ -1328,22 +1793,6 @@
           <context context-type="linenumber">55</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
-      </trans-unit>
-      <trans-unit id="footerLink8" datatype="html">
-        <source>Saavutettavuusseloste</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">57</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
-      </trans-unit>
-      <trans-unit id="footerLink9" datatype="html">
-        <source>Tietosuoja</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
       </trans-unit>
       <trans-unit id="followUs" datatype="html">
         <source>Seuraa meitä!</source>
