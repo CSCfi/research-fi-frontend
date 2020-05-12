@@ -1,0 +1,110 @@
+# This file is part of the research.fi service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT
+apiVersion: v1
+kind: Template
+metadata:
+  labels:
+    app: nginx-revproxy-api
+    template: nginx-revproxy-api
+  name: nginx-revproxy-api
+objects:
+
+# Service
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: nginx-revproxy-api-service
+    labels:
+      app: nginx-revproxy-api
+    annotations:
+      description: Nginx reverse proxy for portal api
+  spec:
+    ports:
+      - name: nginx-revproxy-api
+        port: 8080
+        targetPort: 8080
+    selector:
+      depcfg: nginx-revproxy-api-deploymentconfig
+
+# ImageStream
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: nginx-revproxy-api
+    labels:
+      app: nginx-revproxy-api
+
+# BuildConfig using Docker build strategy
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: nginx-revproxy-api-build
+    labels:
+      app: nginx-revproxy-api
+  spec:
+    source:
+      git:
+        uri: https://github.com/CSCfi/research-fi-frontend.git
+        ref: devel
+      contextDir: .
+    strategy:
+      dockerStrategy:
+        dockerfilePath: nginx_reverse_proxy/api/Dockerfile
+    output:
+      to:
+        kind: ImageStreamTag
+        name: nginx-revproxy-api:latest
+    successfulBuildsHistoryLimit: 4 
+    failedBuildsHistoryLimit: 4
+
+# Deployment config
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: nginx-revproxy-api-deployment
+    labels:
+      app: nginx-revproxy-api
+  spec:
+    selector:
+      app: nginx-revproxy-api
+      depcfg: nginx-revproxy-api-deploymentconfig
+    template:
+      metadata:
+        labels:
+          app: nginx-revproxy-api
+          depcfg: nginx-revproxy-api-deploymentconfig
+      spec:
+        containers:
+          - name: nginx-revproxy-api-container
+            image: researchfi/nginx-revproxy-api
+            imagePullPolicy: Always
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            volumeMounts:
+              - name: nginx-revproxy-api-volume
+                mountPath: /etc/nginx/config
+        volumes:
+          - name: nginx-revproxy-api-volume
+            configMap:
+              name: nginx-revproxy-api-configmap
+              items:
+              - key: configfile
+                path: api.conf
+    replicas: 1
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - nginx-revproxy-api-container
+        from:
+          kind: ImageStreamTag
+          name: nginx-revproxy-api:latest
+    strategy:
+      type: Rolling

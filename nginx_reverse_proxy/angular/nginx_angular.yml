@@ -8,43 +8,43 @@ apiVersion: v1
 kind: Template
 metadata:
   labels:
-    app: researchfi-nginx
-    template: researchfi-nginx
-  name: researchfi-nginx
+    app: nginx-revproxy-angular
+    template: nginx-revproxy-angular
+  name: nginx-revproxy-angular
 objects:
 
 # Service
 - apiVersion: v1
   kind: Service
   metadata:
-    name: researchfi-nginx-service
+    name: nginx-revproxy-angular-service
     labels:
-      app: researchfi-nginx
+      app: nginx-revproxy-angular
     annotations:
-      description: Research.fi nginx
+      description: Nginx reverse proxy for Angular web app
   spec:
     ports:
-      - name: nginx
+      - name: nginx-revproxy-angular
         port: 8080
         targetPort: 8080
     selector:
-      depcfg: nginx-deploymentconfig
+      depcfg: nginx-revproxy-angular-deploymentconfig
 
 # ImageStream
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: researchfi-nginx
+    name: nginx-revproxy-angular
     labels:
-      app: researchfi-nginx
+      app: nginx-revproxy-angular
 
 # BuildConfig using Docker build strategy
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: researchfi-nginx-build
+    name: nginx-revproxy-angular-build
     labels:
-      app: researchfi-nginx
+      app: nginx-revproxy-angular
   spec:
     source:
       git:
@@ -53,11 +53,11 @@ objects:
       contextDir: .
     strategy:
       dockerStrategy:
-        dockerfilePath: nginx/Dockerfile
+        dockerfilePath: nginx_reverse_proxy/angular/Dockerfile
     output:
       to:
         kind: ImageStreamTag
-        name: researchfi-nginx:latest
+        name: nginx-revproxy-angular:latest
     successfulBuildsHistoryLimit: 4 
     failedBuildsHistoryLimit: 4
 
@@ -65,22 +65,22 @@ objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    name: researchfi-nginx-deployment
+    name: nginx-revproxy-angular-deployment
     labels:
-      app: researchfi-nginx
+      app: nginx-revproxy-angular
   spec:
     selector:
-      app: researchfi-nginx
-      depcfg: nginx-deploymentconfig
+      app: nginx-revproxy-angular
+      depcfg: nginx-revproxy-angular-deploymentconfig
     template:
       metadata:
         labels:
-          app: researchfi-nginx
-          depcfg: nginx-deploymentconfig
+          app: nginx-revproxy-angular
+          depcfg: nginx-revproxy-angular-deploymentconfig
       spec:
         containers:
-          - name: nginx-container
-            image: researchfi/researchfi-nginx
+          - name: nginx-revproxy-angular-container
+            image: researchfi/nginx-revproxy-angular
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
@@ -92,9 +92,9 @@ objects:
       imageChangeParams:
         automatic: true
         containerNames:
-        - nginx-container
+        - nginx-revproxy-angular-container
         from:
           kind: ImageStreamTag
-          name: researchfi-nginx:latest
+          name: nginx-revproxy-angular:latest
     strategy:
       type: Rolling
