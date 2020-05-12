@@ -341,7 +341,6 @@ export class FilterService {
 
   constructFilterPayload(tab: string, searchTerm: string) {
     const filters = this.constructFilters(tab.slice(0, -1));
-    console.log(filters);
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
     const activeNested = filters.filter(item => item.nested?.query.bool.should.length > 0);
@@ -361,7 +360,7 @@ export class FilterService {
                   .concat(activeMultipleNested.filter(item => item.bool.should[1].nested.path !== path2));
       return res.concat(active, activeNested);
     }
-    console.log(filterActive(this.sortService.yearField))
+
     // Aggregations
     const payLoad: any = {
       ...(searchTerm ? { query: {
