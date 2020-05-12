@@ -143,13 +143,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
-
       // Subscribe to aggregation data
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
         this.response = response;
         if (response) {
           const source = this.response[0].aggregations;
-          const tab = this.currentTab.data;
+          const tab = this.sortService.currentTab;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
             // Active year filters can be displayed with range. Hide items that are within the range
@@ -207,7 +206,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             // Publication organization name
-            if (this.currentTab === 'publications' && val.category === 'organization' && source.organization) {
+            if (tab === 'publications' && val.category === 'organization' && source.organization) {
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
                   sector.organization.buckets.forEach(org => {
@@ -220,7 +219,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
             // Funding organization name
-            if (this.currentTab === 'fundings' && val.category === 'organization' && source.organization) {
+            if (tab === 'fundings' && val.category === 'organization' && source.organization) {
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
                   sector.organizations.buckets.forEach(org => {
@@ -289,7 +288,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             // News, organization
-            if (this.currentTab === 'news' && source.organization) {
+            if (tab === 'news' && source.organization) {
               const result = source.organization.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.label;
