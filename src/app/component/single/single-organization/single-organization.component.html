@@ -22,7 +22,15 @@
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of responseData.organizations">
-                <h1 class="result-header">{{item.nameFi}}</h1>
+                <div class="row d-flex justify-content-around">
+                    <div class="col p-0">
+                        <h1 class="result-header">{{item.nameFi}}</h1>
+                    </div>
+                    <div *ngIf="item.logo !== null" class="col p-0 org-logo text-right align-self-center">
+                        <img [src]="item.logo | safeUrl">
+                    </div>
+                </div>
+
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
                         <!-- Labels -->

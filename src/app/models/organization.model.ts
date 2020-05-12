@@ -42,6 +42,7 @@ export class Organization {
         public thesisCountLicPercentage: number,
         public thesisCountPhdPercentage: number,
         public subUnits: any[],
+        public logo: string
     ) {}
 }
 
@@ -88,6 +89,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.thesisCountLicPercentage,
             item.thesisCountPhdPercentage,
             item.subUnits,
+            item.mediaUri
         );
     }
 };
