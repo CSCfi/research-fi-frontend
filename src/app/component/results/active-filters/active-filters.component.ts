@@ -195,7 +195,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             if (val.category === 'sector' && tab === 'organizations' && source.sector) {
-              if (source.sector.buckets.length > 0  && !source.sector.sectorName) {
+              if (source.sector.buckets?.length > 0  && !source.sector.sectorName) {
                 source.sector.buckets.forEach(element => {
                   if (element.sectorId && element.sectorId.buckets[0].key === val.value) {
                     const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
