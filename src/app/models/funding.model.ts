@@ -93,7 +93,7 @@ export class FundingAdapter implements Adapter<Funding> {
             item.projectDescriptionFi,
             item.projectDescriptionEn,
             item.fundingStartYear,
-            item.FundingEndYear,
+            item.fundingEndYear,
             recipientObj?.roleInFundingGroup,
             otherConsortiumObjs,
             recipient,
