@@ -107,5 +107,9 @@ app-single-figure {
             bottom: calc(100% - 35px);
         }
 
+        .content {
+            overflow-x: hidden;
+        }
+
     }
 }
