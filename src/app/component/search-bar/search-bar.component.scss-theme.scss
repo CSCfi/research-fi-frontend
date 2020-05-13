@@ -4,6 +4,19 @@
     $primary: map-get($theme, primary);
 
     app-search-bar {
+        // Target
+        .mat-form-field-appearance-legacy .mat-form-field-label {
+            color: white!important;
+        }
+
+        .mat-form-field, .mat-select {
+            background: white;
+        }
+
+        .mat-form-field-appearance-legacy .mat-form-field-label.mat-form-field-empty, .mat-select-value {
+            color: mat-color($primary)!important;
+        }
+
         .col-12.search {
             background: mat-color($primary);
             color: mat-contrast($primary, 200);
