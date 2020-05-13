@@ -73,6 +73,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   expand: boolean;
   latestSubUnitYear: string;
   faIcon = faFileAlt;
+  subUnitSlice = 10;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
@@ -115,6 +116,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
+        console.log(this.responseData.organizations[0]);
       }
     },
       error => this.errorMessage = error as any);
@@ -139,17 +141,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.organizations[0];
     const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-    // const predecessors = source.predecessors;
-    // const related = source.related;
-    let subUnits = source.subUnits;
 
-    // if (predecessors && predecessors.length > 0) {
-    //   source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
-    // }
-
-    // if (related && related.length > 0) {
-    //   source.related = related.map(x => x.nameFi.trim()).join(', ');
-    // }
+    const subUnits = source.subUnits;
 
     if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
       source.statCenterId = '';
@@ -160,12 +153,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       const subUnitYears = [...new Set(subUnits.map(item => item.year))];
       const transformedYears = subUnitYears.map(Number);
       this.latestSubUnitYear = (Math.max(...transformedYears)).toString();
-      // Get results that match the yeat
-      subUnits = subUnits.filter((item) => {
-        return Object.keys(item).some((key) => item[key].includes(this.latestSubUnitYear));
-      });
-      // List items
-      source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
+      source.subUnits = source.subUnits.filter(item => item.year === this.latestSubUnitYear);
     }
   }
 

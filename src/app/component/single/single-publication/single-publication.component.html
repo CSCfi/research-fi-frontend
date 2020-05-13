@@ -261,7 +261,7 @@
                                 </div>
                             </ng-container>
                         </ng-container>
-                        <div *ngIf="!linksFields.length && item.selfArchivedData[0]?.selfArchived.length === 0" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <div *ngIf="!linksFields.length && !item.selfArchivedData" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
                 <aside>

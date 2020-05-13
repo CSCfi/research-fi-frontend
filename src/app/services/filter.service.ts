@@ -127,7 +127,7 @@ export class FilterService {
         break;
       }
       case 'fundings': {
-        filter.forEach(value => { res.push({ term : { 'organizationConsortium.consortiumOrganizationId.keyword' : value } }); });
+        // filter.forEach(value => { res.push({ term : { 'organizationConsortium.consortiumOrganizationId.keyword' : value } }); });
         filter.forEach(value => { res.push({ term : { 'fundingGroupPerson.consortiumOrganizationId.keyword' : value } }); });
         break;
       }
@@ -266,8 +266,10 @@ export class FilterService {
       ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
       // Funding / Organization filter data comes from two different nested aggregations
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
-          {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
+      [{nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
+      // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+      //     [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
+      //     {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
       ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
       ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
       ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
@@ -622,26 +624,26 @@ export class FilterService {
         // Sector & organization
         payLoad.aggs.organization = {
           nested: {
-            path: 'organizationConsortium'
+            path: 'fundingGroupPerson'
           },
           aggs: {
             sectorName: {
               terms: {
                 size: 50,
-                field: 'organizationConsortium.consortiumSectorNameFi.keyword',
+                field: 'fundingGroupPerson.fundedPersonOrganizationNameFi.keyword',
                 exclude: ' |Rahoittaja'
               },
               aggs: {
                 sectorId: {
                   terms: {
                     size: 50,
-                    field: 'organizationConsortium.consortiumSectorId.keyword'
+                    field: 'fundingGroupPerson.consortiumSectorId.keyword'
                   }
                 },
                 organizations: {
                   terms: {
                     size: 50,
-                    field: 'organizationConsortium.consortiumOrganizationNameFi.keyword'
+                    field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
                   },
                   aggs: {
                     filtered: {
@@ -650,7 +652,7 @@ export class FilterService {
                         filterCount: {
                           filter: {
                             bool: {
-                              filter: filterActiveMultipleNested('organizationConsortium', 'fundingGroupPerson')
+                              filter: filterActiveNested('fundingGroupPerson')
                             }
                           }
                         }
@@ -659,7 +661,7 @@ export class FilterService {
                     orgId: {
                       terms: {
                         size: 1,
-                        field: 'organizationConsortium.consortiumOrganizationId.keyword'
+                        field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
                       }
                     }
                   }
