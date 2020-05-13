@@ -80,7 +80,7 @@ objects:
       spec:
         containers:
           - name: nginx-revproxy-api-devel-container
-            image: ts/nginx-revproxy-api-devel
+            image: researchfi/nginx-revproxy-api-devel
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
@@ -95,11 +95,6 @@ objects:
               items:
               - key: configfile
                 path: api.conf
-            #configMap:
-            #  name: nginx-revproxy-api-devel-configmap
-            #  items:
-            #  - key: configfile
-            #    path: /etc/nginx/conf/api.conf
     replicas: 1
     triggers:
     - type: ConfigChange
