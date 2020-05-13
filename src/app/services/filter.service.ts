@@ -182,11 +182,12 @@ export class FilterService {
     if (code.includes('noOpenAccessData')) {
       res.push(
         {bool: {must_not: [
-          { term : { openAccessCode : 1 } },
-          { term : { openAccessCode : 2 } },
-          { term : { openAccessCode : 0 } },
-          { term : { selfArchivedCode : 1 } },
-          { term : { selfArchivedCode : 0 } }
+          {bool: {must: [{term: {openAccessCode: 0}}, {term: {selfArchivedCode: 0}}]}},
+          {bool: {must: [{term: {openAccessCode: 1}}, {term: {selfArchivedCode: 1}}]}},
+          {bool: {must: [{term: {openAccessCode: 2}}, {term: {selfArchivedCode: 0}}]}},
+          {bool: {must: [{term: {openAccessCode: 2}}, {term: {selfArchivedCode: 1}}]}},
+          {bool: {must: [{term: {openAccessCode: 1}}, {term: {selfArchivedCode: 0}}]}},
+          {bool: {must: [{term: {openAccessCode: 0}}, {term: {selfArchivedCode: 1}}]}}
         ]}}
       );
     }
