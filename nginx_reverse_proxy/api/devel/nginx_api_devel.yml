@@ -87,7 +87,7 @@ objects:
                 protocol: TCP
             volumeMounts:
               - name: nginx-revproxy-api-devel-volume
-                mountPath: /etc/nginx/conf
+                mountPath: /etc/nginx/apiconf
         volumes:
           - name: nginx-revproxy-api-devel-volume
             secret:
