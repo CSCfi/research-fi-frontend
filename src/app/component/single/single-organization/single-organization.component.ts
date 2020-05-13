@@ -65,7 +65,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {labelFi: 'Aineistot', tab: '', disabled: true},
     {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
     {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
-  ]
+  ];
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
@@ -116,7 +116,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
-        console.log(this.responseData.organizations[0]);
       }
     },
       error => this.errorMessage = error as any);
@@ -154,6 +153,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       const transformedYears = subUnitYears.map(Number);
       this.latestSubUnitYear = (Math.max(...transformedYears)).toString();
       source.subUnits = source.subUnits.filter(item => item.year === this.latestSubUnitYear);
+      // Sort sub units by name
+      source.subUnits.sort((a,b) => {
+          const x = a.subUnitName.toLowerCase();
+          const y = b.subUnitName.toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
+      });
     }
   }
 
