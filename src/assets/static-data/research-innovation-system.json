@@ -2,16 +2,16 @@
     "sector": {
         "intro": {
             "description": [
-                "<p>Suomen kilpailukyky ja hyvinvointi rakentuvat osaamiselle, tutkimukselle ja innovaatioille. Tutkimus- ja innovaatiopolitiikalla tuetaan tutkimusta tekevien ja tukevien organisaatioiden toimintamahdollisuuksia. Tutkimuksessa syntyvä tieto ja osaaminen palvelevat yhteiskunnan eri toimijoita, kuten yrityksiä, yhteisöjä ja julkisia organisaatioita sekä poliittista päätöksentekoa.</p>",
-                "<p>Keskeisiä toimijoita tutkimus- ja innovaatiojärjestelmässä ovat yliopistot ja ammattikorkeakoulut, tutkimuslaitokset sekä yritysten tutkimusyksiköt. Noin kaksi kolmasosaa tutkimus- ja tuotekehitystyöstä tehdään yritysten toimesta. Rahoittajista merkittävimpiä ovat Suomen Akatemia, Business Finland sekä säätiöt.</p>",
+                "<p>Suomen kilpailukyky ja hyvinvointi rakentuvat osaamiselle, tutkimukselle ja innovaatioille. Tutkimus- ja innovaatiopolitiikalla tuetaan tutkimusta tekevien ja tukevien organisaatioiden toimintamahdollisuuksia. Tutkimuksessa syntyvä tieto, muu tutkittu tieto ja osaaminen palvelevat yhteiskunnan eri toimijoita, kuten yrityksiä, yhteisöjä ja julkisia organisaatioita sekä poliittista päätöksentekoa.</p>",
+                "<p>Keskeisiä toimijoita tutkimus- ja innovaatiojärjestelmässä ovat yliopistot ja ammattikorkeakoulut, tutkimuslaitokset sekä yritysten tutkimusyksiköt. Noin kaksi kolmasosaa tutkimus- ja tuotekehitystyön menoista syntyy yrityksille. Suomalaisista tutkimusahoittajista merkittävimpiä ovat Suomen Akatemia, Business Finland sekä säätiöt.</p>",
                 "<p>Valtioneuvoston ministeriöt kehittävät yhdessä tutkimus- ja innovaatiojärjestelmää koskevia politiikkatoimia. Pääministerin johtama tutkimus- ja innovaationeuvosto tukee valtioneuvostoa pitkäjänteisen tiede-, teknologia- ja innovaatiopolitiikan (TKI-politiikka) kehittämisessä ja yhteensovittamisessa. Se seuraa alan toimintaympäristön muutoksia sekä tekee TKI-politiikkaan liittyviä aloitteita.</p>",
-                "<p>Suomen hallitus on asettanut tavoitteeksi nostaa Suomen tutkimus- ja kehittämismenojen osuus nykyisestä 2,7 prosentin bruttokansantuoteosuudesta 4 prosenttiin 2030 mennessä. Tähän pääsemiseksi tarvitaan yhteistä näkemystä ja missioita, kunnianhimoisempaa TKI-toimintaa sekä investointeja niin julkiselta kuin yksityiseltä sektorilta. Ilman yksityisen sektorin investointien merkittävää kasvua tavoite ei voi toteutua.</p>",
-                "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\" target=\"_blank\">TKI-tiekartta <i class='fas fa-external-link-alt'></i></a> on laadittu edistämään tämän tavoitteen saavuttamista ja sen myötä syntyvää kestävää kasvua sekä luomaan toimintaympäristö, joka kannustaa sekä suomalaisia että ulkomaisia yrityksiä investoimaan TKI-toimintaan Suomessa. Tavoitteena on, että Suomi pysyy uuden tiedon tuottamisen sekä teknologian kehittämisen ja soveltamisen eturintamassa. Tärkeää on, että Suomi myös nopeasti omaksuu muualla tuotettua tietoa ja osaamista. Keskeisessä asemassa tiekartassa on vaadittavien inhimillisten voimavarojen saatavuuden turvaaminen.</p>"
+                "<p>Pääministeri Marinin hallitus on asettanut tavoitteeksi kasvattaa merkittävästi Suomen tutkimus- ja kehittämispanostuksia. Tähän pääsemiseksi tarvitaan yhteistä näkemystä ja missioita, kunnianhimoisempaa TKI-toimintaa sekä investointeja niin julkiselta kuin yksityiseltä sektorilta. Ilman yksityisen sektorin investointien merkittävää kasvua tavoite ei voi toteutua.</p>",
+                "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\" target=\"_blank\">TKI-tiekartta <i class='fas fa-external-link-alt'></i></a> on laadittu edistämään TKI-intensiteetin nostamista ja sen myötä syntyvää kestävää kasvua sekä luomaan toimintaympäristö, joka kannustaa sekä suomalaisia että ulkomaisia yrityksiä investoimaan TKI-toimintaan Suomessa. Tavoitteena on, että Suomi pysyy uuden tiedon tuottamisen sekä teknologian kehittämisen ja soveltamisen eturintamassa. Tärkeää on, että Suomi myös nopeasti omaksuu muualla tuotettua tietoa ja osaamista. Keskeisessä asemassa tiekartassa on vaadittavien inhimillisten voimavarojen saatavuuden turvaaminen.</p>"
             ]
         },
         "university": {
             "description": [
-                "<p>Yliopistojen tehtäviin kuuluvat vapaa tutkimus, tieteellinen ja taiteellinen sivistys sekä näihin perustuva ylin opetus. Yliopistot käyttävät noin kolmanneksen rahoituksestaan tutkimukseen. Valtaosa yliopistojen kilpaillusta julkisesta tutkimusrahoituksesta on lähtöisin Suomen Akatemiasta, Business Finlandista ja Euroopan unionista.</p>",
+                "<p>Yliopistojen tehtäviin kuuluvat vapaa tutkimus, tieteellinen ja taiteellinen sivistys sekä näihin perustuva ylin opetus. Yliopistot käyttävät noin kolmanneksen valtionrahoituksestaan tutkimukseen. Valtaosa yliopistojen kilpaillusta julkisesta tutkimusrahoituksesta on lähtöisin Suomen Akatemiasta, Business Finlandista ja Euroopan unionista.</p>",
                 "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa, joista kaksi on säätiölain mukaisia säätiöitä ja muut julkisoikeudellisia laitoksia. Sotilasalan korkeakoulututkinnot suoritetaan puolustushallinnon alaisessa Maanpuolustuskorkeakoulussa (MPKK).</p>"
             ],
             "subtitle": "Yliopistot Suomessa",
@@ -76,8 +76,7 @@
         },
         "applied_university": {
             "description": [
-                "<p>Ammattikorkeakoulujen tehtävänä on tarjota ammatillisiin asiantuntijatehtäviin johtavaa korkeakouluopetusta, joka vastaa työelämän muuttuviin tarpeisiin. Lisäksi ammattikorkeakoulujen tehtäviin kuuluu opetusta palveleva sekä työelämää ja aluekehitystä tukeva, soveltava tutkimus- ja kehitystyö.</p>",
-                "<p>Merkittävin TKI-toiminnan rahoituslähde ammattikorkeakouluille valtionavun lisäksi on Euroopan unionin rakennerahasto-ohjelmat. Myös Suomen Akatemia ja Business Finland rahoittavat ammattikorkeakoulujen TKI-työtä.</p>",
+                "<p>Ammattikorkeakoulujen tehtävänä on tarjota ammatillisiin asiantuntijatehtäviin johtavaa korkeakouluopetusta, joka vastaa työelämän muuttuviin tarpeisiin. Lisäksi ammattikorkeakoulujen tehtäviin kuuluu opetusta palveleva sekä työelämää ja aluekehitystä tukeva, soveltava tutkimus- ja kehitystyö. Merkittävin TKI-toiminnan rahoituslähde ammattikorkeakouluille valtionavun lisäksi on Euroopan unionin rakennerahasto-ohjelmat. Myös Suomen Akatemia ja Business Finland rahoittavat ammattikorkeakoulujen TKI-työtä.</p>",
                 "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 22 osakeyhtiömuotoista ammattikorkeakoulua. Opetus- ja kulttuuriministeriön hallinnonalalla toimivien ammattikorkeakoulujen lisäksi Ahvenanmaalla toimii Högskolan på Åland ja sisäministeriön alaisuudessa Poliisiammattikorkeakoulu.</p>"
             ],
             "subtitle": "Ammattikorkeakoulut Suomessa",
@@ -182,7 +181,7 @@
         },
         "university_hospital": {
             "description": [
-                "<p>Yliopistolliset sairaalat muodostavat yhdessä yliopistojen lääketieteellisten tiedekuntien kanssa merkittäviä terveyden tutkimuksen keskuksia. Yhteistyössä yliopistojen, korkeakoulujen ja yritysten kanssa yliopistolliset sairaalat tuottavat tutkimustietoa joka kehittää terveyspalveluja ja niiden järjestämistä sekä edistää väestön ja potilaiden terveyttä.</p>"
+                "<p>Yliopistolliset sairaalat muodostavat yhdessä yliopistojen lääketieteellisten tiedekuntien kanssa terveyden tutkimuksen keskittymiä. Yhteistyössä yliopistojen, korkeakoulujen ja yritysten kanssa yliopistolliset sairaalat tuottavat tutkimustietoa, joka kehittää terveyspalveluja ja niiden järjestämistä sekä edistää väestön ja potilaiden terveyttä.</p>"
             ],
             "subtitle": "Yliopistollisten sairaaloiden erityisvastuualueet",
             "organizations": [
@@ -210,8 +209,9 @@
         },
         "state_research": {
             "description": [
-                "<p>Valtion tutkimuslaitosten ensisijainen tehtävä on hankkia, tuottaa ja välittää tietoa poliittisen päätöksenteon pohjaksi ja yhteiskunnan kehittämiseksi. Tutkimustehtävien lisäksi laitoksilla on vaihtelevassa määrin erilaisia asiantuntija-, valvonta-, koulutus-, neuvonta- ja muita viranomaistehtäviä, maksullista ja muuta palvelutoimintaa jne. Tutkimuslaitokset tuottavat palveluita horisontaalisesti useille eri hallinnonaloille sekä muulle julkiselle sektorille. Ne tuottavat palveluita myös sekä yrityksille että kolmannen sektorin toimijoille.</p>",
-                "<p>Suurin osa tutkimuslaitoksissa tehtävästä tutkimus- ja kehittämistoiminnasta rahoitetaan talousarviossa myönnetyillä määrärahoilla. Budjettivarojen lisäksi toimintaa rahoitetaan yhä enemmän ulkopuolisella rahoituksella, joka koostuu maksullisen palvelutoiminnan tuloista sekä muualta kuin laitoksen omilta budjettiluvuilta tulevasta rahoituksesta.</p>"
+                "<p>Valtion tutkimuslaitokset tekevät ratkaisukeskeistä tutkimusta, jolla tuetaan yhteiskunnallista päätöksentekoa ja elinkeinoelämän uudistumista.</p>",
+                "<p>Tutkimustoiminnan lisäksi laitoksilla on vaihtelevassa määrin erilaisia asiantuntija- ja viranomaistehtäviä sekä maksullista ja muuta palvelutoimintaa. Tutkimuslaitokset ylläpitävät merkittäviä tutkimusinfrastruktuureita, tietoaineistoja ja pitkiä aikasarjoja yhteiskunnan eri osa-alueilta. Tutkimuslaitokset tuottavat palveluita horisontaalisesti useimmille hallinnonaloille, muulle julkiselle sektorille sekä yrityksille ja kolmannen sektorin toimijoille. Kansainvälisellä yhteistyöllä on keskeinen rooli sekä tutkimuslaitosten tutkimustoiminnassa että asiantuntija- ja viranomaistehtävissä.</p>",
+                "<p>Suomen 12 valtion tutkimuslaitosta toimivat seitsemällä eri hallinnonalalla. Tutkimuslaitoksista kymmenen on organisaatiomuodoltaan tulosohjattuja virastoja, yksi on valtion omistuksessa ja hallinnassa oleva osakeyhtiö ja yksi on itsenäinen julkisoikeudellinen yhteisö. Laitokset määrittelevät tutkimuksen painopisteet yhdessä tulosohjaavan ministeriön kanssa. Itse tutkimus on riippumatonta ja sen rahoitus tulee enenevässä määrin kilpailtuna useista lähteistä kotimaiselta julkiselta ja yksityiseltä sektorilta sekä kansainvälisiltä rahoittajilta.</p>"
             ],
             "subtitle": "Valtion tutkimuslaitokset",
             "organizations": [
@@ -267,14 +267,14 @@
         },
         "other_research": {
             "description": [
-                "<p>Valtion tutkimuslaitosten lisäksi tutkimusta tehdään myös useassa muussa julkisessa tai yksityisessä tutkimuslaitoksessa tai organisaation tutkimusyksikössä. Merkittäviä tutkimustoimijoita ovat esimerkiksi taloudelliset tutkimuslaitokset, Suomen Pankki sekä Kansaneläkelaitoksen tutkimusosasto.</p>",
-                "<p>Suomen tutkimus- ja kehittämistoiminnasta noin kaksi kolmasosaa tapahtuu yrityksissä. Yrityksillä on tilastoitavan tk-toiminnan lisäksi huomattavassa määrin innovaatiotoimintaa, joka yritykset käyttävät uusien tuotteiden/palveluiden tai tuotantoprosessien kehittämisessä ja markkinoille tuomisessa.</p>"
+                "<p>Valtion tutkimuslaitosten lisäksi tutkimusta tehdään myös useassa muussa julkisessa tai yksityisessä tutkimuslaitoksessa tai organisaation tutkimusyksikössä. Näitä ovat esimerkiksi taloudelliset tutkimuslaitokset, Suomen Pankki sekä Kansaneläkelaitoksen tutkimusosasto.</p>",
+                "<p>Suomen tutkimus- ja kehittämistoiminnasta noin kaksi kolmasosaa tapahtuu yrityksissä. Yrityksillä on tilastoitavan tk-toiminnan lisäksi huomattavassa määrin innovaatiotoimintaa, joka yritykset käyttävät uusien tuotteiden, palveluiden tai tuotantoprosessien kehittämisessä ja markkinoille tuomisessa.</p>"
             ]
         },
         "funders": {
             "description": [
-                "<p>Kansainvälisen määritelmän mukainen tutkimus- ja kehittämistoiminnan rahoitus oli vuonna 2018 Suomessa yhteensä 6,4 miljardia euroa. Tutkimus- ja kehittämistoiminnan kokonaisrahoituksesta reilut puolet tulee kotimaisilta yrityksiltä. Julkinen sektori rahoittaa noin kolmasosan, ulkomainen rahoitus on reilut kymmenen prosenttia. Loppu rahoituksesta tulee mm. tiedettä tukevilta säätiöiltä. Säätiöt rahoittavat tutkimusta vuosittain reilulla 200 miljoonalla eurolla. Yrityssektorin ja julkisen sektorin rahoittamien osuuksien suhde on kansainvälisessä vertailussa melko tyypillinen.</p>",
-                "<p>Korkeakoulusektorin tutkimuksen rahoituksesta budjettirahoituksen osuus on noin puolet. Ulkopuolisista rahoittajista merkittävin on Suomen Akatemia noin 20 prosentin osuudella. Muista rahoituslähteistä merkittäviä ovat EU:n tutkimuksen puiteohjelma, Business Finland sekä säätiöt kokonaisuutena.</p>"
+                "<p>Kansainvälisen määritelmän mukaiset tutkimus- ja kehittämistoiminnan menot olivat vuonna 2018 Suomessa yhteensä 6,4 miljardia euroa. Tutkimus- ja kehittämistoiminnan kokonaisrahoituksesta reilut puolet tulee kotimaisilta yrityksiltä. Julkinen sektori rahoittaa noin kolmasosan, ulkomainen rahoitus on reilut kymmenen prosenttia. Loppu rahoituksesta tulee mm. tiedettä tukevilta säätiöiltä. Yrityssektorin ja julkisen sektorin rahoittamien osuuksien suhde on kansainvälisessä vertailussa melko tyypillinen.</p>",
+                "<p>Korkeakoulusektorin tutkimuksen rahoituksesta budjettirahoituksen osuus on noin puolet. Ulkopuolisista rahoittajista merkittävin on Suomen Akatemia noin 20 prosentin osuudella. Muista rahoituslähteistä merkittäviä ovat EU:n tutkimuksen puiteohjelma, Business Finland sekä säätiöt kokonaisuutena. <a href=\"https://saatiotrahastot.fi/wp-content/uploads/2020/02/Selvitys-saatiotuesta-2018.pdf\" target=\"_blank\">Erillisen selvityksen <i class='fas fa-external-link-alt'></i></a> mukaan vuonna 2018 säätiöt tukivat tiedettä yhteensä 223 miljoonalla eurolla. Kaikki säätiörahoitus ei näy tilastoissa, mikäli tuki menee suoraan apurahan saajille.</p>"
             ]
         }
     }
