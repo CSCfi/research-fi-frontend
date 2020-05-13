@@ -87,14 +87,19 @@ objects:
                 protocol: TCP
             volumeMounts:
               - name: nginx-revproxy-api-devel-volume
-                mountPath: /etc/nginx/config
+                mountPath: /etc/nginx
         volumes:
           - name: nginx-revproxy-api-devel-volume
-            configMap:
-              name: nginx-revproxy-api-devel-configmap
+            secret:
+              secretName: nginx-revproxy-api-devel-secret
               items:
               - key: configfile
                 path: api.conf
+            #configMap:
+            #  name: nginx-revproxy-api-devel-configmap
+            #  items:
+            #  - key: configfile
+            #    path: /etc/nginx/conf/api.conf
     replicas: 1
     triggers:
     - type: ConfigChange
