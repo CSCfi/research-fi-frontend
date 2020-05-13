@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID } from '@angular/core';
+  PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -20,11 +20,20 @@ import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 
+interface Target {
+  value: string;
+  viewValueFi: string;
+  viewValueEn: string;
+  viewValueSv: string;
+}
+
 @Component({
     selector: 'app-search-bar',
     templateUrl: './search-bar.component.html',
-    styleUrls: ['./search-bar.component.scss']
+    styleUrls: ['./search-bar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
+
 export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
@@ -56,6 +65,15 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     infrastructure: 'infrastruktuurit',
     organization: 'tutkimusorganisaatiot'
   };
+
+  targets: Target[] = [
+    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: '', viewValueSv: ''},
+    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: '', viewValueSv: ''},
+    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: '', viewValueSv: ''},
+    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: '', viewValueSv: ''},
+    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: '', viewValueSv: ''},
+    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: '', viewValueSv: ''}
+  ];
 
   additionalItems = ['clear'];
   completion: string;
