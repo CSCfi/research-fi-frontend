@@ -66,7 +66,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     this.result = [parent.items.find(item => item.link === this.currentItem)];
 
     // Set title
-    this.label = this.result[0].labelFi;
+    this.label = this.result[0]?.labelFi;
     switch (this.localeId) {
       case 'fi': {
         this.setTitle(this.label + ' - Tiedejatutkimus.fi');
