@@ -174,7 +174,6 @@ export class SearchService {
   }
 
   getNewsFilters(): Observable<Search[]> {
-    // const payLoad = this.filterService.constructFilterPayload('news', this.singleInput);
     const payLoad = {
       size: 0,
       aggs: {
