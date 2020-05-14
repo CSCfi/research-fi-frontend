@@ -114,7 +114,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
   ngOnChanges() {
-    if (this.allData) {
+    if (this.allData && !this.isHomepage) {
       this.ref.changes.subscribe((result) => {
         this.scroll = result.first;
         // Subscribe to current tab and get count
