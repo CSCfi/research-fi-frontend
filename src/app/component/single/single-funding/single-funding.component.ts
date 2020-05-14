@@ -34,7 +34,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: 'Akronyymi', field: 'acronym'},
     {label: 'Hankkeen kuvaus', field: 'descriptionFi', tooltipFi: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta'},
     {label: 'Aloitusvuosi', field: 'startYear', tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
-    {label: 'Päättymisvuosi', field: 'endYear'},
+    {label: 'Päättymisvuosi', field: 'endYear', tooltipFi: 'Rahoituskauden päättymisvuosi.'},
   ];
 
   funded = [
