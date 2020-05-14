@@ -48,6 +48,11 @@ app-search-bar {
         display: none;
     }
 
+    .mat-form-field, .mat-select {
+        background: white;
+        z-index: 101;
+    }
+
     .mat-select {
         margin-top: 17px;
         width: 99%;
