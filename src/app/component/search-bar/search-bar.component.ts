@@ -19,6 +19,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { SettingsService } from 'src/app/services/settings.service';
 
 interface Target {
   value: string;
@@ -88,11 +89,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   queryParams: any;
   searchTargetParams: any;
   selectedTarget: any;
+  target: any;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
-               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object ) {
+               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
+               private settingService: SettingsService ) {
                 this.queryHistory = this.getHistory();
                 this.completion = '';
                 this.isBrowser = isPlatformBrowser(this.platformId);
@@ -270,11 +273,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Search target, copy queryParams and add target
+  // Set target, copy queryParams and add target to params
   changeTarget(event) {
-    if (event.value !== 'all') {
-      this.searchTargetParams = {...this.queryParams, target: event.value};
-    }
+    this.settingService.changeTarget(event.value);
+    this.searchTargetParams = event.value !== 'all' ? {...this.queryParams, target: event.value} :
+                                                      {...this.queryParams, target: null};
   }
 
   newInput(selectedIndex, historyLink) {
