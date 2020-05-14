@@ -86,6 +86,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   currentTerm: string;
   inputSub: Subscription;
   queryParams: any;
+  searchTargetParams: any;
+  selectedTarget: any;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -98,8 +100,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.routeSub = this.route.queryParams.subscribe(params => {
+      this.selectedTarget = params.target ? params.target : null;
       this.queryParams = params;
-      this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
+      this.topMargin = this.searchBar.nativeElement.offsetHeight + this.searchBar.nativeElement.offsetTop - 40;
     });
 
     // Get previous search term and set it to form control value
@@ -267,6 +270,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // Search target, copy queryParams and add target
+  changeTarget(event) {
+    this.searchTargetParams = {...this.queryParams, target: event.value};
+  }
+
   newInput(selectedIndex, historyLink) {
     // Hide search helper
     this.showHelp = false;
@@ -298,9 +306,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       if (selectedIndex) {
         this.router.navigate(['results/', selectedIndex + 's', this.searchService.singleInput || '']);
         } else {
-          // Preserve queryParams with new search to same index
+          // Preserve queryParams with new search to same index. Use queryParams with added target if selected
           this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || ''],
-          {queryParams: this.queryParams});
+          {queryParams: this.searchTargetParams ? this.searchTargetParams : this.queryParams});
       }
     });
   }
