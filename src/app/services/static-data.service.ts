@@ -126,7 +126,7 @@ export class StaticDataService {
       case 'infrastructure': {
         res = ['name^2', 'description', 'scientificDescription', 'startYear', 'acronym', 'responsibleOrganizationNameFi',
         'responsibleOrganizationNameEn', 'responsibleOrganizationNameSv', 'keywords.keyword', 'services.serviceName',
-        'services.serviceDescription', 'services.serviceType', 'services.servicePointName', ''];
+        'services.serviceDescription', 'services.serviceType', 'services.servicePointName', 'services.serviceAcronym'];
         break;
       }
       case 'organization': {
@@ -144,17 +144,22 @@ export class StaticDataService {
       case 'publication': {
         res = [
           'author.nameFiSector',
+          'author.organization.organizationId',
           'author.organization.OrganizationNameFi',
+          'author.organization.OrganizationNameEn',
+          'author.organization.OrganizationNameSv',
           'author.organization.organizationUnit.organizationUnitNameFi',
           'author.organization.organizationUnit.organizationUnitNameEn',
           'author.organization.organizationUnit.organizationUnitNameSv',
           'author.organization.organizationUnit.person.authorFirstNames',
-          'author.organization.organizationUnit.person.authorLastName'
+          'author.organization.organizationUnit.person.authorLastName',
+          'author.organization.organizationUnit.person.Orcid'
         ];
         break;
       }
       case 'funding': {
         res = [
+          'organizationConsortium.consortiumOrganizationBusinessId',
           'organizationConsortium.consortiumOrganizationNameFi',
           'organizationConsortium.consortiumOrganizationNameEn',
           'organizationConsortium.consortiumOrganizationNameSv',
@@ -168,6 +173,170 @@ export class StaticDataService {
           'fundingGroupPerson.roleInFundingGroup',
           'fundingGroupPerson.consortiumProject'
         ]
+      }
+    }
+    return res;
+  }
+
+  targetFields(target, index) {
+    let res = [];
+    switch (target) {
+      case 'name': {
+        switch (index) {
+          case 'publication': {
+            res = ['authorsText'];
+            break;
+          }
+          case 'funding': {
+            res = ['fundingContactPersonLastName', 'fundingContactPersonFirstNames'];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+      case 'title': {
+        switch (index) {
+          case 'publication': {
+            res = ['publicationName'];
+            break;
+          }
+          case 'funding': {
+            res = ['projectNameFi', 'projectNameSv', 'projectNameEn', 'projectAcronym'];
+            break;
+          }
+          case 'infrastructure': {
+            res = ['name', 'acronym', 'services.serviceName', 'services.serviceAcronym'];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+      case 'keywords': {
+        switch (index) {
+          case 'publication': {
+            res = ['keywords'];
+            break;
+          }
+          case 'funding': {
+            res = ['keywords.keyword'];
+            break;
+          }
+          case 'infrastructure': {
+            res = ['keywords.keyword'];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+      case 'organization': {
+        switch (index) {
+          case 'publication': {
+            res = [''];
+            break;
+          }
+          case 'funding': {
+            res = ['keywords.keyword'];
+            break;
+          }
+          case 'infrastructure': {
+            res = ['keywords.keyword'];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+      case 'funder': {
+        switch (index) {
+          case 'publication': {
+            res = [''];
+            break;
+          }
+          case 'funding': {
+            res = ['funderNameFi', 'funderNameEn', 'funderNameSv', 'funderNameUnd'];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+    }
+
+    return res;
+  }
+
+  targetNestedQueryFields(target, index) {
+    let res = [];
+    switch (target) {
+      case 'name': {
+        switch (index) {
+          case 'publication': {
+            res = [
+              'author.organization.organizationUnit.person.authorFirstNames',
+              'author.organization.organizationUnit.person.authorLastName',
+              'author.organization.organizationUnit.person.Orcid'
+            ];
+            break;
+          }
+          case 'funding': {
+            res = [
+              'fundingGroupPerson.fundingGroupPersonFirstNames',
+              'fundingGroupPerson.fundingGroupPersonLastName'
+            ];
+            break;
+          }
+        }
+        break;
+      }
+      case 'organization': {
+        switch (index) {
+          case 'publication': {
+            res = [
+              'author.organization.OrganizationNameFi',
+              'author.organization.OrganizationNameEn',
+              'author.organization.OrganizationNameSv'
+            ];
+            break;
+          }
+          case 'funding': {
+            res = [
+              'organizationConsortium.consortiumOrganizationNameFi',
+              'organizationConsortium.consortiumOrganizationNameEn',
+              'organizationConsortium.consortiumOrganizationNameSv',
+              'fundingGroupPerson.consortiumOrganizationNameFi',
+              'fundingGroupPerson.consortiumOrganizationNameEn',
+              'fundingGroupPerson.consortiumOrganizationNameSv'
+            ];
+            break;
+          }
+        }
+        break;
       }
     }
     return res;
