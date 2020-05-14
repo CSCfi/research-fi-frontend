@@ -16,6 +16,7 @@ export class SettingsService {
 indexList: string;
 aggsOnly: string;
 exactField: any;
+  target: any;
 
   constructor( private staticDataService: StaticDataService) {
     this.indexList = 'publication,funding,infrastructure,organization' + '/_search?';
@@ -24,6 +25,10 @@ exactField: any;
 
   strictFields(field) {
     this.exactField = field;
+  }
+
+  changeTarget(target) {
+    this.target = target;
   }
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
@@ -38,6 +43,15 @@ exactField: any;
     // Use exact field when doing a search from single document page
     targetFields = this.exactField ? this.exactField : this.staticDataService.queryFields(index);
     // const nestedFields = this.staticDataService.nestedQueryFields(index);
+
+    if (this.exactField) {
+      targetFields = this.exactField;
+    } else if (this.target) {
+      targetFields = this.staticDataService.targetFields(this.target, index);
+    } else {
+      targetFields = this.staticDataService.queryFields(index);
+    }
+
 
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
@@ -95,6 +109,8 @@ exactField: any;
   }
 
   generateNested(index, term) {
+    const targetFields = this.target ? this.staticDataService.targetNestedQueryFields(this.target, index) :
+                                 this.staticDataService.nestedQueryFields(index);
     let res;
     switch (index) {
       case 'publication': {
@@ -105,7 +121,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: this.staticDataService.nestedQueryFields(index),
+                fields: targetFields,
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -122,7 +138,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: this.staticDataService.nestedQueryFields(index),
+                fields: targetFields,
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -136,7 +152,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: this.staticDataService.nestedQueryFields(index),
+                fields: targetFields,
                 operator: 'AND',
                 lenient: 'true'
               }
