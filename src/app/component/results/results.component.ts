@@ -94,9 +94,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         const params = results.params;
 
         // Change query target
-        if (query.target) {
-          this.settingsService.changeTarget(query.target);
-        }
+        this.settingsService.changeTarget(query.target ? query.target : null);
 
         this.page = +query.page || 1;
         if (this.page > 1000) {
@@ -173,15 +171,19 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Flag telling search-results to fetch new filtered data
         this.updateFilters = !this.updateFilters;
 
-        // If init without search bar redirecting, get data
-        if (this.init && !this.searchService.redirecting) {
-          this.getTabValues();
-        // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
-        } else if (this.searchService.redirecting) {
-          setTimeout(() => {
-            this.tabValues = [this.searchService.tabValues];
-          }, 1);
-        }
+        // // If init without search bar redirecting, get data
+        // if (this.init && !this.searchService.redirecting) {
+        //   this.getTabValues();
+        // // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
+        // } else if (this.searchService.redirecting) {
+        //   setTimeout(() => {
+        //     this.tabValues = [this.searchService.tabValues];
+        //   }, 1);
+        // }
+
+        // Get values for results tab
+        this.getTabValues();
+
         // If new filter data is neeed
         if (tabChanged || this.init) {
           // Reset filter values so new tab doesn't try to use previous tab's filters.
