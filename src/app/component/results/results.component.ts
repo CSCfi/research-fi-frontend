@@ -21,6 +21,7 @@ import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-results',
@@ -72,7 +73,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
                @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService, private modalService: BsModalService,
-               private utilityService: UtilityService ) {
+               private utilityService: UtilityService, private settingsService: SettingsService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -91,6 +92,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(results => {
         const query = results.query;
         const params = results.params;
+
+        // Change query target
+        if (query.target) {
+          this.settingsService.changeTarget(query.target);
+        }
 
         this.page = +query.page || 1;
         if (this.page > 1000) {
