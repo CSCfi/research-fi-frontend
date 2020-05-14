@@ -16,7 +16,7 @@
         <div class="input-group" #inputGroup>
           <mat-form-field class="search-target">
             <mat-label>Kohdista haku</mat-label>
-            <mat-select>
+            <mat-select (selectionChange)="changeTarget($event)" [(value)]="selectedTarget">
               <mat-option *ngFor="let target of targets" [value]="target.value">
                 {{target.viewValueFi}}
               </mat-option>
