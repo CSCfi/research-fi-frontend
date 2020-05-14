@@ -19,6 +19,7 @@ import { PersonFilters } from '../filters/persons';
 import { FundingFilters } from '../filters/fundings';
 import { InfrastructureFilters } from '../filters/infrastructures';
 import { OrganizationFilters } from '../filters/organizations';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -66,7 +67,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                private dataService: DataService, private tabChangeService: TabChangeService,
                public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, ) {
+               private organizationFilters: OrganizationFilters, private settingsService: SettingsService ) {
    }
 
   ngOnInit() {
@@ -349,7 +350,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   clearFilters() {
     this.activeFilters = [];
-    this.router.navigate([]);
+    // Preserve target if available
+    this.router.navigate([], {queryParams: {target: this.settingsService.target}});
   }
 
   ngOnDestroy() {
