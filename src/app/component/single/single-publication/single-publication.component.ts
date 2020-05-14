@@ -140,7 +140,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   openModal(template: TemplateRef<any>) {

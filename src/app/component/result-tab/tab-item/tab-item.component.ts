@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-tab-item',
@@ -13,10 +14,13 @@ export class TabItemComponent implements OnInit {
   @Input() queryParams: any;
   @Input() counted: any;
   @Input() locale: string;
+  targetQueryParams: any;
 
-  constructor(public searchService: SearchService) { }
+  constructor(public searchService: SearchService, private settingsService: SettingsService) { }
 
   ngOnInit(): void {
+    // Set target to params
+    this.targetQueryParams = {...this.queryParams[this.tab.data], target: this.settingsService.target};
   }
 
 }

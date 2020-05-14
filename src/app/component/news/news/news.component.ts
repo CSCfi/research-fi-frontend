@@ -145,8 +145,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
     if (isPlatformBrowser(this.platformId)) {
-      this.resizeSub.unsubscribe();
-      this.paramSub.unsubscribe();
+      this.resizeSub?.unsubscribe();
+      this.paramSub?.unsubscribe();
     }
   }
 

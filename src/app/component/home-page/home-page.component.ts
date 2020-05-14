@@ -186,6 +186,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.resizeSub.unsubscribe();
+    this.resizeSub?.unsubscribe();
   }
 }

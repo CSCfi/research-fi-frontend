@@ -14,6 +14,14 @@
 
       <div class="form-group has-search">
         <div class="input-group" #inputGroup>
+          <mat-form-field class="search-target">
+            <mat-label>Kohdista haku</mat-label>
+            <mat-select (selectionChange)="changeTarget($event)" [(value)]="selectedTarget">
+              <mat-option *ngFor="let target of targets" [value]="target.value">
+                {{target.viewValueFi}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <input tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." type="text" 
           #searchInput class="form-control" [formControl]="queryField" placeholder="Esim. julkaisu, tieteenala, asiasana"
           value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event); disableKeys($event)"
@@ -30,7 +38,7 @@
           </div>
           <div class="search-help" (clickOutside)="onClickedOutside($event)">
             <button  [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp">
-              <span>Hakuohje</span>
+              Hakuohje
             </button>
             <div class="search-helper" *ngIf="showHelp">
               <p>Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi tai esimerkiksi organisaation nimi.</p>

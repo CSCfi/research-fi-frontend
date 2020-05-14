@@ -206,10 +206,12 @@ ul.dropdown li a {
 .parent-link::after {
     font-family: "FontAwesome";
     content: "\f078";
+    padding-left: 5px;
 }
 
 .parent-link.open::after {
     content: "\f077";
+    padding-left: 5px;
 }
 
 // Language selector

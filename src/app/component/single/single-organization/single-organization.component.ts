@@ -95,7 +95,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id: string) {

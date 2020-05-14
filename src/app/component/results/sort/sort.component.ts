@@ -76,7 +76,7 @@ export class SortComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.tabSub.unsubscribe();
+    this.tabSub?.unsubscribe();
   }
 
 }
