@@ -105,7 +105,7 @@ export class StaticDataService {
         res = ['publicationName^2', 'publicationYear', 'authorsText',
               'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
               'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress',  'fields_of_education',
-              'issn', 'issn2', 'isbn', 'isbn2', 'keywords.keyword', 'publicationOrgId',
+              'issn', 'issn2', 'isbn', 'isbn2', 'keywords.keyword',
               'jufoCode', 'jufoClassCode', 'fields_of_science.nameFiScience', 'fields_of_science.nameEnScience',
               'fields_of_science.nameSvScience',];
         break;
@@ -155,7 +155,6 @@ export class StaticDataService {
       }
       case 'funding': {
         res = [
-          'organizationConsortium.consortiumOrganizationBusinessId',
           'organizationConsortium.consortiumOrganizationNameFi',
           'organizationConsortium.consortiumOrganizationNameEn',
           'organizationConsortium.consortiumOrganizationNameSv',
@@ -171,5 +170,6 @@ export class StaticDataService {
         ]
       }
     }
+    return res;
   }
 }
