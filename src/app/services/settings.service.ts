@@ -28,7 +28,7 @@ exactField: any;
   }
 
   changeTarget(target) {
-    this.target = target;
+    this.target = target || null;
   }
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
@@ -121,7 +121,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: targetFields,
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -138,7 +138,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: targetFields,
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
