@@ -226,7 +226,7 @@ export class StaticDataService {
       case 'keywords': {
         switch (index) {
           case 'publication': {
-            res = ['keywords'];
+            res = ['keywords.keyword'];
             break;
           }
           case 'funding': {
