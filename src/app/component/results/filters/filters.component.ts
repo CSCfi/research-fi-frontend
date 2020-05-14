@@ -149,10 +149,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      this.filterSub.unsubscribe();
-      this.resizeSub.unsubscribe();
-      this.queryParamSub.unsubscribe();
-      this.paramSub.unsubscribe();
+      this.filterSub?.unsubscribe();
+      this.resizeSub?.unsubscribe();
+      this.queryParamSub?.unsubscribe();
+      this.paramSub?.unsubscribe();
     }
   }
 

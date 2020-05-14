@@ -355,10 +355,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
-    this.filterResponse.unsubscribe();
-    // this.tabSub.unsubscribe();
-    this.containerSub.unsubscribe();
+    this.queryParams?.unsubscribe();
+    this.filterResponse?.unsubscribe();
+    // this.tabSub?.unsubscribe();
+    this.containerSub?.unsubscribe();
   }
 
   // Set index for warning hover

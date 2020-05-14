@@ -226,7 +226,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (target === 'main-link') {
         this.skipToResults.nativeElement.focus();
       }
-    })
+    });
+    this.cdr.detectChanges();
   }
 
   // Reset focus on blur
@@ -317,9 +318,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
       this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: '', singularFi: ''});
-      this.combinedRouteParams.unsubscribe();
-      this.totalSub.unsubscribe();
-      this.tabSub.unsubscribe();
+      this.combinedRouteParams?.unsubscribe();
+      this.totalSub?.unsubscribe();
+      this.tabSub?.unsubscribe();
     }
   }
 

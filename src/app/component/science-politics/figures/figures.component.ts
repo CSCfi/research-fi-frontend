@@ -145,9 +145,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.querySub.unsubscribe();
-    this.resizeSub.unsubscribe();
-    this.scrollSub.unsubscribe();
+    this.querySub?.unsubscribe();
+    this.resizeSub?.unsubscribe();
+    this.scrollSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 

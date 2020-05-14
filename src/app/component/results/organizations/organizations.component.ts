@@ -68,7 +68,7 @@ export class OrganizationsComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngOnDestroy() {
-    this.inputSub.unsubscribe();
+    this.inputSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 }

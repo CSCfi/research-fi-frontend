@@ -127,8 +127,8 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.resizeSub.unsubscribe();
-    this.routeSub.unsubscribe();
+    this.resizeSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
     this.contentSub?.unsubscribe();
   }
 }

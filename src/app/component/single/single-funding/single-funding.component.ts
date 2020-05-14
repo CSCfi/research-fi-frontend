@@ -98,7 +98,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id) {

@@ -119,9 +119,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       window.removeEventListener('keydown', this.escapeListener);
       window.removeEventListener('mousedown', this.handleMouseDown);
 
-      this.resizeSub.unsubscribe();
+      this.resizeSub?.unsubscribe();
     }
-    this.routeSub.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
   // Toggle between viewing and hiding focused element outlines

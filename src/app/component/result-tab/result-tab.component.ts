@@ -297,9 +297,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       if (this.scroll) {
         this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
       }
-      this.tabSub.unsubscribe();
-      this.queryParamSub.unsubscribe();
-      this.resizeSub.unsubscribe();
+      this.tabSub?.unsubscribe();
+      this.queryParamSub?.unsubscribe();
+      this.resizeSub?.unsubscribe();
     }
   }
 }

@@ -85,7 +85,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id: string) {

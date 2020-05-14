@@ -92,7 +92,7 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
-    this.focusSub.unsubscribe();
+    this.focusSub?.unsubscribe();
     this.heightSub?.unsubscribe();
   }
 }
