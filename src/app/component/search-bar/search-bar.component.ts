@@ -102,7 +102,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.routeSub = this.route.queryParams.subscribe(params => {
       this.selectedTarget = params.target ? params.target : null;
       this.queryParams = params;
-      this.topMargin = this.searchBar.nativeElement.offsetHeight + this.searchBar.nativeElement.offsetTop - 40;
+      this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
     });
 
     // Get previous search term and set it to form control value
@@ -272,7 +272,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   // Search target, copy queryParams and add target
   changeTarget(event) {
-    this.searchTargetParams = {...this.queryParams, target: event.value};
+    if (event.value !== 'all') {
+      this.searchTargetParams = {...this.queryParams, target: event.value};
+    }
   }
 
   newInput(selectedIndex, historyLink) {
