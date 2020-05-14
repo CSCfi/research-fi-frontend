@@ -62,7 +62,7 @@
                                         {{author.author}}
                                         <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
                                     </p>
-                                    <div class="row" *ngIf="showSubUnits && author.subUnit !== null">
+                                    <div class="row" *ngIf="showSubUnits && author.subUnit !== null && author.subUnit !== ' '">
                                         <div class="col-1 guide">
                                             <span class="guide-line">
                                                 <span class="guide-line-top"></span>
@@ -103,7 +103,7 @@
                                             {{author.author}}
                                             <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
                                         </p>
-                                        <div class="row" *ngIf="showSubUnits && author.subUnit !== null">
+                                        <div class="row" *ngIf="showSubUnits && author.subUnit !== null && author.subUnit !== ' '">
                                             <div class="col-1 guide">
                                                 <span class="guide-line">
                                                     <span class="guide-line-top"></span>
