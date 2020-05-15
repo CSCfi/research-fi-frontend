@@ -251,15 +251,15 @@ export class StaticDataService {
             break;
           }
           case 'funding': {
-            res = ['keywords.keyword'];
+            res = [''];
             break;
           }
           case 'infrastructure': {
-            res = ['keywords.keyword'];
+            res = ['responsibleOrganizationNameFi', 'responsibleOrganizationNameEn', 'responsibleOrganizationNameSv'];
             break;
           }
           case 'organization': {
-            res = [''];
+            res = ['nameFi', 'nameEn', 'nameSv', 'variantNames', 'organizationBackground', 'predecessors.nameFi'];
             break;
           }
         }
