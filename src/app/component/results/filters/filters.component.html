@@ -138,15 +138,13 @@
                             (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="item.filterTerm ? item.filterTerm : ''">
                             <mat-selection-list>
                                 <!-- Select all -->
-                                <div *ngIf="item.subData?.length" class="row select-all">
-                                    <div class="col col-9 p-0">
-                                        <mat-checkbox labelPosition="after" (change)="selectAll(filter.field, item)"
-                                        [checked]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')">
-                                            <span class="font-weight-bold label">Valitse kaikki</span>
-                                        </mat-checkbox>
+                                <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" 
+                                [selected]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')">
+                                    <div class="row d-flex justify-content-start">
+                                        <div class="col-9"><span class="font-weight-bold label">Valitse kaikki</span></div>
                                     </div>
                                     <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
-                                </div>
+                                </mat-list-option>
                                 <!-- Options -->
                                 <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen))" (click)="selectionChange(filter.field, field.key)"
                                 (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" >
