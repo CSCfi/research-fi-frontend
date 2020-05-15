@@ -712,13 +712,13 @@ export class FilterService {
         payLoad.aggs.typeOfFunding = {
           filter: {
             bool: {
-              filter: filterActive('typeOfFundingId.keyword')
+              filter: filterActive('typeOfFunding.typeOfFundingId.keyword')
             }
           },
           aggs: {
             types: {
               terms: {
-                field: 'typeOfFundingId.keyword',
+                field: 'typeOfFunding.typeOfFundingId.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {
@@ -728,7 +728,7 @@ export class FilterService {
               aggs: {
                 typeName: {
                   terms: {
-                    field: 'typeOfFundingName' + this.localeC + '.keyword',
+                    field: 'typeOfFunding.typeOfFundingName' + this.localeC + '.keyword',
                     exclude: ' ',
                   }
                 }
