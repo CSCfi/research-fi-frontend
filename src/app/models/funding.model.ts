@@ -30,7 +30,8 @@ export class Funding {
         public fieldsOfResearch: string,
         public fieldsOfTheme: string,
         public projectHomepage: string,
-        public recipientType: string
+        public recipientType: string,
+        public euFunding: boolean
 
     ) {}
 }
@@ -43,6 +44,7 @@ export class FundingAdapter implements Adapter<Funding> {
     adapt(item: any): Funding {
         const recipientObj = item.fundingGroupPerson ?
                              item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift() : {};
+
         // Determine recipient type based on existence and contents of fundingGroupPerson
         switch (item.fundingGroupPerson?.length) {
             // No person -> organization
@@ -52,7 +54,6 @@ export class FundingAdapter implements Adapter<Funding> {
             }
             // One person -> person, don't show consortium
             case 1: {
-                // item.recipientType = item.fundingGroupPerson[0].consortiumOrganizationNameFi === ' ' ? 'organization' : 'person';
                 item.recipientType = 'person';
                 break;
             }
@@ -62,17 +63,21 @@ export class FundingAdapter implements Adapter<Funding> {
                 break;
             }
         }
+
         // Translate academy consortium role
-        switch (recipientObj?.roleInFundingGroup) {
-            case 'leader': {
-                recipientObj.roleInFundingGroup = {labelFi: 'Johtaja', labelEn: 'Leader'};
-                break;
-            }
-            case 'partner': {
-                recipientObj.roleInFundingGroup = {labelFi: 'Partneri', labelEn: 'Partner'};
-                break;
+        if (recipientObj && recipientObj.roleInFundingGroup) {
+            switch (recipientObj?.roleInFundingGroup) {
+                case 'leader': {
+                    recipientObj.roleInFundingGroup = {labelFi: 'Johtaja', labelEn: 'Leader'};
+                    break;
+                }
+                case 'partner': {
+                    recipientObj.roleInFundingGroup = {labelFi: 'Partneri', labelEn: 'Partner'};
+                    break;
+                }
             }
         }
+
         // Trim all string elements
         item.fundingGroupPerson?.forEach(element => {
             Object.keys(element).map(k => element[k] = typeof element[k] === 'string' ? element[k].trim() : element[k]);
@@ -84,6 +89,9 @@ export class FundingAdapter implements Adapter<Funding> {
         const science = item.keywords?.filter(x => x.scheme === 'Tieteenala').map(x => x.keyword).join(', ');
         const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
         const theme = item.keywords?.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
+
+        item.euFunding = funder.nameFi === 'Euroopan Unioni' ? true : false;
+
         return new Funding(
             item.projectId,
             item.projectNameFi,
@@ -103,7 +111,8 @@ export class FundingAdapter implements Adapter<Funding> {
             research,
             theme,
             item.projetHomepage,
-            item.recipientType
+            item.recipientType,
+            item.euFunding
         );
     }
 }
