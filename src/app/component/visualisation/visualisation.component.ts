@@ -155,6 +155,6 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
+    this.queryParams?.unsubscribe();
   }
 }

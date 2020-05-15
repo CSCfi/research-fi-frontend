@@ -9,6 +9,7 @@ import { faArrowLeft, faArrowRight, faAngleDown, faAngleUp } from '@fortawesome/
 import { isPlatformBrowser } from '@angular/common';
 import { zhCnLocale } from 'ngx-bootstrap';
 import { WINDOW } from 'src/app/services/window.service';
+import { SettingsService } from 'src/app/services/settings.service';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -84,7 +85,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe(tab => {
       this.selectedTab = tab.link;
-
       // Get current index and push to arr
       const current = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
       this.previousIndexArr.push(current);
@@ -299,9 +299,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       if (this.scroll) {
         this.scroll.nativeElement.removeEventListener('scroll', this.scrollEvent);
       }
-      this.tabSub.unsubscribe();
-      this.queryParamSub.unsubscribe();
-      this.resizeSub.unsubscribe();
+      this.tabSub?.unsubscribe();
+      this.queryParamSub?.unsubscribe();
+      this.resizeSub?.unsubscribe();
     }
     this.dataService.resultTabList = [];
   }

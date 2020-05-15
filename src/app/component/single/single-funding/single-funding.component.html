@@ -86,7 +86,9 @@
                             </div>
                             <div class="col-6 col-sm-4 td">
                                 <!-- <div>{{item.recipient.affiliation}}</div> -->
-                                <div>{{item.recipient.shareOfFundingEur | thousandSeparator}} €</div>
+                                <ng-container *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
+                                    {{item.recipient.shareOfFundingEur | thousandSeparator}} €
+                                </ng-container>
                             </div>
                         </div>
                         <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.affiliation?.trim().length > 0">
@@ -103,7 +105,9 @@
                             </div>
                             <div class="col-12 col-sm-4 td">
                                 <!-- <div>{{item.recipient.affiliation}}</div> -->
-                                <div>{{item.recipient.shareOfFundingEur | thousandSeparator}} €</div>
+                                <ng-container *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
+                                    {{item.recipient.shareOfFundingEur | thousandSeparator}} €
+                                </ng-container>
                             </div>
                         </div>
                         <!-- Org -->
@@ -122,7 +126,9 @@
                                         <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
                                         <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>    
                                     </div>
-                                    <div class="col-6 col-sm-4 td">{{org.shareOfFundingEur | thousandSeparator}} €</div>
+                                    <div class="col-6 col-sm-4 td" *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
+                                        {{org.shareOfFundingEur | thousandSeparator}} €
+                                    </div>
                                     <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
                                         <h3 class="col-6 col-sm-3 th">
                                             <span>Yhteyshenkilö</span>
@@ -156,7 +162,7 @@
                                 </h3>
                             </div>
                             <!-- <div class="col-3 td" [class.offset-5]="item.recipientType === 'organization'"> -->
-                            <div class="col-6 col-sm-3 offset-0 offset-sm-5 td">
+                            <div class="col-6 col-sm-3 offset-0 td" [ngClass]="item.recipient.amountEur !== item.recipient.shareOfFundingEur ? 'offset-sm-5' : 'offset-sm-0'">
                                 <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
                             </div>
                         </div>

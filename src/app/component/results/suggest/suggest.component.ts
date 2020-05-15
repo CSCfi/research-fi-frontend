@@ -95,8 +95,8 @@ export class SuggestComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      this.tabSub.unsubscribe();
-      this.inputSub.unsubscribe();
+      this.tabSub?.unsubscribe();
+      this.inputSub?.unsubscribe();
     }
   }
 }

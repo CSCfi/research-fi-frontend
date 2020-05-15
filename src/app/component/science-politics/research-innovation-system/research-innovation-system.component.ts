@@ -146,7 +146,7 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
-    this.focusSub.unsubscribe();
+    this.focusSub?.unsubscribe();
   }
 
 }

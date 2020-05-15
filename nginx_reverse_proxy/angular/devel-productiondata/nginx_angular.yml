@@ -53,7 +53,7 @@ objects:
       contextDir: .
     strategy:
       dockerStrategy:
-        dockerfilePath: nginx_reverse_proxy/angular/devel/Dockerfile
+        dockerfilePath: nginx_reverse_proxy/angular/devel-productiondata/Dockerfile
     output:
       to:
         kind: ImageStreamTag

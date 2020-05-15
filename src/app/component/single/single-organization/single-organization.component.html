@@ -26,7 +26,7 @@
                     <div class="col p-0">
                         <h1 class="result-header">{{item.nameFi}}</h1>
                     </div>
-                    <div *ngIf="item.logo !== null" class="col p-0 org-logo text-right align-self-center">
+                    <div *ngIf="item.logo && item.logo !== null" class="col p-0 org-logo text-right align-self-center">
                         <img [src]="item.logo | safeUrl">
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <!-- Content -->
+                    <!-- Sub units -->
                     <div class="row content" *ngFor="let row of subUnitFields">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})
                             <ng-container *ngIf="row.tooltipFi">
@@ -80,11 +80,17 @@
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-6 col-lg-9 td">
-                            <p [ngClass]="expand ? 'expand' : 'short'">
-                                {{item[row.field]}}
-                            </p>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="row.field === 'subUnits' && item.subUnits.length > 256" 
-                            (click)="expandDescription()" [innerHTML]="expand ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>
+                            <ul>
+                                <li *ngFor="let subUnit of item.subUnits.slice(0, subUnitSlice)">
+                                    {{subUnit.subUnitName}}
+                                </li>
+                            </ul>
+                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length > subUnitSlice" (click)="subUnitSlice = item.subUnits.length">
+                                Näytä enemmän
+                            </a>
+                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length === subUnitSlice" (click)="subUnitSlice = 10">
+                                Näytä vähemmän
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -103,6 +109,17 @@
                             </ng-container>
                         </div>
                     </div>
+                    <ng-container *ngIf="item.id === '4940015'">
+                        <div class="row links">
+                            <strong class="pb-2">Lisätietoa</strong>
+                            <div class="info-link-wrapper">
+                                <div class="col link">
+                                    <a href="https://www.ilmatieteenlaitos.fi/tutkimustoiminta" target="_blank">Tutkimustoiminta <fa-icon icon="external-link-alt"></fa-icon></a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+
                     <ng-template #noHomePage>
                         <div class="no-links">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
                     </ng-template>

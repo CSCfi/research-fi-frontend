@@ -127,10 +127,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.window.removeEventListener('keydown', this.escapeListener);
       this.window.removeEventListener('mousedown', this.handleMouseDown);
 
-      this.resizeSub.unsubscribe();
+      this.resizeSub?.unsubscribe();
     }
-    this.routeSub.unsubscribe();
-    this.newPageSub.unsubscribe();
+    this.routeSub?.unsubscribe();
+    this.newPageSub?.unsubscribe();
   }
 
   focusStart() {
