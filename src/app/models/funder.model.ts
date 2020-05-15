@@ -31,16 +31,17 @@ export class Funder {
 })
 export class FunderAdapter implements Adapter<Funder> {
     constructor() {}
+
     adapt(item: any): Funder {
         return new Funder(
             item.funderNameFi,
             item.funderNameSv,
             item.funderNameEn,
             item.funderNameUnd,
-            item.typeOfFundingId,
-            item.typeOfFundingNameFi,
-            item.typeOfFundingNameSv,
-            item.typeOfFundingNameEn,
+            item.typeOfFunding.typeOfFundingId,
+            item.typeOfFunding.typeOfFundingNameFi,
+            item.typeOfFunding.typeOfFundingNameSv,
+            item.typeOfFunding.typeOfFundingNameEn,
             item.callProgrammeNameFi,
             item.callProgrammeNameSv,
             item.callProgrammeNameEn,

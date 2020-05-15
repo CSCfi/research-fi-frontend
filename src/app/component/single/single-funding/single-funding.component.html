@@ -124,10 +124,14 @@
                                     <div class="col-6 col-sm-5 td" [class.offset-sm-3]="i>0">
                                         <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
                                         <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
-                                        <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>    
+                                        <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>
+                                        <!-- Organization country code when funder is EU -->
+                                        <ng-container *ngIf="item.euFunding"> ({{org.countryCode ? org.countryCode : 'FI'}})</ng-container>
                                     </div>
-                                    <div class="col-6 col-sm-4 td" *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
-                                        {{org.shareOfFundingEur | thousandSeparator}} €
+                                    <div class="col-6 col-sm-4 td">
+                                        <ng-container *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
+                                            {{org.shareOfFundingEur | thousandSeparator}} €
+                                        </ng-container>
                                     </div>
                                     <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
                                         <h3 class="col-6 col-sm-3 th">

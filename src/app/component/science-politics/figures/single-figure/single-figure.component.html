@@ -8,7 +8,7 @@
 <main id="main-content">
     <div class="wrapper">
         <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
-        <a routerLink="/science-innovation-politics/science-research-figures/" class="back"><< Takaisin</a>
+        <a routerLink="/science-innovation-policy/science-research-figures/" class="back"><< Takaisin</a>
         <div class="row" *ngFor="let item of result; trackBy: trackByFn">
             <div class="col-12 px-lg-0 pb-2">
                 <h1>{{item.labelFi}}</h1>

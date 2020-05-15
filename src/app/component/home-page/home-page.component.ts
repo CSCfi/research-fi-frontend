@@ -51,7 +51,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       caption: 'Tutustu tilastoihin tutkimuksen henkilöstöstä, rahoituksesta ja julkaisutoiminnasta',
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
-      link: '/science-innovation-politics/science-research-figures',
+      link: '/science-innovation-policy/science-research-figures',
       alt: ' '
     },
     {
@@ -60,7 +60,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       imgPath: 'assets/img/home/research_innovation.jpg',
       col: 6,
       // link: '/visual/publications',
-      link: '/science-innovation-politics/research-innovation-system',
+      link: '/science-innovation-policy/research-innovation-system',
       alt: ' '
 
     },

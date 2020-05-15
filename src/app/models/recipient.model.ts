@@ -74,7 +74,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                         x.consortiumOrganizationNameFi.trim()).join('; ');
                 }
         // If no match with Finnish organization
-        } else if (item.recipientType === 'person' && item.fundingGroupPerson.find(x => x.fundingGroupPersonLastName.trim().length > 0)) {
+        } else if (item.recipientType === 'person' && item.fundingGroupPerson.find(x => x.fundingGroupPersonLastName?.trim().length > 0)) {
             combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonLastName.trim().length > 0 ?
             x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
         } else {
