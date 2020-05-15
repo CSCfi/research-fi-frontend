@@ -16,6 +16,12 @@ export class TabItemComponent implements OnInit {
   @Input() locale: string;
   targetQueryParams: any;
 
+  // CountUp animation options
+  countOps = {
+    duration: 0.5,
+    separator: ' '
+  };
+
   constructor(public searchService: SearchService, private settingsService: SettingsService) { }
 
   ngOnInit(): void {
