@@ -32,11 +32,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   searchTerm: string;
   // This is used to keep track of filters in different tabs
   queryParams: any = {};
-  // CountUp animation options
-  myOps = {
-    duration: 0.5,
-    separator: ' '
-  };
   first = true;
 
   // Variables related to scrolling logic

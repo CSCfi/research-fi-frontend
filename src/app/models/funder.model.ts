@@ -7,6 +7,7 @@
 
 import { Adapter } from './adapter.model';
 import { Injectable } from '@angular/core';
+import { LanguageCheck } from './utils';
 
 export class Funder {
     constructor(
@@ -30,9 +31,10 @@ export class Funder {
     providedIn: 'root'
 })
 export class FunderAdapter implements Adapter<Funder> {
-    constructor() {}
-
+    constructor(private lang: LanguageCheck) {}
     adapt(item: any): Funder {
+        item.callProgrammeNameFi = this.lang.checkContent(
+            item.callProgrammeNameFi, item.callProgrammeNameEn, item.callProgrammeNameSv);
         return new Funder(
             item.funderNameFi,
             item.funderNameSv,
