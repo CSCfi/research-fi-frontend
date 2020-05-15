@@ -132,7 +132,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
       this.searchService.getNewsFilters()
-      .pipe(map(data => [data]))
       .subscribe(filterValues => {
         this.filterValues = filterValues;
         // Send response to data service
