@@ -144,7 +144,6 @@ export class StaticDataService {
       case 'publication': {
         res = [
           'author.nameFiSector',
-          'author.organization.organizationId',
           'author.organization.OrganizationNameFi',
           'author.organization.OrganizationNameEn',
           'author.organization.OrganizationNameSv',
@@ -159,7 +158,6 @@ export class StaticDataService {
       }
       case 'funding': {
         res = [
-          'organizationConsortium.consortiumOrganizationBusinessId',
           'organizationConsortium.consortiumOrganizationNameFi',
           'organizationConsortium.consortiumOrganizationNameEn',
           'organizationConsortium.consortiumOrganizationNameSv',
@@ -259,7 +257,7 @@ export class StaticDataService {
             break;
           }
           case 'organization': {
-            res = ['nameFi', 'nameEn', 'nameSv', 'variantNames', 'organizationBackground', 'predecessors.nameFi'];
+            res = ['nameFi', 'nameEn', 'nameSv', 'variantNames'];
             break;
           }
         }
