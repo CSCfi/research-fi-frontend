@@ -152,7 +152,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: targetFields,
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
