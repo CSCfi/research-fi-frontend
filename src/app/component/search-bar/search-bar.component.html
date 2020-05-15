@@ -87,7 +87,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col" [class.other-links]="otherData">
+              <div class="col px-0 pb-4" [class.other-links]="otherData">
                 <ul>
                   <li *ngFor="let data of otherData">
                     <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
