@@ -49,7 +49,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: CSCTTV-1274_4
+        ref: devel
       contextDir: .
     strategy:
       dockerStrategy:
