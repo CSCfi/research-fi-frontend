@@ -62,7 +62,7 @@
                                         <br>
                                         <span class="strong pb-2 d-block">Aineistolähteet</span>
                                         <ul class="disc">
-                                            <li><a href="https://vipunen.fi/" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                                            <li><a href="https://vipunen.fi/" target="_blank" #mainFocus>Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                             <li><a href="http://www.tilastokeskus.fi/" target="_blank">Tilastokeskus <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                             <li><a href="http://www.oecd.org/" target="_blank">OECD <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                         </ul>
@@ -91,15 +91,18 @@
                                 <div class="col p-1">
                                     <div class="base content">
                                         <div class="card list" *ngFor="let item of content.items">
-                                            <a #mainFocus routerLink="{{item.link}}">
+                                            <a routerLink="{{item.link}}">
                                                 <div class="row d-flex justify-content-around">
-                                                    <div class="col-8">
+                                                    <div class="col-12 col-md-8">
                                                         <h3 class="title">{{item.labelFi}}</h3>
+                                                        <div class="col-12 d-block d-md-none">
+                                                            <img [src]="item.img" >
+                                                        </div>
                                                         <div class="description">
                                                             <p [innerHtml]="item.descriptionFi | cutContent: 200"></p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-4 d-none d-md-block">
                                                         <img [src]="item.img">
                                                     </div>
                                                 </div>

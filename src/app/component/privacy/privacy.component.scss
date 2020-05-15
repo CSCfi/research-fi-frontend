@@ -33,3 +33,10 @@ img {
     max-width: 800px;
     display: block;
 }
+
+@media (max-width: 575px) {
+    mat-tab-group {
+        max-width: 80vw;
+        word-wrap: break-word;
+    }
+}

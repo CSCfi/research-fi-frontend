@@ -19,7 +19,7 @@ export class HistoryService {
     history: string[] = [];
 
     constructor(router: Router) {
-        router.events.pipe(filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(e => this.pushToHistory(e.url));
+        router.events.pipe(filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(e => this.pushToHistory(e.urlAfterRedirects));
     }
 
 

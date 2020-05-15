@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit, OnDestroy, PLATFORM_ID, ViewChildren, QueryList } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -18,6 +18,7 @@ import { SortService } from 'src/app/services/sort.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { NewsCardComponent } from '../news-card/news-card.component';
 
 @Component({
   selector: 'app-news',
@@ -30,7 +31,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage: any;
   focusSub: any;
   @ViewChild('searchInput') searchInput: ElementRef;
-  @ViewChild('mainFocus') mainFocus: ElementRef;
+  @ViewChildren(NewsCardComponent, {read: ElementRef }) cards: QueryList<ElementRef>;
   width = this.window.innerWidth;
   mobile = this.width < 992;
   isBrowser: any;
@@ -110,7 +111,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.searchInput.nativeElement.focus();
       }
       if (target === 'main-link') {
-        this.mainFocus.nativeElement.focus();
+        this.cards.first.nativeElement.focus();
       }
     });
   }
@@ -132,7 +133,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
       this.searchService.getNewsFilters()
-      .pipe(map(data => [data]))
       .subscribe(filterValues => {
         this.filterValues = filterValues;
         // Send response to data service

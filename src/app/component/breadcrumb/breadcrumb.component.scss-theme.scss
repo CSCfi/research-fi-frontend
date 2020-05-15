@@ -8,12 +8,13 @@
             background-color: mat-color($primary, default-contrast);
         }
 
-        .breadcrumb-item a {
+        .breadcrumb-item a, .breadcrumb-item.active {
             color: mat-color($primary, 900);
         }
         
-        .breadcrumb-item.active {
+        .breadcrumb-item span, .breadcrumb-item a:not([href]):hover {
             color: mat-color($primary, 900);
+            cursor: default;
         }
         
         .arrow_box {

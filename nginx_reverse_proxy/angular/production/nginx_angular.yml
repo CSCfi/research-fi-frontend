@@ -8,43 +8,43 @@ apiVersion: v1
 kind: Template
 metadata:
   labels:
-    app: nginx-revproxy-angular
-    template: nginx-revproxy-angular
-  name: nginx-revproxy-angular
+    app: nginx-revproxy-angular-production
+    template: nginx-revproxy-angular-production
+  name: nginx-revproxy-angular-production
 objects:
 
 # Service
 - apiVersion: v1
   kind: Service
   metadata:
-    name: nginx-revproxy-angular-service
+    name: nginx-revproxy-angular-production-service
     labels:
-      app: nginx-revproxy-angular
+      app: nginx-revproxy-angular-production
     annotations:
-      description: Nginx reverse proxy for Angular web app
+      description: Nginx reverse proxy for Angular web app - production
   spec:
     ports:
-      - name: nginx-revproxy-angular
+      - name: nginx-revproxy-angular-production
         port: 8080
         targetPort: 8080
     selector:
-      depcfg: nginx-revproxy-angular-deploymentconfig
+      depcfg: nginx-revproxy-angular-production-deploymentconfig
 
 # ImageStream
 - apiVersion: v1
   kind: ImageStream
   metadata:
-    name: nginx-revproxy-angular
+    name: nginx-revproxy-angular-production
     labels:
-      app: nginx-revproxy-angular
+      app: nginx-revproxy-angular-production
 
 # BuildConfig using Docker build strategy
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    name: nginx-revproxy-angular-build
+    name: nginx-revproxy-angular-production-build
     labels:
-      app: nginx-revproxy-angular
+      app: nginx-revproxy-angular-production
   spec:
     source:
       git:
@@ -53,11 +53,11 @@ objects:
       contextDir: .
     strategy:
       dockerStrategy:
-        dockerfilePath: nginx_reverse_proxy/angular/Dockerfile
+        dockerfilePath: nginx_reverse_proxy/angular/production/Dockerfile
     output:
       to:
         kind: ImageStreamTag
-        name: nginx-revproxy-angular:latest
+        name: nginx-revproxy-angular-production:latest
     successfulBuildsHistoryLimit: 4 
     failedBuildsHistoryLimit: 4
 
@@ -65,22 +65,22 @@ objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
-    name: nginx-revproxy-angular-deployment
+    name: nginx-revproxy-angular-production-deployment
     labels:
-      app: nginx-revproxy-angular
+      app: nginx-revproxy-angular-production
   spec:
     selector:
-      app: nginx-revproxy-angular
-      depcfg: nginx-revproxy-angular-deploymentconfig
+      app: nginx-revproxy-angular-production
+      depcfg: nginx-revproxy-angular-production-deploymentconfig
     template:
       metadata:
         labels:
-          app: nginx-revproxy-angular
-          depcfg: nginx-revproxy-angular-deploymentconfig
+          app: nginx-revproxy-angular-production
+          depcfg: nginx-revproxy-angular-production-deploymentconfig
       spec:
         containers:
-          - name: nginx-revproxy-angular-container
-            image: researchfi/nginx-revproxy-angular
+          - name: nginx-revproxy-angular-production-container
+            image: researchfi/nginx-revproxy-angular-production
             imagePullPolicy: Always
             ports:
               - containerPort: 8080
@@ -92,9 +92,9 @@ objects:
       imageChangeParams:
         automatic: true
         containerNames:
-        - nginx-revproxy-angular-container
+        - nginx-revproxy-angular-production-container
         from:
           kind: ImageStreamTag
-          name: nginx-revproxy-angular:latest
+          name: nginx-revproxy-angular-production:latest
     strategy:
       type: Rolling

@@ -148,7 +148,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
         this.response = response;
         if (response) {
-          const source = this.response[0].aggregations;
+          const source = this.response.aggregations;
           const tab = this.sortService.currentTab;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
@@ -187,9 +187,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
-
             // Language, publications
-            if (val.category === 'lang' && source.lang.langs) {
+            if (val.category === 'lang' && source.lang?.langs) {
               const result = source.lang.langs.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';

@@ -27,7 +27,7 @@ export class InfrastructureFilters {
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
   shapeData(data) {
-    const source = data[0].aggregations;
+    const source = data.aggregations;
     // Year
     source.year.buckets = source.year.years.buckets;
     // Type

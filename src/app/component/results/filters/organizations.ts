@@ -33,7 +33,7 @@ export class OrganizationFilters {
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
   shapeData(data) {
-    const source = data[0].aggregations;
+    const source = data.aggregations;
     source.sector.buckets = this.sector(source.sector.sectorId.buckets);
     source.shaped = true;
     return source;
