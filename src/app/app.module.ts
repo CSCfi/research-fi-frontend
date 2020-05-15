@@ -293,7 +293,8 @@ export class AppModule {
   startPage;
 
   isResultPage(url: string) {
-    return url?.includes('/results') && url.split('/')[2].slice(-1) === 's';
+    // Check if the page is on results, and that the tabname ends with 's' (not single result)
+    return url?.includes('/results') && url?.split('/')[2].split('?')[0].slice(-1) === 's';
   }
 
   newPage(oldUrl: string, newUrl: string) {
