@@ -273,8 +273,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   // Set target, copy queryParams and add target to params
   changeTarget(event) {
-    this.settingService.changeTarget(event.value);
-    this.selectedTarget = event.value || null;
+    const target = event.value !== 'all' ? event.value : null;
+    this.settingService.changeTarget(target);
+    this.selectedTarget = target || null;
   }
 
   newInput(selectedIndex, historyLink) {
