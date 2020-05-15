@@ -53,6 +53,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { A11yModule } from '@angular/cdk/a11y';
 
 import { CountUpModule } from 'countup.js-angular2';
 
@@ -134,6 +135,7 @@ import { NewsCardComponent } from './component/news/news-card/news-card.componen
 import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { TabItemComponent } from './component/result-tab/tab-item/tab-item.component';
 import { HistoryService } from './services/history.service';
+import { TabChangeService } from './services/tab-change.service';
 
 @NgModule({
   declarations: [
@@ -225,6 +227,7 @@ import { HistoryService } from './services/history.service';
     ModalModule.forRoot(),
     ClickOutsideModule,
     CommonComponentsModule,
+    A11yModule,
     TooltipModule.forRoot()
   ],
   providers: [
@@ -289,12 +292,40 @@ export class AppModule {
 
   startPage;
 
-  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller, private historyService: HistoryService) {
+  isResultPage(url: string) {
+    // Check if the page is on results, and that the tabname ends with 's' (not single result)
+    return url?.includes('/results') && url?.split('/')[2].split('?')[0].slice(-1) === 's';
+  }
+
+  newPage(oldUrl: string, newUrl: string) {
+    // Check if both urls are on the results page (tab change)
+    if (this.isResultPage(oldUrl) && this.isResultPage(newUrl)) {
+      return false;
+    // Check deepest locations without query params
+    } else if (oldUrl?.split('/').slice(-1)[0].split('?')[0] === newUrl.split('/').slice(-1)[0].split('?')[0]) {
+      return false
+    // Same for fragments
+    } else if (oldUrl?.split('/').slice(-1)[0].split('#')[0] === newUrl.split('/').slice(-1)[0].split('#')[0]) {
+      return false
+    // Otherwise new page
+    } else {
+      return true;
+    }
+  }
+
+  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller, private historyService: HistoryService,
+              private tabChangeService: TabChangeService) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
     router.events
     .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
     .subscribe(e => {
+      // Trigger new page so first tab focuses skip links
+      const prevPageLocation = this.historyService.history[this.historyService.history.length - 2];
+      const currentPageLocation = e.routerEvent.url;
+      if (this.newPage(prevPageLocation, currentPageLocation)) {
+        this.tabChangeService.triggerNewPage();
+      }
       if ((e.routerEvent.url.includes('/results'))) {
         const targetPage = +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
         // Different page or coming from different route

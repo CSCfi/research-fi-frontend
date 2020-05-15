@@ -12,7 +12,7 @@
         <div class="row" *ngFor="let item of result; trackBy: trackByFn">
             <div class="col-12 px-lg-0 pb-2">
                 <h1>{{item.labelFi}}</h1>
-                <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)">Ohje näppäimistökäyttäjälle</a>
+                <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)" #keyboardHelp>Ohje näppäimistökäyttäjälle</a>
                 <div *ngIf="showHelp" class="help p-3">
                     <div class="m-0">
                         <p>Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>

@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { zhCnLocale } from 'ngx-bootstrap';
 import { WINDOW } from 'src/app/services/window.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-result-tab',
@@ -19,11 +20,12 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChildren('scroll') ref: QueryList<any>;
-  @ViewChildren('tabList') tabList: QueryList<any>;
   @ViewChild('toggleButton') toggleButton: ElementRef;
   @Input() allData: any;
   @Input() homepageStyle: {};
   @Input() isHomepage = false;
+
+  tabList: any[];
 
   errorMessage: any [];
   selectedTab: string;
@@ -69,7 +71,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   rowsClosed = [];
 
   constructor(private tabChangeService: TabChangeService, @Inject( LOCALE_ID ) protected localeId: string,
-              private resizeService: ResizeService, private searchService: SearchService, private router: Router,
+              private resizeService: ResizeService, private searchService: SearchService, private router: Router, private dataService: DataService,
               @Inject( PLATFORM_ID ) private platformId: object, private route: ActivatedRoute, @Inject(WINDOW) private window: Window) {
                 this.locale = localeId;
   }
@@ -112,7 +114,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
   ngOnChanges() {
-    if (this.allData) {
+    if (this.allData && !this.isHomepage) {
       this.ref.changes.subscribe((result) => {
         this.scroll = result.first;
         // Subscribe to current tab and get count
@@ -124,13 +126,13 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
             // Get current index
             this.currentIndex = this.tabChangeService.tabData.findIndex(i => i.link === tab.link);
             // Scroll children can have edge divs. In this case get children that are tabs
-            const difference = this.scroll.nativeElement.children.length - this.tabChangeService.tabData.length;
+            const difference = this.scroll.nativeElement.children[2].children.length - this.tabChangeService.tabData.length;
             // Scroll with current index and left + width offsets
-            if (this.scroll.nativeElement.children[this.currentIndex + difference]) {
+            if (this.scroll.nativeElement.children[2].children[this.currentIndex + difference]) {
               this.scrollToPosition(
                 this.currentIndex,
-                this.scroll.nativeElement.children[this.currentIndex + difference].offsetLeft,
-                this.scroll.nativeElement.children[this.currentIndex + difference].offsetWidth);
+                this.scroll.nativeElement.children[2].children[this.currentIndex + difference].offsetLeft,
+                this.scroll.nativeElement.children[2].children[this.currentIndex + difference].offsetWidth);
             }
           }
         });
@@ -153,7 +155,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   // Navigate between tabs with left & right arrow when focus in tab bar
   navigate(event) {
-    const arr = this.tabList.toArray();
+    const arr = this.dataService.resultTabList;
     const currentPosition = arr.findIndex(i => i.nativeElement.id === this.currentTab.link);
     switch (event.keyCode) {
       // Left arrow
@@ -222,7 +224,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.disableScroll(false);
     this.scroll.nativeElement.scrollLeft -= Math.max(150, 1 + (this.scrollWidth) / 4);
   }
-
+  
   scrollRight() {
     this.disableScroll(false);
     this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) / 4);
@@ -301,5 +303,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.queryParamSub?.unsubscribe();
       this.resizeSub?.unsubscribe();
     }
+    this.dataService.resultTabList = [];
   }
 }

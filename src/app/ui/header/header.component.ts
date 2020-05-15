@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
   @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
+  @ViewChild('start', { static: false }) start: ElementRef;
   @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
@@ -60,6 +61,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   params: any;
   skipLinkSub: any;
   hideInputSkip: boolean;
+  newPageSub: Subscription;
+  firstTab: boolean;
 
   betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
 
@@ -90,8 +93,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.window.addEventListener('keydown', this.handleTabPressed);
+      this.window.addEventListener('mousedown', this.handleMouseDown);
       this.window.addEventListener('keydown', this.escapeListener);
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+      this.newPageSub = this.tabChangeService.newPage.subscribe(_ => {
+        this.firstTab = true;
+        this.document.activeElement.blur();
+      });
     }
 
     this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(elem => {
@@ -115,30 +123,35 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      window.removeEventListener('keydown', this.handleTabPressed);
-      window.removeEventListener('keydown', this.escapeListener);
-      window.removeEventListener('mousedown', this.handleMouseDown);
+      this.window.removeEventListener('keydown', this.handleTabPressed);
+      this.window.removeEventListener('keydown', this.escapeListener);
+      this.window.removeEventListener('mousedown', this.handleMouseDown);
 
       this.resizeSub?.unsubscribe();
     }
     this.routeSub?.unsubscribe();
+    this.newPageSub?.unsubscribe();
+  }
+
+  focusStart() {
+    this.start.nativeElement.focus();
   }
 
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
     if (e.keyCode === 9) {
+      if (this.firstTab) {
+        this.firstTab = false;
+        e.preventDefault();
+        this.focusStart();
+      }
       this.document.body.classList.add('user-tabbing');
-
-      this.window.removeEventListener('keydown', this.handleTabPressed);
-      this.window.addEventListener('mousedown', this.handleMouseDown);
     }
   }
 
   handleMouseDown = (): void => {
+    this.firstTab = false;
     this.document.body.classList.remove('user-tabbing');
-
-    this.window.removeEventListener('mousedown', this.handleMouseDown);
-    this.window.addEventListener('keydown', this.handleTabPressed);
   }
 
   escapeListener = (e: any): void => {

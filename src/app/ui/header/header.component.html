@@ -8,8 +8,8 @@
 <header class="wrapper">
     <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
         <ul>
-            <li *ngIf="hideInputSkip"><a (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää hakukenttään</a></li>
-            <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää sivun pääsisältöön</a></li>
+            <li *ngIf="hideInputSkip"><a (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää hakukenttään</a></li>
+            <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää sivun pääsisältöön</a></li>
             <!-- <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" [routerLink]="" [queryParams]="params" [fragment]="'main-content'">Hyppää sivun pääsisältöön</a></li> -->
             <!-- ToDo: Link to accessibility -->
             <li><a (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a></li>
