@@ -130,6 +130,30 @@ body .mat-dialog-container {
     max-width: 276px;
     width: max-content;
 }
+
+@media (max-width: 575px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    h2 {
+        font-size: 1.4rem;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 399px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+    }
+    h3 {
+        font-size: 1.1rem;
+    }
+}
 // .tooltip-inner {
 //     color: #000;
 //     background-color: #fff;
