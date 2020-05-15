@@ -257,7 +257,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
       this.searchService.getFilters()
-      .pipe(map(data => [data]))
       .subscribe(filterValues => {
         this.filterValues = filterValues;
         // Send response to data service

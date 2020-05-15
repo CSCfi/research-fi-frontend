@@ -36,7 +36,7 @@ import { tap } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() responseData: any [];
+  @Input() responseData: any;
   @Input() tabData: string;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
   @ViewChild('openFilters') openFiltersButton: ElementRef;
@@ -175,8 +175,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges() {
     // Initialize data and set filter data by index
-    this.responseData = this.responseData || [];
-    if (this.responseData.length > 0) {
+    if (this.responseData) {
       // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
@@ -232,7 +231,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   range(event, dir) {
     // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
     // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
-    const source = this.responseData[0].aggregations.year.buckets;
+    const source = this.responseData.aggregations.year.buckets;
     const selected = [];
     switch (dir) {
       case 'from': {
@@ -338,7 +337,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   filterInput(event, parent) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
-    const source = this.responseData[0].aggregations[parent];
+    const source = this.responseData.aggregations[parent];
     source.original = source.original ? source.original : source.buckets;
     const matchArr = source.original.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
     if (matchArr.length > 0) {
@@ -355,7 +354,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   subFilterInput(event, parent, child) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     // this.filterTerm = term;
-    const source = this.responseData[0].aggregations[parent].buckets.find(sub => sub.key === child);
+    const source = this.responseData.aggregations[parent].buckets.find(sub => sub.key === child);
     source.original = source.original ? source.original : source.subData;
     const matchArr = source.original.filter(subItem => subItem.label.toLowerCase().includes(term));
     if (matchArr.length > 0) {
