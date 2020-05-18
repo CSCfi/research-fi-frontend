@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild } from '@angular/core';
+  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild, AfterViewChecked } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -24,7 +24,7 @@ import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
 import { NewsFilters } from './news';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { SearchService } from 'src/app/services/search.service';
 import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { tap } from 'rxjs/operators';
@@ -68,11 +68,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   paramSub: Subscription;
   currentInput: string;
   defaultOpen = 7;
+  activeElement: any;
 
   constructor( private router: Router, private filterService: FilterService,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
-               private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
-               private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
+               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document, 
+               private modalService: BsModalService,private route: ActivatedRoute, private utilityService: UtilityService, 
+               private sortService: SortService, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
                @Inject(PLATFORM_ID) private platformId: object ) {
@@ -174,6 +175,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
+    // Save active element
+    if (isPlatformBrowser(this.platformId)) {
+      this.activeElement = this.document.activeElement.id;
+    }
     // Initialize data and set filter data by index
     if (this.responseData) {
       // Set filters and shape data
@@ -214,6 +219,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.newsFilters.shapeData(this.responseData);
           break;
         }
+      }
+      // Restore focus after clicking a filter
+      if (this.activeElement && isPlatformBrowser(this.platformId)) {
+        setTimeout(() => {
+          (this.document.querySelector('#' + this.activeElement) as HTMLElement).focus();
+        }, 1);
       }
     }
   }
