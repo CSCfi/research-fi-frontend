@@ -39,21 +39,49 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'Avainsanat', field: 'keywordsString'},
   ];
-
+  
   serviceFields = [
     {label: 'Palvelun kuvaus', field: 'description'},
     {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
     {label: 'Palvelun tyyppi', field: 'type'},
   ];
-
-  servicePointFields = [
-    {label: 'Palvelupisteen kuvaus', field: 'description'},
-    {label: 'Sähköposti', field: 'emailAddress'},
+  
+  servicePointContactFields = [
+    {label: 'Kuvaus', field: 'description'},
+    {label: 'Sähköpostiosoite', field: 'emailAddress'},
     {label: 'Puhelinnumero', field: 'phoneNumber'},
-    {label: 'Käyntiosoite', field: 'visitingAddress'},
+    {label: 'Vierailuosoite', field: 'visitingAddress'},
+  ];
+  
+  servicePointInfoFields = [
     {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
     {label: 'Linkki', field: 'infoUrl'},
-  ];
+    {label: 'Koordinoiva organisaatio', field: '?'},
+  ]
+  
+  fieldsOfScience = [
+    {label: 'Tieteenalat', field: '?'},
+  ]
+  
+  classificationFields = [
+    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
+    {label: 'ESFRI-luokitus', field: '?'},
+    {label: 'MERIL-luokitus', field: '?'},
+  ]
+  
+  contactFields = [
+    {label: 'Sähköpostiosoite', field: '?'},
+    {label: 'Puhelinnumero', field: '?'},
+    {label: 'Vierailuosoite', field: '?'},
+  ]
+  
+  otherFields = [
+    {label: 'Tunnisteet', field: '?'},
+    {label: 'Osa kansainvälistä infrastruktuuria', field: '?'},
+    {label: 'Edeltävä tutkimusinfrastruktuuri', field: '?'},
+    {label: 'Lisätietoja', field: '?'},
+
+  ]
 
   linkFields = [
   ];
@@ -139,6 +167,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.fieldsOfScience = this.fieldsOfScience.filter(item => checkEmpty(item));
+    this.classificationFields = this.classificationFields.filter(item => checkEmpty(item));
+    this.contactFields = this.contactFields.filter(item => checkEmpty(item));
+    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
 
     // Init expand and show lists
     this.infoFields.forEach(_ => this.infoExpand.push(false));
