@@ -13,15 +13,58 @@ import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 })
 
 export class LanguageCheck {
-    constructor( @Inject( LOCALE_ID ) protected localeId: string) {
-    }
+  constructor( @Inject( LOCALE_ID ) protected localeId: string) {}
 
-    checkContent(contentFi, contentEn, contentSv) {
-        console.log(contentEn);
-        switch (contentFi.trim()) {
+  // Point of language test is to populate data if no content available.
+  testLang(field, item) {
+    // Slice locale from field
+    const baseField = field.slice(0, -2);
+    // Get content from field
+    const content = item[field]?.toString()?.trim() || '';
+    // Return content based on locale and priority
+    switch (this.localeId) {
+      case 'fi': {
+        if (!item[field]) {
+          return item[baseField + 'En'] || item[baseField + 'Sv'] || null;
+        } else {
+          switch (content) {
             case '': {
-                return contentEn;
+              return item[baseField + 'En'].length > 0 ? item[baseField + 'En'] : item[baseField + 'Sv'];
             }
+            default: {
+              return item[field];
+            }
+          }
         }
+      }
+      case 'en': {
+        if (!item[field]) {
+          return item[baseField + 'Fi'] || item[baseField + 'Sv'] || null;
+        } else {
+          switch (content) {
+            case '': {
+              return item[baseField + 'Fi'].length > 0 ? item[baseField + 'Fi'] : item[baseField + 'Sv'];
+            }
+            default: {
+              return item[field];
+            }
+          }
+        }
+      }
+      case 'sv': {
+        if (!item[field]) {
+          return item[baseField + 'Fi'];
+        } else {
+          switch (content) {
+            case '': {
+              return item[baseField + 'Fi'].length > 0 ? item[baseField + 'Fi'] : item[baseField + 'En'];
+            }
+            default: {
+              return item[field];
+            }
+          }
+        }
+      }
     }
+  }
 }
