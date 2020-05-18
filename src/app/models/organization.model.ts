@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { LanguageCheck } from './utils';
 
 export class Organization {
 
@@ -51,7 +52,7 @@ export class Organization {
 })
 
 export class OrganizationAdapter implements Adapter<Organization> {
-    constructor() {}
+    constructor(private lang: LanguageCheck) {}
     adapt(item: any): Organization {
         // Join predecessors with comma
         const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
@@ -59,9 +60,9 @@ export class OrganizationAdapter implements Adapter<Organization> {
 
         return new Organization(
             item.organizationId,
-            item.nameFi.trim(),
-            item.nameEn,
-            item.nameSv,
+            this.lang.testLang('nameFi', item).trim(),
+            this.lang.testLang('nameEn', item),
+            this.lang.testLang('nameSv', item),
             item.variantNames,
             item.established,
             item.organizationBackground,

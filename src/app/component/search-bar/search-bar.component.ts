@@ -87,9 +87,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   currentTerm: string;
   inputSub: Subscription;
   queryParams: any;
-  searchTargetParams: any;
   selectedTarget: any;
-  target: any;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -275,12 +273,15 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   // Set target, copy queryParams and add target to params
   changeTarget(event) {
-    this.settingService.changeTarget(event.value);
-    this.searchTargetParams = event.value !== 'all' ? {...this.queryParams, target: event.value} :
-                                                      {...this.queryParams, target: null};
+    const target = event.value !== 'all' ? event.value : null;
+    this.settingService.changeTarget(target);
+    this.selectedTarget = target || null;
   }
 
   newInput(selectedIndex, historyLink) {
+    // Copy queryparams, set target and reset page
+    const newQueryParams = {...this.queryParams, target: this.selectedTarget, page: 1};
+
     // Hide search helper
     this.showHelp = false;
     // Reset focus target
@@ -313,7 +314,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         } else {
           // Preserve queryParams with new search to same index. Use queryParams with added target if selected
           this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || ''],
-          {queryParams: this.searchTargetParams ? this.searchTargetParams : this.queryParams});
+          {queryParams: newQueryParams});
       }
     });
   }

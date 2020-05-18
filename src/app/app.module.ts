@@ -105,6 +105,7 @@ import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { CleanCitationPipe } from './pipes/clean-citation';
+import { ReplaceSpacePipe } from './pipes/replace-space';
 
 import { PublicationFilters } from './component/results/filters/publications';
 import { PersonFilters } from './component/results/filters/persons';
@@ -182,6 +183,7 @@ import { TabChangeService } from './services/tab-change.service';
     ScrollSpyDirective,
     CutContentPipe,
     CleanCitationPipe,
+    ReplaceSpacePipe,
     SingleFigureComponent,
     RelatedLinksComponent,
     FilterListComponent,

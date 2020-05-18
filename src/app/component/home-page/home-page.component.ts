@@ -29,9 +29,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage = [];
   status = false;
   news: News[] = [];
-  myOps = {
-    duration: 0.5
-  };
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChildren('shortcutItem') shortcutItem: QueryList<ElementRef>;
   @ViewChild('main') mainContent: ElementRef;

@@ -126,7 +126,7 @@
                                         <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
                                         <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>
                                         <!-- Organization country code when funder is EU -->
-                                        <ng-container *ngIf="item.euFunding"> ({{org.countryCode ? org.countryCode : 'FI'}})</ng-container>
+                                        <ng-container *ngIf="item.euFunding && org.countryCode"> ({{org.countryCode}})</ng-container>
                                     </div>
                                     <div class="col-6 col-sm-4 td">
                                         <ng-container *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
