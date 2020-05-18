@@ -37,9 +37,13 @@
             </div>
             <!-- Use tooltip component for title -->
             <div class="col col-8 col-lg-5 col-xl-3 title" style="position: unset">
-                <app-tooltip [title]="funding.nameFi" [description]="funding.descriptionFi" [id]="funding.id"
+                <!-- <app-tooltip [title]="funding.nameFi" [description]="funding.descriptionFi" [id]="funding.id"
                 [index]="i">
-                </app-tooltip>
+                </app-tooltip>-->
+                <a routerLink="/results/funding/{{funding.id}}" [tooltip]="funding.descriptionFi | cutContent: 200" placement="top" 
+                [tooltipEnable]="funding.descriptionFi.trim().length > 0 ? true : false">
+                    <h3 class="result-title" [innerHtml]="funding.nameFi | highlight: input"></h3>
+                </a>
             </div>
             <div class="col col-lg-4 col-xl-3 d-none d-lg-block">
                 <span [innerHtml]="((funding.funder.nameFi !== 'UNDEFINED' ? funding.funder.nameFi : '') | cutContent: 100) | highlight: input"></span>

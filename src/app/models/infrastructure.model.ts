@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { InfraService, InfraServiceAdapter } from './infra-service.model';
+import { LanguageCheck } from './utils';
 
 export class Infrastructure {
 
@@ -36,7 +37,7 @@ export class Infrastructure {
 })
 
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
-    constructor(private isa: InfraServiceAdapter) {}
+    constructor(private isa: InfraServiceAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Infrastructure {
 
         const services: InfraService[] = [];
@@ -57,9 +58,9 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item.acronym,
             item.finlandRoadmap,
             item.urn,
-            item.responsibleOrganizationNameFi,
-            item.responsibleOrganizationNameSv,
-            item.responsibleOrganizationNameEn,
+            this.lang.testLang('responsibleOrganizationNameFi', item),
+            this.lang.testLang('responsibleOrganizationNameSv', item),
+            this.lang.testLang('responsibleOrganizationNameEn', item),
             item.TKOppilaitosTunnus,
             keywords,
             services,
