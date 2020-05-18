@@ -167,6 +167,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.fieldsOfScience = this.fieldsOfScience.filter(item => checkEmpty(item));
+    this.classificationFields = this.classificationFields.filter(item => checkEmpty(item));
+    this.contactFields = this.contactFields.filter(item => checkEmpty(item));
+    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
 
     // Init expand and show lists
     this.infoFields.forEach(_ => this.infoExpand.push(false));

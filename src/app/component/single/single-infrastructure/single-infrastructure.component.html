@@ -148,10 +148,14 @@
           <div *ngFor="let item of [responseData.infrastructures[0]]" class="col-12 col-md-4">
              <aside>
                   <mat-card>
+                      <mat-card-title><h2>Tunniste</h2></mat-card-title>
+                      <div class="row pb-4">
+                        <div>???</div>
+                      </div>
                      <mat-card-title><h2>Infrastruktuurin verkkosivu</h2></mat-card-title>
-                     <div class="row links">
+                     <div class="row links" *ngIf="linkFields?.length > 0">
                          <div *ngFor="let row of linkFields" class="info-link-wrapper">
-                            <div class="col link">
+                            <div class="link">
                                 <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                          </div>
