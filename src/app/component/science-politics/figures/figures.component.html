@@ -93,13 +93,16 @@
                                         <div class="card list" *ngFor="let item of content.items">
                                             <a routerLink="{{item.link}}">
                                                 <div class="row d-flex justify-content-around">
-                                                    <div class="col-8">
+                                                    <div class="col-12 col-md-8">
                                                         <h3 class="title">{{item.labelFi}}</h3>
+                                                        <div class="col-12 d-block d-md-none">
+                                                            <img [src]="item.img" >
+                                                        </div>
                                                         <div class="description">
                                                             <p [innerHtml]="item.descriptionFi | cutContent: 200"></p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-4 d-none d-md-block">
                                                         <img [src]="item.img">
                                                     </div>
                                                 </div>

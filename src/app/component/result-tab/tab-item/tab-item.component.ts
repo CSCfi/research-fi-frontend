@@ -17,6 +17,12 @@ export class TabItemComponent implements OnInit, AfterViewInit {
   @Input() locale: string;
   targetQueryParams: any;
 
+  // CountUp animation options
+  countOps = {
+    duration: 0.5,
+    separator: ' '
+  };
+
   @ViewChild('tabList') tabElem: ElementRef;
 
   constructor(public searchService: SearchService, private dataService: DataService, private settingsService: SettingsService) { }
@@ -27,6 +33,6 @@ export class TabItemComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.tabElem) this.dataService.resultTabList.push(this.tabElem);
+    if (this.tabElem) { this.dataService.resultTabList.push(this.tabElem); }
   }
 }
