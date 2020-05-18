@@ -90,8 +90,8 @@ objects:
                 mountPath: /etc/nginx/config
         volumes:
           - name: nginx-revproxy-api-production-volume
-            configMap:
-              name: nginx-revproxy-api-production-configmap
+            secret:
+              secretName: nginx-revproxy-api-production-secret
               items:
               - key: configfile
                 path: api.conf
