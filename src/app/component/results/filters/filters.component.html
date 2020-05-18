@@ -139,7 +139,7 @@
                             <mat-selection-list>
                                 <!-- Select all -->
                                 <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" 
-                                [selected]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')">
+                                [selected]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')" [id]="filter.field + 'all' | replaceSpace">
                                     <div class="row d-flex justify-content-start">
                                         <div class="col-9"><span class="font-weight-bold label">Valitse kaikki</span></div>
                                     </div>
