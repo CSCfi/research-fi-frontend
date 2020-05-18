@@ -33,20 +33,18 @@ export class Funder {
 export class FunderAdapter implements Adapter<Funder> {
     constructor(private lang: LanguageCheck) {}
     adapt(item: any): Funder {
-        item.callProgrammeNameFi = this.lang.checkContent(
-            item.callProgrammeNameFi, item.callProgrammeNameEn, item.callProgrammeNameSv);
         return new Funder(
-            item.funderNameFi,
-            item.funderNameSv,
-            item.funderNameEn,
+            this.lang.testLang('funderNameFi', item),
+            this.lang.testLang('funderNameSv', item),
+            this.lang.testLang('funderNameEn', item),
             item.funderNameUnd,
             item.typeOfFundingId,
-            item.typeOfFundingNameFi,
-            item.typeOfFundingNameSv,
-            item.typeOfFundingNameEn,
-            item.callProgrammeNameFi,
-            item.callProgrammeNameSv,
-            item.callProgrammeNameEn,
+            this.lang.testLang('typeOfFundingNameFi', item),
+            this.lang.testLang('typeOfFundingNameSv', item),
+            this.lang.testLang('typeOfFundingNameEn', item),
+            this.lang.testLang('callProgrammeNameFi', item),
+            this.lang.testLang('callProgrammeNameSv', item),
+            this.lang.testLang('callProgrammeNameEn', item),
             item.callProgrammeNameUnd,
             item.callProgrammeHomePage
         );

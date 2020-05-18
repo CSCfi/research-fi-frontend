@@ -7,6 +7,7 @@
 
 import { Adapter } from './adapter.model';
 import { Injectable } from '@angular/core';
+import { LanguageCheck } from './utils';
 
 export class RecipientOrganization {
     constructor(
@@ -26,7 +27,7 @@ export class RecipientOrganization {
     providedIn: 'root'
 })
 export class RecipientOrganizationAdapter implements Adapter<RecipientOrganization> {
-    constructor() {}
+    constructor(private lang: LanguageCheck) {}
     adapt(item: any): RecipientOrganization {
         // Trim all string elements
         if (item) {
@@ -36,9 +37,9 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
         return new RecipientOrganization(
             item.consortiumOrganizationId,
             item.consortiumOrganizationBusinessId,
-            item.consortiumOrganizationNameFi,
-            item.consortiumOrganizationNameSv,
-            item.consortiumOrganizationNameEn,
+            this.lang.testLang('consortiumOrganizationNameFi', item),
+            this.lang.testLang('consortiumOrganizationNameSv', item),
+            this.lang.testLang('consortiumOrganizationNameEn', item),
             item.roleInConsortium,
             item.shareOfFundingInEur,
             item.consortiumOrganizationPic,

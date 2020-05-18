@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
+import { LanguageCheck } from './utils';
 
 export class Funding {
 
@@ -18,6 +19,7 @@ export class Funding {
         public nameEn: string, // projectNameEn
         public acronym: string,
         public descriptionFi: string, // projectDescriptionFi
+        public descriptionSv: string, // projectDescriptionEn
         public descriptionEn: string, // projectDescriptionEn
         public startYear: string, // fundingStartYear
         public endYear: string, // FundingEndYear
@@ -40,7 +42,7 @@ export class Funding {
     providedIn: 'root'
 })
 export class FundingAdapter implements Adapter<Funding> {
-    constructor(private r: RecipientAdapter, private f: FunderAdapter) {}
+    constructor(private r: RecipientAdapter, private f: FunderAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Funding {
         const recipientObj = item.fundingGroupPerson ?
                              item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift() : {};
@@ -94,12 +96,13 @@ export class FundingAdapter implements Adapter<Funding> {
 
         return new Funding(
             item.projectId,
-            item.projectNameFi,
-            item.projectNameSv,
-            item.projectNameEn,
+            this.lang.testLang('projectNameFi', item),
+            this.lang.testLang('projectNameSv', item),
+            this.lang.testLang('projectNameEn', item),
             item.projectAcronym,
-            item.projectDescriptionFi,
-            item.projectDescriptionEn,
+            this.lang.testLang('projectDescriptionFi', item),
+            this.lang.testLang('projectDescriptionSv', item),
+            this.lang.testLang('projectDescriptionEn', item),
             item.fundingStartYear,
             item.fundingEndYear,
             recipientObj?.roleInFundingGroup,
