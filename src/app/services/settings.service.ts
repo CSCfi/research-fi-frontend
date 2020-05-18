@@ -174,7 +174,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'publication'	}	},
-                      [this.querySettings('publication', term)]
+                      this.querySettings('publication', term)
                     ]
                   }
                 },
@@ -182,7 +182,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'funding'	}	},
-                      [this.querySettings('funding', term)]
+                      this.querySettings('funding', term)
                     ]
                   }
                 },
@@ -190,7 +190,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'infrastructure' }	},
-                      [this.querySettings('infrastructure', term)]
+                      this.querySettings('infrastructure', term)
                     ]
                   }
                 },
@@ -208,7 +208,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'organization'	}	},
-                      [this.querySettings('organization', term)]
+                      this.querySettings('organization', term)
                     ]
                   }
                 }
