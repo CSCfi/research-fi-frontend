@@ -21,9 +21,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { BetaReviewComponent } from './beta-review/beta-review.component';
 import { BetaInfoComponent } from './beta-info/beta-info.component';
+import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, BetaReviewComponent, BetaInfoComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, BetaReviewComponent, BetaInfoComponent, CookieConsentComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
