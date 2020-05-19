@@ -70,7 +70,7 @@ h2 {
 }
 
 .segment h3 {
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 .segment h2, .segment h3 {
@@ -140,8 +140,15 @@ img {
     .nav ul {
         width: 100%;
     }
-
+    
     .nav ul li {
         margin-left: 0.5rem;
+    }
+}
+
+@media (max-width: 614px) {
+    .segment .figure {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
 }
