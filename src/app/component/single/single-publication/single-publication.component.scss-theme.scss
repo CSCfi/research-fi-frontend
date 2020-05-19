@@ -59,8 +59,8 @@
             color: mat-color($primary);
             border: mat-color($primary) 2px solid;
             &:hover {
-                color: mat-contrast($primary, 500);
-                background-color: mat-color($primary);
+                color: mat-contrast($primary, 100);
+                background-color: mat-color($primary, 100);
             }
         }
     }
