@@ -41,25 +41,27 @@
             }
         }
 
+        
+        .reference .no-doi-warn {
+            color: mat-color($warn);
+        }
+    }
+    .reference-modal {
         h3.modal-title {
             color: mat-contrast($primary, 50)
         }
-
-        .modal-body h4 {
+        
+        &.modal-body h4 {
             color: mat-contrast($primary, 300)
         }
-
-        .modal-body .copy {
+        
+        &.modal-body .copy {
             color: mat-color($primary);
             border: mat-color($primary) 2px solid;
             &:hover {
                 color: mat-contrast($primary, 500);
                 background-color: mat-color($primary);
             }
-        }
-
-        .reference .no-doi-warn {
-            color: mat-color($warn);
         }
     }
 }
