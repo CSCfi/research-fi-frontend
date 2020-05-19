@@ -9,20 +9,19 @@
 <main id="main-content">
     <div class="wrapper">
         <div class="row" *ngIf="data">
-            <div class="col col-xl-3" [ngClass]="mobile ? 'col-12 pb-4' : 'col-4 px-0'">
+            <div class="col col-12 col-lg-4 px-lg-0 col-xl-3" [class.pb-4]="mobile" [class.p-0]="mobile">
                 <aside>
                     <!-- results/filters -->
                     <app-filters [responseData]="filterValues" [tabData]="'news'"></app-filters>
                 </aside>
             </div>
-            <div class="col" [ngClass]="mobile ? 'col-12' : 'col-8'">
+            <div class="col-12 col-lg-8 col" [class.p-0]="mobile">
                 <main>
-                    <div class="row">
+                    <div class="row content">
                         <h1 class="col col-lg-8">Tiede- ja tutkimusuutiset</h1>
-                        <div class="col col-lg-4">
+                        <div class="col col-lg-4 search">
                             <nav>
                                 <input #searchInput type="text" placeholder="Hae tiedeuutisista...">
-                                <button mat-raised-button primary color="primary" (click)="toggleData()">Tyhjä haku preview</button>
                             </nav>
                         </div>
                         <aside>
