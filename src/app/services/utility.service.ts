@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,10 @@ import { Subscription } from 'rxjs';
 export class UtilityService {
   private modalHideSub: Subscription;
   private modalShowSub: Subscription;
+  private consentBarSource = new BehaviorSubject(false);
+  currentConsentBarStatus = this.consentBarSource.asObservable();
+  private consentStatusSource = new BehaviorSubject('declined');
+  currentConsentStatus = this.consentStatusSource.asObservable();
 
   constructor(private modalService: BsModalService) {
     // Subscribe to modal show and hide
@@ -46,5 +50,13 @@ export class UtilityService {
             event.preventDefault();
         }
     }
+  }
+
+  hideConsentBar(status) {
+    this.consentBarSource.next(status);
+  }
+
+  changeConsentStatus(status) {
+    this.consentStatusSource.next(status);
   }
 }
