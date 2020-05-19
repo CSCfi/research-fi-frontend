@@ -29,12 +29,12 @@ export class AppComponent {
       serverUrl: this.appConfigService.apmUrl,
       environment: this.appConfigService.environmentName,
       disableInstrumentations: [
-        //'page-load',
+        'page-load',
         'history',
         'eventtarget',
         'xmlhttprequest',
         'fetch',
-        //'error'
+        'error'
       ]
     })
   }
