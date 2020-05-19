@@ -234,10 +234,12 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onResize(event) {
-    this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
-    this.offsetWidth = this.scroll.nativeElement.offsetWidth;
-    this.scrollWidth = this.scroll.nativeElement.scrollWidth;
-
+    if (!this.isHomepage) {
+      this.lastScrollLocation = this.scroll.nativeElement.scrollLeft;
+      this.offsetWidth = this.scroll.nativeElement.offsetWidth;
+      this.scrollWidth = this.scroll.nativeElement.scrollWidth;
+    }
+      
     if (this.isHomepage && isPlatformBrowser(this.platformId)) {
       this.calcTabsAndRows(event.width);
     }
