@@ -7,3 +7,23 @@
 app-news-card {
     min-width: 100%;
 }
+
+.row.content {
+    max-width: 760px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media (max-width: 991px) {
+    h1.col {
+        padding-left: 0;
+    }
+
+    .search {
+        padding-left: 0;
+    }
+
+    ::ng-deep mat-card .mat-card-header-text {
+        margin: 0;
+    }
+}
