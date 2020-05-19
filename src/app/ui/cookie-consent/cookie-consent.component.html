@@ -1,0 +1,22 @@
+<!-- # This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="cookie-consent" *ngIf="showConsent">
+    <div class="row d-flex justify-content-around">
+        <div class="col">
+            <p class="m-0">
+                Käytämme evästeitä, joiden avulla kerätään anonymisoitua käyttötietoa käyttökokemuksen parantamiseksi.
+                <a class="read-more" routerLink="/privacy">Lue lisää evästekäytännöistä</a>
+            </p>
+        </div>
+        <div class="col-auto">
+            <button mat-button (click)="decline()">Hylkää evästeet</button>
+            <button mat-flat-button color="primary" (click)="approve()">Hyväksy evästeet</button>
+        </div>
+    </div>
+</div>
+

@@ -166,14 +166,20 @@ Copyright 2019 Ministry of Education and Culture, Finland
                                     <img src="assets/img/clear_history.png" alt="Hakuhistorian tyhjentäminen">
                                 </div>
                             </mat-tab>
-                            <mat-tab label="Hallinnoi evästeasetuksia" disabled>
+                            <mat-tab label="Hallinnoi evästeasetuksia">
                                 <div class="pt-4">
                                     <h2>Hallinnoi evästeasetuksia</h2>
                                     <div class="row">
-                                        <div class="col">
-                                            <iframe style="border: 0; height: 200px; width: 600px;"
+                                        <div class="col px-0">
+                                            <button mat-flat-button color="primary" (click)="changeConsent('declined')" *ngIf="consentStatus === 'approved'">
+                                                <ng-container>Poista seuranta käytöstä</ng-container>
+                                            </button>
+                                            <button mat-flat-button color="primary" (click)="changeConsent('approved')" *ngIf="consentStatus === 'declined' || !consentStatus">
+                                                <ng-container>Ota seuranta käyttöön</ng-container>
+                                            </button>
+                                            <!-- <iframe style="border: 0; height: 200px; width: 600px;"
                                             [src]="matomoUrl | safeUrl">
-                                            </iframe>
+                                            </iframe> -->
                                         </div>
                                     </div>
                                 </div>
