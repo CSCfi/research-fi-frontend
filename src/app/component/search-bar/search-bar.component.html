@@ -8,7 +8,7 @@
 <div class="full-width" #searchBar>
   <div class="search" [class.no-heading]="router.url !== '/'">
     <form (keydown.enter)="$event.preventDefault()" class="wrapper">
-      <label i18n="@@searchSlogan" *ngIf="router.url === '/'" class="text-center h1" for="searchInput" style="width:100%;">
+      <label i18n="@@searchSlogan" [class.sr-only]="router.url !== '/'" class="text-center h1" for="searchInput" style="width:100%;">
         Hae tietoa tutkimuksesta Suomessa
       </label>
 
