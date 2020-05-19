@@ -65,6 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   firstTab: boolean;
 
   betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
+  consentStatusSub: Subscription;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
@@ -131,6 +132,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.routeSub?.unsubscribe();
     this.newPageSub?.unsubscribe();
+    this.consentStatusSub?.unsubscribe();
   }
 
   focusStart() {
@@ -139,14 +141,16 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
-    if (e.keyCode === 9) {
-      if (this.firstTab) {
-        this.firstTab = false;
-        e.preventDefault();
-        this.focusStart();
+    this.consentStatusSub = this.utilityService.currentConsentBarStatus.subscribe(status => {
+      if (e.keyCode === 9 && status === false)   {
+        if (this.firstTab) {
+          this.firstTab = false;
+          e.preventDefault();
+          this.focusStart();
+        }
+        this.document.body.classList.add('user-tabbing');
       }
-      this.document.body.classList.add('user-tabbing');
-    }
+    })
   }
 
   handleMouseDown = (): void => {
