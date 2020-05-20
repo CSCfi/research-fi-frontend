@@ -41,7 +41,7 @@
                 [index]="i">
                 </app-tooltip>-->
                 <a routerLink="/results/funding/{{funding.id}}" [tooltip]="funding.descriptionFi | cutContent: 200" placement="top" 
-                [tooltipEnable]="funding.descriptionFi.trim().length > 0 ? true : false">
+                [isDisabled]="funding.descriptionFi.trim().length > 0 ? false : true">
                     <h3 class="result-title" [innerHtml]="funding.nameFi | highlight: input"></h3>
                 </a>
             </div>
