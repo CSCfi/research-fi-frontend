@@ -10,7 +10,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { UtilityService } from 'src/app/services/utility.service';
+import { PrivacyService } from 'src/app/services/privacy.service';
 
 @Component({
   selector: 'app-privacy',
@@ -28,7 +28,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-              private utilityService: UtilityService) {
+              private privacyService: PrivacyService) {
     this.locale = localeId;
     this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
                       this.locale + '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif';
@@ -52,7 +52,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.title = this.getTitle();
 
     // Get consent status
-    this.consentStatusSub = this.utilityService.currentConsentStatus.subscribe(status => {
+    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
       this.consentStatus = status;
     });
   }
@@ -67,8 +67,8 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
         this.decline();
       }
     }
-    this.utilityService.hideConsentBar(true);
-    this.utilityService.changeConsentStatus(status);
+    this.privacyService.hideConsentBar(true);
+    this.privacyService.changeConsentStatus(status);
   }
 
   decline() {

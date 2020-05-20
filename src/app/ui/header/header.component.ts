@@ -18,6 +18,7 @@ import { faChevronDown, faChevronUp, faInfoCircle } from '@fortawesome/free-soli
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BetaInfoComponent } from '../beta-info/beta-info.component';
+import { PrivacyService } from 'src/app/services/privacy.service';
 
 @Component({
   selector: 'app-header',
@@ -71,7 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
               private cdr: ChangeDetectorRef, private renderer: Renderer2, private route: ActivatedRoute,
-              private tabChangeService: TabChangeService, public dialog: MatDialog) {
+              private tabChangeService: TabChangeService, public dialog: MatDialog, private privacyService: PrivacyService) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
@@ -141,7 +142,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
-    this.consentStatusSub = this.utilityService.currentConsentBarStatus.subscribe(status => {
+    this.consentStatusSub = this.privacyService.currentConsentBarStatus.subscribe(status => {
       if (e.keyCode === 9 && status === false)   {
         if (this.firstTab) {
           this.firstTab = false;
