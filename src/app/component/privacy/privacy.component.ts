@@ -11,6 +11,7 @@ import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-privacy',
@@ -28,7 +29,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-              private privacyService: PrivacyService) {
+              private privacyService: PrivacyService, private snackBar: MatSnackBar) {
     this.locale = localeId;
     this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
                       this.locale + '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif';
@@ -53,7 +54,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Get consent status
     this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      this.consentStatus = status;
+      this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
     });
   }
 
@@ -82,6 +83,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
+    this.snackBar.open('Evästeet hylätty');
   }
 
   approve() {
@@ -95,6 +97,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
+    this.snackBar.open('Evästeet hyväksytty');
   }
 
   setTitle(title: string) {
