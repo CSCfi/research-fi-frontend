@@ -64,8 +64,9 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 const person = item.fundingGroupPerson.find(x => x.consortiumProject === item.funderProjectNumber);
                 // Map recipients
                 if (person) {
-                    combined = person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName + ', '
-                    + person.consortiumOrganizationNameFi;
+                    combined = person.fundingGroupPersonLastName ?
+                    person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName + ', '
+                    + person.consortiumOrganizationNameFi : person.consortiumOrganizationNameFi;
                 } else {
                     // If no match with funderProjectNumber
                     combined = item.fundingGroupPerson?.map(x =>
