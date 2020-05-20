@@ -88,7 +88,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.utilitySub?.unusubscribe();
+    this.utilitySub?.unsubscribe();
   }
 
 }
