@@ -265,9 +265,10 @@ export class FilterService {
       ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
           [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
       ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
-      // Funding / Organization filter data comes from two different nested aggregations
+      // Funding / Organization filter needs to be filtered by fundedPerson code
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-      [{nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
+          [{nested: {path: 'fundingGroupPerson', query: {bool: {filter: {term: {'fundingGroupPerson.fundedPerson': 1}},
+          must: {bool: {should: this.organizationFilter}}}}}}] : []) : []),
       // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
       //     [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
       //     {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
@@ -342,9 +343,11 @@ export class FilterService {
 
   constructFilterPayload(tab: string, searchTerm: string) {
     const filters = this.constructFilters(tab.slice(0, -1));
+
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
-    const activeNested = filters.filter(item => item.nested?.query.bool.should.length > 0);
+    const activeNested = filters.filter(item => item.nested?.query.bool.should?.length > 0 ||
+                                        item.nested?.query.bool.must.bool.should.length > 0);
     const activeMultipleNested = filters.filter(item => item.bool?.should.length > 0 && item.bool.should[0]?.nested);
 
     // Functions to filter out active filters. These prevents doc count changes on active filters
@@ -628,41 +631,52 @@ export class FilterService {
             path: 'fundingGroupPerson'
           },
           aggs: {
-            sectorName: {
-              terms: {
-                size: 50,
-                field: 'fundingGroupPerson.fundedPersonOrganizationNameFi.keyword',
-                exclude: ' |Rahoittaja'
+            funded: {
+              filter: {
+                terms: {
+                  'fundingGroupPerson.fundedPerson': [
+                    1
+                  ]
+                }
               },
               aggs: {
-                sectorId: {
+                sectorName: {
                   terms: {
                     size: 50,
-                    field: 'fundingGroupPerson.consortiumSectorId.keyword'
-                  }
-                },
-                organizations: {
-                  terms: {
-                    size: 50,
-                    field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
+                    field: 'fundingGroupPerson.fundedPersonOrganizationNameFi.keyword',
+                    exclude: ' |Rahoittaja'
                   },
                   aggs: {
-                    filtered: {
-                      reverse_nested: {},
-                      aggs: {
-                        filterCount: {
-                          filter: {
-                            bool: {
-                              filter: filterActiveNested('fundingGroupPerson')
-                            }
-                          }
-                        }
+                    sectorId: {
+                      terms: {
+                        size: 50,
+                        field: 'fundingGroupPerson.consortiumSectorId.keyword'
                       }
                     },
-                    orgId: {
+                    organizations: {
                       terms: {
-                        size: 1,
-                        field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
+                        size: 50,
+                        field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
+                      },
+                      aggs: {
+                        filtered: {
+                          reverse_nested: {},
+                          aggs: {
+                            filterCount: {
+                              filter: {
+                                bool: {
+                                  filter: filterActiveNested('fundingGroupPerson')
+                                }
+                              }
+                            }
+                          }
+                        },
+                        orgId: {
+                          terms: {
+                            size: 1,
+                            field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
+                          }
+                        }
                       }
                     }
                   }

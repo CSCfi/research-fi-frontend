@@ -21,8 +21,8 @@ export class Funding {
         public descriptionFi: string, // projectDescriptionFi
         public descriptionSv: string, // projectDescriptionEn
         public descriptionEn: string, // projectDescriptionEn
-        public startYear: string, // fundingStartYear
-        public endYear: string, // FundingEndYear
+        public startYear: number, // fundingStartYear
+        public endYear: number, // FundingEndYear
         public academyConsortium: string, // fundingGroupPerson ->
         public otherConsortium: any[], // fundingGroupPerson ->
         public recipient: Recipient,
@@ -104,7 +104,7 @@ export class FundingAdapter implements Adapter<Funding> {
             this.lang.testLang('projectDescriptionSv', item),
             this.lang.testLang('projectDescriptionEn', item),
             item.fundingStartYear,
-            item.fundingEndYear,
+            item.fundingEndYear = item.fundingEndYear > item.fundingStartYear ? item.fundingEndYear : undefined,
             recipientObj?.roleInFundingGroup,
             otherConsortiumObjs,
             recipient,

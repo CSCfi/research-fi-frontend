@@ -8,6 +8,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -19,7 +20,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   utilitySub: any;
 
   constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object) { }
+              @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // Bar can be hidden from privacy / cookies tab
@@ -50,6 +51,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
+    this.snackBar.open('Evästeet hylätty');
   }
 
   approve() {
@@ -66,6 +68,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
+    this.snackBar.open('Evästeet hyväksytty');
   }
 
   public loadScript() {
