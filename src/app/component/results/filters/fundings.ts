@@ -58,7 +58,7 @@ export class FundingFilters {
   }
 
   organization(c, f) {
-    const cData = c.sectorName.buckets;
+    const cData = c.funded.sectorName.buckets;
     const fData = f.sectorName.buckets;
 
     // Find differences in consortium and funding group data, merge difference into cData
