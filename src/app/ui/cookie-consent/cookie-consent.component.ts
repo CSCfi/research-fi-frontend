@@ -6,8 +6,8 @@
 //  :license: MIT
 
 import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { UtilityService } from 'src/app/services/utility.service';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { PrivacyService } from 'src/app/services/privacy.service';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -18,16 +18,16 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   showConsent = true;
   utilitySub: any;
 
-  constructor(private utilityService: UtilityService, @Inject(DOCUMENT) private document: any,
+  constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object) { }
 
   ngOnInit(): void {
     // Bar can be hidden from privacy / cookies tab
-    this.utilitySub = this.utilityService.currentConsentBarStatus.subscribe(status => {
+    this.utilitySub = this.privacyService.currentConsentBarStatus.subscribe(status => {
       this.showConsent = status === false ? true : false;
     });
     // set consent bar status, this is used to set focus into consent bar
-    this.utilityService.hideConsentBar(this.showConsent);
+    this.privacyService.hideConsentBar(this.showConsent);
     // Load initial matomo script
     this.loadScript();
     // Get consent status from local storage and set visibility
@@ -55,7 +55,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   approve() {
     // Hide bar and set consent
     this.showConsent = false;
-    this.utilityService.changeConsentStatus('approved');
+    this.privacyService.changeConsentStatus('approved');
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('cookieConsent', 'approved');
       const node = this.document.createElement('script');

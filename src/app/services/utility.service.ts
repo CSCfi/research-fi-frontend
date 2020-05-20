@@ -1,6 +1,13 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { Injectable } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +15,6 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 export class UtilityService {
   private modalHideSub: Subscription;
   private modalShowSub: Subscription;
-  private consentBarSource = new BehaviorSubject(false);
-  currentConsentBarStatus = this.consentBarSource.asObservable();
-  private consentStatusSource = new BehaviorSubject('declined');
-  currentConsentStatus = this.consentStatusSource.asObservable();
 
   constructor(private modalService: BsModalService) {
     // Subscribe to modal show and hide
@@ -52,11 +55,4 @@ export class UtilityService {
     }
   }
 
-  hideConsentBar(status) {
-    this.consentBarSource.next(status);
-  }
-
-  changeConsentStatus(status) {
-    this.consentStatusSource.next(status);
-  }
 }
