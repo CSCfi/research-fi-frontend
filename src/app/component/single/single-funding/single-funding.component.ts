@@ -154,7 +154,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.funderFields = Object.assign(this.funder.filter(item => checkNestedEmpty('funder', item)));
     // Filter out empty organization names
     this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(item =>
-      item.nameFi !== '');
+      item.nameFi !== '' && item.nameFi !== null);
   }
 
   shapeData() {
