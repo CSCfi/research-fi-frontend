@@ -37,147 +37,136 @@
                                 </div>
                             </div>
                         </ng-container>
-                        <!-- Consortium info -->
-                        <div *ngIf="item.recipientType==='consortium'" class="row">
-                            <h2 class="col-12 col-sm-6 col-lg-3 th">
-                                Suomen akatemian konsortio
-                                <fa-icon tabindex="0" tooltip="Suomen Akatemian konsortiossa rooli voi olla joko johtaja tai partneri" placement="right" 
-                                class="info-icon" icon="info-circle"></fa-icon>
-                            </h2>
-                            <div class="col-12 col-sm-6 col-lg-9 td">
-                                <div [ngClass]="expand ? 'expand' : 'short'">{{item.academyConsortium}}</div>
-                            </div>
-                            <h2 class="col-12 col-sm-6 col-lg-3 th">
-                                Konsortion muut osapuolet
-                                <fa-icon tabindex="0" tooltip="Suomen Akatemian konsortion muut osapuolet ja rahoituspäätösten numerot." placement="right" 
-                                class="info-icon" icon="info-circle"></fa-icon>
-                            </h2>
-                            <div class="col-12 col-sm-6 col-lg-9 td">
-                                <div [ngClass]="expand ? 'expand' : 'short'">
-                                        <ng-container *ngFor="let consortium of item.otherConsortium; let i = index">
-                                            <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">{{consortium.consortiumOrganizationNameFi}}</a>
-                                            <ng-container *ngIf="!consortium.consortiumOrganizationId">{{consortium.consortiumOrganizationNameFi}}</ng-container>
-                                                ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1">, </ng-container>
-                                        </ng-container>
-                                        
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- Funded -->
                     <div class="content recipient">
-                        <h2 class="th">
-                            Rahoituksen saaja
-                            <fa-icon tabindex="0" tooltip="Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia." placement="right" 
-                            class="info-icon" icon="info-circle"></fa-icon>
-                        </h2>
-                        <!-- Person -->
-                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.personName?.trim().length > 0">
-                            <div class="col-12 col-sm-3">
-                                <h3 class="th">
-                                    Nimi
-                                    <fa-icon tabindex="0" tooltip="Henkilö, jolle rahoitus on myönnetty tai jonka johtaman hankkeen kustannuksiin rahoitus on tarkoitettu" placement="right" 
-                                    class="info-icon" icon="info-circle"></fa-icon>
-                                </h3>
-                            </div>
-                            <div class="col-6 col-sm-5 td">
-                                {{item.recipient.personName}}
-                                <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
-                            </div>
-                            <div class="col-6 col-sm-4 td">
-                                <!-- <div>{{item.recipient.affiliation}}</div> -->
-                                <ng-container *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
-                                    {{item.recipient.shareOfFundingEur | thousandSeparator}} €
-                                </ng-container>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="!(item.recipientType === 'organization') && item.recipient.affiliation?.trim().length > 0">
-                            <h3 class="col-12 col-sm-3 th">
-                                <div>
-                                    Organisaatio
-                                    <fa-icon tabindex="0" tooltip="Organisaatio tai organisaatiot, joiden hankkeiden kustannuksiin rahoitus on myönnetty. Organisaatioiden rahoitusosuudet näytetään, jos ne ovat tiedossa." placement="right" 
-                                    class="info-icon" icon="info-circle"></fa-icon>
-                                </div>
+                        <div class="row">
+                            <h3 class="th col-12 col-sm-3">
+                                Myönnetty rahoitus
+                                <fa-icon tabindex="0" tooltip="Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia." placement="right" 
+                                class="info-icon" icon="info-circle"></fa-icon>
                             </h3>
-                            <div class="col-12 col-sm-5 td">
-                                <a *ngIf="item.recipient.organizationId" routerLink="/results/organization/{{item.recipient.organizationId}}">{{item.recipient.affiliation}}</a>
-                                <ng-container *ngIf="!item.recipient.organizationId">{{item.recipient.affiliation}}</ng-container>
-                            </div>
-                            <div class="col-12 col-sm-4 td">
-                                <!-- <div>{{item.recipient.affiliation}}</div> -->
-                                <ng-container *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
-                                    {{item.recipient.shareOfFundingEur | thousandSeparator}} €
-                                </ng-container>
-                            </div>
-                        </div>
-                        <!-- Org -->
-                        <div *ngIf="item.recipientType === 'organization'" class="row">
-                            <h3 class="col-12 col-sm-3 th" *ngIf="item.recipient.organizations.length > 0">
-                                <div>
-                                    Organisaatio
-                                    <fa-icon tabindex="0" tooltip="Organisaatio tai organisaatiot, joiden hankkeiden kustannuksiin rahoitus on myönnetty. Organisaatioiden rahoitusosuudet näytetään, jos ne ovat tiedossa." placement="right" 
-                                    class="info-icon" icon="info-circle"></fa-icon>
-                                </div>
-                            </h3>
-                            <ng-container *ngIf="item.recipient.organizations.length > 0; else noOrganizations">
-                                <ng-container *ngFor="let org of item.recipient.organizations; let i = index;">
-                                    <div class="col-6 col-sm-5 td" [class.offset-sm-3]="i>0">
-                                        <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
-                                        <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
-                                        <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>
-                                        <!-- Organization country code when funder is EU -->
-                                        <ng-container *ngIf="item.euFunding && org.countryCode"> ({{org.countryCode}})</ng-container>
-                                    </div>
-                                    <div class="col-6 col-sm-4 td">
-                                        <ng-container *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
-                                            {{org.shareOfFundingEur | thousandSeparator}} €
-                                        </ng-container>
-                                    </div>
-                                    <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
-                                        <h3 class="col-6 col-sm-3 th">
-                                            <span>Yhteyshenkilö</span>
-                                        </h3>
-                                        <div class="col-6 col-sm-4 col-lg-5 td">
-                                            {{item.recipient.contactPersonName}}
-                                            <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
-                                        </div>
-                                    </ng-container>
-                                </ng-container>
-                            </ng-container>
-                            <ng-template #noOrganizations>
-                                <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
-                                    <h3 class="col-6 col-sm3 th">
-                                        <span>Yhteyshenkilö</span>
-                                    </h3>
-                                    <div class="col-6 col-sm-4 col-lg-5 td">
-                                        {{item.recipient.contactPersonName}}
+                            <!-- Switch by recipien type -->
+                            <div class="col-12 col-sm-9 px-0" [ngSwitch]="item.recipientType">
+                                <!-- Person & consortium -->
+                                <div class="row" *ngSwitchDefault>
+                                    <div class="td col-12 col-sm-3 pr-0 py-0 py-sm-3" *ngIf="item.recipient.personName?.trim().length > 0">
+                                        {{item.recipient.personName}}
                                         <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                     </div>
+                                    <div class="td col-12 col-sm-4 py-0 py-sm-3" *ngIf="item.recipient.affiliation?.length > 0">
+                                        <a *ngIf="item.recipient.organizationId" routerLink="/results/organization/{{item.recipient.organizationId}}">{{item.recipient.affiliation}}</a>
+                                        <ng-container *ngIf="!item.recipient.organizationId">{{item.recipient.affiliation}}</ng-container>
+                                    </div>
+                                    <div class="td col-12 col-sm-3 py-0 py-sm-3">
+                                        {{item.recipient.shareOfFundingEur | thousandSeparator}} €
+                                    </div>
+                                </div>
+                                <!-- Organization -->
+                                <div class="row" *ngSwitchCase="'organization'">
+                                    <div class="col px-0" *ngIf="item.recipient.organizations.length > 0; else noOrganizations">
+                                        <div class="row" *ngFor="let org of item.recipient.organizations; let i = index;">
+                                            <!-- Show contact person for non eu funding -->
+                                            <div class="col-6 col-sm-3 py-0 py-sm-3 td" *ngIf="!item.euFunding">
+                                                {{item.recipient.contactPersonName}}
+                                                <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
+                                            </div>
+                                            <div class="col-12 py-0 py-sm-3 td" [ngClass]="item.euFunding ? 'col-sm-5' : col-sm-3">
+                                                <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
+                                                <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
+                                                <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>
+                                                <!-- Organization country code when funder is EU -->
+                                                <ng-container *ngIf="item.euFunding && org.countryCode && org.countryCode !== 'FI'"> ({{org.countryCode}})</ng-container>
+                                            </div>
+                                            <div class="col-12 td col-sm-3 py-0 py-sm-3" *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
+                                                {{org.shareOfFundingEur | thousandSeparator}} €
+                                            </div>
+                                            <div class="col-12 td col-sm-3 py-0 py-sm-3 pb-3">
+                                                {{org.role}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #noOrganizations>
+                                        <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
+                                            <h3 class="col-6 col-sm3 th">
+                                                <span>Yhteyshenkilö</span>
+                                            </h3>
+                                            <div class="col-6 col-sm-4 col-lg-5 td">
+                                                {{item.recipient.contactPersonName}}
+                                                <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
+                                            </div>
+                                        </ng-container>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Funding amount -->
+                        <div class="row" *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
+                            <h3 class="th col-12 col-sm-3">
+                                <ng-container [ngSwitch]="item.recipientType">
+                                    <ng-container *ngSwitchCase="'organization'">Myönnetty summa </ng-container>
+                                    <ng-container *ngSwitchDefault>Summa </ng-container>
                                 </ng-container>
-                            </ng-template>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-6 col-sm-3 amount">
-                                <h3 class="th">
-                                    Myönnetty summa
-                                    <fa-icon tabindex="0" tooltip="Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia." placement="right" 
-                                    class="info-icon" icon="info-circle"></fa-icon>
-                                </h3>
-                            </div>
-                            <!-- <div class="col-3 td" [class.offset-5]="item.recipientType === 'organization'"> -->
-                            <div class="col-6 col-sm-3 offset-0 td" [ngClass]="item.recipient.amountEur !== item.recipient.shareOfFundingEur ? 'offset-sm-5' : 'offset-sm-0'">
-                                <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
+                                
+                                <fa-icon tabindex="0" tooltip="Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia." placement="right" 
+                                class="info-icon" icon="info-circle"></fa-icon>
+                            </h3>
+                            <div class="col px-0">
+                                    <div class="col-12 col-sm-3 offset-0 td" [ngClass]="item.recipientType === 'organization' ? 'offset-sm-5' : 'offset-sm-7'">
+                                        <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
+                                    </div>
                             </div>
                         </div>
+                        <!-- SA-funding additional rows -->
+                        <ng-container [ngSwitch]="item.recipientType">
+                            <ng-container *ngSwitchCase="'consortium'">
+                                <div class="row" *ngIf="item.recipient.contactPersonName.trim().length > 0">
+                                    <h3 class="th col-3">Yhteyshenkilö</h3>
+                                    <div class="col-6 col-sm-4 col-lg-5 td">
+                                        {{item.recipient.contactPersonName}}
+                                        <app-orcid *ngIf="item.recipient.contactPersonOrcid" [orcid]="item.recipient.contactPersonOrcid"></app-orcid>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h3 class="th col-12 col-sm-3">Rooli Suomen Akatemian konsortiossa</h3>
+                                    <div class="col-12 col-sm-4 td py-0 py-sm-3">
+                                        {{item.academyConsortium}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h3 class="th col-12 col-sm-3">Muut osapuolet</h3>
+                                    <div class="col px-0">
+                                        <div class="row" *ngFor="let consortium of item.otherConsortium">
+                                            <div class="col-12 col-sm-3 td py-0 py-sm-3">
+                                                {{consortium.roleInFundingGroup}}
+                                            </div>
+                                            <div class="col-12 col-sm-4 td py-0 py-sm-3">
+                                                <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">{{consortium.consortiumOrganizationNameFi}}</a>
+                                                <ng-container *ngIf="!consortium.consortiumOrganizationId">{{consortium.consortiumOrganizationNameFi}}</ng-container>
+                                                    ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1"></ng-container>
+                                            </div>
+                                            <div class="col-12 col-sm-3 td py-0 py-sm-3 pb-3">
+                                                {{consortium.shareOfFundingInEur | thousandSeparator}} €
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
                     </div>
                     <!-- Funder -->
                     <div class="content" *ngIf="item.funder && funderFields.length > 0">
-                        <h2 class="th">
-                            Rahoittaja
-                            <fa-icon tabindex="0" tooltip="Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa." placement="right" 
-                            class="info-icon" icon="info-circle"></fa-icon>
-                        </h2>
+                        <div class="row">
+                            <h2 class="th col-12 col-sm-3">
+                                Rahoittaja
+                                <fa-icon tabindex="0" tooltip="Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa." placement="right" 
+                                class="info-icon" icon="info-circle"></fa-icon>
+                            </h2>
+                            <div class="col-12 col-sm-3 td">
+                                {{item.funder.nameFi}}
+                            </div>
+                        </div>
+
                         <div class="row" *ngFor="let row of funderFields">
                             <h3 class="col-12 col-sm-6 col-lg-3 th">
                                 {{row.label}}

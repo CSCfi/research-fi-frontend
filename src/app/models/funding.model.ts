@@ -86,6 +86,12 @@ export class FundingAdapter implements Adapter<Funding> {
         });
         const otherConsortiumObjs = item.fundingGroupPerson ?
                                     item.fundingGroupPerson.filter(x => x.consortiumProject !== item.funderProjectNumber) : [];
+
+        // Translate academy consortium role in ohter consortiums
+        if (otherConsortiumObjs && otherConsortiumObjs[0]?.roleInFundingGroup) {
+            otherConsortiumObjs.forEach(consortium => consortium.roleInFundingGroup =
+                                        this.lang.translateRole(consortium.roleInFundingGroup));
+        }
         const recipient = this.r.adapt(item);
         const funder = this.f.adapt(item);
         const science = item.keywords?.filter(x => x.scheme === 'Tieteenala').map(x => x.keyword).join(', ');
