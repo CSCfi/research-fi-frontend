@@ -142,16 +142,24 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
-    this.consentStatusSub = this.privacyService.currentConsentBarStatus.subscribe(status => {
-      if (e.keyCode === 9 && status === false)   {
+    if (isPlatformBrowser(this.platformId)) {
+      const consent = localStorage.getItem('cookieConsent');
+      if (e.keyCode === 9 && consent) {
         if (this.firstTab) {
           this.firstTab = false;
           e.preventDefault();
           this.focusStart();
         }
         this.document.body.classList.add('user-tabbing');
-      }
-    })
+      } else if (e.keyCode === 9) {
+        if (this.firstTab) {
+          this.firstTab = false;
+          e.preventDefault();
+          this.tabChangeService.targetFocus('consent');
+        }
+        this.document.body.classList.add('user-tabbing');
+        }
+    }
   }
 
   handleMouseDown = (): void => {
