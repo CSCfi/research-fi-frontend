@@ -67,4 +67,50 @@ export class LanguageCheck {
       }
     }
   }
+
+  translateRole(role) {
+    switch (this.localeId) {
+      case 'fi': {
+        switch (role) {
+          case 'leader': {
+            return 'Johtaja';
+          }
+          case 'participant': {
+            return 'Partneri';
+          }
+          case 'partner': {
+            return 'Partneri';
+          }
+        }
+        break;
+      }
+      case 'en': {
+        switch (role) {
+          case 'leader': {
+            return 'Leader';
+          }
+          case 'participant': {
+            return 'Participant';
+          }
+          case 'partner': {
+            return 'Partner';
+          }
+        }
+        break;
+      }
+      case 'sv': {
+        switch (role) {
+          case 'leader': {
+            return 'Leader';
+          }
+          case 'participant': {
+            return 'Participant';
+          }
+          case 'partner': {
+            return 'Partner';
+          }
+        }
+      }
+    }
+  }
 }
