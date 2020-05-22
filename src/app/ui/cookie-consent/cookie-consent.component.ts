@@ -5,10 +5,11 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -18,9 +19,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CookieConsentComponent implements OnInit, OnDestroy {
   showConsent = true;
   utilitySub: any;
+  @ViewChild('readMore') readMore: ElementRef;
+  focusSub: any;
 
   constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar) { }
+              @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar,
+              private tabChangeService: TabChangeService) { }
 
   ngOnInit(): void {
     // Bar can be hidden from privacy / cookies tab
@@ -36,6 +40,13 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       this.showConsent = localStorage.getItem('cookieConsent') === 'declined' ||
       localStorage.getItem('cookieConsent') === 'approved' ? false : true;
     }
+
+    // Focus on bar instead of skip links
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(focus => {
+      if (focus === 'consent') {
+        this.readMore.nativeElement.focus();
+      }
+    });
   }
 
   decline() {
@@ -92,6 +103,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.utilitySub?.unsubscribe();
+    this.focusSub?.unsubscribe();
   }
 
 }
