@@ -47,46 +47,45 @@
                                 class="info-icon" icon="info-circle"></fa-icon>
                             </h3>
                             <!-- Switch by recipien type -->
-                            <div class="col px-0" [ngSwitch]="item.recipientType">
+                            <div class="col-12 col-sm-9 px-0" [ngSwitch]="item.recipientType">
                                 <!-- Person & consortium -->
                                 <div class="row" *ngSwitchDefault>
-                                    <div class="col-6 col-sm-3 pr-0 td" *ngIf="item.recipient.personName?.trim().length > 0">
+                                    <div class="td col-12 col-sm-3 pr-0 py-0 py-sm-3" *ngIf="item.recipient.personName?.trim().length > 0">
                                         {{item.recipient.personName}}
                                         <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                     </div>
-                                    <div class="col-12 col-sm-4 td" *ngIf="item.recipient.affiliation?.length > 0">
+                                    <div class="td col-12 col-sm-4 py-0 py-sm-3" *ngIf="item.recipient.affiliation?.length > 0">
                                         <a *ngIf="item.recipient.organizationId" routerLink="/results/organization/{{item.recipient.organizationId}}">{{item.recipient.affiliation}}</a>
                                         <ng-container *ngIf="!item.recipient.organizationId">{{item.recipient.affiliation}}</ng-container>
                                     </div>
-                                    <div class="col-6 col-sm-3 td">
+                                    <div class="td col-12 col-sm-3 py-0 py-sm-3">
                                         {{item.recipient.shareOfFundingEur | thousandSeparator}} €
                                     </div>
                                 </div>
                                 <!-- Organization -->
                                 <div class="row" *ngSwitchCase="'organization'">
-                                    <ng-container *ngIf="item.recipient.organizations.length > 0; else noOrganizations">
-                                        <ng-container *ngFor="let org of item.recipient.organizations; let i = index;">
-                                            <div class="col-6 col-sm-3 td">
+                                    <div class="col px-0" *ngIf="item.recipient.organizations.length > 0; else noOrganizations">
+                                        <div class="row" *ngFor="let org of item.recipient.organizations; let i = index;">
+                                            <!-- Show contact person for non eu funding -->
+                                            <div class="col-6 col-sm-3 py-0 py-sm-3 td" *ngIf="!item.euFunding">
                                                 {{item.recipient.contactPersonName}}
                                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                             </div>
-                                            <div class="col-12 col-sm-3 td">
+                                            <div class="col-12 py-0 py-sm-3 td" [ngClass]="item.euFunding ? 'col-sm-5' : col-sm-3">
                                                 <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
                                                 <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
                                                 <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>
                                                 <!-- Organization country code when funder is EU -->
                                                 <ng-container *ngIf="item.euFunding && org.countryCode && org.countryCode !== 'FI'"> ({{org.countryCode}})</ng-container>
                                             </div>
-                                            <div class="col-12 col-sm-3 td">
-                                                <ng-container *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
-                                                    {{org.shareOfFundingEur | thousandSeparator}} €
-                                                </ng-container>
+                                            <div class="col-12 td col-sm-3 py-0 py-sm-3" *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
+                                                {{org.shareOfFundingEur | thousandSeparator}} €
                                             </div>
-                                            <div class="col-12 col-sm-3 td">
+                                            <div class="col-12 td col-sm-3 py-0 py-sm-3 pb-3">
                                                 {{org.role}}
                                             </div>
-                                        </ng-container>
-                                    </ng-container>
+                                        </div>
+                                    </div>
                                     <ng-template #noOrganizations>
                                         <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
                                             <h3 class="col-6 col-sm3 th">
@@ -103,7 +102,7 @@
                         </div>
                         <!-- Funding amount -->
                         <div class="row" *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
-                            <h3 class="th col-3">
+                            <h3 class="th col-12 col-sm-3">
                                 <ng-container [ngSwitch]="item.recipientType">
                                     <ng-container *ngSwitchCase="'organization'">Myönnetty summa </ng-container>
                                     <ng-container *ngSwitchDefault>Summa </ng-container>
@@ -113,7 +112,7 @@
                                 class="info-icon" icon="info-circle"></fa-icon>
                             </h3>
                             <div class="col px-0">
-                                    <div class="col-6 col-sm-3 td" [ngClass]="item.recipientType === 'organization' ? 'offset-6' : 'offset-7'">
+                                    <div class="col-12 col-sm-3 offset-0 td" [ngClass]="item.recipientType === 'organization' ? 'offset-sm-5' : 'offset-sm-7'">
                                         <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
                                     </div>
                             </div>
@@ -129,24 +128,24 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <h3 class="th col-3">Rooli Suomen Akatemian konsortiossa</h3>
-                                    <div class="col-6 col-sm-4 col-lg-5 td">
+                                    <h3 class="th col-12 col-sm-3">Rooli Suomen Akatemian konsortiossa</h3>
+                                    <div class="col-12 col-sm-4 td py-0 py-sm-3">
                                         {{item.academyConsortium}}
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <h3 class="th col-3">Muut osapuolet</h3>
+                                    <h3 class="th col-12 col-sm-3">Muut osapuolet</h3>
                                     <div class="col px-0">
                                         <div class="row" *ngFor="let consortium of item.otherConsortium">
-                                            <div class="col-6 col-sm-3 td">
+                                            <div class="col-12 col-sm-3 td py-0 py-sm-3">
                                                 {{consortium.roleInFundingGroup}}
                                             </div>
-                                            <div class="col-6 col-sm-4 td">
+                                            <div class="col-12 col-sm-4 td py-0 py-sm-3">
                                                 <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">{{consortium.consortiumOrganizationNameFi}}</a>
                                                 <ng-container *ngIf="!consortium.consortiumOrganizationId">{{consortium.consortiumOrganizationNameFi}}</ng-container>
                                                     ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1"></ng-container>
                                             </div>
-                                            <div class="col-6 col-sm-3 td">
+                                            <div class="col-12 col-sm-3 td py-0 py-sm-3 pb-3">
                                                 {{consortium.shareOfFundingInEur | thousandSeparator}} €
                                             </div>
                                         </div>
@@ -158,7 +157,7 @@
                     <!-- Funder -->
                     <div class="content" *ngIf="item.funder && funderFields.length > 0">
                         <div class="row">
-                            <h2 class="th col-3">
+                            <h2 class="th col-12 col-sm-3">
                                 Rahoittaja
                                 <fa-icon tabindex="0" tooltip="Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa." placement="right" 
                                 class="info-icon" icon="info-circle"></fa-icon>
