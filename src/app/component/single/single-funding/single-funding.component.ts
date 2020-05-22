@@ -46,7 +46,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   funder =  [
-    {label: 'Nimi', field: 'nameFi'},
+    // {label: 'Nimi', field: 'nameFi'},
     {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi', tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.'},
     {label: 'Haku', field: 'callProgrammeNameFi', tooltipFi: 'Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.'}
   ];
@@ -122,6 +122,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
         this.filterData();
+        console.log(this.responseData.fundings[0]);
       }
     },
       error => this.errorMessage = error as any);
