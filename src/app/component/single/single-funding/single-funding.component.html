@@ -27,7 +27,7 @@
                                     {{row.label}}
                                     <ng-container *ngIf="row.tooltipFi">
                                         <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                        <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                        <span tabindex="0" [tooltip]="tooltipTemplate" placement="top" triggers="focus keydown" (mouseenter)="elem.blur(); elem.focus()" #elem><fa-icon  class="info-icon" icon="info-circle"></fa-icon></span>
                                     </ng-container>
                                 </h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
