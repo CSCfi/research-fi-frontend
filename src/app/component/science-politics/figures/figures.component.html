@@ -12,7 +12,7 @@
             <div class="col-12 col-lg-3 px-0 nav">
                 <div class="row d-flex justify-content-between mobile-header" *ngIf="mobile">
                     <div class="col-auto">
-                        <h1 >Tiede ja tutkimus lukuina</h1>
+                        <h1 >Lukuja tieteestä ja tutkimuksesta</h1>
                     </div>
                     <div class="col-auto dropdown">
                         <button mat-button class="dropdown" (click)="showMenu = !showMenu" href="javascript:void(0)">Hae<fa-icon class="dropdown-icon" [icon]="showMenu ? faChevronUp : faChevronDown"></fa-icon></button>
@@ -52,13 +52,13 @@
                 <main>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                         <div class="segment" id="s1">
-                            <h1 *ngIf="!mobile">Tiede ja tutkimus lukuina</h1>
+                            <h1 *ngIf="!mobile">Lukuja tieteestä ja tutkimuksesta</h1>
                             <div class="row">
                                 <div class="col p-1">
                                     <div class="base content intro">
-                                        <p>Tiede ja tutkimus lukuina -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
+                                        <p>Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
                                         <p>Tiedot perustuvat Opetushallituksen Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</p>
-                                        <p>Tiede ja tutkimus lukuina on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
+                                        <p>Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
                                         <br>
                                         <span class="strong pb-2 d-block">Aineistolähteet</span>
                                         <ul class="disc">
