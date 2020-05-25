@@ -21,7 +21,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div class="col">
                 <div class="content">
                     <div class="row" tabindex="0" #mainFocus>
-                        <mat-tab-group>
+                        <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="navigate($event)">
                             <mat-tab label="Tietosuojailmoitus">
                                 <div class="pt-4">
                                     <h2>Tietosuojailmoitus</h2>

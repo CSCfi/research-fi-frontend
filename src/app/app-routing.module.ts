@@ -124,6 +124,10 @@ const routes: Routes = [
     component: PrivacyComponent
   },
   {
+    path: 'privacy/:tab',
+    component: PrivacyComponent
+  },
+  {
     path: 'accessibility',
     component: AccessibilityComponent
   },

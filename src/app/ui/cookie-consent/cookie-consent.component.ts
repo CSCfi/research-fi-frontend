@@ -21,6 +21,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   utilitySub: any;
   @ViewChild('readMore') readMore: ElementRef;
   focusSub: any;
+  routeSub: any;
 
   constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar,
@@ -104,6 +105,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.utilitySub?.unsubscribe();
     this.focusSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
 }
