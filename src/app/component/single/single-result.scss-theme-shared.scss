@@ -20,6 +20,10 @@
                 }
             }
             
+            aside a {
+                color: mat-color($primary);
+            }
+
             .mat-raised-button.mat-primary {
                 background: white;
                 color: mat-color($primary);
