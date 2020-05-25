@@ -41,7 +41,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ];
 
   serviceFields = [
-    {label: 'Palvelun kuvaus', field: 'description'},
+    {label: 'Palvelun kuvaus', field: 'descriptionFi'},
     {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
     {label: 'Palvelun tyyppi', field: 'type'},
   ];
@@ -122,11 +122,11 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
       if (this.responseData.infrastructures[0]) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.infrastructures[0].name + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.infrastructures[0].nameFi + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.infrastructures[0].name + ' - Research.fi'); // English name??
+            this.setTitle(this.responseData.infrastructures[0].nameFi + ' - Research.fi'); // English name??
             break;
           }
 
