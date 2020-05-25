@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule  } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -41,6 +42,7 @@ import { CookieConsentComponent } from './cookie-consent/cookie-consent.componen
     MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
     FormsModule,
     FontAwesomeModule,
     ClickOutsideModule
