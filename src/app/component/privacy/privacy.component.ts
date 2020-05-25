@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-privacy',
@@ -26,16 +27,25 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   matomoUrl: string;
   consentStatus: string;
   consentStatusSub: any;
+  routeSub: Subscription;
+  selectedIndex: any;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-              private privacyService: PrivacyService, private snackBar: MatSnackBar) {
+              private privacyService: PrivacyService, private snackBar: MatSnackBar, private route: ActivatedRoute,
+              private router: Router) {
     this.locale = localeId;
     this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
                       this.locale + '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif';
    }
 
   ngOnInit(): void {
+    // Open tab
+    this.routeSub = this.route.params.subscribe(param => {
+      console.log(param);
+      this.selectedIndex = param.tab || 0;
+    });
+
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Tietosuoja - Tiedejatutkimus.fi');
@@ -70,6 +80,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.privacyService.hideConsentBar(true);
     this.privacyService.changeConsentStatus(status);
+  }
+
+  // Add params. Enables linking to tab
+  navigate(event) {
+    this.router.navigate(['privacy', event.index]);
   }
 
   decline() {
@@ -121,6 +136,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
     this.consentStatusSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
 }
