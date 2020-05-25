@@ -22,7 +22,7 @@
          </div>
          <main class="col-12 col-md-8">
              <div *ngFor="let item of [responseData.infrastructures[0]]">
-                 <h1 class="result-header">{{item.name}}</h1>
+                 <h1 class="result-header">{{item.nameFi}}</h1>
                  <div id="info" class="table">
                      <div class="content">
                          <ng-container *ngFor="let row of infoFields; let i = index;">

@@ -14,8 +14,12 @@ export class Infrastructure {
 
     constructor(
         public id: string,
-        public name: string,
-        public description: string,
+        public nameFi: string,
+        public nameEn: string,
+        public nameSv: string,
+        public descriptionFi: string,
+        public descriptionEn: string,
+        public descriptionSv: string,
         public scientificDescription: string,
         public startYear: string,
         public endYear: string,
@@ -56,9 +60,13 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const keywordsString = keywords?.join(', ');
 
         return new Infrastructure(
-            item.name,
-            item.name,
-            item.description,
+            this.lang.testLang('nameFi', item),
+            this.lang.testLang('nameFi', item),
+            this.lang.testLang('nameEn', item),
+            this.lang.testLang('nameSv', item),
+            this.lang.testLang('descriptionFi', item),
+            this.lang.testLang('descriptionEn', item),
+            this.lang.testLang('descriptionSv', item),
             item.scientificDescription,
             item.startYear,
             item.endYear,

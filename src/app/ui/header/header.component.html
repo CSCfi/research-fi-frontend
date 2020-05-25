@@ -6,7 +6,7 @@
 # :license: MIT -->
 
 <header class="wrapper">
-    <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
+    <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'" #srHelper>
         <ul>
             <li *ngIf="hideInputSkip"><a (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää hakukenttään</a></li>
             <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää sivun pääsisältöön</a></li>
@@ -16,7 +16,7 @@
         </ul>
     </div>
 
-    <div offClick class="navbar navbar-expand-xl navbar-light row">
+    <div offClick class="navbar navbar-expand-xl navbar-light row" #mainHeader>
         <div class="logo col-7 col-xs-9 col-xl-4">
             <div class="row logo-wrapper">
                 <div class="col col-auto p-0">
@@ -78,7 +78,7 @@
                                 </a>
                                 <ul class="dropdown" *ngIf="dropdownOpen">
                                     <li><a routerLink="/science-innovation-policy/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>
-                                    <li><a routerLink="/science-innovation-policy/science-research-figures/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tiede ja tutkimus lukuina</a></li>
+                                    <li><a routerLink="/science-innovation-policy/science-research-figures/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Lukuja tieteestä ja tutkimuksesta</a></li>
                                 </ul>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0">
@@ -111,5 +111,5 @@
             </div>
         </nav>
     </div>
-    <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()"></div>
+    <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
 </header>

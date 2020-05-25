@@ -53,6 +53,7 @@
 
         .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']) {
             outline: 5px auto -webkit-focus-ring-color!important;
+            background: none !important;
         }
 
         .mat-expansion-panel-content {
