@@ -35,53 +35,52 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
     {label: 'Toiminta alkanut', field: 'startYear'},
     {label: 'Toiminta päättynyt', field: 'endYear'},
-    {label: 'Vastuuorganisaatio', field: 'responsibleOrganizationNameFi'},
+    {label: 'Vastuuorganisaatio', field: 'responsibleOrganization'},
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'Avainsanat', field: 'keywordsString'},
   ];
-  
+
   serviceFields = [
     {label: 'Palvelun kuvaus', field: 'description'},
     {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
     {label: 'Palvelun tyyppi', field: 'type'},
   ];
-  
+
   servicePointContactFields = [
     {label: 'Kuvaus', field: 'description'},
     {label: 'Sähköpostiosoite', field: 'emailAddress'},
     {label: 'Puhelinnumero', field: 'phoneNumber'},
     {label: 'Vierailuosoite', field: 'visitingAddress'},
   ];
-  
+
   servicePointInfoFields = [
     {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
     {label: 'Linkki', field: 'infoUrl'},
     {label: 'Koordinoiva organisaatio', field: '?'},
-  ]
-  
+  ];
+
   fieldsOfScience = [
     {label: 'Tieteenalat', field: '?'},
-  ]
-  
+  ];
+
   classificationFields = [
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'ESFRI-luokitus', field: '?'},
     {label: 'MERIL-luokitus', field: '?'},
-  ]
-  
+  ];
+
   contactFields = [
     {label: 'Sähköpostiosoite', field: '?'},
     {label: 'Puhelinnumero', field: '?'},
     {label: 'Vierailuosoite', field: '?'},
-  ]
-  
+  ];
+
   otherFields = [
     {label: 'Tunnisteet', field: '?'},
     {label: 'Osa kansainvälistä infrastruktuuria', field: '?'},
     {label: 'Edeltävä tutkimusinfrastruktuuri', field: '?'},
     {label: 'Lisätietoja', field: '?'},
-
-  ]
+  ];
 
   linkFields = [
   ];

@@ -29,8 +29,9 @@
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
-                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'">
-                                        {{item[row.field]}}
+                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" [ngSwitch]="row.field">
+                                        <ng-container *ngSwitchCase="'responsibleOrganization'">{{item[row.field].responsibleOrganizationNameFi}}</ng-container>
+                                        <ng-container *ngSwitchDefault>{{item[row.field]}}</ng-container>
                                     </p>
                                     <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
                                        (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
@@ -176,19 +177,21 @@
                     <app-share></app-share>
                 </mat-card>
             </aside>
-             <!-- Source -->
-             <aside>
-                 <mat-card>
-                     <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
-                     <div *ngFor="let source of [responseData.infrastructures[0]]">
-                         <p *ngIf="source.responsibleOrganizationNameFi?.trim().length > 0; else noSource">{{source.responsibleOrganizationNameFi}}</p>
-                         <ng-template #noSource>
-                             <p class="font-italic m-0">Infrastruktuuritiedon lähde puuttuu.</p>
-                         </ng-template>
-                     </div>
-                     <div class="clear"></div>
-                 </mat-card>
-             </aside>
-         </div>
-     </div>
+            <!-- Source -->
+            <aside>
+                <mat-card>
+                    <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
+                    <div *ngFor="let source of [responseData.infrastructures[0]]">
+                        <p *ngIf="source.responsibleOrganization.responsibleOrganizationNameFi?.trim().length > 0; else noSource">
+                            {{source.responsibleOrganization.responsibleOrganizationNameFi}}
+                        </p>
+                        <ng-template #noSource>
+                            <p class="font-italic m-0">Infrastruktuuritiedon lähde puuttuu.</p>
+                        </ng-template>
+                    </div>
+                    <div class="clear"></div>
+                </mat-card>
+            </aside>
+        </div>
+    </div>
  </div>
