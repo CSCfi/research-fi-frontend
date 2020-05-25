@@ -19,12 +19,8 @@
             color: mat-color($primary);
         }
 
-        .nav a, .content a {
+        .nav a, .content:not(.intro) a {
             color: mat-contrast($primary, 300);
-        }
-
-        .intro a {
-            color: mat-color($primary);
         }
 
         .active {
