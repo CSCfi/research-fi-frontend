@@ -42,7 +42,6 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     // Open tab
     this.routeSub = this.route.params.subscribe(param => {
-      console.log(param);
       this.selectedIndex = param.tab || 0;
     });
 
