@@ -22,9 +22,7 @@ export class Infrastructure {
         public acronym: string,
         public finlandRoadmap: string,
         public urn: string,
-        public responsibleOrganizationNameFi: string,
-        public responsibleOrganizationNameSv: string,
-        public responsibleOrganizationNameEn: string,
+        public responsibleOrganization: Object,
         public statCenterId: string,
         public keywords: string[],
         public services: InfraService[],
@@ -43,6 +41,15 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const services: InfraService[] = [];
         const keywords: string[] = [];
 
+        if (item.responsibleOrganization) {
+            item.responsibleOrganization[0].responsibleOrganizationNameFi =
+                this.lang.testLang('responsibleOrganizationNameFi', item.responsibleOrganization[0]);
+            item.responsibleOrganization[0].responsibleOrganizationNameSv =
+                this.lang.testLang('responsibleOrganizationNameSv', item.responsibleOrganization[0]);
+            item.responsibleOrganization[0].responsibleOrganizationNameEn =
+                this.lang.testLang('responsibleOrganizationNameEn', item.responsibleOrganization[0]);
+        }
+
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
         item.keywords?.forEach(obj => keywords.push(obj.keyword));
 
@@ -58,9 +65,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item.acronym,
             item.finlandRoadmap,
             item.urn,
-            this.lang.testLang('responsibleOrganizationNameFi', item),
-            this.lang.testLang('responsibleOrganizationNameSv', item),
-            this.lang.testLang('responsibleOrganizationNameEn', item),
+            item.responsibleOrganization[0],
             item.TKOppilaitosTunnus,
             keywords,
             services,
