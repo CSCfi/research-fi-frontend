@@ -16,7 +16,7 @@
     height: 100vh;
 }
 
-a:hover {
+a.logo-text:hover {
     text-decoration: none;
 }
 
@@ -188,6 +188,7 @@ ul.dropdown {
 ul.dropdown li a {
     display: block;
     padding: 0.6rem 1rem;
+    text-decoration: none;
 }
 
 .disabled-link {
