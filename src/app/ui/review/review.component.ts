@@ -35,13 +35,14 @@ export class ReviewComponent implements OnInit {
   equals: number;
   success = false;
 
+  // TODO: Translate
   targets: string[] = ['Saavutettavuudesta', 'Tietosuojasta', 'Virheellisestä tiedosta', 'Muu palaute'];
   location: string;
 
   constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router ) { }
 
   ngOnInit(): void {
-    console.log(this.router.url)
+    // Easy robot check
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
     this.equals = this.math1 + this.math2;
@@ -59,12 +60,18 @@ export class ReviewComponent implements OnInit {
     if (this.underReview && this.reviewChecked && !this.mathError) {
       // this.underReview = false;
       this.success = true;
-      console.log('jahuu');
     }
   }
 
   getRoute() {
     return this.router.url;
+  }
+
+  toggleEmail(event) {
+    // Remove email warning if visitor unchecks email
+    if (this.emailError && !event.checked) {
+      this.emailError = false;
+    }
   }
 
   validate() {
@@ -79,7 +86,6 @@ export class ReviewComponent implements OnInit {
 
   validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    console.log(re.test(String(email).toLowerCase()))
     return re.test(String(email).toLowerCase());
   }
 
