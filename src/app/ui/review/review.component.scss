@@ -32,6 +32,10 @@ app-review {
     .radio-button {
         margin: 5px 0;
     }
+
+    .mat-checkbox-layout .mat-checkbox-label {
+        white-space: initial;
+    }
     
     mat-form-field.mat-focused {
         outline: none!important;
