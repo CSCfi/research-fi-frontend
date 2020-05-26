@@ -21,7 +21,7 @@ export class Infrastructure {
         public endYear: string,
         public acronym: string,
         public finlandRoadmap: string,
-        public ESFRICodes: string,
+        public ESFRICode: string,
         public urn: string,
         public responsibleOrganization: string,
         public statCenterId: string,
@@ -49,6 +49,9 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             responsibleOrganization = this.lang.testLang('responsibleOrganizationName', item.responsibleOrganization[0]);
         }
 
+        // Assign if available
+        const esfriCode = item.ESFRICodes?.length > 0 ? item.ESFRICodes.map(x => x.ESFRICode)[0] : '';
+
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
         item.keywords?.forEach(obj => keywords.push(obj.keyword));
 
@@ -63,7 +66,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item.endYear,
             item.acronym,
             item.finlandRoadmap,
-            item.ESFRICodes,
+            esfriCode,
             item.urn,
             responsibleOrganization,
             item.TKOppilaitosTunnus,

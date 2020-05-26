@@ -64,7 +64,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   classificationFields = [
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
-    {label: 'ESFRI-luokitus', field: 'ESFRICodes'},
+    {label: 'ESFRI-luokitus', field: 'ESFRICode'},
     {label: 'MERIL-luokitus', field: '?'},
   ];
 
@@ -184,9 +184,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.infrastructures[0];
     source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
-    if (!source.ESFRICodes) {
-      source.ESFRICodes = '-';
-    }
   }
 
   expandInfoDescription(idx: number) {
