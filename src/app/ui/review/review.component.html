@@ -59,7 +59,7 @@
           class="form-group"
           [(ngModel)]="locationTarget"
           required="true">
-            <mat-radio-button class="radio-button" [value]="'GET URL'">Nykyinen sijainti</mat-radio-button>
+            <mat-radio-button class="radio-button" [value]="'currentRoute'">Nykyinen sijainti</mat-radio-button>
             <mat-radio-button class="radio-button" [value]="'other'">Muu</mat-radio-button>
             <!-- Show input only if other location is selected -->
             <div class="form-group left-spacer" *ngIf="locationTarget === 'other'">
@@ -106,7 +106,7 @@
         <p>{{reviewContent}}</p>
         <ng-container *ngIf="locationTarget">
           <h4>Palautetta koskeva sijainti verkkopalvelussa</h4>
-          <p>{{locationTarget}}</p>
+          <p>{{location}}</p>
         </ng-container>
         <ng-container *ngIf="emailValue">
           <h4>Toivon yhteydenottoa palautteestani</h4>
@@ -120,7 +120,7 @@
           </div>
         </div>
 
-        <div class="content" [class.warning]="mathError">
+        <div class="content pt-3" [class.warning]="mathError">
           <label class="section-label" id="math-problem">Varmistus, että palautteenantaja on ihminen *</label>
           <div class="" aria-labelledby="math-problem">
             {{math1}} + {{math2}} = <input type="number" [(ngModel)]="mathInput">
