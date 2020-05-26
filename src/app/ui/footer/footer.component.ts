@@ -38,7 +38,6 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     this.translateContent();
-    this.toggleReview();
   }
 
   translateContent() {
