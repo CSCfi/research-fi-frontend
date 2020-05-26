@@ -67,6 +67,7 @@ export class FooterComponent implements OnInit {
       this.betaReviewDialogRef = this.dialog.open(ReviewComponent, {
         maxWidth: '800px',
         minWidth: '400px',
+        minHeight: '60vh'
       });
     }
 
