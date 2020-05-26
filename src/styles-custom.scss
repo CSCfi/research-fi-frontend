@@ -117,11 +117,6 @@ mark, .mark {
     color: map-get($researchfi-primary, 500);
 }
 
-// Dialog
-body .mat-dialog-container {
-    min-width: 400px;
-}
-
 // Mat select
 .mat-select-panel {
     background: white!important;
