@@ -22,12 +22,16 @@ export class Infrastructure {
         public acronym: string,
         public finlandRoadmap: string,
         public ESFRICode: string,
+        public merilCode: string,
         public urn: string,
         public responsibleOrganization: string,
         public statCenterId: string,
+        public replacingInfraStructure: string,
         public keywords: string[],
+        public fieldsOfScience: object[],
         public services: InfraService[],
         public keywordsString: string,
+        public fieldsOfScienceString: string,
     ) {}
 }
 
@@ -42,6 +46,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
         const services: InfraService[] = [];
         const keywords: string[] = [];
+        const fieldsOfScience: string[] = [];
 
         // Init and assign if available
         let responsibleOrganization = '';
@@ -54,8 +59,11 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
         item.keywords?.forEach(obj => keywords.push(obj.keyword));
+        item.fieldsOfScience?.forEach(obj => fieldsOfScience.push(obj.name_fi));
 
         const keywordsString = keywords?.join(', ');
+
+        const fieldsOfScienceString = fieldsOfScience?.join(', ');
 
         return new Infrastructure(
             this.lang.testLang('name', item),
@@ -67,12 +75,16 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item.acronym,
             item.finlandRoadmap,
             esfriCode,
+            item.merilCode,
             item.urn,
             responsibleOrganization,
             item.TKOppilaitosTunnus,
+            item.replacingInfraStructure,
             keywords,
+            item.fieldsOfScience,
             services,
             keywordsString,
+            fieldsOfScienceString
         );
     }
 }

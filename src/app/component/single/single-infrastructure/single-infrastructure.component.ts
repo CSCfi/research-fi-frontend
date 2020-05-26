@@ -55,17 +55,17 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   servicePointInfoFields = [
     {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
     {label: 'Linkki', field: 'infoUrl'},
-    {label: 'Koordinoiva organisaatio', field: '?'},
+    {label: 'Koordinoiva organisaatio', field: 'coOrg'},
   ];
 
   fieldsOfScience = [
-    {label: 'Tieteenalat', field: '?'},
+    {label: 'Tieteenalat', field: 'fieldsOfScienceString'},
   ];
 
   classificationFields = [
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'ESFRI-luokitus', field: 'ESFRICode'},
-    {label: 'MERIL-luokitus', field: '?'},
+    {label: 'MERIL-luokitus', field: 'merilCode'},
   ];
 
   contactFields = [
@@ -75,9 +75,9 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ];
 
   otherFields = [
-    {label: 'Tunnisteet', field: '?'},
+    {label: 'Tunnisteet', field: 'urn'},
     {label: 'Osa kansainvälistä infrastruktuuria', field: '?'},
-    {label: 'Edeltävä tutkimusinfrastruktuuri', field: '?'},
+    {label: 'Edeltävä tutkimusinfrastruktuuri', field: 'replacingInfrastructure'},
     {label: 'Lisätietoja', field: '?'},
   ];
 
