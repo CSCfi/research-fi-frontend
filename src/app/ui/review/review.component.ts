@@ -7,6 +7,7 @@
 
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-review',
@@ -35,10 +36,12 @@ export class ReviewComponent implements OnInit {
   success = false;
 
   targets: string[] = ['Saavutettavuudesta', 'Tietosuojasta', 'Virheellisestä tiedosta', 'Muu palaute'];
+  location: string;
 
-  constructor(private dialogRef: MatDialogRef<ReviewComponent>) { }
+  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router ) { }
 
   ngOnInit(): void {
+    console.log(this.router.url)
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
     this.equals = this.math1 + this.math2;
@@ -60,7 +63,12 @@ export class ReviewComponent implements OnInit {
     }
   }
 
+  getRoute() {
+    return this.router.url;
+  }
+
   validate() {
+    this.location = this.locationTarget === 'other' ? this.locationValue : this.getRoute();
     this.reviewTargetError = !this.reviewTarget ? true : false;
     this.reviewContentError = !this.reviewContent ? true : false;
     this.emailError = this.contactChecked && !this.validateEmail(this.emailValue) ? true : false;
