@@ -45,7 +45,7 @@ import { CookieConsentComponent } from './cookie-consent/cookie-consent.componen
     MatCheckboxModule,
     FormsModule,
     FontAwesomeModule,
-    ClickOutsideModule
+    ClickOutsideModule,
   ],
   exports: [LayoutComponent],
   entryComponents: [ReviewComponent]
