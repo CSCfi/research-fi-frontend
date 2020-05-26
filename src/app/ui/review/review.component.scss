@@ -6,13 +6,17 @@
 //  :license: MIT
 
 app-review {
-    fa-icon.smile {
-        font-size: 3.5rem;
-        color: #40CBB3;
+    .mat-dialog-content {
+        max-height: calc(100vh - 8vh);
     }
     
     h3 {
         padding-bottom: .5rem;
+    }
+
+    span.thanks {
+        font-size: 1.6rem;
+        padding: 4rem 0 2rem;
     }
     
     .section-label {
@@ -43,6 +47,12 @@ app-review {
 
     .review-check {
         margin-top: 3rem;
+    }
+
+    .content.warning {
+        outline: 1px solid red;
+        margin: 0.5rem -.5rem;
+        padding: .5rem;
     }
 }
 
