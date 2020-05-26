@@ -55,14 +55,15 @@ export class OrganizationAdapter implements Adapter<Organization> {
     constructor(private lang: LanguageCheck) {}
     adapt(item: any): Organization {
         // Join predecessors with comma
+        console.log(item);
         const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
         const related = item.related ? item.related.map(x => x.nameFi.trim()).join(', '): '';
 
         return new Organization(
             item.organizationId,
-            this.lang.testLang('nameFi', item).trim(),
-            this.lang.testLang('nameEn', item),
-            this.lang.testLang('nameSv', item),
+            this.lang.testLang('name', item).trim(),
+            this.lang.testLang('name', item),
+            this.lang.testLang('name', item),
             item.variantNames,
             item.established,
             item.organizationBackground,
