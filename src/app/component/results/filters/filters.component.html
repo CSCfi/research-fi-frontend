@@ -98,7 +98,8 @@
                         </div>
                     </div>
                  </ng-container>
-                    <mat-selection-list>
+                 <!-- TODO: Change aria label field when content available -->
+                    <mat-selection-list [attr.aria-label]="filter.field">
                         <!-- Options -->
                         <mat-list-option checkboxPosition="before" *ngFor="let item of responseData.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
                         [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)" (keydown.enter)="selectionChange(filter.field, item.key)">
@@ -136,7 +137,8 @@
                             <label for="filter-query-{{i}}{{k}}" class="sr-only">Hae</label>
                             <input [id]="'filter-query-' + i + k" #filterSearch *ngIf="item.subData.length > 5 || item.original?.length > 5" placeholder="Hae" autocomplete="off"
                             (keyup)="subFilterInput($event, filter.field, item.key)" class="filter-search" [value]="item.filterTerm ? item.filterTerm : ''">
-                            <mat-selection-list>
+                            <!-- TODO: Change aria label field when content available -->
+                            <mat-selection-list [attr.aria-label]="filter.field">
                                 <!-- Select all -->
                                 <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" 
                                 [selected]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')" [id]="filter.field + 'all' | replaceSpace">
