@@ -29,11 +29,11 @@
         </div>          
         <div class="col col-7 title">
             <a routerLink="/results/organization/{{organization.id}}">
-              <h3 class="result-title" [innerHtml]="organization.nameFi | highlight: input"></h3>
+              <h3 class="result-title" [innerHtml]="organization.name | highlight: input"></h3>
           </a>
         </div>          
         <div class="col col-4">
-            <span [innerHtml]="organization.sectorNameFi | highlight: input"></span>
+            <span [innerHtml]="organization.sectorName | highlight: input"></span>
         </div>
     </div>
   </div>    

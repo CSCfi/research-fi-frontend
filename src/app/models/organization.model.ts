@@ -5,7 +5,7 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { LanguageCheck } from './utils';
 
@@ -13,9 +13,7 @@ export class Organization {
 
     constructor(
         public id: string,
-        public nameFi: string,
-        public nameEn: string,
-        public nameSv: string,
+        public name: string,
         public variantNames: string,
         public established: string,
         public background: string,
@@ -27,9 +25,7 @@ export class Organization {
         public postalAddress: string,
         public businessId: string,
         public statCenterId: string,
-        public sectorNameFi: string,
-        public sectorNameEn: string,
-        public sectorNameSv: string,
+        public sectorName: string,
         public staffCountAsFte: number,
         public staffCountAsPercentage: number,
         public staffYear: string,
@@ -52,17 +48,16 @@ export class Organization {
 })
 
 export class OrganizationAdapter implements Adapter<Organization> {
-    constructor(private lang: LanguageCheck) {}
+    constructor(private lang: LanguageCheck, @Inject( LOCALE_ID ) protected localeId: string) {}
     adapt(item: any): Organization {
         // Join predecessors with comma
+        const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
         const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
         const related = item.related ? item.related.map(x => x.nameFi.trim()).join(', '): '';
 
         return new Organization(
             item.organizationId,
-            this.lang.testLang('nameFi', item).trim(),
-            this.lang.testLang('nameEn', item),
-            this.lang.testLang('nameSv', item),
+            this.lang.testLang('name' + locale, item).trim(),
             item.variantNames,
             item.established,
             item.organizationBackground,
@@ -74,9 +69,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.postalAddress,
             item.businessId,
             item.TKOppilaitosTunnus,
-            item.sectorNameFi,
-            item.sectorNameEn,
-            item.sectorNameSv,
+            this.lang.testLang('sectorName' + locale, item),
             item.staffCountAsFte,
             item.staffCountAsPercentage,
             item.staffYear,
