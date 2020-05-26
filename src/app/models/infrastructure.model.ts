@@ -14,19 +14,16 @@ export class Infrastructure {
 
     constructor(
         public id: string,
-        public nameFi: string,
-        public nameEn: string,
-        public nameSv: string,
-        public descriptionFi: string,
-        public descriptionEn: string,
-        public descriptionSv: string,
+        public name: string,
+        public description: string,
         public scientificDescription: string,
         public startYear: string,
         public endYear: string,
         public acronym: string,
         public finlandRoadmap: string,
+        public ESFRICodes: string,
         public urn: string,
-        public responsibleOrganization: Object,
+        public responsibleOrganization: string,
         public statCenterId: string,
         public keywords: string[],
         public services: InfraService[],
@@ -41,17 +38,15 @@ export class Infrastructure {
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
     constructor(private isa: InfraServiceAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Infrastructure {
+        console.log(item)
 
         const services: InfraService[] = [];
         const keywords: string[] = [];
 
+        // Init and assign if available
+        let responsibleOrganization = '';
         if (item.responsibleOrganization) {
-            item.responsibleOrganization[0].responsibleOrganizationNameFi =
-                this.lang.testLang('responsibleOrganizationNameFi', item.responsibleOrganization[0]);
-            item.responsibleOrganization[0].responsibleOrganizationNameSv =
-                this.lang.testLang('responsibleOrganizationNameSv', item.responsibleOrganization[0]);
-            item.responsibleOrganization[0].responsibleOrganizationNameEn =
-                this.lang.testLang('responsibleOrganizationNameEn', item.responsibleOrganization[0]);
+            responsibleOrganization = this.lang.testLang('responsibleOrganizationName', item.responsibleOrganization[0]);
         }
 
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
@@ -60,20 +55,17 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const keywordsString = keywords?.join(', ');
 
         return new Infrastructure(
-            this.lang.testLang('nameFi', item),
-            this.lang.testLang('nameFi', item),
-            this.lang.testLang('nameEn', item),
-            this.lang.testLang('nameSv', item),
-            this.lang.testLang('descriptionFi', item),
-            this.lang.testLang('descriptionEn', item),
-            this.lang.testLang('descriptionSv', item),
+            this.lang.testLang('name', item),
+            this.lang.testLang('name', item),
+            this.lang.testLang('description', item),
             item.scientificDescription,
             item.startYear,
             item.endYear,
             item.acronym,
             item.finlandRoadmap,
+            item.ESFRICodes,
             item.urn,
-            item.responsibleOrganization[0],
+            responsibleOrganization,
             item.TKOppilaitosTunnus,
             keywords,
             services,

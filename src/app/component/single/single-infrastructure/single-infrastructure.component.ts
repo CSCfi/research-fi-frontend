@@ -36,12 +36,11 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Toiminta alkanut', field: 'startYear'},
     {label: 'Toiminta päättynyt', field: 'endYear'},
     {label: 'Vastuuorganisaatio', field: 'responsibleOrganization'},
-    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'Avainsanat', field: 'keywordsString'},
   ];
 
   serviceFields = [
-    {label: 'Palvelun kuvaus', field: 'descriptionFi'},
+    {label: 'Palvelun kuvaus', field: 'description'},
     {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
     {label: 'Palvelun tyyppi', field: 'type'},
   ];
@@ -65,7 +64,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   classificationFields = [
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
-    {label: 'ESFRI-luokitus', field: '?'},
+    {label: 'ESFRI-luokitus', field: 'ESFRICodes'},
     {label: 'MERIL-luokitus', field: '?'},
   ];
 
@@ -120,13 +119,14 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.infrastructures[0]) {
+        console.log(this.responseData.infrastructures[0])
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.infrastructures[0].nameFi + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.infrastructures[0].nameFi + ' - Research.fi'); // English name??
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Research.fi'); // English name??
             break;
           }
 
@@ -184,6 +184,9 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.infrastructures[0];
     source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+    if (!source.ESFRICodes) {
+      source.ESFRICodes = '-';
+    }
   }
 
   expandInfoDescription(idx: number) {
@@ -204,5 +207,12 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   serviceExpandId(serviceId: number, fieldId: number) {
     return this.serviceFields.length * serviceId + fieldId;
+  }
+
+  templateEmptyCheck(content: string) {
+    return content !== '0' &&
+           content !== '' &&
+           content !== ' ' &&
+           content !== '#N/A';
   }
 }
