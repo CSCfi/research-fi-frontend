@@ -76,7 +76,7 @@
           <strong class="warning-msg d-block" *ngIf="emailError">Virheellinen sähköpostiosoite.</strong>
           <label class="section-label pb-1" id="contact">Toivon yhteydenottoa palautteestani</label>
           <div class="form-group" aria-labelledby="contact">
-            <mat-checkbox [(ngModel)]="contactChecked">Valitse tämä, jos toivot, että otamme sinuun yhteyttä</mat-checkbox>
+            <mat-checkbox [(ngModel)]="contactChecked" (change)="toggleEmail($event)">Valitse tämä, jos toivot, että otamme sinuun yhteyttä</mat-checkbox>
             <!-- Show input only if checked -->
             <div class="form-group left-spacer" *ngIf="contactChecked">
               <label class="section-label pt-1" id="email">Sähköpostiosoite</label>
