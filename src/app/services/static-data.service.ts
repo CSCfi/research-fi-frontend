@@ -182,7 +182,7 @@ export class StaticDataService {
       case 'name': {
         switch (index) {
           case 'publication': {
-            res = ['authorsText'];
+            res = [''];
             break;
           }
           case 'funding': {
