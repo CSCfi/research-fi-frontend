@@ -29,12 +29,16 @@ export class InfrastructureFilters {
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
   shapeData(data) {
+    console.log(data);
     const source = data.aggregations;
     // Year
     source.year.buckets = source.year.years.buckets;
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
+    // Field of science
+    source.field = source.infraField.infraFields;
     source.shaped = true;
+    console.log(source);
     return source;
   }
 
