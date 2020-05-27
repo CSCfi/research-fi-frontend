@@ -314,14 +314,22 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             }
           });
 
-          // Find duplicates and filter authors with subUnit
-          const duplicates = authorArr.filter((obj, index, self) =>
-            index === self.findIndex((t) => (
-             t.author === obj.author && t.subUnit !== null
-            ))
-          );
 
-          authorArr = duplicates.length > 0 ? duplicates : authorArr;
+          // Filter all authors with subUnit
+          const subUnits = authorArr.filter(obj => obj.subUnit !== null);
+
+          // Look through all authors
+          authorArr.forEach(obj => {
+            // Check if author with same name exists with subUnit
+            if (subUnits.findIndex(withSub => withSub.author === obj.author) < 0) {
+              // Add it to the list if not
+              subUnits.push(obj);
+            }
+          });
+
+          // Replace author list without duplicates
+          authorArr = subUnits;
+
 
           // authorArr = authorArr.filter(x => x.subUnit !== null);
           this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
