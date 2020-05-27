@@ -61,6 +61,7 @@
     "mississippi": "^4.0.0",
     "ng-click-outside": "^6.0.0",
     "ngx-bootstrap": "^5.3.2",
+    "nodemailer": "^6.4.6",
     "popper.js": "^1.16.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.5",

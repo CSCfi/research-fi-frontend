@@ -1,5 +1,12 @@
 {
     "apiUrl": "<API_HOST>/portalapi/",
     "buildInfo": "<BUILD_INFO>",
-    "environmentName": "local|test|production"
+    "environmentName": "local|test|production",
+    "email": {
+        "host": "<smtp host>",
+        "port": 25,
+        "username": "<optional username>",
+        "password": "<optional password>",
+        "receiver": "<receiver email address>"
+    }
 }

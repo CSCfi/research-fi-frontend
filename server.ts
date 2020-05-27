@@ -23,6 +23,7 @@ import * as compression from 'compression';
 import * as helmet from 'helmet';
 import {join} from 'path';
 import { EXPRESS_HTTP_PORT } from './src/app/app.global';
+import { EmailService } from './src/app/services/email.service';
 
 enableProdMode();
 
@@ -179,6 +180,41 @@ routes.forEach((route) => {
       });
     });
   }
+});
+
+// Send email.
+// Email server configuration is read from file config.json.
+// Sending of email is doen in EmailService using nodemailer.
+const emailService = new EmailService();
+app.post("/sendmail", (req, res) => {
+  const fs = require('fs');
+  fs.readFile(DIST_FOLDER + '/browser/fi/assets/config/config.json', (err, data) => {
+    if (err) {
+      let errorMsg = 'Email: Could not open config.json';
+      console.error(errorMsg);
+      res.status(500).send({ error: errorMsg });
+    } else { 
+      let appConfig = JSON.parse(data);
+
+      if (!appConfig['email']) {
+        let errorMsg = 'Email: Could not find configuration in config.json';
+        console.error(errorMsg);
+        res.status(500).send({ error: errorMsg });
+      } else {
+        let host = appConfig['email']['host'];
+        let port = appConfig['email']['port'];
+        let username = appConfig['email']['username'];
+        let password = appConfig['email']['password'];
+        let receiver = appConfig['email']['receiver'];
+
+        let user = req.body;
+        emailService.sendMail(host, port, username, password, receiver, user, info => {
+          console.log('Email: Message sent to ' + receiver + ' via ' + host + ':' + port);
+          res.send(info);
+        })
+      }
+    }
+  });
 });
 
 // Start up the Node server
