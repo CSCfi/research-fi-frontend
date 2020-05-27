@@ -320,9 +320,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
              t.author === obj.author && t.subUnit !== null
             ))
           );
-
-          console.log(authorArr.filter(z => z.author !== duplicates.find(y => y.author)));
-          // console.log(authorArr);
           authorArr = duplicates.length > 0 ? duplicates : authorArr;
 
           // authorArr = authorArr.filter(x => x.subUnit !== null);
