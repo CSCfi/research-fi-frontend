@@ -211,7 +211,7 @@ export class StaticDataService {
             break;
           }
           case 'infrastructure': {
-            res = ['name', 'acronym', 'services.serviceName', 'services.serviceAcronym'];
+            res = ['nameFi', 'nameSv', 'nameEn', 'acronym', 'services.serviceName', 'services.serviceAcronym'];
             break;
           }
           case 'organization': {
