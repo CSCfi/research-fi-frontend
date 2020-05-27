@@ -210,6 +210,19 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     return content !== '0' &&
            content !== '' &&
            content !== ' ' &&
-           content !== '#N/A';
+           content !== '#N/A' &&
+           content !== null &&
+           content !== undefined;
+  }
+
+  checkServicePointContent(content: object) {
+    let res = false;
+    Object.keys(content).forEach(key => {
+      if (this.templateEmptyCheck(content[key])) {
+        res = true;
+        // How to jump out of forEach after true found??
+      }
+    });
+    return res;
   }
 }
