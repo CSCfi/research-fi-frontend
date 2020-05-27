@@ -151,18 +151,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
              this.responseData.infrastructures[0][item.field] !== '#N/A';
     };
 
-    const isNull = (obj) => Object.values(obj).every(x => (x === null));
-    // Check if every field null in service points and set flag. This is used to hide service from list
-    this.responseData.infrastructures[0].services.forEach(item => {
-
-      if (item.servicePoints.every(isNull)) {
-        const hideFlag = 'hide';
-        item.servicePoints[hideFlag] = 'true';
-      }
-    });
-    // Filter out invalid services
-    this.responseData.infrastructures[0].services = this.responseData.infrastructures[0].services.filter(
-      item => item.name !== '0' && item.name !== '#N/A');
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -184,6 +172,14 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.infrastructures[0];
     source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+
+    // Filter out empty servicepoints and empty services
+    source.services.forEach((service, idx) => {
+      source.services[idx].servicePoints =
+      service.servicePoints.map(servicePoint => this.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
+    });
+
+    source.services = source.services.map(service => this.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
   expandInfoDescription(idx: number) {
@@ -206,19 +202,21 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     return this.serviceFields.length * serviceId + fieldId;
   }
 
-  templateEmptyCheck(content: string) {
-    return content !== '0' &&
-           content !== '' &&
-           content !== ' ' &&
-           content !== '#N/A' &&
-           content !== null &&
-           content !== undefined;
+  stringHasContent(content: any) {
+    const contentString = content?.toString();
+    return contentString !== '0' &&
+           contentString !== '' &&
+           contentString !== ' ' &&
+           contentString !== '#N/A' &&
+           contentString !== '[]' &&
+           contentString !== null &&
+           contentString !== undefined;
   }
 
-  checkServicePointContent(content: object) {
+  objectHasContent(content: object) {
     let res = false;
     Object.keys(content).forEach(key => {
-      if (this.templateEmptyCheck(content[key])) {
+      if (this.stringHasContent(content[key])) {
         res = true;
         // How to jump out of forEach after true found??
       }
