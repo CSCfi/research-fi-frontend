@@ -40,7 +40,7 @@
                 <!-- <app-tooltip [title]="funding.nameFi" [description]="funding.descriptionFi" [id]="funding.id"
                 [index]="i">
                 </app-tooltip>-->
-                <a routerLink="/results/funding/{{funding.id}}" [tooltip]="funding.descriptionFi ? funding.descriptionFi : '' | cutContent: 200" 
+                <a routerLink="/results/funding/{{funding.id}}" [tooltip]="(funding.descriptionFi ? funding.descriptionFi : '') | cutContent: 200" 
                 placement="top" [isDisabled]="funding.descriptionFi?.trim().length > 0 ? false : true">
                     <h3 class="result-title" [innerHtml]="funding.nameFi | highlight: input"></h3>
                 </a>
