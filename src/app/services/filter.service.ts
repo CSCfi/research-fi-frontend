@@ -38,14 +38,13 @@ export class FilterService {
 
   private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: [], infraField: []});
+    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
-    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[],
-    infraField: any[]}) {
+    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -80,7 +79,7 @@ export class FilterService {
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword');
     // Infrastructure
     this.typeFilter = this.basicFilter(filter.type, 'services.serviceType.keyword');
-    this.infraFieldFilter = this.basicFilter(filter.infraField, 'fieldsOfScience.name' + this.localeC);
+    this.infraFieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.name' + this.localeC + '.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
   }
@@ -153,6 +152,7 @@ export class FilterService {
     field.forEach(value => {
       res.push({ term: {[path] : value}});
     });
+    console.log(res);
     return res;
   }
 
