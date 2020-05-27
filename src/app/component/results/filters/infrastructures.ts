@@ -33,13 +33,12 @@ export class InfrastructureFilters {
     // Year
     source.year.buckets = source.year.years.buckets;
     // Organization
-
+    source.organization = source.organization.organizations;
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
     source.field = source.infraField.infraFields;
     source.shaped = true;
-    // console.log(source);
     return source;
   }
 
