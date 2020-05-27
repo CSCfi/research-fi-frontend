@@ -56,7 +56,6 @@ export class OrganizationAdapter implements Adapter<Organization> {
         const nameTranslations = (({ nameFi, nameEn, nameSv }) => ({ nameFi, nameEn, nameSv }))(item);
         const key = 'name' + locale;
         delete nameTranslations[key];
-        console.log(nameTranslations);
 
         // Join predecessors with comma
         const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';

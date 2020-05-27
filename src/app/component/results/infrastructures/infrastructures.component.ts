@@ -41,7 +41,6 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
       this.input = input;
       this.cdr.detectChanges();
     });
-    console.log(this.resultData);
   }
 
   ngAfterViewInit() {

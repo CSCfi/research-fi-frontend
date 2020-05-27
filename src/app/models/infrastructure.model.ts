@@ -42,8 +42,6 @@ export class Infrastructure {
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
     constructor(private isa: InfraServiceAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Infrastructure {
-        console.log(item)
-
         const services: InfraService[] = [];
         const keywords: string[] = [];
         const fieldsOfScience: string[] = [];
