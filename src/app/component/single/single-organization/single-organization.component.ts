@@ -105,11 +105,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       if (this.responseData.organizations[0]) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.organizations[0].nameFi + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.organizations[0].name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.organizations[0].nameEn.trim() + ' - Research.fi');
+            this.setTitle(this.responseData.organizations[0].name.trim() + ' - Research.fi');
             break;
           }
         }

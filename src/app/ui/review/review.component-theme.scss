@@ -5,7 +5,13 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-fa-icon.smile {
-    font-size: 3.5rem;
-    color: #40CBB3;
+@import '~@angular/material/theming';
+
+@mixin app-review-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+
+    app-review {
+
+    }
 }
