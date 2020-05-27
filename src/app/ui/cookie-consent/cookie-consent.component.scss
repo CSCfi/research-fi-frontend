@@ -14,10 +14,16 @@
 }
 
 a.read-more {
-    font-size: 0.9rem;
+    // font-size: 0.9rem;
     text-decoration: underline;
 }
 
 .cdk-focused {
     text-decoration: underline;
+}
+
+button {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: .3rem .5rem;
 }
