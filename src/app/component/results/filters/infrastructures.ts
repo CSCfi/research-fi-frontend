@@ -32,11 +32,14 @@ export class InfrastructureFilters {
     const source = data.aggregations;
     // Year
     source.year.buckets = source.year.years.buckets;
+    // Organization
+
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
     source.field = source.infraField.infraFields;
     source.shaped = true;
+    // console.log(source);
     return source;
   }
 

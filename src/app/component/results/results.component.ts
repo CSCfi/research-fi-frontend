@@ -129,7 +129,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             faField: [query.faField].flat().filter(x => x).sort(),
             // Infrastructures
             type: [query.type].flat().filter(x => x).sort(),
-            infraField: [query.infraField].flat().filter(x => x).sort(),
           };
         }
 
