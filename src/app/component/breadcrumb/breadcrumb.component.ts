@@ -14,12 +14,11 @@ import { SearchService } from '../../services/search.service';
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input() responseData: any [];
+  @Input() responseData: any;
   @Input() tab: any;
   @Input() tabName: any;
   @Input() resultNameField: any;
   @Input() type: any;
-  @Input() title: any;
   @Input() queryParams: any;
   resultType: string;
   searchTerm: any;

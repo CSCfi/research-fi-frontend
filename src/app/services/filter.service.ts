@@ -32,18 +32,20 @@ export class FilterService {
   faFieldFilter: any;
   organizationFilter: any;
   typeFilter: any;
+  infraFieldFilter: any;
   currentFilters: any;
   today: string;
 
   private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: []});
+    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: [], infraField: []});
   filters = this.filterSource.asObservable();
   localeC: string;
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
-    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[]}) {
+    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[],
+    infraField: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -78,6 +80,7 @@ export class FilterService {
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword');
     // Infrastructure
     this.typeFilter = this.basicFilter(filter.type, 'services.serviceType.keyword');
+    this.infraFieldFilter = this.basicFilter(filter.infraField, 'fieldsOfScience.name' + this.localeC);
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
   }
@@ -131,8 +134,14 @@ export class FilterService {
         filter.forEach(value => { res.push({ term : { 'fundingGroupPerson.consortiumOrganizationId.keyword' : value } }); });
         break;
       }
+      case 'infrastructures': {
+        const filterString = 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword';
+        filter.forEach(value => { res.push({ term : { [filterString] : value } }); });
+        break;
+      }
       case 'news': {
         filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
+        break;
       }
     }
     return res;
@@ -278,6 +287,8 @@ export class FilterService {
       ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
       ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
       ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
+      ...(index === 'infrastructure' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
+      ...(index === 'infrastructure' ? (this.infraFieldFilter ? [{ bool: { should: this.infraFieldFilter } }] : []) : []),
       ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
       ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
       ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
@@ -848,6 +859,34 @@ export class FilterService {
             types: {
               terms: {
                 field: 'services.serviceType.keyword'
+              }
+            }
+          }
+        };
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('responsibleOrganization.responsibleOrganization' + this.localeC + '.keyword')
+            }
+          },
+          aggs: {
+            organizations: {
+              terms: {
+                field: 'responsibleOrganization.responsibleOrganization' + this.localeC + '.keyword'
+              }
+            }
+          }
+        };
+        payLoad.aggs.infraField = {
+          filter: {
+            bool: {
+              filter: filterActive('fieldsOfScience.name' + this.localeC + '.keyword')
+            }
+          },
+          aggs: {
+            infraFields: {
+              terms: {
+                field: 'fieldsOfScience.name' + this.localeC + '.keyword'
               }
             }
           }

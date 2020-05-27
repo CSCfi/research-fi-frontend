@@ -57,7 +57,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
         item.keywords?.forEach(obj => keywords.push(obj.keyword));
-        item.fieldsOfScience?.forEach(obj => fieldsOfScience.push(obj.name_fi));
+        item.fieldsOfScience?.forEach(obj => fieldsOfScience.push(this.lang.testLang('name', obj)));
 
         const keywordsString = keywords?.join(', ');
 
