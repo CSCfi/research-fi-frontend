@@ -6,16 +6,23 @@
  :license: MIT -->
 
 <div class="cookie-consent" *ngIf="showConsent">
-    <div class="row d-flex justify-content-around">
-        <div class="col">
+    <div class="row d-flex justify-content-between">
+        <div class="col pb-4 pb-lg-0">
             <p class="m-0">
-                Palvelu käyttää evästeitä. Keräämme evästeiden avulla anonymisoitua käyttötietoa, jonka perusteella voimme kehittää käyttäjäkokemusta.
-                <a tabindex="0" #readMore class="read-more" routerLink="/privacy/1">Lue lisää evästekäytännöistä</a>
+                Keräämme seurantaevästeiden avulla anonymisoitua tietoa palvelun käytöstä, käyttökokemuksen kehittämistä varten.<br>
+                Tietoja ei luovuteta kolmansille osapuolille. Voit tutustua
+                <a tabindex="0" #readMore class="read-more" routerLink="/privacy/1">evästekäytäntöihimme tietosuojasivulla</a>.
             </p>
         </div>
-        <div class="col-auto">
-            <button mat-button (click)="decline()">Hylkää evästeet</button>
-            <button mat-flat-button color="primary" (click)="approve()">Hyväksy evästeet</button>
+        <div class="col-12 col-lg-auto text-center align-self-center">
+            <button mat-flat-button (click)="approve()" class="mr-2">
+                <ng-container>Hyväksy</ng-container>
+                <ng-container *ngIf="!mobile"> seurantaevästeet</ng-container>
+            </button>
+            <button mat-flat-button (click)="decline()">
+                <ng-container>Hylkää</ng-container>
+                <ng-container *ngIf="!mobile"> seurantaevästeet</ng-container>
+            </button>
         </div>
     </div>
 </div>

@@ -63,7 +63,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Get consent status
     this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
+      this.consentStatus = sessionStorage.getItem('cookieConsent') ? sessionStorage.getItem('cookieConsent') : status;
     });
   }
 
@@ -88,7 +88,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   decline() {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('cookieConsent', 'declined');
+      sessionStorage.setItem('cookieConsent', 'declined');
       const node = this.document.createElement('script');
       node.type = 'text/javascript';
       node.innerHTML = `var _paq = window._paq || [];
@@ -102,7 +102,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   approve() {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('cookieConsent', 'approved');
+      sessionStorage.setItem('cookieConsent', 'approved');
       const node = this.document.createElement('script');
       node.id = 'matomo-consent';
       node.type = 'text/javascript';
