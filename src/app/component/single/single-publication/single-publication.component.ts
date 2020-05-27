@@ -321,6 +321,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             ))
           );
 
+          console.log(authorArr.filter(z => z.author !== duplicates.find(y => y.author)));
+          // console.log(authorArr);
           authorArr = duplicates.length > 0 ? duplicates : authorArr;
 
           // authorArr = authorArr.filter(x => x.subUnit !== null);
@@ -328,6 +330,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             authors: authorArr, orgUnits: orgUnitArr});
         });
       });
+      // console.log(this.authorAndOrganization);
 
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
