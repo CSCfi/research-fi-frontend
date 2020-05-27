@@ -36,9 +36,9 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
         return new RecipientOrganization(
             item.consortiumOrganizationId,
             item.consortiumOrganizationBusinessId,
-            this.lang.testLang('consortiumOrganizationNameFi', item),
-            this.lang.testLang('consortiumOrganizationNameSv', item),
-            this.lang.testLang('consortiumOrganizationNameEn', item),
+            this.lang.testLang('consortiumOrganizationName', item),
+            this.lang.testLang('consortiumOrganizationName', item),
+            this.lang.testLang('consortiumOrganizationName', item),
             this.lang.translateRole(item.roleInConsortium),
             item.shareOfFundingInEur,
             item.consortiumOrganizationPic,

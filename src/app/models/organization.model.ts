@@ -14,6 +14,7 @@ export class Organization {
     constructor(
         public id: string,
         public name: string,
+        public nameTranslations: object,
         public variantNames: string,
         public established: string,
         public background: string,
@@ -50,14 +51,20 @@ export class Organization {
 export class OrganizationAdapter implements Adapter<Organization> {
     constructor(private lang: LanguageCheck, @Inject( LOCALE_ID ) protected localeId: string) {}
     adapt(item: any): Organization {
-        // Join predecessors with comma
         const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-        const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
-        const related = item.related ? item.related.map(x => x.nameFi.trim()).join(', '): '';
+        // Name translations
+        const nameTranslations = (({ nameFi, nameEn, nameSv }) => ({ nameFi, nameEn, nameSv }))(item);
+        const key = 'name' + locale;
+        delete nameTranslations[key];
+        console.log(nameTranslations);
 
+        // Join predecessors with comma
+        const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
+        const related = item.related ? item.related.map(x => x.nameFi.trim()).join(', ') : '';
         return new Organization(
             item.organizationId,
-            this.lang.testLang('name' + locale, item).trim(),
+            this.lang.testLang('name', item).trim(),
+            nameTranslations,
             item.variantNames,
             item.established,
             item.organizationBackground,
@@ -69,7 +76,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.postalAddress,
             item.businessId,
             item.TKOppilaitosTunnus,
-            this.lang.testLang('sectorName' + locale, item),
+            this.lang.testLang('sectorName', item),
             item.staffCountAsFte,
             item.staffCountAsPercentage,
             item.staffYear,
