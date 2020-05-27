@@ -152,7 +152,6 @@ export class FilterService {
     field.forEach(value => {
       res.push({ term: {[path] : value}});
     });
-    console.log(res);
     return res;
   }
 
@@ -866,13 +865,15 @@ export class FilterService {
         payLoad.aggs.organization = {
           filter: {
             bool: {
-              filter: filterActive('responsibleOrganization.responsibleOrganization' + this.localeC + '.keyword')
+              filter: filterActive('responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword')
             }
           },
           aggs: {
             organizations: {
               terms: {
-                field: 'responsibleOrganization.responsibleOrganization' + this.localeC + '.keyword'
+                field: 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword',
+                exclude: ' ',
+                size: 50
               }
             }
           }
