@@ -293,7 +293,7 @@ export class FilterService {
       ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
       ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
       // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
-      ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
+      ...(index === 'publication' || index === 'funding' ? (this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []) : []),
       ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
       ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
       ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
