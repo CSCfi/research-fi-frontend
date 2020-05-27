@@ -59,11 +59,11 @@
                                         </ng-container>
                                     </div>
                                     <div *ngFor="let servicePoint of service.servicePoints; let j = index;" class="pl-4">
-                                        <div class="row" (click)="toggleServicePoint(i, j)">
-                                            <h4 class="col-12 col-sm-6 col-lg-3 th subtitle" [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'">Palvelupiste</h4>
+                                        <div class="row"> <!-- (click)="toggleServicePoint(i, j)" -->
+                                            <h4 class="col-12 col-sm-6 col-lg-3 th">Palvelupiste</h4> <!-- [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'" -->
                                             <div class="col-12 col-sm-6 col-lg-9 td">{{servicePoint.name}}</div>
                                         </div>
-                                        <div *ngIf="showServicePoint[i][j]">
+                                        <div>
                                             <div *ngFor="let row of servicePointContactFields" class="row ">
                                                 <ng-container *ngIf="servicePoint[row.field]?.trim()">
                                                     <h5 class="sr-only">{{row.label}}</h5>
