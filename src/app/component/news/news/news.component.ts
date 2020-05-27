@@ -61,9 +61,9 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
           fromYear: [query.fromYear].flat().filter(x => x).sort(),
           toYear: [query.toYear].flat().filter(x => x).sort(),
           field: [query.field].flat().filter(x => x).sort(),
+          organization: [query.organization].flat().filter(x => x).sort(),
           // Publications
           sector: [query.sector].flat().filter(x => x).sort(),
-          organization: [query.organization].flat().filter(x => x).sort(),
           publicationType: [query.publicationType].flat().filter(x => x).sort(),
           countryCode: [query.countryCode].flat().filter(x => x).sort(),
           lang: [query.lang].flat().filter(x => x).sort(),
@@ -79,6 +79,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
           faField: [query.faField].flat().filter(x => x).sort(),
           // Infrastructures
           type: [query.type].flat().filter(x => x).sort(),
+          infraField: [query.infraField].flat().filter(x => x).sort(),
         };
       }
 
