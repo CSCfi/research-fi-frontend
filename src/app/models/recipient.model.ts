@@ -34,11 +34,10 @@ export class RecipientAdapter implements Adapter<Recipient> {
     adapt(item: any): Recipient {
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
-
         // Combine recipient names and organizations, this is used in funding results component
         let combined = '';
         if (item.recipientType === 'organization' && item.organizationConsortium) {
-            item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
+            item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt({...o, euFunding: item.euFunding})));
             // Get Finnish organizations only (based on business id)
             if (item.organizationConsortium.find(org => org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-')) {
                 const finnish = item.organizationConsortium.filter
