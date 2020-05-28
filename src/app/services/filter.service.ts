@@ -32,6 +32,7 @@ export class FilterService {
   faFieldFilter: any;
   organizationFilter: any;
   typeFilter: any;
+  infraFieldFilter: any;
   currentFilters: any;
   today: string;
 
@@ -78,6 +79,7 @@ export class FilterService {
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword');
     // Infrastructure
     this.typeFilter = this.basicFilter(filter.type, 'services.serviceType.keyword');
+    this.infraFieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.name' + this.localeC + '.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
   }
@@ -131,8 +133,14 @@ export class FilterService {
         filter.forEach(value => { res.push({ term : { 'fundingGroupPerson.consortiumOrganizationId.keyword' : value } }); });
         break;
       }
+      case 'infrastructures': {
+        const filterString = 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword';
+        filter.forEach(value => { res.push({ term : { [filterString] : value } }); });
+        break;
+      }
       case 'news': {
         filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
+        break;
       }
     }
     return res;
@@ -278,11 +286,13 @@ export class FilterService {
       ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
       ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
       ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
+      ...(index === 'infrastructure' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
+      ...(index === 'infrastructure' ? (this.infraFieldFilter ? [{ bool: { should: this.infraFieldFilter } }] : []) : []),
       ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
       ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
       ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
       // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
-      ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
+      ...(index === 'publication' || index === 'funding' ? (this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []) : []),
       ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
       ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
       ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
@@ -848,6 +858,36 @@ export class FilterService {
             types: {
               terms: {
                 field: 'services.serviceType.keyword'
+              }
+            }
+          }
+        };
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword')
+            }
+          },
+          aggs: {
+            organizations: {
+              terms: {
+                field: 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword',
+                exclude: ' ',
+                size: 50
+              }
+            }
+          }
+        };
+        payLoad.aggs.infraField = {
+          filter: {
+            bool: {
+              filter: filterActive('fieldsOfScience.name' + this.localeC + '.keyword')
+            }
+          },
+          aggs: {
+            infraFields: {
+              terms: {
+                field: 'fieldsOfScience.name' + this.localeC + '.keyword'
               }
             }
           }

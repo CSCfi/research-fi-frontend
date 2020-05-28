@@ -17,7 +17,9 @@ export class InfrastructureFilters {
   filterData = [
       {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
       tooltipFi: 'Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.'},
-      {field: 'type', labelFi: 'Palvelun tyyppi', hasSubFields: false, open: true, limitHeight: true}
+      {field: 'organization', labelFi: 'Vastuuorganisaatio', hasSubFields: false, open: true, limitHeight: true},
+      {field: 'type', labelFi: 'Palvelun tyyppi', hasSubFields: false, open: true, limitHeight: true},
+      {field: 'field', labelFi: 'Tieteenala', hasSubFields: false, open: true, limitHeight: true}
     ];
 
     singleFilterData = [
@@ -30,8 +32,12 @@ export class InfrastructureFilters {
     const source = data.aggregations;
     // Year
     source.year.buckets = source.year.years.buckets;
+    // Organization
+    source.organization = source.organization.organizations;
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
+    // Field of science
+    source.field = source.infraField.infraFields;
     source.shaped = true;
     return source;
   }
