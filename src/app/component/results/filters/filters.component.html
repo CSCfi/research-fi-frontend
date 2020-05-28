@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
     
- <div class="mobile mx-auto" id="navbar-toggle">
+ <div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
     <button class="navbar-toggler navbar-toggler-right container" type="button" (click)="openModal(filterModal)" #openFilters>
         <h3>{{tabData === 'news' ? 'Rajaa uutisia' : 'Rajaa hakua'}}</h3>
     </button>
@@ -22,7 +22,7 @@
 </ng-template>
 
 
-<ng-container *ngIf="!mobile">
+<ng-container *ngIf="!mobile && !showButton">
     <ng-container *ngTemplateOutlet="filters"></ng-container>
 </ng-container>
 
