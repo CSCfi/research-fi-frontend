@@ -74,10 +74,6 @@ app-footer {
         font-weight: bold;
     }
     
-    li a:hover {
-        text-decoration: none;
-    }
-    
     img {
         // padding-top: 10px;
     }
@@ -98,10 +94,6 @@ app-footer {
         padding-right: 1rem;
     }
     
-    .fa:hover {
-        opacity: 0.7;
-    }
-    
     .build-info {
         font-size: 9px;
         opacity: 0.6
@@ -109,6 +101,10 @@ app-footer {
     
     .pull-right {
         clear: both;
+    }
+
+    a {
+        font-weight: bold;
     }
     
     

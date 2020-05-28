@@ -38,11 +38,13 @@ h3 { font-size: 1.5rem;}
 h4 { font-size: 1.2rem;}
 
 a {
-    color: map-get($researchfi-primary, 500)
+    // Accessibility checked color
+    color: #3366CC;
+    font-weight: 400;
 }
 
 a:hover {
-    color: map-get($researchfi-primary, lighter);
+    text-decoration: underline;
 }
 
 ul {
@@ -114,11 +116,6 @@ mark, .mark {
 .info-icon {
     color: map-get($researchfi-primary, 500);
     cursor: pointer;
-}
-
-// Dialog
-body .mat-dialog-container {
-    min-width: 400px;
 }
 
 // Mat select

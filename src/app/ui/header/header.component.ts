@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID, ViewChildren,
-  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation} from '@angular/core';
+  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation, HostListener} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
   @ViewChild('start', { static: false }) start: ElementRef;
+  @ViewChild('overlay', { static: false }) overlay: ElementRef;
   @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
@@ -143,7 +144,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
     if (isPlatformBrowser(this.platformId)) {
-      const consent = localStorage.getItem('cookieConsent');
+      const consent = sessionStorage.getItem('cookieConsent');
       if (e.keyCode === 9 && consent) {
         if (this.firstTab) {
           this.firstTab = false;
@@ -178,10 +179,25 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     // Toggle navbar state
     this.navbarOpen = !this.navbarOpen;
 
+    // Set the overlay lower so skip links dont mess up overlay
+    if (this.navbarOpen) {
+      setTimeout(() => {
+        // tslint:disable-next-line: no-unused-expression
+        this.overlay && this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+      }, 500);
+    }
+
     // Allow menu to slide out before hiding
     setTimeout(() => {
       this.hideOverflow = !this.hideOverflow;
     }, 250 * (1 - +this.navbarOpen));
+  }
+
+  @HostListener('window:scroll')
+  scroll() {
+    if (this.navbarOpen) {
+      this.toggleNavbar();
+    }
   }
 
   setLang(lang: string) {

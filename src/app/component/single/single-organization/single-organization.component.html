@@ -12,7 +12,7 @@
  
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
@@ -24,7 +24,7 @@
             <div *ngFor="let item of responseData.organizations">
                 <div class="row d-flex justify-content-around">
                     <div class="col p-0">
-                        <h1 class="result-header">{{item.nameFi}}</h1>
+                        <h1 class="result-header">{{item.name}}</h1>
                     </div>
                     <div *ngIf="item.logo && item.logo !== null" class="col p-0 org-logo text-right align-self-center">
                         <img [src]="item.logo | safeUrl">

@@ -10,7 +10,7 @@
  
  <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
@@ -141,9 +141,10 @@
                                                 {{consortium.roleInFundingGroup}}
                                             </div>
                                             <div class="col-12 col-sm-4 td py-0 py-sm-3">
-                                                <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">{{consortium.consortiumOrganizationNameFi}}</a>
-                                                <ng-container *ngIf="!consortium.consortiumOrganizationId">{{consortium.consortiumOrganizationNameFi}}</ng-container>
-                                                    ({{consortium.consortiumProject}})<ng-container *ngIf="i !== item.otherConsortium.length - 1"></ng-container>
+                                                {{consortium.consortiumOrganizationNameFi}}
+                                                <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">({{consortium.consortiumProject}})</a>
+                                                <ng-container *ngIf="!consortium.consortiumOrganizationId">({{consortium.consortiumProject}})</ng-container>
+                                                <ng-container *ngIf="i !== item.otherConsortium.length - 1"></ng-container>
                                             </div>
                                             <div class="col-12 col-sm-3 td py-0 py-sm-3 pb-3">
                                                 {{consortium.shareOfFundingInEur | thousandSeparator}} €

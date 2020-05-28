@@ -36,7 +36,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Toiminta alkanut', field: 'startYear'},
     {label: 'Toiminta päättynyt', field: 'endYear'},
     {label: 'Vastuuorganisaatio', field: 'responsibleOrganization'},
-    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'Avainsanat', field: 'keywordsString'},
   ];
 
@@ -56,17 +55,17 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   servicePointInfoFields = [
     {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
     {label: 'Linkki', field: 'infoUrl'},
-    {label: 'Koordinoiva organisaatio', field: '?'},
+    {label: 'Koordinoiva organisaatio', field: 'coOrg'},
   ];
 
   fieldsOfScience = [
-    {label: 'Tieteenalat', field: '?'},
+    {label: 'Tieteenalat', field: 'fieldsOfScienceString'},
   ];
 
   classificationFields = [
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
-    {label: 'ESFRI-luokitus', field: '?'},
-    {label: 'MERIL-luokitus', field: '?'},
+    {label: 'ESFRI-luokitus', field: 'ESFRICode'},
+    {label: 'MERIL-luokitus', field: 'merilCode'},
   ];
 
   contactFields = [
@@ -76,9 +75,9 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ];
 
   otherFields = [
-    {label: 'Tunnisteet', field: '?'},
+    {label: 'Tunnisteet', field: 'urn'},
     {label: 'Osa kansainvälistä infrastruktuuria', field: '?'},
-    {label: 'Edeltävä tutkimusinfrastruktuuri', field: '?'},
+    {label: 'Edeltävä tutkimusinfrastruktuuri', field: 'replacingInfrastructure'},
     {label: 'Lisätietoja', field: '?'},
   ];
 
@@ -120,6 +119,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.infrastructures[0]) {
+        console.log(this.responseData.infrastructures[0])
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.infrastructures[0].name + ' - Tiedejatutkimus.fi');
@@ -151,18 +151,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
              this.responseData.infrastructures[0][item.field] !== '#N/A';
     };
 
-    const isNull = (obj) => Object.values(obj).every(x => (x === null));
-    // Check if every field null in service points and set flag. This is used to hide service from list
-    this.responseData.infrastructures[0].services.forEach(item => {
-
-      if (item.servicePoints.every(isNull)) {
-        const hideFlag = 'hide';
-        item.servicePoints[hideFlag] = 'true';
-      }
-    });
-    // Filter out invalid services
-    this.responseData.infrastructures[0].services = this.responseData.infrastructures[0].services.filter(
-      item => item.name !== '0' && item.name !== '#N/A');
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -184,6 +172,14 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.infrastructures[0];
     source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+
+    // Filter out empty servicepoints and empty services
+    source.services.forEach((service, idx) => {
+      source.services[idx].servicePoints =
+      service.servicePoints.map(servicePoint => this.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
+    });
+
+    source.services = source.services.map(service => this.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
   expandInfoDescription(idx: number) {
@@ -204,5 +200,27 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   serviceExpandId(serviceId: number, fieldId: number) {
     return this.serviceFields.length * serviceId + fieldId;
+  }
+
+  stringHasContent(content: any) {
+    const contentString = content?.toString();
+    return contentString !== '0' &&
+           contentString !== '' &&
+           contentString !== ' ' &&
+           contentString !== '#N/A' &&
+           contentString !== '[]' &&
+           contentString !== null &&
+           contentString !== undefined;
+  }
+
+  objectHasContent(content: object) {
+    let res = false;
+    Object.keys(content).forEach(key => {
+      if (this.stringHasContent(content[key])) {
+        res = true;
+        // How to jump out of forEach after true found??
+      }
+    });
+    return res;
   }
 }

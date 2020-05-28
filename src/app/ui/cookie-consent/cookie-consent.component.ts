@@ -10,6 +10,9 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ResizeService } from 'src/app/services/resize.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -22,12 +25,18 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   @ViewChild('readMore') readMore: ElementRef;
   focusSub: any;
   routeSub: any;
+  resizeSub: Subscription;
+  mobile = this.window.innerWidth < 1200;
+  height = this.window.innerHeight;
+  width = this.window.innerWidth;
 
   constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar,
-              private tabChangeService: TabChangeService) { }
+              private tabChangeService: TabChangeService, private resizeService: ResizeService,
+              @Inject(WINDOW) private window: Window) { }
 
   ngOnInit(): void {
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     // Bar can be hidden from privacy / cookies tab
     this.utilitySub = this.privacyService.currentConsentBarStatus.subscribe(status => {
       this.showConsent = status === false ? true : false;
@@ -38,8 +47,8 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     this.loadScript();
     // Get consent status from local storage and set visibility
     if (isPlatformBrowser(this.platformId)) {
-      this.showConsent = localStorage.getItem('cookieConsent') === 'declined' ||
-      localStorage.getItem('cookieConsent') === 'approved' ? false : true;
+      this.showConsent = sessionStorage.getItem('cookieConsent') === 'declined' ||
+      sessionStorage.getItem('cookieConsent') === 'approved' ? false : true;
     }
 
     // Focus on bar instead of skip links
@@ -54,7 +63,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     // Hide bar and set opt out + forget consent cookies
     this.showConsent = false;
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('cookieConsent', 'declined');
+      sessionStorage.setItem('cookieConsent', 'declined');
       const node = this.document.createElement('script');
       node.type = 'text/javascript';
       node.innerHTML = `var _paq = window._paq || [];
@@ -71,7 +80,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     this.showConsent = false;
     this.privacyService.changeConsentStatus('approved');
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('cookieConsent', 'approved');
+      sessionStorage.setItem('cookieConsent', 'approved');
       const node = this.document.createElement('script');
       node.id = 'matomo-consent';
       node.type = 'text/javascript';
@@ -102,7 +111,18 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     this.document.getElementsByTagName('head')[0].appendChild(node);
   }
 
+  onResize(dims) {
+    this.height = dims.height;
+    this.width = dims.width;
+    if (this.width >= 1200) {
+      this.mobile = false;
+    } else {
+      this.mobile = true;
+    }
+  }
+
   ngOnDestroy() {
+    this.resizeSub?.unsubscribe();
     this.utilitySub?.unsubscribe();
     this.focusSub?.unsubscribe();
     this.routeSub?.unsubscribe();

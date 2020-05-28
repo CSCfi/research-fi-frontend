@@ -14,17 +14,13 @@
                 color: mat-contrast($primary, 50);
             }
 
-            a.th, a.td {
-                color: mat-color($primary);
-            }
-            
             td {
                 p:first-child {
                     color: mat-contrast($primary, 50);
                 }
             }
             
-            a {
+            aside a {
                 color: mat-color($primary);
             }
 
