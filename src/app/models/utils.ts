@@ -45,15 +45,15 @@ export class LanguageCheck {
     }
   }
 
-  translateRole(role) {
+  translateRole(role, euFunding) {
     switch (this.localeId) {
       case 'fi': {
         switch (role) {
           case 'leader': {
-            return 'Johtaja';
+            return euFunding ? 'Coordinator' : 'Johtaja';
           }
           case 'participant': {
-            return 'Partneri';
+            return 'Participant';
           }
           case 'partner': {
             return 'Partneri';
@@ -64,7 +64,7 @@ export class LanguageCheck {
       case 'en': {
         switch (role) {
           case 'leader': {
-            return 'Leader';
+            return euFunding ? 'Coordinator' : 'Leader';
           }
           case 'participant': {
             return 'Participant';
@@ -78,7 +78,7 @@ export class LanguageCheck {
       case 'sv': {
         switch (role) {
           case 'leader': {
-            return 'Leader';
+            return euFunding ? 'Coordinator' : 'Leader';
           }
           case 'participant': {
             return 'Participant';
