@@ -7,12 +7,12 @@
 
 <div class="row">
   <div class="mat-dialog-content">
-    <div class="row">
+    <div class="row" *ngIf="!success">
       <div class="col-9 px-0">
         <h2>Anna palautetta tai kysy</h2>
       </div>
       <div class="col-3 px-0 text-right" (click)="close()">
-        <button mat-flat-button color="primary">Sulje</button>
+        <button mat-button color="primary"><fa-icon class="icon" [icon]="faTimes"></fa-icon>Sulje</button>
       </div>
     </div>
     <ng-container *ngIf="!success; else successTemplate">
@@ -59,7 +59,8 @@
           class="form-group"
           [(ngModel)]="locationTarget"
           required="true">
-            <mat-radio-button class="radio-button" [value]="'currentRoute'">Nykyinen sijainti</mat-radio-button>
+            <mat-radio-button class="radio-button current" [value]="'currentRoute'">Nykyinen sijainti: </mat-radio-button>
+            <span class="location">{{title}}</span>
             <mat-radio-button class="radio-button" [value]="'other'">Muu</mat-radio-button>
             <!-- Show input only if other location is selected -->
             <div class="form-group left-spacer" *ngIf="locationTarget === 'other'">
@@ -106,7 +107,7 @@
         <p>{{reviewContent}}</p>
         <ng-container *ngIf="locationTarget">
           <h4>Palautetta koskeva sijainti verkkopalvelussa</h4>
-          <p>{{location}}</p>
+          <p>{{title}}</p>
         </ng-container>
         <ng-container *ngIf="emailValue">
           <h4>Toivon yhteydenottoa palautteestani</h4>
