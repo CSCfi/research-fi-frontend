@@ -72,7 +72,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
-               private modalService: BsModalService,private route: ActivatedRoute, private utilityService: UtilityService,
+               private modalService: BsModalService,private route: ActivatedRoute, public utilityService: UtilityService,
                private sortService: SortService, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
