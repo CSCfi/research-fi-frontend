@@ -10,7 +10,7 @@
  
  <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
@@ -18,7 +18,7 @@
          </div>
          <main class="col-12 col-md-8">
              <div *ngFor="let item of responseData.fundings">
-                 <h1 class="result-header">{{item.nameFi}}</h1>
+                 <h1 class="result-header">{{item.name}}</h1>
                  <div id="info" class="table">
                     <div class="content">
                         <ng-container *ngFor="let row of infoFields">
@@ -72,9 +72,9 @@
                                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                             </div>
                                             <div class="col-12 py-0 py-sm-3 td" [ngClass]="item.euFunding ? 'col-sm-5' : col-sm-3">
-                                                <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.nameFi}}</a>
-                                                <ng-container *ngIf="org.id && !org.pic">{{org.nameFi}}</ng-container>    
-                                                <ng-container *ngIf="!org.id">{{org.nameFi}}</ng-container>
+                                                <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.name}}</a>
+                                                <ng-container *ngIf="org.id && !org.pic">{{org.name}}</ng-container>    
+                                                <ng-container *ngIf="!org.id">{{org.name}}</ng-container>
                                                 <!-- Organization country code when funder is EU -->
                                                 <ng-container *ngIf="item.euFunding && org.countryCode && org.countryCode !== 'FI'"> ({{org.countryCode}})</ng-container>
                                             </div>
@@ -141,6 +141,7 @@
                                                 {{consortium.roleInFundingGroup}}
                                             </div>
                                             <div class="col-12 col-sm-4 td py-0 py-sm-3">
+                                                <!-- TODO: Get locale in component and use in field -->
                                                 {{consortium.consortiumOrganizationNameFi}}
                                                 <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">({{consortium.consortiumProject}})</a>
                                                 <ng-container *ngIf="!consortium.consortiumOrganizationId">({{consortium.consortiumProject}})</ng-container>
@@ -164,7 +165,7 @@
                                 class="info-icon" icon="info-circle"></fa-icon>
                             </h2>
                             <div class="col-12 col-sm-3 td">
-                                {{item.funder.nameFi}}
+                                {{item.funder.name}}
                             </div>
                         </div>
 
@@ -241,8 +242,8 @@
                 <mat-card>
                     <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
                     <div *ngFor="let source of responseData.fundings">
-                        <p *ngIf="source.funder.nameFi.trim().length > 0">Rahoittaja: {{source.funder.nameFi}}</p>
-                        <p *ngIf="source.funder.nameFi.trim().length === 0">Tiedon lähde ei saatavilla.</p>
+                        <p *ngIf="source.funder.name.trim().length > 0">Rahoittaja: {{source.funder.name}}</p>
+                        <p *ngIf="source.funder.name.trim().length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>
                 </mat-card>
