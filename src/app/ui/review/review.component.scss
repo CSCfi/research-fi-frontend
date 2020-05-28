@@ -14,9 +14,13 @@ app-review {
         padding-bottom: .5rem;
     }
 
+    .icon {
+        padding: 0 0.7rem 0 0;
+    }
+
     span.thanks {
         font-size: 1.6rem;
-        padding: 4rem 0 2rem;
+        padding-bottom: 2rem;
     }
     
     .section-label {
@@ -47,6 +51,16 @@ app-review {
 
     .left-spacer {
         padding-left: 1.75rem;
+    }
+
+    // Location, title
+    .radio-button.current, .current label.mat-radio-label {
+        margin-bottom: 0;
+    }
+
+    span.location {
+        padding-left: 1.75rem;
+        padding-bottom: .5rem;
     }
 
     .review-check {
