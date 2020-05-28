@@ -13,9 +13,7 @@ export class RecipientOrganization {
     constructor(
         public id: string,
         public businessId: string,
-        public nameFi: string,
-        public nameSv: string,
-        public nameEn: string,
+        public name: string,
         public role: string,
         public shareOfFundingEur: number,
         public pic: string,
@@ -36,8 +34,6 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
         return new RecipientOrganization(
             item.consortiumOrganizationId,
             item.consortiumOrganizationBusinessId,
-            this.lang.testLang('consortiumOrganizationName', item),
-            this.lang.testLang('consortiumOrganizationName', item),
             this.lang.testLang('consortiumOrganizationName', item),
             this.lang.translateRole(item.roleInConsortium),
             item.shareOfFundingInEur,
