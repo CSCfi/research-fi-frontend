@@ -63,7 +63,7 @@
             </span>
             <!-- <app-info tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta."></app-info> -->
           </h2>
-          <app-news-card *ngFor="let item of news" [item]="item" tabindex="0" class="d-flex justify-content-center"></app-news-card>
+          <app-news-card *ngFor="let item of news" [item]="item" [isHomepage]="true" tabindex="0" class="d-flex justify-content-center"></app-news-card>
           <div class="read-more">
             <a routerLink="/news" class="link-news">Lue lisää tiedeuutisia >></a>
           </div>
