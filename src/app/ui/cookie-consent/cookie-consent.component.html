@@ -9,20 +9,26 @@
     <div class="row d-flex justify-content-between">
         <div class="col pb-4 pb-lg-0">
             <p class="m-0">
-                Keräämme seurantaevästeiden avulla anonymisoitua tietoa palvelun käytöstä, käyttökokemuksen kehittämistä varten.<br>
+                Tämä palvelu käyttää evästeitä. Välttämättömien evästeiden lisäksi keräämme seurantaevästeiden avulla anonymisoitua tietoa palvelun käytöstä, käyttökokemuksen kehittämistä varten.<br>
                 Tietoja ei luovuteta kolmansille osapuolille. Voit tutustua
                 <a tabindex="0" #readMore class="read-more" routerLink="/privacy/1">evästekäytäntöihimme tietosuojasivulla</a>.
             </p>
         </div>
         <div class="col-12 col-lg-auto text-center align-self-center">
-            <button mat-flat-button (click)="approve()" class="mr-2">
-                <ng-container>Hyväksy</ng-container>
-                <ng-container *ngIf="!mobile"> seurantaevästeet</ng-container>
-            </button>
-            <button mat-flat-button (click)="decline()">
-                <ng-container>Hylkää</ng-container>
-                <ng-container *ngIf="!mobile"> seurantaevästeet</ng-container>
-            </button>
+            <div class="row">
+                <div class="col-6" class="col-6 pl-0 pr-2">
+                    <button mat-flat-button (click)="approve()">
+                        Hyväksy seurantaevästeet
+                    </button>
+                </div>
+                <div class="col-6" class="col-6 pr-0 pl-2">
+                    <button mat-flat-button (click)="decline()">
+                        Hylkää seurantaevästeet
+                    </button>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
