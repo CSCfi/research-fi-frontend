@@ -146,7 +146,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       });
       // Subscribe to aggregation data
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
-        // console.log(response);
         this.response = response;
         if (response) {
           const source = this.response.aggregations;
