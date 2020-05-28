@@ -119,7 +119,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.infrastructures[0]) {
-        console.log(this.responseData.infrastructures[0])
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.infrastructures[0].name + ' - Tiedejatutkimus.fi');
