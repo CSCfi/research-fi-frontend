@@ -11,6 +11,7 @@
     bottom: 0;
     width: 100%;
     padding: 1rem;
+    font-size: 14px;
 }
 
 a.read-more {
@@ -23,13 +24,16 @@ a.read-more {
 }
 
 button {
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: bold;
     padding: .3rem .8rem;
+
 }
 
 @media (max-width: 991px) {
     button {
-        margin: 0 2rem;
+        max-width: 130px;
+        line-height: 20px;
+        white-space: normal;
     }
 }
