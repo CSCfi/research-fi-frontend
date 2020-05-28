@@ -14,6 +14,7 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -76,7 +77,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   subUnitSlice = 10;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               public utilityService: UtilityService ) {
    }
 
   public setTitle(newTitle: string) {
