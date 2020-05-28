@@ -75,13 +75,17 @@ export class RecipientAdapter implements Adapter<Recipient> {
                         x.consortiumOrganizationNameFi.trim()).join('; ');
                 }
         // If no match with Finnish organization
-        } else if (item.recipientType === 'person' && item.fundingGroupPerson.find(x => x.fundingGroupPersonLastName?.trim().length > 0)) {
-            combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonLastName.trim().length > 0 ?
-            x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
+        } else if (item.recipientType === 'person') {
+            if (item.fundingGroupPerson.find(x => x.fundingGroupPersonLastName?.trim().length > 0)) {
+                combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonLastName.trim().length > 0 ?
+                x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
+            } else if (item.organizationConsortium) {
+                combined = item.organizationConsortium.filter(x => !x.countryCode || x.countryCode === 'FI')
+                .map(x => x.consortiumOrganizationNameFi).join('; ');
+            }
         } else {
             combined = '-';
         }
-
         return new Recipient(
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
@@ -95,7 +99,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             (item.fundingContactPersonFirstNames || '') + ' ' + (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
             item.fundingContactPersonOrcid,
             organizations,
-            combined
+            combined.trim().length > 0 ? combined : '-'
         );
     }
 }
