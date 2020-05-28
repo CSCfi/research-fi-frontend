@@ -23,6 +23,11 @@ export class Infrastructure {
         public finlandRoadmap: string,
         public ESFRICode: string,
         public merilCode: string,
+        public contactName: string,
+        public contactDescription: string,
+        public email: string,
+        public phoneNumber: string,
+        public address: string,
         public urn: string,
         public responsibleOrganization: string,
         public statCenterId: string,
@@ -45,6 +50,10 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const services: InfraService[] = [];
         const keywords: string[] = [];
         const fieldsOfScience: string[] = [];
+
+        item.infraConPoint = item.infraConPoint[0];
+
+        console.log(item)
 
         // Init and assign if available
         let responsibleOrganization = '';
@@ -74,6 +83,11 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item.finlandRoadmap,
             esfriCode,
             item.merilCode,
+            item?.infraConPoint?.infraConName,
+            item?.infraConPoint?.infraConDescr,
+            item?.infraConPoint?.infraConEmail,
+            item?.infraConPoint?.infraConPhone,
+            item?.infraConPoint?.infraConPost,
             item.urn,
             responsibleOrganization,
             item.TKOppilaitosTunnus,
