@@ -9,6 +9,7 @@ import { News } from 'src/app/models/news.model';
 export class NewsCardComponent implements OnInit {
 
   @Input() item: News;
+  @Input() isHomepage = false;
   constructor() { }
 
   ngOnInit(): void {
