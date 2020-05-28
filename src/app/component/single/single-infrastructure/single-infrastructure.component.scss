@@ -15,6 +15,10 @@
 
 h3.th {
     padding: 11px 15px !important;
+    &.contact {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
 }
 
 h4.th.classification {

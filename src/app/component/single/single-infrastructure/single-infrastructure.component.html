@@ -111,21 +111,17 @@
                             </div>
                         </div>
                         <div *ngIf="contactFields?.length > 0" class="row">
-                            <h3 class="col-12 col-sm-6 col-lg-3 th">Yhteystiedot</h3>
-                            <div class="col-12 col-sm-6 offset-0 td" *ngFor="let row of contactFields.slice(0,1); let i = index;">
+                            <h3 class="col-12 col-sm-6 col-lg-3 pt-0 pb-0 contact th">Yhteystiedot</h3>
+                            <div class="col-12 col-sm-6 offset-0 pt-0 pb-0 td" *ngFor="let row of contactFields.slice(0,1); let i = index;">
                                 <ng-container *ngIf="item[row.field]">
                                     <h4 class="th sr-only">{{row.label}}</h4>
-                                    <div>
-                                        <p>{{item[row.field]}}</p>
-                                    </div>
+                                    <div>{{item[row.field]}}</div>
                                 </ng-container>
                             </div>
-                            <div class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 td" *ngFor="let row of contactFields.slice(1); let i = index;">
+                            <div class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 pt-0 pb-0 td" *ngFor="let row of contactFields.slice(1); let i = index;">
                                 <ng-container *ngIf="item[row.field]">
                                     <h4 class="th sr-only">{{row.label}}</h4>
-                                    <div>
-                                        <p>{{item[row.field]}}</p>
-                                    </div>
+                                    <div>{{item[row.field]}}</div>
                                 </ng-container>
                             </div>
                         </div>
