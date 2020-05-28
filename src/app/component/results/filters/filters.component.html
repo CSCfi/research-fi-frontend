@@ -46,7 +46,9 @@
                                 <span>{{filter?.labelFi}}</span>
                                 <ng-container *ngIf="filter.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltipFi"></div></ng-template>
-                                    <span tabindex="0" [tooltip]="tooltipTemplate" placement="top" triggers="focus keydown" (mouseenter)="elem.blur(); elem.focus()" #elem><fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon></span>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
                                 </ng-container>
                             </div>
                             <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-left' : 'col-1 pr-0 text-right'" *ngIf="filter?.tooltipFi">

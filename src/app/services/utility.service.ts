@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 
@@ -27,6 +27,7 @@ export class UtilityService {
   }
 
   modalOpen = false;
+  tooltipOpen = false;
 
   // source: https://github.com/valor-software/ngx-bootstrap/issues/1819#issuecomment-556373372
 
@@ -52,6 +53,23 @@ export class UtilityService {
             // shift was NOT down when tab was pressed
             event.preventDefault();
         }
+    }
+  }
+
+  tooltipMouseenter(elem: HTMLElement) {
+    elem.blur();
+    elem.focus();
+    this.tooltipOpen = true;
+  }
+
+  tooltipKeydown(elem: HTMLElement, event: any) {
+    // Timeout because event propagates here before header and thus esc would open navbar incorrecly
+    if (event.keyCode === 27) {
+      setTimeout(() => {
+        this.tooltipOpen = false;
+      }, 1);
+    } else {
+      this.tooltipOpen = !this.tooltipOpen;
     }
   }
 
