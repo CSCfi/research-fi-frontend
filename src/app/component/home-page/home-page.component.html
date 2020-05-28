@@ -58,7 +58,9 @@
       <div class="col-12 p-0">
         <div class="news-container">
           <h2>Uusimmat tiede- ja tutkimusuutiset 
-            <fa-icon tabindex="0" tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." placement="right" class="info-icon" icon="info-circle"></fa-icon>
+            <span tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+              <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+            </span>
             <!-- <app-info tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta."></app-info> -->
           </h2>
           <app-news-card *ngFor="let item of news" [item]="item" tabindex="0" class="d-flex justify-content-center"></app-news-card>

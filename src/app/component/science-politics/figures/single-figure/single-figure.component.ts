@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from 'src/app/services/window.service';
 import { content } from '../../../../../assets/static-data/figures-content.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-figure',
@@ -101,7 +102,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       if (target === 'main-link') {
         this.keyboardHelp.nativeElement.focus();
       }
-    })    
+    });
   }
 
   onResize(dims) {

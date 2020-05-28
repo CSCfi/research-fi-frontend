@@ -27,7 +27,9 @@
                                     {{row.label}}
                                     <ng-container *ngIf="row.tooltipFi">
                                         <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                        <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                        <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                            <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        </span>
                                     </ng-container>
                                 </h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
@@ -43,8 +45,12 @@
                         <div class="row">
                             <h3 class="th col-12 col-sm-3">
                                 Myönnetty rahoitus
-                                <fa-icon tabindex="0" tooltip="Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia." placement="right" 
-                                class="info-icon" icon="info-circle"></fa-icon>
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="'Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.'"></div>
+                                </ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
                             </h3>
                             <!-- Switch by recipien type -->
                             <div class="col-12 col-sm-9 px-0" [ngSwitch]="item.recipientType">
@@ -107,9 +113,12 @@
                                     <ng-container *ngSwitchCase="'organization'">Myönnetty summa </ng-container>
                                     <ng-container *ngSwitchDefault>Summa </ng-container>
                                 </ng-container>
-                                
-                                <fa-icon tabindex="0" tooltip="Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia." placement="right" 
-                                class="info-icon" icon="info-circle"></fa-icon>
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="'Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.'"></div>
+                                </ng-template>                                
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
                             </h3>
                             <div class="col px-0">
                                     <div class="col-12 col-sm-3 offset-0 td" [ngClass]="item.recipientType === 'organization' ? 'offset-sm-5' : 'offset-sm-7'">
@@ -160,8 +169,12 @@
                         <div class="row">
                             <h2 class="th col-12 col-sm-3">
                                 Rahoittaja
-                                <fa-icon tabindex="0" tooltip="Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa." placement="right" 
-                                class="info-icon" icon="info-circle"></fa-icon>
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="'Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.'"></div>
+                                </ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
                             </h2>
                             <div class="col-12 col-sm-3 td">
                                 {{item.funder.nameFi}}
@@ -173,7 +186,9 @@
                                 {{row.label}}
                                 <ng-container *ngIf="row.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
                                 </ng-container>
                             </h3>
                             <div class="col-12 col-sm-6 col-lg-9 td">{{item.funder[row.field]}}</div>
@@ -187,7 +202,9 @@
                                 {{row.label}}
                                 <ng-container *ngIf="row.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
                                 </ng-container>
                             </h3>
                             <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}</div>
@@ -202,8 +219,10 @@
                     <mat-card>
                         <mat-card-title><h2>
                             Hankkeen verkkosivu
-                            <fa-icon tabindex="0" tooltip="Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa." placement="right"
-                            class="info-icon" icon="info-circle"></fa-icon>
+                            <ng-template #tooltipTemplate><div [innerHtml]="'Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.'"></div></ng-template>
+                            <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                            </span>
                         </h2></mat-card-title>
                         <div class="row links">
                             <div *ngFor="let row of linkFields" class="info-link-wrapper">

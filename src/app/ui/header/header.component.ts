@@ -95,9 +95,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.window.addEventListener('keydown', this.handleTabPressed);
-      this.window.addEventListener('mousedown', this.handleMouseDown);
-      this.window.addEventListener('keydown', this.escapeListener);
+      // this.window.addEventListener('keydown', this.handleTabPressed);
+      // this.window.addEventListener('mousedown', this.handleMouseDown);
+      // this.window.addEventListener('keydown', this.escapeListener);
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
       this.newPageSub = this.tabChangeService.newPage.subscribe(_ => {
         this.firstTab = true;
@@ -110,37 +110,17 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    // if (!this.mobile) {
-    //   const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
-    //   this.navLink.forEach((item, index) => {
-    //     this.renderer.setStyle(
-    //       item.nativeElement,
-    //       'width',
-    //       `${widths[index]}px`
-    //     );
-    //   });
-    //   this.widthFlag = true;
-    // }
-  }
-
-  ngOnDestroy() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.window.removeEventListener('keydown', this.handleTabPressed);
-      this.window.removeEventListener('keydown', this.escapeListener);
-      this.window.removeEventListener('mousedown', this.handleMouseDown);
-
-      this.resizeSub?.unsubscribe();
+  @HostListener('document:keydown.escape', ['$event'])
+  escapeListener(event: any) {
+    if (this.mobile && !this.utilityService.modalOpen && !this.utilityService.tooltipOpen) {
+      this.toggleNavbar();
+      setTimeout(() => {
+        this.navbarToggler.nativeElement.focus();
+      }, 1);
     }
-    this.routeSub?.unsubscribe();
-    this.newPageSub?.unsubscribe();
-    this.consentStatusSub?.unsubscribe();
   }
 
-  focusStart() {
-    this.start.nativeElement.focus();
-  }
-
+  @HostListener('document:keydown.tab', ['$event'])
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
     if (isPlatformBrowser(this.platformId)) {
@@ -163,16 +143,41 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  @HostListener('document:mousedown',['$event'])
   handleMouseDown = (): void => {
     this.firstTab = false;
     this.document.body.classList.remove('user-tabbing');
   }
 
-  escapeListener = (e: any): void => {
-    if (e.keyCode === 27 && this.mobile && !this.utilityService.modalOpen) {
-      this.toggleNavbar();
-      this.navbarToggler.nativeElement.focus();
+  ngAfterViewInit() {
+    // if (!this.mobile) {
+    //   const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
+    //   this.navLink.forEach((item, index) => {
+    //     this.renderer.setStyle(
+    //       item.nativeElement,
+    //       'width',
+    //       `${widths[index]}px`
+    //     );
+    //   });
+    //   this.widthFlag = true;
+    // }
+  }
+
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      // this.window.removeEventListener('keydown', this.handleTabPressed);
+      // this.window.removeEventListener('keydown', this.escapeListener);
+      // this.window.removeEventListener('mousedown', this.handleMouseDown);
+
+      this.resizeSub?.unsubscribe();
     }
+    this.routeSub?.unsubscribe();
+    this.newPageSub?.unsubscribe();
+    this.consentStatusSub?.unsubscribe();
+  }
+
+  focusStart() {
+    this.start.nativeElement.focus();
   }
 
   toggleNavbar() {
@@ -193,10 +198,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 250 * (1 - +this.navbarOpen));
   }
 
-  @HostListener('window:scroll')
+  // @HostListener('window:scroll')
   scroll() {
+    // Doesnt work with esc opening and scrolling to focus
     if (this.navbarOpen) {
-      this.toggleNavbar();
+      // this.toggleNavbar();
     }
   }
 

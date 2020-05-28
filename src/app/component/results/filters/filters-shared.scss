@@ -282,8 +282,10 @@
         .row.single {
             border-radius: 4px;
             padding: 1rem;
-            cursor: pointer;
-        }
+            span.label {
+                cursor: pointer;
+            }
+        } 
 
         .row.slider {
             padding-top: 0.5rem;
