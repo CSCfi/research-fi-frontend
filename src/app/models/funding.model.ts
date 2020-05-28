@@ -14,13 +14,9 @@ export class Funding {
 
     constructor(
         public id: number,
-        public nameFi: string, // projectNameFi
-        public nameSv: string, // projectNameSv
-        public nameEn: string, // projectNameEn
+        public name: string, // projectNameFi
         public acronym: string,
-        public descriptionFi: string, // projectDescriptionFi
-        public descriptionSv: string, // projectDescriptionEn
-        public descriptionEn: string, // projectDescriptionEn
+        public description: string, // projectDescriptionFi
         public startYear: number, // fundingStartYear
         public endYear: number, // FundingEndYear
         public academyConsortium: string, // fundingGroupPerson ->
@@ -99,16 +95,12 @@ export class FundingAdapter implements Adapter<Funding> {
         const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
         const theme = item.keywords?.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
 
-        item.euFunding = funder.nameFi === 'Euroopan Unioni' ? true : false;
+        item.euFunding = funder.name === 'Euroopan Unioni' ? true : false;
 
         return new Funding(
             item.projectId,
             this.lang.testLang('projectName', item),
-            this.lang.testLang('projectName', item),
-            this.lang.testLang('projectName', item),
             item.projectAcronym,
-            this.lang.testLang('projectDescription', item),
-            this.lang.testLang('projectDescription', item),
             this.lang.testLang('projectDescription', item),
             item.fundingStartYear,
             item.fundingEndYear = item.fundingEndYear > item.fundingStartYear ? item.fundingEndYear : undefined,

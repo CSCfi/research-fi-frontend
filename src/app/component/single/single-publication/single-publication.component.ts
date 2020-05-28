@@ -336,7 +336,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             authors: authorArr, orgUnits: orgUnitArr});
         });
       });
-      // console.log(this.authorAndOrganization);
 
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
