@@ -38,6 +38,7 @@ import { tap } from 'rxjs/operators';
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;
   @Input() tabData: string;
+  @Input() showButton: boolean;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
   @ViewChild('openFilters') openFiltersButton: ElementRef;
 
@@ -83,11 +84,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
-  
+
   closeModal() {
     this.modalRef.hide();
   }
-  
+
   ngOnInit() {
     // Focus on the close button when modal opens
     this.modalService.onShown
