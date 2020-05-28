@@ -10,6 +10,7 @@ export class NewsCardComponent implements OnInit {
 
   @Input() item: News;
   @Input() sideNews: boolean;
+  @Input() isHomepage = false;
   constructor() { }
 
   ngOnInit(): void {

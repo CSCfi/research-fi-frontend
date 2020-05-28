@@ -69,9 +69,11 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ];
 
   contactFields = [
-    {label: 'Sähköpostiosoite', field: '?'},
-    {label: 'Puhelinnumero', field: '?'},
-    {label: 'Vierailuosoite', field: '?'},
+    {label: 'Nimi', field: 'contactName'},
+    {label: 'Kuvaus', field: 'contactDescription'},
+    {label: 'Sähköpostiosoite', field: 'email'},
+    {label: 'Puhelinnumero', field: 'phoneNumber'},
+    {label: 'Vierailuosoite', field: 'address'},
   ];
 
   otherFields = [

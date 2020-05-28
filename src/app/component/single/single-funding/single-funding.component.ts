@@ -16,6 +16,7 @@ import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-funding',
@@ -79,7 +80,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   funderFields: ({ label: string; field: string; tooltipFi?: undefined; } | { label: string; field: string; tooltipFi: string; })[];
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               public utilityService: UtilityService) {
    }
 
   public setTitle(newTitle: string) {

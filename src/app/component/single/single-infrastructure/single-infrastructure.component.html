@@ -45,7 +45,7 @@
                                 <h3 class="header trHeader subtitle service-name" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">
                                     {{stringHasContent(service.name) ? service.name : 'Palvelu'}} {{service.acronym ? '(' + service.acronym + ')' : ''}}
                                 </h3>
-                                <ng-container *ngIf="showService[i]">
+                                <div *ngIf="showService[i]" class="pl-4">
                                     <div *ngFor="let row of serviceFields; let j = index;" class="row">
                                         <ng-container *ngIf="stringHasContent(service[row.field])">
                                             <h4 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h4>
@@ -58,7 +58,7 @@
                                             </div>
                                         </ng-container>
                                     </div>
-                                    <div *ngFor="let servicePoint of service.servicePoints; let j = index;" class="pl-4">
+                                    <div *ngFor="let servicePoint of service.servicePoints; let j = index;">
                                         <div class="row"> <!-- (click)="toggleServicePoint(i, j)" -->
                                             <h4 class="col-12 col-sm-6 col-lg-3 th">Palvelupiste</h4> <!-- [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'" -->
                                             <div class="col-12 col-sm-6 col-lg-9 td">{{servicePoint.name}}</div>
@@ -78,7 +78,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </ng-container>
+                                </div>
                             </ng-container>
                             <ng-template #simpleServicePoints>
                                 <p class="header trHeader">{{service.name}} {{service.acronym ? '(' + service.acronym + ')' : ''}}</p>
@@ -111,21 +111,17 @@
                             </div>
                         </div>
                         <div *ngIf="contactFields?.length > 0" class="row">
-                            <h3 class="col-12 col-sm-6 col-lg-3 th">Yhteystiedot</h3>
-                            <div class="col-12 col-sm-6 offset-0 td" *ngFor="let row of contactFields.slice(0,1); let i = index;">
+                            <h3 class="col-12 col-sm-6 col-lg-3 pt-0 pb-0 contact th">Yhteystiedot</h3>
+                            <div class="col-12 col-sm-6 offset-0 pt-0 pb-0 td" *ngFor="let row of contactFields.slice(0,1); let i = index;">
                                 <ng-container *ngIf="item[row.field]">
                                     <h4 class="th sr-only">{{row.label}}</h4>
-                                    <div>
-                                        <p>{{item[row.field]}}</p>
-                                    </div>
+                                    <div>{{item[row.field]}}</div>
                                 </ng-container>
                             </div>
-                            <div class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 td" *ngFor="let row of contactFields.slice(1); let i = index;">
+                            <div class="col-12 col-sm-6 offset-0 offset-sm-6 offset-lg-3 pt-0 pb-0 td" *ngFor="let row of contactFields.slice(1); let i = index;">
                                 <ng-container *ngIf="item[row.field]">
                                     <h4 class="th sr-only">{{row.label}}</h4>
-                                    <div>
-                                        <p>{{item[row.field]}}</p>
-                                    </div>
+                                    <div>{{item[row.field]}}</div>
                                 </ng-container>
                             </div>
                         </div>
