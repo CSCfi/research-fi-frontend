@@ -8,6 +8,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-review',
@@ -34,14 +36,18 @@ export class ReviewComponent implements OnInit {
   math2: number;
   equals: number;
   success = false;
+  faTimes = faTimes;
 
   // TODO: Translate
   targets: string[] = ['Saavutettavuudesta', 'Tietosuojasta', 'Virheellisestä tiedosta', 'Muu palaute'];
   location: string;
+  title: string;
 
-  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router ) { }
+  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title ) { }
 
   ngOnInit(): void {
+    // Get title
+    this.title = this.titleService.getTitle();
     // Easy robot check
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
