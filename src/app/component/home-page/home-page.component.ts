@@ -17,6 +17,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   providers: [SearchBarComponent],
@@ -91,8 +92,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, private metaService: Meta ) {
+               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService ) {
                }
 
   public setTitle( newTitle: string) {

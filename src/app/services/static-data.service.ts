@@ -124,9 +124,11 @@ export class StaticDataService {
         break;
       }
       case 'infrastructure': {
-        res = ['name^2', 'description', 'scientificDescription', 'startYear', 'acronym', 'responsibleOrganizationNameFi',
-        'responsibleOrganizationNameEn', 'responsibleOrganizationNameSv', 'keywords.keyword', 'services.serviceName',
-        'services.serviceDescription', 'services.serviceType', 'services.servicePointName', 'services.serviceAcronym'];
+        res = ['nameFi^2', 'nameEn^2', 'nameSv^2', 'descriptionFi', 'descriptionEn', 'descriptionSv',
+        'scientificDescription', 'startYear', 'acronym', 'responsibleOrganizationNameFi', 'responsibleOrganizationNameEn',
+        'responsibleOrganizationNameSv', 'keywords.keyword', 'services.serviceName', 'services.serviceDescription',
+        'services.serviceType', 'services.servicePointName', 'services.serviceAcronym', 'services.servicePointEmailAddress',
+        'services.servicePointInfoUrl', 'services.servicePointPhoneNumber', 'services.servicePointVisitingAddress'];
         break;
       }
       case 'organization': {
@@ -182,7 +184,7 @@ export class StaticDataService {
       case 'name': {
         switch (index) {
           case 'publication': {
-            res = ['authorsText'];
+            res = [''];
             break;
           }
           case 'funding': {
@@ -211,7 +213,7 @@ export class StaticDataService {
             break;
           }
           case 'infrastructure': {
-            res = ['name', 'acronym', 'services.serviceName', 'services.serviceAcronym'];
+            res = ['nameFi', 'nameSv', 'nameEn', 'acronym', 'services.serviceName', 'services.serviceAcronym'];
             break;
           }
           case 'organization': {

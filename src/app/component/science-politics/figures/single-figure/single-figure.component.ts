@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from 'src/app/services/window.service';
 import { content } from '../../../../../assets/static-data/figures-content.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-figure',
@@ -101,7 +102,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       if (target === 'main-link') {
         this.keyboardHelp.nativeElement.focus();
       }
-    })    
+    });
   }
 
   onResize(dims) {
@@ -119,11 +120,9 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     return index;
   }
 
-  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-        this.showInfo = false;
-        this.showHelp = false;
-    }
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler() {
+      this.showInfo = false;
+      this.showHelp = false;
   }
 
   onClickedOutside(event) {

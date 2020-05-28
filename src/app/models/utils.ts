@@ -17,66 +17,43 @@ export class LanguageCheck {
 
   // Point of language test is to populate data if no content available.
   testLang(field, item) {
-    // Slice locale from field
-    const baseField = field.slice(0, -2);
-    // Get content from field
-    const content = item[field]?.toString()?.trim() || '';
+    // Change locale to field name format
+    const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    // Get the content based on the current locale
+    const content = item[field + capitalizedLocale]?.toString()?.trim() || '';
     // Return content based on locale and priority
-    switch (this.localeId) {
-      case 'fi': {
-        if (!item[field]) {
-          return item[baseField + 'En'] || item[baseField + 'Sv'] || null;
-        } else {
-          switch (content) {
-            case '': {
-              return item[baseField + 'En'].length > 0 ? item[baseField + 'En'] : item[baseField + 'Sv'];
-            }
-            default: {
-              return item[field];
-            }
+    switch (content) {
+      // If field doesn't exist in its original locale
+      case '': {
+        switch (this.localeId) {
+          case 'fi': {
+            return item[field + 'En'].length > 0 ? item[field + 'En'] : item[field + 'Sv'];
+          }
+          case 'en': {
+            return item[field + 'Fi'].length > 0 ? item[field + 'Fi'] : item[field + 'Sv'];
+          }
+          case 'sv': {
+            return item[field + 'En'].length > 0 ? item[field + 'En'] : item[field + 'Fi'];
           }
         }
+        break;
       }
-      case 'en': {
-        if (!item[field]) {
-          return item[baseField + 'Fi'] || item[baseField + 'Sv'] || null;
-        } else {
-          switch (content) {
-            case '': {
-              return item[baseField + 'Fi'].length > 0 ? item[baseField + 'Fi'] : item[baseField + 'Sv'];
-            }
-            default: {
-              return item[field];
-            }
-          }
-        }
-      }
-      case 'sv': {
-        if (!item[field]) {
-          return item[baseField + 'Fi'];
-        } else {
-          switch (content) {
-            case '': {
-              return item[baseField + 'Fi'].length > 0 ? item[baseField + 'Fi'] : item[baseField + 'En'];
-            }
-            default: {
-              return item[field];
-            }
-          }
-        }
+      // If field exists in its original locale, take that
+      default: {
+        return item[field + capitalizedLocale];
       }
     }
   }
 
-  translateRole(role) {
+  translateRole(role, euFunding) {
     switch (this.localeId) {
       case 'fi': {
         switch (role) {
           case 'leader': {
-            return 'Johtaja';
+            return euFunding ? 'Coordinator' : 'Johtaja';
           }
           case 'participant': {
-            return 'Partneri';
+            return 'Participant';
           }
           case 'partner': {
             return 'Partneri';
@@ -87,7 +64,7 @@ export class LanguageCheck {
       case 'en': {
         switch (role) {
           case 'leader': {
-            return 'Leader';
+            return euFunding ? 'Coordinator' : 'Leader';
           }
           case 'participant': {
             return 'Participant';
@@ -101,7 +78,7 @@ export class LanguageCheck {
       case 'sv': {
         switch (role) {
           case 'leader': {
-            return 'Leader';
+            return euFunding ? 'Coordinator' : 'Leader';
           }
           case 'participant': {
             return 'Participant';

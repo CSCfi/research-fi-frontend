@@ -71,8 +71,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   activeElement: any;
 
   constructor( private router: Router, private filterService: FilterService,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document, 
-               private modalService: BsModalService,private route: ActivatedRoute, private utilityService: UtilityService, 
+               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
+               private modalService: BsModalService,private route: ActivatedRoute, private utilityService: UtilityService,
                private sortService: SortService, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
@@ -147,7 +147,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         // Get from & to year filter preselection
         this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
         this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
-
       });
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     }

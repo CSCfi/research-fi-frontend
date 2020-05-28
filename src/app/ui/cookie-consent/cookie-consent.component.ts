@@ -38,8 +38,8 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     this.loadScript();
     // Get consent status from local storage and set visibility
     if (isPlatformBrowser(this.platformId)) {
-      this.showConsent = localStorage.getItem('cookieConsent') === 'declined' ||
-      localStorage.getItem('cookieConsent') === 'approved' ? false : true;
+      this.showConsent = sessionStorage.getItem('cookieConsent') === 'declined' ||
+      sessionStorage.getItem('cookieConsent') === 'approved' ? false : true;
     }
 
     // Focus on bar instead of skip links
@@ -54,7 +54,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     // Hide bar and set opt out + forget consent cookies
     this.showConsent = false;
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('cookieConsent', 'declined');
+      sessionStorage.setItem('cookieConsent', 'declined');
       const node = this.document.createElement('script');
       node.type = 'text/javascript';
       node.innerHTML = `var _paq = window._paq || [];
@@ -71,7 +71,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     this.showConsent = false;
     this.privacyService.changeConsentStatus('approved');
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('cookieConsent', 'approved');
+      sessionStorage.setItem('cookieConsent', 'approved');
       const node = this.document.createElement('script');
       node.id = 'matomo-consent';
       node.type = 'text/javascript';

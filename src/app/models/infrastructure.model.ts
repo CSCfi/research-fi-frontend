@@ -14,23 +14,29 @@ export class Infrastructure {
 
     constructor(
         public id: string,
-        public nameFi: string,
-        public nameEn: string,
-        public nameSv: string,
-        public descriptionFi: string,
-        public descriptionEn: string,
-        public descriptionSv: string,
+        public name: string,
+        public description: string,
         public scientificDescription: string,
         public startYear: string,
         public endYear: string,
         public acronym: string,
         public finlandRoadmap: string,
+        public ESFRICode: string,
+        public merilCode: string,
+        public contactName: string,
+        public contactDescription: string,
+        public email: string,
+        public phoneNumber: string,
+        public address: string,
         public urn: string,
-        public responsibleOrganization: Object,
+        public responsibleOrganization: string,
         public statCenterId: string,
+        public replacingInfraStructure: string,
         public keywords: string[],
+        public fieldsOfScience: object[],
         public services: InfraService[],
         public keywordsString: string,
+        public fieldsOfScienceString: string,
     ) {}
 }
 
@@ -41,43 +47,56 @@ export class Infrastructure {
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
     constructor(private isa: InfraServiceAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Infrastructure {
-
         const services: InfraService[] = [];
         const keywords: string[] = [];
+        const fieldsOfScience: string[] = [];
 
+        item.infraConPoint = item.infraConPoint[0];
+
+        console.log(item)
+
+        // Init and assign if available
+        let responsibleOrganization = '';
         if (item.responsibleOrganization) {
-            item.responsibleOrganization[0].responsibleOrganizationNameFi =
-                this.lang.testLang('responsibleOrganizationNameFi', item.responsibleOrganization[0]);
-            item.responsibleOrganization[0].responsibleOrganizationNameSv =
-                this.lang.testLang('responsibleOrganizationNameSv', item.responsibleOrganization[0]);
-            item.responsibleOrganization[0].responsibleOrganizationNameEn =
-                this.lang.testLang('responsibleOrganizationNameEn', item.responsibleOrganization[0]);
+            responsibleOrganization = this.lang.testLang('responsibleOrganizationName', item.responsibleOrganization[0]);
         }
+
+        // Assign if available
+        const esfriCode = item.ESFRICodes?.length > 0 ? item.ESFRICodes.map(x => x.ESFRICode)[0] : '';
 
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
         item.keywords?.forEach(obj => keywords.push(obj.keyword));
+        item.fieldsOfScience?.forEach(obj => fieldsOfScience.push(this.lang.testLang('name', obj)));
 
         const keywordsString = keywords?.join(', ');
 
+        const fieldsOfScienceString = fieldsOfScience?.join(', ');
+
         return new Infrastructure(
-            this.lang.testLang('nameFi', item),
-            this.lang.testLang('nameFi', item),
-            this.lang.testLang('nameEn', item),
-            this.lang.testLang('nameSv', item),
-            this.lang.testLang('descriptionFi', item),
-            this.lang.testLang('descriptionEn', item),
-            this.lang.testLang('descriptionSv', item),
+            this.lang.testLang('name', item),
+            this.lang.testLang('name', item),
+            this.lang.testLang('description', item),
             item.scientificDescription,
             item.startYear,
             item.endYear,
             item.acronym,
             item.finlandRoadmap,
+            esfriCode,
+            item.merilCode,
+            item?.infraConPoint?.infraConName,
+            item?.infraConPoint?.infraConDescr,
+            item?.infraConPoint?.infraConEmail,
+            item?.infraConPoint?.infraConPhone,
+            item?.infraConPoint?.infraConPost,
             item.urn,
-            item.responsibleOrganization[0],
+            responsibleOrganization,
             item.TKOppilaitosTunnus,
+            item.replacingInfraStructure,
             keywords,
+            item.fieldsOfScience,
             services,
             keywordsString,
+            fieldsOfScienceString
         );
     }
 }

@@ -34,11 +34,10 @@ export class RecipientAdapter implements Adapter<Recipient> {
     adapt(item: any): Recipient {
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
-
         // Combine recipient names and organizations, this is used in funding results component
         let combined = '';
         if (item.recipientType === 'organization' && item.organizationConsortium) {
-            item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt(o)));
+            item.organizationConsortium.forEach(o => organizations.push(this.roa.adapt({...o, euFunding: item.euFunding})));
             // Get Finnish organizations only (based on business id)
             if (item.organizationConsortium.find(org => org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-')) {
                 const finnish = item.organizationConsortium.filter
@@ -75,13 +74,17 @@ export class RecipientAdapter implements Adapter<Recipient> {
                         x.consortiumOrganizationNameFi.trim()).join('; ');
                 }
         // If no match with Finnish organization
-        } else if (item.recipientType === 'person' && item.fundingGroupPerson.find(x => x.fundingGroupPersonLastName?.trim().length > 0)) {
-            combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonLastName.trim().length > 0 ?
-            x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
+        } else if (item.recipientType === 'person') {
+            if (item.fundingGroupPerson.find(x => x.fundingGroupPersonLastName?.trim().length > 0)) {
+                combined = item.fundingGroupPerson?.map(x => x.fundingGroupPersonLastName.trim().length > 0 ?
+                x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
+            } else if (item.organizationConsortium) {
+                combined = item.organizationConsortium.filter(x => !x.countryCode || x.countryCode === 'FI')
+                .map(x => x.consortiumOrganizationNameFi).join('; ');
+            }
         } else {
             combined = '-';
         }
-
         return new Recipient(
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
@@ -95,7 +98,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             (item.fundingContactPersonFirstNames || '') + ' ' + (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
             item.fundingContactPersonOrcid,
             organizations,
-            combined
+            combined.trim().length > 0 ? combined : '-'
         );
     }
 }

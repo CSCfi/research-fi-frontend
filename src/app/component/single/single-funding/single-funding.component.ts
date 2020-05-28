@@ -16,6 +16,7 @@ import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-funding',
@@ -32,7 +33,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   info = [
     {label: 'Akronyymi', field: 'acronym'},
-    {label: 'Hankkeen kuvaus', field: 'descriptionFi', tooltipFi: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta'},
+    {label: 'Hankkeen kuvaus', field: 'description', tooltipFi: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta'},
     {label: 'Aloitusvuosi', field: 'startYear', tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
     {label: 'Päättymisvuosi', field: 'endYear', tooltipFi: 'Rahoituskauden päättymisvuosi.'},
   ];
@@ -47,8 +48,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   funder =  [
     // {label: 'Nimi', field: 'nameFi'},
-    {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi', tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.'},
-    {label: 'Haku', field: 'callProgrammeNameFi', tooltipFi: 'Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.'}
+    {label: 'Rahoitusmuoto', field: 'typeOfFundingName', tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.'},
+    {label: 'Haku', field: 'callProgrammeName', tooltipFi: 'Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.'}
   ];
 
   other = [
@@ -79,7 +80,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   funderFields: ({ label: string; field: string; tooltipFi?: undefined; } | { label: string; field: string; tooltipFi: string; })[];
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               public utilityService: UtilityService) {
    }
 
   public setTitle(newTitle: string) {
@@ -111,11 +113,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       if (this.responseData.fundings[0]) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.fundings[0].nameFi + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.fundings[0].name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.fundings[0].nameEn + ' - Research.fi');
+            this.setTitle(this.responseData.fundings[0].name + ' - Research.fi');
             break;
           }
         }
@@ -154,7 +156,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.funderFields = Object.assign(this.funder.filter(item => checkNestedEmpty('funder', item)));
     // Filter out empty organization names
     this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(item =>
-      item.nameFi !== '' && item.nameFi !== null);
+      item.name !== '' && item.name !== null);
   }
 
   shapeData() {

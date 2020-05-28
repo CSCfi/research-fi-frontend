@@ -12,7 +12,7 @@
  
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'nameFi'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
@@ -24,7 +24,7 @@
             <div *ngFor="let item of responseData.organizations">
                 <div class="row d-flex justify-content-around">
                     <div class="col p-0">
-                        <h1 class="result-header">{{item.nameFi}}</h1>
+                        <h1 class="result-header">{{item.name}}</h1>
                     </div>
                     <div *ngIf="item.logo && item.logo !== null" class="col p-0 org-logo text-right align-self-center">
                         <img [src]="item.logo | safeUrl">
@@ -40,16 +40,19 @@
                             <span *ngIf="row.field === 'staffCountAsFte'">({{item.staffYear}})</span>
                             <ng-container *ngIf="row.tooltipFi">
                                 <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
-                            </ng-container>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
+                                </ng-container>
                         </h2>
                         <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item[row.fieldEn]}}</div>
                     </div>
                     <div class="row content" *ngIf="studentCounts.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">
                             Tutkintojen määrä ({{item.thesisYear}})
-                            <fa-icon tabindex="0" tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" placement="right"
-                            class="info-icon" icon="info-circle"></fa-icon>
+                            <span tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                            </span>
                         </h2>
                         <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of studentCounts.slice(0,2)">
                             <h3 class="th">{{row.label}}</h3>
@@ -76,7 +79,9 @@
                         <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})
                             <ng-container *ngIf="row.tooltipFi">
                                 <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-6 col-lg-9 td">

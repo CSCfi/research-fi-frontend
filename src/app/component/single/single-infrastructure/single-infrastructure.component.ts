@@ -36,12 +36,11 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Toiminta alkanut', field: 'startYear'},
     {label: 'Toiminta päättynyt', field: 'endYear'},
     {label: 'Vastuuorganisaatio', field: 'responsibleOrganization'},
-    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
     {label: 'Avainsanat', field: 'keywordsString'},
   ];
 
   serviceFields = [
-    {label: 'Palvelun kuvaus', field: 'descriptionFi'},
+    {label: 'Palvelun kuvaus', field: 'description'},
     {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
     {label: 'Palvelun tyyppi', field: 'type'},
   ];
@@ -56,29 +55,31 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   servicePointInfoFields = [
     {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
     {label: 'Linkki', field: 'infoUrl'},
-    {label: 'Koordinoiva organisaatio', field: '?'},
+    {label: 'Koordinoiva organisaatio', field: 'coOrg'},
   ];
 
   fieldsOfScience = [
-    {label: 'Tieteenalat', field: '?'},
+    {label: 'Tieteenalat', field: 'fieldsOfScienceString'},
   ];
 
   classificationFields = [
     {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
-    {label: 'ESFRI-luokitus', field: '?'},
-    {label: 'MERIL-luokitus', field: '?'},
+    {label: 'ESFRI-luokitus', field: 'ESFRICode'},
+    {label: 'MERIL-luokitus', field: 'merilCode'},
   ];
 
   contactFields = [
-    {label: 'Sähköpostiosoite', field: '?'},
-    {label: 'Puhelinnumero', field: '?'},
-    {label: 'Vierailuosoite', field: '?'},
+    {label: 'Nimi', field: 'contactName'},
+    {label: 'Kuvaus', field: 'contactDescription'},
+    {label: 'Sähköpostiosoite', field: 'email'},
+    {label: 'Puhelinnumero', field: 'phoneNumber'},
+    {label: 'Vierailuosoite', field: 'address'},
   ];
 
   otherFields = [
-    {label: 'Tunnisteet', field: '?'},
+    {label: 'Tunnisteet', field: 'urn'},
     {label: 'Osa kansainvälistä infrastruktuuria', field: '?'},
-    {label: 'Edeltävä tutkimusinfrastruktuuri', field: '?'},
+    {label: 'Edeltävä tutkimusinfrastruktuuri', field: 'replacingInfrastructure'},
     {label: 'Lisätietoja', field: '?'},
   ];
 
@@ -122,11 +123,11 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
       if (this.responseData.infrastructures[0]) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.infrastructures[0].nameFi + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.infrastructures[0].nameFi + ' - Research.fi'); // English name??
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Research.fi'); // English name??
             break;
           }
 
@@ -151,18 +152,6 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
              this.responseData.infrastructures[0][item.field] !== '#N/A';
     };
 
-    const isNull = (obj) => Object.values(obj).every(x => (x === null));
-    // Check if every field null in service points and set flag. This is used to hide service from list
-    this.responseData.infrastructures[0].services.forEach(item => {
-
-      if (item.servicePoints.every(isNull)) {
-        const hideFlag = 'hide';
-        item.servicePoints[hideFlag] = 'true';
-      }
-    });
-    // Filter out invalid services
-    this.responseData.infrastructures[0].services = this.responseData.infrastructures[0].services.filter(
-      item => item.name !== '0' && item.name !== '#N/A');
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -184,6 +173,14 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.infrastructures[0];
     source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+
+    // Filter out empty servicepoints and empty services
+    source.services.forEach((service, idx) => {
+      source.services[idx].servicePoints =
+      service.servicePoints.map(servicePoint => this.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
+    });
+
+    source.services = source.services.map(service => this.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
   expandInfoDescription(idx: number) {
@@ -204,5 +201,27 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   serviceExpandId(serviceId: number, fieldId: number) {
     return this.serviceFields.length * serviceId + fieldId;
+  }
+
+  stringHasContent(content: any) {
+    const contentString = content?.toString();
+    return contentString !== '0' &&
+           contentString !== '' &&
+           contentString !== ' ' &&
+           contentString !== '#N/A' &&
+           contentString !== '[]' &&
+           contentString !== null &&
+           contentString !== undefined;
+  }
+
+  objectHasContent(content: object) {
+    let res = false;
+    Object.keys(content).forEach(key => {
+      if (this.stringHasContent(content[key])) {
+        res = true;
+        // How to jump out of forEach after true found??
+      }
+    });
+    return res;
   }
 }

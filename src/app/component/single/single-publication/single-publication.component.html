@@ -9,7 +9,7 @@
 </aside>
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
@@ -24,7 +24,9 @@
                             {{row.label}}
                             <ng-container *ngIf="row.tooltipFi">
                                 <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltipFi"></div></ng-template>
-                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
                             </ng-container>
                         </h2>
                         <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
@@ -32,8 +34,9 @@
                     <div class="row content" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">Organisaatiot ja tekijät
                             <ng-container>
-                                <fa-icon tabindex="0" tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." placement="right" class="info-icon" 
-                                icon="info-circle"></fa-icon>
+                                <span tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>    
                             </ng-container>
                             <div>
                                 <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
@@ -143,7 +146,9 @@
                                 {{row.label}}
                                 <ng-container *ngIf="row.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
                                 </ng-container>
                             </h3>
                             <p class="td"*ngIf="row.link && juFoCode?.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
@@ -198,7 +203,9 @@
                                 {{row.label}}
                                 <ng-container *ngIf="row.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
                                 </ng-container>
                             </h3>
                             <!-- Fields of science as list -->
