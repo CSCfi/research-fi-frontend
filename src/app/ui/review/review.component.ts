@@ -8,6 +8,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-review',
@@ -33,23 +35,38 @@ export class ReviewComponent implements OnInit {
   math1: number;
   math2: number;
   equals: number;
-  success = false;
+  result = false;
+  error = false;
 
   // TODO: Translate
   targets: string[] = ['Saavutettavuudesta', 'Tietosuojasta', 'Virheellisestä tiedosta', 'Muu palaute'];
   location: string;
 
-  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router ) { }
+  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private httpClient: HttpClient ) { }
 
   ngOnInit(): void {
     // Easy robot check
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
-    this.equals = this.math1 + this.math2;
+    this.equals = this.math1 + this.math2
   }
 
   close() {
     this.dialogRef.close();
+  }
+
+  getBodyJson(): Object {
+    return {
+      'reviewTarget': this.reviewTarget,
+      'reviewContent': this.reviewContent,
+      'locationTarget': this.locationTarget,
+      'locationValue': this.locationValue,
+      'emailValue': this.emailValue
+    };
+  }
+
+  sendPost(data: Object): Observable<Object> {
+    return this.httpClient.post('/feedback', data);
   }
 
   send() {
@@ -58,8 +75,17 @@ export class ReviewComponent implements OnInit {
     this.mathError = this.mathInput !== this.equals ? true : false;
 
     if (this.underReview && this.reviewChecked && !this.mathError) {
-      // this.underReview = false;
-      this.success = true;
+      // Send form data
+      this.sendPost(this.getBodyJson()).subscribe(
+        success => {
+          this.result = true;
+          this.error = false;
+        },
+        err => {
+          this.result = true;
+          this.error = true;
+        }
+      );
     }
   }
 

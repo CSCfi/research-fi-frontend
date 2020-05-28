@@ -3,6 +3,7 @@
     "buildInfo": "<BUILD_INFO>",
     "environmentName": "local|test|production",
     "email": {
+        "enabled": true,
         "host": "<smtp host>",
         "port": 25,
         "username": "<optional username>",

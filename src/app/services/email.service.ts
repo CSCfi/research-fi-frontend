@@ -18,14 +18,17 @@ import nodemailer from 'nodemailer';
 export class EmailService {
   constructor() {}
 
-  public async sendMail(host, port, authUser, authPassword, receiver, user, callback) {
+  private getBodyText(body) {
+    return JSON.stringify(body)
+  }
+
+  public async sendMail(host, port, authUser, authPassword, receiver, bodyJson, callback) {
     // Email transport options
     let transportOptions = {
       host: host,
       port: port,
       secure: false,
     }
-
     // Add 'auth' block if username and password are available
     if (authUser && authPassword) {
       transportOptions['auth'] = {
@@ -35,13 +38,13 @@ export class EmailService {
     }
 
     let transporter = nodemailer.createTransport(transportOptions);
-  
+
+    // For configuration options, see https://nodemailer.com/message/
     let mailOptions = {
-      from: "Web portal",
+      from: "Portaalin palautelomake",
       to: receiver,
-      html: "<span>Hello</span>"
+      text: this.getBodyText(bodyJson)
     };
-  
     let info = await transporter.sendMail(mailOptions);
   
     callback(info);
