@@ -126,23 +126,24 @@
                                     </div>
                             </div>
                         </div>
+                        <!-- Contact person -->
+                        <div class="row" *ngIf="item.recipient.contactPersonName?.trim().length > 0">
+                            <h3 class="th col-3">Yhteyshenkilö</h3>
+                            <div class="col-6 col-sm-4 col-lg-5 td">
+                                {{item.recipient.contactPersonName}}
+                                <app-orcid *ngIf="item.recipient.contactPersonOrcid" [orcid]="item.recipient.contactPersonOrcid"></app-orcid>
+                            </div>
+                        </div>
                         <!-- SA-funding additional rows -->
                         <ng-container [ngSwitch]="item.recipientType">
                             <ng-container *ngSwitchCase="'consortium'">
-                                <div class="row" *ngIf="item.recipient.contactPersonName.trim().length > 0">
-                                    <h3 class="th col-3">Yhteyshenkilö</h3>
-                                    <div class="col-6 col-sm-4 col-lg-5 td">
-                                        {{item.recipient.contactPersonName}}
-                                        <app-orcid *ngIf="item.recipient.contactPersonOrcid" [orcid]="item.recipient.contactPersonOrcid"></app-orcid>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <h3 class="th col-12 col-sm-3">Rooli Suomen Akatemian konsortiossa</h3>
                                     <div class="col-12 col-sm-4 td py-0 py-sm-3">
                                         {{item.academyConsortium}}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" *ngIf="item.otherConsortium.length > 0">
                                     <h3 class="th col-12 col-sm-3">Muut osapuolet</h3>
                                     <div class="col px-0">
                                         <div class="row" *ngFor="let consortium of item.otherConsortium">
