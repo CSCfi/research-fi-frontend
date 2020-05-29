@@ -38,6 +38,7 @@ import { tap } from 'rxjs/operators';
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;
   @Input() tabData: string;
+  @Input() showButton: boolean;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
   @ViewChild('openFilters') openFiltersButton: ElementRef;
 
@@ -72,7 +73,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
-               private modalService: BsModalService,private route: ActivatedRoute, private utilityService: UtilityService,
+               private modalService: BsModalService,private route: ActivatedRoute, public utilityService: UtilityService,
                private sortService: SortService, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
@@ -83,11 +84,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
-  
+
   closeModal() {
     this.modalRef.hide();
   }
-  
+
   ngOnInit() {
     // Focus on the close button when modal opens
     this.modalService.onShown
