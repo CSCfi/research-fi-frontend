@@ -41,7 +41,7 @@
             </div>
             <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
                 <h2 class="col-12 pt-3 px-0 pb-3">Aiempia uutisia</h2>
-                <app-news-card *ngFor="let item of data.slice(5, 15)" tabindex="0" [item]="item" [sideNews]="true"></app-news-card>
+                <app-news-card *ngFor="let item of data.slice(5, 15)" [item]="item" [sideNews]="true"></app-news-card>
                 
             </div>
         </div>
