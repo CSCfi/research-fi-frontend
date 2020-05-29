@@ -37,6 +37,10 @@
                 font-size: 14px;
                 margin: 0 16px !important;
             }
+
+            .icon {
+                color: mat-color($primary);
+            }
         }
     }
 }
