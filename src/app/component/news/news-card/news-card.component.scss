@@ -29,6 +29,10 @@ img {
     }
 
     padding: 0;
+
+    .icon {
+        display: inline-block;
+    }
 }
 
 @media (max-width: 991px) {
