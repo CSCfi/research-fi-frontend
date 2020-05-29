@@ -52,7 +52,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getFilterData();
     this.paramSub = this.route.queryParams.subscribe(query => {
       this.sortService.updateTab('news');
-
+      this.searchService.updateNewsPageNumber(parseInt(query.page, 10));
       // Check for Angular Univeral SSR, get filters if browser
       if (isPlatformBrowser(this.platformId)) {
         this.filters = {
@@ -122,7 +122,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getNews() {
-    this.searchService.getNews(100)
+    this.searchService.getNews(15)
     .subscribe(data => {
       this.data = data;
       this.dataCopy = data;
