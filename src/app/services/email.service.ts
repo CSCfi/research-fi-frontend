@@ -19,7 +19,7 @@ export class EmailService {
   constructor() {}
 
   private getSubject(emailJson) {
-    return emailJson.reviewTarget;
+    return 'Palautteen aihe: ' + emailJson.reviewTarget;
   }
 
   private getBodyText(emailJson) {

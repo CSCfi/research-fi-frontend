@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-review',
@@ -38,6 +39,7 @@ export class ReviewComponent implements OnInit {
   math2: number;
   equals: number;
   result = false;
+  sending = false;
   error = false;
   success = false;
   faTimes = faTimes;
@@ -83,12 +85,15 @@ export class ReviewComponent implements OnInit {
 
     if (this.underReview && this.reviewChecked && !this.mathError) {
       // Send form data
+      this.sending = true;
       this.sendPost(this.getBodyJson()).subscribe(
         success => {
+          this.sending = false;
           this.result = true;
           this.error = false;
         },
         err => {
+          this.sending = false;
           this.result = true;
           this.error = true;
         }
