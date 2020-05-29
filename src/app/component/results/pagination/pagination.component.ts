@@ -35,7 +35,6 @@ export class PaginationComponent implements OnInit {
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
-
     // Reset pagination
     this.page = this.searchService.pageNumber;
 
