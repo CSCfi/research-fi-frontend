@@ -39,6 +39,9 @@ export class EmailService {
       host: host,
       port: port,
       secure: false,
+      tls: {
+        rejectUnauthorized: false
+      }
     }
     // Add 'auth' block if username and password are available
     if (authUser && authPassword) {
