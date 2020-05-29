@@ -1,9 +1,17 @@
-<mat-card class="col-12 news-card mat-elevation-z pl-0 mx-auto">
+<mat-card class="col-12 news-card mat-elevation-z pl-0 mx-auto" [class.side]="sideNews" [class.limit-width]="isHomepage">
     <mat-card-header>
         <mat-card-title>
             <ng-container [ngSwitch]="isHomepage">
                 <h3 *ngSwitchCase="true">{{item.headline}}</h3>
-                <h2 *ngSwitchDefault>{{item.headline}}</h2>
+                <ng-container *ngSwitchDefault>
+                    <ng-container *ngIf="!sideNews">
+                        <h2>{{item.headline}}</h2>
+                    </ng-container>
+                    <ng-container *ngIf="sideNews">
+                        <a href="{{item.url}}" target="_blank"><h2>{{item.headline}} <fa-icon class="icon" icon="external-link-alt"></fa-icon></h2></a>
+                    </ng-container>
+                </ng-container>
+
             </ng-container>
         </mat-card-title>
         <mat-card-subtitle>
@@ -14,7 +22,7 @@
             </div>
         </mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content *ngIf="!sideNews" [innerHTML]="item.content"[ngClass]="isHomepage ? '' : 'ml-0 mr-0 ml-lg-3 mr-lg-3'">
+    <mat-card-content *ngIf="!sideNews" [innerHTML]="item.content" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
         <!-- <div class="row">
             <div class="pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'" ></div>
             <div *ngIf="item.mediaUri?.length > 0" class="col-2 pr-0">
@@ -22,7 +30,7 @@
             </div>
         </div> -->
     </mat-card-content>
-    <mat-card-actions *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0 ml-lg-3 mr-lg-3'">
+    <mat-card-actions *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
         <div class="row">
             <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank">Lue koko uutinen <fa-icon icon="external-link-alt"></fa-icon></a>

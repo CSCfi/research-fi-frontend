@@ -1,24 +1,17 @@
-//  This file is part of the research.fi API service
-//
-//  Copyright 2019 Ministry of Education and Culture, Finland
-//
-//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-//  :license: MIT
-
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { SearchService } from '../../../services/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Search } from 'src/app/models/search.model';
 import { Subscription } from 'rxjs';
+import { SearchService } from 'src/app/services/search.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
-import { Search } from 'src/app/models/search.model';
 
 @Component({
-  selector: 'app-pagination',
-  templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+  selector: 'app-news-pagination',
+  templateUrl: './news-pagination.component.html',
+  styleUrls: ['./news-pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class NewsPaginationComponent implements OnInit {
   page: number;
   fromPage: number; // Used for HTML rendering
   pages: number[];
@@ -26,25 +19,20 @@ export class PaginationComponent implements OnInit {
   @Input() responseData: Search;
   @Input() tab: string;
   total: any;
-  totalSub: Subscription;
   resizeSub: Subscription;
   desktop = this.window.innerWidth >= 1200;
   order = this.window.innerWidth >= 768;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window) { }
+               private resizeService: ResizeService, @Inject(WINDOW) private window: Window ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Reset pagination
-    this.page = this.searchService.pageNumber;
-
+    this.page = this.searchService.newsPageNumber;
     this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
-
-    // Get total value of results and send to search service
-    this.totalSub = this.searchService.currentTotal.subscribe(total => this.total = total.value);
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
@@ -52,7 +40,7 @@ export class PaginationComponent implements OnInit {
 
   generatePages(currentPage: number, length: number = 5) {
     // Get the highest page number for the query
-    this.maxPage = this.getHighestPage(this.responseData.total);
+    this.maxPage = this.getHighestPage(this.responseData[0].total);
     // Init array to correct length, make it odd and squish if not enough pages
     // Number of pages should be odd to make centering current page easy
     // tslint:disable-next-line: curly
@@ -86,7 +74,8 @@ export class PaginationComponent implements OnInit {
   goToPage(n: number) {
     this.page = n;
     this.fromPage = (this.page - 1) * 10;
-    this.searchService.updatePageNumber(this.page);
+    this.searchService.updateNewsPageNumber(this.page);
+    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
     this.navigate();
   }
 
@@ -112,4 +101,5 @@ export class PaginationComponent implements OnInit {
         queryParamsHandling: 'merge'
       });
   }
+
 }

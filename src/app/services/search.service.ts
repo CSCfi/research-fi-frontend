@@ -24,7 +24,9 @@ import { News, NewsAdapter } from '../models/news.model';
 export class SearchService {
   singleInput: string;
   pageNumber: number;
+  newsPageNumber: number;
   fromPage: number;
+  fromNewsPage: number;
   apiUrl: any;
 
   // Variables to help with search term redirections
@@ -74,6 +76,16 @@ export class SearchService {
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
       this.fromPage = 0;
       this.pageNumber = 1;
+    }
+  }
+
+  // We use different method for news page number
+  updateNewsPageNumber(pageNumber: number) {
+    this.newsPageNumber = pageNumber;
+    this.fromNewsPage = this.newsPageNumber * 10 - 10;
+    if (isNaN(this.newsPageNumber) || this.newsPageNumber < 0) {
+      this.fromNewsPage = 0;
+      this.newsPageNumber = 1;
     }
   }
 
@@ -204,6 +216,7 @@ export class SearchService {
     const payload = {
       query: this.filterService.constructNewsPayload(),
       size,
+      from: this.fromNewsPage,
       sort: [
         {
           timestamp: {order: 'desc'}

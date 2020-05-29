@@ -8,23 +8,30 @@
 <div class="full-width"></div>
 <main id="main-content">
     <div class="wrapper">
+        <div class="row">
+            <div class="col-12 col-lg-8 px-0">
+                <div class="row d-flex justify-content-between">
+                    <h1 class="col col-lg-8 px-0">Tiede- ja tutkimusuutiset</h1>
+                    <div class="col-12 col-sm-4 search">
+                        <aside>
+                            <!-- results/filters -->
+                            <app-filters [responseData]="filterValues" [tabData]="'news'" [showButton]="true"></app-filters>
+                        </aside>
+                    </div>
+                    <aside>
+                        <!-- results/active-filters -->
+                        <app-active-filters></app-active-filters>
+                    </aside>
+                </div>
+
+            </div>
+        </div>
         <div class="row" *ngIf="data">
-            <div class="col-12 col-lg-8 col" [class.p-0]="mobile">
+            <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
                 <main>
                     <div class="row content">
-                        <h1 class="col col-lg-6">Tiede- ja tutkimusuutiset</h1>
-                        <div class="col col-lg-4 search">
-                            <aside>
-                                <!-- results/filters -->
-                                <app-filters [responseData]="filterValues" [tabData]="'news'" [showButton]="true"></app-filters>
-                            </aside>
-                        </div>
-                        <aside>
-                            <!-- results/active-filters -->
-                            <app-active-filters></app-active-filters>
-                        </aside>
                         <h2 class="col-12 pt-3 px-0">Uusimmat</h2>
-                        <app-news-card *ngFor="let item of data.slice(0, 10)" tabindex="0" [item]="item"></app-news-card>
+                        <app-news-card *ngFor="let item of data.slice(0, 5)" tabindex="0" [item]="item"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
                             <h3>Ei tuloksia.</h3><br>
                             <p>Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
@@ -33,8 +40,14 @@
                 </main>
             </div>
             <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
-                <h3 class="col-12 pt-3 px-0">Aiempia uutisia</h3>
-                <app-news-card *ngFor="let item of data.slice(10, 20)" tabindex="0" [item]="item" [sideNews]="true"></app-news-card>
+                <h2 class="col-12 pt-3 px-0 pb-3">Aiempia uutisia</h2>
+                <app-news-card *ngFor="let item of data.slice(5, 15)" [item]="item" [sideNews]="true"></app-news-card>
+                
+            </div>
+        </div>
+        <div class="row" *ngIf="data">
+            <div class="col-12 text-center">
+                <app-news-pagination [responseData]="data"></app-news-pagination>
             </div>
         </div>
     </div>

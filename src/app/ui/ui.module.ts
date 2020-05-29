@@ -27,6 +27,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { ReviewComponent } from './review/review.component';
 import { BetaInfoComponent } from './beta-info/beta-info.component';
 import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
+import { WINDOW_PROVIDERS } from '../services/window.service';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, ReviewComponent, BetaInfoComponent,
@@ -48,6 +49,7 @@ import { CookieConsentComponent } from './cookie-consent/cookie-consent.componen
     ClickOutsideModule,
   ],
   exports: [LayoutComponent],
-  entryComponents: [ReviewComponent]
+  entryComponents: [ReviewComponent],
+  providers: [WINDOW_PROVIDERS]
 })
 export class UiModule { }
