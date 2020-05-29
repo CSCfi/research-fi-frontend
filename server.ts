@@ -23,6 +23,11 @@ import * as compression from 'compression';
 import * as helmet from 'helmet';
 import {join} from 'path';
 import { EXPRESS_HTTP_PORT } from './src/app/app.global';
+import { EmailService } from './src/app/services/email.service';
+
+// Add timestamp to logs
+require('log-timestamp');
+var bodyParser = require('body-parser')
 
 enableProdMode();
 
@@ -37,6 +42,7 @@ const routes = [
   {path: '/*', view: 'fi/index', bundle: require('./dist/server/fi/main')}
 ];
 
+app.use(bodyParser.json());
 app.use(compression());
 app.use(helmet());
 app.use(helmet.referrerPolicy({policy: 'same-origin'}));
@@ -179,6 +185,46 @@ routes.forEach((route) => {
       });
     });
   }
+});
+
+// Send email.
+// Email server configuration is read from file config.json.
+// Email is sent using nodemailer.
+const emailService = new EmailService();
+app.post("/feedback", (req, res) => {
+  const fs = require('fs');
+  fs.readFile(DIST_FOLDER + '/browser/fi/assets/config/config.json', (err, data) => {
+    if (err) {
+      let errorMsg = 'Email: Error: Could not open config.json';
+      console.error(errorMsg);
+      res.status(500).send({ error: errorMsg });
+    } else { 
+      let appConfig = JSON.parse(data);
+
+      if (!appConfig['email']) {
+        let errorMsg = 'Email: Error: Could not find configuration in config.json';
+        console.error(errorMsg);
+        res.status(500).send({ error: errorMsg });
+      }
+      else if (!appConfig['email']['enabled']) {
+        let errorMsg = 'Email: Error: Sending is disabled';
+        console.error(errorMsg);
+        res.status(500).send({ error: errorMsg });
+      }
+      else {
+        let host = appConfig['email']['host'];
+        let port = appConfig['email']['port'];
+        let username = appConfig['email']['username'];
+        let password = appConfig['email']['password'];
+        let receiver = appConfig['email']['receiver'];
+        
+        emailService.sendMail(host, port, username, password, receiver, req.body, info => {
+          console.log('Email: Success: Sent message to ' + receiver + ' via ' + host + ':' + port);
+          res.send(info);
+        })
+      }
+    }
+  });
 });
 
 // Start up the Node server

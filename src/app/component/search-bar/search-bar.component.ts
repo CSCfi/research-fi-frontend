@@ -20,6 +20,7 @@ import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SettingsService } from 'src/app/services/settings.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 interface Target {
   value: string;
@@ -93,7 +94,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private settingService: SettingsService ) {
+               private settingService: SettingsService, public utilityService: UtilityService ) {
                 this.queryHistory = this.getHistory();
                 this.completion = '';
                 this.isBrowser = isPlatformBrowser(this.platformId);

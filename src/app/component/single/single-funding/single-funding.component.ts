@@ -132,19 +132,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.fundings[0][item.field] !== undefined &&
-             this.responseData.fundings[0][item.field] !== 'UNDEFINED' &&
-             this.responseData.fundings[0][item.field] !== '-1' &&
-             this.responseData.fundings[0][item.field] !== '' &&
-             this.responseData.fundings[0][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.fundings[0][item.field]);
     };
 
     const checkNestedEmpty = (parent: string, item: {field: string} ) =>  {
-      return this.responseData.fundings[0][parent][item.field] !== undefined &&
-             this.responseData.fundings[0][parent][item.field] !== 'UNDEFINED' &&
-             this.responseData.fundings[0][parent][item.field] !== '-1' &&
-             this.responseData.fundings[0][parent][item.field] !== '' &&
-             this.responseData.fundings[0][parent][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.fundings[0][parent][item.field]);
     };
 
     // Filter all the fields to only include properties with defined data

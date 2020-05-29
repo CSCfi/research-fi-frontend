@@ -15,7 +15,7 @@
         <button mat-button color="primary"><fa-icon class="icon" [icon]="faTimes"></fa-icon>Sulje</button>
       </div>
     </div>
-    <ng-container *ngIf="!success; else successTemplate">
+    <ng-container *ngIf="!result; else resultTemplate">
       <p>Tällä lomakkeella voit antaa palautetta Tiedejatutkimus.fi -verkkopalvelusta.<br>
         Kaikki palautteet ja kysymykset ovat tervetulleita! Voit myös lähettää palautteesi tai kysymyksesi vapaamuotoisesti sähköpostilla osoitteeseen tiedejatutkimus@csc.fi<br>
         <a routerLink="/privacy" class="d-inline-block pt-2">Tietosuojaseloste</a></p>
@@ -92,10 +92,10 @@
       
       <div class="row pt-4">
         <div class="col-6 px-0 text-left">
-          <button *ngIf="underReview" mat-stroked-button color="primary" (click)="underReview = false">Takaisin</button>
+          <button *ngIf="underReview" mat-stroked-button color="primary" (click)="underReview = false"[disabled]="sending" >Takaisin</button>
         </div>
         <div class="col-6 px-0 text-right">
-          <button mat-flat-button color="primary" (click)="underReview ? send() : validate()">Tarkista ja lähetä</button>
+          <button mat-flat-button color="primary" (click)="underReview ? send() : validate()" [disabled]="sending" >Tarkista ja lähetä</button>
         </div>
       </div>
 
@@ -129,10 +129,19 @@
         </div>
       </ng-template>
     </ng-container>
-    <ng-template #successTemplate>
-      <div class="row">
+    <ng-template #resultTemplate>
+      <!-- Success -->
+      <div class="row" *ngIf="!error;">
         <div class="col text-center" role="alert">
           <span class="thanks d-block">Olemme vastaanottaneet palautteesi. Kiitos!</span>
+          <button class="px-4" mat-flat-button color="primary" (click)="close()">Sulje lomake</button>
+          <a routerLink="/privacy" class="d-block pt-4" (click)="close()"><u>Tietosuojaseloste</u></a>
+        </div>
+      </div>
+      <!-- Error -->
+      <div class="row" *ngIf="error;">
+        <div class="col text-center" role="alert">
+          <span class="thanks d-block">Lomakkeen lähetys epäonnistui :(</span>
           <button class="px-4" mat-flat-button color="primary" (click)="close()">Sulje lomake</button>
           <a routerLink="/privacy" class="d-block pt-4" (click)="close()"><u>Tietosuojaseloste</u></a>
         </div>

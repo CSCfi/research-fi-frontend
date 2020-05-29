@@ -126,11 +126,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.organizations[0][item.field] !== undefined &&
-             this.responseData.organizations[0][item.field] !== 0 &&
-             this.responseData.organizations[0][item.field] !== null &&
-             this.responseData.organizations[0][item.field] !== '' &&
-             this.responseData.organizations[0][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.organizations[0][item.field]);
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
