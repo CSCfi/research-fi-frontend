@@ -291,7 +291,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (tab === 'news' && source.organization) {
               const result = source.organization.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.label;
+              this.activeFilters[foundIndex].translation = result.label ? result.label : result.orgName.buckets[0].key;
             }
           });
           // Set flag when all filters are translated & filter items that aren't hidden
