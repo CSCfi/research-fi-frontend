@@ -143,13 +143,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.infrastructures[0][item.field] !== undefined &&
-             this.responseData.infrastructures[0][item.field] !== 0 &&
-             this.responseData.infrastructures[0][item.field] !== '0' &&
-             this.responseData.infrastructures[0][item.field] !== null &&
-             this.responseData.infrastructures[0][item.field] !== '' &&
-             this.responseData.infrastructures[0][item.field] !== ' ' &&
-             this.responseData.infrastructures[0][item.field] !== '#N/A';
+      return UtilityService.stringHasContent(this.responseData.infrastructures[0][item.field]);
     };
 
 
@@ -201,27 +195,5 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   serviceExpandId(serviceId: number, fieldId: number) {
     return this.serviceFields.length * serviceId + fieldId;
-  }
-
-  stringHasContent(content: any) {
-    const contentString = content?.toString();
-    return contentString !== '0' &&
-           contentString !== '' &&
-           contentString !== ' ' &&
-           contentString !== '#N/A' &&
-           contentString !== '[]' &&
-           contentString !== null &&
-           contentString !== undefined;
-  }
-
-  objectHasContent(content: object) {
-    let res = false;
-    Object.keys(content).forEach(key => {
-      if (this.stringHasContent(content[key])) {
-        res = true;
-        // How to jump out of forEach after true found??
-      }
-    });
-    return res;
   }
 }
