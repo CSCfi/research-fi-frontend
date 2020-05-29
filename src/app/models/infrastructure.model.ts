@@ -51,9 +51,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const keywords: string[] = [];
         const fieldsOfScience: string[] = [];
 
-        item.infraConPoint = item.infraConPoint[0];
-
-        console.log(item)
+        item.infraConPoint = item.infraConPoint?.shift();
 
         // Init and assign if available
         let responsibleOrganization = '';
@@ -76,15 +74,15 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             this.lang.testLang('name', item),
             this.lang.testLang('name', item),
             this.lang.testLang('description', item),
-            item.scientificDescription,
+            this.lang.testLang('scientificDescription', item),
             item.startYear,
             item.endYear,
             item.acronym,
             item.finlandRoadmap,
             esfriCode,
             item.merilCode,
-            item?.infraConPoint?.infraConName,
-            item?.infraConPoint?.infraConDescr,
+            this.lang.testLang('infraConName', item?.infraConPoint),
+            this.lang.testLang('infraConDescr', item?.infraConPoint),
             item?.infraConPoint?.infraConEmail,
             item?.infraConPoint?.infraConPhone,
             item?.infraConPoint?.infraConPost,
