@@ -24,6 +24,7 @@ exactField: any;
   }
 
   strictFields(field) {
+    console.log(field);
     this.exactField = field;
   }
 
@@ -33,7 +34,7 @@ exactField: any;
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: any) {
-    if (this.exactField === this.exactField) {this.exactField = undefined; }
+    // if (this.exactField === this.exactField) {this.exactField = undefined; }
     let targetFields: any;
     let onlyDigits: any;
     let hasDigits: any;
@@ -68,7 +69,7 @@ exactField: any;
       targetAnalyzer = 'standard';
       targetType = 'phrase_prefix';
     }
-
+    // console.log(this.exactField)
     const res = { bool: {
       must: [{
         term: {
