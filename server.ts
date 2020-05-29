@@ -217,8 +217,7 @@ app.post("/feedback", (req, res) => {
         let username = appConfig['email']['username'];
         let password = appConfig['email']['password'];
         let receiver = appConfig['email']['receiver'];
-
-        let body = req.body;
+        
         emailService.sendMail(host, port, username, password, receiver, req.body, info => {
           console.log('Email: Success: Sent message to ' + receiver + ' via ' + host + ':' + port);
           res.send(info);

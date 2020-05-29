@@ -66,8 +66,8 @@ export class ReviewComponent implements OnInit {
     return {
       'reviewTarget': this.reviewTarget,
       'reviewContent': this.reviewContent,
-      'locationTarget': this.locationTarget,
-      'locationValue': this.locationValue,
+      'location': (this.locationValue ? this.locationValue : (this.title + '\n' + this.getRoute())),
+      'contactChecked':this.contactChecked,
       'emailValue': this.emailValue
     };
   }

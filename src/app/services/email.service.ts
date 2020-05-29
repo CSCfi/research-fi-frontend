@@ -18,11 +18,22 @@ import nodemailer from 'nodemailer';
 export class EmailService {
   constructor() {}
 
-  private getBodyText(body) {
-    return JSON.stringify(body)
+  private getSubject(emailJson) {
+    return emailJson.reviewTarget;
   }
 
-  public async sendMail(host, port, authUser, authPassword, receiver, bodyJson, callback) {
+  private getBodyText(emailJson) {
+    let bodyText = '';
+    bodyText += 'Palaute:\n' + emailJson.reviewContent + '\n\n';
+    bodyText += 'Palautetta koskeva sijainti verkkopalvelussa:\n' + emailJson.location + '\n\n';
+    if (emailJson.contactChecked && emailJson.emailValue) {
+      bodyText += 'Toivon yhteydenottoa palautteestani:\n' + emailJson.emailValue + '\n\n';
+    }
+    bodyText += 'Olen tarkastanut, että tiedot ovat oikein.'
+    return bodyText;
+  }
+
+  public async sendMail(host, port, authUser, authPassword, receiver, emailJson, callback) {
     // Email transport options
     let transportOptions = {
       host: host,
@@ -41,9 +52,10 @@ export class EmailService {
 
     // For configuration options, see https://nodemailer.com/message/
     let mailOptions = {
-      from: "Portaalin palautelomake",
+      from: "noreply@research.fi",
       to: receiver,
-      text: this.getBodyText(bodyJson)
+      subject: this.getSubject(emailJson),
+      text: this.getBodyText(emailJson)
     };
     let info = await transporter.sendMail(mailOptions);
   
