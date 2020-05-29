@@ -12,7 +12,8 @@
     <div class="row no-margin">
         <div class="col col-1 icon"></div>
         <div class="col col-3 col-xl-2 d-none d-lg-block">
-            <span #main tabindex="0" tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." placement="bottom"
+            <span #main tabindex="0" tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." triggers="focus keydown.escape" placement="top" 
+            (mouseenter)="utilityService.tooltipMouseenter(main)" (keydown.escape)="utilityService.tooltipKeydown(main, $event)"
             class="bold uppercase" [ngClass]="sortColumn === 'acronym' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('acronym')" (keydown.enter)="sortBy('acronym')">Lyhenne</span>
         </div>
@@ -21,7 +22,8 @@
             (click)="sortBy('name')" (keydown.enter)="sortBy('name')">Nimi</span>
         </div>
         <div class="col col-3 col-lg-4 col-xl-4 d-none d-lg-block">
-            <span tabindex="0" tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." placement="bottom"
+            <span tabindex="0" tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." triggers="focus keydown.escape" placement="top"
+            (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
             class="bold uppercase" [ngClass]="sortColumn === 'organization' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('organization')" (keydown.enter)="sortBy('organization')">Organisaatio</span>
         </div>

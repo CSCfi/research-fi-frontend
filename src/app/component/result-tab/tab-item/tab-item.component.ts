@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, QueryList, AfterViewInit, ElementR
 import { SearchService } from 'src/app/services/search.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { DataService } from 'src/app/services/data.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-tab-item',
@@ -25,7 +26,8 @@ export class TabItemComponent implements OnInit, AfterViewInit {
 
   @ViewChild('tabList') tabElem: ElementRef;
 
-  constructor(public searchService: SearchService, private dataService: DataService, private settingsService: SettingsService) { }
+  constructor(public searchService: SearchService, private dataService: DataService, private settingsService: SettingsService,
+              public utilityService: UtilityService) { }
 
   ngOnInit(): void {
     // Set target to params

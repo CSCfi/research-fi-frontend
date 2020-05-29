@@ -11,6 +11,7 @@ import { SortService } from '../../../services/sort.service';
 import { SearchService } from 'src/app/services/search.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Search } from 'src/app/models/search.model';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-fundings',
@@ -30,7 +31,7 @@ export class FundingsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
               private tabChangeService: TabChangeService, private searchService: SearchService,
-              private cdr: ChangeDetectorRef) { }
+              private cdr: ChangeDetectorRef, public utilityService: UtilityService) { }
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
