@@ -137,6 +137,7 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { TabItemComponent } from './component/result-tab/tab-item/tab-item.component';
 import { HistoryService } from './services/history.service';
 import { TabChangeService } from './services/tab-change.service';
+import { NewsPaginationComponent } from './component/news/news-pagination/news-pagination.component';
 
 @NgModule({
   declarations: [
@@ -192,7 +193,8 @@ import { TabChangeService } from './services/tab-change.service';
     AccessibilityComponent,
     NewsCardComponent,
     SitemapComponent,
-    TabItemComponent
+    TabItemComponent,
+    NewsPaginationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
