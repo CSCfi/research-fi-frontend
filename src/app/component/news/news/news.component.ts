@@ -150,6 +150,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resizeSub?.unsubscribe();
       this.paramSub?.unsubscribe();
     }
+    this.searchService.updateNewsPageNumber(1);
   }
 
   closeModal() {

@@ -42,13 +42,13 @@
             <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
                 <h2 class="col-12 pt-3 px-0 pb-3">Aiempia uutisia</h2>
                 <app-news-card *ngFor="let item of data.slice(5, 15)" [item]="item" [sideNews]="true"></app-news-card>
-                
-            </div>
-        </div>
-        <div class="row" *ngIf="data">
-            <div class="col-12 text-center">
                 <app-news-pagination [responseData]="data"></app-news-pagination>
             </div>
         </div>
+        <!-- <div class="row" *ngIf="data">
+            <div class="col-12 text-center">
+                <app-news-pagination [responseData]="data"></app-news-pagination>
+            </div>
+        </div> -->
     </div>
 </main>
