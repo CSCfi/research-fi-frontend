@@ -8,8 +8,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-review',
@@ -35,6 +38,9 @@ export class ReviewComponent implements OnInit {
   math1: number;
   math2: number;
   equals: number;
+  result = false;
+  sending = false;
+  error = false;
   success = false;
   faTimes = faTimes;
 
@@ -43,7 +49,7 @@ export class ReviewComponent implements OnInit {
   location: string;
   title: string;
 
-  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title ) { }
+  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     // Get title
@@ -51,11 +57,25 @@ export class ReviewComponent implements OnInit {
     // Easy robot check
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
-    this.equals = this.math1 + this.math2;
+    this.equals = this.math1 + this.math2
   }
 
   close() {
     this.dialogRef.close();
+  }
+
+  getBodyJson(): Object {
+    return {
+      'reviewTarget': this.reviewTarget,
+      'reviewContent': this.reviewContent,
+      'location': (this.locationValue ? this.locationValue : (this.title + '\n' + this.getRoute())),
+      'contactChecked':this.contactChecked,
+      'emailValue': this.emailValue
+    };
+  }
+
+  sendPost(data: Object): Observable<Object> {
+    return this.httpClient.post('/feedback', data);
   }
 
   send() {
@@ -64,8 +84,20 @@ export class ReviewComponent implements OnInit {
     this.mathError = this.mathInput !== this.equals ? true : false;
 
     if (this.underReview && this.reviewChecked && !this.mathError) {
-      // this.underReview = false;
-      this.success = true;
+      // Send form data
+      this.sending = true;
+      this.sendPost(this.getBodyJson()).subscribe(
+        success => {
+          this.sending = false;
+          this.result = true;
+          this.error = false;
+        },
+        err => {
+          this.sending = false;
+          this.result = true;
+          this.error = true;
+        }
+      );
     }
   }
 
