@@ -13,17 +13,26 @@ h2 {
     bottom: 0;
 }
 
+a:focus {
+    text-decoration: underline;
+}
+
 img {
     max-width: 140px;
     height: auto;
 }
 
 // Side news
-
 .side {
     h2 {
         font-size: 1rem;
     }
 
     padding: 0;
+}
+
+@media (max-width: 991px) {
+    .mat-card-header-text {
+        margin: 0;
+    }
 }
