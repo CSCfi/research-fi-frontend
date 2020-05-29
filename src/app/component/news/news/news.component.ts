@@ -42,6 +42,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   modalRef: BsModalRef;
   resizeSub: any;
   paramSub: any;
+  olderData: import("d:/Code/research-fi-frontend/src/app/models/news.model").News[];
+  olderDataCopy: import("d:/Code/research-fi-frontend/src/app/models/news.model").News[];
 
   constructor( private searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
                private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
@@ -89,6 +91,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // Get data
       this.getNews();
+      this.getOlderNews();
     });
 
     // Set title
@@ -124,10 +127,18 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getNews() {
-    this.searchService.getNews(15)
+    this.searchService.getNews(5)
     .subscribe(data => {
       this.data = data;
       this.dataCopy = data;
+    }, error => this.errorMessage = error as any);
+  }
+
+  getOlderNews() {
+    this.searchService.getOlderNews()
+    .subscribe(data => {
+      this.olderData = data;
+      this.olderDataCopy = data;
     }, error => this.errorMessage = error as any);
   }
 
