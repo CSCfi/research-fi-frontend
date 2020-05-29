@@ -30,7 +30,7 @@ app-news-card {
     }
 
     mat-card-content {
-        margin: 0 16px;
+        margin: 0!important;
     }
 
     @media (max-width: 991px) {

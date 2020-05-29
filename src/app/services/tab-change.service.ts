@@ -36,6 +36,7 @@ export class TabChangeService {
   tab: string;
   tabQueryParams: any = {};
   locale: string;
+  focus: string;
 
   constructor( @Inject( LOCALE_ID ) protected localeId: string ) { }
 

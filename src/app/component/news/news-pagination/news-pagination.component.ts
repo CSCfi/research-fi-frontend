@@ -5,6 +5,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
+import { TabChangeService } from 'src/app/services/tab-change.service';
 
 @Component({
   selector: 'app-news-pagination',
@@ -24,12 +25,13 @@ export class NewsPaginationComponent implements OnInit {
   order = this.window.innerWidth >= 768;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window ) { }
+               private resizeService: ResizeService, @Inject(WINDOW) private window: Window,
+               private tabChangeService: TabChangeService ) { }
 
   ngOnInit(): void {
     // Reset pagination
     this.page = this.searchService.newsPageNumber;
-    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
+    this.pages = this.generatePages(this.page, 5);
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
@@ -75,7 +77,8 @@ export class NewsPaginationComponent implements OnInit {
     this.page = n;
     this.fromPage = (this.page - 1) * 10;
     this.searchService.updateNewsPageNumber(this.page);
-    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
+    this.pages = this.generatePages(this.page, 5);
+    this.tabChangeService.focus = 'olderNews';
     this.navigate();
   }
 
@@ -87,7 +90,7 @@ export class NewsPaginationComponent implements OnInit {
     this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {
-      this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
+      this.pages = this.generatePages(this.page, 5);
     }
   }
 

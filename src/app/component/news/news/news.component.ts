@@ -33,6 +33,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage: any;
   focusSub: any;
   @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChild('older') olderHeader: ElementRef;
   @ViewChildren(NewsCardComponent, {read: ElementRef }) cards: QueryList<ElementRef>;
   width = this.window.innerWidth;
   mobile = this.width < 992;
@@ -42,6 +43,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   modalRef: BsModalRef;
   resizeSub: any;
   paramSub: any;
+  olderData: import("d:/Code/research-fi-frontend/src/app/models/news.model").News[];
+  olderDataCopy: import("d:/Code/research-fi-frontend/src/app/models/news.model").News[];
 
   constructor( private searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
                private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
@@ -53,7 +56,12 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.getFilterData();
     this.paramSub = this.route.queryParams.subscribe(query => {
-      this.sortService.updateTab('news');
+
+      // Scroll to older news header with pagination, TODO: Do without timeout
+      if (this.tabChangeService.focus === 'olderNews' && this.mobile) {
+        setTimeout(x => this.olderHeader.nativeElement?.scrollIntoView(), 1);
+        }
+
       this.searchService.updateNewsPageNumber(parseInt(query.page, 10));
       // Check for Angular Univeral SSR, get filters if browser
       if (isPlatformBrowser(this.platformId)) {
@@ -89,6 +97,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       // Get data
       this.getNews();
+      this.getOlderNews();
     });
 
     // Set title
@@ -124,10 +133,18 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getNews() {
-    this.searchService.getNews(15)
+    this.searchService.getNews(5)
     .subscribe(data => {
       this.data = data;
       this.dataCopy = data;
+    }, error => this.errorMessage = error as any);
+  }
+
+  getOlderNews() {
+    this.searchService.getOlderNews()
+    .subscribe(data => {
+      this.olderData = data;
+      this.olderDataCopy = data;
     }, error => this.errorMessage = error as any);
   }
 
@@ -150,6 +167,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resizeSub?.unsubscribe();
       this.paramSub?.unsubscribe();
     }
+    this.searchService.updateNewsPageNumber(1);
+    this.tabChangeService.focus = undefined;
   }
 
   closeModal() {

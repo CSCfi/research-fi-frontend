@@ -135,8 +135,8 @@
                             </div>
                         </div>
                         <!-- SA-funding additional rows -->
-                        <ng-container [ngSwitch]="item.recipientType">
-                            <ng-container *ngSwitchCase="'consortium'">
+                        <ng-container >
+                            <ng-container *ngIf="item.recipientType === 'consortium' && item.funderNameFi === 'Suomen Akatemia'">
                                 <div class="row">
                                     <h3 class="th col-12 col-sm-3">Rooli Suomen Akatemian konsortiossa</h3>
                                     <div class="col-12 col-sm-4 td py-0 py-sm-3">
