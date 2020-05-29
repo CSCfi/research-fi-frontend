@@ -163,6 +163,12 @@ mark, .mark {
         font-size: 1.1rem;
     }
 }
+
+@media (max-width: 991px) {
+    .info-icon {
+        display: none;
+    }
+}
 // .tooltip-inner {
 //     color: #000;
 //     background-color: #fff;

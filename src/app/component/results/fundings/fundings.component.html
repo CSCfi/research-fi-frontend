@@ -40,8 +40,9 @@
                 <!-- <app-tooltip [title]="funding.nameFi" [description]="funding.descriptionFi" [id]="funding.id"
                 [index]="i">
                 </app-tooltip>-->
-                <a routerLink="/results/funding/{{funding.id}}" [tooltip]="(funding.description ? funding.description : '') | cutContent: 200" 
-                placement="top" [isDisabled]="funding.descriptionFi?.trim().length > 0 ? false : true">
+                <a routerLink="/results/funding/{{funding.id}}" [tooltip]="(funding.description ? funding.description : '') | cutContent: 200"
+                (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
+                placement="top" triggers="focus keydown.escape" [isDisabled]="funding.description?.trim().length > 0 ? false : true">
                     <h3 class="result-title" [innerHtml]="funding.name | highlight: input"></h3>
                 </a>
             </div>
