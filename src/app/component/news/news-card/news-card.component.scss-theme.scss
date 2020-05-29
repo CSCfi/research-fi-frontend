@@ -13,9 +13,12 @@
         mat-card {
             &.mat-card {
                 background-color: unset;
-                // max-width: 760px;
-                // margin-top: 40px;
                 margin-bottom: 10px;
+            }
+
+            &.mat-card.limit-width {
+                max-width: 760px;
+                margin-top: 40px;
             }
             
             .mat-card-header-text {
