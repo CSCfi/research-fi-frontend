@@ -216,7 +216,6 @@ export class SearchService {
     const payload = {
       query: this.filterService.constructNewsPayload(),
       size,
-      from: this.fromNewsPage,
       sort: [
         {
           timestamp: {order: 'desc'}
@@ -226,4 +225,20 @@ export class SearchService {
 
     return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
   }
+
+    // News page older news content
+    getOlderNews(size?: number): Observable<News[]> {
+      const payload = {
+        query: this.filterService.constructNewsPayload(),
+        size,
+        from: this.fromNewsPage + 5,
+        sort: [
+          {
+            timestamp: {order: 'desc'}
+          }
+        ]
+      };
+
+      return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
+    }
 }
