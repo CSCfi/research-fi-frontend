@@ -33,6 +33,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage: any;
   focusSub: any;
   @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChild('older') olderHeader: ElementRef;
   @ViewChildren(NewsCardComponent, {read: ElementRef }) cards: QueryList<ElementRef>;
   width = this.window.innerWidth;
   mobile = this.width < 992;
@@ -55,7 +56,12 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.getFilterData();
     this.paramSub = this.route.queryParams.subscribe(query => {
-      this.sortService.updateTab('news');
+
+      // Scroll to older news header with pagination, TODO: Do without timeout
+      if (this.tabChangeService.focus === 'olderNews' && this.mobile) {
+        setTimeout(x => this.olderHeader.nativeElement?.scrollIntoView(), 1);
+        }
+
       this.searchService.updateNewsPageNumber(parseInt(query.page, 10));
       // Check for Angular Univeral SSR, get filters if browser
       if (isPlatformBrowser(this.platformId)) {
@@ -162,6 +168,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.paramSub?.unsubscribe();
     }
     this.searchService.updateNewsPageNumber(1);
+    this.tabChangeService.focus = undefined;
   }
 
   closeModal() {
