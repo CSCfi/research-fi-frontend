@@ -8,10 +8,22 @@ app-news-card {
     min-width: 100%;
 }
 
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
 .row.content {
     // max-width: 760px;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+.side {
+    margin-top: 2.875rem;
 }
 
 @media (max-width: 991px) {
@@ -25,5 +37,9 @@ app-news-card {
 
     ::ng-deep mat-card .mat-card-header-text {
         margin: 0;
+    }
+
+    .side {
+        margin-top: 0;
     }
 }
