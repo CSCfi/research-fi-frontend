@@ -3,7 +3,15 @@
         <mat-card-title>
             <ng-container [ngSwitch]="isHomepage">
                 <h3 *ngSwitchCase="true">{{item.headline}}</h3>
-                <h2 *ngSwitchDefault>{{item.headline}}</h2>
+                <ng-container *ngSwitchDefault>
+                    <ng-container *ngIf="!sideNews">
+                        <h2>{{item.headline}}</h2>
+                    </ng-container>
+                    <ng-container *ngIf="sideNews">
+                        <a href="{{item.url}}" target="_blank"><h2>{{item.headline}} <fa-icon class="icon" icon="external-link-alt"></fa-icon></h2></a>
+                    </ng-container>
+                </ng-container>
+
             </ng-container>
         </mat-card-title>
         <mat-card-subtitle>
