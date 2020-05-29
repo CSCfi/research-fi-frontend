@@ -43,8 +43,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   modalRef: BsModalRef;
   resizeSub: any;
   paramSub: any;
-  olderData: import("d:/Code/research-fi-frontend/src/app/models/news.model").News[];
-  olderDataCopy: import("d:/Code/research-fi-frontend/src/app/models/news.model").News[];
+  olderData: any;
+  olderDataCopy: any;
 
   constructor( private searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
                private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
@@ -56,7 +56,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.getFilterData();
     this.paramSub = this.route.queryParams.subscribe(query => {
-
+      this.sortService.updateTab('news');
       // Scroll to older news header with pagination, TODO: Do without timeout
       if (this.tabChangeService.focus === 'olderNews' && this.mobile) {
         setTimeout(x => this.olderHeader.nativeElement?.scrollIntoView(), 1);

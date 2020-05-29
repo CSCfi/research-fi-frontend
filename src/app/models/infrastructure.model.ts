@@ -53,8 +53,6 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
         item.infraConPoint = item.infraConPoint[0];
 
-        console.log(item)
-
         // Init and assign if available
         let responsibleOrganization = '';
         if (item.responsibleOrganization) {

@@ -24,7 +24,6 @@ exactField: any;
   }
 
   strictFields(field) {
-    console.log(field);
     this.exactField = field;
   }
 
@@ -69,7 +68,6 @@ exactField: any;
       targetAnalyzer = 'standard';
       targetType = 'phrase_prefix';
     }
-    // console.log(this.exactField)
     const res = { bool: {
       must: [{
         term: {
