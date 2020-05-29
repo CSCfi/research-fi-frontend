@@ -29,7 +29,7 @@ export class NewsPaginationComponent implements OnInit {
   ngOnInit(): void {
     // Reset pagination
     this.page = this.searchService.newsPageNumber;
-    this.pages = this.generatePages(this.page, 5);
+    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
@@ -75,7 +75,7 @@ export class NewsPaginationComponent implements OnInit {
     this.page = n;
     this.fromPage = (this.page - 1) * 10;
     this.searchService.updateNewsPageNumber(this.page);
-    this.pages = this.generatePages(this.page, 5);
+    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
     this.navigate();
   }
 
@@ -87,7 +87,7 @@ export class NewsPaginationComponent implements OnInit {
     this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {
-      this.pages = this.generatePages(this.page, 5);
+      this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
     }
   }
 
