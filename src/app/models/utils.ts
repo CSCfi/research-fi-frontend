@@ -6,6 +6,7 @@
 // # :license: MIT
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { UtilityService } from '../services/utility.service';
 
 
 @Injectable({
@@ -21,19 +22,21 @@ export class LanguageCheck {
     const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     // Get the content based on the current locale
     const content = item[field + capitalizedLocale]?.toString()?.trim() || '';
+    // Check if the original locale has valuable content
+    const contentIsValid = UtilityService.stringHasContent(content);
     // Return content based on locale and priority
-    switch (content) {
+    switch (contentIsValid) {
       // If field doesn't exist in its original locale
-      case '': {
+      case false: {
         switch (this.localeId) {
           case 'fi': {
-            return item[field + 'En'].length > 0 ? item[field + 'En'] : item[field + 'Sv'];
+            return UtilityService.stringHasContent(item[field + 'En']) ? item[field + 'En'] : item[field + 'Sv'];
           }
           case 'en': {
-            return item[field + 'Fi'].length > 0 ? item[field + 'Fi'] : item[field + 'Sv'];
+            return UtilityService.stringHasContent(item[field + 'Fi']) ? item[field + 'Fi'] : item[field + 'Sv'];
           }
           case 'sv': {
-            return item[field + 'En'].length > 0 ? item[field + 'En'] : item[field + 'Fi'];
+            return UtilityService.stringHasContent(item[field + 'En']) ? item[field + 'En'] : item[field + 'Fi'];
           }
         }
         break;

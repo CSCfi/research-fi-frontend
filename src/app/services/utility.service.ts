@@ -56,6 +56,33 @@ export class UtilityService {
     }
   }
 
+  // A function to check if a string has valuable data to be displayed
+  static stringHasContent(content: any) {
+    const contentString = content?.toString();
+    return contentString !== '0' &&
+           contentString !== '-1' &&
+           contentString !== '' &&
+           contentString !== 'UNDEFINED' &&
+           contentString !== 'undefined' &&
+           contentString !== ' ' &&
+           contentString !== '#N/A' &&
+           contentString !== '[]' &&
+           contentString !== null &&
+           contentString !== undefined;
+  }
+
+  // A function to check if an object has any fields with valuable data
+  static objectHasContent(content: object) {
+    let res = false;
+    Object.keys(content).forEach(key => {
+      if (UtilityService.stringHasContent(content[key])) {
+        res = true;
+        // How to jump out of forEach after true found??
+      }
+    });
+    return res;
+  }
+
   tooltipMouseenter(elem: HTMLElement) {
     elem.blur();
     elem.focus();

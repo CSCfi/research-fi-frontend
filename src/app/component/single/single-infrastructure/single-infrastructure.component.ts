@@ -15,6 +15,7 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -27,6 +28,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
+  stringHasContent = UtilityService.stringHasContent;
 
   tab = 'infrastructures';
   infoFields = [
@@ -96,7 +98,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   faIcon = faFileAlt;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string ) {
    }
 
   public setTitle(newTitle: string) {
@@ -143,13 +145,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.infrastructures[0][item.field] !== undefined &&
-             this.responseData.infrastructures[0][item.field] !== 0 &&
-             this.responseData.infrastructures[0][item.field] !== '0' &&
-             this.responseData.infrastructures[0][item.field] !== null &&
-             this.responseData.infrastructures[0][item.field] !== '' &&
-             this.responseData.infrastructures[0][item.field] !== ' ' &&
-             this.responseData.infrastructures[0][item.field] !== '#N/A';
+      return UtilityService.stringHasContent(this.responseData.infrastructures[0][item.field]);
     };
 
 
@@ -177,10 +173,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     // Filter out empty servicepoints and empty services
     source.services.forEach((service, idx) => {
       source.services[idx].servicePoints =
-      service.servicePoints.map(servicePoint => this.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
+      service.servicePoints.map(servicePoint => UtilityService.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
     });
 
-    source.services = source.services.map(service => this.objectHasContent(service) ? service : undefined).filter(x => x);
+    source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
   expandInfoDescription(idx: number) {
@@ -201,27 +197,5 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   serviceExpandId(serviceId: number, fieldId: number) {
     return this.serviceFields.length * serviceId + fieldId;
-  }
-
-  stringHasContent(content: any) {
-    const contentString = content?.toString();
-    return contentString !== '0' &&
-           contentString !== '' &&
-           contentString !== ' ' &&
-           contentString !== '#N/A' &&
-           contentString !== '[]' &&
-           contentString !== null &&
-           contentString !== undefined;
-  }
-
-  objectHasContent(content: object) {
-    let res = false;
-    Object.keys(content).forEach(key => {
-      if (this.stringHasContent(content[key])) {
-        res = true;
-        // How to jump out of forEach after true found??
-      }
-    });
-    return res;
   }
 }
