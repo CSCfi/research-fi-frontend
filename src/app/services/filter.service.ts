@@ -869,11 +869,18 @@ export class FilterService {
             }
           },
           aggs: {
-            organizations: {
+            sector: {
               terms: {
-                field: 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword',
-                exclude: ' ',
-                size: 50
+                field: 'responsibleOrganization.responsibleOrganizationSectorFi.keyword',
+                exclude: ' '
+              },
+              aggs: {
+                organizations: {
+                  terms: {
+                    field: 'responsibleOrganization.responsibleOrganizationNameFi.keyword',
+                    exclude: ' '
+                  }
+                }
               }
             }
           }
