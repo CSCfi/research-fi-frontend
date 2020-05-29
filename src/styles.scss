@@ -48,6 +48,7 @@
 @import './app/common-components/info/info.component-theme.scss';
 @import './app/ui/cookie-consent/cookie-consent-theme.scss';
 @import './app/ui/review/review.component-theme.scss';
+@import './app/component/results/pagination/pagination.component.scss';
 
 
 // Global element color definitions
@@ -83,6 +84,7 @@
   @include app-news-card-theme($theme);
   @include app-cookie-consent-theme($theme);
   @include app-review-theme($theme);
+  @include app-pagination-shared;
 
 
   $primary: map-get($theme, primary);
