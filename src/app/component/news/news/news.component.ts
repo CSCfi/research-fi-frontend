@@ -5,7 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit, OnDestroy, PLATFORM_ID, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit, OnDestroy, PLATFORM_ID, ViewChildren,
+         QueryList, ViewEncapsulation } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -23,7 +24,8 @@ import { NewsCardComponent } from '../news-card/news-card.component';
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
-  styleUrls: ['./news.component.scss']
+  styleUrls: ['./news.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   data: any;
