@@ -23,7 +23,6 @@
                         <app-active-filters></app-active-filters>
                     </aside>
                 </div>
-
             </div>
         </div>
         <div class="row" *ngIf="data">
@@ -40,7 +39,7 @@
                 </main>
             </div>
             <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
-                <h2 class="col-12 pt-3 px-0 pb-3">Aiempia uutisia</h2>
+                <h2 class="col-12 pt-3 px-0 pb-3" #older>Aiempia uutisia</h2>
                 <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true"></app-news-card>
                 <app-news-pagination [responseData]="data"></app-news-pagination>
             </div>
