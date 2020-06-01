@@ -22,24 +22,40 @@
         </context-group>
       </trans-unit>
       <trans-unit id="searchSlogan" datatype="html">
-        <source>Hae tietoa tutkimuksesta Suomessa</source>
+        <source>
+        Hae tietoa tutkimuksesta Suomessa
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="searchTarget" datatype="html">
+        <source>Kohdista haku</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
+        <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="799bcf9270be412cb8063fd9e94d3d1f70192d2f" datatype="html">
         <source>Esim. julkaisu, tieteenala, asiasana</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="searchButton" datatype="html">
         <source>Hae</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">39</context>
         </context-group>
         <note priority="1" from="description">Search</note>
       </trans-unit>
@@ -47,7 +63,7 @@
         <source>Hakuohje</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <note priority="1" from="description">Search help button</note>
       </trans-unit>
@@ -55,7 +71,7 @@
         <source>Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi tai esimerkiksi organisaation nimi.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <note priority="1" from="description">Search help</note>
       </trans-unit>
@@ -63,7 +79,7 @@
         <source>Hakutulosten rajaaminen onnistuu haun jälkeen haku -näkymässä.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <note priority="1" from="description">Search help</note>
       </trans-unit>
@@ -71,7 +87,7 @@
         <source>Haku kohdistuu julkaisuihin, hankkeisiin, infrastruktuureihin ja organisaatioihin.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">49</context>
         </context-group>
         <note priority="1" from="description">Search help</note>
       </trans-unit>
@@ -79,7 +95,7 @@
         <source>Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">57</context>
         </context-group>
         <note priority="1" from="description">Search suggest</note>
       </trans-unit>
@@ -87,7 +103,7 @@
         <source>Muuta hakua saadaksesi ehdotuksia</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <note priority="1" from="description">Search suggest</note>
       </trans-unit>
@@ -95,7 +111,7 @@
         <source>Ei ehdotuksia</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">69</context>
         </context-group>
         <note priority="1" from="description">Suggest results</note>
       </trans-unit>
@@ -103,7 +119,7 @@
         <source>Näytä kaikki </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <note priority="1" from="description">Suggest results</note>
       </trans-unit>
@@ -111,7 +127,7 @@
         <source>Näytä kaikki </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">100</context>
         </context-group>
         <note priority="1" from="description">Suggest results</note>
       </trans-unit>
@@ -119,7 +135,7 @@
         <source>Hait viimeeksi:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">114</context>
         </context-group>
         <note priority="1" from="description">Search history</note>
       </trans-unit>
@@ -127,13 +143,15 @@
         <source>Tyhjennä hakuhistoria</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">122</context>
         </context-group>
         <note priority="1" from="description">Empty search history</note>
       </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
         <source>Uusimmat tiede- ja tutkimusuutiset 
-            <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>
+            <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>
+              <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>
+            <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
             
           </source>
         <context-group purpose="location">
@@ -153,7 +171,7 @@
         <source>Lue lisää tiedeuutisia &gt;&gt;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
         <note priority="1" from="description">Home page read more news link</note>
       </trans-unit>
@@ -222,91 +240,91 @@
         <source>Organisaatiot ja tekijät</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="736db59efa202cb6c4ddda729570e44719b2109e" datatype="html">
         <source>Julkaisun tekijät, joilla on suomalainen organisaatio.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="showSpecific" datatype="html">
         <source>Näytä tarkemmin</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="hideSubUnits" datatype="html">
         <source>Piilota alayksiköt</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="publicationMediumInfo" datatype="html">
         <source>Julkaisukanavan tiedot</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="otherPublicationInfo" datatype="html">
         <source>Muut tiedot</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">195</context>
+          <context context-type="linenumber">200</context>
         </context-group>
       </trans-unit>
       <trans-unit id="publicationLinks" datatype="html">
         <source>Linkit julkaisuun</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">236</context>
+          <context context-type="linenumber">243</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noPublicationLinks" datatype="html">
         <source>Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">273</context>
+          <context context-type="linenumber">271</context>
         </context-group>
       </trans-unit>
       <trans-unit id="externalLinks" datatype="html">
         <source>Hae julkaisua muualta</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">278</context>
+          <context context-type="linenumber">276</context>
         </context-group>
       </trans-unit>
       <trans-unit id="relatedPublications" datatype="html">
         <source>Hae julkaisuun liittyvät</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">291</context>
+          <context context-type="linenumber">289</context>
         </context-group>
       </trans-unit>
       <trans-unit id="doiWarning" datatype="html">
         <source>Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">301</context>
+          <context context-type="linenumber">299</context>
         </context-group>
       </trans-unit>
       <trans-unit id="publicationSource" datatype="html">
         <source>Julkaisutiedon lähde</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">315</context>
+          <context context-type="linenumber">313</context>
         </context-group>
       </trans-unit>
       <trans-unit id="doiHelp" datatype="html">
         <source>Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">356</context>
+          <context context-type="linenumber">354</context>
         </context-group>
       </trans-unit>
       <trans-unit id="publicationName" datatype="html">
@@ -327,39 +345,39 @@
         <source>Julkaisukanava</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="publicationYear" datatype="html">
         <source>Vuosi</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="peerReviewed" datatype="html">
         <source>Vertaisarvioitu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="openAccess" datatype="html">
-        <source>Avoin saatavuus <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/></source>
+        <source>Avoin saatavuus</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">53</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noPublications" datatype="html">
         <source>Ei julkaisuja</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resultSearchTermWarning" datatype="html">
@@ -367,11 +385,11 @@
                Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä verkkopalvelussa.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">90</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">68</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
@@ -379,18 +397,18 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="resultsAboutService" datatype="html">
         <source>Mitä tietoja Tiedejatutkimus.fi sisältää?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">92</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
@@ -398,7 +416,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="connProblem1" datatype="html">
@@ -427,7 +445,7 @@
         <source>Seuraava sivu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/pagination/pagination.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginationResultCount" datatype="html">
@@ -456,7 +474,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">145</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
@@ -471,7 +489,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="figuresHeader" datatype="html">
-        <source>Tiede ja tutkimus lukuina</source>
+        <source>Lukuja tieteestä ja tutkimuksesta</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/breadcrumb/breadcrumb.component.html</context>
           <context context-type="linenumber">16</context>
@@ -511,11 +529,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">167</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">247</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingFunded" datatype="html">
@@ -536,167 +550,92 @@
         <source>Ei hankkeita</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="academyConsortium" datatype="html">
-        <source>Suomen akatemian konsortio</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="a19b515e61c5f3bd03aeb190c531f5f7d3631b04" datatype="html">
-        <source>Suomen Akatemian konsortiossa rooli voi olla joko johtaja tai partneri</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="otherConsortium" datatype="html">
-        <source>Konsortion muut osapuolet</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4186cc82c1bbc6b5ab14d9b2c6c2609088810f01" datatype="html">
-        <source>Suomen Akatemian konsortion muut osapuolet ja rahoituspäätösten numerot.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="ac1e2e4804de0a2004143749d6219c290358fa06" datatype="html">
-        <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">71</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="recipientPerson" datatype="html">
-        <source>Nimi</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">78</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8ec853c389450131255dacaaa0b50a0b57592d7d" datatype="html">
-        <source>Henkilö, jolle rahoitus on myönnetty tai jonka johtaman hankkeen kustannuksiin rahoitus on tarkoitettu</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">79</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="recipientOrganization" datatype="html">
-        <source>Organisaatio</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">95</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">113</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="dd1f6dcad8ae569947f3bb16621cdc2ed9186db9" datatype="html">
-        <source>Organisaatio tai organisaatiot, joiden hankkeiden kustannuksiin rahoitus on myönnetty. Organisaatioiden rahoitusosuudet näytetään, jos ne ovat tiedossa.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">96</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contactPerson" datatype="html">
         <source>Yhteyshenkilö</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">128</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fundedAmount" datatype="html">
-        <source>Myönnetty summa</source>
+      <trans-unit id="academyConsortium" datatype="html">
+        <source>Rooli Suomen Akatemian konsortiossa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="d7bba2ea75ba95e1a56ba17763160cd3189c3db7" datatype="html">
-        <source>Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+      <trans-unit id="otherConsortium" datatype="html">
+        <source>Muut osapuolet</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">154</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="bcfdc982f650a5ee937d05c8a5bc54c1120924a0" datatype="html">
-        <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingOtherInfo" datatype="html">
         <source>Muut tiedot</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">201</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingHomePage" datatype="html">
         <source>Hankkeen verkkosivu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">204</context>
+          <context context-type="linenumber">223</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7da8803c6c52847be5521d1a9502a72086e973ff" datatype="html">
-        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+      <trans-unit id="noFundingLinks" datatype="html">
+        <source>Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">205</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
         <source>Tähän hankkeeseen liittyvät</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">222</context>
+          <context context-type="linenumber">240</context>
         </context-group>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">239</context>
+          <context context-type="linenumber">257</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="linenumber">142</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
-          <context context-type="linenumber">112</context>
+          <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingSource" datatype="html">
         <source>Hanketiedon lähde</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">245</context>
+          <context context-type="linenumber">263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fundingFunderSource" datatype="html">
+        <source>Rahoittaja: <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">265</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noInformationSource" datatype="html">
         <source>Tiedon lähde ei saatavilla.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">248</context>
+          <context context-type="linenumber">266</context>
         </context-group>
       </trans-unit>
       <trans-unit id="activeFilters" datatype="html">
@@ -736,7 +675,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="yearRangeWarning" datatype="html">
-        <source>Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet &quot;Rajaukset&quot; -valikosta vasemmalla.</source>
+        <source>Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet &quot;Rajaa hakua&quot; -valikosta vasemmalla.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/active-filters/active-filters.component.html</context>
           <context context-type="linenumber">15</context>
@@ -781,35 +720,35 @@
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="organizationHomepage" datatype="html">
         <source>Organisaation verkkosivu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noOrganizationLinks" datatype="html">
         <source>Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="relatedOrganizations" datatype="html">
         <source>Organisaation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="orgInfoSource" datatype="html">
         <source>Organisaatiotiedon lähde</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
@@ -823,7 +762,7 @@
         <source>Lyhenne</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="bf93646609b4735a469f5b1e90ec23227bf7533e" datatype="html">
@@ -837,28 +776,28 @@
         <source>Nimi</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="infraOrganization" datatype="html">
         <source>Organisaatio</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="0bcfa48f6aa297a4df50bfada2b0688f8aed8361" datatype="html">
         <source>Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noInfrastructures" datatype="html">
         <source>Ei infrastruktuureja</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingDescription" datatype="html">
@@ -876,49 +815,56 @@
         </context-group>
         <note priority="1" from="description">noFundingDescription</note>
       </trans-unit>
+      <trans-unit id="readOriginialNews" datatype="html">
+        <source>Lue koko uutinen</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/news/news-card/news-card.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="newsHeader" datatype="html">
         <source>Tiede- ja tutkimusuutiset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/news/news/news.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noResults" datatype="html">
         <source>Ei tuloksia.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/news/news/news.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="linenumber">120</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="linenumber">167</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noResultsInfo" datatype="html">
         <source>Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/news/news/news.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">121</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">164</context>
+          <context context-type="linenumber">168</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="copyLink" datatype="html">
@@ -939,42 +885,42 @@
         <source>Infrastruktuurin verkkosivu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noInfraLinks" datatype="html">
         <source>Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
       <trans-unit id="relatedInfrastructures" datatype="html">
         <source>Infrastruktuurin</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="infraSource" datatype="html">
         <source>Infrastruktuuritiedon lähde</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="missingInfraSource" datatype="html">
         <source>Infrastruktuuritiedon lähde puuttuu.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="linenumber">186</context>
         </context-group>
       </trans-unit>
       <trans-unit id="closeButton" datatype="html">
         <source>Sulje</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <note priority="1" from="description">Close button</note>
       </trans-unit>
@@ -982,26 +928,15 @@
         <source>Hae</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">62</context>
-        </context-group>
-        <note priority="1" from="description">SR Search</note>
-      </trans-unit>
-      <trans-unit id="a818b5edba676050331e259094fc81116a60c329" datatype="html">
-        <source>Hae</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
           <context context-type="linenumber">64</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">141</context>
-        </context-group>
+        <note priority="1" from="description">SR Search</note>
       </trans-unit>
       <trans-unit id="yearRange" datatype="html">
         <source>Valitse aikaväli</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">71</context>
         </context-group>
         <note priority="1" from="description">Year range filter</note>
       </trans-unit>
@@ -1009,7 +944,7 @@
         <source>Alku</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">77</context>
         </context-group>
         <note priority="1" from="description">Year start filter</note>
       </trans-unit>
@@ -1017,11 +952,11 @@
         <source>Ei valintaa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">79</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">91</context>
         </context-group>
         <note priority="1" from="description">Year range filter no selection</note>
       </trans-unit>
@@ -1029,7 +964,7 @@
         <source>Loppu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">89</context>
         </context-group>
         <note priority="1" from="description">Year end filter</note>
       </trans-unit>
@@ -1037,7 +972,7 @@
         <source>Valitse yksitellen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">99</context>
         </context-group>
         <note priority="1" from="description">Year filter separate</note>
       </trans-unit>
@@ -1045,29 +980,36 @@
         <source>Näytä lisää</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="linenumber">127</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">170</context>
+          <context context-type="linenumber">174</context>
         </context-group>
       </trans-unit>
       <trans-unit id="showLess" datatype="html">
         <source>Näytä vähemmän</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">129</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">172</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a818b5edba676050331e259094fc81116a60c329" datatype="html">
+        <source>Hae</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="selectAll" datatype="html">
         <source>Valitse kaikki</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
-          <context context-type="linenumber">149</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="researchInnovationSystemHeader" datatype="html">
@@ -1085,7 +1027,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="figuresIntro1" datatype="html">
-        <source>Tiede ja tutkimus lukuina -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</source>
+        <source>Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">59</context>
@@ -1099,7 +1041,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="figuresIntro3" datatype="html">
-        <source>Tiede ja tutkimus lukuina on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</source>
+        <source>Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">61</context>
@@ -1110,13 +1052,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">63</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="tilastokeskus" datatype="html">
-        <source>Tilastokeskus</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
-          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="figuresIntroBlockHeader2" datatype="html">
@@ -1144,7 +1079,7 @@
         <source>Haun tulokset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="figureKeyboardHelp1" datatype="html">
@@ -1324,8 +1259,12 @@
                             <x id="START_TAG_MAT-TAB_1" ctype="x-mat-tab" equiv-text="&lt;mat-tab&gt;"/>
                                 <x id="START_TAG_DIV_1" ctype="x-div" equiv-text="&lt;div&gt;"/>
                                     <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Evästekäytännöt<x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
-                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Tiedejatutkimus.fi verkkopalvelussa on käytössä vain välttämättömiä evästeitä, jotka eivät kerää tietoa käyttäjistä.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
-                                    <x id="START_HEADING_LEVEL3_1" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Evästeet<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Verkkopalvelu hyödyntää välttämättömien evästeiden lisäksi myös seurantaevästeitä, joiden avulla kerätään anonymisoitua tietoa palvelun käytöstä.
+                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Käytämme kerättyä tietoa palvelun kehittämseen ja käyttökokemuksen parantamiseen.
+                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Palvelussa käytetään ensimmäisen osapuolen evästeitä ja seurantaevästeiden avulla kerättyä anonymisoitua käyttjäanalytiikkaa ei välitetä eteenpäin kolmansille osapuolille.
+                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Voit aina halutessai <x id="START_LINK_7" ctype="x-a" equiv-text="&lt;a&gt;"/>kytkeä evästeet pois päästä tuetosuojasivulla.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                                    <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                    <x id="START_HEADING_LEVEL3_1" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Välttämättömät evästeet<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
                                     <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Sessioeväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
                                     <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
@@ -1339,10 +1278,66 @@
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
                                     <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                    
+                                    <x id="START_HEADING_LEVEL3_1" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Seurantaevästeet<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Seurantaevästeiden keräämää tietoa ei luovuteta kolmansille osapuolille.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste (sessio)<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                            
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämän avulla kerätään anonymisoitua tietoa vierailusta verkkopalevlussa, kuten:
+                                            <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän IP-osoite vahvasti anonymisoidussa muodossa (käyttäjä ei ole tunnistettavissa)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ladatun sivun otsikko<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ladatun sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Pyynnön päivämäärä ja kellonaika<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Edellisen sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Päätelaitteen näytön resoluutio<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Kellenaika käyttäjän aikavyöhykkeellä<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ulosvievien linkkien klikkaukset<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Sivujen latausajat<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän selainohjelma<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän päätelaitteen tyyppi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Palvelun käytön aikaleimat (mihin kellonaikoihin palvelua käytetään)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Mistä palveluun saavutaan<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Miten palvelun osioiden välillä liikutaan ja mitä toimintoja tehdään<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Selainmen kieliasetus<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Selaimen &quot;User-Agent header&quot;<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                        <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
+                                            minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                                
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
 
-                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Selaimen välimuistin käyttö<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
-                                    Tämän verkkopalvelun hakutoiminnossa käyttämäsi hakutermit tallennetaan selaimesi paikalliseen välimuistiin (local storage).
-                                    Tarkoituksena on lisätä hakutoiminnon käytettävyyttä. Voit tarvittaessa tyhjentää hakutermihistoriasi hakuelementistä suoraan: 
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Selaimen välimuistiin tallennetaan<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    local- sekä sessionstorageen tallennetaan navigoinnin ja haun helpottavia asioita, kuten oma hakuhistoria. Käyttäjä voi poistaa hakuhistoriansa myös hakuelementistä suoraan.
                                     <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>
                                 <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
                             <x id="CLOSE_TAG_MAT-TAB" ctype="x-mat-tab" equiv-text="&lt;/mat-tab&gt;"/>
@@ -1351,8 +1346,13 @@
                                     <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Hallinnoi evästeasetuksia<x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
                                     <x id="START_TAG_DIV_3" ctype="x-div" equiv-text="&lt;div&gt;"/>
                                         <x id="START_TAG_DIV_2" ctype="x-div" equiv-text="&lt;div&gt;"/>
-                                            <x id="START_TAG_IFRAME" ctype="x-iframe" equiv-text="&lt;iframe&gt;"/>
-                                            <x id="CLOSE_TAG_IFRAME" ctype="x-iframe" equiv-text="&lt;/iframe&gt;"/>
+                                            <x id="START_TAG_BUTTON" ctype="x-button" equiv-text="&lt;button&gt;"/>
+                                                <x id="START_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;ng-container&gt;"/>Poista seuranta käytöstä<x id="CLOSE_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;/ng-container&gt;"/>
+                                            <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/>
+                                            <x id="START_TAG_BUTTON_1" ctype="x-button" equiv-text="&lt;button&gt;"/>
+                                                <x id="START_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;ng-container&gt;"/>Ota seuranta käyttöön<x id="CLOSE_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;/ng-container&gt;"/>
+                                            <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/>
+                                            
                                         <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
                                     <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
                                 <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
@@ -1535,13 +1535,6 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="readOriginialNews" datatype="html">
-        <source>Lue koko uutinen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/news/news-card/news-card.component.html</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sitemapHeader" datatype="html">
         <source>Sivukartta</source>
         <context-group purpose="location">
@@ -1585,7 +1578,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="headerLink4" datatype="html">
@@ -1596,18 +1589,18 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="headerLink5" datatype="html">
-        <source>Tiede ja tutkimus lukuina</source>
+        <source>Lukuja tieteestä ja tutkimuksesta</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="headerLink6" datatype="html">
@@ -1618,7 +1611,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footerLink1" datatype="html">
@@ -1651,7 +1644,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footerLink9" datatype="html">
@@ -1662,7 +1655,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
@@ -1683,28 +1676,28 @@
         <source>Hyppää saavutettavuusselosteeseen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c2d2055a2262a206484249f7f476d8b5378f2ba" datatype="html">
         <source>Tutkimustietovarannon portaalin logo, abstrakti ikkuna</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="appSlogan" datatype="html">
         <source>Tiedejatutkimus.fi</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="headerLink1" datatype="html">
         <source>Etusivu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <note priority="1" from="description">Header</note>
       </trans-unit>
@@ -1712,7 +1705,7 @@
         <source>Haku</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/header/header.component.html</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">71</context>
         </context-group>
         <note priority="1" from="description">Header</note>
       </trans-unit>
@@ -1754,27 +1747,19 @@
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
-      <trans-unit id="footerLink5" datatype="html">
-        <source>Anna palautetta <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-        <note priority="1" from="description">Footer-link</note>
-      </trans-unit>
       <trans-unit id="footerHeader4" datatype="html">
         <source>Info ja yhteystiedot</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
       <trans-unit id="footerLink6" datatype="html">
-        <source>Ota yhteyttä <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/></source>
+        <source>Anna palautetta</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <note priority="1" from="description">Footer-link</note>
       </trans-unit>
@@ -1782,7 +1767,7 @@
         <source>tiedejatutkimus@csc.fi</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <note priority="1" from="description">Footer-link</note>
       </trans-unit>
@@ -1790,7 +1775,7 @@
         <source>Selosteet ja käytännöt</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">54</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
       </trans-unit>
@@ -1798,7 +1783,7 @@
         <source>Seuraa meitä!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="twitterFooter" datatype="html">
@@ -1806,7 +1791,7 @@
                     <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">66</context>
         </context-group>
         <note priority="1" from="description">Twitter-footer</note>
       </trans-unit>
@@ -1814,14 +1799,14 @@
         <source>Twitter -palvelun logo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
         <source>Anna palautetta!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">80</context>
         </context-group>
         <note priority="1" from="description">Review-button</note>
       </trans-unit>
