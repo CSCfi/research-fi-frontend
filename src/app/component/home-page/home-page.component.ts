@@ -58,8 +58,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     },
     {
       titleFi: 'Suomalainen tutkimus- ja innovaatiojärjestelmä',
-      titleEn: 'Finnish research system',
-      titleSv: 'Finländska forskningssystemet',
+      titleEn: 'Research and innovation system in Finland',
+      titleSv: 'Forskningssystem i Finland',
       captionFi: 'Mistä suomalainen tutkimusjärjestelmä koostuu?',
       captionEn: 'What does the Finnish research system consist of?',
       captionSv: 'Vad består det finländska forskningssystemet av?',
