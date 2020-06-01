@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+  PLATFORM_ID, ViewEncapsulation, LOCALE_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -69,12 +69,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   };
 
   targets: Target[] = [
-    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: '', viewValueSv: ''},
-    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: '', viewValueSv: ''},
-    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: '', viewValueSv: ''},
-    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: '', viewValueSv: ''},
-    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: '', viewValueSv: ''},
-    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: '', viewValueSv: ''}
+    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: 'All content', viewValueSv: ''},
+    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: 'Person name', viewValueSv: ''},
+    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: 'Title', viewValueSv: ''},
+    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: 'Keywords', viewValueSv: ''},
+    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: 'Organization', viewValueSv: ''},
+    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: 'Funder', viewValueSv: ''}
   ];
 
   additionalItems = ['clear'];
@@ -89,12 +89,16 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   inputSub: Subscription;
   queryParams: any;
   selectedTarget: any;
+  currentLocale: any;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private settingService: SettingsService, public utilityService: UtilityService ) {
+               private settingService: SettingsService, public utilityService: UtilityService,
+               @Inject(LOCALE_ID) protected localeId ) {
+                // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                 this.queryHistory = this.getHistory();
                 this.completion = '';
                 this.isBrowser = isPlatformBrowser(this.platformId);
