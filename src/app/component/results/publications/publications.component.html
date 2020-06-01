@@ -50,7 +50,7 @@
                         <div *ngIf="isReviewed(publication.publicationTypeCode)" class="peer-reviewed" i18n="@@peerReviewed">Vertaisarvioitu</div>
                         <a *ngIf="publication.openAccess && (publication | links)" href="{{publication | links}}" target="_blank" class="open-access div">
                             <span class="open-access-image"></span>
-                            <span i18n="@@openAccess">Avoin saatavuus <fa-icon icon="external-link-alt"></fa-icon></span>
+                            <span i18n="@@openAccess">Avoin saatavuus</span> <fa-icon icon="external-link-alt"></fa-icon>
                         </a>
                         <!-- Span is for publications that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
                         <span *ngIf="publication.openAccess && !(publication | links)" class="open-access div">
