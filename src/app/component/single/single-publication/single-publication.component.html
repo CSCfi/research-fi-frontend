@@ -9,7 +9,7 @@
 </aside>
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData['label' + currentLocale]" [resultNameField]="'title'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
@@ -21,7 +21,7 @@
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            {{row.label}}
+                            {{row['label' + currentLocale]}}
                             <ng-container *ngIf="row.tooltipFi">
                                 <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltipFi"></div></ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
@@ -133,7 +133,7 @@
                         <div></div>
                         <div class="row content">
                             <div class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td">
-                                <h3 class="th">{{row.label}}</h3>
+                                <h3 class="th">{{row['label' + currentLocale]}}</h3>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
                         </div>
@@ -143,7 +143,7 @@
                         <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationMediumInfo">Julkaisukanavan tiedot</h2>
                         <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
                             <h3 class="th">
-                                {{row.label}}
+                                {{row['label' + currentLocale]}}
                                 <ng-container *ngIf="row.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
@@ -172,7 +172,7 @@
                         <div class="row content" *ngIf="i % 3 == 0">
                             <!-- First col -->
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
-                               <h3 class="th">{{row.label}}</h3>
+                               <h3 class="th">{{row['label' + currentLocale]}}</h3>
                                <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
                                     {{item[row.field]}}
                                </a>
@@ -180,7 +180,7 @@
                             </div>
                             <!-- Second col -->    
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
-                               <h3 class="th">{{mediumFields.slice(3)[i + 1].label}}</h3>
+                               <h3 class="th">{{mediumFields.slice(3)[i + 1]['label' + currentLocale]}}</h3>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
                                     {{item[mediumFields.slice(3)[i + 1].field]}}
                                </a>
@@ -188,7 +188,7 @@
                             </div> 
                             <!-- Third col -->   
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
-                               <h3 class="th">{{mediumFields.slice(3)[i + 2].label}}</h3>
+                               <h3 class="th">{{mediumFields.slice(3)[i + 2]['label' + currentLocale]}}</h3>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
                                     {{item[mediumFields.slice(3)[i + 2].field]}}
                                </a>
@@ -200,7 +200,7 @@
                         <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherPublicationInfo">Muut tiedot</h2>
                         <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
                             <h3 class="th">
-                                {{row.label}}
+                                {{row['label' + currentLocale]}}
                                 <ng-container *ngIf="row.tooltipFi">
                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
@@ -211,7 +211,7 @@
                             <!-- Fields of science as list -->
                             <ng-container *ngIf="row.field === 'fieldsParsed'; else nonField">
                                 <li *ngFor="let field of item.fieldsOfScience">
-                                    {{field.nameFi}}
+                                    {{field['name' + currentLocale]}}
                                 </li>
                             </ng-container>
                             <!-- Normal lists -->
@@ -224,11 +224,11 @@
                         <div *ngIf="i % 2 == 0"></div>
                         <div class="row content" *ngIf="i % 2 == 0">
                             <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td">
-                                <h3 class="th">{{row.label}}</h3>
+                                <h3 class="th">{{row['label' + currentLocale]}}</h3>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
                             <div class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
-                                <h3 class="th">{{otherFields.slice(2)[i + 1].label}}</h3>
+                                <h3 class="th">{{otherFields.slice(2)[i + 1]['label' + currentLocale]}}</h3>
                                 <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
                             </div>
                         </div>
@@ -292,10 +292,13 @@
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@citationHeader">Viittaa</h2></mat-card-title>
                     <div>
                         <div class="reference">
-                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
+                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi">
+                                <fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>
+                                <ng-container i18n="@@copyReferences">Kopioi viitetiedot</ng-container>...
+                            </button>
                             <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
                     </div>
@@ -304,7 +307,7 @@
             <!-- Copy url -->
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@shareHeader">Jaa</h2></mat-card-title>
                     <app-share></app-share>
                 </mat-card>
             </aside>
@@ -312,7 +315,7 @@
                 <mat-card>
                     <mat-card-title><h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2></mat-card-title>
                     <div *ngFor="let org of authorAndOrganization">
-                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
+                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0"><ng-container i18n="@@orgOrganization">Organisaatio</ng-container>: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                         <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>
@@ -324,14 +327,14 @@
 
 <ng-template #citeModal>
     <div class="modal-header reference-modal">
-        <h3 class="modal-title">Kopioi viitetiedot</h3>
+        <h3 class="modal-title" i18n="@@copyReferences">Kopioi viitetiedot</h3>
     </div>
     <div class="modal-body reference-modal">
         <div *ngFor="let citation of citations; let i = index" class="cite-block">
             <h4>{{citationStyles[i].label}}: </h4>
             <span>{{citation | cleanCitation}}</span>
             <div class="copy-wrapper">
-                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()">Kopioi leikepöydälle</button>
+                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()" i18n="@@copyToClipboard">Kopioi leikepöydälle</button>
             </div>
         </div>
         <div *ngIf="hasDoi; else noDoi">
@@ -346,7 +349,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="UtilityService.preventTab($event)">Sulje</button>
+        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="UtilityService.preventTab($event)" i18n="@@closeButton">Sulje</button>
     </div>
 </ng-template>
 
