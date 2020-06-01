@@ -21,7 +21,7 @@
             <mat-label i18n="@@searchTarget">Kohdista haku</mat-label>
             <mat-select (selectionChange)="changeTarget($event)" [(value)]="selectedTarget">
               <mat-option *ngFor="let target of targets" [value]="target.value">
-                {{target.viewValueFi}}
+                {{target['viewValue' + currentLocale]}}
               </mat-option>
             </mat-select>
           </mat-form-field>
