@@ -38,58 +38,58 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   tabQueryParams: any;
 
   infoFields = [
-    // {label: 'Julkaisun nimi', field: 'title'},
-    {label: 'Julkaisuvuosi', field: 'publicationYear'},
-    {label: 'Julkaisutyyppi', field: 'publicationTypeCode', typeLabel: ' ',
-    tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.'},
-    {label: 'Tekijät', field: 'authors',
-    tooltipFi: 'Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.'}
+    // {labelFi: 'Julkaisun nimi', field: 'title'},
+    {labelFi: 'Julkaisuvuosi', labelSv: 'Publiceringsår', labelEn: 'Year of publication', field: 'publicationYear'},
+    {labelFi: 'Julkaisutyyppi', labelSv: 'Publikationstyp', labelEn: 'Publication type', field: 'publicationTypeCode', typeLabel: ' ',
+    tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.', tooltipSv: 'Publikationstyp A–G enligt UKM:s publikationsdatainsamling.', tooltipEn: 'Publication type A-G categories according to Ministry of Education and Culture Publication data collection.'},
+    {labelFi: 'Tekijät', labelSv: 'MISSING TRANSLATION', labelEn: 'Authors', field: 'authors',
+    tooltipFi: 'Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.', tooltipSv: 'Upphovsmännen till publikationen i den ordning de listas i den ursprungliga publikationen. Om antalet upphovsmän är över 20, har alla inte nödvändigtvis uppgetts.', tooltipEn: 'Publication authors in the order they are listed in the original publication. If there are more than 20 authors, not all of them will necessarily be mentioned.'}
   ];
 
-  authorFields = [
-    {label: 'Tekijöiden määrä', field: 'author[0].nameFiSector',
-    tooltipFi: 'Julkaisun tekijät, joilla on suomalainen organisaatio'}
-  ];
+  // authorFields = [
+  //   {labelFi: 'Tekijöiden määrä', labelSv: '', labelEn: '', field: 'author[0].nameFiSector',
+  //   tooltipFi: 'Julkaisun tekijät, joilla on suomalainen organisaatio', tooltipSv: '', tooltipEn: ''}
+  // ];
 
   authorAndOrganization = [];
 
   organizationSubFields = [
-    {label: 'Organisaatio', field: 'organizationId'}
+    {labelFi: 'Organisaatio', labelSv: 'Organisation', labelEn: 'Organization', field: 'organizationId'}
   ];
 
   mediumFields = [
-    {label: 'Lehti', field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Emojulkaisun nimi', field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
-    {label: 'Konferenssi', field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Kustantaja', field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Volyymi', field: 'volume', link: false},
-    {label: 'Numero', field: 'issueNumber', link: false},
-    {label: 'Sivut', field: 'pageNumbers', link: false},
-    {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
-    {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
+    {labelFi: 'Lehti', labelSv: 'Tidskrift', labelEn: 'Journal', field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {labelFi: 'Emojulkaisun nimi', labelSv: 'Moderförlagets namn', labelEn: 'Parent publication name', field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
+    {labelFi: 'Konferenssi', labelSv: '', labelEn: '', field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {labelFi: 'Kustantaja', labelSv: 'Förläggare', labelEn: 'Publisher', field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {labelFi: 'Volyymi', labelSv: 'Volym', labelEn: 'Volume', field: 'volume', link: false},
+    {labelFi: 'Numero', labelSv: 'Nummer', labelEn: 'Issue', field: 'issueNumber', link: false},
+    {labelFi: 'Sivut', labelSv: 'Sidor', labelEn: 'Pages', field: 'pageNumbers', link: false},
+    {labelFi: 'ISSN', labelSv: 'ISSN', labelEn: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
+    {labelFi: 'ISBN', labelSv: 'ISBN', labelEn: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
-    {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
+    {labelFi: 'Julkaisu\u00ADfoorumi', labelSv: 'Publikationsforum', labelEn: '​Publication Forum', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
     tooltipFi: 'Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).'},
-    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
+    {labelFi: 'Julkaisu\u00ADfoorumitaso', labelSv: 'Publikationsforumsnivå', labelEn: '​Publication Forum Level', field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
   ];
 
   linksFields = [
-    {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
-    {label: 'Pysyvä osoite', field: 'doiHandle'},
-    {label: 'Rinnakkaistallennus', field: 'selfArchivedAddress'},
+    {labelFi: 'DOI', labelEn: 'DOI', labelSv: 'DOI', field: 'doi', path: 'https://doi.org/'},
+    {labelFi: '', labelSv: '', labelEn: '', field: 'doiHandle'},
+    {labelFi: '', labelSv: '', labelEn: '', field: 'selfArchivedAddress'},
   ];
 
   otherFields  = [
-    {label: 'Tieteenalat', field: 'fieldsParsed', tooltipFi: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
-    {label: 'Avoin saatavuus', field: 'openAccessText',
-    tooltipFi: '<p><strong>Open access -lehti: </strong>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu: </strong>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus: </strong>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>'},
-    {label: 'Julkaisumaa', field: 'countries'},
-    {label: 'Kieli', field: 'languages'},
-    {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration',
-    tooltipFi: 'Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista'},
-    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration',
-    tooltipFi: 'Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.'},
-    {label: 'Avainsanat', field: 'keywords'}
+    {labelFi: 'Tieteenalat', labelSv: 'Vetenskapsområden', labelEn: 'Fields of science', field: 'fieldsParsed', tooltipFi: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
+    {labelFi: 'Avoin saatavuus', labelSv: 'Open Access', labelEn: 'Open access', field: 'openAccessText',
+    tooltipFi: '<p><strong>Open access -lehti: </strong>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu: </strong>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus: </strong>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>', tooltipSv: '', tooltipEn: ''},
+    {labelFi: 'Julkaisumaa', labelSv: '', labelEn: '', field: 'countries'},
+    {labelFi: 'Kieli', labelSv: '', labelEn: '', field: 'languages'},
+    {labelFi: 'Kansainvälinen yhteisjulkaisu', labelSv: '', labelEn: '', field: 'internationalCollaboration',
+    tooltipFi: 'Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista', tooltipSv: '', tooltipEn: ''},
+    {labelFi: 'Yhteisjulkaisu yrityksen kanssa', labelSv: '', labelEn: '', field: 'businessCollaboration',
+    tooltipFi: 'Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.', tooltipSv: '', tooltipEn: ''},
+    {labelFi: 'Avainsanat', labelSv: '', labelEn: '', field: 'keywords'}
   ];
 
   citationStyles = [
@@ -116,12 +116,16 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   hasDoi = false;
   modalRef: BsModalRef;
   relatedData = {};
+  currentLocale: any;
+  tabData: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
                private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
                private snackBar: MatSnackBar, private metaService: Meta ) {
+                // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -136,6 +140,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'publications');
     this.searchTerm = this.searchService.singleInput;
   }
 
@@ -161,7 +166,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   getCitations() {
     const source = this.responseData.publications[0];
-    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    const doi = this.linksFields.filter(x => x['label' + this.currentLocale] === 'DOI').shift();
     // tslint:disable-next-line: curly
     if (!this.hasDoi) return;
     const doiUrl = source.doi;
@@ -214,6 +219,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.shapeData();
         this.filterData();
         this.checkDoi();
+        console.log(this.responseData.publications[0]);
       }
     },
       error => this.errorMessage = error as any);
@@ -221,7 +227,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   checkDoi() {
     // Check if the doi exists (the field is filtered on init if it doesn't)
-    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    const doi = this.linksFields.filter(x => x['label' + this.currentLocale] === 'DOI').shift();
     // Flag needed for template
     this.hasDoi = !!doi;
   }
@@ -233,7 +239,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    this.authorFields = this.authorFields.filter(item => checkEmpty(item));
+    // this.authorFields = this.authorFields.filter(item => checkEmpty(item));
     this.organizationSubFields = this.organizationSubFields.filter(item => checkEmpty(item));
     this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
     this.linksFields = this.linksFields.filter(item => checkEmpty(item));
@@ -250,6 +256,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const keywords = source.keywords;
     const author = source.author;
 
+    // Map field names and exclude bad fields
     if (fieldsOfScience?.length > 0) {
       // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
       for (const [i, item] of fieldsOfScience.entries()) {
@@ -257,7 +264,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           fieldsOfScience.splice(i, 1);
         }
       }
-      source.fieldsParsed = fieldsOfScience.map(x => x.nameFi.trim()).join(', ');
+      // Get field names by locale
+      source.fieldsParsed = fieldsOfScience.map(x => x['name' + this.currentLocale].trim()).join(', ');
     }
 
     if (countries?.length > 0) {
@@ -343,8 +351,28 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     }
 
 
-    source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
-    source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
+    // Is this needed anymore?
+    let yes = '';
+    let no = '';
+    switch (this.localeId) {
+      case 'en': {
+        yes = 'Yes';
+        no = 'No';
+        break;
+      }
+      case 'sv': {
+        yes = 'Ja';
+        no = 'Nej';
+        break;
+      }
+      default: {
+        yes = 'Kyllä';
+        no = 'Ei';
+      }
+    }
+
+    source.internationalCollaboration = source.internationalCollaboration ? yes : no;
+    source.businessCollaboration = source.businessCollaboration ? yes : no;
 
     // Filter empty self archived addresses
     if (source.selfArchivedData) {
