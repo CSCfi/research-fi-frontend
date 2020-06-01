@@ -52,33 +52,18 @@
                 <main>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                         <div class="segment" id="s1">
-<<<<<<< HEAD
-                            <h1 *ngIf="!mobile" i18n="@@figuresHeader">Tiede ja tutkimus lukuina</h1>
+                            <h1 *ngIf="!mobile" i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
                             <div class="row">
                                 <div class="col p-1">
                                     <div class="base content intro">
-                                        <p i18n="@@figuresIntro1">Tiede ja tutkimus lukuina -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
+                                        <p i18n="@@figuresIntro1">Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
                                         <p i18n="@@figuresIntro2">Tiedot perustuvat Opetushallituksen Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</p>
-                                        <p i18n="@@figuresIntro3">Tiede ja tutkimus lukuina on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
-=======
-                            <h1 *ngIf="!mobile">Lukuja tieteestä ja tutkimuksesta</h1>
-                            <div class="row">
-                                <div class="col p-1">
-                                    <div class="base content intro">
-                                        <p>Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
-                                        <p>Tiedot perustuvat Opetushallituksen Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</p>
-                                        <p>Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
->>>>>>> devel
+                                        <p i18n="@@figuresIntro3">Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
                                         <br>
                                         <span class="strong pb-2 d-block" i18n="@@figuresIntroBlockHeader1">Aineistolähteet</span>
                                         <ul class="disc">
-<<<<<<< HEAD
-                                            <li><a href="https://vipunen.fi/" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a href="http://www.tilastokeskus.fi/" target="_blank"><ng-container i18n="@@tilastokeskus">Tilastokeskus</ng-container> <fa-icon icon="external-link-alt"></fa-icon></a></li>
-=======
                                             <li><a href="https://vipunen.fi/" target="_blank" #mainFocus>Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                             <li><a href="http://www.tilastokeskus.fi/" target="_blank">Tilastokeskus <fa-icon icon="external-link-alt"></fa-icon></a></li>
->>>>>>> devel
                                             <li><a href="http://www.oecd.org/" target="_blank">OECD <fa-icon icon="external-link-alt"></fa-icon></a></li>
                                         </ul>
                                         <span class="strong pb-2 d-block" i18n="@@figuresIntroBlockHeader2">Tuottajat</span>
