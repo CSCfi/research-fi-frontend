@@ -2000,7 +2000,7 @@
         <source>
                     <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <target>
-                    <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Research.fi in Twitter</target>
+                    <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Research.fi at Twitter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
           <context context-type="linenumber">66</context>
