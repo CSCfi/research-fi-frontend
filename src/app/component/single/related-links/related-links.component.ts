@@ -6,7 +6,7 @@
 //  :license: MIT
 
 
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Inject, LOCALE_ID } from '@angular/core';
 import { SingleItemService } from '../../../services/single-item.service';
 import { ActivatedRoute, Router, UrlTree, UrlSegmentGroup, PRIMARY_OUTLET, UrlSegment } from '@angular/router';
 
@@ -20,20 +20,24 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() relatedFilters: any;
 
   relatedList = [
-    {labelFi: 'Julkaisut', tab: 'publications', disabled: true},
-    {labelFi: 'Tutkijat', tab: 'persons', disabled: true},
-    {labelFi: 'Hankkeet', tab: 'fundings', disabled: true},
-    {labelFi: 'Aineistot', tab: '', disabled: true},
-    {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
-    {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
-    {labelFi: 'Organisaatiot', tab: 'organizations', disabled: true},
+    {labelFi: 'Julkaisut', labelEn: 'Publications', labelSv: '', tab: 'publications', disabled: true},
+    {labelFi: 'Tutkijat', labelEn: 'Authors', labelSv: '', tab: 'persons', disabled: true},
+    {labelFi: 'Hankkeet', labelEn: 'Fundings', labelSv: '', tab: 'fundings', disabled: true},
+    {labelFi: 'Aineistot', labelEn: 'Materials', labelSv: '', tab: '', disabled: true},
+    {labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', labelSv: '', tab: 'infrastructures', disabled: true},
+    {labelFi: 'Muu tutkimustoiminta', labelEn: 'Other research activity', labelSv: '', tab: '', disabled: true},
+    {labelFi: 'Organisaatiot', labelEn: 'Organizations', labelSv: '', tab: 'organizations', disabled: true},
   ];
 
   docCountData: any;
   currentParent: string;
   routeSub: any;
+  currentLocale: string;
 
-  constructor( private singleService: SingleItemService, private route: ActivatedRoute, private router: Router ) {
+  constructor( private singleService: SingleItemService, private route: ActivatedRoute, private router: Router,
+               @Inject(LOCALE_ID) protected localeId: string ) {
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     this.docCountData = [];
    }
 
