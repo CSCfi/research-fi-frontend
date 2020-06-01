@@ -924,7 +924,7 @@
       </trans-unit>
       <trans-unit id="readOriginialNews" datatype="html">
         <source>Lue koko uutinen</source>
-        <target>Read original</target>
+        <target>Read original </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/news/news-card/news-card.component.html</context>
           <context context-type="linenumber">36</context>
