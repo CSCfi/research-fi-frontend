@@ -24,10 +24,10 @@
               <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
                 <div>
                   <h2 class="header">
-                    {{item.title}}
+                    {{item['title' + currentLocale]}}
                   </h2>
                   <span class="hint">
-                    {{item.caption}}
+                    {{item['caption' + currentLocale]}}
                   </span>
                 </div>
               </div>
@@ -42,10 +42,10 @@
               <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
                 <div>
                   <h2 class="header">
-                    {{item.title}}
+                    {{item['title' + currentLocale]}}
                   </h2>
                   <span class="hint">
-                    {{item.caption}}
+                    {{item['caption' + currentLocale]}}
                   </span>
                 </div>
               </div>
