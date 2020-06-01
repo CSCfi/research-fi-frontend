@@ -310,25 +310,53 @@
           <context context-type="linenumber">289</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="citationHeader" datatype="html">
+        <source>Viittaa</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">295</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="copyReferences" datatype="html">
+        <source>Kopioi viitetiedot</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">300</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="doiWarning" datatype="html">
         <source>Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">299</context>
+          <context context-type="linenumber">302</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shareHeader" datatype="html">
+        <source>Jaa</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">310</context>
         </context-group>
       </trans-unit>
       <trans-unit id="publicationSource" datatype="html">
         <source>Julkaisutiedon lähde</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">313</context>
+          <context context-type="linenumber">316</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="copyToClipboard" datatype="html">
+        <source>Kopioi leikepöydälle</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">337</context>
         </context-group>
       </trans-unit>
       <trans-unit id="doiHelp" datatype="html">
         <source>Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
-          <context context-type="linenumber">354</context>
+          <context context-type="linenumber">357</context>
         </context-group>
       </trans-unit>
       <trans-unit id="publicationName" datatype="html">
@@ -603,21 +631,21 @@
         <source>Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">236</context>
+          <context context-type="linenumber">238</context>
         </context-group>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
         <source>Tähän hankkeeseen liittyvät</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">240</context>
+          <context context-type="linenumber">242</context>
         </context-group>
       </trans-unit>
       <trans-unit id="share" datatype="html">
         <source>Jaa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">257</context>
+          <context context-type="linenumber">259</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
@@ -632,21 +660,21 @@
         <source>Hanketiedon lähde</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">263</context>
+          <context context-type="linenumber">265</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingFunderSource" datatype="html">
         <source>Rahoittaja: <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">265</context>
+          <context context-type="linenumber">267</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noInformationSource" datatype="html">
         <source>Tiedon lähde ei saatavilla.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">266</context>
+          <context context-type="linenumber">268</context>
         </context-group>
       </trans-unit>
       <trans-unit id="activeFilters" datatype="html">
