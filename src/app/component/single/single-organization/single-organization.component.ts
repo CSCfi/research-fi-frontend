@@ -14,6 +14,7 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -65,7 +66,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {labelFi: 'Aineistot', tab: '', disabled: true},
     {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
     {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
-  ]
+  ];
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
@@ -73,9 +74,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   expand: boolean;
   latestSubUnitYear: string;
   faIcon = faFileAlt;
+  subUnitSlice = 10;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               public utilityService: UtilityService ) {
    }
 
   public setTitle(newTitle: string) {
@@ -94,7 +97,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id: string) {
@@ -104,11 +107,11 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       if (this.responseData.organizations[0]) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.organizations[0].nameFi + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.organizations[0].name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.organizations[0].nameEn.trim() + ' - Research.fi');
+            this.setTitle(this.responseData.organizations[0].name.trim() + ' - Research.fi');
             break;
           }
         }
@@ -123,11 +126,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.organizations[0][item.field] !== undefined &&
-             this.responseData.organizations[0][item.field] !== 0 &&
-             this.responseData.organizations[0][item.field] !== null &&
-             this.responseData.organizations[0][item.field] !== '' &&
-             this.responseData.organizations[0][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.organizations[0][item.field]);
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -139,17 +138,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.organizations[0];
     const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-    // const predecessors = source.predecessors;
-    // const related = source.related;
-    let subUnits = source.subUnits;
 
-    // if (predecessors && predecessors.length > 0) {
-    //   source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
-    // }
-
-    // if (related && related.length > 0) {
-    //   source.related = related.map(x => x.nameFi.trim()).join(', ');
-    // }
+    const subUnits = source.subUnits;
 
     if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
       source.statCenterId = '';
@@ -160,12 +150,13 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       const subUnitYears = [...new Set(subUnits.map(item => item.year))];
       const transformedYears = subUnitYears.map(Number);
       this.latestSubUnitYear = (Math.max(...transformedYears)).toString();
-      // Get results that match the yeat
-      subUnits = subUnits.filter((item) => {
-        return Object.keys(item).some((key) => item[key].includes(this.latestSubUnitYear));
+      source.subUnits = source.subUnits.filter(item => item.year === this.latestSubUnitYear);
+      // Sort sub units by name
+      source.subUnits.sort((a,b) => {
+          const x = a.subUnitName.toLowerCase();
+          const y = b.subUnitName.toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
       });
-      // List items
-      source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
     }
   }
 

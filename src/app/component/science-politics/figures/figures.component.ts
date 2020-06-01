@@ -36,7 +36,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronUp = faChevronUp;
 
   navItems = [
-    {id: 's1', labelFi: 'Tiede ja tutkimus lukuina', icon: this.faIconCircle, active: true},
+    {id: 's1', labelFi: 'Lukuja tieteestä ja tutkimuksesta', icon: this.faIconCircle, active: true},
     {id: 's2', labelFi: 'Tutkimuksen rahoitus', icon: this.faChartBar, active: false},
     {id: 's3', labelFi: 'Tutkimuksen henkilövoimavarat', icon: this.faChartBar, active: false},
     {id: 's4', labelFi: 'Julkaisutoiminta ja tieteellinen vaikuttavuus', icon: this.faChartBar, active: false},
@@ -86,12 +86,12 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle('Tiede ja tutkimus lukuina - Tiedejatutkimus.fi');
+        this.setTitle('Lukuja tieteestä ja tutkimuksesta - Tiedejatutkimus.fi');
         break;
       }
       case 'en': {
         // Todo: Translate
-        this.setTitle('Tiede ja tutkimus lukuina - Research.fi');
+        this.setTitle('Lukuja tieteestä ja tutkimuksesta - Research.fi');
         break;
       }
     }
@@ -145,9 +145,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.querySub.unsubscribe();
-    this.resizeSub.unsubscribe();
-    this.scrollSub.unsubscribe();
+    this.querySub?.unsubscribe();
+    this.resizeSub?.unsubscribe();
+    this.scrollSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 

@@ -29,12 +29,12 @@ export class PaginationComponent implements OnInit {
   totalSub: Subscription;
   resizeSub: Subscription;
   desktop = this.window.innerWidth >= 1200;
+  order = this.window.innerWidth >= 768;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window) { }
 
   ngOnInit() {
-
     // Reset pagination
     this.page = this.searchService.pageNumber;
 
@@ -95,6 +95,7 @@ export class PaginationComponent implements OnInit {
     // Change if swap to or from desktop
     const changePages = (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
     this.desktop = w >= 1200;
+    this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {
       this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);

@@ -27,13 +27,16 @@ export class TabChangeService {
   private focusSource = new BehaviorSubject(false);
   private focusTarget = new BehaviorSubject('');
   private skipToInput = new BehaviorSubject(true);
+  private newPageSource = new BehaviorSubject(true);
   currentTab = this.tabSource.asObservable();
   currentFocus = this.focusSource.asObservable();
   currentFocusTarget = this.focusTarget.asObservable();
   currentSkipToInput = this.skipToInput.asObservable();
+  newPage = this.newPageSource.asObservable();
   tab: string;
   tabQueryParams: any = {};
   locale: string;
+  focus: string;
 
   constructor( @Inject( LOCALE_ID ) protected localeId: string ) { }
 
@@ -44,6 +47,10 @@ export class TabChangeService {
 
   targetFocus(target) {
     this.focusTarget.next(target);
+  }
+
+  triggerNewPage() {
+    this.newPageSource.next(true);
   }
 
   changeTab(tab: {data: string; labelFi: string, labelEn: string, link: string, icon: any, singularFi: string}) {

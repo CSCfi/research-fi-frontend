@@ -16,6 +16,8 @@ import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from 'src/app/services/window.service';
 import { content } from '../../../../../assets/static-data/figures-content.json';
+import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-figure',
@@ -25,6 +27,7 @@ import { content } from '../../../../../assets/static-data/figures-content.json'
 })
 export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;
+  @ViewChild('keyboardHelp') keyboardHelp: ElementRef;
 
   dataContent = content;
 
@@ -48,7 +51,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
                private resizeService: ResizeService, private searchService: SearchService, private route: ActivatedRoute,
-               @Inject(WINDOW) private window: Window ) { }
+               @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService ) { }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
@@ -66,7 +69,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     this.result = [parent.items.find(item => item.link === this.currentItem)];
 
     // Set title
-    this.label = this.result[0].labelFi;
+    this.label = this.result[0]?.labelFi;
     switch (this.localeId) {
       case 'fi': {
         this.setTitle(this.label + ' - Tiedejatutkimus.fi');
@@ -94,6 +97,12 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         this.cdr.detectChanges();
       });
     }
+    // Focus to skip-to results link when clicked from header skip-links
+    this.tabChangeService.currentFocusTarget.subscribe(target => {
+      if (target === 'main-link') {
+        this.keyboardHelp.nativeElement.focus();
+      }
+    });
   }
 
   onResize(dims) {
@@ -111,11 +120,9 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     return index;
   }
 
-  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-        this.showInfo = false;
-        this.showHelp = false;
-    }
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler() {
+      this.showInfo = false;
+      this.showHelp = false;
   }
 
   onClickedOutside(event) {
@@ -127,8 +134,8 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.resizeSub.unsubscribe();
-    this.routeSub.unsubscribe();
+    this.resizeSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
     this.contentSub?.unsubscribe();
   }
 }

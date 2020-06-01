@@ -16,6 +16,7 @@ export class SettingsService {
 indexList: string;
 aggsOnly: string;
 exactField: any;
+  target: any;
 
   constructor( private staticDataService: StaticDataService) {
     this.indexList = 'publication,funding,infrastructure,organization' + '/_search?';
@@ -26,9 +27,13 @@ exactField: any;
     this.exactField = field;
   }
 
+  changeTarget(target) {
+    this.target = target || null;
+  }
+
    // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: any) {
-    if (this.exactField === this.exactField) {this.exactField = undefined; }
+    // if (this.exactField === this.exactField) {this.exactField = undefined; }
     let targetFields: any;
     let onlyDigits: any;
     let hasDigits: any;
@@ -38,6 +43,15 @@ exactField: any;
     // Use exact field when doing a search from single document page
     targetFields = this.exactField ? this.exactField : this.staticDataService.queryFields(index);
     // const nestedFields = this.staticDataService.nestedQueryFields(index);
+
+    if (this.exactField) {
+      targetFields = this.exactField;
+    } else if (this.target) {
+      targetFields = this.staticDataService.targetFields(this.target, index);
+    } else {
+      targetFields = this.staticDataService.queryFields(index);
+    }
+
 
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
@@ -54,7 +68,6 @@ exactField: any;
       targetAnalyzer = 'standard';
       targetType = 'phrase_prefix';
     }
-
     const res = { bool: {
       must: [{
         term: {
@@ -69,7 +82,7 @@ exactField: any;
                 query: term,
                 analyzer: targetAnalyzer,
                 type: targetType,
-                fields: targetFields,
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -78,7 +91,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: targetFields,
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -95,6 +108,8 @@ exactField: any;
   }
 
   generateNested(index, term) {
+    const targetFields = this.target ? this.staticDataService.targetNestedQueryFields(this.target, index) :
+                                 this.staticDataService.nestedQueryFields(index);
     let res;
     switch (index) {
       case 'publication': {
@@ -105,7 +120,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: this.staticDataService.nestedQueryFields(index),
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -122,7 +137,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: this.staticDataService.nestedQueryFields(index),
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -136,7 +151,7 @@ exactField: any;
               multi_match: {
                 query: term,
                 type: 'cross_fields',
-                fields: this.staticDataService.nestedQueryFields(index),
+                fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
                 lenient: 'true'
               }
@@ -158,7 +173,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'publication'	}	},
-                      [this.querySettings('publication', term)]
+                      this.querySettings('publication', term)
                     ]
                   }
                 },
@@ -166,7 +181,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'funding'	}	},
-                      [this.querySettings('funding', term)]
+                      this.querySettings('funding', term)
                     ]
                   }
                 },
@@ -174,7 +189,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'infrastructure' }	},
-                      [this.querySettings('infrastructure', term)]
+                      this.querySettings('infrastructure', term)
                     ]
                   }
                 },
@@ -192,7 +207,7 @@ exactField: any;
                   bool: {
                     must: [
                       { term: { _index: 'organization'	}	},
-                      [this.querySettings('organization', term)]
+                      this.querySettings('organization', term)
                     ]
                   }
                 }

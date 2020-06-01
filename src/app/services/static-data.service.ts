@@ -105,7 +105,7 @@ export class StaticDataService {
         res = ['publicationName^2', 'publicationYear', 'authorsText',
               'journalName', 'conferenceName', 'parentPublicationName', 'parentPublicationPublisher',
               'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress',  'fields_of_education',
-              'issn', 'issn2', 'isbn', 'isbn2', 'keywords.keyword', 'publicationOrgId',
+              'issn', 'issn2', 'isbn', 'isbn2', 'keywords.keyword',
               'jufoCode', 'jufoClassCode', 'fields_of_science.nameFiScience', 'fields_of_science.nameEnScience',
               'fields_of_science.nameSvScience',];
         break;
@@ -124,9 +124,11 @@ export class StaticDataService {
         break;
       }
       case 'infrastructure': {
-        res = ['name^2', 'description', 'scientificDescription', 'startYear', 'acronym', 'responsibleOrganizationNameFi',
-        'responsibleOrganizationNameEn', 'responsibleOrganizationNameSv', 'keywords.keyword', 'services.serviceName',
-        'services.serviceDescription', 'services.serviceType', 'services.servicePointName', ''];
+        res = ['nameFi^2', 'nameEn^2', 'nameSv^2', 'descriptionFi', 'descriptionEn', 'descriptionSv',
+        'scientificDescription', 'startYear', 'acronym', 'responsibleOrganizationNameFi', 'responsibleOrganizationNameEn',
+        'responsibleOrganizationNameSv', 'keywords.keyword', 'services.serviceName', 'services.serviceDescription',
+        'services.serviceType', 'services.servicePointName', 'services.serviceAcronym', 'services.servicePointEmailAddress',
+        'services.servicePointInfoUrl', 'services.servicePointPhoneNumber', 'services.servicePointVisitingAddress'];
         break;
       }
       case 'organization': {
@@ -145,17 +147,19 @@ export class StaticDataService {
         res = [
           'author.nameFiSector',
           'author.organization.OrganizationNameFi',
+          'author.organization.OrganizationNameEn',
+          'author.organization.OrganizationNameSv',
           'author.organization.organizationUnit.organizationUnitNameFi',
           'author.organization.organizationUnit.organizationUnitNameEn',
           'author.organization.organizationUnit.organizationUnitNameSv',
           'author.organization.organizationUnit.person.authorFirstNames',
-          'author.organization.organizationUnit.person.authorLastName'
+          'author.organization.organizationUnit.person.authorLastName',
+          'author.organization.organizationUnit.person.Orcid'
         ];
         break;
       }
       case 'funding': {
         res = [
-          'organizationConsortium.consortiumOrganizationBusinessId',
           'organizationConsortium.consortiumOrganizationNameFi',
           'organizationConsortium.consortiumOrganizationNameEn',
           'organizationConsortium.consortiumOrganizationNameSv',
@@ -171,5 +175,170 @@ export class StaticDataService {
         ]
       }
     }
+    return res;
+  }
+
+  targetFields(target, index) {
+    let res = [];
+    switch (target) {
+      case 'name': {
+        switch (index) {
+          case 'publication': {
+            res = [''];
+            break;
+          }
+          case 'funding': {
+            res = ['fundingContactPersonLastName', 'fundingContactPersonFirstNames'];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+      case 'title': {
+        switch (index) {
+          case 'publication': {
+            res = ['publicationName'];
+            break;
+          }
+          case 'funding': {
+            res = ['projectNameFi', 'projectNameSv', 'projectNameEn', 'projectAcronym'];
+            break;
+          }
+          case 'infrastructure': {
+            res = ['nameFi', 'nameSv', 'nameEn', 'acronym', 'services.serviceName', 'services.serviceAcronym'];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+      case 'keywords': {
+        switch (index) {
+          case 'publication': {
+            res = ['keywords.keyword'];
+            break;
+          }
+          case 'funding': {
+            res = ['keywords.keyword'];
+            break;
+          }
+          case 'infrastructure': {
+            res = ['keywords.keyword'];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+      case 'organization': {
+        switch (index) {
+          case 'publication': {
+            res = [''];
+            break;
+          }
+          case 'funding': {
+            res = [''];
+            break;
+          }
+          case 'infrastructure': {
+            res = ['responsibleOrganizationNameFi', 'responsibleOrganizationNameEn', 'responsibleOrganizationNameSv'];
+            break;
+          }
+          case 'organization': {
+            res = ['nameFi', 'nameEn', 'nameSv', 'variantNames'];
+            break;
+          }
+        }
+        break;
+      }
+      case 'funder': {
+        switch (index) {
+          case 'publication': {
+            res = [''];
+            break;
+          }
+          case 'funding': {
+            res = ['funderNameFi', 'funderNameEn', 'funderNameSv', 'funderNameUnd'];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+        break;
+      }
+    }
+
+    return res;
+  }
+
+  targetNestedQueryFields(target, index) {
+    let res = [];
+    switch (target) {
+      case 'name': {
+        switch (index) {
+          case 'publication': {
+            res = [
+              'author.organization.organizationUnit.person.authorFirstNames',
+              'author.organization.organizationUnit.person.authorLastName',
+              'author.organization.organizationUnit.person.Orcid'
+            ];
+            break;
+          }
+          case 'funding': {
+            res = [
+              'fundingGroupPerson.fundingGroupPersonFirstNames',
+              'fundingGroupPerson.fundingGroupPersonLastName'
+            ];
+            break;
+          }
+        }
+        break;
+      }
+      case 'organization': {
+        switch (index) {
+          case 'publication': {
+            res = [
+              'author.organization.OrganizationNameFi',
+              'author.organization.OrganizationNameEn',
+              'author.organization.OrganizationNameSv'
+            ];
+            break;
+          }
+          case 'funding': {
+            res = [
+              'organizationConsortium.consortiumOrganizationNameFi',
+              'organizationConsortium.consortiumOrganizationNameEn',
+              'organizationConsortium.consortiumOrganizationNameSv',
+              'fundingGroupPerson.consortiumOrganizationNameFi',
+              'fundingGroupPerson.consortiumOrganizationNameEn',
+              'fundingGroupPerson.consortiumOrganizationNameSv'
+            ];
+            break;
+          }
+        }
+        break;
+      }
+    }
+    return res;
   }
 }

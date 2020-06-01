@@ -35,6 +35,7 @@
 
             h2.th, h2.header {
                 margin-bottom: 0;
+                position: unset;
             }
 
             h3.th {
@@ -53,7 +54,6 @@
 
             a.th, a.td {
                 font-weight: bold;
-                text-decoration: underline;
             }
 
             .th, .td {
@@ -75,8 +75,8 @@
 
             td {
                 vertical-align: top;
-                word-wrap: break-word;
-                word-break: break-word;
+                // word-wrap: break-word;
+                // word-break: break-word;
                 padding: 8px;
                 p {
                     margin-bottom: 0.2rem;
@@ -142,7 +142,6 @@
             }
 
             .back {
-                text-decoration: underline;
                 margin: 0;
             }
 
@@ -185,10 +184,6 @@
                     vertical-align: middle;
                 }
             
-                .doi .link, .info-link-wrapper .link {
-                    margin-left: 14px;
-                }
-            
                 span.doi-link, .link {
                     max-width: max-content;
                     height: fit-content;
@@ -206,10 +201,6 @@
                     line-height: 0;
                     max-width: 30px;
                 }
-            
-                .link a {
-                    text-decoration: underline;
-                }
             }
             
             .info-link-wrapper, .info-link {
@@ -226,10 +217,6 @@
             
             .no-links {
                 font-style: italic;
-            }
-            
-            .other-links {
-                text-decoration: underline;
             }
             
             .other-link {
@@ -251,7 +238,6 @@
                 list-style-type: none;
                 padding: 0;
                 margin-block-end: 1em;
-                text-decoration: underline;
             }
 
             span.mat-button-wrapper {

@@ -1,4 +1,11 @@
-import { Injectable } from '@angular/core';
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+import { Injectable, ElementRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 
@@ -20,6 +27,7 @@ export class UtilityService {
   }
 
   modalOpen = false;
+  tooltipOpen = false;
 
   // source: https://github.com/valor-software/ngx-bootstrap/issues/1819#issuecomment-556373372
 
@@ -47,4 +55,49 @@ export class UtilityService {
         }
     }
   }
+
+  // A function to check if a string has valuable data to be displayed
+  static stringHasContent(content: any) {
+    const contentString = content?.toString();
+    return contentString !== '0' &&
+           contentString !== '-1' &&
+           contentString !== '' &&
+           contentString !== 'UNDEFINED' &&
+           contentString !== 'undefined' &&
+           contentString !== ' ' &&
+           contentString !== '#N/A' &&
+           contentString !== '[]' &&
+           contentString !== null &&
+           contentString !== undefined;
+  }
+
+  // A function to check if an object has any fields with valuable data
+  static objectHasContent(content: object) {
+    let res = false;
+    Object.keys(content).forEach(key => {
+      if (UtilityService.stringHasContent(content[key])) {
+        res = true;
+        // How to jump out of forEach after true found??
+      }
+    });
+    return res;
+  }
+
+  tooltipMouseenter(elem: HTMLElement) {
+    elem.blur();
+    elem.focus();
+    this.tooltipOpen = true;
+  }
+
+  tooltipKeydown(elem: HTMLElement, event: any) {
+    // Timeout because event propagates here before header and thus esc would open navbar incorrecly
+    if (event.keyCode === 27) {
+      setTimeout(() => {
+        this.tooltipOpen = false;
+      }, 1);
+    } else {
+      this.tooltipOpen = !this.tooltipOpen;
+    }
+  }
+
 }

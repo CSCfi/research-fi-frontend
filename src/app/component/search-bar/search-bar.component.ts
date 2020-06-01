@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID } from '@angular/core';
+  PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -19,12 +19,23 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SingleItemService } from '../../services/single-item.service';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { SettingsService } from 'src/app/services/settings.service';
+import { UtilityService } from 'src/app/services/utility.service';
+
+interface Target {
+  value: string;
+  viewValueFi: string;
+  viewValueEn: string;
+  viewValueSv: string;
+}
 
 @Component({
     selector: 'app-search-bar',
     templateUrl: './search-bar.component.html',
-    styleUrls: ['./search-bar.component.scss']
+    styleUrls: ['./search-bar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
+
 export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
@@ -57,6 +68,15 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     organization: 'tutkimusorganisaatiot'
   };
 
+  targets: Target[] = [
+    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: '', viewValueSv: ''},
+    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: '', viewValueSv: ''},
+    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: '', viewValueSv: ''},
+    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: '', viewValueSv: ''},
+    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: '', viewValueSv: ''},
+    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: '', viewValueSv: ''}
+  ];
+
   additionalItems = ['clear'];
   completion: string;
   inputMargin: string;
@@ -68,11 +88,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   currentTerm: string;
   inputSub: Subscription;
   queryParams: any;
+  selectedTarget: any;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
-               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object ) {
+               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
+               private settingService: SettingsService, public utilityService: UtilityService ) {
                 this.queryHistory = this.getHistory();
                 this.completion = '';
                 this.isBrowser = isPlatformBrowser(this.platformId);
@@ -80,6 +102,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.routeSub = this.route.queryParams.subscribe(params => {
+      this.selectedTarget = params.target ? params.target : null;
       this.queryParams = params;
       this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
     });
@@ -249,7 +272,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // Set target, copy queryParams and add target to params
+  changeTarget(event) {
+    const target = event.value !== 'all' ? event.value : null;
+    this.settingService.changeTarget(target);
+    this.selectedTarget = target || null;
+  }
+
   newInput(selectedIndex, historyLink) {
+    // Copy queryparams, set target and reset page
+    const newQueryParams = {...this.queryParams, target: this.selectedTarget, page: 1};
+    // Reset exact field search
+    this.settingService.strictFields(undefined);
     // Hide search helper
     this.showHelp = false;
     // Reset focus target
@@ -280,9 +314,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       if (selectedIndex) {
         this.router.navigate(['results/', selectedIndex + 's', this.searchService.singleInput || '']);
         } else {
-          // Preserve queryParams with new search to same index
+          // Preserve queryParams with new search to same index. Use queryParams with added target if selected
           this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || ''],
-          {queryParams: this.queryParams});
+          {queryParams: newQueryParams});
       }
     });
   }

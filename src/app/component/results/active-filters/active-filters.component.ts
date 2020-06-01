@@ -19,6 +19,7 @@ import { PersonFilters } from '../filters/persons';
 import { FundingFilters } from '../filters/fundings';
 import { InfrastructureFilters } from '../filters/infrastructures';
 import { OrganizationFilters } from '../filters/organizations';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -66,7 +67,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                private dataService: DataService, private tabChangeService: TabChangeService,
                public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, ) {
+               private organizationFilters: OrganizationFilters, private settingsService: SettingsService ) {
    }
 
   ngOnInit() {
@@ -143,13 +144,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
-
       // Subscribe to aggregation data
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
         this.response = response;
         if (response) {
-          const source = this.response[0].aggregations;
-          const tab = this.currentTab.data;
+          const source = this.response.aggregations;
+          const tab = this.sortService.currentTab;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
             // Active year filters can be displayed with range. Hide items that are within the range
@@ -187,16 +187,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
-
             // Language, publications
-            if (val.category === 'lang' && source.lang.langs) {
+            if (val.category === 'lang' && source.lang?.langs) {
               const result = source.lang.langs.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
 
             if (val.category === 'sector' && tab === 'organizations' && source.sector) {
-              if (source.sector.buckets.length > 0  && !source.sector.sectorName) {
+              if (source.sector.buckets?.length > 0  && !source.sector.sectorName) {
                 source.sector.buckets.forEach(element => {
                   if (element.sectorId && element.sectorId.buckets[0].key === val.value) {
                     const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
@@ -207,7 +206,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             // Publication organization name
-            if (this.currentTab === 'publications' && val.category === 'organization' && source.organization) {
+            if (tab === 'publications' && val.category === 'organization' && source.organization) {
               if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                 source.organization.sectorName.buckets.forEach(sector => {
                   sector.organization.buckets.forEach(org => {
@@ -220,10 +219,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
             // Funding organization name
-            if (this.currentTab === 'fundings' && val.category === 'organization' && source.organization) {
-              if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
-                source.organization.sectorName.buckets.forEach(sector => {
-                  sector.organizations.buckets.forEach(org => {
+            if (tab === 'fundings' && val.category === 'organization' && source.organization) {
+              if (source.organization.funded.sectorName && source.organization.funded.sectorName.buckets.length > 0) {
+                source.organization.funded.sectorName.buckets.forEach(sector => {
+                  sector.organizations?.buckets.forEach(org => {
                     if (org.orgId.buckets[0].key === val.value) {
                       const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                       this.activeFilters[foundIndex].translation = org.key.trim();
@@ -289,10 +288,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
 
             // News, organization
-            if (this.currentTab === 'news' && source.organization) {
+            if (tab === 'news' && source.organization) {
               const result = source.organization.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.label;
+              this.activeFilters[foundIndex].translation = result.label ? result.label : result.orgName.buckets[0].key;
             }
           });
           // Set flag when all filters are translated & filter items that aren't hidden
@@ -350,14 +349,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   clearFilters() {
     this.activeFilters = [];
-    this.router.navigate([]);
+    // Preserve target if available
+    this.router.navigate([], {queryParams: {target: this.settingsService.target}});
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
-    this.filterResponse.unsubscribe();
-    // this.tabSub.unsubscribe();
-    this.containerSub.unsubscribe();
+    this.queryParams?.unsubscribe();
+    this.filterResponse?.unsubscribe();
+    // this.tabSub?.unsubscribe();
+    this.containerSub?.unsubscribe();
   }
 
   // Set index for warning hover

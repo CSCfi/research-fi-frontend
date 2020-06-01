@@ -282,8 +282,10 @@
         .row.single {
             border-radius: 4px;
             padding: 1rem;
-            cursor: pointer;
-        }
+            span.label {
+                cursor: pointer;
+            }
+        } 
 
         .row.slider {
             padding-top: 0.5rem;
@@ -351,6 +353,9 @@
 
             .modal-body {
                 padding: 0;
+                // "Sticky header"
+                max-height: 80vh;
+                overflow-y: auto;
             }
 
             .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {

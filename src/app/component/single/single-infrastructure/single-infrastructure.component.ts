@@ -15,6 +15,7 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -27,6 +28,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
+  stringHasContent = UtilityService.stringHasContent;
 
   tab = 'infrastructures';
   infoFields = [
@@ -35,8 +37,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
     {label: 'Toiminta alkanut', field: 'startYear'},
     {label: 'Toiminta päättynyt', field: 'endYear'},
-    {label: 'Vastuuorganisaatio', field: 'responsibleOrganizationNameFi'},
-    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
+    {label: 'Vastuuorganisaatio', field: 'responsibleOrganization'},
     {label: 'Avainsanat', field: 'keywordsString'},
   ];
 
@@ -46,13 +47,42 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: 'Palvelun tyyppi', field: 'type'},
   ];
 
-  servicePointFields = [
-    {label: 'Palvelupisteen kuvaus', field: 'description'},
-    {label: 'Sähköposti', field: 'emailAddress'},
+  servicePointContactFields = [
+    {label: 'Kuvaus', field: 'description'},
+    {label: 'Sähköpostiosoite', field: 'emailAddress'},
     {label: 'Puhelinnumero', field: 'phoneNumber'},
-    {label: 'Käyntiosoite', field: 'visitingAddress'},
+    {label: 'Vierailuosoite', field: 'visitingAddress'},
+  ];
+
+  servicePointInfoFields = [
     {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
     {label: 'Linkki', field: 'infoUrl'},
+    {label: 'Koordinoiva organisaatio', field: 'coOrg'},
+  ];
+
+  fieldsOfScience = [
+    {label: 'Tieteenalat', field: 'fieldsOfScienceString'},
+  ];
+
+  classificationFields = [
+    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
+    {label: 'ESFRI-luokitus', field: 'ESFRICode'},
+    {label: 'MERIL-luokitus', field: 'merilCode'},
+  ];
+
+  contactFields = [
+    {label: 'Nimi', field: 'contactName'},
+    {label: 'Kuvaus', field: 'contactDescription'},
+    {label: 'Sähköpostiosoite', field: 'email'},
+    {label: 'Puhelinnumero', field: 'phoneNumber'},
+    {label: 'Vierailuosoite', field: 'address'},
+  ];
+
+  otherFields = [
+    {label: 'Tunnisteet', field: 'urn'},
+    {label: 'Osa kansainvälistä infrastruktuuria', field: '?'},
+    {label: 'Edeltävä tutkimusinfrastruktuuri', field: 'replacingInfrastructure'},
+    {label: 'Lisätietoja', field: '?'},
   ];
 
   linkFields = [
@@ -68,7 +98,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   faIcon = faFileAlt;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string ) {
    }
 
   public setTitle(newTitle: string) {
@@ -85,7 +115,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id: string) {
@@ -115,30 +145,16 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.infrastructures[0][item.field] !== undefined &&
-             this.responseData.infrastructures[0][item.field] !== 0 &&
-             this.responseData.infrastructures[0][item.field] !== '0' &&
-             this.responseData.infrastructures[0][item.field] !== null &&
-             this.responseData.infrastructures[0][item.field] !== '' &&
-             this.responseData.infrastructures[0][item.field] !== ' ' &&
-             this.responseData.infrastructures[0][item.field] !== '#N/A';
+      return UtilityService.stringHasContent(this.responseData.infrastructures[0][item.field]);
     };
 
-    const isNull = (obj) => Object.values(obj).every(x => (x === null));
-    // Check if every field null in service points and set flag. This is used to hide service from list
-    this.responseData.infrastructures[0].services.forEach(item => {
-
-      if (item.servicePoints.every(isNull)) {
-        const hideFlag = 'hide';
-        item.servicePoints[hideFlag] = 'true';
-      }
-    });
-    // Filter out invalid services
-    this.responseData.infrastructures[0].services = this.responseData.infrastructures[0].services.filter(
-      item => item.name !== '0' && item.name !== '#N/A');
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.fieldsOfScience = this.fieldsOfScience.filter(item => checkEmpty(item));
+    this.classificationFields = this.classificationFields.filter(item => checkEmpty(item));
+    this.contactFields = this.contactFields.filter(item => checkEmpty(item));
+    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
 
     // Init expand and show lists
     this.infoFields.forEach(_ => this.infoExpand.push(false));
@@ -153,6 +169,14 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.infrastructures[0];
     source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+
+    // Filter out empty servicepoints and empty services
+    source.services.forEach((service, idx) => {
+      source.services[idx].servicePoints =
+      service.servicePoints.map(servicePoint => UtilityService.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
+    });
+
+    source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
   expandInfoDescription(idx: number) {

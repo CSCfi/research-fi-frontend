@@ -140,7 +140,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -229,12 +229,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.publications[0][item.field] !== '-1' &&
-             this.responseData.publications[0][item.field] !== undefined &&
-             this.responseData.publications[0][item.field] !== 'undefined' &&
-             this.responseData.publications[0][item.field].length !== 0 &&
-             JSON.stringify(this.responseData.publications[0][item.field]) !== '["undefined"]' &&
-             this.responseData.publications[0][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.publications[0][item.field]);
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -296,28 +291,47 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 });
               }
             });
+            // Add sub units under organization if no person sub units
             if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
             && subUnit.OrgUnitId !== '-1') {
               orgUnitArr.push({
                 subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
               });
+              // List sub unit IDs if no name available
+            } else if (!subUnit.person && subUnit.organizationUnitNameFi === ' ') {
+              orgUnitArr.push({
+                subUnit: subUnit.OrgUnitId
+              });
+            } else if (subUnit.organizationUnitNameFi === ' ') {
+              orgUnitArr.push({
+                subUnit: subUnit.OrgUnitId
+              });
             }
           });
 
-          // Find duplicates and filter authors with subUnit
-          const duplicates = authorArr.filter((obj, index, self) =>
-            index === self.findIndex((t) => (
-             t.author === obj.author && t.subUnit !== null
-            ))
-          );
 
-          authorArr = duplicates.length > 0 ? duplicates : authorArr;
+          // Filter all authors with subUnit
+          const subUnits = authorArr.filter(obj => obj.subUnit !== null);
+
+          // Look through all authors
+          authorArr.forEach(obj => {
+            // Check if author with same name exists with subUnit
+            if (subUnits.findIndex(withSub => withSub.author === obj.author) < 0) {
+              // Add it to the list if not
+              subUnits.push(obj);
+            }
+          });
+
+          // Replace author list without duplicates
+          authorArr = subUnits;
+
 
           // authorArr = authorArr.filter(x => x.subUnit !== null);
           this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
             authors: authorArr, orgUnits: orgUnitArr});
         });
       });
+
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
       const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];

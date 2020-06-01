@@ -32,6 +32,7 @@ export class FilterService {
   faFieldFilter: any;
   organizationFilter: any;
   typeFilter: any;
+  infraFieldFilter: any;
   currentFilters: any;
   today: string;
 
@@ -78,6 +79,7 @@ export class FilterService {
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword');
     // Infrastructure
     this.typeFilter = this.basicFilter(filter.type, 'services.serviceType.keyword');
+    this.infraFieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.name' + this.localeC + '.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
   }
@@ -127,12 +129,18 @@ export class FilterService {
         break;
       }
       case 'fundings': {
-        filter.forEach(value => { res.push({ term : { 'organizationConsortium.consortiumOrganizationId.keyword' : value } }); });
+        // filter.forEach(value => { res.push({ term : { 'organizationConsortium.consortiumOrganizationId.keyword' : value } }); });
         filter.forEach(value => { res.push({ term : { 'fundingGroupPerson.consortiumOrganizationId.keyword' : value } }); });
+        break;
+      }
+      case 'infrastructures': {
+        const filterString = 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword';
+        filter.forEach(value => { res.push({ term : { [filterString] : value } }); });
         break;
       }
       case 'news': {
         filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
+        break;
       }
     }
     return res;
@@ -182,11 +190,12 @@ export class FilterService {
     if (code.includes('noOpenAccessData')) {
       res.push(
         {bool: {must_not: [
-          { term : { openAccessCode : 1 } },
-          { term : { openAccessCode : 2 } },
-          { term : { openAccessCode : 0 } },
-          { term : { selfArchivedCode : 1 } },
-          { term : { selfArchivedCode : 0 } }
+          {bool: {must: [{term: {openAccessCode: 0}}, {term: {selfArchivedCode: 0}}]}},
+          {bool: {must: [{term: {openAccessCode: 1}}, {term: {selfArchivedCode: 1}}]}},
+          {bool: {must: [{term: {openAccessCode: 2}}, {term: {selfArchivedCode: 0}}]}},
+          {bool: {must: [{term: {openAccessCode: 2}}, {term: {selfArchivedCode: 1}}]}},
+          {bool: {must: [{term: {openAccessCode: 1}}, {term: {selfArchivedCode: 0}}]}},
+          {bool: {must: [{term: {openAccessCode: 0}}, {term: {selfArchivedCode: 1}}]}}
         ]}}
       );
     }
@@ -264,21 +273,26 @@ export class FilterService {
       ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
           [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
       ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
-      // Funding / Organization filter data comes from two different nested aggregations
+      // Funding / Organization filter needs to be filtered by fundedPerson code
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
-          {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
+          [{nested: {path: 'fundingGroupPerson', query: {bool: {filter: {term: {'fundingGroupPerson.fundedPerson': 1}},
+          must: {bool: {should: this.organizationFilter}}}}}}] : []) : []),
+      // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
+      //     [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {should: this.organizationFilter } }}},
+      //     {nested: {path: 'fundingGroupPerson', query: {bool: {should: this.organizationFilter } }}}]}}] : []) : []),
       ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
       ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
       ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
       ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
       ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
       ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
+      ...(index === 'infrastructure' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
+      ...(index === 'infrastructure' ? (this.infraFieldFilter ? [{ bool: { should: this.infraFieldFilter } }] : []) : []),
       ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
       ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
       ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
       // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
-      ...(this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []),
+      ...(index === 'publication' || index === 'funding' ? (this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []) : []),
       ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
       ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
       ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
@@ -339,9 +353,11 @@ export class FilterService {
 
   constructFilterPayload(tab: string, searchTerm: string) {
     const filters = this.constructFilters(tab.slice(0, -1));
+
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
-    const activeNested = filters.filter(item => item.nested?.query.bool.should.length > 0);
+    const activeNested = filters.filter(item => item.nested?.query.bool.should?.length > 0 ||
+                                        item.nested?.query.bool.must.bool.should.length > 0);
     const activeMultipleNested = filters.filter(item => item.bool?.should.length > 0 && item.bool.should[0]?.nested);
 
     // Functions to filter out active filters. These prevents doc count changes on active filters
@@ -622,44 +638,55 @@ export class FilterService {
         // Sector & organization
         payLoad.aggs.organization = {
           nested: {
-            path: 'organizationConsortium'
+            path: 'fundingGroupPerson'
           },
           aggs: {
-            sectorName: {
-              terms: {
-                size: 50,
-                field: 'organizationConsortium.consortiumSectorNameFi.keyword',
-                exclude: ' |Rahoittaja'
+            funded: {
+              filter: {
+                terms: {
+                  'fundingGroupPerson.fundedPerson': [
+                    1
+                  ]
+                }
               },
               aggs: {
-                sectorId: {
+                sectorName: {
                   terms: {
                     size: 50,
-                    field: 'organizationConsortium.consortiumSectorId.keyword'
-                  }
-                },
-                organizations: {
-                  terms: {
-                    size: 50,
-                    field: 'organizationConsortium.consortiumOrganizationNameFi.keyword'
+                    field: 'fundingGroupPerson.fundedPersonOrganizationNameFi.keyword',
+                    exclude: ' |Rahoittaja'
                   },
                   aggs: {
-                    filtered: {
-                      reverse_nested: {},
-                      aggs: {
-                        filterCount: {
-                          filter: {
-                            bool: {
-                              filter: filterActiveMultipleNested('organizationConsortium', 'fundingGroupPerson')
-                            }
-                          }
-                        }
+                    sectorId: {
+                      terms: {
+                        size: 50,
+                        field: 'fundingGroupPerson.consortiumSectorId.keyword'
                       }
                     },
-                    orgId: {
+                    organizations: {
                       terms: {
-                        size: 1,
-                        field: 'organizationConsortium.consortiumOrganizationId.keyword'
+                        size: 50,
+                        field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
+                      },
+                      aggs: {
+                        filtered: {
+                          reverse_nested: {},
+                          aggs: {
+                            filterCount: {
+                              filter: {
+                                bool: {
+                                  filter: filterActiveNested('fundingGroupPerson')
+                                }
+                              }
+                            }
+                          }
+                        },
+                        orgId: {
+                          terms: {
+                            size: 1,
+                            field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
+                          }
+                        }
                       }
                     }
                   }
@@ -709,13 +736,13 @@ export class FilterService {
         payLoad.aggs.typeOfFunding = {
           filter: {
             bool: {
-              filter: filterActive('typeOfFundingId.keyword')
+              filter: filterActive('typeOfFunding.typeOfFundingId.keyword')
             }
           },
           aggs: {
             types: {
               terms: {
-                field: 'typeOfFundingId.keyword',
+                field: 'typeOfFunding.typeOfFundingId.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {
@@ -725,7 +752,7 @@ export class FilterService {
               aggs: {
                 typeName: {
                   terms: {
-                    field: 'typeOfFundingName' + this.localeC + '.keyword',
+                    field: 'typeOfFunding.typeOfFundingName' + this.localeC + '.keyword',
                     exclude: ' ',
                   }
                 }
@@ -831,6 +858,43 @@ export class FilterService {
             types: {
               terms: {
                 field: 'services.serviceType.keyword'
+              }
+            }
+          }
+        };
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword')
+            }
+          },
+          aggs: {
+            sector: {
+              terms: {
+                field: 'responsibleOrganization.responsibleOrganizationSectorFi.keyword',
+                exclude: ' '
+              },
+              aggs: {
+                organizations: {
+                  terms: {
+                    field: 'responsibleOrganization.responsibleOrganizationNameFi.keyword',
+                    exclude: ' '
+                  }
+                }
+              }
+            }
+          }
+        };
+        payLoad.aggs.infraField = {
+          filter: {
+            bool: {
+              filter: filterActive('fieldsOfScience.name' + this.localeC + '.keyword')
+            }
+          },
+          aggs: {
+            infraFields: {
+              terms: {
+                field: 'fieldsOfScience.name' + this.localeC + '.keyword'
               }
             }
           }

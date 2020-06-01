@@ -22,6 +22,8 @@ export class DataService {
 
   researchFigureScrollLocation = 0;
 
+  resultTabList: any[] = [];
+
   constructor() { }
 
   changeResponse(response: any) {

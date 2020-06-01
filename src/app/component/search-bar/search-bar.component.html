@@ -8,12 +8,25 @@
 <div class="full-width" #searchBar>
   <div class="search" [class.no-heading]="router.url !== '/'">
     <form (keydown.enter)="$event.preventDefault()" class="wrapper">
-      <label i18n="@@searchSlogan" *ngIf="router.url === '/'" class="text-center h1" for="searchInput" style="width:100%;">Hae tietoa tutkimuksesta Suomessa</label>
+      <label i18n="@@searchSlogan" [class.sr-only]="router.url !== '/'" class="text-center h1" for="searchInput" [style.width]="router.url === '/' ? '100%' : '1px'">
+        Hae tietoa tutkimuksesta Suomessa
+      </label>
 
       <div class="form-group has-search">
+        <div class="d-flex justify-content-center">
+          <span tabindex="-1" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem></span>
+        </div>
         <div class="input-group" #inputGroup>
-          <input tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." type="text" 
-          #searchInput class="form-control" [formControl]="queryField" i18n-placeholder placeholder="Esim. julkaisu, tieteenala, asiasana"
+          <mat-form-field class="search-target">
+            <mat-label i18n="@@searchTarget">Kohdista haku</mat-label>
+            <mat-select (selectionChange)="changeTarget($event)" [(value)]="selectedTarget">
+              <mat-option *ngFor="let target of targets" [value]="target.value">
+                {{target.viewValueFi}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <input type="text" (mouseenter)="utilityService.tooltipMouseenter(elem)" i18n-tooltip tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown.escape"
+          #searchInput class="form-control" [formControl]="queryField" placeholder="Esim. julkaisu, tieteenala, asiasana"
           value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event); disableKeys($event)"
           tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth()"/>
           <!-- <app-info-tooltip [content]="'Search bar'"></app-info-tooltip> -->
@@ -79,7 +92,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col" [class.other-links]="otherData">
+              <div class="col px-0 pb-4" [class.other-links]="otherData">
                 <ul>
                   <li *ngFor="let data of otherData">
                     <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item tab-link" [doc]="data.index" [term]="queryField">

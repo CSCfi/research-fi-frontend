@@ -19,7 +19,7 @@ export class NewsFilters {
   constructor() {}
 
   shapeData(data) {
-    const source = data[0].aggregations;
+    const source = data.aggregations;
     source.organization.buckets = this.organization(source.organization.buckets);
     source.shaped = true;
     return source;

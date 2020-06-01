@@ -12,7 +12,8 @@
     <div class="row no-margin">
         <div class="col col-1 icon"></div>
         <div class="col col-3 col-xl-2 d-none d-lg-block">
-            <span #main tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." placement="bottom"
+            <span #main tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." triggers="focus keydown.escape" placement="top" 
+            (mouseenter)="utilityService.tooltipMouseenter(main)" (keydown.escape)="utilityService.tooltipKeydown(main, $event)"
             class="bold uppercase" [ngClass]="sortColumn === 'acronym' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('acronym')" (keydown.enter)="sortBy('acronym')" i18n="@@infraAcronym">Lyhenne</span>
         </div>
@@ -21,7 +22,8 @@
             (click)="sortBy('name')" (keydown.enter)="sortBy('name')" i18n="@@infraName">Nimi</span>
         </div>
         <div class="col col-3 col-lg-4 col-xl-4 d-none d-lg-block">
-            <span tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." placement="bottom"
+            <span tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." triggers="focus keydown.escape" placement="top"
+            (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
             class="bold uppercase" [ngClass]="sortColumn === 'organization' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="sortBy('organization')" (keydown.enter)="sortBy('organization')" i18n="@@infraOrganization">Organisaatio</span>
         </div>
@@ -48,7 +50,7 @@
                 </div>      
                 <div class="col col-lg-4 col-xl-4 title">
                     <a routerLink="/results/infrastructure/{{infra.id}}">
-                        <h3 class="result-title" [innerHtml]="infra.name.trim() | highlight: input"></h3>
+                        <h3 class="result-title" [innerHtml]="infra.name?.trim() | highlight: input"></h3>
                     </a>
                     <div class="row">
                         <div class="col pl-0">
@@ -60,7 +62,7 @@
                     </div>
                 </div>          
                 <div class="col col-lg-4 col-xl-4">
-                    <span [innerHtml]="infra.responsibleOrganizationNameFi.trim() | highlight: input"></span>
+                    <span [innerHtml]="infra.responsibleOrganization?.trim() | highlight: input"></span>
                 </div>
                 <!-- <div class="col col-2 d-none col-sm-block d-xl-block">
                     <span [innerHtml]="infra.services.length"></span>

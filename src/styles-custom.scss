@@ -32,17 +32,19 @@ h1, h2, h3, h4, h5 {
     // line-height: 1.5;
 }
 
-h1 { font-size: 2rem; font-weight: bold;}
+h1 { font-size: 2rem; font-weight: bold; word-wrap: break-word;}
 h2 { font-size: 1.7rem;}
 h3 { font-size: 1.5rem;}
 h4 { font-size: 1.2rem;}
 
 a {
-    color: map-get($researchfi-primary, 500)
+    // Accessibility checked color
+    color: #3366CC;
+    font-weight: 400;
 }
 
 a:hover {
-    color: map-get($researchfi-primary, lighter);
+    text-decoration: underline;
 }
 
 ul {
@@ -102,6 +104,7 @@ mark, .mark {
     // font-weight: bold;
     font-weight: 400;
     color: map-get(map-get($researchfi-primary, contrast), 200);
+    background-color: #FFC000;
 }
 
 // Forms
@@ -112,17 +115,59 @@ mark, .mark {
 // Help icon
 .info-icon {
     color: map-get($researchfi-primary, 500);
+    cursor: pointer;
 }
 
-// Dialog
-body .mat-dialog-container {
-    min-width: 400px;
+// Mat select
+.mat-select-panel {
+    background: white!important;
 }
 
 // Tooltip
 .tooltip-inner {
     max-width: 276px;
     width: max-content;
+}
+
+.tooltip > div {
+    animation-name: delayedFadeIn;
+    animation-duration: .1s; /* Adjust this duration */
+  }
+  
+  @keyframes delayedFadeIn {
+    0% {opacity: 0;}
+    99% {opacity: 0;} /* Set this to 99% for no fade-in. */
+    100% {opacity: 1;}
+  }
+
+@media (max-width: 575px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    h2 {
+        font-size: 1.4rem;
+    }
+    h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 399px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+    }
+    h3 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .info-icon {
+        display: none;
+    }
 }
 // .tooltip-inner {
 //     color: #000;

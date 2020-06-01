@@ -63,12 +63,10 @@ export class SortService {
       type: 'number',
       order: 'asc'
     };
-
     this.initSort(sort || '');
     switch (this.currentTab) {
       case 'publications': {
         this.yearField = 'publicationYear';
-
         switch (this.sortColumn) {
           case 'name': {
             this.sort = [{'publicationName.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];

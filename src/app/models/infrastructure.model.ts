@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { InfraService, InfraServiceAdapter } from './infra-service.model';
+import { LanguageCheck } from './utils';
 
 export class Infrastructure {
 
@@ -20,14 +21,22 @@ export class Infrastructure {
         public endYear: string,
         public acronym: string,
         public finlandRoadmap: string,
+        public ESFRICode: string,
+        public merilCode: string,
+        public contactName: string,
+        public contactDescription: string,
+        public email: string,
+        public phoneNumber: string,
+        public address: string,
         public urn: string,
-        public responsibleOrganizationNameFi: string,
-        public responsibleOrganizationNameSv: string,
-        public responsibleOrganizationNameEn: string,
+        public responsibleOrganization: string,
         public statCenterId: string,
+        public replacingInfraStructure: string,
         public keywords: string[],
+        public fieldsOfScience: object[],
         public services: InfraService[],
         public keywordsString: string,
+        public fieldsOfScienceString: string,
     ) {}
 }
 
@@ -36,34 +45,56 @@ export class Infrastructure {
 })
 
 export class InfrastructureAdapter implements Adapter<Infrastructure> {
-    constructor(private isa: InfraServiceAdapter) {}
+    constructor(private isa: InfraServiceAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Infrastructure {
-
         const services: InfraService[] = [];
         const keywords: string[] = [];
+        const fieldsOfScience: string[] = [];
+
+        item.infraConPoint = item.infraConPoint?.shift();
+
+        // Init and assign if available
+        let responsibleOrganization = '';
+        if (item.responsibleOrganization) {
+            responsibleOrganization = this.lang.testLang('responsibleOrganizationName', item.responsibleOrganization[0]);
+        }
+
+        // Assign if available
+        const esfriCode = item.ESFRICodes?.length > 0 ? item.ESFRICodes.map(x => x.ESFRICode)[0] : '';
 
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
         item.keywords?.forEach(obj => keywords.push(obj.keyword));
+        item.fieldsOfScience?.forEach(obj => fieldsOfScience.push(this.lang.testLang('name', obj)));
 
         const keywordsString = keywords?.join(', ');
 
+        const fieldsOfScienceString = fieldsOfScience?.join(', ');
+
         return new Infrastructure(
-            item.name,
-            item.name,
-            item.description,
-            item.scientificDescription,
+            this.lang.testLang('name', item),
+            this.lang.testLang('name', item),
+            this.lang.testLang('description', item),
+            this.lang.testLang('scientificDescription', item),
             item.startYear,
             item.endYear,
             item.acronym,
             item.finlandRoadmap,
+            esfriCode,
+            item.merilCode,
+            this.lang.testLang('infraConName', item?.infraConPoint),
+            this.lang.testLang('infraConDescr', item?.infraConPoint),
+            item?.infraConPoint?.infraConEmail,
+            item?.infraConPoint?.infraConPhone,
+            item?.infraConPoint?.infraConPost,
             item.urn,
-            item.responsibleOrganizationNameFi,
-            item.responsibleOrganizationNameSv,
-            item.responsibleOrganizationNameEn,
+            responsibleOrganization,
             item.TKOppilaitosTunnus,
+            item.replacingInfraStructure,
             keywords,
+            item.fieldsOfScience,
             services,
             keywordsString,
+            fieldsOfScienceString
         );
     }
 }

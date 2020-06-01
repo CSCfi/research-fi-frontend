@@ -17,6 +17,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   providers: [SearchBarComponent],
@@ -29,9 +30,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage = [];
   status = false;
   news: News[] = [];
-  myOps = {
-    duration: 0.5
-  };
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChildren('shortcutItem') shortcutItem: QueryList<ElementRef>;
   @ViewChild('main') mainContent: ElementRef;
@@ -51,7 +49,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       caption: 'Tutustu tilastoihin tutkimuksen henkilöstöstä, rahoituksesta ja julkaisutoiminnasta',
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
-      link: '/science-innovation-politics/science-research-figures',
+      link: '/science-innovation-policy/science-research-figures',
       alt: ' '
     },
     {
@@ -60,7 +58,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       imgPath: 'assets/img/home/research_innovation.jpg',
       col: 6,
       // link: '/visual/publications',
-      link: '/science-innovation-politics/research-innovation-system',
+      link: '/science-innovation-policy/research-innovation-system',
       alt: ' '
 
     },
@@ -94,8 +92,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, private metaService: Meta ) {
+               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService ) {
                }
 
   public setTitle( newTitle: string) {
@@ -186,6 +184,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.resizeSub.unsubscribe();
+    this.resizeSub?.unsubscribe();
   }
 }

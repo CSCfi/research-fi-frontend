@@ -9,7 +9,11 @@ h2 {
     margin-bottom: 32px;
 }
 
-h3, h4 {
+h3 {
+    font-size: 1.2rem;
+}
+
+h4 {
     font-size: 1rem;
 }
 
@@ -32,4 +36,11 @@ img {
     height: auto;
     max-width: 800px;
     display: block;
+}
+
+@media (max-width: 575px) {
+    mat-tab-group {
+        max-width: 80vw;
+        word-wrap: break-word;
+    }
 }

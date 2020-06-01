@@ -6,15 +6,17 @@
 # :license: MIT -->
 
 <header class="wrapper">
-    <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
+    <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'" #srHelper>
         <ul>
-            <li *ngIf="hideInputSkip"><a i18n="@@skipToInput" (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää hakukenttään</a></li>
-            <li><a i18n="@@skipToMain" (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)">Hyppää sivun pääsisältöön</a></li>
+            <li *ngIf="hideInputSkip"><a i18n="@@skipToInput" (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää hakukenttään</a></li>
+            <li><a i18n="@@skipToMain" (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää sivun pääsisältöön</a></li>
+            <!-- <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" [routerLink]="" [queryParams]="params" [fragment]="'main-content'">Hyppää sivun pääsisältöön</a></li> -->
+            <!-- ToDo: Link to accessibility -->
             <li><a i18n="@@skipToAccessibility" (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a></li>
         </ul>
     </div>
 
-    <div offClick class="navbar navbar-expand-xl navbar-light row">
+    <div offClick class="navbar navbar-expand-xl navbar-light row" #mainHeader>
         <div class="logo col-7 col-xs-9 col-xl-4">
             <div class="row logo-wrapper">
                 <div class="col col-auto p-0">
@@ -70,13 +72,13 @@
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen" (clickOutside)="onClickedOutside($event)">
-                                <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-politics/" routerLinkActive="active-link"
+                                <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-policy/" routerLinkActive="active-link"
                                 (keydown.enter)="$event.preventDefault(); dropdownOpen = true" (keydown.space)="$event.preventDefault(); dropdownOpen = true" [class.open]="dropdownOpen" [class.font-weight-bold]="dropdownOpen">
                                     <span i18n="Header@@headerLink3" class="label">Tiede- ja innovaatiopolitiikka</span>
                                 </a>
                                 <ul class="dropdown" *ngIf="dropdownOpen">
-                                    <li><a i18n="Header@@headerLink4" routerLink="/science-innovation-politics/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>
-                                    <li><a i18n="Header@@headerLink5" routerLink="/science-innovation-politics/science-research-figures/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tiede ja tutkimus lukuina</a></li>
+                                    <li><a i18n="Header@@headerLink4" routerLink="/science-innovation-policy/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>
+                                    <li><a i18n="Header@@headerLink5" routerLink="/science-innovation-policy/science-research-figures/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Lukuja tieteestä ja tutkimuksesta</a></li>
                                 </ul>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0">
@@ -109,5 +111,5 @@
             </div>
         </nav>
     </div>
-    <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()"></div>
+    <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
 </header>

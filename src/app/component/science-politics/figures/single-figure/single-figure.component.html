@@ -8,11 +8,11 @@
 <main id="main-content">
     <div class="wrapper">
         <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
-        <a routerLink="/science-innovation-politics/science-research-figures/" class="back"><< Takaisin</a>
+        <a routerLink="/science-innovation-policy/science-research-figures/" class="back"><< Takaisin</a>
         <div class="row" *ngFor="let item of result; trackBy: trackByFn">
             <div class="col-12 px-lg-0 pb-2">
                 <h1>{{item.labelFi}}</h1>
-                <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)">Ohje näppäimistökäyttäjälle</a>
+                <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)" #keyboardHelp>Ohje näppäimistökäyttäjälle</a>
                 <div *ngIf="showHelp" class="help p-3">
                     <div class="m-0">
                         <p i18n="@@figureKeyboardHelp1">Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>
@@ -31,7 +31,7 @@
                         <div class="row pb-3">
                             <div class="col align-self-center pointer pl-0" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
                             tabindex="0" (keydown.enter)="showInfo = !showInfo">
-                                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                                <fa-icon class="info-icon" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
                                 <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
                             </div>
                             <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
