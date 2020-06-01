@@ -34,20 +34,20 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="searchTarget" datatype="html">
-        <source>Kohdista haku</source>
-        <target>Kohdista haku</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
         <target>You can search for publications, funding decisions, infrastructures and organization descriptions.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="searchTarget" datatype="html">
+        <source>Kohdista haku</source>
+        <target>Search target</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="799bcf9270be412cb8063fd9e94d3d1f70192d2f" datatype="html">
