@@ -30,6 +30,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('keyboardHelp') keyboardHelp: ElementRef;
 
   dataContent = content;
+  flatData: any[] = [];
 
   colWidth: number;
   faQuestion = faQuestionCircle;
@@ -62,11 +63,19 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     this.routeSub = this.route.params.subscribe(param => {
       this.currentParent = param.id.slice(0, 2);
       this.currentItem = param.id;
+      // Get data from assets by parent and content link
+      const parent = this.dataContent.find(item => item.id === this.currentParent);
+      this.result = [parent.items.find(item => item.link === this.currentItem)];
     });
 
-    // Get data from assets by parent and content link
-    const parent = this.dataContent.find(item => item.id === this.currentParent);
-    this.result = [parent.items.find(item => item.link === this.currentItem)];
+
+    // Get all visualisations into a flat array
+    this.dataContent.forEach(segment => {
+      // Hack to get segment header into item (replace an unused field with it)
+      segment.items.forEach(item => item.info = segment.headerFi);
+      this.flatData.push(segment.items);
+    });
+    this.flatData = this.flatData.flat();
 
     // Set title
     this.label = this.result[0]?.labelFi;

@@ -138,6 +138,7 @@ import { TabItemComponent } from './component/result-tab/tab-item/tab-item.compo
 import { HistoryService } from './services/history.service';
 import { TabChangeService } from './services/tab-change.service';
 import { NewsPaginationComponent } from './component/news/news-pagination/news-pagination.component';
+import { CarouselComponent } from './component/science-politics/figures/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -194,7 +195,8 @@ import { NewsPaginationComponent } from './component/news/news-pagination/news-p
     NewsCardComponent,
     SitemapComponent,
     TabItemComponent,
-    NewsPaginationComponent
+    NewsPaginationComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

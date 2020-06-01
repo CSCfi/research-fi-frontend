@@ -5,10 +5,10 @@
                 <h3 *ngSwitchCase="true">{{item.headline}}</h3>
                 <ng-container *ngSwitchDefault>
                     <ng-container *ngIf="!sideNews">
-                        <h2>{{item.headline}}</h2>
+                        <h3>{{item.headline}}</h3>
                     </ng-container>
                     <ng-container *ngIf="sideNews">
-                        <a href="{{item.url}}" target="_blank"><h2>{{item.headline}} <fa-icon class="icon" icon="external-link-alt"></fa-icon></h2></a>
+                        <a href="{{item.url}}" target="_blank"><h3>{{item.headline}} <fa-icon class="icon" icon="external-link-alt"></fa-icon></h3></a>
                     </ng-container>
                 </ng-container>
 

@@ -49,6 +49,7 @@
 @import './app/ui/cookie-consent/cookie-consent-theme.scss';
 @import './app/ui/review/review.component-theme.scss';
 @import './app/component/results/pagination/pagination.component.scss';
+@import './app/component/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 
 
 // Global element color definitions
@@ -85,6 +86,7 @@
   @include app-cookie-consent-theme($theme);
   @include app-review-theme($theme);
   @include app-pagination-shared;
+  @include app-carousel-theme($theme);
 
 
   $primary: map-get($theme, primary);
