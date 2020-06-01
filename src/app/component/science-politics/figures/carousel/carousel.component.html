@@ -1,0 +1,25 @@
+<div class="d-flex flex-direction-row justify-content-center align-items-center carousel-container">
+    <div class="button-container prev">
+        <button mat-stroked-button *ngIf="idx > 0; else first"><a routerLink="/science-innovation-policy/science-research-figures/{{data[idx-1].link}}">&lt;&lt; Edellinen</a></button>
+        <ng-template #first>
+            <button mat-stroked-button [disabled]="true">&lt;&lt; Edellinen</button>
+        </ng-template>
+    </div>
+    <div *ngFor="let item of slicedData" [class.active]="item.link === id">
+        <a routerLink="/science-innovation-policy/science-research-figures/{{item.link}}">
+            <div class="img-container">
+                <div class="item-title w-100 text-center">Tutkimuksen rahoitus</div>
+                <div class="img-div">
+                    <img [src]="item.img">
+                </div>
+                <div class="item-description">{{item.labelFi | cutContent: 50}}</div>
+            </div>
+        </a>
+    </div>
+    <div class="button-container next">
+        <button mat-stroked-button *ngIf="idx < maxIdx; else last"><a routerLink="/science-innovation-policy/science-research-figures/{{data[idx+1].link}}">Seuraava &gt;&gt;</a></button>
+        <ng-template #last>
+            <button mat-stroked-button [disabled]="true">Seuraava &gt;&gt;</button>
+        </ng-template>
+    </div>
+</div>

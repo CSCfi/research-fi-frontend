@@ -103,7 +103,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     const combined = [];
     // Combine all items
     this.allContent.forEach(segment => combined.push(segment.items));
-    this.combinedData = [].concat.apply([], combined);
+    this.combinedData = combined.flat();
+
     // Subscribe to input changes
     this.querySub = this.queryField.valueChanges.pipe(
       distinctUntilChanged()
