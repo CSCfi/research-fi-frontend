@@ -14,7 +14,7 @@
 
       <div class="form-group has-search">
         <div class="d-flex justify-content-center">
-          <span tabindex="-1" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem></span>
+          <span tabindex="-1" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem></span>
         </div>
         <div class="input-group" #inputGroup>
           <mat-form-field class="search-target">
@@ -25,8 +25,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <input type="text" (mouseenter)="utilityService.tooltipMouseenter(elem)" i18n-tooltip tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown.escape"
-          #searchInput class="form-control" [formControl]="queryField" placeholder="Esim. julkaisu, tieteenala, asiasana"
+          <input type="text" (mouseenter)="utilityService.tooltipMouseenter(elem)" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown.escape"
+          #searchInput class="form-control" [formControl]="queryField" i18n-placeholder placeholder="Esim. julkaisu, tieteenala, asiasana"
           value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event); disableKeys($event)"
           tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth()"/>
           <!-- <app-info-tooltip [content]="'Search bar'"></app-info-tooltip> -->
@@ -41,7 +41,7 @@
           </div>
           <div class="search-help" (clickOutside)="onClickedOutside($event)">
             <button  [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp">
-              <span i18n="Search help button@@searchHelpButton">Hakuohje</span>
+              <ng-container i18n="Search help button@@searchHelpButton">Hakuohje</ng-container>
             </button>
             <div class="search-helper" *ngIf="showHelp">
               <p i18n="Search help@@searchHelp1">Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi tai esimerkiksi organisaation nimi.</p>
