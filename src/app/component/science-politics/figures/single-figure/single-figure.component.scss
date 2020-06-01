@@ -91,10 +91,14 @@ app-single-figure {
         cursor: pointer;
     }
 
+    .carousel-wrapper {
+        margin-top: 50px;
+    }
+
     // Responsive
     // Custom carousel breakpoint
     @media (max-width: 1100px) {
-        .carousel {
+        .carousel-wrapper {
             display: none;
         }
     }
