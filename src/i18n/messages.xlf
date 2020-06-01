@@ -533,7 +533,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
-          <context context-type="linenumber">172</context>
+          <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fundingFunded" datatype="html">
@@ -555,6 +555,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fundingRecipientHeader" datatype="html">
+        <source>Myönnetty rahoitus</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contactPerson" datatype="html">
