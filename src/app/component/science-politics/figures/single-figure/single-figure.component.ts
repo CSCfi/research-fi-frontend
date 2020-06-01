@@ -70,7 +70,11 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
     // Get all visualisations into a flat array
-    this.dataContent.forEach(segment => this.flatData.push(segment.items));
+    this.dataContent.forEach(segment => {
+      // Hack to get segment header into item (replace an unused field with it)
+      segment.items.forEach(item => item.info = segment.headerFi);
+      this.flatData.push(segment.items);
+    });
     this.flatData = this.flatData.flat();
 
     // Set title

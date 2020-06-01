@@ -9,6 +9,13 @@
     padding: 10px 0;
 }
 
+.figure-item {
+    cursor: default;
+    &:not(.active) {
+        cursor: pointer;
+    }
+}
+
 img {
     height: 150px;
     // position: absolute;
