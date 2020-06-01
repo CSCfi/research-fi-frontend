@@ -10,7 +10,7 @@
  
  <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData['label' + currentLocale]" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
         <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a></p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
@@ -24,9 +24,9 @@
                         <ng-container *ngFor="let row of infoFields">
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">
-                                    {{row.label}}
-                                    <ng-container *ngIf="row.tooltipFi">
-                                        <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                    {{row['label' + currentLocale]}}
+                                    <ng-container *ngIf="row['tooltip' + currentLocale]">
+                                        <ng-template #tooltipTemplate><div [innerHtml]="row['tooltip' + currentLocale]"></div></ng-template>
                                         <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                             <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                         </span>
@@ -44,9 +44,9 @@
                     <div class="content recipient">
                         <div class="row">
                             <h3 class="th col-12 col-sm-3">
-                                Myönnetty rahoitus
+                                <ng-container i18n="@@fundingRecipientHeader">Myönnetty rahoitus</ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div i18n="@@fundingFundedTooltip" [innerHtml]="'Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.'"></div>
+                                    <div [innerHtml]="recipientTooltip['tooltip' + currentLocale]"></div>
                                 </ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -114,7 +114,7 @@
                                     <ng-container *ngSwitchDefault>Summa </ng-container>
                                 </ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div i18n="@@fundingAmountTooltip" [innerHtml]="'Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.'"></div>
+                                    <div [innerHtml]="fundingAmountTooltip['tooltip' + currentLocale]"></div>
                                 </ng-template>                                
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -169,10 +169,10 @@
                     <!-- Funder -->
                     <div class="content" *ngIf="item.funder && funderFields.length > 0">
                         <div class="row">
-                            <h2 class="th col-12 col-sm-3" i18n="@@fundingFunder">
-                                Rahoittaja
+                            <h2 class="th col-12 col-sm-3">
+                                <ng-container i18n="@@fundingFunder">Rahoittaja</ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="'Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.'"></div>
+                                    <div [innerHtml]="funderTooltip['tooltip' + currentLocale]"></div>
                                 </ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -185,9 +185,9 @@
 
                         <div class="row" *ngFor="let row of funderFields">
                             <h3 class="col-12 col-sm-6 col-lg-3 th">
-                                {{row.label}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                {{row['label' + currentLocale]}}
+                                <ng-container *ngIf="row['tooltip' + currentLocale]">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row['tooltip' + currentLocale]"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -201,9 +201,9 @@
                         <h2 class="th" i18n="@@fundingOtherInfo">Muut tiedot</h2>
                         <div class="row" *ngFor="let row of otherFields">
                             <h3 class="col-12 col-sm-6 col-lg-3 th">
-                                {{row.label}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                {{row['label' + currentLocale]}}
+                                <ng-container *ngIf="row['tooltip' + currentLocale]">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row['tooltip' + currentLocale]"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -221,7 +221,9 @@
                     <mat-card>
                         <mat-card-title><h2>
                             <ng-container i18n="@@fundingHomePage">Hankkeen verkkosivu</ng-container>
-                            <ng-template #tooltipTemplate><div i18n="@@fundingHomePageTooltip" [innerHtml]="'Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.'"></div></ng-template>
+                            <ng-template #tooltipTemplate>
+                                <div [innerHtml]="homepageTooltip['tooltip' + currentLocale]"></div>
+                            </ng-template>
                             <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                             </span>
