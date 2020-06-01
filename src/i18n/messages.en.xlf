@@ -350,6 +350,22 @@
           <context context-type="linenumber">289</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="citationHeader" datatype="html">
+        <source>Viittaa</source>
+        <target>Refer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">295</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="copyReferences" datatype="html">
+        <source>Kopioi viitetiedot</source>
+        <target>Copy references</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">300</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="doiWarning" datatype="html">
         <source>Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</source>
         <target>Attribute information is not available because the publication does not have a DOI.</target>
@@ -358,12 +374,28 @@
           <context context-type="linenumber">299</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="shareHeader" datatype="html">
+        <source>Jaa</source>
+        <target>Share</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">310</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="publicationSource" datatype="html">
         <source>Julkaisutiedon lähde</source>
         <target>Source of publication information</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">313</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="copyToClipboard" datatype="html">
+        <source>Kopioi leikepöydälle</source>
+        <target>Copy to clipboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="linenumber">334</context>
         </context-group>
       </trans-unit>
       <trans-unit id="doiHelp" datatype="html">
@@ -2031,6 +2063,18 @@
           <context context-type="linenumber">80</context>
         </context-group>
         <note priority="1" from="description">Review-button</note>
+      </trans-unit>
+      <trans-unit id="2271081886944811635">
+        <source>Kyllä</source>
+        <target>Yes</target>
+      </trans-unit>
+      <trans-unit id="7973261227367149016">
+        <source>Ei</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="1859228788704469914">
+        <source>Ei tietoa</source>
+        <target>No information</target>
       </trans-unit>
     </body>
   </file>
