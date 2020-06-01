@@ -29,7 +29,19 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;
   @ViewChild('keyboardHelp') keyboardHelp: ElementRef;
 
-  dataContent = content;
+  dataContent: {
+    id: string;
+    headerFi: string;
+    items: {
+        labelFi: string;
+        descriptionFi: string;
+        img: string;
+        iframe: string;
+        link: string;
+        source: string;
+        info: string;
+        segment?: string
+    }[]}[] = content;
   flatData: any[] = [];
 
   colWidth: number;
@@ -72,7 +84,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     // Get all visualisations into a flat array
     this.dataContent.forEach(segment => {
       // Hack to get segment header into item (replace an unused field with it)
-      segment.items.forEach(item => item.info = segment.headerFi);
+      segment.items.forEach(item => item.segment = segment.headerFi);
       this.flatData.push(segment.items);
     });
     this.flatData = this.flatData.flat();

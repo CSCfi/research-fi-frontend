@@ -5,7 +5,7 @@
     </div>
     <div *ngFor="let item of slicedData" class="figure-item" [class.active]="item.link === id">
             <div class="img-container" [routerLink]="item.link === id ? undefined : '/science-innovation-policy/science-research-figures/' + item.link">
-                <div class="item-title w-100 text-center">{{item.info}}</div>
+                <div class="item-title w-100 text-center">{{item.segment}}</div>
                 <div class="img-div">
                     <img  [src]="item.img">
                 </div>
