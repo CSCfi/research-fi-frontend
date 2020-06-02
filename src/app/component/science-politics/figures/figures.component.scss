@@ -126,12 +126,6 @@ img {
     font-size: 1.5rem;
 }
 
-.dropdown {
-    font-size: 1rem;
-    text-transform: uppercase;
-    font-weight: 500;
-}
-
 .dropdown-icon {
     padding: 0 0.5rem;
 }
@@ -140,9 +134,13 @@ img {
     .nav ul {
         width: 100%;
     }
-    
-    .nav ul li {
-        margin-left: 0.5rem;
+
+    .mat-button {
+        padding: 0;
+    }
+
+    ::ng-deep .dropdown .mat-button-wrapper {
+        display: flex;
     }
 }
 
