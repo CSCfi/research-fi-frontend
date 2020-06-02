@@ -53,7 +53,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   link = [
-    {label: $localize`Linkit`, field: 'projectHomepage'}
+    {label: $localize`:@@links:Linkit`, field: 'projectHomepage'}
   ];
 
   recipientTooltip = {
