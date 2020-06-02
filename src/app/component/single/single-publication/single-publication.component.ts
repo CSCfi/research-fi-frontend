@@ -38,58 +38,58 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   tabQueryParams: any;
 
   infoFields = [
-    // {labelFi: 'Julkaisun nimi', field: 'title'},
-    {labelFi: 'Julkaisuvuosi', labelSv: 'Publiceringsår', labelEn: 'Year of publication', field: 'publicationYear'},
-    {labelFi: 'Julkaisutyyppi', labelSv: 'Publikationstyp', labelEn: 'Publication type', field: 'publicationTypeCode', typeLabel: ' ',
-    tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.', tooltipSv: 'Publikationstyp A–G enligt UKM:s publikationsdatainsamling.', tooltipEn: 'Publication type A-G categories according to Ministry of Education and Culture Publication data collection.'},
-    {labelFi: 'Tekijät', labelSv: 'MISSING TRANSLATION', labelEn: 'Authors', field: 'authors',
-    tooltipFi: 'Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.', tooltipSv: 'Upphovsmännen till publikationen i den ordning de listas i den ursprungliga publikationen. Om antalet upphovsmän är över 20, har alla inte nödvändigtvis uppgetts.', tooltipEn: 'Publication authors in the order they are listed in the original publication. If there are more than 20 authors, not all of them will necessarily be mentioned.'}
+    // {label: 'Julkaisun nimi', field: 'title'},
+    {label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'publicationYear'},
+    {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', typeLabel: ' ',
+    tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+    {label: $localize`:@@authors:Tekijät`, field: 'authors',
+    tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`}
   ];
 
   // authorFields = [
-  //   {labelFi: 'Tekijöiden määrä', labelSv: '', labelEn: '', field: 'author[0].nameFiSector',
-  //   tooltipFi: 'Julkaisun tekijät, joilla on suomalainen organisaatio', tooltipSv: '', tooltipEn: ''}
+  //   {label: 'Tekijöiden määrä', labelSv: '', labelEn: '', field: 'author[0].nameFiSector',
+  //   tooltip: 'Julkaisun tekijät, joilla on suomalainen organisaatio', tooltipSv: '', tooltipEn: ''}
   // ];
 
   authorAndOrganization = [];
 
   organizationSubFields = [
-    {labelFi: 'Organisaatio', labelSv: 'Organisation', labelEn: 'Organization', field: 'organizationId'}
+    {label: $localize`:@@orgOrganization:Organisaatio`, field: 'organizationId'}
   ];
 
   mediumFields = [
-    {labelFi: 'Lehti', labelSv: 'Tidskrift', labelEn: 'Journal', field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {labelFi: 'Emojulkaisun nimi', labelSv: 'Moderförlagets namn', labelEn: 'Parent publication name', field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
-    {labelFi: 'Konferenssi', labelSv: '', labelEn: '', field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {labelFi: 'Kustantaja', labelSv: 'Förläggare', labelEn: 'Publisher', field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {labelFi: 'Volyymi', labelSv: 'Volym', labelEn: 'Volume', field: 'volume', link: false},
-    {labelFi: 'Numero', labelSv: 'Nummer', labelEn: 'Issue', field: 'issueNumber', link: false},
-    {labelFi: 'Sivut', labelSv: 'Sidor', labelEn: 'Pages', field: 'pageNumbers', link: false},
-    {labelFi: 'ISSN', labelSv: 'ISSN', labelEn: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
-    {labelFi: 'ISBN', labelSv: 'ISBN', labelEn: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
+    {label: $localize`Lehti`, field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
+    {label: $localize`Konferenssi`, field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Kustantaja`, field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Volyymi`, field: 'volume', link: false},
+    {label: $localize`Numero`, field: 'issueNumber', link: false},
+    {label: $localize`Sivut`, field: 'pageNumbers', link: false},
+    {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
+    {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
-    {labelFi: 'Julkaisu\u00ADfoorumi', labelSv: 'Publikationsforum', labelEn: '​Publication Forum', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
-    tooltipFi: 'Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).'},
-    {labelFi: 'Julkaisu\u00ADfoorumitaso', labelSv: 'Publikationsforumsnivå', labelEn: '​Publication Forum Level', field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
+    {label: $localize`Julkaisu\u00ADfoorumi`, field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
+    tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`},
+    {label: $localize`Julkaisu\u00ADfoorumitaso`, field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
   ];
 
   linksFields = [
-    {labelFi: 'DOI', labelEn: 'DOI', labelSv: 'DOI', field: 'doi', path: 'https://doi.org/'},
-    {labelFi: '', labelSv: '', labelEn: '', field: 'doiHandle'},
-    {labelFi: '', labelSv: '', labelEn: '', field: 'selfArchivedAddress'},
+    {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
+    {label: '', field: 'doiHandle'},
+    {label: '', field: 'selfArchivedAddress'},
   ];
 
   otherFields  = [
-    {labelFi: 'Tieteenalat', labelSv: 'Vetenskapsområden', labelEn: 'Fields of science', field: 'fieldsParsed', tooltipFi: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
-    {labelFi: 'Avoin saatavuus', labelSv: 'Open Access', labelEn: 'Open access', field: 'openAccessText',
-    tooltipFi: '<p><strong>Open access -lehti: </strong>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu: </strong>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus: </strong>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>', tooltipSv: '', tooltipEn: ''},
-    {labelFi: 'Julkaisumaa', labelSv: '', labelEn: '', field: 'countries'},
-    {labelFi: 'Kieli', labelSv: '', labelEn: '', field: 'languages'},
-    {labelFi: 'Kansainvälinen yhteisjulkaisu', labelSv: '', labelEn: '', field: 'internationalCollaboration',
-    tooltipFi: 'Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista', tooltipSv: '', tooltipEn: ''},
-    {labelFi: 'Yhteisjulkaisu yrityksen kanssa', labelSv: '', labelEn: '', field: 'businessCollaboration',
-    tooltipFi: 'Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.', tooltipSv: '', tooltipEn: ''},
-    {labelFi: 'Avainsanat', labelSv: '', labelEn: '', field: 'keywords'}
+    {label: $localize`Tieteenalat`, field: 'fieldsParsed', tooltip: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
+    {label: $localize`Avoin saatavuus`, field: 'openAccessText',
+    tooltip: $localize`<p><strong>Open access -lehti: </strong>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu: </strong>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus: </strong>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>`},
+    {label: $localize`Julkaisumaa`, field: 'countries'},
+    {label: $localize`Kieli`, field: 'languages'},
+    {label: $localize`Kansainvälinen yhteisjulkaisu`, field: 'internationalCollaboration',
+    tooltip: $localize`Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista`},
+    {label: $localize`Yhteisjulkaisu yrityksen kanssa`, field: 'businessCollaboration',
+    tooltip: $localize`Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`},
+    {label: $localize`Avainsanat`, field: 'keywords'}
   ];
 
   citationStyles = [
@@ -141,6 +141,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
     this.tabData = this.tabChangeService.tabData.find(item => item.data === 'publications');
+    console.log(this.tabData);
     this.searchTerm = this.searchService.singleInput;
   }
 
@@ -161,7 +162,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar() {
-    this.snackBar.open('Viite kopioitu leikepöydälle');
+    this.snackBar.open($localize`:@@referCopied:Viite kopioitu leikepöydälle`);
   }
 
   getCitations() {
@@ -197,7 +198,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.metaService.addTags([
           { name: 'description', content: 'Julkaisusivu: ' + this.localeId },
           { property: 'og:title', content: this.responseData.publications[0].title },
-          { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
+          { property: 'og:description', content: '' },
           { property: 'og:image', content: 'assets/img/logo.svg' },
           { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
           { property: 'og:image:height', content: '100' },

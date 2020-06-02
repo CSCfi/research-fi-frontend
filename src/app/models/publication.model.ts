@@ -68,11 +68,11 @@ export class PublicationAdapter implements Adapter<Publication> {
         let openAccessText = '';
         // Open Access can be added from multiple fields
         if ((item.openAccessCode === 1 || item.openAccessCode === 2) || item.selfArchivedCode === 1) {
-            openAccessText = $localize`Kyllä`;
+            openAccessText = $localize`:@@yes:Kyllä`;
         } else if (item.openAccessCode === 0  && item.selfArchivedCode === 0) {
-            openAccessText = $localize`Ei`;
+            openAccessText = $localize`:@@no:Ei`;
         } else {
-            openAccessText = $localize`Ei tietoa`;
+            openAccessText = $localize`:@@noInfo:Ei tietoa`;
         }
 
         if (item.selfArchivedData && item.selfArchivedAddress?.trim().length > 0) {

@@ -21,9 +21,9 @@
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            {{row['label' + currentLocale]}}
-                            <ng-container *ngIf="row.tooltipFi">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltipFi"></div></ng-template>
+                            {{row.label}}
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltip"></div></ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
@@ -133,7 +133,7 @@
                         <div></div>
                         <div class="row content">
                             <div class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td">
-                                <h3 class="th">{{row['label' + currentLocale]}}</h3>
+                                <h3 class="th">{{row.label}}</h3>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
                         </div>
@@ -143,9 +143,9 @@
                         <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationMediumInfo">Julkaisukanavan tiedot</h2>
                         <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
                             <h3 class="th">
-                                {{row['label' + currentLocale]}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                {{row.label}}
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -172,7 +172,7 @@
                         <div class="row content" *ngIf="i % 3 == 0">
                             <!-- First col -->
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
-                               <h3 class="th">{{row['label' + currentLocale]}}</h3>
+                               <h3 class="th">{{row.label}}</h3>
                                <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
                                     {{item[row.field]}}
                                </a>
@@ -180,7 +180,7 @@
                             </div>
                             <!-- Second col -->    
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
-                               <h3 class="th">{{mediumFields.slice(3)[i + 1]['label' + currentLocale]}}</h3>
+                               <h3 class="th">{{mediumFields.slice(3)[i + 1].label}}</h3>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
                                     {{item[mediumFields.slice(3)[i + 1].field]}}
                                </a>
@@ -188,7 +188,7 @@
                             </div> 
                             <!-- Third col -->   
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
-                               <h3 class="th">{{mediumFields.slice(3)[i + 2]['label' + currentLocale]}}</h3>
+                               <h3 class="th">{{mediumFields.slice(3)[i + 2].label}}</h3>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
                                     {{item[mediumFields.slice(3)[i + 2].field]}}
                                </a>
@@ -200,9 +200,9 @@
                         <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherPublicationInfo">Muut tiedot</h2>
                         <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
                             <h3 class="th">
-                                {{row['label' + currentLocale]}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                {{row.label}}
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -224,11 +224,11 @@
                         <div *ngIf="i % 2 == 0"></div>
                         <div class="row content" *ngIf="i % 2 == 0">
                             <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td">
-                                <h3 class="th">{{row['label' + currentLocale]}}</h3>
+                                <h3 class="th">{{row.label}}</h3>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
                             <div class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
-                                <h3 class="th">{{otherFields.slice(2)[i + 1]['label' + currentLocale]}}</h3>
+                                <h3 class="th">{{otherFields.slice(2)[i + 1].label}}</h3>
                                 <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
                             </div>
                         </div>

@@ -116,7 +116,8 @@ export class PublicationFilters {
 
   publicationCountry(data) {
     const result = data.map(item =>
-        item = {key: 'c' + item.key, label: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
+        item = {key: 'c' + item.key, label: item.key === 0 ?
+        $localize`:@@finland:Suomi` : $localize`:@@other:Muu`, doc_count: item.doc_count, value: item.key});
     return result;
   }
 
@@ -124,7 +125,7 @@ export class PublicationFilters {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
         // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
-        label: item.key === ' ' ? 'Ei tietoa' : item.key,
+        label: item.key === ' ' ? $localize`:@@noInfo:Ei tietoa` : item.key,
         key: item.key === ' ' ? 'noVal' : 'j' + item.key,
 
         doc_count: item.doc_count,
@@ -136,7 +137,7 @@ export class PublicationFilters {
   lang(data) {
     if (data && data[0]?.language) {
       let result = data.map(item => item = {
-        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : 'Ei tiedossa',
+        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : $localize`:@@notKnown:Ei tiedossa`,
         key: item.key,
         doc_count: item.doc_count
       });

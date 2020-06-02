@@ -24,9 +24,9 @@
                         <ng-container *ngFor="let row of infoFields">
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">
-                                    {{row['label' + currentLocale]}}
-                                    <ng-container *ngIf="row['tooltip' + currentLocale]">
-                                        <ng-template #tooltipTemplate><div [innerHtml]="row['tooltip' + currentLocale]"></div></ng-template>
+                                    {{row.label}}
+                                    <ng-container *ngIf="row.tooltip">
+                                        <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                         <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                             <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                         </span>
@@ -46,7 +46,7 @@
                             <h3 class="th col-12 col-sm-3">
                                 <ng-container i18n="@@fundingRecipientHeader">Myönnetty rahoitus</ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="recipientTooltip['tooltip' + currentLocale]"></div>
+                                    <div [innerHtml]="recipientTooltip.tooltip"></div>
                                 </ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -114,7 +114,7 @@
                                     <ng-container *ngSwitchDefault>Summa </ng-container>
                                 </ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="fundingAmountTooltip['tooltip' + currentLocale]"></div>
+                                    <div [innerHtml]="fundingAmountTooltip.tooltip"></div>
                                 </ng-template>                                
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -172,7 +172,7 @@
                             <h2 class="th col-12 col-sm-3">
                                 <ng-container i18n="@@fundingFunder">Rahoittaja</ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="funderTooltip['tooltip' + currentLocale]"></div>
+                                    <div [innerHtml]="funderTooltip.tooltip"></div>
                                 </ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -185,9 +185,9 @@
 
                         <div class="row" *ngFor="let row of funderFields">
                             <h3 class="col-12 col-sm-6 col-lg-3 th">
-                                {{row['label' + currentLocale]}}
-                                <ng-container *ngIf="row['tooltip' + currentLocale]">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row['tooltip' + currentLocale]"></div></ng-template>
+                                {{row.label}}
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -201,9 +201,9 @@
                         <h2 class="th" i18n="@@fundingOtherInfo">Muut tiedot</h2>
                         <div class="row" *ngFor="let row of otherFields">
                             <h3 class="col-12 col-sm-6 col-lg-3 th">
-                                {{row['label' + currentLocale]}}
-                                <ng-container *ngIf="row['tooltip' + currentLocale]">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row['tooltip' + currentLocale]"></div></ng-template>
+                                {{row.label}}
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -222,7 +222,7 @@
                         <mat-card-title><h2>
                             <ng-container i18n="@@fundingHomePage">Hankkeen verkkosivu</ng-container>
                             <ng-template #tooltipTemplate>
-                                <div [innerHtml]="homepageTooltip['tooltip' + currentLocale]"></div>
+                                <div [innerHtml]="homepageTooltip.tooltip"></div>
                             </ng-template>
                             <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
