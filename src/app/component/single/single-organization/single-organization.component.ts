@@ -30,42 +30,42 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   tab = 'organizations';
   infoFields = [
-    {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
-    {label: 'Muut nimet', field: 'variantNames', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Perustettu', field: 'established', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Lisätietoa', field: 'background', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Edeltävä organisaatio', field: 'predecessors', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Liittyvä organisaatio', field: 'related', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Organisaatiomuoto', field: 'organizationType', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Organisaation tyyppi', field: 'sectorNameFi', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Käyntiosoite', field: 'visitingAddress', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Postiosoite', field: 'postalAddress', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Y-tunnus', field: 'businessId', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Tilastokeskuksen oppilaitostunnus', field: 'statCenterId', tooltipFi: 'Lähde: Tilastokeskus'},
-    {label: 'Opetus- ja tutkimushenkilöstön määrä (htv)', field: 'staffCountAsFte', tooltipFi: 'Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi'},
+    {label: $localize`:@@orgName:Nimi (SV, EN)`, field: 'nameSv', fieldEn: 'nameEn'},
+    {label: $localize`:@@orgOtherNames:Muut nimet`, field: 'variantNames', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgEstablished:Perustettu`, field: 'established', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgBackground:Lisätietoa`, field: 'background', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgPredecessor:Edeltävä organisaatio`, field: 'predecessors', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgRelated:Liittyvä organisaatio`, field: 'related', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgType:Organisaatiomuoto`, field: 'organizationType', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgSector:Organisaation tyyppi`, field: 'sectorNameFi', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgVAddress:Käyntiosoite`, field: 'visitingAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`, field: 'statCenterId', tooltip: $localize`:@@tkSource:Lähde: Tilastokeskus`},
+    {label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`, field: 'staffCountAsFte', tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`},
   ];
 
   studentCounts = [
-    {label: 'Alempi korkeakoulututkinto', field: 'thesisCountBsc'},
-    {label: 'Ylempi korkeakoulututkinto', field: 'thesisCountMsc'},
-    {label: 'Lisensiaatintutkinto', field: 'thesisCountLic'},
-    {label: 'Tohtorintutkinto', field: 'thesisCountPhd'}
+    {label: $localize`:@@orgThesisCountBsc:Alempi korkeakoulututkinto`, field: 'thesisCountBsc'},
+    {label: $localize`:@@orgThesisCountMsc:Ylempi korkeakoulututkinto`, field: 'thesisCountMsc'},
+    {label: $localize`:@@orgThesisCountLic:Lisensiaatintutkinto`, field: 'thesisCountLic'},
+    {label: $localize`:@@orgThesisCountPhd:Tohtorintutkinto`, field: 'thesisCountPhd'}
   ];
 
   subUnitFields = [
-    {label: 'Alayksiköt', field: 'subUnits', tooltipFi: 'Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi'}
+    {label: $localize`:@@orgSubUnits:Alayksiköt`, field: 'subUnits', tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`}
   ];
 
   linkFields = [
-    {label: 'Linkit', field: 'homepage'}
+    {label: $localize`:@@links:Linkit`, field: 'homepage'}
   ];
 
   relatedList = [
-    {labelFi: 'Julkaisut', tab: 'publications', disabled: false},
-    {labelFi: 'Tutkijat', tab: 'persons', disabled: true},
-    {labelFi: 'Aineistot', tab: '', disabled: true},
-    {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
-    {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
+    {labelFi: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: false},
+    {labelFi: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true},
+    {labelFi: $localize`:@@materials:Aineistot`, tab: '', disabled: true},
+    {labelFi: $localize`:@@infrastructures:Infrastruktuurit`, tab: 'infrastructures', disabled: true},
+    {labelFi: $localize`:@@otherResearchActivities:Muu tutkimustoiminta`, tab: '', disabled: true},
   ];
 
   errorMessage = [];
@@ -75,10 +75,14 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   latestSubUnitYear: string;
   faIcon = faFileAlt;
   subUnitSlice = 10;
+  currentLocale: string;
+  tabData: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
                public utilityService: UtilityService ) {
+                 // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -93,6 +97,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.organizations;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'organizations');
     this.searchTerm = this.searchService.singleInput;
   }
 

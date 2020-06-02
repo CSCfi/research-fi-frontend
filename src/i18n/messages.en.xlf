@@ -1779,7 +1779,7 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="fe9eec45a06bd2b602244b97d11d8cb23970b8d3" datatype="html">
+      <trans-unit id="infrastructures" datatype="html">
         <source>Infrastruktuurit</source>
         <target>Infrastructures</target>
         <context-group purpose="location">
@@ -1787,7 +1787,7 @@
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="0468bbd09c015e4104752d779259de74c0b87042" datatype="html">
+      <trans-unit id="organizations" datatype="html">
         <source>Organisaatiot</source>
         <target>Organizations</target>
         <context-group purpose="location">
@@ -2426,7 +2426,7 @@
         <source>Teema-alat</source>
         <target>Themes</target>
       </trans-unit>
-      <trans-unit id="1889628573483441900">
+      <trans-unit id="links">
         <source>Linkit</source>
         <target>Links</target>
       </trans-unit>
@@ -2570,6 +2570,99 @@
       <trans-unit id="contactInfo">
         <source>Yhteystiedot</source>
         <target>Contact information</target>
+      </trans-unit>
+      <!-- Organization -->
+      <trans-unit id="orgOtherNames">
+        <source>Muut nimet</source>
+        <target>Other names</target>
+      </trans-unit>
+      <trans-unit id="orgEstablished">
+        <source>Perustettu</source>
+        <target>Founded</target>
+      </trans-unit>
+      <trans-unit id="orgBackground">
+        <source>Lisätietoa</source>
+        <target>Further informatio</target>
+      </trans-unit>
+      <trans-unit id="orgPredecessor">
+        <source>Edeltävä organisaatio</source>
+        <target>Preceding organization</target>
+      </trans-unit>
+      <trans-unit id="orgRelated">
+        <source>Liittyvä organisaatio</source>
+        <target>Related organizatio</target>
+      </trans-unit>
+      <trans-unit id="orgType">
+        <source>Organisaatiomuoto</source>
+        <target>Organizational form</target>
+      </trans-unit>
+      <trans-unit id="orgSector">
+        <source>Organisaation tyyppi</source>
+        <target>Type of organization</target>
+      </trans-unit>
+      <trans-unit id="orgVAddress">
+        <source>Käyntiosoite</source>
+        <target>Visiting address</target>
+      </trans-unit>
+      <trans-unit id="orgAddress">
+        <source>Postiosoite</source>
+        <target>Mailing address</target>
+      </trans-unit>
+      <trans-unit id="orgBID">
+        <source>Y-tunnus</source>
+        <target>Business ID</target>
+      </trans-unit>
+      <trans-unit id="orgSTID">
+        <source>Tilastokeskuksen oppilaitostunnus</source>
+        <target>Statistics Finland system ID</target>
+      </trans-unit>
+      <trans-unit id="orgStaffCount">
+        <source>Opetus- ja tutkimushenkilöstön määrä (htv)</source>
+        <target>Number of teaching and research staff (py</target>
+      </trans-unit>
+      <trans-unit id="orgThesisCountBsc">
+        <source>Alempi korkeakoulututkinto</source>
+        <target>Bachelor's degree</target>
+      </trans-unit>
+      <trans-unit id="orgThesisCountMsc">
+        <source>Ylempi korkeakoulututkinto</source>
+        <target>Master's degree</target>
+      </trans-unit>
+      <trans-unit id="orgThesisCountLic">
+        <source>Lisensiaatintutkinto</source>
+        <target>Licentiate degree</target>
+      </trans-unit>
+      <trans-unit id="orgThesisCountPhd">
+        <source>Tohtorintutkinto</source>
+        <target>Doctoral degree</target>
+      </trans-unit>
+      <trans-unit id="orgSubUnits">
+        <source>Alayksiköt</source>
+        <target>Subunits</target>
+      </trans-unit>
+      <trans-unit id="materials">
+        <source>Aineistot</source>
+        <target>Materials</target>
+      </trans-unit>
+      <trans-unit id="otherResearchActivities">
+        <source>Muu tutkimustoiminta</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="fintoSource">
+        <source>Lähde: Finto www.finto.fi/cn/fi/</source>
+        <target>Source: Finto www.finto.fi/cn/en/</target>
+      </trans-unit>
+      <trans-unit id="yyjSource">
+        <source>Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/</source>
+        <target>Source: The business information system YTJ https://tietopalvelu.ytj.fi/yrityshaku.aspx?kielikoodi=3</target>
+      </trans-unit>
+      <trans-unit id="tkSource">
+        <source>Lähde: Tilastokeskus</source>
+        <target>Source: Statistics Finland</target>
+      </trans-unit>
+      <trans-unit id="vipunenSource">
+        <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
+        <target>Source: Vipunen - Education Statistics Finland</target>
       </trans-unit>
     </body>
   </file>

@@ -12,7 +12,7 @@
  
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData['label' + currentLocale]" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a>
@@ -38,8 +38,8 @@
                             {{row.label}}
                             <!-- Show year with staff count -->
                             <span *ngIf="row.field === 'staffCountAsFte'">({{item.staffYear}})</span>
-                            <ng-container *ngIf="row.tooltipFi">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
@@ -77,8 +77,8 @@
                     <!-- Sub units -->
                     <div class="row content" *ngFor="let row of subUnitFields">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})
-                            <ng-container *ngIf="row.tooltipFi">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
@@ -90,10 +90,10 @@
                                     {{subUnit.subUnitName}}
                                 </li>
                             </ul>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length > subUnitSlice" (click)="subUnitSlice = item.subUnits.length">
-                                Näytä enemmän
+                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length > subUnitSlice" (click)="subUnitSlice = item.subUnits.length" i18n="@@showMore">
+                                Näytä lisää
                             </a>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length === subUnitSlice" (click)="subUnitSlice = 10">
+                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length === subUnitSlice" (click)="subUnitSlice = 10" i18n="@@showLess">
                                 Näytä vähemmän
                             </a>
                         </div>
