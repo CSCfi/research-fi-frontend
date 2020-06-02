@@ -82,7 +82,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   otherFields  = [
     {label: $localize`Tieteenalat`, field: 'fieldsParsed', tooltip: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
     {label: $localize`Avoin saatavuus`, field: 'openAccessText',
-    tooltip: $localize`<p><strong>Open access -lehti: </strong>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu: </strong>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus: </strong>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>`},
+    tooltip: '<p><strong>' +  $localize`Open access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`Rinnakkaistallennettu: ` + '</strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`Muu avoin saatavuus: ` + '</strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'},
     {label: $localize`Julkaisumaa`, field: 'countries'},
     {label: $localize`Kieli`, field: 'languages'},
     {label: $localize`Kansainvälinen yhteisjulkaisu`, field: 'internationalCollaboration',
@@ -141,7 +141,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
     this.tabData = this.tabChangeService.tabData.find(item => item.data === 'publications');
-    console.log(this.tabData);
     this.searchTerm = this.searchService.singleInput;
   }
 
