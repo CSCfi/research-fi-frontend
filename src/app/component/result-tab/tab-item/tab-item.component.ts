@@ -16,6 +16,7 @@ export class TabItemComponent implements OnInit, AfterViewInit {
   @Input() queryParams: any;
   @Input() counted: any;
   @Input() locale: string;
+  @Input() tooltipClass: string;
   targetQueryParams: any;
 
   // CountUp animation options

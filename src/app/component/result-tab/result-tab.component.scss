@@ -199,6 +199,40 @@ app-result-tab {
             width: 100%;
         }
     }
+    // Custom tooltip locations
+    .tooltip-publications {
+        top: 85px !important;
+        &-home {
+            top: 72px !important;
+        }
+    }
+    
+    .tooltip-fundings {
+        top: 155px !important;
+        &-home {
+            top: 155px !important;
+        }
+    }
+        
+    .tooltip-infrastructures {
+        top: 155px !important;
+        &-home {
+            top: 155px !important;
+        }
+        &-open {
+            top: 155px !important;
+        }
+    }
+        
+    .tooltip-organizations {
+        top: 85px !important;
+        &-home {
+            top: 72px !important;
+        }
+        &-open {
+            top: 72px !important;
+        }
+    }
 
     @media (max-width: 617px) {
         .bundler {
