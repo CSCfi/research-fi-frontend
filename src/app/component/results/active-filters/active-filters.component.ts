@@ -277,7 +277,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
             // Infrastructure
             if (val.category === 'type' && source.type) {
-              val.translation = val.translation.charAt(0).toUpperCase() + val.translation.slice(1);
+              // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+              // This might cause some latency and therefore timeout is needed.
+              setTimeout(x => {
+                const result = source.type.types.buckets.find(({ key }) => key === val.value);
+                const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+              }, 1);
             }
 
             // Organization, sector
