@@ -15,15 +15,15 @@ import { Injectable } from '@angular/core';
 
 export class InfrastructureFilters {
   filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
-      tooltipFi: 'Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.'},
-      {field: 'organization', labelFi: 'Vastuuorganisaatio', hasSubFields: true, open: true, limitHeight: true},
-      {field: 'type', labelFi: 'Palvelun tyyppi', hasSubFields: false, open: true, limitHeight: true},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: false, open: true, limitHeight: true}
+      {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
+      tooltip:  $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`},
+      {field: 'organization', label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, hasSubFields: true, open: false, limitHeight: true},
+      {field: 'type', label: $localize`:@@serviceType:Palvelun tyyppi`, hasSubFields: false, open: true, limitHeight: true},
+      {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: false, open: true, limitHeight: true}
     ];
 
     singleFilterData = [
-      // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu'}
+      // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteisjulkaisu'}
     ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
@@ -55,9 +55,25 @@ export class InfrastructureFilters {
   }
 
   typeLabel(data) {
+    data.forEach(type => {
+      switch (type.key) {
+        case 'palvelu': {
+          type.label = $localize`:@@infraServiceTypeService:Palvelu`;
+          break;
+        }
+        case 'aineisto': {
+          type.label = $localize`:@@infraServiceTypeMaterial:Aineisto`;
+          break;
+        }
+        case 'laitteisto': {
+          type.label = $localize`:@@infraServiceTypeEquipment:Laitteisto`;
+          break;
+        }
+      }
+    });
     const result = data.map(item => item = {
       key: item.key,
-      label: item.key.charAt(0).toUpperCase() + item.key.slice(1),
+      label: item.label,
       doc_count: item.doc_count
     });
     return result;
