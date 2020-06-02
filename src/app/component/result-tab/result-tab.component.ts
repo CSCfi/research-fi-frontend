@@ -79,7 +79,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     // Class to be appended to result tab tooltips
-    this.tooltipClass = this.isHomepage ? 'home' : '';
+    this.tooltipClass = this.isHomepage ? '-home' : '';
 
     this.queryParams = this.tabChangeService.tabQueryParams;
     // Update active tab visual after change
@@ -232,7 +232,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   toggleTabs() {
     this.tabsOpen = !this.tabsOpen;
-    this.tooltipClass = this.tabsOpen ? 'open' : 'home';
+    this.tooltipClass = this.tabsOpen ? '-open' : '-home';
     // Timeout so "new" button has time to render
     setTimeout(() => {
       this.toggleButton.nativeElement.focus();
