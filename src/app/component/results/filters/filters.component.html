@@ -63,7 +63,7 @@
                     <!-- Search in Filter -->
                     <label for="filter-query-{{i}}" class="sr-only" i18n="SR Search@@SRSearch">Hae</label>
                     <input [id]="'filter-query-' + i" #filterSearch *ngIf="(responseData.aggregations[filter.field]?.buckets?.length > 5 || responseData.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
-                    placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="responseData.aggregations[filter.field]?.filterTerm ? responseData.aggregations[filter.field]?.filterTerm : ''">
+                    i18n-placeholder placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="responseData.aggregations[filter.field]?.filterTerm ? responseData.aggregations[filter.field]?.filterTerm : ''">
                     <!-- Time frame for year filter -->
                     <ng-container *ngIf="filter.hideSearch">
                     <div class="row">
