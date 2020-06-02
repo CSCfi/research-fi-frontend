@@ -75,15 +75,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     switch (this.currentTab) {
       case 'publications':
         this.tabFilters = this.publicationFilters.filterData;
-        this.yearRange = 'Julkaisuvuosi: ';
+        this.yearRange = $localize`:@@publicationYear:Julkaisuvuosi` + ': ';
         break;
       case 'fundings':
         this.tabFilters = this.fundingFilters.filterData;
-        this.yearRange = 'Aloitusvuosi: ';
+        this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
       case 'infrastructures':
         this.tabFilters = this.infrastructureFilters.filterData;
-        this.yearRange = 'Aloitusvuosi: ';
+        this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
       case 'persons':
         this.tabFilters = this.personFilters.filterData;
