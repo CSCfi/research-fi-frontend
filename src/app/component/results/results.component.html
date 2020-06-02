@@ -18,8 +18,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <div class="col-12 px-0">
         <div class="row total" #totalHeader>
             <div class="col">
-                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''">
-                    {{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span>
+                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.label : ''">
+                    {{selectedTabData.label}} - <span class="total">{{parsedTotal}}</span>
                     <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
                 </h2>
                 <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
@@ -32,7 +32,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div class="col-auto text-right align-self-center">
                 <a routerLink="/service-info" fragment="1" class="theme-link">
                     <strong>
-                        <ng-container i18n="@@resultInfo1">Mitä </ng-container>{{selectedTabData?.singularFi}}
+                        <ng-container i18n="@@resultInfo1">Mitä </ng-container>{{selectedTabData.singular.toLowerCase()}}
                         <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
                     </strong>
                 </a>

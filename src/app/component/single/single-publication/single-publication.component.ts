@@ -70,7 +70,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // \u00AD soft hyphen, break word here if needed
     {label: $localize`Julkaisu\u00ADfoorumi`, field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
     tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`},
-    {label: $localize`Julkaisu\u00ADfoorumitaso`, field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
+    {label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
   ];
 
   linksFields = [
@@ -80,16 +80,16 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   ];
 
   otherFields  = [
-    {label: $localize`Tieteenalat`, field: 'fieldsParsed', tooltip: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
-    {label: $localize`Avoin saatavuus`, field: 'openAccessText',
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsParsed', tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`},
+    {label: $localize`:@@openAccess:Avoin saatavuus`, field: 'openAccessText',
     tooltip: '<p><strong>' +  $localize`Open access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`Rinnakkaistallennettu: ` + '</strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`Muu avoin saatavuus: ` + '</strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'},
-    {label: $localize`Julkaisumaa`, field: 'countries'},
-    {label: $localize`Kieli`, field: 'languages'},
-    {label: $localize`Kansainvälinen yhteisjulkaisu`, field: 'internationalCollaboration',
-    tooltip: $localize`Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista`},
-    {label: $localize`Yhteisjulkaisu yrityksen kanssa`, field: 'businessCollaboration',
-    tooltip: $localize`Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`},
-    {label: $localize`Avainsanat`, field: 'keywords'}
+    {label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries'},
+    {label: $localize`:@@language:Kieli`, field: 'languages'},
+    {label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`, field: 'internationalCollaboration',
+    tooltip: $localize`:@@intCoPublicationAuthors:Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista`},
+    {label: $localize`:@@publicationWithCompany:Yhteisjulkaisu yrityksen kanssa`, field: 'businessCollaboration',
+    tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywords'}
   ];
 
   citationStyles = [

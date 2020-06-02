@@ -70,6 +70,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   currentInput: string;
   defaultOpen = 7;
   activeElement: any;
+  filterSearchHeader = $localize`:@@filterSearchHeader:Rajaa hakua`;
+  filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,

@@ -38,7 +38,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: $localize`Toiminta alkanut`, field: 'startYear'},
     {label: $localize`Toiminta päättynyt`, field: 'endYear'},
     {label: $localize`Vastuuorganisaatio`, field: 'responsibleOrganization'},
-    {label: $localize`Avainsanat`, field: 'keywordsString'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString'},
   ];
 
   serviceFields = [
@@ -61,7 +61,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ];
 
   fieldsOfScience = [
-    {label: $localize`Tieteenalat`, field: 'fieldsOfScienceString'},
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScienceString'},
   ];
 
   classificationFields = [

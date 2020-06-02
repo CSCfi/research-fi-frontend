@@ -33,7 +33,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   input: Subscription;
   tabData = this.tabChangeService.tabData;
   tab: any = [];
-  selectedTabData: {data: string, labelFi: string, labelEn: string, link: string, icon: any, singularFi: any};
+  selectedTabData: {data: string, label: string, link: string, icon: any, singular: any};
   public tabValues: any;
   public filterValues: any;
   public filterQueryValues: any;
@@ -67,6 +67,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   pageFallback = false;
 
   showSkipLinks: boolean;
+  currentLocale: string;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -77,6 +78,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   public setTitle(newTitle: string) {
@@ -284,21 +287,21 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  updateTitle(tab: { data: string; labelFi: string; labelEn: string}) {
+  updateTitle(tab: { data: string; label: string;}) {
     // Update title and <h1> with the information of the currently selected tab
     // Placeholder until real data is available
     const amount = tab.data ? this.dataService.totalResults : 999;
     // Set label by locale
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle('Haku - ' + tab.labelFi + ' - Tiedejatutkimus.fi')
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount + 
+        this.setTitle('Haku - ' + tab.label + ' - Tiedejatutkimus.fi');
+        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount +
         (amount === 1 ? ' hakutulos' : ' hakutulosta');
         break;
       }
       case 'en': {
-        this.setTitle('Haku - ' + tab.labelEn + ' - Research.fi')
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount + 
+        this.setTitle('Haku - ' + tab.label + ' - Research.fi');
+        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount +
         (amount === 1 ? ' result' : ' results');
         break;
       }
@@ -316,7 +319,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: '', singularFi: ''});
+      this.tabChangeService.changeTab({data: '', label: '', link: '', icon: '', singular: ''});
       this.combinedRouteParams?.unsubscribe();
       this.totalSub?.unsubscribe();
       this.tabSub?.unsubscribe();

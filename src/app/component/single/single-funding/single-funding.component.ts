@@ -45,7 +45,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   other = [
     {label: $localize`Rahoituspäätöksen numero`, field: 'funderProjectNumber'},
-    {label: $localize`Tieteenalat`, field: 'fieldsOfScience'},
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScience'},
     {label: $localize`Tutkimusalat`, field: 'fieldsOfResearch'},
     {label: $localize`Teema-alat`, field: 'fieldsOfTheme'},
     {label: $localize`:@@fundingHomePage:Hankkeen verkkosivu`, field: '?'},
