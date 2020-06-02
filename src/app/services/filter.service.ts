@@ -64,7 +64,7 @@ export class FilterService {
     this.yearRangeFilter = this.rangeFilter(filter.fromYear, filter.toYear);
     // Publication
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
-    this.fieldFilter = this.basicFilter(filter.field, 'fields_of_science.nameFiScience.keyword');
+    this.fieldFilter = this.basicFilter(filter.field, 'fields_of_science.name' + this.localeC + 'Science.keyword');
     this.publicationTypeFilter = this.basicFilter(filter.publicationType, 'publicationTypeCode.keyword');
     this.countryCodeFilter = this.filterByCountryCode(filter.countryCode);
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
@@ -411,7 +411,7 @@ export class FilterService {
             sectorName: {
               terms: {
                 size: 50,
-                field: 'author.nameFiSector.keyword',
+                field: 'author.name' + this.localeC + 'Sector.keyword',
                 exclude: ' '
               },
               aggs: {
@@ -424,7 +424,7 @@ export class FilterService {
                 organization: {
                   terms: {
                     size: 50,
-                    field: 'author.organization.OrganizationNameFi.keyword'
+                    field: 'author.organization.OrganizationName' + this.localeC + '.keyword'
                   },
                   aggs: {
                     filtered: {
@@ -653,7 +653,7 @@ export class FilterService {
                 sectorName: {
                   terms: {
                     size: 50,
-                    field: 'fundingGroupPerson.fundedPersonOrganizationNameFi.keyword',
+                    field: 'fundingGroupPerson.fundedPersonOrganizationName' + this.localeC + '.keyword',
                     exclude: ' |Rahoittaja'
                   },
                   aggs: {
@@ -666,7 +666,7 @@ export class FilterService {
                     organizations: {
                       terms: {
                         size: 50,
-                        field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
+                        field: 'fundingGroupPerson.consortiumOrganizationName' + this.localeC + '.keyword'
                       },
                       aggs: {
                         filtered: {
@@ -704,7 +704,7 @@ export class FilterService {
             sectorName: {
               terms: {
                 size: 50,
-                field: 'fundingGroupPerson.fundedPersonSectorNameFi.keyword',
+                field: 'fundingGroupPerson.fundedPersonSectorName' + this.localeC + '.keyword',
                 exclude: ' |Rahoittaja'
               },
               aggs: {
@@ -717,7 +717,7 @@ export class FilterService {
                 organizations: {
                   terms: {
                     size: 50,
-                    field: 'fundingGroupPerson.consortiumOrganizationNameFi.keyword'
+                    field: 'fundingGroupPerson.consortiumOrganizationName' + this.localeC + '.keyword'
                   },
                   aggs: {
                     orgId: {
@@ -871,13 +871,13 @@ export class FilterService {
           aggs: {
             sector: {
               terms: {
-                field: 'responsibleOrganization.responsibleOrganizationSectorFi.keyword',
+                field: 'responsibleOrganization.responsibleOrganizationSector' + this.localeC + '.keyword',
                 exclude: ' '
               },
               aggs: {
                 organizations: {
                   terms: {
-                    field: 'responsibleOrganization.responsibleOrganizationNameFi.keyword',
+                    field: 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword',
                     exclude: ' '
                   }
                 }
@@ -921,7 +921,7 @@ export class FilterService {
               aggs: {
                 sectorName: {
                   terms: {
-                    field: 'sectorNameFi.keyword',
+                    field: 'sectorName' + this.localeC + '.keyword',
                   }
                 }
               }
@@ -938,7 +938,7 @@ export class FilterService {
           aggs: {
             orgName: {
               terms: {
-                field: 'organizationNameFi.keyword'
+                field: 'organizationName' + this.localeC + '.keyword'
               }
             }
           }
