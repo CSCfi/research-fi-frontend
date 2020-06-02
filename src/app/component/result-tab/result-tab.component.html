@@ -19,8 +19,8 @@
           <ng-container *ngFor="let tab of slicedRow(i); let j = index;">
             <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale"></app-tab-item>
             <button *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()" #toggleButton>
-              <div *ngIf="!tabsOpen" class="label text-center homepage homepage-label">Näytä kaikki <div><fa-icon [icon]="faAngleDown"></fa-icon></div></div> 
-              <div *ngIf="tabsOpen" class="label text-center homepage homepage-label">Näytä vähemmän <div><fa-icon [icon]="faAngleUp"></fa-icon></div></div> 
+              <div *ngIf="!tabsOpen" class="label text-center homepage homepage-label"><ng-container i18n="@@showAll">Näytä kaikki </ng-container><div><fa-icon [icon]="faAngleDown"></fa-icon></div></div> 
+              <div *ngIf="tabsOpen" class="label text-center homepage homepage-label"><ng-container i18n="@@showLess">Näytä vähemmän </ng-container><div><fa-icon [icon]="faAngleUp"></fa-icon></div></div> 
             </button>
           </ng-container>
         </div>
