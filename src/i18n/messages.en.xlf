@@ -2329,9 +2329,29 @@
         <source>Avoin saatavuus</source>
         <target>Open access</target>
       </trans-unit>
-      <trans-unit id="4196165129320873871">
-        <source><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Open access -lehti: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Rinnakkaistallennettu: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Muu avoin saatavuus: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>
-        <target><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Open Access journal: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>The publication appears in a publication channel, whose publications are all openly available.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Self-archived: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Other Open Access: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>The publication is openly available, but appears in a hybrid publication channel whose publications are not all openly available.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></target>
+      <trans-unit id="8136204200532143751">
+        <source>Open access -lehti:</source>
+        <target>Open access journal:</target>
+      </trans-unit>
+      <trans-unit id="8722392264873780327">
+        <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>
+        <target>The publication has been published in a publication channel, whose publications are all openly available.</target>
+      </trans-unit>
+      <trans-unit id="7129592600388203777">
+        <source>Rinnakkaistallennettu:</source>
+        <target>Self-archived:</target>
+      </trans-unit>
+      <trans-unit id="7842221493969044364">
+        <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
+        <target>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.</target>
+      </trans-unit>
+      <trans-unit id="7089671200331894304">
+        <source>Muu avoin saatavuus:</source>
+        <target>Other open access</target>
+      </trans-unit>
+      <trans-unit id="1467910369543476416">
+        <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
+        <target>The publication is openly available, but appears in a hybrid publication channel whose publications are not all openly available.</target>
       </trans-unit>
       <trans-unit id="9102339475979063738">
         <source>Julkaisumaa</source>
@@ -2406,10 +2426,6 @@
         <source>Teema-alat</source>
         <target>Themes</target>
       </trans-unit>
-      <trans-unit id="6959645871355167955">
-        <source>Hankkeen verkkosivu</source>
-      <target>Project website</target>
-      </trans-unit>
       <trans-unit id="1889628573483441900">
         <source>Linkit</source>
         <target>Links</target>
@@ -2429,6 +2445,131 @@
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       <target>A website outside the research.fi service that contains more detailed information on the project.</target>
+      </trans-unit>
+      <!-- Infrastructures -->
+      <trans-unit id="486660071516642410">
+        <source>Lyhenne</source>
+        <target>Acronym</target>
+      </trans-unit>
+      <trans-unit id="5377992704672479602">
+        <source>Infrastruktuurin kuvaus</source>
+        <target>Infrastructure description</target>
+      </trans-unit>
+      <trans-unit id="1255745988145322608">
+        <source>Tieteellinen kuvaus</source>
+        <target>Scientific description</target>
+      </trans-unit>
+      <trans-unit id="1025354160158782584">
+        <source>Toiminta alkanut</source>
+        <target>Start of activity</target>
+      </trans-unit>
+      <trans-unit id="1638544624736858814">
+        <source>Toiminta päättynyt</source>
+        <target>End of activity</target>
+      </trans-unit>
+      <trans-unit id="5869303480977417794">
+        <source>Vastuuorganisaatio</source>
+        <target>Responsible organisatio</target>
+      </trans-unit>
+      <trans-unit id="868538594813383846">
+        <source>Palvelun kuvaus</source>
+        <target>Service description</target>
+      </trans-unit>
+      <trans-unit id="1624874386799481075">
+        <source>Palvelun tyyppi</source>
+        <target>Service type</target>
+      </trans-unit>
+      <trans-unit id="7836161693422735311">
+        <source>Kuvaus</source>
+        <target>Descriptio</target>
+      </trans-unit>
+      <trans-unit id="7839812640827186036">
+        <source>Sähköpostiosoite</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="2398636744000637395">
+        <source>Puhelinnumero</source>
+        <target>Telephone number</target>
+      </trans-unit>
+      <trans-unit id="3771925491042263704">
+        <source>Vierailuosoite</source>
+        <target>Visiting address</target>
+      </trans-unit>
+      <trans-unit id="5834555283116548522">
+        <source>Käyttöehdot</source>
+        <target>Terms of use</target>
+      </trans-unit>
+      <trans-unit id="864137673008227347">
+        <source>Linkki</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="1785154820613474654">
+        <source>Koordinoiva organisaatio</source>
+        <target>Link</target>
+      </trans-unit>
+      <trans-unit id="8305960712658584084">
+        <source>Suomen Akatemian tiekartalla</source>
+        <target>On the Academy of Finland roadmap</target>
+      </trans-unit>
+      <trans-unit id="1246538331374215083">
+        <source>ESFRI-luokitus</source>
+        <target>ESFRI</target>
+      </trans-unit>
+      <trans-unit id="3924050781825546579">
+        <source>MERIL-luokitus</source>
+        <target>MERIL</target>
+      </trans-unit>
+      <trans-unit id="8516867733884735090">
+        <source>Nimi</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="5260628582635026829">
+        <source>Tunnisteet</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="2078946174853067811">
+        <source>Osa kansainvälistä infrastruktuuria</source>
+        <target>Part of international infrastructure</target>
+      </trans-unit>
+      <trans-unit id="1929416673954449355">
+        <source>Edeltävä tutkimusinfrastruktuuri</source>
+        <target>Preceding research infrastructure</target>
+      </trans-unit>
+      <trans-unit id="6535010334853886243">
+        <source>Lisätietoja</source>
+        <target>Further information</target>
+      </trans-unit>
+      <trans-unit id="finland">
+        <source>Suomi</source>
+        <target>Finland</target>
+      </trans-unit>
+      <trans-unit id="other">
+        <source>Muu</source>
+        <target>Other</target>
+      </trans-unit>
+      <trans-unit id="notKnown">
+        <source>Ei tiedossa</source>
+        <target>Not known</target>
+      </trans-unit>
+      <trans-unit id="infraServiceHeader">
+        <source>Palvelu</source>
+        <target>Service</target>
+      </trans-unit>
+      <trans-unit id="infraServicePoint">
+        <source>Palvelupiste</source>
+        <target>Service point</target>
+      </trans-unit>
+      <trans-unit id="infraClassifications" datatype="html">
+        <source>Luokituksia</source>
+        <target>Classifications</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactInfo">
+        <source>Yhteystiedot</source>
+        <target>Contact information</target>
       </trans-unit>
     </body>
   </file>
