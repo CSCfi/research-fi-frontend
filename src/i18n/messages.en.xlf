@@ -1103,7 +1103,7 @@
       </trans-unit>
       <trans-unit id="yearRangeStart" datatype="html">
         <source>Alku</source>
-        <target>Start</target>
+        <target>From</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
           <context context-type="linenumber">77</context>
@@ -1125,7 +1125,7 @@
       </trans-unit>
       <trans-unit id="yearRangeEnd" datatype="html">
         <source>Loppu</source>
-        <target>End</target>
+        <target>To</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
           <context context-type="linenumber">89</context>
@@ -2418,7 +2418,7 @@
         <source>Päättymisvuosi</source>
         <target>End year</target>
       </trans-unit>
-      <trans-unit id="3277993170150764605">
+      <trans-unit id="typeOfFunding">
         <source>Rahoitusmuoto</source>
         <target>Funding instrument</target>
       </trans-unit>
@@ -2487,15 +2487,15 @@
         <source>Toiminta päättynyt</source>
         <target>End of activity</target>
       </trans-unit>
-      <trans-unit id="5869303480977417794">
+      <trans-unit id="responsibleOrganization">
         <source>Vastuuorganisaatio</source>
-        <target>Responsible organisatio</target>
+        <target>Responsible organisation</target>
       </trans-unit>
       <trans-unit id="868538594813383846">
         <source>Palvelun kuvaus</source>
         <target>Service description</target>
       </trans-unit>
-      <trans-unit id="1624874386799481075">
+      <trans-unit id="serviceType">
         <source>Palvelun tyyppi</source>
         <target>Service type</target>
       </trans-unit>
@@ -2724,6 +2724,70 @@
       <trans-unit id="intCoPublicationTooltip">
         <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>
         <target>Some of the publication’s authors come from research organizations outside of Finland.</target>
+      </trans-unit>
+      <trans-unit id="fYearFTooltip">
+        <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
+        <target>Year for which funding was granted. In funding covering several years, the first year of funding.</target>
+      </trans-unit>
+      <trans-unit id="fOrgFTooltip">
+        <source>Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.</source>
+        <target>Organization in which the beneficiary works or to which the funding is granted.</target>
+      </trans-unit>
+      <trans-unit id="fFunderFTooltip">
+        <source>Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.</source>
+        <target>Research funder granting the funding. Only funders which have submitted information to the service are listed.</target>
+      </trans-unit>
+      <trans-unit id="fTypeOfFundingTooltip">
+        <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.</source>
+        <target>Method of funding research. Funding instruments include research grants, project funding and research infrastructure funding. The funding instruments are grouped by funder in the filter, because they are often funder-specific.</target>
+      </trans-unit>
+      <trans-unit id="fFieldsOfScienceTooltip">
+        <source>Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.</source>
+        <target>The Statistics Finland’s Fields of science classification. One project may involve multiple fields of science. Not all funders use fields of science. As a result, filters cannot be used to determine the share of total funding for a given field of science.</target>
+      </trans-unit>
+      <trans-unit id="FAField">
+        <source>Suomen Akatemian tutkimusalat</source>
+        <target>Research fields of the Academy of Finland</target>
+      </trans-unit>
+      <trans-unit id="iYearFTooltip">
+        <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>
+        <target>The starting year of the research infrastructure. If the starting year is unknown, the year when information was submitted to research.fi is to be used.</target>
+      </trans-unit>
+      <trans-unit id="infraServiceTypeService">
+        <source>Palvelu</source>
+        <target>Service</target>
+      </trans-unit>  
+      <trans-unit id="infraServiceTypeMaterial">
+        <source>Aineisto</source>
+        <target>Material</target>
+      </trans-unit>  
+      <trans-unit id="infraServiceTypeEquipment">
+        <source>Laitteisto</source>
+        <target>Equipment</target>
+      </trans-unit>
+      <trans-unit id="sector">
+        <source>Sektori</source>
+        <target>Sector</target>
+      </trans-unit>
+      <trans-unit id="org1Tooltip">
+        <source>Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.</source>
+        <target>The 13 universities specified in the Universities Act and the Finnish National Defence University submit information to the research.fi service</target>
+      </trans-unit>
+      <trans-unit id="org2Tooltip">
+        <source>OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä Poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.</source>
+        <target>The 22 universities of applied sciences administered by the Ministry of Education and Culture and the Police University College submit information to the research.fi service.</target>
+      </trans-unit>
+      <trans-unit id="org3Tooltip">
+        <source>Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi &#8209;palveluun.</source>
+        <target>Research institutions under different administrative branches which have submitted information to the research.fi service.</target>
+      </trans-unit>
+      <trans-unit id="org4Tooltip">
+        <source>Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi &#8209;palveluun.</source>
+        <target>Finland has five catchment areas for university hospitals laid down in the Decree. All of these submit their publication information to the research.fi service</target>
+      </trans-unit>
+      <trans-unit id="org5Tooltip">
+        <source>Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi &#8209;palveluun.</source>
+        <target>Research funders, which have submitted information on their funding decisions to the research.fi service.</target>
       </trans-unit>
       <!-- Tabs -->
       <trans-unit id="publication">
