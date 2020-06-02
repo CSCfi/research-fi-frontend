@@ -36,7 +36,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronUp = faChevronUp;
 
   navItems = [
-    {id: 's1', labelFi: 'Lukuja tieteestä ja tutkimuksesta', icon: this.faIconCircle, active: true},
+    {id: 's1', labelFi: 'Tiedon lähteet ja tuottajat', icon: this.faIconCircle, active: true},
     {id: 's2', labelFi: 'Tutkimuksen rahoitus', icon: this.faChartBar, active: false},
     {id: 's3', labelFi: 'Tutkimuksen henkilövoimavarat', icon: this.faChartBar, active: false},
     {id: 's4', labelFi: 'Julkaisutoiminta ja tieteellinen vaikuttavuus', icon: this.faChartBar, active: false},
@@ -65,7 +65,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   resizeSub: Subscription;
   scrollSub: Subscription;
   mobile: boolean;
-  showMenu: boolean;
+  showIntro: boolean;
   focusSub: any;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
@@ -123,9 +123,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     // Counte content width and set mobile true / false
-    this.mobile = this.mainContent.nativeElement.offsetWidth > 991 ? false : true;
+    this.mobile = this.window.innerWidth > 991 ? false : true;
     // Show side menu on desktop
-    this.showMenu = this.mobile ? false : true;
+    this.showIntro = this.mobile ? false : true;
     this.cdr.detectChanges();
 
     // Focus with skip-links
@@ -157,8 +157,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onResize() {
-    this.mobile = this.mainContent.nativeElement.offsetWidth > 991 ? false : true;
-    this.showMenu = this.mobile ? false : true;
+    this.mobile = this.window.innerWidth > 991 ? false : true;
+    this.showIntro = this.mobile ? false : true;
   }
 
   onScroll(y: number) {

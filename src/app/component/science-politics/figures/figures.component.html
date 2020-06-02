@@ -14,11 +14,8 @@
                     <div class="col-auto">
                         <h1 >Lukuja tieteestä ja tutkimuksesta</h1>
                     </div>
-                    <div class="col-auto dropdown">
-                        <button mat-button class="dropdown" (click)="showMenu = !showMenu" href="javascript:void(0)">Hae<fa-icon class="dropdown-icon" [icon]="showMenu ? faChevronUp : faChevronDown"></fa-icon></button>
-                    </div>
                 </div>
-                <nav *ngIf="showMenu">
+                <nav>
                     <ul>
                         <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
                             <a [routerLink]="['.']" fragment="{{item.id}}">
@@ -51,7 +48,10 @@
             <div class="col-12 col-lg-9 px-0 px-lg-3">
                 <main>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
-                        <div class="segment" id="s1">
+                        <div class="dropdown px-2 pb-4">
+                            <button mat-button class="dropdown d-flex" *ngIf="mobile" (click)="showIntro = !showIntro" href="javascript:void(0)"><h2>Tiedon lähteet ja tuottajat</h2><fa-icon class="dropdown-icon" [icon]="showIntro ? faChevronUp : faChevronDown"></fa-icon></button>
+                        </div>              
+                        <div class="segment" *ngIf="showIntro" id="s1">
                             <h1 *ngIf="!mobile">Lukuja tieteestä ja tutkimuksesta</h1>
                             <div class="row">
                                 <div class="col p-1">
