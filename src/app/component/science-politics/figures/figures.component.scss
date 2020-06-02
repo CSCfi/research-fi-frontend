@@ -126,12 +126,6 @@ img {
     font-size: 1.5rem;
 }
 
-.dropdown {
-    // font-size: 1rem;
-    // text-transform: uppercase;
-    // font-weight: 500;
-}
-
 .dropdown-icon {
     padding: 0 0.5rem;
 }
@@ -145,7 +139,7 @@ img {
         padding: 0;
     }
 
-    ::ng-deep .mat-button-wrapper {
+    ::ng-deep .dropdown .mat-button-wrapper {
         display: flex;
     }
 }
