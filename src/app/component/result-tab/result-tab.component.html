@@ -17,7 +17,7 @@
       <ng-container *ngFor="let row of tabsOpen ? rowsOpen : rowsClosed; let i = index;">
         <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
           <ng-container *ngFor="let tab of slicedRow(i); let j = index;">
-            <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale"></app-tab-item>
+            <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale" [tooltipClass]="tooltipClass"></app-tab-item>
             <button *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()" #toggleButton>
               <div *ngIf="!tabsOpen" class="label text-center homepage homepage-label">Näytä kaikki <div><fa-icon [icon]="faAngleDown"></fa-icon></div></div> 
               <div *ngIf="tabsOpen" class="label text-center homepage homepage-label">Näytä vähemmän <div><fa-icon [icon]="faAngleUp"></fa-icon></div></div> 
