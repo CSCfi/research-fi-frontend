@@ -2846,6 +2846,31 @@
         <source>Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.</source>
         <target>Information for research.fi is submitted by research organizations and funders.</target>
       </trans-unit>
+      <!-- Research and Innovation System -->
+      <trans-unit id="universities">
+        <source>Yliopistot</source>
+        <target>Universities</target>
+      </trans-unit>
+      <trans-unit id="universitiesAS">
+        <source>Ammattikorkeakoulut</source>
+        <target>Universities of applied sciences</target>
+      </trans-unit>
+      <trans-unit id="stateRI">
+        <source>Valtion tutkimuslaitokset</source>
+        <target>State research institutes</target>
+      </trans-unit>
+      <trans-unit id="uniHospitals">
+        <source>Yliopistolliset sairaalat</source>
+        <target>University hospitals</target>
+      </trans-unit>
+      <trans-unit id="otherRF">
+        <source>Muut tutkimuslaitokset</source>
+        <target>Other research institutes</target>
+      </trans-unit>
+      <trans-unit id="researchFunders">
+        <source>Tutkimuksen rahoittajat</source>
+        <target>Research funders</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
