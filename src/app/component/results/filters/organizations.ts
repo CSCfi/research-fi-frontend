@@ -15,7 +15,7 @@ import { Injectable } from '@angular/core';
 
 export class OrganizationFilters {
   filterData = [
-    {field: 'sector', labelFi: 'Sektori', hasSubFields: false, limitHeight: false, open: true},
+    {field: 'sector', label: $localize`:@@sector:Sektori`, hasSubFields: false, limitHeight: false, open: true},
   ];
 
   singleFilterData = [
@@ -23,11 +23,11 @@ export class OrganizationFilters {
   ];
 
   infoData = [
-    {id: '1', tooltipFi: 'Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.'},
-    {id: '2', tooltipFi: 'OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä Poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.'},
-    {id: '3', tooltipFi: 'Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi &#8209;palveluun.'},
-    {id: '4', tooltipFi: 'Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi &#8209;palveluun.'},
-    {id: '5', tooltipFi: 'Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi &#8209;palveluun.'}
+    {id: '1', tooltip: $localize`:@@org1Tooltip:Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.`},
+    {id: '2', tooltip: $localize`:@@org2Tooltip:OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä Poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi &#8209;palveluun.`},
+    {id: '3', tooltip: $localize`:@@org3Tooltip:Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi &#8209;palveluun.`},
+    {id: '4', tooltip: $localize`:@@org4Tooltip:Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi &#8209;palveluun.`},
+    {id: '5', tooltip: $localize`:@@org5Tooltip:Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi &#8209;palveluun.`}
   ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
@@ -44,8 +44,9 @@ export class OrganizationFilters {
       key: item.key,
       label: item.sectorName.buckets[0].key,
       doc_count: item.doc_count,
-      tooltipFi: this.infoData.find(el => el.id === item.key).tooltipFi
+      tooltip: this.infoData.find(el => el.id === item.key).tooltip
     });
+    console.log(result);
     return result;
   }
 
