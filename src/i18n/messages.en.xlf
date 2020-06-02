@@ -228,7 +228,7 @@
       </trans-unit>
       <trans-unit id="resultInfo2" datatype="html">
         <source>tietoja palvelu sisältää?</source>
-        <target>information included in the service?</target>
+        <target>information is included in the service?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
           <context context-type="linenumber">36</context>
@@ -1771,6 +1771,14 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="authors" datatype="html">
+        <source>Tutkijat</source>
+        <target>People</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="fundings" datatype="html">
         <source>Hankkeet</source>
         <target>Projects</target>
@@ -1779,12 +1787,28 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="materials" datatype="html">
+        <source>Aineistot</source>
+        <target>Materials</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="infrastructures" datatype="html">
         <source>Infrastruktuurit</source>
         <target>Infrastructures</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+        <trans-unit id="otherResearchActivities" datatype="html">
+        <source>Muut tutkimusaktiviteetit</source>
+        <target>Other research activities</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="organizations" datatype="html">
@@ -2277,10 +2301,6 @@
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
         <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
       </trans-unit>
-      <trans-unit id="authors">
-        <source>Tekijät</source>
-        <target>Authors</target>
-      </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
         <target>Publication authors in the order they are listed in the original publication. If there are more than 20 authors, not all of them will necessarily be mentioned.</target>
@@ -2321,63 +2341,59 @@
         <source>Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).</source>
         <target>Publication channel’s identifier at Publication Forum (www.julkaisufoorumi.fi/en).</target>
       </trans-unit>
-      <trans-unit id="6322015239534783000">
-        <source>Julkaisu­foorumitaso</source>
+      <trans-unit id="jufoLevel">
+        <source>Julkaisu­\u00ADfoorumitaso</source>
         <target>​Publication forum level</target>
       </trans-unit>
-      <trans-unit id="2498838061843239246">
-        <source>Avoin saatavuus</source>
-        <target>Open access</target>
-      </trans-unit>
       <trans-unit id="8136204200532143751">
-        <source>Open access -lehti:</source>
-        <target>Open access journal:</target>
+        <source>Open access -lehti: </source>
+        <target>Open access journal: </target>
       </trans-unit>
       <trans-unit id="8722392264873780327">
         <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>
         <target>The publication has been published in a publication channel, whose publications are all openly available.</target>
       </trans-unit>
       <trans-unit id="7129592600388203777">
-        <source>Rinnakkaistallennettu:</source>
-        <target>Self-archived:</target>
+        <source>Rinnakkaistallennettu: </source>
+        <target>Self-archived: </target>
       </trans-unit>
       <trans-unit id="7842221493969044364">
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.</target>
       </trans-unit>
       <trans-unit id="7089671200331894304">
-        <source>Muu avoin saatavuus:</source>
-        <target>Other open access</target>
+        <source>Muu avoin saatavuus: </source>
+        <target>Other open access: </target>
       </trans-unit>
       <trans-unit id="1467910369543476416">
         <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
         <target>The publication is openly available, but appears in a hybrid publication channel whose publications are not all openly available.</target>
       </trans-unit>
-      <trans-unit id="9102339475979063738">
+      <trans-unit id="publicationCountry">
         <source>Julkaisumaa</source>
         <target>Publication country</target>
       </trans-unit>
-      <trans-unit id="833115392367248260">
+      <trans-unit id="language">
         <source>Kieli</source>
         <target>Language</target>
       </trans-unit>
-      <trans-unit id="8395364547992320063">
+      <trans-unit id="intCoPublication">
         <source>Kansainvälinen yhteisjulkaisu</source>
         <target>International co-publication</target>
       </trans-unit>
-      <trans-unit id="2905337809986350542">
+      <trans-unit id="intCoPublicationAuthors">
         <source>Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista</source>
         <target>The publication includes authors from organizations outside of Finland.</target>
       </trans-unit>
-      <trans-unit id="6312210350311035328">
+      <trans-unit id="publicationWithCompany">
         <source>Yhteisjulkaisu yrityksen kanssa</source>
         <target>Co-publication with a company</target>
       </trans-unit>
-      <trans-unit id="8823366043480627164">
+      <trans-unit id="publicationCompanyAuthors">
         <source>Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.</source>
         <target>The publication includes authors from at least one company.</target>
       </trans-unit>
-      <trans-unit id="8965259671278039159">
+      <trans-unit id="keywords">
         <source>Avainsanat</source>
         <target>Keywords</target>
       </trans-unit>
@@ -2414,9 +2430,13 @@
         <source>Rahoituspäätöksen numero</source>
         <target>Funding decision number</target>
       </trans-unit>
-      <trans-unit id="7100608387657200422">
+      <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
         <target>Fields of science</target>
+      </trans-unit>
+      <trans-unit id="fieldOfScience">
+        <source>Tieteenala</source>
+        <target>Field of science</target>
       </trans-unit>
       <trans-unit id="5693158486934642346">
         <source>Tutkimusalat</source>
@@ -2640,14 +2660,6 @@
         <source>Alayksiköt</source>
         <target>Subunits</target>
       </trans-unit>
-      <trans-unit id="materials">
-        <source>Aineistot</source>
-        <target>Materials</target>
-      </trans-unit>
-      <trans-unit id="otherResearchActivities">
-        <source>Muu tutkimustoiminta</source>
-        <target></target>
-      </trans-unit>
       <trans-unit id="fintoSource">
         <source>Lähde: Finto www.finto.fi/cn/fi/</source>
         <target>Source: Finto www.finto.fi/cn/en/</target>
@@ -2663,6 +2675,112 @@
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
         <target>Source: Vipunen - Education Statistics Finland</target>
+      </trans-unit>
+      <!-- Filters -->
+      <trans-unit id="filterSearchHeader">
+        <source>Rajaa hakua</source>
+        <target>Filter results</target>
+      </trans-unit>
+      <trans-unit id="filterNewsHeader">
+        <source>Rajaa uutisia</source>
+        <target>Filter news</target>
+      </trans-unit>
+      <trans-unit id="yearOfPublication">
+        <source>Julkaisuvuosi</source>
+        <target>Year of publication</target>
+      </trans-unit>
+      <trans-unit id="startYear">
+        <source>Aloitusvuosi</source>
+        <target>Starting year</target>
+      </trans-unit>
+      <trans-unit id="TKFOS">
+        <source>Tilastokeskuksen luokituksen mukaiset tieteenalat.</source>
+        <target>The Statistics Finland Fields of science classification. A publication may include 1-6 fields of science.</target>
+      </trans-unit>
+      <trans-unit id="pOrgFTooltip">
+        <source>Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.</source>
+        <target>Finnish organization of the publication’s author. The service currently does not contain any information on publications’ foreign organizations.</target>
+      </trans-unit>
+      <trans-unit id="pFOSFTooltip">
+        <source>Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.</source>
+        <target>The Statistics Finland Fields of science classification. A publication may include 1-6 fields of science.</target>
+      </trans-unit>
+      <trans-unit id="pTypeFTooltip">
+        <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
+        <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
+      </trans-unit>
+      <trans-unit id="pCountryFTooltip">
+        <source>Julkaisijan maa.</source>
+        <target>Publisher’s country.</target>
+      </trans-unit>
+      <trans-unit id="pLangFTooltip">
+        <source>Kieli, jolla julkaisu on kirjoitettu.</source>
+        <target>Language in which the publication is written.</target>
+      </trans-unit>
+      <trans-unit id="pJufoFTooltip">
+        <source>Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.</source>
+        <target>Publication Forum (www.julkaisufoorumi.fi) classification of publication channels (book publisher, conference or book series): 1 = basic level, 2 = leading level, 3 = highest level. Category 0 is for publication channels that have been evaluated but do not meet all of the level 1 criteria.</target>
+      </trans-unit>
+      <trans-unit id="intCoPublicationTooltip">
+        <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>
+        <target>Some of the publication’s authors come from research organizations outside of Finland.</target>
+      </trans-unit>
+      <!-- Tabs -->
+      <trans-unit id="publication">
+        <source>Julkaisu</source>
+        <target>Publication</target>
+      </trans-unit>
+      <trans-unit id="author">
+        <source>Tutkija</source>
+        <target>Author</target>
+      </trans-unit>
+      <trans-unit id="funding">
+        <source>Hanke</source>
+        <target>Funding</target>
+      </trans-unit>
+      <trans-unit id="material">
+        <source>Aineisto</source>
+        <target>Material</target>
+      </trans-unit>
+      <trans-unit id="infrastructure">
+        <source>Infrastruktuuri</source>
+        <target>Infrastructure</target>
+      </trans-unit>
+      <trans-unit id="otherResearchActivity">
+        <source>Muu tutkimusaktiviteetti</source>
+        <target>Other research activitity</target>
+      </trans-unit>
+      <trans-unit id="organization">
+        <source>Organisaatio</source>
+        <target>Organization</target>
+      </trans-unit>
+      <trans-unit id="publicationsTooltip">
+        <source>Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.</source>
+        <target>Publications from Finnish universities, universities of applied sciences, research institutes and university hospitals</target>
+      </trans-unit>
+      <trans-unit id="authorsTooltip">
+        <source>Suomessa toimivia tutkijoita.</source>
+        <target>Researchers working in Finland.</target>
+      </trans-unit>
+      <trans-unit id="fundingsTooltip">
+        <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
+        <target>Funding decisions issued by Finnish public and private research funders starting from the date each funder joined the service. Funding decisions issued to Finnish organizations by the EU starting from the Horizon 2020 framework program.</target>
+      </trans-unit>
+      <trans-unit id="materialsTooltip">
+        <source>Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.</source>
+        <target>Research data produced in Finland.</target>
+      </trans-unit>
+      <trans-unit id="infrastructuresTooltip">
+        <source>Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.</source>
+        <target>Research infrastructures maintained in Finland. Infrastructures are single-sited, distributed or virtual instruments, equipment, data networks, databases, data and services which facilitate the conducting of research.</target>
+      </trans-unit>
+      <trans-unit id="otherResearcActivitiesTooltip">
+        <source>Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.</source>
+        <target>Expert tasks, qualifications, recognitions and other activities related to research conducted by researchers.</target>
+      </trans-unit>
+      <trans-unit id="organizationsTooltip">
+        <source>Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.</source>
+        <target>Information for research.fi is submitted by research organizations and funders.</target>
       </trans-unit>
     </body>
   </file>
