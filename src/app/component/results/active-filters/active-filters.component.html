@@ -16,7 +16,7 @@
         </div>
       </li>
     </ng-container>
-    <div class="ellipsis" *ngIf="parsedFilters.length > 6">...</div>
+    <div class="ellipsis" *ngIf="parsedFilters.length > 6" (click)="openModal()">...</div>
     <button *ngIf="parsedFilters.length > 6" class="clear filter" mat-stroked-button color="primary" (click)="openModal()">Näytä kaikki</button>
     <button class="clear filter" mat-button color="primary" (click)="clearFilters()"><fa-icon class="clear" [icon]="faTrashAlt"></fa-icon>Tyhjennä rajaukset</button>
   </ul>
