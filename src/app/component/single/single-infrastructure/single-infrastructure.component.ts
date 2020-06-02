@@ -37,14 +37,14 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
     {label: $localize`Toiminta alkanut`, field: 'startYear'},
     {label: $localize`Toiminta päättynyt`, field: 'endYear'},
-    {label: $localize`Vastuuorganisaatio`, field: 'responsibleOrganization'},
+    {label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, field: 'responsibleOrganization'},
     {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString'},
   ];
 
   serviceFields = [
     {label: $localize`Palvelun kuvaus`, field: 'description'},
     {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
-    {label: $localize`Palvelun tyyppi`, field: 'type'},
+    {label: $localize`:@@serviceType:Palvelun tyyppi`, field: 'type'},
   ];
 
   servicePointContactFields = [
