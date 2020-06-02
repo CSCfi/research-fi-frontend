@@ -2064,17 +2064,371 @@
         </context-group>
         <note priority="1" from="description">Review-button</note>
       </trans-unit>
-      <trans-unit id="2271081886944811635">
+      <trans-unit id="yes">
         <source>Kyllä</source>
         <target>Yes</target>
       </trans-unit>
-      <trans-unit id="7973261227367149016">
+      <trans-unit id="no">
         <source>Ei</source>
         <target>No</target>
       </trans-unit>
-      <trans-unit id="1859228788704469914">
+      <trans-unit id="noInfo">
         <source>Ei tietoa</source>
         <target>No information</target>
+      </trans-unit>
+      <!-- Fields of science -->
+      <trans-unit id="naturalSciences">
+        <source>Luonnontieteet</source>
+        <target>Natural sciences</target>
+      </trans-unit>
+      <trans-unit id="engineeringTecnology">
+        <source>Tekniikka</source>
+        <target>Engineering and techology</target>
+      </trans-unit>
+      <trans-unit id="medicalHealthSciences">
+        <source>Lääke- ja terveystieteet</source>
+        <target>Medical and health sciences</target>
+      </trans-unit>
+      <trans-unit id="agriculturalSciences">
+        <source>Maatalous- ja metsätieteet</source>
+        <target>Agricultural sciences</target>
+      </trans-unit>
+      <trans-unit id="socialSciences">
+        <source>Yhteiskuntatieteet</source>
+        <target>Social sciences</target>
+      </trans-unit>
+      <trans-unit id="humanities">
+        <source>Humanistiset tieteet</source>
+        <target>Humanities</target>
+      </trans-unit>
+      <trans-unit id="otherSciences">
+        <source>Muut tieteet</source>
+        <target>Other sciences</target>
+      </trans-unit>
+      <!-- Publication class -->
+      <trans-unit id="2864646710185946746">
+        <source>Vertaisarvioidut tieteelliset artikkelit</source>
+        <target>Peer-reviewed scientific articles</target>
+      </trans-unit>
+      <trans-unit id="1597681315521690802">
+        <source>Alkuperäisartikkeli tieteellisessä aikakauslehdessä</source>
+        <target>Journal article –refereed</target>
+      </trans-unit>
+      <trans-unit id="705830156333533215">
+        <source>Katsausartikkeli tieteellisessä aikakauslehdessä</source>
+        <target>Review article in a scientific journal</target>
+      </trans-unit>
+      <trans-unit id="1370360058401567035">
+        <source>Kirjan tai muun kokoomateoksen osa</source>
+        <target>Book chapter</target>
+      </trans-unit>
+      <trans-unit id="6489093939874798476">
+        <source>Artikkeli konferenssijulkaisussa</source>
+        <target>Article in conference proceedings</target>
+      </trans-unit>
+      <trans-unit id="5490383626034015765">
+        <source>Vertaisarvioimattomat tieteelliset kirjoitukset</source>
+        <target>Non-refereed scientific articles</target>
+      </trans-unit>
+      <trans-unit id="108802226201444721">
+        <source>Kirjoitus tieteellisessä aikakauslehdessä</source>
+        <target>Journal article</target>
+      </trans-unit>
+      <trans-unit id="1450832609724997297">
+        <source>Vertaisarvioimaton artikkeli konferenssijulkaisussa</source>
+        <target>Article in conference proceedings</target>
+      </trans-unit>
+      <trans-unit id="1494678391234928987">
+        <source>Tieteelliset kirjat (monografiat)</source>
+        <target>Scientific books (monographs)</target>
+      </trans-unit>
+      <trans-unit id="4312678819391129365">
+        <source>Kustannettu tieteellinen erillisteos</source>
+        <target>Scientific book</target>
+      </trans-unit>
+      <trans-unit id="8282322621087741901">
+        <source>Toimitettu kirja, kokoomateos, konferenssijulkaisu tai lehden erikoisnumero</source>
+        <target>Edited book</target>
+      </trans-unit>
+      <trans-unit id="3097699784820107185">
+        <source>Ammattiyhteisölle suunnatut julkaisut</source>
+        <target>Publications intended for professional communities</target>
+      </trans-unit>
+      <trans-unit id="6298465754659405946">
+        <source>Artikkeli ammattilehdessä</source>
+        <target>Article in a trade journal</target>
+      </trans-unit>
+      <trans-unit id="4189611318147662317">
+        <source>Artikkeli ammatillisessa käsi- tai opaskirjassa, ammatillisessa tietojärjestelmässä tai oppikirja-aineisto</source>
+        <target>Article in a professional research book (incl. editor’s introduction)</target>
+      </trans-unit>
+      <trans-unit id="1378601975080805504">
+        <source>Artikkeli ammatillisessa konferenssijulkaisussa</source>
+        <target>Professional conference proceedings</target>
+      </trans-unit>
+      <trans-unit id="7133965381967645057">
+        <source>Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys</source>
+        <target>Published development or research report or study</target>
+      </trans-unit>
+      <trans-unit id="7238378455413538871">
+        <source>Oppikirja, ammatillinen käsi- tai opaskirja taikka sanakirja</source>
+        <target>Text book, professional manual or guide or a dictionary</target>
+      </trans-unit>
+      <trans-unit id="2091575371974069735">
+        <source>Toimitettu ammatillinen teos</source>
+        <target>Edited professional book</target>
+      </trans-unit>
+      <trans-unit id="4550568777939909397">
+        <source>Suurelle yleisölle suunnatut julkaisut</source>
+        <target>Publications intended for the general public</target>
+      </trans-unit>
+      <trans-unit id="129903828500222441">
+        <source>Yleistajuinen artikkeli, sanomalehtiartikkeli</source>
+        <target>Popularised article, newspaper article</target>
+      </trans-unit>
+      <trans-unit id="2608418879640100842">
+        <source>Yleistajuinen monografia</source>
+        <target>Popularised monograph</target>
+      </trans-unit>
+      <trans-unit id="2790489945284972601">
+        <source>Toimitettu yleistajuinen teos</source>
+        <target>Edited popular book</target>
+      </trans-unit>
+      <trans-unit id="3893505786149212989">
+        <source>Julkinen taiteellinen ja taideteollinen toiminta</source>
+        <target>Public artistic and design activities</target>
+      </trans-unit>
+      <trans-unit id="5797249238866169980">
+        <source>Erillisjulkaisu</source>
+        <target>Published independent work of art</target>
+      </trans-unit>
+      <trans-unit id="7204651245244570145">
+        <source>Julkinen taiteellinen teoksen osatoteutus</source>
+        <target>Public partial realisation of a work of art</target>
+      </trans-unit>
+      <trans-unit id="6720395476849089431">
+        <source>Ei-taiteellisen julkaisun taiteellinen osa</source>
+        <target>Artistic part of a non-artistic publication</target>
+      </trans-unit>
+      <trans-unit id="3721845518735059924">
+        <source>Opinnäytteet</source>
+        <target>Theses</target>
+      </trans-unit>
+      <trans-unit id="3294727584034930678">
+        <source>Monografiaväitöskirja</source>
+        <target>Doctoral dissertation (monograph)</target>
+      </trans-unit>
+      <trans-unit id="474366377571454001">
+        <source>Artikkeliväitöskirja</source>
+        <target>Doctoral dissertation (articles)</target>
+      </trans-unit>
+      <!-- JUFO codes -->
+      <trans-unit id="3426911634399671069">
+        <source>Korkein taso</source>
+        <target>Top</target>
+      </trans-unit>
+      <trans-unit id="5191709614380789017">
+        <source>Johtava taso</source>
+        <target>Leading</target>
+      </trans-unit>
+      <trans-unit id="2346008964399720529">
+        <source>Perustaso</source>
+        <target>Basic</target>
+      </trans-unit>
+      <trans-unit id="2280953857653529357">
+        <source>Muut</source>
+        <target>Other</target>
+      </trans-unit>
+      <trans-unit id="7719583117268157924">
+        <source>Ei arviota</source>
+        <target>No rating</target>
+      </trans-unit>
+      <!-- Errors -->
+      <trans-unit id="2890418748435169527">
+        <source>HTTP pyyntöä ei voitu käsitellä</source>
+        <target>HTTP request cannot be handled</target>
+      </trans-unit>
+      <trans-unit id="3728643402938506929">
+        <source>Pyyntö vaatii sen käsittelyyn oikeutetut tunnukset</source>
+        <target>Request needs authentication</target>
+      </trans-unit>
+      <trans-unit id="5339823294802549359">
+        <source>Ei oikeutta käsitellä pyyntöä</source>
+        <target>Non authorized to handle the request</target>
+      </trans-unit>
+      <trans-unit id="1953599492539090988">
+        <source>Haluttua tietoa ei ole olemassa</source>
+        <target>Requested information does not exist</target>
+      </trans-unit>
+      <trans-unit id="4505679677960242441">
+        <source>Pyyntömetodi ei ole sallitty</source>
+        <target>Forbidden request method</target>
+      </trans-unit>
+      <trans-unit id="8402099562411461502">
+        <source>Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä</source>
+        <target>Server error. Serve responded with error while processing request</target>
+      </trans-unit>
+      <!-- Publications-->
+      <trans-unit id="publicationType">
+        <source>Julkaisutyyppi</source>
+        <target>Publication type</target>
+      </trans-unit>
+      <trans-unit id="publicationTypeTooltip">
+        <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
+        <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
+      </trans-unit>
+      <trans-unit id="authors">
+        <source>Tekijät</source>
+        <target>Authors</target>
+      </trans-unit>
+      <trans-unit id="publicationAuthorsTooltip">
+        <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
+        <target>Publication authors in the order they are listed in the original publication. If there are more than 20 authors, not all of them will necessarily be mentioned.</target>
+      </trans-unit>
+      <trans-unit id="3294281240991807762">
+        <source>Lehti</source>
+        <target>Journal</target>
+      </trans-unit>
+      <trans-unit id="3537901381707941652">
+        <source>Emojulkaisun nimi</source>
+        <target>Parent publication name</target>
+      </trans-unit>
+      <trans-unit id="5762426248501746892">
+        <source>Konferenssi</source>
+        <target>Conference</target>
+      </trans-unit>
+      <trans-unit id="1854649113560687220">
+        <source>Kustantaja</source>
+        <target>Publisher</target>
+      </trans-unit>
+      <trans-unit id="4097431876835231493">
+        <source>Volyymi</source>
+      <target>Volume</target>
+      </trans-unit>
+      <trans-unit id="3620115970271052370">
+        <source>Numero</source>
+      <target>Issue</target>
+      </trans-unit>
+      <trans-unit id="1929692436307362490">
+        <source>Sivut</source>
+      <target>Pages</target>
+      </trans-unit>
+      <trans-unit id="8851385585217561162">
+        <source>Julkaisu­foorumi</source>
+      <target>​Publication forum</target>
+      </trans-unit>
+      <trans-unit id="6237827988468109472">
+        <source>Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).</source>
+        <target>Publication channel’s identifier at Publication Forum (www.julkaisufoorumi.fi/en).</target>
+      </trans-unit>
+      <trans-unit id="6322015239534783000">
+        <source>Julkaisu­foorumitaso</source>
+        <target>​Publication forum level</target>
+      </trans-unit>
+      <trans-unit id="2498838061843239246">
+        <source>Avoin saatavuus</source>
+        <target>Open access</target>
+      </trans-unit>
+      <trans-unit id="4196165129320873871">
+        <source><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Open access -lehti: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Rinnakkaistallennettu: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Muu avoin saatavuus: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></source>
+        <target><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Open Access journal: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>The publication appears in a publication channel, whose publications are all openly available.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Self-archived: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Other Open Access: <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>The publication is openly available, but appears in a hybrid publication channel whose publications are not all openly available.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="9102339475979063738">
+        <source>Julkaisumaa</source>
+        <target>Publication country</target>
+      </trans-unit>
+      <trans-unit id="833115392367248260">
+        <source>Kieli</source>
+        <target>Language</target>
+      </trans-unit>
+      <trans-unit id="8395364547992320063">
+        <source>Kansainvälinen yhteisjulkaisu</source>
+        <target>International co-publication</target>
+      </trans-unit>
+      <trans-unit id="2905337809986350542">
+        <source>Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista</source>
+        <target>The publication includes authors from organizations outside of Finland.</target>
+      </trans-unit>
+      <trans-unit id="6312210350311035328">
+        <source>Yhteisjulkaisu yrityksen kanssa</source>
+        <target>Co-publication with a company</target>
+      </trans-unit>
+      <trans-unit id="8823366043480627164">
+        <source>Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.</source>
+        <target>The publication includes authors from at least one company.</target>
+      </trans-unit>
+      <trans-unit id="8965259671278039159">
+        <source>Avainsanat</source>
+        <target>Keywords</target>
+      </trans-unit>
+      <trans-unit id="referCopied">
+        <source>Viite kopioitu leikepöydälle</source>
+        <target>Reference copied to clipboard</target>
+      </trans-unit>
+      <!-- Fundings -->
+      <trans-unit id="9202070759244622574">
+        <source>Akronyymi</source>
+        <target>Acronym</target>
+      </trans-unit>
+      <trans-unit id="2316103457117210615">
+        <source>Hankkeen kuvaus</source>
+        <target>Project description</target>
+      </trans-unit>
+      <trans-unit id="8647421993794321964">
+        <source>Aloitusvuosi</source>
+        <target>Starting year</target>
+      </trans-unit>
+      <trans-unit id="3833531613927541527">
+        <source>Päättymisvuosi</source>
+        <target>End year</target>
+      </trans-unit>
+      <trans-unit id="3277993170150764605">
+        <source>Rahoitusmuoto</source>
+        <target>Funding instrument</target>
+      </trans-unit>
+      <trans-unit id="5379863279381131239">
+        <source>Haku</source>
+        <target>Search</target>
+      </trans-unit>
+      <trans-unit id="1429405664221353899">
+        <source>Rahoituspäätöksen numero</source>
+        <target>Funding decision number</target>
+      </trans-unit>
+      <trans-unit id="7100608387657200422">
+        <source>Tieteenalat</source>
+        <target>Fields of science</target>
+      </trans-unit>
+      <trans-unit id="5693158486934642346">
+        <source>Tutkimusalat</source>
+        <target>Research fields</target>
+      </trans-unit>
+      <trans-unit id="5590978338889886967">
+        <source>Teema-alat</source>
+        <target>Themes</target>
+      </trans-unit>
+      <trans-unit id="6959645871355167955">
+        <source>Hankkeen verkkosivu</source>
+      <target>Project website</target>
+      </trans-unit>
+      <trans-unit id="1889628573483441900">
+        <source>Linkit</source>
+        <target>Links</target>
+      </trans-unit>
+      <trans-unit id="4073996987769162370">
+        <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
+        <target>The funding recipient may be a person or organization. In many cases, the specified funding recipient is a principal investigator (PI), who will not personally be using the funding as it will instead be used to cover project costs.</target>
+      </trans-unit>
+      <trans-unit id="1600561099075815966">
+        <source>Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
+        <target>Funding granted by the funder in its funding decision. The amount does not include all project costs. The organization in which the project is being run may fund a certain part of it (i.e. self-financing contribution) and the project may also have other funders</target>
+      </trans-unit>
+      <trans-unit id="6174779948491913415">
+        <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
+        <target>Researcher funders which have granted funding. All research funders submitting information to the research.fi-service are listed in the Organizations section.</target>
+      </trans-unit>
+      <trans-unit id="6587616297300188756">
+        <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
+      <target>A website outside the research.fi service that contains more detailed information on the project.</target>
       </trans-unit>
     </body>
   </file>
