@@ -191,7 +191,8 @@ export class SearchService {
       aggs: {
         organization: {
           terms: {
-            field: 'organizationId.keyword'
+            field: 'organizationId.keyword',
+            size: 50
           },
           aggs: {
             orgName: {
