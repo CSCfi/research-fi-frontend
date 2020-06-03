@@ -43,8 +43,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div *ngIf="sector.iframeUrl.length > 0" #iframe class="col-12 col-md-8 iframe-container">
-                                    <iframe width="{{colWidth}}" height="{{colWidth * 0.75}}" [src]="sector.iframeUrl | safeUrl" frameborder="0" allowfullscreen='true'></iframe>
+                                <div *ngIf="sector['iframeUrl' + currentLocale].length > 0" #iframe class="col-12 col-md-8 iframe-container">
+                                    <iframe width="{{colWidth}}" height="{{colWidth * 0.75}}" [src]="sector['iframeUrl' + currentLocale] | safeUrl" frameborder="0" allowfullscreen='true'></iframe>
                                     <strong>{{sector?.iframeDescription}}</strong>
                                 </div>
                             </div>
