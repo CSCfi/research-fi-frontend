@@ -30,6 +30,7 @@ export class Infrastructure {
         public address: string,
         public urn: string,
         public responsibleOrganization: string,
+        public participantOrganizations: string,
         public statCenterId: string,
         public replacingInfraStructure: string,
         public keywords: string[],
@@ -58,6 +59,15 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         if (item.responsibleOrganization) {
             responsibleOrganization = this.lang.testLang('responsibleOrganizationName', item.responsibleOrganization[0]);
         }
+
+        let participantOrganizations = '';
+        const orgList = [];
+        if (item.participantOrganizations) {
+            item.participantOrganizations.forEach(org => {
+                orgList.push(this.lang.testLang('participantOrganizationName', org).trim());
+            });
+        }
+        participantOrganizations = orgList.join(', ');
 
         // Assign if available
         const esfriCode = item.ESFRICodes?.length > 0 ? item.ESFRICodes.map(x => x.ESFRICode)[0] : '';
@@ -88,6 +98,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item?.infraConPoint?.infraConPost,
             item.urn,
             responsibleOrganization,
+            participantOrganizations,
             item.TKOppilaitosTunnus,
             item.replacingInfraStructure,
             keywords,
