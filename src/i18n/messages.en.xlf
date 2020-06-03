@@ -691,7 +691,7 @@
       </trans-unit>
       <trans-unit id="fundingRecipientHeader" datatype="html">
         <source>Myönnetty rahoitus</source>
-        <target>TRANSLATION MISSING</target>
+        <target>Granted funding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">47</context>
@@ -2064,6 +2064,10 @@
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="comingSoon">
+        <source>Tulossa</source>
+        <target>Coming soon</target>
       </trans-unit>
       <trans-unit id="headerLink3" datatype="html">
         <source>Tiede- ja innovaatiopolitiikka</source>
