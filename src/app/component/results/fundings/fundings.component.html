@@ -13,19 +13,19 @@
         <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
             <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('name')" (keydown.enter)="sortBy('name')">Hankkeen nimi</span>
+            (click)="utilityService.sortBy('name')" (keydown.enter)="utilityService.sortBy('name')">Hankkeen nimi</span>
         </div>
         <div class="col col-lg-4 col-xl-3 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'funder' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('funder')" (keydown.enter)="sortBy('funder')">Rahoittaja</span>
+            (click)="utilityService.sortBy('funder')" (keydown.enter)="utilityService.sortBy('funder')">Rahoittaja</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'funded' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('funded')" (keydown.enter)="sortBy('funded')">Saaja</span>
+            (click)="utilityService.sortBy('funded')" (keydown.enter)="utilityService.sortBy('funded')">Saaja</span>
         </div>
         <div class="col col-lg-2 col-xl-2 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('year')" (keydown.enter)="sortBy('year')">Aloitusvuosi</span>
+            (click)="utilityService.sortBy('year')" (keydown.enter)="utilityService.sortBy('year')">Aloitusvuosi</span>
         </div>
     </div> 
     <div *ngIf="resultData" class="result-container">

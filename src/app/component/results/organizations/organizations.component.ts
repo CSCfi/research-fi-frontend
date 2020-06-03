@@ -11,6 +11,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
 import { SortService } from 'src/app/services/sort.service';
 import { Search } from 'src/app/models/search.model';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-organizations',
@@ -29,7 +30,8 @@ export class OrganizationsComponent implements OnInit, OnDestroy, AfterViewInit 
   focusSub: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private tabChangeService: TabChangeService,
-              private searchService: SearchService, private sortService: SortService, private cdr: ChangeDetectorRef) { }
+              private searchService: SearchService, private sortService: SortService, private cdr: ChangeDetectorRef,
+              public utilityService: UtilityService) { }
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
@@ -48,23 +50,6 @@ export class OrganizationsComponent implements OnInit, OnDestroy, AfterViewInit 
         this.mainContent?.nativeElement.focus();
       }
     });
-  }
-
-  sortBy(sortBy) {
-    const activeSort = this.route.snapshot.queryParams.sort || '';
-    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
-    let newSort = sortColumn + (sortDirection ? 'Desc' : '');
-    // Reset sort
-    if (activeSort.slice(-4) === 'Desc') { newSort = ''; }
-
-
-    this.router.navigate([],
-      {
-        relativeTo: this.route,
-        queryParams: { sort: newSort },
-        queryParamsHandling: 'merge'
-      }
-    );
   }
 
   ngOnDestroy() {
