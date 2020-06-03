@@ -101,7 +101,12 @@ app.use(helmet.contentSecurityPolicy({
       'https://apps.utu.fi:*',
       'https://tt.eduuni.fi:*',
       'https://www.maanmittauslaitos.fi:*',
-      'https://rihmatomo-analytics.csc.fi:*'
+      'https://rihmatomo-analytics.csc.fi:*',
+      'https://wiki.eduuni.fi:*',
+      'https://www.hamk.fi',
+      'https://mediapankki.tuni.fi:*',
+      'https://www.turkuamk.fi:*'
+
     ]
   }
 }));
