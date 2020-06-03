@@ -18,9 +18,13 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: any;
   title: string;
   openedIdx = -1;
+  currentLocale: string;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              private location: Location) {}
+              private location: Location) {
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   ngOnInit(): void {
     switch (this.localeId) {
