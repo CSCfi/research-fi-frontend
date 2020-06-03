@@ -30,7 +30,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       case 'en': {
         // Todo: Translate
-        this.setTitle('Tietoa palvelusta - Research.fi');
+        this.setTitle('Service info - Research.fi');
         break;
       }
     }
@@ -38,6 +38,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(false);
 
     this.title = this.getTitle();
+    console.log(this.getTitle());
     this.openedIdx = +this.location.path(true).split('#')[1];
   }
 
