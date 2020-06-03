@@ -43,7 +43,7 @@
                 <a routerLink="/results/funding/{{funding.id}}" [tooltip]="(funding.description ? funding.description : '') | cutContent: 200"
                 (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
                 placement="top" triggers="focus keydown.escape" [isDisabled]="funding.description?.trim().length > 0 ? false : true">
-                    <h3 class="result-title" [innerHtml]="funding.name | highlight: input"></h3>
+                    <h4 class="result-title" [innerHtml]="funding.name | highlight: input"></h4>
                 </a>
             </div>
             <div class="col col-lg-4 col-xl-3 d-none d-lg-block">

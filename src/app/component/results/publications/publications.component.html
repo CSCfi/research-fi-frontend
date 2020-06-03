@@ -41,10 +41,10 @@
                 </div>
                 <div class="col col-8 col-lg-5 col-xl-4 title">
                     <a routerLink="/results/publication/{{publication.id}}">
-                        <h3 class="result-title" 
+                        <h4 class="result-title" 
                         [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
                         [innerHtml]="publication.title | highlight: input">
-                        </h3>
+                        </h4>
                     </a>
                     <div class="tags">
                         <div *ngIf="isReviewed(publication.publicationTypeCode)" class="peer-reviewed">Vertaisarvioitu</div>

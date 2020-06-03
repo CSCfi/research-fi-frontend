@@ -23,30 +23,41 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <div class="row">
                         <div class="col">
                             <p>Tämä on Tiedejatutkimus.fi -verkkopalvelun saavutettavuusseloste.
-                            Verkkopalvelun saavutettavuusvaatimukset perustuvat kansalliseen lakiin digitaalisten palveluiden tarjoamisesta (306/2019), joka on laadittu EU:n saavutettavuusdirektiivin mukaisesti.
-                            Tämä saavutettavuusseloste on laadittu 24.04.2020.</p>
+                            Verkkopalvelun saavutettavuusvaatimukset perustuvat kansalliseen lakiin digitaalisten palveluiden tarjoamisesta (306/2019).
+                            Tämä saavutettavuusseloste on laadittu 5.6.2020.</p>
 
-                            <p>Tiedejatutkimus.fi -verkkopalvelun saavutettavuuden on arvioinut CSC - Tieteen ja tietotekniikan keskus.</p>
+                            <p>Tiedejatutkimus.fi -verkkopalvelun saavutettavuuden on arvioinut CSC - Tieteen tietotekniikan keskus Oy.</p>
 
                             <h2>Verkkopalvelun saavutettavuuden tila</h2>
                             <p>Verkkopalvelu täyttää WCAG 2.1 AA -tason kriittiset saavutettavuusvaatimukset.</p>
 
-                            <h2>Verkkopalvelun ei-saavutettava sisältö</h2>
-                            <h3>Saavuttamaton sisältö: </h3>
-                            <p>Portaalin "Tiede ja tutkimus lukuina" -osion tilastosisällöt ovat ongelmallisia ruudunlukijakäyttäjille, koska niiden kieliattribuuttina on englanti.
-                            Tämä kieliattribuutti luo ristiriitaisen tilanteen, jossa ruudunlukija lukee tilaston suomenkielisen sisällön englanniksi ääntäen.
-                            Kieliattribuuttivirhe koskee ainakin selaimia Safari ja Mozilla Firefox. Kieliattribuutti on kuitenkin pääsäntöisesti toiminut selaimilla Chrome ja Edge.</p>
+                            <h2>Verkkopalvelun saavuttamaton sisältö</h2>
+                            <h3>Saavuttamaton osio: </h3>
+                            <p>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisällöt voivat olla ongelmallisia ruudunlukijakäyttäjille, koska tilastojen kieliattribuuttina on tietyssä tapauksissa englanti, vaikka käyttäjällä olisi muuten kieliasetuksena suomi.
+                            Englannin kieliattribuutti luo ristiriitaisen tilanteen, jossa ruudunlukija lukee tilaston suomenkielisen sisällön englanniksi ääntäen.
+                            Kieliattribuuttivirhe koskee ainakin selaimia Safari ja Mozilla Firefox. Kieliattribuutti on kuitenkin pääsäntöisesti toiminut selaimilla Google Chrome ja Microsoft Edge.</p>
                             <h4>WCAG-vaatimus, joka ei tällöin toteudu</h4>
                             <p>3.1.2 Osien kieli (AA)</p>
                             <h4>Syy noudattamatta jättämiselle </h4>
                             <p>Kolmannen osapuolen sisältö</p>
                             <p>Taustaa: Tilastot tuodaan portaaliin iframe-sisällöksi toisesta verkkopalvelusta, joka taas hyödyntää sellaista teknologiaa, jolla ei ole mahdollista konfiguroida iframeksi tarjottavan sisällön kieliattribuuttia kattavasti.</p>
 
+                            <h3>Saavuttamaton osio:</h3>
+                            <p>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisältöjen ohjeet, jotka ilmestyvät silloin kun hiiren osoitin on niiden päällä, eivät ole täysin saavutettavuusvaatimusten mukaisia. Hiiren osoitinta ei saa 
+                            vietyä dynaamisen ohjeen päälle, vaan teksti katoaa, kun osoitin liikkuu kohde-elementin ulkopuolelle.</p>
+                            <h4>WCAG-vaatimus, joka ei tällöin toteudu:</h4>
+                            <p>1.4.13 Sisältö osoittaessa tai kohdistaessa</p>
+                            <h4>Syy noudattamatta jättämiselle</h4>
+                            <p>Kolmannen osapuolen sisältö</p>
+                            
+                            <br>
+                            <p>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</p>
+
                             <p>Jos havaitset ongelmia edellämainitussa toiminnallisuudessa tai missä tahansa muussa verkkopalvelun saavutettavuudessa, ole meihin yhteydessä allaolevan palautelomake-linkin kautta. Kiitos!</p>
 
                             <h2>Saavutettavuuspalaute</h2>
-                            <p>Anna meille saavutettavuuspalautetta <a href="javascript:void(0)" (click)="toggleReview()">tällä verkkolomakkeella </a></p>
-                            <p>tai voit vaihtoehtoisesti myös lähettää meille sähköpostia osoitteeseen: <a href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a></p>
+                            <p>Anna meille saavutettavuuspalautetta <a href="javascript:void(0)" (click)="toggleReview()">tällä verkkolomakkeella</a>
+                            <br>tai voit vaihtoehtoisesti myös lähettää meille sähköpostia osoitteeseen: <a href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a></p>
 
                             <h2>Valvontaviranomainen</h2>
                             <p>Jos huomaat verkkopalvelussa saavutettavuusongelmia, anna palautetta ensin meille, eli verkkopalvelun ylläpitäjälle. Vastaamme yhteydenottoosi 14 päivän kuluessa.</p>
@@ -63,8 +74,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
                             Puhelinnumero vaihde 0295 016 000</p>
 
                             <h2>Kehitämme jatkuvasti verkkopalvelun saavutettavuutta</h2>
-                            <p>Tämä verkkopalvelu on julkaistu 24.04.2020<br>
-                            Tämä saavutettavuusseloste on päivitetty viimeksi 24.04.2020</p>
+                            <p>Tämä verkkopalvelu on julkaistu 9.6.2020<br>
+                            Tämä saavutettavuusseloste on päivitetty viimeksi 5.6.2020</p>
                         </div>
                     </div>
                 </div>
