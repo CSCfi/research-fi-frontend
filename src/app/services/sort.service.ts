@@ -110,7 +110,8 @@ export class SortService {
             break;
           }
           case 'funder': {
-            this.sort = [{'funderNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'funderName' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'funded': {
@@ -174,15 +175,18 @@ export class SortService {
         this.yearField = 'thesisYear.keyword';
         switch (this.sortColumn) {
           case 'name': {
-            this.sort = [{'nameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'sector': {
-            this.sort = [{'sectorNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'sectorNname' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           default: {
-            this.sort = [{'nameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
         }
