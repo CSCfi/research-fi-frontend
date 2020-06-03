@@ -48,10 +48,14 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   width = this.window.innerWidth;
   showInfo = false;
   showHelp = false;
+  currentLocale: string;
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
                private resizeService: ResizeService, private searchService: SearchService, private route: ActivatedRoute,
-               @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService ) { }
+               @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService ) {
+                  // Capitalize first letter of locale
+                  this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+                }
 
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
@@ -69,7 +73,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     this.result = [parent.items.find(item => item.link === this.currentItem)];
 
     // Set title
-    this.label = this.result[0]?.labelFi;
+    this.label = this.result[0]['label' + this.currentLocale];
     switch (this.localeId) {
       case 'fi': {
         this.setTitle(this.label + ' - Tiedejatutkimus.fi');
