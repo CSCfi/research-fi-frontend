@@ -3842,7 +3842,7 @@
       </trans-unit>
       <trans-unit id="leaveReviewHeader" datatype="html">
         <source>Anna palautetta tai kysy</source>
-        <target></target>
+        <target>Give feedback or ask a question</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">12</context>
@@ -3852,7 +3852,8 @@
         <source>Tällä lomakkeella voit antaa palautetta Tiedejatutkimus.fi -verkkopalvelusta.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
         Kaikki palautteet ja kysymykset ovat tervetulleita! Voit myös lähettää palautteesi tai kysymyksesi vapaamuotoisesti sähköpostilla osoitteeseen tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
         <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Tietosuojaseloste<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
-        <target></target>
+        <target>Use this form to provide feedback on the tiedejatutkimus.fi online service. All feedback and questions are welcome! You can also send your feedback or question by e-mail to tiedejatutkimus@csc.f<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+        <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Privacy statement<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">19</context>
@@ -3860,7 +3861,7 @@
       </trans-unit>
       <trans-unit id="r2" datatype="html">
         <source>Kerro palautteesi tai kysy!</source>
-        <target></target>
+        <target>Please give us feedback or ask a question!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">24</context>
@@ -3868,7 +3869,7 @@
       </trans-unit>
       <trans-unit id="rRequired" datatype="html">
         <source>Pakollinen tieto.</source>
-        <target></target>
+        <target>Required information</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">27</context>
@@ -3880,11 +3881,11 @@
       </trans-unit>
       <trans-unit id="rRequiredTextbox">
       <source>Palaute (pakollinen)</source>
-      <target></target>
+      <target>Feedback (required)</target>
       </trans-unit>
       <trans-unit id="r3" datatype="html">
         <source>Haluan antaa palautetta *</source>
-        <target></target>
+        <target>I want to give feedback on *</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">28</context>
@@ -3892,7 +3893,7 @@
       </trans-unit>
       <trans-unit id="r4" datatype="html">
         <source>Palaute tai kysymys *</source>
-        <target></target>
+        <target>Feedback or question *</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">43</context>
@@ -3900,7 +3901,7 @@
       </trans-unit>
       <trans-unit id="r5" datatype="html">
         <source>Kirjoita palaute ylläolevaan kenttään.</source>
-        <target></target>
+        <target>Enter your feedback in the field above.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">52</context>
@@ -3908,7 +3909,7 @@
       </trans-unit>
       <trans-unit id="r6" datatype="html">
         <source>Palautetta koskeva sijainti verkkopalvelussa</source>
-        <target></target>
+        <target>Location of the feedback in the service</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">56</context>
@@ -3916,7 +3917,7 @@
       </trans-unit>
       <trans-unit id="r7" datatype="html">
         <source>Nykyinen sijainti: </source>
-        <target></target>
+        <target>Current location: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">62</context>
@@ -3924,7 +3925,7 @@
       </trans-unit>
       <trans-unit id="r8" datatype="html">
         <source>Muu</source>
-        <target></target>
+        <target>Other</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">64</context>
@@ -3932,7 +3933,7 @@
       </trans-unit>
       <trans-unit id="r9" datatype="html">
         <source>Mitä osiota palautteesi koskee?</source>
-        <target></target>
+        <target>Which section does your feedback apply to?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">67</context>
@@ -3940,7 +3941,7 @@
       </trans-unit>
       <trans-unit id="r10" datatype="html">
         <source>Esim. yleinen palaute, sivun otsikko, URL</source>
-        <target></target>
+        <target>For example, general feedback, page title, URL</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">69</context>
@@ -3948,15 +3949,15 @@
       </trans-unit>
       <trans-unit id="r11" datatype="html">
         <source>Virheellinen sähköpostiosoite.</source>
-        <target></target>
+        <target>Invalid email address</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="r12" datatype="html">
+      <trans-unit id="feedbackContact" datatype="html">
         <source>Toivon yhteydenottoa palautteestani</source>
-        <target></target>
+        <target>I would like to be contacted regarding my feedback</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">78</context>
@@ -3964,7 +3965,7 @@
       </trans-unit>
       <trans-unit id="r13" datatype="html">
         <source>Valitse tämä, jos toivot, että otamme sinuun yhteyttä</source>
-        <target></target>
+        <target>Select this if you would like us to contact you</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">80</context>
@@ -3972,7 +3973,7 @@
       </trans-unit>
       <trans-unit id="r14" datatype="html">
         <source>Sähköpostiosoite</source>
-        <target></target>
+        <target>E-mail address</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">83</context>
@@ -3984,7 +3985,7 @@
       </trans-unit>
       <trans-unit id="r15" datatype="html">
         <source>Tarkista ja lähetä</source>
-        <target></target>
+        <target>Check and send</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">98</context>
@@ -3992,7 +3993,7 @@
       </trans-unit>
       <trans-unit id="ur1" datatype="html">
         <source>Tarkista antamasi palaute</source>
-        <target></target>
+        <target>Review your feedback</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">104</context>
@@ -4000,7 +4001,7 @@
       </trans-unit>
       <trans-unit id="ur2" datatype="html">
         <source>Palautteen aihe: <x id="INTERPOLATION" equiv-text="{{reviewTarget}}"/></source>
-        <target></target>
+        <target>Feedback subject: <x id="INTERPOLATION" equiv-text="{{reviewTarget}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">105</context>
@@ -4008,7 +4009,7 @@
       </trans-unit>
       <trans-unit id="ur3" datatype="html">
         <source>Palaute:</source>
-        <target></target>
+        <target>Feedback:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">106</context>
@@ -4016,23 +4017,15 @@
       </trans-unit>
       <trans-unit id="ur4" datatype="html">
         <source>Palautetta koskeva sijainti verkkopalvelussa</source>
-        <target></target>
+        <target>Location of the feedback in the service</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="ur5" datatype="html">
-        <source>Toivon yhteydenottoa palautteestani</source>
-        <target></target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
-          <context context-type="linenumber">113</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="ur6" datatype="html">
         <source>Olen tarkistanut syöttämäni tiedot *</source>
-        <target></target>
+        <target>I have checked the information I entered</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">118</context>
@@ -4040,7 +4033,7 @@
       </trans-unit>
       <trans-unit id="ur7" datatype="html">
         <source>Valitse tämä, kun olet tarkistanut että ylläolevat tiedot ovat oikein.</source>
-        <target></target>
+        <target>Select when you have verified that the information above is correc</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">120</context>
@@ -4048,31 +4041,23 @@
       </trans-unit>
       <trans-unit id="ur8" datatype="html">
         <source>Varmistus, että palautteenantaja on ihminen *</source>
-        <target></target>
+        <target>Confirmation that the person giving feedback is not a robot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="rs1" datatype="html">
+      <trans-unit id="feedbackSuccess" datatype="html">
         <source>Olemme vastaanottaneet palautteesi. Kiitos!</source>
-        <target></target>
+        <target>We have recieved your feedback. Thank you!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">136</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
-          <context context-type="linenumber">137</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
-          <context context-type="linenumber">145</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="privacyStatement" datatype="html">
         <source><x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u&gt;"/>Tietosuojaseloste<x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u&gt;"/></source>
-        <target></target>
+        <target><x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u&gt;"/>Privacy statement<x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u&gt;"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">138</context>
@@ -4084,11 +4069,15 @@
       </trans-unit>
       <trans-unit id="re1" datatype="html">
         <source>Lomakkeen lähetys epäonnistui :(</source>
-        <target></target>
+        <target>Form submit failed :(</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">144</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="closeForm" datatype="html">
+        <source>Sulje lomake</source>
+        <target>Close form</target>
       </trans-unit>
     </body>
   </file>

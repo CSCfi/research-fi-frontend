@@ -75,7 +75,7 @@
 
         <div class="content" [class.warning]="emailError">
           <strong class="warning-msg d-block" *ngIf="emailError" i18n="@@r11">Virheellinen sähköpostiosoite.</strong>
-          <label class="section-label pb-1" id="contact" i18n="@@r12">Toivon yhteydenottoa palautteestani</label>
+          <label class="section-label pb-1" id="contact" i18n="@@feedbackContact">Toivon yhteydenottoa palautteestani</label>
           <div class="form-group" aria-labelledby="contact">
             <mat-checkbox [(ngModel)]="contactChecked" (change)="toggleEmail($event)" i18n="@@r13">Valitse tämä, jos toivot, että otamme sinuun yhteyttä</mat-checkbox>
             <!-- Show input only if checked -->
@@ -110,7 +110,7 @@
           <p>{{title}}</p>
         </ng-container>
         <ng-container *ngIf="emailValue">
-          <h4 i18n="@@ur5">Toivon yhteydenottoa palautteestani</h4>
+          <h4 i18n="@@feedbackContact">Toivon yhteydenottoa palautteestani</h4>
           <p>{{emailValue}}</p>
         </ng-container>
 
@@ -133,8 +133,8 @@
       <!-- Success -->
       <div class="row" *ngIf="!error;">
         <div class="col text-center" role="alert">
-          <span class="thanks d-block" i18n="@@rs1">Olemme vastaanottaneet palautteesi. Kiitos!</span>
-          <button class="px-4" mat-flat-button color="primary" (click)="close()" i18n="@@rs1">Sulje lomake</button>
+          <span class="thanks d-block" i18n="@@feedbackSuccess">Olemme vastaanottaneet palautteesi. Kiitos!</span>
+          <button class="px-4" mat-flat-button color="primary" (click)="close()" i18n="@@closeForm">Sulje lomake</button>
           <a routerLink="/privacy" class="d-block pt-4" (click)="close()" i18n="@@privacyStatement"><u>Tietosuojaseloste</u></a>
         </div>
       </div>
@@ -142,7 +142,7 @@
       <div class="row" *ngIf="error;">
         <div class="col text-center" role="alert">
           <span class="thanks d-block" i18n="@@re1">Lomakkeen lähetys epäonnistui :(</span>
-          <button class="px-4" mat-flat-button color="primary" (click)="close()" i18n="@@rs1">Sulje lomake</button>
+          <button class="px-4" mat-flat-button color="primary" (click)="close()" i18n="@@closeForm">Sulje lomake</button>
           <a routerLink="/privacy" class="d-block pt-4" (click)="close()" i18n="@@privacyStatement"><u>Tietosuojaseloste</u></a>
         </div>
       </div>
