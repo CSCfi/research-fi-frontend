@@ -1238,7 +1238,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="figuresIntro2" datatype="html">
-        <source>Tiedot perustuvat Opetushallituksen Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</source>
+        <source>Tiedot perustuvat opetushallinnon Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</source>
         <target>The information is based on Vipunen - Education Statistics Finland, Statistics Finland statistics, and OECD statistics. The section on publication activities and scientific impact also uses information from Clarivate Analytics' Web of Science citation database.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
@@ -3899,7 +3899,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="r5" datatype="html">
-        <source>Kirjoita palaute omin sanoin ylläolevaan kenttään.</source>
+        <source>Kirjoita palaute ylläolevaan kenttään.</source>
         <target></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
