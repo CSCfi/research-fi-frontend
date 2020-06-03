@@ -274,6 +274,22 @@
         <source>Takaisin</source>
         <target>Back</target>
       </trans-unit>
+      <trans-unit id="next">
+        <source>Edellinen</source>
+        <target>Previous</target>
+      </trans-unit>
+      <trans-unit id="previous">
+        <source>Seuraava</source>
+        <target>Next</target>
+      </trans-unit>
+      <trans-unit id="latest">
+        <source>Uusimmat</source>
+        <target>Latest</target>
+      </trans-unit>
+      <trans-unit id="olderNews">
+        <source>Aiempia uutisia</source>
+        <target>Previous news</target>
+      </trans-unit>
       <trans-unit id="kbHelpHint">
         <source>Ohje näppäimistökäyttäjälle</source>
         <target>Keyboard user help</target>
