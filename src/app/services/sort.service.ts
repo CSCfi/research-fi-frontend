@@ -180,7 +180,7 @@ export class SortService {
             break;
           }
           case 'sector': {
-            const sortString = 'sectorNname' + this.localeC + '.keyword';
+            const sortString = 'sectorName' + this.localeC + '.keyword';
             this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
