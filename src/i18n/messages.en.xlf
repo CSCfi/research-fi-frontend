@@ -270,6 +270,14 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="back">
+        <source>Takaisin</source>
+        <target>Back</target>
+      </trans-unit>
+      <trans-unit id="kbHelpHint">
+        <source>Ohje näppäimistökäyttäjälle</source>
+        <target>Keyboard user help</target>
+      </trans-unit>
       <trans-unit id="authorOrganization" datatype="html">
         <source>Organisaatiot ja tekijät</source>
         <target>Organizations and authors</target>
@@ -1239,7 +1247,7 @@
       </trans-unit>
       <trans-unit id="okm" datatype="html">
         <source>Opetus- ja kulttuuriministeriö</source>
-        <target>Ministry of Education and Cultur</target>
+        <target>Ministry of Education and Culture</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">71</context>
@@ -1789,7 +1797,7 @@
       </trans-unit>
       <trans-unit id="materials" datatype="html">
         <source>Aineistot</source>
-        <target>Materials</target>
+        <target>Research data</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">30</context>
@@ -2759,7 +2767,7 @@
       </trans-unit>  
       <trans-unit id="infraServiceTypeMaterial">
         <source>Aineisto</source>
-        <target>Material</target>
+        <target>Research data</target>
       </trans-unit>  
       <trans-unit id="infraServiceTypeEquipment">
         <source>Laitteisto</source>
@@ -2800,11 +2808,11 @@
       </trans-unit>
       <trans-unit id="funding">
         <source>Hanke</source>
-        <target>Funding</target>
+        <target>Project</target>
       </trans-unit>
       <trans-unit id="material">
         <source>Aineisto</source>
-        <target>Material</target>
+        <target>Research data</target>
       </trans-unit>
       <trans-unit id="infrastructure">
         <source>Infrastruktuuri</source>
@@ -2870,6 +2878,23 @@
       <trans-unit id="researchFunders">
         <source>Tutkimuksen rahoittajat</source>
         <target>Research funders</target>
+      </trans-unit>
+      <!-- Figures -->
+      <trans-unit id="figuresSec1">
+        <source>Tutkimuksen rahoitus</source>
+        <target>Research funding</target>
+      </trans-unit>
+      <trans-unit id="figuresSec2">
+        <source>Tutkimuksen henkilövoimavarat</source>
+        <target>Human resources in research</target>
+      </trans-unit>
+      <trans-unit id="figuresSec3">
+        <source>Julkaisutoiminta ja tieteellinen vaikuttavuus</source>
+        <target>Publication activity and scientific impact</target>
+      </trans-unit>
+      <trans-unit id="figuresSearchPlaceholder">
+        <source>Hae tilastoa...</source>
+        <target>Search for a figure...</target>
       </trans-unit>
     </body>
   </file>
