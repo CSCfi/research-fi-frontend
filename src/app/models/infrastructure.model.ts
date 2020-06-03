@@ -84,7 +84,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const fieldsOfScienceString = fieldsOfScience?.join(', ');
 
         return new Infrastructure(
-            this.lang.testLang('name', item),
+            item.nameFi,
             this.lang.testLang('name', item),
             this.lang.testLang('description', item),
             this.lang.testLang('scientificDescription', item),
