@@ -30,6 +30,7 @@ export class Infrastructure {
         public address: string,
         public urn: string,
         public responsibleOrganization: string,
+        public responsibleOrganizationId: string,
         public participantOrganizations: string,
         public statCenterId: string,
         public replacingInfraStructure: string,
@@ -56,8 +57,10 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
 
         // Init and assign if available
         let responsibleOrganization = '';
+        let responsibleOrganizationId = '';
         if (item.responsibleOrganization) {
             responsibleOrganization = this.lang.testLang('responsibleOrganizationName', item.responsibleOrganization[0]);
+            responsibleOrganizationId = item.responsibleOrganization[0]?.TKOppilaitosTunnus;
         }
 
         let participantOrganizations = '';
@@ -98,6 +101,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             item?.infraConPoint?.infraConPost,
             item.urn,
             responsibleOrganization,
+            responsibleOrganizationId,
             participantOrganizations,
             item.TKOppilaitosTunnus,
             item.replacingInfraStructure,
