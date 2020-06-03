@@ -290,6 +290,14 @@
         <source>Aiempia uutisia</source>
         <target>Previous news</target>
       </trans-unit>
+      <trans-unit id="disableTracking">
+        <source>Poista seuranta käytöstä</source>
+        <target>Disable tracking</target>
+      </trans-unit>
+      <trans-unit id="enableTracking">
+        <source>Ota seuranta käyttöön</source>
+        <target>Enable tracking</target>
+      </trans-unit>
       <trans-unit id="kbHelpHint">
         <source>Ohje näppäimistökäyttäjälle</source>
         <target>Keyboard user help</target>
@@ -1568,7 +1576,221 @@
                                 <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
                             <x id="CLOSE_TAG_MAT-TAB" ctype="x-mat-tab" equiv-text="&lt;/mat-tab&gt;"/>
                           </source>
-<target></target>
+        <target>
+                            <x id="START_TAG_MAT-TAB" ctype="x-mat-tab" equiv-text="&lt;mat-tab&gt;"/>
+                                <x id="START_TAG_DIV_1" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                    <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Privacy Policy<x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Published 24 April 2020<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Privacy notice of the Ministry of Education and Culture for data subjects<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Personal data processed in the Finnish Research Information Hub<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                    <x id="START_ORDERED_LIST" ctype="x-ol" equiv-text="&lt;ol&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                            <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>General information<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                            <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>This privacy notice includes information for the data subject (natural person) in accordance with Articles 13 and 14 of the EU General Data Protection Regulation (2016/679). 
+                                                to the data subject during the collection of personal data.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Controllers<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The Ministry of Education and Culture has agreed with Finnish research funders and research organizations on joint controllers, 
+                                                    who are responsible for disclosing information to the Research Information Hub. Joint controllers are each responsible for their own data in the Finnish Research Information Hub.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Ministry of Education and Culture
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Registry visiting address: Ritarikatu 2 b, Helsinki
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Mailing address: P.O. Box 29, 00023 GOVERNMENT, FINLAND
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Email: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Tel. +358 (0)295 16001 (Switchboard)<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/><x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a&gt;"/>List of other controllers acting as joint controllers and their contact details <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/><x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Data Protection Officer’s contact information<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Data Protection Officer of the Ministry of Education and Culture
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Email: <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a&gt;"/>okmtietosuojavastaava@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Postal address: Ministry of Education and Culture, P.O. Box 29, FI - 00023
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>GOVERNMENT, FINLAND<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Purposes of, categories of and legal bases for the processing of personal data<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>The purposes of personal data are:<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Publishing and finding information in the Research Information Hub.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Transmitting information contained in the Research Information Hub to parties that have a legal basis for processing it.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Management of login details of users of the service's websites <x id="START_LINK_3" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_4" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                            ja <x id="START_LINK_5" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> ), user statistics, and management of cookies needed to use the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Keeping statistics, performing analytics and management related to the use and development of the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Categories of personal data processed:<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Information on publications, research data, funding decisions, research infrastructures and scientific news submitted to the Finnish Research Information Hub as well as the researcher's first and last name, ORCID identifier and organization mentioned therein.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>IT management details, such as equipment details related to services provided, including technical identifiers, usernames, location, contact details, communication details and metadata, and technical events related to services provided, including system and application log data.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Legal bases for the processing of personal data:<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Government Act (175/2003)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Government Rules of Procedure (262/2003)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Government Decree on the Ministry of Education and Culture (310/2010<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Universities Act (558/2009)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Universities of Applied Sciences Act (932/2014)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                                <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The basis for processing information related to funding decisions is specific to the funder. The bases include the legitimate interest of the funder or the agreement or consent made or given in the funder's own service.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The processing and publication of personal data related to other data in the Finnish Research Information Hub shall be subject to the public interest in the assessment of legality<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Processors of personal data<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The processors of personal data are CSC - IT Center for Science Ltd and its subcontractors, who implement the development, maintenance and storage of the service on the basis of an agreement made with the Ministry of Education and Culture.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>In addition, metadata on publications, materials, funding decisions and infrastructures (incl. information on authors) contained in the Finnish Research Information Hub may be disclosed in individual cases, in accordance with the legislation in force to parties utilizing them, such as research organizations or funders.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Transfer of personal data to third countries or to international organizations<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The metadata of publications, research data, funding decisions and infrastructures (incl, information on authors) contained in the Finnish Research Information Hub may be disclosed to international organizations or actors in the field, both within and outside the EU/EEA, in accordance with current legislation. Other personal data is not disclosed outside the EU or the EEA.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Storage periods for personal data<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Personal data related to the data in the Finnish Research Information Hub will be stored for the time being in accordance with section 21 (1, 2) of the Information Management Act, unless otherwise stipulated in legislation on archiving or other statutes. <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The data retention period for publications, research data and other data that involve authors is based on subsections 1 and 2. Subsection 1 deals with other information. Information based on consent is retained for as long as the consent remains valid.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Data subject rights<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The following data subject rights are unconditional and in accordance with the General Data Protection Regulation:<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Right of inspection<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Data subjects have the right to inspect personal data concerning themselves in the Finnish Research Information Hub. In addition to requesting data protection, they may inspect the Finnish Research Information Hub's website 
+                                                    <x id="START_LINK_3" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_4" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> ja <x id="START_LINK_5" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                    
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Right to rectification<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Data subjects have the right to request rectification of their personal data stored in the Finnish Research Information Hub.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                    
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Right of appeal<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Data subjects have the right to file a complaint with the Data Protection Ombudsman if they believe that the processing of their personal data is not lawful. You can contact the Data Protection Ombudsman at: 
+                                                    <x id="START_LINK_6" ctype="x-a" equiv-text="&lt;a&gt;"/>https://tietosuoja.fi/en/contact-information <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                                                
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The following data subject rights under the GDPR are conditional and require the fulfillment of certain conditions: <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Right of erasure<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Data subjects may have the right to request the erasure of some data from the Finnish Research Information Hub if certain conditions are met. For example, if the data is processed on the basis of consent (part of the funding decision data).<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Right to restriction of processing<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>In certain situations, data subjects have the right to demand that the processing of personal data be restricted in the Finnish Research Information Hub. For example, in cases where they are needed for a legal claim.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+
+                                                    <x id="START_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;h4&gt;"/>Right to object<x id="CLOSE_HEADING_LEVEL4" ctype="x-h4" equiv-text="&lt;/h4&gt;"/>
+                                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Data subjects may have the right to object to the processing of their personal data. Objective is possible, for example, when personal data is processed on the basis of a legitimate interest (part of the funding decision data).<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Source(s) of personal data<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Finnish research organizations (universities, universities of applied sciences, research institutes, university hospitals) and research funders store data in the Finnish Research Information Hub. In addition, the Ministry of Education and Culture transfers data from external sources to the Finnish Research Information Hub (for example: The CORDIS database maintained by the EU). The source of personal data is specified on the websites of the Finnish Research Information Hub for each data item.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Each organization storing data in the Finnish Research Information Hub is responsible for the accuracy of the data it submits to the Research Information Hub.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>
+                                                <x id="START_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Protection of the processing of personal data<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                                <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>The Ministry of Education and Culture, as the technical administrator of the Research Information Hub, has implemented the necessary technical and organizational measures and also requires this from processors of personal data.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                            <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="CLOSE_ORDERED_LIST" ctype="x-ol" equiv-text="&lt;/ol&gt;"/>
+                                    <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                                        
+                            <x id="CLOSE_TAG_MAT-TAB" ctype="x-mat-tab" equiv-text="&lt;/mat-tab&gt;"/>
+                            <x id="START_TAG_MAT-TAB_1" ctype="x-mat-tab" equiv-text="&lt;mat-tab&gt;"/>
+                                <x id="START_TAG_DIV_1" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                    <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Cookie policy<x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Only essential cookies, which do not collect information on users, are used in the research.fi service.
+                                    <x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                    <x id="START_HEADING_LEVEL3_1" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Cookies<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Session cookie<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Name: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Size: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Role: This cookie consistently directs the user's network traffic in a server environment. The cookie facilitates the smooth operation of the service. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Session cookie<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Name: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Size: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Role: This cookie consistently directs the user's network traffic in a server environment. The cookie facilitates the smooth operation of the service. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                    
+                                    <x id="START_HEADING_LEVEL3_1" ctype="x-h3" equiv-text="&lt;h3&gt;"/>Seurantaevästeet<x id="CLOSE_HEADING_LEVEL3" ctype="x-h3" equiv-text="&lt;/h3&gt;"/>
+                                    <x id="START_PARAGRAPH" ctype="x-p" equiv-text="&lt;p&gt;"/>Seurantaevästeiden keräämää tietoa ei luovuteta kolmansille osapuolille.<x id="CLOSE_PARAGRAPH" ctype="x-p" equiv-text="&lt;/p&gt;"/>
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste (sessio)<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                            
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämän avulla kerätään anonymisoitua tietoa vierailusta verkkopalevlussa, kuten:
+                                            <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän IP-osoite vahvasti anonymisoidussa muodossa (käyttäjä ei ole tunnistettavissa)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ladatun sivun otsikko<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ladatun sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Pyynnön päivämäärä ja kellonaika<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Edellisen sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Päätelaitteen näytön resoluutio<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Kellenaika käyttäjän aikavyöhykkeellä<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ulosvievien linkkien klikkaukset<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Sivujen latausajat<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän selainohjelma<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän päätelaitteen tyyppi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Palvelun käytön aikaleimat (mihin kellonaikoihin palvelua käytetään)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Mistä palveluun saavutaan<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Miten palvelun osioiden välillä liikutaan ja mitä toimintoja tehdään<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Selainmen kieliasetus<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Selaimen &quot;User-Agent header&quot;<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                        <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
+                                            minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                                
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Matomo-eväste<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        
+                                    <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+
+                                    <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Browser cache usage:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+                                    The search terms you use in this web service's search function are stored in your browser's local & session cache. The purpose of this is to enhance the usability of the search function. If necessary, you can clear your search history directly from the search function:
+                                    <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>
+                                <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                            <x id="CLOSE_TAG_MAT-TAB" ctype="x-mat-tab" equiv-text="&lt;/mat-tab&gt;"/>
+                            <x id="START_TAG_MAT-TAB_2" ctype="x-mat-tab" equiv-text="&lt;mat-tab&gt;"/>
+                                <x id="START_TAG_DIV_1" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                    <x id="START_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;h2&gt;"/>Manage cookie settings<x id="CLOSE_HEADING_LEVEL2" ctype="x-h2" equiv-text="&lt;/h2&gt;"/>
+                                    <x id="START_TAG_DIV_3" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                        <x id="START_TAG_DIV_2" ctype="x-div" equiv-text="&lt;div&gt;"/>
+                                            <x id="START_TAG_BUTTON" ctype="x-button" equiv-text="&lt;button&gt;"/>
+                                                <x id="START_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;ng-container&gt;"/>Disable tracking<x id="CLOSE_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;/ng-container&gt;"/>
+                                            <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/>
+                                            <x id="START_TAG_BUTTON_1" ctype="x-button" equiv-text="&lt;button&gt;"/>
+                                                <x id="START_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;ng-container&gt;"/>Enable tracking<x id="CLOSE_TAG_NG-CONTAINER" ctype="x-ng-container" equiv-text="&lt;/ng-container&gt;"/>
+                                            <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/>
+                                            
+                                        <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                                    <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                                <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+                            <x id="CLOSE_TAG_MAT-TAB" ctype="x-mat-tab" equiv-text="&lt;/mat-tab&gt;"/>
+                          </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">24</context>
@@ -2911,6 +3133,691 @@
       <trans-unit id="figuresSearchPlaceholder">
         <source>Hae tilastoa...</source>
         <target>Search for a figure...</target>
+      </trans-unit>
+      <!-- Privacy -->
+      <trans-unit id="privacyPolicyHeader" datatype="html">
+        <source>Tietosuojailmoitus</source>
+        <target>Privacy Policy</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="published" datatype="html">
+        <source>Julkaistu 24.04.2020</source>
+        <target>Published 24 April 2020</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP1" datatype="html">
+        <source>Opetus- ja kulttuuriministeriön tietosuojailmoitus rekisteröidylle</source>
+        <target>Privacy notice of the Ministry of Education and Culture for data subjects</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP2" datatype="html">
+        <source>Tutkimustietovarannossa käsiteltävät henkilötiedot</source>
+        <target>Personal data processed in the Finnish Research Information Hub</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP3" datatype="html">
+        <source>Yleistä</source>
+        <target>General information</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP4" datatype="html">
+        <source>Tämä tietosuojailmoitus sisältää EU:n tietosuoja-asetuksen (EU) 679/2016 13 ja 14 artiklan mukaiset tiedot rekisteröidylle (luonnolliselle henkilölle). 
+                                                Tämä ilmoitus annetaan rekisteröidylle henkilötietoja kerättäessä.</source>
+        <target>This privacy notice includes information for the data subject (natural person) in accordance with Articles 13 and 14 of the EU General Data Protection Regulation (2016/679). This notice is provided to the data subject during the collection of personal data.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP5" datatype="html">
+        <source>Rekisterinpitäjät</source>
+        <target>Controllers</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP6" datatype="html">
+        <source>Opetus- ja kulttuuriministeriö on sopinut yhteisrekisterinpitäjyydestä suomalaisten tutkimusrahoittajien ja tutkimusorganisaatioiden kanssa, jotka luovuttavat 
+                                                    tietoja tutkimustietovarantoon. Yhteisrekisterinpitäjät vastaavat kukin omista tiedoistaan tutkimustietovarannossa.</source>
+        <target>The Ministry of Education and Culture has agreed with Finnish research funders and research organizations on joint controllers, who are responsible for disclosing information to the Research Information Hub. Joint controllers are each responsible for their own data in the Finnish Research Information Hub.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP7" datatype="html">
+        <source>Opetus- ja kulttuuriministeriö
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Kirjaamon käyntiosoite: Ritarikatu 2 b, Helsinki
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Postiosoite: PL 29, 00023 VALTIONEUVOSTO
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Sähköpostiosoite: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Puh. 0295 16001 (keskus)</source>
+        <target>Ministry of Education and Culture
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Registry visiting address: Ritarikatu 2 b, Helsinki
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Mailing address: P.O. Box 29, 00023 GOVERNMENT, FINLAND
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Email: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Tel. +358 (0)295 16001 (Switchboard)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP12" datatype="html">
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <target><x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>List of other controllers acting as joint controllers and their contact details <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP13" datatype="html">
+        <source>Tietosuojavastaavan yhteystiedot</source>
+        <target>Data Protection Officer’s contact information</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP14" datatype="html">
+        <source>Opetus- ja kulttuuriministeriön tietosuojavastaava
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Sähköpostiosoite: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>okmtietosuojavastaava@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Postiosoite: Opetus- ja kulttuuriministeriö, PL 29, 00023 VALTIONEUVOSTO</source>
+        <target>Data Protection Officer of the Ministry of Education and Culture
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Email: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>okmtietosuojavastaava@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                                                <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Postal address: Ministry of Education and Culture, P.O. Box 29, FI - 00023 GOVERNMENT, FINLAND</target>
+        
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP17" datatype="html">
+        <source>Henkilötietojen käsittelyn tarkoitukset, henkilötietoryhmät ja oikeusperusteet</source>
+        <target>Purposes of, categories of and legal bases for the processing of personal data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP18" datatype="html">
+        <source>Henkilötietojen käyttötarkoitukset ovat:</source>
+        <target>The purposes of personal data are:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP19" datatype="html">
+        <source>Tutkimustietovarannon sisältämien tietojen julkaiseminen ja selailu.</source>
+        <target>Publishing and finding information in the Research Information Hub.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP20" datatype="html">
+        <source>Tutkimustietovarannon sisältämien tietojen välittäminen tahoille, joilla on niihin lakisääteinen käsittelyperuste.</source>
+        <target>Transmitting information contained in the Research Information Hub to parties that have a legal basis for processing it.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP21" datatype="html">
+        <source>Palvelun verkkosivustojen <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                            ja <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> käyttäjien käyttölokitietojen hallinta, käyttäjätilastointi sekä palvelun käytössä tarvittavien evästeiden hallinta.</source>
+        <target>Management of login details of users of the service's websites <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 
+                                                            ja <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, user statistics, and management of cookies needed to use the service.</target>
+        
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP22" datatype="html">
+        <source>Palvelun käyttöön ja kehittämiseen liittyvä tilastointi, analytiikka ja hallinta.</source>
+        <target>Keeping statistics, performing analytics and management related to the use and development of the service.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP23" datatype="html">
+        <source>Käsiteltävät henkilötietoryhmät:</source>
+        <target>Categories of personal data processed:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP24" datatype="html">
+        <source>Tutkimustietovarantoon toimitettujen julkaisujen, tutkimusaineistojen, rahoituspäätösten, tutkimusinfrastruktuurien ja tiedeuutisten tiedot sekä niissä mainitut tutkijan etu- 
+                                                            ja sukunimi, ORCID-tunniste sekä organisaatio.</source>
+        <target>Information on publications, research data, funding decisions, research infrastructures and scientific news submitted to the Finnish Research Information Hub as well as the researcher's first and last name, ORCID identifier and organization mentioned therein.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP25" datatype="html">
+        <source>IT-hallintatiedot kuten laitteistojen tiedot liittyen tarjottuihin palveluihin, mukaan lukien tekniset tunnisteet, sijainti, yhteystiedot, viestintätiedot ja metatieto 
+                                                            ja tekniset tapahtumat, jotka liittyvät tarjottuihin palveluihin mukaan lukien järjestelmä- ja sovelluslokitiedot.</source>
+        <target>IT management details, such as equipment details related to services provided, including technical identifiers, usernames, location, contact details, communication details and metadata, and technical events related to services provided, including system and application log data.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP26_1" datatype="html">
+        <source>Henkilötietojen käsittelyn oikeusperusteet:</source>
+        <target>Legal bases for the processing of personal data:</target>
+      </trans-unit>
+      <trans-unit id="PP26" datatype="html">
+        <source>Laki valtioneuvostosta (175/2003)</source>
+        <target>Government Act (175/2003)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP27" datatype="html">
+        <source>Valtioneuvoston ohjesääntö (262/2003)</source>
+        <target>Government Rules of Procedure (262/2003)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP28" datatype="html">
+        <source>Valtioneuvoston asetus opetus- ja kulttuuriministeriöstä (310/2010)</source>
+        <target>Government Decree on the Ministry of Education and Culture (310/2010)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP29" datatype="html">
+        <source>Yliopistolaki (558/2009)</source>
+        <target>Universities Act (558/2009)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP30" datatype="html">
+        <source>Ammattikorkeakoululaki (932/2014)</source>
+        <target>Universities of Applied Sciences Act (932/2014)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP31" datatype="html">
+        <source>Rahoituspäätöksiin liittyvien tietojen käsittelyn peruste on rahoittajakohtainen. Perusteita ovat rahoittajan oikeutettu etu taikka rahoittajan omassa palvelussa tehty tai annettu sopimus tai suostumus.</source>
+        <target>The basis for processing information related to funding decisions is specific to the funder. The bases include the legitimate interest of the funder or the agreement or consent made or given in the funder's own service.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP32" datatype="html">
+        <source>Muihin tutkimustietovarannon tietoihin liittyvien henkilötietojen käsittelyyn ja niiden julkaisemiseen sovelletaan lainmukaisuuden arvioinnissa yleistä etua.</source>
+        <target>The processing and publication of personal data related to other data in the Finnish Research Information Hub shall be subject to the public interest in the assessment of legality.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP33" datatype="html">
+        <source>Henkilötietojen käsittelijät</source>
+        <target>Processors of personal data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP34" datatype="html">
+        <source>Henkilötietojen käsittelijöitä ovat CSC - Tieteen tietotekniikan keskus Oy ja sen alihankkijat, jotka toteuttavat opetus- ja kulttuuriministeriön kanssa tehtyyn sopimukseen perustuen palvelun kehitystä, ylläpitoa ja säilytystä.</source>
+        <target>The processors of personal data are CSC - IT Center for Science Ltd and its subcontractors, who implement the development, maintenance and storage of the service on the basis of an agreement made with the Ministry of Education and Culture.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP35" datatype="html">
+        <source>Lisäksi tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijöiden tiedot) voidaan luovuttaa yksittäistapauksissa voimassaolevan 
+                                                    lainsäädännön mukaisesti niitä hyödyntäville tahoille, kuten tutkimusorganisaatioille tai -rahoittajille.</source>
+        <target>In addition, metadata on publications, materials, funding decisions and infrastructures (incl. information on authors) contained in the Finnish Research Information Hub may be disclosed in individual cases, in accordance with the legislation in force to parties utilizing them, such as research organizations or funders.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP36" datatype="html">
+        <source>Henkilötietojen siirtäminen kolmansiin maihin tai kansainvälisille järjestöille</source>
+        <target>Transfer of personal data to third countries or to international organizations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP37" datatype="html">
+        <source>Tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijätiedot) voidaan luovuttaa voimassaolevan lainsäädännön mukaisesti kansainvälisille järjestöille tai 
+                                                    alan toimijoille niin EU/ETA-alueella kuin niiden ulkopuolella. Muita henkilötietoja ei luovuteta EU/ETA-alueen ulkopuolelle.</source>
+        <target>The metadata of publications, research data, funding decisions and infrastructures (incl, information on authors) contained in the Finnish Research Information Hub may be disclosed to international organizations or actors in the field, both within and outside the EU/EEA, in accordance with current legislation. Other personal data is not disclosed outside the EU or the EEA.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP38" datatype="html">
+        <source>Henkilötietojen säilyttämisajat</source>
+        <target>Storage periods for personal data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP39" datatype="html">
+        <source>Tutkimustietovarannon tietoihin liittyviä henkilötietoja säilytetään toistaiseksi tiedonhallintalain 21 § kohdan 1 ja 2 mukaisesti ellei arkistointia koskevasta lainsäädännöstä tai muista säädöksistä muuta johdu. </source>
+        <target>Personal data related to the data in the Finnish Research Information Hub will be stored for the time being in accordance with section 21 (1, 2) of the Information Management Act, unless otherwise stipulated in legislation on archiving or other statutes.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP40" datatype="html">
+        <source>Julkaisujen, tutkimusaineistojen ja muiden tietoaineistojen, joihin liittyy tekijyyksiä, tietojen säilytysaika pohjautuu kohtiin 1 ja 2. Muiden tietojen osalta kohtaan 1. Suostumukseen perustuvia tietoja säilytetään niin kauan kuin suostumus on voimassa.</source>
+        <target>The data retention period for publications, research data and other data that involve authors is based on subsections 1 and 2. Subsection 1 deals with other information. Information based on consent is retained for as long as the consent remains valid.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP41" datatype="html">
+        <source>Rekisteröidyn oikeudet</source>
+        <target>Data subject rights</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP42" datatype="html">
+        <source>Seuraavat rekisteröidyn oikeudet ovat ehdottomia ja seuraavat tietosuoja-asetuksesta:</source>
+        <target>The following data subject rights are unconditional and in accordance with the General Data Protection Regulation:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP43" datatype="html">
+        <source>Tarkastusoikeus</source>
+        <target>Right of inspection</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP44" datatype="html">
+        <source>Rekisteröidyllä on oikeus tarkastaa tutkimustietovarannossa itseään koskevat henkilötiedot. Tietosuojapyynnön lisäksi ne voi tarkastaa tutkimustietovarannon verkkosivustolta 
+                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> ja <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.</source>
+        <target>Data subjects have the right to inspect personal data concerning themselves in the Finnish Research Information Hub. In addition to requesting data protection, they may inspect the Finnish Research Information Hub's website
+                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a&gt;"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> ja <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a&gt;"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.</target>
+        
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP45" datatype="html">
+        <source>Oikeus oikaisuun</source>
+        <target>Right to rectification</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP46" datatype="html">
+        <source>Rekisteröidyllä on oikeus pyytää oikaisemaan tutkimustietovarantoon tallennetut virheelliset tai epätarkat henkilötiedot.</source>
+        <target>Data subjects have the right to request rectification of their personal data stored in the Finnish Research Information Hub.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP47" datatype="html">
+        <source>Valitusoikeus</source>
+        <target>Right of appeal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP48" datatype="html">
+        <source>Rekisteröidyllä on oikeus jättää valitus tietosuojavaltuutetulle, jos hän katsoo, ettei henkilötietojen käsittely ole lainmukaista. Tietosuojavaltuutettuun saa yhteyden täältä: 
+                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>https://tietosuoja.fi/yhteystiedot <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.</source>
+        <target>Data subjects have the right to file a complaint with the Data Protection Ombudsman if they believe that the processing of their personal data is not lawful. You can contact the Data Protection Ombudsman at: 
+                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>https://tietosuoja.fi/en/contact-information <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>.</target>
+        
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP49" datatype="html">
+        <source>Seuraavat tietosuoja-asetuksen mukaiset rekisteröidyn oikeudet ovat ehdollisia ja edellyttävät tiettyjen ehtojen täyttymistä: </source>
+        <target>The following data subject rights under the GDPR are conditional and require the fulfillment of certain conditions:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP50" datatype="html">
+        <source>Henkilötietojen poistaminen</source>
+        <target>Right of erasure</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP51" datatype="html">
+        <source>Rekisteröidyllä voi olla oikeus vaatia joidenkin tietojen poistamista tutkimustietovarannosta, jos tietyt ehdot täyttyvät. Esimerkiksi, jos tietoja käsitellään suostumuksen perusteella (osa rahoituspäätöstiedoista).</source>
+        <target>Data subjects may have the right to request the erasure of some data from the Finnish Research Information Hub if certain conditions are met. For example, if the data is processed on the basis of consent (part of the funding decision data).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP52" datatype="html">
+        <source>Käsittelyn rajoittaminen</source>
+        <target>Right to restriction of processing</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP53" datatype="html">
+        <source>Tietyissä tilanteissa rekisteröidyllä on oikeus vaatia henkilötietojen käsittelyn rajoittamista tutkimustietovarannossa. Esimerkiksi tarvitessaan niitä oikeudellista vaadetta varten.</source>
+        <target>In certain situations, data subjects have the right to demand that the processing of personal data be restricted in the Finnish Research Information Hub. For example, in cases where they are needed for a legal claim.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP54" datatype="html">
+        <source>Käsittelyn vastustaminen</source>
+        <target>Right to object</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP55" datatype="html">
+        <source>Rekisteröidyllä voi olla oikeus vastustaa henkilötietojen käsittelyä. Vastustaminen on mahdollista esimerkiksi silloin, kun henkilötietoja käsitellään oikeutettuun etuun perustuen (osa rahoituspäätöstiedoista).</source>
+        <target>Data subjects may have the right to object to the processing of their personal data. Objective is possible, for example, when personal data is processed on the basis of a legitimate interest (part of the funding decision data).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP56" datatype="html">
+        <source>Henkilötietojen lähde/lähteet</source>
+        <target>Source(s) of personal data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP57" datatype="html">
+        <source>Tutkimustietovarannossa säilyttävät tietoja suomalaiset tutkimusorganisaatiot (yliopistot, ammattikorkeakoulut, tutkimuslaitokset, yliopistolliset sairaalat) sekä tutkimuksen rahoittajat. Lisäksi opetus- ja 
+                                                    kulttuuriministeriö siirtää tutkimustietovarantoon tietoja ulkoisista lähteistä (esimerkiksi EU:n ylläpitämä CORDIS-tietokanta). Henkilötiedon lähde on mainittu tutkimustietovarannon verkkosivustoilla kunkin tiedon kohdalla.</source>
+        <target>Finnish research organizations (universities, universities of applied sciences, research institutes, university hospitals) and research funders store data in the Finnish Research Information Hub. In addition, the Ministry of Education and Culture transfers data from external sources to the Finnish Research Information Hub (for example: The CORDIS database maintained by the EU). The source of personal data is specified on the websites of the Finnish Research Information Hub for each data item.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP58" datatype="html">
+        <source>Kukin tutkimustietovarannossa tietoja säilyttävä organisaatio vastaa tutkimustietovarantoon toimittamiensa tietojen oikeellisuudesta.</source>
+        <target>Each organization storing data in the Finnish Research Information Hub is responsible for the accuracy of the data it submits to the Research Information Hub.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">134</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PP59" datatype="html">
+        <source>Henkilötietojen käsittelyn suojaaminen</source>
+        <target>Protection of the processing of personal data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pp60" datatype="html">
+        <source>Opetus- ja kulttuuriministeriö tutkimustietovarannon teknisenä ylläpitäjänä on toteuttanut tarvittavat tekniset ja organisatoriset toimet sekä vaatii sitä myös henkilötietojen käsittelijöiltä.</source>
+        <target>The Ministry of Education and Culture, as the technical administrator of the Research Information Hub, has implemented the necessary technical and organizational measures and also requires this from processors of personal data.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cookiePolicyHeader" datatype="html">
+        <source>Evästekäytännöt</source>
+        <target>Cookie policy</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">146</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP1" datatype="html">
+        <source>Verkkopalvelu hyödyntää välttämättömien evästeiden lisäksi myös seurantaevästeitä, joiden avulla kerätään anonymisoitua tietoa palvelun käytöstä.
+                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Käytämme kerättyä tietoa palvelun kehittämiseen ja käyttökokemuksen parantamiseen.
+                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Palvelussa käytetään ensimmäisen osapuolen evästeitä ja seurantaevästeiden avulla kerättyä anonymisoitua käyttöjäanalytiikkaa ei välitetä eteenpäin kolmansille osapuolille.
+                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Voit aina halutessasi <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>kytkeä evästeet pois päästä tietosuojasivulla.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+                                    </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">147</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP2" datatype="html">
+        <source>Välttämättömät evästeet</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP3" datatype="html">
+        <source>Sessioeväste</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP4" datatype="html">
+        <source>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                    </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP5" datatype="html">
+        <source>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                    </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP6" datatype="html">
+        <source>Seurantaevästeet</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP7" datatype="html">
+        <source>Seurantaevästeiden keräämää tietoa ei luovuteta kolmansille osapuolille.</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP8" datatype="html">
+        <source>Matomo-eväste (sessio)</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP9" datatype="html">
+        <source>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                    </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CPMatomo" datatype="html">
+        <source>Matomo-eväste</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">206</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP10" datatype="html">
+        <source>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Tämän avulla kerätään anonymisoitua tietoa vierailusta verkkopalvelussa, kuten:
+                                            <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän IP-osoite vahvasti anonymisoidussa muodossa (käyttäjä ei ole tunnistettavissa)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ladatun sivun otsikko<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ladatun sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Pyynnön päivämäärä ja kellonaika<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Edellisen sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Päätelaitteen näytön resoluutio<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Kellonaika käyttäjän aikavyöhykkeellä<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Ulosvievien linkkien klikkaukset<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Sivujen latausajat<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän selainohjelma<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Käyttäjän päätelaitteen tyyppi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Palvelun käytön aikaleimat (mihin kellonaikoihin palvelua käytetään)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Mistä palveluun saavutaan<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Miten palvelun osioiden välillä liikutaan ja mitä toimintoja tehdään<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Selaimen kieliasetus<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Selaimen &quot;User-Agent header&quot;<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                            <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul&gt;"/>
+                                        <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
+                                            minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                    </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">178</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP13" datatype="html">
+        <source>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantaevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        
+                                    </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP14" datatype="html">
+        <source>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Nimi: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Koko: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/>    
+                                        
+                                    </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">216</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CP15" datatype="html">
+        <source>Selaimen välimuistiin tallennetaan</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">224</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CMHeader" datatype="html">
+        <source>Hallinnoi evästeasetuksia</source>
+        <target>Manage cookies</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">231</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">229</context>
+        </context-group>
       </trans-unit>
     </body>
   </file>
