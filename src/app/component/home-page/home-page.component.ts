@@ -45,7 +45,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   shortcuts = [
     {
-      title: 'Lukuja tieteestä ja tutkimukseta',
+      title: 'Lukuja tieteestä ja tutkimuksesta',
       caption: 'Tutustu tilastoihin tutkimuksen henkilöstöstä, rahoituksesta ja julkaisutoiminnasta',
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
