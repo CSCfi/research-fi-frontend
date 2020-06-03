@@ -179,9 +179,9 @@
                 <mat-card>
                     <mat-card-title><h2>Infrastruktuuritiedon lähde</h2></mat-card-title>
                     <div *ngFor="let source of [responseData.infrastructures[0]]">
-                        <p *ngIf="source.responsibleOrganization?.trim().length > 0; else noSource">
+                        <a *ngIf="source.responsibleOrganization?.trim().length > 0; else noSource" routerLink="/results/organization/{{source.responsibleOrganizationId}}">
                             {{source.responsibleOrganization}}
-                        </p>
+                        </a>
                         <ng-template #noSource>
                             <p class="font-italic m-0">Infrastruktuuritiedon lähde puuttuu.</p>
                         </ng-template>

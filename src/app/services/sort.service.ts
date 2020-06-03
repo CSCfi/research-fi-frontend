@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable  } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
 import { SearchService } from './search.service';
 
 @Injectable({
@@ -19,8 +19,11 @@ export class SortService {
   sortColumn: string;
   sortDirection: boolean;
   searchTerm = '';
+  localeC: string;
 
-  constructor() { }
+  constructor(@Inject( LOCALE_ID ) protected localeId: string) {
+    this.localeC = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   // If term is available, default sort changes
   getTerm(term) {
@@ -111,7 +114,14 @@ export class SortService {
             break;
           }
           case 'funded': {
-            this.sort = [{'fundedNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const personSortString = 'fundingGroupPerson.consortiumOrganizationName' + this.localeC + '.keyword';
+            const organizationSortString = 'organizationConsortium.consortiumOrganizationName' + this.localeC + '.keyword';
+            this.sort = [
+              {[personSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}},
+              {'fundingGroupPerson.fundingGroupPersonFirstNames.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}},
+              {'fundingGroupPerson.fundingGroupPersonLastName.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}},
+              {[organizationSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}
+            ];
             break;
           }
           case 'year': {
@@ -137,11 +147,13 @@ export class SortService {
             break;
           }
           case 'name': {
-            this.sort = [{'name.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'organization': {
-            this.sort = [{'responsibleOrganizationNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           // case 'sector': {
