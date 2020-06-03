@@ -71,7 +71,7 @@ export class FilterService {
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
     // Funding
-    this.funderFilter = this.basicFilter(filter.funder, 'funderName' + this.localeC + '.keyword');
+    this.funderFilter = this.basicFilter(filter.funder, 'funderNameFi.keyword');
     this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword');
     this.fundingSchemeFilter = this.basicFilter(filter.scheme, 'keywords.scheme.keyword');
     this.statusFilter = this.filterByStatus(filter.fundingStatus);
@@ -626,7 +626,7 @@ export class FilterService {
           aggs: {
             funders: {
               terms: {
-                field: 'funderName.keyword',
+                field: 'funderNameFi.keyword',
                 size: 250,
                 order: {
                   _key: 'asc'
