@@ -31,19 +31,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   activeFilters = [];
 
   translations = {
-    onGoing: 'Käynnissä',
-    ended: 'Päättynyt',
-    true: 'Kansainvälinen yhteisjulkaisu',
-    noAccessInfo: 'Ei tietoa',
-    openAccess: 'Open Access -lehti',
-    nonOpen: 'Ei avoin',
-    noVal: 'Ei arviota',
-    otherOpen: 'Muu avoin saatavuus',
-    noOpenAccessData: 'Ei tietoa',
-    selfArchived: 'Rinnakkaistallennettu',
-    undefined: 'Ei tiedossa',
-    over100k: 'Rahoitus yli 100 000€',
-    under100k: 'Rahoitus alle 100 000€'
+    true: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
+    noAccessInfo: $localize`:@@noInfo:Ei tietoa`,
+    openAccess: $localize`:@@openAccessJournal:Open Access -lehti`,
+    nonOpen: $localize`:@@nonOpen:Ei avoin`,
+    noVal: $localize`:@@noRating:Ei arviota`,
+    otherOpen: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
+    noOpenAccessData: $localize`:@@noInfo:Ei tietoa`,
+    selfArchived: $localize`:@@selfArchived:Rinnakkaistallennettu`,
+    undefined: $localize`:@@notKnown:Ei tiedossa`,
   };
   filterResponse: any;
   tabFilters: any;
@@ -159,13 +155,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 val.translation = this.yearRange + this.fromYear + ' - ' + this.toYear;
                 val.warning = yearWarning ? true : false;
               } else if (this.fromYear) {
-                val.translation = this.yearRange + this.fromYear + ' alkaen';
+                val.translation = this.yearRange + this.fromYear + $localize`:@@yearFrom: alkaen`;
                 val.warning = yearWarning ? true : false;
               }
             }
 
             if (val.category === 'toYear') {
-              val.translation = this.yearRange + this.toYear + ' päättyen';
+              val.translation = this.yearRange + this.toYear + $localize`:@@yearTo: päättyen`;
               val.warning = yearWarning ? true : false;
               if (this.fromYear && this.toYear) {
                 val.hide = true;
@@ -250,11 +246,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'countryCode' && source.countryCode) {
               switch (val.value) {
                 case 'c0': {
-                  val.translation = 'Julkaisumaa: Suomi';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Suomi';
                   break;
                 }
                 case 'c1': {
-                  val.translation = 'Julkaisumaa: Muut';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Muut';
                   break;
                 }
               }
@@ -263,19 +259,19 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'juFo' && source.juFo) {
               switch (val.value) {
                 case 'j3': {
-                  val.translation = 'Julkaisufoorumitaso: 3';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 3';
                   break;
                 }
                 case 'j2': {
-                  val.translation = 'Julkaisufoorumitaso: 2';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 2';
                   break;
                 }
                 case 'j1': {
-                  val.translation = 'Julkaisufoorumitaso: 1';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 1';
                   break;
                 }
                 case 'j0': {
-                  val.translation = 'Julkaisufoorumitaso: 0';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 0';
                   break;
                 }
               }

@@ -33,7 +33,7 @@
                                         {{item[row.field]}}
                                     </p>
                                     <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
-                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
+                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
                                </div>
                             </div>
                          </ng-container>
@@ -54,7 +54,7 @@
                                                     {{service[row.field]}}
                                                 </p>
                                                 <a href="javascript:void(0)" class="read-more" *ngIf="service[row.field]?.length > 256" 
-                                                    (click)="expandServiceDescription(serviceExpandId(i, j))" [innerHTML]="serviceExpand[serviceExpandId(i, j)] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
+                                                    (click)="expandServiceDescription(serviceExpandId(i, j))" [innerHTML]="serviceExpand[serviceExpandId(i, j)] ? showLess : showMore"></a>    
                                             </div>
                                         </ng-container>
                                     </div>
@@ -95,7 +95,7 @@
                                         {{item[row.field]}}
                                     </p>
                                     <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
-                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
+                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
                                </div>
                             </div>
                          </ng-container>
@@ -133,7 +133,7 @@
                                         {{item[row.field]}}
                                     </p>
                                     <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
-                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? 'Näytä vähemmän' : 'Näytä enemmän'"></a>    
+                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
                                </div>
                             </div>
                          </ng-container>

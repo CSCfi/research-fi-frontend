@@ -87,6 +87,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   funderFields: any[];
   currentLocale: string;
   tabData: any;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,

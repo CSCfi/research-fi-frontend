@@ -124,7 +124,7 @@
                     <!-- Shor more / Less -->
                     <div *ngIf="responseData.aggregations[filter.field]?.buckets?.length > defaultOpen" class="button-wrapper">
                         <button [disabled]="(showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen) >= responseData.aggregations[filter.field]?.buckets?.length" 
-                            mat-button class="show-more" (click)="showMore(filter.field)" i18n="@@showMore">Näytä lisää</button>
+                            mat-button class="show-more" (click)="showMore(filter.field)" i18n="@@showMore">Näytä enemmän</button>
                         <button [disabled]="!(showMoreCount[filter.field] && showMoreCount[filter.field].count > defaultOpen)" mat-button class="show-more"
                             (click)="showLess(filter.field)" i18n="@@showLess">Näytä vähemmän</button>
                     </div>
@@ -171,7 +171,7 @@
                             <!-- Shor more / Less -->
                             <div *ngIf="item.subData?.length > defaultOpen" class="button-wrapper">
                                 <button [disabled]="(showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen) >= item.subData?.length" mat-button class="show-more"
-                                    (click)="showMore(item.key)" i18n="@@showMore">Näytä lisää</button>
+                                    (click)="showMore(item.key)" i18n="@@showMore">Näytä enemmän</button>
                                 <button [disabled]="!(showMoreCount[item.key] && showMoreCount[item.key].count > defaultOpen)" mat-button class="show-more"
                                     (click)="showLess(item.key)" i18n="@@showLess">Näytä vähemmän</button>
                             </div>

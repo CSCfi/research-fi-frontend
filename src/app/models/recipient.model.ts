@@ -5,7 +5,7 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient-organization.model';
 
@@ -30,8 +30,10 @@ export class Recipient {
     providedIn: 'root'
 })
 export class RecipientAdapter implements Adapter<Recipient> {
-    constructor(private roa: RecipientOrganizationAdapter) {}
+    constructor(private roa: RecipientOrganizationAdapter, @Inject( LOCALE_ID ) protected localeId: string) {}
     adapt(item: any): Recipient {
+        // Change locale to field name format
+        const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in funding results component
@@ -52,7 +54,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                     // Check for finnish business ID identifier
                     (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
                     x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
-                    .map(x => x.consortiumOrganizationNameFi.trim()).join('; ');
+                    .map(x => x['consortiumOrganizationName' + capitalizedLocale].trim()).join('; ');
             }
         // Check that a finnish organization is found
         } else if (item.fundingGroupPerson && item.fundingGroupPerson.find
@@ -65,13 +67,13 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 if (person) {
                     combined = person.fundingGroupPersonLastName ?
                     person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName + ', '
-                    + person.consortiumOrganizationNameFi : person.consortiumOrganizationNameFi;
+                    + person['consortiumOrganizationName' + capitalizedLocale] : person['consortiumOrganizationName' + capitalizedLocale];
                 } else {
                     // If no match with funderProjectNumber
                     combined = item.fundingGroupPerson?.map(x =>
                         x.fundingGroupPersonLastName.trim().length > 0 ? x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName
-                        + (x.consortiumOrganizationNameFi.trim().length > 0 ? ', ' + x.consortiumOrganizationNameFi.trim() : null) :
-                        x.consortiumOrganizationNameFi.trim()).join('; ');
+                        + (x['consortiumOrganizationName' + capitalizedLocale].trim().length > 0 ? ', ' + x['consortiumOrganizationName' + capitalizedLocale].trim() : null) :
+                        x['consortiumOrganizationName' + capitalizedLocale].trim()).join('; ');
                 }
         // If no match with Finnish organization
         } else if (item.recipientType === 'person') {
@@ -80,7 +82,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
             } else if (item.organizationConsortium) {
                 combined = item.organizationConsortium.filter(x => !x.countryCode || x.countryCode === 'FI')
-                .map(x => x.consortiumOrganizationNameFi).join('; ');
+                .map(x => x['consortiumOrganizationName' + capitalizedLocale]).join('; ');
             }
         } else {
             combined = '-';
@@ -89,7 +91,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
             recipientObj?.fundingGroupPersonOrcid,
-            recipientObj?.consortiumOrganizationNameFi, // affiliation
+            recipientObj ? recipientObj['consortiumOrganizationName' + capitalizedLocale] : undefined, // affiliation
             recipientObj?.consortiumOrganizationNameFi, // organizationName
             recipientObj?.consortiumOrganizationId,
             recipientObj?.shareOfFundingInEur,

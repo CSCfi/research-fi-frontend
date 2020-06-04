@@ -54,10 +54,10 @@
                     </a>
                     <div class="row">
                         <div class="col pl-0">
-                            <span>Palveluita: {{infra.services.length}}</span>
+                            <span><ng-container i18n="@@infraServicesLabel">Palveluita</ng-container>: {{infra.services.length}}</span>
                         </div>
                         <div class="col" *ngIf="infra.finlandRoadmap">
-                            <span>Tiekartalla <fa-icon class="check-icon" [icon]="faCheckCircle"></fa-icon></span>
+                            <span><ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container><fa-icon class="check-icon pl-1" [icon]="faCheckCircle"></fa-icon></span>
                         </div>
                     </div>
                 </div>          

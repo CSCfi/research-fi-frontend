@@ -74,8 +74,6 @@ export class FilterService {
     this.funderFilter = this.basicFilter(filter.funder, 'funderNameFi.keyword');
     this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword');
     this.fundingSchemeFilter = this.basicFilter(filter.scheme, 'keywords.scheme.keyword');
-    this.statusFilter = this.filterByStatus(filter.fundingStatus);
-    this.fundingAmountFilter = this.filterByFundingAmount(filter.fundingAmount);
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword');
     // Infrastructure
     this.typeFilter = this.basicFilter(filter.type, 'services.serviceType.keyword');
@@ -225,23 +223,6 @@ export class FilterService {
       }
     }
     return res;
-  }
-
-  // Start & end date filtering
-  filterByStatus(status: string) {
-    this.today = new Date().toISOString().substr(0, 10).replace('T', ' ');
-    let statusFilter = {};
-    switch (JSON.stringify(status)) {
-      case '["onGoing"]': {
-        statusFilter = { range: { fundingEndDate: {gte : this.today } } };
-        break;
-      }
-      default: {
-        statusFilter = undefined;
-        break;
-      }
-    }
-    return statusFilter;
   }
 
   // Sector
@@ -841,6 +822,7 @@ export class FilterService {
               terms: {
                 field: 'keywords.keyword.keyword',
                 size: 50,
+                exclude: ' '
               }
             }
           }

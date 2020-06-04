@@ -29,59 +29,87 @@
             "subtitleEn": "Universities",
             "organizations": [
                 {
-                    "name": "Aalto-yliopisto",
+                    "nameFi": "Aalto-yliopisto",
+                    "nameEn": "Aalto University",
+                    "nameSV": "Aalto-universitetet",
                     "id": "10076"
                 },
                 {
-                    "name": "Helsingin yliopisto",
+                    "nameFi": "Helsingin yliopisto",
+                    "nameEn": "Helsinki University",
+                    "nameSV": "Helsingfors universitet",
                     "id": "01901"
                 },
                 {
-                    "name": "Itä-Suomen yliopisto",
+                    "nameFi": "Itä-Suomen yliopisto",
+                    "nameEn": "University of Eastern Finland",
+                    "nameSv": "Östra Finlands universitet",
                     "id": "10088"
                 },
                 {
-                    "name": "Jyväskylän yliopisto",
+                    "nameFi": "Jyväskylän yliopisto",
+                    "nameEn": "University of Jyväskylä",
+                    "nameSV": "Jyväskylä universitet",
                     "id": "01906"
                 },
                 {
-                    "name": "Lapin yliopisto",
+                    "nameFi": "Lapin yliopisto",
+                    "nameEn": "University of Lapland",
+                    "nameSV": "Lapplands universitet",
                     "id": "01918"
                 },
                 {
-                    "name": "Lappeenrannan teknillinen yliopisto",
+                    "nameFi": "Lappeenrannan teknillinen yliopisto",
+                    "nameEn": "Lappeenranta University of Technology",
+                    "nameSV": "Lappeenranta University of Technology",
                     "id": "01914"
                 },
                 {
-                    "name": "Maanpuolustuskorkeakoulu",
+                    "nameFi": "Maanpuolustuskorkeakoulu",
+                    "nameEn": "National Defence University",
+                    "nameSV": "Försvarshögskolan",
                     "id": "02358"
                 },
                 {
-                    "name": "Oulun yliopisto",
+                    "nameFi": "Oulun yliopisto",
+                    "nameEn": "University of Oulu",
+                    "nameSV": "Uleåborgs universitet",
                     "id": "01904"
                 },
                 {
-                    "name": "Svenska handelshögskolan",
+                    "nameFi": "Svenska handelshögskolan",
+                    "nameEn": "Swedish School of Economics and Business Administration",
+                    "nameSV": "Svenska handelshögskolan",
                     "id": "01910"
                 },
                 {
-                    "name": "Taideyliopisto",
+                    "nameFi": "Taideyliopisto",
+                    "nameEn": "University of the Arts Helsinki",
+                    "nameSV": "Konstuniversitetet",
                     "id": "10103"
                 },
                 {
-                    "name": "Tampereen yliopisto",
+                    "nameFi": "Tampereen yliopisto",
+                    "nameEn": "Tampere University",
+                    "nameSV": "Tampere University",
                     "id": "10122"
                 },
                 {
-                    "name": "Turun yliopisto",
+                    "nameFi": "Turun yliopisto",
+                    "nameEn": "University of Turku",
+                    "nameSV": "Åbo Universitet",
                     "id": "10089"
                 },
                 {
-                    "name": "Vaasan yliopisto",
+                    "nameFi": "Vaasan yliopisto",
+                    "nameEn": "University of Vaasa",
+                    "nameSV": "Vasa universitet",
                     "id": "01913"
                 },
                 {
-                    "name": "Åbo Akademi",
+                    "nameFi": "Åbo Akademi",
+                    "nameEn": "University of Åbo",
+                    "nameSV": "Åbo Akademi",
                     "id": "01903"
                 }
             ]
@@ -99,99 +127,141 @@
             "subtitleEn": "Universities of applied sciences",
             "organizations": [
                 {
-                    "name": "Centria-ammattikorkeakoulu",
+                    "nameFi": "Centria-ammattikorkeakoulu",
+                    "nameEn": "Centria University of Applied Sciences",
+                    "nameSV": "Centria yrkeshögskola",
                     "id": "02536"
                 },
                 {
-                    "name": "Diakonia ammattikorkeakoulu",
+                    "nameFi": "Diakonia ammattikorkeakoulu",
+                    "nameEn": "Diaconia University of Applied Sciences",
+                    "nameSV": "Diakoniyrkeshögskolan",
                     "id": "02624"
                 },
                 {
-                    "name": "Haaga-Helia ammattikorkeakoulu",
+                    "nameFi": "Haaga-Helia ammattikorkeakoulu",
+                    "nameEn": "Haaga-Helia University of Applied Sciences",
+                    "nameSV": "Haaga-Helia yrkeshögskola",
                     "id": "10056"
                 },
                 {
-                    "name": "Humanistinen ammattikorkeakoulu",
+                    "nameFi": "Humanistinen ammattikorkeakoulu",
+                    "nameEn": "Humanities Polytechnic;HUMAK University of Applied Sciences",
+                    "nameSV": "Humanistiska yrkeshögskolan",
                     "id": "02631"
                 },
                 {
-                    "name": "Hämeen ammattikorkeakoulu",
+                    "nameFi": "Hämeen ammattikorkeakoulu",
+                    "nameEn": "Häme University of Applied Sciences",
+                    "nameSV": "Fachhochschule Häme",
                     "id": "02467"
                 },
                 {
-                    "name": "Jyväskylän ammattikorkeakoulu",
+                    "nameFi": "Jyväskylän ammattikorkeakoulu",
+                    "nameEn": "Jyväskylä University of Applied Sciences",
+                    "nameSV": "Jyväskylä University of Applied Sciences",
                     "id": "02504"
                 },
                 {
-                    "name": "Kaakkois-Suomen ammattikorkeakoulu",
+                    "nameFi": "Kaakkois-Suomen ammattikorkeakoulu",
+                    "nameEn": "South-Eastern Finland University of Applied Sciences",
+                    "nameSV": "South-Eastern Finland University of Applied Sciences",
                     "id": "10118"
                 },
                 {
-                    "name": "Kajaanin ammattikorkeakoulu",
+                    "nameFi": "Kajaanin ammattikorkeakoulu",
+                    "nameEn": "Kajaani Polytechnic",
+                    "nameSV": "Kajaani Polytechnic",
                     "id": "02473"
                 },
                 {
-                    "name": "Karelia ammattikorkeakoulu",
+                    "nameFi": "Karelia ammattikorkeakoulu",
+                    "nameEn": "Karelia University of Applied Sciences",
+                    "nameSV": "Karelia University of Applied Sciences",
                     "id": "20469"
                 },
                 {
-                    "name": "Lahden ammattikorkeakoulu",
-                    "id": "02470"
+                    "nameFi": "LAB-ammattikorkeakoulu",
+                    "nameEn": "LAB University of Applied Sciences",
+                    "nameSV": "LAB University of Applied Sciences",
+                    "id": "10126"
                 },
                 {
-                    "name": "Lapin ammattikorkeakoulu",
+                    "nameFi": "Lapin ammattikorkeakoulu",
+                    "nameEn": "Lapland University of Applied Sciences",
+                    "nameSV": "Lapland University of Applied Sciences",
                     "id": "10108"
                 },
                 {
-                    "name": "Laurea ammattikorkeakoulu",
+                    "nameFi": "Laurea ammattikorkeakoulu",
+                    "nameEn": "Laurea University of Applied Sciences",
+                    "nameSV": "Laurea University of Applied Sciences",
                     "id": "02629"
                 },
                 {
-                    "name": "Metropolia ammattikorkeakoulu",
+                    "nameFi": "Metropolia ammattikorkeakoulu",
+                    "nameEn": "Helsinki Metropolia University of Applied Sciences",
+                    "nameSV": "Helsinki Metropolia University of Applied Sciences",
                     "id": "10065"
                 },
                 {
-                    "name": "Oulun ammattikorkeakoulu",
+                    "nameFi": "Oulun ammattikorkeakoulu",
+                    "nameEn": "Oulu Polytechnic",
+                    "nameSV": "Oulu Polytechnic",
                     "id": "02471"
                 },
                 {
-                    "name": "Poliisiammattikorkeakoulu",
+                    "nameFi": "Poliisiammattikorkeakoulu",
+                    "nameEn": "Police University College",
+                    "nameSV": "Polisyrkeshögskolan",
                     "id": "02557"
                 },
                 {
-                    "name": "Saimaan ammattikorkeakoulu",
-                    "id": "02609"
-                },
-                {
-                    "name": "Satakunnan ammattikorkeakoulu",
+                    "nameFi": "Satakunnan ammattikorkeakoulu",
+                    "nameEn": "Satakunta University of Applied Sciences",
+                    "nameSV": "Satakunta University of Applied Sciences",
                     "id": "02507"
                 },
                 {
-                    "name": "Savonia-ammattikorkeakoulu",
+                    "nameFi": "Savonia-ammattikorkeakoulu",
+                    "nameEn": "Savonia University of Applied Sciences",
+                    "nameSV": "Savonia University of Applied Sciences",
                     "id": "02537"
                 },
                 {
-                    "name": "Seinäjoen ammattikorkeakoulu",
+                    "nameFi": "Seinäjoen ammattikorkeakoulu",
+                    "nameEn": "Seinäjoki University of Applied Sciences",
+                    "nameSV": "Seinäjoki University of Applied Sciences",
                     "id": "02472"
                 },
                 {
-                    "name": "Tampereen ammattikorkeakoulu",
+                    "nameFi": "Tampereen ammattikorkeakoulu",
+                    "nameEn": "Tampere University of Applied Sciences",
+                    "nameSV": "Tampere University of Applied Sciences",
                     "id": "02630"
                 },
                 {
-                    "name": "Turun ammattikorkeakoulu",
+                    "nameFi": "Turun ammattikorkeakoulu",
+                    "nameEn": "Turku University of Applied Sciences",
+                    "nameSV": "Åbo yrkeshögskola",
                     "id": "02509"
                 },
                 {
-                    "name": "Vaasan ammattikorkeakoulu",
+                    "nameFi": "Vaasan ammattikorkeakoulu",
+                    "nameEn": "Vaasa University of Applied Sciences",
+                    "nameSV": "Fachhochschule Vaasa",
                     "id": "02627"
                 },
                 {
-                    "name": "Yrkeshögksolan Arcada",
+                    "nameFi": "Yrkeshögksolan Arcada",
+                    "nameEn": "Yrkeshögksolan Arcada",
+                    "nameSV": "Yrkeshögksolan Arcada",
                     "id": "02535"
                 },
                 {
-                    "name": "Yrkeshögksolan Novia",
+                    "nameFi": "Yrkeshögksolan Novia",
+                    "nameEn": "Yrkeshögksolan Novia",
+                    "nameSV": "Yrkeshögksolan Novia",
                     "id": "10066"
                 }
             ]
@@ -207,23 +277,33 @@
             "subtitleEn": "University hospitals",
             "organizations": [
                 {
-                    "name": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "nameFi": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "nameEn": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "nameSV": "Helsingforsregionens universitetscentralsjukhus",
                     "id": "15675350"
                 },
                 {
-                    "name": "Kuopion yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Kuopion yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Kuopio University Hospital",
+                    "nameSV": "Kuopio universitetssjukhus",
                     "id": "01714953"
                 },
                 {
-                    "name": "Oulun yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Oulun yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Oulu University Hospital",
+                    "nameSV": "Oulu University Hospital",
                     "id": "06794809"
                 },
                 {
-                    "name": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "nameSV": "Tampereen yliopistollisen sairaalan erityisvastuualue",
                     "id": "08265978"
                 },
                 {
-                    "name": "Turun yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Turun yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Turku University Central Hospital",
+                    "nameSV": "Åbo universitetscentralsjukhus",
                     "id": "08282559"
                 }
             ]
@@ -243,51 +323,87 @@
             "subtitleEn": "State research institutes",
             "organizations": [
                 {
-                    "name": "Geologian tutkimuskeskus",
+                    "nameFi": "Geologian tutkimuskeskus",
+                    "nameEn": "Geological Survey of Finland",
+                    "nameSV": "Geologiska forskningscentralen",
                     "id": "5040011"
                 },
                 {
-                    "name": "Ilmatieteen laitos",
+                    "nameFi": "Ilmatieteen laitos",
+                    "nameEn": "Finnish Meteorological Institute",
+                    "nameSV": "Meteorologiska institutet",
                     "id": "4940015"
                 },
                 {
-                    "name": "Luonnonvarakeskus",
+                    "nameFi": "Luonnonvarakeskus",
+                    "nameEn": "Natural Resources Institute Finland",
+                    "nameSV": "Naturresursinstitutet",
                     "id": "4100010"
                 },
                 {
-                    "name": "Maanmittauslaitos",
+                    "nameFi": "Lääkealan turvallisuus- ja kehittämiskeskus",
+                    "nameEn": "Säkerhets- och utvecklingscentret för läkemedelsområdet",
+                    "nameSV": "Finnish Medicines Agency",
+                    "id": "558005"
+                },
+                {
+                    "nameFi": "Maanmittauslaitos",
+                    "nameEn": "National Land Survey of Finland",
+                    "nameSV": "Lantmäteriverket",
                     "id": "4020217"
                 },
                 {
-                    "name": "Ruokavirasto",
+                    "nameFi": "Ruokavirasto",
+                    "nameEn": "Finnish Food Authority",
+                    "nameSV": "Livsmedelsverket",
                     "id": "430001"
                 },
                 {
-                    "name": "Suomen ympäristökeskus",
+                    "nameFi": "Suomen Pankki",
+                    "nameEn": "Bank of Finland",
+                    "nameSV": "Finlands Bank",
+                    "id": "02022481"
+                },
+                {
+                    "nameFi": "Suomen ympäristökeskus",
+                    "nameEn": "Finnish Environment Institute",
+                    "nameSV": "Finlands miljöcentral",
                     "id": "7020017"
                 },
                 {
-                    "name": "Säteilyturvakeskus",
+                    "nameFi": "Säteilyturvakeskus",
+                    "nameEn": "Säteilyturvakeskus",
+                    "nameSV": "Säteilyturvakeskus",
                     "id": "5550012"
                 },
                 {
-                    "name": "Teknologian tutkimuskeskus VTT Oy",
+                    "nameFi": "Teknologian tutkimuskeskus VTT Oy",
+                    "nameEn": "Technical Research Centre of Finland VTT",
+                    "nameSV": "Teknologiska forskningscentralen VTT",
                     "id": "26473754"
                 },
                 {
-                    "name": "Terveyden ja hyvinvoinnin laitos",
+                    "nameFi": "Terveyden ja hyvinvoinnin laitos",
+                    "nameEn": "National Institute for Health and Welfare",
+                    "nameSV": "Institutet för hälsa och välfärd",
                     "id": "5610017"
                 },
                 {
-                    "name": "Työterveyslaitos",
+                    "nameFi": "Työterveyslaitos",
+                    "nameEn": "Finnish Institute of Occupational Health",
+                    "nameSV": "Institutet för arbetshygien",
                     "id": "02202669"
                 },
                 {
-                    "name": "Ulkopoliittinen instituutti",
+                    "nameFi": "Ulkopoliittinen instituutti",
+                    "nameEn": "Finnish Institute of International Affairs",
+                    "nameSV": "Utrikespolitiska institutet",
                     "id": "1120017"
                 },
                 {
-                    "name": "Valtion taloudellinen tutkimuskeskus",
+                    "nameFi": "Valtion taloudellinen tutkimuskeskus",
+                    "nameEn": "Valtion taloudellinen tutkimuskeskus",
+                    "nameSV": "Valtion taloudellinen tutkimuskeskus",
                     "id": "3060016"
                 }
             ]
