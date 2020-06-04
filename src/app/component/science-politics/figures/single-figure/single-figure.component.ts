@@ -32,6 +32,8 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   dataContent: {
     id: string;
     headerFi: string;
+    headerEn: string;
+    headerSv: string;
     items: {
         labelFi: string;
         labelEn: string;
@@ -40,9 +42,13 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         descriptionEn: string;
         descriptionSv: string;
         img: string;
-        iframe: string;
+        iframeFi: string;
+        iframeEn: string;
+        iframeSv: string;
         link: string;
-        source: string;
+        sourceFi: string;
+        sourceEn: string;
+        sourceSv: string;
         infoFi: string;
         infoEn: string;
         infoSv: string;
