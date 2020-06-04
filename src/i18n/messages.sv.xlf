@@ -1506,20 +1506,20 @@
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessibilityParagraph11" datatype="html">
-        <source>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</source>
+      <trans-unit id="accessibilityBlockHeader13" datatype="html">
+        <source>Seuraavat askeleet verkkopalvelun saavutettavuustyössä</source>
         <target/>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessibilityParagraph12" datatype="html">
-        <source>Jos havaitset ongelmia edellämainitussa toiminnallisuudessa tai missä tahansa muussa verkkopalvelun saavutettavuudessa, ole meihin yhteydessä allaolevan palautelomake-linkin kautta. Kiitos!</source>
+      <trans-unit id="accessibilityParagraph11" datatype="html">
+        <source>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</source>
         <target/>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader9" datatype="html">
@@ -1531,8 +1531,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityParagraph13" datatype="html">
-        <source>Anna meille saavutettavuuspalautetta <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>tällä verkkolomakkeella<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
-                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>tai voit vaihtoehtoisesti myös lähettää meille sähköpostia osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+        <source>Voit antaa meille palautetta verkkopalvelun saavutettavuudesta <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>tällä verkkolomakkeella<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
+                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
         <target/>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
@@ -1586,7 +1586,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader12" datatype="html">
-        <source>Kehitämme jatkuvasti verkkopalvelun saavutettavuutta</source>
+        <source>Julkaisu- ja päivitystiedot</source>
         <target/>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
