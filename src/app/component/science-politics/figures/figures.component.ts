@@ -96,6 +96,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setTitle('Figures on science and research - Research.fi');
         break;
       }
+      case 'en': {
+        this.setTitle('Finländsk vetenskap och forskning i siffror - Forskning.fi');
+        break;
+      }
     }
 
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());

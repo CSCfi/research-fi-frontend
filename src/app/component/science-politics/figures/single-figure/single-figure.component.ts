@@ -113,8 +113,11 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       }
       case 'en': {
-        // Change labelEn at some point
         this.setTitle(this.label + ' - Research.fi');
+        break;
+      }
+      case 'en': {
+        this.setTitle(this.label + ' - Forskning.fi');
         break;
       }
     }
