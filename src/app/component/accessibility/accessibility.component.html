@@ -12,6 +12,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
             </div>
         </div>
+        <div i18n="@@accessibilityLangBanner" class="lang-banner mb-4" *ngIf="templateLocale !== 'fi'">
+            <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon> Englanninkielinen versio tulossa
+        </div>
         <div class="row">
             <div class="col">
                 <h1 i18n="@@accessibilityHeader">Saavutettavuusseloste</h1>
