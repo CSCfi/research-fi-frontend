@@ -151,8 +151,7 @@
                                                 {{consortium.roleInFundingGroup}}
                                             </div>
                                             <div class="col-12 col-sm-4 td py-0 py-sm-3">
-                                                <!-- TODO: Get locale in component and use in field -->
-                                                {{consortium.consortiumOrganizationNameFi}}
+                                                {{consortium['consortiumOrganizationName' + currentLocale]}}
                                                 <a *ngIf="consortium.consortiumOrganizationId" routerLink="/results/funding/{{consortium.projectId}}">({{consortium.consortiumProject}})</a>
                                                 <ng-container *ngIf="!consortium.consortiumOrganizationId">({{consortium.consortiumProject}})</ng-container>
                                                 <ng-container *ngIf="i !== item.otherConsortium.length - 1"></ng-container>
