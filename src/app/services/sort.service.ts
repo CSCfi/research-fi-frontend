@@ -162,12 +162,12 @@ export class SortService {
           //   break;
           // }
           default: {
+            const sortString = 'name' + this.localeC + '.keyword';
             this.sort = [
-              ...(this.searchTerm.length > 0 ?
-                [{'name.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
-            ];
+            ...(this.searchTerm.length > 0 ?
+                [{[sortString]: {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])];
             break;
-          }
+        }
         }
         break;
       }

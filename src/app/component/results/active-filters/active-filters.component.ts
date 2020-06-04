@@ -205,30 +205,44 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
 
-            // Publication organization name
-            if (tab === 'publications' && val.category === 'organization' && source.organization) {
-              if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
-                source.organization.sectorName.buckets.forEach(sector => {
-                  sector.organization.buckets.forEach(org => {
-                    if (org.orgId.buckets[0].key === val.value) {
-                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                      this.activeFilters[foundIndex].translation = org.key.trim();
-                    }
+            // Organization
+            if (val.category === 'organization' && source.organization) {
+              // Publication organization name
+              if (tab === 'publications') {
+                if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
+                  source.organization.sectorName.buckets.forEach(sector => {
+                    sector.organization.buckets.forEach(org => {
+                      if (org.orgId.buckets[0].key === val.value) {
+                        const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                        this.activeFilters[foundIndex].translation = org.key.trim();
+                      }
+                    });
                   });
-                });
-              }
-            }
-            // Funding organization name
-            if (tab === 'fundings' && val.category === 'organization' && source.organization) {
-              if (source.organization.funded.sectorName && source.organization.funded.sectorName.buckets.length > 0) {
-                source.organization.funded.sectorName.buckets.forEach(sector => {
-                  sector.organizations?.buckets.forEach(org => {
-                    if (org.orgId.buckets[0].key === val.value) {
-                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                      this.activeFilters[foundIndex].translation = org.key.trim();
-                    }
+                }
+                // Funding organization name
+              } else if (tab === 'fundings') {
+                if (source.organization.funded.sectorName && source.organization.funded.sectorName.buckets.length > 0) {
+                  source.organization.funded.sectorName.buckets.forEach(sector => {
+                    sector.organizations?.buckets.forEach(org => {
+                      if (org.orgId.buckets[0].key === val.value) {
+                        const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                        this.activeFilters[foundIndex].translation = org.key.trim();
+                      }
+                    });
                   });
-                });
+                }
+                // Funding organization name
+              } else if (tab === 'infrastructures') {
+                if (source.organization?.sector?.buckets?.length > 0) {
+                  source.organization.sector.buckets.forEach(sector => {
+                    sector.organizations.buckets.forEach(org => {
+                      if (org.organizationId.buckets[0]?.key === val.value) {
+                        const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                        this.activeFilters[foundIndex].translation = org.key?.trim();
+                      }
+                    });
+                  });
+                }
               }
             }
 

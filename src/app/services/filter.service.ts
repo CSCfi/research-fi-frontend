@@ -134,7 +134,7 @@ export class FilterService {
         break;
       }
       case 'infrastructures': {
-        const filterString = 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword';
+        const filterString = 'responsibleOrganization.TKOppilaitosTunnus.keyword';
         filter.forEach(value => { res.push({ term : { [filterString] : value } }); });
         break;
       }
@@ -865,7 +865,7 @@ export class FilterService {
         payLoad.aggs.organization = {
           filter: {
             bool: {
-              filter: filterActive('responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword')
+              filter: filterActive('responsibleOrganization.TKOppilaitosTunnus.keyword')
             }
           },
           aggs: {
@@ -879,6 +879,14 @@ export class FilterService {
                   terms: {
                     field: 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword',
                     exclude: ' '
+                  },
+                  aggs: {
+                    organizationId: {
+                      terms: {
+                        field: 'responsibleOrganization.TKOppilaitosTunnus.keyword',
+                        exclude: ' '
+                      }
+                    }
                   }
                 }
               }

@@ -48,7 +48,7 @@ export class InfrastructureFilters {
       item.subData = item.organizations.buckets;
       item.subData.map(subItem => {
           subItem.label = subItem.key;
-          subItem.key = subItem.key;
+          subItem.key = subItem.organizationId.buckets.pop()?.key?.toString();
           // subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
     });

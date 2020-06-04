@@ -46,7 +46,6 @@ export class OrganizationFilters {
       doc_count: item.doc_count,
       tooltip: this.infoData.find(el => el.id === item.key).tooltip
     });
-    console.log(result);
     return result;
   }
 
