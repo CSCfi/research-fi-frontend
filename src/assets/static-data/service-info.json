@@ -3,6 +3,7 @@
         {
             "titleFi": "Mikä on Tiedejatutkimus.fi?",
             "titleEn": "What is Research.fi?",
+            "titleSv": "Vad är forskning.fi?",
             "descriptionFi": [
                 "<small>Päivitetty 24.04.2020</small>",
                 "<p><a target=\"_blank\" href=\"https://www.tiedejatutkimus.fi\">Tiedejatutkimus.fi</a> on opetus- ja kulttuuriministeriön (OKM) tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta. Palvelu parantaa tutkimusta koskevan tiedon ja asiantuntijoiden löytymistä sekä lisää suomalaisen tutkimuksen näkyvyyttä ja yhteiskunnallista vaikuttavuutta. </p>",
@@ -18,12 +19,17 @@
                 "<p>Commissioned by the Ministry of Education and Culture, the service was launched by <a target=\"_blank\" href=\"https://www.csc.fi\">CSC - IT Center for Science <i class='fas fa-external-link-alt'></i></a> in cooperation with higher education institutions, other research organizations and research funders.</p>"
             ],
             "descriptionSv": [
-
+                "<small>Uppdaterad 24.4.2020</small>",
+                "<p><a target=\"_blank\" href=\"https://www.tiedejatutkimus.fi\">Forskning.fi</a> är en tjänst som tillhandahålls av undervisnings- och kulturministeriet (UKM) och som samlar och sprider information om forskning i Finland. Tjänsten förbättrar tillgången till forskningsinformation och experter samt ökar den finländska forskningens synlighet och samhällspåverkan. </p>",
+                "<p>Tjänsten togs i bruk i juni 2020 och utvecklas stegvis. För närvarande innehåller tjänsten information om bl.a. det finländska forskningssystemet, finländska organisationers publikationer, projekt som finansieras av offentliga och privata forskningsfinansiärer samt statistik om utvecklingen av forskningsresurserna och forskningens genomslag. </p>",
+                "<p>I fortsättningen förbättras tjänsten bl.a. genom att informationen görs mera heltäckande. Dessutom utvidgas tjänsten med nya informationshelheter. Utöver det nuvarande innehållet får tjänsten senare information om bland annat forskare som är verksamma i Finland, forskningsdata och -material som dessa producerar och andra forskningsaktiviteter samt på ett bredare plan det finländska forskningssystemet. Tjänstens sökegenskaper förbättras och funktioner för granskning av uppgifter i grafisk form läggs till.</p>",
+                "<p>På uppdrag av UKM utarbetas av <a target=\"_blank\" href=\"https://www.csc.fi\">CSC – Tieteen tietotekniikan keskus <i class='fas fa-external-link-alt'></i></a> i samarbete med högskolor, andra forskningsorganisationer och forskningsfinansiärer.<p>"
             ]
         },
         {
             "titleFi": "Mitä tietoa palvelu sisältää ja mistä tiedot tulevat?",
             "titleEn": "What information does the service have and where does it come from?",
+            "titleSv": "Vilken information innehåller tjänsten och varifrån kommer den?",
             "descriptionFi": [
                 "<small>Päivitetty 24.04.2020</small>",
                 "<p>Palveluun päivittyy automaattisesti mm. yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten, yliopistollisten sairaaloiden sekä tutkimusrahoittajien järjestelmissä jo valmiiksi olevia tietoja.</p>",
@@ -102,12 +108,45 @@
                 "<p>The goal is to include research data as part of the Research.fi service by the end of 2020.</p>"
             ],
             "descriptionSv": [
+                "<small>Uppdaterad 24.4.2020</small>",
+                "<p>I tjänsten uppdateras automatiskt uppgifter som redan finns i bl.a. universitetens, yrkeshögskolornas, forskningsinstitutens, universitetssjukhusens och forskningsfinansiärernas system.<p>",
+                "<p>Informationen förs inte in i tjänsten för hand och den ökar således inte den tid som forskarna använder för rapportering eller annat administrativt arbete. Tjänsten innehåller beskrivningsuppgifter, så att till exempel öppet tillgängliga publikationer och material är enkla att hitta.</p>",
+                "<p>Uppgifternas omfattning och aktualitet beror på vilka organisationer som lämnar in uppgifterna. Varje organisation ansvarar för att de egna uppgifterna är korrekta. Det är i huvudsak frivilligt att lämna in uppgifter. Det enda som är obligatoriskt är för högskolorna att lämna in publikationsuppgifter.<p>",
+                "<h3>Publikationer </h3>",
+                "<p>Publikationsuppgifterna består av de uppgifter som de finländska universiteten, yrkeshögskolorna, forskningsinstituten och universitetssjukhusen levererar i samband med UKM:s datainsamling. Tjänsten innehåller metadata för över 400 000 publikationer som gjorts i Finland. </p>",
+                "<p>Det har varit obligatoriskt för universitet och yrkeshögskolor att leverera publikationsuppgifter till UKM sedan 2011. En del organisationer har också levererat in äldre publikationer, till och med sedan 1970-talet, men relaterad information kan vara ofullständig.<p>",
+                "<p>Uppgifterna samlas in via den riksomfattande publikationsdatatjänsten VIRTAhttps://wiki.eduuni.fi/display/cscvirtajtp/VIRTA\">VIRTA <i class='fas fa-external-link-alt'></i></a> och uppgifterna används bland annat som beräkningskriterier för basfinansieringen av högskolorna (se <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608982\">OKM/2018/116 <i class='fas fa-external-link-alt'></i></a> och <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608987\">OKM/2018/119 <i class='fas fa-external-link-alt'></i></a>). Uppgifterna har hittills publicerats i publikationsportalen Juuli.<p>",
+                "<p>För andra organisationer än universitet och yrkeshögskolor är undervisnings- och kulturministeriets insamling av publikationsinformation frivillig. Universitetssjukhusen har också lämnat in sina uppgifter sedan 2011 och forskningsinstitut har deltagit i datainsamlingen sedan 2014.<p>",
+                "<p>Se <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">en lista över organisationer som lämnar in publikationsinformation <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Projekt </h3>",
+                "<p><a target=\"_blank\" href=\"https://www.forskning.fi\">På webbplatsen forskning.fi <i class='fas fa-external-link-alt'></i></a> finns information om projekt som finansieras av offentliga och privata forskningsfinansiärer. Finansiärerna överför uppgifterna i sina finansieringsbeslut till projektdatalagret enligt sin egen tidtabell.</p>",
+                "</p>I tjänsten finns för närvarande de senaste finansieringsbesluten från Finlands Akademi och Business Finland samt från några privata stiftelser som finansierar forskning. Dessutom har uppgifter om finansiering som finländska organisationer fått från Horizon2020-finansieringsprogrammet överförts från Europeiska kommissionens CORDIS-databas.</p>",
+                "</p>Uppgifterna om finansieringsbeslut innehåller endast det beviljade beloppet, inte projektets sammanlagda kostnader. I ett senare skede är det möjligt att samla in projektinformation i datalagret också till exempel från högskolornas och andra forskningsorganisationers system.</p>",
+                "<p>Se <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">en lista över organisationer som lämnar in projektinformation <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Infrastruktur </h3>",
+                "<p>Forskningsinfrastrukturerna består av nationellt betydande forskningsredskap, utrustning, material och tjänster som möjliggör och stöder forskningsarbete, forskarutbildning och forskarnas undervisning samt utvecklar forsknings- och innovationskapaciteten. Forskning.fi främjar samanvändning och öppenhet i forskningsinfrastrukturerna genom att beskriva och presentera forskningsinfrastrukturerna och deras tjänster på ett enhetligt sätt.<p>",
+                "<p>Forskningsinfrastrukturen kan vara en omfattande nationell eller internationell helhet som förvaltas i samarbete mellan flera organisationer. Den kan också administreras av en organisation och användas endast av dess egen forskningsgrupp. Forskningsinfrastrukturen kan också ha till exempel tjänster riktade till företag.<p>",
+                "<p>De organisationer och instanser som förvaltar infrastrukturer ansvarar för att lämna in uppgifter om forskningsinfrastrukturerna samt för uppgifternas omfattning och riktighet.<p>",
+                "<p>Se <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">en lista över organisationer som lämnar in infrastrukturinformation <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Organisationer</h3>",
+                "<p>Tjänsten innehåller närmare uppgifter om de organisationer som bedriver och finansierar forskning och som överför sina uppgifter i tjänsten. Organisationernas uppgifter har sammanställts automatiskt utifrån följande källor:<p>",
+                "<ul><li><a target=\"_blank\" href=\"https://www.ytj.fi/\">Företags- och organisationsdatasystemet <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://finto.fi/cn/fi\">Finto – finländsk ämnesords- och ontologitjänst: Finländska samfundsnamn <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://www.vipunen.fi\">Vipunen – utbildningsförvaltningens statistiktjänst <i class='fas fa-external-link-alt'></i></a></li></ul>",
+                "<h3>Vetenskapliga nyheter och forskningsnyheter</h3>",
+                "<p>Färska vetenskapliga nyheter och forskningsnyheter uppdateras automatiskt från de RSS-flöden som forskningsorganisationerna tillhandahåller. Nyheter från de senaste sex månaderna sparas i tjänsten.<p>",
+                "<p>Se <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">en lista över organisationer som lämnar in nyheter <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Forskare (på kommande)</h3>",
+                "<p>Tjänsten håller på att utvecklas till en funktion där forskaren kan ge tillstånd att överföra befintliga uppgifter från ett internationellt ORCID register eller sin hemorganisation för publicering i tjänsten forskning.fi. Uppgifter om forskaren är till exempel kontaktuppgifter, affilieringar, utbildning och kompetens, beskrivning av den egna forskningen, publikationer, material, projekt och andra forskningsaktiviteter.<p>",
+                "<p>Forskaren har möjlighet att skapa en profil i tjänsten och välja vilka uppgifter som visas i den. Avsikten är att profiltjänsten för forskaren ska tas i bruk 2021.<p>",
+                "<h3>Forskningsdata (på kommande) </h3>",
+                "<p>Nationella <a target=\"_blank\" href=\"https://www.fairdata.fi/en/\">Fairdata-tjänster <i class='fas fa-external-link-alt'></i></a> används som informationskälla för forskningsdata i tjänsten. I Fairdata-tjänsterna finns bland annat beskrivningsuppgifter om forskningsdata som forskarna själva sparat eller som överförts från forskningsorganisationer.</p>",
+                "</p>Målet är att forskningsdata ska ingå i tjänsten forskning.fi före utgången av 2020.</p>"
 
             ]
         },
         {
             "titleFi": "Miten käytän palvelua?",
             "titleEn": "How do I use the service?",
+            "titleSv": "Hur använder jag tjänsten?",
             "descriptionFi": [
                 "<small>Päivitetty 24.04.2020 </small>",
                 "<p>Palvelussa voit selata ja hakea tietoja sekä jakaa yksittäisiä sivuja tai tietueita esimerkiksi sosiaaliseen mediaan.</p>",
@@ -125,12 +164,18 @@
                 "<p><a href=\"/privacy\">What information is being collected about me as a user?</a> <br><a href=\"/accessibility\">Is the service accessible?</a><br><a target=\"_blank\" href=\"https://link.webropolsurveys.com/Participation/Public/b2c1524e-aed2-4e76-9783-29e7938ef275?displayId=Fin1982953\">Provide feedback <i class='fas fa-external-link-alt'></i></a></p> "
             ],
             "descriptionSv": [
-
+                "<small>Uppdaterad 24.4.2020</small>",
+                "<p>I tjänsten kan du bläddra i och söka information samt dela enskilda sidor eller poster till exempel i sociala medier.<p>",
+                "<p>Senare är målet att uppgifterna i tjänsten även ska kunna laddas ner som en fil eller hämtas via ett maskinläsbart gränssnitt.<p>",
+                "<p>Tjänsten utvecklas kontinuerligt. Du kan ge respons om du upptäcker problem i tjänsten, har förslag på hur tjänsten kan utvecklas eller upptäcker fel i uppgifterna.<p>",
+                "<p></p>",
+                "<p><a href=\"/privacy\">Vilka uppgifter samlas in om mig som användare?</a> <br><a href=\"/accessibility\">Är tjänsten tillgänglig?</a><br><a target=\"_blank\"href=\"https://link.webropolsurveys.com/Participation/Public/b2c1524e-aed2-4e76-9783-29e7938ef275?displayId=Fin1982953\">Ge respons <i class='fas fa-external-link-alt'></i></a></p> "
             ]
         },
         {
             "titleFi": "Tietosuoja",
             "titleEn": "Privacy",
+            "titleSv": "Dataskydd",
             "descriptionFi": [
                 "<small>Päivitetty 24.04.2020 </small>",
                 "Ks. palvelun <a href=\"/privacy\">tietosuojailmoitus ja evästekäytännöt</a>.</p> "
@@ -140,12 +185,14 @@
                 "See the service <a href=\"/privacy\">Privacy Notice and Cookie Policies</a>.</p>"
             ],
             "descriptionSv": [
-
+                "<small>Uppdaterad 24.4.2020</small>",
+                "Se tjänstens <a href=\"/privacy\">dataskyddsanmälan och cookiepolicy</a>.</p> "
             ]
         },
         {
             "titleFi": "Saavutettavuus",
             "titleEn": "Accessibility",
+            "titleSv": "Tillgänglighet",
             "descriptionFi": [
                 "<small>Päivitetty 24.04.2020 </small>",
                 "Ks. palvelun <a href=\"/accessibility\">saavutettavuusseloste</a>"
@@ -155,7 +202,8 @@
                 "See the <a href=\"/accessibility\">Service Accessibility Statement</a>"
             ],
             "descriptionSv": [
-
+                "<small>Uppdaterad 24.4.2020 </small>",
+                "Se tjänstens <a href=\"/accessibility\">tillgänglighetsbeskrivning</a>"
             ]
         }
     ]
