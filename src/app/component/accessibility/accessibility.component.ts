@@ -39,8 +39,11 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Accessibility - Research.fi');
+        break;
+      }
+      case 'en': {
+        this.setTitle('Tillgänglighetsredogörelse - Forskning.fi');
         break;
       }
     }

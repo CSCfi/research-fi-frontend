@@ -33,8 +33,11 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Service info - Research.fi');
+        break;
+      }
+      case 'en': {
+        this.setTitle('Information om tjänsten - Forskning.fi');
         break;
       }
     }

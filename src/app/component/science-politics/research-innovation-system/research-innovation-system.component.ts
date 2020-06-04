@@ -128,8 +128,11 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Research and innovation system - Research.fi');
+        break;
+      }
+      case 'en': {
+        this.setTitle('Finländskt forsknings- och innovationssystem - Forskning.fi');
         break;
       }
     }
