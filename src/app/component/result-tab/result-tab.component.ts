@@ -27,6 +27,8 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   tabList: any[];
 
+  tooltipClass: string;
+
   errorMessage: any [];
   selectedTab: string;
   searchTerm: string;
@@ -75,6 +77,9 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     if (isPlatformBrowser(this.platformId)) {
       this.calcTabsAndRows(this.window.innerWidth);
     }
+
+    // Class to be appended to result tab tooltips
+    this.tooltipClass = this.isHomepage ? '-home' : '';
 
     this.queryParams = this.tabChangeService.tabQueryParams;
     // Update active tab visual after change
@@ -219,7 +224,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.disableScroll(false);
     this.scroll.nativeElement.scrollLeft -= Math.max(150, 1 + (this.scrollWidth) / 4);
   }
-  
+
   scrollRight() {
     this.disableScroll(false);
     this.scroll.nativeElement.scrollLeft += Math.max(150, 1 + (this.scrollWidth) / 4);
@@ -227,6 +232,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   toggleTabs() {
     this.tabsOpen = !this.tabsOpen;
+    this.tooltipClass = this.tabsOpen ? '-open' : '-home';
     // Timeout so "new" button has time to render
     setTimeout(() => {
       this.toggleButton.nativeElement.focus();
@@ -239,7 +245,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
       this.offsetWidth = this.scroll.nativeElement.offsetWidth;
       this.scrollWidth = this.scroll.nativeElement.scrollWidth;
     }
-      
+
     if (this.isHomepage && isPlatformBrowser(this.platformId)) {
       this.calcTabsAndRows(event.width);
     }

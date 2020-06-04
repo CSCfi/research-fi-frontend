@@ -38,6 +38,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     {label: $localize`Toiminta alkanut`, field: 'startYear'},
     {label: $localize`Toiminta päättynyt`, field: 'endYear'},
     {label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, field: 'responsibleOrganization'},
+    {label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`, field: 'participantOrganizations'},
     {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString'},
   ];
 

@@ -29,7 +29,7 @@ export class FooterComponent implements OnInit {
 
   faTimes = faTimes;
   showReviewButton: boolean;
-  betaReviewDialogRef: MatDialogRef<ReviewComponent>;
+  reviewDialogRef: MatDialogRef<ReviewComponent>;
 
   constructor(private appConfigService: AppConfigService, @Inject(LOCALE_ID) protected localeId: string, public dialog: MatDialog) {
     this.buildInfo = this.appConfigService.buildInfo;
@@ -63,7 +63,7 @@ export class FooterComponent implements OnInit {
     }
 
     toggleReview() {
-      this.betaReviewDialogRef = this.dialog.open(ReviewComponent, {
+      this.reviewDialogRef = this.dialog.open(ReviewComponent, {
         maxWidth: '800px',
         minWidth: '320px',
         // minHeight: '60vh'

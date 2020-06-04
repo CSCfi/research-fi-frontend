@@ -65,7 +65,7 @@
           </h2>
           <app-news-card *ngFor="let item of news" [item]="item" [isHomepage]="true" tabindex="0" class="d-flex justify-content-center"></app-news-card>
           <div class="read-more">
-            <a routerLink="/news" class="link-news" i18n="Home page read more news link@@homeReadMoreNewsLink">Lue lisää tiedeuutisia >></a>
+            <a routerLink="/news" class="link-news" aria-label="Lisää tiede- ja tutkimusuutisia tässä portaalissa" i18n="Home page read more news link@@homeReadMoreNewsLink">Lisää tiede- ja tutkimusuutisia tässä portaalissa >></a>
           </div>
         </div>
       </div>

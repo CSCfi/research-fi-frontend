@@ -13,19 +13,19 @@
         <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
             <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('name')" (keydown.enter)="sortBy('name')" i18n="@@fundingName">Hankkeen nimi</span>
+            (click)="utilityService.sortBy('name')" (keydown.enter)="utilityService.sortBy('name')" i18n="@@fundingName">Hankkeen nimi</span>
         </div>
         <div class="col col-lg-4 col-xl-3 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'funder' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('funder')" (keydown.enter)="sortBy('funder')" i18n="@@fundingFunder">Rahoittaja</span>
+            (click)="utilityService.sortBy('funder')" (keydown.enter)="utilityService.sortBy('funder')" i18n="@@fundingFunder">Rahoittaja</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'funded' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('funded')" (keydown.enter)="sortBy('funded')" i18n="@@fundingFunded">Saaja</span>
+            (click)="utilityService.sortBy('funded')" (keydown.enter)="utilityService.sortBy('funded')" i18n="@@fundingFunded">Saaja</span>
         </div>
         <div class="col col-lg-2 col-xl-2 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('year')" (keydown.enter)="sortBy('year')" i18n="@@fundingYear">Aloitusvuosi</span>
+            (click)="utilityService.sortBy('year')" (keydown.enter)="utilityService.sortBy('year')" i18n="@@fundingYear">Aloitusvuosi</span>
         </div>
     </div> 
     <div *ngIf="resultData" class="result-container">
@@ -43,7 +43,7 @@
                 <a routerLink="/results/funding/{{funding.id}}" [tooltip]="(funding.description ? funding.description : '') | cutContent: 200"
                 (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
                 placement="top" triggers="focus keydown.escape" [isDisabled]="funding.description?.trim().length > 0 ? false : true">
-                    <h3 class="result-title" [innerHtml]="funding.name | highlight: input"></h3>
+                    <h4 class="result-title" [innerHtml]="funding.name | highlight: input"></h4>
                 </a>
             </div>
             <div class="col col-lg-4 col-xl-3 d-none d-lg-block">

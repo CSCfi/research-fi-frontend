@@ -382,6 +382,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // Get & set publication type label
     this.publicationTypeLabel = this.staticDataService.publicationClass.find
     (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find(type => type.type === source.publicationTypeCode).label;
+
+    // tslint:disable-next-line: curly
+    if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
   }
 
   navigate(field) {

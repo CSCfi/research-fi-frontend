@@ -8,6 +8,8 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SortService } from './sort.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class UtilityService {
   private modalHideSub: Subscription;
   private modalShowSub: Subscription;
 
-  constructor(private modalService: BsModalService) {
+  constructor(private modalService: BsModalService, private route: ActivatedRoute, private sortService: SortService,
+              private router: Router) {
     // Subscribe to modal show and hide
     this.modalHideSub = this.modalService.onHide.subscribe(_ => {
       this.modalOpen = false;
@@ -83,12 +86,14 @@ export class UtilityService {
     return res;
   }
 
+  // mouseenter handler for tooltipelements
   tooltipMouseenter(elem: HTMLElement) {
     elem.blur();
     elem.focus();
     this.tooltipOpen = true;
   }
 
+  // keydown handler for tooltip elements
   tooltipKeydown(elem: HTMLElement, event: any) {
     // Timeout because event propagates here before header and thus esc would open navbar incorrecly
     if (event.keyCode === 27) {
@@ -99,5 +104,24 @@ export class UtilityService {
       this.tooltipOpen = !this.tooltipOpen;
     }
   }
+
+
+  sortBy(sortBy) {
+    const activeSort = this.route.snapshot.queryParams.sort || '';
+    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
+    let newSort = sortColumn + (sortDirection ? 'Desc' : '');
+    // Reset sort
+    if (activeSort.slice(-4) === 'Desc' && activeSort.slice(0, -4) === sortColumn) { newSort = ''; }
+
+
+    this.router.navigate([],
+      {
+        relativeTo: this.route,
+        queryParams: { sort: newSort },
+        queryParamsHandling: 'merge'
+      }
+    );
+  }
+
 
 }

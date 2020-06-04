@@ -194,8 +194,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="homeReadMoreNewsLink" datatype="html">
-        <source>Lue lisää tiedeuutisia &gt;&gt;</source>
-        <target>Read more news &gt;&gt;</target>
+        <source>Lisää tiede- ja tutkimusuutisia tässä portaalissa &gt;&gt;</source>
+        <target>More science and research news in this portal &gt;&gt;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
           <context context-type="linenumber">68</context>
@@ -995,8 +995,8 @@
         <note priority="1" from="description">noFundingDescription</note>
       </trans-unit>
       <trans-unit id="readOriginialNews" datatype="html">
-        <source>Lue koko uutinen</source>
-        <target state="translated">Read original</target>
+        <source>Lue koko uutinen yliopiston verkkosivuilla </source>
+        <target state="translated">Read full news at university website </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/news/news-card/news-card.component.html</context>
           <context context-type="linenumber">36</context>
@@ -2145,6 +2145,10 @@
           <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="informationSourceProducers" datatype="html">
+        <source>Tiedon lähteet ja tuottajat</source>
+        <target>Data sources and producers</target>
+      </trans-unit>
       <trans-unit id="headerLink6" datatype="html">
         <source>Tiede- ja tutkimusuutiset</source>
         <target>Science and research news</target>
@@ -2781,6 +2785,10 @@
         <source>Vastuuorganisaatio</source>
         <target>Responsible organisation</target>
       </trans-unit>
+      <trans-unit id="participatingOrgs">
+        <source>Osallistuvat organisaatiot</source>
+        <target>Participating organizations</target>
+      </trans-unit>
       <trans-unit id="868538594813383846">
         <source>Palvelun kuvaus</source>
         <target>Service description</target>
@@ -3162,6 +3170,10 @@
         <target>Research funders</target>
       </trans-unit>
       <!-- Figures -->
+      <trans-unit id="figuresSecHeader">
+        <source>Tiedon lähteet ja tuottajat</source>
+        <target>Data sources and producers</target>
+      </trans-unit>
       <trans-unit id="figuresSec1">
         <source>Tutkimuksen rahoitus</source>
         <target>Research funding</target>

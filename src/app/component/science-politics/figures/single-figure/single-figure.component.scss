@@ -91,7 +91,18 @@ app-single-figure {
         cursor: pointer;
     }
 
+    .carousel-wrapper {
+        margin-top: 50px;
+    }
+
     // Responsive
+    // Custom carousel breakpoint
+    @media (max-width: 1100px) {
+        .carousel-wrapper {
+            display: none;
+        }
+    }
+
     @media (max-width: 991px) {
         a.back {
             padding: 1rem

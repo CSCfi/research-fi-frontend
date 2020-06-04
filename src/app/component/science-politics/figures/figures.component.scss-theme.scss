@@ -15,10 +15,6 @@
             background: mat-color($primary, 200);
         }
 
-        .dropdown {
-            color: mat-color($primary);
-        }
-
         .nav a, .content:not(.intro) a {
             color: mat-contrast($primary, 300);
         }

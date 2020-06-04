@@ -75,23 +75,6 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
     return type[0] === 'A' || type[0] === 'C';
   }
 
-  sortBy(sortBy) {
-    const activeSort = this.route.snapshot.queryParams.sort || '';
-    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
-    let newSort = sortColumn + (sortDirection ? 'Desc' : '');
-    // Reset sort
-    if (activeSort.slice(-4) === 'Desc') { newSort = ''; }
-
-
-    this.router.navigate([],
-      {
-        relativeTo: this.route,
-        queryParams: { sort: newSort },
-        queryParamsHandling: 'merge'
-      }
-    );
-  }
-
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
     this.focusSub?.unsubscribe();

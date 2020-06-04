@@ -64,6 +64,12 @@ app.use(helmet.contentSecurityPolicy({
       'https://*.csc.fi:*',
       'http://*.rahtiapp.fi:*',
       'https://*.rahtiapp.fi:*',
+      'http://*.tiedejatutkimus.fi:*',
+      'https://*.tiedejatutkimus.fi:*',
+      'http://*.forskning.fi:*',
+      'https://*.forskning.fi:*',
+      'http://*.research.fi:*',
+      'https://*.research.fi:*',
       'https://doi.org:*',
       'https://data.crossref.org:*',
       'https://app.powerbi.com:*',
@@ -95,7 +101,12 @@ app.use(helmet.contentSecurityPolicy({
       'https://apps.utu.fi:*',
       'https://tt.eduuni.fi:*',
       'https://www.maanmittauslaitos.fi:*',
-      'https://rihmatomo-analytics.csc.fi:*'
+      'https://rihmatomo-analytics.csc.fi:*',
+      'https://wiki.eduuni.fi:*',
+      'https://www.hamk.fi',
+      'https://mediapankki.tuni.fi:*',
+      'https://www.turkuamk.fi:*'
+
     ]
   }
 }));

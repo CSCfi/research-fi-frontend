@@ -14,21 +14,21 @@
         <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
             <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('name')" (keydown.enter)="sortBy('name')" i18n="@@publicationName">Julkaisun nimi</span>
+            (click)="utilityService.sortBy('name')" (keydown.enter)="utilityService.sortBy('name')" i18n="@@publicationName">Julkaisun nimi</span>
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'author' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('author')" (keydown.enter)="sortBy('author')" i18n="@@publicationAuthors">Tekijät</span>
+            (click)="utilityService.sortBy('author')" (keydown.enter)="utilityService.sortBy('author')" i18n="@@publicationAuthors">Tekijät</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
             <span tabindex="0" tooltip="Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt." placement="top" triggers="focus keydown.escape"
             (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
             class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('medium')" (keydown.enter)="sortBy('medium')" i18n="@@publicationMedium">Julkaisukanava</span>
+            (click)="utilityService.sortBy('medium')" (keydown.enter)="utilityService.sortBy('medium')" i18n="@@publicationMedium">Julkaisukanava</span>
         </div>
         <div class="col col-lg-1 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="sortBy('year')" (keydown.enter)="sortBy('year')" i18n="@@publicationYear">Vuosi</span>
+            (click)="utilityService.sortBy('year')" (keydown.enter)="utilityService.sortBy('year')" i18n="@@publicationYear">Vuosi</span>
         </div>
     </div>
     <div *ngIf="resultData" class="result-container">
@@ -41,10 +41,10 @@
                 </div>
                 <div class="col col-8 col-lg-5 col-xl-4 title">
                     <a routerLink="/results/publication/{{publication.id}}">
-                        <h3 class="result-title" 
+                        <h4 class="result-title" 
                         [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
                         [innerHtml]="publication.title | highlight: input">
-                        </h3>
+                        </h4>
                     </a>
                     <div class="tags">
                         <div *ngIf="isReviewed(publication.publicationTypeCode)" class="peer-reviewed" i18n="@@peerReviewed">Vertaisarvioitu</div>
