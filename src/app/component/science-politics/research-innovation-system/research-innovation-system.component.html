@@ -39,7 +39,7 @@
                                     <h3>{{sector.data['subtitle' + currentLocale]}}</h3>
                                     <ul class="org-links">
                                         <li *ngFor="let org of sector.data?.organizations" class="organization">
-                                            <a routerLink="/results/organization/{{org.id}}"><span>{{org.name}}</span></a>
+                                            <a routerLink="/results/organization/{{org.id}}"><span>{{org['name' + currentLocale]}}</span></a>
                                         </li>
                                     </ul>
                                 </div>
