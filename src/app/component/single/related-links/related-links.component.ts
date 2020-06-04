@@ -61,7 +61,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       this.docCountData = data;
       this.docCountData = this.docCountData.aggregations._index.buckets;
       // Set related list item to disabled to false if matching item has docs
-      this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
+      // this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
     });
   }
 

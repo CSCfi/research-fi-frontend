@@ -300,7 +300,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       }
       case 'en': {
-        this.setTitle('Haku - ' + tab.label + ' - Research.fi');
+        this.setTitle('Search - ' + tab.label + ' - Research.fi');
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount +
         (amount === 1 ? ' result' : ' results');
         break;
