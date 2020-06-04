@@ -18,19 +18,24 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <div class="col-12 px-0">
         <div class="row total" #totalHeader>
             <div class="col">
-                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.labelFi : ''">
-                    {{selectedTabData.labelFi}} - <span class="total">{{parsedTotal}}</span>
-                    <span class="sr-only">hakutulosta</span>
+                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.label : ''">
+                    {{selectedTabData.label}} - <span class="total">{{parsedTotal}}</span>
+                    <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
                 </h2>
                 <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
                     <a (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
                     (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus(); showSkipLinks = false" href="javascript:void(0)">
-                        Hyppää hakutuloksiin
+                        <span i18n="@@skipToResults">Hyppää hakutuloksiin</span>
                     </a>
                 </div>
             </div>
             <div class="col-auto text-right align-self-center">
-                <a routerLink="/service-info" fragment="1" class="theme-link"><strong>Mitä {{selectedTabData?.singularFi}}tietoja palvelu sisältää?</strong></a>
+                <a routerLink="/service-info" fragment="1" class="theme-link">
+                    <strong>
+                        <ng-container i18n="@@resultInfo1">Mitä </ng-container>{{selectedTabData.singular.toLowerCase()}}
+                        <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
+                    </strong>
+                </a>
             </div>
         </div>
         </div>
@@ -78,8 +83,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #pageOverflow>
     <div class="row main-content">
         <div class="col text-center no-results">
-            <h2>Tuloksia näytetään enintään 10 000</h2>
-            <p>Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.</p>
+            <h2 i18n="@@maxResults1">Tuloksia näytetään enintään 10 000</h2>
+            <p i18n="@@maxResults2">Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.</p>
         </div>
     </div>
 </ng-template>

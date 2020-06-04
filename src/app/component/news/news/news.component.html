@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-12 col-lg-8 px-0">
                 <div class="row d-flex justify-content-between">
-                    <h1 class="col col-lg-8 px-0">Tiede- ja tutkimusuutiset</h1>
+                    <h1 class="col col-lg-8 px-0" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
                     <div class="col-12 col-sm-4 search">
                         <aside>
                             <!-- results/filters -->
@@ -29,17 +29,17 @@
             <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
                 <main>
                     <div class="row content">
-                        <h2 class="col-12 pt-3 px-0">Uusimmat</h2>
+                        <h2 class="col-12 pt-3 px-0" i18n="@@latest">Uusimmat</h2>
                         <app-news-card *ngFor="let item of data" tabindex="0" [item]="item"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
-                            <h3>Ei tuloksia.</h3><br>
-                            <p>Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
+                            <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
+                            <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
                         </div>
                     </div>
                 </main>
             </div>
             <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
-                <h2 class="col-12 pt-3 px-0 pb-3" #older>Aiempia uutisia</h2>
+                <h2 class="col-12 pt-3 px-0 pb-3" #older i18n="@@olderNews">Aiempia uutisia</h2>
                 <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true"></app-news-card>
                 <app-news-pagination [responseData]="data"></app-news-pagination>
             </div>

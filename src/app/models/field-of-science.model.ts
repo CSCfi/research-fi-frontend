@@ -32,8 +32,8 @@ export class FieldOfScienceAdapter implements Adapter<FieldOfScience> {
         return new FieldOfScience(
             item.fieldIdScience,
             item.nameFiScience,
-            item.nameEnScience,
             item.nameSvScience,
+            item.nameEnScience,
             this.lang.testLang('mainFieldOfScienceName', item),
             this.lang.testLang('mainFieldOfScienceName', item),
             this.lang.testLang('mainFieldOfScienceName', item),

@@ -12,13 +12,13 @@
  
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'organisaatiot'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
         <p class="back col-12">
-            <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a>
+            <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a>
         </p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
-             <h2>404 - Virheellinen osoite</h2>
+             <h2 i18n="@@404">404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of responseData.organizations">
@@ -38,8 +38,8 @@
                             {{row.label}}
                             <!-- Show year with staff count -->
                             <span *ngIf="row.field === 'staffCountAsFte'">({{item.staffYear}})</span>
-                            <ng-container *ngIf="row.tooltipFi">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
@@ -49,8 +49,8 @@
                     </div>
                     <div class="row content" *ngIf="studentCounts.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            Tutkintojen määrä ({{item.thesisYear}})
-                            <span tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                            <ng-container i18n="@@thesisCount"></ng-container>Tutkintojen määrä ({{item.thesisYear}})
+                            <span i18n-tooltip tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                             </span>
                         </h2>
@@ -77,8 +77,8 @@
                     <!-- Sub units -->
                     <div class="row content" *ngFor="let row of subUnitFields">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})
-                            <ng-container *ngIf="row.tooltipFi">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
@@ -90,10 +90,10 @@
                                     {{subUnit.subUnitName}}
                                 </li>
                             </ul>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length > subUnitSlice" (click)="subUnitSlice = item.subUnits.length">
-                                Näytä enemmän
+                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length > subUnitSlice" (click)="subUnitSlice = item.subUnits.length" i18n="@@showMore">
+                                Näytä lisää
                             </a>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length === subUnitSlice" (click)="subUnitSlice = 10">
+                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length === subUnitSlice" (click)="subUnitSlice = 10" i18n="@@showLess">
                                 Näytä vähemmän
                             </a>
                         </div>
@@ -104,7 +104,7 @@
          <div *ngFor="let item of responseData.organizations" class="col-12 col-md-4">
             <aside>
                  <mat-card>
-                    <mat-card-title><h2>Organisaation verkkosivu</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@organizationHomepage">Organisaation verkkosivu</h2></mat-card-title>
                     <div class="row links">
                         <div *ngFor="let row of linkFields" class="info-link-wrapper">
                             <ng-container *ngIf="item[row.field]; else noHomePage">
@@ -126,26 +126,26 @@
                     </ng-container>
 
                     <ng-template #noHomePage>
-                        <div class="no-links">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <div class="no-links" i18n="@@noOrganizationLinks">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
                     </ng-template>
                 </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Organisaation</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@relatedOrganizations">Organisaation</h2></mat-card-title>
                     <app-related-links [id]="item.id"></app-related-links>
                 </mat-card>
             </aside>
             <!-- Copy url -->
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
                     <app-share></app-share>
                 </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Organisaatiotiedon lähde</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@orgInfoSource">Organisaatiotiedon lähde</h2></mat-card-title>
                     <!-- <div *ngFor="let source of responseData.organizations">
                         <p>Virta/Vipunen/etc?</p>
                     </div> -->

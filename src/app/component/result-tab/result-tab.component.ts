@@ -55,7 +55,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
   faArrowRight = faArrowRight;
   faAngleUp = faAngleUp;
   faAngleDown = faAngleDown;
-  currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
+  currentTab: { data: string; label: string; link: string; icon: string; };
   currentIndex: any;
   scrollTo: boolean;
   previousIndexArr = [];

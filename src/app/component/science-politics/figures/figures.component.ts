@@ -36,10 +36,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronUp = faChevronUp;
 
   navItems = [
-    {id: 's1', labelFi: 'Tiedon lähteet ja tuottajat', icon: this.faIconCircle, active: true},
-    {id: 's2', labelFi: 'Tutkimuksen rahoitus', icon: this.faChartBar, active: false},
-    {id: 's3', labelFi: 'Tutkimuksen henkilövoimavarat', icon: this.faChartBar, active: false},
-    {id: 's4', labelFi: 'Julkaisutoiminta ja tieteellinen vaikuttavuus', icon: this.faChartBar, active: false},
+    {id: 's1', label: $localize`:@@figuresSecHeader:Tiedon lähteet ja tuottajat`, icon: this.faIconCircle, active: true},
+    {id: 's2', label: $localize`:@@figuresSec1:Tutkimuksen rahoitus`, icon: this.faChartBar, active: false},
+    {id: 's3', label: $localize`:@@figuresSec2:Tutkimuksen henkilövoimavarat`, icon: this.faChartBar, active: false},
+    {id: 's4', label: $localize`:@@figuresSec3:Julkaisutoiminta ja tieteellinen vaikuttavuus`, icon: this.faChartBar, active: false},
   ];
 
   coLink = [
@@ -67,6 +67,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   mobile: boolean;
   showIntro: boolean;
   focusSub: any;
+  currentLocale: string;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
@@ -77,6 +78,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.queryResults = [];
     this.queryTerm = '';
     this.hasResults = true;
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle( newTitle: string) {
@@ -90,8 +93,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       case 'en': {
-        // Todo: Translate
-        this.setTitle('Lukuja tieteestä ja tutkimuksesta - Research.fi');
+        this.setTitle('Figures on science and research - Research.fi');
         break;
       }
     }

@@ -15,26 +15,26 @@ import { Injectable } from '@angular/core';
 
 export class PublicationFilters {
     filterData = [
-      {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, hideSearch: true},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, open: false,
-      tooltipFi: 'Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.'},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, open: false,
-      tooltipFi: 'Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.'},
-      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, open: false,
-      tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.'},
-      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, open: true,
-      tooltipFi: 'Julkaisijan maa.'},
-      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, open: true,
-      tooltipFi: 'Kieli, jolla julkaisu on kirjoitettu.'},
-      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, open: true,
-      tooltipFi: 'Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.'},
-      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, open: true,
-      tooltipFi: '<p><strong>Open access -lehti:</strong> Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu:</strong> Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus:</strong> Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>'}
+      {field: 'year', label: $localize`:@@yearOfPublication:Julkaisuvuosi`, hasSubFields: false, open: true, hideSearch: true},
+      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, open: false,
+      tooltip: $localize`:@@pOrgFTooltip:Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.`},
+      {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, open: false,
+      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
+      {field: 'publicationType', label: $localize`:@@publicationType:Julkaisutyyppi`, hasSubFields: true, open: false,
+      tooltip: $localize`:@@pTypeFTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+      {field: 'countryCode', label: $localize`:@@publicationCountry:Julkaisumaa`, hasSubFields: false, open: true,
+      tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`},
+      {field: 'lang', label: $localize`:@@language:Kieli`, hasSubFields: false, open: true,
+      tooltip: $localize`:@@pLangFTooltip:Kieli, jolla julkaisu on kirjoitettu.`},
+      {field: 'juFo', label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, hasSubFields: false, open: true,
+      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`},
+      {field: 'openAccess', label: $localize`:@@openAccess:Avoin saatavuus`, hasSubFields: false, open: true,
+      tooltip: '<p><strong>' +  $localize`Open access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`Rinnakkaistallennettu: ` + '</strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`Muu avoin saatavuus: ` + '</strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'}
     ];
 
     singleFilterData = [
-      {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu',
-      tooltipFi: 'Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.'}
+      {field: 'internationalCollaboration', label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
+      tooltip: $localize`:@@intCoPublicationTooltip:Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.`}
     ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
@@ -116,15 +116,16 @@ export class PublicationFilters {
 
   publicationCountry(data) {
     const result = data.map(item =>
-        item = {key: 'c' + item.key, label: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
+        item = {key: 'c' + item.key, label: item.key === 0 ?
+        $localize`:@@finland:Suomi` : $localize`:@@other:Muu`, doc_count: item.doc_count, value: item.key});
     return result;
   }
 
   juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
-        // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
-        label: item.key === ' ' ? 'Ei tietoa' : item.key,
+        // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).label : '',
+        label: item.key === ' ' ? $localize`:@@noInfo:Ei tietoa` : item.key,
         key: item.key === ' ' ? 'noVal' : 'j' + item.key,
 
         doc_count: item.doc_count,
@@ -136,7 +137,7 @@ export class PublicationFilters {
   lang(data) {
     if (data && data[0]?.language) {
       let result = data.map(item => item = {
-        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : 'Ei tiedossa',
+        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : $localize`:@@notKnown:Ei tiedossa`,
         key: item.key,
         doc_count: item.doc_count
       });

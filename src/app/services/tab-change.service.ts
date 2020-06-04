@@ -7,23 +7,23 @@ import { faFileAlt, faUsers, faBriefcase, faSpinner, faAlignLeft, faCalculator, 
 })
 export class TabChangeService {
   tabData = [
-    { data: 'publications', labelFi: 'Julkaisut', labelEn: 'Publications', link: 'publications', icon: faFileAlt, singularFi: 'julkaisu',
-      tooltipFi: 'Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.'},
-    { data: '',  labelFi: 'Tutkijat', labelEn: 'People', link: '2', icon: faUsers, singularFi: 'tutkija',
-      tooltipFi: 'Suomessa toimivia tutkijoita.' },
-    { data: 'fundings', labelFi: 'Hankkeet', labelEn: 'Fundings', link: 'fundings', icon: faBriefcase, singularFi: 'hanke',
-      tooltipFi: 'Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.' },
-    { data: '', labelFi: 'Aineistot', labelEn: 'Materials', link: '1', icon: faAlignLeft, singularFi: 'aineisto',
-      tooltipFi: 'Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.' },
-    { data: 'infrastructures', labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', link: 'infrastructures', icon: faCalculator, singularFi: 'infrastruktuuri',
-      tooltipFi: 'Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.'  },
-    { data: '', labelFi: 'Muut tutkimusaktiviteetit', labelEn: 'Research activities', link: '3', icon: faSpinner, singularFi: 'muu tutkimusaktiviteetti',
-      tooltipFi: 'Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.'  },
-    { data: 'organizations', labelFi: 'Organisaatiot', labelEn: 'Organizations', link: 'organizations', icon: faUniversity, singularFi: 'organisaatio',
-      tooltipFi: 'Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.'  }
+    { data: 'publications', label: $localize`:@@publications:Julkaisut`, link: 'publications', icon: faFileAlt, singular: $localize`:@@publication:julkaisu`,
+      tooltip: $localize`:@@publicationsTooltip:Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.`},
+    { data: '',  label: $localize`:@@authors:Tutkijat`, link: '2', icon: faUsers, singular: $localize`:@@author:tutkija`,
+      tooltip: $localize`:@@authorsTooltip:Suomessa toimivia tutkijoita.` },
+    { data: 'fundings', label: $localize`:@@fundings:Hankkeet`, link: 'fundings', icon: faBriefcase, singular: $localize`:@@funding:hanke`,
+      tooltip: $localize`:@@fundingsTooltip:Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.` },
+    { data: '', label: $localize`:@@materials:Aineistot`, link: '1', icon: faAlignLeft, singular: $localize`:@@material:aineisto`,
+      tooltip: $localize`:@@materialsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.` },
+    { data: 'infrastructures', label: $localize`:@@infrastructures:Infrastructuurit`, link: 'infrastructures', icon: faCalculator, singular: $localize`:@@infrastructure:infrastruktuuri`,
+      tooltip: $localize`:@@infrastructuresTooltip:Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.`  },
+    { data: '', label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`, link: '3', icon: faSpinner, singular: $localize`:@@otherResearchActivity:muu tutkimustoiminta`,
+      tooltip: $localize`:@@otherResearcActivitiesTooltip:Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.`  },
+    { data: 'organizations', label: $localize`:@@organizations:Organisaatiot`, link: 'organizations', icon: faUniversity, singular: $localize`:@@organization:organisaatio`,
+      tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.`  }
   ];
 
-  private tabSource = new BehaviorSubject({data: '', labelFi: '', labelEn: '', link: '', icon: '', singularFi: ''});
+  private tabSource = new BehaviorSubject({data: '', label: '', link: '', icon: '', singular: ''});
   private focusSource = new BehaviorSubject(false);
   private focusTarget = new BehaviorSubject('');
   private skipToInput = new BehaviorSubject(true);
@@ -53,7 +53,7 @@ export class TabChangeService {
     this.newPageSource.next(true);
   }
 
-  changeTab(tab: {data: string; labelFi: string, labelEn: string, link: string, icon: any, singularFi: string}) {
+  changeTab(tab: {data: string; label: string, link: string, icon: any, singular: string}) {
     this.tab = tab.link;
     this.tabSource.next(tab);
   }

@@ -28,50 +28,61 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
 
   colWidth = 0;
 
-  introText = sector.intro.description.join('');
+  introText: any;
 
   sectorList = [
     {
       id: 0,
-      labelFi: 'Yliopistot',
+      label: $localize`:@@universities:Yliopistot`,
       icon: faLandmark,
       data: sector.university,
-      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiMTY3NzI5YjgtMGU1MC00MzA3LTkyNDYtN2UxZmI1ZDE4Y2UwIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlFi: 'https://app.powerbi.com/view?r=eyJrIjoiMTY3NzI5YjgtMGU1MC00MzA3LTkyNDYtN2UxZmI1ZDE4Y2UwIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlEn: 'https://app.powerbi.com/view?r=eyJrIjoiODAxZDQyODYtNjFlMC00MTMzLTgyYjEtNTE1ZjM1MGY0ZjBhIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlSv: 'https://app.powerbi.com/view?r=eyJrIjoiODAxZDQyODYtNjFlMC00MTMzLTgyYjEtNTE1ZjM1MGY0ZjBhIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
     },
     {
       id: 1,
-      labelFi: 'Ammattikorkeakoulut',
+      label: $localize`:@@universitiesAS:Ammattikorkeakoulut`,
       icon: faLandmark,
       data: sector.applied_university,
-      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOTg0NzAyOGItOGQzYS00NDBhLTg3NDUtODliMGM5MDQ5MDg2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlFi: 'https://app.powerbi.com/view?r=eyJrIjoiOTg0NzAyOGItOGQzYS00NDBhLTg3NDUtODliMGM5MDQ5MDg2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlEn: 'https://app.powerbi.com/view?r=eyJrIjoiM2FjMTA5NDktMjZiZC00NmFjLWIyM2QtMTM1YzljNDMxZTBmIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlSv: 'https://app.powerbi.com/view?r=eyJrIjoiNjllNzRhM2YtY2EzNy00Mjk2LTg1OGEtMGQ1MTNjMjc2MmQ0IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
     },
     {
       id: 2,
-      labelFi: 'Valtion tutkimuslaitokset',
+      label: $localize`:@@stateRI:Valtion tutkimuslaitokset`,
       icon: faBuilding,
       data: sector.state_research,
-      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiOGVmYmYwZGEtMWNiOC00ZjM3LTg1NjgtNGEwZDM2ZTkxNWIzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlFi: 'https://app.powerbi.com/view?r=eyJrIjoiOGVmYmYwZGEtMWNiOC00ZjM3LTg1NjgtNGEwZDM2ZTkxNWIzIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlEn: 'https://app.powerbi.com/view?r=eyJrIjoiYzFhZDAzOGUtNTVkNC00ZDIxLWE2OTQtNGVmZGJhZTg2ZWE0IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlSv: 'https://app.powerbi.com/view?r=eyJrIjoiNWU2NzE5YzUtOWYyYi00NTFiLWI5NjMtMTA1YzMwMTc0MGI1IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
     },
     {
       id: 3,
-      labelFi: 'Yliopistolliset sairaalat',
+      label: $localize`:@@uniHospitals:Yliopistolliset sairaalat`,
       icon: faHospital,
       data: sector.university_hospital,
-      iframeUrl: 'https://app.powerbi.com/view?r=eyJrIjoiZTk1N2NhODAtNDgyMC00OThkLTg1NWYtNWEwZDg3OWJhZGU5IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlFi: 'https://app.powerbi.com/view?r=eyJrIjoiZTk1N2NhODAtNDgyMC00OThkLTg1NWYtNWEwZDg3OWJhZGU5IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlEn: 'https://app.powerbi.com/view?r=eyJrIjoiYjc4Y2Y5YjAtZTExMi00ODNlLThiZDAtMTg3NmIzMjU4MzhlIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlSv: 'https://app.powerbi.com/view?r=eyJrIjoiMWRjZTc3N2ItNDljYS00YTZiLWFiMGEtOGI0MzZhYjQyM2Q2IiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
     },
     {
       id: 4,
-      labelFi: 'Muut tutkimuslaitokset',
+      label: $localize`:@@otherRF:Muut tutkimuslaitokset`,
       icon: faBuilding,
       data: sector.other_research,
-      iframeUrl: ''
+      iframeUrlFi: '',
+      iframeUrlEn: '',
+      iframeUrlSv: ''
     },
     {
-      id: 5, labelFi:
-      'Tutkimuksen rahoittajat',
+      id: 5, label: $localize`:@@researchFunders:Tutkimuksen rahoittajat`,
       icon: faEuroSign,
       data: sector.funders,
-      iframeUrl: '',
+      iframeUrlFi: 'https://app.powerbi.com/view?r=eyJrIjoiZWIzYzk1MzgtNTc0Yi00NzliLWJmOTQtNDAyYmY1MWE3OTFjIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlEn: 'https://app.powerbi.com/view?r=eyJrIjoiNjFiNTM3YzAtMjk5MC00ZWZjLTgyYWYtNmM1OTNlN2YyY2IxIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlSv: 'https://app.powerbi.com/view?r=eyJrIjoiNjFiZGVjMmMtZjcyNi00MzcwLTg4NWYtNDUzMmVhN2ZkMjIwIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
     },
   ];
 
@@ -82,11 +93,14 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   @ViewChild('iframe') iframe: ElementRef;
   focusSub: Subscription;
   resizeSub: Subscription;
+  currentLocale: string;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, public sanitizer: DomSanitizer,
               private tabChangeService: TabChangeService, private cdr: ChangeDetectorRef, private resizeService: ResizeService) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   public setTitle(newTitle: string) {
@@ -106,6 +120,8 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   }
 
   ngOnInit(): void {
+    this.introText = sector.intro['description' + this.currentLocale].join('');
+
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Tutkimus- ja innovaatiojärjestelmä - Tiedejatutkimus.fi');

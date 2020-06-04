@@ -45,11 +45,16 @@ export class ReviewComponent implements OnInit {
   faTimes = faTimes;
 
   // TODO: Translate
-  targets: string[] = ['Saavutettavuudesta', 'Tietosuojasta', 'Virheellisestä tiedosta', 'Muu palaute'];
+  targets: string[] = [
+    $localize`:@@fromAccessibility:Saavutettavuudesta`,
+    $localize`:@@fromPrivacy:Tietosuojasta`,
+    $localize`:@@fromIncorrectInformation:Virheellisestä tiedosta`,
+    $localize`:@@otherFeedback:Muu palaute`];
   location: string;
   title: string;
 
-  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title, private httpClient: HttpClient) { }
+  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title,
+              private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     // Get title
@@ -57,7 +62,7 @@ export class ReviewComponent implements OnInit {
     // Easy robot check
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
-    this.equals = this.math1 + this.math2
+    this.equals = this.math1 + this.math2;
   }
 
   close() {

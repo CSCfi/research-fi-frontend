@@ -32,58 +32,58 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   tab = 'infrastructures';
   infoFields = [
-    {label: 'Lyhenne', field: 'acronym'},
-    {label: 'Infrastruktuurin kuvaus', field: 'description'},
-    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
-    {label: 'Toiminta alkanut', field: 'startYear'},
-    {label: 'Toiminta päättynyt', field: 'endYear'},
-    {label: 'Vastuuorganisaatio', field: 'responsibleOrganization'},
-    {label: 'Osallistuvat organisaatiot', field: 'participantOrganizations'},
-    {label: 'Avainsanat', field: 'keywordsString'},
+    {label: $localize`Lyhenne`, field: 'acronym'},
+    {label: $localize`Infrastruktuurin kuvaus`, field: 'description'},
+    {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
+    {label: $localize`Toiminta alkanut`, field: 'startYear'},
+    {label: $localize`Toiminta päättynyt`, field: 'endYear'},
+    {label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, field: 'responsibleOrganization'},
+    {label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`, field: 'participantOrganizations'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString'},
   ];
 
   serviceFields = [
-    {label: 'Palvelun kuvaus', field: 'description'},
-    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
-    {label: 'Palvelun tyyppi', field: 'type'},
+    {label: $localize`Palvelun kuvaus`, field: 'description'},
+    {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
+    {label: $localize`:@@serviceType:Palvelun tyyppi`, field: 'type'},
   ];
 
   servicePointContactFields = [
-    {label: 'Kuvaus', field: 'description'},
-    {label: 'Sähköpostiosoite', field: 'emailAddress'},
-    {label: 'Puhelinnumero', field: 'phoneNumber'},
-    {label: 'Vierailuosoite', field: 'visitingAddress'},
+    {label: $localize`Kuvaus`, field: 'description'},
+    {label: $localize`Sähköpostiosoite`, field: 'emailAddress'},
+    {label: $localize`Puhelinnumero`, field: 'phoneNumber'},
+    {label: $localize`Vierailuosoite`, field: 'visitingAddress'},
   ];
 
   servicePointInfoFields = [
-    {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
-    {label: 'Linkki', field: 'infoUrl'},
-    {label: 'Koordinoiva organisaatio', field: 'coOrg'},
+    {label: $localize`Käyttöehdot`, field: 'accessPolicyUrl'},
+    {label: $localize`Linkki`, field: 'infoUrl'},
+    {label: $localize`Koordinoiva organisaatio`, field: 'coOrg'},
   ];
 
   fieldsOfScience = [
-    {label: 'Tieteenalat', field: 'fieldsOfScienceString'},
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScienceString'},
   ];
 
   classificationFields = [
-    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
-    {label: 'ESFRI-luokitus', field: 'ESFRICode'},
-    {label: 'MERIL-luokitus', field: 'merilCode'},
+    {label: $localize`Suomen Akatemian tiekartalla`, field: 'finlandRoadmap'},
+    {label: $localize`ESFRI-luokitus`, field: 'ESFRICode'},
+    {label: $localize`MERIL-luokitus`, field: 'merilCode'},
   ];
 
   contactFields = [
-    {label: 'Nimi', field: 'contactName'},
-    {label: 'Kuvaus', field: 'contactDescription'},
-    {label: 'Sähköpostiosoite', field: 'email'},
-    {label: 'Puhelinnumero', field: 'phoneNumber'},
-    {label: 'Vierailuosoite', field: 'address'},
+    {label: $localize`Nimi`, field: 'contactName'},
+    {label: $localize`Kuvaus`, field: 'contactDescription'},
+    {label: $localize`Sähköpostiosoite`, field: 'email'},
+    {label: $localize`Puhelinnumero`, field: 'phoneNumber'},
+    {label: $localize`Vierailuosoite`, field: 'address'},
   ];
 
   otherFields = [
-    {label: 'Tunnisteet', field: 'urn'},
-    {label: 'Osa kansainvälistä infrastruktuuria', field: '?'},
-    {label: 'Edeltävä tutkimusinfrastruktuuri', field: 'replacingInfrastructure'},
-    {label: 'Lisätietoja', field: '?'},
+    {label: $localize`Tunnisteet`, field: 'urn'},
+    {label: $localize`Osa kansainvälistä infrastruktuuria`, field: '?'},
+    {label: $localize`Edeltävä tutkimusinfrastruktuuri`, field: 'replacingInfrastructure'},
+    {label: $localize`Lisätietoja`, field: '?'},
   ];
 
   linkFields = [
@@ -97,9 +97,14 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   showService: boolean[] = [];
   showServicePoint: boolean[][] = [];
   faIcon = faFileAlt;
+  tabData: any;
+  currentLocale: string;
+  serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string ) {
+                // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -112,6 +117,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.infrastructures;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'infrastructures');
     this.searchTerm = this.searchService.singleInput;
   }
 
@@ -169,7 +175,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   shapeData() {
     const source = this.responseData.infrastructures[0];
-    source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+    source.finlandRoadmap = source.finlandRoadmap ? $localize`:@@yes:Kyllä` : $localize`:@@no:Ei`;
 
     // Filter out empty servicepoints and empty services
     source.services.forEach((service, idx) => {

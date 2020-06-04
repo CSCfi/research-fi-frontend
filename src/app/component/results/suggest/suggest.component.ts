@@ -22,7 +22,7 @@ export class SuggestComponent implements OnInit, OnDestroy {
   suggests: any;
   responseData: any;
   errorMessage: any;
-  currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
+  currentTab: { data: string; label: string; link: string; icon: string; };
   tabSub: any;
   inputSub: any;
   dataSub: any;

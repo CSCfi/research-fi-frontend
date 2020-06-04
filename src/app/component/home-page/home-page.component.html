@@ -24,10 +24,10 @@
               <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
                 <div>
                   <h2 class="header">
-                    {{item.title}}
+                    {{item['title' + currentLocale]}}
                   </h2>
                   <span class="hint">
-                    {{item.caption}}
+                    {{item['caption' + currentLocale]}}
                   </span>
                 </div>
               </div>
@@ -42,10 +42,10 @@
               <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
                 <div>
                   <h2 class="header">
-                    {{item.title}}
+                    {{item['title' + currentLocale]}}
                   </h2>
                   <span class="hint">
-                    {{item.caption}}
+                    {{item['caption' + currentLocale]}}
                   </span>
                 </div>
               </div>
@@ -57,15 +57,15 @@
     <div class="row mt-4 news-feed d-flex justify-content-around">
       <div class="col-12 p-0">
         <div class="news-container">
-          <h2>Uusimmat tiede- ja tutkimusuutiset 
-            <span tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+          <h2 i18n="Home page news header@@homeNewsHeader">Uusimmat tiede- ja tutkimusuutiset 
+            <span i18n-tooltip tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
               <fa-icon class="info-icon" icon="info-circle"></fa-icon>
             </span>
             <!-- <app-info tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta."></app-info> -->
           </h2>
           <app-news-card *ngFor="let item of news" [item]="item" [isHomepage]="true" tabindex="0" class="d-flex justify-content-center"></app-news-card>
           <div class="read-more">
-            <a routerLink="/news" class="link-news" aria-label="Lisää tiede- ja tutkimusuutisia tässä portaalissa">Lisää tiede- ja tutkimusuutisia tässä portaalisa >></a>
+            <a routerLink="/news" class="link-news" aria-label="Lisää tiede- ja tutkimusuutisia tässä portaalissa" i18n="Home page read more news link@@homeReadMoreNewsLink">Lisää tiede- ja tutkimusuutisia tässä portaalissa >></a>
           </div>
         </div>
       </div>

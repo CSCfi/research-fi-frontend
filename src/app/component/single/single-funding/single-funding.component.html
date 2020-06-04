@@ -10,11 +10,11 @@
  
  <div class="wrapper" *ngIf="responseData" id="main-content">
      <!-- Breadcrumb -->
-     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="'hankkeet'" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
+     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
      <div class="row shared">
-        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
+        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a></p>
          <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
-             <h2>404 - Virheellinen osoite</h2>
+             <h2 i18n="@@404">404 - Virheellinen osoite</h2>
          </div>
          <main class="col-12 col-md-8">
              <div *ngFor="let item of responseData.fundings">
@@ -25,8 +25,8 @@
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">
                                     {{row.label}}
-                                    <ng-container *ngIf="row.tooltipFi">
-                                        <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                    <ng-container *ngIf="row.tooltip">
+                                        <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                         <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                             <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                         </span>
@@ -44,9 +44,9 @@
                     <div class="content recipient">
                         <div class="row">
                             <h3 class="th col-12 col-sm-3">
-                                Myönnetty rahoitus
+                                <ng-container i18n="@@fundingRecipientHeader">Myönnetty rahoitus</ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="'Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.'"></div>
+                                    <div [innerHtml]="recipientTooltip.tooltip"></div>
                                 </ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -95,7 +95,7 @@
                                     <ng-template #noOrganizations>
                                         <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
                                             <h3 class="col-6 col-sm3 th">
-                                                <span>Yhteyshenkilö</span>
+                                                <span i18n="@@contactPerson">Yhteyshenkilö</span>
                                             </h3>
                                             <div class="col-6 col-sm-4 col-lg-5 td">
                                                 {{item.recipient.contactPersonName}}
@@ -114,16 +114,16 @@
                                     <ng-container *ngSwitchDefault>Summa </ng-container>
                                 </ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="'Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.'"></div>
+                                    <div [innerHtml]="fundingAmountTooltip.tooltip"></div>
                                 </ng-template>                                
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
                             </h3>
                             <div class="col px-0">
-                                    <div class="col-12 col-sm-3 offset-0 td" [ngClass]="item.recipientType === 'organization' ? 'offset-sm-5' : 'offset-sm-7'">
-                                        <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
-                                    </div>
+                                <div class="col-12 col-sm-3 offset-0 td" [ngClass]="item.recipientType === 'organization' ? 'offset-sm-5' : 'offset-sm-7'">
+                                    <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
+                                </div>
                             </div>
                         </div>
                         <!-- Contact person -->
@@ -136,15 +136,15 @@
                         </div>
                         <!-- SA-funding additional rows -->
                         <ng-container >
-                            <ng-container *ngIf="item.recipientType === 'consortium' && item.funderNameFi === 'Suomen Akatemia'">
+                            <ng-container *ngIf="item.recipientType === 'consortium' && item.funder.name === 'Suomen Akatemia'">
                                 <div class="row">
-                                    <h3 class="th col-12 col-sm-3">Rooli Suomen Akatemian konsortiossa</h3>
+                                    <h3 class="th col-12 col-sm-3" i18n="@@academyConsortium">Rooli Suomen Akatemian konsortiossa</h3>
                                     <div class="col-12 col-sm-4 td py-0 py-sm-3">
                                         {{item.academyConsortium}}
                                     </div>
                                 </div>
                                 <div class="row" *ngIf="item.otherConsortium.length > 0">
-                                    <h3 class="th col-12 col-sm-3">Muut osapuolet</h3>
+                                    <h3 class="th col-12 col-sm-3" i18n="@@otherConsortium">Muut osapuolet</h3>
                                     <div class="col px-0">
                                         <div class="row" *ngFor="let consortium of item.otherConsortium">
                                             <div class="col-12 col-sm-3 td py-0 py-sm-3">
@@ -170,9 +170,9 @@
                     <div class="content" *ngIf="item.funder && funderFields.length > 0">
                         <div class="row">
                             <h2 class="th col-12 col-sm-3">
-                                Rahoittaja
+                                <ng-container i18n="@@fundingFunder">Rahoittaja</ng-container>
                                 <ng-template #tooltipTemplate>
-                                    <div [innerHtml]="'Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.'"></div>
+                                    <div [innerHtml]="funderTooltip.tooltip"></div>
                                 </ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -186,8 +186,8 @@
                         <div class="row" *ngFor="let row of funderFields">
                             <h3 class="col-12 col-sm-6 col-lg-3 th">
                                 {{row.label}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -198,12 +198,12 @@
                     </div>
                     <!-- Other -->
                     <div class="content" *ngIf="otherFields.length > 0">
-                        <h2 class="th">Muut tiedot</h2>
+                        <h2 class="th" i18n="@@fundingOtherInfo">Muut tiedot</h2>
                         <div class="row" *ngFor="let row of otherFields">
                             <h3 class="col-12 col-sm-6 col-lg-3 th">
                                 {{row.label}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
@@ -220,8 +220,10 @@
                 <aside>
                     <mat-card>
                         <mat-card-title><h2>
-                            Hankkeen verkkosivu
-                            <ng-template #tooltipTemplate><div [innerHtml]="'Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.'"></div></ng-template>
+                            <ng-container i18n="@@fundingHomePage">Hankkeen verkkosivu</ng-container>
+                            <ng-template #tooltipTemplate>
+                                <div [innerHtml]="homepageTooltip.tooltip"></div>
+                            </ng-template>
                             <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                             </span>
@@ -233,11 +235,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!linkFields.length" class="no-links">Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <div *ngIf="!linkFields.length" class="no-links" i18n="@@noFundingLinks">Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
                 <mat-card>
-                    <mat-card-title><h2>Tähän hankkeeseen liittyvät</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@relatedFundings">Tähän hankkeeseen liittyvät</h2></mat-card-title>
                     <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                 </mat-card>
             </aside>
@@ -254,16 +256,16 @@
             <!-- Copy url -->
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
                     <app-share></app-share>
                 </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Hanketiedon lähde</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@fundingSource">Hanketiedon lähde</h2></mat-card-title>
                     <div *ngFor="let source of responseData.fundings">
-                        <p *ngIf="source.funder.name.trim().length > 0">Rahoittaja: {{source.funder.name}}</p>
-                        <p *ngIf="source.funder.name.trim().length === 0">Tiedon lähde ei saatavilla.</p>
+                        <p *ngIf="source.funder.name.trim().length > 0" i18n="@@fundingFunderSource">Rahoittaja: {{source.funder.name}}</p>
+                        <p *ngIf="source.funder.name.trim().length === 0" i18n="@@noInformationSource">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>
                 </mat-card>
