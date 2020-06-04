@@ -5,7 +5,7 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient-organization.model';
 
@@ -30,8 +30,10 @@ export class Recipient {
     providedIn: 'root'
 })
 export class RecipientAdapter implements Adapter<Recipient> {
-    constructor(private roa: RecipientOrganizationAdapter) {}
+    constructor(private roa: RecipientOrganizationAdapter, @Inject( LOCALE_ID ) protected localeId: string) {}
     adapt(item: any): Recipient {
+        // Change locale to field name format
+        const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in funding results component
@@ -89,7 +91,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
             recipientObj?.fundingGroupPersonOrcid,
-            recipientObj?.consortiumOrganizationNameFi, // affiliation
+            recipientObj ? recipientObj['consortiumOrganizationName' + capitalizedLocale] : undefined, // affiliation
             recipientObj?.consortiumOrganizationNameFi, // organizationName
             recipientObj?.consortiumOrganizationId,
             recipientObj?.shareOfFundingInEur,
