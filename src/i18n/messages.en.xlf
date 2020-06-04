@@ -1955,6 +1955,10 @@
         <source>Ei tietoa</source>
         <target>No information</target>
       </trans-unit>
+      <trans-unit id="nonOpen">
+        <source>Ei avoin</source>
+        <target>Non open</target>
+      </trans-unit>
       <!-- Fields of science -->
       <trans-unit id="naturalSciences">
         <source>Luonnontieteet</source>
@@ -2200,7 +2204,7 @@
         <source>Julkaisu­\u00ADfoorumitaso</source>
         <target>​Publication forum level</target>
       </trans-unit>
-      <trans-unit id="8136204200532143751">
+      <trans-unit id="openAccessJournal">
         <source>Open access -lehti: </source>
         <target>Open access journal: </target>
       </trans-unit>
@@ -2208,17 +2212,17 @@
         <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>
         <target>The publication has been published in a publication channel, whose publications are all openly available.</target>
       </trans-unit>
-      <trans-unit id="7129592600388203777">
-        <source>Rinnakkaistallennettu: </source>
-        <target>Self-archived: </target>
+      <trans-unit id="selfArchived">
+        <source>Rinnakkaistallennettu</source>
+        <target>Self-archived</target>
       </trans-unit>
       <trans-unit id="7842221493969044364">
         <source>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</source>
         <target>The publication has been published in a publication archive specific to an organization or field of science either immediately or after a reasonable embargo period set by the publisher.</target>
       </trans-unit>
-      <trans-unit id="7089671200331894304">
-        <source>Muu avoin saatavuus: </source>
-        <target>Other open access: </target>
+      <trans-unit id="otherOpenAccess">
+        <source>Muu avoin saatavuus</source>
+        <target>Other open access</target>
       </trans-unit>
       <trans-unit id="1467910369543476416">
         <source>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</source>
@@ -2322,6 +2326,14 @@
       <target>A website outside the research.fi service that contains more detailed information on the project.</target>
       </trans-unit>
       <!-- Infrastructures -->
+      <trans-unit id="infraServicesLabel">
+        <source>Palveluita</source>
+        <target>Services</target>
+      </trans-unit>
+      <trans-unit id="finlandRoadmap">
+        <source>Tiekartalla</source>
+        <target>Roadmap</target>
+      </trans-unit>
       <trans-unit id="486660071516642410">
         <source>Lyhenne</source>
         <target>Acronym</target>

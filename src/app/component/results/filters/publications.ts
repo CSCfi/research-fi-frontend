@@ -29,7 +29,7 @@ export class PublicationFilters {
       {field: 'juFo', label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, hasSubFields: false, open: true,
       tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`},
       {field: 'openAccess', label: $localize`:@@openAccess:Avoin saatavuus`, hasSubFields: false, open: true,
-      tooltip: '<p><strong>' +  $localize`Open access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`Rinnakkaistallennettu: ` + '</strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`Muu avoin saatavuus: ` + '</strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'}
+      tooltip: '<p><strong>' +  $localize`:@@:openAccessJournalOpen access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'}
     ];
 
     singleFilterData = [
@@ -159,19 +159,19 @@ export class PublicationFilters {
       openAccess.forEach(val => {
         switch (val.key) {
             case 1: {
-            openAccessCodes.push({key: 'openAccess', doc_count: val.doc_count, label: 'Open Access -lehti'});
+            openAccessCodes.push({key: 'openAccess', doc_count: val.doc_count, label: $localize`:@@openAccessJournal:Open Access -lehti `});
             break;
             }
             case 2: {
-            openAccessCodes.push({key: 'otherOpen', doc_count: val.doc_count, label: 'Muu avoin saatavuus'});
+            openAccessCodes.push({key: 'otherOpen', doc_count: val.doc_count, label: $localize`:@@otherOpenAccess:Muu avoin saatavuus: `});
             break;
             }
             case 0: {
-            openAccessCodes.push({key: 'nonOpenAccess', doc_count: val.doc_count, label: 'Ei avoin'});
+            openAccessCodes.push({key: 'nonOpenAccess', doc_count: val.doc_count, label: $localize`:@@nonOpen:Ei avoin`});
             break;
             }
             default: {
-            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: 'Ei tietoa'});
+            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: $localize`:@@noInfo:Ei tietoa`});
             break;
             }
         }
@@ -182,15 +182,15 @@ export class PublicationFilters {
       selfArchived.forEach(val => {
         switch (val.key) {
             case 1: {
-            openAccessCodes.push({key: 'selfArchived', doc_count: val.doc_count, label: 'Rinnakkaistallennettu'});
+            openAccessCodes.push({key: 'selfArchived', doc_count: val.doc_count, label: $localize`:@@selfArchived:Rinnakkaistallennettu`});
             break;
             }
             case 0: {
-            openAccessCodes.push({key: 'selfArchivedNonOpen', doc_count: val.doc_count, label: 'Ei avoin'});
+            openAccessCodes.push({key: 'selfArchivedNonOpen', doc_count: val.doc_count, label: $localize`:@@nonOpen:Ei avoin`});
             break;
             }
             default: {
-            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: 'Ei tietoa'});
+            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: $localize`:@@noInfo:Ei tietoa`});
             break;
             }
         }
@@ -213,20 +213,20 @@ export class PublicationFilters {
 
     // Push items by key
     if (openAccessCodes.some(e => e.key === 'openAccess')) {
-      result.push({key: 'openAccess', doc_count: docCount('openAccess'), label: 'Open Access -lehti'});
+      result.push({key: 'openAccess', doc_count: docCount('openAccess'), label: $localize`:@@openAccessJournal:Open Access -lehti `});
     }
     if (openAccessCodes.some(e => e.key === 'selfArchived')) {
-      result.push({key: 'selfArchived', doc_count: docCount('selfArchived'), label: 'Rinnakkaistallennettu'});
+      result.push({key: 'selfArchived', doc_count: docCount('selfArchived'), label: $localize`:@@selfArchived:Rinnakkaistallennettu`});
     }
     if (openAccessCodes.some(e => e.key === 'otherOpen')) {
-      result.push({key: 'otherOpen', doc_count: docCount('otherOpen'), label: 'Muu avoin saatavuus'});
+      result.push({key: 'otherOpen', doc_count: docCount('otherOpen'), label: $localize`:@@otherOpenAccess:Muu avoin saatavuus`});
     }
     if (openAccessCodes.some(e => e.key === 'nonOpenAccess') && openAccessCodes.some(e => e.key === 'selfArchivedNonOpen')) {
-      result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: 'Ei avoin'});
+      result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: $localize`:@@nonOpen:Ei avoin`});
     }
     if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
       result.push({key: 'noOpenAccessData', doc_count: openAccessCodes.find
-      (item => item.key === 'noOpenAccessData')?.doc_count, label: 'Ei tietoa'});
+      (item => item.key === 'noOpenAccessData')?.doc_count, label: $localize`:@@noInfo:Ei tietoa`});
     }
     return result;
   }
