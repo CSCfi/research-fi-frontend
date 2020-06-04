@@ -14,6 +14,13 @@
                 "<p>Government ministries jointly develop policy measures concerning the research and innovation system. The Research and Innovation Council led by the Prime Minister supports the Government in the development and coordination of long-term science, technology and innovation policy (RDI policy). It monitors changes in the operating environment of the sector and launches initiatives related to RDI policy.</p>",
                 "<p>The goal set by the Government of Prime Minister Marin is to significantly increase Finland's investment in research and development. To achieve this, a common vision and mission, more ambitious RDI and investments from both the public and private sectors will be needed. Without a significant increase in private sector investment, this goal cannot be achieved.</p>",
                 "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\" target=\"_blank\">The RDI roadmap <i class='fas fa-external-link-alt'></i></a> was drafted to promote increasing the intensity of RDI and the resulting sustainable growth as well as to create an operating environment that encourages both Finnish and foreign companies to invest in RDI in Finland. The objective is that Finland will remain a leader in the production of new information and the development and application of technology. It is important that Finland also rapidly adopts information and expertise produced elsewhere. Ensuring the availability of the required human resources plays a central role in the roadmap.</p>"
+            ],
+            "descriptionSv": [
+                "<p>Finlands konkurrenskraft och välfärd bygger på kompetens, forskning och innovationer. Forsknings- och innovationspolitiken stöder verksamhetsförutsättningarna för organisationer som bedriver och stöder forskning. Den information och kunskap som forskningen ger upphov till tjänar olika samhällsaktörer, såsom företag, samfund och offentliga organisationer, samt det politiska beslutsfattandet.</p>",
+                "<p>Universiteten och yrkeshögskolorna, forskningsinstituten samt företagens forskningsenheter är centrala aktörer i forsknings- och innovationssystemet. Cirka två tredjedelar av utgifterna för forskning och produktutveckling uppstår i företag. De viktigaste finländska forskningsfinansiärerna är Finlands Akademi, Business Finland och stiftelserna.</p>",
+                "<p>Statsrådets ministerier utvecklar tillsammans de politiska åtgärder som rör forsknings- och innovationssystemet. Forsknings- och innovationsrådet, som leds av statsministern, stöder statsrådet i utvecklingen och koordineringen av en långsiktig vetenskaps-, teknik- och innovationspolitik (FoUI-politik). Rådet följer förändringarna i branschens verksamhetsmiljö och tar initiativ i anslutning till FoUI-politiken.</p>",
+                "<p>Statsminister Marins regering har som mål att avsevärt öka Finlands satsningar på forskning och utveckling. För att uppnå detta behövs en gemensam vision och mission, mer ambitiös FoUI-verksamhet samt investeringar från såväl den offentliga som den privata sektorn. Utan en betydande ökning av den privata sektorns investeringar kan målet inte uppnås.</p>",
+                "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\" target=\"_blank\">FoUI-vägkartan <i class='fas fa-external-link-alt'></i></a> har utarbetats för att främja en ökning av FoUI-intensiteten och den hållbara tillväxt som den ger upphov till samt för att skapa en verksamhetsmiljö som uppmuntrar både finländska och utländska företag att investera i FoUI-verksamhet i Finland. Målet är att Finland ska stå i främsta ledet när det gäller att producera ny information samt utveckla och tillämpa teknik. Det är viktigt att Finland också snabbt tillägnar sig information och kompetens som producerats på annat håll. Centralt för vägkartan är att trygga tillgången till de mänskliga resurser som krävs.</p>"
             ]
         },
         "university": {
@@ -25,8 +32,13 @@
                 "<p>The tasks of universities include free research, scientific and artistic education and the highest level of education based on these. Universities spend approximately one third of their state funding on research. The majority of the university's competitive public research funding comes from the Academy of Finland, Business Finland and European Union.</p>",
                 "<p>There are 13 universities operating under the administrative branch of the Ministry of Education and Culture. Two of these universities are foundations and other bodies governed by public law in accordance with the Foundation Act. Higher education degrees in military services are completed at the National Defence University under the Defence Administration (MPKK).</p>"
             ],
+            "descriptionSv": [
+                "<p>Till universitetens uppgifter hör fri forskning, vetenskaplig och konstnärlig bildning samt den högsta undervisningen som grundar sig på dessa. Universiteten använder ungefär en tredjedel av sin statliga finansiering för forskning. Största delen av universitetens konkurrensutsatta offentliga forskningsfinansiering kommer från Finlands Akademi, Business Finland och Europeiska unionen.</p>",
+                "<p>Inom undervisnings- och kulturministeriets förvaltningsområde finns 13 universitet, varav två är stiftelser i enlighet med stiftelselagen. De övriga är offentligrättsliga inrättningar. Högskoleexamina inom militärbranschen avläggs vid Försvarshögskolan (MPKK), som lyder under försvarsförvaltningen.</p>"
+            ],
             "subtitleFi": "Yliopistot Suomessa",
             "subtitleEn": "Universities",
+            "subtitleSv": "Universitet",
             "organizations": [
                 {
                     "nameFi": "Aalto-yliopisto",
@@ -123,8 +135,13 @@
                 "<p>The task of universities of applied sciences is to provide higher education leading to professional expert tasks that meets the changing needs of working life. The tasks of universities of applied sciences also include applied research and development, which serves teaching and supports working life and regional development. In addition to state aid, the most significant source of funding for RDI at universities of applied sciences is structural fund programs of the European Union. The Academy of Finland and Business Finland also fund RDI at universities of applied sciences.</p>",
                 "<p>There are 22 universities of applied sciences operating under the administrative branch of the Ministry of Education and Culture. In addition to these, Högskolan på Åland operates in Åland and the Police University College operates under the Ministry of the Interior.</p>"
             ],
+            "descriptionSv": [
+                "<p>Yrkeshögskolorna har i uppgift att erbjuda högskoleundervisning som leder till yrkesmässiga expertuppgifter som motsvarar arbetslivets föränderliga behov. Till yrkeshögskolornas uppgifter hör dessutom tillämpad forskning och utveckling som betjänar undervisningen och stöder arbetslivet och den regionala utvecklingen. Utöver statsunderstödet är Europeiska unionens strukturfondsprogram den mest betydande finansieringskällan för FoUI-verksamheten i yrkeshögskolorna. Även Finlands Akademi och Business Finland finansierar yrkeshögskolornas FoUI-arbete.</p>",
+                "<p>Inom undervisnings- och kulturministeriets förvaltningsområde finns 22 yrkeshögskolor i aktiebolagsform. Utöver yrkeshögskolorna ingår Högskolan på Åland i undervisnings- och kulturministeriets förvaltningsområde. Polisyrkeshögskolan lyder under inrikesministeriet.</p>"
+            ],
             "subtitleFi": "Ammattikorkeakoulut Suomessa",
             "subtitleEn": "Universities of applied sciences",
+            "subtitleSv": "Yrkeshögskolor",
             "organizations": [
                 {
                     "nameFi": "Centria-ammattikorkeakoulu",
@@ -273,8 +290,12 @@
             "descriptionEn": [
                 "<p>University hospitals form health research clusters together with the universities' medical faculties. In cooperation with universities, higher education institutions and companies, university hospitals produce research data that develops health services and their organization and promotes the health of the population and patients.</p>"
             ],
+            "descriptionSv": [
+                "<p>Universitetssjukhusen bildar tillsammans med universitetens medicinska fakulteter kluster för hälsoforskning. I samarbete med universitet, högskolor och företag producerar universitetssjukhusen forskningsdata som utvecklar hälso- och sjukvårdstjänsterna och ordnandet av dem samt främjar befolkningens och patienternas hälsa.</p>"
+            ],
             "subtitleFi": "Yliopistollisten sairaaloiden erityisvastuualueet",
             "subtitleEn": "University hospitals",
+            "subtitleSv": "Universitetssjukhus",
             "organizations": [
                 {
                     "nameFi": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
@@ -319,8 +340,14 @@
                 "<p>In addition to research activities, institutes perform a variety of expert and official tasks as well as fee-based and other service activities. Research institutes maintain key research infrastructures, datasets and long time series from different sectors of society. Research institutes provide services horizontally for most administrative branches, the rest of the public sector, companies and third sector actors. International cooperation plays a key role both in research conducted by research institutes and in expert and official tasks.</p>",
                 "<p>Finland's 12 state research institutes operate in seven different administrative branches. Of these research institutes, ten are performance-based agencies, one is a limited liability company owned and controlled by the state, and one is an independent body governed by public law. The departments define the research priorities together with the ministry steering the performance. The research itself is independent and its funding increasingly comes from several sources from the domestic public and private sectors as well as from international funders.</p>"
             ],
+            "descriptionSv": [
+                "<p>Statens forskningsinstitut bedriver lösningsorienterad forskning som stöder det samhälleliga beslutsfattandet och förnyelsen av näringslivet.</p>",
+                "<p>Utöver forskningsverksamheten har instituten i varierande grad olika expert- och myndighetsuppgifter samt avgiftsbelagd och annan serviceverksamhet. Forskningsinstituten upprätthåller betydande forskningsinfrastrukturer, informationsmaterial och långa tidsserier inom olika delområden i samhället. Forskningsinstituten producerar tjänster horisontellt för de flesta förvaltningsområden, den övriga offentliga sektorn samt företag och aktörer inom tredje sektorn. Internationellt samarbete spelar en central roll såväl i forskningsinstitutens forskningsverksamhet som i expert- och myndighetsuppgifterna.</p>",
+                "<p>Finlands tolv statliga forskningsinstitut verkar inom sju olika förvaltningsområden. Av forskningsinstituten är tio till organisationsformen resultatstyrda ämbetsverk, ett är ett aktiebolag som ägs och förvaltas av staten och ett är ett självständigt offentligrättsligt samfund. Instituten fastställer tyngdpunkterna för forskningen tillsammans med det resultatstyrande ministeriet. Själva forskningen är oberoende och finansieringen av den kommer i allt större utsträckning genom konkurrensutsättning från flera källor i den inhemska offentliga och privata sektorn samt från internationella finansiärer.</p>"
+            ],
             "subtitleFi": "Valtion tutkimuslaitokset",
             "subtitleEn": "State research institutes",
+            "subtitleSv": "Statliga forskningsinstitut",
             "organizations": [
                 {
                     "nameFi": "Geologian tutkimuskeskus",
@@ -416,6 +443,10 @@
             "descriptionEn": [
                 "<p>In addition to state research institutes, research is also conducted in numerous other public or private research institutes or in the research units of individual organizations. These include economic research institutes, the Bank of Finland and the Research Department of the Social Insurance Institution of Finland.</p>",
                 "<p>Approximately two-thirds of Finnish research and development takes place in companies. In addition to the R&D to be compiled for statistics, companies engage in a significant amount of innovation, which they use to develop and market new products, services or production processes.</p>"
+            ],
+            "descriptionSv": [
+                "<p>Utöver statliga forskningsinstitut bedrivs forskning också vid flera andra offentliga eller privata forskningsinstitut eller organisationers forskningsenheter. Till dessa hör till exempel ekonomiska forskningsinstitut, Finlands Bank samt Folkpensionsanstaltens forskningsavdelning.</p>",
+                "<p>Cirka två tredjedelar av Finlands forsknings- och utvecklingsverksamhet sker i företagen. Utöver den FoU-verksamhet som statistikförs bedriver företagen i betydande utsträckning innovationsverksamhet i syfte att utveckla och lansera nya produkter, tjänster eller produktionsprocesser.</p>"
             ]
         },
         "funders": {
@@ -426,6 +457,10 @@
             "descriptionEn": [
                 "<p>In Finland, the total research and development expenditure according to international definition amounted to EUR 6.4 billion in 2018. More than half of the total funding for research and development activities comes from Finnish companies. The public sector funds about one third, while foreign funding accounts for just over ten per cent. The remainder of funding comes from, among others, foundations that support science.  In international comparisons, the ratio of shares funded by the private sector and public sector is quite typical.</p>",
                 "<p>The share of budget funding accounts for approximately half of the funding for research in the higher education sector. The Academy of Finland is one of the biggest outside funders, accounting for some 20 per cent. Other sources of funding are the EU Framework Programme for Research, Business Finland and foundations as a whole.  <a href=\"https://saatiotrahastot.fi/wp-content/uploads/2020/02/Selvitys-saatiotuesta-2018.pdf\" target=\"_blank\">According to a separate study <i class='fas fa-external-link-alt'></i></a> , in 2018 the foundations supported science with a total of EUR 223 million. Not all funding for foundations is shown in the statistics, in cases where the support goes directly to the grant recipients.</p>"
+            ],
+            "descriptionSv": [
+                "<p>Utgifterna för forsknings- och utvecklingsverksamhet enligt den internationella definitionen uppgick år 2018 till sammanlagt 6,4 miljarder euro i Finland. Drygt hälften av den totala finansieringen av forsknings- och utvecklingsverksamheten kommer från inhemska företag. Den offentliga sektorn finansierar cirka en tredjedel, medan den utländska finansieringen är drygt tio procent. Resten av finansieringen kommer bl.a. från stiftelser som stöder vetenskap. Förhållandet mellan de andelar som företagssektorn och den offentliga sektorn finansierar är tämligen typiskt i internationell jämförelse.</p>",
+                "<p>Budgetfinansieringens andel av forskningsfinansieringen i högskolesektorn är ungefär hälften. Finlands Akademi är den mest betydande utomstående finansiären med en andel på cirka 20 procent. Viktiga andra finansieringskällor är EU:s ramprogram för forskning, Business Finland och stiftelserna som helhet. Enligt en separat utredning stödde stiftelserna vetenskapen med sammanlagt 223 miljoner euro år 2018. All stiftelsefinansiering syns inte i statistiken om stödet går direkt till stipendiater.</p>"
             ]
         }
     }
