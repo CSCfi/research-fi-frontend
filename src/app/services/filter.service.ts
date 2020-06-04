@@ -620,7 +620,7 @@ export class FilterService {
         payLoad.aggs.funder = {
           filter: {
             bool: {
-              filter: filterActive('funderName.keyword')
+              filter: filterActive('funderNameFi.keyword')
             }
           },
           aggs: {
