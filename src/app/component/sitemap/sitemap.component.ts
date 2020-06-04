@@ -23,7 +23,7 @@ export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setTitle('Sitemap - Research.fi');
         break;
       }
-      case 'en': {
+      case 'sv': {
         this.setTitle('Sidkarta | Forskning.fi');
         break;
       }

@@ -110,7 +110,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setTitle('Science and research news - Research.fi');
         break;
       }
-      case 'en': {
+      case 'sv': {
         this.setTitle('De senaste vetenskaps- och forskningsnyheterna - Forskning.fi');
         break;
       }

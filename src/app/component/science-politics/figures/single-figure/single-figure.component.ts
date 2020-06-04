@@ -116,7 +116,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         this.setTitle(this.label + ' - Research.fi');
         break;
       }
-      case 'en': {
+      case 'sv': {
         this.setTitle(this.label + ' - Forskning.fi');
         break;
       }
