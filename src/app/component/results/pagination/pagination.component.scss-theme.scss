@@ -3,7 +3,7 @@
 @mixin app-pagination-theme($theme) {
     $primary: map-get($theme, primary);
 
-    app-pagination {
+    app-pagination, app-news-pagination {
         button {
             background: mat-contrast($primary, 600);
             color: mat-color($primary);

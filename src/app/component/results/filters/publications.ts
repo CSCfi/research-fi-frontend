@@ -15,61 +15,66 @@ import { Injectable } from '@angular/core';
 
 export class PublicationFilters {
     filterData = [
-      {field: 'year', labelFi: 'Julkaisuvuosi', hasSubFields: false, open: true, hideSearch: true},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, open: false,
-      tooltipFi: 'Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.'},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, open: false,
-      tooltipFi: 'Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.'},
-      {field: 'publicationType', labelFi: 'Julkaisutyyppi', hasSubFields: true, open: false,
-      tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.'},
-      {field: 'countryCode', labelFi: 'Julkaisumaa', hasSubFields: false, open: true,
-      tooltipFi: 'Julkaisijan maa.'},
-      {field: 'lang', labelFi: 'Kieli', hasSubFields: false, open: true,
-      tooltipFi: 'Kieli, jolla julkaisu on kirjoitettu.'},
-      {field: 'juFo', labelFi: 'Julkaisufoorumitaso', hasSubFields: false, open: true,
-      tooltipFi: 'Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.'},
-      {field: 'openAccess', labelFi: 'Avoin saatavuus', hasSubFields: false, open: true,
-      tooltipFi: '<p><strong>Open access -lehti:</strong> Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu:</strong> Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus:</strong> Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>'}
+      {field: 'year', label: $localize`:@@yearOfPublication:Julkaisuvuosi`, hasSubFields: false, open: true, hideSearch: true},
+      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, open: false,
+      tooltip: $localize`:@@pOrgFTooltip:Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.`},
+      {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, open: false,
+      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
+      {field: 'publicationType', label: $localize`:@@publicationType:Julkaisutyyppi`, hasSubFields: true, open: false,
+      tooltip: $localize`:@@pTypeFTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+      {field: 'countryCode', label: $localize`:@@publicationCountry:Julkaisumaa`, hasSubFields: false, open: true,
+      tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`},
+      {field: 'lang', label: $localize`:@@language:Kieli`, hasSubFields: false, open: true,
+      tooltip: $localize`:@@pLangFTooltip:Kieli, jolla julkaisu on kirjoitettu.`},
+      {field: 'juFo', label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, hasSubFields: false, open: true,
+      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`},
+      {field: 'openAccess', label: $localize`:@@openAccess:Avoin saatavuus`, hasSubFields: false, open: true,
+      tooltip: '<p><strong>' +  $localize`:@@:openAccessJournalOpen access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'}
     ];
 
     singleFilterData = [
-      {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteisjulkaisu',
-      tooltipFi: 'Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.'}
+      {field: 'internationalCollaboration', label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
+      tooltip: $localize`:@@intCoPublicationTooltip:Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.`}
     ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
   shapeData(data) {
-    const source = data[0].aggregations;
+    const source = data.aggregations;
+    // Year
+    source.year.buckets = source.year.years.buckets;
     // Organization & sector
     this.organization(source.organization);
     // Major field
-    source.field.buckets = this.minorField(source.field.buckets);
+    source.field.buckets = this.minorField(source.field.fields.buckets);
     // Publication Type
-    source.publicationType.buckets = this.separatePublicationClass(source.publicationType.buckets);
+    source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
     // Country code
-    source.countryCode.buckets = this.publicationCountry(source.countryCode.buckets);
+    source.countryCode.buckets = this.publicationCountry(source.countryCode.countryCodes.buckets);
     // Language code
-    source.lang.buckets = this.lang(source.lang.buckets);
+    source.lang.buckets = this.lang(source.lang.langs.buckets);
     // Jufo code
-    source.juFo.buckets = this.juFoCode(source.juFo.buckets);
+    source.juFo.buckets = this.juFoCode(source.juFo.juFoCodes.buckets);
     // Open access
-    source.openAccess.buckets = this.openAccess(source.openAccess.buckets, source.selfArchived.buckets, source.oaComposite);
+    source.openAccess.buckets = this.openAccess(source.openAccess.openAccessCodes.buckets, source.selfArchived.selfArchivedCodes.buckets,
+                                                source.oaComposite);
     // Internationatl collaboration
-    source.internationalCollaboration.buckets = this.getSingleAmount(source.internationalCollaboration.buckets);
+    source.internationalCollaboration.buckets =
+      this.getSingleAmount(source.internationalCollaboration.internationalCollaborationCodes.buckets);
     source.shaped = true;
     return source;
   }
 
   organization(data) {
-      data.buckets = data.sectorName ? data.sectorName.buckets : [];
-      data.buckets.forEach(item => {
-      item.subData = item.organizations.buckets;
+    data.buckets = data.sectorName ? data.sectorName.buckets : [];
+    data.buckets.forEach(item => {
+      item.subData = item.organization.buckets;
       item.subData.map(subItem => {
           subItem.label = subItem.key;
           subItem.key = subItem.orgId.buckets[0].key;
+          subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
-      });
+    });
   }
 
   minorField(data) {
@@ -111,15 +116,16 @@ export class PublicationFilters {
 
   publicationCountry(data) {
     const result = data.map(item =>
-        item = {key: 'c' + item.key, label: item.key === 0 ? 'Suomi' : 'Muu', doc_count: item.doc_count, value: item.key});
+        item = {key: 'c' + item.key, label: item.key === 0 ?
+        $localize`:@@finland:Suomi` : $localize`:@@other:Muu`, doc_count: item.doc_count, value: item.key});
     return result;
-    }
+  }
 
   juFoCode(data) {
     const staticData = this.staticDataService.juFoCode;
     const result = data.map(item => item = {
-        // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).labelFi : '',
-        label: item.key === ' ' ? 'Ei tietoa' : item.key,
+        // label: staticData.find(code => code.key === item.key) ? staticData.find(code => code.key === item.key).label : '',
+        label: item.key === ' ' ? $localize`:@@noInfo:Ei tietoa` : item.key,
         key: item.key === ' ' ? 'noVal' : 'j' + item.key,
 
         doc_count: item.doc_count,
@@ -131,7 +137,7 @@ export class PublicationFilters {
   lang(data) {
     if (data && data[0]?.language) {
       let result = data.map(item => item = {
-        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : 'Ei tiedossa',
+        label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : $localize`:@@notKnown:Ei tiedossa`,
         key: item.key,
         doc_count: item.doc_count
       });
@@ -153,37 +159,38 @@ export class PublicationFilters {
       openAccess.forEach(val => {
         switch (val.key) {
             case 1: {
-            openAccessCodes.push({key: 'openAccess', doc_count: val.doc_count, label: 'Open Access -lehti'});
+            openAccessCodes.push({key: 'openAccess', doc_count: val.doc_count, label: $localize`:@@openAccessJournal:Open Access -lehti `});
             break;
             }
             case 2: {
-            openAccessCodes.push({key: 'otherOpen', doc_count: val.doc_count, label: 'Muu avoin saatavuus'});
+            openAccessCodes.push({key: 'otherOpen', doc_count: val.doc_count, label: $localize`:@@otherOpenAccess:Muu avoin saatavuus: `});
             break;
             }
             case 0: {
-            openAccessCodes.push({key: 'nonOpenAccess', doc_count: val.doc_count, label: 'Ei avoin'});
+            openAccessCodes.push({key: 'nonOpenAccess', doc_count: val.doc_count, label: $localize`:@@nonOpen:Ei avoin`});
             break;
             }
             default: {
-            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: 'Ei tietoa'});
+            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: $localize`:@@noInfo:Ei tietoa`});
             break;
             }
         }
       });
     }
+
     if (selfArchived && selfArchived.length > 0) {
       selfArchived.forEach(val => {
         switch (val.key) {
             case 1: {
-            openAccessCodes.push({key: 'selfArchived', doc_count: val.doc_count, label: 'Rinnakkaistallennettu'});
+            openAccessCodes.push({key: 'selfArchived', doc_count: val.doc_count, label: $localize`:@@selfArchived:Rinnakkaistallennettu`});
             break;
             }
             case 0: {
-            openAccessCodes.push({key: 'selfArchivedNonOpen', doc_count: val.doc_count, label: 'Ei avoin'});
+            openAccessCodes.push({key: 'selfArchivedNonOpen', doc_count: val.doc_count, label: $localize`:@@nonOpen:Ei avoin`});
             break;
             }
             default: {
-            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: 'Ei tietoa'});
+            openAccessCodes.push({key: 'noOpenAccessData', doc_count: val.doc_count, label: $localize`:@@noInfo:Ei tietoa`});
             break;
             }
         }
@@ -202,26 +209,25 @@ export class PublicationFilters {
 
     // Remove duplicates
     openAccessCodes = [...new Set(reduce)];
-
     function docCount(key) {return openAccessCodes.find(item => item.key === key).doc_count; }
 
     // Push items by key
     if (openAccessCodes.some(e => e.key === 'openAccess')) {
-      result.push({key: 'openAccess', doc_count: docCount('openAccess'), label: 'Open Access -lehti'});
+      result.push({key: 'openAccess', doc_count: docCount('openAccess'), label: $localize`:@@openAccessJournal:Open Access -lehti `});
     }
     if (openAccessCodes.some(e => e.key === 'selfArchived')) {
-      result.push({key: 'selfArchived', doc_count: docCount('selfArchived'), label: 'Rinnakkaistallennettu'});
+      result.push({key: 'selfArchived', doc_count: docCount('selfArchived'), label: $localize`:@@selfArchived:Rinnakkaistallennettu`});
     }
     if (openAccessCodes.some(e => e.key === 'otherOpen')) {
-      result.push({key: 'otherOpen', doc_count: docCount('otherOpen'), label: 'Muu avoin saatavuus'});
+      result.push({key: 'otherOpen', doc_count: docCount('otherOpen'), label: $localize`:@@otherOpenAccess:Muu avoin saatavuus`});
     }
     if (openAccessCodes.some(e => e.key === 'nonOpenAccess') && openAccessCodes.some(e => e.key === 'selfArchivedNonOpen')) {
-      result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: 'Ei avoin'});
+      result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: $localize`:@@nonOpen:Ei avoin`});
     }
     if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
-      result.push({key: 'noOpenAccessData', doc_count: noOpenAccessData?.doc_count, label: 'Ei tietoa'});
+      result.push({key: 'noOpenAccessData', doc_count: openAccessCodes.find
+      (item => item.key === 'noOpenAccessData')?.doc_count, label: $localize`:@@noInfo:Ei tietoa`});
     }
-
     return result;
   }
 

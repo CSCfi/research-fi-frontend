@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule, Title, Meta } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -53,6 +53,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { A11yModule } from '@angular/cdk/a11y';
 
 import { CountUpModule } from 'countup.js-angular2';
 
@@ -104,12 +105,14 @@ import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { CleanCitationPipe } from './pipes/clean-citation';
+import { ReplaceSpacePipe } from './pipes/replace-space';
 
 import { PublicationFilters } from './component/results/filters/publications';
 import { PersonFilters } from './component/results/filters/persons';
 import { FundingFilters } from './component/results/filters/fundings';
 import { InfrastructureFilters } from './component/results/filters/infrastructures';
 import { OrganizationFilters } from './component/results/filters/organizations';
+import { NewsFilters } from './component/results/filters/news';
 import { ErrorHandlerService } from './services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
@@ -131,6 +134,11 @@ import { CommonComponentsModule} from './common-components/common-components.mod
 import { filter } from 'rxjs/operators';
 import { NewsCardComponent } from './component/news/news-card/news-card.component';
 import { SitemapComponent } from './component/sitemap/sitemap.component';
+import { TabItemComponent } from './component/result-tab/tab-item/tab-item.component';
+import { HistoryService } from './services/history.service';
+import { TabChangeService } from './services/tab-change.service';
+import { NewsPaginationComponent } from './component/news/news-pagination/news-pagination.component';
+import { CarouselComponent } from './component/science-politics/figures/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -177,6 +185,7 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
     ScrollSpyDirective,
     CutContentPipe,
     CleanCitationPipe,
+    ReplaceSpacePipe,
     SingleFigureComponent,
     RelatedLinksComponent,
     FilterListComponent,
@@ -184,7 +193,10 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
     PrivacyComponent,
     AccessibilityComponent,
     NewsCardComponent,
-    SitemapComponent
+    SitemapComponent,
+    TabItemComponent,
+    NewsPaginationComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -221,11 +233,13 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
     ModalModule.forRoot(),
     ClickOutsideModule,
     CommonComponentsModule,
+    A11yModule,
     TooltipModule.forRoot()
   ],
   providers: [
     SearchService,
     Title,
+    Meta,
     AutosuggestService,
     WINDOW_PROVIDERS,
     AppConfigService,
@@ -258,6 +272,7 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
     FundingFilters,
     InfrastructureFilters,
     OrganizationFilters,
+    NewsFilters,
     {
       provide: ApmService,
       useClass: ApmService,
@@ -283,15 +298,44 @@ export class AppModule {
 
   startPage;
 
-  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller) {
+  isResultPage(url: string) {
+    // Check if the page is on results, and that the tabname ends with 's' (not single result)
+    return url?.includes('/results') && url?.split('/')[2].split('?')[0].slice(-1) === 's';
+  }
+
+  newPage(oldUrl: string, newUrl: string) {
+    // Check if both urls are on the results page (tab change)
+    if (this.isResultPage(oldUrl) && this.isResultPage(newUrl)) {
+      return false;
+    // Check deepest locations without query params
+    } else if (oldUrl?.split('/').slice(-1)[0].split('?')[0] === newUrl.split('/').slice(-1)[0].split('?')[0]) {
+      return false
+    // Same for fragments
+    } else if (oldUrl?.split('/').slice(-1)[0].split('#')[0] === newUrl.split('/').slice(-1)[0].split('#')[0]) {
+      return false
+    // Otherwise new page
+    } else {
+      return true;
+    }
+  }
+
+  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller, private historyService: HistoryService,
+              private tabChangeService: TabChangeService) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
     router.events
     .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
     .subscribe(e => {
+      // Trigger new page so first tab focuses skip links
+      const prevPageLocation = this.historyService.history[this.historyService.history.length - 2];
+      const currentPageLocation = e.routerEvent.url;
+      if (this.newPage(prevPageLocation, currentPageLocation)) {
+        this.tabChangeService.triggerNewPage();
+      }
       if ((e.routerEvent.url.includes('/results'))) {
         const targetPage = +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
-        if (this.startPage !== targetPage) {
+        // Different page or coming from different route
+        if (this.startPage !== targetPage || !this.historyService.history[this.historyService.history.length - 2]?.includes('/results')) {
           viewportScroller.scrollToPosition([0, 0]);
         }
         this.startPage = targetPage;

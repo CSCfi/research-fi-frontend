@@ -4,6 +4,19 @@
     $primary: map-get($theme, primary);
 
     app-search-bar {
+        // Target
+        .mat-form-field-appearance-legacy .mat-form-field-label {
+            color: white!important;
+        }
+
+        .mat-form-field, .mat-select {
+            background: white;
+        }
+        
+        .mat-form-field-appearance-legacy .mat-form-field-label.mat-form-field-empty, .mat-select-value {
+            color: mat-color($primary)!important;
+        }
+
         .col-12.search {
             background: mat-color($primary);
             color: mat-contrast($primary, 200);
@@ -16,7 +29,7 @@
         button.btn.btn-search {
             background: mat-contrast($primary, 600);
             color: mat-color($primary);    
-            border: 1px solid mat-contrast($primary, 600);
+            // border: 1px solid mat-contrast($primary, 600);
         }
 
         .search-help button span {
@@ -47,10 +60,6 @@
         
         .list-group-item.active a, .list-group-item.tab-link.active a {
             color: mat-contrast($primary, 500);
-        }
-
-        .list-group-item.tab-link a {
-            color: mat-color($primary);
         }
 
         a.item {

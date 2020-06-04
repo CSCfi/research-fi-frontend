@@ -1,3 +1,10 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 @import '~@angular/material/theming';
 
 @mixin app-header-theme($theme) {
@@ -51,7 +58,7 @@
 
             ul.dropdown {
                 background: mat-contrast($primary, 500);
-                box-shadow: 0 1rem 1rem 0 rgba(0,0,0,0.2);
+                // box-shadow: 0 1rem 1rem 0 rgba(0,0,0,0.2);
             }
 
             ul.dropdown li:hover, .mat-form-field:hover {
@@ -69,6 +76,9 @@
 
             .toggle-menu-text {
                 color: mat-contrast($primary, 300);
+                &::after {
+                    color: mat-color($primary)
+                }
             }
 
             ::ng-deep .mat-select-value-text {

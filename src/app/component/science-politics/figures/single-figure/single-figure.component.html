@@ -8,53 +8,56 @@
 <main id="main-content">
     <div class="wrapper">
         <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
-        <a routerLink="/science-innovation-politics/science-research-figures/" class="back"><< Takaisin</a>
+        <a routerLink="/science-innovation-policy/science-research-figures/" class="back"><< <ng-container i18n="@@back">Takaisin</ng-container></a>
         <div class="row" *ngFor="let item of result; trackBy: trackByFn">
             <div class="col-12 px-lg-0 pb-2">
-                <h1>{{item.labelFi}}</h1>
-                <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)">Ohje näppäimistökäyttäjälle</a>
+                <h1>{{item['label' + currentLocale]}}</h1>
+                <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)" #keyboardHelp i18n="@@kbHelpHint">Ohje näppäimistökäyttäjälle</a>
                 <div *ngIf="showHelp" class="help p-3">
                     <div class="m-0">
-                        <p>Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>
-                        <p>Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.</p>
+                        <p i18n="@@figureKeyboardHelp1">Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>
+                        <p i18n="@@figureKeyboardHelp2">Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.</p>
                     </div>                    
                 </div>
             </div>
             <div class="col col-lg-10 base content" #content>
                 <iframe width="{{colWidth}}" height="600" 
-                [src]="item.iframe | safeUrl"
+                [src]="item['iframe' + currentLocale] | safeUrl"
                 frameborder="0" allowFullScreen="true"></iframe>
                 <div class="row d-flex justify-content-between">
-                    <div class="col-12 col-lg-8 pl-0" [innerHtml]="item.descriptionFi">
+                    <div class="col-12 col-lg-8 pl-0" [innerHtml]="item['description' + currentLocale]">
                     </div>
                     <div class="col col-lg-3 pl-0 pl-lg-4">
                         <div class="row pb-3">
                             <div class="col align-self-center pointer pl-0" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
                             tabindex="0" (keydown.enter)="showInfo = !showInfo">
-                                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-                                <a class="strong text-uppercase pl-2 info-label">Lisätietoa</a>
+                                <fa-icon class="info-icon" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
+                                <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
                             </div>
                             <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
-                                <strong class="d-block pb-2">Lisätietoa</strong>
-                                <p [innerHtml]="item.info"></p>
+                                <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
+                                <p [innerHtml]="item['info' + currentLocale]"></p>
                             </div>
                         </div>
                         <div class="row pb-3">
                            <div class="col pl-0">
-                                <span class="strong d-block">Lähde:</span>
-                                <span>{{item.source}}</span>
+                                <span class="strong d-block" i18n="@@figureSource">Lähde:</span>
+                                <span>{{item['source' + currentLocale]}}</span>
                            </div> 
                         </div>
                         <div class="row">
                             <div class="col pl-0">
-                                <strong>Jaa tämä sivu:</strong>
+                                <strong i18n="@@shareThisPage">Jaa tämä sivu:</strong>
                                 <app-share></app-share>
                             </div>
 
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="carousel-wrapper">
+                <h2 class="pb-3" i18n="@@moreFiguresFrom">Lisää lukuja tieteestä ja tutkimuksesta</h2>
+                <app-carousel [data]="flatData" [id]="currentItem" class="carousel"></app-carousel>
             </div>
         </div>
     </div>

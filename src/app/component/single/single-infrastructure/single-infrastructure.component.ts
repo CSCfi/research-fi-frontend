@@ -15,6 +15,7 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -27,32 +28,62 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
+  stringHasContent = UtilityService.stringHasContent;
 
   tab = 'infrastructures';
   infoFields = [
-    {label: 'Lyhenne', field: 'acronym'},
-    {label: 'Infrastruktuurin kuvaus', field: 'description'},
-    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
-    {label: 'Toiminta alkanut', field: 'startYear'},
-    {label: 'Toiminta päättynyt', field: 'endYear'},
-    {label: 'Vastuuorganisaatio', field: 'responsibleOrganizationNameFi'},
-    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
-    {label: 'Avainsanat', field: 'keywordsString'},
+    {label: $localize`Lyhenne`, field: 'acronym'},
+    {label: $localize`Infrastruktuurin kuvaus`, field: 'description'},
+    {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
+    {label: $localize`Toiminta alkanut`, field: 'startYear'},
+    {label: $localize`Toiminta päättynyt`, field: 'endYear'},
+    {label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, field: 'responsibleOrganization'},
+    {label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`, field: 'participantOrganizations'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString'},
   ];
 
   serviceFields = [
-    {label: 'Palvelun kuvaus', field: 'description'},
-    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
-    {label: 'Palvelun tyyppi', field: 'type'},
+    {label: $localize`Palvelun kuvaus`, field: 'description'},
+    {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
+    {label: $localize`:@@serviceType:Palvelun tyyppi`, field: 'type'},
   ];
 
-  servicePointFields = [
-    {label: 'Palvelupisteen kuvaus', field: 'description'},
-    {label: 'Sähköposti', field: 'emailAddress'},
-    {label: 'Puhelinnumero', field: 'phoneNumber'},
-    {label: 'Käyntiosoite', field: 'visitingAddress'},
-    {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
-    {label: 'Linkki', field: 'infoUrl'},
+  servicePointContactFields = [
+    {label: $localize`Kuvaus`, field: 'description'},
+    {label: $localize`Sähköpostiosoite`, field: 'emailAddress'},
+    {label: $localize`Puhelinnumero`, field: 'phoneNumber'},
+    {label: $localize`Vierailuosoite`, field: 'visitingAddress'},
+  ];
+
+  servicePointInfoFields = [
+    {label: $localize`Käyttöehdot`, field: 'accessPolicyUrl'},
+    {label: $localize`Linkki`, field: 'infoUrl'},
+    {label: $localize`Koordinoiva organisaatio`, field: 'coOrg'},
+  ];
+
+  fieldsOfScience = [
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScienceString'},
+  ];
+
+  classificationFields = [
+    {label: $localize`Suomen Akatemian tiekartalla`, field: 'finlandRoadmap'},
+    {label: $localize`ESFRI-luokitus`, field: 'ESFRICode'},
+    {label: $localize`MERIL-luokitus`, field: 'merilCode'},
+  ];
+
+  contactFields = [
+    {label: $localize`Nimi`, field: 'contactName'},
+    {label: $localize`Kuvaus`, field: 'contactDescription'},
+    {label: $localize`Sähköpostiosoite`, field: 'email'},
+    {label: $localize`Puhelinnumero`, field: 'phoneNumber'},
+    {label: $localize`Vierailuosoite`, field: 'address'},
+  ];
+
+  otherFields = [
+    {label: $localize`Tunnisteet`, field: 'urn'},
+    {label: $localize`Osa kansainvälistä infrastruktuuria`, field: '?'},
+    {label: $localize`Edeltävä tutkimusinfrastruktuuri`, field: 'replacingInfrastructure'},
+    {label: $localize`Lisätietoja`, field: '?'},
   ];
 
   linkFields = [
@@ -66,9 +97,16 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   showService: boolean[] = [];
   showServicePoint: boolean[][] = [];
   faIcon = faFileAlt;
+  tabData: any;
+  currentLocale: string;
+  serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string ) {
+                // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -81,11 +119,12 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.infrastructures;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'infrastructures');
     this.searchTerm = this.searchService.singleInput;
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id: string) {
@@ -115,16 +154,16 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.infrastructures[0][item.field] !== undefined &&
-             this.responseData.infrastructures[0][item.field] !== 0 &&
-             this.responseData.infrastructures[0][item.field] !== null &&
-             this.responseData.infrastructures[0][item.field] !== '' &&
-             this.responseData.infrastructures[0][item.field] !== ' ' &&
-             this.responseData.infrastructures[0][item.field] !== '#N/A';
+      return UtilityService.stringHasContent(this.responseData.infrastructures[0][item.field]);
     };
+
+
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    // this.serviceFields = this.serviceFields.filter(item => checkEmpty(item));
+    this.fieldsOfScience = this.fieldsOfScience.filter(item => checkEmpty(item));
+    this.classificationFields = this.classificationFields.filter(item => checkEmpty(item));
+    this.contactFields = this.contactFields.filter(item => checkEmpty(item));
+    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
 
     // Init expand and show lists
     this.infoFields.forEach(_ => this.infoExpand.push(false));
@@ -138,7 +177,15 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   shapeData() {
     const source = this.responseData.infrastructures[0];
-    source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+    source.finlandRoadmap = source.finlandRoadmap ? $localize`:@@yes:Kyllä` : $localize`:@@no:Ei`;
+
+    // Filter out empty servicepoints and empty services
+    source.services.forEach((service, idx) => {
+      source.services[idx].servicePoints =
+      service.servicePoints.map(servicePoint => UtilityService.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
+    });
+
+    source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
   expandInfoDescription(idx: number) {

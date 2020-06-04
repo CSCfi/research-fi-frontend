@@ -21,6 +21,7 @@ import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-results',
@@ -32,9 +33,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   input: Subscription;
   tabData = this.tabChangeService.tabData;
   tab: any = [];
-  selectedTabData: {data: string, labelFi: string, labelEn: string, link: string, icon: any, singularFi: any};
+  selectedTabData: {data: string, label: string, link: string, icon: any, singular: any};
   public tabValues: any;
   public filterValues: any;
+  public filterQueryValues: any;
   errorMessage = [];
   pageNumber = 1;
   page: any;
@@ -48,6 +50,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
   fundingFilters: {funder: any[], typeOfFunding: any[], scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
     faField: any[]};
+  infrastructureFilters: {type: any[]};
   filters: any;
   mobile: boolean;
   updateFilters: boolean;
@@ -64,16 +67,19 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   pageFallback = false;
 
   showSkipLinks: boolean;
+  currentLocale: string;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
                @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService, private modalService: BsModalService,
-               private utilityService: UtilityService ) {
+               private utilityService: UtilityService, private settingsService: SettingsService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   public setTitle(newTitle: string) {
@@ -89,6 +95,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(results => {
         const query = results.query;
         const params = results.params;
+
+        // Change query target
+        this.settingsService.changeTarget(query.target ? query.target : null);
 
         this.page = +query.page || 1;
         if (this.page > 1000) {
@@ -121,6 +130,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
             fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
             faField: [query.faField].flat().filter(x => x).sort(),
+            // Infrastructures
+            type: [query.type].flat().filter(x => x).sort(),
           };
         }
 
@@ -163,15 +174,19 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Flag telling search-results to fetch new filtered data
         this.updateFilters = !this.updateFilters;
 
-        // If init without search bar redirecting, get data
-        if (this.init && !this.searchService.redirecting) {
-          this.getTabValues();
-        // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
-        } else if (this.searchService.redirecting) {
-          setTimeout(() => {
-            this.tabValues = [this.searchService.tabValues];
-          }, 1);
-        }
+        // // If init without search bar redirecting, get data
+        // if (this.init && !this.searchService.redirecting) {
+        //   this.getTabValues();
+        // // If search bar is redirecting, get data from search service. Get data "async" so result tab runs onChanges twice at startup
+        // } else if (this.searchService.redirecting) {
+        //   setTimeout(() => {
+        //     this.tabValues = [this.searchService.tabValues];
+        //   }, 1);
+        // }
+
+        // Get values for results tab
+        this.getTabValues();
+
         // If new filter data is neeed
         if (tabChanged || this.init) {
           // Reset filter values so new tab doesn't try to use previous tab's filters.
@@ -180,6 +195,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Get data filter data
         this.getFilterData();
+        // this.getQueryFilterData();
 
         // Reset flags
         this.searchService.redirecting = false;
@@ -213,7 +229,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (target === 'main-link') {
         this.skipToResults.nativeElement.focus();
       }
-    })
+    });
+    this.cdr.detectChanges();
   }
 
   // Reset focus on blur
@@ -243,7 +260,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
       this.searchService.getFilters()
-      .pipe(map(data => [data]))
       .subscribe(filterValues => {
         this.filterValues = filterValues;
         // Send response to data service
@@ -255,21 +271,37 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  updateTitle(tab: { data: string; labelFi: string; labelEn: string}) {
+  getQueryFilterData() {
+    // Check for Angular Univeral SSR, get filter data if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.searchService.getQueryFilters()
+      .pipe(map(data => [data]))
+      .subscribe(filterValues => {
+        this.filterQueryValues = filterValues;
+        // Send response to data service
+        // this.dataService.changeResponse(this.filterValues);
+        // Set the title
+        this.updateTitle(this.selectedTabData);
+      },
+        error => this.errorMessage = error as any);
+    }
+  }
+
+  updateTitle(tab: { data: string; label: string;}) {
     // Update title and <h1> with the information of the currently selected tab
     // Placeholder until real data is available
     const amount = tab.data ? this.dataService.totalResults : 999;
     // Set label by locale
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle('Haku - ' + tab.labelFi + ' - Tiedejatutkimus.fi')
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount + 
+        this.setTitle('Haku - ' + tab.label + ' - Tiedejatutkimus.fi');
+        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount +
         (amount === 1 ? ' hakutulos' : ' hakutulosta');
         break;
       }
       case 'en': {
-        this.setTitle('Haku - ' + tab.labelEn + ' - Research.fi')
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount + 
+        this.setTitle('Haku - ' + tab.label + ' - Research.fi');
+        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 2).join(' - ') + ' - ' + amount +
         (amount === 1 ? ' result' : ' results');
         break;
       }
@@ -287,10 +319,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   // Unsubscribe to prevent memory leaks
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      this.tabChangeService.changeTab({data: '', labelFi: '', labelEn: '', link: '', icon: '', singularFi: ''});
-      this.combinedRouteParams.unsubscribe();
-      this.totalSub.unsubscribe();
-      this.tabSub.unsubscribe();
+      this.tabChangeService.changeTab({data: '', label: '', link: '', icon: '', singular: ''});
+      this.combinedRouteParams?.unsubscribe();
+      this.totalSub?.unsubscribe();
+      this.tabSub?.unsubscribe();
     }
   }
 

@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID, ViewChildren,
-  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation} from '@angular/core';
+  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation, HostListener} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,9 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
 import { faChevronDown, faChevronUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BetaInfoComponent } from '../beta-info/beta-info.component';
+import { PrivacyService } from 'src/app/services/privacy.service';
 
 @Component({
   selector: 'app-header',
@@ -27,13 +30,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
   @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
+  @ViewChild('start', { static: false }) start: ElementRef;
+  @ViewChild('overlay', { static: false }) overlay: ElementRef;
   @ViewChildren('navLink') navLink: any;
 
   navbarOpen = false;
   hideOverflow = true;
   dropdownOpen: any;
-  // mobile = this.window.innerWidth < 992;
-  // Temporary width for beta
   mobile = this.window.innerWidth < 1200;
 
   height = this.window.innerHeight;
@@ -60,14 +63,17 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   params: any;
   skipLinkSub: any;
   hideInputSkip: boolean;
+  newPageSub: Subscription;
+  firstTab: boolean;
 
-  showInfo = false;
+  betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
+  consentStatusSub: Subscription;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
               private cdr: ChangeDetectorRef, private renderer: Renderer2, private route: ActivatedRoute,
-              private tabChangeService: TabChangeService) {
+              private tabChangeService: TabChangeService, public dialog: MatDialog, private privacyService: PrivacyService) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
@@ -89,14 +95,58 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.window.addEventListener('keydown', this.handleTabPressed);
-      this.window.addEventListener('keydown', this.escapeListener);
+      // this.window.addEventListener('keydown', this.handleTabPressed);
+      // this.window.addEventListener('mousedown', this.handleMouseDown);
+      // this.window.addEventListener('keydown', this.escapeListener);
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+      this.newPageSub = this.tabChangeService.newPage.subscribe(_ => {
+        this.firstTab = true;
+        this.document.activeElement.blur();
+      });
     }
 
     this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(elem => {
       this.hideInputSkip = elem;
     });
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  escapeListener(event: any) {
+    if (this.mobile && !this.utilityService.modalOpen && !this.utilityService.tooltipOpen) {
+      this.toggleNavbar();
+      setTimeout(() => {
+        this.navbarToggler.nativeElement.focus();
+      }, 1);
+    }
+  }
+
+  @HostListener('document:keydown.tab', ['$event'])
+  // Toggle between viewing and hiding focused element outlines
+  handleTabPressed = (e: any): void => {
+    if (isPlatformBrowser(this.platformId)) {
+      const consent = sessionStorage.getItem('cookieConsent');
+      if (e.keyCode === 9 && consent) {
+        if (this.firstTab) {
+          this.firstTab = false;
+          e.preventDefault();
+          this.focusStart();
+        }
+        this.document.body.classList.add('user-tabbing');
+      } else if (e.keyCode === 9) {
+        if (this.firstTab) {
+          this.firstTab = false;
+          e.preventDefault();
+          this.tabChangeService.targetFocus('consent');
+        }
+        this.document.body.classList.add('user-tabbing');
+        }
+    }
+  }
+
+  @HostListener('document:mousedown',['$event'])
+  handleMouseDown = (): void => {
+    this.firstTab = false;
+    this.document.body.classList.remove('user-tabbing');
   }
 
   ngAfterViewInit() {
@@ -115,47 +165,45 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      window.removeEventListener('keydown', this.handleTabPressed);
-      window.removeEventListener('keydown', this.escapeListener);
-      window.removeEventListener('mousedown', this.handleMouseDown);
+      // this.window.removeEventListener('keydown', this.handleTabPressed);
+      // this.window.removeEventListener('keydown', this.escapeListener);
+      // this.window.removeEventListener('mousedown', this.handleMouseDown);
 
-      this.resizeSub.unsubscribe();
+      this.resizeSub?.unsubscribe();
     }
-    this.routeSub.unsubscribe();
+    this.routeSub?.unsubscribe();
+    this.newPageSub?.unsubscribe();
+    this.consentStatusSub?.unsubscribe();
   }
 
-  // Toggle between viewing and hiding focused element outlines
-  handleTabPressed = (e: any): void => {
-    if (e.keyCode === 9) {
-      this.document.body.classList.add('user-tabbing');
-
-      this.window.removeEventListener('keydown', this.handleTabPressed);
-      this.window.addEventListener('mousedown', this.handleMouseDown);
-    }
-  }
-
-  handleMouseDown = (): void => {
-    this.document.body.classList.remove('user-tabbing');
-
-    this.window.removeEventListener('mousedown', this.handleMouseDown);
-    this.window.addEventListener('keydown', this.handleTabPressed);
-  }
-
-  escapeListener = (e: any): void => {
-    if (e.keyCode === 27 && this.mobile && !this.utilityService.modalOpen) {
-      this.toggleNavbar();
-      this.navbarToggler.nativeElement.focus();
-    }
+  focusStart() {
+    this.start.nativeElement.focus();
   }
 
   toggleNavbar() {
     // Toggle navbar state
     this.navbarOpen = !this.navbarOpen;
 
+    // Set the overlay lower so skip links dont mess up overlay
+    if (this.navbarOpen) {
+      setTimeout(() => {
+        // tslint:disable-next-line: no-unused-expression
+        this.overlay && this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+      }, 500);
+    }
+
     // Allow menu to slide out before hiding
     setTimeout(() => {
       this.hideOverflow = !this.hideOverflow;
     }, 250 * (1 - +this.navbarOpen));
+  }
+
+  // @HostListener('window:scroll')
+  scroll() {
+    // Doesnt work with esc opening and scrolling to focus
+    if (this.navbarOpen) {
+      // this.toggleNavbar();
+    }
   }
 
   setLang(lang: string) {
@@ -186,8 +234,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   onResize(dims) {
     this.height = dims.height;
     this.width = dims.width;
-    // if (this.width >= 1200) {
-    // Temporary width for beta
     if (this.width >= 1200) {
       this.mobile = false;
       if (this.navbarOpen) { this.toggleNavbar(); }
@@ -212,17 +258,22 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     // }
   }
 
-  clickOutsideBeta(e: Event) {
-    this.showInfo = false;
-  }
 
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
-
   }
 
   changeFocus(target) {
     this.tabChangeService.targetFocus(target);
+  }
+
+  toggleBetaInfo() {
+    this.betaReviewDialogRef = this.dialog.open(BetaInfoComponent, {
+      height: '700px',
+      maxWidth: '60vw',
+      minWidth: '400px',
+      autoFocus: false,
+    });
   }
 
 }

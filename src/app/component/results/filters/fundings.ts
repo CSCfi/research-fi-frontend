@@ -15,46 +15,50 @@ import { Injectable } from '@angular/core';
 
 export class FundingFilters {
   filterData = [
-      {field: 'year', labelFi: 'Aloitusvuosi', hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
-      tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: true, limitHeight: false,
-      tooltipFi: 'Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.'},
-      {field: 'funder', labelFi: 'Rahoittaja', hasSubFields: false, limitHeight: false, open: true,
-      tooltipFi: 'Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.'},
-      {field: 'typeOfFunding', labelFi: 'Rahoitusmuoto', hasSubFields: false, limitHeight: false, open: true,
-      tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.'},
-      {field: 'field', labelFi: 'Tieteenala', hasSubFields: true, limitHeight: false,
-      tooltipFi: 'Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.'},
-      // {field: 'scheme', labelFi: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
-      // tooltipFi: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
-      {field: 'faField', labelFi: 'Suomen Akatemian tutkimusalat', hasSubFields: false,  open: true}
+      {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
+      tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`},
+      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, limitHeight: false,
+      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`},
+      {field: 'funder', label: $localize`:@@fundingFunder:Rahoittaja`, hasSubFields: false, limitHeight: false, open: true,
+      tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`},
+      {field: 'typeOfFunding', label: $localize`:@@typeOfFunding:Rahoitusmuoto`, hasSubFields: false, limitHeight: false, open: true,
+      tooltip: $localize`:@@fTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.`},
+      {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, limitHeight: false,
+      tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`},
+      // {field: 'scheme', label: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
+      // tooltip: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
+      {field: 'faField', label: $localize`:@@FAField:Suomen Akatemian tutkimusalat`, hasSubFields: false,  open: true}
     ];
 
     singleFilterData = [
-      // {field: 'fundingStatus', labelFi: 'Näytä vain käynnissä olevat hankkeet',
-      // tooltipFi: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
-      // {field: 'internationalCollaboration', labelFi: 'Kansainvälinen yhteistyö'}
+      // {field: 'fundingStatus', label: 'Näytä vain käynnissä olevat hankkeet',
+      // tooltip: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
+      // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteistyö'}
     ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
   shapeData(data) {
-      const source = data[0].aggregations;
-      // Organization
-      source.organization = this.organization(source.organization, source.fundingSector);
-      // Funder
-      source.funder.buckets = this.funder(source.funder.buckets)
-      // Type of funding
-      source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.buckets)
-      // Major field
-      source.field.buckets = this.minorField(source.field.buckets);
-      source.shaped = true;
-      source.fundingStatus.buckets = this.onGoing(source.fundingStatus.buckets);
-      return source;
+    const source = data.aggregations;
+    // Year
+    source.year.buckets = source.year.years.buckets;
+    // Organization
+    source.organization = this.organization(source.organization, source.fundingSector);
+    // Funder
+    source.funder.buckets = this.funder(source.funder.funders.buckets);
+    // Type of funding
+    source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
+    // Major field
+    source.field.buckets = this.minorField(source.field.fields.buckets);
+    // Finnish Academy field
+    source.faField = source.faField.faFields;
+    source.shaped = true;
+    source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
+    return source;
   }
 
   organization(c, f) {
-    const cData = c.sectorName.buckets;
+    const cData = c.funded.sectorName.buckets;
     const fData = f.sectorName.buckets;
 
     // Find differences in consortium and funding group data, merge difference into cData
@@ -84,11 +88,13 @@ export class FundingFilters {
 
     // Add data into buckets field, set key and label
     c.buckets = cData ? cData : [];
+
     cData.forEach(item => {
       item.subData = item.organizations.buckets;
       item.subData.map(subItem => {
           subItem.label = subItem.key.trim();
           subItem.key = subItem.orgId.buckets[0].key;
+          subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
     });
     return c;
@@ -108,7 +114,7 @@ export class FundingFilters {
       item = {
         key: item.key,
         doc_count: item.doc_count,
-        label: item.typeName.buckets[0].key
+        label: item.typeName.buckets[0]?.key
     })
     return res;
   }

@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild, AfterViewChecked } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -22,9 +22,12 @@ import { PersonFilters } from './persons';
 import { FundingFilters } from './fundings';
 import { InfrastructureFilters } from './infrastructures';
 import { OrganizationFilters } from './organizations';
+import { NewsFilters } from './news';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { SearchService } from 'src/app/services/search.service';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filters',
@@ -33,9 +36,11 @@ import { SearchService } from 'src/app/services/search.service';
   encapsulation: ViewEncapsulation.None
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() responseData: any [];
+  @Input() responseData: any;
   @Input() tabData: string;
+  @Input() showButton: boolean;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
+  @ViewChild('openFilters') openFiltersButton: ElementRef;
 
   currentFilter: any[];
   currentSingleFilter: any[];
@@ -59,20 +64,22 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   panelArr = [];
   showMoreCount: any;
   filterTerm: any;
-  shapedData: any;
   fromYear: any;
   toYear: any;
   paramSub: Subscription;
   currentInput: string;
-  resetFilters: boolean;
   defaultOpen = 7;
+  activeElement: any;
+  filterSearchHeader = $localize`:@@filterSearchHeader:Rajaa hakua`;
+  filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
 
   constructor( private router: Router, private filterService: FilterService,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, private modalService: BsModalService,
-               private route: ActivatedRoute, private utilityService: UtilityService, private sortService: SortService,
-               private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
+               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
+               private modalService: BsModalService,private route: ActivatedRoute, public utilityService: UtilityService,
+               private sortService: SortService, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, @Inject(PLATFORM_ID) private platformId: object ) {
+               private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
+               @Inject(PLATFORM_ID) private platformId: object ) {
                 this.showMoreCount = [];
                 }
 
@@ -84,15 +91,17 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.modalRef.hide();
   }
 
-  preventTab(event) {
-    UtilityService.preventTab(event);
-  }
-
-  preventTabBack(event) {
-    UtilityService.preventTabBack(event, this.utilityService.modalOpen);
-  }
-
   ngOnInit() {
+    // Focus on the close button when modal opens
+    this.modalService.onShown
+    .pipe(tap(() => (document.querySelector('[autofocus]') as HTMLElement).focus() ))
+    .subscribe();
+
+    // Focus on open filters button when modal closes
+    this.modalService.onHidden
+    .pipe(tap(() => this.openFiltersButton.nativeElement.focus() ))
+    .subscribe();
+
     // Subscribe to queryParams
     this.queryParamSub = this.route.queryParams.subscribe(params => {
       this.activeFilters = params;
@@ -101,7 +110,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.paramSub = this.route.params.subscribe(params => {
       if (this.currentInput !== params.input || !params.input) {
         this.currentInput = params.input;
-        this.resetFilters = true;
       }
     });
 
@@ -127,6 +135,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         this.parentPanel = 'sector';
         break;
       }
+      case 'news': {
+        this.parentPanel = '';
+        break;
+      }
     }
     // Browser check
     if (isPlatformBrowser(this.platformId)) {
@@ -135,17 +147,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         // Get preselected filters from filterService
         this.preSelection = [];
         Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
-
-        // Reset from & to year range filters
-        // if (filters.year.length === 0) {
-        //   this.fromYear = undefined;
-        //   this.toYear = undefined;
-        // }
-
         // Get from & to year filter preselection
         this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
         this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
-
       });
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     }
@@ -153,10 +157,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      this.filterSub.unsubscribe();
-      this.resizeSub.unsubscribe();
-      this.queryParamSub.unsubscribe();
-      this.paramSub.unsubscribe();
+      this.filterSub?.unsubscribe();
+      this.resizeSub?.unsubscribe();
+      this.queryParamSub?.unsubscribe();
+      this.paramSub?.unsubscribe();
     }
   }
 
@@ -173,59 +177,57 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
+    // Save active element
+    if (isPlatformBrowser(this.platformId)) {
+      this.activeElement = this.document.activeElement.id;
+    }
     // Initialize data and set filter data by index
-    this.responseData = this.responseData || [];
-    if (this.responseData.length > 0) {
+    if (this.responseData) {
       // Set filters and shape data
       switch (this.tabData) {
         case 'publications': {
           this.currentFilter = this.publicationFilters.filterData;
           this.currentSingleFilter = this.publicationFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.publicationFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.publicationFilters.shapeData(this.responseData);
           break;
         }
         case 'persons': {
           this.currentFilter = this.personFilters.filterData;
           this.currentSingleFilter = this.personFilters.singleFilterData;
-          // this.shapedData is for reminder
-          if (!this.shapedData && !this.responseData[0].aggregations.shaped) {
-            this.personFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          // TODO: Shape data
           break;
         }
         case 'fundings': {
           this.currentFilter = this.fundingFilters.filterData;
           this.currentSingleFilter = this.fundingFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.fundingFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.fundingFilters.shapeData(this.responseData);
           break;
         }
         case 'infrastructures': {
           this.currentFilter = this.infrastructureFilters.filterData;
           this.currentSingleFilter = this.infrastructureFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.infrastructureFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.infrastructureFilters.shapeData(this.responseData);
           break;
         }
         case 'organizations': {
           this.currentFilter = this.organizationFilters.filterData;
           this.currentSingleFilter = this.organizationFilters.singleFilterData;
-          if (this.resetFilters) {
-            this.organizationFilters.shapeData(this.responseData);
-            this.shapedData = this.responseData;
-          }
+          this.organizationFilters.shapeData(this.responseData);
+          break;
+        }
+        case 'news': {
+          this.currentFilter = this.newsFilters.filterData;
+          // this.currentSingleFilter = this.newsFilters.singleFilterData;
+          this.newsFilters.shapeData(this.responseData);
           break;
         }
       }
-      this.resetFilters = false;
+      // Restore focus after clicking a filter
+      if (this.activeElement && isPlatformBrowser(this.platformId)) {
+        setTimeout(() => {
+          (this.document.querySelector('#' + this.activeElement) as HTMLElement).focus();
+        }, 1);
+      }
     }
   }
 
@@ -242,7 +244,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   range(event, dir) {
     // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
     // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
-    const source = this.shapedData ? this.shapedData[0].aggregations.year.buckets : this.responseData[0].aggregations.year.buckets;
+    const source = this.responseData.aggregations.year.buckets;
     const selected = [];
     switch (dir) {
       case 'from': {
@@ -348,7 +350,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   filterInput(event, parent) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
-    const source = this.shapedData[0].aggregations[parent];
+    const source = this.responseData.aggregations[parent];
     source.original = source.original ? source.original : source.buckets;
     const matchArr = source.original.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
     if (matchArr.length > 0) {
@@ -365,7 +367,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   subFilterInput(event, parent, child) {
     const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     // this.filterTerm = term;
-    const source = this.shapedData[0].aggregations[parent].buckets.find(sub => sub.key === child);
+    const source = this.responseData.aggregations[parent].buckets.find(sub => sub.key === child);
     source.original = source.original ? source.original : source.subData;
     const matchArr = source.original.filter(subItem => subItem.label.toLowerCase().includes(term));
     if (matchArr.length > 0) {

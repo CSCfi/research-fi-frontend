@@ -76,11 +76,12 @@
                 cursor: pointer;
             }
 
-            h3.result-title {
+            .result-title {
                 font-size: 1rem;
                 line-height: 1.5;
                 margin-bottom: 0;
                 font-weight: 500;
+                text-decoration: underline;
             }
 
             // Sort arrows
@@ -222,6 +223,12 @@
             @media (min-width: 1200px) {
                 .container {
                     max-width: 100%;
+                }
+            }
+
+            @media (max-width: 355px) {
+                .col.title {
+                    flex: 0 0 100%;
                 }
             }
         }

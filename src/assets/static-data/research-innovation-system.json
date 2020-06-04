@@ -1,239 +1,432 @@
 {
     "sector": {
+        "intro": {
+            "descriptionFi": [
+                "<p>Suomen kilpailukyky ja hyvinvointi rakentuvat osaamiselle, tutkimukselle ja innovaatioille. Tutkimus- ja innovaatiopolitiikalla tuetaan tutkimusta tekevien ja tukevien organisaatioiden toimintamahdollisuuksia. Tutkimuksessa syntyvä tieto, muu tutkittu tieto ja osaaminen palvelevat yhteiskunnan eri toimijoita, kuten yrityksiä, yhteisöjä ja julkisia organisaatioita sekä poliittista päätöksentekoa.</p>",
+                "<p>Keskeisiä toimijoita tutkimus- ja innovaatiojärjestelmässä ovat yliopistot ja ammattikorkeakoulut, tutkimuslaitokset sekä yritysten tutkimusyksiköt. Noin kaksi kolmasosaa tutkimus- ja tuotekehitystyön menoista syntyy yrityksille. Suomalaisista tutkimusahoittajista merkittävimpiä ovat Suomen Akatemia, Business Finland sekä säätiöt.</p>",
+                "<p>Valtioneuvoston ministeriöt kehittävät yhdessä tutkimus- ja innovaatiojärjestelmää koskevia politiikkatoimia. Pääministerin johtama tutkimus- ja innovaationeuvosto tukee valtioneuvostoa pitkäjänteisen tiede-, teknologia- ja innovaatiopolitiikan (TKI-politiikka) kehittämisessä ja yhteensovittamisessa. Se seuraa alan toimintaympäristön muutoksia sekä tekee TKI-politiikkaan liittyviä aloitteita.</p>",
+                "<p>Pääministeri Marinin hallitus on asettanut tavoitteeksi kasvattaa merkittävästi Suomen tutkimus- ja kehittämispanostuksia. Tähän pääsemiseksi tarvitaan yhteistä näkemystä ja missioita, kunnianhimoisempaa TKI-toimintaa sekä investointeja niin julkiselta kuin yksityiseltä sektorilta. Ilman yksityisen sektorin investointien merkittävää kasvua tavoite ei voi toteutua.</p>",
+                "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\" target=\"_blank\">TKI-tiekartta <i class='fas fa-external-link-alt'></i></a> on laadittu edistämään TKI-intensiteetin nostamista ja sen myötä syntyvää kestävää kasvua sekä luomaan toimintaympäristö, joka kannustaa sekä suomalaisia että ulkomaisia yrityksiä investoimaan TKI-toimintaan Suomessa. Tavoitteena on, että Suomi pysyy uuden tiedon tuottamisen sekä teknologian kehittämisen ja soveltamisen eturintamassa. Tärkeää on, että Suomi myös nopeasti omaksuu muualla tuotettua tietoa ja osaamista. Keskeisessä asemassa tiekartassa on vaadittavien inhimillisten voimavarojen saatavuuden turvaaminen.</p>"
+            ],
+            "descriptionEn": [
+                "<p>Finland's competitiveness and well-being are based on expertise, research and innovation. Research and innovation policy supports the operational capabilities of organizations engaged in and supporting research. Information produced in research, other research knowledge and expertise serve various actors in society, such as companies, communities and public organizations as well as political decision-making.</p>",
+                "<p>Key actors in the research and innovation system are universities and universities of applied sciences, research institutes and R&D departments in companies. Approximately two-thirds of research and development costs are incurred by companies. The biggest providers of research funding in Finland are the Academy of Finland, Business Finland and foundations.</p>",
+                "<p>Government ministries jointly develop policy measures concerning the research and innovation system. The Research and Innovation Council led by the Prime Minister supports the Government in the development and coordination of long-term science, technology and innovation policy (RDI policy). It monitors changes in the operating environment of the sector and launches initiatives related to RDI policy.</p>",
+                "<p>The goal set by the Government of Prime Minister Marin is to significantly increase Finland's investment in research and development. To achieve this, a common vision and mission, more ambitious RDI and investments from both the public and private sectors will be needed. Without a significant increase in private sector investment, this goal cannot be achieved.</p>",
+                "<p><a href=\"https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat\" target=\"_blank\">The RDI roadmap <i class='fas fa-external-link-alt'></i></a> was drafted to promote increasing the intensity of RDI and the resulting sustainable growth as well as to create an operating environment that encourages both Finnish and foreign companies to invest in RDI in Finland. The objective is that Finland will remain a leader in the production of new information and the development and application of technology. It is important that Finland also rapidly adopts information and expertise produced elsewhere. Ensuring the availability of the required human resources plays a central role in the roadmap.</p>"
+            ]
+        },
         "university": {
-            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
-            "tmp_description": "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa, joista kaksi on säätiölain mukaisia säätiöitä ja muut julkisoikeudellisia laitoksia. Sotilasalan korkeakoulututkinnot suoritetaan puolustushallinnon alaisessa Maanpuolustuskorkeakoulussa (MPKK).</p><p>Yliopistojen perustehtävänä on harjoittaa tieteellistä tutkimusta ja antaa siihen perustuvaa ylintä opetusta. Yliopistot edistävät elinikäistä oppimista, toimivat vuorovaikutuksessa yhteiskunnan kanssa ja edistävät tutkimustulosten ja taiteellisen toiminnan yhteiskunnallista vaikuttavuutta.</p><p>Yliopistoilla on itsehallinto, jolla turvataan tieteen, taiteen ja ylimmän opetuksen vapaus. Yliopistot ovat itsenäisiä oikeushenkilöitä, jolla on päätöksenteko-oikeus sisäiseen hallintoon kuuluvista asioista.</p><p>Yliopistokeskukset täydentävät Suomen yliopistokenttää niillä alueilla, joilla ei ole omaa yliopistoa ja kokoavat alueillaan toimivan yliopistollisen toiminnan. Yhteistyöhön osallistuvat usein myös alueen ammattikorkeakoulut, kunnat ja maakuntaliitto.</p>" ,
-            "subtitle": "Yliopistot Suomessa",
+            "descriptionFi": [
+                "<p>Yliopistojen tehtäviin kuuluvat vapaa tutkimus, tieteellinen ja taiteellinen sivistys sekä näihin perustuva ylin opetus. Yliopistot käyttävät noin kolmanneksen valtionrahoituksestaan tutkimukseen. Valtaosa yliopistojen kilpaillusta julkisesta tutkimusrahoituksesta on lähtöisin Suomen Akatemiasta, Business Finlandista ja Euroopan unionista.</p>",
+                "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 13 yliopistoa, joista kaksi on säätiölain mukaisia säätiöitä ja muut julkisoikeudellisia laitoksia. Sotilasalan korkeakoulututkinnot suoritetaan puolustushallinnon alaisessa Maanpuolustuskorkeakoulussa (MPKK).</p>"
+            ],
+            "descriptionEn": [
+                "<p>The tasks of universities include free research, scientific and artistic education and the highest level of education based on these. Universities spend approximately one third of their state funding on research. The majority of the university's competitive public research funding comes from the Academy of Finland, Business Finland and European Union.</p>",
+                "<p>There are 13 universities operating under the administrative branch of the Ministry of Education and Culture. Two of these universities are foundations and other bodies governed by public law in accordance with the Foundation Act. Higher education degrees in military services are completed at the National Defence University under the Defence Administration (MPKK).</p>"
+            ],
+            "subtitleFi": "Yliopistot Suomessa",
+            "subtitleEn": "Universities",
             "organizations": [
                 {
-                    "name": "Aalto-yliopisto",
+                    "nameFi": "Aalto-yliopisto",
+                    "nameEn": "Aalto University",
+                    "nameSV": "Aalto-universitetet",
                     "id": "10076"
                 },
                 {
-                    "name": "Helsingin yliopisto",
+                    "nameFi": "Helsingin yliopisto",
+                    "nameEn": "Helsinki University",
+                    "nameSV": "Helsingfors universitet",
                     "id": "01901"
                 },
                 {
-                    "name": "Itä-Suomen yliopisto",
+                    "nameFi": "Itä-Suomen yliopisto",
+                    "nameEn": "University of Eastern Finland",
+                    "nameSv": "Östra Finlands universitet",
                     "id": "10088"
                 },
                 {
-                    "name": "Jyväskylän yliopisto",
+                    "nameFi": "Jyväskylän yliopisto",
+                    "nameEn": "University of Jyväskylä",
+                    "nameSV": "Jyväskylä universitet",
                     "id": "01906"
                 },
                 {
-                    "name": "Lapin yliopisto",
+                    "nameFi": "Lapin yliopisto",
+                    "nameEn": "University of Lapland",
+                    "nameSV": "Lapplands universitet",
                     "id": "01918"
                 },
                 {
-                    "name": "Lappeenrannan teknillinen yliopisto",
+                    "nameFi": "Lappeenrannan teknillinen yliopisto",
+                    "nameEn": "Lappeenranta University of Technology",
+                    "nameSV": "Lappeenranta University of Technology",
                     "id": "01914"
                 },
                 {
-                    "name": "Oulun yliopisto",
+                    "nameFi": "Maanpuolustuskorkeakoulu",
+                    "nameEn": "National Defence University",
+                    "nameSV": "Försvarshögskolan",
+                    "id": "02358"
+                },
+                {
+                    "nameFi": "Oulun yliopisto",
+                    "nameEn": "University of Oulu",
+                    "nameSV": "Uleåborgs universitet",
                     "id": "01904"
                 },
                 {
-                    "name": "Svenska handelshögskolan",
+                    "nameFi": "Svenska handelshögskolan",
+                    "nameEn": "Swedish School of Economics and Business Administration",
+                    "nameSV": "Svenska handelshögskolan",
                     "id": "01910"
                 },
                 {
-                    "name": "Taideyliopisto",
+                    "nameFi": "Taideyliopisto",
+                    "nameEn": "University of the Arts Helsinki",
+                    "nameSV": "Konstuniversitetet",
                     "id": "10103"
                 },
                 {
-                    "name": "Tampereen yliopisto",
+                    "nameFi": "Tampereen yliopisto",
+                    "nameEn": "Tampere University",
+                    "nameSV": "Tampere University",
                     "id": "10122"
                 },
                 {
-                    "name": "Turun yliopisto",
+                    "nameFi": "Turun yliopisto",
+                    "nameEn": "University of Turku",
+                    "nameSV": "Åbo Universitet",
                     "id": "10089"
                 },
                 {
-                    "name": "Vaasan yliopisto",
+                    "nameFi": "Vaasan yliopisto",
+                    "nameEn": "University of Vaasa",
+                    "nameSV": "Vasa universitet",
                     "id": "01913"
                 },
                 {
-                    "name": "Åbo Akademi",
+                    "nameFi": "Åbo Akademi",
+                    "nameEn": "University of Åbo",
+                    "nameSV": "Åbo Akademi",
                     "id": "01903"
                 }
             ]
         },
         "applied_university": {
-            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
-            "subtitle": "Ammattikorkeakoulut Suomessa",
+            "descriptionFi": [
+                "<p>Ammattikorkeakoulujen tehtävänä on tarjota ammatillisiin asiantuntijatehtäviin johtavaa korkeakouluopetusta, joka vastaa työelämän muuttuviin tarpeisiin. Lisäksi ammattikorkeakoulujen tehtäviin kuuluu opetusta palveleva sekä työelämää ja aluekehitystä tukeva, soveltava tutkimus- ja kehitystyö. Merkittävin TKI-toiminnan rahoituslähde ammattikorkeakouluille valtionavun lisäksi on Euroopan unionin rakennerahasto-ohjelmat. Myös Suomen Akatemia ja Business Finland rahoittavat ammattikorkeakoulujen TKI-työtä.</p>",
+                "<p>Opetus- ja kulttuuriministeriön hallinnonalalla toimii 22 osakeyhtiömuotoista ammattikorkeakoulua. Opetus- ja kulttuuriministeriön hallinnonalalla toimivien ammattikorkeakoulujen lisäksi Ahvenanmaalla toimii Högskolan på Åland ja sisäministeriön alaisuudessa Poliisiammattikorkeakoulu.</p>"
+            ],
+            "descriptionEn": [
+                "<p>The task of universities of applied sciences is to provide higher education leading to professional expert tasks that meets the changing needs of working life. The tasks of universities of applied sciences also include applied research and development, which serves teaching and supports working life and regional development. In addition to state aid, the most significant source of funding for RDI at universities of applied sciences is structural fund programs of the European Union. The Academy of Finland and Business Finland also fund RDI at universities of applied sciences.</p>",
+                "<p>There are 22 universities of applied sciences operating under the administrative branch of the Ministry of Education and Culture. In addition to these, Högskolan på Åland operates in Åland and the Police University College operates under the Ministry of the Interior.</p>"
+            ],
+            "subtitleFi": "Ammattikorkeakoulut Suomessa",
+            "subtitleEn": "Universities of applied sciences",
             "organizations": [
                 {
-                    "name": "Centria-ammattikorkeakoulu",
+                    "nameFi": "Centria-ammattikorkeakoulu",
+                    "nameEn": "Centria University of Applied Sciences",
+                    "nameSV": "Centria yrkeshögskola",
                     "id": "02536"
                 },
                 {
-                    "name": "Diakonia ammattikorkeakoulu",
+                    "nameFi": "Diakonia ammattikorkeakoulu",
+                    "nameEn": "Diaconia University of Applied Sciences",
+                    "nameSV": "Diakoniyrkeshögskolan",
                     "id": "02624"
                 },
                 {
-                    "name": "Haaga-Helia ammattikorkeakoulu",
+                    "nameFi": "Haaga-Helia ammattikorkeakoulu",
+                    "nameEn": "Haaga-Helia University of Applied Sciences",
+                    "nameSV": "Haaga-Helia yrkeshögskola",
                     "id": "10056"
                 },
                 {
-                    "name": "Humanistinen ammattikorkeakoulu",
+                    "nameFi": "Humanistinen ammattikorkeakoulu",
+                    "nameEn": "Humanities Polytechnic;HUMAK University of Applied Sciences",
+                    "nameSV": "Humanistiska yrkeshögskolan",
                     "id": "02631"
                 },
                 {
-                    "name": "Hämeen ammattikorkeakoulu",
+                    "nameFi": "Hämeen ammattikorkeakoulu",
+                    "nameEn": "Häme University of Applied Sciences",
+                    "nameSV": "Fachhochschule Häme",
                     "id": "02467"
                 },
                 {
-                    "name": "Jyväskylän ammattikorkeakoulu",
+                    "nameFi": "Jyväskylän ammattikorkeakoulu",
+                    "nameEn": "Jyväskylä University of Applied Sciences",
+                    "nameSV": "Jyväskylä University of Applied Sciences",
                     "id": "02504"
                 },
                 {
-                    "name": "Kaakkois-Suomen ammattikorkeakoulu",
+                    "nameFi": "Kaakkois-Suomen ammattikorkeakoulu",
+                    "nameEn": "South-Eastern Finland University of Applied Sciences",
+                    "nameSV": "South-Eastern Finland University of Applied Sciences",
                     "id": "10118"
                 },
                 {
-                    "name": "Kajaanin ammattikorkeakoulu",
+                    "nameFi": "Kajaanin ammattikorkeakoulu",
+                    "nameEn": "Kajaani Polytechnic",
+                    "nameSV": "Kajaani Polytechnic",
                     "id": "02473"
                 },
                 {
-                    "name": "Karelia ammattikorkeakoulu",
+                    "nameFi": "Karelia ammattikorkeakoulu",
+                    "nameEn": "Karelia University of Applied Sciences",
+                    "nameSV": "Karelia University of Applied Sciences",
                     "id": "20469"
                 },
                 {
-                    "name": "Lahden ammattikorkeakoulu",
-                    "id": "02470"
+                    "nameFi": "LAB-ammattikorkeakoulu",
+                    "nameEn": "LAB University of Applied Sciences",
+                    "nameSV": "LAB University of Applied Sciences",
+                    "id": "10126"
                 },
                 {
-                    "name": "Lapin ammattikorkeakoulu",
+                    "nameFi": "Lapin ammattikorkeakoulu",
+                    "nameEn": "Lapland University of Applied Sciences",
+                    "nameSV": "Lapland University of Applied Sciences",
                     "id": "10108"
                 },
                 {
-                    "name": "Laurea ammattikorkeakoulu",
+                    "nameFi": "Laurea ammattikorkeakoulu",
+                    "nameEn": "Laurea University of Applied Sciences",
+                    "nameSV": "Laurea University of Applied Sciences",
                     "id": "02629"
                 },
                 {
-                    "name": "Metropolia ammattikorkeakoulu",
+                    "nameFi": "Metropolia ammattikorkeakoulu",
+                    "nameEn": "Helsinki Metropolia University of Applied Sciences",
+                    "nameSV": "Helsinki Metropolia University of Applied Sciences",
                     "id": "10065"
                 },
                 {
-                    "name": "Oulun ammattikorkeakoulu",
+                    "nameFi": "Oulun ammattikorkeakoulu",
+                    "nameEn": "Oulu Polytechnic",
+                    "nameSV": "Oulu Polytechnic",
                     "id": "02471"
                 },
                 {
-                    "name": "Poliisiammattikorkeakoulu",
+                    "nameFi": "Poliisiammattikorkeakoulu",
+                    "nameEn": "Police University College",
+                    "nameSV": "Polisyrkeshögskolan",
                     "id": "02557"
                 },
                 {
-                    "name": "Saimaan ammattikorkeakoulu",
-                    "id": "02609"
-                },
-                {
-                    "name": "Satakunnan ammattikorkeakoulu",
+                    "nameFi": "Satakunnan ammattikorkeakoulu",
+                    "nameEn": "Satakunta University of Applied Sciences",
+                    "nameSV": "Satakunta University of Applied Sciences",
                     "id": "02507"
                 },
                 {
-                    "name": "Savonia-ammattikorkeakoulu",
+                    "nameFi": "Savonia-ammattikorkeakoulu",
+                    "nameEn": "Savonia University of Applied Sciences",
+                    "nameSV": "Savonia University of Applied Sciences",
                     "id": "02537"
                 },
                 {
-                    "name": "Seinäjoen ammattikorkeakoulu",
+                    "nameFi": "Seinäjoen ammattikorkeakoulu",
+                    "nameEn": "Seinäjoki University of Applied Sciences",
+                    "nameSV": "Seinäjoki University of Applied Sciences",
                     "id": "02472"
                 },
                 {
-                    "name": "Tampereen ammattikorkeakoulu",
+                    "nameFi": "Tampereen ammattikorkeakoulu",
+                    "nameEn": "Tampere University of Applied Sciences",
+                    "nameSV": "Tampere University of Applied Sciences",
                     "id": "02630"
                 },
                 {
-                    "name": "Turun ammattikorkeakoulu",
+                    "nameFi": "Turun ammattikorkeakoulu",
+                    "nameEn": "Turku University of Applied Sciences",
+                    "nameSV": "Åbo yrkeshögskola",
                     "id": "02509"
                 },
                 {
-                    "name": "Vaasan ammattikorkeakoulu",
+                    "nameFi": "Vaasan ammattikorkeakoulu",
+                    "nameEn": "Vaasa University of Applied Sciences",
+                    "nameSV": "Fachhochschule Vaasa",
                     "id": "02627"
                 },
                 {
-                    "name": "Yrkeshögksolan Arcada",
+                    "nameFi": "Yrkeshögksolan Arcada",
+                    "nameEn": "Yrkeshögksolan Arcada",
+                    "nameSV": "Yrkeshögksolan Arcada",
                     "id": "02535"
                 },
                 {
-                    "name": "Yrkeshögksolan Novia",
+                    "nameFi": "Yrkeshögksolan Novia",
+                    "nameEn": "Yrkeshögksolan Novia",
+                    "nameSV": "Yrkeshögksolan Novia",
                     "id": "10066"
                 }
             ]
         },
         "university_hospital": {
-            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
-            "subtitle": "Yliopistollisten sairaaloiden erityisvastuualueet",
+            "descriptionFi": [
+                "<p>Yliopistolliset sairaalat muodostavat yhdessä yliopistojen lääketieteellisten tiedekuntien kanssa terveyden tutkimuksen keskittymiä. Yhteistyössä yliopistojen, korkeakoulujen ja yritysten kanssa yliopistolliset sairaalat tuottavat tutkimustietoa, joka kehittää terveyspalveluja ja niiden järjestämistä sekä edistää väestön ja potilaiden terveyttä.</p>"
+            ],
+            "descriptionEn": [
+                "<p>University hospitals form health research clusters together with the universities' medical faculties. In cooperation with universities, higher education institutions and companies, university hospitals produce research data that develops health services and their organization and promotes the health of the population and patients.</p>"
+            ],
+            "subtitleFi": "Yliopistollisten sairaaloiden erityisvastuualueet",
+            "subtitleEn": "University hospitals",
             "organizations": [
                 {
-                    "name": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "nameFi": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "nameEn": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "nameSV": "Helsingforsregionens universitetscentralsjukhus",
                     "id": "15675350"
                 },
                 {
-                    "name": "Kuopion yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Kuopion yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Kuopio University Hospital",
+                    "nameSV": "Kuopio universitetssjukhus",
                     "id": "01714953"
                 },
                 {
-                    "name": "Oulun yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Oulun yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Oulu University Hospital",
+                    "nameSV": "Oulu University Hospital",
                     "id": "06794809"
                 },
                 {
-                    "name": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "nameSV": "Tampereen yliopistollisen sairaalan erityisvastuualue",
                     "id": "08265978"
                 },
                 {
-                    "name": "Turun yliopistollisen sairaalan erityisvastuualue",
+                    "nameFi": "Turun yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Turku University Central Hospital",
+                    "nameSV": "Åbo universitetscentralsjukhus",
                     "id": "08282559"
                 }
             ]
         },
         "state_research": {
-            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>",
-            "subtitle": "Valtion tutkimuslaitokset",
+            "descriptionFi": [
+                "<p>Valtion tutkimuslaitokset tekevät ratkaisukeskeistä tutkimusta, jolla tuetaan yhteiskunnallista päätöksentekoa ja elinkeinoelämän uudistumista.</p>",
+                "<p>Tutkimustoiminnan lisäksi laitoksilla on vaihtelevassa määrin erilaisia asiantuntija- ja viranomaistehtäviä sekä maksullista ja muuta palvelutoimintaa. Tutkimuslaitokset ylläpitävät merkittäviä tutkimusinfrastruktuureita, tietoaineistoja ja pitkiä aikasarjoja yhteiskunnan eri osa-alueilta. Tutkimuslaitokset tuottavat palveluita horisontaalisesti useimmille hallinnonaloille, muulle julkiselle sektorille sekä yrityksille ja kolmannen sektorin toimijoille. Kansainvälisellä yhteistyöllä on keskeinen rooli sekä tutkimuslaitosten tutkimustoiminnassa että asiantuntija- ja viranomaistehtävissä.</p>",
+                "<p>Suomen 12 valtion tutkimuslaitosta toimivat seitsemällä eri hallinnonalalla. Tutkimuslaitoksista kymmenen on organisaatiomuodoltaan tulosohjattuja virastoja, yksi on valtion omistuksessa ja hallinnassa oleva osakeyhtiö ja yksi on itsenäinen julkisoikeudellinen yhteisö. Laitokset määrittelevät tutkimuksen painopisteet yhdessä tulosohjaavan ministeriön kanssa. Itse tutkimus on riippumatonta ja sen rahoitus tulee enenevässä määrin kilpailtuna useista lähteistä kotimaiselta julkiselta ja yksityiseltä sektorilta sekä kansainvälisiltä rahoittajilta.</p>"
+            ],
+            "descriptionEn": [
+                "<p>State-owned research institutes conduct solution-oriented research that supports societal decision-making and business sector reform.</p>",
+                "<p>In addition to research activities, institutes perform a variety of expert and official tasks as well as fee-based and other service activities. Research institutes maintain key research infrastructures, datasets and long time series from different sectors of society. Research institutes provide services horizontally for most administrative branches, the rest of the public sector, companies and third sector actors. International cooperation plays a key role both in research conducted by research institutes and in expert and official tasks.</p>",
+                "<p>Finland's 12 state research institutes operate in seven different administrative branches. Of these research institutes, ten are performance-based agencies, one is a limited liability company owned and controlled by the state, and one is an independent body governed by public law. The departments define the research priorities together with the ministry steering the performance. The research itself is independent and its funding increasingly comes from several sources from the domestic public and private sectors as well as from international funders.</p>"
+            ],
+            "subtitleFi": "Valtion tutkimuslaitokset",
+            "subtitleEn": "State research institutes",
             "organizations": [
                 {
-                    "name": "Geologian tutkimuskeskus",
+                    "nameFi": "Geologian tutkimuskeskus",
+                    "nameEn": "Geological Survey of Finland",
+                    "nameSV": "Geologiska forskningscentralen",
                     "id": "5040011"
                 },
                 {
-                    "name": "Ilmatieteen laitos",
+                    "nameFi": "Ilmatieteen laitos",
+                    "nameEn": "Finnish Meteorological Institute",
+                    "nameSV": "Meteorologiska institutet",
                     "id": "4940015"
                 },
                 {
-                    "name": "Luonnonvarakeskus",
+                    "nameFi": "Luonnonvarakeskus",
+                    "nameEn": "Natural Resources Institute Finland",
+                    "nameSV": "Naturresursinstitutet",
                     "id": "4100010"
                 },
                 {
-                    "name": "Maanmittauslaitos",
+                    "nameFi": "Lääkealan turvallisuus- ja kehittämiskeskus",
+                    "nameEn": "Säkerhets- och utvecklingscentret för läkemedelsområdet",
+                    "nameSV": "Finnish Medicines Agency",
+                    "id": "558005"
+                },
+                {
+                    "nameFi": "Maanmittauslaitos",
+                    "nameEn": "National Land Survey of Finland",
+                    "nameSV": "Lantmäteriverket",
                     "id": "4020217"
                 },
                 {
-                    "name": "Suomen ympäristökeskus",
+                    "nameFi": "Ruokavirasto",
+                    "nameEn": "Finnish Food Authority",
+                    "nameSV": "Livsmedelsverket",
+                    "id": "430001"
+                },
+                {
+                    "nameFi": "Suomen Pankki",
+                    "nameEn": "Bank of Finland",
+                    "nameSV": "Finlands Bank",
+                    "id": "02022481"
+                },
+                {
+                    "nameFi": "Suomen ympäristökeskus",
+                    "nameEn": "Finnish Environment Institute",
+                    "nameSV": "Finlands miljöcentral",
                     "id": "7020017"
                 },
                 {
-                    "name": "Teknologian tutkimuskeskus VTT Oy",
+                    "nameFi": "Säteilyturvakeskus",
+                    "nameEn": "Säteilyturvakeskus",
+                    "nameSV": "Säteilyturvakeskus",
+                    "id": "5550012"
+                },
+                {
+                    "nameFi": "Teknologian tutkimuskeskus VTT Oy",
+                    "nameEn": "Technical Research Centre of Finland VTT",
+                    "nameSV": "Teknologiska forskningscentralen VTT",
                     "id": "26473754"
                 },
                 {
-                    "name": "Terveyden ja hyvinvoinnin laitos",
+                    "nameFi": "Terveyden ja hyvinvoinnin laitos",
+                    "nameEn": "National Institute for Health and Welfare",
+                    "nameSV": "Institutet för hälsa och välfärd",
                     "id": "5610017"
                 },
                 {
-                    "name": "Työterveyslaitos",
+                    "nameFi": "Työterveyslaitos",
+                    "nameEn": "Finnish Institute of Occupational Health",
+                    "nameSV": "Institutet för arbetshygien",
                     "id": "02202669"
                 },
                 {
-                    "name": "Ulkopoliittinen instituutti",
+                    "nameFi": "Ulkopoliittinen instituutti",
+                    "nameEn": "Finnish Institute of International Affairs",
+                    "nameSV": "Utrikespolitiska institutet",
                     "id": "1120017"
+                },
+                {
+                    "nameFi": "Valtion taloudellinen tutkimuskeskus",
+                    "nameEn": "Valtion taloudellinen tutkimuskeskus",
+                    "nameSV": "Valtion taloudellinen tutkimuskeskus",
+                    "id": "3060016"
                 }
             ]
         },
         "other_research": {
-            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            "descriptionFi": [
+                "<p>Valtion tutkimuslaitosten lisäksi tutkimusta tehdään myös useassa muussa julkisessa tai yksityisessä tutkimuslaitoksessa tai organisaation tutkimusyksikössä. Näitä ovat esimerkiksi taloudelliset tutkimuslaitokset, Suomen Pankki sekä Kansaneläkelaitoksen tutkimusosasto.</p>",
+                "<p>Suomen tutkimus- ja kehittämistoiminnasta noin kaksi kolmasosaa tapahtuu yrityksissä. Yrityksillä on tilastoitavan tk-toiminnan lisäksi huomattavassa määrin innovaatiotoimintaa, joka yritykset käyttävät uusien tuotteiden, palveluiden tai tuotantoprosessien kehittämisessä ja markkinoille tuomisessa.</p>"
+            ],
+            "descriptionEn": [
+                "<p>In addition to state research institutes, research is also conducted in numerous other public or private research institutes or in the research units of individual organizations. These include economic research institutes, the Bank of Finland and the Research Department of the Social Insurance Institution of Finland.</p>",
+                "<p>Approximately two-thirds of Finnish research and development takes place in companies. In addition to the R&D to be compiled for statistics, companies engage in a significant amount of innovation, which they use to develop and market new products, services or production processes.</p>"
+            ]
         },
         "funders": {
-            "description": "<p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p><p>This is a pretty long placeholder text to see how long portions of text would look in this part of the page. If the text splits into multiple lines then it might look something like this paragraph, which is not bad.</p>"
+            "descriptionFi": [
+                "<p>Kansainvälisen määritelmän mukaiset tutkimus- ja kehittämistoiminnan menot olivat vuonna 2018 Suomessa yhteensä 6,4 miljardia euroa. Tutkimus- ja kehittämistoiminnan kokonaisrahoituksesta reilut puolet tulee kotimaisilta yrityksiltä. Julkinen sektori rahoittaa noin kolmasosan, ulkomainen rahoitus on reilut kymmenen prosenttia. Loppu rahoituksesta tulee mm. tiedettä tukevilta säätiöiltä. Yrityssektorin ja julkisen sektorin rahoittamien osuuksien suhde on kansainvälisessä vertailussa melko tyypillinen.</p>",
+                "<p>Korkeakoulusektorin tutkimuksen rahoituksesta budjettirahoituksen osuus on noin puolet. Ulkopuolisista rahoittajista merkittävin on Suomen Akatemia noin 20 prosentin osuudella. Muista rahoituslähteistä merkittäviä ovat EU:n tutkimuksen puiteohjelma, Business Finland sekä säätiöt kokonaisuutena. <a href=\"https://saatiotrahastot.fi/wp-content/uploads/2020/02/Selvitys-saatiotuesta-2018.pdf\" target=\"_blank\">Erillisen selvityksen <i class='fas fa-external-link-alt'></i></a> mukaan vuonna 2018 säätiöt tukivat tiedettä yhteensä 223 miljoonalla eurolla. Kaikki säätiörahoitus ei näy tilastoissa, mikäli tuki menee suoraan apurahan saajille.</p>"
+            ],
+            "descriptionEn": [
+                "<p>In Finlad, the total research and development expenditure according to international definition amounted to EUR 6.4 billion in 2018. More than half of the total funding for research and development activities comes from Finnish companies. The public sector funds about one third, while foreign funding accounts for just over ten per cent. The remainder of funding comes from, among others, foundations that support science.  In international comparisons, the ratio of shares funded by the private sector and public sector is quite typical.</p>",
+                "<p>The share of budget funding accounts for approximately half of the funding for research in the higher education sector. The Academy of Finland is one of the biggest outside funders, accounting for some 20 per cent. Other sources of funding are the EU Framework Programme for Research, Business Finland and foundations as a whole.  <a href=\"https://saatiotrahastot.fi/wp-content/uploads/2020/02/Selvitys-saatiotuesta-2018.pdf\" target=\"_blank\">According to a separate study <i class='fas fa-external-link-alt'></i></a> , in 2018 the foundations supported science with a total of EUR 223 million. Not all funding for foundations is shown in the statistics, in cases where the support goes directly to the grant recipients.</p>"
+            ]
         }
     }
 }

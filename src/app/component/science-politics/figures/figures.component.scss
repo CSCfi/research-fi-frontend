@@ -70,7 +70,7 @@ h2 {
 }
 
 .segment h3 {
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 .segment h2, .segment h3 {
@@ -126,12 +126,6 @@ img {
     font-size: 1.5rem;
 }
 
-.dropdown {
-    font-size: 1rem;
-    text-transform: uppercase;
-    font-weight: 500;
-}
-
 .dropdown-icon {
     padding: 0 0.5rem;
 }
@@ -141,7 +135,18 @@ img {
         width: 100%;
     }
 
-    .nav ul li {
-        margin-left: 0.5rem;
+    .mat-button {
+        padding: 0;
+    }
+
+    ::ng-deep .dropdown .mat-button-wrapper {
+        display: flex;
+    }
+}
+
+@media (max-width: 614px) {
+    .segment .figure {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
 }

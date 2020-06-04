@@ -97,22 +97,22 @@ const routes: Routes = [
     component: NewsComponent
   },
   {
-    path: 'science-innovation-politics',
+    path: 'science-innovation-policy',
     component: ResearchInnovationSystemComponent,
     pathMatch: 'full'
   },
   {
-    path: 'science-innovation-politics/research-innovation-system',
+    path: 'science-innovation-policy/research-innovation-system',
     pathMatch: 'full',
     component: ResearchInnovationSystemComponent
   },
   {
-    path: 'science-innovation-politics/science-research-figures',
+    path: 'science-innovation-policy/science-research-figures',
     pathMatch: 'full',
     component: FiguresComponent
   },
   {
-    path: 'science-innovation-politics/science-research-figures/:id',
+    path: 'science-innovation-policy/science-research-figures/:id',
     component: SingleFigureComponent
   },
   {
@@ -121,6 +121,10 @@ const routes: Routes = [
   },
   {
     path: 'privacy',
+    component: PrivacyComponent
+  },
+  {
+    path: 'privacy/:tab',
     component: PrivacyComponent
   },
   {

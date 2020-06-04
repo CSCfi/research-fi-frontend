@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef, LOCALE_ID } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { map } from 'rxjs/operators';
@@ -39,57 +39,57 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
-    {label: 'Julkaisuvuosi', field: 'publicationYear'},
-    {label: 'Julkaisutyyppi', field: 'publicationTypeCode', typeLabel: ' ',
-    tooltipFi: 'OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.'},
-    {label: 'Tekijät', field: 'authors',
-    tooltipFi: 'Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.'}
+    {label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'publicationYear'},
+    {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', typeLabel: ' ',
+    tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+    {label: $localize`:@@authors:Tekijät`, field: 'authors',
+    tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`}
   ];
 
-  authorFields = [
-    {label: 'Tekijöiden määrä', field: 'author[0].nameFiSector',
-    tooltipFi: 'Julkaisun tekijät, joilla on suomalainen organisaatio'}
-  ];
+  // authorFields = [
+  //   {label: 'Tekijöiden määrä', labelSv: '', labelEn: '', field: 'author[0].nameFiSector',
+  //   tooltip: 'Julkaisun tekijät, joilla on suomalainen organisaatio', tooltipSv: '', tooltipEn: ''}
+  // ];
 
   authorAndOrganization = [];
 
   organizationSubFields = [
-    {label: 'Organisaatio', field: 'organizationId'}
+    {label: $localize`:@@orgOrganization:Organisaatio`, field: 'organizationId'}
   ];
 
   mediumFields = [
-    {label: 'Lehti', field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Emojulkaisun nimi', field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
-    {label: 'Konferenssi', field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Kustantaja', field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: 'Volyymi', field: 'volume', link: false},
-    {label: 'Numero', field: 'issueNumber', link: false},
-    {label: 'Sivut', field: 'pageNumbers', link: false},
+    {label: $localize`Lehti`, field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
+    {label: $localize`Konferenssi`, field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Kustantaja`, field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Volyymi`, field: 'volume', link: false},
+    {label: $localize`Numero`, field: 'issueNumber', link: false},
+    {label: $localize`Sivut`, field: 'pageNumbers', link: false},
     {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
     {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
-    {label: 'Julkaisu\u00ADfoorumi', field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
-    tooltipFi: 'Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).'},
-    {label: 'Julkaisu\u00ADfoorumitaso', field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
+    {label: $localize`Julkaisu\u00ADfoorumi`, field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
+    tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`},
+    {label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
   ];
 
   linksFields = [
     {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
-    {label: 'Pysyvä osoite', field: 'doiHandle'},
-    {label: 'Rinnakkaistallennus', field: 'selfArchivedAddress'},
+    {label: '', field: 'doiHandle'},
+    {label: '', field: 'selfArchivedAddress'},
   ];
 
   otherFields  = [
-    {label: 'Tieteenalat', field: 'fieldsParsed', tooltipFi: 'Tilastokeskuksen luokituksen mukaiset tieteenalat.'},
-    {label: 'Avoin saatavuus', field: 'openAccessText',
-    tooltipFi: '<p><strong>Open access -lehti: </strong>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</p><p><strong>Rinnakkaistallennettu: </strong>Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.</p><p><strong>Muu avoin saatavuus: </strong>Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.</p>'},
-    {label: 'Julkaisumaa', field: 'countries'},
-    {label: 'Kieli', field: 'languages'},
-    {label: 'Kansainvälinen yhteisjulkaisu', field: 'internationalCollaboration',
-    tooltipFi: 'Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista'},
-    {label: 'Yhteisjulkaisu yrityksen kanssa', field: 'businessCollaboration',
-    tooltipFi: 'Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.'},
-    {label: 'Avainsanat', field: 'keywords'}
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsParsed', tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`},
+    {label: $localize`:@@openAccess:Avoin saatavuus`, field: 'openAccessText',
+    tooltip: '<p><strong>' +  $localize`:@@openAccessJournal:Open access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'},
+    {label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries'},
+    {label: $localize`:@@language:Kieli`, field: 'languages'},
+    {label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`, field: 'internationalCollaboration',
+    tooltip: $localize`:@@intCoPublicationAuthors:Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista`},
+    {label: $localize`:@@publicationWithCompany:Yhteisjulkaisu yrityksen kanssa`, field: 'businessCollaboration',
+    tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywords'}
   ];
 
   citationStyles = [
@@ -116,12 +116,16 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   hasDoi = false;
   modalRef: BsModalRef;
   relatedData = {};
+  currentLocale: any;
+  tabData: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
                private settingsService: SettingsService, private staticDataService: StaticDataService,
                private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
-               private snackBar: MatSnackBar ) {
+               private snackBar: MatSnackBar, private metaService: Meta ) {
+                // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -136,11 +140,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'publications');
     this.searchTerm = this.searchService.singleInput;
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   openModal(template: TemplateRef<any>) {
@@ -156,12 +161,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar() {
-    this.snackBar.open('Viite kopioitu leikepöydälle');
+    this.snackBar.open($localize`:@@referCopied:Viite kopioitu leikepöydälle`);
   }
 
   getCitations() {
     const source = this.responseData.publications[0];
-    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    const doi = this.linksFields.filter(x => x['label' + this.currentLocale] === 'DOI').shift();
     // tslint:disable-next-line: curly
     if (!this.hasDoi) return;
     const doiUrl = source.doi;
@@ -185,9 +190,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // .pipe(map(responseData => [responseData]))
     .subscribe(responseData => {
       this.responseData = responseData;
+
       // Reset authors & organizations on new result
       this.authorAndOrganization = [];
       if (this.responseData.publications) {
+        this.metaService.addTags([
+          { name: 'description', content: 'Julkaisusivu: ' + this.localeId },
+          { property: 'og:title', content: this.responseData.publications[0].title },
+          { property: 'og:description', content: '' },
+          { property: 'og:image', content: 'assets/img/logo.svg' },
+          { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
+          { property: 'og:image:height', content: '100' },
+          { property: 'og:image:width', content: '100' },
+       ]);
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.publications[0].title + ' - Tiedejatutkimus.fi');
@@ -211,7 +226,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   checkDoi() {
     // Check if the doi exists (the field is filtered on init if it doesn't)
-    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    const doi = this.linksFields.filter(x => x['label' + this.currentLocale] === 'DOI').shift();
     // Flag needed for template
     this.hasDoi = !!doi;
   }
@@ -219,16 +234,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.publications[0][item.field] !== '-1' &&
-             this.responseData.publications[0][item.field] !== undefined &&
-             this.responseData.publications[0][item.field] !== 'undefined' &&
-             this.responseData.publications[0][item.field].length !== 0 &&
-             JSON.stringify(this.responseData.publications[0][item.field]) !== '["undefined"]' &&
-             this.responseData.publications[0][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.publications[0][item.field]);
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    this.authorFields = this.authorFields.filter(item => checkEmpty(item));
+    // this.authorFields = this.authorFields.filter(item => checkEmpty(item));
     this.organizationSubFields = this.organizationSubFields.filter(item => checkEmpty(item));
     this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
     this.linksFields = this.linksFields.filter(item => checkEmpty(item));
@@ -245,6 +255,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const keywords = source.keywords;
     const author = source.author;
 
+    // Map field names and exclude bad fields
     if (fieldsOfScience?.length > 0) {
       // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
       for (const [i, item] of fieldsOfScience.entries()) {
@@ -252,7 +263,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           fieldsOfScience.splice(i, 1);
         }
       }
-      source.fieldsParsed = fieldsOfScience.map(x => x.nameFi.trim()).join(', ');
+      // Get field names by locale
+      source.fieldsParsed = fieldsOfScience.map(x => x['name' + this.currentLocale].trim()).join(', ');
     }
 
     if (countries?.length > 0) {
@@ -273,7 +285,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (author?.length > 0) {
       author.forEach(item => {
         item.organization.forEach(org => {
-          const authorArr = [];
+          let authorArr = [];
           const orgUnitArr = [];
           org.organizationUnit.forEach(subUnit => {
             subUnit.person?.forEach(person => {
@@ -286,12 +298,42 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 });
               }
             });
-            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1') {
+            // Add sub units under organization if no person sub units
+            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
+            && subUnit.OrgUnitId !== '-1') {
               orgUnitArr.push({
                 subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
               });
+              // List sub unit IDs if no name available
+            } else if (!subUnit.person && subUnit.organizationUnitNameFi === ' ') {
+              orgUnitArr.push({
+                subUnit: subUnit.OrgUnitId
+              });
+            } else if (subUnit.organizationUnitNameFi === ' ') {
+              orgUnitArr.push({
+                subUnit: subUnit.OrgUnitId
+              });
             }
           });
+
+
+          // Filter all authors with subUnit
+          const subUnits = authorArr.filter(obj => obj.subUnit !== null);
+
+          // Look through all authors
+          authorArr.forEach(obj => {
+            // Check if author with same name exists with subUnit
+            if (subUnits.findIndex(withSub => withSub.author === obj.author) < 0) {
+              // Add it to the list if not
+              subUnits.push(obj);
+            }
+          });
+
+          // Replace author list without duplicates
+          authorArr = subUnits;
+
+
+          // authorArr = authorArr.filter(x => x.subUnit !== null);
           this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
             authors: authorArr, orgUnits: orgUnitArr});
         });
@@ -307,12 +349,41 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       };
     }
 
-    source.internationalCollaboration = source.internationalCollaboration ? 'Kyllä' : 'Ei';
-    source.businessCollaboration = source.businessCollaboration ? 'Kyllä' : 'Ei';
+
+    // Is this needed anymore?
+    let yes = '';
+    let no = '';
+    switch (this.localeId) {
+      case 'en': {
+        yes = 'Yes';
+        no = 'No';
+        break;
+      }
+      case 'sv': {
+        yes = 'Ja';
+        no = 'Nej';
+        break;
+      }
+      default: {
+        yes = 'Kyllä';
+        no = 'Ei';
+      }
+    }
+
+    source.internationalCollaboration = source.internationalCollaboration ? yes : no;
+    source.businessCollaboration = source.businessCollaboration ? yes : no;
+
+    // Filter empty self archived addresses
+    if (source.selfArchivedData) {
+      source.selfArchivedData[0].selfArchived = source.selfArchivedData[0].selfArchived.filter(item => item.selfArchivedAddress !== ' ');
+    }
 
     // Get & set publication type label
     this.publicationTypeLabel = this.staticDataService.publicationClass.find
     (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find(type => type.type === source.publicationTypeCode).label;
+
+    // tslint:disable-next-line: curly
+    if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
   }
 
   navigate(field) {

@@ -1,27 +1,39 @@
 {
     "contents": [
         {
-            "title": "Mikä on tiedejatutkimus.fi?",
-            "description": [
+            "titleFi": "Mikä on tiedejatutkimus.fi?",
+            "titleEn": "What is research.fi?",
+            "descriptionFi": [
                 "<small>Päivitetty 24.04.2020</small>",
                 "<p><a target=\"_blank\" href=\"https://www.tiedejatutkimus.fi\">Tiedejatutkimus.fi</a> on opetus- ja kulttuuriministeriön (OKM) tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta. Palvelu parantaa tutkimusta koskevan tiedon ja asiantuntijoiden löytymistä sekä lisää suomalaisen tutkimuksen näkyvyyttä ja yhteiskunnallista vaikuttavuutta. </p>",
-                "<p>Palvelu on otettu käyttöön kesäkuussa 2020, ja sitä kehitetään vaiheittain. Tällä hetkellä palvelu sisältää tietoa mm. suomalaisesta tutkimusjärjestelmästä, suomalaisten organisaatioiden julkaisuista, julkisten ja yksityisten tutkimusrahoittajien rahoittamista hankkeista sekä tilastotietoa tutkimuksen resurssien sekä vaikuttavuuden kehityksestä. </p>",
-                "<p>Jatkossa palvelua parannetaan mm. tietojen kattavuuden sekä laajennetaan uusilla tietokokonaisuuksilla. Nykyisen sisällön lisäksi palveluun tulee myöhemmin tietoa mm. Suomessa toimivista tutkijoista, näiden tuottamista tutkimusaineistoista ja muista tutkimusaktiviteeteista sekä laajemmin suomalaisesta tutkimusjärjestelmästä. Palvelun hakuominaisuuksia parannetaan ja siihen lisätään toiminnallisuuksia tietojen tarkasteluun graafisessa muodossa.</p>",
-                "<p>Palvelua toteuttaa OKM:n toimeksiannosta <a target=\"_blank\" href=\"https://www.csc.fi\">CSC – Tieteen tietotekniikan keskus <i class='fas fa-external-link-alt'></i></a> yhteistyössä korkeakoulujen, muiden tutkimusorganisaatioiden ja tutkimusrahoittajien kanssa.</p>"
+                "<p>Palvelu on otettu käyttöön kesäkuussa 2020, ja sitä kehitetään vaiheittain. Tällä hetkellä palvelu sisältää tietoa mm. suomalaisesta tutkimusjärjestelmästä, suomalaisten organisaatioiden julkaisuista, julkisten ja yksityisten tutkimusrahoittajien rahoittamista hankkeista sekä tilastotietoa tutkimuksen henkilöstön, rahoituksen sekä julkaisujen tieteellisen vaikuttavuuden kehityksestä.</p>",
+                "<p>Jatkossa palvelua laajennetaan uusilla tietokokonaisuuksilla ja tietojen kattavuutta parannetaan. Nykyisen sisällön lisäksi palveluun tulee myöhemmin tietoa mm. Suomessa toimivista tutkijoista, näiden tuottamista tutkimusaineistoista ja muista tutkimusaktiviteeteista sekä laajemmin suomalaisesta tutkimusjärjestelmästä. Palvelun hakuominaisuuksia parannetaan ja siihen lisätään toiminnallisuuksia tietojen tarkasteluun graafisessa muodossa.</p>",
+                "<p>Palvelua toteuttaa OKM:n toimeksiannosta <a target=\"_blank\" href=\"https://www.csc.fi\">CSC – Tieteen tietotekniikan keskus <i class='fas fa-external-link-alt'></i></a> yhteistyössä korkeakoulujen, tutkimuslaitosten ja muiden tutkimusorganisaatioiden sekä tutkimusrahoittajien kanssa.</p>"
+            ],
+            "descriptionEn": [
+                "<small>Updated 24 April 2020</small>",
+                "<p><a target=\"_blank\" href=\"https://www.Research.fi\">Research.fi</a> is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland. The service improves the location of information and experts on research and increases the visibility and societal impact of Finnish research. </p>",
+                "<p>The service was launched in June 2020 and will be developed in phases. At the moment, the service contains information on the Finnish research system, publications by Finnish organizations, projects funded by public and private research funders, and statistical information on the development of research resources and impact. </p>",
+                "<p>In the future, the service will improve, for example, the coverage of information and it will be expanded with new datasets. In addition to the current content, more information will be added to the service later, including information on researchers operating in Finland, research data produced by them and their other research activities, and more broadly on the Finnish research and innovation system. The search features of the service will be improved and functionalities for viewing the data in a graphic format will be added to it.</p>",
+                "<p>Commissioned by the Ministry of Education and Culture, the service was launched by <a target=\"_blank\" href=\"https://www.csc.fi\">CSC - IT Center for Science <i class='fas fa-external-link-alt'></i></a> in cooperation with higher education institutions, other research organizations and research funders.</p>"
+            ],
+            "descriptionSv": [
+
             ]
         },
         {
-            "title": "Mitä tietoa palvelu sisältää ja mistä tiedot tulevat?",
-            "description": [
+            "titleFi": "Mitä tietoa palvelu sisältää ja mistä tiedot tulevat?",
+            "titleEn": "What information does the service have and where does it come from?",
+            "descriptionFi": [
                 "<small>Päivitetty 24.04.2020</small>",
                 "<p>Palveluun päivittyy automaattisesti mm. yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten, yliopistollisten sairaaloiden sekä tutkimusrahoittajien järjestelmissä jo valmiiksi olevia tietoja.</p>",
                 "<p>Palveluun ei syötetä tietoa käsin, eikä se näin ollen lisää tutkijoiden raportointiin tai muuhun hallinnolliseen työhön käyttämää aikaa. Palvelu sisältää kuvailutiedot, joiden avulla esimerkiksi avoimesti saatavilla olevat julkaisut ja aineistot ovat helposti löydettävissä.</p>",
-                "<p>Tietojen kattavuus ja ajantasaisuus riippuu tietoja toimittavista organisaatioista ja kukin organisaatio vastaa omien tietojensa oikeellisuudesta. Tietojen toimittaminen on pääosin vapaaehtoista. Ainoastaan julkaisutietojen toimittaminen on pakollista korkeakouluille.</p>",
+                "<p>Kukin tietoja toimittava organisaatio vastaa omien tietojensa oikeellisuudesta, laadusta, kattavuudesta ja ajantasaisuudesta. Tietojen toimittaminen on pääosin vapaaehtoista. Ainoastaan julkaisutietojen toimittaminen on pakollista korkeakouluille.</p>",
                 
                 "<h3>Julkaisut </h3>",
                 "<p>Julkaisutiedot koostuvat suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistollisten sairaaloiden OKM:n tiedonkeruissa toimittamista tiedoista. Palvelu sisältää yli 400 000 Suomessa tehdyn julkaisun metatiedot. </p>",
-                "<p>Julkaisutietojen toimittaminen OKM:lle on ollut pakollista yliopistoille ja ammattikorkeakouluille vuodesta 2011 lähtien. Osa organisaatioista on toimittanut myös vanhempia julkaisuja, jopa 1970-luvulta lähtien.</p>",
-                "<p>Tiedot kerätään valtakunnallisen <a target=\"_blank\" href=\"https://wiki.eduuni.fi/display/cscvirtajtp/VIRTA-julkaisutietopalvelu\">VIRTA-julkaisutietopalvelun <i class='fas fa-external-link-alt'></i></a> kautta ja tietoja käytetään mm. korkeakoulujen perusrahoituksen laskentakriteereinä (ks. <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608982\">OKM/2018/116 <i class='fas fa-external-link-alt'></i></a> ja <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608987\">OKM/2018/119 <i class='fas fa-external-link-alt'></i></a>). Tiedot on tähän asti julkaistu JUULI – julkaisutietoportaalissa.</p>",
+                "<p>Tiedot kerätään valtakunnallisen <a target=\"_blank\" href=\"https://wiki.eduuni.fi/display/cscvirtajtp/VIRTA-julkaisutietopalvelu\">VIRTA-julkaisutietopalvelun <i class='fas fa-external-link-alt'></i></a> kautta ja tietoja käytetään mm. korkeakoulujen perusrahoituksen laskentakriteereinä (ks. <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608982\">OKM/2018/116 <i class='fas fa-external-link-alt'></i></a> ja <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608987\">OKM/2018/119 <i class='fas fa-external-link-alt'></i></a>). Julkaisutiedot on tähän asti julkaistu JUULI – julkaisutietoportaalissa.</p>",
+                "<p>Julkaisutietojen toimittaminen OKM:lle on ollut pakollista yliopistoille vuodesta 2011 ja ammattikorkeakouluille vuodesta 2012 lähtien. Osa organisaatioista toimittaa takautuvasti myös vanhempia julkaisuja, jopa 1970-luvulta lähtien, mutta näihin liittyvät tiedot saattavat olla puutteellisia.</p>",
                 "<p>Muille organisaatioille kuin yliopistoille ja ammattikorkeakouluille opetus- ja kulttuuriministeriön julkaisutiedonkeruu on vapaaehtoista. Yliopistolliset sairaalat ovat toimittaneet tietonsa niin ikään vuodesta 2011 alkaen ja tutkimuslaitoksia on liittynyt tiedonkeruuseen vuodesta 2014 alkaen.</p>",
                 "<p>Ks. <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">lista julkaisutietoja toimittavista organisaatioista <i class='fas fa-external-link-alt'></i></a>.</p>",
                 
@@ -33,50 +45,117 @@
                 
                 "<h3>Infrastruktuurit </h3>",
                 "<p>Tutkimusinfrastruktuurit ovat kansallisesti merkittäviä tutkimusvälineitä, laitteistoja, aineistoja ja palveluita, jotka mahdollistavat ja tukevat tutkimustyötä, tutkijan koulutusta ja opetusta sekä kehittävät tutkimus- ja innovaatiokapasiteettia. Tiedejatutkimus.fi edistää tutkimusinfrastruktuurien yhteiskäyttöä ja avoimuutta kuvailemalla ja esittelemällä tutkimusinfrastruktuurit ja niiden palvelut yhtenäisellä tavalla.</p>",
-                "<p>Tutkimusinfrastruktuuri voi olla useamman organisaation yhteistyönä hallinnoitu laaja kansallinen tai kansainvälinen kokonaisuus. Se voi olla myös yhden organisaation hallinnoima, ja sitä käyttää vain sen oma tutkimusryhmä. Tutkimusinfrastruktuurilla voi olla myös esimerkiksi yrityksille suunnattuja palveluita.</p>",
+                "<p>Tutkimusinfrastruktuuri voi olla useamman organisaation yhteistyönä hallinnoitu laaja kansallinen tai kansainvälinen kokonaisuus. Se voi olla myös yhden organisaation hallinnoima, ja tutkimusinfrastruktuuria saattaa käyttää vain sen oma tutkimusryhmä. Tutkimusinfrastruktuurilla voi olla myös esimerkiksi yrityksille suunnattuja palveluita.</p>",
                 "<p>Tutkimusinfrastruktuureja koskevien tietojen toimittamisesta sekä tietojen kattavuudesta ja oikeellisuudesta vastaavat infrastruktuureita hallinnoivat organisaatiot ja tahot.</p>",
                 "<p>Ks. <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">lista infrastruktuuritietoja toimittavista organisaatioista <i class='fas fa-external-link-alt'></i></a>.</p>",
                 
                 "<h3>Organisaatiot</h3>",
-                "<p>Palvelu sisältää tarkempia tietoja niistä tutkimusta tekevistä ja rahoittavista organisaatioista, jotka toimittavat tietojaan palveluun. Organisaatioiden tiedot on koottu automaattisesti seuraavista lähteistä:</p>",
+                "<p>Palvelu sisältää tarkempia tietoja niistä tutkimusta tekevistä ja rahoittavista organisaatioista, jotka toimittavat tietojaan palveluun. Organisaatioiden tiedot päivittyvät automaattisesti seuraavista lähteistä:</p>",
                 "<ul><li><a target=\"_blank\" href=\"https://www.ytj.fi/\">Yritys- ja yhteisötietojärjestelmä <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://finto.fi/cn/fi\">Finto – suomalainen asiasanasto- ja ontologiapalvelu: Suomalaiset yhteisönimet <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://www.vipunen.fi\">Vipunen – opetushallinnon tilastopalvelu <i class='fas fa-external-link-alt'></i></a></li></ul>",
 
                 "<h3>Tiede- ja tutkimusuutiset</h3>",
-                "<p>Tuoreet tiede- ja tutkimusuutiset päivitetään automaattisesti tutkimusorganisaatioiden tarjoamista RSS-syötteistä. Palvelussa säilytetään uutisia viimeisten kuuden kuukauden ajalta.</p>",
+                "<p>Tuoreet tiede- ja tutkimusuutiset päivitetään automaattisesti tutkimusorganisaatioiden tarjoamista RSS-syötteistä. Kukin organisaatio päättää omalta osaltaan, mitä uutisia palvelussa näytetään.</p>",
                 "<p>Ks. <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">lista uutisia toimittavista organisaatioista <i class='fas fa-external-link-alt'></i></a>.</p>",
 
                 "<h3>Tutkijat (tulossa)</h3>",
-                "<p>Palveluun ollaan kehittämässä toimintoa, jossa tutkija voi antaa luvan jo olemassa olevien tietojensa siirtämiseksi ORCID-palvelusta tai kotiorganisaatiostaan tiedejatutkimus.fi-palvelussa julkaistavaksi. Tutkijaa koskevia tietoja ovat esimerkiksi yhteystiedot, affiliaatiot, koulutus ja pätevyydet, oman tutkimuksen kuvaus, julkaisut, aineistot, hankkeet ja muut tutkimusaktiviteetit.</p>",
-                "<p>Tutkijalla on mahdollisuus luoda palveluun itselleen profiili ja valita siinä näytettävät tiedot. Tutkijan profiilipalvelu on tarkoitus ottaa käyttöön vuonna 2021.</p>",
+                "<p>Palveluun ollaan kehittämässä toimintoa, jossa tutkija voi antaa luvan omien tietojensa siirtämiseksi ORCID-palvelusta tai kotiorganisaatiostaan tiedejatutkimus.fi-palvelussa julkaistavaksi. Tutkijaa koskevia tietoja ovat esimerkiksi yhteystiedot, affiliaatiot, koulutus ja pätevyydet, oman tutkimuksen kuvaus ja muut tutkimusaktiviteetit.</p>",
+                "<p>Tutkijalla on mahdollisuus luoda palveluun itselleen profiili ja valita siinä näytettävät tiedot. Tutkija voi myös liittää profiiliinsa tiedejatutkimus.fi-palvelun jo sisältämiä julkaisuja, aineistoja, hankkeita yms.</p>",
+                "<p>Tavoitteena on ottaa tutkijan profiilipalvelu käyttöön syksyllä 2021.</p>",
                 
                 "<h3>Tutkimusaineistot (tulossa) </h3>",
-                "<p>Palvelu käyttää tutkimusaineistojen tietolähteenä kansallisia <a target=\"_blank\" href=\"https://www.fairdata.fi/en/\">Fairdata-palveluja <i class='fas fa-external-link-alt'></i></a>, jotka sisältävät tietoja suomalaisista tutkimusaineistoista. Fairdata-palveluissa on mm. tutkijoiden itsensä tallentamia sekä tutkimusorganisaatioista siirrettyjä tutkimusaineistojen kuvailutietoja.</p>",
+                "<p>Palvelu käyttää tutkimusaineistojen tietolähteenä kansallisia <a target=\"_blank\" href=\"https://www.fairdata.fi/en/\">Fairdata-palveluja <i class='fas fa-external-link-alt'></i></a>, jotka sisältävät tietoja Suomessa tuotetuista tutkimusaineistoista. Fairdata-palveluissa on mm. tutkijoiden itsensä tallentamia sekä tutkimusorganisaatioista siirrettyjä tutkimusaineistojen kuvailutietoja.</p>",
                 "<p>Tavoitteena on sisällyttää tutkimusaineistot osaksi tiedejatutkimus.fi-palvelua vuoden 2020 loppuun mennessä.</p>"
+            ],
+            "descriptionEn": [
+                "<small>Updated 24 April 2020</small>",
+                "<p>The service automatically updates information already found in the systems of universities, universities of applied sciences, research institutes, university hospitals, and research funders.</p>",
+                "<p>Because information is not entered in the service manually, it does not increase researchers’ reporting or other administrative work. The service contains descriptive information that makes it easy to find, for example, open access publications and research data.</p>",
+                "<p>The comprehensiveness and timeliness of the information depends on the organizations providing the information, and each organization is responsible for the accuracy of its own information. Submitting information is mainly voluntary. Only the submission of publication information is mandatory for higher education institutions.</p>",
+                "<h3>Publications </h3>",
+                "<p>Publication information consists of information submitted by Finnish universities, universities of applied sciences, research institutes and university hospitals in the data collection of the Ministry of Education and Culture. The service contains metadata for more than 400,000 publications in Finland. </p>",
+                "<p>The data is collected through the national VIRTA publication information service <a target=\"_blank\" href=\"https://wiki.eduuni.fi/display/cscvirtajtp/VIRTA+in+English\">VIRTA-julkaisutietopalvelun <i class='fas fa-external-link-alt'></i></a>, and the data is used, for example, as calculation criteria for the basic funding of higher education institutions (see <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608982\">OKM/2018/116 <i class='fas fa-external-link-alt'></i></a> and <a target=\"_blank\" href=\"https://valtioneuvosto.fi/paatokset/paatos?decisionId=0900908f80608987\">OKM/2018/119 <i class='fas fa-external-link-alt'></i></a>). Until now, the information has been published in the Juuli Finnish Research Publications Portal.</p>",
+                "<p>The submission of publication information to the Ministry of Education and Culture has been mandatory for universities and universities of applied sciences since 2011. Some organizations have also submitted older publications, even as far back as the 1970s, but their information may be incomplete.</p>",
+                "<p>For organizations other than universities and universities of applied sciences, the Ministry of Education and Culture collects publication information on a voluntary basis. University hospitals have also been submitting their information since 2011, and research institutes have joined the data collection gradually since 2014.</p>",
+                "<p>See <a target=\"_blank\" href=\"https://wiki.eduuni.fi/display/CSCTTV/In+English\">list of organizations submitting publication information <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Projects </h3>",
+                "<p><a target=\"_blank\" href=\"https://www.Research.fi\">Research.fi <i class='fas fa-external-link-alt'></i></a> collects information on projects funded by public and private research funders. The funding providers transfer information on their funding decisions from their own funding systems to the project information resource on a timetable of their own choosing.</p>",
+                "<p>The service currently includes the most recent funding decisions issued by the Academy of Finland, Business Finland and some private research funding foundations. In addition, information on the funding received by Finnish organizations from the Horizon2020 funding program has been imported into the service from the European Commission's CORDIS database.</p>",
+                "<p>Funding decision information only includes the amount granted in the funding decision of funders, not the total costs of the project. At a later stage, it is also possible to compile project information, for example, from the systems of higher education institutions and other research organizations.</p>",
+                "<p>See <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">list of funding organizations submitting project information <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Infrastructures </h3>",
+                "<p>Research infrastructures are key national research instruments, equipment, materials and services that enable and support research, researcher education, and teaching as well as develop research and innovation capacity. Research.fi promotes the joint use and openness of research infrastructures by describing and presenting research infrastructures and their services in a uniform manner.</p>",
+                "<p>A research infrastructure can be a large national or international entity jointly managed by several organizations. It can also be managed by one organization and only used by its own research group. Research infrastructure may also have, for example, services aimed at companies.</p>",
+                "<p>The submission of information on research infrastructures and the comprehensiveness and accuracy of the information are the responsibility of the organizations and bodies managing the infrastructures.</p>",
+                "<p>See <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">list of organizations submitting infrastructure information <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Organizations</h3>",
+                "<p>The service contains more detailed information on research and funding organizations which are submitting information to the service. Organization information is automatically compiled from the following sources:</p>",
+                "<ul><li><a target=\"_blank\" href=\"https://www.ytj.fi/en/index.html\">Business Information System <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://finto.fi/cn/en/\">Finto - Finnish Thesaurus and Ontology Service: Finnish community names <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://vipunen.fi/en-gb/\">Vipunen - Education Statistics Finland <i class='fas fa-external-link-alt'></i></a></li></ul>",
+                "<h3>Science and research news</h3>",
+                "<p>The latest science and research news is automatically updated from RSS feeds provided by research organizations. The service archives news from the last six months.</p>",
+                "<p>See <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">list of organizations submitting news <i class='fas fa-external-link-alt'></i></a>.</p>",
+                "<h3>Researchers (pending)</h3>",
+                "<p>A service feature is being developed in which the researcher can give permission to transfer their existing data from the ORCID service or from their home organization to be published on the research.fi service. Researcher information includes contact information, affiliations, training and qualifications, description of your own research, publications, materials, projects, and other research activities.</p>",
+                "<p>The researcher is able to create a profile for the service and select the information to be presented in it. Researchers can also connect publications, research data, projects, etc. already included in research.fi to their profile.</p>",
+                "<p>The researcher profile service is to be launched in 2021.</p>",
+                "<h3>Research materials (coming soon) </h3>",
+                "<p>The service uses national <a target=\"_blank\" href=\"https://www.fairdata.fi/en/\">Fairdata services <i class='fas fa-external-link-alt'></i></a>, which contain information on Finnish research data, as a source of information for research data. Fairdata services contain descriptive data on research data saved by researchers themselves and transferred from research organizations.</p>",
+                "<p>The goal is to include research data as part of the Research.fi service by the end of 2020.</p>"
+            ],
+            "descriptionSv": [
+
             ]
         },
         {
-            "title": "Miten käytän palvelua?",
-            "description": [
+            "titleFi": "Miten käytän palvelua?",
+            "titleEn": "How do I use the service?",
+            "descriptionFi": [
                 "<small>Päivitetty 24.04.2020 </small>",
                 "<p>Palvelussa voit selata ja hakea tietoja sekä jakaa yksittäisiä sivuja tai tietueita esimerkiksi sosiaaliseen mediaan.</p>",
                 "<p>Myöhemmässä vaiheessa tavoitteena on, että palvelun tiedot saa myös ladattua tiedostoon tai haettua koneluettavan rajapinnan kautta.</p>",
                 "<p>Palvelua kehitetään jatkuvasti. Voit antaa palautetta, mikäli havaitset palvelussa ongelmia tai sinulla ehdotuksia palvelun kehittämiseksi tai mikäli havaitset tiedoissa virheitä.</p>",
                 "<p></p>",
                 "<p><a href=\"/privacy\">Mitä tietoja minusta käyttäjänä kerätään?</a> <br><a href=\"/accessibility\">Onko palvelu saavutettava?</a><br><a target=\"_blank\" href=\"https://link.webropolsurveys.com/Participation/Public/b2c1524e-aed2-4e76-9783-29e7938ef275?displayId=Fin1982953\">Anna palautetta <i class='fas fa-external-link-alt'></i></a></p> "
+            ],
+            "descriptionEn": [
+                "<small>Updated 24 April 2020</small>",
+                "<p>In the service, you can browse and search for information as well as share individual pages or records, for example, on social media.</p>",
+                "<p>At a later stage, the goal is to make it possible to also download information in the service to a file or retrieve it through a machine-readable API interface.</p>",
+                "<p>The service is constantly being developed. You can give feedback if you encounter problems with the service, if you have any suggestions for improving the service or if you find errors in the information.</p>",
+                "<p></p>",
+                "<p><a href=\"/privacy\">What information is being collected about me as a user?</a> <br><a href=\"/accessibility\">Need to be reached?</a><br><a target=\"_blank\" href=\"https://link.webropolsurveys.com/Participation/Public/b2c1524e-aed2-4e76-9783-29e7938ef275?displayId=Fin1982953\">Provide feedback <i class='fas fa-external-link-alt'></i></a></p> "
+            ],
+            "descriptionSv": [
+
             ]
         },
         {
-            "title": "Tietosuoja",
-            "description": [
+            "titleFi": "Tietosuoja",
+            "titleEn": "Privacy",
+            "descriptionFi": [
                 "<small>Päivitetty 24.04.2020 </small>",
                 "Ks. palvelun <a href=\"/privacy\">tietosuojailmoitus ja evästekäytännöt</a>.</p> "
+            ],
+            "descriptionEn": [
+                "<small>Updated 24 April 2020</small>",
+                "See the service <a href=\"/privacy\">Privacy Notice and Cookie Policies</a>.</p>"
+            ],
+            "descriptionSv": [
+
             ]
         },
         {
-            "title": "Saavutettavuus",
-            "description": [
+            "titleFi": "Saavutettavuus",
+            "titleEn": "Accessibility",
+            "descriptionFi": [
                 "<small>Päivitetty 24.04.2020 </small>",
                 "Ks. palvelun <a href=\"/accessibility\">saavutettavuusseloste</a>"
+            ],
+            "descriptionEn": [
+                "<small>Updated 24 April 2020</small>",
+                "See the <a href=\"/accessibility\">Service Accessibility Statement</a>"
+            ],
+            "descriptionSv": [
+
             ]
         }
     ]

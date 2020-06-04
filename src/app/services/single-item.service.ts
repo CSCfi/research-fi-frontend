@@ -41,7 +41,8 @@ export class SingleItemService {
         match: {
           [field]: term
         }
-      }
+      },
+      size: 1
     };
     return res;
   }
@@ -62,7 +63,7 @@ export class SingleItemService {
   }
 
   getSingleInfrastructure(id): Observable<Search> {
-    return this.http.post<Search>(this.infrastructureApiUrl, this.constructPayload('name', id))
+    return this.http.post<Search>(this.infrastructureApiUrl, this.constructPayload('nameFi', id))
                     .pipe(map((data: any) => this.searchAdapter.adapt(data, 'infrastructures')));
   }
 

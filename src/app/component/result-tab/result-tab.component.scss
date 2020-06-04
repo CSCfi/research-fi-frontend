@@ -11,7 +11,7 @@ app-result-tab {
     .scroll {
         scroll-behavior: smooth;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         overflow: auto;
         white-space: nowrap; 
         justify-content: space-between;
@@ -45,9 +45,11 @@ app-result-tab {
         border-bottom: 0px;
         background: none;
         z-index: 1;
+        padding-bottom: 18px;
     }
 
     .bundler {
+        display: block;
         cursor: pointer;
         min-width: 205.7px;
         margin: 23px 0 0;
@@ -101,6 +103,10 @@ app-result-tab {
         box-shadow: 1px 3px 3px;
         font-size: 2em;
         text-align: center;
+        fa-icon {
+            display: block;
+            margin-top: 2px;
+        }
     }
 
     .nav-arrow-left, .nav-arrow-right {
@@ -152,7 +158,7 @@ app-result-tab {
         cursor: default;
     }
 
-    .bundler.disabled-home {
+    .disabled-home {
         opacity: 0.5;
     }
 
@@ -166,7 +172,69 @@ app-result-tab {
     //     margin-top: -88px;
     // }
 
-    @media (max-width: 575px) {
+    .bundler.toggle-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: unset;
+        margin: 12px 2px !important;
+    }
+
+    // Homepage styles
+    .homepage {
+        border: 0px !important;
+        margin: 6px 2px !important;
+        min-width: 180px !important;
+    }
+
+    .label.homepage-label {
+        font-size: 14px !important;
+        display: block;
+    }
+
+    .row-wrapper {
+        display: flex;
+        justify-content: center;
+        &-homepage {
+            width: 100%;
+        }
+    }
+    // Custom tooltip locations
+    .tooltip-publications {
+        top: 85px !important;
+        &-home {
+            top: 72px !important;
+        }
+    }
+    
+    .tooltip-fundings {
+        top: 155px !important;
+        &-home {
+            top: 155px !important;
+        }
+    }
+        
+    .tooltip-infrastructures {
+        top: 155px !important;
+        &-home {
+            top: 155px !important;
+        }
+        &-open {
+            top: 155px !important;
+        }
+    }
+        
+    .tooltip-organizations {
+        top: 85px !important;
+        &-home {
+            top: 72px !important;
+        }
+        &-open {
+            top: 72px !important;
+        }
+    }
+
+    @media (max-width: 617px) {
         .bundler {
             min-width: auto;
             border-radius: 0;
@@ -182,6 +250,28 @@ app-result-tab {
         .text-center {
             display: table-cell;
             font-size: 1.2em;
+        }
+
+        .homepage {
+            min-width: 148px !important;
+            width: 48% !important;
+        }
+
+        app-tab-item .homepage {
+            width: 100% !important;
+        }
+
+        .label.homepage-label {
+            font-size: 12px !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .tooltip {
+            display: none!important;
         }
     }
 }

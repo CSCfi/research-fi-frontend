@@ -4,36 +4,26 @@
  :license: MIT -->
 
 <nav id="tabs">
-<div class="wrapper" *ngIf="allData; else noData" [tabindex]="isHomePage ? -1 : 0" (keyup)="isHomePage ? '' : navigate($event)">
+  <div class="wrapper" *ngIf="allData; else noData" [tabindex]="isHomepage ? -1 : 0" (keyup)="isHomepage ? '' : navigate($event)">
     <div #scroll class="scroll" *ngFor="let counted of allData">
-      <div class="edge" [ngStyle]="{'display': lastScrollLocation > 0 ? 'block' : 'none'}">
+      <div *ngIf="!isHomepage" class="edge" [ngStyle]="{'display': lastScrollLocation > 0 ? 'block' : 'none'}">
         <div class="grad grad-left"></div>
-        <div class="nav-arrow nav-arrow-left d-none d-sm-block" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-left" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
       </div>
-      <div class="edge" [ngStyle]="{'display': offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'}">
+      <div *ngIf="!isHomepage" class="edge" [ngStyle]="{'display': offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'}">
         <div class="grad grad-right"></div>
-        <div class="nav-arrow nav-arrow-right d-none d-sm-block" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-right" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
       </div>
-      <ng-container *ngFor="let tab of tabData; let i = index;">
-        <ng-template #tooltipTemplate><div [innerHtml]="tab.tooltipFi"></div></ng-template>
-        <a class="bundler" [class.disabled]="tab.data.length === 0" [class.disabled-home]="isHomePage && tab.data.length === 0" [ngStyle]="homepageStyle" 
-        [class.active]="selectedTab === tab.link" [queryParams]="queryParams[tab.link]" (click)="disableScroll(true)" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
-        [tabindex]="isHomePage && tab.data.length !== 0 ? 0 : -1" [tooltip]="tooltipTemplate" placement="left">
-          <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
-            <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
-            <div *ngIf="locale === 'fi'" class="label text-center">{{tab.labelFi}}</div>
-            <div *ngIf="locale === 'se'" class="label text-center">{{tab.labelSe}}</div>
-            <div *ngIf="locale === 'en'" class="label text-center">{{tab.labelEn}}</div>
-            <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="myOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
-          </div>
-          <ng-template #disabledTab>
-            <div class="tab-icon" class="tab-icon {{tab.data}}" [ngStyle]="homepageIcons"><fa-icon [icon]="tab.icon"></fa-icon></div>
-            <div *ngIf="locale === 'fi'" class="label text-center">{{tab.labelFi}}</div>
-            <div *ngIf="locale === 'se'" class="label text-center">{{tab.labelSe}}</div>
-            <div *ngIf="locale === 'en'" class="label text-center">{{tab.labelEn}}</div>
-            <div class="numeric-box d-sm-block">Tulossa</div>
-          </ng-template>
-        </a>
+      <ng-container *ngFor="let row of tabsOpen ? rowsOpen : rowsClosed; let i = index;">
+        <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
+          <ng-container *ngFor="let tab of slicedRow(i); let j = index;">
+            <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale" [tooltipClass]="tooltipClass"></app-tab-item>
+            <button *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()" #toggleButton>
+              <div *ngIf="!tabsOpen" class="label text-center homepage homepage-label"><ng-container i18n="@@showAll">Näytä kaikki </ng-container><div><fa-icon [icon]="faAngleDown"></fa-icon></div></div> 
+              <div *ngIf="tabsOpen" class="label text-center homepage homepage-label"><ng-container i18n="@@showLess">Näytä vähemmän </ng-container><div><fa-icon [icon]="faAngleUp"></fa-icon></div></div> 
+            </button>
+          </ng-container>
+        </div>
       </ng-container>
     </div>
   </div>
@@ -41,7 +31,7 @@
     <div class="row justify-content-center">
       <div class="col" align="center" style="margin: 2rem 0;">
         <mat-spinner [diameter]="40"></mat-spinner>
-        <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2>
+        <h2 class="error" *ngIf="errorTimeout" i18n="Connection problem@@connProblem1">Yhteysongelma. Dataa ei saatavilla.</h2>
       </div>
     </div>
   </ng-template>

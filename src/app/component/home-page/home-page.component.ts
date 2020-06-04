@@ -8,7 +8,7 @@
 import { Component, OnInit, ViewChild, ViewChildren, ElementRef, Inject, PLATFORM_ID, QueryList, AfterViewInit,
   HostListener, ChangeDetectorRef, LOCALE_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -17,6 +17,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   providers: [SearchBarComponent],
@@ -29,9 +30,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   errorMessage = [];
   status = false;
   news: News[] = [];
-  myOps = {
-    duration: 0.5
-  };
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   @ViewChildren('shortcutItem') shortcutItem: QueryList<ElementRef>;
   @ViewChild('main') mainContent: ElementRef;
@@ -39,7 +37,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     border: '0px',
     background: 'white',
     margin: '6px 0 6px',
-    'min-width': '200px'
+    minWidth: '180px',
   };
   maxHeight: number;
 
@@ -47,56 +45,77 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   shortcuts = [
     {
-      title: 'Suomen tiede ja tutkimus lukuina',
-      caption: 'Tutustu tilastoihin tutkimuksen henkilöstöstä, rahoituksesta ja julkaisutoiminnasta',
+      titleFi: 'Lukuja tieteestä ja tutkimuksesta',
+      titleEn: 'Figures on science and research',
+      titleSv: 'Siffror om vetenskap och forskning',
+      captionFi: 'Tutustu tilastoihin tutkimuksen henkilöstöstä, rahoituksesta ja julkaisutoiminnasta',
+      captionEn: 'Read statistics on research personnel, funding and publishing.',
+      captionSv: 'Bekanta dig med statistiken över forskningspersonalen samt finansieringen och publikationsverksamheten.',
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
-      link: '/science-innovation-politics/science-research-figures',
-      alt: ''
+      link: '/science-innovation-policy/science-research-figures',
+      alt: ' '
     },
     {
-      title: 'Suomalainen tutkimus- ja innovaatiojärjestelmä',
-      caption: 'Mistä suomalainen tutkimusjärjestelmä koostuu?',
+      titleFi: 'Suomalainen tutkimus- ja innovaatiojärjestelmä',
+      titleEn: 'Research and innovation system in Finland',
+      titleSv: 'Forskningssystem i Finland',
+      captionFi: 'Mistä suomalainen tutkimusjärjestelmä koostuu?',
+      captionEn: 'What does the Finnish research system consist of?',
+      captionSv: 'Vad består det finländska forskningssystemet av?',
       imgPath: 'assets/img/home/research_innovation.jpg',
       col: 6,
-      // link: '/visual/publications',
-      link: '/science-innovation-politics/research-innovation-system',
-      alt: ''
+      link: '/science-innovation-policy/research-innovation-system',
+      alt: ' '
 
     },
     {
-      title: 'Uusimmat tutkimushankkeet',
-      caption: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
+      titleFi: 'Uusimmat tutkimushankkeet',
+      titleEn: 'Latest research projects',
+      titleSv: 'De senaste forskningsprojekten',
+      captionFi: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
+      captionEn: 'See the latest research funding decisions',
+      captionSv: 'Bekanta dig med de senaste besluten om forskningsfinansiering',
       imgPath: 'assets/img/home/funding.jpg',
       col: 4,
       link: '/results/fundings',
-      alt: ''
+      alt: ' '
     },
     {
-      title: 'Tietoa palvelusta',
-      caption: 'Mitä tiedejatutkimus.fi sisältää? Miten tutkijana saat tietosi palveluun? Miten palvelua käytetään?',
+      titleFi: 'Tietoa palvelusta',
+      titleEn: 'About the Service',
+      titleSv: 'Information om tjänsten',
+      captionFi: 'Mitä tiedejatutkimus.fi sisältää? Miten tutkijana saat tietosi palveluun? Miten palvelua käytetään?',
+      captionEn: 'What is found in research.fi? How do you make your information visible the service as a researcher? How do I use the service?',
+      captionSv: 'Vad innehåller forskning.fi? Hur får du som forskare information om tjänsten? Hur används tjänsten?',
       imgPath: 'assets/img/home/info.jpg',
       col: 4,
       link: '/service-info',
-      alt: ''
+      alt: ' '
     },
     {
-      title: 'Etsi julkaisuja!',
-      caption: 'Etsi tietoa suomalaisten tutkimusorganisaatioiden julkaisuista',
+      titleFi: 'Etsi julkaisuja!',
+      titleEn: 'Search for publications!',
+      titleSv: 'Sök publikationer!',
+      captionFi: 'Etsi tietoa suomalaisten tutkimusorganisaatioiden julkaisuista',
+      captionEn: 'Search for information on publications by Finnish research organizations',
+      captionSv: 'Sök information i finländska forskningsorganisationers publikationer',
       imgPath: 'assets/img/home/search.jpg',
       col: 4,
       link: '/results/publications',
       last: true,
-      alt: ''
+      alt: ' '
     }
   ];
   focusSub: any;
+  currentLocale: string;
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string,private tabChangeService: TabChangeService,
-               private resizeService: ResizeService ) {
-
+               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService ) {
+                 // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
 
   public setTitle( newTitle: string) {
@@ -104,6 +123,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.metaService.addTags([
+      { name: 'description', content: 'Tiedejatutkimus.fi - Etusivu' },
+      { property: 'og:title', content: 'Tiedejatutkimus.fi - Etusivu' },
+      { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
+      { property: 'og:image', content: 'assets/img/logo.svg' },
+      { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
+      { property: 'og:image:height', content: '100' },
+      { property: 'og:image:width', content: '100' },
+   ]);
     // Reset search term
     this.searchService.updateInput('');
 
@@ -111,7 +139,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAllData();
 
     // Get news data
-    this.searchService.getNews(3).subscribe(data => this.news = data);
+    this.searchService.getNews(3).subscribe(data => {
+      this.news = data;
+    });
 
     // Reset sort
     this.sortService.updateSort('');
@@ -120,6 +150,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Etusivu - Tiedejatutkimus.fi');
+
         break;
       }
       case 'en': {
@@ -175,6 +206,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.resizeSub.unsubscribe();
+    this.resizeSub?.unsubscribe();
   }
 }

@@ -25,7 +25,7 @@ export class PersonFilters {
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
   shapeData(data) {
-      const source = data[0].aggregations;
+      const source = data.aggregations;
       source.shaped = true;
       return source;
   }

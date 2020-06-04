@@ -16,6 +16,10 @@
             color: mat-contrast($primary, 200);
         }
 
+        a.theme-link {
+            color: mat-color($primary);
+        }
+
         // "Bleed" the styles into sub-pages
         app-publications, app-fundings, app-infrastructures, app-organizations, app-related-results {
 
@@ -31,12 +35,11 @@
                 color: mat-color($primary) !important;
             }
 
-            h3 {
+            .result-title {
                 color: mat-contrast($primary, 200);
-                text-decoration: underline;
             }
 
-            a.icon {
+            a.icon, .check-icon {
                 color: mat-color($primary)!important;
             }
 

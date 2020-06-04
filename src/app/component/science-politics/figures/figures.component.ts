@@ -36,10 +36,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronUp = faChevronUp;
 
   navItems = [
-    {id: 's1', labelFi: 'Tiede ja tutkimus lukuina', icon: this.faIconCircle, active: true},
-    {id: 's2', labelFi: 'Tutkimuksen rahoitus', icon: this.faChartBar, active: false},
-    {id: 's3', labelFi: 'Tutkimuksen henkilövoimavarat', icon: this.faChartBar, active: false},
-    {id: 's4', labelFi: 'Julkaisutoiminta ja tieteellinen vaikuttavuus', icon: this.faChartBar, active: false},
+    {id: 's1', label: $localize`:@@figuresSecHeader:Tiedon lähteet ja tuottajat`, icon: this.faIconCircle, active: true},
+    {id: 's2', label: $localize`:@@figuresSec1:Tutkimuksen rahoitus`, icon: this.faChartBar, active: false},
+    {id: 's3', label: $localize`:@@figuresSec2:Tutkimuksen henkilövoimavarat`, icon: this.faChartBar, active: false},
+    {id: 's4', label: $localize`:@@figuresSec3:Julkaisutoiminta ja tieteellinen vaikuttavuus`, icon: this.faChartBar, active: false},
   ];
 
   coLink = [
@@ -65,8 +65,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   resizeSub: Subscription;
   scrollSub: Subscription;
   mobile: boolean;
-  showMenu: boolean;
+  showIntro: boolean;
   focusSub: any;
+  currentLocale: string;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
@@ -77,6 +78,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.queryResults = [];
     this.queryTerm = '';
     this.hasResults = true;
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle( newTitle: string) {
@@ -86,12 +89,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle('Tiede ja tutkimus lukuina - Tiedejatutkimus.fi');
+        this.setTitle('Lukuja tieteestä ja tutkimuksesta - Tiedejatutkimus.fi');
         break;
       }
       case 'en': {
-        // Todo: Translate
-        this.setTitle('Tiede ja tutkimus lukuina - Research.fi');
+        this.setTitle('Figures on science and research - Research.fi');
         break;
       }
     }
@@ -103,7 +105,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     const combined = [];
     // Combine all items
     this.allContent.forEach(segment => combined.push(segment.items));
-    this.combinedData = [].concat.apply([], combined);
+    this.combinedData = combined.flat();
+
     // Subscribe to input changes
     this.querySub = this.queryField.valueChanges.pipe(
       distinctUntilChanged()
@@ -122,9 +125,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     // Counte content width and set mobile true / false
-    this.mobile = this.mainContent.nativeElement.offsetWidth > 991 ? false : true;
+    this.mobile = this.window.innerWidth > 991 ? false : true;
     // Show side menu on desktop
-    this.showMenu = this.mobile ? false : true;
+    this.showIntro = this.mobile ? false : true;
     this.cdr.detectChanges();
 
     // Focus with skip-links
@@ -145,9 +148,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.querySub.unsubscribe();
-    this.resizeSub.unsubscribe();
-    this.scrollSub.unsubscribe();
+    this.querySub?.unsubscribe();
+    this.resizeSub?.unsubscribe();
+    this.scrollSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 
@@ -156,8 +159,8 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onResize() {
-    this.mobile = this.mainContent.nativeElement.offsetWidth > 991 ? false : true;
-    this.showMenu = this.mobile ? false : true;
+    this.mobile = this.window.innerWidth > 991 ? false : true;
+    this.showIntro = this.mobile ? false : true;
   }
 
   onScroll(y: number) {

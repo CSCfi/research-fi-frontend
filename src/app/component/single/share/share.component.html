@@ -6,6 +6,6 @@
 <div class="share">
     <button mat-raised-button [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()" color="primary" >
         <fa-icon [icon]="faCopy" class="copy"></fa-icon>
-        Kopioi linkki
+        <ng-container i18n="@@copyLink">Kopioi linkki</ng-container>
     </button>
 </div>

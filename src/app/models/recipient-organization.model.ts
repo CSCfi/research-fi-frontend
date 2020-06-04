@@ -7,16 +7,17 @@
 
 import { Adapter } from './adapter.model';
 import { Injectable } from '@angular/core';
+import { LanguageCheck } from './utils';
 
 export class RecipientOrganization {
     constructor(
         public id: string,
         public businessId: string,
-        public nameFi: string,
-        public nameSv: string,
-        public nameEn: string,
+        public name: string,
         public role: string,
         public shareOfFundingEur: number,
+        public pic: string,
+        public countryCode: string
     ) {}
 }
 
@@ -24,7 +25,7 @@ export class RecipientOrganization {
     providedIn: 'root'
 })
 export class RecipientOrganizationAdapter implements Adapter<RecipientOrganization> {
-    constructor() {}
+    constructor(private lang: LanguageCheck) {}
     adapt(item: any): RecipientOrganization {
         // Trim all string elements
         if (item) {
@@ -33,11 +34,11 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
         return new RecipientOrganization(
             item.consortiumOrganizationId,
             item.consortiumOrganizationBusinessId,
-            item.consortiumOrganizationNameFi,
-            item.consortiumOrganizationNameSv,
-            item.consortiumOrganizationNameEn,
-            item.roleInConsortium,
-            item.shareOfFundingInEur
+            this.lang.testLang('consortiumOrganizationName', item),
+            this.lang.translateRole(item.roleInConsortium, item.euFunding),
+            item.shareOfFundingInEur,
+            item.consortiumOrganizationPic,
+            item.consortiumOrganizationCountryCode
         );
     }
 }
