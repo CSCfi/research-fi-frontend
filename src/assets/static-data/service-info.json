@@ -1,8 +1,8 @@
 {
     "contents": [
         {
-            "titleFi": "Mikä on tiedejatutkimus.fi?",
-            "titleEn": "What is research.fi?",
+            "titleFi": "Mikä on Tiedejatutkimus.fi?",
+            "titleEn": "What is Research.fi?",
             "descriptionFi": [
                 "<small>Päivitetty 24.04.2020</small>",
                 "<p><a target=\"_blank\" href=\"https://www.tiedejatutkimus.fi\">Tiedejatutkimus.fi</a> on opetus- ja kulttuuriministeriön (OKM) tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta. Palvelu parantaa tutkimusta koskevan tiedon ja asiantuntijoiden löytymistä sekä lisää suomalaisen tutkimuksen näkyvyyttä ja yhteiskunnallista vaikuttavuutta. </p>",
@@ -97,7 +97,7 @@
                 "<p>A service feature is being developed in which the researcher can give permission to transfer their existing data from the ORCID service or from their home organization to be published on the research.fi service. Researcher information includes contact information, affiliations, training and qualifications, description of your own research, publications, materials, projects, and other research activities.</p>",
                 "<p>The researcher is able to create a profile for the service and select the information to be presented in it. Researchers can also connect publications, research data, projects, etc. already included in research.fi to their profile.</p>",
                 "<p>The researcher profile service is to be launched in 2021.</p>",
-                "<h3>Research materials (coming soon) </h3>",
+                "<h3>Research data (coming soon) </h3>",
                 "<p>The service uses national <a target=\"_blank\" href=\"https://www.fairdata.fi/en/\">Fairdata services <i class='fas fa-external-link-alt'></i></a>, which contain information on Finnish research data, as a source of information for research data. Fairdata services contain descriptive data on research data saved by researchers themselves and transferred from research organizations.</p>",
                 "<p>The goal is to include research data as part of the Research.fi service by the end of 2020.</p>"
             ],
@@ -122,7 +122,7 @@
                 "<p>At a later stage, the goal is to make it possible to also download information in the service to a file or retrieve it through a machine-readable API interface.</p>",
                 "<p>The service is constantly being developed. You can give feedback if you encounter problems with the service, if you have any suggestions for improving the service or if you find errors in the information.</p>",
                 "<p></p>",
-                "<p><a href=\"/privacy\">What information is being collected about me as a user?</a> <br><a href=\"/accessibility\">Need to be reached?</a><br><a target=\"_blank\" href=\"https://link.webropolsurveys.com/Participation/Public/b2c1524e-aed2-4e76-9783-29e7938ef275?displayId=Fin1982953\">Provide feedback <i class='fas fa-external-link-alt'></i></a></p> "
+                "<p><a href=\"/privacy\">What information is being collected about me as a user?</a> <br><a href=\"/accessibility\">Is the service accessible?</a><br><a target=\"_blank\" href=\"https://link.webropolsurveys.com/Participation/Public/b2c1524e-aed2-4e76-9783-29e7938ef275?displayId=Fin1982953\">Provide feedback <i class='fas fa-external-link-alt'></i></a></p> "
             ],
             "descriptionSv": [
 
