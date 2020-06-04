@@ -100,6 +100,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   tabData: any;
   currentLocale: string;
   serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string ) {

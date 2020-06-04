@@ -80,7 +80,7 @@ export class StaticDataService {
     {key: '2', label: $localize`Johtava taso`},
     {key: '1', label: $localize`Perustaso`},
     {key: '0', label: $localize`Muut`},
-    {key: ' ', label: $localize`Ei arviota`},
+    {key: ' ', label: $localize`:@@noRating:Ei arviota`},
   ];
 
   // Query parameters

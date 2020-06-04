@@ -1144,7 +1144,7 @@
       </trans-unit>
       <trans-unit id="yearRangeNoSelection" datatype="html">
         <source>Ei valintaa</source>
-        <target>No selectio</target>
+        <target>No selection</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
           <context context-type="linenumber">79</context>
@@ -1174,7 +1174,7 @@
         <note priority="1" from="description">Year filter separate</note>
       </trans-unit>
       <trans-unit id="showMore" datatype="html">
-        <source>Näytä lisää</source>
+        <source>Näytä enemmän</source>
         <target>Show more</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
@@ -2122,7 +2122,7 @@
         <source>Muut</source>
         <target>Other</target>
       </trans-unit>
-      <trans-unit id="7719583117268157924">
+      <trans-unit id="noRating">
         <source>Ei arviota</source>
         <target>No rating</target>
       </trans-unit>
@@ -3746,6 +3746,14 @@
       <trans-unit id="cookiesDenied">
         <source>Evästeet hylätty</source>
         <target>Cookies denied</target>
+      </trans-unit>
+      <trans-unit id="yearFrom">
+        <source> alkaen</source>
+        <target> from</target>
+      </trans-unit>
+      <trans-unit id="yearTo">
+        <source> päättyen</source>
+        <target> to</target>
       </trans-unit>
     </body>
   </file>
