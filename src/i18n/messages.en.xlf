@@ -274,11 +274,11 @@
         <source>Takaisin</source>
         <target>Back</target>
       </trans-unit>
-      <trans-unit id="next">
+      <trans-unit id="previous">
         <source>Edellinen</source>
         <target>Previous</target>
       </trans-unit>
-      <trans-unit id="previous">
+      <trans-unit id="next">
         <source>Seuraava</source>
         <target>Next</target>
       </trans-unit>
@@ -1328,6 +1328,10 @@
           <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="moreFiguresFrom" datatype="html">
+        <source>Lisää lukuja tieteestä ja tutkimuksesta</source>
+        <target>More figures from science and research</target>
       </trans-unit>
       <trans-unit id="shareThisPage" datatype="html">
         <source>Jaa tämä sivu:</source>
@@ -3722,6 +3726,14 @@
       <trans-unit id="declineTrackingCookies" datatype="html">
         <source>Hylkää seurantaevästeet</source>
         <target>Dismiss</target>
+      </trans-unit>
+      <trans-unit id="cookiesApproved">
+        <source>Evästeet hyväksytty</source>
+        <target>Cookies accepted</target>
+      </trans-unit>
+      <trans-unit id="cookiesDenied">
+        <source>Evästeet hylätty</source>
+        <target>Cookies denied</target>
       </trans-unit>
     </body>
   </file>

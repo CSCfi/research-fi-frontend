@@ -1,7 +1,11 @@
 <div class="d-flex flex-direction-row justify-content-center align-items-center carousel-container">
     <div class="button-container prev">
-        <button mat-stroked-button *ngIf="idx > 0" routerLink="/science-innovation-policy/science-research-figures/{{data[idx-1].link}}">&lt;&lt; Edellinen</button>
-        <button mat-stroked-button *ngIf="idx === 0" [disabled]="true">&lt;&lt; Edellinen</button>
+        <button mat-stroked-button *ngIf="idx > 0" routerLink="/science-innovation-policy/science-research-figures/{{data[idx-1].link}}">
+            &lt;&lt; <ng-container i18n="@@previous">Edellinen</ng-container>
+        </button>
+        <button mat-stroked-button *ngIf="idx === 0" [disabled]="true">
+            &lt;&lt; <ng-container i18n="@@previous">Edellinen</ng-container>
+        </button>
     </div>
     <div *ngFor="let item of slicedData" class="figure-item" [class.active]="item.link === id">
             <div class="img-container" [routerLink]="item.link === id ? undefined : '/science-innovation-policy/science-research-figures/' + item.link">
@@ -13,7 +17,11 @@
             </div>
     </div>
     <div class="button-container next">
-        <button mat-stroked-button *ngIf="idx < maxIdx" routerLink="/science-innovation-policy/science-research-figures/{{data[idx+1].link}}">Seuraava &gt;&gt;</button>
-        <button mat-stroked-button *ngIf="idx === maxIdx" [disabled]="true">Seuraava &gt;&gt;</button>
+        <button mat-stroked-button *ngIf="idx < maxIdx" routerLink="/science-innovation-policy/science-research-figures/{{data[idx+1].link}}">
+            <ng-container i18n="@@next">Seuraava</ng-container> &gt;&gt;
+        </button>
+        <button mat-stroked-button *ngIf="idx === maxIdx" [disabled]="true">
+            <ng-container i18n="@@next">Seuraava</ng-container> &gt;&gt;
+        </button>
     </div>
 </div>
