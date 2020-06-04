@@ -42,7 +42,7 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
         this.setTitle('Accessibility - Research.fi');
         break;
       }
-      case 'en': {
+      case 'sv': {
         this.setTitle('Tillgänglighetsredogörelse - Forskning.fi');
         break;
       }

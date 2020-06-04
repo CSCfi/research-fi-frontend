@@ -131,7 +131,7 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         this.setTitle('Research and innovation system - Research.fi');
         break;
       }
-      case 'en': {
+      case 'sv': {
         this.setTitle('Finländskt forsknings- och innovationssystem - Forskning.fi');
         break;
       }

@@ -36,7 +36,7 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setTitle('Service info - Research.fi');
         break;
       }
-      case 'en': {
+      case 'sv': {
         this.setTitle('Information om tjänsten - Forskning.fi');
         break;
       }
