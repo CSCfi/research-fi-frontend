@@ -907,7 +907,7 @@
       </trans-unit>
       <trans-unit id="relatedOrganizations" datatype="html">
         <source>Organisaation</source>
-        <target>Organizatio</target>
+        <target>Organization</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">135</context>
