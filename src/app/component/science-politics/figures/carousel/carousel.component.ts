@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Inject, LOCALE_ID } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
@@ -13,8 +13,12 @@ export class CarouselComponent implements OnInit, OnChanges {
   slicedData;
   idx: number;
   maxIdx: number;
+  currentLocale: string;
 
-  constructor() { }
+  constructor(@Inject( LOCALE_ID ) protected localeId: string) {
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   ngOnInit(): void {
   }
@@ -23,6 +27,7 @@ export class CarouselComponent implements OnInit, OnChanges {
     this.maxIdx = this.data.length - 1;
     this.idx = this.data.findIndex(x => x.link === this.id);
     this.slicedData = this.sliceAround(this.idx, this.maxIdx, this.data);
+    console.log(this.slicedData);
   }
 
   sliceAround(idx: number, maxIdx: number, arr: any[]) {

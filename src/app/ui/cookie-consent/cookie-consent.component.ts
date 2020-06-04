@@ -63,7 +63,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open('Evästeet hylätty');
+    this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`);
   }
 
   approve() {
@@ -80,7 +80,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open('Evästeet hyväksytty');
+    this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
   }
 
   public loadScript() {

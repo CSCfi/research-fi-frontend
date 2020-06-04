@@ -40,19 +40,19 @@
                 [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
                 <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
                     <div class="navbar-expand mx-auto navbar-nav lang mobile">
-                        <ul class="navbar-nav mx-auto disabled">
+                        <ul class="navbar-nav mx-auto">
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}" (click)="setLang('fi')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="https://tiedejatutkimus.fi/fi{{currentRoute}}" (click)="setLang('fi')">
                                     <span class="label">Suomi</span>
                                 </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="https://researchfi-test.rahtiapp.fi/sv{{currentRoute}}" (click)="setLang('sv')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="https://tiedejatutkimus.fi/sv{{currentRoute}}" (click)="setLang('sv')">
                                     <span class="label">Svenska</span>
                                 </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="https://researchfi-test-en.rahtiapp.fi{{currentRoute}}" (click)="setLang('en')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="https://research.fi/en{{currentRoute}}" (click)="setLang('en')">
                                     <span class="label">English</span>
                                 </a>
                             </li>
@@ -88,16 +88,16 @@
                                 </a>
                             </li>
                             <li #navLink class="nav-item col col-auto p-0 mr-0">
-                                <div class="navbar-expand navbar-nav lang langSelect disabled">
+                                <div class="navbar-expand navbar-nav lang langSelect">
                                     <mat-form-field class="lang-select">
                                         <mat-select [(value)]="currentLang" >
-                                            <a href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}">
+                                            <a href="https://tiedejatutkimus.fi/fi{{currentRoute}}">
                                                 <mat-option value="FI">FI</mat-option>
                                             </a>
-                                            <a href="https://researchfi-test.rahtiapp.fi/sv{{currentRoute}}">
+                                            <a href="https://tiedejatutkimus.fi/sv{{currentRoute}}">
                                                 <mat-option value="SV">SV</mat-option>
                                             </a>
-                                            <a href="https://researchfi-test-en.rahtiapp.fi{{currentRoute}}">
+                                            <a href="https://research.fi/en{{currentRoute}}">
                                                 <mat-option value="EN">EN</mat-option>
                                             </a>
                                         </mat-select>

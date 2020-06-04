@@ -97,7 +97,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open('Evästeet hylätty');
+    this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`);
   }
 
   approve() {
@@ -111,7 +111,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open('Evästeet hyväksytty');
+    this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
   }
 
   setTitle(title: string) {
