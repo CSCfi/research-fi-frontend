@@ -10,6 +10,8 @@ import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChi
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { ReviewComponent } from 'src/app/ui/review/review.component';
 
 @Component({
   selector: 'app-accessibility',
@@ -20,8 +22,11 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   focusSub: Subscription;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   title: string;
+  reviewDialogRef: MatDialogRef<ReviewComponent>;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) { }
+
+  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     switch (this.localeId) {
@@ -56,6 +61,15 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
       }
     });
   }
+
+  toggleReview() {
+    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+      maxWidth: '800px',
+      minWidth: '320px',
+      // minHeight: '60vh'
+    });
+  }
+
 
   ngOnDestroy() {
     // Reset skip to input - skip-link
