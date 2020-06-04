@@ -34,12 +34,18 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     headerFi: string;
     items: {
         labelFi: string;
+        labelEn: string;
+        labelSv: string;
         descriptionFi: string;
+        descriptionEn: string;
+        descriptionSv: string;
         img: string;
         iframe: string;
         link: string;
         source: string;
-        info: string;
+        infoFi: string;
+        infoEn: string;
+        infoSv: string;
         segment?: string
     }[]}[] = content;
   flatData: any[] = [];
@@ -88,7 +94,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     // Get all visualisations into a flat array
     this.dataContent.forEach(segment => {
       // Hack to get segment header into item (replace an unused field with it)
-      segment.items.forEach(item => item.segment = segment.headerFi);
+      segment.items.forEach(item => item.segment = segment['header' + this.currentLocale]);
       this.flatData.push(segment.items);
     });
     this.flatData = this.flatData.flat();

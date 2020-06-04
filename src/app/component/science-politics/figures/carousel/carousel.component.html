@@ -13,7 +13,7 @@
                 <div class="img-div">
                     <img  [src]="item.img">
                 </div>
-                <div class="item-description">{{item.labelFi | cutContent: 50}}</div>
+                <div class="item-description">{{item['label' + currentLocale] | cutContent: 50}}</div>
             </div>
     </div>
     <div class="button-container next">
