@@ -1358,8 +1358,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityLangBanner" datatype="html">
-        <source><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/> Englanninkielinen versio tulossa</source>
-        <target><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/> The english version of this page is coming soon</target>
+        <source><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/> Englanninkielinen versio tulossa</source>
+        <target><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/> The english version of this page is coming soon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">17</context>
