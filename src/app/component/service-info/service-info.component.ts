@@ -42,7 +42,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(false);
 
     this.title = this.getTitle();
-    console.log(this.getTitle());
     this.openedIdx = +this.location.path(true).split('#')[1];
   }
 

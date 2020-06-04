@@ -27,7 +27,6 @@ export class CarouselComponent implements OnInit, OnChanges {
     this.maxIdx = this.data.length - 1;
     this.idx = this.data.findIndex(x => x.link === this.id);
     this.slicedData = this.sliceAround(this.idx, this.maxIdx, this.data);
-    console.log(this.slicedData);
   }
 
   sliceAround(idx: number, maxIdx: number, arr: any[]) {

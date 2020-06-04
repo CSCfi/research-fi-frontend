@@ -219,7 +219,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.shapeData();
         this.filterData();
         this.checkDoi();
-        console.log(this.responseData.publications[0]);
       }
     },
       error => this.errorMessage = error as any);
