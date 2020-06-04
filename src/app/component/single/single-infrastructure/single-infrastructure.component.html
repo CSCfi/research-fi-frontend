@@ -42,7 +42,7 @@
                         <h2 class="subheader trHeader" i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut</h2>
                         <div class="content" *ngFor="let service of item.services; let i = index;">
                             <ng-container>
-                                <h3 class="header trHeader subtitle service-name" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'" i18n="@@infraServiceHeader">
+                                <h3 class="header trHeader subtitle service-name" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">
                                     {{stringHasContent(service.name) ? service.name : serviceHeader}} {{service.acronym ? '(' + service.acronym + ')' : ''}}
                                 </h3>
                                 <div *ngIf="showService[i]" class="pl-4">
