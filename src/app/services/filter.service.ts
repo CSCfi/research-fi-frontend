@@ -822,6 +822,7 @@ export class FilterService {
               terms: {
                 field: 'keywords.keyword.keyword',
                 size: 50,
+                exclude: ' '
               }
             }
           }
