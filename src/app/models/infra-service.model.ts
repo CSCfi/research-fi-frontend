@@ -18,7 +18,6 @@ export class InfraService {
         public scientificDescription: string,
         public acronym: string,
         public type: string,
-        public coordinatingOrganization: string,
         public servicePoints: ServicePoint[],
     ) {}
 }
@@ -41,7 +40,6 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
             this.langCheck.testLang('serviceScientificDescription', item),
             item.serviceAcronym,
             item.serviceType,
-            this.langCheck.testLang('serviceCoOrgName', item),
             servicePoints,
         );
     }
