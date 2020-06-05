@@ -107,7 +107,7 @@
         <p>{{reviewContent}}</p>
         <ng-container *ngIf="locationTarget">
           <h4 i18n="@@ur4">Palautetta koskeva sijainti verkkopalvelussa</h4>
-          <p>{{title}}</p>
+          <p>{{locationValue ? locationValue : title}}</p>
         </ng-container>
         <ng-container *ngIf="emailValue">
           <h4 i18n="@@feedbackContact">Toivon yhteydenottoa palautteestani</h4>
