@@ -36,7 +36,7 @@
       </trans-unit>
       <trans-unit id="669c69431c87e87b4bb5b28d781c27be00456a7f" datatype="html">
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
-        <target state="translated">Sökningen gäller publikationer, projekt, infrastrukturer och organisationer</target>
+        <target state="translated">Sökningen gäller publikationer, finansieringsbeslut, infrastrukturer och organisationer.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">28</context>
@@ -44,7 +44,7 @@
       </trans-unit>
       <trans-unit id="searchTarget" datatype="html">
         <source>Kohdista haku</source>
-        <target state="needs-translation"/>
+        <target state="translated">Rikta sökningen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">21</context>
@@ -52,7 +52,7 @@
       </trans-unit>
       <trans-unit id="799bcf9270be412cb8063fd9e94d3d1f70192d2f" datatype="html">
         <source>Esim. julkaisu, tieteenala, asiasana</source>
-        <target state="translated">Till exempel publikation, vetenskapsområde, ämnesordnyckelord</target>
+        <target state="translated">Till exempel publikation, vetenskapsområde, ämnesord</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">29</context>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="searchHelp1" datatype="html">
         <source>Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi tai esimerkiksi organisaation nimi.</source>
-        <target state="translated">Skriv publikationens namn, ämnesordnyckelord, projektets namn eller till exempel organisationens namn i sökfältet.</target>
+        <target state="translated">Skriv publikationens namn, ämnesord, projektets namn eller t.ex. organisationens namn i sökfältet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">47</context>
@@ -105,7 +105,7 @@
       </trans-unit>
       <trans-unit id="searchSuggest1" datatype="html">
         <source>Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</source>
-        <target state="translated">Skriv minst 3 bokstäver för att få förslag</target>
+        <target state="translated">Skriv minst 3 bokstäver att få förslag</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">57</context>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="searchSuggest2" datatype="html">
         <source>Muuta hakua saadaksesi ehdotuksia</source>
-        <target state="translated">Ändra sökningen för att få förslag</target>
+        <target state="translated">Ändra sökningen att få förslag</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">58</context>
@@ -132,7 +132,7 @@
       </trans-unit>
       <trans-unit id="suggestResults2" datatype="html">
         <source>Näytä kaikki </source>
-        <target state="translated">Visa alla</target>
+        <target state="translated">Visa alla </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">88</context>
@@ -141,7 +141,7 @@
       </trans-unit>
       <trans-unit id="suggestResults3" datatype="html">
         <source>Näytä kaikki </source>
-        <target state="translated">Visa alla</target>
+        <target state="translated">Visa alla </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">100</context>
@@ -216,7 +216,7 @@
       </trans-unit>
       <trans-unit id="resultInfo1" datatype="html">
         <source>Mitä </source>
-        <target state="translated">Vilka</target>
+        <target state="translated">Vad</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
           <context context-type="linenumber">35</context>
@@ -268,35 +268,35 @@
       </trans-unit>
       <trans-unit id="back">
         <source>Takaisin</source>
-        <target state="needs-translation"/>
+        <target state="translated">Tillbaka</target>
       </trans-unit>
       <trans-unit id="previous">
         <source>Edellinen</source>
-        <target state="needs-translation"/>
+        <target state="translated">Föregående</target>
       </trans-unit>
       <trans-unit id="next">
         <source>Seuraava</source>
-        <target state="needs-translation"/>
+        <target state="translated">Nästa</target>
       </trans-unit>
       <trans-unit id="latest">
         <source>Uusimmat</source>
-        <target state="needs-translation"/>
+        <target state="translated">Senaste</target>
       </trans-unit>
       <trans-unit id="olderNews">
         <source>Aiempia uutisia</source>
-        <target state="needs-translation"/>
+        <target state="translated">Tidigare nyheter</target>
       </trans-unit>
       <trans-unit id="disableTracking">
         <source>Poista seuranta käytöstä</source>
-        <target state="needs-translation"/>
+        <target state="translated">Inaktivera spårning</target>
       </trans-unit>
       <trans-unit id="enableTracking">
         <source>Ota seuranta käyttöön</source>
-        <target state="needs-translation"/>
+        <target state="translated">Aktivera spårning</target>
       </trans-unit>
       <trans-unit id="kbHelpHint">
         <source>Ohje näppäimistökäyttäjälle</source>
-        <target state="needs-translation"/>
+        <target state="translated">Instruktion för tangentbordanvändare</target>
       </trans-unit>
       <trans-unit id="authorOrganization" datatype="html">
         <source>Organisaatiot ja tekijät</source>
@@ -380,7 +380,7 @@
       </trans-unit>
       <trans-unit id="citationHeader" datatype="html">
         <source>Viittaa</source>
-        <target state="needs-translation"/>
+        <target state="translated">Hänvisa</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">295</context>
@@ -388,7 +388,7 @@
       </trans-unit>
       <trans-unit id="copyReferences" datatype="html">
         <source>Kopioi viitetiedot</source>
-        <target state="needs-translation"/>
+        <target state="translated">Kopiera referensinformation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">300</context>
@@ -420,7 +420,7 @@
       </trans-unit>
       <trans-unit id="copyToClipboard" datatype="html">
         <source>Kopioi leikepöydälle</source>
-        <target state="needs-translation"/>
+        <target state="translated">Kopiera till urklipp</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">334</context>
@@ -497,8 +497,8 @@
       <trans-unit id="resultSearchTermWarning" datatype="html">
         <source>Tarkista, onko hakutermissä kirjoitusvirheitä.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä verkkopalvelussa.</source>
-        <target state="translated">Kontrollera om det finns skrivfel i sökordet. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-               Det kan också hända att den information du söker inte finns i den här webbtjänsten</target>
+        <target state="translated">Kolla sökord för skrivfel. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+               Det är möjligt att den information du söker inte finns i den här webbtjänsten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
           <context context-type="linenumber">90</context>
@@ -518,7 +518,7 @@
       </trans-unit>
       <trans-unit id="resultsAboutService" datatype="html">
         <source>Mitä tietoja Tiedejatutkimus.fi sisältää?</source>
-        <target state="translated">Vilken information innehåller forskning.fi</target>
+        <target state="translated">Vilken information forskning.fi innehåller?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
           <context context-type="linenumber">92</context>
@@ -538,7 +538,7 @@
       </trans-unit>
       <trans-unit id="connProblem1" datatype="html">
         <source>Yhteysongelma. Dataa ei saatavilla.</source>
-        <target state="translated">Kontaktproblem. Data finns inte att tillgå.010</target>
+        <target state="translated">Kontaktproblem. Ingen data tillgänglig.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/result-tab/result-tab.component.html</context>
           <context context-type="linenumber">34</context>
@@ -775,7 +775,7 @@
       </trans-unit>
       <trans-unit id="fundingFunderSource" datatype="html">
         <source>Rahoittaja: <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></source>
-        <target state="needs-translation"/>
+        <target state="translated">Finansiär</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">265</context>
@@ -967,7 +967,7 @@
       </trans-unit>
       <trans-unit id="noInfrastructures" datatype="html">
         <source>Ei infrastruktuureja</source>
-        <target state="translated">Ingen infrastruktur</target>
+        <target state="translated">Inga infrastrukturer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">83</context>
@@ -991,8 +991,8 @@
         <note priority="1" from="description">noFundingDescription</note>
       </trans-unit>
       <trans-unit id="readOriginialNews" datatype="html">
-        <source>Lue koko uutinen yliopiston verkkosivuilla </source>
-        <target state="needs-translation"/>
+        <source>Lue koko uutinen organisaation verkkosivuilla </source>
+        <target state="translated">Läs den hela nyheten på universitets webbsida</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/news/news-card/news-card.component.html</context>
           <context context-type="linenumber">36</context>
@@ -1048,7 +1048,7 @@
       </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
-        <target state="translated">Kopiera länk</target>
+        <target state="translated">Kopiera länken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/share/share.component.html</context>
           <context context-type="linenumber">9</context>
@@ -1291,7 +1291,7 @@
       </trans-unit>
       <trans-unit id="figureKeyboardHelp1" datatype="html">
         <source>Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</source>
-        <target state="translated">Du kan ta fram tangentbordsanvisningarna med tangentkombinationen "Shift + ?\ "när webbläsarens fokus ligger på visualiseringen nedan.</target>
+        <target state="translated">Du kan ta fram tangentbordsanvisningarna med tangentkombinationen "Shift + ?"när webbläsarens fokus ligger på visualiseringen nedan.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">18</context>
@@ -1327,7 +1327,7 @@
       </trans-unit>
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source>Lisää lukuja tieteestä ja tutkimuksesta</source>
-        <target state="translated">Mer siffror om vetenskap och forskning</target>
+        <target state="translated">Fler siffror om vetenskap och forskning</target>
       </trans-unit>
       <trans-unit id="shareThisPage" datatype="html">
         <source>Jaa tämä sivu:</source>
@@ -1419,7 +1419,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader4" datatype="html">
         <source>WCAG-vaatimus, joka ei tällöin toteudu</source>
-        <target/>
+        <target state="translated">Ett WCAG-krav som då inte uppfylls</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">37</context>
@@ -1449,6 +1449,14 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="accessibilityBlockHeader13" datatype="html">
+        <source>Seuraavat askeleet verkkopalvelun saavutettavuustyössä</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="accessibilityParagraph7" datatype="html">
         <source>Taustaa: Tilastot tuodaan portaaliin iframe-sisällöksi toisesta verkkopalvelusta, joka taas hyödyntää sellaista teknologiaa, jolla ei ole mahdollista konfiguroida iframeksi tarjottavan sisällön kieliattribuuttia kattavasti.</source>
         <target state="translated">Bakgrund: Statistiken förs in i portalen som iframe-innehåll från en annan webbtjänst, som i sin tur utnyttjar sådan teknik som inte på ett heltäckande sätt kan konfigurera språkattributet för det innehåll som tillhandahålls som iframe.</target>
@@ -1468,7 +1476,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       <trans-unit id="accessibilityParagraph8" datatype="html">
         <source>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisältöjen ohjeet, jotka ilmestyvät silloin kun hiiren osoitin on niiden päällä, eivät ole täysin saavutettavuusvaatimusten mukaisia. Hiiren osoitinta ei saa 
                             vietyä dynaamisen ohjeen päälle, vaan teksti katoaa, kun osoitin liikkuu kohde-elementin ulkopuolelle.</source>
-        <target state="needs-translation"/>
+        <target state="translated">Riktlinjerna för statistiskt innehåll i portalens "Kapitel i vetenskap och forskning", som visas när muspekaren är över dem, uppfyller inte helt tillgänglighetskraven. Muspekaren kan inte flyttas över den dynamiska hjälpen. Texten försvinner när pekaren rör sig utanför målelementet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">44</context>
@@ -1476,7 +1484,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader7" datatype="html">
         <source>WCAG-vaatimus, joka ei tällöin toteudu:</source>
-        <target/>
+        <target state="translated">Ett WCAG-krav som då inte uppfylls</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">46</context>
@@ -1484,7 +1492,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityParagraph9" datatype="html">
         <source>1.4.13 Sisältö osoittaessa tai kohdistaessa</source>
-        <target/>
+        <target state="translated">1.4.13 Innehåll när du pekar eller riktar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">47</context>
@@ -1508,7 +1516,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityParagraph11" datatype="html">
         <source>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</source>
-        <target/>
+        <target state="translated">Nästa steg i tillgänglighetsarbete är förbättringen av ARIA-stödet för HTML-komponenter, till exempel i samband med avgränsningen av sökresultaten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">52</context>
@@ -1579,7 +1587,11 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
                             www.saavutettavuusvaatimukset.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             saavutettavuus@avi.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             Puhelinnumero vaihde 0295 016 000</source>
-        <target/>
+        <target state="translated">Regionförvaltningsverket i Södra Finland
+Enheten för tillgänglighetstillsyn
+tillgänglighetskrav.fi
+webbtillganglighet@rfv.fi
+Telefonväxel 0295 016 000</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">68</context>
@@ -1603,14 +1615,6 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
           <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessibilityBlockHeader13" datatype="html">
-        <source>Seuraavat askeleet verkkopalvelun saavutettavuustyössä</source>
-        <target/>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="sitemapHeader" datatype="html">
         <source>Sivukartta</source>
         <target state="translated">Sidkarta</target>
@@ -1629,7 +1633,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="authors" datatype="html">
         <source>Tutkijat</source>
-        <target state="needs-translation"/>
+        <target state="translated">Personer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">28</context>
@@ -1645,7 +1649,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="materials" datatype="html">
         <source>Aineistot</source>
-        <target state="needs-translation"/>
+        <target state="translated">Data</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">30</context>
@@ -1661,7 +1665,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
         <trans-unit id="otherResearchActivities" datatype="html">
         <source>Muut tutkimusaktiviteetit</source>
-        <target state="needs-translation"/>
+        <target state="translated">Aktiviteter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">31</context>
@@ -1677,7 +1681,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="comingSoon">
         <source>Tulossa</source>
-        <target state="needs-translation"/>
+        <target state="translated">På kommande</target>
       </trans-unit>
       <trans-unit id="headerLink3" datatype="html">
         <source>Tiede- ja innovaatiopolitiikka</source>
@@ -1781,7 +1785,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="accessibilityLangBanner" datatype="html">
         <source><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/> Englanninkielinen versio tulossa</source>
-        <target><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/> Den svenska versionen av denna sida kommer snart</target>
+        <target><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/> The english version of this page is coming soon</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">17</context>
@@ -1961,11 +1965,11 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="yes">
         <source>Kyllä</source>
-        <target state="needs-translation"/>
+        <target state="translated">Ja</target>
       </trans-unit>
       <trans-unit id="no">
         <source>Ei</source>
-        <target state="needs-translation"/>
+        <target state="translated">Nej</target>
       </trans-unit>
       <trans-unit id="noInfo">
         <source>Ei tietoa</source>
@@ -2136,36 +2140,36 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="2280953857653529357">
         <source>Muut</source>
-        <target state="needs-translation"/>
+        <target state="translated">Annan</target>
       </trans-unit>
       <trans-unit id="noRating">
         <source>Ei arviota</source>
-        <target state="needs-translation"/>
+        <target state="translated">Inte bedömned</target>
       </trans-unit>
       <!-- Errors -->
       <trans-unit id="2890418748435169527">
         <source>HTTP pyyntöä ei voitu käsitellä</source>
-        <target state="needs-translation"/>
+        <target state="translated">Tyvärr kunde http-begäran inte behandlas</target>
       </trans-unit>
       <trans-unit id="3728643402938506929">
         <source>Pyyntö vaatii sen käsittelyyn oikeutetut tunnukset</source>
-        <target state="needs-translation"/>
+        <target state="translated">Begäran kräver tillräckliga rättigheter för att behandla det</target>
       </trans-unit>
       <trans-unit id="5339823294802549359">
         <source>Ei oikeutta käsitellä pyyntöä</source>
-        <target state="needs-translation"/>
+        <target state="translated">Ingen rätt att behandla begäran</target>
       </trans-unit>
       <trans-unit id="1953599492539090988">
         <source>Haluttua tietoa ei ole olemassa</source>
-        <target state="needs-translation"/>
+        <target state="translated">Den begärda informationen finns inte</target>
       </trans-unit>
       <trans-unit id="4505679677960242441">
         <source>Pyyntömetodi ei ole sallitty</source>
-        <target state="needs-translation"/>
+        <target state="translated">Begärningsmetoden är inte tillåten</target>
       </trans-unit>
       <trans-unit id="8402099562411461502">
         <source>Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä</source>
-        <target state="needs-translation"/>
+        <target state="translated">Serverfel. Servern stötte på ett fel vid bearbetning av begäran</target>
       </trans-unit>
       <!-- Publications-->
       <trans-unit id="publicationType">
@@ -2178,7 +2182,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
-        <target state="needs-translation"/>
+        <target state="translated">Fullständig information om publikationens upphovsmän anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
       </trans-unit>
       <trans-unit id="3294281240991807762">
         <source>Lehti</source>
@@ -2186,35 +2190,35 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="3537901381707941652">
         <source>Emojulkaisun nimi</source>
-        <target state="needs-translation"/>
+        <target state="translated">Moderpublikationens namn</target>
       </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
-        <target state="needs-translation"/>
+        <target state="translated">Konferens</target>
       </trans-unit>
       <trans-unit id="1854649113560687220">
         <source>Kustantaja</source>
-        <target state="needs-translation"/>
+        <target state="translated">Förläggare</target>
       </trans-unit>
       <trans-unit id="4097431876835231493">
         <source>Volyymi</source>
-      <target state="needs-translation"/>
+      <target state="translated">Volym</target>
       </trans-unit>
       <trans-unit id="3620115970271052370">
         <source>Numero</source>
-      <target state="needs-translation"/>
+      <target state="translated">Nummer</target>
       </trans-unit>
       <trans-unit id="1929692436307362490">
         <source>Sivut</source>
-      <target state="needs-translation"/>
+      <target state="translated">Sidor</target>
       </trans-unit>
       <trans-unit id="8851385585217561162">
         <source>Julkaisu­foorumi</source>
-      <target state="needs-translation"/>
+      <target state="translated">Publikationsforum</target>
       </trans-unit>
       <trans-unit id="6237827988468109472">
         <source>Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).</source>
-        <target state="needs-translation"/>
+        <target state="translated">Publiceringskanalens ID i Publikationsforum</target>
       </trans-unit>
       <trans-unit id="jufoLevel">
         <source>Julkaisu­\u00ADfoorumitaso</source>
@@ -2262,11 +2266,11 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="publicationWithCompany">
         <source>Yhteisjulkaisu yrityksen kanssa</source>
-        <target state="needs-translation"/>
+        <target state="translated">Sampublikation med ett företag</target>
       </trans-unit>
       <trans-unit id="publicationCompanyAuthors">
         <source>Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.</source>
-        <target state="needs-translation"/>
+        <target state="translated">Minst en av publikationens upphovsmän har anknytning till ett nationellt eller internationellt företag,</target>
       </trans-unit>
       <trans-unit id="keywords">
         <source>Avainsanat</source>
@@ -2287,7 +2291,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="8647421993794321964">
         <source>Aloitusvuosi</source>
-        <target state="needs-translation"/>
+        <target state="translated">Startår</target>
       </trans-unit>
       <trans-unit id="3833531613927541527">
         <source>Päättymisvuosi</source>
@@ -2327,28 +2331,28 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
-        <target state="needs-translation"/>
+        <target state="translated">Finansieringsmottagaren kan vara en person eller en organisation. Ofta är den person som nämns som mottagare en ansvarig forskare som inte själv använder den beviljade finansieringen utan den används för att täcka projektets kostnader.</target>
       </trans-unit>
       <trans-unit id="1600561099075815966">
         <source>Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.</source>
-        <target state="needs-translation"/>
+        <target state="translated">Finansiering som finansiären beviljat i sitt finansieringsbeslut. I beloppet ingår inte alla kostnader för projektet. Den organisation där projektet genomförs kan finansiera en viss del av projektet (s.k. självfinansieringsandel) och projektet kan även ha andra finansiärer.</target>
       </trans-unit>
       <trans-unit id="6174779948491913415">
         <source>Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi ‑palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.</source>
-        <target state="needs-translation"/>
+        <target state="translated">Forskningsfinansiär som har beviljat finansiering. Alla forskningsfinansiärer som lämnar in uppgifter till tjänsten forskning.fi finns i avsnittet Organisatione</target>
       </trans-unit>
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
-      <target state="needs-translation"/>
+      <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
       </trans-unit>
       <!-- Infrastructures -->
       <trans-unit id="infraServicesLabel">
         <source>Palveluita</source>
-        <target state="needs-translation"/>
+        <target state="translated">Tjänster</target>
       </trans-unit>
       <trans-unit id="finlandRoadmap">
         <source>Tiekartalla</source>
-        <target state="needs-translation"/>
+        <target state="translated">På vägvisare</target>
       </trans-unit>
       <trans-unit id="486660071516642410">
         <source>Lyhenne</source>
@@ -2376,7 +2380,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="participatingOrgs">
         <source>Osallistuvat organisaatiot</source>
-        <target state="needs-translation"/>
+        <target state="translated">Deltagande organisationer</target>
       </trans-unit>
       <trans-unit id="868538594813383846">
         <source>Palvelun kuvaus</source>
@@ -2412,7 +2416,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="1785154820613474654">
         <source>Koordinoiva organisaatio</source>
-        <target state="needs-translation"/>
+        <target state="translated">Koordinerande organisation</target>
       </trans-unit>
       <trans-unit id="8305960712658584084">
         <source>Suomen Akatemian tiekartalla</source>
@@ -2420,11 +2424,11 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="1246538331374215083">
         <source>ESFRI-luokitus</source>
-        <target>ESFRI</target>
+        <target state="translated">ESFRI klassifikation</target>
       </trans-unit>
       <trans-unit id="3924050781825546579">
         <source>MERIL-luokitus</source>
-        <target>MERIL</target>
+        <target state="translated">MERIL klassifikation</target>
       </trans-unit>
       <trans-unit id="8516867733884735090">
         <source>Nimi</source>
@@ -2432,19 +2436,19 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="5260628582635026829">
         <source>Tunnisteet</source>
-        <target/>
+        <target state="translated">Taggar</target>
       </trans-unit>
       <trans-unit id="2078946174853067811">
         <source>Osa kansainvälistä infrastruktuuria</source>
-        <target state="needs-translation"/>
+        <target state="translated">En del av en internationell infrastruktur</target>
       </trans-unit>
       <trans-unit id="1929416673954449355">
         <source>Edeltävä tutkimusinfrastruktuuri</source>
-        <target state="needs-translation"/>
+        <target state="translated">Föregående infrastuktur</target>
       </trans-unit>
       <trans-unit id="6535010334853886243">
         <source>Lisätietoja</source>
-        <target state="needs-translation"/>
+        <target state="translated">Mer information </target>
       </trans-unit>
       <trans-unit id="finland">
         <source>Suomi</source>
@@ -2452,23 +2456,23 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="other">
         <source>Muu</source>
-        <target state="needs-translation"/>
+        <target state="translated">Annan</target>
       </trans-unit>
       <trans-unit id="notKnown">
         <source>Ei tiedossa</source>
-        <target state="needs-translation"/>
+        <target state="translated">Ingen information</target>
       </trans-unit>
       <trans-unit id="infraServiceHeader">
         <source>Palvelu</source>
-        <target state="needs-translation"/>
+        <target state="translated">Tjänst</target>
       </trans-unit>
       <trans-unit id="infraServicePoint">
         <source>Palvelupiste</source>
-        <target state="needs-translation"/>
+        <target state="translated">Serviceställe</target>
       </trans-unit>
       <trans-unit id="infraClassifications" datatype="html">
         <source>Luokituksia</source>
-        <target state="needs-translation"/>
+        <target state="translated">Klassifikationer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">103</context>
@@ -2476,7 +2480,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="contactInfo">
         <source>Yhteystiedot</source>
-        <target state="needs-translation"/>
+        <target state="translated">Kontakt</target>
       </trans-unit>
       <!-- Organization -->
       <trans-unit id="orgOtherNames">
@@ -2566,11 +2570,11 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
         <source>Rajaa hakua</source>
-        <target state="needs-translation"/>
+        <target state="translated">Begränsa sökning</target>
       </trans-unit>
       <trans-unit id="filterNewsHeader">
         <source>Rajaa uutisia</source>
-        <target state="needs-translation"/>
+        <target state="translated">Begränsa nyheter</target>
       </trans-unit>
       <trans-unit id="yearOfPublication">
         <source>Julkaisuvuosi</source>
@@ -2642,19 +2646,19 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="infraServiceTypeService">
         <source>Palvelu</source>
-        <target state="needs-translation"/>
+        <target state="translated">Tjänst</target>
       </trans-unit>  
       <trans-unit id="infraServiceTypeMaterial">
         <source>Aineisto</source>
-        <target state="needs-translation"/>
+        <target state="translated">Data</target>
       </trans-unit>  
       <trans-unit id="infraServiceTypeEquipment">
         <source>Laitteisto</source>
-        <target state="needs-translation"/>
+        <target state="translated">Utrustning</target>
       </trans-unit>
       <trans-unit id="sector">
         <source>Sektori</source>
-        <target state="needs-translation"/>
+        <target state="translated">Sektor</target>
       </trans-unit>
       <trans-unit id="org1Tooltip">
         <source>Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi ‑palveluun.</source>
@@ -2683,23 +2687,23 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="author">
         <source>Tutkija</source>
-        <target state="needs-translation"/>
+        <target state="translated">Forskare</target>
       </trans-unit>
       <trans-unit id="funding">
         <source>Hanke</source>
-        <target state="needs-translation"/>
+        <target state="translated">Projekt</target>
       </trans-unit>
       <trans-unit id="material">
         <source>Aineisto</source>
-        <target state="needs-translation"/>
+        <target state="translated">Data</target>
       </trans-unit>
       <trans-unit id="infrastructure">
         <source>Infrastruktuuri</source>
-        <target state="needs-translation"/>
+        <target state="translated">Infrastruktur</target>
       </trans-unit>
       <trans-unit id="otherResearchActivity">
         <source>Muu tutkimusaktiviteetti</source>
-        <target state="needs-translation"/>
+        <target state="translated">Annan forskningsaktivitet</target>
       </trans-unit>
       <trans-unit id="organization">
         <source>Organisaatio</source>
@@ -2777,7 +2781,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="figuresSearchPlaceholder">
         <source>Hae tilastoa...</source>
-        <target state="needs-translation"/>
+        <target state="translated">Sök en statistik…</target>
       </trans-unit>
       <!-- Privacy -->
       <trans-unit id="privacyPolicyHeader" datatype="html">
@@ -2858,7 +2862,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Postiosoite: PL 29, 00023 VALTIONEUVOSTO
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Sähköpostiosoite: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> 
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Puh. 0295 16001 (keskus)</source>
-        <target state="translated">Ministry of Education and Culture
+        <target state="translated">Undervisnings- och kulturministeriet
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Besöksadress till Undervisnings- och kulturministeriets Registratorskontor: Riddargatan 2 b, Helsingfors
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Postadress: PB 29, 00023 STATSRÅDET
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>E-postadress: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Tfn 0295 16001 (växel)</target>
@@ -2957,7 +2961,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="PP24" datatype="html">
         <source>Tutkimustietovarantoon toimitettujen julkaisujen, tutkimusaineistojen, rahoituspäätösten, tutkimusinfrastruktuurien ja tiedeuutisten tiedot sekä niissä mainitut tutkijan etu- 
                                                             ja sukunimi, ORCID-tunniste sekä organisaatio.</source>
-        <target state="translated">Uppgifter om publikationer, forskningsdata, finansieringsbeslut, forskningsinfrastrukturer och vetenskapliga nyheter som överfört till datalagret för forskningsinformation samt forskarens för- och efternamn, ORCID id och organisation, som nämns i dem. </target>
+        <target state="translated">Uppgifter om publikationer, forskningsdata, finansieringsbeslut, forskningsinfrastrukturer och vetenskapliga nyheter som överfört till datalagret för forskningsinformation samt forskarens för- och efternamn, ORCID iD och organisation, som nämns i dem. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">69</context>
@@ -3311,7 +3315,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
                                     </source>
-        <target/>
+        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna cookie styr användarens nätverkstrafik i servermiljön.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>En cookie som underlättar en flytande funktion av tjänsten<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">154</context>
@@ -3323,7 +3327,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
                                     </source>
-        <target/>
+        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna cookie styr användarens nätverkstrafik i servermiljön.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>En cookie som underlättar en flytande funktion av tjänsten<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">161</context>
@@ -3331,7 +3335,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP6" datatype="html">
         <source>Seurantaevästeet</source>
-        <target/>
+        <target state="translated">Spårningskakor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">167</context>
@@ -3339,7 +3343,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP7" datatype="html">
         <source>Seurantaevästeiden keräämää tietoa ei luovuteta kolmansille osapuolille.</source>
-        <target/>
+        <target state="translated">Informationen som samlas in genom spårningskakor kommer inte att vidarebefordras till tredje parter.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">168</context>
@@ -3347,7 +3351,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP8" datatype="html">
         <source>Matomo-eväste (sessio)</source>
-        <target/>
+        <target state="translated">Matomo-cookie (session)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">169</context>
@@ -3360,7 +3364,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
                                     </source>
-        <target/>
+        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: 30 minuter. En kortlivad cookie som används för att tillfälligt lagra information under ett besök<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Berättas till analysverktyget att ett aktivt besök pågår.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">170</context>
@@ -3368,7 +3372,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CPMatomo" datatype="html">
         <source>Matomo-eväste</source>
-        <target/>
+        <target state="translated">Matomo-cookie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">177</context>
@@ -3410,7 +3414,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
                                             minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
                                     </source>
-        <target/>
+        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: 13 månader<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna cookie används för att samla in anonymiserad information om ditt besök i tjänsten, till exempel:
+                                            <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Användarens IP-adress i ett starkt anonymiserat format (användaren kan inte identifieras) <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Titeln på den laddade sidan <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> URL om laddade sidan <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Datum och tid för begäran <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> URLen till föregående sidan <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Skärmupplösning <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Tid i användarens tidszon <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Utgående länkklickar <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Sidbelastningstider <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Användarens webbläsare <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Typ av användarterminal <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Tidsstämplar för tjänster (vilken tid tjänsten används) <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Varifrån anländer man till tjänsten <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Hur man navigerar mellan servicesektioner och vilka åtgärder genomförs<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Inställning av webbläsarens språk <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Webbläsarens “User-Agent header” <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul>"/><x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Baserat på ovanstående data sammanställs statistik för att utveckla tjänsten. Därför är information om varifrån man anländs till tjänsten eller vilka enheter används mest viktiga </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">178</context>
@@ -3424,7 +3429,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantaevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
                                         
                                     </source>
-        <target/>
+        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: Kort<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: En tillfällig kaka skapas om användaren stänger av spårningskakor.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">207</context>
@@ -3438,7 +3443,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                         <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
                                         
                                     </source>
-        <target/>
+        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: lång<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Godkännande av kakor<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">216</context>
@@ -3446,7 +3451,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP15" datatype="html">
         <source>Selaimen välimuistiin tallennetaan</source>
-        <target/>
+        <target state="translated">Lagras i webbläsarens cache</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">224</context>
@@ -3493,7 +3498,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tällä lomakkeella voit antaa palautetta Tiedejatutkimus.fi -verkkopalvelusta.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
         Kaikki palautteet ja kysymykset ovat tervetulleita! Voit myös lähettää palautteesi tai kysymyksesi vapaamuotoisesti sähköpostilla osoitteeseen tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
         <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Tietosuojaseloste<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
-        <target state="translated">På denna blankett kan du lämna feedback om webbtjänsten Tiedejatutkimus.fi. All feedback och alla frågor är välkomna! Du kan också skicka din feedback eller dina frågor fritt formulerat via e-post till tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Dataskyddsmeddelande<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+        <target state="translated">På denna blankett kan du lämna feedback om webbtjänsten forskning.fi. All feedback och alla frågor är välkomna! Du kan också skicka din feedback eller dina frågor fritt formulerat via e-post till tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Dataskyddsmeddelande<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/review/review.component.html</context>
           <context context-type="linenumber">19</context>
@@ -3748,7 +3753,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="approveTrackingCookies" datatype="html">
         <source>Hyväksy seurantaevästeet</source>
-        <target state="translated">Godkänn cookie</target>
+        <target state="translated">Godkänn cookies</target>
       </trans-unit>
       <trans-unit id="declineTrackingCookies" datatype="html">
         <source>Hylkää seurantaevästeet</source>
@@ -3756,11 +3761,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="cookiesApproved">
         <source>Evästeet hyväksytty</source>
-        <target state="translated">Cookies accepteras</target>
+        <target state="translated">Cookies accepterades</target>
       </trans-unit>
       <trans-unit id="cookiesDenied">
         <source>Evästeet hylätty</source>
-        <target state="translated">Cookies avvisa</target>
+        <target state="translated">Cookies avvisades</target>
       </trans-unit>
       <trans-unit id="yearFrom">
         <source> alkaen</source>
