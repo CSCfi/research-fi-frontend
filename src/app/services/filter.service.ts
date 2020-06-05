@@ -749,7 +749,7 @@ export class FilterService {
             types: {
               terms: {
                 field: 'typeOfFunding.typeOfFundingId.keyword',
-                exclude: ' |003',
+                exclude: ' |001|002|003|004|005',
                 size: 250,
                 order: {
                   _key: 'asc'
