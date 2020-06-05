@@ -134,6 +134,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
             this.setTitle(this.responseData.fundings[0].name + ' - Research.fi');
             break;
           }
+          case 'sv': {
+            this.setTitle(this.responseData.fundings[0].name + ' - Forskning.fi');
+            break;
+          }
         }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
