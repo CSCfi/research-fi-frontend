@@ -28,6 +28,7 @@ import { ReviewComponent } from './review/review.component';
 import { BetaInfoComponent } from './beta-info/beta-info.component';
 import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 import { WINDOW_PROVIDERS } from '../services/window.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, ReviewComponent, BetaInfoComponent,
@@ -47,6 +48,7 @@ import { WINDOW_PROVIDERS } from '../services/window.service';
     FormsModule,
     FontAwesomeModule,
     ClickOutsideModule,
+    TooltipModule.forRoot()
   ],
   exports: [LayoutComponent],
   entryComponents: [ReviewComponent],
