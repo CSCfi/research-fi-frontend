@@ -36,7 +36,7 @@
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
             </div>
             <div *ngIf="item.mediaUri?.length > 0" class="col pr-0 text-right">
-                <img [src]="item.mediaUri | safeUrl">
+                <!-- <img [src]="item.mediaUri | safeUrl"> -->
             </div>
         </div>
     </mat-card-actions>
