@@ -49,7 +49,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: $localize`Tutkimusalat`, field: 'fieldsOfResearch'},
     {label: $localize`Teema-alat`, field: 'fieldsOfTheme'},
     {label: $localize`:@@fundingHomePage:Hankkeen verkkosivu`, field: '?'},
-    // {label: $localize`Avainsanat`, field: 'keywords'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywords'},
   ];
 
   link = [
