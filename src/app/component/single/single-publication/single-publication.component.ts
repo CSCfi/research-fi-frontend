@@ -212,6 +212,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             this.setTitle(this.responseData.publications[0].title + ' - Research.fi');
             break;
           }
+          case 'sv': {
+            this.setTitle(this.responseData.publications[0].title + ' - Forskning.fi');
+            break;
+          }
         }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         // juFoCode is used for exact search

@@ -119,6 +119,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
             this.setTitle(this.responseData.organizations[0].name.trim() + ' - Research.fi');
             break;
           }
+          case 'sv': {
+            this.setTitle(this.responseData.organizations[0].name.trim() + ' - Forskning.fi');
+            break;
+          }
         }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();

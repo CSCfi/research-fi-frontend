@@ -2298,7 +2298,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="keywords">
         <source>Avainsanat</source>
-        <target state="translated">Nyckelord</target>
+        <target state="translated">Nyckelorden</target>
       </trans-unit>
       <trans-unit id="referCopied">
         <source>Viite kopioitu leikepöydälle</source>

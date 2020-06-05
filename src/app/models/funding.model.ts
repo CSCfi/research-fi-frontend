@@ -27,6 +27,7 @@ export class Funding {
         public fieldsOfScience: string,
         public fieldsOfResearch: string,
         public fieldsOfTheme: string,
+        public keywords: string,
         public projectHomepage: string,
         public recipientType: string,
         public euFunding: boolean
@@ -98,6 +99,7 @@ export class FundingAdapter implements Adapter<Funding> {
         const science = item.fields_of_science?.map(x => x.nameFiScience).join('; ');
         const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
         const theme = item.keywords?.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
+        const keyword = item.keywords?.filter(x => x.scheme === 'Avainsana').map(x => x.keyword).join(', ');
 
 
         return new Funding(
@@ -115,6 +117,7 @@ export class FundingAdapter implements Adapter<Funding> {
             science,
             research,
             theme,
+            keyword,
             item.projetHomepage,
             item.recipientType,
             item.euFunding
