@@ -687,7 +687,7 @@
       </trans-unit>
       <trans-unit id="fundingRecipientHeader" datatype="html">
         <source>Myönnetty rahoitus</source>
-        <target state="translated">Beviljat belopp</target>
+        <target state="translated">Beviljade finansiering</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">47</context>
@@ -991,8 +991,8 @@
         <note priority="1" from="description">noFundingDescription</note>
       </trans-unit>
       <trans-unit id="readOriginialNews" datatype="html">
-        <source>Lue koko uutinen organisaation verkkosivuilla </source>
-        <target state="translated">Läs den hela nyheten på universitets webbsida</target>
+        <source>Lue koko uutinen yliopiston verkkosivuilla </source>
+        <target state="translated">Läs den hela nyheten på organisations webbsida</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/news/news-card/news-card.component.html</context>
           <context context-type="linenumber">36</context>
@@ -2298,7 +2298,7 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="keywords">
         <source>Avainsanat</source>
-        <target state="translated">Nyckelorden</target>
+        <target state="translated">Nyckelord</target>
       </trans-unit>
       <trans-unit id="referCopied">
         <source>Viite kopioitu leikepöydälle</source>
@@ -2686,11 +2686,11 @@ Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
       </trans-unit>
       <trans-unit id="org1Tooltip">
         <source>Yliopistolaissa mainitut 13 yliopistoa sekä Maanpuolustuskorkeakoulu toimittavat tietoja tiedejatutkimus.fi ‑palveluun.</source>
-        <target state="translated">De 13 universitet som nämns i universitetslagen samt Försvarshögskolan levererar uppgifter till tjänsten forskning.fi</target>
+        <target state="translated">De 13 universiteten som nämns i universitetslagen samt Försvarshögskolan levererar uppgifter till tjänsten forskning.fi</target>
       </trans-unit>
       <trans-unit id="org2Tooltip">
         <source>OKM:n hallinnonalalle kuuluvat 22 ammattikorkeakoulua sekä Poliisiammattikorkeakoulu toimittavat tietoja tiedejatutkimus.fi ‑palveluun.</source>
-        <target state="translated">De 22 yrkeshögskolor som hör till UKM:s förvaltningsområde samt Polisyrkeshögskolan levererar uppgifter till tjänsten forskning.fi</target>
+        <target state="translated">De 22 yrkeshögskolorna som hör till UKM:s förvaltningsområde samt Polisyrkeshögskolan levererar uppgifter till tjänsten forskning.fi</target>
       </trans-unit>
       <trans-unit id="org3Tooltip">
         <source>Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi ‑palveluun.</source>
@@ -3756,7 +3756,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
             </source>
         <target state="translated">
                 Vi använder cookies. Utöver nödvändiga cookies använder vi cookies för att samla in anonymiserad information om användningen av tjänsten för att förbättra användarupplevelsen.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-                Uppgifterna lämnas inte ut till tredje partier.  
+                Uppgifterna lämnas inte ut till tredje parter.  
             </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/cookie-consent/cookie-consent.component.html</context>
@@ -3785,11 +3785,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="cookiesApproved">
         <source>Evästeet hyväksytty</source>
-        <target state="translated">Cookies accepterades</target>
+        <target state="translated">Cookies godkänt</target>
       </trans-unit>
       <trans-unit id="cookiesDenied">
         <source>Evästeet hylätty</source>
-        <target state="translated">Cookies avvisades</target>
+        <target state="translated">Cookies avvisat</target>
       </trans-unit>
       <trans-unit id="yearFrom">
         <source> alkaen</source>
