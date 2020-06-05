@@ -2657,8 +2657,8 @@
         <target state="translated">Statistikcentralens klassificering av vetenskapsområden. Ett projekt kan omfatta flera vetenskapsområden. Alla finansiärer använder inte vetenskapsområden. Därför kan man inte genom att använda filtret reda ut vilken andel av den sammanlagda finansieringen ett visst vetenskapsområde står för.</target>
       </trans-unit>
       <trans-unit id="FAField">
-        <source>Suomen Akatemian tutkimusalat</source>
-        <target state="translated">Finlands Akademis forskningsområden</target>
+        <source>Teemat</source>
+        <target state="translated">Teman</target>
       </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>

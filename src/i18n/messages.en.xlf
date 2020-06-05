@@ -2662,8 +2662,8 @@
         <target>The Statistics Finland’s Fields of science classification. One project may involve multiple fields of science. Not all funders use fields of science. As a result, filters cannot be used to determine the share of total funding for a given field of science.</target>
       </trans-unit>
       <trans-unit id="FAField">
-        <source>Suomen Akatemian tutkimusalat</source>
-        <target>Research fields of the Academy of Finland</target>
+        <source>Teemat</source>
+        <target>Themes</target>
       </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>
