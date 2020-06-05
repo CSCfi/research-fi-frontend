@@ -77,7 +77,7 @@
                                                 {{item.recipient.contactPersonName}}
                                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                             </div>
-                                            <div class="col-12 py-0 py-sm-3 td" [ngClass]="item.euFunding ? 'col-sm-5' : col-sm-3">
+                                            <div class="col-12 py-0 py-sm-3 td" [ngClass]="item.euFunding ? 'col-sm-5' : 'col-sm-3'">
                                                 <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.name}}</a>
                                                 <ng-container *ngIf="org.id && !org.pic">{{org.name}}</ng-container>    
                                                 <ng-container *ngIf="!org.id">{{org.name}}</ng-container>
