@@ -27,7 +27,7 @@ export class FundingFilters {
       tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`},
       // {field: 'scheme', label: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
       // tooltip: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
-      {field: 'faField', label: $localize`:@@FAField:Suomen Akatemian tutkimusalat`, hasSubFields: false,  open: true}
+      {field: 'faField', label: $localize`:@@FAField:Teemat`, hasSubFields: false,  open: true}
     ];
 
     singleFilterData = [
