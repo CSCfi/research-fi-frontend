@@ -43,7 +43,7 @@ export class FundingFilters {
     // Year
     source.year.buckets = source.year.years.buckets;
     // Organization
-    source.organization = this.organization(source.organization, source.fundingSector);
+    source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
     // Funder
     source.funder.buckets = this.funder(source.funder.funders.buckets);
     // Type of funding
@@ -57,27 +57,27 @@ export class FundingFilters {
     return source;
   }
 
-  organization(c, f) {
-    const cData = c.funded.sectorName.buckets;
-    const fData = f.sectorName.buckets;
+  organization(fgp, oc) {
+    let fData = fgp.funded.sectorName.buckets;
+    const oData = oc.funded.sectorName.buckets;
 
-    // Find differences in consortium and funding group data, merge difference into cData
-    const parentDiff = fData.filter(item1 => !cData.some(item2 => (item2.key === item1.key)));
-    if (parentDiff.length > 0) {cData.concat(parentDiff); }
+    // // Find differences in consortium and funding group data, merge difference into fData
+    const parentDiff = oData.filter(item1 => !fData.some(item2 => (item2.key === item1.key)));
+    if (parentDiff.length > 0) {fData = fData.concat(parentDiff); }
 
     // Find differences in organizations and push into parent, sum duplicate orgs doc counts
-    cData.forEach((item, i) => {
-      const diff = fData[i]?.organizations.buckets.filter(item1 =>
-                   !cData[i].organizations?.buckets.some(item2 => (item2.key === item1.key)));
+    fData.forEach((item, i) => {
+      const diff = oData[i]?.organizations.buckets.filter(item1 =>
+                   !fData[i].organizations?.buckets.some(item2 => (item2.key === item1.key)));
 
-      const duplicate = fData[i]?.organizations.buckets.filter(item1 =>
-                        cData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
+      const duplicate = oData[i]?.organizations.buckets.filter(item1 =>
+        fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
 
-      // if (duplicate?.length > 0) {
-      //   item.organizations.buckets.map(org => {
-      //     org.doc_count = org.doc_count + duplicate.find(x => x.key === org.key)?.doc_count;
-      //   });
-      // }
+      if (duplicate?.length > 0) {
+        item.organizations.buckets.map(org => {
+          org.doc_count = org.filtered.filterCount.doc_count + duplicate.find(x => x.key === org.key).filtered.filterCount.doc_count;
+        });
+      }
 
       if (diff?.length > 0) {
         diff.forEach(x => {
@@ -87,17 +87,17 @@ export class FundingFilters {
     });
 
     // Add data into buckets field, set key and label
-    c.buckets = cData ? cData : [];
-
-    cData.forEach(item => {
+    const merged = fData ? fData : [];
+    merged.forEach(item => {
       item.subData = item.organizations.buckets;
       item.subData.map(subItem => {
           subItem.label = subItem.key.trim();
           subItem.key = subItem.orgId.buckets[0].key;
-          subItem.doc_count = subItem.filtered.filterCount.doc_count;
+          subItem.doc_count = subItem.doc_count;
       });
     });
-    return c;
+
+    return merged;
   }
 
   funder(data) {
