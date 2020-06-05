@@ -3756,7 +3756,7 @@
                 Tietoja ei luovuteta kolmansille osapuolille. 
             </source>
         <target>
-                This service uses cookies. In addition to necessary cookies, we use tracking cookies to collect anonymized information about the use of the service in order to develop the user experience.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+                This service uses cookies. In addition to necessary cookies, we use tracking cookies to collect anonymized information about the use of the service in order to improve the user experience.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
                 The information will not be disclosed to third parties. 
             </target>
         <context-group purpose="location">
