@@ -1379,7 +1379,7 @@
       </trans-unit>
       <trans-unit id="accessibilityHeader" datatype="html">
         <source>Saavutettavuusseloste</source>
-        <target state="translated">Tillgänglighetsredogörelse</target>
+        <target>Saavutettavuusseloste</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">17</context>
@@ -1389,9 +1389,9 @@
         <source>Tämä on Tiedejatutkimus.fi -verkkopalvelun saavutettavuusseloste.
                             Verkkopalvelun saavutettavuusvaatimukset perustuvat kansalliseen lakiin digitaalisten palveluiden tarjoamisesta (306/2019).
                             Tämä saavutettavuusseloste on laadittu 5.6.2020.</source>
-        <target state="translated">Detta är tillgänglighetsredogörelsen för forskning.fi.
-Webbtjänstens tillgänglighetskrav grundar sig på den finländska lagen om tillhandahållande av digitala tjänster (306/2019), som har utarbetats i enlighet med EU:s tillgänglighetsdirektiv.
-Denna tillgänglighetsredogörelse gjordes upp den 5 Juni 2020.</target>
+        <target>Tämä on Tiedejatutkimus.fi -verkkopalvelun saavutettavuusseloste.
+                            Verkkopalvelun saavutettavuusvaatimukset perustuvat kansalliseen lakiin digitaalisten palveluiden tarjoamisesta (306/2019).
+                            Tämä saavutettavuusseloste on laadittu 5.6.2020.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">25</context>
@@ -1399,7 +1399,7 @@ Denna tillgänglighetsredogörelse gjordes upp den 5 Juni 2020.</target>
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader1" datatype="html">
         <source>Verkkopalvelun saavutettavuuden tila</source>
-        <target state="translated">Webbtjänstens tillgänglighet</target>
+        <target>Verkkopalvelun saavutettavuuden tila</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">29</context>
@@ -1407,7 +1407,7 @@ Denna tillgänglighetsredogörelse gjordes upp den 5 Juni 2020.</target>
       </trans-unit>
       <trans-unit id="accessibilityParagraph2" datatype="html">
         <source>Itsearvioon perustuen, verkkopalvelu täyttää WCAG 2.1 AA -tason kriittiset saavutettavuusvaatimukset.</source>
-        <target state="translated">Webbtjänsten uppfyller de kritiska tillgänglighetskraven på nivån WCAG 2.1 AA.</target>
+        <target>Itsearvioon perustuen, verkkopalvelu täyttää WCAG 2.1 AA -tason kriittiset saavutettavuusvaatimukset.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">30</context>
@@ -1415,7 +1415,7 @@ Denna tillgänglighetsredogörelse gjordes upp den 5 Juni 2020.</target>
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader2" datatype="html">
         <source>Verkkopalvelun ei-saavutettava sisältö</source>
-        <target state="translated">Webbtjänstens icke-tillgängliga innehåll</target>
+        <target>Verkkopalvelun ei-saavutettava sisältö</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">32</context>
@@ -1423,7 +1423,7 @@ Denna tillgänglighetsredogörelse gjordes upp den 5 Juni 2020.</target>
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader3" datatype="html">
         <source>Ei-saavutettava osio: </source>
-        <target state="translated">Icke-tillgängligt innehåll:</target>
+        <target>Ei-saavutettava osio: </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">33</context>
@@ -1433,9 +1433,9 @@ Denna tillgänglighetsredogörelse gjordes upp den 5 Juni 2020.</target>
         <source>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisällöt voivat olla ongelmallisia ruudunlukijakäyttäjille, koska tilastojen kieliattribuuttina on tietyssä tapauksissa englanti, vaikka käyttäjällä olisi muuten kieliasetuksena suomi.
                             Englannin kieliattribuutti luo ristiriitaisen tilanteen, jossa ruudunlukija lukee tilaston suomenkielisen sisällön englanniksi ääntäen.
                             Kieliattribuuttivirhe koskee ainakin selaimia Safari ja Mozilla Firefox. Kieliattribuutti on kuitenkin pääsäntöisesti toiminut selaimilla Google Chrome ja Microsoft Edge.</source>
-        <target state="translated">Statistikinnehållet i avsnittet "Vetenskap och forskning i siffror\" i portalen är problematiskt för personer som använder skärmläsare, eftersom språkattributet är engelska.
-Språkattributet skapar en motstridig situation då skärmläsaren läser det finskspråkiga innehållet med engelskt uttal.
-Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox. Språktittributet har dock i huvudsak fungerat med webbläsarna Chrome och Edge.</target>
+        <target>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisällöt voivat olla ongelmallisia ruudunlukijakäyttäjille, koska tilastojen kieliattribuuttina on tietyssä tapauksissa englanti, vaikka käyttäjällä olisi muuten kieliasetuksena suomi.
+                            Englannin kieliattribuutti luo ristiriitaisen tilanteen, jossa ruudunlukija lukee tilaston suomenkielisen sisällön englanniksi ääntäen.
+                            Kieliattribuuttivirhe koskee ainakin selaimia Safari ja Mozilla Firefox. Kieliattribuutti on kuitenkin pääsäntöisesti toiminut selaimilla Google Chrome ja Microsoft Edge.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">34</context>
@@ -1443,7 +1443,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader4" datatype="html">
         <source>WCAG-vaatimus, joka ei tällöin toteudu</source>
-        <target state="translated">Ett WCAG-krav som då inte uppfylls</target>
+        <target>WCAG-vaatimus, joka ei tällöin toteudu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">37</context>
@@ -1451,7 +1451,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityParagraph4" datatype="html">
         <source>3.1.2 Osien kieli (AA)</source>
-        <target state="translated">3.1.2 Språket i avsnitten (AA)</target>
+        <target>3.1.2 Osien kieli (AA)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">38</context>
@@ -1459,7 +1459,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader5" datatype="html">
         <source>Syy noudattamatta jättämiselle </source>
-        <target state="translated">Orsak till underlåtenhet att iaktta</target>
+        <target>Syy noudattamatta jättämiselle </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">39</context>
@@ -1467,23 +1467,15 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityParagraph6" datatype="html">
         <source>Kolmannen osapuolen sisältö</source>
-        <target state="translated">Tredje parts innehåll</target>
+        <target>Kolmannen osapuolen sisältö</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessibilityBlockHeader13" datatype="html">
-        <source>Seuraavat askeleet verkkopalvelun saavutettavuustyössä</source>
-        <target/>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="accessibilityParagraph7" datatype="html">
         <source>Taustaa: Tilastot tuodaan portaaliin iframe-sisällöksi toisesta verkkopalvelusta, joka taas hyödyntää sellaista teknologiaa, jolla ei ole mahdollista konfiguroida iframeksi tarjottavan sisällön kieliattribuuttia kattavasti.</source>
-        <target state="translated">Bakgrund: Statistiken förs in i portalen som iframe-innehåll från en annan webbtjänst, som i sin tur utnyttjar sådan teknik som inte på ett heltäckande sätt kan konfigurera språkattributet för det innehåll som tillhandahålls som iframe.</target>
+        <target>Taustaa: Tilastot tuodaan portaaliin iframe-sisällöksi toisesta verkkopalvelusta, joka taas hyödyntää sellaista teknologiaa, jolla ei ole mahdollista konfiguroida iframeksi tarjottavan sisällön kieliattribuuttia kattavasti.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">41</context>
@@ -1491,7 +1483,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader6" datatype="html">
         <source>Ei-saavutettava osio:</source>
-        <target state="translated">Icke-tillgängligt innehåll:</target>
+        <target>Ei-saavutettava osio:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">43</context>
@@ -1500,7 +1492,8 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       <trans-unit id="accessibilityParagraph8" datatype="html">
         <source>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisältöjen ohjeet, jotka ilmestyvät silloin kun hiiren osoitin on niiden päällä, eivät ole täysin saavutettavuusvaatimusten mukaisia. Hiiren osoitinta ei saa 
                             vietyä dynaamisen ohjeen päälle, vaan teksti katoaa, kun osoitin liikkuu kohde-elementin ulkopuolelle.</source>
-        <target state="translated">Riktlinjerna för statistiskt innehåll i portalens "Kapitel i vetenskap och forskning", som visas när muspekaren är över dem, uppfyller inte helt tillgänglighetskraven. Muspekaren kan inte flyttas över den dynamiska hjälpen. Texten försvinner när pekaren rör sig utanför målelementet.</target>
+        <target>Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisältöjen ohjeet, jotka ilmestyvät silloin kun hiiren osoitin on niiden päällä, eivät ole täysin saavutettavuusvaatimusten mukaisia. Hiiren osoitinta ei saa 
+                            vietyä dynaamisen ohjeen päälle, vaan teksti katoaa, kun osoitin liikkuu kohde-elementin ulkopuolelle.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">44</context>
@@ -1508,7 +1501,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader7" datatype="html">
         <source>WCAG-vaatimus, joka ei tällöin toteudu:</source>
-        <target state="translated">Ett WCAG-krav som då inte uppfylls</target>
+        <target>WCAG-vaatimus, joka ei tällöin toteudu:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">46</context>
@@ -1516,7 +1509,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityParagraph9" datatype="html">
         <source>1.4.13 Sisältö osoittaessa tai kohdistaessa</source>
-        <target state="translated">1.4.13 Innehåll när du pekar eller riktar</target>
+        <target>1.4.13 Sisältö osoittaessa tai kohdistaessa</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">47</context>
@@ -1524,7 +1517,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader8" datatype="html">
         <source>Syy noudattamatta jättämiselle</source>
-        <target state="translated">Orsak till underlåtenhet att iaktta</target>
+        <target>Syy noudattamatta jättämiselle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">48</context>
@@ -1532,40 +1525,41 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityParagraph10" datatype="html">
         <source>Kolmannen osapuolen sisältö</source>
-        <target state="translated">Tredje parts innehåll</target>
+        <target>Kolmannen osapuolen sisältö</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessibilityParagraph11" datatype="html">
-        <source>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</source>
-        <target state="translated">Nästa steg i tillgänglighetsarbete är förbättringen av ARIA-stödet för HTML-komponenter, till exempel i samband med avgränsningen av sökresultaten.</target>
+      <trans-unit id="accessibilityBlockHeader13" datatype="html">
+        <source>Seuraavat askeleet verkkopalvelun saavutettavuustyössä</source>
+        <target>Seuraavat askeleet verkkopalvelun saavutettavuustyössä</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="accessibilityParagraph12" datatype="html">
-        <source>Jos havaitset ongelmia edellämainitussa toiminnallisuudessa tai missä tahansa muussa verkkopalvelun saavutettavuudessa, ole meihin yhteydessä allaolevan palautelomake-linkin kautta. Kiitos!</source>
-        <target state="translated">Om du upptäcker problem i ovan nämnda funktion eller i tillgängligheten för vilken annan webbtjänst som helst, kontakta oss via länken nedan. Tack!</target>
+      <trans-unit id="accessibilityParagraph11" datatype="html">
+        <source>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</source>
+        <target>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader9" datatype="html">
         <source>Saavutettavuuspalaute</source>
-        <target state="translated">Respons om tillgängligheten</target>
+        <target>Saavutettavuuspalaute</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityParagraph13" datatype="html">
-        <source>Anna meille saavutettavuuspalautetta <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>tällä verkkolomakkeella<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
-                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>tai voit vaihtoehtoisesti myös lähettää meille sähköpostia osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
-        <target state="translated">Ge oss respons om tillgängligheten på denna webblankett <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Alternativt kan du också skicka e-post till oss på adressen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+        <source>Voit antaa meille palautetta verkkopalvelun saavutettavuudesta <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>tällä verkkolomakkeella<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
+                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
+        <target>Voit antaa meille palautetta verkkopalvelun saavutettavuudesta <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>tällä verkkolomakkeella<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
+                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">57</context>
@@ -1573,7 +1567,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader10" datatype="html">
         <source>Valvontaviranomainen</source>
-        <target state="translated">Tillsynsmyndighet</target>
+        <target>Valvontaviranomainen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">60</context>
@@ -1581,7 +1575,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityParagraph14" datatype="html">
         <source>Jos huomaat verkkopalvelussa saavutettavuusongelmia, anna palautetta ensin meille, eli verkkopalvelun ylläpitäjälle. Vastaamme yhteydenottoosi 14 päivän kuluessa.</source>
-        <target state="translated">Om du upptäcker tillgänglighetsproblem i webbtjänsten, ge först respons till oss, dvs. webbtjänstens administratör. Vi svarar på din kontakt inom 14 dagar.</target>
+        <target>Jos huomaat verkkopalvelussa saavutettavuusongelmia, anna palautetta ensin meille, eli verkkopalvelun ylläpitäjälle. Vastaamme yhteydenottoosi 14 päivän kuluessa.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">61</context>
@@ -1591,7 +1585,9 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
         <source>Jos et ole tyytyväinen meiltä saamaasi vastaukseen, tai vastauksemme ei saavu 14 päivän kuluessa, voit tehdä ilmoituksen Etelä-Suomen aluehallintavirastoon.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
-        <target state="translated">Om du inte är nöjd med ditt svar från oss eller om du inte får svar inom 14 dagar, kan du göra en anmälan till Regionförvaltningsverket i Södra Finland.</target>
+        <target>Jos et ole tyytyväinen meiltä saamaasi vastaukseen, tai vastauksemme ei saavu 14 päivän kuluessa, voit tehdä ilmoituksen Etelä-Suomen aluehallintavirastoon.
+                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">63</context>
@@ -1599,7 +1595,7 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader11" datatype="html">
         <source>Valvontaviranomaisen yhteystiedot</source>
-        <target state="translated">Tillsynsmyndighetens kontaktuppgifter</target>
+        <target>Valvontaviranomaisen yhteystiedot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">67</context>
@@ -1611,19 +1607,19 @@ Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox.
                             www.saavutettavuusvaatimukset.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             saavutettavuus@avi.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             Puhelinnumero vaihde 0295 016 000</source>
-        <target state="translated">Regionförvaltningsverket i Södra Finland
-Enheten för tillgänglighetstillsyn
-tillgänglighetskrav.fi
-webbtillganglighet@rfv.fi
-Telefonväxel 0295 016 000</target>
+        <target>Etelä-Suomen aluehallintovirasto<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+                            Saavutettavuuden valvonnan yksikkö<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+                            www.saavutettavuusvaatimukset.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+                            saavutettavuus@avi.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+                            Puhelinnumero vaihde 0295 016 000</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader12" datatype="html">
-        <source>Kehitämme jatkuvasti verkkopalvelun saavutettavuutta</source>
-        <target state="translated">Vi utvecklar ständigt webbtjänstens tillgänglighet</target>
+        <source>Julkaisu- ja päivitystiedot</source>
+        <target>Julkaisu- ja päivitystiedot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">74</context>
@@ -1632,8 +1628,8 @@ Telefonväxel 0295 016 000</target>
       <trans-unit id="accessibilityParagraph17" datatype="html">
         <source>Tämä verkkopalvelu on julkaistu 9.6.2020<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             Tämä saavutettavuusseloste on päivitetty viimeksi 5.6.2020</source>
-        <target state="translated">Denna webbtjänst publicerades den 9 Juni 2020. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-Denna tillgänglighetsredogörelse uppdaterades senast den 9 Juni  2020</target>
+        <target>Tämä verkkopalvelu on julkaistu 9.6.2020<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
+                            Tämä saavutettavuusseloste on päivitetty viimeksi 5.6.2020</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">75</context>
