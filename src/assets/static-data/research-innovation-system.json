@@ -74,7 +74,7 @@
                 {
                     "nameFi": "Lappeenrannan teknillinen yliopisto",
                     "nameEn": "Lappeenranta University of Technology",
-                    "nameSv": "Lappeenranta University of Technology",
+                    "nameSv": "Villmanstrands tekniska universitet",
                     "id": "01914"
                 },
                 {
@@ -104,7 +104,7 @@
                 {
                     "nameFi": "Tampereen yliopisto",
                     "nameEn": "Tampere University",
-                    "nameSv": "Tampere University",
+                    "nameSv": "Tammerfors universitet",
                     "id": "10122"
                 },
                 {
@@ -174,25 +174,25 @@
                 {
                     "nameFi": "Hämeen ammattikorkeakoulu",
                     "nameEn": "Häme University of Applied Sciences",
-                    "nameSv": "Fachhochschule Häme",
+                    "nameSv": "Hämeen ammattikorkeakoulu",
                     "id": "02467"
                 },
                 {
                     "nameFi": "Jyväskylän ammattikorkeakoulu",
                     "nameEn": "Jyväskylä University of Applied Sciences",
-                    "nameSv": "Jyväskylä University of Applied Sciences",
+                    "nameSv": "Jyväskylän ammattikorkeakoulu",
                     "id": "02504"
                 },
                 {
                     "nameFi": "Kaakkois-Suomen ammattikorkeakoulu",
                     "nameEn": "South-Eastern Finland University of Applied Sciences",
-                    "nameSv": "South-Eastern Finland University of Applied Sciences",
+                    "nameSv": "Kaakkois-Suomen ammattikorkeakoulu",
                     "id": "10118"
                 },
                 {
                     "nameFi": "Kajaanin ammattikorkeakoulu",
                     "nameEn": "Kajaani Polytechnic",
-                    "nameSv": "Kajaani Polytechnic",
+                    "nameSv": "Kajaanin ammattikorkeakoulu",
                     "id": "02473"
                 },
                 {
@@ -204,7 +204,7 @@
                 {
                     "nameFi": "LAB-ammattikorkeakoulu",
                     "nameEn": "LAB University of Applied Sciences",
-                    "nameSv": "LAB University of Applied Sciences",
+                    "nameSv": "LAB-ammattikorkeakoulu",
                     "id": "10126"
                 },
                 {
@@ -216,19 +216,19 @@
                 {
                     "nameFi": "Laurea ammattikorkeakoulu",
                     "nameEn": "Laurea University of Applied Sciences",
-                    "nameSv": "Laurea University of Applied Sciences",
+                    "nameSv": "Laurea-ammattikorkeakoulu",
                     "id": "02629"
                 },
                 {
                     "nameFi": "Metropolia ammattikorkeakoulu",
                     "nameEn": "Helsinki Metropolia University of Applied Sciences",
-                    "nameSv": "Helsinki Metropolia University of Applied Sciences",
+                    "nameSv": "Metropolia ammattikorkeakoulu",
                     "id": "10065"
                 },
                 {
                     "nameFi": "Oulun ammattikorkeakoulu",
                     "nameEn": "Oulu Polytechnic",
-                    "nameSv": "Oulu Polytechnic",
+                    "nameSv": "Oulun ammattikorkeakoulu",
                     "id": "02471"
                 },
                 {
@@ -240,25 +240,25 @@
                 {
                     "nameFi": "Satakunnan ammattikorkeakoulu",
                     "nameEn": "Satakunta University of Applied Sciences",
-                    "nameSv": "Satakunta University of Applied Sciences",
+                    "nameSv": "Satakunnan ammattikorkeakoulu",
                     "id": "02507"
                 },
                 {
                     "nameFi": "Savonia-ammattikorkeakoulu",
                     "nameEn": "Savonia University of Applied Sciences",
-                    "nameSv": "Savonia University of Applied Sciences",
+                    "nameSv": "Savonia-ammattikorkeakoulu",
                     "id": "02537"
                 },
                 {
                     "nameFi": "Seinäjoen ammattikorkeakoulu",
                     "nameEn": "Seinäjoki University of Applied Sciences",
-                    "nameSv": "Seinäjoki University of Applied Sciences",
+                    "nameSv": "Seinäjoen ammattikorkeakoulu",
                     "id": "02472"
                 },
                 {
                     "nameFi": "Tampereen ammattikorkeakoulu",
                     "nameEn": "Tampere University of Applied Sciences",
-                    "nameSv": "Tampere University of Applied Sciences",
+                    "nameSv": "Tampereen ammattikorkeakoulu",
                     "id": "02630"
                 },
                 {
@@ -270,7 +270,7 @@
                 {
                     "nameFi": "Vaasan ammattikorkeakoulu",
                     "nameEn": "Vaasa University of Applied Sciences",
-                    "nameSv": "Fachhochschule Vaasa",
+                    "nameSv": "Vaasan ammattikorkeakoulu",
                     "id": "02627"
                 },
                 {
@@ -373,8 +373,8 @@
                 },
                 {
                     "nameFi": "Lääkealan turvallisuus- ja kehittämiskeskus",
-                    "nameEn": "Säkerhets- och utvecklingscentret för läkemedelsområdet",
-                    "nameSv": "Finnish Medicines Agency",
+                    "nameEn": "Finnish Medicines Agency",
+                    "nameSv": "Säkerhets- och utvecklingscentret för läkemedelsområdet",
                     "id": "558005"
                 },
                 {
@@ -403,8 +403,8 @@
                 },
                 {
                     "nameFi": "Säteilyturvakeskus",
-                    "nameEn": "Säteilyturvakeskus",
-                    "nameSv": "Säteilyturvakeskus",
+                    "nameEn": "Radiation and Nuclear Safety Authority",
+                    "nameSv": "Strålsäkerhetscentralen",
                     "id": "5550012"
                 },
                 {
@@ -433,8 +433,8 @@
                 },
                 {
                     "nameFi": "Valtion taloudellinen tutkimuskeskus",
-                    "nameEn": "Valtion taloudellinen tutkimuskeskus",
-                    "nameSv": "Valtion taloudellinen tutkimuskeskus",
+                    "nameEn": "VATT Institute for Economic Research",
+                    "nameSv": "Statens ekonomiska forskningscentral",
                     "id": "3060016"
                 }
             ]
