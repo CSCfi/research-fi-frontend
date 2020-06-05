@@ -18,6 +18,7 @@ import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
 import { UtilityService } from 'src/app/services/utility.service';
+import { homepage, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   providers: [SearchBarComponent],
@@ -42,6 +43,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   maxHeight: number;
 
   resizeSub: Subscription;
+
+  metaTags = homepage;
+  commonTags = common
 
   shortcuts = [
     {
@@ -124,11 +128,11 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.metaService.addTags([
-      { name: 'description', content: 'Tiedejatutkimus.fi - Etusivu' },
-      { property: 'og:title', content: 'Tiedejatutkimus.fi - Etusivu' },
-      { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
-      { property: 'og:image', content: 'assets/img/logo.svg' },
-      { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
+      { name: 'description', content: this.metaTags['title' + this.currentLocale] },
+      { property: 'og:title', content: this.metaTags['title' + this.currentLocale] },
+      { property: 'og:description', content: this.metaTags['description' + this.currentLocale] },
+      { property: 'og:image', content: 'https://tiedejatutkimus.fi/assets/img/logo.svg' },
+      { property: 'og:image:alt', content: this.commonTags['imageAlt' + this.currentLocale] },
       { property: 'og:image:height', content: '100' },
       { property: 'og:image:width', content: '100' },
    ]);

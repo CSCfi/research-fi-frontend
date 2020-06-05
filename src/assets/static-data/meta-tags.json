@@ -1,0 +1,15 @@
+{
+    "common": {
+        "imgAltFi": "Tutkimustietovarannon portaalin logo, abstrakti ikkuna",
+        "imgAltEn": "Research Information Hub portal logo, abstract window",
+        "imgAltSv": "Portalens logotyp, ett abstrakt fönster"
+    },
+    "homepage": {
+        "titleFi": "Etusivu | Tiedejatutkimus.fi",
+        "titleEn": "Home | Research.fi",
+        "titleSv": "Ingångssida | Forskning.fi",
+        "descriptionFi": "Tiedejatutkimus.fi on opetus- ja kulttuuriministeriön tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta.",
+        "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
+        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+    }
+}
