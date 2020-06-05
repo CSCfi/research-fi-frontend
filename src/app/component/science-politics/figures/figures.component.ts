@@ -48,6 +48,36 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     {labelFi: 'Vipunen'},
   ];
 
+  vipunenLink = {
+    Fi: 'https://vipunen.fi/',
+    En: 'https://vipunen.fi/en-gb/',
+    Sv: 'https://vipunen.fi/sv-fi/'
+  }
+
+  statcenterLink = {
+    Fi: 'http://www.tilastokeskus.fi/',
+    En: 'http://www.tilastokeskus.fi/index_en.html',
+    Sv: 'http://www.tilastokeskus.fi/index_sv.html'
+  }
+
+  okmLink = {
+    Fi: 'https://www.minedu.fi/',
+    En: 'https://minedu.fi/en/frontpage',
+    Sv: 'https://minedu.fi/sv/framsida'
+  }
+
+  akaLink = {
+    Fi: 'https://www.aka.fi/',
+    En: 'https://www.aka.fi/en',
+    Sv: 'https://www.aka.fi/sv/'
+  }
+
+  cscLink = {
+    Fi: 'https://www.csc.fi',
+    En: 'https://www.csc.fi/en/home',
+    Sv: 'https://www.csc.fi'
+  }
+
   allContent = content;
 
   description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
@@ -118,7 +148,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(term => {
         this.queryTerm = term;
         this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
-          item.labelFi.toLowerCase().includes(term.toLowerCase())) : [];
+          item['label' + this.currentLocale].toLowerCase().includes(term.toLowerCase())) : [];
         // Set results flag, used to show right template
         this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
         // Highlight side nav item
