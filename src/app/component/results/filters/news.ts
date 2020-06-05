@@ -13,7 +13,7 @@ import { Injectable } from '@angular/core';
 
 export class NewsFilters {
   filterData = [
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: false, open: true, limitHeight: true},
+      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: false, open: true, limitHeight: true},
     ];
 
   constructor() {}
