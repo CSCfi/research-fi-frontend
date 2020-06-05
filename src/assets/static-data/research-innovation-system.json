@@ -303,26 +303,26 @@
             "organizations": [
                 {
                     "nameFi": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
-                    "nameEn": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+                    "nameEn": "Helsinki University Hospital Catchment Area",
                     "nameSv": "Helsingforsregionens universitetscentralsjukhus",
                     "id": "15675350"
                 },
                 {
                     "nameFi": "Kuopion yliopistollisen sairaalan erityisvastuualue",
-                    "nameEn": "Kuopio University Hospital",
+                    "nameEn": "Kuopio University Hospital Catchment Area",
                     "nameSv": "Kuopio universitetssjukhus",
                     "id": "01714953"
                 },
                 {
                     "nameFi": "Oulun yliopistollisen sairaalan erityisvastuualue",
                     "nameEn": "Oulu University Hospital",
-                    "nameSv": "Oulu University Hospital",
+                    "nameSv": "Uleåborg universitetssjukhus specialupptagningsområde",
                     "id": "06794809"
                 },
                 {
                     "nameFi": "Tampereen yliopistollisen sairaalan erityisvastuualue",
-                    "nameEn": "Tampereen yliopistollisen sairaalan erityisvastuualue",
-                    "nameSv": "Tampereen yliopistollisen sairaalan erityisvastuualue",
+                    "nameEn": "Tampere University Hospital Catchment Area",
+                    "nameSv": "Tammerfors universitetssjukhus specialupptagningsområde",
                     "id": "08265978"
                 },
                 {
