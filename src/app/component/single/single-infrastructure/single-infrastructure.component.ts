@@ -141,6 +141,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
             this.setTitle(this.responseData.infrastructures[0].name + ' - Research.fi'); // English name??
             break;
           }
+          case 'sv': {
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Forskning.fi'); // English name??
+            break;
+          }
 
         }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);

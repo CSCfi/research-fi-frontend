@@ -157,6 +157,10 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.setTitle('Home - Research.fi');
         break;
       }
+      case 'sv': {
+        this.setTitle('Ingångssida - Forskning.fi');
+        break;
+      }
     }
     this.srHeader.nativeElement.innerHTML = this.document.title.split(' - ', 1);
 

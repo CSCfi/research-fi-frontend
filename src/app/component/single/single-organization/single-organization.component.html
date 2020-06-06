@@ -27,7 +27,7 @@
                         <h1 class="result-header">{{item.name}}</h1>
                     </div>
                     <div *ngIf="item.logo && item.logo !== null" class="col p-0 org-logo text-right align-self-center">
-                        <img [src]="item.logo | safeUrl">
+                        <!-- <img [src]="item.logo | safeUrl"> -->
                     </div>
                 </div>
 
@@ -132,7 +132,7 @@
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2 i18n="@@relatedOrganizations">Organisaation</h2></mat-card-title>
+                    <mat-card-title><h2><ng-container i18n="@@relatedOrganizations">Organisaation</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
                     <app-related-links [id]="item.id"></app-related-links>
                 </mat-card>
             </aside>

@@ -30,7 +30,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   tab = 'organizations';
   infoFields = [
-    {label: $localize`:@@orgName:Nimi (SV, EN)`, field: 'nameSv', fieldEn: 'nameEn'},
+    {label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`, field: 'nameTranslations'},
     {label: $localize`:@@orgOtherNames:Muut nimet`, field: 'variantNames', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
     {label: $localize`:@@orgEstablished:Perustettu`, field: 'established', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
     {label: $localize`:@@orgBackground:Lisätietoa`, field: 'background', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
@@ -119,6 +119,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
             this.setTitle(this.responseData.organizations[0].name.trim() + ' - Research.fi');
             break;
           }
+          case 'sv': {
+            this.setTitle(this.responseData.organizations[0].name.trim() + ' - Forskning.fi');
+            break;
+          }
         }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         this.shapeData();
@@ -145,6 +149,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
 
     const subUnits = source.subUnits;
+
+    // Name translations
+    source.nameTranslations = Object.values(source.nameTranslations).join('; ');
 
     if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
       source.statCenterId = '';

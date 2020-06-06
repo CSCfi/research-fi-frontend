@@ -38,7 +38,7 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
       data: sector.university,
       iframeUrlFi: 'https://app.powerbi.com/view?r=eyJrIjoiMTY3NzI5YjgtMGU1MC00MzA3LTkyNDYtN2UxZmI1ZDE4Y2UwIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
       iframeUrlEn: 'https://app.powerbi.com/view?r=eyJrIjoiODAxZDQyODYtNjFlMC00MTMzLTgyYjEtNTE1ZjM1MGY0ZjBhIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
-      iframeUrlSv: 'https://app.powerbi.com/view?r=eyJrIjoiODAxZDQyODYtNjFlMC00MTMzLTgyYjEtNTE1ZjM1MGY0ZjBhIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
+      iframeUrlSv: 'https://app.powerbi.com/view?r=eyJrIjoiZmI4ZDg2YjMtMTRkMi00M2ZlLWIwMzgtNzQ2ZDU5NmIxMzhiIiwidCI6IjkxMDczODlkLTQ0YjgtNDcxNi05ZGEyLWM0ZTNhY2YwMzBkYiIsImMiOjh9',
     },
     {
       id: 1,
@@ -128,8 +128,11 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Research and innovation system - Research.fi');
+        break;
+      }
+      case 'sv': {
+        this.setTitle('Finländskt forsknings- och innovationssystem - Forskning.fi');
         break;
       }
     }

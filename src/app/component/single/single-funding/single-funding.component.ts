@@ -49,7 +49,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     {label: $localize`Tutkimusalat`, field: 'fieldsOfResearch'},
     {label: $localize`Teema-alat`, field: 'fieldsOfTheme'},
     {label: $localize`:@@fundingHomePage:Hankkeen verkkosivu`, field: '?'},
-    // {label: $localize`Avainsanat`, field: 'keywords'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywords'},
   ];
 
   link = [
@@ -132,6 +132,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
           }
           case 'en': {
             this.setTitle(this.responseData.fundings[0].name + ' - Research.fi');
+            break;
+          }
+          case 'sv': {
+            this.setTitle(this.responseData.fundings[0].name + ' - Forskning.fi');
             break;
           }
         }

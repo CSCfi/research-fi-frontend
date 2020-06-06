@@ -166,7 +166,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   getCitations() {
     const source = this.responseData.publications[0];
-    const doi = this.linksFields.filter(x => x['label' + this.currentLocale] === 'DOI').shift();
+    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
     // tslint:disable-next-line: curly
     if (!this.hasDoi) return;
     const doiUrl = source.doi;
@@ -212,6 +212,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             this.setTitle(this.responseData.publications[0].title + ' - Research.fi');
             break;
           }
+          case 'sv': {
+            this.setTitle(this.responseData.publications[0].title + ' - Forskning.fi');
+            break;
+          }
         }
         this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
         // juFoCode is used for exact search
@@ -226,7 +230,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   checkDoi() {
     // Check if the doi exists (the field is filtered on init if it doesn't)
-    const doi = this.linksFields.filter(x => x['label' + this.currentLocale] === 'DOI').shift();
+    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
     // Flag needed for template
     this.hasDoi = !!doi;
   }

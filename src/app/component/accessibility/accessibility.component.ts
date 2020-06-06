@@ -24,19 +24,26 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   title: string;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
 
+  // Remove this after translations
+  templateLocale: string;
+
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.templateLocale = this.localeId;
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Saavutettavuusseloste - Tiedejatutkimus.fi');
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Accessibility - Research.fi');
+        break;
+      }
+      case 'sv': {
+        this.setTitle('Tillgänglighetsredogörelse - Forskning.fi');
         break;
       }
     }

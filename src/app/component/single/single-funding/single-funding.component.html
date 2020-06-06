@@ -77,7 +77,7 @@
                                                 {{item.recipient.contactPersonName}}
                                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                             </div>
-                                            <div class="col-12 py-0 py-sm-3 td" [ngClass]="item.euFunding ? 'col-sm-5' : col-sm-3">
+                                            <div class="col-12 py-0 py-sm-3 td" [ngClass]="item.euFunding ? 'col-sm-5' : 'col-sm-3'">
                                                 <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.name}}</a>
                                                 <ng-container *ngIf="org.id && !org.pic">{{org.name}}</ng-container>    
                                                 <ng-container *ngIf="!org.id">{{org.name}}</ng-container>
@@ -238,7 +238,7 @@
                     </mat-card>
                 </aside>
                 <mat-card>
-                    <mat-card-title><h2 i18n="@@relatedFundings">Tähän hankkeeseen liittyvät</h2></mat-card-title>
+                    <mat-card-title><h2><ng-container i18n="@@relatedFundings">Tähän hankkeeseen liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
                     <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                 </mat-card>
             </aside>

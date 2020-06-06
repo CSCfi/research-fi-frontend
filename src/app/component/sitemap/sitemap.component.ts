@@ -20,8 +20,11 @@ export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Sitemap - Research.fi');
+        break;
+      }
+      case 'sv': {
+        this.setTitle('Sidkarta | Forskning.fi');
         break;
       }
     }

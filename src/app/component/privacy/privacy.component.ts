@@ -51,8 +51,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Privacy - Research.fi');
+        break;
+      }
+      case 'sv': {
+        this.setTitle('Dataskydd och behandling av personuppgifter - Forskning.fi');
         break;
       }
     }

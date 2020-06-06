@@ -74,7 +74,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: production
+        ref: master
       contextDir: .
     strategy:
       dockerStrategy:
@@ -97,7 +97,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: production
+        ref: master
       contextDir: .
     strategy:
       jenkinsPipelineStrategy:

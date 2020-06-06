@@ -286,7 +286,7 @@
                     </mat-card>
                 </aside>
                 <mat-card>
-                    <mat-card-title><h2 i18n="@@relatedPublications">Hae julkaisuun liittyvät</h2></mat-card-title>
+                    <mat-card-title><h2><ng-container i18n="@@relatedPublications">Hae julkaisuun liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
                     <app-related-links [id]="authorAndOrganization[0]?.orgId" [relatedFilters]="relatedData"></app-related-links>
                </mat-card>
             </aside>
