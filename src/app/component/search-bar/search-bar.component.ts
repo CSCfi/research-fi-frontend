@@ -61,11 +61,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   ];
 
   translations = {
-    publication: 'julkaisut',
-    person: 'tutkijat',
-    funding: 'rahoitetut hankkeet',
-    infrastructure: 'infrastruktuurit',
-    organization: 'tutkimusorganisaatiot'
+    publication: $localize`:@@publications:julkaisut`,
+    person: $localize`:@@authors:tutkijat`,
+    funding: $localize`:@@fundings:rahoitetut hankkeet`,
+    infrastructure: $localize`:@@infrastructures:infrastruktuurit`,
+    organization: $localize`:@@organizations:tutkimusorganisaatiot`
   };
 
   targets: Target[] = [
