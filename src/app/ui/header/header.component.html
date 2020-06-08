@@ -36,8 +36,8 @@
         <nav class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
             <div class="mobile ml-auto toggle-button-wrapper">
                 <button class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
-                    <div *ngIf="!navbarOpen" class="toggle-menu-text closed">Valikko</div>
-                    <div *ngIf="navbarOpen" class="toggle-menu-text open">Sulje</div>
+                    <div *ngIf="!navbarOpen" class="toggle-menu-text closed" i18n="@@headerMenuOpen">Valikko</div>
+                    <div *ngIf="navbarOpen" class="toggle-menu-text open" i18n="@@closeButton">Sulje</div>
                 </button>
             </div>
             <div class="" [class.overflow-hider]="hideOverflow && mobile" [class.absolute]="mobile" 

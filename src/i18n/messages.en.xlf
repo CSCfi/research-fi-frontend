@@ -1723,6 +1723,15 @@
         <source>Tulossa</source>
         <target>Coming soon</target>
       </trans-unit>
+      <trans-unit id="headerMenuOpen" datatype="html">
+        <source>Valikko</source>
+        <target>Menu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">Close button</note>
+      </trans-unit>
       <trans-unit id="headerLink3" datatype="html">
         <source>Tiede- ja innovaatiopolitiikka</source>
         <target>Science and Innovation Policy</target>

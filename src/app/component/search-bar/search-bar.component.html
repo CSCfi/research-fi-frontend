@@ -85,7 +85,7 @@
                       <div align="center">
                         <a tabindex="-1" class="font-weight-bold" (keydown.enter)="newInput(data.index, undefined)"
                           (click)="newInput(data.index, undefined)" href="javascript:void(0);">
-                          <ng-container i18n="Suggest results@@suggestResults2">Näytä kaikki </ng-container>{{data.translation}}
+                          <ng-container i18n="Suggest results@@suggestResults2">Näytä kaikki </ng-container>{{data.translation.toLowerCase()}}
                         </a> 
                       </div>
                   </app-list-item>
