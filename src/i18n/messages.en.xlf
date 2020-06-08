@@ -3825,6 +3825,10 @@
         <source> päättyen</source>
         <target> to</target>
       </trans-unit>
+      <trans-unit id="fOrgErrorTooltip">
+        <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
+        <target>Note. The number of non-EU funding decisions is doubled. The error is currently being corrected.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

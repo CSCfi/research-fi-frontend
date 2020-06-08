@@ -3818,6 +3818,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source> päättyen</source>
         <target state="translated"> till</target>
       </trans-unit>
+      <trans-unit id="fOrgErrorTooltip">
+        <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
+        <target>Notera. Antalet finansieringsbeslut (exklusive EU-projekt) fördubblas. Felet korrigeras så snart som möjligt.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

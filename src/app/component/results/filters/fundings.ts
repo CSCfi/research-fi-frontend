@@ -18,7 +18,7 @@ export class FundingFilters {
       {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
       tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`},
       {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, limitHeight: false,
-      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`},
+      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`, errorTooltip: $localize`:@@fOrgErrorTooltip:Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.`},
       {field: 'funder', label: $localize`:@@fundingFunder:Rahoittaja`, hasSubFields: false, limitHeight: false, open: true,
       tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`},
       {field: 'typeOfFunding', label: $localize`:@@typeOfFunding:Rahoitusmuoto`, hasSubFields: false, limitHeight: false, open: true,

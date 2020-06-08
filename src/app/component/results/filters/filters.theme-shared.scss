@@ -19,6 +19,10 @@
         .filter-icon {
             color: mat-color($primary);
         }
+
+        .error-color {
+            color: red!important;
+        }
         
         h3 {
             color: mat-color($primary);

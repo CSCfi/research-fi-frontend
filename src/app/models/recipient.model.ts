@@ -64,10 +64,12 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 // Get target recipient
                 const person = item.fundingGroupPerson.find(x => x.consortiumProject === item.funderProjectNumber);
                 // Map recipients
-                if (person) {
+                if (person && person['consortiumOrganizationName' + capitalizedLocale] !== '') {
                     combined = person.fundingGroupPersonLastName ?
                     person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName + ', '
                     + person['consortiumOrganizationName' + capitalizedLocale] : person['consortiumOrganizationName' + capitalizedLocale];
+                } else if (person) {
+                    combined = person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName;
                 } else {
                     // If no match with funderProjectNumber
                     combined = item.fundingGroupPerson?.map(x =>
@@ -87,6 +89,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
         } else {
             combined = '-';
         }
+        console.log(combined);
         return new Recipient(
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
