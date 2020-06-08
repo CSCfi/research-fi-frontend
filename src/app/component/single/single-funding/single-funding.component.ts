@@ -33,14 +33,14 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   info = [
     {label: $localize`Akronyymi`, field: 'acronym'},
-    {label: $localize`Hankkeen kuvaus`, field: 'description', tooltip: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta', tooltipEn: 'Concise description of the project objective', tooltipSV: 'Beskrivningen anger kortfattat projektets mål'},
-    {label: $localize`Aloitusvuosi`, field: 'startYear', tooltip: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.', tooltipEn: 'Year for which funding was granted. In funding covering several years, the first year of funding.', tooltipSv: 'År för vilket finansiering har beviljats. Det första året i finansiering för flera år.'},
-    {label: $localize`Päättymisvuosi`, field: 'endYear', tooltip: 'Rahoituskauden päättymisvuosi.'},
+    {label: $localize`Hankkeen kuvaus`, field: 'description', tooltip: $localize`:@@sfDescriptionTooltip:Kuvaus kertoo tiiviisti hankkeen tavoitteesta`},
+    {label: $localize`Aloitusvuosi`, field: 'startYear', tooltip: $localize`:@@sfStartYearTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`},
+    {label: $localize`Päättymisvuosi`, field: 'endYear', tooltip: $localize`:@@sfEndYearTooltip:Rahoituskauden päättymisvuosi.`},
   ];
 
   funder =  [
-    {label: $localize`:@@typeOfFunding:Rahoitusmuoto`, labelSv: 'Typ av finansiering', field: 'typeOfFundingName', tooltip: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.', tooltipEn: 'Method of funding research. Instruments of funding include research grants, project funding and research infrastructure funding. Instruments are often specific to each funder.', tooltipSv: 'Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.'},
-    {label: $localize`Haku`, field: 'callProgrammeName', tooltip: 'Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.', tooltipEn: 'Funder´s call granting the funding. Competed research funding is often granted through open calls, in which funding is granted on the basis of prescribed criteria. Applications are evaluated and funding is granted to the best', tooltipSv: 'Utlysning av finansiär som har beviljat finansiering. Konkurrensutsatt forskningsfinansiering beviljas ofta genom öppna ansökningar, där beviljandet av finansiering grundar sig på kriterier som fastställts på förhand.'}
+    {label: $localize`:@@typeOfFunding:Rahoitusmuoto`, field: 'typeOfFundingName', tooltip: $localize`:@@sfTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.`},
+    {label: $localize`Haku`, field: 'callProgrammeName', tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`}
   ];
 
   other = [

@@ -2371,6 +2371,26 @@
         <source>Linkit</source>
         <target>Links</target>
       </trans-unit>
+      <trans-unit id="sfDescriptionTooltip">
+        <source>Kuvaus kertoo tiiviisti hankkeen tavoitteesta</source>
+        <target>Concise description of the project objective</target>
+      </trans-unit>
+      <trans-unit id="sfStartYearTooltip">
+        <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
+        <target>Year for which funding was granted. In funding covering several years, the first year of funding.</target>
+      </trans-unit>
+      <trans-unit id="sfEndYearTooltip">
+        <source>Rahoituskauden päättymisvuosi.</source>
+        <target>Ending year of funding.</target>
+      </trans-unit>
+      <trans-unit id="sfTypeOfFundingTooltip">
+        <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
+        <target>Method of funding research. Instruments of funding include research grants, project funding and research infrastructure funding. Instruments are often specific to each funder.</target>
+      </trans-unit>
+      <trans-unit id="sfCallProgrammeTooltip">
+        <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
+        <target>Funder´s call granting the funding. Competed research funding is often granted through open calls, in which funding is granted on the basis of prescribed criteria. Applications are evaluated and funding is granted to the best</target>
+      </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
         <target>The funding recipient may be a person or organization. In many cases, the specified funding recipient is a principal investigator (PI), who will not personally be using the funding as it will instead be used to cover project costs.</target>
