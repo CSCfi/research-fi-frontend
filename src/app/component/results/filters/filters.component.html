@@ -50,6 +50,12 @@
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
                                 </ng-container>
+                                <ng-container *ngIf="filter.errorTooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="filter?.errorTooltip"></div></ng-template>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2 error-color" icon="info-circle"></fa-icon>
+                                    </span>
+                                </ng-container>
                             </div>
                             <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-left' : 'col-1 pr-0 text-right'" *ngIf="filter?.tooltip">
                                 <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltip"></div></ng-template>
