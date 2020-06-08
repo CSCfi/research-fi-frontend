@@ -2345,11 +2345,19 @@
       </trans-unit>
       <trans-unit id="5379863279381131239">
         <source>Haku</source>
-        <target>Search</target>
+        <target>Call</target>
       </trans-unit>
       <trans-unit id="1429405664221353899">
         <source>Rahoituspäätöksen numero</source>
         <target>Funding decision number</target>
+      </trans-unit>
+      <trans-unit id="amountGranted">
+        <source>Myönnetty summa</source>
+        <target>Amount granted</target>
+      </trans-unit>
+      <trans-unit id="sumGranted">
+        <source>Summa</source>
+        <target>Amount</target>
       </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
