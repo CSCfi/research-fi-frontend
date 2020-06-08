@@ -89,7 +89,6 @@ export class RecipientAdapter implements Adapter<Recipient> {
         } else {
             combined = '-';
         }
-        console.log(combined);
         return new Recipient(
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
