@@ -2372,6 +2372,26 @@
         <source>Linkit</source>
         <target state="translated">Länkar</target>
       </trans-unit>
+      <trans-unit id="sfDescriptionTooltip">
+        <source>Kuvaus kertoo tiiviisti hankkeen tavoitteesta</source>
+        <target>Beskrivningen anger kortfattat projektets mål</target>
+      </trans-unit>
+      <trans-unit id="sfStartYearTooltip">
+        <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
+        <target>År för vilket finansiering har beviljats. Det första året i finansiering för flera år.</target>
+      </trans-unit>
+      <trans-unit id="sfEndYearTooltip">
+        <source>Rahoituskauden päättymisvuosi.</source>
+        <target>Upphörande av finansieringsperiod</target>
+      </trans-unit>
+      <trans-unit id="sfTypeOfFundingTooltip">
+        <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
+        <target>Sätt att finansiera forskning. Typer av finansiering är till exempel forskningsbidrag, projektfinansiering och forskningsinfrastrukturfinansiering. Finansieringstyper är ofta finansiärspecifika.</target>
+      </trans-unit>
+      <trans-unit id="sfCallProgrammeTooltip">
+        <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
+        <target>Utlysning av finansiär som har beviljat finansiering. Konkurrensutsatt forskningsfinansiering beviljas ofta genom öppna ansökningar, där beviljandet av finansiering grundar sig på kriterier som fastställts på förhand.</target>
+      </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
         <target state="translated">Finansieringsmottagaren kan vara en person eller en organisation. Ofta är den person som nämns som mottagare en ansvarig forskare som inte själv använder den beviljade finansieringen utan den används för att täcka projektets kostnader.</target>
