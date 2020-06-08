@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-single-organization',
@@ -23,7 +24,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any;
+  responseData: Search;
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
@@ -110,6 +111,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.organizations[0]) {
+        console.log(this.responseData.organizations[0].nameTranslations)
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.organizations[0].name + ' - Tiedejatutkimus.fi');
@@ -151,8 +153,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     const subUnits = source.subUnits;
 
     // Name translations
-    source.nameTranslations = Object.values(source.nameTranslations).join('; ');
+    source.nameTranslations = Object.values(source.nameTranslations).filter(x => UtilityService.stringHasContent(x)).join('; ')
 
+    // Hide statCenterId from other organizations than universities
     if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
       source.statCenterId = '';
     }
