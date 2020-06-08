@@ -213,7 +213,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="resultInfo1" datatype="html">
-        <source>Mitä </source>
+        <source>Mitä</source>
         <target state="translated">Vad</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
@@ -2343,6 +2343,14 @@
       <trans-unit id="1429405664221353899">
         <source>Rahoituspäätöksen numero</source>
         <target state="translated">Finansieringsbeslutets nummer</target>
+      </trans-unit>
+      <trans-unit id="amountGranted">
+        <source>Myönnetty summa</source>
+        <target>Beviljat belopp</target>
+      </trans-unit>
+      <trans-unit id="sumGranted">
+        <source>Summa</source>
+        <target>Belopp</target>
       </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
