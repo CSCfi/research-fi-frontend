@@ -219,8 +219,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="resultInfo1" datatype="html">
-        <source>Mitä </source>
-        <target>What </target>
+        <source>Mitä</source>
+        <target>What</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
           <context context-type="linenumber">35</context>
@@ -228,7 +228,7 @@
       </trans-unit>
       <trans-unit id="resultInfo2" datatype="html">
         <source>tietoja palvelu sisältää?</source>
-        <target>information is included in the service?</target>
+        <target> information is included in the service?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
           <context context-type="linenumber">36</context>
