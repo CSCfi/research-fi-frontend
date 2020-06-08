@@ -213,7 +213,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="resultInfo1" datatype="html">
-        <source>Mitä </source>
+        <source>Mitä</source>
         <target state="translated">Vad</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
@@ -1717,6 +1717,15 @@
         <source>Tulossa</source>
         <target state="translated">På kommande</target>
       </trans-unit>
+      <trans-unit id="headerMenuOpen" datatype="html">
+        <source>Valikko</source>
+        <target>Menu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">Close button</note>
+      </trans-unit>
       <trans-unit id="headerLink3" datatype="html">
         <source>Tiede- ja innovaatiopolitiikka</source>
         <target state="translated">Vetenskaps- och innovationspolitik</target>
@@ -2334,6 +2343,14 @@
       <trans-unit id="1429405664221353899">
         <source>Rahoituspäätöksen numero</source>
         <target state="translated">Finansieringsbeslutets nummer</target>
+      </trans-unit>
+      <trans-unit id="amountGranted">
+        <source>Myönnetty summa</source>
+        <target>Beviljat belopp</target>
+      </trans-unit>
+      <trans-unit id="sumGranted">
+        <source>Summa</source>
+        <target>Belopp</target>
       </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
@@ -3800,6 +3817,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="yearTo">
         <source> päättyen</source>
         <target state="translated"> till</target>
+      </trans-unit>
+      <trans-unit id="fOrgErrorTooltip">
+        <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
+        <target>Notera. Antalet finansieringsbeslut (exklusive EU-projekt) fördubblas. Felet korrigeras så snart som möjligt.</target>
       </trans-unit>
     </body>
   </file>
