@@ -65,3 +65,9 @@
 .auth-min-height {
     min-height: 100px;
 }
+
+@media (max-width: 575px) {
+    .auth-header-min-height {
+        min-height: 80px;
+    }
+}
