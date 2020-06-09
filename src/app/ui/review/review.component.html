@@ -90,9 +90,9 @@
         </div>
       </ng-container>
       
-      <div class="row pt-4">
+      <div class="row pt-4 pb-4 pb-md-0">
         <div class="col-6 px-0 text-left">
-          <button *ngIf="underReview" mat-stroked-button color="primary" (click)="underReview = false"[disabled]="sending" i18n="@@back">Takaisin</button>
+          <button *ngIf="underReview" mat-stroked-button color="primary" (click)="underReview = false" [disabled]="sending" i18n="@@back">Takaisin</button>
         </div>
         <div class="col-6 px-0 text-right">
           <button mat-flat-button color="primary" (click)="underReview ? send() : validate()" [disabled]="sending" i18n="@@r15">Tarkista ja lähetä</button>
