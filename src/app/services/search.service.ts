@@ -166,13 +166,11 @@ export class SearchService {
         }
       }
     };
-    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
     return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad);
   }
 
   getFilters(): Observable<Search[]> {
     const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
-    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
   }
 
