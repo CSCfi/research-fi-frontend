@@ -41,6 +41,7 @@ export class FilterService {
     fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: []});
   filters = this.filterSource.asObservable();
   localeC: string;
+  timestamp: string;
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
@@ -299,13 +300,30 @@ export class FilterService {
     };
   }
 
+  generateTimeStamp() {
+    this.timestamp = Date.now().toString();
+  }
+
   // Data for results page
   constructPayload(searchTerm: string, fromPage, sortOrder, tab) {
+    // Generate new timestamp on portal init
+    if (searchTerm.length === 0 && !this.timestamp) {this.generateTimeStamp(); }
+    // Generate query based on tab and term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
+    // Randomize results if no search term and no sorting activated. Random score doesn't work if sort isn't based with score
+    if (searchTerm.length === 0 && (!this.sortService.sortMethod || this.sortService.sortMethod?.length === 0)) {sortOrder.push('_score'); }
     return {
-      query,
+      query: {
+          function_score: {
+          query,
+          random_score: {
+            seed: this.timestamp
+          }
+        }
+      },
       size: 10,
       track_total_hits: true,
+      // TODO: Get completions from all indices
       ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),
       from: fromPage,
       sort: sortOrder
