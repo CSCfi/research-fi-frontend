@@ -310,8 +310,8 @@ export class FilterService {
     if (searchTerm.length === 0 && !this.timestamp) {this.generateTimeStamp(); }
     // Generate query based on tab and term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
-    // Randomize results if no search term. Random score doesn't work if sort isn't based with score
-    if (searchTerm.length === 0) {sortOrder.push('_score'); }
+    // Randomize results if no search term and no sorting activated. Random score doesn't work if sort isn't based with score
+    if (searchTerm.length === 0 && (!this.sortService.sortMethod || this.sortService.sortMethod?.length === 0)) {sortOrder.push('_score'); }
     return {
       query: {
           function_score: {
