@@ -111,7 +111,6 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.organizations[0]) {
-        console.log(this.responseData.organizations[0].nameTranslations)
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.organizations[0].name + ' - Tiedejatutkimus.fi');
