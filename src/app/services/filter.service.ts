@@ -649,6 +649,15 @@ export class FilterService {
                 }
               }
             ]
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActive('openAccessCode')
+                }
+              }
+            }
           }
         };
         break;
