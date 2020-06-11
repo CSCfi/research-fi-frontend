@@ -14,7 +14,7 @@ export class Organization {
     constructor(
         public id: string,
         public name: string,
-        public nameTranslations: object,
+        public nameTranslations: object | string,
         public variantNames: string,
         public established: string,
         public background: string,
@@ -39,6 +39,7 @@ export class Organization {
         public thesisCountMscPercentage: number,
         public thesisCountLicPercentage: number,
         public thesisCountPhdPercentage: number,
+        public sectorNameFi: string,
         public subUnits: any[],
         public logo: string
     ) {}
@@ -88,6 +89,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.thesisCountMscPercentage,
             item.thesisCountLicPercentage,
             item.thesisCountPhdPercentage,
+            item.sectorNameFi,
             item.subUnits,
             item.mediaUri
         );
