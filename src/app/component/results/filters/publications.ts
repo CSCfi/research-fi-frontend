@@ -210,7 +210,6 @@ export class PublicationFilters {
     // Remove duplicates
     openAccessCodes = [...new Set(reduce)];
     function docCount(key) {return openAccessCodes.find(item => item.key === key).doc_count; }
-
     // Push items by key
     if (openAccessCodes.some(e => e.key === 'openAccess')) {
       result.push({key: 'openAccess', doc_count: docCount('openAccess'), label: $localize`:@@openAccessJournal:Open Access -lehti `});
@@ -221,9 +220,11 @@ export class PublicationFilters {
     if (openAccessCodes.some(e => e.key === 'otherOpen')) {
       result.push({key: 'otherOpen', doc_count: docCount('otherOpen'), label: $localize`:@@otherOpenAccess:Muu avoin saatavuus`});
     }
+
     if (openAccessCodes.some(e => e.key === 'nonOpenAccess') && openAccessCodes.some(e => e.key === 'selfArchivedNonOpen')) {
-      result.push({key: 'nonOpen', doc_count: nonOpenAccess.doc_count,  label: $localize`:@@nonOpen:Ei avoin`});
+      result.push({key: 'nonOpen', doc_count: nonOpenAccess.filtered.doc_count,  label: $localize`:@@nonOpen:Ei avoin`});
     }
+
     if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
       result.push({key: 'noOpenAccessData', doc_count: openAccessCodes.find
       (item => item.key === 'noOpenAccessData')?.doc_count, label: $localize`:@@noInfo:Ei tietoa`});
