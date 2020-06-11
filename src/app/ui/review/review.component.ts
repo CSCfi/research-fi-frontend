@@ -5,14 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { WINDOW } from 'src/app/services/window.service';
+import { DOCUMENT } from '@angular/common';
+import { ResizeService } from 'src/app/services/resize.service';
 
 @Component({
   selector: 'app-review',
@@ -43,6 +46,8 @@ export class ReviewComponent implements OnInit {
   error = false;
   success = false;
   faTimes = faTimes;
+  resizeSub: Subscription;
+  vh = this.window.innerHeight * 0.01;
 
   // TODO: Translate
   targets: string[] = [
@@ -54,7 +59,8 @@ export class ReviewComponent implements OnInit {
   title: string;
 
   constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title,
-              private httpClient: HttpClient) { }
+              private httpClient: HttpClient, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
+              private resizeService: ResizeService) { }
 
   ngOnInit(): void {
     // Get title
@@ -63,6 +69,9 @@ export class ReviewComponent implements OnInit {
     this.math1 = this.getRandomInt(10);
     this.math2 = this.getRandomInt(10);
     this.equals = this.math1 + this.math2;
+    this.resizeSub = this.resizeService.onResize$.subscribe(event => this.onResize(event));
+    // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    this.document.documentElement.style.setProperty('--vh', `${this.vh}px`);
   }
 
   close() {
@@ -134,6 +143,10 @@ export class ReviewComponent implements OnInit {
 
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  onResize(event: {width: number, height: number}) {
+    this.document.documentElement.style.setProperty('--vh', `${event.height * 0.01}`)
   }
 
 }
