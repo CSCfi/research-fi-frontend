@@ -262,9 +262,9 @@ export class FilterService {
       // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
       //     [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}},
       //     must: {bool: {should: this.organizationFilter}}}}}}] : []) : []),
-          
+
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}},must: { bool: {should: this.organizationFilter } }}}}},
+          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}}, must: { bool: {should: this.organizationFilter } }}}}},
           {nested: {path: 'fundingGroupPerson', query: {bool: {filter: {term: {'fundingGroupPerson.fundedPerson': 1}}, must: { bool: { should: this.organizationFilter } }}}}}]}}] : []) : []),
 
       ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
@@ -447,6 +447,39 @@ export class FilterService {
                       terms: {
                         size: 1,
                         field: 'author.organization.organizationId.keyword'
+                      }
+                    }
+                  }
+                },
+                org: {
+                  nested: {
+                    path: 'author.organization'
+                  },
+                  aggs: {
+                    org: {
+                      terms: {
+                        size: 50,
+                        field: 'author.organization.OrganizationName' + this.localeC + '.keyword'
+                      },
+                      aggs: {
+                        filtered: {
+                          reverse_nested: {},
+                          aggs: {
+                            filterCount: {
+                              filter: {
+                                bool: {
+                                  filter: filterActiveNested('author')
+                                }
+                              }
+                            }
+                          }
+                        },
+                        orgId: {
+                          terms: {
+                            size: 10,
+                            field: 'author.organization.organizationId.keyword'
+                          }
+                        }
                       }
                     }
                   }
