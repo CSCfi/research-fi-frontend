@@ -7,7 +7,10 @@
 
 app-review {
     .mat-dialog-content {
-        max-height: calc(100vh - 8vh);
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 80);
+        max-height: 65vh;
+        max-height: calc(var(--vh, 1vh) * 80);
     }
     
     h3 {
@@ -75,8 +78,8 @@ app-review {
 
     @media (max-width: 575px) {
         .send-button-wrapper {
-            padding-bottom: 140px;
-            padding-top: 32px;
+            // padding-bottom: 140px;
+            // padding-top: 32px;
         }
     }
 }
