@@ -57,3 +57,17 @@
     line-height: 40px;
     font-size: 1rem;
 }
+
+.show-more-wrapper {
+    position: absolute;
+}
+
+.auth-min-height {
+    min-height: 100px;
+}
+
+@media (max-width: 575px) {
+    .auth-header-min-height {
+        min-height: 80px;
+    }
+}
