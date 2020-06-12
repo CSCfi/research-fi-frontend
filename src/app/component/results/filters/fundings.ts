@@ -127,6 +127,7 @@ export class FundingFilters {
     });
     // Map sub items
     data.map(item => {
+      item.id = item.key;
       item.key = item['header' + this.currentLocale].buckets[0].key;
       item.subData = item['header' + this.currentLocale].buckets[0]['typeName' + this.currentLocale].buckets;
       item.subData.map(type => {
@@ -135,7 +136,31 @@ export class FundingFilters {
         type.doc_count = type.doc_count;
       });
     });
-    return data;
+
+    // Rearrange with custom order
+    const rearranged = [];
+    data.forEach(item => {
+      switch (item.id) {
+        case '0004': {
+          rearranged.push(item);
+          break;
+        }
+        case '0001': {
+          rearranged.push(item);
+          break;
+        }
+        case '0002': {
+          rearranged.push(item);
+          break;
+        }
+        case '0003': {
+          rearranged.push(item);
+          break;
+        }
+      }
+    });
+
+    return rearranged.reverse();
   }
 
   minorField(data) {
