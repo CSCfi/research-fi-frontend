@@ -808,18 +808,170 @@ export class FilterService {
           aggs: {
             types: {
               terms: {
-                field: 'typeOfFunding.typeOfFundingId.keyword',
-                exclude: ' |001|002|003|004|005',
-                size: 250,
-                order: {
-                  _key: 'asc'
-                }
+                field: 'typeOfFunding.typeOfFundingHeaderId.keyword',
+                exclude: ' '
               },
               aggs: {
-                typeName: {
+                headerFi: {
                   terms: {
-                    field: 'typeOfFunding.typeOfFundingName' + this.localeC + '.keyword',
+                    field: 'typeOfFunding.typeOfFundingHeaderNameFi.keyword',
                     exclude: ' ',
+                    size: 250,
+                    order: {
+                      _key: 'asc'
+                    }
+                  },
+                  aggs: {
+                    typeNameFi: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameFi.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameEn: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameEn.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameSv: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameSv.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                headerEn: {
+                  terms: {
+                    field: 'typeOfFunding.typeOfFundingHeaderNameEn.keyword',
+                    exclude: ' ',
+                    size: 250,
+                    order: {
+                      _key: 'asc'
+                    }
+                  },
+                  aggs: {
+                    typeNameEn: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameEn.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameFi: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameFi.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameSv: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameSv.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                headerSv: {
+                  terms: {
+                    field: 'typeOfFunding.typeOfFundingHeaderNameSv.keyword',
+                    exclude: ' ',
+                    size: 250,
+                    order: {
+                      _key: 'asc'
+                    }
+                  },
+                  aggs: {
+                    typeNameSv: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameSv.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameFi: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameFi.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameEn: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameEn.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
