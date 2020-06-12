@@ -27,7 +27,14 @@
                      <div class="content">
                          <ng-container *ngFor="let row of infoFields; let i = index;">
                             <div class="row" *ngIf="item[row.field]">
-                                <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h2>
+                                <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}
+                                    <ng-container *ngIf="row.tooltip">
+                                        <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                        <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                            <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        </span>
+                                    </ng-container>    
+                                </h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
                                     <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" [ngSwitch]="row.field">
                                         {{item[row.field]}}
@@ -39,7 +46,14 @@
                          </ng-container>
                      </div>
                      <div *ngIf="item.services.length > 0" class="content">
-                        <h2 class="subheader trHeader" i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut</h2>
+                        <h2 class="subheader trHeader" i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut
+                            <span i18n-tooltip="@@infraServicesTooltip" tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu. 
+                            Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle. 
+                            Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste." 
+                            tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                            </span>
+                        </h2>
                         <div class="content" *ngFor="let service of item.services; let i = index;">
                             <ng-container>
                                 <h3 class="header trHeader subtitle service-name" (click)="toggleService(i)" [ngClass]="showService[i] ? 'open' : 'closed'">
@@ -48,7 +62,14 @@
                                 <div *ngIf="showService[i]" class="pl-4">
                                     <div *ngFor="let row of serviceFields; let j = index;" class="row">
                                         <ng-container *ngIf="stringHasContent(service[row.field])">
-                                            <h4 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h4>
+                                            <h4 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}
+                                                <ng-container *ngIf="row.tooltip">
+                                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                                    </span>
+                                                </ng-container>                
+                                            </h4>
                                             <div class="col-12 col-sm-6 col-lg-9 td">
                                                 <p [ngClass]="serviceExpand[serviceExpandId(i, j)] ? 'expand' : 'short'">
                                                     {{service[row.field]}}
@@ -59,8 +80,14 @@
                                         </ng-container>
                                     </div>
                                     <div *ngFor="let servicePoint of service.servicePoints; let j = index;">
-                                        <div class="row"> <!-- (click)="toggleServicePoint(i, j)" -->
-                                            <h4 class="col-12 col-sm-6 col-lg-3 th" i18n="@@infraServicePoint">Palvelupiste</h4> <!-- [ngClass]="showServicePoint[i][j] ? 'open' : 'closed'" -->
+                                        <div class="row"> 
+                                            <h4 class="col-12 col-sm-6 col-lg-3 th" i18n="@@infraServicePoint">Palvelupiste
+                                                <span i18n-tooltip="@@contactInfoTooltip" tooltip="Kertoo palvelun yhteystiedot ja mahdolliset käyttöehdot. 
+                                                Kuvauksessa voidaan kertoa palvelupisteestä tarkemmin. Joskus palvelu voi olla erilainen eri palvelupisteissä esimerkiksi tarjolla olevan laitteiston kannalta." 
+                                                tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                                </span>                    
+                                            </h4> 
                                             <div class="col-12 col-sm-6 col-lg-9 td">{{servicePoint.name}}</div>
                                         </div>
                                         <div>
@@ -103,7 +130,14 @@
                             <h3 class="col-12 col-sm-6 col-lg-3 th" i18n="@@infraClassifications">Luokituksia</h3>
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of classificationFields; let i = index;">
                                 <ng-container *ngIf="item[row.field]">
-                                    <h4 class="th classification">{{row.label}}</h4>
+                                    <h4 class="th classification">{{row.label}}
+                                        <ng-container *ngIf="row.tooltip">
+                                            <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                            <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                            </span>
+                                        </ng-container>        
+                                    </h4>
                                     <div>
                                         <p>{{item[row.field]}}</p>
                                     </div>
