@@ -27,17 +27,13 @@
                 <div class="col col-auto align-self-center p-0">
                     <a class="logo-text" routerLink=""><span i18n="@@appSlogan">Tiedejatutkimus.fi</span></a>
                 </div>
-                <div class="col col-auto align-self-center" *ngIf="lang === 'sv'">
-                    <fa-icon class="info-icon" icon="info-circle" tooltip="Tjänsten fungerar inte ännu på www.forskning.fi. För närvarande kan du använda tjänsten på svenska på www.tiedejatutkimus.fi/sv."
-                    tabindex="0" triggers="focus keydown" placement="top"></fa-icon>
-                </div>
             </div>
         </div>
         <nav class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
             <div class="mobile ml-auto toggle-button-wrapper">
                 <button class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
-                    <div *ngIf="!navbarOpen" class="toggle-menu-text closed">Valikko</div>
-                    <div *ngIf="navbarOpen" class="toggle-menu-text open">Sulje</div>
+                    <div *ngIf="!navbarOpen" class="toggle-menu-text closed" i18n="@@headerMenuOpen">Valikko</div>
+                    <div *ngIf="navbarOpen" class="toggle-menu-text open" i18n="@@closeButton">Sulje</div>
                 </button>
             </div>
             <div class="" [class.overflow-hider]="hideOverflow && mobile" [class.absolute]="mobile" 
@@ -51,7 +47,7 @@
                                 </a>
                             </li>
                             <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="https://tiedejatutkimus.fi/sv{{currentRoute}}" (click)="setLang('sv')">
+                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="https://forskning.fi/sv{{currentRoute}}" (click)="setLang('sv')">
                                     <span class="label">Svenska</span>
                                 </a>
                             </li>
@@ -98,7 +94,7 @@
                                             <a href="https://tiedejatutkimus.fi/fi{{currentRoute}}">
                                                 <mat-option value="FI">FI</mat-option>
                                             </a>
-                                            <a href="https://tiedejatutkimus.fi/sv{{currentRoute}}">
+                                            <a href="https://forskning.fi/sv{{currentRoute}}">
                                                 <mat-option value="SV">SV</mat-option>
                                             </a>
                                             <a href="https://research.fi/en{{currentRoute}}">

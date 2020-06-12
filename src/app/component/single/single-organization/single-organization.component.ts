@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import { Search } from 'src/app/models/search.model';
 
 @Component({
   selector: 'app-single-organization',
@@ -23,14 +24,14 @@ import { UtilityService } from 'src/app/services/utility.service';
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any;
+  responseData: Search;
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
 
   tab = 'organizations';
   infoFields = [
-    {label: $localize`:@@orgName:Nimi (SV, EN)`, field: 'nameSv', fieldEn: 'nameEn'},
+    {label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`, field: 'nameTranslations'},
     {label: $localize`:@@orgOtherNames:Muut nimet`, field: 'variantNames', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
     {label: $localize`:@@orgEstablished:Perustettu`, field: 'established', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
     {label: $localize`:@@orgBackground:Lisätietoa`, field: 'background', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
@@ -150,6 +151,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
     const subUnits = source.subUnits;
 
+    // Name translations
+    source.nameTranslations = Object.values(source.nameTranslations).filter(x => UtilityService.stringHasContent(x)).join('; ')
+
+    // Hide statCenterId from other organizations than universities
     if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
       source.statCenterId = '';
     }

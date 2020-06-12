@@ -12,7 +12,7 @@
     <div class="row no-margin">
         <div class="col col-1 icon"></div>
         <div class="col col-3 col-xl-2 d-none d-lg-block">
-            <span #main tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." triggers="focus keydown.escape" placement="top" 
+            <span #main tabindex="0" i18n-tooltip="@@acronymTooltip" tooltip="Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään." triggers="focus keydown.escape" placement="top" 
             (mouseenter)="utilityService.tooltipMouseenter(main)" (keydown.escape)="utilityService.tooltipKeydown(main, $event)"
             class="bold uppercase" [ngClass]="sortColumn === 'acronym' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="utilityService.sortBy('acronym')" (keydown.enter)="utilityService.sortBy('acronym')" i18n="@@infraAcronym">Lyhenne</span>
@@ -22,7 +22,7 @@
             (click)="utilityService.sortBy('name')" (keydown.enter)="utilityService.sortBy('name')" i18n="@@infraName">Nimi</span>
         </div>
         <div class="col col-3 col-lg-4 col-xl-4 d-none d-lg-block">
-            <span tabindex="0" i18n-tooltip tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." triggers="focus keydown.escape" placement="top"
+            <span tabindex="0" i18n-tooltip="@@infraOrganizationTooltip" tooltip="Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta." triggers="focus keydown.escape" placement="top"
             (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
             class="bold uppercase" [ngClass]="sortColumn === 'organization' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="utilityService.sortBy('organization')" (keydown.enter)="utilityService.sortBy('organization')" i18n="@@infraOrganization">Organisaatio</span>
@@ -54,10 +54,16 @@
                     </a>
                     <div class="row">
                         <div class="col pl-0">
-                            <span><ng-container i18n="@@infraServicesLabel">Palveluita</ng-container>: {{infra.services.length}}</span>
+                            <span tabindex="0" i18n-tooltip="@@infraServicesAmountTooltip" tooltip="Tutkimusinfrastruktuurin palveluiden lukumäärä." triggers="focus kedown.escape" placement="top"
+                            (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                <ng-container i18n="@@infraServicesLabel">Palveluita</ng-container>: {{infra.services.length}}
+                            </span>
                         </div>
                         <div class="col" *ngIf="infra.finlandRoadmap">
-                            <span><ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container><fa-icon class="check-icon pl-1" [icon]="faCheckCircle"></fa-icon></span>
+                            <span tabindex="0" i18n-tooltip="@@finlandRoadmapTooltip" tooltip="Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla." triggers="focus kedown.escape" placement="top"
+                            (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                <ng-container i18n="@@finlandRoadmap">Tiekartalla</ng-container><fa-icon class="check-icon pl-1" [icon]="faCheckCircle"></fa-icon>
+                            </span>
                         </div>
                     </div>
                 </div>          

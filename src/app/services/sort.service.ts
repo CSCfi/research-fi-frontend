@@ -7,6 +7,7 @@
 
 import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
 import { SearchService } from './search.service';
+import { path } from 'd3';
 
 @Injectable({
   providedIn: 'root'
@@ -61,11 +62,6 @@ export class SortService {
   private updateSortParam(sort: string, tab: string) {
     this.currentTab = tab;
     this.sortMethod = sort;
-    const randomize = {
-      script: 'Math.random()',
-      type: 'number',
-      order: 'asc'
-    };
     this.initSort(sort || '');
     switch (this.currentTab) {
       case 'publications': {
@@ -90,8 +86,6 @@ export class SortService {
           default: {
             this.sort = [
               {publicationYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
-              ...(this.searchTerm.length > 0 ?
-                [{'publicationName.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
             ];
             break;
           }
@@ -110,18 +104,27 @@ export class SortService {
             break;
           }
           case 'funder': {
-            const sortString = 'funderName' + this.localeC + '.keyword';
+            const sortString = 'funderNameFi.keyword';
             this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'funded': {
             const personSortString = 'fundingGroupPerson.consortiumOrganizationName' + this.localeC + '.keyword';
             const organizationSortString = 'organizationConsortium.consortiumOrganizationName' + this.localeC + '.keyword';
+            // Nested fields have to be sorted via path and filter
+            function generateNested(parent) {
+              return {
+                path: parent,
+                  filter: {
+                    match_all: {}
+                  }
+                };
+            }
             this.sort = [
-              {[personSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}},
-              {'fundingGroupPerson.fundingGroupPersonFirstNames.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}},
-              {'fundingGroupPerson.fundingGroupPersonLastName.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}},
-              {[organizationSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}
+              {[personSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('fundingGroupPerson')}},
+              {'fundingGroupPerson.fundingGroupPersonFirstNames.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('fundingGroupPerson')}},
+              {'fundingGroupPerson.fundingGroupPersonLastName.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('fundingGroupPerson')}},
+              {[organizationSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('organizationConsortium')}}
             ];
             break;
           }
@@ -131,9 +134,7 @@ export class SortService {
           }
           default: {
             this.sort = [
-              {fundingStartYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
-              ...(this.searchTerm.length > 0 ?
-                [{'projectNameFi.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
+              {fundingStartYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}}
             ];
             break;
           }
@@ -164,8 +165,8 @@ export class SortService {
           default: {
             const sortString = 'name' + this.localeC + '.keyword';
             this.sort = [
-            ...(this.searchTerm.length > 0 ?
-                [{[sortString]: {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])];
+              {[sortString]: {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}
+            ];
             break;
         }
         }

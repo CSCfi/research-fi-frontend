@@ -219,8 +219,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="resultInfo1" datatype="html">
-        <source>Mitä </source>
-        <target>What </target>
+        <source>Mitä</source>
+        <target>What</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
           <context context-type="linenumber">35</context>
@@ -228,7 +228,7 @@
       </trans-unit>
       <trans-unit id="resultInfo2" datatype="html">
         <source>tietoja palvelu sisältää?</source>
-        <target>information is included in the service?</target>
+        <target> information is included in the service?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/results.component.html</context>
           <context context-type="linenumber">36</context>
@@ -457,6 +457,14 @@
       <trans-unit id="publicationMedium" datatype="html">
         <source>Julkaisukanava</source>
         <target>Publication channel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="publicationMediumTooltip" datatype="html">
+        <source>Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt.</source>
+        <target>A journal, book publisher or series in which a publication appears.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
           <context context-type="linenumber">27</context>
@@ -865,6 +873,14 @@
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="orgNameTranslation" datatype="html">
+        <source>Nimi (EN, SV)</source>
+        <target state="translated">Name (FI, SV)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgOrganization" datatype="html">
         <source>Organisaatio</source>
         <target>Organization</target>
@@ -937,6 +953,14 @@
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="acronymTooltip" datatype="html">
+        <source>Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.</source>
+        <target>Research infrastructure abbreviation. Infrastructures are typically known by their abbreviations.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="bf93646609b4735a469f5b1e90ec23227bf7533e" datatype="html">
         <source>Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.</source>
         <target>Research infrastructure abbreviation. Infrastructures are typically known by their abbreviations.</target>
@@ -961,7 +985,7 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="0bcfa48f6aa297a4df50bfada2b0688f8aed8361" datatype="html">
+      <trans-unit id="infraOrganizationTooltip" datatype="html">
         <source>Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.</source>
         <target>Organization responsible for the research infrastructure. Large infrastructures in particular may contain several services maintained by other organizations. Other organizations can view the infrastructure on the information page.</target>
         <context-group purpose="location">
@@ -1065,6 +1089,10 @@
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="infraServicesTooltip" datatype="html">
+        <source>Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu. Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle. Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste.</source>
+        <target>Research infrastructures in the research.fi service have one or more services. The services may be used by outside parties or intended only for the organization’s own research group. Because the service may also be offered by more than the responsible organization, it may have multiple service points.</target>
       </trans-unit>
       <trans-unit id="infraHomePage" datatype="html">
         <source>Infrastruktuurin verkkosivu</source>
@@ -1715,6 +1743,15 @@
         <source>Tulossa</source>
         <target>Coming soon</target>
       </trans-unit>
+      <trans-unit id="headerMenuOpen" datatype="html">
+        <source>Valikko</source>
+        <target>Menu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <note priority="1" from="description">Close button</note>
+      </trans-unit>
       <trans-unit id="headerLink3" datatype="html">
         <source>Tiede- ja innovaatiopolitiikka</source>
         <target>Science and Innovation Policy</target>
@@ -2328,11 +2365,19 @@
       </trans-unit>
       <trans-unit id="5379863279381131239">
         <source>Haku</source>
-        <target>Search</target>
+        <target>Call</target>
       </trans-unit>
       <trans-unit id="1429405664221353899">
         <source>Rahoituspäätöksen numero</source>
         <target>Funding decision number</target>
+      </trans-unit>
+      <trans-unit id="amountGranted">
+        <source>Myönnetty summa</source>
+        <target>Amount granted</target>
+      </trans-unit>
+      <trans-unit id="sumGranted">
+        <source>Summa</source>
+        <target>Amount</target>
       </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
@@ -2353,6 +2398,26 @@
       <trans-unit id="links">
         <source>Linkit</source>
         <target>Links</target>
+      </trans-unit>
+      <trans-unit id="sfDescriptionTooltip">
+        <source>Kuvaus kertoo tiiviisti hankkeen tavoitteesta</source>
+        <target>Concise description of the project objective</target>
+      </trans-unit>
+      <trans-unit id="sfStartYearTooltip">
+        <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
+        <target>Year for which funding was granted. In funding covering several years, the first year of funding.</target>
+      </trans-unit>
+      <trans-unit id="sfEndYearTooltip">
+        <source>Rahoituskauden päättymisvuosi.</source>
+        <target>Ending year of funding.</target>
+      </trans-unit>
+      <trans-unit id="sfTypeOfFundingTooltip">
+        <source>Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.</source>
+        <target>Method of funding research. Instruments of funding include research grants, project funding and research infrastructure funding. Instruments are often specific to each funder.</target>
+      </trans-unit>
+      <trans-unit id="sfCallProgrammeTooltip">
+        <source>Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.</source>
+        <target>Funder´s call granting the funding. Competed research funding is often granted through open calls, in which funding is granted on the basis of prescribed criteria. Applications are evaluated and funding is granted to the best</target>
       </trans-unit>
       <trans-unit id="4073996987769162370">
         <source>Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.</source>
@@ -2375,27 +2440,43 @@
         <source>Palveluita</source>
         <target>Services</target>
       </trans-unit>
+      <trans-unit id="infraServicesAmountTooltip">
+        <source>Tutkimusinfrastruktuurin palveluiden lukumäärä.</source>
+        <target>Number of research infrastructure services.</target>
+      </trans-unit>
       <trans-unit id="finlandRoadmap">
         <source>Tiekartalla</source>
         <target>Roadmap</target>
       </trans-unit>
-      <trans-unit id="486660071516642410">
-        <source>Lyhenne</source>
-        <target>Acronym</target>
+      <trans-unit id="finlandRoadmapTooltip">
+        <source>Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.</source>
+        <target>The research infrastructure is included in the current Academy of Finland roadmap for national infrastructures in Finland 2021–2024.</target>
       </trans-unit>
-      <trans-unit id="5377992704672479602">
+      <trans-unit id="infraDescription">
         <source>Infrastruktuurin kuvaus</source>
         <target>Infrastructure description</target>
       </trans-unit>
-      <trans-unit id="1255745988145322608">
+      <trans-unit id="infraDescriptionTooltip">
+        <source>Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.</source>
+        <target>The description provides general information on the research infrastructure.</target>
+      </trans-unit>
+      <trans-unit id="scientificDescription">
         <source>Tieteellinen kuvaus</source>
         <target>Scientific description</target>
       </trans-unit>
-      <trans-unit id="1025354160158782584">
+      <trans-unit id="scientificDescriptionTooltip">
+        <source>Kertoo tutkimusinfrastruktuurin tieteellisistä sovelluskohteista ja käyttötarkoituksista.</source>
+        <target>It explains the scientific applications and intended use of the research infrastructure.</target>
+      </trans-unit>
+      <trans-unit id="infraStartYear">
         <source>Toiminta alkanut</source>
         <target>Start of activity</target>
       </trans-unit>
-      <trans-unit id="1638544624736858814">
+      <trans-unit id="infraStartYearTooltip">
+        <source>Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun</source>
+        <target>The year that the entire research infrastructure was launched. If the starting year is unknown, the year when information was submitted to the research.fi service is to be used</target>
+      </trans-unit>
+      <trans-unit id="infraEndYear">
         <source>Toiminta päättynyt</source>
         <target>End of activity</target>
       </trans-unit>
@@ -2403,17 +2484,33 @@
         <source>Vastuuorganisaatio</source>
         <target>Responsible organisation</target>
       </trans-unit>
+      <trans-unit id="responsibleOrganizationTooltip">
+        <source>Tutkimusinfrastruktuurin kotiorganisaatio, joka vastaa siitä kokonaisuudessaan. Infrastruktuureilla voi olla myös muita organisaatioita, jotka vastaavat joistain palveluista.</source>
+        <target>The home organization of the research infrastructure which is responsible for its entirety. Infrastructures may also contain other organizations that are responsible for some of its services.</target>
+      </trans-unit>
       <trans-unit id="participatingOrgs">
         <source>Osallistuvat organisaatiot</source>
         <target>Participating organizations</target>
       </trans-unit>
-      <trans-unit id="868538594813383846">
+      <trans-unit id="infraKeywordsTooltip">
+        <source>Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.</source>
+        <target>Keywords describing the research infrastructure, its services and activities.</target>
+      </trans-unit>
+      <trans-unit id="serviceDescription">
         <source>Palvelun kuvaus</source>
         <target>Service description</target>
+      </trans-unit>
+      <trans-unit id="serviceDescriptionTooltip">
+        <source>Palvelun tarkempi kuvaus</source>
+        <target>More detailed description of the service.</target>
       </trans-unit>
       <trans-unit id="serviceType">
         <source>Palvelun tyyppi</source>
         <target>Service type</target>
+      </trans-unit>
+      <trans-unit id="serviceTypeTooltip">
+        <source>Tutkimusinfrastruktuurien palvelut jaetaan kolmeen eri tyyppiin: aineistoon, laitteistoon tai palveluun. Valittu tyyppi kuvaa parhaiten palvelua.</source>
+        <target>Research infrastructure services are divided into three different types: data, equipment or service. The selected type best describes the service.</target>
       </trans-unit>
       <trans-unit id="7836161693422735311">
         <source>Kuvaus</source>
@@ -2506,6 +2603,10 @@
       <trans-unit id="contactInfo">
         <source>Yhteystiedot</source>
         <target>Contact information</target>
+      </trans-unit>
+      <trans-unit id="contactInfoTooltip">
+        <source>Kertoo palvelun yhteystiedot ja mahdolliset käyttöehdot. Kuvauksessa voidaan kertoa palvelupisteestä tarkemmin. Joskus palvelu voi olla erilainen eri palvelupisteissä esimerkiksi tarjolla olevan laitteiston kannalta.</source>
+        <target>It provides the service contact information and specifies any terms of use. Service point may be described in greater detail. In some cases, the service may differ from one service point to another, such as with regard to the available equipment</target>
       </trans-unit>
       <!-- Organization -->
       <trans-unit id="orgOtherNames">
@@ -2662,8 +2763,8 @@
         <target>The Statistics Finland’s Fields of science classification. One project may involve multiple fields of science. Not all funders use fields of science. As a result, filters cannot be used to determine the share of total funding for a given field of science.</target>
       </trans-unit>
       <trans-unit id="FAField">
-        <source>Suomen Akatemian tutkimusalat</source>
-        <target>Research fields of the Academy of Finland</target>
+        <source>Teemat</source>
+        <target>Themes</target>
       </trans-unit>
       <trans-unit id="iYearFTooltip">
         <source>Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.</source>
@@ -3756,7 +3857,7 @@
                 Tietoja ei luovuteta kolmansille osapuolille. 
             </source>
         <target>
-                This service uses cookies. In addition to necessary cookies, we use tracking cookies to collect anonymized information about the use of the service in order to develop the user experience.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+                This service uses cookies. In addition to necessary cookies, we use tracking cookies to collect anonymized information about the use of the service in order to improve the user experience.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
                 The information will not be disclosed to third parties. 
             </target>
         <context-group purpose="location">
@@ -3799,6 +3900,10 @@
       <trans-unit id="yearTo">
         <source> päättyen</source>
         <target> to</target>
+      </trans-unit>
+      <trans-unit id="fOrgErrorTooltip">
+        <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
+        <target>Note. The number of non-EU funding decisions is doubled. The error is currently being corrected.</target>
       </trans-unit>
     </body>
   </file>

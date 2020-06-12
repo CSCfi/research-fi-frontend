@@ -32,20 +32,20 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   tab = 'infrastructures';
   infoFields = [
-    {label: $localize`Lyhenne`, field: 'acronym'},
-    {label: $localize`Infrastruktuurin kuvaus`, field: 'description'},
-    {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
-    {label: $localize`Toiminta alkanut`, field: 'startYear'},
-    {label: $localize`Toiminta päättynyt`, field: 'endYear'},
-    {label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, field: 'responsibleOrganization'},
+    {label: $localize`:@@infraAcronym:Lyhenne`, field: 'acronym', tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`},
+    {label: $localize`:@@infraDescription:Infrastruktuurin kuvaus`, field: 'description', tooltip: $localize`:@@infraDescriptionTooltip:Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.`},
+    {label: $localize`:@@scientificDescription:Tieteellinen kuvaus`, field: 'scientificDescription', tooltip: $localize`:@@scientificDescriptionTooltip:Kertoo tutkimusinfrastruktuurin tieteellisistä sovelluskohteista ja käyttötarkoituksista.`},
+    {label: $localize`:@@infraStartYear:Toiminta alkanut`, field: 'startYear', tooltip: $localize`:@@infraStartYearTooltip:Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun`},
+    {label: $localize`:@@infraEndYear:Toiminta päättynyt`, field: 'endYear'},
+    {label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, field: 'responsibleOrganization', tooltip: $localize`:@@responsibleOrganizationTooltip:Tutkimusinfrastruktuurin kotiorganisaatio, joka vastaa siitä kokonaisuudessaan. Infrastruktuureilla voi olla myös muita organisaatioita, jotka vastaavat joistain palveluista.`},
     {label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`, field: 'participantOrganizations'},
-    {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString', tooltip: $localize`:@@infraKeywordsTooltip:Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.`},
   ];
 
   serviceFields = [
-    {label: $localize`Palvelun kuvaus`, field: 'description'},
-    {label: $localize`Tieteellinen kuvaus`, field: 'scientificDescription'},
-    {label: $localize`:@@serviceType:Palvelun tyyppi`, field: 'type'},
+    {label: $localize`:@@serviceDescription:Palvelun kuvaus`, field: 'description', tooltip: $localize`:@@serviceDescriptionTooltip:Palvelun tarkempi kuvaus`},
+    {label: $localize`:@@scientificDescription:Tieteellinen kuvaus`, field: 'scientificDescription'},
+    {label: $localize`:@@serviceType:Palvelun tyyppi`, field: 'type', tooltip: $localize`:@@serviceTypeTooltip:Tutkimusinfrastruktuurien palvelut jaetaan kolmeen eri tyyppiin: aineistoon, laitteistoon tai palveluun. Valittu tyyppi kuvaa parhaiten palvelua.`},
   ];
 
   servicePointContactFields = [
@@ -66,7 +66,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ];
 
   classificationFields = [
-    {label: $localize`Suomen Akatemian tiekartalla`, field: 'finlandRoadmap'},
+    {label: $localize`Suomen Akatemian tiekartalla`, field: 'finlandRoadmap', tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`},
     {label: $localize`ESFRI-luokitus`, field: 'ESFRICode'},
     {label: $localize`MERIL-luokitus`, field: 'merilCode'},
   ];
@@ -104,7 +104,8 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string ) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string,
+               private utilityService: UtilityService ) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
