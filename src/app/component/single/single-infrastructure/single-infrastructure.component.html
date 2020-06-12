@@ -46,7 +46,8 @@
                          </ng-container>
                      </div>
                      <div *ngIf="item.services.length > 0" class="content">
-                        <h2 class="subheader trHeader" i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut
+                        <h2 class="subheader trHeader">
+                            <ng-container i18n="@@infraServices">Tutkimusinfrastruktuurin palvelut</ng-container>
                             <span i18n-tooltip="@@infraServicesTooltip" tooltip="Tiedejatutkimus.fi-palvelussa olevilla tutkimusinfrastruktuureilla on yksi tai useampi palvelu. 
                             Palvelut voivat olla ulkopuolisten tahojen käytettävissä tai tarkoitettu oman organisaation tutkimusryhmälle. 
                             Palvelu voi olla tarjolla myös muista kuin vastuuorganisaatiosta, jolloin sillä on useampi palvelupiste." 
@@ -81,7 +82,8 @@
                                     </div>
                                     <div *ngFor="let servicePoint of service.servicePoints; let j = index;">
                                         <div class="row"> 
-                                            <h4 class="col-12 col-sm-6 col-lg-3 th" i18n="@@infraServicePoint">Palvelupiste
+                                            <h4 class="col-12 col-sm-6 col-lg-3 th" >
+                                                <ng-container i18n="@@infraServicePoint">Palvelupiste</ng-container>
                                                 <span i18n-tooltip="@@contactInfoTooltip" tooltip="Kertoo palvelun yhteystiedot ja mahdolliset käyttöehdot. 
                                                 Kuvauksessa voidaan kertoa palvelupisteestä tarkemmin. Joskus palvelu voi olla erilainen eri palvelupisteissä esimerkiksi tarjolla olevan laitteiston kannalta." 
                                                 tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
