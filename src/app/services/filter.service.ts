@@ -360,6 +360,7 @@ export class FilterService {
 
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
+    // Actice bool filters come from aggregations that contain multiple terms, eg composite aggregation
     const activeBool = filters.filter(item => item.bool.should[0]?.bool);
     const activeNested = filters.filter(item => item.nested?.query.bool.should?.length > 0 ||
                                         item.nested?.query.bool.must.bool.should.length > 0);
@@ -367,6 +368,7 @@ export class FilterService {
 
     // Functions to filter out active filters. These prevents doc count changes on active filters
     function filterActive(field) {
+      // Open access aggregations come from 3 different aggs and need special case for filters
       if (field === 'openAccess') {
         const filteredActive = active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
                                             Object.keys(item.bool.should[0].term)?.toString() !== 'selfArchivedCode');
