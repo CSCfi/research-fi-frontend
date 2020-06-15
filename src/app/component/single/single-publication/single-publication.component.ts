@@ -298,7 +298,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 authorArr.push({
                   author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
                   orcid: person.Orcid?.length > 10 ? person.Orcid : false,
-                  subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
+                  subUnit: subUnit.OrgUnitId !== '-1' ? [subUnit.organizationUnitNameFi] : null
                 });
               }
             });
@@ -306,20 +306,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
             && subUnit.OrgUnitId !== '-1') {
               orgUnitArr.push({
-                subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
+                subUnit: subUnit.OrgUnitId !== '-1' ? [subUnit.organizationUnitNameFi] : null
               });
               // List sub unit IDs if no name available
             } else if (!subUnit.person && subUnit.organizationUnitNameFi === ' ') {
               orgUnitArr.push({
-                subUnit: subUnit.OrgUnitId
+                subUnit: [subUnit.OrgUnitId]
               });
             } else if (subUnit.organizationUnitNameFi === ' ') {
               orgUnitArr.push({
-                subUnit: subUnit.OrgUnitId
+                subUnit: [subUnit.OrgUnitId]
               });
             }
           });
-
 
           // Filter all authors with subUnit
           const subUnits = authorArr.filter(obj => obj.subUnit !== null);
@@ -336,12 +335,21 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           // Replace author list without duplicates
           authorArr = subUnits;
 
+          // Check for duplicate authors and merge sub units
+          const duplicateAuthors = Object.values(authorArr.reduce((c, {author, orcid, subUnit}) => {
+            c[author] = c[author] || {author, orcid, subUnits: []};
+            c[author].subUnits = c[author].subUnits.concat(Array.isArray(subUnit) ? subUnit : [subUnit]);
+            return c;
+          }, {}));
 
-          // authorArr = authorArr.filter(x => x.subUnit !== null);
+          const checkedAuthors = [...new Set(duplicateAuthors)];
+
           this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
-            authors: authorArr, orgUnits: orgUnitArr});
+            authors: checkedAuthors, orgUnits: orgUnitArr});
         });
       });
+
+      console.log(this.authorAndOrganization);
 
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
