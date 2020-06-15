@@ -360,23 +360,31 @@ export class FilterService {
 
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
+    const activeBool = filters.filter(item => item.bool.should[0]?.bool);
     const activeNested = filters.filter(item => item.nested?.query.bool.should?.length > 0 ||
                                         item.nested?.query.bool.must.bool.should.length > 0);
     const activeMultipleNested = filters.filter(item => item.bool?.should.length > 0 && item.bool.should[0]?.nested);
 
     // Functions to filter out active filters. These prevents doc count changes on active filters
     function filterActive(field) {
-      return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field).concat(activeNested, activeMultipleNested);
+      if (field === 'openAccess') {
+        const filteredActive = active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
+                                            Object.keys(item.bool.should[0].term)?.toString() !== 'selfArchivedCode');
+        return filteredActive.concat(activeNested, activeMultipleNested);
+      } else {
+        return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field)
+        .concat(activeNested, activeMultipleNested, activeBool);
+      }
     }
 
     function filterActiveNested(path) {
-      return activeNested.filter(item => item.nested.path !== path).concat(active, activeMultipleNested);
+      return activeNested.filter(item => item.nested.path !== path).concat(active, activeMultipleNested, activeBool);
     }
 
     function filterActiveMultipleNested(path1, path2) {
       const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path1)
                   .concat(activeMultipleNested.filter(item => item.bool.should[1].nested.path !== path2));
-      return res.concat(active, activeNested);
+      return res.concat(active, activeNested, activeBool);
     }
 
     // Aggregations
@@ -604,7 +612,7 @@ export class FilterService {
         payLoad.aggs.selfArchived = {
           filter: {
             bool: {
-              filter: filterActive('selfArchivedCode')
+              filter: filterActive('openAccess')
             }
           },
           aggs: {
@@ -618,7 +626,7 @@ export class FilterService {
         payLoad.aggs.openAccess = {
           filter: {
             bool: {
-              filter: filterActive('openAccessCode')
+              filter: filterActive('openAccess')
             }
           },
           aggs: {
@@ -630,7 +638,6 @@ export class FilterService {
           }
         };
         // Composite is to get aggregation of selfarchived and open access codes of 0
-        // Doesn't result anything. TODO: Check if this is needed and filter with filterActive function
         payLoad.aggs.oaComposite = {
           composite: {
             sources: [
@@ -654,7 +661,7 @@ export class FilterService {
             filtered: {
               filter: {
                 bool: {
-                  filter: filterActive('openAccessCode')
+                  filter: filterActive('openAccess')
                 }
               }
             }
