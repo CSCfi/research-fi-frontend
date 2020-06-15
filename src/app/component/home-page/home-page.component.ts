@@ -127,15 +127,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.metaService.addTags([
-      { name: 'description', content: this.metaTags['title' + this.currentLocale] },
-      { property: 'og:title', content: this.metaTags['title' + this.currentLocale] },
-      { property: 'og:description', content: this.metaTags['description' + this.currentLocale] },
-      { property: 'og:image', content: 'https://tiedejatutkimus.fi/assets/img/logo.svg' },
-      { property: 'og:image:alt', content: this.commonTags['imageAlt' + this.currentLocale] },
-      { property: 'og:image:height', content: '100' },
-      { property: 'og:image:width', content: '100' },
-   ]);
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
     // Reset search term
     this.searchService.updateInput('');
 
