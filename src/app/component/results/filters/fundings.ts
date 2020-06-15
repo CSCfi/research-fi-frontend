@@ -75,7 +75,7 @@ export class FundingFilters {
 
       if (duplicate?.length > 0) {
         item.organizations.buckets.map(org => {
-          org.doc_count = org.filtered.filterCount.doc_count + duplicate.find(x => x.key === org.key).filtered.filterCount.doc_count;
+          org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(x => x.key === org.key)?.filtered.filterCount.doc_count || 0);
         });
       }
 
