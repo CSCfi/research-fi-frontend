@@ -66,7 +66,8 @@
         "titleSv": "",
         "descriptionFi": "Julkaisut tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
         "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
-        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland.",
+        "link": "publications"
     },
     "singlePublication": {
         "titleFi": "",
@@ -82,7 +83,8 @@
         "titleSv": "",
         "descriptionFi": "Rahoituspäätökset tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
         "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
-        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland.",
+        "link": "fundings"
     },
     "singleFunding": {
         "titleFi": "",
@@ -98,7 +100,8 @@
         "titleSv": "",
         "descriptionFi": "Tutkimusinfrastruktuurit tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
         "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
-        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland.",
+        "link": "infrastructures"
     },
     "singleInfrastructure": {
         "titleFi": "",
@@ -114,7 +117,8 @@
         "titleSv": "",
         "descriptionFi": "Yliopistot, ammattikorkeakoulut, valtion tutkimuslaitokset sekä tietoja toimittavat tutkimusrahoittaja tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
         "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
-        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland.",
+        "link": "organizations"
     },
     "singleOrganization": {
         "titleFi": "",

@@ -44,8 +44,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   resizeSub: Subscription;
 
-  metaTags = homepage;
-  commonTags = common
+  private metaTags = homepage;
+  private commonTags = common
 
   shortcuts = [
     {

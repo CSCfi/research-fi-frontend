@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, Inject, LOCALE_ID } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -126,13 +126,13 @@ export class UtilityService {
   }
 
   // Adding meta taga
-  addMeta(title: string, description: string, alt: string) {
+  addMeta(title: string, description: string, imageAlt: string) {
     this.meta.addTags([
       { name: 'description', content: title },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
       { property: 'og:image', content: 'https://tiedejatutkimus.fi/assets/img/logo.svg' },
-      { property: 'og:image:alt', content: alt },
+      { property: 'og:image:alt', content: imageAlt },
       { property: 'og:image:height', content: '100' },
       { property: 'og:image:width', content: '100' },
    ]);
