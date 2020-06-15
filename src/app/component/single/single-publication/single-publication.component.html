@@ -65,18 +65,22 @@
                                         {{author.author}}
                                         <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
                                     </p>
-                                    <div class="row" *ngIf="showSubUnits && author.subUnit !== null && author.subUnit !== ' '">
-                                        <div class="col-1 guide">
-                                            <span class="guide-line">
-                                                <span class="guide-line-top"></span>
-                                            </span>
-                                        </div>
-                                        <div class="col sub-unit">
-                                            <p>
-                                                {{author.subUnit}}
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <ng-container *ngIf="showSubUnits">
+                                        <ng-container *ngFor="let subUnit of author.subUnits">
+                                            <div class="row" *ngIf="subUnit !== null && subUnit !== ' '">
+                                                <div class="col-1 guide">
+                                                    <span class="guide-line">
+                                                        <span class="guide-line-top"></span>
+                                                    </span>
+                                                </div>
+                                                <div class="col sub-unit">
+                                                    <p>
+                                                        {{subUnit}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
                                 </div>
                             </div>
                         </div>
@@ -101,23 +105,27 @@
                                     </div>
                                 </div>
                                 <div *ngFor="let author of row.authors">
-                                    <div *ngIf="author.author.length > 10">
+                                    <div *ngIf="author.author.trim().length > 0">
                                         <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
                                             {{author.author}}
                                             <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
                                         </p>
-                                        <div class="row" *ngIf="showSubUnits && author.subUnit !== null && author.subUnit !== ' '">
-                                            <div class="col-1 guide">
-                                                <span class="guide-line">
-                                                    <span class="guide-line-top"></span>
-                                                </span>
-                                            </div>
-                                            <div class="col sub-unit">
-                                                <p>
-                                                    {{author.subUnit}}
-                                                </p>
-                                            </div>
-                                        </div>
+                                        <ng-container *ngIf="showSubUnits">
+                                            <ng-container *ngFor="let subUnit of author.subUnits">
+                                                <div class="row" *ngIf="subUnit !== null && subUnit !== ' '">
+                                                    <div class="col-1 guide">
+                                                        <span class="guide-line">
+                                                            <span class="guide-line-top"></span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col sub-unit">
+                                                        <p>
+                                                            {{subUnit}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
                                     </div>
                                 </div>
                             </div>
