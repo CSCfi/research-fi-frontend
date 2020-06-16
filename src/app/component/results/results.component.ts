@@ -155,7 +155,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.total = 1;
         this.selectedTabData = this.tabData.filter(tab => tab.link === params.tab)[0];
         this.metaTags = this.metaTagsList.filter(tab => tab.link === params.tab)[0];
-        console.log(this.metaTags)
         // Default to publications if invalid tab
         if (!this.selectedTabData) {
           this.router.navigate(['results/publications']);
