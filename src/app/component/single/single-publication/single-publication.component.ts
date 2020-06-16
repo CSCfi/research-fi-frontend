@@ -288,6 +288,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // Get authors per organization
     if (author?.length > 0) {
       author.forEach(item => {
+        console.log(item);
         item.organization.forEach(org => {
           let authorArr = [];
           const orgUnitArr = [];
@@ -348,6 +349,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             authors: checkedAuthors, orgUnits: orgUnitArr});
         });
       });
+      // Get unique orgs
+      this.authorAndOrganization = [...new Set(this.authorAndOrganization)];
 
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
