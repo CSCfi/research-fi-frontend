@@ -23,6 +23,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Search } from 'src/app/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { singlePublication, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-publication',
@@ -36,6 +37,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
+  private metaTags = singlePublication;
+  private commonTags = common;
+
 
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
@@ -193,16 +197,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
       // Reset authors & organizations on new result
       this.authorAndOrganization = [];
-      if (this.responseData.publications) {
-        this.metaService.addTags([
-          { name: 'description', content: 'Julkaisusivu: ' + this.localeId },
-          { property: 'og:title', content: this.responseData.publications[0].title },
-          { property: 'og:description', content: '' },
-          { property: 'og:image', content: 'assets/img/logo.svg' },
-          { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
-          { property: 'og:image:height', content: '100' },
-          { property: 'og:image:width', content: '100' },
-       ]);
+      if (this.responseData.publications[0]) {
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.publications[0].title + ' - Tiedejatutkimus.fi');
@@ -217,7 +212,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             break;
           }
         }
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        
+        this.shapeData();
+        this.filterData();
         // juFoCode is used for exact search
         this.juFoCode = this.responseData.publications[0].jufoCode;
         this.shapeData();

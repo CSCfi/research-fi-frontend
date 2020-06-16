@@ -144,6 +144,14 @@
         "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
         "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
     },
+    "singleFigure": {
+        "titleFi": "",
+        "titleEn": "",
+        "titleSv": "",
+        "descriptionFi": "",
+        "descriptionEn": "",
+        "descriptionSv": ""
+    },
     "news": {
         "titleFi": "Uusimmat tiede- ja tutkimusuutiset | Tiedejatutkimus.fi",
         "titleEn": "Home | Research.fi",

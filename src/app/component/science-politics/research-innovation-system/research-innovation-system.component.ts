@@ -12,6 +12,8 @@ import { sector } from '../../../../assets/static-data/research-innovation-syste
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
+import { researchInnovation, common } from 'src/assets/static-data/meta-tags.json';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-research-innovation-system',
@@ -25,6 +27,9 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   faBuilding = faBuilding;
   faTimes = faTimes;
   openedIdx = -1;
+
+  private metaTags = researchInnovation;
+  private commonTags = common;
 
   colWidth = 0;
 
@@ -96,7 +101,8 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
   currentLocale: string;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, public sanitizer: DomSanitizer,
-              private tabChangeService: TabChangeService, private cdr: ChangeDetectorRef, private resizeService: ResizeService) {
+              private tabChangeService: TabChangeService, private cdr: ChangeDetectorRef, private resizeService: ResizeService,
+              private utilityService: UtilityService) {
     this.selectedSector = null;
     this.rearrangedList = this.sectorList;
     // Capitalize first letter of locale
@@ -136,6 +142,11 @@ export class ResearchInnovationSystemComponent implements OnInit, AfterViewInit,
         break;
       }
     }
+
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
+
 
     // Hide skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(false);

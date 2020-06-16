@@ -131,6 +131,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
         const titleString = this.titleService.getTitle();
         this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
         this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        
         this.shapeData();
         this.filterData();
       }
