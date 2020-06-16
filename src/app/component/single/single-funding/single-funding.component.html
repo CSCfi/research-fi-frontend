@@ -128,7 +128,7 @@
                         </div>
                         <!-- Contact person -->
                         <div class="row" *ngIf="item.recipient.contactPersonName?.trim().length > 0">
-                            <h2 class="th col-3" i18n="@@contactPerson">Yhteyshenkilö</h2>
+                            <h2 class="th col-12 col-sm-3" i18n="@@contactPerson">Yhteyshenkilö</h2>
                             <div class="col-6 col-sm-4 col-lg-5 td">
                                 {{item.recipient.contactPersonName}}
                                 <app-orcid *ngIf="item.recipient.contactPersonOrcid" [orcid]="item.recipient.contactPersonOrcid"></app-orcid>
