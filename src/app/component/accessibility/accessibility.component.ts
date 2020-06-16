@@ -28,8 +28,6 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   reviewDialogRef: MatDialogRef<ReviewComponent>;
   private currentLocale: string;
 
-  // Remove this after translations
-  templateLocale: string;
 
   private metaTags = accessibility;
   private commonTags = common;
@@ -41,7 +39,6 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnInit(): void {
-    this.templateLocale = this.localeId;
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
     this.metaTags['description' + this.currentLocale],
     this.commonTags['imgAlt' + this.currentLocale])
