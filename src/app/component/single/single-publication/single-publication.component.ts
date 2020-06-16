@@ -343,15 +343,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           }, {}));
 
           const checkedAuthors = [...new Set(duplicateAuthors)];
-          console.log(checkedAuthors);
 
           this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
             authors: checkedAuthors, orgUnits: orgUnitArr});
         });
       });
-      // Get unique orgs
-      this.authorAndOrganization = [...new Set(this.authorAndOrganization)];
-      console.log(this.authorAndOrganization);
 
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
@@ -363,6 +359,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       };
     }
 
+    // Remove duplicate organizations
+    this.authorAndOrganization = this.authorAndOrganization.filter((v, i, a) =>
+                                 a.findIndex(t => (t.orgName === v.orgName)) === i);
 
     // Is this needed anymore?
     let yes = '';
