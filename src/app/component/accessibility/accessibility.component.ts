@@ -12,6 +12,9 @@ import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
+import { UtilityService } from 'src/app/services/utility.service';
+import { accessibility, common } from 'src/assets/static-data/meta-tags.json'
+
 
 @Component({
   selector: 'app-accessibility',
@@ -23,16 +26,25 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChild('mainFocus') mainFocus: ElementRef;
   title: string;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
+  private currentLocale: string;
 
   // Remove this after translations
   templateLocale: string;
 
+  private metaTags = accessibility;
+  private commonTags = common;
+
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog, private utilityService: UtilityService) {
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   ngOnInit(): void {
     this.templateLocale = this.localeId;
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+    this.metaTags['description' + this.currentLocale],
+    this.commonTags['imgAlt' + this.currentLocale])
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Saavutettavuusseloste - Tiedejatutkimus.fi');

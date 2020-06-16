@@ -22,6 +22,8 @@ import { content } from '../../../../assets/static-data/figures-content.json';
 import { WINDOW } from 'src/app/services/window.service';
 import { Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
+import { figures, common } from 'src/assets/static-data/meta-tags.json'
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-figures',
@@ -99,10 +101,13 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: any;
   currentLocale: string;
 
+  private metaTags = figures;
+  private commonTags = common;
+
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService,
-               private historyService: HistoryService ) {
+               private historyService: HistoryService, private utilityService: UtilityService ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -131,6 +136,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
     }
+
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
+
 
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
     this.scrollSub = this.scrollService.onScroll.pipe(debounceTime(300)).subscribe(e => this.onScroll(e.y));

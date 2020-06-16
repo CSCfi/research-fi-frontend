@@ -5,11 +5,12 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, Inject, LOCALE_ID } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortService } from './sort.service';
+import { Meta } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class UtilityService {
   private modalShowSub: Subscription;
 
   constructor(private modalService: BsModalService, private route: ActivatedRoute, private sortService: SortService,
-              private router: Router) {
+              private router: Router, private meta: Meta) {
     // Subscribe to modal show and hide
     this.modalHideSub = this.modalService.onHide.subscribe(_ => {
       this.modalOpen = false;
@@ -106,6 +107,7 @@ export class UtilityService {
   }
 
 
+  // Sort component logic
   sortBy(sortBy) {
     const activeSort = this.route.snapshot.queryParams.sort || '';
     const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
@@ -123,5 +125,17 @@ export class UtilityService {
     );
   }
 
+  // Adding meta taga
+  addMeta(title: string, description: string, imageAlt: string) {
+    this.meta.addTags([
+      { name: 'description', content: title },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:image', content: 'https://tiedejatutkimus.fi/assets/img/logo.svg' },
+      { property: 'og:image:alt', content: imageAlt },
+      { property: 'og:image:height', content: '100' },
+      { property: 'og:image:width', content: '100' },
+   ]);
+  }
 
 }

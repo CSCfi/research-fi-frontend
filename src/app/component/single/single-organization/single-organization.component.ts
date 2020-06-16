@@ -16,6 +16,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Search } from 'src/app/models/search.model';
+import { singleOrganization, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-organization',
@@ -28,6 +29,8 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
+  private metaTags = singleOrganization;
+  private commonTags = common;
 
   tab = 'organizations';
   infoFields = [
@@ -125,7 +128,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
             break;
           }
         }
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        
         this.shapeData();
         this.filterData();
       }

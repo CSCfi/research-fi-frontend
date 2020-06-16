@@ -2619,7 +2619,7 @@
       </trans-unit>
       <trans-unit id="orgBackground">
         <source>Lisätietoa</source>
-        <target>Further informatio</target>
+        <target>Further information</target>
       </trans-unit>
       <trans-unit id="orgPredecessor">
         <source>Edeltävä organisaatio</source>
