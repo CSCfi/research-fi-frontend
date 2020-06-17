@@ -71,9 +71,10 @@ export class SingleItemService {
   getCount(tab, id, filters): Observable<any> {
     id = id || 0;
     let queryOps = {};
+    // TODO: Move queryOps logic to separate config file
     switch (tab) {
       case 'publications': {
-        const organizationFilters = []
+        const organizationFilters = [];
         filters.organizations?.forEach(value => {
           organizationFilters.push({ term : { organizationId : value } });
         });
@@ -92,7 +93,112 @@ export class SingleItemService {
           query: {
             bool: {
               should: [
-                {nested: {path: 'author', query: {bool: {should: [{term: {'author.organization.organizationId.keyword': id}}]}}}}
+                {
+                  bool: {
+                    must: [
+                      {
+                        term: {
+                          _index: 'publication'
+                        }
+                      },
+                      {
+                        bool: {
+                          should: [
+                            {
+                              nested: {
+                                path: 'author',
+                                query: {
+                                  bool: {
+                                    should: [
+                                      {
+                                        term: {
+                                          'author.organization.organizationId.keyword': id
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  bool: {
+                    must: [
+                      {
+                        term: {
+                          _index: 'funding'
+                        }
+                      },
+                      {
+                        bool: {
+                          should: [
+                            {
+                              nested: {
+                                path: 'fundingGroupPerson',
+                                query: {
+                                  bool: {
+                                    should: [
+                                      {
+                                        term: {
+                                          'fundingGroupPerson.consortiumOrganizationId.keyword': id
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              nested: {
+                                path: 'organizationConsortium',
+                                query: {
+                                  bool: {
+                                    should: [
+                                      {
+                                        term: {
+                                          'organizationConsortium.consortiumOrganizationId.keyword': id
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  bool: {
+                    must: [
+                      {
+                        term: {
+                          _index: 'infrastructure'
+                        }
+                      },
+                      {
+                        bool: {
+                          should: [
+                            {
+                              term: {
+                                'responsibleOrganization.TKOppilaitosTunnus': {
+                                  value: id
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
               ]
             }
           }

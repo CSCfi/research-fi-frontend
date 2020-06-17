@@ -94,10 +94,10 @@
                                     </div>
                                     <ng-template #noOrganizations>
                                         <ng-container *ngIf="item.recipient.contactPersonName.trim().length > 0">
-                                            <h2 class="col-6 col-sm3 th">
+                                            <h3 class="col-12 col-sm3 th">
                                                 <span i18n="@@contactPerson">Yhteyshenkilö</span>
-                                            </h2>
-                                            <div class="col-6 col-sm-4 col-lg-5 td">
+                                            </h3>
+                                            <div class="col-12 col-sm-4 col-lg-5 td">
                                                 {{item.recipient.contactPersonName}}
                                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                             </div>
@@ -128,8 +128,8 @@
                         </div>
                         <!-- Contact person -->
                         <div class="row" *ngIf="item.recipient.contactPersonName?.trim().length > 0">
-                            <h2 class="th col-12 col-sm-3" i18n="@@contactPerson">Yhteyshenkilö</h2>
-                            <div class="col-6 col-sm-4 col-lg-5 td">
+                            <h3 class="th col-12 col-sm-3" i18n="@@contactPerson">Yhteyshenkilö</h3>
+                            <div class="col-12 col-sm-4 col-lg-5 td py-0 py-sm-3">
                                 {{item.recipient.contactPersonName}}
                                 <app-orcid *ngIf="item.recipient.contactPersonOrcid" [orcid]="item.recipient.contactPersonOrcid"></app-orcid>
                             </div>
