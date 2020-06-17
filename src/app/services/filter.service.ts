@@ -361,7 +361,7 @@ export class FilterService {
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
     // Actice bool filters come from aggregations that contain multiple terms, eg composite aggregation
-    const activeBool = filters.filter(item => item.bool.should[0]?.bool);
+    const activeBool = filters.filter(item => item.bool?.should[0]?.bool);
     const activeNested = filters.filter(item => item.nested?.query.bool.should?.length > 0 ||
                                         item.nested?.query.bool.must.bool.should.length > 0);
     const activeMultipleNested = filters.filter(item => item.bool?.should.length > 0 && item.bool.should[0]?.nested);
