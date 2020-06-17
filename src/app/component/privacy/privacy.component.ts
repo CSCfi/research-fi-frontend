@@ -13,6 +13,9 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { privacy, common } from 'src/assets/static-data/meta-tags.json'
+import { UtilityService } from 'src/app/services/utility.service';
+
 
 @Component({
   selector: 'app-privacy',
@@ -30,11 +33,18 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   routeSub: Subscription;
   selectedIndex: any;
 
+  private currentLocale: string;
+  private metaTags = privacy;
+  private commonTags = common;
+
+
+
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
               private privacyService: PrivacyService, private snackBar: MatSnackBar, private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private utilityService: UtilityService) {
     this.locale = localeId;
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
                       this.locale + '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif';
    }
@@ -44,6 +54,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.routeSub = this.route.params.subscribe(param => {
       this.selectedIndex = param.tab || 0;
     });
+
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
+
 
     switch (this.localeId) {
       case 'fi': {

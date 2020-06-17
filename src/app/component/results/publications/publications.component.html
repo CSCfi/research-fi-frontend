@@ -21,7 +21,7 @@
             (click)="utilityService.sortBy('author')" (keydown.enter)="utilityService.sortBy('author')" i18n="@@publicationAuthors">Tekijät</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
-            <span tabindex="0" tooltip="Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt." placement="top" triggers="focus keydown.escape"
+            <span tabindex="0" i18n-tooltip="@@publicationMediumTooltip" tooltip="Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt." placement="top" triggers="focus keydown.escape"
             (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown.escape)="utilityService.tooltipKeydown(elem, $event)" #elem
             class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="utilityService.sortBy('medium')" (keydown.enter)="utilityService.sortBy('medium')" i18n="@@publicationMedium">Julkaisukanava</span>

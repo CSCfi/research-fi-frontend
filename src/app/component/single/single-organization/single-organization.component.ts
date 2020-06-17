@@ -15,6 +15,8 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import { Search } from 'src/app/models/search.model';
+import { singleOrganization, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-organization',
@@ -23,10 +25,12 @@ import { UtilityService } from 'src/app/services/utility.service';
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any;
+  responseData: Search;
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
+  private metaTags = singleOrganization;
+  private commonTags = common;
 
   tab = 'organizations';
   infoFields = [
@@ -124,7 +128,10 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
             break;
           }
         }
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        
         this.shapeData();
         this.filterData();
       }
@@ -151,8 +158,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     const subUnits = source.subUnits;
 
     // Name translations
-    source.nameTranslations = Object.values(source.nameTranslations).join('; ');
+    source.nameTranslations = Object.values(source.nameTranslations).filter(x => UtilityService.stringHasContent(x)).join('; ')
 
+    // Hide statCenterId from other organizations than universities
     if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
       source.statCenterId = '';
     }

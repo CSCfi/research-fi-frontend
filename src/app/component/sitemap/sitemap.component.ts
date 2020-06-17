@@ -1,6 +1,9 @@
 import { Component, OnInit, LOCALE_ID, Inject, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
+import { UtilityService } from 'src/app/services/utility.service';
+import { sitemap, common } from 'src/assets/static-data/meta-tags.json'
+
 
 @Component({
   selector: 'app-sitemap',
@@ -10,10 +13,21 @@ import { Title } from '@angular/platform-browser';
 export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;
   focusSub: any;
+  currentLocale: string;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {}
+  private metaTags = sitemap;
+  private commonTags = common;
+
+  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+              private utilityService: UtilityService) {
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+              }
 
   ngOnInit(): void {
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
+
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Sivukartta - Tiedejatutkimus.fi');
