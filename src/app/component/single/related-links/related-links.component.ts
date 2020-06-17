@@ -20,13 +20,14 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() relatedFilters: any;
 
   relatedList = [
-    {labelFi: 'Julkaisut', labelEn: 'Publications', labelSv: '', tab: 'publications', disabled: true},
-    {labelFi: 'Tutkijat', labelEn: 'Authors', labelSv: '', tab: 'persons', disabled: true},
-    {labelFi: 'Hankkeet', labelEn: 'Fundings', labelSv: '', tab: 'fundings', disabled: true},
-    {labelFi: 'Aineistot', labelEn: 'Materials', labelSv: '', tab: '', disabled: true},
-    {labelFi: 'Infrastruktuurit', labelEn: 'Infrastructures', labelSv: '', tab: 'infrastructures', disabled: true},
-    {labelFi: 'Muu tutkimustoiminta', labelEn: 'Other research activity', labelSv: '', tab: '', disabled: true},
-    {labelFi: 'Organisaatiot', labelEn: 'Organizations', labelSv: '', tab: 'organizations', disabled: true},
+    // LOCALIZE
+    {label: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: true},
+    {label: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true},
+    {label: $localize`:@@fundings:Hankkeet`, tab: 'fundings', disabled: true},
+    {label: $localize`:@@materials:Aineistot`, tab: '', disabled: true},
+    {label: $localize`:@@infrastructures:Infrastruktuurit`, tab: 'infrastructures', disabled: true},
+    {label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`, tab: '', disabled: true},
+    {label: $localize`:@@organizations:Organisaatiot`, tab: 'organizations', disabled: true},
   ];
 
   docCountData: any;
