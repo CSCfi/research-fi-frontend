@@ -219,7 +219,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
                 // Funding organization name
               } else if (tab === 'fundings') {
-                if (source.organization.funded.sectorName && source.organization.funded.sectorName.buckets.length > 0) {
+                if (source.organization.funded?.sectorName && source.organization.funded?.sectorName.buckets.length > 0) {
                   source.organization.funded.sectorName.buckets.forEach(sector => {
                     setTimeout(t => {
                       if (sector.organizations.buckets.find(x => x.key === val.value)) {
