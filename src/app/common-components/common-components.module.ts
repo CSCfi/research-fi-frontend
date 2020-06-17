@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfoComponent } from './info/info.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SecondaryButtonComponent } from './secondary-button/secondary-button.component';
 
 
 
 @NgModule({
-  declarations: [InfoComponent],
+  declarations: [InfoComponent, SecondaryButtonComponent],
   exports: [
-    InfoComponent
+    InfoComponent,
+    SecondaryButtonComponent
   ],
   imports: [
     CommonModule,

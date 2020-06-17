@@ -17,7 +17,7 @@ import { StaticDataService } from '../../../services/static-data.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
-import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
+import { faQuoteRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { HttpHeaders } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
@@ -102,6 +102,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'MLA', cslStyle: 'mla'}
   ];
 
+  copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
+
   documentLang = this.document.documentElement.lang;
 
   errorMessage = [];
@@ -111,6 +113,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   faQuoteRight = faQuoteRight;
   faIcon = faFileAlt;
+  faCopy = faCopy;
   publicationType: any;
   publicationTypeLabel: string;
   showSubUnits = false;
