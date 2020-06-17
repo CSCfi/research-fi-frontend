@@ -164,17 +164,23 @@ export class FundingFilters {
   }
 
   minorField(data) {
+    console.log(data);
+    let res = [];
     // check if major aggregation is available
-    const combinedMajorFields =  data ?
-    (this.filterMethodService.separateMinor(data ? data : []) ) : [];
-
-    const result = this.staticDataService.majorFieldsOfScience;
-    for (let i = 0; i < combinedMajorFields.length; i++) {
-      if (result[i]) {
-          result[i].subData = combinedMajorFields[i];
+    if (data.length) {
+      const combinedMajorFields =  data ?
+      (this.filterMethodService.separateMinor(data ? data : []) ) : [];
+      const result = this.staticDataService.majorFieldsOfScience;
+      for (let i = 0; i < combinedMajorFields.length; i++) {
+        if (result[i]) {
+            result[i].subData = combinedMajorFields[i];
+        }
       }
+      res = result;
+    } else {
+      res = [];
     }
-    return result;
+    return res;
   }
 
   onGoing(data) {
