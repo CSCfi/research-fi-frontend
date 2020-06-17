@@ -5,8 +5,9 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable  } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
 import { SearchService } from './search.service';
+import { path } from 'd3';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,11 @@ export class SortService {
   sortColumn: string;
   sortDirection: boolean;
   searchTerm = '';
+  localeC: string;
 
-  constructor() { }
+  constructor(@Inject( LOCALE_ID ) protected localeId: string) {
+    this.localeC = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   // If term is available, default sort changes
   getTerm(term) {
@@ -58,17 +62,10 @@ export class SortService {
   private updateSortParam(sort: string, tab: string) {
     this.currentTab = tab;
     this.sortMethod = sort;
-    const randomize = {
-      script: 'Math.random()',
-      type: 'number',
-      order: 'asc'
-    };
-
     this.initSort(sort || '');
     switch (this.currentTab) {
       case 'publications': {
         this.yearField = 'publicationYear';
-
         switch (this.sortColumn) {
           case 'name': {
             this.sort = [{'publicationName.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
@@ -89,8 +86,6 @@ export class SortService {
           default: {
             this.sort = [
               {publicationYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
-              ...(this.searchTerm.length > 0 ?
-                [{'publicationName.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
             ];
             break;
           }
@@ -109,11 +104,28 @@ export class SortService {
             break;
           }
           case 'funder': {
-            this.sort = [{'funderNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'funderNameFi.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'funded': {
-            this.sort = [{'fundedNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const personSortString = 'fundingGroupPerson.consortiumOrganizationName' + this.localeC + '.keyword';
+            const organizationSortString = 'organizationConsortium.consortiumOrganizationName' + this.localeC + '.keyword';
+            // Nested fields have to be sorted via path and filter
+            function generateNested(parent) {
+              return {
+                path: parent,
+                  filter: {
+                    match_all: {}
+                  }
+                };
+            }
+            this.sort = [
+              {[personSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('fundingGroupPerson')}},
+              {'fundingGroupPerson.fundingGroupPersonFirstNames.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('fundingGroupPerson')}},
+              {'fundingGroupPerson.fundingGroupPersonLastName.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('fundingGroupPerson')}},
+              {[organizationSortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long', nested: generateNested('organizationConsortium')}}
+            ];
             break;
           }
           case 'year': {
@@ -122,9 +134,7 @@ export class SortService {
           }
           default: {
             this.sort = [
-              {fundingStartYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}},
-              ...(this.searchTerm.length > 0 ?
-                [{'projectNameFi.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
+              {fundingStartYear: {order: this.sortDirection ? 'desc' : 'desc', unmapped_type : 'long'}}
             ];
             break;
           }
@@ -139,11 +149,13 @@ export class SortService {
             break;
           }
           case 'name': {
-            this.sort = [{'name.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'organization': {
-            this.sort = [{'responsibleOrganizationNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           // case 'sector': {
@@ -151,12 +163,12 @@ export class SortService {
           //   break;
           // }
           default: {
+            const sortString = 'name' + this.localeC + '.keyword';
             this.sort = [
-              ...(this.searchTerm.length > 0 ?
-                [{'name.keyword': {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}] : [{_script: randomize}])
+              {[sortString]: {order: this.sortDirection ? 'asc' : 'asc', unmapped_type : 'long'}}
             ];
             break;
-          }
+        }
         }
         break;
       }
@@ -164,15 +176,18 @@ export class SortService {
         this.yearField = 'thesisYear.keyword';
         switch (this.sortColumn) {
           case 'name': {
-            this.sort = [{'nameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           case 'sector': {
-            this.sort = [{'sectorNameFi.keyword': {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            const sortString = 'sectorName' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
           default: {
-            this.sort = [{'nameFi.keyword': {order: 'asc', unmapped_type : 'long'}}];
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
             break;
           }
         }

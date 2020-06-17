@@ -5,11 +5,11 @@
 
 <div class="row mb-2">
     <div class="col-10">
-        <h2>Rajaukset ({{data.active.length}})</h2>
-        <p>Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla hakutulosnäkymään.</p>
+        <h2><ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{data.active.length}})</h2>
+        <p i18n="@@activeFiltersListHelp">Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla hakutulosnäkymään.</p>
     </div>
     <div class="col-2 text-right px-0">
-        <button mat-button color="primary" (click)="close()"><fa-icon [icon]="faTimes"></fa-icon>Sulje</button>
+        <button mat-button color="primary" (click)="close()"><fa-icon [icon]="faTimes"></fa-icon><ng-container i18n="@@close">Sulje</ng-container></button>
     </div>
 </div>
 <div class="row active-filters">
@@ -26,6 +26,8 @@
 </div>
 <div class="row mt-4">
     <div class="col text-center">
-        <button mat-flat-button color="primary" (click)="clearFilters()"><fa-icon [icon]="faTrash"></fa-icon>Tyhjennä kaikki rajaukset</button>
+        <button mat-flat-button color="primary" (click)="clearFilters()">
+            <fa-icon [icon]="faTrash"></fa-icon><ng-container i18n="@@clearAllActive">Tyhjennä kaikki rajaukset</ng-container>
+        </button>
     </div>
 </div>

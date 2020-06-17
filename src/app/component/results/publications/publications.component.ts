@@ -13,6 +13,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
 import { Search } from 'src/app/models/search.model';
 import { DataService } from 'src/app/services/data.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-publications',
@@ -36,7 +37,8 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private sortService: SortService,
               @Inject(DOCUMENT) private document: any, private tabChangeService: TabChangeService,
-              private searchService: SearchService, private cdr: ChangeDetectorRef, private dataService: DataService) {
+              private searchService: SearchService, private cdr: ChangeDetectorRef, private dataService: DataService,
+              public utilityService: UtilityService) {
                 this.documentLang = this.document.documentElement.lang;
                }
 
@@ -73,26 +75,9 @@ export class PublicationsComponent implements OnInit, OnDestroy, AfterViewInit {
     return type[0] === 'A' || type[0] === 'C';
   }
 
-  sortBy(sortBy) {
-    const activeSort = this.route.snapshot.queryParams.sort || '';
-    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
-    let newSort = sortColumn + (sortDirection ? 'Desc' : '');
-    // Reset sort
-    if (activeSort.slice(-4) === 'Desc') { newSort = ''; }
-
-
-    this.router.navigate([],
-      {
-        relativeTo: this.route,
-        queryParams: { sort: newSort },
-        queryParamsHandling: 'merge'
-      }
-    );
-  }
-
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
-    this.focusSub.unsubscribe();
+    this.focusSub?.unsubscribe();
     this.heightSub?.unsubscribe();
   }
 }

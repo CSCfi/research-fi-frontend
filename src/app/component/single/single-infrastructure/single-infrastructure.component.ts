@@ -15,6 +15,8 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
+import { singleInfrastructure, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -27,32 +29,65 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
+  stringHasContent = UtilityService.stringHasContent;
+  private metaTags = singleInfrastructure;
+  private commonTags = common;
+
 
   tab = 'infrastructures';
   infoFields = [
-    {label: 'Lyhenne', field: 'acronym'},
-    {label: 'Infrastruktuurin kuvaus', field: 'description'},
-    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
-    {label: 'Toiminta alkanut', field: 'startYear'},
-    {label: 'Toiminta päättynyt', field: 'endYear'},
-    {label: 'Vastuuorganisaatio', field: 'responsibleOrganizationNameFi'},
-    {label: 'Suomen Akatemian tiekartalla', field: 'finlandRoadmap'},
-    {label: 'Avainsanat', field: 'keywordsString'},
+    {label: $localize`:@@infraAcronym:Lyhenne`, field: 'acronym', tooltip: $localize`:@@acronymTooltip:Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.`},
+    {label: $localize`:@@infraDescription:Infrastruktuurin kuvaus`, field: 'description', tooltip: $localize`:@@infraDescriptionTooltip:Kuvaus kertoo yleisesti tutkimusinfrastruktuurista.`},
+    {label: $localize`:@@scientificDescription:Tieteellinen kuvaus`, field: 'scientificDescription', tooltip: $localize`:@@scientificDescriptionTooltip:Kertoo tutkimusinfrastruktuurin tieteellisistä sovelluskohteista ja käyttötarkoituksista.`},
+    {label: $localize`:@@infraStartYear:Toiminta alkanut`, field: 'startYear', tooltip: $localize`:@@infraStartYearTooltip:Koko tutkimusinfrastruktuurin käyttöönottovuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta, jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun`},
+    {label: $localize`:@@infraEndYear:Toiminta päättynyt`, field: 'endYear'},
+    {label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, field: 'responsibleOrganization', tooltip: $localize`:@@responsibleOrganizationTooltip:Tutkimusinfrastruktuurin kotiorganisaatio, joka vastaa siitä kokonaisuudessaan. Infrastruktuureilla voi olla myös muita organisaatioita, jotka vastaavat joistain palveluista.`},
+    {label: $localize`:@@participatingOrgs:Osallistuvat organisaatiot`, field: 'participantOrganizations'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywordsString', tooltip: $localize`:@@infraKeywordsTooltip:Tutkimusinfrastruktuuria, sen palveluita ja toimintaa kuvailevia avainsanoja.`},
   ];
 
   serviceFields = [
-    {label: 'Palvelun kuvaus', field: 'description'},
-    {label: 'Tieteellinen kuvaus', field: 'scientificDescription'},
-    {label: 'Palvelun tyyppi', field: 'type'},
+    {label: $localize`:@@serviceDescription:Palvelun kuvaus`, field: 'description', tooltip: $localize`:@@serviceDescriptionTooltip:Palvelun tarkempi kuvaus`},
+    {label: $localize`:@@scientificDescription:Tieteellinen kuvaus`, field: 'scientificDescription'},
+    {label: $localize`:@@serviceType:Palvelun tyyppi`, field: 'type', tooltip: $localize`:@@serviceTypeTooltip:Tutkimusinfrastruktuurien palvelut jaetaan kolmeen eri tyyppiin: aineistoon, laitteistoon tai palveluun. Valittu tyyppi kuvaa parhaiten palvelua.`},
   ];
 
-  servicePointFields = [
-    {label: 'Palvelupisteen kuvaus', field: 'description'},
-    {label: 'Sähköposti', field: 'emailAddress'},
-    {label: 'Puhelinnumero', field: 'phoneNumber'},
-    {label: 'Käyntiosoite', field: 'visitingAddress'},
-    {label: 'Käyttöehdot', field: 'accessPolicyUrl'},
-    {label: 'Linkki', field: 'infoUrl'},
+  servicePointContactFields = [
+    {label: $localize`Kuvaus`, field: 'description'},
+    {label: $localize`Sähköpostiosoite`, field: 'emailAddress'},
+    {label: $localize`Puhelinnumero`, field: 'phoneNumber'},
+    {label: $localize`Vierailuosoite`, field: 'visitingAddress'},
+  ];
+
+  servicePointInfoFields = [
+    {label: $localize`Käyttöehdot`, field: 'accessPolicyUrl'},
+    {label: $localize`Linkki`, field: 'infoUrl'},
+    {label: $localize`Koordinoiva organisaatio`, field: 'coOrg'},
+  ];
+
+  fieldsOfScience = [
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScienceString'},
+  ];
+
+  classificationFields = [
+    {label: $localize`Suomen Akatemian tiekartalla`, field: 'finlandRoadmap', tooltip: $localize`:@@finlandRoadmapTooltip:Tutkimusinfrastruktuuri on voimassaolevalla Suomen Akatemian tiekartalla.`},
+    {label: $localize`ESFRI-luokitus`, field: 'ESFRICode'},
+    {label: $localize`MERIL-luokitus`, field: 'merilCode'},
+  ];
+
+  contactFields = [
+    {label: $localize`Nimi`, field: 'contactName'},
+    {label: $localize`Kuvaus`, field: 'contactDescription'},
+    {label: $localize`Sähköpostiosoite`, field: 'email'},
+    {label: $localize`Puhelinnumero`, field: 'phoneNumber'},
+    {label: $localize`Vierailuosoite`, field: 'address'},
+  ];
+
+  otherFields = [
+    {label: $localize`Tunnisteet`, field: 'urn'},
+    {label: $localize`Osa kansainvälistä infrastruktuuria`, field: '?'},
+    {label: $localize`Edeltävä tutkimusinfrastruktuuri`, field: 'replacingInfrastructure'},
+    {label: $localize`Lisätietoja`, field: '?'},
   ];
 
   linkFields = [
@@ -66,9 +101,17 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   showService: boolean[] = [];
   showServicePoint: boolean[][] = [];
   faIcon = faFileAlt;
+  tabData: any;
+  currentLocale: string;
+  serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string) {
+               private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string,
+               private utilityService: UtilityService ) {
+                // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -81,11 +124,12 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.infrastructures;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'infrastructures');
     this.searchTerm = this.searchService.singleInput;
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id: string) {
@@ -102,9 +146,16 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
             this.setTitle(this.responseData.infrastructures[0].name + ' - Research.fi'); // English name??
             break;
           }
+          case 'sv': {
+            this.setTitle(this.responseData.infrastructures[0].name + ' - Forskning.fi'); // English name??
+            break;
+          }
 
         }
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        
         this.shapeData();
         this.filterData();
       }
@@ -115,30 +166,16 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.infrastructures[0][item.field] !== undefined &&
-             this.responseData.infrastructures[0][item.field] !== 0 &&
-             this.responseData.infrastructures[0][item.field] !== '0' &&
-             this.responseData.infrastructures[0][item.field] !== null &&
-             this.responseData.infrastructures[0][item.field] !== '' &&
-             this.responseData.infrastructures[0][item.field] !== ' ' &&
-             this.responseData.infrastructures[0][item.field] !== '#N/A';
+      return UtilityService.stringHasContent(this.responseData.infrastructures[0][item.field]);
     };
 
-    const isNull = (obj) => Object.values(obj).every(x => (x === null));
-    // Check if every field null in service points and set flag. This is used to hide service from list
-    this.responseData.infrastructures[0].services.forEach(item => {
-
-      if (item.servicePoints.every(isNull)) {
-        const hideFlag = 'hide';
-        item.servicePoints[hideFlag] = 'true';
-      }
-    });
-    // Filter out invalid services
-    this.responseData.infrastructures[0].services = this.responseData.infrastructures[0].services.filter(
-      item => item.name !== '0' && item.name !== '#N/A');
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.fieldsOfScience = this.fieldsOfScience.filter(item => checkEmpty(item));
+    this.classificationFields = this.classificationFields.filter(item => checkEmpty(item));
+    this.contactFields = this.contactFields.filter(item => checkEmpty(item));
+    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
 
     // Init expand and show lists
     this.infoFields.forEach(_ => this.infoExpand.push(false));
@@ -152,7 +189,15 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   shapeData() {
     const source = this.responseData.infrastructures[0];
-    source.finlandRoadmap = source.finlandRoadmap ? 'Kyllä' : 'Ei';
+    source.finlandRoadmap = source.finlandRoadmap ? $localize`:@@yes:Kyllä` : $localize`:@@no:Ei`;
+
+    // Filter out empty servicepoints and empty services
+    source.services.forEach((service, idx) => {
+      source.services[idx].servicePoints =
+      service.servicePoints.map(servicePoint => UtilityService.objectHasContent(servicePoint) ? servicePoint : undefined).filter(x => x);
+    });
+
+    source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
   expandInfoDescription(idx: number) {

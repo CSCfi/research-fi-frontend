@@ -7,16 +7,16 @@
 
 // Component
 #overlay {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     left: 0;
-    top: 90px;
+    top: 88px;
     background: rgba(0,0,0,0.5);
     width: 100%;
-    height: calc(100% - 110px);
+    height: 100vh;
 }
 
-a:hover {
+a.logo-text:hover {
     text-decoration: none;
 }
 
@@ -31,14 +31,9 @@ header {
 
 // Skip-to links
 .skip-links ul {
-    display: flex;
     list-style: none;
-    padding-inline-start: 0;
 }
 
-.skip-links li {
-    padding: 0 15px;
-}
 
 // Navigation
 .navbar {
@@ -109,7 +104,7 @@ li.col-4 {
 
 button.menu {
     border: none;
-    padding: 0.25rem 1rem;
+    padding: 0.25rem 0;
 }
 
 .toggle-button-wrapper {
@@ -138,7 +133,7 @@ button.menu {
 
 .logo img {
     max-width: 235px;
-    padding: 0 0.5rem;
+    padding: 0;
 }
 
 .logo-text {
@@ -193,6 +188,7 @@ ul.dropdown {
 ul.dropdown li a {
     display: block;
     padding: 0.6rem 1rem;
+    text-decoration: none;
 }
 
 .disabled-link {
@@ -206,10 +202,12 @@ ul.dropdown li a {
 .parent-link::after {
     font-family: "FontAwesome";
     content: "\f078";
+    padding-left: 5px;
 }
 
 .parent-link.open::after {
     content: "\f077";
+    padding-left: 5px;
 }
 
 // Language selector
@@ -273,6 +271,8 @@ mat-form-field.lang-select .mat-form-field-underline {
     padding: 10px 8px 40px 8px;
     transition: right 0.25s ease-out;
     display: block !important;
+    box-sizing: content-box;
+    overflow-x: hidden;
     // 100vw - padding
     width: calc(100vw - 16px);
 
@@ -308,7 +308,7 @@ mat-form-field.lang-select .mat-form-field-underline {
     li .label {
         text-transform: uppercase;
         padding: 0;
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     li a.lang-box {
@@ -346,12 +346,26 @@ mat-form-field.lang-select .mat-form-field-underline {
         justify-content: flex-end;
         text-align: center;
     }
+
+    .skip-links ul {
+        display: flex;
+        padding-inline-start: 0;
+    }
+    
+    .skip-links li {
+        padding: 0 15px;
+    }
+    
 }
 
 // Mobile size (sm md lg)
 @media (max-width: 1199px) {
     .desktop {
         display: none;
+    }
+
+    #overlay {
+        top: 67px;
     }
 
     .langSelect {
@@ -380,6 +394,9 @@ mat-form-field.lang-select .mat-form-field-underline {
         flex-direction: row;
         width: 100%;
         max-width: 800px;
+        li:first-child {
+            margin-left: 0;
+        }
     }
 
     nav.nav-top {
@@ -402,7 +419,6 @@ mat-form-field.lang-select .mat-form-field-underline {
     .parent a {
         text-transform: uppercase;
         padding: 0;
-        font-size: 1.1rem;
     }
 
     .dropdown-icon {
@@ -427,21 +443,15 @@ mat-form-field.lang-select .mat-form-field-underline {
     }
 
     .parent-link:after {
-        margin-left: 8px;
+        margin-left: 15px;
+        position: relative;
+        top: -3px;
     }
 }
 
 @media (max-width: 661px) {
     .beta-info {
         width: auto;
-    }
-}
-
-@media (max-width: 575px) {
-    #overlay {
-        top: 124px;
-        height: calc(100% - 124px);
-        overflow: hidden;
     }
 }
 

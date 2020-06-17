@@ -6,7 +6,7 @@
 <div class="sort" >
     <mat-form-field class="sort-button">
         <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
-            <mat-option value="reset">Osuvin tulos ensin</mat-option>
+            <mat-option value="reset" i18n="@@sortByRelevance">Osuvin tulos ensin</mat-option>
             <mat-option *ngFor="let row of tabFields" [value]="row.value">{{row.label}}</mat-option>
         </mat-select>
     </mat-form-field>

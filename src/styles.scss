@@ -46,6 +46,10 @@
 @import './app/component/news/news/news.component.scss-theme.scss';
 @import './app/component/news/news-card/news-card.component.scss-theme.scss';
 @import './app/common-components/info/info.component-theme.scss';
+@import './app/ui/cookie-consent/cookie-consent-theme.scss';
+@import './app/ui/review/review.component.scss-theme.scss';
+@import './app/component/results/pagination/pagination.component.scss';
+@import './app/component/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 
 
 // Global element color definitions
@@ -79,6 +83,10 @@
   @include app-service-info-theme($theme);
   @include app-news-theme($theme);
   @include app-news-card-theme($theme);
+  @include app-cookie-consent-theme($theme);
+  @include app-review-theme($theme);
+  @include app-pagination-shared;
+  @include app-carousel-theme($theme);
 
 
   $primary: map-get($theme, primary);
@@ -125,7 +133,7 @@ html {
 
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
-  button:focus, input:focus, select:focus, textarea:focus {
+  button:focus, input:focus, select:focus, textarea:focus, *:focus {
     outline: none;
   }
 }

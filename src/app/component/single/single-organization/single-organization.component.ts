@@ -14,6 +14,9 @@ import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
+import { Search } from 'src/app/models/search.model';
+import { singleOrganization, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-organization',
@@ -22,50 +25,52 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 })
 export class SingleOrganizationComponent implements OnInit, OnDestroy {
   public singleId: any;
-  responseData: any;
+  responseData: Search;
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
+  private metaTags = singleOrganization;
+  private commonTags = common;
 
   tab = 'organizations';
   infoFields = [
-    {label: 'Nimi (SV, EN)', field: 'nameSv', fieldEn: 'nameEn'},
-    {label: 'Muut nimet', field: 'variantNames', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Perustettu', field: 'established', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Lisätietoa', field: 'background', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Edeltävä organisaatio', field: 'predecessors', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Liittyvä organisaatio', field: 'related', tooltipFi: 'Lähde: Finto www.finto.fi/cn/fi/'},
-    {label: 'Organisaatiomuoto', field: 'organizationType', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Organisaation tyyppi', field: 'sectorNameFi', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Käyntiosoite', field: 'visitingAddress', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Postiosoite', field: 'postalAddress', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Y-tunnus', field: 'businessId', tooltipFi: 'Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/'},
-    {label: 'Tilastokeskuksen oppilaitostunnus', field: 'statCenterId', tooltipFi: 'Lähde: Tilastokeskus'},
-    {label: 'Opetus- ja tutkimushenkilöstön määrä (htv)', field: 'staffCountAsFte', tooltipFi: 'Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi'},
+    {label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`, field: 'nameTranslations'},
+    {label: $localize`:@@orgOtherNames:Muut nimet`, field: 'variantNames', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgEstablished:Perustettu`, field: 'established', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgBackground:Lisätietoa`, field: 'background', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgPredecessor:Edeltävä organisaatio`, field: 'predecessors', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgRelated:Liittyvä organisaatio`, field: 'related', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
+    {label: $localize`:@@orgType:Organisaatiomuoto`, field: 'organizationType', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgSector:Organisaation tyyppi`, field: 'sectorNameFi', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgVAddress:Käyntiosoite`, field: 'visitingAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
+    {label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`, field: 'statCenterId', tooltip: $localize`:@@tkSource:Lähde: Tilastokeskus`},
+    {label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`, field: 'staffCountAsFte', tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`},
   ];
 
   studentCounts = [
-    {label: 'Alempi korkeakoulututkinto', field: 'thesisCountBsc'},
-    {label: 'Ylempi korkeakoulututkinto', field: 'thesisCountMsc'},
-    {label: 'Lisensiaatintutkinto', field: 'thesisCountLic'},
-    {label: 'Tohtorintutkinto', field: 'thesisCountPhd'}
+    {label: $localize`:@@orgThesisCountBsc:Alempi korkeakoulututkinto`, field: 'thesisCountBsc'},
+    {label: $localize`:@@orgThesisCountMsc:Ylempi korkeakoulututkinto`, field: 'thesisCountMsc'},
+    {label: $localize`:@@orgThesisCountLic:Lisensiaatintutkinto`, field: 'thesisCountLic'},
+    {label: $localize`:@@orgThesisCountPhd:Tohtorintutkinto`, field: 'thesisCountPhd'}
   ];
 
   subUnitFields = [
-    {label: 'Alayksiköt', field: 'subUnits', tooltipFi: 'Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi'}
+    {label: $localize`:@@orgSubUnits:Alayksiköt`, field: 'subUnits', tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`}
   ];
 
   linkFields = [
-    {label: 'Linkit', field: 'homepage'}
+    {label: $localize`:@@links:Linkit`, field: 'homepage'}
   ];
 
   relatedList = [
-    {labelFi: 'Julkaisut', tab: 'publications', disabled: false},
-    {labelFi: 'Tutkijat', tab: 'persons', disabled: true},
-    {labelFi: 'Aineistot', tab: '', disabled: true},
-    {labelFi: 'Infrastruktuurit', tab: 'infrastructures', disabled: true},
-    {labelFi: 'Muu tutkimustoiminta', tab: '', disabled: true},
-  ]
+    {labelFi: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: false},
+    {labelFi: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true},
+    {labelFi: $localize`:@@materials:Aineistot`, tab: '', disabled: true},
+    {labelFi: $localize`:@@infrastructures:Infrastruktuurit`, tab: 'infrastructures', disabled: true},
+    {labelFi: $localize`:@@otherResearchActivity:Muu tutkimustoiminta`, tab: '', disabled: true},
+  ];
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
@@ -73,9 +78,15 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   expand: boolean;
   latestSubUnitYear: string;
   faIcon = faFileAlt;
+  subUnitSlice = 10;
+  currentLocale: string;
+  tabData: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               public utilityService: UtilityService ) {
+                 // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -90,11 +101,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.organizations;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'organizations');
     this.searchTerm = this.searchService.singleInput;
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id: string) {
@@ -104,15 +116,22 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       if (this.responseData.organizations[0]) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.organizations[0].nameFi + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.organizations[0].name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.organizations[0].nameEn.trim() + ' - Research.fi');
+            this.setTitle(this.responseData.organizations[0].name.trim() + ' - Research.fi');
+            break;
+          }
+          case 'sv': {
+            this.setTitle(this.responseData.organizations[0].name.trim() + ' - Forskning.fi');
             break;
           }
         }
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        
         this.shapeData();
         this.filterData();
       }
@@ -123,11 +142,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.organizations[0][item.field] !== undefined &&
-             this.responseData.organizations[0][item.field] !== 0 &&
-             this.responseData.organizations[0][item.field] !== null &&
-             this.responseData.organizations[0][item.field] !== '' &&
-             this.responseData.organizations[0][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.organizations[0][item.field]);
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
@@ -139,18 +154,13 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   shapeData() {
     const source = this.responseData.organizations[0];
     const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-    // const predecessors = source.predecessors;
-    // const related = source.related;
-    let subUnits = source.subUnits;
 
-    // if (predecessors && predecessors.length > 0) {
-    //   source.predecessors = predecessors.map(x => x.nameFi.trim()).join(', ');
-    // }
+    const subUnits = source.subUnits;
 
-    // if (related && related.length > 0) {
-    //   source.related = related.map(x => x.nameFi.trim()).join(', ');
-    // }
+    // Name translations
+    source.nameTranslations = Object.values(source.nameTranslations).filter(x => UtilityService.stringHasContent(x)).join('; ')
 
+    // Hide statCenterId from other organizations than universities
     if (!(source.sectorNameFi === 'Ammattikorkeakoulu') && !(source.sectorNameFi === 'Yliopisto')) {
       source.statCenterId = '';
     }
@@ -160,12 +170,13 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       const subUnitYears = [...new Set(subUnits.map(item => item.year))];
       const transformedYears = subUnitYears.map(Number);
       this.latestSubUnitYear = (Math.max(...transformedYears)).toString();
-      // Get results that match the yeat
-      subUnits = subUnits.filter((item) => {
-        return Object.keys(item).some((key) => item[key].includes(this.latestSubUnitYear));
+      source.subUnits = source.subUnits.filter(item => item.year === this.latestSubUnitYear);
+      // Sort sub units by name
+      source.subUnits.sort((a,b) => {
+          const x = a.subUnitName.toLowerCase();
+          const y = b.subUnitName.toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
       });
-      // List items
-      source.subUnits = subUnits.map(x => x.subUnitName.trim()).join(', ');
     }
   }
 

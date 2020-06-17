@@ -180,7 +180,8 @@
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json"
+            "tsConfig": "src/tsconfig.server.json",
+            "localize": ["fi", "en", "sv"]
           },
           "configurations": {
             "production": {

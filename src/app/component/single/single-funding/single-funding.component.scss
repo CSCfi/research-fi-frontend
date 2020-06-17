@@ -10,8 +10,14 @@
     background-color: transparent;
 }
 
-th {
-    font-weight: 400;
+.recipient {
+    div.col-12.col-sm-3, .amount {
+        // padding: 0;
+    }
+}
+
+h3.th {
+    padding: 1rem !important;
 }
 
 td p:first-child {

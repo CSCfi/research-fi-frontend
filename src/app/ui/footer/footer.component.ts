@@ -11,7 +11,7 @@ import { AppConfigService } from '../../services/app-config-service.service';
 import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BetaReviewComponent } from '../beta-review/beta-review.component';
+import { ReviewComponent } from '../review/review.component';
 
 @Component({
   selector: 'app-footer',
@@ -29,7 +29,7 @@ export class FooterComponent implements OnInit {
 
   faTimes = faTimes;
   showReviewButton: boolean;
-  betaReviewDialogRef: MatDialogRef<BetaReviewComponent>;
+  reviewDialogRef: MatDialogRef<ReviewComponent>;
 
   constructor(private appConfigService: AppConfigService, @Inject(LOCALE_ID) protected localeId: string, public dialog: MatDialog) {
     this.buildInfo = this.appConfigService.buildInfo;
@@ -63,9 +63,10 @@ export class FooterComponent implements OnInit {
     }
 
     toggleReview() {
-      this.betaReviewDialogRef = this.dialog.open(BetaReviewComponent, {
-        maxWidth: '60vw',
-        minWidth: '400px',
+      this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+        maxWidth: '800px',
+        minWidth: '320px',
+        // minHeight: '60vh'
       });
     }
 

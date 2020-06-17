@@ -11,6 +11,7 @@ import { Adapter } from './adapter.model';
 export class News {
 
     constructor(
+        public total: number,
         public feedUrl: string,
         public headline: string,
         public content: string,
@@ -19,7 +20,7 @@ export class News {
         public timestamp: number,
         public organizationNameFi: string,
         public organizationId: string,
-        public mediaUrl: string,
+        public mediaUri: string,
     ) {}
 }
 
@@ -30,8 +31,8 @@ export class News {
 export class NewsAdapter implements Adapter<News> {
     constructor() {}
     adapt(item: any): News {
-
         return new News(
+            item.total,
             item.feedUrl,
             item.newsHeadline,
             item.newsContent,
@@ -40,15 +41,16 @@ export class NewsAdapter implements Adapter<News> {
             Date.parse(item.timestamp),
             item.organizationNameFi,
             item.organizationId,
-            item.mediaUrl,
+            item.mediaUri,
         );
     }
 
     adaptMany(item: any): News[] {
         const news: News[] = [];
         const source = item.hits.hits;
-
-        source.forEach(el => news.push(this.adapt(el._source)));
+        const totalValue = item.hits.total.value;
+        // Add total count
+        source.forEach(el => news.push(this.adapt({...el._source, total: totalValue})));
         return news;
     }
 }

@@ -16,6 +16,9 @@ import { faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { UtilityService } from 'src/app/services/utility.service';
+import { singleFunding, common } from 'src/assets/static-data/meta-tags.json';
+
 
 @Component({
   selector: 'app-single-funding',
@@ -29,40 +32,50 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tabQueryParams: any;
   tab = 'fundings';
+  private metaTags = singleFunding;
+  private commonTags = common;
+
 
   info = [
-    {label: 'Akronyymi', field: 'acronym'},
-    {label: 'Hankkeen kuvaus', field: 'descriptionFi', tooltipFi: 'Kuvaus kertoo tiiviisti hankkeen tavoitteesta'},
-    {label: 'Aloitusvuosi', field: 'startYear', tooltipFi: 'Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.'},
-    {label: 'Päättymisvuosi', field: 'endYear'},
-  ];
-
-  funded = [
-    {label: 'Nimi', field: 'personName'},
-    {label: 'Affiliaatio', field: 'affiliation'},
-    {label: 'Rahoituksen saaja (organisaatio)', field: 'organizationName'},
-    {label: 'Rooli hankkeessa', field: 'fundingContactPersonTitle'},
-    {label: 'Myönnetty summa', field: 'amountEur'},
+    {label: $localize`Akronyymi`, field: 'acronym'},
+    {label: $localize`Hankkeen kuvaus`, field: 'description', tooltip: $localize`:@@sfDescriptionTooltip:Kuvaus kertoo tiiviisti hankkeen tavoitteesta`},
+    {label: $localize`Aloitusvuosi`, field: 'startYear', tooltip: $localize`:@@sfStartYearTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`},
+    {label: $localize`Päättymisvuosi`, field: 'endYear', tooltip: $localize`:@@sfEndYearTooltip:Rahoituskauden päättymisvuosi.`},
   ];
 
   funder =  [
-    {label: 'Nimi', field: 'nameFi'},
-    {label: 'Rahoitusmuoto', field: 'typeOfFundingNameFi', tooltipFi: 'Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.'},
-    {label: 'Haku', field: 'callProgrammeNameFi', tooltipFi: 'Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.'}
+    {label: $localize`:@@typeOfFunding:Rahoitusmuoto`, field: 'typeOfFundingName', tooltip: $localize`:@@sfTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.`},
+    {label: $localize`Haku`, field: 'callProgrammeName', tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`}
   ];
 
   other = [
-    {label: 'Rahoituspäätöksen numero', field: 'funderProjectNumber'},
-    {label: 'Tieteenalat', field: 'fieldsOfScience'},
-    {label: 'Tutkimusalat', field: 'fieldsOfResearch'},
-    {label: 'Teema-alat', field: 'fieldsOfTheme'},
-    {label: 'Hankkeen verkkosivu', field: '?'},
-    // {label: 'Avainsanat', field: 'keywords'},
+    {label: $localize`Rahoituspäätöksen numero`, field: 'funderProjectNumber'},
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScience'},
+    {label: $localize`Tutkimusalat`, field: 'fieldsOfResearch'},
+    {label: $localize`Teema-alat`, field: 'fieldsOfTheme'},
+    {label: $localize`:@@fundingHomePage:Hankkeen verkkosivu`, field: '?'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywords'},
   ];
 
   link = [
-    {label: 'Linkit', field: 'projectHomepage'}
+    {label: $localize`:@@links:Linkit`, field: 'projectHomepage'}
   ];
+
+  recipientTooltip = {
+    tooltip: $localize`Rahoituksen saaja voi olla henkilö tai organisaatio. Usein saajaksi mainittu henkilö on vastuullinen tutkija, joka ei itse käytä myönnettyä rahoitusta vaan sillä katetaan hankkeen kustannuksia.`,
+  };
+
+  fundingAmountTooltip = {
+    tooltip: $localize`Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
+  };
+
+  funderTooltip = {
+    tooltip: $localize`Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.`,
+  };
+
+  homepageTooltip = {
+    tooltip: $localize`Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.`,
+  };
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
@@ -76,10 +89,17 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   fundedFields: any[];
   otherFields: any[];
   linkFields: any[];
-  funderFields: ({ label: string; field: string; tooltipFi?: undefined; } | { label: string; field: string; tooltipFi: string; })[];
+  funderFields: any[];
+  currentLocale: string;
+  tabData: any;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
-               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService ) {
+               private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               public utilityService: UtilityService) {
+                 // Capitalize first letter of locale
+                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
 
   public setTitle(newTitle: string) {
@@ -94,11 +114,12 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.fundings;
+    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'fundings');
     this.searchTerm = this.searchService.singleInput;
   }
 
   ngOnDestroy() {
-    this.idSub.unsubscribe();
+    this.idSub?.unsubscribe();
   }
 
   getData(id) {
@@ -111,15 +132,22 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
       if (this.responseData.fundings[0]) {
         switch (this.localeId) {
           case 'fi': {
-            this.setTitle(this.responseData.fundings[0].nameFi + ' - Tiedejatutkimus.fi');
+            this.setTitle(this.responseData.fundings[0].name + ' - Tiedejatutkimus.fi');
             break;
           }
           case 'en': {
-            this.setTitle(this.responseData.fundings[0].nameEn + ' - Research.fi');
+            this.setTitle(this.responseData.fundings[0].name + ' - Research.fi');
+            break;
+          }
+          case 'sv': {
+            this.setTitle(this.responseData.fundings[0].name + ' - Forskning.fi');
             break;
           }
         }
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        
         this.shapeData();
         this.filterData();
       }
@@ -130,31 +158,23 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   filterData() {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: {field: string} ) =>  {
-      return this.responseData.fundings[0][item.field] !== undefined &&
-             this.responseData.fundings[0][item.field] !== 'UNDEFINED' &&
-             this.responseData.fundings[0][item.field] !== '-1' &&
-             this.responseData.fundings[0][item.field] !== '' &&
-             this.responseData.fundings[0][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.fundings[0][item.field]);
     };
 
     const checkNestedEmpty = (parent: string, item: {field: string} ) =>  {
-      return this.responseData.fundings[0][parent][item.field] !== undefined &&
-             this.responseData.fundings[0][parent][item.field] !== 'UNDEFINED' &&
-             this.responseData.fundings[0][parent][item.field] !== '-1' &&
-             this.responseData.fundings[0][parent][item.field] !== '' &&
-             this.responseData.fundings[0][parent][item.field] !== ' ';
+      return UtilityService.stringHasContent(this.responseData.fundings[0][parent][item.field]);
     };
 
     // Filter all the fields to only include properties with defined data
     this.infoFields = Object.assign(this.info.filter(item => checkEmpty(item)));
-    this.fundedFields = Object.assign(this.funded.filter(item => checkEmpty(item)));
+    // this.fundedFields = Object.assign(this.funded.filter(item => checkEmpty(item)));
     this.otherFields = Object.assign(this.other.filter(item => checkEmpty(item)));
     this.linkFields = Object.assign(this.link.filter(item => checkEmpty(item)));
     // Same for nested fields
     this.funderFields = Object.assign(this.funder.filter(item => checkNestedEmpty('funder', item)));
     // Filter out empty organization names
     this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(item =>
-      item.nameFi !== '');
+      item.name !== '' && item.name !== null);
   }
 
   shapeData() {

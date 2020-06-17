@@ -74,7 +74,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: production
+        ref: master
       contextDir: .
     strategy:
       dockerStrategy:
@@ -97,7 +97,7 @@ objects:
     source:
       git:
         uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: production
+        ref: master
       contextDir: .
     strategy:
       jenkinsPipelineStrategy:
@@ -129,7 +129,7 @@ objects:
                 protocol: TCP
             volumeMounts:
             - name: config-volume-fi
-              mountPath: /dist/browser/assets/config
+              mountPath: /dist/browser/fi/assets/config
             - name: config-volume-sv
               mountPath: /dist/browser/sv/assets/config
             - name: config-volume-en
@@ -193,7 +193,7 @@ objects:
                 protocol: TCP
             volumeMounts:
             - name: config-volume-fi
-              mountPath: /dist/browser/assets/config
+              mountPath: /dist/browser/fi/assets/config
             - name: config-volume-sv
               mountPath: /dist/browser/sv/assets/config
             - name: config-volume-en

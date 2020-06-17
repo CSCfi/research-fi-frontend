@@ -16,14 +16,23 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule  } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
-import { BetaReviewComponent } from './beta-review/beta-review.component';
+import { ReviewComponent } from './review/review.component';
 import { BetaInfoComponent } from './beta-info/beta-info.component';
+import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
+import { WINDOW_PROVIDERS } from '../services/window.service';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, BetaReviewComponent, BetaInfoComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, ReviewComponent, BetaInfoComponent,
+    CookieConsentComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -32,10 +41,17 @@ import { BetaInfoComponent } from './beta-info/beta-info.component';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    FormsModule,
     FontAwesomeModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    TooltipModule.forRoot()
   ],
   exports: [LayoutComponent],
-  entryComponents: [BetaReviewComponent]
+  entryComponents: [ReviewComponent],
+  providers: [WINDOW_PROVIDERS]
 })
 export class UiModule { }

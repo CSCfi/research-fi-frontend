@@ -19,6 +19,7 @@ import { PersonFilters } from '../filters/persons';
 import { FundingFilters } from '../filters/fundings';
 import { InfrastructureFilters } from '../filters/infrastructures';
 import { OrganizationFilters } from '../filters/organizations';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-active-filters',
@@ -30,19 +31,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   activeFilters = [];
 
   translations = {
-    onGoing: 'Käynnissä',
-    ended: 'Päättynyt',
-    true: 'Kansainvälinen yhteisjulkaisu',
-    noAccessInfo: 'Ei tietoa',
-    openAccess: 'Avoin saatavuus',
-    nonOpen: 'Ei avoin',
-    noVal: 'Ei arviota',
-    otherOpen: 'Muu avoin saatavuus',
-    noOpenAccessData: 'Ei tietoa',
-    selfArchived: 'Rinnakkaistallennettu',
-    undefined: 'Ei tiedossa',
-    over100k: 'Rahoitus yli 100 000€',
-    under100k: 'Rahoitus alle 100 000€'
+    true: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
+    noAccessInfo: $localize`:@@noInfo:Ei tietoa`,
+    openAccess: $localize`:@@openAccessJournal:Open Access -lehti`,
+    nonOpen: $localize`:@@nonOpen:Ei avoin`,
+    noVal: $localize`:@@noRating:Ei arviota`,
+    otherOpen: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
+    noOpenAccessData: $localize`:@@noInfo:Ei tietoa`,
+    selfArchived: $localize`:@@selfArchived:Rinnakkaistallennettu`,
+    undefined: $localize`:@@notKnown:Ei tiedossa`,
   };
   filterResponse: any;
   tabFilters: any;
@@ -66,7 +63,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                private dataService: DataService, private tabChangeService: TabChangeService,
                public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, ) {
+               private organizationFilters: OrganizationFilters, private settingsService: SettingsService ) {
    }
 
   ngOnInit() {
@@ -74,15 +71,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     switch (this.currentTab) {
       case 'publications':
         this.tabFilters = this.publicationFilters.filterData;
-        this.yearRange = 'Julkaisuvuosi: ';
+        this.yearRange = $localize`:@@publicationYear:Julkaisuvuosi` + ': ';
         break;
       case 'fundings':
         this.tabFilters = this.fundingFilters.filterData;
-        this.yearRange = 'Aloitusvuosi: ';
+        this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
       case 'infrastructures':
         this.tabFilters = this.infrastructureFilters.filterData;
-        this.yearRange = 'Aloitusvuosi: ';
+        this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
       case 'persons':
         this.tabFilters = this.personFilters.filterData;
@@ -143,13 +140,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
-
       // Subscribe to aggregation data
       this.filterResponse = this.dataService.currentResponse.subscribe(response => {
         this.response = response;
         if (response) {
-          const source = this.response[0].aggregations;
-          const tab = this.currentTab.data;
+          const source = this.response.aggregations;
+          const tab = this.sortService.currentTab;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
             // Active year filters can be displayed with range. Hide items that are within the range
@@ -159,13 +155,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 val.translation = this.yearRange + this.fromYear + ' - ' + this.toYear;
                 val.warning = yearWarning ? true : false;
               } else if (this.fromYear) {
-                val.translation = this.yearRange + this.fromYear + ' alkaen';
+                val.translation = this.yearRange + this.fromYear + $localize`:@@yearFrom: alkaen`;
                 val.warning = yearWarning ? true : false;
               }
             }
 
             if (val.category === 'toYear') {
-              val.translation = this.yearRange + this.toYear + ' päättyen';
+              val.translation = this.yearRange + this.toYear + $localize`:@@yearTo: päättyen`;
               val.warning = yearWarning ? true : false;
               if (this.fromYear && this.toYear) {
                 val.hide = true;
@@ -187,16 +183,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
-
             // Language, publications
-            if (val.category === 'lang' && source.lang.sum_other_doc_count > 0) {
-              const result = source.lang.buckets.find(({ key }) => key === val.value);
+            if (val.category === 'lang' && source.lang?.langs) {
+              const result = source.lang.langs.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
 
             if (val.category === 'sector' && tab === 'organizations' && source.sector) {
-              if (source.sector.buckets.length > 0  && !source.sector.sectorName) {
+              if (source.sector.buckets?.length > 0  && !source.sector.sectorName) {
                 source.sector.buckets.forEach(element => {
                   if (element.sectorId && element.sectorId.buckets[0].key === val.value) {
                     const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
@@ -206,28 +201,59 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
 
-            // Organization name
+            // Organization
             if (val.category === 'organization' && source.organization) {
-              if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
-                source.organization.sectorName.buckets.forEach(sector => {
-                  sector.organizations.buckets.forEach(org => {
-                    if (org.orgId.buckets[0].key === val.value) {
-                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                      this.activeFilters[foundIndex].translation = org.key.trim();
-                    }
+              // Publication organization name
+              if (tab === 'publications') {
+                // There is some latency, timeout fixes missing translations
+                if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
+                  source.organization.sectorName.buckets.forEach(sector => {
+                    setTimeout(t => {
+                      if (sector.org.org.buckets.find(x => x.key === val.value)) {
+                        const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                        this.activeFilters[foundIndex].translation =
+                        sector.org.org.buckets.find(x => x.key === val.value).label.trim();
+                      }
+                    }, 1);
                   });
-                });
+                }
+                // Funding organization name
+              } else if (tab === 'fundings') {
+                if (source.organization.funded.sectorName && source.organization.funded.sectorName.buckets.length > 0) {
+                  source.organization.funded.sectorName.buckets.forEach(sector => {
+                    setTimeout(t => {
+                      if (sector.organizations.buckets.find(x => x.key === val.value)) {
+                        const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                        this.activeFilters[foundIndex].translation =
+                        sector.organizations.buckets.find(x => x.key === val.value).label.trim();
+                      }
+                    }, 1);
+                  });
+                }
+                // Funding organization name
+              } else if (tab === 'infrastructures') {
+                if (source.organization?.sector?.buckets?.length > 0) {
+                  source.organization.sector.buckets.forEach(sector => {
+                    sector.organizations.buckets.forEach(org => {
+                      if (org.organizationId.buckets[0]?.key === val.value) {
+                        const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                        this.activeFilters[foundIndex].translation = org.key?.trim();
+                      }
+                    });
+                  });
+                }
               }
             }
+
             // Country code
             if (val.category === 'countryCode' && source.countryCode) {
               switch (val.value) {
                 case 'c0': {
-                  val.translation = 'Julkaisumaa: Suomi';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Suomi';
                   break;
                 }
                 case 'c1': {
-                  val.translation = 'Julkaisumaa: Muut';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Muut';
                   break;
                 }
               }
@@ -236,19 +262,19 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'juFo' && source.juFo) {
               switch (val.value) {
                 case 'j3': {
-                  val.translation = 'Julkaisufoorumitaso: 3';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 3';
                   break;
                 }
                 case 'j2': {
-                  val.translation = 'Julkaisufoorumitaso: 2';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 2';
                   break;
                 }
                 case 'j1': {
-                  val.translation = 'Julkaisufoorumitaso: 1';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 1';
                   break;
                 }
                 case 'j0': {
-                  val.translation = 'Julkaisufoorumitaso: 0';
+                  val.translation = $localize`:@@jufoLevel:Julkaisufoorumitaso` + ': 0';
                   break;
                 }
               }
@@ -256,29 +282,41 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Funding
             // Type of funding
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
-              const result = source.typeOfFunding.buckets.find(({ key }) => key === val.value);
-              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.typeName.buckets[0]?.key ? result.typeName.buckets[0].key :
-              val.value;
+              if (source.typeOfFunding.types.buckets?.length > 0) {
+                source.typeOfFunding.types.buckets.forEach(type => {
+                  setTimeout(t => {
+                    if (type.subData.find(x => x.key === val.value)) {
+                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                      this.activeFilters[foundIndex].translation = type.subData.find(x => x.key === val.value).label;
+                    }
+                  }, 1);
+                });
+              }
             }
 
             // Infrastructure
             if (val.category === 'type' && source.type) {
-              val.translation = val.translation.charAt(0).toUpperCase() + val.translation.slice(1);
+              // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
+              // This might cause some latency and therefore timeout is needed.
+              setTimeout(x => {
+                const result = source.type.types.buckets.find(({ key }) => key === val.value);
+                const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+              }, 1);
             }
 
             // Organization, sector
             if (val.category === 'sector' && source.sector) {
-              const result = source.sector.buckets.find(({ key }) => key === val.value);
+              const result = source.sector.sectorId.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.sectorId ? result.sectorId.buckets[0].key : '';
+              this.activeFilters[foundIndex].translation = result.sectorName ? result.sectorName.buckets[0].key : '';
             }
 
             // News, organization
-            if (this.currentTab === 'news' && source.organization) {
+            if (tab === 'news' && source.organization) {
               const result = source.organization.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.label;
+              this.activeFilters[foundIndex].translation = result.label ? result.label : result.orgName.buckets[0].key;
             }
           });
           // Set flag when all filters are translated & filter items that aren't hidden
@@ -336,14 +374,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   clearFilters() {
     this.activeFilters = [];
-    this.router.navigate([]);
+    // Preserve target if available
+    this.router.navigate([], {queryParams: {target: this.settingsService.target}});
   }
 
   ngOnDestroy() {
-    this.queryParams.unsubscribe();
-    this.filterResponse.unsubscribe();
-    // this.tabSub.unsubscribe();
-    this.containerSub.unsubscribe();
+    this.queryParams?.unsubscribe();
+    this.filterResponse?.unsubscribe();
+    // this.tabSub?.unsubscribe();
+    this.containerSub?.unsubscribe();
   }
 
   // Set index for warning hover

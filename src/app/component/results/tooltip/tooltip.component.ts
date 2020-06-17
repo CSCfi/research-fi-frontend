@@ -74,6 +74,6 @@ export class TooltipComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.inputSub.unsubscribe();
+    this.inputSub?.unsubscribe();
   }
 }

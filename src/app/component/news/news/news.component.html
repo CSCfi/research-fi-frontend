@@ -8,30 +8,46 @@
 <div class="full-width"></div>
 <main id="main-content">
     <div class="wrapper">
-        <div class="row" *ngIf="data">
-            <div class="col col-xl-3" [ngClass]="mobile ? 'col-12 pb-4' : 'col-4 px-0'">
-                <aside>
-                    <!-- results/filters -->
-                    <app-filters [responseData]="filterValues" [tabData]="'news'"></app-filters>
-                </aside>
-            </div>
-            <div class="col" [ngClass]="mobile ? 'col-12' : 'col-8'">
-                <main>
-                    <div class="row">
-                        <h1 class="col col-lg-8">Tiede- ja tutkimusuutiset</h1>
-                        <div class="col col-lg-4">
-                            <nav>
-                                <input #searchInput disabled="true" type="text" placeholder="Hae tiedeuutisista...">
-                            </nav>
-                        </div>
+        <div class="row">
+            <div class="col-12 col-lg-8 px-0">
+                <div class="row d-flex justify-content-between">
+                    <h1 class="col col-lg-8 px-0" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
+                    <div class="col-12 col-sm-4 search">
                         <aside>
-                            <!-- results/active-filters -->
-                            <app-active-filters></app-active-filters>
+                            <!-- results/filters -->
+                            <app-filters [responseData]="filterValues" [tabData]="'news'" [showButton]="true"></app-filters>
                         </aside>
-                        <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
+                    </div>
+                    <aside>
+                        <!-- results/active-filters -->
+                        <app-active-filters></app-active-filters>
+                    </aside>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="data">
+            <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
+                <main>
+                    <div class="row content">
+                        <h2 class="col-12 pt-3 px-0" i18n="@@latest">Uusimmat</h2>
+                        <app-news-card *ngFor="let item of data" tabindex="0" [item]="item"></app-news-card>
+                        <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
+                            <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
+                            <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
+                        </div>
                     </div>
                 </main>
             </div>
+            <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
+                <h2 class="col-12 pt-3 px-0 pb-3" #older i18n="@@olderNews">Aiempia uutisia</h2>
+                <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true"></app-news-card>
+                <app-news-pagination [responseData]="data"></app-news-pagination>
+            </div>
         </div>
+        <!-- <div class="row" *ngIf="data">
+            <div class="col-12 text-center">
+                <app-news-pagination [responseData]="data"></app-news-pagination>
+            </div>
+        </div> -->
     </div>
 </main>

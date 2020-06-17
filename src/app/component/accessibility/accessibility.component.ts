@@ -10,6 +10,11 @@ import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChi
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { ReviewComponent } from 'src/app/ui/review/review.component';
+import { UtilityService } from 'src/app/services/utility.service';
+import { accessibility, common } from 'src/assets/static-data/meta-tags.json'
+
 
 @Component({
   selector: 'app-accessibility',
@@ -20,18 +25,34 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   focusSub: Subscription;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   title: string;
+  reviewDialogRef: MatDialogRef<ReviewComponent>;
+  private currentLocale: string;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService) { }
+
+  private metaTags = accessibility;
+  private commonTags = common;
+
+
+  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+              public dialog: MatDialog, private utilityService: UtilityService) {
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   ngOnInit(): void {
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+    this.metaTags['description' + this.currentLocale],
+    this.commonTags['imgAlt' + this.currentLocale])
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Saavutettavuusseloste - Tiedejatutkimus.fi');
         break;
       }
       case 'en': {
-        // Todo: Translate
         this.setTitle('Accessibility - Research.fi');
+        break;
+      }
+      case 'sv': {
+        this.setTitle('Tillgänglighetsredogörelse - Forskning.fi');
         break;
       }
     }
@@ -56,6 +77,15 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
       }
     });
   }
+
+  toggleReview() {
+    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+      maxWidth: '800px',
+      minWidth: '320px',
+      // minHeight: '60vh'
+    });
+  }
+
 
   ngOnDestroy() {
     // Reset skip to input - skip-link

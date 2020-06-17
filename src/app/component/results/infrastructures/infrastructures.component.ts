@@ -12,6 +12,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { SortService } from 'src/app/services/sort.service';
 import { Search } from 'src/app/models/search.model';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-infrastructures',
@@ -31,7 +32,8 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
   faCheckCircle = faCheckCircle;
 
   constructor(private router: Router, private route: ActivatedRoute, private tabChangeService: TabChangeService,
-              private searchService: SearchService, private sortService: SortService, private cdr: ChangeDetectorRef) { }
+              private searchService: SearchService, private sortService: SortService, private cdr: ChangeDetectorRef,
+              public utilityService: UtilityService) { }
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
@@ -52,25 +54,8 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
     });
   }
 
-  sortBy(sortBy) {
-    const activeSort = this.route.snapshot.queryParams.sort || '';
-    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
-    let newSort = sortColumn + (sortDirection ? 'Desc' : '');
-    // Reset sort
-    if (activeSort.slice(-4) === 'Desc') { newSort = ''; }
-
-
-    this.router.navigate([],
-      {
-        relativeTo: this.route,
-        queryParams: { sort: newSort },
-        queryParamsHandling: 'merge'
-      }
-    );
-  }
-
   ngOnDestroy() {
-    this.inputSub.unsubscribe();
+    this.inputSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
   }
 }

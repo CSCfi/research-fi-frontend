@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { ServicePoint, ServicePointAdapter } from './service-point.model';
+import { LanguageCheck } from './utils';
 
 export class InfraService {
 
@@ -26,7 +27,7 @@ export class InfraService {
 })
 
 export class InfraServiceAdapter implements Adapter<InfraService> {
-    constructor(private spa: ServicePointAdapter) {}
+    constructor(private spa: ServicePointAdapter, private langCheck: LanguageCheck) {}
     adapt(item: any): InfraService {
 
         const servicePoints: ServicePoint[] = [];
@@ -34,9 +35,9 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
         servicePoints.push(this.spa.adapt(item));
 
         return new InfraService(
-            item.serviceName,
-            item.serviceDescription,
-            item.serviceScientificDescription,
+            this.langCheck.testLang('serviceName', item),
+            this.langCheck.testLang('serviceDescription', item),
+            this.langCheck.testLang('serviceScientificDescription', item),
             item.serviceAcronym,
             item.serviceType,
             servicePoints,

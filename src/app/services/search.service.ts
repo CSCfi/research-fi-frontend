@@ -24,7 +24,9 @@ import { News, NewsAdapter } from '../models/news.model';
 export class SearchService {
   singleInput: string;
   pageNumber: number;
+  newsPageNumber: number;
   fromPage: number;
+  fromNewsPage: number;
   apiUrl: any;
 
   // Variables to help with search term redirections
@@ -74,6 +76,16 @@ export class SearchService {
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
       this.fromPage = 0;
       this.pageNumber = 1;
+    }
+  }
+
+  // We use different method for news page number
+  updateNewsPageNumber(pageNumber: number) {
+    this.newsPageNumber = pageNumber;
+    this.fromNewsPage = this.newsPageNumber * 10 - 10;
+    if (isNaN(this.newsPageNumber) || this.newsPageNumber < 0) {
+      this.fromNewsPage = 0;
+      this.newsPageNumber = 1;
     }
   }
 
@@ -154,24 +166,31 @@ export class SearchService {
         }
       }
     };
-    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
     return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad);
   }
 
   getFilters(): Observable<Search[]> {
-    const payLoad = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
-    // const queryTerm = this.singleInput ? 'q=' + this.singleInput : '';
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payLoad);
+    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
+  }
+
+  //
+  getQueryFilters(): Observable<Search[]> {
+    const query = this.filterService.constructPayload(this.singleInput, this.fromPage,
+      this.sortService.sort, this.tabChangeService.tab);
+    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    const payload = Object.assign(query, aggs);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload);
   }
 
   getNewsFilters(): Observable<Search[]> {
-    // const payLoad = this.filterService.constructFilterPayload('news', this.singleInput);
-    const payLoad: any = {
+    const payLoad = {
       size: 0,
       aggs: {
         organization: {
           terms: {
-            field: 'organizationId.keyword'
+            field: 'organizationId.keyword',
+            size: 50
           },
           aggs: {
             orgName: {
@@ -205,4 +224,20 @@ export class SearchService {
 
     return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
   }
+
+    // News page older news content
+    getOlderNews(size?: number): Observable<News[]> {
+      const payload = {
+        query: this.filterService.constructNewsPayload(),
+        size,
+        from: this.fromNewsPage + 5,
+        sort: [
+          {
+            timestamp: {order: 'desc'}
+          }
+        ]
+      };
+
+      return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
+    }
 }

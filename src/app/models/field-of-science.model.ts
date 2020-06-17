@@ -7,6 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { LanguageCheck } from './utils';
 
 export class FieldOfScience {
 
@@ -26,15 +27,16 @@ export class FieldOfScience {
 })
 
 export class FieldOfScienceAdapter implements Adapter<FieldOfScience> {
+    constructor(private lang: LanguageCheck) {}
     adapt(item: any): FieldOfScience {
         return new FieldOfScience(
             item.fieldIdScience,
             item.nameFiScience,
-            item.nameEnScience,
             item.nameSvScience,
-            item.mainFieldOfScienceNameFi,
-            item.mainFieldOfScienceNameEn,
-            item.mainFieldOfScienceNameSv
+            item.nameEnScience,
+            this.lang.testLang('mainFieldOfScienceName', item),
+            this.lang.testLang('mainFieldOfScienceName', item),
+            this.lang.testLang('mainFieldOfScienceName', item),
         );
     }
 }

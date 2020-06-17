@@ -9,36 +9,41 @@
 </aside>
 <div class="wrapper" *ngIf="responseData" id="main-content">
     <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="[responseData]" [tab]="tab" [tabName]="'julkaisut'" [resultNameField]="'title'" [queryParams]="tabQueryParams"></app-breadcrumb>
+    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'title'" [queryParams]="tabQueryParams"></app-breadcrumb>
     <div class="row shared">
-        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; Takaisin hakutuloksiin</a></p>
+        <p class="back col-12"><a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a></p>
         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
-            <h2>404 - Virheellinen osoite</h2>
+            <h2 i18n="@@404">404 - Virheellinen osoite</h2>
         </div>
         <main class="col-12 col-md-8">
             <div *ngFor="let item of responseData.publications">
                 <h1 class="result-header" [attr.lang]="item.languageCode !== documentLang ? item.languageCode : null">{{item.title}}</h1>
                 <div id="info" class="table">
                     <div class="row content" *ngFor="let row of infoFields">
-                        <div class="col-6 col-lg-3 th">
+                        <h2 class="col-12 col-sm-6 col-lg-3 th">
                             {{row.label}}
-                            <ng-container *ngIf="row.tooltipFi">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltipFi"></div></ng-template>
-                                <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                            <ng-container *ngIf="row.tooltip">
+                                <ng-template #tooltipTemplate><div [innerHtml]="row?.tooltip"></div></ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
                             </ng-container>
-                        </div>
-                        <div class="col-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
+                        </h2>
+                        <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
                     </div>
-                    <div class="row content" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
-                        <div class="col-6 col-lg-3 th">Organisaatiot ja tekijät
+                    <div class="row content pb-0" [class.pb-0]="hasSubUnits" [class.auth-min-height]="hasSubUnits && authorAndOrganization.length <= 1" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
+                        <h2 class="col-12 col-sm-6 col-lg-3 th" [class.auth-header-min-height]="hasSubUnits"><ng-container i18n="@@authorOrganization">Organisaatiot ja tekijät</ng-container>
                             <ng-container>
-                                <fa-icon tabindex="0" tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." placement="right" class="info-icon" 
-                                icon="info-circle"></fa-icon>
+                                <span i18n-tooltip tooltip="Julkaisun tekijät, joilla on suomalainen organisaatio." tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>    
                             </ng-container>
-                            <button class="show-more" *ngIf="hasSubUnits && !showSubUnits" (click)="showSubUnits = true">Näytä tarkemmin</button>
-                            <button class="show-more" *ngIf="hasSubUnits && showSubUnits" (click)="showSubUnits = false">Piilota alayksiköt</button>
-                        </div>
-                        <div class="col-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
+                            <div class="show-more-wrapper" *ngIf="hasSubUnits">
+                                <button class="show-more" *ngIf="!showSubUnits" (click)="showSubUnits = true" i18n="@@showSpecific">Näytä tarkemmin</button>
+                                <button class="show-more" *ngIf="showSubUnits" (click)="showSubUnits = false" i18n="@@hideSubUnits">Piilota alayksiköt</button>
+                            </div>
+                        </h2>
+                        <div class="col-12 col-sm-6 col-lg-9 td" *ngFor="let row of authorAndOrganization.slice(0, 1)">
                             <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
                             <div *ngFor="let unit of row.orgUnits">
                                 <div class="row" *ngIf="showSubUnits">
@@ -60,18 +65,22 @@
                                         {{author.author}}
                                         <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
                                     </p>
-                                    <div class="row" *ngIf="showSubUnits && author.subUnit !== null">
-                                        <div class="col-1 guide">
-                                            <span class="guide-line">
-                                                <span class="guide-line-top"></span>
-                                            </span>
-                                        </div>
-                                        <div class="col sub-unit">
-                                            <p>
-                                                {{author.subUnit}}
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <ng-container *ngIf="showSubUnits">
+                                        <ng-container *ngFor="let subUnit of author.subUnits">
+                                            <div class="row" *ngIf="subUnit !== null && subUnit !== ' '">
+                                                <div class="col-1 guide">
+                                                    <span class="guide-line">
+                                                        <span class="guide-line-top"></span>
+                                                    </span>
+                                                </div>
+                                                <div class="col sub-unit">
+                                                    <p>
+                                                        {{subUnit}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +88,7 @@
                     <ng-container>
                         <div></div>
                         <div class="row content">
-                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td" *ngFor="let row of authorAndOrganization.slice(1)">
+                            <div class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td" *ngFor="let row of authorAndOrganization.slice(1)">
                                 <a class="th" href="/results/organization/{{row.orgId}}">{{row.orgName}}</a>
                                 <div *ngFor="let unit of row.orgUnits">
                                     <div class="row" *ngIf="showSubUnits">
@@ -96,54 +105,60 @@
                                     </div>
                                 </div>
                                 <div *ngFor="let author of row.authors">
-                                    <div *ngIf="author.author.length > 10">
+                                    <div *ngIf="author.author.trim().length > 0">
                                         <p class="td"  [ngClass]="author.orcid ? 'has-orcid' : ''">
                                             {{author.author}}
                                             <app-orcid *ngIf="author.orcid" [orcid]="author.orcid"></app-orcid>
                                         </p>
-                                        <div class="row" *ngIf="showSubUnits && author.subUnit !== null">
-                                            <div class="col-1 guide">
-                                                <span class="guide-line">
-                                                    <span class="guide-line-top"></span>
-                                                </span>
-                                            </div>
-                                            <div class="col sub-unit">
-                                                <p>
-                                                    {{author.subUnit}}
-                                                </p>
-                                            </div>
-                                        </div>
+                                        <ng-container *ngIf="showSubUnits">
+                                            <ng-container *ngFor="let subUnit of author.subUnits">
+                                                <div class="row" *ngIf="subUnit !== null && subUnit !== ' '">
+                                                    <div class="col-1 guide">
+                                                        <span class="guide-line">
+                                                            <span class="guide-line-top"></span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col sub-unit">
+                                                        <p>
+                                                            {{subUnit}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </ng-container>
                     <!-- <div class="row content" *ngIf="organizationSubFields.slice(0,1).length > 0">
-                        <div class="col-6 col-lg-3 th">Organisaation alayksiköt</div>
-                        <div class="col-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
+                        <div class="col-12 col-sm-6 col-lg-3 th">Organisaation alayksiköt</div>
+                        <div class="col-12 col-sm-6 col-lg-9 td" *ngFor="let row of organizationSubFields.slice(0,1)">
                             <p class="td">{{item[row.field]}}</p>
                         </div>
                     </div> -->
                     <ng-container *ngFor="let row of organizationSubFields.slice(1)">
                         <div></div>
                         <div class="row content">
-                            <div class="col-6 col-lg-9 offset-6 offset-lg-3 td">
-                                <p class="th">{{row.label}}</p>
+                            <div class="col-12 col-sm-6 col-lg-9 offset-0 offset-sm-6 offset-lg-3 td">
+                                <h3 class="th">{{row.label}}</h3>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
                         </div>
                     </ng-container>
                     <div class="row content" *ngIf="mediumFields?.length > 0">
                         <!-- Top row links, switch case to check for different search targets -->
-                        <div class="col-6 col-lg-3 th">Julkaisukanavan tiedot</div>
-                        <div class="col-6 col-lg-3 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
-                            <p class="th">
+                        <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationMediumInfo">Julkaisukanavan tiedot</h2>
+                        <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of mediumFields.slice(0,3)">
+                            <h3 class="th">
                                 {{row.label}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
                                 </ng-container>
-                            </p>
+                            </h3>
                             <p class="td"*ngIf="row.link && juFoCode?.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
                              [ngSwitch]="true">
                             <!-- Check if fields are issn or isbn and target search with exact field  -->
@@ -164,24 +179,24 @@
                         <div *ngIf="i % 3 == 0"></div>
                         <div class="row content" *ngIf="i % 3 == 0">
                             <!-- First col -->
-                            <div class="col-6 col-lg-3 offset-6 offset-lg-3 td">
-                               <p class="th">{{row.label}}</p>
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
+                               <h3 class="th">{{row.label}}</h3>
                                <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
                                     {{item[row.field]}}
                                </a>
                                <span *ngIf="!row.link">{{item[row.field]}}</span>
                             </div>
                             <!-- Second col -->    
-                            <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
-                               <p class="th">{{mediumFields.slice(3)[i + 1].label}}</p>
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
+                               <h3 class="th">{{mediumFields.slice(3)[i + 1].label}}</h3>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
                                     {{item[mediumFields.slice(3)[i + 1].field]}}
                                </a>
                                <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item[mediumFields.slice(3)[i + 1].field]}}</span>
                             </div> 
                             <!-- Third col -->   
-                            <div class="col-6 col-lg-3 offset-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
-                               <p class="th">{{mediumFields.slice(3)[i + 2].label}}</p>
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
+                               <h3 class="th">{{mediumFields.slice(3)[i + 2].label}}</h3>
                                <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
                                     {{item[mediumFields.slice(3)[i + 2].field]}}
                                </a>
@@ -190,19 +205,21 @@
                         </div>
                     </ng-container>
                     <div class="row content">
-                        <div class="col-6 col-lg-3 th">Muut tiedot</div>
-                        <div class="col-6 col-lg-4 offset-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
-                            <p class="th">
+                        <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherPublicationInfo">Muut tiedot</h2>
+                        <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of otherFields.slice(0,2)">
+                            <h3 class="th">
                                 {{row.label}}
-                                <ng-container *ngIf="row.tooltipFi">
-                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltipFi"></div></ng-template>
-                                    <fa-icon tabindex="0" [tooltip]="tooltipTemplate" placement="right" class="info-icon" icon="info-circle"></fa-icon>
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
                                 </ng-container>
-                            </p>
+                            </h3>
                             <!-- Fields of science as list -->
                             <ng-container *ngIf="row.field === 'fieldsParsed'; else nonField">
                                 <li *ngFor="let field of item.fieldsOfScience">
-                                    {{field.nameFi}}
+                                    {{field['name' + currentLocale]}}
                                 </li>
                             </ng-container>
                             <!-- Normal lists -->
@@ -214,12 +231,12 @@
                     <ng-container *ngFor="let row of otherFields.slice(2); let i = index">
                         <div *ngIf="i % 2 == 0"></div>
                         <div class="row content" *ngIf="i % 2 == 0">
-                            <div class="col-6 col-lg-4 offset-6 offset-lg-3 td">
-                                <p class="th">{{row.label}}</p>
+                            <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td">
+                                <h3 class="th">{{row.label}}</h3>
                                 <p class="td">{{item[row.field]}}</p>
                             </div>        
-                            <div class="col-6 col-lg-5 offset-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
-                                <p class="th">{{otherFields.slice(2)[i + 1].label}}</p>
+                            <div class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
+                                <h3 class="th">{{otherFields.slice(2)[i + 1].label}}</h3>
                                 <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
                             </div>
                         </div>
@@ -231,12 +248,9 @@
             <aside>
                 <aside>
                     <mat-card>
-                        <mat-card-title><h2>Linkit julkaisuun</h2></mat-card-title>
+                        <mat-card-title><h2 i18n="@@publicationLinks">Linkit julkaisuun</h2></mat-card-title>
                         <div class="row links" *ngFor="let row of linksFields">
                             <div *ngIf="row.field === 'doi'" class=" info-link-wrapper">
-                                <div class="col-sm-2 col-md-1 icon">
-                                    <fa-icon [icon]="faIcon"></fa-icon>
-                                </div>
                                 <div class="col link doi">
                                     <span class="doi-tag">DOI</span>
                                     <span class="doi-link">
@@ -245,20 +259,29 @@
                                 </div>
                             </div>
                             <div *ngIf="row.field !== 'doi'" class="info-link-wrapper">
-                                <div class="col-sm-2 col-md-1 icon">
-                                    <fa-icon [icon]="faIcon"></fa-icon>
-                                </div>
                                 <div class="col link">
                                     <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="!linksFields.length" class="no-links">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
+                        <!-- Self archived addresses -->
+                        <ng-container *ngFor="let selfArchived of item.selfArchivedData">
+                            <ng-container *ngFor="let row of selfArchived.selfArchived">
+                                <div class="row links">
+                                    <div class="info-link-wrapper">
+                                        <div class="col link">
+                                            <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <div *ngIf="!linksFields.length && !item.selfArchivedData" class="no-links" i18n="@@noPublicationLinks">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
                 <aside>
                     <mat-card>
-                        <mat-card-title><h2>Hae julkaisua muualta</h2></mat-card-title>
+                        <mat-card-title><h2 i18n="@@externalLinks">Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
                                 <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar <fa-icon icon="external-link-alt"></fa-icon></a>
@@ -271,17 +294,20 @@
                     </mat-card>
                 </aside>
                 <mat-card>
-                    <mat-card-title><h2>Hae julkaisuun liittyvät</h2></mat-card-title>
+                    <mat-card-title><h2><ng-container i18n="@@relatedPublications">Hae julkaisuun liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
                     <app-related-links [id]="authorAndOrganization[0]?.orgId" [relatedFilters]="relatedData"></app-related-links>
                </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Viittaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@citationHeader">Viittaa</h2></mat-card-title>
                     <div>
                         <div class="reference">
-                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi"><fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>Kopioi viitetiedot...</button>
-                            <small *ngIf="!hasDoi" class="no-doi-warn">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
+                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi">
+                                <fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>
+                                <ng-container i18n="@@copyReferences">Kopioi viitetiedot</ng-container>...
+                            </button>
+                            <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
                     </div>
                 </mat-card>
@@ -289,15 +315,15 @@
             <!-- Copy url -->
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Jaa</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@shareHeader">Jaa</h2></mat-card-title>
                     <app-share></app-share>
                 </mat-card>
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2>Julkaisutiedon lähde</h2></mat-card-title>
+                    <mat-card-title><h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2></mat-card-title>
                     <div *ngFor="let org of authorAndOrganization">
-                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0">Organisaatio: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
+                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0"><ng-container i18n="@@orgOrganization">Organisaatio</ng-container>: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                         <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>
@@ -308,15 +334,15 @@
 </div>
 
 <ng-template #citeModal>
-    <div class="modal-header">
-        <h3 class="modal-title">Kopioi viitetiedot</h3>
+    <div class="modal-header reference-modal">
+        <h3 class="modal-title" i18n="@@copyReferences">Kopioi viitetiedot</h3>
     </div>
     <div class="modal-body reference-modal">
         <div *ngFor="let citation of citations; let i = index" class="cite-block">
             <h4>{{citationStyles[i].label}}: </h4>
             <span>{{citation | cleanCitation}}</span>
             <div class="copy-wrapper">
-                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()">Kopioi leikepöydälle</button>
+                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()" i18n="@@copyToClipboard">Kopioi leikepöydälle</button>
             </div>
         </div>
         <div *ngIf="hasDoi; else noDoi">
@@ -331,10 +357,10 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="UtilityService.preventTab($event)">Sulje</button>
+        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="UtilityService.preventTab($event)" i18n="@@closeButton">Sulje</button>
     </div>
 </ng-template>
 
 <ng-template #noDoi>
-    Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen
+    <ng-container i18n="@@doiHelp">Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen</ng-container>
 </ng-template>

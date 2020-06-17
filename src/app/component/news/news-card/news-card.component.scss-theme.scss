@@ -13,9 +13,12 @@
         mat-card {
             &.mat-card {
                 background-color: unset;
+                margin-bottom: 10px;
+            }
+
+            &.mat-card.limit-width {
                 max-width: 760px;
                 margin-top: 40px;
-                margin-bottom: 10px;
             }
             
             .mat-card-header-text {
@@ -33,6 +36,10 @@
             mat-card-actions {
                 font-size: 14px;
                 margin: 0 16px !important;
+            }
+
+            .icon {
+                color: mat-color($primary);
             }
         }
     }

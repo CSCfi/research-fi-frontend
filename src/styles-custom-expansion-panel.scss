@@ -25,6 +25,7 @@
             margin-right: 1rem;
             text-align: center;
             font-size: 1.3rem;
+            align-self: center;
         }
 
         .mat-expansion-panel-header {
@@ -53,6 +54,7 @@
 
         .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']) {
             outline: 5px auto -webkit-focus-ring-color!important;
+            background: none !important;
         }
 
         .mat-expansion-panel-content {

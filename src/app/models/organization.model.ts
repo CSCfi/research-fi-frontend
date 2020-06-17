@@ -5,16 +5,16 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { LanguageCheck } from './utils';
 
 export class Organization {
 
     constructor(
         public id: string,
-        public nameFi: string,
-        public nameEn: string,
-        public nameSv: string,
+        public name: string,
+        public nameTranslations: object | string,
         public variantNames: string,
         public established: string,
         public background: string,
@@ -26,9 +26,7 @@ export class Organization {
         public postalAddress: string,
         public businessId: string,
         public statCenterId: string,
-        public sectorNameFi: string,
-        public sectorNameEn: string,
-        public sectorNameSv: string,
+        public sectorName: string,
         public staffCountAsFte: number,
         public staffCountAsPercentage: number,
         public staffYear: string,
@@ -41,7 +39,9 @@ export class Organization {
         public thesisCountMscPercentage: number,
         public thesisCountLicPercentage: number,
         public thesisCountPhdPercentage: number,
+        public sectorNameFi: string,
         public subUnits: any[],
+        public logo: string
     ) {}
 }
 
@@ -50,17 +50,21 @@ export class Organization {
 })
 
 export class OrganizationAdapter implements Adapter<Organization> {
-    constructor() {}
+    constructor(private lang: LanguageCheck, @Inject( LOCALE_ID ) protected localeId: string) {}
     adapt(item: any): Organization {
+        const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+        // Name translations
+        const nameTranslations = (({ nameFi, nameEn, nameSv }) => ({ nameFi, nameEn, nameSv }))(item);
+        const key = 'name' + locale;
+        delete nameTranslations[key];
+
         // Join predecessors with comma
         const predecessors = item.predecessors ? item.predecessors.map(x => x.nameFi.trim()).join(', ') : '';
-        const related = item.related ? item.related.map(x => x.nameFi.trim()).join(', '): '';
-
+        const related = item.related ? item.related.map(x => x.nameFi.trim()).join(', ') : '';
         return new Organization(
             item.organizationId,
-            item.nameFi.trim(),
-            item.nameEn,
-            item.nameSv,
+            this.lang.testLang('name', item).trim(),
+            nameTranslations,
             item.variantNames,
             item.established,
             item.organizationBackground,
@@ -72,9 +76,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.postalAddress,
             item.businessId,
             item.TKOppilaitosTunnus,
-            item.sectorNameFi,
-            item.sectorNameEn,
-            item.sectorNameSv,
+            this.lang.testLang('sectorName', item),
             item.staffCountAsFte,
             item.staffCountAsPercentage,
             item.staffYear,
@@ -87,7 +89,9 @@ export class OrganizationAdapter implements Adapter<Organization> {
             item.thesisCountMscPercentage,
             item.thesisCountLicPercentage,
             item.thesisCountPhdPercentage,
+            item.sectorNameFi,
             item.subUnits,
+            item.mediaUri
         );
     }
 };

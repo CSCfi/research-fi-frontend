@@ -1,6 +1,16 @@
-import { Injectable } from '@angular/core';
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+import { Injectable, ElementRef, Inject, LOCALE_ID } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SortService } from './sort.service';
+import { Meta } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +19,8 @@ export class UtilityService {
   private modalHideSub: Subscription;
   private modalShowSub: Subscription;
 
-  constructor(private modalService: BsModalService) {
+  constructor(private modalService: BsModalService, private route: ActivatedRoute, private sortService: SortService,
+              private router: Router, private meta: Meta) {
     // Subscribe to modal show and hide
     this.modalHideSub = this.modalService.onHide.subscribe(_ => {
       this.modalOpen = false;
@@ -20,6 +31,7 @@ export class UtilityService {
   }
 
   modalOpen = false;
+  tooltipOpen = false;
 
   // source: https://github.com/valor-software/ngx-bootstrap/issues/1819#issuecomment-556373372
 
@@ -47,4 +59,83 @@ export class UtilityService {
         }
     }
   }
+
+  // A function to check if a string has valuable data to be displayed
+  static stringHasContent(content: any) {
+    const contentString = content?.toString();
+    return contentString !== '0' &&
+           contentString !== '-1' &&
+           contentString !== '' &&
+           contentString !== 'UNDEFINED' &&
+           contentString !== 'undefined' &&
+           contentString !== ' ' &&
+           contentString !== '#N/A' &&
+           contentString !== '[]' &&
+           contentString !== null &&
+           contentString !== undefined;
+  }
+
+  // A function to check if an object has any fields with valuable data
+  static objectHasContent(content: object) {
+    let res = false;
+    Object.keys(content).forEach(key => {
+      if (UtilityService.stringHasContent(content[key])) {
+        res = true;
+        // How to jump out of forEach after true found??
+      }
+    });
+    return res;
+  }
+
+  // mouseenter handler for tooltipelements
+  tooltipMouseenter(elem: HTMLElement) {
+    elem.blur();
+    elem.focus();
+    this.tooltipOpen = true;
+  }
+
+  // keydown handler for tooltip elements
+  tooltipKeydown(elem: HTMLElement, event: any) {
+    // Timeout because event propagates here before header and thus esc would open navbar incorrecly
+    if (event.keyCode === 27) {
+      setTimeout(() => {
+        this.tooltipOpen = false;
+      }, 1);
+    } else {
+      this.tooltipOpen = !this.tooltipOpen;
+    }
+  }
+
+
+  // Sort component logic
+  sortBy(sortBy) {
+    const activeSort = this.route.snapshot.queryParams.sort || '';
+    const [sortColumn, sortDirection] = this.sortService.sortBy(sortBy, activeSort);
+    let newSort = sortColumn + (sortDirection ? 'Desc' : '');
+    // Reset sort
+    if (activeSort.slice(-4) === 'Desc' && activeSort.slice(0, -4) === sortColumn) { newSort = ''; }
+
+
+    this.router.navigate([],
+      {
+        relativeTo: this.route,
+        queryParams: { sort: newSort },
+        queryParamsHandling: 'merge'
+      }
+    );
+  }
+
+  // Adding meta taga
+  addMeta(title: string, description: string, imageAlt: string) {
+    this.meta.addTags([
+      { name: 'description', content: title },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:image', content: 'https://tiedejatutkimus.fi/assets/img/logo.svg' },
+      { property: 'og:image:alt', content: imageAlt },
+      { property: 'og:image:height', content: '100' },
+      { property: 'og:image:width', content: '100' },
+   ]);
+  }
+
 }

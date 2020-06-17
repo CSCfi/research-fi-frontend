@@ -8,19 +8,17 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
+import { LanguageCheck } from './utils';
 
 export class Funding {
 
     constructor(
         public id: number,
-        public nameFi: string, // projectNameFi
-        public nameSv: string, // projectNameSv
-        public nameEn: string, // projectNameEn
+        public name: string, // projectNameFi
         public acronym: string,
-        public descriptionFi: string, // projectDescriptionFi
-        public descriptionEn: string, // projectDescriptionEn
-        public startYear: string, // fundingStartYear
-        public endYear: string, // FundingEndYear
+        public description: string, // projectDescriptionFi
+        public startYear: number, // fundingStartYear
+        public endYear: number, // FundingEndYear
         public academyConsortium: string, // fundingGroupPerson ->
         public otherConsortium: any[], // fundingGroupPerson ->
         public recipient: Recipient,
@@ -29,8 +27,10 @@ export class Funding {
         public fieldsOfScience: string,
         public fieldsOfResearch: string,
         public fieldsOfTheme: string,
+        public keywords: string,
         public projectHomepage: string,
-        public recipientType: string
+        public recipientType: string,
+        public euFunding: boolean
 
     ) {}
 }
@@ -39,10 +39,11 @@ export class Funding {
     providedIn: 'root'
 })
 export class FundingAdapter implements Adapter<Funding> {
-    constructor(private r: RecipientAdapter, private f: FunderAdapter) {}
+    constructor(private r: RecipientAdapter, private f: FunderAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Funding {
         const recipientObj = item.fundingGroupPerson ?
                              item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift() : {};
+
         // Determine recipient type based on existence and contents of fundingGroupPerson
         switch (item.fundingGroupPerson?.length) {
             // No person -> organization
@@ -52,7 +53,6 @@ export class FundingAdapter implements Adapter<Funding> {
             }
             // One person -> person, don't show consortium
             case 1: {
-                // item.recipientType = item.fundingGroupPerson[0].consortiumOrganizationNameFi === ' ' ? 'organization' : 'person';
                 item.recipientType = 'person';
                 break;
             }
@@ -62,38 +62,53 @@ export class FundingAdapter implements Adapter<Funding> {
                 break;
             }
         }
+
         // Translate academy consortium role
-        switch (recipientObj?.roleInFundingGroup) {
-            case 'leader': {
-                recipientObj.roleInFundingGroup = {labelFi: 'Johtaja', labelEn: 'Leader'};
-                break;
-            }
-            case 'partner': {
-                recipientObj.roleInFundingGroup = {labelFi: 'Partneri', labelEn: 'Partner'};
-                break;
+        if (recipientObj && recipientObj.roleInFundingGroup) {
+            switch (recipientObj?.roleInFundingGroup) {
+                case 'leader': {
+                    recipientObj.roleInFundingGroup = {labelFi: 'Johtaja', labelEn: 'Leader'};
+                    break;
+                }
+                case 'partner': {
+                    recipientObj.roleInFundingGroup = {labelFi: 'Partneri', labelEn: 'Partner'};
+                    break;
+                }
             }
         }
+
         // Trim all string elements
         item.fundingGroupPerson?.forEach(element => {
             Object.keys(element).map(k => element[k] = typeof element[k] === 'string' ? element[k].trim() : element[k]);
         });
         const otherConsortiumObjs = item.fundingGroupPerson ?
                                     item.fundingGroupPerson.filter(x => x.consortiumProject !== item.funderProjectNumber) : [];
-        const recipient = this.r.adapt(item);
+
+        // Translate academy consortium role in other consortiums
+        if (otherConsortiumObjs && otherConsortiumObjs[0]?.roleInFundingGroup) {
+            otherConsortiumObjs.forEach(consortium => consortium.roleInFundingGroup =
+                                        this.lang.translateRole(consortium.roleInFundingGroup, false));
+        }
+
         const funder = this.f.adapt(item);
-        const science = item.keywords?.filter(x => x.scheme === 'Tieteenala').map(x => x.keyword).join(', ');
+        item.euFunding = funder.name?.toLowerCase() === 'euroopan unioni' ? true : false;
+
+        const recipient = this.r.adapt(item);
+
+        // TODO: Translate
+        const science = item.fields_of_science?.map(x => x.nameFiScience).join('; ');
         const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
         const theme = item.keywords?.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
+        const keyword = item.keywords?.filter(x => x.scheme === 'Avainsana').map(x => x.keyword).join(', ');
+
+
         return new Funding(
             item.projectId,
-            item.projectNameFi,
-            item.projectNameSv,
-            item.projectNameEn,
+            this.lang.testLang('projectName', item),
             item.projectAcronym,
-            item.projectDescriptionFi,
-            item.projectDescriptionEn,
+            this.lang.testLang('projectDescription', item),
             item.fundingStartYear,
-            item.FundingEndYear,
+            item.fundingEndYear = item.fundingEndYear > item.fundingStartYear ? item.fundingEndYear : undefined,
             recipientObj?.roleInFundingGroup,
             otherConsortiumObjs,
             recipient,
@@ -102,8 +117,10 @@ export class FundingAdapter implements Adapter<Funding> {
             science,
             research,
             theme,
+            keyword,
             item.projetHomepage,
-            item.recipientType
+            item.recipientType,
+            item.euFunding
         );
     }
 }

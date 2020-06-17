@@ -13,13 +13,13 @@ import { Injectable } from '@angular/core';
 
 export class NewsFilters {
   filterData = [
-      {field: 'organization', labelFi: 'Organisaatio', hasSubFields: false, open: true, limitHeight: true},
+      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: false, open: true, limitHeight: true},
     ];
 
   constructor() {}
 
   shapeData(data) {
-    const source = data[0].aggregations;
+    const source = data.aggregations;
     source.organization.buckets = this.organization(source.organization.buckets);
     source.shaped = true;
     return source;

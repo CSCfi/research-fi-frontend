@@ -53,6 +53,7 @@ h2 {
 
 span.total {
   font-style: italic;
+  white-space: nowrap;
 }
 
 // Filters
@@ -102,5 +103,7 @@ span.total {
 @media (max-width: 575px) {
   .filters {
     margin-bottom: 5px;
+    // Fix for overflow on 320px width
+    max-width: 49%;
   }
 }

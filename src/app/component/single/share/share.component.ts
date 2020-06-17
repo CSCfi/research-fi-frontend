@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT } from '@angular/common';
@@ -19,15 +19,30 @@ export class ShareComponent implements OnInit {
 
   faCopy = faCopy;
   currentUrl: string;
+  message: string;
 
-  constructor( private snackBar: MatSnackBar, @Inject(DOCUMENT) private document: Document ) { }
+  constructor( private snackBar: MatSnackBar, @Inject(DOCUMENT) private document: Document,
+               @Inject(LOCALE_ID) protected localeId: string ) { }
 
   ngOnInit() {
     this.currentUrl = this.document.location.href;
+    switch (this.localeId) {
+      case 'en': {
+        this.message = 'Link copied to clipboard';
+        break;
+      }
+      case 'sv': {
+        this.message = 'Länk kopierad till urklipp';
+        break;
+      }
+      default: {
+        this.message = 'Linkki kopioitu leikepöydälle';
+      }
+    }
   }
 
   openSnackBar() {
-    this.snackBar.open('Linkki kopioitu leikepöydälle');
+    this.snackBar.open(this.message);
   }
 
 }
