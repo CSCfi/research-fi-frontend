@@ -383,9 +383,10 @@ export class FilterService {
       return activeNested.filter(item => item.nested.path !== path).concat(active, activeMultipleNested, activeBool);
     }
 
+    // TODO: Don't rely on path order. Use protype find instead
     function filterActiveMultipleNested(path1, path2) {
-      const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path1)
-                  .concat(activeMultipleNested.filter(item => item.bool.should[1].nested.path !== path2));
+      const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path2)
+                  .concat(activeMultipleNested.filter(item => item.bool.should[1].nested.path !== path1));
       return res.concat(active, activeNested, activeBool);
     }
 
@@ -787,7 +788,7 @@ export class FilterService {
                             filterCount: {
                               filter: {
                                 bool: {
-                                  filter: filterActiveMultipleNested('organizationConsortium', 'fundingGroupPerson')
+                                  filter: filterActiveMultipleNested('fundingGroupPerson', 'organizationConsortium')
                                 }
                               }
                             }
