@@ -10,7 +10,7 @@
         <ng-container *ngFor="let link of relatedList.slice(0, 3)">
             <li *ngIf="link.tab !== currentParent">
                 <a [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': id}">
-                    {{link['label' + currentLocale]}} <span *ngIf="!link.disabled">({{docCountData[link.tab]?.doc_count}})</span>
+                    {{link.label}} <span *ngIf="!link.disabled">({{docCountData[link.tab]?.doc_count}})</span>
                 </a>
             </li>
         </ng-container>
@@ -19,7 +19,7 @@
         <ng-container *ngFor="let link of relatedList.slice(3, relatedList.length)">
             <li *ngIf="link.tab !== currentParent">
                 <a [class.disabled]="link.disabled" routerLink="/results/{{link.tab}}/" [queryParams]="{'organization': id}">
-                    {{link['label' + currentLocale]}} <span *ngIf="!link.disabled">({{docCountData[link.tab]?.doc_count}})</span>
+                    {{link.label}} <span *ngIf="!link.disabled">({{docCountData[link.tab]?.doc_count}})</span>
                 </a>
             </li>
         </ng-container>
