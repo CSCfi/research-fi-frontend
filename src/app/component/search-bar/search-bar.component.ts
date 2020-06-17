@@ -21,6 +21,7 @@ import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SettingsService } from 'src/app/services/settings.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import { FilterService } from 'src/app/services/filter.service';
 
 interface Target {
   value: string;
@@ -96,7 +97,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private settingService: SettingsService, public utilityService: UtilityService,
-               @Inject(LOCALE_ID) protected localeId ) {
+               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService ) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                 this.queryHistory = this.getHistory();
@@ -310,6 +311,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     } else {
       this.searchService.updateInput(this.searchInput.nativeElement.value);
     }
+    // Reset / generate timestamp for randomized results
+    this.searchService.singleInput.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
+
     this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
       this.searchService.redirecting = true;

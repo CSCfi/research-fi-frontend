@@ -41,6 +41,7 @@ export class FilterService {
     fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: []});
   filters = this.filterSource.asObservable();
   localeC: string;
+  timestamp: string;
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
@@ -261,9 +262,9 @@ export class FilterService {
       // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
       //     [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}},
       //     must: {bool: {should: this.organizationFilter}}}}}}] : []) : []),
-          
+
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}},must: { bool: {should: this.organizationFilter } }}}}},
+          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}}, must: { bool: {should: this.organizationFilter } }}}}},
           {nested: {path: 'fundingGroupPerson', query: {bool: {filter: {term: {'fundingGroupPerson.fundedPerson': 1}}, must: { bool: { should: this.organizationFilter } }}}}}]}}] : []) : []),
 
       ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
@@ -299,13 +300,30 @@ export class FilterService {
     };
   }
 
+  generateTimeStamp() {
+    this.timestamp = Date.now().toString();
+  }
+
   // Data for results page
   constructPayload(searchTerm: string, fromPage, sortOrder, tab) {
+    // Generate new timestamp on portal init
+    if (searchTerm.length === 0 && !this.timestamp) {this.generateTimeStamp(); }
+    // Generate query based on tab and term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
+    // Randomize results if no search term and no sorting activated. Random score doesn't work if sort isn't based with score
+    if (searchTerm.length === 0 && (!this.sortService.sortMethod || this.sortService.sortMethod?.length === 0)) {sortOrder.push('_score'); }
     return {
-      query,
+      query: {
+          function_score: {
+          query,
+          random_score: {
+            seed: this.timestamp
+          }
+        }
+      },
       size: 10,
       track_total_hits: true,
+      // TODO: Get completions from all indices
       ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),
       from: fromPage,
       sort: sortOrder
@@ -342,23 +360,33 @@ export class FilterService {
 
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
+    // Actice bool filters come from aggregations that contain multiple terms, eg composite aggregation
+    const activeBool = filters.filter(item => item.bool.should[0]?.bool);
     const activeNested = filters.filter(item => item.nested?.query.bool.should?.length > 0 ||
                                         item.nested?.query.bool.must.bool.should.length > 0);
     const activeMultipleNested = filters.filter(item => item.bool?.should.length > 0 && item.bool.should[0]?.nested);
 
     // Functions to filter out active filters. These prevents doc count changes on active filters
     function filterActive(field) {
-      return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field).concat(activeNested, activeMultipleNested);
+      // Open access aggregations come from 3 different aggs and need special case for filters
+      if (field === 'openAccess') {
+        const filteredActive = active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
+                                            Object.keys(item.bool.should[0].term)?.toString() !== 'selfArchivedCode');
+        return filteredActive.concat(activeNested, activeMultipleNested);
+      } else {
+        return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field)
+        .concat(activeNested, activeMultipleNested, activeBool);
+      }
     }
 
     function filterActiveNested(path) {
-      return activeNested.filter(item => item.nested.path !== path).concat(active, activeMultipleNested);
+      return activeNested.filter(item => item.nested.path !== path).concat(active, activeMultipleNested, activeBool);
     }
 
     function filterActiveMultipleNested(path1, path2) {
       const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path1)
                   .concat(activeMultipleNested.filter(item => item.bool.should[1].nested.path !== path2));
-      return res.concat(active, activeNested);
+      return res.concat(active, activeNested, activeBool);
     }
 
     // Aggregations
@@ -429,6 +457,39 @@ export class FilterService {
                       terms: {
                         size: 1,
                         field: 'author.organization.organizationId.keyword'
+                      }
+                    }
+                  }
+                },
+                org: {
+                  nested: {
+                    path: 'author.organization'
+                  },
+                  aggs: {
+                    org: {
+                      terms: {
+                        size: 50,
+                        field: 'author.organization.OrganizationName' + this.localeC + '.keyword'
+                      },
+                      aggs: {
+                        filtered: {
+                          reverse_nested: {},
+                          aggs: {
+                            filterCount: {
+                              filter: {
+                                bool: {
+                                  filter: filterActiveNested('author')
+                                }
+                              }
+                            }
+                          }
+                        },
+                        orgId: {
+                          terms: {
+                            size: 10,
+                            field: 'author.organization.organizationId.keyword'
+                          }
+                        }
                       }
                     }
                   }
@@ -553,7 +614,7 @@ export class FilterService {
         payLoad.aggs.selfArchived = {
           filter: {
             bool: {
-              filter: filterActive('selfArchivedCode')
+              filter: filterActive('openAccess')
             }
           },
           aggs: {
@@ -567,7 +628,7 @@ export class FilterService {
         payLoad.aggs.openAccess = {
           filter: {
             bool: {
-              filter: filterActive('openAccessCode')
+              filter: filterActive('openAccess')
             }
           },
           aggs: {
@@ -579,7 +640,6 @@ export class FilterService {
           }
         };
         // Composite is to get aggregation of selfarchived and open access codes of 0
-        // Doesn't result anything. TODO: Check if this is needed and filter with filterActive function
         payLoad.aggs.oaComposite = {
           composite: {
             sources: [
@@ -598,6 +658,15 @@ export class FilterService {
                 }
               }
             ]
+          },
+          aggs: {
+            filtered: {
+              filter: {
+                bool: {
+                  filter: filterActive('openAccess')
+                }
+              }
+            }
           }
         };
         break;
@@ -748,18 +817,170 @@ export class FilterService {
           aggs: {
             types: {
               terms: {
-                field: 'typeOfFunding.typeOfFundingId.keyword',
-                exclude: ' |001|002|003|004|005',
-                size: 250,
-                order: {
-                  _key: 'asc'
-                }
+                field: 'typeOfFunding.typeOfFundingHeaderId.keyword',
+                exclude: ' '
               },
               aggs: {
-                typeName: {
+                headerFi: {
                   terms: {
-                    field: 'typeOfFunding.typeOfFundingName' + this.localeC + '.keyword',
+                    field: 'typeOfFunding.typeOfFundingHeaderNameFi.keyword',
                     exclude: ' ',
+                    size: 250,
+                    order: {
+                      _key: 'asc'
+                    }
+                  },
+                  aggs: {
+                    typeNameFi: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameFi.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameEn: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameEn.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameSv: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameSv.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                headerEn: {
+                  terms: {
+                    field: 'typeOfFunding.typeOfFundingHeaderNameEn.keyword',
+                    exclude: ' ',
+                    size: 250,
+                    order: {
+                      _key: 'asc'
+                    }
+                  },
+                  aggs: {
+                    typeNameEn: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameEn.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameFi: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameFi.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameSv: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameSv.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                headerSv: {
+                  terms: {
+                    field: 'typeOfFunding.typeOfFundingHeaderNameSv.keyword',
+                    exclude: ' ',
+                    size: 250,
+                    order: {
+                      _key: 'asc'
+                    }
+                  },
+                  aggs: {
+                    typeNameSv: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameSv.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameFi: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameFi.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    },
+                    typeNameEn: {
+                      terms: {
+                        field: 'typeOfFunding.typeOfFundingNameEn.keyword',
+                        exclude: ' '
+                      },
+                      aggs: {
+                        typeId: {
+                          terms: {
+                            field: 'typeOfFunding.typeOfFundingId.keyword',
+                            exclude: ' '
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }

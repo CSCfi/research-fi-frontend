@@ -18,9 +18,9 @@ export class LinksPipe implements PipeTransform {
     const linkArr = [];
     let link = '';
     // Push links to array, self archived is priority
-    if (publication.selfArchivedData && publication.selfArchivedAddress) {
+    if (publication.selfArchivedData) {
       for (const selfArchived of publication.selfArchivedData) {
-        if (selfArchived.selfArchived && selfArchived.selfArchived[0].selfArchivedAddress.length > 0) {
+        if (selfArchived.selfArchived && selfArchived.selfArchived[0]?.selfArchivedAddress.trim().length > 0) {
           linkArr.push(selfArchived.selfArchived[0].selfArchivedAddress);
         }
       }
@@ -36,7 +36,6 @@ export class LinksPipe implements PipeTransform {
     }
 
     publication.link = linkArr.length > 0 ? linkArr[0] : 'javascript:void(0);';
-
     return linkArr.length > 0 ? linkArr[0] : '';
   }
 

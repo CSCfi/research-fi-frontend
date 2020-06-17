@@ -23,6 +23,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Search } from 'src/app/models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { singlePublication, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-publication',
@@ -36,6 +37,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   pageNumber: any;
   tab = 'publications';
   tabQueryParams: any;
+  private metaTags = singlePublication;
+  private commonTags = common;
+
 
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
@@ -193,16 +197,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
       // Reset authors & organizations on new result
       this.authorAndOrganization = [];
-      if (this.responseData.publications) {
-        this.metaService.addTags([
-          { name: 'description', content: 'Julkaisusivu: ' + this.localeId },
-          { property: 'og:title', content: this.responseData.publications[0].title },
-          { property: 'og:description', content: '' },
-          { property: 'og:image', content: 'assets/img/logo.svg' },
-          { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
-          { property: 'og:image:height', content: '100' },
-          { property: 'og:image:width', content: '100' },
-       ]);
+      if (this.responseData.publications[0]) {
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.publications[0].title + ' - Tiedejatutkimus.fi');
@@ -217,7 +212,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             break;
           }
         }
-        this.srHeader.nativeElement.innerHTML = this.titleService.getTitle().split(' - ', 1);
+        const titleString = this.titleService.getTitle();
+        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
         // juFoCode is used for exact search
         this.juFoCode = this.responseData.publications[0].jufoCode;
         this.shapeData();
@@ -298,7 +295,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
                 authorArr.push({
                   author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
                   orcid: person.Orcid?.length > 10 ? person.Orcid : false,
-                  subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
+                  subUnit: subUnit.OrgUnitId !== '-1' ? [subUnit.organizationUnitNameFi] : null
                 });
               }
             });
@@ -306,20 +303,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
             if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
             && subUnit.OrgUnitId !== '-1') {
               orgUnitArr.push({
-                subUnit: subUnit.OrgUnitId !== '-1' ? subUnit.organizationUnitNameFi : null
+                subUnit: subUnit.OrgUnitId !== '-1' ? [subUnit.organizationUnitNameFi] : null
               });
               // List sub unit IDs if no name available
             } else if (!subUnit.person && subUnit.organizationUnitNameFi === ' ') {
               orgUnitArr.push({
-                subUnit: subUnit.OrgUnitId
+                subUnit: [subUnit.OrgUnitId]
               });
             } else if (subUnit.organizationUnitNameFi === ' ') {
               orgUnitArr.push({
-                subUnit: subUnit.OrgUnitId
+                subUnit: [subUnit.OrgUnitId]
               });
             }
           });
-
 
           // Filter all authors with subUnit
           const subUnits = authorArr.filter(obj => obj.subUnit !== null);
@@ -336,10 +332,17 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           // Replace author list without duplicates
           authorArr = subUnits;
 
+          // Check for duplicate authors and merge sub units
+          const duplicateAuthors = Object.values(authorArr.reduce((c, {author, orcid, subUnit}) => {
+            c[author] = c[author] || {author, orcid, subUnits: []};
+            c[author].subUnits = c[author].subUnits.concat(Array.isArray(subUnit) ? subUnit : [subUnit]);
+            return c;
+          }, {}));
 
-          // authorArr = authorArr.filter(x => x.subUnit !== null);
+          const checkedAuthors = [...new Set(duplicateAuthors)];
+
           this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
-            authors: authorArr, orgUnits: orgUnitArr});
+            authors: checkedAuthors, orgUnits: orgUnitArr});
         });
       });
 
@@ -353,6 +356,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       };
     }
 
+    // Remove duplicate organizations
+    this.authorAndOrganization = this.authorAndOrganization.filter((v, i, a) =>
+                                 a.findIndex(t => (t.orgName === v.orgName)) === i);
 
     // Is this needed anymore?
     let yes = '';

@@ -7,7 +7,7 @@
 
 import { FilterMethodService } from '../../../services/filter-method.service';
 import { StaticDataService } from '../../../services/static-data.service';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +21,7 @@ export class FundingFilters {
       tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`, errorTooltip: $localize`:@@fOrgErrorTooltip:Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.`},
       {field: 'funder', label: $localize`:@@fundingFunder:Rahoittaja`, hasSubFields: false, limitHeight: false, open: true,
       tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`},
-      {field: 'typeOfFunding', label: $localize`:@@typeOfFunding:Rahoitusmuoto`, hasSubFields: false, limitHeight: false, open: true,
+      {field: 'typeOfFunding', label: $localize`:@@typeOfFunding:Rahoitusmuoto`, hasSubFields: true, limitHeight: false, open: false,
       tooltip: $localize`:@@fTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.`},
       {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, limitHeight: false,
       tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`},
@@ -35,8 +35,13 @@ export class FundingFilters {
       // tooltip: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
       // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteistyö'}
     ];
+  currentLocale: string;
 
-  constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
+  constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService,
+               @Inject( LOCALE_ID ) protected localeId: string) {
+    // Capitalize first letter of locale
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   shapeData(data) {
     const source = data.aggregations;
@@ -75,7 +80,7 @@ export class FundingFilters {
 
       if (duplicate?.length > 0) {
         item.organizations.buckets.map(org => {
-          org.doc_count = org.filtered.filterCount.doc_count + duplicate.find(x => x.key === org.key).filtered.filterCount.doc_count;
+          org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(x => x.key === org.key)?.filtered.filterCount.doc_count || 0);
         });
       }
 
@@ -96,7 +101,6 @@ export class FundingFilters {
           subItem.doc_count = subItem.doc_count;
       });
     });
-
     return merged;
   }
 
@@ -108,15 +112,55 @@ export class FundingFilters {
     return res;
   }
 
-  typeOfFunding(data) {
-    // Map data to match template
-    const res = data.map(item =>
-      item = {
-        key: item.key,
-        doc_count: item.doc_count,
-        label: item.typeName.buckets[0]?.key
-    })
-    return res;
+  typeOfFunding(d) {
+    // Copy data and check that localized data exists. If not, default to english
+    const data = [...d];
+    data.forEach(item => {
+      if (!item['header' + this.currentLocale].buckets.length) {
+        item['header' + this.currentLocale] = item.headerEn;
+        item['header' + this.currentLocale].buckets.forEach(type => {
+          if (!type['typeName' + this.currentLocale].buckets.length) {
+            type['typeName' + this.currentLocale] = type.typeNameEn;
+          }
+        });
+      }
+    });
+    // Map sub items
+    data.map(item => {
+      item.id = item.key;
+      item.key = item['header' + this.currentLocale].buckets[0].key;
+      item.subData = item['header' + this.currentLocale].buckets[0]['typeName' + this.currentLocale].buckets;
+      item.subData.map(type => {
+        type.label = type.key,
+        type.key = type.typeId.buckets[0].key,
+        type.doc_count = type.doc_count;
+      });
+    });
+
+    // Rearrange with custom order
+    const rearranged = [];
+    data.forEach(item => {
+      switch (item.id) {
+        case '0004': {
+          rearranged.push(item);
+          break;
+        }
+        case '0001': {
+          rearranged.push(item);
+          break;
+        }
+        case '0002': {
+          rearranged.push(item);
+          break;
+        }
+        case '0003': {
+          rearranged.push(item);
+          break;
+        }
+      }
+    });
+
+    return rearranged.reverse();
   }
 
   minorField(data) {

@@ -20,6 +20,9 @@ import { WINDOW } from 'src/app/services/window.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { NewsCardComponent } from '../news-card/news-card.component';
+import { news, common } from 'src/assets/static-data/meta-tags.json'
+import { UtilityService } from 'src/app/services/utility.service';
+
 
 @Component({
   selector: 'app-news',
@@ -46,12 +49,20 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   olderData: any;
   olderDataCopy: any;
 
+  private currentLocale: string;
+  private metaTags = news;
+  private commonTags = common;
+
+
   constructor( private searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
                private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
                private dataService: DataService, private route: ActivatedRoute, private filterService: FilterService,
-               private sortService: SortService, @Inject(WINDOW) private window: Window, private resizeService: ResizeService) {
-                this.isBrowser = isPlatformBrowser(this.platformId);
-                }
+               private sortService: SortService, @Inject(WINDOW) private window: Window, private resizeService: ResizeService,
+               private utilityService: UtilityService) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+
+  }
 
   ngOnInit() {
     this.getFilterData();
@@ -115,6 +126,11 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
     }
+
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
+
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }

@@ -18,6 +18,7 @@ import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
 import { UtilityService } from 'src/app/services/utility.service';
+import { homepage, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   providers: [SearchBarComponent],
@@ -42,6 +43,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   maxHeight: number;
 
   resizeSub: Subscription;
+
+  private metaTags = homepage;
+  private commonTags = common
 
   shortcuts = [
     {
@@ -123,15 +127,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.metaService.addTags([
-      { name: 'description', content: 'Tiedejatutkimus.fi - Etusivu' },
-      { property: 'og:title', content: 'Tiedejatutkimus.fi - Etusivu' },
-      { property: 'og:description', content: 'Etusivulta pääset kätevästi selaamaan hakutuloksia, uusimpia tiedeuutisia tai tilastoja suomen tieteen tilasta' },
-      { property: 'og:image', content: 'assets/img/logo.svg' },
-      { property: 'og:image:alt', content: 'Tutkimustietovarannon portaalin logo, abstrakti ikkuna' },
-      { property: 'og:image:height', content: '100' },
-      { property: 'og:image:width', content: '100' },
-   ]);
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
     // Reset search term
     this.searchService.updateInput('');
 

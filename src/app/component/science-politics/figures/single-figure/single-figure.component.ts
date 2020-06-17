@@ -18,6 +18,8 @@ import { WINDOW } from 'src/app/services/window.service';
 import { content } from '../../../../../assets/static-data/figures-content.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import { singleFigure, common } from 'src/assets/static-data/meta-tags.json'
+
 
 @Component({
   selector: 'app-single-figure',
@@ -74,10 +76,14 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   showInfo = false;
   showHelp = false;
   currentLocale: string;
+  private metaTags = singleFigure;
+  private commonTags = common;
+
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
                private resizeService: ResizeService, private searchService: SearchService, private route: ActivatedRoute,
-               @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService ) {
+               @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService,
+               private utilityService: UtilityService) {
                   // Capitalize first letter of locale
                   this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                 }
@@ -121,6 +127,9 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       }
     }
+
+    const titleString = this.titleService.getTitle();
+    this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }

@@ -75,8 +75,11 @@ export class PublicationAdapter implements Adapter<Publication> {
             openAccessText = $localize`:@@noInfo:Ei tietoa`;
         }
 
-        if (item.selfArchivedData && item.selfArchivedAddress?.trim().length > 0) {
+        if (item.selfArchivedData) {
             item.selfArchivedAddress = item.selfArchivedData[0]?.selfArchived[0]?.selfArchivedAddress;
+            // Check for empty addresses
+            item.selfArchivedData[0].selfArchived = item.selfArchivedData[0].selfArchived
+            .filter(x => x.selfArchivedAddress.trim().length > 0);
         }
 
         return new Publication(

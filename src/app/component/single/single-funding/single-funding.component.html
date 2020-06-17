@@ -43,7 +43,7 @@
                     <!-- Funded -->
                     <div class="content recipient">
                         <div class="row">
-                            <h3 class="th col-12 col-sm-3">
+                            <h2 class="th col-12 col-sm-3">
                                 <ng-container i18n="@@fundingRecipientHeader">Myönnetty rahoitus</ng-container>
                                 <ng-template #tooltipTemplate>
                                     <div [innerHtml]="recipientTooltip.tooltip"></div>
@@ -51,7 +51,7 @@
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
-                            </h3>
+                            </h2>
                             <!-- Switch by recipien type -->
                             <div class="col-12 col-sm-9 px-0" [ngSwitch]="item.recipientType">
                                 <!-- Person & consortium -->
@@ -108,10 +108,10 @@
                         </div>
                         <!-- Funding amount -->
                         <div class="row" *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
-                            <h3 class="th col-12 col-sm-3">
+                            <h2 class="th col-12 col-sm-3">
                                 <ng-container [ngSwitch]="item.recipientType">
-                                    <ng-container *ngSwitchCase="'organization'">Myönnetty summa </ng-container>
-                                    <ng-container *ngSwitchDefault>Summa </ng-container>
+                                    <ng-container i18n="@@amountGranted" *ngSwitchCase="'organization'">Myönnetty summa </ng-container>
+                                    <ng-container i18n="@@sumGranted" *ngSwitchDefault>Summa </ng-container>
                                 </ng-container>
                                 <ng-template #tooltipTemplate>
                                     <div [innerHtml]="fundingAmountTooltip.tooltip"></div>
@@ -119,7 +119,7 @@
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                 </span>
-                            </h3>
+                            </h2>
                             <div class="col px-0">
                                 <div class="col-12 col-sm-3 offset-0 td" [ngClass]="item.recipientType === 'organization' ? 'offset-sm-5' : 'offset-sm-7'">
                                     <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
@@ -128,7 +128,7 @@
                         </div>
                         <!-- Contact person -->
                         <div class="row" *ngIf="item.recipient.contactPersonName?.trim().length > 0">
-                            <h3 class="th col-12 col-sm-3">Yhteyshenkilö</h3>
+                            <h3 class="th col-12 col-sm-3" i18n="@@contactPerson">Yhteyshenkilö</h3>
                             <div class="col-12 col-sm-4 col-lg-5 td py-0 py-sm-3">
                                 {{item.recipient.contactPersonName}}
                                 <app-orcid *ngIf="item.recipient.contactPersonOrcid" [orcid]="item.recipient.contactPersonOrcid"></app-orcid>
@@ -138,13 +138,13 @@
                         <ng-container >
                             <ng-container *ngIf="item.recipientType === 'consortium' && item.funder.name === 'Suomen Akatemia'">
                                 <div class="row">
-                                    <h3 class="th col-12 col-sm-3" i18n="@@academyConsortium">Rooli Suomen Akatemian konsortiossa</h3>
+                                    <h2 class="th col-12 col-sm-3" i18n="@@academyConsortium">Rooli Suomen Akatemian konsortiossa</h2>
                                     <div class="col-12 col-sm-4 td py-0 py-sm-3">
                                         {{item.academyConsortium}}
                                     </div>
                                 </div>
                                 <div class="row" *ngIf="item.otherConsortium.length > 0">
-                                    <h3 class="th col-12 col-sm-3" i18n="@@otherConsortium">Muut osapuolet</h3>
+                                    <h2 class="th col-12 col-sm-3" i18n="@@otherConsortium">Muut osapuolet</h2>
                                     <div class="col px-0">
                                         <div class="row" *ngFor="let consortium of item.otherConsortium">
                                             <div class="col-12 col-sm-3 td py-0 py-sm-3">
@@ -168,7 +168,7 @@
                     <!-- Funder -->
                     <div class="content" *ngIf="item.funder && funderFields.length > 0">
                         <div class="row">
-                            <h2 class="th col-12 col-sm-3">
+                            <h2 class="col-12 col-sm-6 col-lg-3 th">
                                 <ng-container i18n="@@fundingFunder">Rahoittaja</ng-container>
                                 <ng-template #tooltipTemplate>
                                     <div [innerHtml]="funderTooltip.tooltip"></div>
@@ -183,7 +183,7 @@
                         </div>
 
                         <div class="row" *ngFor="let row of funderFields">
-                            <h3 class="col-12 col-sm-6 col-lg-3 th">
+                            <h2 class="col-12 col-sm-6 col-lg-3 th">
                                 {{row.label}}
                                 <ng-container *ngIf="row.tooltip">
                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
@@ -191,7 +191,7 @@
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
                                 </ng-container>
-                            </h3>
+                            </h2>
                             <div class="col-12 col-sm-6 col-lg-9 td">{{item.funder[row.field]}}</div>
                         </div>
                     </div>

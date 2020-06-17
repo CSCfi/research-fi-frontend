@@ -4,6 +4,8 @@ import { Title } from '@angular/platform-browser';
 import { contents } from '../../../assets/static-data/service-info.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Location } from '@angular/common';
+import { UtilityService } from 'src/app/services/utility.service';
+import { serviceInfo, common } from 'src/assets/static-data/meta-tags.json'
 
 @Component({
   selector: 'app-service-info',
@@ -20,13 +22,20 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   openedIdx = -1;
   currentLocale: string;
 
+  private metaTags = serviceInfo;
+  private commonTags = common;
+
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              private location: Location) {
+              private location: Location, private utilityService: UtilityService) {
     // Capitalize first letter of locale
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   ngOnInit(): void {
+    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
+
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Tietoa palvelusta - Tiedejatutkimus.fi');

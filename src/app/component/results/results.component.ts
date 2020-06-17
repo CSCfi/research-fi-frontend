@@ -22,6 +22,7 @@ import { WINDOW } from 'src/app/services/window.service';
 import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-results',
@@ -68,6 +69,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   showSkipLinks: boolean;
   currentLocale: string;
+
+  private metaTagsList = [publications, fundings, infrastructures, organizations];
+  private metaTags: {link: string};
+  private commonTags = common;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -149,6 +154,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Hotfix for *ngIf depending on total and not rendering search-results so new data is not fetched on empty results
         this.total = 1;
         this.selectedTabData = this.tabData.filter(tab => tab.link === params.tab)[0];
+        this.metaTags = this.metaTagsList.filter(tab => tab.link === params.tab)[0];
         // Default to publications if invalid tab
         if (!this.selectedTabData) {
           this.router.navigate(['results/publications']);
@@ -312,6 +318,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       }
     }
+    this.utilityService.addMeta(this.titleService.getTitle(),
+                                this.metaTags['description' + this.currentLocale],
+                                this.commonTags['imgAlt' + this.currentLocale])
+
   }
 
   updateMobile(width) {
