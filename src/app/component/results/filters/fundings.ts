@@ -164,7 +164,6 @@ export class FundingFilters {
   }
 
   minorField(data) {
-    console.log(data);
     let res = [];
     // check if major aggregation is available
     if (data.length) {
