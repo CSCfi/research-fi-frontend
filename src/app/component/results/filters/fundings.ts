@@ -78,9 +78,9 @@ export class FundingFilters {
       const duplicate = oData[i]?.organizations.buckets.filter(item1 =>
         fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
 
-      if (duplicate?.length > 0) {
+      if (diff?.length > 0  && duplicate?.length > 0) {
         item.organizations.buckets.map(org => {
-          org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(x => x.key === org.key)?.filtered.filterCount.doc_count || 0);
+          org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
         });
       }
 

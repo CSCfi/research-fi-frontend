@@ -219,17 +219,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
                 // Funding organization name
               } else if (tab === 'fundings') {
-                if (source.organization.funded?.sectorName && source.organization.funded?.sectorName.buckets.length > 0) {
-                  source.organization.funded.sectorName.buckets.forEach(sector => {
-                    setTimeout(t => {
+                setTimeout(t => {
+                  if (source.organization.buckets) {
+                    source.organization.buckets.forEach(sector => {
                       if (sector.organizations.buckets.find(x => x.key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
                         sector.organizations.buckets.find(x => x.key === val.value).label.trim();
                       }
-                    }, 1);
-                  });
-                }
+                    });
+                  }
+                }, 1);
                 // Funding organization name
               } else if (tab === 'infrastructures') {
                 if (source.organization?.sector?.buckets?.length > 0) {
