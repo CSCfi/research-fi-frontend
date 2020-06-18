@@ -119,7 +119,7 @@ export class UtilityService {
     this.router.navigate([],
       {
         relativeTo: this.route,
-        queryParams: { sort: newSort },
+        queryParams: { page: 1, sort: newSort },
         queryParamsHandling: 'merge'
       }
     );
