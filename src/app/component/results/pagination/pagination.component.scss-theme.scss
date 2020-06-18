@@ -13,10 +13,5 @@
             background: mat-color($primary);
             color: mat-contrast($primary, 600);
         }
-
-        button:disabled {
-            background: mat-color($primary, 100);
-            color: mat-color($primary, 200);
-        }
     }
 }

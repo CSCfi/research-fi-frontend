@@ -3,7 +3,8 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<button class="secondary-button" [class.secondary-button--icon]="!!icon" [class.secondary-button--big]="big" [disabled]="disabled">
-    <fa-icon *ngIf="!!icon" [icon]="icon"></fa-icon>
+<button class="secondary-button" [class.icon]="!!icon" [class.big]="big" [class.icon-after]="iconAfter" [class.no-sm-icon]="noSmIcon" [disabled]="disabled">
+    <fa-icon class="before" [ngClass]="{'d-none d-sm-inline': noSmIcon}" *ngIf="!!icon && !iconAfter" [icon]="icon"></fa-icon>
     <ng-container>{{content}}</ng-container>
+    <fa-icon class="after" [ngClass]="{'d-none d-sm-inline': noSmIcon}" *ngIf="!!icon && iconAfter" [icon]="icon"></fa-icon>
 </button>
