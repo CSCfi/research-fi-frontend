@@ -11,6 +11,7 @@ export class SecondaryButtonComponent implements OnInit {
   @Input() icon: IconDefinition;
   @Input() content: string;
   @Input() disabled: boolean;
+  @Input() big: boolean;
 
   constructor() { }
 

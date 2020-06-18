@@ -103,6 +103,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   ];
 
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
+  copyReferences = $localize`:@@copyReferences:Kopioi viitetiedot`;
 
   documentLang = this.document.documentElement.lang;
 
