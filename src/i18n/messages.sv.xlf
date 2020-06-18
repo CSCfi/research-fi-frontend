@@ -3900,7 +3900,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="resultCountAriaLabel">
         <source>Hakutulosten lukumäärä sivulla</source>
-        <target>Number of results on single page</target>
+        <target>Antal sökresultat per sida</target>
       </trans-unit>
     </body>
   </file>
