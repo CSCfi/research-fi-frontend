@@ -4,7 +4,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :license: MIT -->
 
 <div class="count" *ngIf="total > 0" [class.pagination]="pagination">
-    <div class="d-none d-md-inline-block">
+    <div class="d-none d-md-inline-block" [class.d-inline-block]="pagination">
         <span *ngIf="fromPage + currentSize < total"><ng-container i18n="@@paginationResultCount">Näytetään tulokset</ng-container> {{fromPage + 1}} - {{fromPage + currentSize}} / {{total}}</span>
         <span *ngIf="fromPage + currentSize >= total"><ng-container i18n="@@paginationResultCount">Näytetään tulokset</ng-container> {{fromPage + 1}} - {{total}} / {{total}}</span>
     </div>

@@ -20,3 +20,16 @@ select#page-results {
     flex-direction: column;
     font-weight: bold;
 }
+
+.pagination span {
+    padding: 1rem 0;
+    display: block;
+}
+
+@media (max-width: 991px) {
+            
+    .count {
+        align-items: center;
+        padding-top: 1rem;
+    }
+}
