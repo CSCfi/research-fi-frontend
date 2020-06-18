@@ -29,7 +29,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     </a>
                 </div>
             </div>
-            <div class="col-auto text-right align-self-center">
+            <div class="col-auto align-self-center" *ngIf="selectedTabData">
+                <app-result-count></app-result-count>
+            </div>
+            <div class="col-auto text-right align-self-center d-none d-lg-block">
                 <a routerLink="/service-info" fragment="1" class="theme-link">
                     <strong>
                         <ng-container i18n="@@resultInfo1">Mitä</ng-container><span> {{selectedTabData.singular.toLowerCase()}}</span>

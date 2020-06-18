@@ -28,6 +28,7 @@ export class SearchService {
   fromPage: number;
   fromNewsPage: number;
   apiUrl: any;
+  pageSize: number;
 
   // Variables to help with search term redirections
   tabValues: any;
@@ -110,7 +111,7 @@ export class SearchService {
   }
 
   getData(): Observable<Search> {
-    const payload = this.filterService.constructPayload(this.singleInput, this.fromPage,
+    const payload = this.filterService.constructPayload(this.singleInput, this.fromPage, this.pageSize,
                                                         this.sortService.sort, this.tabChangeService.tab);
     return this.http.post<Search>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload)
                     .pipe(map((data: any) => this.searchAdapter.adapt(data, this.tabChangeService.tab)));
@@ -176,7 +177,7 @@ export class SearchService {
 
   //
   getQueryFilters(): Observable<Search[]> {
-    const query = this.filterService.constructPayload(this.singleInput, this.fromPage,
+    const query = this.filterService.constructPayload(this.singleInput, this.fromPage, this.pageSize,
       this.sortService.sort, this.tabChangeService.tab);
     const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
     const payload = Object.assign(query, aggs);

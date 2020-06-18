@@ -19,10 +19,5 @@
       </button>
     </div>
   </div>
-
-  <div class="result-count" *ngIf="response?.total">
-    <p *ngIf="fromPage + 10 < response?.total"><ng-container i18n="@@paginationResultCount">Näytetään tulokset</ng-container> {{fromPage + 1}} - {{fromPage + 10}} / {{response.total}}</p>
-    <p *ngIf="fromPage + 10 >= response?.total"><ng-container i18n="@@paginationResultCount">Näytetään tulokset</ng-container> {{fromPage + 1}} - {{response.total}} / {{response.total}}</p>
-    <p><ng-container i18n="@@page">Sivu</ng-container> {{page}}</p>
-  </div>
+  <app-result-count [pagination]="true"></app-result-count>
 </div>

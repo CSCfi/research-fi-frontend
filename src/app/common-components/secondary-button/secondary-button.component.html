@@ -1,0 +1,9 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<button class="secondary-button" [class.secondary-button--icon]="!!icon" [disabled]="disabled">
+    <fa-icon *ngIf="!!icon" [icon]="icon"></fa-icon>
+    <ng-container>{{content}}</ng-container>
+</button>
