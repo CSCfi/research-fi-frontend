@@ -3405,7 +3405,7 @@
           <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Palvelussa käytetään ensimmäisen osapuolen evästeitä ja seurantaevästeiden avulla kerättyä anonymisoitua käyttöjäanalytiikkaa ei välitetä eteenpäin kolmansille osapuolille.
           <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit aina halutessasi <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kytkeä evästeet pois päästä tietosuojasivulla.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
         </source>
-        <target>In addition to the required cookies, the online service also uses tracking cookies to collect anonymized information on use of the service.
+        <target>In addition to the required cookies, this online service also uses tracking cookies to collect anonymized information on use of the service.
           <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>We use the collected information to develop the service and improve the user experience.
           <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>First party cookies are used in the service, and anonymized user analytics collected using tracking cookies are not forwarded to third parties.
           <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>If desired, you can always <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>disable cookies on the privacy page.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
@@ -3621,7 +3621,7 @@
         <source>Selaimen välimuistiin (local- sekä sessionstorageen) tallennetaan navigoinnin ja haun helpottavia asioita, kuten oma hakuhistoria. 
                 Käyttäjä voi poistaa hakuhistoriansa myös hakuelementistä suoraan.
         </source>
-        <target>The browser cahce (local and sessionstorage) stores items that make navigarion and search easier such as the user's own search history.
+        <target>The browser cache (local and sessionstorage) stores items that make navigation and search easier such as the user's own search history.
                 The user can also delete their search history directly from the search element.
         </target>
         <context-group purpose="location">
@@ -3908,13 +3908,13 @@
       <!-- Cookie consent bar -->
       <trans-unit id="cookieConsent1" datatype="html">
         <source>
-                Tämä palvelu käyttää evästeitä. Välttämättömien evästeiden lisäksi keräämme seurantaevästeiden avulla anonymisoitua tietoa palvelun käytöstä, käyttökokemuksen kehittämistä varten.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
-                Tietoja ei luovuteta kolmansille osapuolille. 
-            </source>
+            Tämä palvelu käyttää evästeitä. Välttämättömien evästeiden lisäksi keräämme seurantaevästeiden avulla anonymisoitua tietoa palvelun käytöstä, käyttökokemuksen kehittämistä varten.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+            Tietoja ei luovuteta kolmansille osapuolille. 
+        </source>
         <target>
-                This service uses cookies. In addition to necessary cookies, we use tracking cookies to collect anonymized information about the use of the service in order to improve the user experience.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
-                The information will not be disclosed to third parties. 
-            </target>
+            This service uses cookies. In addition to necessary cookies, we use tracking cookies to collect anonymized information about the use of the service in order to improve the user experience.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>
+            The information will not be disclosed to third parties. 
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/cookie-consent/cookie-consent.component.html</context>
           <context context-type="linenumber">11</context>

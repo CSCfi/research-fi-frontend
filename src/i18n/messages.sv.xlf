@@ -3453,7 +3453,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Name: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Size: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: This cookie consistently directs the user's network traffic in a server environment. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>The cookie facilitates the smooth operation of the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna kaka styr användarens webbtrafir konsekvent i servermiljön. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Kakan bidrar till att tjänsten fungerar smidigt.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
