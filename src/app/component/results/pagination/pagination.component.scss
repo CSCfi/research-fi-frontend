@@ -26,7 +26,7 @@
             flex-direction: column;
         }
     
-        .pagination-button button.secondary-button {
+        .pagination-button button.secondary-button:not(.small) {
             min-width: 175px;
         }
     
@@ -98,9 +98,8 @@
         }
 
         @media (max-width: 575px) {
-            .pagination-button button.secondary-button {
+            .pagination-button button.secondary-button:not(.small) {
                 min-width: 120px;
-                width: 120px;
             }
     
             .pagination .page-button {

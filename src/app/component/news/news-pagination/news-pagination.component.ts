@@ -22,7 +22,11 @@ export class NewsPaginationComponent implements OnInit {
   total: any;
   resizeSub: Subscription;
   desktop = this.window.innerWidth >= 1200;
+  navSmall = this.window.innerWidth >= 992;
   order = this.window.innerWidth >= 768;
+
+  previous = $localize`:@@previous:Edellinen`;
+  next = $localize`:@@next:Seuraava`;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window,
@@ -87,6 +91,7 @@ export class NewsPaginationComponent implements OnInit {
     // Change if swap to or from desktop
     const changePages = (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
     this.desktop = w >= 1200;
+    this.navSmall = w >= 992;
     this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {
