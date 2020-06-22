@@ -244,7 +244,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
     span.style.fontSize = 25;
-    this.inputMargin = (width + 25) + 'px';
+    this.inputMargin = (width + 210) + 'px';
   }
 
   // Add completion with right arrow key if caret is at the end of term
