@@ -111,7 +111,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.queryParams = params;
       this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
     });
-
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
     this.queryField = new FormControl(this.currentTerm);
@@ -172,6 +171,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   // Keycodes
   onKeydown(event) {
+    this.completion = '';
     this.showAutoSuggest = true;
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
