@@ -45,27 +45,6 @@ pipeline {
     }
 
     /*
-    Wait until staging deployment is ready.
-    At this point the staging environment should be deploying, triggered by a new image from previous step. 
-    */
-    stage('Wait staging deployment') {
-      steps {
-        script {
-          openshift.withCluster() {
-            openshift.withProject() {
-              sleep 60
-              timeout(5) { 
-                openshift.selector("dc", "researchfi-frontend-deployment-production-staging").related('pods').untilEach(1) {
-                  return (it.object().status.phase == "Running")
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    /*
     Deploy to production.
     Confirm deployment by prompting user.
     Production deployment is triggered by tagging the staging "latest" as production "latest".
