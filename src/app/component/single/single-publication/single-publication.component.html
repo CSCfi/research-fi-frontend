@@ -166,6 +166,11 @@
                              routerLink="{{row.linkPath}}{{item[row.field]}}">
                                  {{item[row.field]}}
                             </a>
+                            <!-- JuFo code links to external path -->
+                            <a class="td" *ngSwitchCase="row.field === 'jufoCode'" (click)="navigate(row.field)" 
+                             href="{{row.linkPath}}{{item[row.field]}}" target="_blank">
+                                 {{item[row.field]}} <fa-icon class="icon" icon="external-link-alt"></fa-icon>
+                            </a>
                             <!-- Every other link uses jufoCode as search term -->
                             <a class="td" *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
                                  {{item[row.field]}}
