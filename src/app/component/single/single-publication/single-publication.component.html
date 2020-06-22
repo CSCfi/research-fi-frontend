@@ -342,7 +342,7 @@
             <h4>{{citationStyles[i].label}}: </h4>
             <span>{{citation | cleanCitation}}</span>
             <div class="copy-wrapper">
-                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()" i18n="@@copyToClipboard">Kopioi leikepöydälle</button>
+                <app-secondary-button [cdkCopyToClipboard]="citation" (click)="openSnackBar()" class="copy" [content]="copyToClipboard" [icon]="faCopy"></app-secondary-button>
             </div>
         </div>
         <div *ngIf="hasDoi; else noDoi">

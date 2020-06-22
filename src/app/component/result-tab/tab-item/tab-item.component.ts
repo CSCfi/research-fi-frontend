@@ -32,7 +32,7 @@ export class TabItemComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // Set target to params
-    this.targetQueryParams = {...this.queryParams[this.tab.data], target: this.settingsService.target};
+    this.targetQueryParams = {...this.queryParams[this.tab.data], target: this.settingsService.target, size: this.searchService.pageSize};
   }
 
   ngAfterViewInit(): void {

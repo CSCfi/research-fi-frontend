@@ -305,7 +305,7 @@ export class FilterService {
   }
 
   // Data for results page
-  constructPayload(searchTerm: string, fromPage, sortOrder, tab) {
+  constructPayload(searchTerm: string, fromPage, pageSize, sortOrder, tab) {
     // Generate new timestamp on portal init
     if (searchTerm.length === 0 && !this.timestamp) {this.generateTimeStamp(); }
     // Generate query based on tab and term
@@ -321,7 +321,7 @@ export class FilterService {
           }
         }
       },
-      size: 10,
+      size: pageSize || 10,
       track_total_hits: true,
       // TODO: Get completions from all indices
       ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),

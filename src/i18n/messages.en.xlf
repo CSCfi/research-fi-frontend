@@ -3897,6 +3897,14 @@
         <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
         <target>Note. The number of non-EU funding decisions is doubled. The error is currently being corrected.</target>
       </trans-unit>
+      <trans-unit id="resultsPage">
+        <source> tulosta / sivu</source>
+        <target> results / page</target>
+      </trans-unit>
+      <trans-unit id="resultCountAriaLabel">
+        <source>Hakutulosten lukumäärä sivulla</source>
+        <target>Number of results on single page</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
