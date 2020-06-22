@@ -303,10 +303,7 @@
                     <mat-card-title><h2 i18n="@@citationHeader">Viittaa</h2></mat-card-title>
                     <div>
                         <div class="reference">
-                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi">
-                                <fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>
-                                <ng-container i18n="@@copyReferences">Kopioi viitetiedot</ng-container>...
-                            </button>
+                            <app-secondary-button (click)="openModal(citeModal)" [content]="copyReferences" [icon]="faQuoteRight" [disabled]="!hasDoi" [big]="true"></app-secondary-button>
                             <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
                     </div>

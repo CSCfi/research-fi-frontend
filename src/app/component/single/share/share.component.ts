@@ -21,6 +21,8 @@ export class ShareComponent implements OnInit {
   currentUrl: string;
   message: string;
 
+  copyLink = $localize`:@@copyLink:Kopioi linkki`; 
+
   constructor( private snackBar: MatSnackBar, @Inject(DOCUMENT) private document: Document,
                @Inject(LOCALE_ID) protected localeId: string ) { }
 
