@@ -48,6 +48,7 @@
 @import './app/common-components/info/info.component-theme.scss';
 @import './app/common-components/secondary-button/secondary-button.component.scss-theme.scss';
 @import './app/common-components/primary-action-button/primary-action-button.component.scss-theme.scss';
+@import './app/common-components/close-button/close-button.component.scss-theme.scss';
 @import './app/ui/cookie-consent/cookie-consent-theme.scss';
 @import './app/ui/review/review.component.scss-theme.scss';
 @import './app/component/results/pagination/pagination.component.scss';
@@ -84,6 +85,7 @@
   @include app-info-component-theme($theme);
   @include app-secondary-button-theme($theme);
   @include app-primary-action-button-theme($theme);
+  @include app-close-button-theme($theme);
   @include app-service-info-theme($theme);
   @include app-news-theme($theme);
   @include app-news-card-theme($theme);
