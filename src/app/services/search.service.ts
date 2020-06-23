@@ -213,13 +213,13 @@ export class SearchService {
 
   // News page content
   getNews(size?: number): Observable<News[]> {
+    // TODO: Remove when timestamp is in text format in both test and production data
+    const sort = !this.apiUrl.includes('production') ? {'timestamp2.keyword': {order: 'desc'}} : {timestamp: {order: 'desc'}};
     const payload = {
       query: this.filterService.constructNewsPayload(),
       size,
       sort: [
-        {
-          timestamp: {order: 'desc'}
-        }
+        sort
       ]
     };
 
@@ -228,14 +228,14 @@ export class SearchService {
 
     // News page older news content
     getOlderNews(size?: number): Observable<News[]> {
+      // TODO: Remove when timestamp is in text format in both test and production data
+      const sort = !this.apiUrl.includes('production') ? {'timestamp2.keyword': {order: 'desc'}} : {timestamp: {order: 'desc'}};
       const payload = {
         query: this.filterService.constructNewsPayload(),
         size,
         from: this.fromNewsPage + 5,
         sort: [
-          {
-            timestamp: {order: 'desc'}
-          }
+          sort
         ]
       };
 
