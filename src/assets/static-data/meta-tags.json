@@ -26,7 +26,7 @@
         "titleSv": "Sidkarta | Forskning.fi",
         "descriptionFi": "Tiedejatutkimus.fi-palvelun sivukartta.",
         "descriptionEn": "Research.fi sitemap.",
-        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+        "descriptionSv": "Sidkarta för forskning.fi."
     },
     "feedback": {
         "titleFi": "Anna palautetta | Tiedejatutkimus.fi",
@@ -34,7 +34,7 @@
         "titleSv": "Ge respons | Forskning.fi",
         "descriptionFi": "Anna palautetta tiedejatutkimus.fi-palvelun käytöstä.",
         "descriptionEn": "Give feedback on the use of the Research.fi service.",
-        "descriptionSv": "Ge respons på användingen av tjänsten forskning.fi"
+        "descriptionSv": "Ge respons på användingen av forskning.fi"
     },
     "contact": {
         "titleFi": "Ota yhteyttä | Tiedejatutkimus.fi",
@@ -50,7 +50,7 @@
         "titleSv": "Tillgänglighetsredogörelse | Forskning.fi",
         "descriptionFi": "Tiedejatutkimus.fi-palvelun saavutettavuusseloste. Vaatimukset perustuvat kansalliseen lakiin digitaalisten pavleluiden tarjoamisesta (306/2019).",
         "descriptionEn": "Accessibility statement for the Research.fi service. The requirements are based on the Act on the Provision of Digital Services (306/2019).",
-        "descriptionSv": "Tillgänglighetsredogörelse för tjänsten forskning.fi. Kraven grundar sig på den nationella lagen om tillhandahållande av digitala tjänster (306/2019)."
+        "descriptionSv": "Tillgänglighetsredogörelse för forskning.fi. Kraven grundar sig på den nationella lagen om tillhandahållande av digitala tjänster (306/2019)."
     },
     "privacy": {
         "titleFi": "Tietosuoja ja henkilötietojen käsittely | Tiedejatutkimus.fi",
@@ -66,7 +66,7 @@
         "titleSv": "",
         "descriptionFi": "Julkaisut tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
         "descriptionEn": "Publications in Research.fi. You can use the Refine search function to refine your search results.",
-        "descriptionSv": "Publikationer i tjänsten forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+        "descriptionSv": "Publikationer i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
         "link": "publications"
     },
     "singlePublication": {
@@ -75,7 +75,7 @@
         "titleSv": "",
         "descriptionFi": "Tutustu julkaisun tarkempiin tietoihin tiedejatutkimus.fi-palvelussa.",
         "descriptionEn": "Read more about the publication in Research.fi.",
-        "descriptionSv": "Bekanta dig med närmare uppgifter om publikationen i tjänsten forksning.fi."
+        "descriptionSv": "Bekanta dig med närmare uppgifter om publikationen i forksning.fi."
     },
     "fundings": {
         "titleFi": "",
@@ -83,7 +83,7 @@
         "titleSv": "",
         "descriptionFi": "Rahoituspäätökset tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
         "descriptionEn": "Funding decisions in Research.fi. You can use the Refine search function to refine your search results.",
-        "descriptionSv": "Finansieringsbeslut i tjänsten forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+        "descriptionSv": "Finansieringsbeslut i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
         "link": "fundings"
     },
     "singleFunding": {
@@ -92,7 +92,7 @@
         "titleSv": "",
         "descriptionFi": "Tutustu rahoituspäätöksen tietoihin tiedejatutkimus.fi-palvelussa.",
         "descriptionEn": "Read more about the funding decision in Research.fi.",
-        "descriptionSv": "Bekanta dig med närmare uppgifter om finansieringsbeslutet i tjänsten forksning.fi."
+        "descriptionSv": "Bekanta dig med närmare uppgifter om finansieringsbeslutet i forksning.fi."
     },
     "infrastructures": {
         "titleFi": "",
@@ -100,7 +100,7 @@
         "titleSv": "",
         "descriptionFi": "Tutkimusinfrastruktuurit tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
         "descriptionEn": "Research infrastructures in Research.fi. You can use the Refine search function to refine your search results.",
-        "descriptionSv": "Forskningsinfrastrukturer i tjänsten forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+        "descriptionSv": "Forskningsinfrastrukturer i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
         "link": "infrastructures"
     },
     "singleInfrastructure": {
@@ -109,7 +109,7 @@
         "titleSv": "",
         "descriptionFi": "Tutustu tutkimusinfrastruktuurin tietoihin tiedejatutkimus.fi-palvelussa.",
         "descriptionEn": "Read more about the infrastructure in Research.fi.",
-        "descriptionSv": "Bekanta dig med forskningsinrastrukturens uppgifter i tjänsten forksning.fi."
+        "descriptionSv": "Bekanta dig med forskningsinrastrukturens uppgifter i forksning.fi."
     },
     "organizations": {
         "titleFi": "",
@@ -126,7 +126,7 @@
         "titleSv": "",
         "descriptionFi": "Tutustu organisaatio tarkempiin tietoihin tiedejatutkimus.fi-palvelussa",
         "descriptionEn": "Read more about the organization in Research.fi.",
-        "descriptionSv": "Bekanta dig med närmare uppgifter om organisation i tjänsten forksning.fi."
+        "descriptionSv": "Bekanta dig med närmare uppgifter om organisation i forksning.fi."
     },
     "researchInnovation": {
         "titleFi": "Suomalainen tutkimus ja innovaatiojärjestelmä | Tiedejatutkimus.fi",
