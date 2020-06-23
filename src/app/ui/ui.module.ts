@@ -7,6 +7,7 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CommonComponentsModule } from 'src/app/common-components/common-components.module';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -35,6 +36,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     CookieConsentComponent],
   imports: [
     CommonModule,
+    CommonComponentsModule,
     AppRoutingModule,
     MatSelectModule,
     MatMenuModule,
