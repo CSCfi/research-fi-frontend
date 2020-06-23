@@ -310,23 +310,26 @@ export class FilterService {
     if (searchTerm.length === 0 && !this.timestamp) {this.generateTimeStamp(); }
     // Generate query based on tab and term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
+    // Use random score when no search term
+    const randomQuery = {
+      function_score: {
+        query,
+        random_score: {
+          seed: this.timestamp
+        }
+      }
+    };
     // Randomize results if no search term and no sorting activated. Random score doesn't work if sort isn't based with score
     if (searchTerm.length === 0 && (!this.sortService.sortMethod || this.sortService.sortMethod?.length === 0)) {sortOrder.push('_score'); }
+    const queryPayload = searchTerm.length > 0 ? query : randomQuery;
     return {
-      query: {
-          function_score: {
-          query,
-          random_score: {
-            seed: this.timestamp
-          }
-        }
-      },
+      query: queryPayload,
       size: pageSize || 10,
       track_total_hits: true,
       // TODO: Get completions from all indices
       ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),
       from: fromPage,
-      sort: sortOrder
+      sort: searchTerm.length > 0 ? ['_score', ...sortOrder] : sortOrder
     };
   }
 
