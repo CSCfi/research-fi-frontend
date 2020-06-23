@@ -33,7 +33,6 @@
             <div class="mobile ml-auto toggle-button-wrapper">
                 <button *ngIf="!navbarOpen" class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
                     <div  class="toggle-menu-text closed" i18n="@@headerMenuOpen">Valikko</div>
-                    <!-- <div *ngIf="navbarOpen" class="toggle-menu-text open" i18n="@@closeButton">Sulje</div> -->
                 </button>
                 <app-close-button *ngIf="navbarOpen" (click)="toggleNavbar()"></app-close-button>
             </div>
