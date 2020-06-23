@@ -50,7 +50,8 @@ export class Publication {
         public fieldsOfScience: FieldOfScience[],
         public author: any[],
         public selfArchivedData: any[],
-        public completions: string[]
+        public completions: string[],
+        public publicationChannel
     ) {}
 }
 
@@ -80,6 +81,18 @@ export class PublicationAdapter implements Adapter<Publication> {
             // Check for empty addresses
             item.selfArchivedData[0].selfArchived = item.selfArchivedData[0].selfArchived
             .filter(x => x.selfArchivedAddress.trim().length > 0);
+        }
+
+        // Prioritize publication channel
+        let channel = '';
+        if (item.journalName?.trim()?.length) {
+            channel = item.journalName;
+        } else if (item.conferenceName?.trim()?.length) {
+            channel = item.conferenceName;
+        } else if (item.publisherName?.trim()?.length) {
+            channel = item.publisherName;
+        } else {
+            channel = '-';
         }
 
         return new Publication(
@@ -121,7 +134,8 @@ export class PublicationAdapter implements Adapter<Publication> {
             fieldsOfScience, // defined above
             item.author,
             item.selfArchivedData,
-            item.completions
+            item.completions,
+            channel
         );
     }
 }
