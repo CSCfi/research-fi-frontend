@@ -3968,6 +3968,46 @@
         <source>Hakutulosten lukumäärä sivulla</source>
         <target>Number of results on single page</target>
       </trans-unit>
+      <trans-unit id="sortNewest">
+        <source>Uusin ensin</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortOldest">
+        <source>Vanhin ensin</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortPublicationAsc">
+        <source>Julkaisun nimen mukaan (A-Ö)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortAuthorAsc">
+        <source>Ensimmäisen tekijän mukaan (A-Ö)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortProjectNameAsc">
+        <source>Hankkeen nimen mukaan (A-Ö)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortFunderNameAsc">
+        <source>Rahoittajan mukaan (A-Ö)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortAcronymAsc">
+        <source>Lyhenne (A-Ö)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortInfraNameAsc">
+        <source>Infrastruktuurin nimen mukaan (A-Ö)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortOrgNameAsc">
+        <source>Organisaation nimen mukaan (A-Ö)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="sortSectorNameAsc">
+        <source>Sektorin mukaan (A-Ö)</source>
+        <target></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
