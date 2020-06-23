@@ -35,6 +35,15 @@ export class SortComponent implements OnInit, OnDestroy {
     {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
     {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
   ];
+  infraFields = [
+    {label: 'Lyhenne (A-Ö)', value: 'acronym'},
+    {label: 'Infrastruktuurin nimen mukaan (A-Ö)', value: 'name'},
+    {label: 'Organisaation nimen mukaan (A-Ö)', value: 'organization'}
+  ];
+  organizationFields = [
+    {label: 'Organisaation nimen mukaan (A-Ö)', value: 'name'},
+    {label: 'Sektorin mukaan (A-Ö)', value: 'sector'}
+  ];
 
   constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
                private tabChangeService: TabChangeService ) {
@@ -50,6 +59,14 @@ export class SortComponent implements OnInit, OnDestroy {
         }
         case 'fundings': {
           this.tabFields = this.fundingFields;
+          break;
+        }
+        case 'infrastructures': {
+          this.tabFields = this.infraFields;
+          break;
+        }
+        case 'organizations': {
+          this.tabFields = this.organizationFields;
           break;
         }
       }
