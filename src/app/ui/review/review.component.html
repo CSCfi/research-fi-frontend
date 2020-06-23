@@ -95,7 +95,8 @@
           <button *ngIf="underReview" mat-stroked-button color="primary" (click)="underReview = false" [disabled]="sending" i18n="@@back">Takaisin</button>
         </div>
         <div class="col-12 col-md-6 px-0 text-center text-md-right">
-          <button mat-flat-button color="primary" (click)="underReview ? send() : validate()" [disabled]="sending" i18n="@@r15">Tarkista ja lähetä</button>
+          <!-- <button mat-flat-button color="primary" (click)="underReview ? send() : validate()" [disabled]="sending" i18n="@@r15">Tarkista ja lähetä</button> -->
+          <app-primary-action-button [content]="'Tarkista ja lähetä'" [disabled]="sending"></app-primary-action-button>
         </div>
       </div>
 
