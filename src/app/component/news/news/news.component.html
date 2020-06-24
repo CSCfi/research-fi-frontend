@@ -6,10 +6,11 @@
 # :license: MIT -->
 
 <div class="full-width"></div>
+<div class="bg-bubble d-none d-lg-block"></div>
 <main id="main-content">
     <div class="wrapper">
         <div class="row">
-            <div class="col-12 col-lg-8 px-0">
+            <div class="col-12 col-lg-7 px-0">
                 <div class="row d-flex justify-content-between">
                     <h1 class="col col-lg-8 px-0" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
                     <div class="col-12 col-sm-4 search">
@@ -25,8 +26,8 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="data">
-            <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
+        <div class="row d-flex justify-content-between" *ngIf="data">
+            <div class="col-12 col-lg-7 col px-0" [class.p-0]="mobile">
                 <main>
                     <div class="row content">
                         <h2 class="col-12 pt-3 px-0" i18n="@@latest">Uusimmat</h2>
@@ -38,7 +39,7 @@
                     </div>
                 </main>
             </div>
-            <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
+            <div class="col-12 col-lg-4 col side-news" [class.p-0]="mobile">
                 <h2 class="col-12 pt-3 px-0 pb-3" #older i18n="@@olderNews">Aiempia uutisia</h2>
                 <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true"></app-news-card>
                 <app-news-pagination [responseData]="data"></app-news-pagination>
