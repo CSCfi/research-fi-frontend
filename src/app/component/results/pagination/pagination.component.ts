@@ -30,6 +30,8 @@ export class PaginationComponent implements OnInit {
   resizeSub: Subscription;
   desktop = this.window.innerWidth >= 1200;
   order = this.window.innerWidth >= 768;
+  previousPage = $localize`:@@previousPage:Edellinen sivu`;
+  nextPage = $localize`:@@nextPage:Seuraava sivu`;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window) { }
