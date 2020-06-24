@@ -9,6 +9,9 @@
     $primary: map-get($theme, primary);
 
     app-news {
-        
+        .side-news {
+            background: #ffffff6b;
+            border: 1px solid mat-color($primary);
+        }
     }
 }
