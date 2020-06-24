@@ -5,9 +5,21 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-h2 {
-    font-size: 1.5rem;
-    font-weight: normal;
+app-news {
+    h2 {
+        font-size: 1.5rem;
+        font-weight: normal;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    app-filters {
+        .mobile {
+            margin: 0!important
+        }
+    }
 }
 
 app-news-card {
