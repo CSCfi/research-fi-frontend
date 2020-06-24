@@ -137,9 +137,9 @@
         "descriptionSv": "Universiteten och yrkeshögskolorna, forskningsinstituten samt företagens forksningsenheter är centrala aktörer i det finländska forksnings- och innovationssystemet. Cirka två tredjedelar av forsknings- och produktutvecklingsarbetet utförs av företag. De viktigaste finansiärerna är Finlands Akademi, Business Finland och stiftelserna."
     },
     "figures": {
-        "titleFi": "Suomalainen tiede ja tutkimus lukuina | Tiedejatutkimus.fi",
-        "titleEn": "Finnish science and research in figures | Research.fi",
-        "titleSv": "Finlädsk vetenskap och forskning i siffror | Forskning.fi",
+        "titleFi": "Lukuja suomalaisesta tieteestä ja tutkimuksesta | Tiedejatutkimus.fi",
+        "titleEn": "Figures on Finnish science and research | Research.fi",
+        "titleSv": "Siffror om vetenskap och forskning | Forskning.fi",
         "descriptionFi": "Löydä tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta.",
         "descriptionEn": "Find information on the funding, human resources, publishing activities and scientific impact on Finnish research.",
         "descriptionSv": "Hitta information om finansieringen av den finländska forskningen, personalresurserna samt publikationsverksamheten och forskningens genomslag."
@@ -148,9 +148,9 @@
         "titleFi": "",
         "titleEn": "",
         "titleSv": "",
-        "descriptionFi": "",
-        "descriptionEn": "",
-        "descriptionSv": ""
+        "descriptionFi": "Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa mm. tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta.",
+        "descriptionEn": "Figures on Science and Research section shares information about funding, human resources, publishing activity and scientific impact of the research in Finland.",
+        "descriptionSv": "I avsnittet Siffror om vetenskap och forskning hittar man information om forskning i Finland, dess finansiering, personresurser, publicering och vetenskapliga genomslag"
     },
     "news": {
         "titleFi": "Uusimmat tiede- ja tutkimusuutiset | Tiedejatutkimus.fi",
