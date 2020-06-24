@@ -27,7 +27,7 @@ export class SortComponent implements OnInit, OnDestroy {
     {label: $localize`:@@sortNewest:Uusin ensin`, value: 'yearDesc'},
     {label: $localize`:@@sortOldest:Vanhin ensin`, value: 'year'},
     {label: $localize`:@@sortPublicationAsc:Nimike (A-Ö)`, value: 'name'},
-    {label: $localize`:@@sortAuthorAsc:Ensimmäinen tekijä(A-Ö)`, value: 'author'}
+    {label: $localize`:@@sortAuthorAsc:Ensimmäinen tekijä (A-Ö)`, value: 'author'}
   ];
   fundingFields = [
     {label: $localize`:@@sortNewest:Uusin ensin`, value: 'yearDesc'},
