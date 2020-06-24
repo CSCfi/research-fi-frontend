@@ -31,6 +31,8 @@ export class PaginationComponent implements OnInit {
   resizeSub: Subscription;
   desktop = this.window.innerWidth >= 1200;
   order = this.window.innerWidth >= 768;
+  previousPage = $localize`:@@previousPage:Edellinen sivu`;
+  nextPage = $localize`:@@nextPage:Seuraava sivu`;
 
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;

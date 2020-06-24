@@ -3966,43 +3966,43 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="sortNewest">
         <source>Uusin ensin</source>
-        <target></target>
+        <target>Nyast först</target>
       </trans-unit>
       <trans-unit id="sortOldest">
         <source>Vanhin ensin</source>
-        <target></target>
+        <target>Äldst först</target>
       </trans-unit>
       <trans-unit id="sortPublicationAsc">
-        <source>Julkaisun nimen mukaan (A-Ö)</source>
-        <target></target>
+        <source>Nimike (A-Ö)</source>
+        <target>Titel (A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortAuthorAsc">
-        <source>Ensimmäisen tekijän mukaan (A-Ö)</source>
-        <target></target>
+        <source>Ensimmäinen tekijä (A-Ö)</source>
+        <target>Den första författaren (A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortProjectNameAsc">
-        <source>Hankkeen nimen mukaan (A-Ö)</source>
-        <target></target>
+        <source>Hanke (A-Ö)</source>
+        <target>Projekt (A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortFunderNameAsc">
-        <source>Rahoittajan mukaan (A-Ö)</source>
-        <target></target>
+        <source>Rahoittaja (A-Ö)</source>
+        <target>Finansiären (A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortAcronymAsc">
         <source>Lyhenne (A-Ö)</source>
-        <target></target>
+        <target>Förkortning (A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortInfraNameAsc">
-        <source>Infrastruktuurin nimen mukaan (A-Ö)</source>
-        <target></target>
+        <source>Infrastruktuuri (A-Ö)</source>
+        <target>Infrastruktur (A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortOrgNameAsc">
-        <source>Organisaation nimen mukaan (A-Ö)</source>
-        <target></target>
+        <source>Organisaatio (A-Ö)</source>
+        <target>Organisation(A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortSectorNameAsc">
-        <source>Sektorin mukaan (A-Ö)</source>
-        <target></target>
+        <source>Sektori (A-Ö)</source>
+        <target>Sektor (A-Ö)</target>
       </trans-unit>
     </body>
   </file>

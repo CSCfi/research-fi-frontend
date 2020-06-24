@@ -5,13 +5,27 @@
 
     app-sort {
         .sort {
-            background: mat-color($primary, 100);
+            // background: mat-color($primary, 100);
+        }
+
+        .sort-button.mat-focused {
+            // outline: 4px solid red;
+            box-shadow: 0 0 0 4px mat-color($primary);
+            outline: 0;
+        }
+
+        .sort-button:hover {
+            background-color: mat-color($primary, 100);
+        }
+
+        mat-form-field .mat-select-value-text {
+            color: mat-color($primary);
         }
 
         @media (max-width: 991px) {
             mat-form-field.mat-form-field {
-                background: mat-color($primary, 50);
-                border: 1px solid mat-color($primary);
+                // background: mat-color($primary, 50);
+                border: 2px solid mat-color($primary);
             }
             .mat-select-value {
                 color: mat-contrast($primary, 200);

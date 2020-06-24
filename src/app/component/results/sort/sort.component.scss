@@ -24,6 +24,11 @@ app-sort {
         font-family: inherit!important;
     }
 
+    mat-form-field .mat-select-value-text {
+        font-size: 1rem;
+        font-weight: normal;
+    }
+
     @media (max-width: 991px) {
         .hide-mobile {
             display: none;
@@ -38,16 +43,16 @@ app-sort {
             margin-bottom: 0;
         }
 
-        mat-form-field.sort-button .mat-select-value {
-            font-size: 1.4rem!important;
-        }
+        // mat-form-field.sort-button .mat-select-value {
+        //     font-size: 1.4rem!important;
+        // }
 
         // Chevron
         mat-form-field.sort-button .mat-form-field-flex::after {
             font-family: "FontAwesome";
             content: "\f078";
-            font-size: 20px;
-            margin-left: -12px;
+            font-size: 1rem;
+            // margin-left: -12px;
         }
 
         mat-form-field.sort-button .mat-select-value-text:after {
@@ -65,8 +70,8 @@ app-sort {
 
         mat-form-field.mat-form-field {
             width: 100%;
-            border-radius: 0.25rem;
-            padding: 15.5px 0;
+            border-radius: 6px;
+            padding: 10.5px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -78,16 +83,17 @@ app-sort {
 
         mat-form-field.sort-button .mat-form-field-wrapper {
             padding-bottom: 0 !important;
+            width: 80%
         }
 
         mat-form-field.sort-button .mat-form-field-infix {
             border: 0 !important;
             padding: 0 !important;
-            width: 240px !important;
+            // width: 168px !important;
         }
 
         mat-form-field.sort-button mat-select {
-            font-size: 24px;
+            // font-size: 24px;
             text-align: center;
         }
         mat-form-field.sort-button .mat-form-field-underline {

@@ -29,6 +29,10 @@
         .pagination-button button.secondary-button:not(.small) {
             min-width: 175px;
         }
+
+        .pagination .pages button {
+            border: 0;
+        }
     
         .pagination .buttons {
             display: flex;
