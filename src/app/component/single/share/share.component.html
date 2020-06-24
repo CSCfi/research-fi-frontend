@@ -4,9 +4,5 @@
  :license: MIT -->
 
 <div class="share">
-    <!-- <button mat-raised-button [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()" color="primary" >
-        <fa-icon [icon]="faCopy" class="copy"></fa-icon>
-        <ng-container i18n="@@copyLink">Kopioi linkki</ng-container>
-    </button> -->
-    <app-secondary-button [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()" [content]="copyLink" [icon]="faCopy" [big]="true"></app-secondary-button>
+    <app-secondary-button [cdkCopyToClipboard]="currentUrl" (click)="openSnackBar()" [content]="copyLink" [icon]="faCopy" [big]="big"></app-secondary-button>
 </div>

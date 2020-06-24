@@ -49,6 +49,8 @@ img {
 }
 
 .button-container {
+    min-width: 130px;
+
     &.prev {
         padding-right: 10px;
     }
