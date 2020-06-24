@@ -24,6 +24,9 @@ export class NewsPaginationComponent implements OnInit {
   desktop = this.window.innerWidth >= 1200;
   order = this.window.innerWidth >= 768;
 
+  previousPage = $localize`:@@previous:Edellinen`;
+  nextPage = $localize`:@@next:Seuraava`;
+
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window,
                private tabChangeService: TabChangeService ) { }
