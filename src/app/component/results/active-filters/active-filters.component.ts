@@ -186,7 +186,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
               const result = source.lang.langs.buckets.find(({ key }) => key.toLowerCase() === val.value);
-              console.log(result);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
