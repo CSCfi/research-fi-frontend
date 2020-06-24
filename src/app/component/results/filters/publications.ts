@@ -138,7 +138,7 @@ export class PublicationFilters {
     if (data && data[0]?.language) {
       let result = data.map(item => item = {
         label: item.language.buckets[0]?.key !== 'undefined' ? item.language.buckets[0]?.key : $localize`:@@notKnown:Ei tiedossa`,
-        key: item.key,
+        key: item.key.toLowerCase(),
         doc_count: item.doc_count
       });
       result = result.filter(item => item.key !== ' ');
