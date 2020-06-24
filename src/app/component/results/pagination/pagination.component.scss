@@ -28,12 +28,16 @@
     
         .pagination button {
             border: 1px solid;
-            padding: 10px 15px;
+            padding: 10px 15px!important;
             // margin: 0 5px;
-            border: 0;
+            // border: 0;
             max-width: 150px;
             // max-height: 50px;
             align-self: flex-end;
+        }
+
+        .pagination .pages button {
+            border: 0;
         }
     
         .pagination .buttons {
