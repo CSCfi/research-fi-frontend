@@ -14,6 +14,10 @@
             outline: 0;
         }
 
+        .sort-button:hover {
+            background-color: mat-color($primary, 100);
+        }
+
         mat-form-field .mat-select-value-text {
             color: mat-color($primary);
         }
