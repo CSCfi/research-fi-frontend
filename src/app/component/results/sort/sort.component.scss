@@ -29,6 +29,10 @@ app-sort {
         font-weight: normal;
     }
 
+    .mat-select-trigger {
+        padding: 10.5px 0;
+    }
+
     @media (max-width: 991px) {
         .hide-mobile {
             display: none;
@@ -48,15 +52,15 @@ app-sort {
         // }
 
         // Chevron
-        mat-form-field.sort-button .mat-form-field-flex::after {
+        mat-form-field.sort-button .mat-select-value-text:after {
+            content: "";
+        }
+
+        mat-form-field.sort-button .mat-select-value-text::after {
             font-family: "FontAwesome";
             content: "\f078";
             font-size: 1rem;
-            // margin-left: -12px;
-        }
-
-        mat-form-field.sort-button .mat-select-value-text:after {
-            content: "";
+            padding-left: .5rem;
         }
 
         mat-form-field.sort-button .mat-form-field-label-wrapper {
@@ -71,7 +75,6 @@ app-sort {
         mat-form-field.mat-form-field {
             width: 100%;
             border-radius: 6px;
-            padding: 10.5px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -83,7 +86,7 @@ app-sort {
 
         mat-form-field.sort-button .mat-form-field-wrapper {
             padding-bottom: 0 !important;
-            width: 80%
+            width: 100%
         }
 
         mat-form-field.sort-button .mat-form-field-infix {
