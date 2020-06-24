@@ -26,23 +26,23 @@ export class SortComponent implements OnInit, OnDestroy {
   publicationFields = [
     {label: $localize`:@@sortNewest:Uusin ensin`, value: 'yearDesc'},
     {label: $localize`:@@sortOldest:Vanhin ensin`, value: 'year'},
-    {label: $localize`:@@sortPublicationAsc:Julkaisun nimen mukaan (A-Ö)`, value: 'name'},
-    {label: $localize`:@@sortAuthorAsc:Ensimmäisen tekijän mukaan (A-Ö)`, value: 'author'}
+    {label: $localize`:@@sortPublicationAsc:Nimike (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortAuthorAsc:Ensimmäinen tekijä(A-Ö)`, value: 'author'}
   ];
   fundingFields = [
     {label: $localize`:@@sortNewest:Uusin ensin`, value: 'yearDesc'},
     {label: $localize`:@@sortOldest:Vanhin ensin`, value: 'year'},
-    {label: $localize`:@@sortProjectNameAsc:Hankkeen nimen mukaan (A-Ö)`, value: 'name'},
-    {label: $localize`:@@sortFunderNameAsc:Rahoittajan mukaan (A-Ö)`, value: 'funder'}
+    {label: $localize`:@@sortProjectNameAsc:Hanke (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortFunderNameAsc:Rahoittaja (A-Ö)`, value: 'funder'}
   ];
   infraFields = [
     {label: $localize`:@@sortAcronymAsc:Lyhenne (A-Ö)`, value: 'acronym'},
-    {label: $localize`:@@sortInfraNameAsc:Infrastruktuurin nimen mukaan (A-Ö)`, value: 'name'},
-    {label: $localize`:@@sortOrgNameAsc:Organisaation nimen mukaan (A-Ö)`, value: 'organization'}
+    {label: $localize`:@@sortInfraNameAsc:Infrastruktuuri (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortOrgNameAsc:Organisaatio (A-Ö)`, value: 'organization'}
   ];
   organizationFields = [
-    {label: $localize`:@@sortOrgNameAsc:Organisaation nimen mukaan (A-Ö)`, value: 'name'},
-    {label: $localize`:@@sortSectorNameAsc:Sektorin mukaan (A-Ö)`, value: 'sector'}
+    {label: $localize`:@@sortOrgNameAsc:Organisaatio (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortSectorNameAsc:Sektori (A-Ö)`, value: 'sector'}
   ];
 
   constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
