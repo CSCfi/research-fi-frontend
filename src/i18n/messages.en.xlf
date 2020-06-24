@@ -3957,8 +3957,8 @@
         <target> to</target>
       </trans-unit>
       <trans-unit id="fOrgErrorTooltip">
-        <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
-        <target>Note. The number of non-EU funding decisions is doubled. The error is currently being corrected.</target>
+        <source>Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.</source>
+        <target>If the organization has several beneficiaries in the same funding, the project has been counted several times in the number below.</target>
       </trans-unit>
       <trans-unit id="resultsPage">
         <source> tulosta / sivu</source>

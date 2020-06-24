@@ -3953,8 +3953,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target state="translated"> till</target>
       </trans-unit>
       <trans-unit id="fOrgErrorTooltip">
-        <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
-        <target>Notera. Antalet finansieringsbeslut (exklusive EU-projekt) fördubblas. Felet korrigeras så snart som möjligt.</target>
+        <source>Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.</source>
+        <target>Om organisationen har flera mottagare i samma projekt, räknas projektet flera gånger i numret nedan.</target>
       </trans-unit>
       <trans-unit id="resultsPage">
         <source> tulosta / sivu</source>
