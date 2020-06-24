@@ -12,8 +12,8 @@
         <div class="row">
             <div class="col-12 col-lg-7 px-0">
                 <div class="row d-flex justify-content-between">
-                    <h1 class="col col-lg-8 px-0" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
-                    <div class="col-12 col-sm-4 search">
+                    <h1 class="col col-lg-7 px-0" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
+                    <div class="col-12 col-lg-5 text-lg-right px-0">
                         <aside>
                             <!-- results/filters -->
                             <app-filters [responseData]="filterValues" [tabData]="'news'" [showButton]="true"></app-filters>
@@ -31,7 +31,7 @@
                 <main>
                     <div class="row content">
                         <h2 class="col-12 pt-3 px-0" i18n="@@latest">Uusimmat</h2>
-                        <app-news-card *ngFor="let item of data" tabindex="0" [item]="item"></app-news-card>
+                        <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
                             <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
                             <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
