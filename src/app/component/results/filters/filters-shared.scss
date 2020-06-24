@@ -405,6 +405,16 @@
             }
         }
 
+        @media (max-width: 400px) {
+            .secondary-button fa-icon.before {
+                padding: 0 8px 0 14px !important;
+            }
+        
+            .ttv-button {
+                padding: 0 12px;
+            }
+        }
+
         @media print {
             .mobile {
                 display: none;
