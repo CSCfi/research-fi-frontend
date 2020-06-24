@@ -13,7 +13,7 @@
     <div cdkTrapFocus>
         <div class="modal-header">
             <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? filterNewsHeader : filterSearchHeader}}</h5>
-            <button type="button" class="btn modal-close" (click)="closeModal()" autofocus i18n="Close button@@closeButton">Sulje</button>
+            <app-close-button (click)="closeModal()"></app-close-button>
         </div>
         <div class="modal-body">
             <ng-container *ngTemplateOutlet="filters"></ng-container>
@@ -23,6 +23,7 @@
 
 <!-- showButton enables mobile behaviour on desktop -->
 <ng-container *ngIf="!mobile && !showButton">
+    <mat-spinner *ngIf="!responseData"></mat-spinner>
     <ng-container *ngTemplateOutlet="filters"></ng-container>
 </ng-container>
 

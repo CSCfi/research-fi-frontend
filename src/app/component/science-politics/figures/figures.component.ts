@@ -132,7 +132,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       case 'sv': {
-        this.setTitle('Finländsk vetenskap och forskning i siffror - Forskning.fi');
+        this.setTitle('Siffror om vetenskap och forskning - Forskning.fi');
         break;
       }
     }

@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { Search } from 'src/app/models/search.model';
+import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-pagination',
@@ -32,6 +33,12 @@ export class PaginationComponent implements OnInit {
   order = this.window.innerWidth >= 768;
   previousPage = $localize`:@@previousPage:Edellinen sivu`;
   nextPage = $localize`:@@nextPage:Seuraava sivu`;
+
+  faAngleDoubleRight = faAngleDoubleRight;
+  faAngleDoubleLeft = faAngleDoubleLeft;
+
+  previous = $localize`:@@previous:Edellinen`; 
+  next = $localize`:@@next:Seuraava`; 
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window) { }
