@@ -4,11 +4,6 @@
     $primary: map-get($theme, primary);
 
     app-figures, app-research-innovation-system, app-single-figure, app-service-info {
-
-        .bg-bubble, .circle-small {
-            background: mat-color($primary, 200);
-        }
-
         .base {
             background: rgba(255, 255, 255, 0.50);
         }
