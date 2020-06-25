@@ -107,7 +107,7 @@
                     </div>
                  </ng-container>
                  <!-- TODO: Change aria label field when content available -->
-                    <mat-selection-list [attr.aria-label]="filter.field" (selectionChange)="simpleChange(filter.field, $event.option)">
+                    <mat-selection-list [attr.aria-label]="filter.field" (selectionChange)="selectionChange(filter.field, $event.option.value)">
                         <!-- Options -->
                         <mat-list-option checkboxPosition="before" *ngFor="let item of responseData.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
                         [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1">
