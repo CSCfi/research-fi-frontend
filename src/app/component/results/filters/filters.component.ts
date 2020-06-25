@@ -100,8 +100,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Focus on open filters button when modal closes
     this.modalService.onHidden
     .pipe(tap(() => {
-      console.log(this.openFiltersButton)
-      this.openFiltersButton.nativeElement.focus() 
+      this.openFiltersButton.nativeElement.focus() ;
     }))
     .subscribe();
 
