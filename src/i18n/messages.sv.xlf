@@ -4008,6 +4008,10 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Sektori (A-Ö)</source>
         <target>Sektor (A-Ö)</target>
       </trans-unit>
+      <trans-unit id="readMore">
+        <source>Lue lisää</source>
+        <target>Läs mer</target>
+      </trans-unit>
       <trans-unit id="research">
         <source>Tutkimustoiminta</source>
         <target>Forskning</target>
