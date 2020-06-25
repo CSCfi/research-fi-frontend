@@ -7,7 +7,7 @@
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
   Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild, AfterViewChecked } from '@angular/core';
-import { MatSelectionList } from '@angular/material/list';
+import { MatSelectionList, MatListOption } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { ResizeService } from '../../../services/resize.service';
@@ -100,8 +100,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Focus on open filters button when modal closes
     this.modalService.onHidden
     .pipe(tap(() => {
-      console.log(this.openFiltersButton)
-      this.openFiltersButton.nativeElement.focus() 
+      this.openFiltersButton.nativeElement.focus() ;
     }))
     .subscribe();
 
@@ -273,6 +272,12 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     this.selectionChange('year', selected);
+  }
+
+  // This is needed for keyboard selection to work in news filters
+  simpleChange(filter, option: MatListOption) {
+    const key = option.value;
+    this.selectionChange(filter, key);
   }
 
   selectionChange(filter, key) {

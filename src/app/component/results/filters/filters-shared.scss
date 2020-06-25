@@ -341,6 +341,10 @@
             outline: -webkit-focus-ring-color auto 1px;
         }
 
+        .modal-body {
+            padding: 0;
+        }
+
         // Responsive
         @media (max-width: 991px) {
             // .filter-sidebar {
@@ -352,7 +356,6 @@
             }
 
             .modal-body {
-                padding: 0;
                 // "Sticky header"
                 max-height: 80vh;
                 overflow-y: auto;

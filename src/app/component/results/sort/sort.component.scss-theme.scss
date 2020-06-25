@@ -4,12 +4,7 @@
     $primary: map-get($theme, primary);
 
     app-sort {
-        .sort {
-            // background: mat-color($primary, 100);
-        }
-
-        .sort-button.mat-focused {
-            // outline: 4px solid red;
+        .sort-button.mat-focused:active {
             box-shadow: 0 0 0 4px mat-color($primary);
             outline: 0;
         }
@@ -24,7 +19,6 @@
 
         @media (max-width: 991px) {
             mat-form-field.mat-form-field {
-                // background: mat-color($primary, 50);
                 border: 2px solid mat-color($primary);
             }
             .mat-select-value {
