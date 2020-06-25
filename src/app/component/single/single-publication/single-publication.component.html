@@ -325,7 +325,7 @@
                 <mat-card>
                     <mat-card-title><h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2></mat-card-title>
                     <div *ngFor="let org of authorAndOrganization">
-                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0"><ng-container i18n="@@orgOrganization">Organisaatio</ng-container>: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
+                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0"><a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                         <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>

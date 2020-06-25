@@ -214,8 +214,8 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2 i18n="@@infraSource">Infrastruktuuritiedon lähde</h2></mat-card-title>
-                    <div *ngFor="let source of [responseData.infrastructures[0]]">
-                        <a *ngIf="source.responsibleOrganization?.trim().length > 0; else noSource" routerLink="/results/organization/{{source.responsibleOrganizationId}}">
+                    <div *ngFor="let source of responseData.infrastructures">
+                        <a *ngIf="source?.responsibleOrganization?.trim().length > 0; else noSource" routerLink="/results/organization/{{source.responsibleOrganizationId}}">
                             {{source.responsibleOrganization}}
                         </a>
                         <ng-template #noSource>

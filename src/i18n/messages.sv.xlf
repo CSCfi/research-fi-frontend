@@ -785,7 +785,7 @@
       </trans-unit>
       <trans-unit id="fundingFunderSource" datatype="html">
         <source>Rahoittaja: <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></source>
-        <target state="translated">Finansiär</target>
+        <target state="translated">Finansiär <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">265</context>
