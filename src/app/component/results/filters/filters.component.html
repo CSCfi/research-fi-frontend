@@ -4,7 +4,7 @@
  :license: MIT -->
     
  <div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
-    <app-secondary-button [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader" [icon]="faSlidersH"
+    <app-secondary-button [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader" [icon]="faSlidersH" [noSmIcon]="true" [big]="true"
     (click)="openModal(filterModal)" #openFilters></app-secondary-button>
 </div>
 
