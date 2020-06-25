@@ -263,7 +263,7 @@
                 <mat-card>
                     <mat-card-title><h2 i18n="@@fundingSource">Hanketiedon lähde</h2></mat-card-title>
                     <div *ngFor="let source of responseData.fundings">
-                        <p *ngIf="source.funder.name.trim().length > 0" i18n="@@fundingFunderSource">Rahoittaja: {{source.funder.name}}</p>
+                        <p *ngIf="source.funder.name.trim().length > 0">{{source.funder.name}}</p>
                         <p *ngIf="source.funder.name.trim().length === 0" i18n="@@noInformationSource">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>
