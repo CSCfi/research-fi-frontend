@@ -147,6 +147,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         // Get preselected filters from filterService
         this.preSelection = [];
         Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
+        console.log(this.preSelection);
         // Get from & to year filter preselection
         this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
         this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
