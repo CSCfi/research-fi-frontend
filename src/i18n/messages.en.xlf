@@ -4012,6 +4012,10 @@
         <source>Sektori (A-Ö)</source>
         <target>Sector (A-Ö)</target>
       </trans-unit>
+      <trans-unit id="readMore">
+        <source>Lue lisää</source>
+        <target>Read more</target>
+      </trans-unit>
       <trans-unit id="research">
         <source>Tutkimustoiminta</source>
         <target>Research</target>
