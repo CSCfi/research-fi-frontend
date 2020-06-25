@@ -3998,7 +3998,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="sortOrgNameAsc">
         <source>Organisaatio (A-Ö)</source>
-        <target>Organisation(A-Ö)</target>
+        <target>Organisation (A-Ö)</target>
       </trans-unit>
       <trans-unit id="sortSectorNameAsc">
         <source>Sektori (A-Ö)</source>
