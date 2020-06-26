@@ -72,8 +72,6 @@ export class TreemapComponent implements OnInit, OnChanges {
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')')
       .style('shape-rendering', 'crispEdges');
 
-    console.log(this.svg)
-
     // Create reference for back-button
     this.back = this.svg.append('g').attr('class', 'back');
     this.back.append('rect')

@@ -37,8 +37,8 @@ export class BarComponent implements OnInit, OnChanges {
         (changes?.width?.currentValue || this.width)) {
       console.log(this.data)
       // Height and width with margins
-      this.innerHeight = this.height - 2 * this.margin;
-      this.innerWidth = this.width - 2 * this.margin;
+      this.innerHeight = this.height - 3 * this.margin;
+      this.innerWidth = this.width - 3 * this.margin;
       this.update();
     }
   }
@@ -59,7 +59,7 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('width', this.width)
       .attr('height', this.height)
       .append('g')
-        .attr('transform', `translate(${this.margin}, ${this.margin})`);
+        .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
 
     // X scale
     this.x = scaleBand()
@@ -70,7 +70,8 @@ export class BarComponent implements OnInit, OnChanges {
     // Y scale
     this.y = scaleLinear()
       .range([this.innerHeight, 0])
-      .domain([0, max(sample.map(d => d.doc_count))]);
+      .domain([0, max(sample.map(d => d.doc_count))])
+      .nice(5);
 
     // X axis
     this.g.append('g')
@@ -81,28 +82,44 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('transform', `translate(0, ${this.innerHeight})`)
       .call(axisBottom(this.x));
 
+    // Add horizontal lines
+    this.g.append('g')
+      .attr('class', 'grid')
+      .call(axisLeft(this.y)
+          .ticks(5)
+          .tickSize(-this.innerWidth)
+          .tickFormat((a, b) => ''));
+  
+
     // Insert bars
     this.g.selectAll()
       .data(sample)
       .enter()
       .append('rect')
+      .attr('class', 'bar')
       .attr('x', d => this.x(d.key))
       .attr('y', d => this.y(d.doc_count))
       .attr('height', d => this.innerHeight - this.y(d.doc_count))
       .attr('width', d => this.x.bandwidth());
+   
+    // Add axis and graph labels
+    this.g.append('text')
+        .attr('x', -(this.innerHeight / 2))
+        .attr('y', -this.margin)
+        .attr('transform', 'rotate(-90)')
+        .attr('text-anchor', 'middle')
+        .text('Julkaisujen määrä')
 
-    // Add horizontal lines
-    this.g.append('g')
-      .attr('class', 'grid')
-      .call(axisLeft(this.y)
-            .ticks(5)
-            .tickSize(-this.innerWidth)
-            .tickFormat((a, b) => ''));
-            
+    this.g.append('text')
+        .attr('x', this.innerWidth / 2 + this.margin)
+        .attr('y', this.innerHeight + this.margin)
+        .attr('text-anchor', 'middle')
+        .text('Vuosi')
+
+    this.g.append('text')
+        .attr('x', this.innerWidth / 2 + this.margin)
+        .attr('y', -this.margin / 2)
+        .attr('text-anchor', 'middle')
+        .text('Julkaisujen määrä vuosittain')
   }
-
-  gridLines = () => {
-    return axisBottom(this.x);
-  }
-
 }

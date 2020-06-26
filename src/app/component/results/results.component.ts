@@ -70,7 +70,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showSkipLinks: boolean;
   currentLocale: string;
 
-  visual = true;
+  visual = false;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
