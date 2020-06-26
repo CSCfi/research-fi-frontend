@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-secondary-button',
   templateUrl: './secondary-button.component.html',
-  styleUrls: ['./secondary-button.component.scss']
+  styleUrls: ['./secondary-button.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SecondaryButtonComponent implements OnInit {
 
