@@ -12,7 +12,7 @@
     }
 
     &:disabled {
-        opacity: 60%;
+        opacity: 60%!important;
     }
 
     &.icon:not(.icon-after) {
