@@ -53,7 +53,7 @@
     "compression": "^1.7.4",
     "core-js": "^2.6.11",
     "countup.js-angular2": "^7.3.0",
-    "d3": "^5.15.0",
+    "d3": "^5.16.0",
     "d3-zoom": "^1.8.3",
     "express": "^4.15.2",
     "font-awesome": "^4.7.0",

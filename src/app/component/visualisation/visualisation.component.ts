@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { HttpClient } from '@angular/common/http';
@@ -22,10 +22,18 @@ import { WINDOW } from 'src/app/services/window.service';
 })
 export class VisualisationComponent implements OnInit, OnDestroy {
 
+  @ViewChild('main') main: ElementRef;
+
   visType = 0;
 
-  width = this.window.innerWidth - 25;  // scrollbar margin
-  height = this.window.innerHeight - 111 - 164 - 102;  // header - footer - info
+  height = 0;
+  width = 0;
+  margin = 50;
+  
+  // width = this.window.innerWidth - 25;  // scrollbar margin
+  // height = this.window.innerHeight - 111 - 164 - 102;  // header - footer - info
+
+  @Input() data: object;
 
   allData: any;
 
@@ -61,18 +69,22 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute,
               private filterService: FilterService, private sortService: SortService, private router: Router,
               @Inject(WINDOW) private window: Window) {
-    this.searchTerm = this.route.snapshot.params.input;
-    this.searchService.updateInput(this.searchTerm);
-    this.index = this.route.snapshot.params.tab;
-    this.sortService.updateTab(this.index);
-    this.index = this.index.slice(0, -1);
-
+    // this.searchTerm = this.route.snapshot.params.input;
+    // this.searchService.updateInput(this.searchTerm);
+    // this.index = this.route.snapshot.params.tab;
+    // this.sortService.updateTab(this.index);
+    // this.index = this.index.slice(0, -1);
+    
   }
-
+  
   ngOnInit() {
-    this.getFilters();
+    // Timeout waits for viewchild init
+    setTimeout(() => {
+      this.height = this.main.nativeElement.offsetHeight;
+      this.width = this.main.nativeElement.offsetWidth;
+    });
   }
-
+  
   swapVis() {
     this.visType = 1 - this.visType;
   }
