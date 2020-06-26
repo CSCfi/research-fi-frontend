@@ -58,7 +58,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   ];
 
   link = [
-    {label: $localize`:@@links:Linkit`, field: 'projectHomepage'}
+    {label: $localize`:@@links:Linkit`, field: 'projectHomepage'},
+    {label: $localize`:@@links:Linkit`, field: 'funderProjectNumber'} // For eu-funding only
   ];
 
   recipientTooltip = {
@@ -175,6 +176,11 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     // Filter out empty organization names
     this.responseData.fundings[0].recipient.organizations = this.responseData.fundings[0].recipient.organizations.filter(item =>
       item.name !== '' && item.name !== null);
+
+    // Filter funderProjectNumber from links for non eu funding
+    if (!this.responseData.fundings[0].euFunding) {
+      this.linkFields = this.linkFields.filter(item => item.field !== 'funderProjectNumber');
+    }
   }
 
   shapeData() {
