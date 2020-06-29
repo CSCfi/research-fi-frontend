@@ -23,6 +23,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
+import { publication } from '../visualisation/categories.json';
 
 @Component({
   selector: 'app-results',
@@ -73,6 +74,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visual = false;
   visIdx = 0;
   filterLoading = false;
+  visualisationCategories = publication;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};

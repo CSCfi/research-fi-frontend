@@ -48,6 +48,7 @@ export class BarComponent implements OnInit, OnChanges {
   }
 
   update(fieldIdx: number) {
+    console.log(fieldIdx)
     const filterObject = this.categories[fieldIdx];
     const sample: {key: number, doc_count: number}[] = this.data.aggregations[filterObject.field].buckets;
     console.log(sample)
