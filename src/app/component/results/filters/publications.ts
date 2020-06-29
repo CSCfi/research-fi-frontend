@@ -74,6 +74,7 @@ export class PublicationFilters {
           subItem.key = subItem.orgId.buckets[0].key;
           subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
+      item.doc_count = item.subData.map(s => s.doc_count).reduce((a, b) => a + b, 0);
     });
   }
 

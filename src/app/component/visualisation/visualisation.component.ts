@@ -35,6 +35,7 @@ export class VisualisationComponent implements OnInit, OnDestroy {
 
   @Input() data: object;
   @Input() visIdx: number;
+  @Input() loading: boolean;
 
 
   allData: any;

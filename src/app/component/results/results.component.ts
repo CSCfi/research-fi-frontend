@@ -72,6 +72,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   visual = false;
   visIdx = 0;
+  filterLoading = false;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -207,6 +208,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         // Get data filter data
+        this.filterLoading = true;
         this.getFilterData();
         // this.getQueryFilterData();
         // Reset flags
@@ -278,6 +280,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.dataService.changeResponse(this.filterValues);
         // Set the title
         this.updateTitle(this.selectedTabData);
+        this.filterLoading = false;
       },
         error => this.errorMessage = error as any);
     }
