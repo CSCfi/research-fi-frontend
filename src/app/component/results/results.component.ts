@@ -177,7 +177,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tabChangeService.changeTab(this.selectedTabData);
           this.sortService.updateTab(this.selectedTabData.data);
           this.updateTitle(this.selectedTabData);
-
+          // TODO: REMOVE
+          this.visual = false;
         }
 
         this.sortService.updateSort(query.sort);
