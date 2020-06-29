@@ -84,7 +84,8 @@ exactField: any;
                 type: targetType,
                 fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
-                lenient: 'true'
+                lenient: 'true',
+                max_expansions: 1024
               }
             },
             {
