@@ -48,7 +48,6 @@ export class BarComponent implements OnInit, OnChanges {
   }
 
   update(fieldIdx: number) {
-    console.log(fieldIdx)
     const filterObject = this.categories[fieldIdx];
     const sample: {key: number, doc_count: number}[] = this.data.aggregations[filterObject.field].buckets;
     console.log(sample)
@@ -56,9 +55,6 @@ export class BarComponent implements OnInit, OnChanges {
     // Clear contents
     this.svg = d3.select('svg#chart');
     this.svg.selectAll('*').remove();
-    console.log(sample.map(d => d[filterObject.label]))
-
-    console.log(sample[0].doc_count)
 
     // Init dims for svg and add top-level group
     this.g = this.svg
@@ -105,7 +101,7 @@ export class BarComponent implements OnInit, OnChanges {
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', d => this.x(d.key))
+      .attr('x', d => this.x(d[filterObject.label]))
       .attr('y', d => this.y(d.doc_count))
       .attr('height', d => this.innerHeight - this.y(d.doc_count))
       .attr('width', d => this.x.bandwidth());
