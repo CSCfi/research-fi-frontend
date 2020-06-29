@@ -1,4 +1,8 @@
 import { Component, OnInit, Input, OnChanges, Inject, LOCALE_ID } from '@angular/core';
+import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+
+
+
 
 @Component({
   selector: 'app-carousel',
@@ -6,14 +10,19 @@ import { Component, OnInit, Input, OnChanges, Inject, LOCALE_ID } from '@angular
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit, OnChanges {
-
+  
   @Input() data: any[];
   @Input() id: string;
-
+  
   slicedData;
   idx: number;
   maxIdx: number;
   currentLocale: string;
+  faAngleDoubleRight = faAngleDoubleRight;
+  faAngleDoubleLeft = faAngleDoubleLeft;
+
+  next = $localize`:@@next:Seuraava`;
+  previous = $localize`:@@previous:Edellinen`;
 
   constructor(@Inject( LOCALE_ID ) protected localeId: string) {
     // Capitalize first letter of locale

@@ -53,15 +53,6 @@
         
         &.modal-body h4 {
             color: mat-contrast($primary, 300)
-        }
-        
-        &.modal-body .copy {
-            color: mat-color($primary);
-            border: mat-color($primary) 2px solid;
-            &:hover {
-                color: mat-contrast($primary, 100);
-                background-color: mat-color($primary, 100);
-            }
-        }
+        }        
     }
 }

@@ -6,31 +6,42 @@
 # :license: MIT -->
 
 <div class="full-width"></div>
+<div class="bg-bubble d-none d-lg-block"></div>
 <main id="main-content">
     <div class="wrapper">
         <div class="row">
-            <div class="col-12 col-lg-8 px-0">
+            <div class="col-12 col-lg-7 px-0">
                 <div class="row d-flex justify-content-between">
-                    <h1 class="col col-lg-8 px-0" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
-                    <div class="col-12 col-sm-4 search">
+                    <h1 class="col col-lg-7 px-0" i18n="@@newsHeader">Tiede- ja tutkimusuutiset</h1>
+                    <div class="col-12 col-lg-5 text-lg-right px-0">
                         <aside>
                             <!-- results/filters -->
                             <app-filters [responseData]="filterValues" [tabData]="'news'" [showButton]="true"></app-filters>
                         </aside>
                     </div>
-                    <aside>
+                    <aside class="pt-3">
                         <!-- results/active-filters -->
                         <app-active-filters></app-active-filters>
                     </aside>
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="data">
-            <div class="col-12 col-lg-8 col px-0" [class.p-0]="mobile">
+        <div class="row">
+            <div class="col-auto px-0 py-3 py-lg-0">
+                <a routerLink="/service-info" fragment="1" class="theme-link">
+                    <strong>
+                        <ng-container i18n="@@resultInfo1">Mitä</ng-container>
+                        <ng-container i18n="@@newsServiceIncludes"> uutisia palvelu sisältää?</ng-container>
+                    </strong>
+                </a>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-between" *ngIf="data">
+            <div class="col-12 col-lg-7 col px-0" [class.p-0]="mobile">
                 <main>
                     <div class="row content">
-                        <h2 class="col-12 pt-3 px-0" i18n="@@latest">Uusimmat</h2>
-                        <app-news-card *ngFor="let item of data" tabindex="0" [item]="item"></app-news-card>
+                        <h2 class="col-12 px-0 pt-0 pt-lg-3" i18n="@@latest">Uusimmat</h2>
+                        <app-news-card *ngFor="let item of data" [item]="item"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
                             <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
                             <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
@@ -38,7 +49,7 @@
                     </div>
                 </main>
             </div>
-            <div class="col-12 col-lg-4 col" [class.p-0]="mobile">
+            <div class="col-12 col-lg-4 col side-news" [class.p-0]="mobile">
                 <h2 class="col-12 pt-3 px-0 pb-3" #older i18n="@@olderNews">Aiempia uutisia</h2>
                 <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true"></app-news-card>
                 <app-news-pagination [responseData]="data"></app-news-pagination>

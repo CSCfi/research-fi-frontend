@@ -116,10 +116,15 @@
                     </div>
                     <ng-container *ngIf="item.id === '4940015'">
                         <div class="row links">
-                            <strong class="pb-2">Lisätietoa</strong>
+                            <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
                             <div class="info-link-wrapper">
                                 <div class="col link">
-                                    <a href="https://www.ilmatieteenlaitos.fi/tutkimustoiminta" target="_blank">Tutkimustoiminta <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a href="https://en.ilmatieteenlaitos.fi/research" target="_blank"><ng-container i18n="@@research">Tutkimustoiminta</ng-container>&nbsp;<fa-icon icon="external-link-alt"></fa-icon></a>
+                                </div>
+                            </div>
+                            <div class="info-link-wrapper">
+                                <div class="col link">
+                                    <a href="https://julkaisut.fmi.fi/intl-peer-reviewed/" target="_blank"><ng-container i18n="@@publications">Julkaisut</ng-container>&nbsp;<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +138,9 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2><ng-container i18n="@@relatedOrganizations">Organisaation</ng-container></h2></mat-card-title>
-                    <app-related-links [id]="item.id"></app-related-links>
+                    <!-- TODO: Uncomment when organization names match -->
+                    <!-- <app-related-links [id]="item.sectorNameFi === 'Rahoittaja' ? item.name : item.id" [filter]="item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'"></app-related-links> -->
+                    <app-related-links [id]="item.id" [filter]="'organization'"></app-related-links>
                 </mat-card>
             </aside>
             <!-- Copy url -->

@@ -179,8 +179,9 @@ app-search-bar {
     
     .completion {
         font-size: 25px;
-        margin-top: 8px;
         opacity: 0.4;
+        height: 100%;
+        display: flex;
     }
     
     // Button

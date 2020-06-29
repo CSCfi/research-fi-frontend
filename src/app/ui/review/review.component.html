@@ -12,7 +12,7 @@
         <h2 i18n="@@leaveReviewHeader">Anna palautetta tai kysy</h2>
       </div>
       <div class="col-3 px-0 text-right" (click)="close()">
-        <button mat-button color="primary"><fa-icon class="icon" [icon]="faTimes"></fa-icon><ng-container i18n="@@closeButton">Sulje</ng-container></button>
+        <app-close-button></app-close-button>
       </div>
     </div>
     <ng-container *ngIf="!result; else resultTemplate">
@@ -92,10 +92,10 @@
       
       <div class="row pt-5 pt-md-4 send-button-wrapper">
         <div class="col-12 col-md-6 px-0 pb-3 pb-md-0 text-center text-md-left">
-          <button *ngIf="underReview" mat-stroked-button color="primary" (click)="underReview = false" [disabled]="sending" i18n="@@back">Takaisin</button>
+          <app-secondary-button *ngIf="underReview" (click)="underReview = false" [content]="back" [disabled]="sending"></app-secondary-button>
         </div>
         <div class="col-12 col-md-6 px-0 text-center text-md-right">
-          <button mat-flat-button color="primary" (click)="underReview ? send() : validate()" [disabled]="sending" i18n="@@r15">Tarkista ja lähetä</button>
+          <app-primary-action-button (click)="underReview ? send() : validate()" [content]="sendText" [disabled]="sending"></app-primary-action-button>
         </div>
       </div>
 

@@ -40,7 +40,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() tabData: string;
   @Input() showButton: boolean;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
-  @ViewChild('openFilters') openFiltersButton: ElementRef;
+  @ViewChild('openFilters', {read: ElementRef}) openFiltersButton: ElementRef;
 
   currentFilter: any[];
   currentSingleFilter: any[];
@@ -99,7 +99,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
     // Focus on open filters button when modal closes
     this.modalService.onHidden
-    .pipe(tap(() => this.openFiltersButton.nativeElement.focus() ))
+    .pipe(tap(() => {
+      this.openFiltersButton.nativeElement.focus() ;
+    }))
     .subscribe();
 
     // Subscribe to queryParams

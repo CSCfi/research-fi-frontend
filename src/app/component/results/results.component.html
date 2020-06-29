@@ -29,7 +29,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     </a>
                 </div>
             </div>
-            <div class="col-auto text-right align-self-center">
+            <div class="col-auto align-self-center px-0 pr-lg-3" *ngIf="selectedTabData">
+                <app-result-count></app-result-count>
+            </div>
+            <div class="col-auto text-right align-self-center d-none d-lg-block">
                 <a routerLink="/service-info" fragment="1" class="theme-link">
                     <strong>
                         <ng-container i18n="@@resultInfo1">Mitä</ng-container><span> {{selectedTabData.singular.toLowerCase()}}</span>
@@ -42,7 +45,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
     </div>
     <div *ngIf="page <= 1000; else pageOverflow">
         <div class="row">
-            <div *ngIf="mobile; else desktop" class="col-12 row" style="padding:0;">
+            <div *ngIf="mobile; else desktop" class="col-12 row d-flex justify-content-between" style="padding:0;">
                 <aside class="col col-6 col-sm-6 filters">
                     <app-filters *ngIf="tab===tabData[0].link" [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
                     <app-filters *ngIf="tab===tabData[1].link" [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>

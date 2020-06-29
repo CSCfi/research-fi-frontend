@@ -24,16 +24,25 @@ export class SortComponent implements OnInit, OnDestroy {
 
   // Assign values to dropdown list by current tab
   publicationFields = [
-    {label: 'Uusin ensin', value: 'yearDesc'},
-    {label: 'Vanhin ensin', value: 'year'},
-    {label: 'Julkaisun nimen mukaan (A-Ö)', value: 'name'},
-    {label: 'Ensimmäisen tekijän mukaan (A-Ö)', value: 'author'}
+    {label: $localize`:@@sortNewest:Uusin ensin`, value: 'yearDesc'},
+    {label: $localize`:@@sortOldest:Vanhin ensin`, value: 'year'},
+    {label: $localize`:@@sortPublicationAsc:Nimike (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortAuthorAsc:Ensimmäinen tekijä (A-Ö)`, value: 'author'}
   ];
   fundingFields = [
-    {label: 'Uusin ensin', value: 'yearDesc'},
-    {label: 'Vanhin ensin', value: 'year'},
-    {label: 'Hankkeen nimen mukaan (A-Ö)', value: 'name'},
-    {label: 'Rahoittajan mukaan (A-Ö)', value: 'funder'}
+    {label: $localize`:@@sortNewest:Uusin ensin`, value: 'yearDesc'},
+    {label: $localize`:@@sortOldest:Vanhin ensin`, value: 'year'},
+    {label: $localize`:@@sortProjectNameAsc:Hanke (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortFunderNameAsc:Rahoittaja (A-Ö)`, value: 'funder'}
+  ];
+  infraFields = [
+    {label: $localize`:@@sortAcronymAsc:Lyhenne (A-Ö)`, value: 'acronym'},
+    {label: $localize`:@@sortInfraNameAsc:Infrastruktuuri (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortOrgNameAsc:Organisaatio (A-Ö)`, value: 'organization'}
+  ];
+  organizationFields = [
+    {label: $localize`:@@sortOrgNameAsc:Organisaatio (A-Ö)`, value: 'name'},
+    {label: $localize`:@@sortSectorNameAsc:Sektori (A-Ö)`, value: 'sector'}
   ];
 
   constructor( private route: ActivatedRoute, private router: Router, private sortService: SortService,
@@ -50,6 +59,14 @@ export class SortComponent implements OnInit, OnDestroy {
         }
         case 'fundings': {
           this.tabFields = this.fundingFields;
+          break;
+        }
+        case 'infrastructures': {
+          this.tabFields = this.infraFields;
+          break;
+        }
+        case 'organizations': {
+          this.tabFields = this.organizationFields;
           break;
         }
       }

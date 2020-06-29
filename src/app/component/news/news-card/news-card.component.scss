@@ -8,6 +8,14 @@ h2 {
     font-size: 20px;
 }
 
+h3 {
+    overflow-x: hidden;
+}
+
+.icon {
+    font-size: 1rem;
+}
+
 .link a.org-link{
     // position: absolute;
     bottom: 0;
@@ -24,7 +32,7 @@ img {
 
 // Side news
 .side {
-    h2 {
+    h3 {
         font-size: 1rem;
     }
 

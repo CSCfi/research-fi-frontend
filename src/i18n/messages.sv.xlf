@@ -228,6 +228,10 @@
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="newsServiceIncludes" datatype="html">
+        <source> uutisia palvelu sisältää?</source>
+        <target> nyheter innehåller tjänsten?</target>
+      </trans-unit>
       <trans-unit id="maxResults1" datatype="html">
         <source>Tuloksia näytetään enintään 10 000</source>
         <target state="translated">Högst 10 000 resultat visas</target>
@@ -781,7 +785,7 @@
       </trans-unit>
       <trans-unit id="fundingFunderSource" datatype="html">
         <source>Rahoittaja: <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></source>
-        <target state="translated">Finansiär</target>
+        <target state="translated">Finansiär <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">265</context>
@@ -3386,7 +3390,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="cookiePolicyHeader" datatype="html">
         <source>Evästekäytännöt</source>
-        <target state="translated">Kakpolicy </target>
+        <target>Kakpolicy</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">146</context>
@@ -3398,11 +3402,15 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP1" datatype="html">
         <source>Verkkopalvelu hyödyntää välttämättömien evästeiden lisäksi myös seurantaevästeitä, joiden avulla kerätään anonymisoitua tietoa palvelun käytöstä.
-                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Käytämme kerättyä tietoa palvelun kehittämiseen ja käyttökokemuksen parantamiseen.
-                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Palvelussa käytetään ensimmäisen osapuolen evästeitä ja seurantaevästeiden avulla kerättyä anonymisoitua käyttöjäanalytiikkaa ei välitetä eteenpäin kolmansille osapuolille.
-                                        <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit aina halutessasi <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kytkeä evästeet pois päästä tietosuojasivulla.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
-                                    </source>
-        <target state="translated">I webbtjänsten forskning.fi används endast nödvändiga kakor och information om användarna samlas inte in. </target>
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Käytämme kerättyä tietoa palvelun kehittämiseen ja käyttökokemuksen parantamiseen.
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Palvelussa käytetään ensimmäisen osapuolen evästeitä ja seurantaevästeiden avulla kerättyä anonymisoitua käyttöjäanalytiikkaa ei välitetä eteenpäin kolmansille osapuolille.
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit aina halutessasi <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kytkeä evästeet pois päästä tietosuojasivulla.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
+        </source>
+        <target>Webbtjänsten utnyttjar förutom nödvändiga kakor även kartläggningskakor som används för att samla anonymiserad information om användningen av tjänsten.
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Vi använder informationen som har samlats in för att utveckla tjänsten och förbättra användarupplevelsen.
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Förstapartskakorna och den anonymiserade användaranalysen som samlats in med hjälp av kartläggningskakorna förmedlas inte vidare till tredje parter.
+          <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Om du vill kan du alltid <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>koppla bort kakorna på dataskyddssidan.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">147</context>
@@ -3410,7 +3418,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP2" datatype="html">
         <source>Välttämättömät evästeet</source>
-        <target state="translated">Nödvändiga kakor </target>
+        <target>Nödvändiga kakor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">152</context>
@@ -3418,7 +3426,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP3" datatype="html">
         <source>Sessioeväste</source>
-        <target state="translated">Sessionskaka </target>
+        <target>Sessionskaka</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">153</context>
@@ -3426,11 +3434,15 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP4" datatype="html">
         <source>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                    </source>
-        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna cookie styr användarens nätverkstrafik i servermiljön.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>En cookie som underlättar en flytande funktion av tjänsten<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna kaka styr användarens webbtrafir konsekvent i servermiljön. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Kakan bidrar till att tjänsten fungerar smidigt.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+        </source>
+        <target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: b69c12f419e054dd0187c1e39e745a98<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 64kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna kaka styr användarens webbtrafir konsekvent i servermiljön. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Kakan bidrar till att tjänsten fungerar smidigt.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">154</context>
@@ -3438,11 +3450,15 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP5" datatype="html">
         <source>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Eväste edesauttaa palvelun sujuvaa toimintaa.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                    </source>
-        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna cookie styr användarens nätverkstrafik i servermiljön.<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>En cookie som underlättar en flytande funktion av tjänsten<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämä eväste ohjaa käyttäjän verkkoliikenteen johdonmukaisesti palvelinympäristössä. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>The cookie facilitates the smooth operation of the service.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+        </source>
+        <target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Name: d151c77b9ae41ba12db2ca3d241f7930<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Size: 64kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna kaka styr användarens webbtrafir konsekvent i servermiljön. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Kakan bidrar till att tjänsten fungerar smidigt.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">161</context>
@@ -3450,7 +3466,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP6" datatype="html">
         <source>Seurantaevästeet</source>
-        <target state="translated">Spårningskakor</target>
+        <target>Kartläggningskakor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">167</context>
@@ -3458,7 +3474,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP7" datatype="html">
         <source>Seurantaevästeiden keräämää tietoa ei luovuteta kolmansille osapuolille.</source>
-        <target state="translated">Informationen som samlas in genom spårningskakor kommer inte att vidarebefordras till tredje parter.</target>
+        <target>Information som samlats in med hjälp av kartläggningskakor lämnas inte ut till tredje part.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">168</context>
@@ -3466,7 +3482,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP8" datatype="html">
         <source>Matomo-eväste (sessio)</source>
-        <target state="translated">Matomo-cookie (session)</target>
+        <target>Matomo-kaka (session)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">169</context>
@@ -3474,12 +3490,17 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP9" datatype="html">
         <source>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                    </source>
-        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: 30 minuter. En kortlivad cookie som används för att tillfälligt lagra information under ett besök<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Berättas till analysverktyget att ett aktivt besök pågår.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 30 minuuttia. Lyhytkestoinen eväste, jonka avulla tallennetaan tietoa väliaikaisesti vierailun ajaksi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Kertoo analytiikkatyökalulle, että aktiivinen vierailu on käynnissä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+        </source>
+        <target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: _pk_ses.1.d050<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 15kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscykel: 30 minuter. Kortvarig kaka som används för att lagra information under ett tillfälligt besök<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Berättar för analysverktyget att ett aktivt besök pågår.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">170</context>
@@ -3487,7 +3508,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CPMatomo" datatype="html">
         <source>Matomo-eväste</source>
-        <target state="translated">Matomo-cookie</target>
+        <target>Matomo kaka</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">177</context>
@@ -3503,34 +3524,59 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP10" datatype="html">
         <source>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämän avulla kerätään anonymisoitua tietoa vierailusta verkkopalvelussa, kuten:
-                                            <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Käyttäjän IP-osoite vahvasti anonymisoidussa muodossa (käyttäjä ei ole tunnistettavissa)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Ladatun sivun otsikko<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Ladatun sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Pyynnön päivämäärä ja kellonaika<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Edellisen sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Päätelaitteen näytön resoluutio<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Kellonaika käyttäjän aikavyöhykkeellä<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Ulosvievien linkkien klikkaukset<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Sivujen latausajat<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Käyttäjän selainohjelma<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Käyttäjän päätelaitteen tyyppi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Palvelun käytön aikaleimat (mihin kellonaikoihin palvelua käytetään)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Mistä palveluun saavutaan<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Miten palvelun osioiden välillä liikutaan ja mitä toimintoja tehdään<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Selaimen kieliasetus<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                                <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Selaimen "User-Agent header"<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                            <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul>"/>
-                                        <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
-                                            minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                    </source>
-        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: 13 månader<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna cookie används för att samla in anonymiserad information om ditt besök i tjänsten, till exempel:
-                                            <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Användarens IP-adress i ett starkt anonymiserat format (användaren kan inte identifieras) <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Titeln på den laddade sidan <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> URL om laddade sidan <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Datum och tid för begäran <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> URLen till föregående sidan <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Skärmupplösning <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Tid i användarens tidszon <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Utgående länkklickar <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Sidbelastningstider <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Användarens webbläsare <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Typ av användarterminal <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Tidsstämplar för tjänster (vilken tid tjänsten används) <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Varifrån anländer man till tjänsten <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Hur man navigerar mellan servicesektioner och vilka åtgärder genomförs<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Inställning av webbläsarens språk <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/> Webbläsarens “User-Agent header” <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul>"/><x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Baserat på ovanstående data sammanställs statistik för att utveckla tjänsten. Därför är information om varifrån man anländs till tjänsten eller vilka enheter används mest viktiga </target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: 13 kuukautta<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Tämän avulla kerätään anonymisoitua tietoa vierailusta verkkopalvelussa, kuten:
+              <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Käyttäjän IP-osoite vahvasti anonymisoidussa muodossa (käyttäjä ei ole tunnistettavissa)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Ladatun sivun otsikko<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Ladatun sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Pyynnön päivämäärä ja kellonaika<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Edellisen sivun URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Päätelaitteen näytön resoluutio<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Kellonaika käyttäjän aikavyöhykkeellä<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Ulosvievien linkkien klikkaukset<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Sivujen latausajat<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Käyttäjän selainohjelma<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Käyttäjän päätelaitteen tyyppi<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Palvelun käytön aikaleimat (mihin kellonaikoihin palvelua käytetään)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Mistä palveluun saavutaan<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Miten palvelun osioiden välillä liikutaan ja mitä toimintoja tehdään<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Selaimen kieliasetus<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Selaimen "User-Agent header"<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+              <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul>"/>
+          <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Em. Tietojen perusteella kerätään kokonaistilastoa, jonka perusteella voidaan tehdä palvelun kehittämistoimenpiteitä perustuen esimerkiksi siihen tietoon, 
+              minkälaisilla laitteilla palvelua käytetään eniten, tai mistä palveluun pääsääntöisesti saavutaan.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+        </source>
+        <target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: _pk_id.1.d050-<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 66kb <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscykel: 13 månader<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Med hjälp av denna samlas anonymiserad information in om besöket i webbtjänsten, såsom:
+              <x id="START_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;ul>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Användarens IP-adress i kraftigt anonymiserad form (användaren kan inte identifieras)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Den laddade sidans rubrik<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Den laddade sidans URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Datum och klockslag för begäran<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Föregående sidas URL<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Upplösning för terminalens skärm<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Klockslag i användarens tidszon<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Klickningar på utgående länkar<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Laddningstider för sidorna<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Användarens webbläsarprogram<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Typ av användarterminal<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Tidsstämplar för användningen av tjänsten (vid vilka klockslag tjänsten används)<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Varifrån användaren kommer till tjänsten<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Hur användaren rör sig mellan tjänstens delar och vilka funktioner användaren utför<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Webbläsarens språkinställning<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+                  <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Webbläsarens "User-Agent header”<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+              <x id="CLOSE_UNORDERED_LIST" ctype="x-ul" equiv-text="&lt;/ul>"/>
+          <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Utifrån ovan nämnda uppgifter samlas helhetsstatistik in och på basis av den kan åtgärder vidtas för att utveckla tjänsten 
+              till exempel utifrån vilken typ av utrustning som används mest eller varifrån man i regel kommer till tjänsten.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">178</context>
@@ -3538,13 +3584,17 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP13" datatype="html">
         <source>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantaevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                        
-                                    </source>
-        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: Kort<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: En tillfällig kaka skapas om användaren stänger av spårningskakor.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Lyhytkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Väliaikainen eväste luodaan, jos käyttäjä asettaa seurantaevästeet pois päältä.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+        </source>
+        <target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: MATOMO_SESSID<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: <x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscykel: Kortvarig<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: En tillfällig kaka skapas om användaren kopplar bort kartläggningskakorna.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">207</context>
@@ -3552,21 +3602,37 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="CP14" datatype="html">
         <source>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                        <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
-                                        
-                                    </source>
-        <target state="translated"><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscyckel: lång<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Godkännande av kakor<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/></target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Nimi: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Koko: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Elinkaari: Pitkäkestoinen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Rooli: Evästeiden hyväksyminen<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+        </source>
+        <target>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Namn: Mtm_consent<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Storlek: 24kb<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Livscykel: Långvarig<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+          <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Godkännande av kakor<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
+        </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">216</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CP15" datatype="html">
-        <source>Selaimen välimuistiin tallennetaan</source>
-        <target state="translated">Lagras i webbläsarens cache</target>
+        <source>Selaimen välimuistiin (local- sekä sessionstorageen) tallennetaan navigoinnin ja haun helpottavia asioita, kuten oma hakuhistoria. 
+                Käyttäjä voi poistaa hakuhistoriansa myös hakuelementistä suoraan.
+        </source>
+        <target>I webbläsarens cacheminne (local och sessionstorage) lagras sådant som underlättar navigering och sökning, såsom den egna sökhistoriken. 
+                Användaren kan också radera sin sökhistorik direkt i sökelementet.
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="linenumber">224</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CPimg1" datatype="html">
+        <source>Clear search history</source>
+        <target>Radera sökhistorik</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">224</context>
@@ -3891,8 +3957,64 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <target state="translated"> till</target>
       </trans-unit>
       <trans-unit id="fOrgErrorTooltip">
-        <source>Huom. Muiden kuin EU-hankkeiden lukumäärät näkyvät kaksinkertaisina. Virhettä korjataan parhaillaan.</source>
-        <target>Notera. Antalet finansieringsbeslut (exklusive EU-projekt) fördubblas. Felet korrigeras så snart som möjligt.</target>
+        <source>Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.</source>
+        <target>Om organisationen har flera mottagare i samma projekt, räknas projektet flera gånger i numret nedan.</target>
+      </trans-unit>
+      <trans-unit id="resultsPage">
+        <source> tulosta / sivu</source>
+        <target> resultat / per sida</target>
+      </trans-unit>
+      <trans-unit id="resultCountAriaLabel">
+        <source>Hakutulosten lukumäärä sivulla</source>
+        <target>Antal sökresultat per sida</target>
+      </trans-unit>
+      <trans-unit id="sortNewest">
+        <source>Uusin ensin</source>
+        <target>Nyast först</target>
+      </trans-unit>
+      <trans-unit id="sortOldest">
+        <source>Vanhin ensin</source>
+        <target>Äldst först</target>
+      </trans-unit>
+      <trans-unit id="sortPublicationAsc">
+        <source>Nimike (A-Ö)</source>
+        <target>Titel (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="sortAuthorAsc">
+        <source>Ensimmäinen tekijä (A-Ö)</source>
+        <target>Den första författaren (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="sortProjectNameAsc">
+        <source>Hanke (A-Ö)</source>
+        <target>Projekt (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="sortFunderNameAsc">
+        <source>Rahoittaja (A-Ö)</source>
+        <target>Finansiären (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="sortAcronymAsc">
+        <source>Lyhenne (A-Ö)</source>
+        <target>Förkortning (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="sortInfraNameAsc">
+        <source>Infrastruktuuri (A-Ö)</source>
+        <target>Infrastruktur (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="sortOrgNameAsc">
+        <source>Organisaatio (A-Ö)</source>
+        <target>Organisation (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="sortSectorNameAsc">
+        <source>Sektori (A-Ö)</source>
+        <target>Sektor (A-Ö)</target>
+      </trans-unit>
+      <trans-unit id="readMore">
+        <source>Lue lisää</source>
+        <target>Läs mer</target>
+      </trans-unit>
+      <trans-unit id="research">
+        <source>Tutkimustoiminta</source>
+        <target>Forskning</target>
       </trans-unit>
     </body>
   </file>

@@ -147,7 +147,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-
   public setTitle( newTitle: string) {
     this.titleService.setTitle( newTitle );
   }

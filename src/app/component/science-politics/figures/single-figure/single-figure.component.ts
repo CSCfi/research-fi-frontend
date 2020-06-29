@@ -101,16 +101,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       const parent = this.dataContent.find(item => item.id === this.currentParent);
       this.result = [parent.items.find(item => item.link === this.currentItem)];
     });
-
-
-    // Get all visualisations into a flat array
-    this.dataContent.forEach(segment => {
-      // Hack to get segment header into item (replace an unused field with it)
-      segment.items.forEach(item => item.segment = segment['header' + this.currentLocale]);
-      this.flatData.push(segment.items);
-    });
-    this.flatData = this.flatData.flat();
-
+    
     // Set title
     this.label = this.result[0]['label' + this.currentLocale];
     switch (this.localeId) {
@@ -130,6 +121,16 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const titleString = this.titleService.getTitle();
     this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+
+
+    // Get all visualisations into a flat array
+    this.dataContent.forEach(segment => {
+      // Hack to get segment header into item (replace an unused field with it)
+      segment.items.forEach(item => item.segment = segment['header' + this.currentLocale]);
+      this.flatData.push(segment.items);
+    });
+    this.flatData = this.flatData.flat();
+
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
