@@ -4,16 +4,15 @@
  :license: MIT -->
     
  <div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
-    <button class="navbar-toggler navbar-toggler-right container" type="button" (click)="openModal(filterModal)" #openFilters>
-        <h3>{{tabData === 'news' ? filterNewsHeader : filterSearchHeader}}</h3>
-    </button>
+    <app-secondary-button [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader" [icon]="faSlidersH" [noSmIcon]="true" [big]="true"
+    (click)="openModal(filterModal)" (keydown.enter)="openModal(filterModal)" #openFilters tabindex="-1"></app-secondary-button>
 </div>
 
 <ng-template #filterModal>
     <div cdkTrapFocus>
         <div class="modal-header">
             <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? filterNewsHeader : filterSearchHeader}}</h5>
-            <button type="button" class="btn modal-close" (click)="closeModal()" autofocus i18n="Close button@@closeButton">Sulje</button>
+            <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
         </div>
         <div class="modal-body">
             <ng-container *ngTemplateOutlet="filters"></ng-container>
@@ -23,12 +22,13 @@
 
 <!-- showButton enables mobile behaviour on desktop -->
 <ng-container *ngIf="!mobile && !showButton">
+    <mat-spinner *ngIf="!responseData"></mat-spinner>
     <ng-container *ngTemplateOutlet="filters"></ng-container>
 </ng-container>
 
 <ng-template #filters>
     <div class="filter-sidebar" *ngIf="responseData">
-        <h3 class="header" *ngIf="!mobile"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? filterNewsHeader : filterSearchHeader}}</h3>
+        <h3 class="header" *ngIf="!mobile && !showButton"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? filterNewsHeader : filterSearchHeader}}</h3>
         <div class="filter-wrapper">
             <mat-expansion-panel *ngFor="let filter of currentFilter; let i = index" class="parent" [expanded]="filter.open" (opened)="setOpenStatus(filter.field)" (closed)="closePanel(filter.field)">
                 <mat-expansion-panel-header expandedHeight="{{panelHeight}}" collapsedHeight="{{panelHeight}}" [ngClass]="filter.hasSubFields ? 'has-children' : 'single'">
@@ -50,12 +50,12 @@
                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                                     </span>
                                 </ng-container>
-                                <!-- <ng-container *ngIf="filter.errorTooltip">
+                                <ng-container *ngIf="filter.errorTooltip">
                                     <ng-template #tooltipTemplate><div [innerHtml]="filter?.errorTooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                         <fa-icon class="info-icon pl-2 error-color" icon="info-circle"></fa-icon>
                                     </span>
-                                </ng-container> -->
+                                </ng-container>
                             </div>
                             <!-- <div class="col" [ngClass]="filter.hasSubFields ? 'col-1 px-2 text-left' : 'col-1 pr-0 text-right'" *ngIf="filter?.tooltip">
                                 <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltip"></div></ng-template>
@@ -107,10 +107,10 @@
                     </div>
                  </ng-container>
                  <!-- TODO: Change aria label field when content available -->
-                    <mat-selection-list [attr.aria-label]="filter.field">
+                    <mat-selection-list [attr.aria-label]="filter.field" (selectionChange)="selectionChange(filter.field, $event.option.value)">
                         <!-- Options -->
                         <mat-list-option checkboxPosition="before" *ngFor="let item of responseData.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
-                        [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1" (click)="selectionChange(filter.field, item.key)" (keydown.enter)="selectionChange(filter.field, item.key)">
+                        [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1">
                             <div class="row d-flex justify-content-around">
                                 <div class="col-8 pr-0"><span class="label">{{item.label ? item.label : item.key}}</span></div>
                                 <div class="col-2 pr-0 text-right" *ngIf="item.tooltip">

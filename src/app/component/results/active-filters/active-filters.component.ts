@@ -185,7 +185,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             }
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
-              const result = source.lang.langs.buckets.find(({ key }) => key === val.value);
+              const result = source.lang.langs.buckets.find(({ key }) => key.toLowerCase() === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result.language ? result.language.buckets[0].key : '';
             }
@@ -316,7 +316,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (tab === 'news' && source.organization) {
               const result = source.organization.buckets.find(({ key }) => key === val.value);
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.label ? result.label : result.orgName.buckets[0].key;
+              this.activeFilters[foundIndex].translation = result?.label ? result.label.trim() : result?.orgName.buckets[0].key.trim();
             }
           });
           // Set flag when all filters are translated & filter items that aren't hidden

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { Search } from 'src/app/models/search.model';
 import { Subscription } from 'rxjs';
 import { SearchService } from 'src/app/services/search.service';
@@ -12,7 +12,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
   templateUrl: './news-pagination.component.html',
   styleUrls: ['./news-pagination.component.scss']
 })
-export class NewsPaginationComponent implements OnInit {
+export class NewsPaginationComponent implements OnInit, OnChanges {
   page: number;
   fromPage: number; // Used for HTML rendering
   pages: number[];
@@ -22,22 +22,29 @@ export class NewsPaginationComponent implements OnInit {
   total: any;
   resizeSub: Subscription;
   desktop = this.window.innerWidth >= 1200;
+  navSmall = this.window.innerWidth >= 992;
   order = this.window.innerWidth >= 768;
+
+  previous = $localize`:@@previous:Edellinen`;
+  next = $localize`:@@next:Seuraava`;
+  paramSub: Subscription;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window,
                private tabChangeService: TabChangeService ) { }
 
   ngOnInit(): void {
-    // Reset pagination
-    this.page = this.searchService.newsPageNumber;
-    this.pages = this.generatePages(this.page, 5);
-
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
 
     // Get updates for window resize
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
+  }
+
+  ngOnChanges() {
+    // Reset pagination
+    this.page = this.searchService.newsPageNumber;
+    this.pages = this.generatePages(this.page, 5);
   }
 
   generatePages(currentPage: number, length: number = 5) {
@@ -87,6 +94,7 @@ export class NewsPaginationComponent implements OnInit {
     // Change if swap to or from desktop
     const changePages = (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
     this.desktop = w >= 1200;
+    this.navSmall = w >= 992;
     this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {

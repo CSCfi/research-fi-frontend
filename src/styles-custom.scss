@@ -140,6 +140,21 @@ mark, .mark {
     100% {opacity: 1;}
   }
 
+// Bubble background
+.bg-bubble {
+    position: absolute;
+    border-radius: 50%;
+    width: 500px;
+    height: 500px;
+    right: 1%;
+    margin-top: -48px;
+    z-index: -1;
+}
+
+.bg-bubble, .circle-small {
+    background: map-get($researchfi-primary, 200);
+}
+
 @media (max-width: 575px) {
     h1 {
         font-size: 1.8rem;

@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, Input } from '@angular/core';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT } from '@angular/common';
@@ -17,9 +17,13 @@ import { DOCUMENT } from '@angular/common';
 })
 export class ShareComponent implements OnInit {
 
+  @Input() big = true;
+
   faCopy = faCopy;
   currentUrl: string;
   message: string;
+
+  copyLink = $localize`:@@copyLink:Kopioi linkki`; 
 
   constructor( private snackBar: MatSnackBar, @Inject(DOCUMENT) private document: Document,
                @Inject(LOCALE_ID) protected localeId: string ) { }

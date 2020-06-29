@@ -166,6 +166,11 @@
                              routerLink="{{row.linkPath}}{{item[row.field]}}">
                                  {{item[row.field]}}
                             </a>
+                            <!-- JuFo code links to external path -->
+                            <a class="td" *ngSwitchCase="row.field === 'jufoCode'" (click)="navigate(row.field)" 
+                             href="{{row.linkPath}}{{item[row.field]}}" target="_blank">
+                                 {{item[row.field]}} <fa-icon class="icon" icon="external-link-alt"></fa-icon>
+                            </a>
                             <!-- Every other link uses jufoCode as search term -->
                             <a class="td" *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
                                  {{item[row.field]}}
@@ -303,10 +308,7 @@
                     <mat-card-title><h2 i18n="@@citationHeader">Viittaa</h2></mat-card-title>
                     <div>
                         <div class="reference">
-                            <button mat-raised-button (click)="openModal(citeModal)" color="primary" [disabled]="!hasDoi" [class.disabled]="!hasDoi">
-                                <fa-icon [icon]="faQuoteRight" class="quote"></fa-icon>
-                                <ng-container i18n="@@copyReferences">Kopioi viitetiedot</ng-container>...
-                            </button>
+                            <app-secondary-button (click)="openModal(citeModal)" [content]="copyReferences" [icon]="faQuoteRight" [disabled]="!hasDoi" [big]="true"></app-secondary-button>
                             <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
                         </div>
                     </div>
@@ -323,7 +325,7 @@
                 <mat-card>
                     <mat-card-title><h2 i18n="@@publicationSource">Julkaisutiedon lähde</h2></mat-card-title>
                     <div *ngFor="let org of authorAndOrganization">
-                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0"><ng-container i18n="@@orgOrganization">Organisaatio</ng-container>: <a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
+                        <p *ngIf="authorAndOrganization[0]?.orgName.length > 0"><a routerLink="/results/organization/{{org.orgId}}">{{org.orgName}}</a></p>
                         <p *ngIf="authorAndOrganization[0]?.orgName.length === 0">Tiedon lähde ei saatavilla.</p>
                     </div>
                     <div class="clear"></div>
@@ -334,15 +336,16 @@
 </div>
 
 <ng-template #citeModal>
-    <div class="modal-header reference-modal">
+    <div class="modal-header reference-modal align-items-center">
         <h3 class="modal-title" i18n="@@copyReferences">Kopioi viitetiedot</h3>
+        <app-close-button (click)="closeModal()"></app-close-button>
     </div>
-    <div class="modal-body reference-modal">
+    <div class="modal-body reference-modal pb-5">
         <div *ngFor="let citation of citations; let i = index" class="cite-block">
             <h4>{{citationStyles[i].label}}: </h4>
             <span>{{citation | cleanCitation}}</span>
             <div class="copy-wrapper">
-                <button mat-button class="copy" [cdkCopyToClipboard]="citation" (click)="openSnackBar()" i18n="@@copyToClipboard">Kopioi leikepöydälle</button>
+                <app-secondary-button [cdkCopyToClipboard]="citation" (click)="openSnackBar()" class="copy" [content]="copyToClipboard" [icon]="faCopy"></app-secondary-button>
             </div>
         </div>
         <div *ngIf="hasDoi; else noDoi">
@@ -355,9 +358,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn modal-close" (click)="closeModal()" (keydown)="UtilityService.preventTab($event)" i18n="@@closeButton">Sulje</button>
     </div>
 </ng-template>
 

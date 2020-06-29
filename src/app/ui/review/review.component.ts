@@ -52,6 +52,8 @@ export class ReviewComponent implements OnInit {
     $localize`:@@otherFeedback:Muu palaute`];
   location: string;
   title: string;
+  sendText = $localize`:@@r15:Tarkista ja lähetä`;
+  back = $localize`:@@back:Takaisin`;
 
   constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title,
               private httpClient: HttpClient) { }

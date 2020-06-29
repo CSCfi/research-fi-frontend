@@ -130,7 +130,7 @@ import { PrivacyComponent } from './component/privacy/privacy.component';
 import { AccessibilityComponent } from './component/accessibility/accessibility.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 
-import { CommonComponentsModule} from './common-components/common-components.module';
+import { CommonComponentsModule } from './common-components/common-components.module';
 import { filter } from 'rxjs/operators';
 import { NewsCardComponent } from './component/news/news-card/news-card.component';
 import { SitemapComponent } from './component/sitemap/sitemap.component';
@@ -139,6 +139,7 @@ import { HistoryService } from './services/history.service';
 import { TabChangeService } from './services/tab-change.service';
 import { NewsPaginationComponent } from './component/news/news-pagination/news-pagination.component';
 import { CarouselComponent } from './component/science-politics/figures/carousel/carousel.component';
+import { ResultCountComponent } from './component/results/result-count/result-count.component';
 
 @NgModule({
   declarations: [
@@ -196,7 +197,8 @@ import { CarouselComponent } from './component/science-politics/figures/carousel
     SitemapComponent,
     TabItemComponent,
     NewsPaginationComponent,
-    CarouselComponent
+    CarouselComponent,
+    ResultCountComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

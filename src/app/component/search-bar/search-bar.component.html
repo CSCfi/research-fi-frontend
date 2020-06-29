@@ -11,7 +11,6 @@
       <label i18n="@@searchSlogan" [class.sr-only]="router.url !== '/'" class="text-center h1" for="searchInput" [style.width]="router.url === '/' ? '100%' : '1px'">
         Hae tietoa tutkimuksesta Suomessa
       </label>
-
       <div class="form-group has-search">
         <div class="d-flex justify-content-center">
           <span tabindex="-1" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem></span>
@@ -29,10 +28,13 @@
           #searchInput class="form-control" [formControl]="queryField" i18n-placeholder placeholder="Esim. julkaisu, tieteenala, asiasana"
           value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event); disableKeys($event)"
           tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth()"/>
-          <!-- <app-info-tooltip [content]="'Search bar'"></app-info-tooltip> -->
           <!-- Use span to count input width -->
           <span id="completionAssist"></span>
-          <div class="completion d-none" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">{{completion}}</div>
+          <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">
+            <div class="align-self-center">
+              {{completion}}
+            </div>
+          </div>
           <div class="input-group-append">
             <button mat-button (blur)="showAutoSuggest = false" class="btn btn-search" type="button" (keydown.enter)="setFocus()" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
               <i class="fa fa-search"></i>
