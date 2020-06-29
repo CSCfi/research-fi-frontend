@@ -74,6 +74,7 @@ export class PublicationFilters {
           subItem.key = subItem.orgId.buckets[0].key;
           subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
+      item.doc_count = item.subData.map(s => s.doc_count).reduce((a, b) => a + b, 0);
     });
   }
 
@@ -82,10 +83,16 @@ export class PublicationFilters {
     const combinedMajorFields =  data ?
     (this.filterMethodService.separateMinor(data ? data : []) ) : [];
 
+    console.log(combinedMajorFields[0][0])
+    console.log(combinedMajorFields[0][1])
+    console.log(combinedMajorFields[0][1])
+
     const result = this.staticDataService.majorFieldsOfScience;
     for (let i = 0; i < combinedMajorFields.length; i++) {
     if (result[i]) {
         result[i].subData = combinedMajorFields[i];
+        // Add doc counts to major fields of science
+        result[i].doc_count = result[i].subData.map(x => x.doc_count).reduce((a, b) => a + b, 0);
     }
     }
     return result;
@@ -103,7 +110,7 @@ export class PublicationFilters {
 
     // Map items for subData
     const result = combined.map(
-      x => x = {key: x + ' ' + staticData.find(item => item.class === x).label, subData: staticData.find(item => item.class === x)
+      x => x = {key: x + ' ' + staticData.find(item => item.class === x).label, doc_count: 0, subData: staticData.find(item => item.class === x)
       .types.map(type => type = {
           type: type.type,
           label: type.type + ' ' + type.label,
@@ -111,6 +118,8 @@ export class PublicationFilters {
           doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : ''
       })}
     );
+    // Get higher level doc counts for visualisation
+    result.forEach(x => x.doc_count = x.subData.map(a => a.doc_count).reduce((a, b) => a + b, 0));
     return result;
   }
 
