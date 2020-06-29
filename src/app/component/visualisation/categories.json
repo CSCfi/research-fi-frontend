@@ -1,0 +1,22 @@
+{
+    "publication": [
+        {
+            "field": "year",
+            "reverse": true,
+            "label": "key",
+            "title": "Julkaisujen määrä vuosittain",
+            "xLabel": "Vuosi",
+            "yLabel": "Julkaisujen määrä"
+          },
+          {
+            "field": "organization",
+            "reverse": false,
+            "label": "key",
+            "title": "Julkaisujen määrä organisaatioittain",
+            "xLabel": "Organisaatio",
+            "yLabel": "Julkaisujen määrä"
+          }
+      
+    ],
+    "funding": []
+}

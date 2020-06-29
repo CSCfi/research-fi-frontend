@@ -71,6 +71,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   currentLocale: string;
 
   visual = false;
+  visIdx = 0;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -91,6 +92,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
+  }
+
+  increment() {
+    this.visIdx++;
   }
 
   ngOnInit() {

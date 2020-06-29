@@ -23,6 +23,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
                 </h2>
                 <mat-slide-toggle [(ngModel)]="visual">Tarkastele visualisaationa</mat-slide-toggle>
+                <button mat-raised-button (click)="increment()">Vaihda tyyppiä</button>
                 <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
                     <a (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
                     (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus(); showSkipLinks = false" href="javascript:void(0)">
@@ -80,7 +81,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <app-active-filters></app-active-filters>
             <h3 class="sr-only">Hakutulokset</h3>
             <app-search-results *ngIf="!visual" id="main-content" [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
-            <app-visualisation *ngIf="visual" [data]="filterValues"></app-visualisation>
+            <app-visualisation *ngIf="visual" [data]="filterValues" [visIdx]="visIdx"></app-visualisation>
         </main>
     </div>
 </ng-template>

@@ -34,6 +34,8 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   // height = this.window.innerHeight - 111 - 164 - 102;  // header - footer - info
 
   @Input() data: object;
+  @Input() visIdx: number;
+
 
   allData: any;
 

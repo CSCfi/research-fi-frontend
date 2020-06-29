@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
+import { publication } from '../categories.json'
 
 @Component({
   selector: 'app-bar',
@@ -24,6 +25,9 @@ export class BarComponent implements OnInit, OnChanges {
   x: ScaleBand<any>;
   y: ScaleLinear<number, number>;
 
+  @Input() visIdx: number;
+
+  categories = publication;
 
   constructor() { }
 
@@ -39,20 +43,21 @@ export class BarComponent implements OnInit, OnChanges {
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin;
-      this.update();
+      this.update(this.visIdx);
     }
   }
 
-  update() {
-    const field = 'year';
-    const sample: {key: number, doc_count: number}[] = this.data.aggregations[field].buckets;
-
-    this.svg = d3.select('svg#chart');
-    this.svg.selectAll('*').remove();
-    console.log(sample.map(d => d.key))
+  update(fieldIdx: number) {
+    const filterObject = this.categories[fieldIdx];
+    const sample: {key: number, doc_count: number}[] = this.data.aggregations[filterObject.field].buckets;
+    console.log(sample)
 
     // Clear contents
+    this.svg = d3.select('svg#chart');
+    this.svg.selectAll('*').remove();
+    console.log(sample.map(d => d[filterObject.label]))
 
+    console.log(sample[0].doc_count)
 
     // Init dims for svg and add top-level group
     this.g = this.svg
@@ -62,9 +67,11 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
 
     // X scale
+    const xDomain = sample.map(d => d[filterObject.label].toString());
     this.x = scaleBand()
       .range([0, this.innerWidth])
-      .domain(sample.map(d => d.key.toString()).reverse())
+      // Reverse the domain if necessary (years etc)
+      .domain(filterObject.reverse ? xDomain.reverse() : xDomain)
       .padding(0.2);
 
     // Y scale
@@ -88,7 +95,7 @@ export class BarComponent implements OnInit, OnChanges {
       .call(axisLeft(this.y)
           .ticks(5)
           .tickSize(-this.innerWidth)
-          .tickFormat((a, b) => ''));
+          .tickFormat((_, __) => ''));
   
 
     // Insert bars
@@ -108,18 +115,18 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('y', -this.margin)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
-        .text('Julkaisujen määrä')
+        .text(filterObject.yLabel);
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2 + this.margin)
-        .attr('y', this.innerHeight + this.margin)
+        .attr('y', this.innerHeight + this.margin - 5)
         .attr('text-anchor', 'middle')
-        .text('Vuosi')
+        .text(filterObject.xLabel);
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2 + this.margin)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
-        .text('Julkaisujen määrä vuosittain')
+        .text(filterObject.title);
   }
 }
