@@ -83,10 +83,6 @@ export class PublicationFilters {
     const combinedMajorFields =  data ?
     (this.filterMethodService.separateMinor(data ? data : []) ) : [];
 
-    console.log(combinedMajorFields[0][0])
-    console.log(combinedMajorFields[0][1])
-    console.log(combinedMajorFields[0][1])
-
     const result = this.staticDataService.majorFieldsOfScience;
     for (let i = 0; i < combinedMajorFields.length; i++) {
     if (result[i]) {
