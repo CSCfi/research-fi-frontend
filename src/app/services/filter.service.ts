@@ -573,8 +573,7 @@ export class FilterService {
                 field: 'jufoClassCode.keyword',
                 order: {
                   _key: 'desc'
-                },
-                size: 100
+                }
               }
             }
           }
