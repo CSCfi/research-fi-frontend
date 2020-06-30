@@ -171,6 +171,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   // Keycodes
   onKeydown(event) {
+    // Reset completion with else than right arrow
+    if (event.keyCode !== 39) {this.completion = ''; }
     this.showAutoSuggest = true;
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {

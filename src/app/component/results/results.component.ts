@@ -23,6 +23,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
+import { publication } from '../visualisation/categories.json';
 
 @Component({
   selector: 'app-results',
@@ -70,6 +71,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showSkipLinks: boolean;
   currentLocale: string;
 
+  visual = false;
+  visIdx = 0;
+  filterLoading = false;
+  visualisationCategories = publication;
+
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
   private commonTags = common;
@@ -89,6 +95,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
+  }
+
+  increment() {
+    this.visIdx++;
   }
 
   ngOnInit() {
@@ -167,7 +177,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tabChangeService.changeTab(this.selectedTabData);
           this.sortService.updateTab(this.selectedTabData.data);
           this.updateTitle(this.selectedTabData);
-
+          // TODO: REMOVE
+          this.visual = false;
         }
 
         this.sortService.updateSort(query.sort);
@@ -200,6 +211,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         // Get data filter data
+        this.filterLoading = true;
         this.getFilterData();
         // this.getQueryFilterData();
         // Reset flags
@@ -271,6 +283,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.dataService.changeResponse(this.filterValues);
         // Set the title
         this.updateTitle(this.selectedTabData);
+        this.filterLoading = false;
       },
         error => this.errorMessage = error as any);
     }
