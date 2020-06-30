@@ -217,6 +217,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     if (event.keyCode === 39) {
       this.addCompletion();
     }
+    // Reset completion
+    this.completion = '';
   }
 
   setFocus() {
