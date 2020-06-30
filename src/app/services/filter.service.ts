@@ -358,6 +358,13 @@ export class FilterService {
     return field;
   }
 
+  constructVisualPayload(tab: string, searchTerm: string) {
+    const query = this.constructQuery(tab, searchTerm);
+
+
+
+  }
+
   constructFilterPayload(tab: string, searchTerm: string) {
     const filters = this.constructFilters(tab.slice(0, -1));
 
