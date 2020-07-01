@@ -359,9 +359,31 @@ export class FilterService {
   }
 
   constructVisualPayload(tab: string, searchTerm: string) {
-    const query = this.constructQuery(tab, searchTerm);
+    // Final query object
+    const res: any = {};
+    // Order
+    const order = {_key: 'desc'}
+    // Create query with filters and search term
+    const query = this.constructQuery(tab.slice(0, -1), searchTerm);
+    // Query field hierarchy
+    const hierarchy = ['publicationYear', 'fields_of_science.nameFiScience.keyword', 'fields_of_science.fieldIdScience'];
 
+    // Populate query with aggregations
+    let q = res;
+    for (let i = 0; i < hierarchy.length; i++) {
+      // Get the next field
+      const s = hierarchy[i];
+      // Name aggregation hierarchy after field names
+      q = (i === 0) ? q : (q.aggs[hierarchy[i - 1]]);
+      console.log(q)
+      q.aggs = {};
+      q.aggs[s] = {terms: {field: s, size: 10, order: order}};
+    }
 
+    res.size = 0;
+    res.query = query;
+
+    return res;
 
   }
 

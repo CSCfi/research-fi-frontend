@@ -73,8 +73,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   visual = false;
   visIdx = 0;
-  filterLoading = false;
+  visualLoading = false;
   visualisationCategories = publication;
+  visualData: any;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -95,10 +96,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
-  }
-
-  increment() {
-    this.visIdx++;
   }
 
   ngOnInit() {
@@ -211,8 +208,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         // Get data filter data
-        this.filterLoading = true;
         this.getFilterData();
+        
+        // Get visualisation data
+        this.visualLoading = true;
+        this.getVisualData();
         // this.getQueryFilterData();
         // Reset flags
         this.searchService.redirecting = false;
@@ -283,10 +283,21 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.dataService.changeResponse(this.filterValues);
         // Set the title
         this.updateTitle(this.selectedTabData);
-        this.filterLoading = false;
       },
         error => this.errorMessage = error as any);
     }
+  }
+  
+  getVisualData() {
+    // Check for Angular Univeral SSR, get filter data if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.searchService.getVisualData()
+      .subscribe(values => {
+        this.visualData = values;
+        console.log(this.visualData);
+      })
+    }
+    this.visualLoading = false;
   }
 
   getQueryFilterData() {

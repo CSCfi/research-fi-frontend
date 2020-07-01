@@ -175,6 +175,11 @@ export class SearchService {
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
   }
 
+  getVisualData(): Observable<Search[]> {
+    const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.singleInput);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
+  }
+
   //
   getQueryFilters(): Observable<Search[]> {
     const query = this.filterService.constructPayload(this.singleInput, this.fromPage, this.pageSize,
