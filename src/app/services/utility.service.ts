@@ -131,7 +131,7 @@ export class UtilityService {
       { name: 'description', content: title },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { property: 'og:image', content: 'https://tiedejatutkimus.fi/assets/img/logo.svg' },
+      { property: 'og:image', content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg' },
       { property: 'og:image:alt', content: imageAlt },
       { property: 'og:image:height', content: '100' },
       { property: 'og:image:width', content: '100' },
