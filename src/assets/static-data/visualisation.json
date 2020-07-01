@@ -1,0 +1,38 @@
+{
+    "publication": [
+        {
+            "field": "year",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                }
+            ]
+        },
+        {
+            "field": "fieldOfScience",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "fields_of_science.nameFiScience.keyword",
+                    "name": "fieldName",
+                    "size": 250,
+                    "order": 0
+                },
+                {
+                    "field": "fields_of_science.fieldIdScience",
+                    "name": "fieldId",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
+        }
+    ]
+}
