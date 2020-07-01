@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
 import { publication } from '../categories.json'
-import { Visual } from 'src/app/models/visualisations.model';
+import { Visual, VisualData } from 'src/app/models/visualisations.model';
 import { PublicationVisual } from 'src/app/models/publication-visual.model';
 
 @Component({
@@ -69,7 +69,7 @@ export class BarComponent implements OnInit, OnChanges {
     const fields = this.data.publicationData
 
     const filterObject = this.categories[fieldIdx];
-    const sample: {key: number, doc_count: number}[] = publicationData[filterObject.field];
+    const sample: VisualData[] = publicationData[filterObject.field];
     console.log(sample)
 
     // Clear contents
@@ -86,7 +86,7 @@ export class BarComponent implements OnInit, OnChanges {
     // X scale
     this.x = scaleBand()
       .range([0, this.innerWidth])
-      // Reverse the domain if necessary (years etc)
+      // Reverse the year to ascending domain
       .domain(years.map(d => d.key.toString()).reverse())
       .padding(0.2);
 
@@ -115,15 +115,23 @@ export class BarComponent implements OnInit, OnChanges {
   
 
     // Insert bars
-    this.g.selectAll()
-      .data(sample)
+    for (let i = 0; i < years.length; i++) {
+      let sum = 0;
+      this.g.selectAll()
+      .data(sample[i].data)
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', d => this.x(d[filterObject.label]))
-      .attr('y', d => this.y(d.doc_count))
+      .attr('x', _ => this.x(years[i].key.toString()))
+      // .attr('y', d => this.y(d.doc_count - sum))
       .attr('height', d => this.innerHeight - this.y(d.doc_count))
-      .attr('width', d => this.x.bandwidth());
+      .attr('width', _ => this.x.bandwidth())
+      .each((d, i, n) => {
+        d3.select(n[i])
+          .attr('y', (d: any) => this.y(d.doc_count + sum))
+          .call((d: any) => sum += d.datum().doc_count);
+      });
+    }
    
     // Add axis and graph labels
     this.g.append('text')

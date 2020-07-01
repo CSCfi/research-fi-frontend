@@ -9,6 +9,17 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { PublicationVisual, PublicationVisualAdapter } from './publication-visual.model';
 
+export interface VisualData {
+    key: string,
+    doc_count: number,
+    data: {
+        name: string,
+        id?: string;
+        doc_count: number,
+    }[]
+}
+
+
 export class Visual {
     constructor(
         public publicationData: PublicationVisual,
