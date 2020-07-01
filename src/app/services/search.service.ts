@@ -19,6 +19,7 @@ import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
 import { Publication } from '../models/publication.model';
 import { News, NewsAdapter } from '../models/news.model';
+import { VisualAdapter, Visual } from '../models/visualisations.model';
 
 @Injectable()
 export class SearchService {
@@ -48,7 +49,7 @@ export class SearchService {
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService,
-              private searchAdapter: SearchAdapter, private newsAdapter: NewsAdapter) {
+              private searchAdapter: SearchAdapter, private newsAdapter: NewsAdapter, private visualAdapter: VisualAdapter) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -175,9 +176,10 @@ export class SearchService {
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
   }
 
-  getVisualData(): Observable<Search[]> {
+  getVisualData(): Observable<Visual> {
     const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.singleInput);
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs)
+                    .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab)));
   }
 
   //

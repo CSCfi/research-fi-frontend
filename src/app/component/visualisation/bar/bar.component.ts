@@ -40,6 +40,8 @@ export class BarComponent implements OnInit, OnChanges {
         (changes?.height?.currentValue || this.height) &&
         (changes?.width?.currentValue || this.width)) {
       console.log(this.data)
+      
+
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin;

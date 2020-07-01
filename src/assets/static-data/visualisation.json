@@ -1,17 +1,6 @@
 {
     "publication": [
         {
-            "field": "year",
-            "hierarchy": [
-                {
-                    "field": "publicationYear",
-                    "name": "year",
-                    "size": 10,
-                    "order": 1
-                }
-            ]
-        },
-        {
             "field": "fieldOfScience",
             "hierarchy": [
                 {
