@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
 import { publication } from '../categories.json'
+import { Visual } from 'src/app/models/visualisations.model';
+import { PublicationVisual } from 'src/app/models/publication-visual.model';
 
 @Component({
   selector: 'app-bar',
@@ -10,9 +12,10 @@ import { publication } from '../categories.json'
 })
 export class BarComponent implements OnInit, OnChanges {
 
-  @Input() data: any;
+  @Input() data: Visual;
   @Input() height: number;
   @Input() width: number;
+  @Input() tab: string;
 
   margin = 50;
 
@@ -41,7 +44,7 @@ export class BarComponent implements OnInit, OnChanges {
         (changes?.width?.currentValue || this.width)) {
       console.log(this.data)
       
-
+      
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin;
@@ -50,8 +53,23 @@ export class BarComponent implements OnInit, OnChanges {
   }
 
   update(fieldIdx: number) {
+
+    let publicationData: PublicationVisual;
+
+    switch (this.tab) {
+      case 'publications':
+        publicationData = this.data.publicationData;
+        break;
+    
+      default:
+        break;
+    }
+
+    const years = publicationData.year;
+    const fields = this.data.publicationData
+
     const filterObject = this.categories[fieldIdx];
-    const sample: {key: number, doc_count: number}[] = this.data.aggregations[filterObject.field].buckets;
+    const sample: {key: number, doc_count: number}[] = publicationData[filterObject.field];
     console.log(sample)
 
     // Clear contents
@@ -66,17 +84,16 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
 
     // X scale
-    const xDomain = sample.map(d => d[filterObject.label].toString());
     this.x = scaleBand()
       .range([0, this.innerWidth])
       // Reverse the domain if necessary (years etc)
-      .domain(filterObject.reverse ? xDomain.reverse() : xDomain)
+      .domain(years.map(d => d.key.toString()).reverse())
       .padding(0.2);
 
     // Y scale
     this.y = scaleLinear()
       .range([this.innerHeight, 0])
-      .domain([0, max(sample.map(d => d.doc_count))])
+      .domain([0, max(years.map(d => d.doc_count))])
       .nice(5);
 
     // X axis
@@ -114,13 +131,13 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('y', -this.margin)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
-        .text(filterObject.yLabel);
+        .text('Julkaisujen määrä');
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2 + this.margin)
         .attr('y', this.innerHeight + this.margin - 5)
         .attr('text-anchor', 'middle')
-        .text(filterObject.xLabel);
+        .text('Vuosi');
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2 + this.margin)

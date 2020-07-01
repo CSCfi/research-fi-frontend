@@ -24,6 +24,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { publication } from '../visualisation/categories.json';
+import { Visual } from 'src/app/models/visualisations.model';
 
 @Component({
   selector: 'app-results',
@@ -75,7 +76,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visIdx = 0;
   visualLoading = false;
   visualisationCategories = publication;
-  visualData: any;
+  visualData: Visual;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};

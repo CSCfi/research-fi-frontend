@@ -17,7 +17,7 @@
             "yLabel": "Julkaisujen määrä"
           },
           {
-            "field": "field",
+            "field": "fieldOfScience",
             "reverse": false,
             "label": "key",
             "title": "Julkaisujen määrä päätieteenaloittain",
