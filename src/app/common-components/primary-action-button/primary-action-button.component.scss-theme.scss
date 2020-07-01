@@ -17,14 +17,8 @@
         border: 2px solid mat-color($primary);
         color: mat-contrast($primary, 500);
 
-        &:not([disabled]) {
-            &:hover:not(:active) {
-                opacity: 85%;
-            }
-
-            &:active {
-                border-color: mat-contrast($primary, 500);
-            }
+        &:active:not([disabled]) {
+            border-color: mat-contrast($primary, 500);
         }
     }
 }
