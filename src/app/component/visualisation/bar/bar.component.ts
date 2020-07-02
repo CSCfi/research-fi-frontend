@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
 import { publication } from '../categories.json'
+import { Visual, VisualData } from 'src/app/models/visualisations.model';
+import { PublicationVisual } from 'src/app/models/publication-visual.model';
 
 @Component({
   selector: 'app-bar',
@@ -10,9 +12,10 @@ import { publication } from '../categories.json'
 })
 export class BarComponent implements OnInit, OnChanges {
 
-  @Input() data: any;
+  @Input() data: Visual;
   @Input() height: number;
   @Input() width: number;
+  @Input() tab: string;
 
   margin = 50;
 
@@ -36,10 +39,10 @@ export class BarComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // Wait for all inputs
-    if ((changes?.data?.currentValue || this.data) && 
+    if ((changes?.data?.currentValue || this.data) &&
         (changes?.height?.currentValue || this.height) &&
         (changes?.width?.currentValue || this.width)) {
-      console.log(this.data)
+
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin;
@@ -48,8 +51,36 @@ export class BarComponent implements OnInit, OnChanges {
   }
 
   update(fieldIdx: number) {
+
+    let publicationData: PublicationVisual;
+
+    switch (this.tab) {
+      case 'publications':
+        publicationData = this.data.publicationData;
+        break;
+    
+      default:
+        break;
+    }
+
+    
     const filterObject = this.categories[fieldIdx];
-    const sample: {key: number, doc_count: number}[] = this.data.aggregations[filterObject.field].buckets;
+    const sample: VisualData[] = publicationData[filterObject.field];
+
+    // Get the doc count of the year with the highest doc count
+    const maxByDocCount = max(sample.map(x => x.data.reduce((a, b) => a + b.doc_count, 0)));
+
+    // Color stuff
+    const len = max(sample.map(x => x.data.length));
+    // Create color scale
+    const color = d3.scaleOrdinal(
+      // Shuffle the color order from the first onward (year colors stay same)
+      d3.shuffle(
+        // Quantize the desired scale to the length of data
+        d3.quantize(d3.interpolateCool, max([len, 3])), 1
+        )
+    );
+
     console.log(sample)
 
     // Clear contents
@@ -64,17 +95,16 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
 
     // X scale
-    const xDomain = sample.map(d => d[filterObject.label].toString());
     this.x = scaleBand()
       .range([0, this.innerWidth])
-      // Reverse the domain if necessary (years etc)
-      .domain(filterObject.reverse ? xDomain.reverse() : xDomain)
+      // Reverse the year to ascending domain
+      .domain(sample.map(d => d.key.toString()).reverse())
       .padding(0.2);
 
     // Y scale
     this.y = scaleLinear()
       .range([this.innerHeight, 0])
-      .domain([0, max(sample.map(d => d.doc_count))])
+      .domain([0, maxByDocCount])
       .nice(5);
 
     // X axis
@@ -96,15 +126,24 @@ export class BarComponent implements OnInit, OnChanges {
   
 
     // Insert bars
-    this.g.selectAll()
-      .data(sample)
+    for (let i = 0; i < sample.length; i++) {
+      let sum = 0;
+      this.g.selectAll()
+      .data(sample[i].data)
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', d => this.x(d[filterObject.label]))
-      .attr('y', d => this.y(d.doc_count))
+      .attr('x', _ => this.x(sample[i].key.toString()))
+      // .attr('y', d => this.y(d.doc_count - sum))
+      .attr('fill', (d: any) => color(d.name))
       .attr('height', d => this.innerHeight - this.y(d.doc_count))
-      .attr('width', d => this.x.bandwidth());
+      .attr('width', _ => this.x.bandwidth())
+      .each((d, i, n) => {
+        d3.select(n[i])
+          .attr('y', (d: any) => this.y(d.doc_count + sum))
+          .call((d: any) => sum += d.datum().doc_count);
+      });
+    }
    
     // Add axis and graph labels
     this.g.append('text')
@@ -112,13 +151,13 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('y', -this.margin)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
-        .text(filterObject.yLabel);
+        .text('Julkaisujen määrä');
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2 + this.margin)
         .attr('y', this.innerHeight + this.margin - 5)
         .attr('text-anchor', 'middle')
-        .text(filterObject.xLabel);
+        .text('Vuosi');
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2 + this.margin)

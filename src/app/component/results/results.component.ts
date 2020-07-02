@@ -24,6 +24,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { publication } from '../visualisation/categories.json';
+import { Visual } from 'src/app/models/visualisations.model';
 
 @Component({
   selector: 'app-results',
@@ -73,8 +74,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   visual = false;
   visIdx = 0;
-  filterLoading = false;
+  visualLoading = false;
   visualisationCategories = publication;
+  visualData: Visual;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -95,10 +97,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
-  }
-
-  increment() {
-    this.visIdx++;
   }
 
   ngOnInit() {
@@ -211,8 +209,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         // Get data filter data
-        this.filterLoading = true;
         this.getFilterData();
+        
+        // Get visualisation data
+        this.visualLoading = true;
+        this.getVisualData();
         // this.getQueryFilterData();
         // Reset flags
         this.searchService.redirecting = false;
@@ -283,9 +284,28 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.dataService.changeResponse(this.filterValues);
         // Set the title
         this.updateTitle(this.selectedTabData);
-        this.filterLoading = false;
       },
         error => this.errorMessage = error as any);
+    }
+  }
+  
+  changeVisual(event: any) {
+    // Reset data so old data isn't used
+    this.visualData = undefined;
+    // Update idx
+    this.visIdx = event.value
+    // Get data
+    this.getVisualData();
+  }
+
+  getVisualData() {
+    // Check for Angular Univeral SSR, get filter data if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.searchService.getVisualData(this.visIdx)
+      .subscribe(values => {
+        this.visualData = values;
+        this.visualLoading = false;
+      })
     }
   }
 

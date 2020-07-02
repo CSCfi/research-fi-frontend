@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from '../../services/filter.service';
 import { WINDOW } from 'src/app/services/window.service';
+import { Visual } from 'src/app/models/visualisations.model';
 
 @Component({
   selector: 'app-visualisation',
@@ -33,9 +34,10 @@ export class VisualisationComponent implements OnInit, OnDestroy {
   // width = this.window.innerWidth - 25;  // scrollbar margin
   // height = this.window.innerHeight - 111 - 164 - 102;  // header - footer - info
 
-  @Input() data: object;
+  @Input() data: Visual;
   @Input() visIdx: number;
   @Input() loading: boolean;
+  @Input() tab: string;
 
 
   allData: any;

@@ -9,62 +9,14 @@
             "yLabel": "Julkaisujen määrä"
           },
           {
-            "field": "organization",
+            "field": "fieldOfScience",
             "reverse": false,
             "label": "key",
-            "title": "Julkaisujen määrä organisaatioittain",
-            "xLabel": "Organisaatio",
-            "yLabel": "Julkaisujen määrä"
-          },
-          {
-            "field": "field",
-            "reverse": false,
-            "label": "key",
-            "title": "Julkaisujen määrä päätieteenaloittain",
-            "xLabel": "Päätieteenala",
-            "yLabel": "Julkaisujen määrä"
-          },
-          {
-            "field": "publicationType",
-            "reverse": false,
-            "label": "key",
-            "title": "Julkaisujen määrä julkaisutyypin mukaan",
-            "xLabel": "Julkaisutyyppi",
-            "yLabel": "Julkaisujen määrä"
-          },
-          {
-            "field": "countryCode",
-            "reverse": false,
-            "label": "label",
-            "title": "Julkaisujen määrä julkaisumaan mukaan",
-            "xLabel": "Julkaisumaa",
-            "yLabel": "Julkaisujen määrä"
-          },
-          {
-            "field": "lang",
-            "reverse": false,
-            "label": "label",
-            "title": "Julkaisujen määrä kielen mukaan",
-            "xLabel": "Kieli",
-            "yLabel": "Julkaisujen määrä"
-          },
-          {
-            "field": "juFo",
-            "reverse": false,
-            "label": "label",
-            "title": "Julkaisujen määrä julkaisufoorumitason mukaan",
-            "xLabel": "Julkaisufoorumitaso",
-            "yLabel": "Julkaisujen määrä"
-          },
-          {
-            "field": "openAccess",
-            "reverse": false,
-            "label": "label",
-            "title": "Julkaisujen määrä avoimen saatavuuden mukaan",
-            "xLabel": "Avoin saatavuus",
+            "title": "Julkaisujen määrä tieteenaloittain",
+            "xLabel": "Tieteenala",
             "yLabel": "Julkaisujen määrä"
           }
-      
+          
     ],
     "funding": []
 }
