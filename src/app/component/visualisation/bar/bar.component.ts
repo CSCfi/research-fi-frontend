@@ -70,6 +70,18 @@ export class BarComponent implements OnInit, OnChanges {
 
     const filterObject = this.categories[fieldIdx];
     const sample: VisualData[] = publicationData[filterObject.field];
+
+    // Color stuff
+    const len = max(sample.map(x => x.data.length));
+    // Create color scale
+    const color = d3.scaleOrdinal(
+      // Shuffle the color order from the first onward (year colors stay same)
+      d3.shuffle(
+        // Quantize the desired scale to the length of data
+        d3.quantize(d3.interpolateCool, max([len, 3])), 1
+        )
+    );
+
     console.log(sample)
 
     // Clear contents
@@ -124,6 +136,7 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('class', 'bar')
       .attr('x', _ => this.x(years[i].key.toString()))
       // .attr('y', d => this.y(d.doc_count - sum))
+      .attr('fill', (d: any) => color(d.name))
       .attr('height', d => this.innerHeight - this.y(d.doc_count))
       .attr('width', _ => this.x.bandwidth())
       .each((d, i, n) => {

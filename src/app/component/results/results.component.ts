@@ -295,9 +295,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.searchService.getVisualData()
       .subscribe(values => {
         this.visualData = values;
+        this.visualLoading = false;
       })
     }
-    this.visualLoading = false;
   }
 
   getQueryFilterData() {
