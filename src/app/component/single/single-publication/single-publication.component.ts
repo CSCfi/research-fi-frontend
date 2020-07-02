@@ -389,7 +389,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     // Filter empty self archived addresses
     if (source.selfArchivedData) {
-      source.selfArchivedData[0].selfArchived = source.selfArchivedData[0].selfArchived.filter(item => item.selfArchivedAddress !== ' ');
+      const filtered = source.selfArchivedData[0].selfArchived.filter(item => UtilityService.stringHasContent(item.selfArchivedAddress));
+      // If empty data, set selfArchivedData to 0 (falsy)
+      filtered[0] ? source.selfArchivedData[0].selfArchived = filtered[0] : source.selfArchivedData = 0;
     }
 
     // Get & set publication type label

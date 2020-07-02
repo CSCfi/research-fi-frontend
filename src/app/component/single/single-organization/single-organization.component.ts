@@ -45,7 +45,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {label: $localize`:@@orgVAddress:Käyntiosoite`, field: 'visitingAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
     {label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
     {label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
-    {label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`, field: 'statCenterId', tooltip: $localize`:@@tkSource:Lähde: Tilastokeskus`},
+    {label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`, field: 'statCenterId', tooltip: $localize`:@@tkSource:Lähde: Tilastokeskus https://www.stat.fi/`},
     {label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`, field: 'staffCountAsFte', tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`},
   ];
 

@@ -475,7 +475,8 @@ export class FilterService {
             years: {
               terms: {
                 field: this.sortService.yearField,
-                order: { _key : 'desc' }
+                order: { _key : 'desc' },
+                size: 100
               }
             }
           }
@@ -575,7 +576,8 @@ export class FilterService {
             countryCodes: {
               terms: {
                 field: 'internationalPublication',
-                order: { _key : 'asc' }
+                order: { _key : 'asc' },
+                size: 50
               }
             }
           }
@@ -589,12 +591,14 @@ export class FilterService {
           aggs: {
             langs: {
               terms: {
-                field: 'languages.languageCode.keyword'
+                field: 'languages.languageCode.keyword',
+                size: 50
               },
               aggs: {
                 language: {
                   terms: {
-                    field: 'languages.' + this.langByLocale(this.localeId) + '.keyword'
+                    field: 'languages.' + this.langByLocale(this.localeId) + '.keyword',
+                    size: 100
                   }
                 }
               }
@@ -671,8 +675,9 @@ export class FilterService {
               aggs: {
                 fieldId: {
                   terms: {
-                    field: 'fields_of_science.fieldIdScience'
-                  }
+                    field: 'fields_of_science.fieldIdScience',
+                    size: 1
+                  },
                 }
               }
             }
@@ -1074,7 +1079,8 @@ export class FilterService {
               aggs: {
                 fieldId: {
                   terms: {
-                    field: 'fields_of_science.fieldIdScience.keyword'
+                    field: 'fields_of_science.fieldIdScience.keyword',
+                    size: 1
                   }
                 }
               }

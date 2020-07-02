@@ -49,7 +49,7 @@ export class Publication {
         public countries: any[],
         public fieldsOfScience: FieldOfScience[],
         public author: any[],
-        public selfArchivedData: any[],
+        public selfArchivedData: any,
         public completions: string[],
         public publicationChannel
     ) {}

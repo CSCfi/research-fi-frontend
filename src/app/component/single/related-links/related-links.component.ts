@@ -17,6 +17,7 @@ import { ActivatedRoute, Router, UrlTree, UrlSegmentGroup, PRIMARY_OUTLET, UrlSe
 })
 export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() id: any;
+  @Input() filter: string;
   @Input() relatedFilters: any;
 
   relatedList = [
@@ -34,6 +35,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   currentParent: string;
   routeSub: any;
   currentLocale: string;
+  queryParams: { [x: string]: any; };
 
   constructor( private singleService: SingleItemService, private route: ActivatedRoute, private router: Router,
                @Inject(LOCALE_ID) protected localeId: string ) {
@@ -43,7 +45,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit(): void {
-
+    this.queryParams = {[this.filter]: this.id};
     // Subscribe to route params, get current parent from current url
     this.routeSub = this.route.params.subscribe(param => {
       const currentUrl = this.router.url;

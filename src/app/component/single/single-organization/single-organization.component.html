@@ -138,7 +138,9 @@
             <aside>
                 <mat-card>
                     <mat-card-title><h2><ng-container i18n="@@relatedOrganizations">Organisaation</ng-container></h2></mat-card-title>
-                    <app-related-links [id]="item.id"></app-related-links>
+                    <!-- TODO: Uncomment when organization names match -->
+                    <!-- <app-related-links [id]="item.sectorNameFi === 'Rahoittaja' ? item.name : item.id" [filter]="item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'"></app-related-links> -->
+                    <app-related-links [id]="item.id" [filter]="'organization'"></app-related-links>
                 </mat-card>
             </aside>
             <!-- Copy url -->
@@ -158,6 +160,7 @@
                         <li class="py-2"><a href="http://www.vipunen.fi" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
                         <li class="py-2"><a href="http://finto.fi/cn/fi/" target="_blank">Finto –palvelu <fa-icon icon="external-link-alt"></fa-icon></a></li>
                         <li class="py-2"><a href="https://www.ytj.fi/ " target="_blank">Yritys– ja yhteisötietojärjestelmä (YTJ) <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a href="https://www.stat.fi/" target="_blank">Tilastokeskus <fa-icon icon="external-link-alt"></fa-icon></a></li>
                     </ul>
                     <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div> -->
