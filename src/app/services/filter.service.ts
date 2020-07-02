@@ -391,11 +391,15 @@ export class FilterService {
         // Add empty aggs
         q.aggs = {};
         // Add terms object
-        q.aggs[s.name] = {terms: {field: s.field, size: s.size}};
-        // Add order if needed
-        if (s.order) {
-          q.aggs[s.name].terms.order = order;
-        }
+        q.aggs[s.name] = {
+          terms: {
+            field: s.field, 
+            size: s.size,
+            // Include only active filter buckets
+            include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
+            // Add order if needed
+            order: s.order ? order: undefined
+        }};
       }
       // Add second level of aggs to query
       res.aggs[h.field] = agg.aggs[h.hierarchy[0].name];

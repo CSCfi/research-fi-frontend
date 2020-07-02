@@ -66,10 +66,12 @@ export class BarComponent implements OnInit, OnChanges {
     }
 
     const years = publicationData.year;
-    const fields = this.data.publicationData
 
     const filterObject = this.categories[fieldIdx];
     const sample: VisualData[] = publicationData[filterObject.field];
+
+    // Get the doc count of the year with the highest doc count
+    const maxByDocCount = max(sample.map(x => x.data.reduce((a, b) => a + b.doc_count, 0)));
 
     // Color stuff
     const len = max(sample.map(x => x.data.length));
@@ -105,7 +107,7 @@ export class BarComponent implements OnInit, OnChanges {
     // Y scale
     this.y = scaleLinear()
       .range([this.innerHeight, 0])
-      .domain([0, max(years.map(d => d.doc_count))])
+      .domain([0, maxByDocCount])
       .nice(5);
 
     // X axis

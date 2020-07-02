@@ -30,7 +30,8 @@
                     "field": "fields_of_science.nameFiScience.keyword",
                     "name": "fieldName",
                     "size": 250,
-                    "order": 1
+                    "order": 1,
+                    "filterName": "field"
                 },
                 {
                     "field": "fields_of_science.fieldIdScience",

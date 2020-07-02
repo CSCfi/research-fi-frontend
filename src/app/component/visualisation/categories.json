@@ -20,8 +20,8 @@
             "field": "fieldOfScience",
             "reverse": false,
             "label": "key",
-            "title": "Julkaisujen määrä päätieteenaloittain",
-            "xLabel": "Päätieteenala",
+            "title": "Julkaisujen määrä tieteenaloittain",
+            "xLabel": "Tieteenala",
             "yLabel": "Julkaisujen määrä"
           },
           {
