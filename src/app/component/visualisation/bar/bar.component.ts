@@ -39,12 +39,10 @@ export class BarComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // Wait for all inputs
-    if ((changes?.data?.currentValue || this.data) && 
+    if ((changes?.data?.currentValue || this.data) &&
         (changes?.height?.currentValue || this.height) &&
         (changes?.width?.currentValue || this.width)) {
-      console.log(this.data)
-      
-      
+
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin;
@@ -65,8 +63,7 @@ export class BarComponent implements OnInit, OnChanges {
         break;
     }
 
-    const years = publicationData.year;
-
+    
     const filterObject = this.categories[fieldIdx];
     const sample: VisualData[] = publicationData[filterObject.field];
 
@@ -101,7 +98,7 @@ export class BarComponent implements OnInit, OnChanges {
     this.x = scaleBand()
       .range([0, this.innerWidth])
       // Reverse the year to ascending domain
-      .domain(years.map(d => d.key.toString()).reverse())
+      .domain(sample.map(d => d.key.toString()).reverse())
       .padding(0.2);
 
     // Y scale
@@ -129,14 +126,14 @@ export class BarComponent implements OnInit, OnChanges {
   
 
     // Insert bars
-    for (let i = 0; i < years.length; i++) {
+    for (let i = 0; i < sample.length; i++) {
       let sum = 0;
       this.g.selectAll()
       .data(sample[i].data)
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', _ => this.x(years[i].key.toString()))
+      .attr('x', _ => this.x(sample[i].key.toString()))
       // .attr('y', d => this.y(d.doc_count - sum))
       .attr('fill', (d: any) => color(d.name))
       .attr('height', d => this.innerHeight - this.y(d.doc_count))

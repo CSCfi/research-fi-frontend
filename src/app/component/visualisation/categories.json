@@ -9,19 +9,19 @@
             "yLabel": "Julkaisujen määrä"
           },
           {
-            "field": "organization",
-            "reverse": false,
-            "label": "key",
-            "title": "Julkaisujen määrä organisaatioittain",
-            "xLabel": "Organisaatio",
-            "yLabel": "Julkaisujen määrä"
-          },
-          {
             "field": "fieldOfScience",
             "reverse": false,
             "label": "key",
             "title": "Julkaisujen määrä tieteenaloittain",
             "xLabel": "Tieteenala",
+            "yLabel": "Julkaisujen määrä"
+          },
+          {
+            "field": "organization",
+            "reverse": false,
+            "label": "key",
+            "title": "Julkaisujen määrä organisaatioittain",
+            "xLabel": "Organisaatio",
             "yLabel": "Julkaisujen määrä"
           },
           {

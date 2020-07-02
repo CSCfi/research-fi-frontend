@@ -31,13 +31,13 @@ export class Visual {
 })
 export class VisualAdapter implements Adapter<Visual> {
     constructor(private publicationVisualAdapter: PublicationVisualAdapter) {}
-    adapt(item: any, tab?: string): Visual {
+    adapt(item: any, tab?: string, categoryIdx?: number): Visual {
 
         let publicationData: PublicationVisual;
 
         switch (tab) {
             case 'publications':
-                publicationData = this.publicationVisualAdapter.adapt(item);
+                publicationData = this.publicationVisualAdapter.adapt(item, categoryIdx);
                 break;
         }
 

@@ -359,7 +359,7 @@ export class FilterService {
     return field;
   }
 
-  constructVisualPayload(tab: string, searchTerm: string) {
+  constructVisualPayload(tab: string, searchTerm: string, categoryIdx: number) {
     // Final query object
     const res: any = {aggs: {}};
     // Order
@@ -367,29 +367,37 @@ export class FilterService {
     // Create query with filters and search term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
     // Query field hierarchy
-    let hierarchies = publication;
+    let hierarchy = publication[0];
     // Get correct hierarchy based on tab
     switch (tab) {
       case 'publications':
-        hierarchies = publication;
+        hierarchy = publication[categoryIdx];
         break;
     
       default:
         break;
     }
 
-    hierarchies.forEach(h => {
-      let agg: any = {};
-      let q = agg;
+    const h = hierarchy;
+    let agg: any = {};
+    let q = agg;
 
-      // Populate query with aggregations
-      for (let i = 0; i < h.hierarchy.length; i++) {
-        // Get the next field
-        const s = h.hierarchy[i];
-        // Name aggregation hierarchy after field names
-        q = (i === 0) ? q : (q.aggs[h.hierarchy[i - 1].name]);
-        // Add empty aggs
-        q.aggs = {};
+    // Populate query with aggregations
+    for (let i = 0; i < h.hierarchy.length; i++) {
+      // Get the next field
+      const s = h.hierarchy[i];
+      // Name aggregation hierarchy after field names
+      q = (i === 0) ? q : (q.aggs[h.hierarchy[i - 1].name]);
+      // Add empty aggs
+      q.aggs = {};
+      // Nested logic (author -> organization)
+      if (s.nested) {
+        q.aggs[s.name] = {
+          nested: {
+            path: s.nested
+          }
+        }
+      } else {
         // Add terms object
         q.aggs[s.name] = {
           terms: {
@@ -399,11 +407,12 @@ export class FilterService {
             include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
             // Add order if needed
             order: s.order ? order: undefined
-        }};
+          }
+        };
       }
-      // Add second level of aggs to query
-      res.aggs[h.field] = agg.aggs[h.hierarchy[0].name];
-    })
+    }
+    // Add second level of aggs to query
+    res.aggs[h.field] = agg.aggs[h.hierarchy[0].name];
 
     // Add properties
     res.size = 0;

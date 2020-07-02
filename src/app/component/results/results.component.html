@@ -45,7 +45,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <div>
                 <mat-form-field *ngIf="visual && !mobile">
                     <mat-label>Valitse visualisaatio</mat-label>
-                    <mat-select [(value)]="visIdx">
+                    <mat-select (selectionChange)="changeVisual($event)">
                         <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.xLabel}}</mat-option>
                     </mat-select>
                 </mat-form-field>

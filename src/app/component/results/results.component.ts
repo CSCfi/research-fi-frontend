@@ -289,10 +289,19 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
   
+  changeVisual(event: any) {
+    // Reset data so old data isn't used
+    this.visualData = undefined;
+    // Update idx
+    this.visIdx = event.value
+    // Get data
+    this.getVisualData();
+  }
+
   getVisualData() {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getVisualData()
+      this.searchService.getVisualData(this.visIdx)
       .subscribe(values => {
         this.visualData = values;
         this.visualLoading = false;

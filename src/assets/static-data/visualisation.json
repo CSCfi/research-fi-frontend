@@ -12,7 +12,7 @@
                 {
                     "field": "publicationYear",
                     "name": "year",
-                    "size": 10,
+                    "size": 1,
                     "order": 1
                 }
             ]
@@ -29,13 +29,41 @@
                 {
                     "field": "fields_of_science.nameFiScience.keyword",
                     "name": "fieldName",
-                    "size": 250,
+                    "size": 100,
                     "order": 1,
                     "filterName": "field"
                 },
                 {
                     "field": "fields_of_science.fieldIdScience",
                     "name": "fieldId",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
+        },
+        {
+            "field": "organization",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "name": "orgNested",
+                    "nested": "author"
+                },
+                {
+                    "field": "author.organization.OrganizationNameFi.keyword",
+                    "name": "organizationName",
+                    "size": 100,
+                    "order": 1,
+                    "filterName": "organization"
+                },
+                {
+                    "field": "author.organization.organizationId.keyword",
+                    "name": "orgId",
                     "size": 1,
                     "order": 0
                 }

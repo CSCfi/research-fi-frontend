@@ -176,10 +176,10 @@ export class SearchService {
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
   }
 
-  getVisualData(): Observable<Visual> {
-    const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.singleInput);
+  getVisualData(categoryIdx: number): Observable<Visual> {
+    const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.singleInput, categoryIdx);
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs)
-                    .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab)));
+                    .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab, categoryIdx)));
   }
 
   //
