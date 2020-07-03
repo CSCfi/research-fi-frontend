@@ -55,15 +55,15 @@
                     "nested": "author"
                 },
                 {
-                    "field": "author.organization.OrganizationNameFi.keyword",
-                    "name": "organizationName",
+                    "field": "author.organization.organizationId.keyword",
+                    "name": "organizationId",
                     "size": 100,
                     "order": 1,
                     "filterName": "organization"
                 },
                 {
-                    "field": "author.organization.organizationId.keyword",
-                    "name": "orgId",
+                    "field": "author.organization.OrganizationNameFi.keyword",
+                    "name": "organizationName",
                     "size": 1,
                     "order": 0
                 }

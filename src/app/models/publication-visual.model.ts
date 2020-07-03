@@ -14,8 +14,8 @@ export class PublicationVisual {
     constructor(
         public year: VisualData[],
         public fieldOfScience: VisualData[],
-        public mainFieldOfScience: VisualData[],
         public organization: VisualData[],
+        public mainFieldOfScience: VisualData[],
         public publicationType: VisualData[],
         public openAccess: VisualData[],
         public country: VisualData[],
@@ -29,12 +29,19 @@ export class PublicationVisual {
 export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     constructor() {}
     adapt(item: any, categoryIdx?: number): PublicationVisual {
+        
+        console.log(item)
 
         const field = publication[categoryIdx].field;
 
         // Init arrays
         const year: VisualData[] = [];
         const fieldsOfScience: VisualData[] = [];
+        const organization: VisualData[] = [];
+
+        const tmp: any[] = [];
+
+
 
         // Adapt based on current visualisation
         switch (field) {
@@ -50,12 +57,10 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                 break;
                 
             case 'fieldOfScience':
-                const tmp: any[] = [];
+
                 
                 // Format data via temp array
-                item.aggregations.fieldOfScience.buckets.forEach(b => {
-                    tmp.push(b)
-                });
+                item.aggregations.fieldOfScience.buckets.forEach(b => tmp.push(b));
         
                 tmp.forEach(b => {
                     // Add fields array to each year in the bucket
@@ -64,7 +69,8 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                         // Create data object to push into field
                         const v: any = {};
                         v.name = f.key;
-                        v.id = f.fieldId.buckets[0].key;
+                        // Get the first element
+                        v.id = f.fieldId.buckets.shift().key;
                         v.doc_count = f.doc_count;
                         // Push the object into fields
                         b.data.push(v);
@@ -73,6 +79,24 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     fieldsOfScience.push(b);
                 })
                 break;
+
+            case 'organization':
+                
+            item.aggregations.organization.buckets.forEach(b => tmp.push(b));
+
+            tmp.forEach(b => {
+                b.data = [];
+                b.orgNested.organizationId.buckets.forEach(f => {
+                    const v: any = {};
+                    v.name = f.organizationName.buckets.shift().key;
+                    v.id = f.key;
+                    v.doc_count = f.doc_count;
+                    b.data.push(v);
+                })
+                organization.push(b);
+            })
+
+
             default:
                 break;
         }
@@ -83,7 +107,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         return new PublicationVisual(
             year,
             fieldsOfScience,
-            [],
+            organization,
             [],
             [],
             [],
