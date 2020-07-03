@@ -363,7 +363,8 @@ export class FilterService {
     // Final query object
     const res: any = {aggs: {}};
     // Order
-    const order = {_key: 'asc'}
+    const orderAsc = {_key: 'asc'}
+    const orderDesc = {_key: 'desc'}
     // Create query with filters and search term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
     // Query field hierarchy
@@ -385,7 +386,15 @@ export class FilterService {
     // Populate query with aggregations
     for (let i = 0; i < h.hierarchy.length; i++) {
       // Get the next field
-      const s = h.hierarchy[i];
+      const s: {
+        field?: string,
+        name: string,
+        size?: number,
+        order?: number,
+        filterName?: string,
+        exclude?: string,
+        nested?: string
+      } = h.hierarchy[i];
       // Name aggregation hierarchy after field names
       q = (i === 0) ? q : (q.aggs[h.hierarchy[i - 1].name]);
       // Add empty aggs
@@ -408,7 +417,7 @@ export class FilterService {
             // Exclude empty strings
             exclude: s.exclude,
             // Add order if needed
-            order: s.order ? order: undefined
+            order: s.order ? (s.order - 1 ? orderAsc : orderDesc): undefined
           }
         };
       }

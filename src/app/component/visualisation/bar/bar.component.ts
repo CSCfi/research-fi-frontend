@@ -102,7 +102,7 @@ export class BarComponent implements OnInit, OnChanges {
     this.x = scaleBand()
         .range([0, this.innerWidth])
         // Reverse the year to ascending domain
-        .domain(sample.map(d => d.key.toString()))
+        .domain(sample.map(d => d.key.toString()).reverse())
         .padding(0.2);
 
     // Y scale
@@ -130,6 +130,7 @@ export class BarComponent implements OnInit, OnChanges {
   
     // Keep track of all keys inserted so far
     const cumulativeKeys: string[] = [];
+
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
       let sum = 0;
