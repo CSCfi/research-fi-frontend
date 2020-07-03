@@ -28,7 +28,7 @@
                 },
                 {
                     "field": "fields_of_science.nameFiScience.keyword",
-                    "name": "fieldName",
+                    "name": "fieldsOfScience",
                     "size": 100,
                     "order": 1,
                     "filterName": "field",
@@ -66,6 +66,66 @@
                     "field": "author.organization.OrganizationNameFi.keyword",
                     "name": "organizationName",
                     "size": 1,
+                    "order": 0
+                }
+            ]
+        },
+        {
+            "field": "publicationType",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "publicationTypeCode.keyword",
+                    "name": "publicationType",
+                    "size": 100,
+                    "order": 1,
+                    "filterName": "publicationType",
+                    "exclude": [" "]
+                }
+            ]
+        },
+        {
+            "field": "country",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "internationalPublication",
+                    "name": "country",
+                    "size": 2,
+                    "order": 1
+                }
+            ]
+        },
+        {
+            "field": "lang",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "languages.languageCode.keyword",
+                    "name": "lang",
+                    "size": 50,
+                    "order": 2,
+                    "exclude": [" "]
+                },
+                {
+                    "field": "languages.languageFi.keyword",
+                    "name": "language",
+                    "size": 50,
                     "order": 0
                 }
             ]

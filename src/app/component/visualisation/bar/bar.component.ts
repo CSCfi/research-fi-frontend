@@ -65,6 +65,9 @@ export class BarComponent implements OnInit, OnChanges {
 
     const filterObject = this.categories[fieldIdx];
     const sample: VisualData[] = publicationData[filterObject.field];
+    
+    console.log(publicationData)
+    console.log(sample)
 
     // Get the doc count of the year with the highest doc count
     const maxByDocCount = max(sample.map(x => x.data.reduce((a, b) => a + b.doc_count, 0)));
@@ -80,7 +83,6 @@ export class BarComponent implements OnInit, OnChanges {
         )
     );
 
-    console.log(sample)
 
     // Clear contents
     this.svg = d3.select('svg#chart');

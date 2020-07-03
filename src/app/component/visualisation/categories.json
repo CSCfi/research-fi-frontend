@@ -33,7 +33,7 @@
             "yLabel": "Julkaisujen määrä"
           },
           {
-            "field": "countryCode",
+            "field": "country",
             "reverse": false,
             "label": "label",
             "title": "Julkaisujen määrä julkaisumaan mukaan",
