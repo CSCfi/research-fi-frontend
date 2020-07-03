@@ -32,7 +32,7 @@
                     "size": 100,
                     "order": 2,
                     "filterName": "field",
-                    "exclude": " "
+                    "exclude": [" "]
                 },
                 {
                     "field": "fields_of_science.fieldIdScience",

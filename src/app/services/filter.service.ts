@@ -392,7 +392,7 @@ export class FilterService {
         size?: number,
         order?: number,
         filterName?: string,
-        exclude?: string,
+        exclude?: string[],
         nested?: string
       } = h.hierarchy[i];
       // Name aggregation hierarchy after field names
