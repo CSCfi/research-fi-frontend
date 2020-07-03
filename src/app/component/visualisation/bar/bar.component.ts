@@ -63,7 +63,6 @@ export class BarComponent implements OnInit, OnChanges {
         break;
     }
 
-    
     const filterObject = this.categories[fieldIdx];
     const sample: VisualData[] = publicationData[filterObject.field];
 
@@ -86,64 +85,104 @@ export class BarComponent implements OnInit, OnChanges {
     // Clear contents
     this.svg = d3.select('svg#chart');
     this.svg.selectAll('*').remove();
-
+    
+    
     // Init dims for svg and add top-level group
     this.g = this.svg
-      .attr('width', this.width)
-      .attr('height', this.height)
-      .append('g')
+        .attr('width', this.width)
+        .attr('height', this.height)
+        .append('g')
         .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
+    
+    // Legend init
+    const legendSvg = d3.select('svg#legend');
+    legendSvg.selectAll('*').remove();
 
     // X scale
     this.x = scaleBand()
-      .range([0, this.innerWidth])
-      // Reverse the year to ascending domain
-      .domain(sample.map(d => d.key.toString()).reverse())
-      .padding(0.2);
+        .range([0, this.innerWidth])
+        // Reverse the year to ascending domain
+        .domain(sample.map(d => d.key.toString()))
+        .padding(0.2);
 
     // Y scale
     this.y = scaleLinear()
-      .range([this.innerHeight, 0])
-      .domain([0, maxByDocCount])
-      .nice(5);
+        .range([this.innerHeight, 0])
+        .domain([0, maxByDocCount])
+        .nice(5);
 
-    // X axis
+    // Y axis
     this.g.append('g')
-      .call(axisLeft(this.y));
+        .call(axisLeft(this.y));
 
-    // Y axis    
+    // X axis    
     this.g.append('g')
-      .attr('transform', `translate(0, ${this.innerHeight})`)
-      .call(axisBottom(this.x));
+        .attr('transform', `translate(0, ${this.innerHeight})`)
+        .call(axisBottom(this.x));
 
     // Add horizontal lines
     this.g.append('g')
-      .attr('class', 'grid')
-      .call(axisLeft(this.y)
-          .ticks(5)
-          .tickSize(-this.innerWidth)
-          .tickFormat((_, __) => ''));
+        .attr('class', 'grid')
+        .call(axisLeft(this.y)
+            .ticks(5)
+            .tickSize(-this.innerWidth)
+            .tickFormat((_, __) => ''));
   
-
+    // Keep track of all keys inserted so far
+    const cumulativeKeys: string[] = [];
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
       let sum = 0;
       this.g.selectAll()
-      .data(sample[i].data)
+          .data(sample[i].data)
+          .enter()
+          .append('rect')
+          .attr('class', 'bar')
+          .attr('x', _ => this.x(sample[i].key.toString()))
+          .attr('fill', d => color(d.name))
+          .attr('height', d => this.innerHeight - this.y(d.doc_count))
+          .attr('width', _ => this.x.bandwidth())
+          // Cumulative sum calculation for stacking bars
+          .each((d, i, n) => {
+            d3.select(n[i])
+              .attr('y', (d: any) => this.y(d.doc_count + sum))
+              .call((d: any) => sum += d.datum().doc_count);
+          });
+
+    // Add all the keys of the current bar
+    cumulativeKeys.push(...sample[i].data.map(x => x.name))
+  }
+
+  // Create array with each unique key once
+  const uniqueKeys = [... new Set(cumulativeKeys)].filter(x => x).sort();
+
+  // Init legend with correct height
+  const legend = legendSvg
+  .attr('width', this.innerWidth)
+  .attr('height', (uniqueKeys.length + 1) * 25)
+  .append('g')
+    .attr('transform', `translate(0, 0)`);
+
+  // Add legend dots
+  legend.selectAll('circle')
+      .data(uniqueKeys)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', _ => this.x(sample[i].key.toString()))
-      // .attr('y', d => this.y(d.doc_count - sum))
-      .attr('fill', (d: any) => color(d.name))
-      .attr('height', d => this.innerHeight - this.y(d.doc_count))
-      .attr('width', _ => this.x.bandwidth())
-      .each((d, i, n) => {
-        d3.select(n[i])
-          .attr('y', (d: any) => this.y(d.doc_count + sum))
-          .call((d: any) => sum += d.datum().doc_count);
-      });
-    }
+      .append('circle')
+      .attr('cx', this.margin * 2)
+      .attr('cy', (_, j) => this.margin / 2 + j * 25)
+      .attr('r', 7)
+      .attr('fill', d=> color(d));
+
+  // Add legend labels
+  legend.selectAll('text')
+      .data(uniqueKeys)
+      .enter()
+      .append('text')
+      .attr('x', this.margin * 2 + 20)
+      .attr('y', (_, j) => this.margin / 2 + j * 25)
+      .attr('text-anchor', 'left')
+      .style('alignment-baseline', "middle")
+      .text(d => d);
    
     // Add axis and graph labels
     this.g.append('text')
@@ -154,7 +193,7 @@ export class BarComponent implements OnInit, OnChanges {
         .text('Julkaisujen määrä');
 
     this.g.append('text')
-        .attr('x', this.innerWidth / 2 + this.margin)
+        .attr('x', this.innerWidth / 2)
         .attr('y', this.innerHeight + this.margin - 5)
         .attr('text-anchor', 'middle')
         .text('Vuosi');

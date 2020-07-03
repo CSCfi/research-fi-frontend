@@ -13,7 +13,7 @@
                     "field": "publicationYear",
                     "name": "year",
                     "size": 1,
-                    "order": 1
+                    "order": 0
                 }
             ]
         },
@@ -31,7 +31,8 @@
                     "name": "fieldName",
                     "size": 100,
                     "order": 1,
-                    "filterName": "field"
+                    "filterName": "field",
+                    "exclude": " "
                 },
                 {
                     "field": "fields_of_science.fieldIdScience",

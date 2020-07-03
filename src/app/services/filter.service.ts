@@ -363,7 +363,7 @@ export class FilterService {
     // Final query object
     const res: any = {aggs: {}};
     // Order
-    const order = {_key: 'desc'}
+    const order = {_key: 'asc'}
     // Create query with filters and search term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
     // Query field hierarchy
@@ -405,6 +405,8 @@ export class FilterService {
             size: s.size,
             // Include only active filter buckets
             include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
+            // Exclude empty strings
+            exclude: s.exclude,
             // Add order if needed
             order: s.order ? order: undefined
           }
