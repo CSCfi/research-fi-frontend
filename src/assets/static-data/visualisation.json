@@ -30,7 +30,7 @@
                     "field": "fields_of_science.nameFiScience.keyword",
                     "name": "fieldName",
                     "size": 100,
-                    "order": 2,
+                    "order": 1,
                     "filterName": "field",
                     "exclude": [" "]
                 },
