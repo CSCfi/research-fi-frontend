@@ -2,67 +2,48 @@
     "publication": [
         {
             "field": "year",
-            "reverse": true,
-            "label": "key",
             "title": "Julkaisujen määrä vuosittain",
-            "xLabel": "Vuosi",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Vuosi"
           },
           {
             "field": "fieldOfScience",
-            "reverse": false,
-            "label": "key",
             "title": "Julkaisujen määrä tieteenaloittain",
-            "xLabel": "Tieteenala",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Tieteenala"
+          },
+          {
+            "field": "majorFieldOfScience",
+            "title": "Julkaisujen määrä päätieteenaloittain",
+            "select": "Päätieteenala"
           },
           {
             "field": "organization",
-            "reverse": false,
-            "label": "key",
             "title": "Julkaisujen määrä organisaatioittain",
-            "xLabel": "Organisaatio",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Organisaatio"
           },
           {
             "field": "publicationType",
-            "reverse": false,
-            "label": "key",
             "title": "Julkaisujen määrä julkaisutyypin mukaan",
-            "xLabel": "Julkaisutyyppi",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Julkaisutyyppi"
           },
           {
             "field": "country",
-            "reverse": false,
-            "label": "label",
             "title": "Julkaisujen määrä julkaisumaan mukaan",
-            "xLabel": "Julkaisumaa",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Julkaisumaa"
           },
           {
             "field": "lang",
-            "reverse": false,
-            "label": "label",
             "title": "Julkaisujen määrä kielen mukaan",
-            "xLabel": "Kieli",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Kieli"
           },
           {
             "field": "juFo",
-            "reverse": false,
-            "label": "label",
             "title": "Julkaisujen määrä julkaisufoorumitason mukaan",
-            "xLabel": "Julkaisufoorumitaso",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Julkaisufoorumitaso"
           },
           {
             "field": "openAccess",
-            "reverse": false,
-            "label": "label",
             "title": "Julkaisujen määrä avoimen saatavuuden mukaan",
-            "xLabel": "Avoin saatavuus",
-            "yLabel": "Julkaisujen määrä"
+            "select": "Avoin saatavuus"
           }
       
     ],

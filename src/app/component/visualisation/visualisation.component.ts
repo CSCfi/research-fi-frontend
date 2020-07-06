@@ -29,6 +29,7 @@ export class VisualisationComponent implements OnInit {
   @Input() visIdx: number;
   @Input() loading: boolean;
   @Input() tab: string;
+  @Input() percentage: boolean;
 
   title = '';
 

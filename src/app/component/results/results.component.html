@@ -46,9 +46,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <mat-form-field *ngIf="visual && !mobile">
                     <mat-label>Valitse visualisaatio</mat-label>
                     <mat-select (selectionChange)="changeVisual($event)">
-                        <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.xLabel}}</mat-option>
+                        <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <mat-slide-toggle [(ngModel)]="percentage" *ngIf="visual && !mobile">Näytä prosentteina</mat-slide-toggle>
             </div>
         </div>
         <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
@@ -95,7 +96,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             <app-active-filters></app-active-filters>
             <h3 class="sr-only">Hakutulokset</h3>
             <app-search-results *ngIf="!visual" id="main-content" [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
-            <app-visualisation *ngIf="visual" [data]="visualData" [tab]="tab" [visIdx]="visIdx" [loading]="visualLoading"></app-visualisation>
+            <app-visualisation *ngIf="visual" [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading"></app-visualisation>
         </main>
     </div>
 </ng-template>

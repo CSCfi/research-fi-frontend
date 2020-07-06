@@ -16,6 +16,7 @@ export class BarComponent implements OnInit, OnChanges {
   @Input() height: number;
   @Input() width: number;
   @Input() tab: string;
+  @Input() percentage: boolean;
 
   margin = 50;
 
@@ -46,11 +47,11 @@ export class BarComponent implements OnInit, OnChanges {
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin;
-      this.update(this.visIdx);
+      this.update(this.visIdx, this.percentage);
     }
   }
 
-  update(fieldIdx: number) {
+  update(fieldIdx: number, percentage = false) {
 
     let publicationData: PublicationVisual;
 
@@ -110,12 +111,13 @@ export class BarComponent implements OnInit, OnChanges {
     // Y scale
     this.y = scaleLinear()
         .range([this.innerHeight, 0])
-        .domain([0, maxByDocCount])
+        .domain([0, percentage ? 100 : maxByDocCount])
         .nice(5);
 
     // Y axis
     this.g.append('g')
-        .call(axisLeft(this.y));
+        .call(axisLeft(this.y)
+              .tickFormat(d => d + (percentage ? '%' : '')));
 
     // X axis    
     this.g.append('g')
@@ -136,6 +138,7 @@ export class BarComponent implements OnInit, OnChanges {
     // Insert bars
     for (let i = 0; i < sample.length; i++) {
       let sum = 0;
+      const totalSum = sample[i].data.reduce((a, b) => a + b.doc_count, 0) / 100; // Divide by 100 to get percentages
       this.g.selectAll()
           .data(sample[i].data)
           .enter()
@@ -143,12 +146,12 @@ export class BarComponent implements OnInit, OnChanges {
           .attr('class', 'bar')
           .attr('x', _ => this.x(sample[i].key.toString()))
           .attr('fill', d => color(d.name))
-          .attr('height', d => this.innerHeight - this.y(d.doc_count))
+          .attr('height', d => this.innerHeight - this.y(d.doc_count / (percentage ? totalSum : 1))) // Divide by total sum to get percentage, otherwise keep original
           .attr('width', _ => this.x.bandwidth())
           // Cumulative sum calculation for stacking bars
           .each((d, i, n) => {
-            d3.select(n[i])
-              .attr('y', (d: any) => this.y(d.doc_count + sum))
+              d3.select(n[i])
+              .attr('y', (d: any) => this.y((d.doc_count + sum) / (percentage ? totalSum : 1)))
               .call((d: any) => sum += d.datum().doc_count);
           });
 
