@@ -19,6 +19,7 @@ export class BarComponent implements OnInit, OnChanges {
   @Input() percentage: boolean;
 
   margin = 50;
+  legendWidth = 350;
 
   innerWidth: number;
   innerHeight: number;
@@ -46,7 +47,7 @@ export class BarComponent implements OnInit, OnChanges {
 
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
-      this.innerWidth = this.width - 3 * this.margin;
+      this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
       this.update(this.visIdx, this.percentage);
     }
   }
@@ -92,7 +93,7 @@ export class BarComponent implements OnInit, OnChanges {
     
     // Init dims for svg and add top-level group
     this.g = this.svg
-        .attr('width', this.width)
+        .attr('width', this.width - this.legendWidth)
         .attr('height', this.height)
         .append('g')
         .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
@@ -164,7 +165,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   // Init legend with correct height
   const legend = legendSvg
-  .attr('width', this.innerWidth)
+  .attr('width', this.legendWidth)
   .attr('height', (uniqueKeys.length + 1) * 25)
   .append('g')
     .attr('transform', `translate(0, 0)`);
@@ -174,7 +175,7 @@ export class BarComponent implements OnInit, OnChanges {
       .data(uniqueKeys)
       .enter()
       .append('circle')
-      .attr('cx', this.margin * 2)
+      .attr('cx', 10)
       .attr('cy', (_, j) => this.margin / 2 + j * 25)
       .attr('r', 7)
       .attr('fill', d=> color(d));
@@ -184,7 +185,7 @@ export class BarComponent implements OnInit, OnChanges {
       .data(uniqueKeys)
       .enter()
       .append('text')
-      .attr('x', this.margin * 2 + 20)
+      .attr('x', 10 + 20)
       .attr('y', (_, j) => this.margin / 2 + j * 25)
       .attr('text-anchor', 'left')
       .style('alignment-baseline', "middle")
