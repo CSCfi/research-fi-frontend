@@ -129,6 +129,24 @@
                     "order": 0
                 }
             ]
+        },
+        {
+            "field": "juFo",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "jufoClassCode.keyword",
+                    "name": "juFo",
+                    "size": 5,
+                    "order": 2,
+                    "exclude": [" "]
+                }
+            ]
         }
     ]
 }

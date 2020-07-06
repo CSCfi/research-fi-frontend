@@ -36,6 +36,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         publicationType: 'this.nameObjects[f.key]',
         country: 'this.countryNames[f.key]',
         lang: 'f.language.buckets.shift().key',
+        juFo: 'f.key',
     }
 
     publicationTypeNames: any[];
