@@ -77,6 +77,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualLoading = false;
   visualisationCategories = publication;
   visualData: Visual;
+  percentage = false;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
