@@ -212,7 +212,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getFilterData();
         
         // Get visualisation data
-        this.visualLoading = true;
         this.getVisualData();
         // this.getQueryFilterData();
         // Reset flags
@@ -299,6 +298,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getVisualData() {
+    this.visualLoading = true;
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
       this.searchService.getVisualData(this.visIdx)
