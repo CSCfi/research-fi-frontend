@@ -43,6 +43,31 @@
             ]
         },
         {
+            "field": "majorFieldOfScience",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "fields_of_science.nameFiScience.keyword",
+                    "name": "majorFieldOfScience",
+                    "size": 100,
+                    "order": 1,
+                    "filterName": "field",
+                    "exclude": [" "]
+                },
+                {
+                    "field": "fields_of_science.fieldIdScience",
+                    "name": "fieldId",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
+        },
+        {
             "field": "organization",
             "hierarchy": [
                 {
@@ -145,6 +170,23 @@
                     "size": 5,
                     "order": 2,
                     "exclude": [" "]
+                }
+            ]
+        },
+        {
+            "field": "openAccess",
+            "hierarchy": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "script": "doc['openAccessCode'].value * 10 + doc['selfArchivedCode'].value",
+                    "name": "openAccess",
+                    "size": 50,
+                    "order": 2
                 }
             ]
         }

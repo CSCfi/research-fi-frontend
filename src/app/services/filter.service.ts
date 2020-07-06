@@ -393,7 +393,8 @@ export class FilterService {
         order?: number,
         filterName?: string,
         exclude?: string[],
-        nested?: string
+        nested?: string,
+        script?: string
       } = h.hierarchy[i];
       // Name aggregation hierarchy after field names
       q = (i === 0) ? q : (q.aggs[h.hierarchy[i - 1].name]);
@@ -410,7 +411,8 @@ export class FilterService {
         // Add terms object
         q.aggs[s.name] = {
           terms: {
-            field: s.field, 
+            field: s.field,
+            script: s.script,
             size: s.size,
             // Include only active filter buckets
             include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
