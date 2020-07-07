@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
 import { publication } from '../categories.json'
-import { Visual, VisualData } from 'src/app/models/visualisations.model';
+import { Visual, VisualData, VisualDataObject } from 'src/app/models/visualisations.model';
 import { PublicationVisual } from 'src/app/models/publication-visual.model';
 
 @Component({
@@ -20,6 +20,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   margin = 50;
   legendWidth = 350;
+  shift = 5;
 
   innerWidth: number;
   innerHeight: number;
@@ -30,7 +31,7 @@ export class BarComponent implements OnInit, OnChanges {
   x: ScaleBand<any>;
   y: ScaleLinear<number, number>;
 
-  @Input() visIdx: number;
+  @Input() visIdx: string;
 
   categories = publication;
 
@@ -45,6 +46,9 @@ export class BarComponent implements OnInit, OnChanges {
         (changes?.height?.currentValue || this.height) &&
         (changes?.width?.currentValue || this.width)) {
 
+      // No legend for year graph
+      this.legendWidth = +this.visIdx ? 350 : 0;
+
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
@@ -52,7 +56,7 @@ export class BarComponent implements OnInit, OnChanges {
     }
   }
 
-  update(fieldIdx: number, percentage = false) {
+  update(fieldIdx: string, percentage = false) {
 
     let publicationData: PublicationVisual;
 
@@ -67,7 +71,7 @@ export class BarComponent implements OnInit, OnChanges {
 
     const filterObject = this.categories[fieldIdx];
     const sample: VisualData[] = publicationData[filterObject.field];
-    
+
     console.log(publicationData)
     console.log(sample)
 
@@ -145,10 +149,12 @@ export class BarComponent implements OnInit, OnChanges {
           .enter()
           .append('rect')
           .attr('class', 'bar')
-          .attr('x', _ => this.x(sample[i].key.toString()))
+          .attr('x', d => this.x(d.parent))
           .attr('fill', d => color(d.name))
           .attr('height', d => this.innerHeight - this.y(d.doc_count / (percentage ? totalSum : 1))) // Divide by total sum to get percentage, otherwise keep original
           .attr('width', _ => this.x.bandwidth())
+          .on("mouseenter", (d, i, n: any) => this.showInfo(d, i, n))
+          .on("mouseout", (d, i, n: any) => this.hideInfo(d, i, n))
           // Cumulative sum calculation for stacking bars
           .each((d, i, n) => {
               d3.select(n[i])
@@ -178,7 +184,7 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('cx', 10)
       .attr('cy', (_, j) => this.margin / 2 + j * 25)
       .attr('r', 7)
-      .attr('fill', d=> color(d));
+      .attr('fill', d => color(d));
 
   // Add legend labels
   legend.selectAll('text')
@@ -215,5 +221,47 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
         .text(filterObject.title);
+
+        
   }
+  
+  showInfo(d: {name: string, doc_count: number}, i: number, n: any[]) {
+    const shift = this.shift;
+
+    const elem: d3.Selection<SVGRectElement, VisualDataObject, SVGElement, any> = d3.select(n[i]);
+    const x = +elem.attr('x');
+    const y = +elem.attr('y');
+    const width = +elem.attr('width');
+    const height = +elem.attr('height');
+
+    elem.transition()
+        .duration(300)
+        .attr('x', x - shift / 2)
+        .attr('width', width + shift)
+
+    const g = d3.select('#chart');
+
+    console.log(this.innerHeight)
+    console.log(y)
+    console.log(height)
+
+    g.append('rect')
+        .attr('x', x + 200)
+        .attr('y', _ => y + (height / 2))
+        .attr('width', 100)
+        .attr('height', 100)
+        .attr('fill', 'black')
+        .attr('opacity', 0.6)
+  }
+
+  hideInfo(d: {name: string, doc_count: number}, i: number, n: any[]) {
+    const elem: d3.Selection<SVGRectElement, VisualDataObject, SVGElement, any> = d3.select(n[i]);
+
+    elem.transition()
+        .duration(300)
+        .attr('x', d => this.x(d.parent))
+        .attr('width', this.x.bandwidth())
+
+  }
+
 }

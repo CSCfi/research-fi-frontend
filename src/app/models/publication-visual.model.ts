@@ -92,9 +92,11 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         }
     }
 
-    getOpenAccess(data: {key: string, doc_count: number}[]) {
+    getOpenAccess(data: {key: string, doc_count: number, parent: string}[], parent: string) {
         // Get a copy of the open access types. .slice() doesn't work because of object reference pointers
-        const res: {name: string, doc_count: number}[] = JSON.parse(JSON.stringify(this.openAccessTypes));
+        const res: {name: string, doc_count: number, parent: string}[] = JSON.parse(JSON.stringify(this.openAccessTypes));
+        // Add parent year
+        res.forEach(d => d.parent = parent);
 
         data.forEach(d => {
             const openAccessCode = Math.floor(parseInt(d.key) / 10);
@@ -133,11 +135,11 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         // For each year
         arr.forEach(d => {
             // Group items with the same name under one object
-            const grouped = d.data.reduce((a: {name: string, doc_count: number}[], b) => {
+            const grouped = d.data.reduce((a: {name: string, doc_count: number, parent: string}[], b) => {
                 // Get current name
                 const name = b.name;
                 // Find the object with the same name, or initialize
-                const obj = a.filter(x => x.name === name).shift() || {name: name, doc_count: 0};
+                const obj = a.filter(x => x.name === name).shift() || {name: name, doc_count: 0, parent: b.parent};
                 // Add the current item's doc count
                 obj.doc_count += b.doc_count;
                 // If it's a new item, push it into a
@@ -185,6 +187,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                         v.name = f.organizationName.buckets.shift().key;
                         v.id = f.key;
                         v.doc_count = f.doc_count;
+                        v.parent = b.key;
                         b.data.push(v);
                     });
                     organization.push(b);
@@ -196,11 +199,9 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     item.aggregations.openAccess.buckets.forEach(b => tmp.push(b));
 
                     tmp.forEach(b => {
-                        b.data = this.getOpenAccess(b.openAccess.buckets);
+                        b.data = this.getOpenAccess(b.openAccess.buckets, b.key);
                         openAccess.push(b);
                     });
-                    console.log(tmp);
-
                     break;
             }
 
@@ -217,6 +218,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                         const v: any = {};
                         v.name = eval(this.names[hierarchyField]);
                         v.doc_count = f.doc_count;
+                        v.parent = b.key;
                         b.data.push(v);
                     });
                     // Push data to correct array
