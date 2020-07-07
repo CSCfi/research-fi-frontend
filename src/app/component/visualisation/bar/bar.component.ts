@@ -162,57 +162,39 @@ export class BarComponent implements OnInit, OnChanges {
 
   // Create array with each unique key once
   const uniqueKeys = [... new Set(cumulativeKeys)].filter(x => x).sort();
-  const longKeyCount = uniqueKeys.filter(x => x.length >= 40).length;
 
   // Init legend with correct height
   const legend = legendSvg
   .attr('width', this.legendWidth)
-  .attr('height', (uniqueKeys.length + longKeyCount + 1) * 25)
+  .attr('height', (uniqueKeys.length + 1) * 25)
   .append('g')
     .attr('transform', `translate(0, 0)`);
 
-  // Init legend content groups
-  const legendContent = legend.selectAll('g')
+  // Add legend dots
+  legend.selectAll('circle')
       .data(uniqueKeys)
       .enter()
-      .append('g');
+      .append('circle')
+      .attr('cx', 10)
+      .attr('cy', (_, j) => this.margin / 2 + j * 25)
+      .attr('r', 7)
+      .attr('fill', d=> color(d));
 
-  let tallText = false;
-  let tallCount = 0;
-
-  // Add legend dots
-  legendContent.append('circle')
-                // Handle long legend strings
-               .each((d, i, n) => {
-                  tallText = d.length >= 50;
-                  d3.select(n[i])
-                    .attr('cy', this.margin / 2 + (i + tallCount) * 25 + +tallText * 25/2)
-                  tallCount += +tallText;
-                  tallText = false;
-                })
-                // Normal attributes
-               .attr('cx', 10)
-               .attr('r', 7)
-               .attr('fill', d => color(d))
-               .each((_) => {tallCount += +tallText; tallText = false; console.log(tallCount)});
-  // Reset tallCount so texts align correctly
-  tallCount = 0;
-
-  // Add legend labels as foreignObjects (divs handle text wrapping natively)
-  legendContent.append('foreignObject')
-                // Handle long legend strings
-                .each((d, i, n) => {
-                  tallText = d.length >= 50;
-                  d3.select(n[i])
-                    .attr('y', this.margin / 2 + (i + tallCount) * 25 - 25/2)
-                    .attr('height', (1 + +tallText) * 25)
-                  tallCount += +tallText;
-                  tallText = false;
-                })
-               .attr('width', this.legendWidth)
-               .attr('x', 30)
-               .append('xhtml:div')
-               .html(d => d)
+  // Add legend labels
+  legend.selectAll('text')
+      .data(uniqueKeys)
+      .enter()
+      .append('foreignObject')
+      .attr('width', this.legendWidth)
+      .attr('height', 25)
+      .attr('x', 10 + 20)
+      .attr('y', (_, j) => this.margin / 2 + j * 25 - 25 / 2)
+        .append('xhtml:div')
+        .style('width', '320px')
+        .style('white-space', 'nowrap')
+        .style('text-overflow', 'ellipsis')
+        .style('overflow', 'hidden')
+        .html(d => d);
 
     // Add axis and graph labels
     this.g.append('text')
