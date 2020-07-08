@@ -4,6 +4,7 @@ import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, m
 import { publication } from '../categories.json'
 import { Visual, VisualData, VisualDataObject } from 'src/app/models/visualisations.model';
 import { PublicationVisual } from 'src/app/models/publication-visual.model';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-bar',
@@ -100,6 +101,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('width', this.width - this.legendWidth)
         .attr('height', this.height)
         .append('g')
+        .attr('id', 'main')
         .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
     
     // Legend init
@@ -153,7 +155,7 @@ export class BarComponent implements OnInit, OnChanges {
           .attr('fill', d => color(d.name))
           .attr('height', d => this.innerHeight - this.y(d.doc_count / (percentage ? totalSum : 1))) // Divide by total sum to get percentage, otherwise keep original
           .attr('width', _ => this.x.bandwidth())
-          .on("mouseenter", (d, i, n: any) => this.showInfo(d, i, n))
+          .on("mouseenter", (d, i, n: any) => this.showInfo(d, i, n, color, percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined)) // Pass percentage if selected
           .on("mouseout", (d, i, n: any) => this.hideInfo(d, i, n))
           // Cumulative sum calculation for stacking bars
           .each((d, i, n) => {
@@ -225,7 +227,7 @@ export class BarComponent implements OnInit, OnChanges {
         
   }
   
-  showInfo(d: {name: string, doc_count: number}, i: number, n: any[]) {
+  showInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[], color: d3.ScaleOrdinal<string, string>, percent?: string) {
     const shift = this.shift;
 
     const elem: d3.Selection<SVGRectElement, VisualDataObject, SVGElement, any> = d3.select(n[i]);
@@ -234,34 +236,102 @@ export class BarComponent implements OnInit, OnChanges {
     const width = +elem.attr('width');
     const height = +elem.attr('height');
 
+    // Make hovered box wider
     elem.transition()
         .duration(300)
         .attr('x', x - shift / 2)
         .attr('width', width + shift)
 
-    const g = d3.select('#chart');
+    const g = d3.select('#main')
+        .append('g')
+        
+        
+        // Add info box if bar has name
+    if (d.name) {
 
-    console.log(this.innerHeight)
-    console.log(y)
-    console.log(height)
+      // Remove spaces and commas from name in id
+      g.attr('id', `id-${UtilityService.replaceSpaceAndComma(d.name)}-${d.parent}`);
 
-    g.append('rect')
-        .attr('x', x + 200)
-        .attr('y', _ => y + (height / 2))
-        .attr('width', 100)
-        .attr('height', 100)
-        .attr('fill', 'black')
-        .attr('opacity', 0.6)
+      
+      const rectY = y + (height / 2) - 50;
+
+      // Append info rectangle so it's on top
+      const rect = g.append('rect');
+      const circle = g.append('circle');
+
+      // Append foreignObject so text width can be calculated
+      const fo = g.append('foreignObject');
+      fo.attr('y', rectY + 10)
+          .attr('height', 75)
+          .append('xhtml:div')
+            .style('font-size', '12px')
+            .style('color', 'white')
+            .style('white-space', 'wrap')
+            .style('width', 'fit-content')
+            .attr('id', 'name')
+            .html(d.name);
+      
+      
+      fo.append('xhtml:div')
+      .style('font-size', '12px')
+      .style('color', 'white')
+      .style('white-space', 'nowrap')
+      .style('width', 'fit-content')
+      .style('padding-left', '15px')
+      .attr('id', 'amount')
+      // Show percentage if percentage graph is chosen
+      .html(percent || UtilityService.thousandSeparator(d.doc_count.toString()));
+      
+      // Get the div elements to get their widths
+      const nameElem: HTMLElement = document.querySelector('#name');
+      const amountElem: HTMLElement = document.querySelector('#amount');
+
+      // Move rectangle so it's fully visible
+      const paddingX = 10;
+      const rectWidth = max([nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX]);
+      const rectHeight = nameElem.offsetHeight + 35;
+      let rectX = x + this.x.bandwidth() + paddingX;
+
+      // In case it's overflowing from the right
+      if (rectX + rectWidth > this.innerWidth) {
+        rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
+      } 
+      
+      // Fill in attributes based on text size
+      fo.attr('x', rectX + paddingX)
+        .attr('width', rectWidth - 2 * paddingX)
+        .attr('height', rectHeight);
+
+
+      // Fill in rect and circle attributes
+      rect.attr('x', rectX)
+      .attr('y', rectY)
+      .attr('width', rectWidth)
+      .attr('height', rectHeight)
+      .attr('fill', 'black')
+      .attr('opacity', 0.8);
+
+      circle.attr('cx', rectX + paddingX + 5)
+      .attr('cy', rectY + rectHeight - 15)
+      .attr('r', 5)
+      .attr('fill', color(d.name));
+
+    }
   }
 
-  hideInfo(d: {name: string, doc_count: number}, i: number, n: any[]) {
+  hideInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[]) {
     const elem: d3.Selection<SVGRectElement, VisualDataObject, SVGElement, any> = d3.select(n[i]);
 
+    // Restore original width
     elem.transition()
         .duration(300)
         .attr('x', d => this.x(d.parent))
         .attr('width', this.x.bandwidth())
 
+    // Remove info box if bar has name
+    if (d.name) {
+      d3.select(`#id-${UtilityService.replaceSpaceAndComma(d.name)}-${d.parent}`).remove();
+    }
   }
 
 }
