@@ -87,6 +87,14 @@ export class UtilityService {
     return res;
   }
 
+  static replaceSpaceAndComma(s: string) {
+    return s.replace(/ |,/g, '-');
+  }
+
+  static thousandSeparator(s: string) {
+    return s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  }
+
   // mouseenter handler for tooltipelements
   tooltipMouseenter(elem: HTMLElement) {
     elem.blur();

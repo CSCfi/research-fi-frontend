@@ -73,7 +73,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   currentLocale: string;
 
   visual = false;
-  visIdx = 0;
+  visIdx = "0";
   visualLoading = false;
   visualisationCategories = publication;
   visualData: Visual;
@@ -302,7 +302,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.visualLoading = true;
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getVisualData(this.visIdx)
+      this.searchService.getVisualData(+this.visIdx)
       .subscribe(values => {
         this.visualData = values;
         this.visualLoading = false;

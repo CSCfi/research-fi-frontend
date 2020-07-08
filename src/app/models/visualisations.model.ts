@@ -12,11 +12,14 @@ import { PublicationVisual, PublicationVisualAdapter } from './publication-visua
 export interface VisualData {
     key: string,
     doc_count: number,
-    data: {
-        name: string,
-        id?: string;
-        doc_count: number,
-    }[]
+    data: VisualDataObject[]
+}
+
+export interface VisualDataObject {
+    name: string,
+    id?: string;
+    doc_count: number,
+    parent: string,
 }
 
 
