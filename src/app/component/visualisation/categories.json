@@ -8,17 +8,20 @@
           {
             "field": "fieldOfScience",
             "title": "Julkaisujen määrä tieteenaloittain",
-            "select": "Tieteenala"
+            "select": "Tieteenala",
+            "message": "Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään."
           },
           {
             "field": "majorFieldOfScience",
             "title": "Julkaisujen määrä päätieteenaloittain",
-            "select": "Päätieteenala"
+            "select": "Päätieteenala",
+            "message": "Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään."
           },
           {
             "field": "organization",
             "title": "Julkaisujen määrä organisaatioittain",
-            "select": "Organisaatio"
+            "select": "Organisaatio",
+            "message": "Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään"
           },
           {
             "field": "publicationType",

@@ -53,11 +53,11 @@ export class BarComponent implements OnInit, OnChanges {
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
-      this.update(this.visIdx, this.percentage);
+      this.update(+this.visIdx, this.percentage);
     }
   }
 
-  update(fieldIdx: string, percentage = false) {
+  update(fieldIdx: number, percentage = false) {
 
     let publicationData: PublicationVisual;
 
@@ -224,7 +224,14 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('text-anchor', 'middle')
         .text(filterObject.title);
 
-        
+    this.g.append('foreignObject')
+        .attr('x', -this.margin * 2)
+        .attr('y', -this.margin * 2)
+        .attr('width', this.width - this.legendWidth)
+        .attr('height', this.margin * 2)
+        .append('xhtml:div')
+          .style('font-size', '14px')
+          .html(filterObject.message);  
   }
   
   showInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[], color: d3.ScaleOrdinal<string, string>, percent?: string) {
@@ -245,15 +252,11 @@ export class BarComponent implements OnInit, OnChanges {
     const g = d3.select('#main')
         .append('g')
         
-        
-        // Add info box if bar has name
+    // Add info box if bar has name
     if (d.name) {
 
       // Remove spaces and commas from name in id
       g.attr('id', `id-${UtilityService.replaceSpaceAndComma(d.name)}-${d.parent}`);
-
-      
-      const rectY = y + (height / 2) - 50;
 
       // Append info rectangle so it's on top
       const rect = g.append('rect');
@@ -261,15 +264,13 @@ export class BarComponent implements OnInit, OnChanges {
 
       // Append foreignObject so text width can be calculated
       const fo = g.append('foreignObject');
-      fo.attr('y', rectY + 10)
-          .attr('height', 75)
-          .append('xhtml:div')
-            .style('font-size', '12px')
-            .style('color', 'white')
-            .style('white-space', 'wrap')
-            .style('width', 'fit-content')
-            .attr('id', 'name')
-            .html(d.name);
+      fo.append('xhtml:div')
+        .style('font-size', '12px')
+        .style('color', 'white')
+        .style('white-space', 'wrap')
+        .style('width', 'fit-content')
+        .attr('id', 'name')
+        .html(d.name);
       
       
       fo.append('xhtml:div')
@@ -288,17 +289,21 @@ export class BarComponent implements OnInit, OnChanges {
 
       // Move rectangle so it's fully visible
       const paddingX = 10;
-      const rectWidth = max([nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX]);
-      const rectHeight = nameElem.offsetHeight + 35;
+      const rectWidth = Math.max(nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX);
       let rectX = x + this.x.bandwidth() + paddingX;
-
+      
       // In case it's overflowing from the right
       if (rectX + rectWidth > this.innerWidth) {
         rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
       } 
-      
+
+      const rectHeight = nameElem.offsetHeight + 35;
+      const rectY = Math.min(y + (height / 2) - 50, this.innerHeight - rectHeight);
+
+
       // Fill in attributes based on text size
       fo.attr('x', rectX + paddingX)
+        .attr('y', rectY + 10)
         .attr('width', rectWidth - 2 * paddingX)
         .attr('height', rectHeight);
 
@@ -312,10 +317,9 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('opacity', 0.8);
 
       circle.attr('cx', rectX + paddingX + 5)
-      .attr('cy', rectY + rectHeight - 15)
+      .attr('cy', rectY + rectHeight - 17)
       .attr('r', 5)
       .attr('fill', color(d.name));
-
     }
   }
 
