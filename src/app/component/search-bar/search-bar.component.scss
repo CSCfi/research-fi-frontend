@@ -343,6 +343,19 @@ app-search-bar {
         margin-top: 4px;
         border-radius: .25rem;
     }
+
+    #resetSearch {
+        position: absolute;
+        z-index: 999;
+        font-size: 20px;
+        color: black;
+        align-self: center;
+        border: 0;
+        background-color: transparent;
+        &:hover, &:disabled {
+            color: gray;
+        }
+    }
     
     // Overlay
     #overlay {

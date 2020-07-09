@@ -22,6 +22,8 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SettingsService } from 'src/app/services/settings.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FilterService } from 'src/app/services/filter.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ResizeService } from 'src/app/services/resize.service';
 
 interface Target {
   value: string;
@@ -54,6 +56,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChildren(ListItemComponent) items: QueryList<any>;
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
+  faTimes = faTimes;
+
   docList = [
     {index: 'publication', field: 'publicationName', link: 'publicationId'},
     {index: 'funding', field: 'projectNameFi', link: 'projectId'},
@@ -81,6 +85,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   additionalItems = ['clear'];
   completion: string;
   inputMargin: string;
+  resetMargin: string;
   isBrowser: boolean;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   selectedTab: string;
@@ -88,6 +93,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   topMargin: any;
   currentTerm: string;
   inputSub: Subscription;
+  resizeSub: Subscription;
   queryParams: any;
   selectedTarget: any;
   currentLocale: any;
@@ -97,7 +103,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private settingService: SettingsService, public utilityService: UtilityService,
-               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService ) {
+               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService, private resizeService: ResizeService ) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                 this.queryHistory = this.getHistory();
@@ -113,6 +119,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     this.queryField = new FormControl(this.currentTerm);
   }
 
@@ -125,6 +132,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         this.searchInput.nativeElement.focus();
       }
     });
+    // Let view initialize then calc margin
+    setTimeout(() => {
+      this.resetMargin = this.getResetMargin();
+    }, 100);
   }
 
   onFocus() {
@@ -250,6 +261,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.inputMargin = (width + 210) + 'px';
   }
 
+  getResetMargin() {
+    const outer = this.inputGroup.nativeElement.getBoundingClientRect();
+    const inner = this.searchInput.nativeElement.getBoundingClientRect();
+    return inner.x - outer.x + inner.width - 30 + 'px';
+  }
+
   // Add completion with right arrow key if caret is at the end of term
   addCompletion() {
     const input = this.searchInput.nativeElement;
@@ -285,6 +302,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     const target = event.value !== 'all' ? event.value : null;
     this.settingService.changeTarget(target);
     this.selectedTarget = target || null;
+  }
+
+  resetSearch() {
+    this.searchInput.nativeElement.value = '';
+    this.newInput(false, false);
   }
 
   newInput(selectedIndex, historyLink) {
@@ -365,5 +387,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   onClickedOutside(e: Event) {
     this.showHelp = false;
+  }
+
+  onResize(dims: {w: number, h: number}) {
+    this.resetMargin = this.getResetMargin();
   }
 }
