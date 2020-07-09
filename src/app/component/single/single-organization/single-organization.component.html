@@ -109,7 +109,7 @@
                         <div *ngFor="let row of linkFields" class="info-link-wrapper">
                             <ng-container *ngIf="item[row.field]; else noHomePage">
                                 <div class="col link">
-                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </ng-container>
                         </div>
@@ -119,12 +119,12 @@
                             <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
                             <div class="info-link-wrapper">
                                 <div class="col link">
-                                    <a href="https://en.ilmatieteenlaitos.fi/research" target="_blank"><ng-container i18n="@@research">Tutkimustoiminta</ng-container>&nbsp;<fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a href="https://en.ilmatieteenlaitos.fi/research" target="_blank"><ng-container i18n="@@research">Tutkimustoiminta</ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                             <div class="info-link-wrapper">
                                 <div class="col link">
-                                    <a href="https://julkaisut.fmi.fi/intl-peer-reviewed/" target="_blank"><ng-container i18n="@@publications">Julkaisut</ng-container>&nbsp;<fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a href="https://julkaisut.fmi.fi/intl-peer-reviewed/" target="_blank"><ng-container i18n="@@publications">Julkaisut</ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>

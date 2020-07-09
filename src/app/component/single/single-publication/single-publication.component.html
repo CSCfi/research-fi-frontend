@@ -169,7 +169,7 @@
                             <!-- JuFo code links to external path -->
                             <a class="td" *ngSwitchCase="row.field === 'jufoCode'" (click)="navigate(row.field)" 
                              href="{{row.linkPath}}{{item[row.field]}}" target="_blank">
-                                 {{item[row.field]}} <fa-icon class="icon" icon="external-link-alt"></fa-icon>
+                                 {{item[row.field]}}<fa-icon class="icon" icon="external-link-alt"></fa-icon>
                             </a>
                             <!-- Every other link uses jufoCode as search term -->
                             <a class="td" *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
@@ -259,13 +259,13 @@
                                 <div class="col link doi">
                                     <span class="doi-tag">DOI</span>
                                     <span class="doi-link">
-                                        <a [attr.href]="'https://doi.org/'+item.doi" target="_blank">{{item.doi}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                        <a [attr.href]="'https://doi.org/'+item.doi" target="_blank">{{item.doi}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                     </span>
                                 </div>
                             </div>
                             <div *ngIf="row.field !== 'doi'" class="info-link-wrapper">
                                 <div class="col link">
-                                    <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +275,7 @@
                                 <div class="row links">
                                     <div class="info-link-wrapper">
                                         <div class="col link">
-                                            <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                            <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                         </div>
                                     </div>
                                 </div>
@@ -289,11 +289,11 @@
                         <mat-card-title><h2 i18n="@@externalLinks">Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar <fa-icon icon="external-link-alt"></fa-icon></a>
+                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar<fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
                                 <a href="https://search.crossref.org/?q={{item.doi !== ' ' ? item.doi : item.title}}" 
-                                target="_blank">CrossRef <fa-icon icon="external-link-alt"></fa-icon></a>
+                                target="_blank">CrossRef<fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                         </div>
                     </mat-card>

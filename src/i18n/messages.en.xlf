@@ -1644,10 +1644,10 @@
       <trans-unit id="accessibilityParagraph15" datatype="html">
         <source>Jos et ole tyytyväinen meiltä saamaasi vastaukseen, tai vastauksemme ei saavu 14 päivän kuluessa, voit tehdä ilmoituksen Etelä-Suomen aluehallintavirastoon.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
         <target>If you are not satisfied with the response you have received from us, or if our response does not arrive within 14 days, you may file a complaint with the Regional State Administrative Agency for Southern Finland.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">63</context>
@@ -3017,8 +3017,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP12" datatype="html">
-        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
-        <target><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>List of other controllers acting as joint controllers and their contact details <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+        <target><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>List of other controllers acting as joint controllers and their contact details<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">48</context>

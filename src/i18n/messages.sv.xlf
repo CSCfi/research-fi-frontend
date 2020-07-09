@@ -1638,10 +1638,10 @@
       <trans-unit id="accessibilityParagraph15" datatype="html">
         <source>Jos et ole tyytyväinen meiltä saamaasi vastaukseen, tai vastauksemme ei saavu 14 päivän kuluessa, voit tehdä ilmoituksen Etelä-Suomen aluehallintavirastoon.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
         <target>Om du inte är nöjd med vårt svar eller om du inte får svar inom 14 dagar, kan du göra en anmälan till Regionförvaltningsverket i Södra Finland.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">63</context>
@@ -3015,8 +3015,8 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         </context-group>
       </trans-unit>
       <trans-unit id="PP12" datatype="html">
-        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
-        <target state="translated"><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Förteckning över övriga personuppgiftsansvariga som fungerar som gemensamma personuppgiftsansvariga och deras kontaktuppgifter  <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+        <target state="translated"><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Förteckning över övriga personuppgiftsansvariga som fungerar som gemensamma personuppgiftsansvariga och deras kontaktuppgifter<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">48</context>
@@ -3306,9 +3306,9 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       </trans-unit>
       <trans-unit id="PP48" datatype="html">
         <source>Rekisteröidyllä on oikeus jättää valitus tietosuojavaltuutetulle, jos hän katsoo, ettei henkilötietojen käsittely ole lainmukaista. Tietosuojavaltuutettuun saa yhteyden täältä: 
-                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://tietosuoja.fi/yhteystiedot <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
-        <target state="translated">Den registrerade har rätt att lämna in ett klagomål till dataombudsmannen om han eller hon anser att behandlingen av personuppgifter inte är lagenlig. Dataombudsmannen kan kontaktas här:  
-                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://tietosuoja.fi/en/contact-information <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
+                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://tietosuoja.fi/yhteystiedot<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
+        <target state="translated">Den registrerade har rätt att lämna in ett klagomål till dataombudsmannen om han eller hon anser att behandlingen av personuppgifter inte är lagenlig. Dataombudsmannen kan kontaktas här: 
+                                                    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://tietosuoja.fi/en/contact-information<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
