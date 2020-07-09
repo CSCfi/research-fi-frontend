@@ -72,6 +72,32 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     {labelFi: $localize`:@@otherResearchActivity:Muu tutkimustoiminta`, tab: '', disabled: true},
   ];
 
+  // Translation links
+  vipunenLink = {
+    Fi: 'https://vipunen.fi/',
+    En: 'https://vipunen.fi/en-gb/',
+    Sv: 'https://vipunen.fi/sv-fi/'
+  }
+
+  statcenterLink = {
+    Fi: 'http://www.tilastokeskus.fi/',
+    En: 'http://www.tilastokeskus.fi/index_en.html',
+    Sv: 'http://www.tilastokeskus.fi/index_sv.html'
+  }
+
+  fintoLink = {
+    Fi: 'http://finto.fi/cn/fi/',
+    En: 'http://finto.fi/cn/en/',
+    Sv: 'http://finto.fi/cn/sv/'
+  }
+
+  ytjLink = {
+    Fi: 'https://www.ytj.fi/',
+    En: 'https://www.ytj.fi/en/index.html',
+    Sv: 'https://www.ytj.fi/sv/index.html'
+  }
+
+
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
