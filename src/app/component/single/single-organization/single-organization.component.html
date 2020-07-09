@@ -157,10 +157,10 @@
                         <p>Virta/Vipunen/etc?</p>
                     </div> -->
                     <ul>
-                        <li class="py-2"><a href="http://www.vipunen.fi" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a href="http://finto.fi/cn/fi/" target="_blank">Finto –palvelu <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a href="https://www.ytj.fi/ " target="_blank">Yritys– ja yhteisötietojärjestelmä (YTJ) <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a href="https://www.stat.fi/" target="_blank">Tilastokeskus <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="vipunenLink[currentLocale]" target="_blank"><ng-container i18n="@@vipunenSimple">Vipunen</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="fintoLink[currentLocale]" target="_blank"><ng-container i18n="@@finto">Finto –palvelu</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="ytjLink[currentLocale]" target="_blank"><ng-container i18n="@@ytj">Yritys– ja yhteisötietojärjestelmä (YTJ)</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="statcenterLink[currentLocale]" target="_blank"><ng-container i18n="@@tilastokeskus">Tilastokeskus</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
                     </ul>
                     <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div> -->

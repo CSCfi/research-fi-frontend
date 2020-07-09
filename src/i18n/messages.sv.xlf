@@ -1303,6 +1303,14 @@
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="vipunenSimple" datatype="html">
+        <source>Vipunen</source>
+        <target>Vipunen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="tilastokeskus" datatype="html">
         <source>Tilastokeskus</source>
         <target>Statistikcentralen</target>
@@ -1330,6 +1338,22 @@
       <trans-unit id="csc" datatype="html">
         <source>CSC - Tieteen tietotekniikan keskus Oy</source>
         <target>CSC</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="finto" datatype="html">
+        <source>Finto –palvelu</source>
+        <target>Finto service</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ytj" datatype="html">
+        <source>Yritys– ja yhteisötietojärjestelmä (YTJ)</source>
+        <target>Företags- och organisationsdatasystemet (YTJ)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">73</context>

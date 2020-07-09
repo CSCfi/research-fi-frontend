@@ -146,6 +146,10 @@ html {
   padding: 0 32px;
 }
 
+fa-icon[icon="external-link-alt"] {
+  padding-left: 5px;
+}
+
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
   button:focus, input:focus, select:focus, textarea:focus, *:focus {
