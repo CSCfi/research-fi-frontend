@@ -2675,7 +2675,7 @@
       </trans-unit>
       <trans-unit id="orgStaffCount">
         <source>Opetus- ja tutkimushenkilöstön määrä (htv)</source>
-        <target>Number of teaching and research staff (py</target>
+        <target>Number of teaching and research staff (py)</target>
       </trans-unit>
       <trans-unit id="orgThesisCountBsc">
         <source>Alempi korkeakoulututkinto</source>
@@ -2692,6 +2692,10 @@
       <trans-unit id="orgThesisCountPhd">
         <source>Tohtorintutkinto</source>
         <target>Doctoral degree</target>
+      </trans-unit>
+      <trans-unit id="thesisCount">
+        <source>Tutkintojen määrä</source>
+        <target>Number of degress attained</target>
       </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>
@@ -2711,7 +2715,7 @@
       </trans-unit>
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
-        <target>Source: Vipunen - Education Statistics Finland</target>
+        <target>Source: Vipunen - Education Statistics Finland https://vipunen.fi/en-gb/</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">

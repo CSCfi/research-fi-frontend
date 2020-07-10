@@ -49,8 +49,8 @@
                     </div>
                     <div class="row content" *ngIf="studentCounts.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            <ng-container i18n="@@thesisCount"></ng-container>Tutkintojen määrä ({{item.thesisYear}})
-                            <span i18n-tooltip tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                            <ng-container i18n="@@thesisCount">Tutkintojen määrä</ng-container>({{item.thesisYear}})
+                            <span i18n-tooltip="@@vipunenSource" tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                             </span>
                         </h2>

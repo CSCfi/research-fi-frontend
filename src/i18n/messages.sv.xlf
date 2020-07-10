@@ -2690,6 +2690,10 @@
         <source>Tohtorintutkinto</source>
         <target state="translated">Doktorsexamen</target>
       </trans-unit>
+      <trans-unit id="thesisCount">
+        <source>Tutkintojen määrä</source>
+        <target state="translated">Antal examina</target>
+      </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>
         <target state="translated">Underenheter</target>
