@@ -38,8 +38,9 @@ export class FilterMethodService {
         key: majorField.key,
         label: majorField.key,
         // Invalid response if key is 0
-        id: majorField.fieldId ? majorField.fieldId.buckets[majorField.fieldId.buckets[0].key === 0 ? 1 : 0].key : -1,
-        doc_count: majorField.fieldId ? majorField.fieldId.buckets[majorField.fieldId.buckets[0].key === 0 ? 1 : 0].doc_count : -1}));
+        id: majorField.fieldId.buckets[0].key || - 1,
+        doc_count: majorField.fieldId.buckets[0].key ? majorField.fieldId.buckets[0].doc_count : - 1
+      }));
     }
     // Loop through major fields & push all instances as separate arrays
     for (let i = 1; i < this.staticDataService.majorFieldsOfScience.length; i++) {
