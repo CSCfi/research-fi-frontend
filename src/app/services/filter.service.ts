@@ -415,6 +415,7 @@ export class FilterService {
             script: s.script,
             size: s.size,
             // Include only active filter buckets
+            // http://localhost:4200/results/publications?organization=10089&page=1&field=Korva-%20nen%C3%A4-%20ja%20kurkkutaudit,%20silm%C3%A4taudit&openAccess=openAccess&year=2011&year=2014&year=2015&countryCode=c0
             include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
             // Exclude empty strings
             exclude: s.exclude,
