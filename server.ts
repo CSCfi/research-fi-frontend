@@ -73,7 +73,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://doi.org:*',
       'https://data.crossref.org:*',
       'https://app.powerbi.com:*',
-      'https://fonts.googleapis.com:*'
+      'https://fonts.googleapis.com:*',
     ],
     styleSrc: [
       '\'self\'',
@@ -83,6 +83,7 @@ app.use(helmet.contentSecurityPolicy({
     scriptSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
+      '\'unsafe-eval\'',
       'https://*.csc.fi:*'
     ],
     frameSrc: [

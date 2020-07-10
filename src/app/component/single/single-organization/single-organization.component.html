@@ -49,8 +49,8 @@
                     </div>
                     <div class="row content" *ngIf="studentCounts.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            <ng-container i18n="@@thesisCount"></ng-container>Tutkintojen määrä ({{item.thesisYear}})
-                            <span i18n-tooltip tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                            <ng-container i18n="@@thesisCount">Tutkintojen määrä</ng-container>({{item.thesisYear}})
+                            <span i18n-tooltip="@@vipunenSource" tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                 <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
                             </span>
                         </h2>
@@ -109,7 +109,7 @@
                         <div *ngFor="let row of linkFields" class="info-link-wrapper">
                             <ng-container *ngIf="item[row.field]; else noHomePage">
                                 <div class="col link">
-                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </ng-container>
                         </div>
@@ -119,12 +119,12 @@
                             <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
                             <div class="info-link-wrapper">
                                 <div class="col link">
-                                    <a href="https://en.ilmatieteenlaitos.fi/research" target="_blank"><ng-container i18n="@@research">Tutkimustoiminta</ng-container>&nbsp;<fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a href="https://en.ilmatieteenlaitos.fi/research" target="_blank"><ng-container i18n="@@research">Tutkimustoiminta</ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                             <div class="info-link-wrapper">
                                 <div class="col link">
-                                    <a href="https://julkaisut.fmi.fi/intl-peer-reviewed/" target="_blank"><ng-container i18n="@@publications">Julkaisut</ng-container>&nbsp;<fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a href="https://julkaisut.fmi.fi/intl-peer-reviewed/" target="_blank"><ng-container i18n="@@publications">Julkaisut</ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -157,10 +157,10 @@
                         <p>Virta/Vipunen/etc?</p>
                     </div> -->
                     <ul>
-                        <li class="py-2"><a href="http://www.vipunen.fi" target="_blank">Vipunen <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a href="http://finto.fi/cn/fi/" target="_blank">Finto –palvelu <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a href="https://www.ytj.fi/ " target="_blank">Yritys– ja yhteisötietojärjestelmä (YTJ) <fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a href="https://www.stat.fi/" target="_blank">Tilastokeskus <fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="vipunenLink[currentLocale]" target="_blank"><ng-container i18n="@@vipunenSimple">Vipunen</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="fintoLink[currentLocale]" target="_blank"><ng-container i18n="@@finto">Finto –palvelu</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="ytjLink[currentLocale]" target="_blank"><ng-container i18n="@@ytj">Yritys– ja yhteisötietojärjestelmä (YTJ)</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
+                        <li class="py-2"><a [href]="statcenterLink[currentLocale]" target="_blank"><ng-container i18n="@@tilastokeskus">Tilastokeskus</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
                     </ul>
                     <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div> -->

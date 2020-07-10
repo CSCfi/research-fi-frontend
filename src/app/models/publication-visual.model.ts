@@ -72,8 +72,8 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     countryNames = ['Suomi', 'Muu'];
     
     constructor(private sds: StaticDataService) {
-        // Get class descriptions from static data service
-        this.publicationTypeNames = this.sds.publicationClass.map(x => x.types).flat();
+        // Get class descriptions from static data service, don't modify original data
+        this.publicationTypeNames = JSON.parse(JSON.stringify(this.sds.publicationClass)).map(x => x.types).flat();
         // Modify name to include type
         this.publicationTypeNames.forEach(y => y.label = y.type + ', ' + y.label);
         // Convert into object with keys

@@ -231,8 +231,8 @@
                             <div *ngFor="let row of linkFields" class="info-link-wrapper">
                                 <div class="col link">
                                     <!-- Cordis link is displayed only with eu funding. Filtering is done in ts file -->
-                                    <a *ngIf="row.field === 'funderProjectNumber'" class="info-link" href="https://cordis.europa.eu/project/id/{{item[row.field]}}" target="_blank">https://cordis.europa.eu/project/id/{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
-                                    <a *ngIf="row.field !== 'funderProjectNumber'" class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a *ngIf="row.field === 'funderProjectNumber'" class="info-link" href="https://cordis.europa.eu/project/id/{{item[row.field]}}" target="_blank">https://cordis.europa.eu/project/id/{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a *ngIf="row.field !== 'funderProjectNumber'" class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
