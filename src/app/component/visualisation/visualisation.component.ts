@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, Inject, Input, ViewChild, ElementRef } from '@angular/core';
-import { Visual } from 'src/app/models/visualisations.model';
+import { Visual } from 'src/app/models/visualisation/visualisations.model';
 import { DOCUMENT } from '@angular/common';
 import { WINDOW } from 'src/app/services/window.service';
 

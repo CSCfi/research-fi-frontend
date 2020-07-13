@@ -19,7 +19,7 @@ import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
 import { Publication } from '../models/publication.model';
 import { News, NewsAdapter } from '../models/news.model';
-import { VisualAdapter, Visual } from '../models/visualisations.model';
+import { VisualAdapter, Visual } from '../models/visualisation/visualisations.model';
 
 @Injectable()
 export class SearchService {

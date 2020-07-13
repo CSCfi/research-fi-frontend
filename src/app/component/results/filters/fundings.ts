@@ -56,7 +56,9 @@ export class FundingFilters {
     // Major field
     source.field.buckets = this.minorField(source.field.fields.buckets);
     // Finnish Academy field
-    source.faField = source.faField.faFields;
+    if (!source.shaped) {
+      source.faField = source.faField.faFields;
+    }
     source.shaped = true;
     source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
     return source;

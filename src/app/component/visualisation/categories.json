@@ -48,7 +48,12 @@
             "title": "Julkaisujen määrä avoimen saatavuuden mukaan",
             "select": "Avoin saatavuus"
           }
-      
-    ],
-    "funding": []
+        ],
+        "funding": [
+          {
+            "field": "year",
+            "title": "Hankkeiden määrä vuosittain",
+            "select": "Vuosi"
+          }
+    ]
 }

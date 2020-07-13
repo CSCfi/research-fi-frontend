@@ -190,5 +190,24 @@
                 }
             ]
         }
+    ],
+    "funding": [
+        {
+            "field": "year",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
+        }
     ]
 }

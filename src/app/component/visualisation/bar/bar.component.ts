@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
-import { publication } from '../categories.json'
-import { Visual, VisualData, VisualDataObject } from 'src/app/models/visualisations.model';
-import { PublicationVisual } from 'src/app/models/publication-visual.model';
+import { publication, funding } from '../categories.json'
+import { Visual, VisualData, VisualDataObject } from 'src/app/models/visualisation/visualisations.model';
+import { PublicationVisual } from 'src/app/models/visualisation/publication-visual.model';
 import { UtilityService } from 'src/app/services/utility.service';
+import { FundingVisual } from 'src/app/models/visualisation/funding-visual.model';
 
 @Component({
   selector: 'app-bar',
@@ -53,17 +54,24 @@ export class BarComponent implements OnInit, OnChanges {
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
+      console.log(changes)
       this.update(+this.visIdx, this.percentage);
     }
   }
 
   update(fieldIdx: number, percentage = false) {
 
-    let publicationData: PublicationVisual;
+    let visualisationData: PublicationVisual | FundingVisual;
+
 
     switch (this.tab) {
       case 'publications':
-        publicationData = this.data.publicationData;
+        visualisationData = this.data.publicationData;
+        this.categories = publication;
+        break;
+        case 'fundings':
+          visualisationData = this.data.fundingData;
+          this.categories = funding;
         break;
     
       default:
@@ -71,9 +79,9 @@ export class BarComponent implements OnInit, OnChanges {
     }
 
     const filterObject = this.categories[fieldIdx];
-    const sample: VisualData[] = publicationData[filterObject.field];
+    const sample: VisualData[] = visualisationData[filterObject.field];
 
-    console.log(publicationData)
+    console.log(visualisationData)
     console.log(sample)
 
     // Get the doc count of the year with the highest doc count

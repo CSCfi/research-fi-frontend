@@ -23,8 +23,8 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
-import { publication } from '../visualisation/categories.json';
-import { Visual } from 'src/app/models/visualisations.model';
+import { publication, funding } from '../visualisation/categories.json';
+import { Visual } from 'src/app/models/visualisation/visualisations.model';
 
 @Component({
   selector: 'app-results',
@@ -176,8 +176,20 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tabChangeService.changeTab(this.selectedTabData);
           this.sortService.updateTab(this.selectedTabData.data);
           this.updateTitle(this.selectedTabData);
-          // TODO: REMOVE
-          this.visual = false;
+          switch (this.tab) {
+            case 'publications':
+              this.visualisationCategories = publication;
+              break;
+            case 'fundings':
+              this.visualisationCategories = funding;
+              break;
+          
+            default:
+              this.visualisationCategories = [];
+              break;
+          }
+          this.visIdx = '0';
+          this.visual = this.visual && !!this.visualisationCategories.length;
         }
 
         this.sortService.updateSort(query.sort);
@@ -290,8 +302,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   
   changeVisual(event: any) {
-    // Reset data so old data isn't used
-    this.visualData = undefined;
     // Update idx
     this.visIdx = event.value
     // Get data
@@ -299,6 +309,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getVisualData() {
+    // Reset data so old data isn't used
+    this.visualData = undefined;
     this.visualLoading = true;
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {

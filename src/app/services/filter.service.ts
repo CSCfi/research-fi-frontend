@@ -9,7 +9,7 @@ import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
-import { publication } from 'src/assets/static-data/visualisation.json';
+import { publication, funding } from 'src/assets/static-data/visualisation.json';
 
 @Injectable({
   providedIn: 'root'
@@ -373,6 +373,10 @@ export class FilterService {
     switch (tab) {
       case 'publications':
         hierarchy = publication[categoryIdx];
+        break;
+
+      case 'fundings':
+        hierarchy = funding[categoryIdx];
         break;
     
       default:
