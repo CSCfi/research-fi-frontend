@@ -23,7 +23,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
-import { publication, funding } from '../visualisation/categories.json';
+import { publication, funding } from 'src/assets/static-data/visualisation.json'
 import { Visual } from 'src/app/models/visualisation/visualisations.model';
 
 @Component({

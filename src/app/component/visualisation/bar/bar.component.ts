@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
-import { publication, funding } from '../categories.json'
+import { publication, funding } from 'src/assets/static-data/visualisation.json'
 import { Visual, VisualData, VisualDataObject } from 'src/app/models/visualisation/visualisations.model';
 import { PublicationVisual } from 'src/app/models/visualisation/publication-visual.model';
 import { UtilityService } from 'src/app/services/utility.service';
@@ -78,8 +78,8 @@ export class BarComponent implements OnInit, OnChanges {
         break;
     }
 
-    const filterObject = this.categories[fieldIdx];
-    const sample: VisualData[] = visualisationData[filterObject.field];
+    const categoryObject = this.categories[fieldIdx];
+    const sample: VisualData[] = visualisationData[categoryObject.field];
 
     console.log(visualisationData)
     console.log(sample)
@@ -233,7 +233,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('x', this.innerWidth / 2)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
-        .text(filterObject.title);
+        .text(categoryObject.title);
 
     this.g.append('foreignObject')
         .attr('x', -this.margin * 2)
@@ -242,7 +242,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.margin * 2)
         .append('xhtml:div')
           .style('font-size', '14px')
-          .html(filterObject.message);  
+          .html(categoryObject.message);  
   }
   
   showInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[], color: d3.ScaleOrdinal<string, string>, percent?: string) {
