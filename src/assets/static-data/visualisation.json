@@ -208,6 +208,23 @@
                     "order": 0
                 }
             ]
+        },
+        {
+            "field": "funder",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "funderNameFi.keyword",
+                    "name": "funder",
+                    "size": 100,
+                    "order": 2
+                }
+            ]
         }
     ]
 }

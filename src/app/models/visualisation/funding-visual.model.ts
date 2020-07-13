@@ -13,7 +13,8 @@ import { StaticDataService } from '../../services/static-data.service';
 export class FundingVisual {
 
     constructor(
-        public year: VisualData[]
+        public year: VisualData[],
+        public funder: VisualData[]
     ) {}
 }
 
@@ -23,6 +24,7 @@ export class FundingVisual {
 export class FundingVisualAdapter implements Adapter<FundingVisual> {
     private names = {
         year: '',
+        funder: 'f.key',
     }
 
     
@@ -57,6 +59,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         
         // Init arrays
         const year: VisualData[] = [];
+        const funder: VisualData[] = [];
         
         const field = funding[categoryIdx].field;
 
@@ -89,7 +92,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         }
                 
         return new FundingVisual(
-            year
+            year,
+            funder
         );
     }
 }

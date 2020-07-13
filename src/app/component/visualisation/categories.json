@@ -54,6 +54,11 @@
             "field": "year",
             "title": "Hankkeiden määrä vuosittain",
             "select": "Vuosi"
+          },
+          {
+            "field": "funder",
+            "title": "Hankkeiden rahoittajan mukaan",
+            "select": "Rahoittaja"
           }
     ]
 }
