@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
 import { publication, funding } from 'src/assets/static-data/visualisation.json'
-import { Visual, VisualData, VisualDataObject } from 'src/app/models/visualisation/visualisations.model';
+import { Visual, VisualData, VisualDataObject, VisualQueryHierarchy, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { PublicationVisual } from 'src/app/models/visualisation/publication-visual.model';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FundingVisual } from 'src/app/models/visualisation/funding-visual.model';
@@ -35,7 +35,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   @Input() visIdx: string;
 
-  categories = publication;
+  categories: VisualQuery[] = publication;
 
   constructor() { }
 
@@ -54,7 +54,6 @@ export class BarComponent implements OnInit, OnChanges {
       // Height and width with margins
       this.innerHeight = this.height - 3 * this.margin;
       this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
-      console.log(changes)
       this.update(+this.visIdx, this.percentage);
     }
   }

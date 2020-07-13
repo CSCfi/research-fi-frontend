@@ -23,6 +23,26 @@ export interface VisualDataObject {
     parent: string,
 }
 
+export interface VisualQueryHierarchy {
+    field?: string,
+    name: string,
+    size?: number,
+    order?: number,
+    filterName?: string,
+    exclude?: string[],
+    nested?: string,
+    script?: string
+}
+
+export interface VisualQuery {
+    field: string,
+    title: string,
+    select: string,
+    message?: string,
+    hierarchy: VisualQueryHierarchy[],
+    hierarchy2?: VisualQueryHierarchy[]
+}
+
 
 export class Visual {
     constructor(

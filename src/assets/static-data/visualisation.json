@@ -209,6 +209,20 @@
                     "size": 50,
                     "order": 2
                 }
+            ],
+            "hierarchy2": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "publicationYear",
+                    "name": "openAccess",
+                    "size": 50,
+                    "order": 2
+                }
             ]
         }
     ],
@@ -250,6 +264,63 @@
                     "order": 1
                 }
             ]
+        },
+        {        
+            "field": "organization",
+            "title": "Hankkeiden määrä organisaatioittain",
+            "select": "Organisaatio",
+            "message": "Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "name": "orgNested",
+                    "nested": "fundingGroupPerson"
+                },
+                {
+                    "field": "fundingGroupPerson.consortiumOrganizationId.keyword",
+                    "name": "organizationId",
+                    "size": 100,
+                    "order": 2,
+                    "filterName": "organization"
+                },
+                {
+                    "field": "fundingGroupPerson.fundedPerson",
+                    "name": "organizationName",
+                    "size": 1,
+                    "order": 0
+                }
+            ],
+            "hierarchy2": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "name": "orgNested",
+                    "nested": "organizationConsortium"
+                },
+                {
+                    "field": "organizationConsortium.consortiumOrganizationId.keyword",
+                    "name": "organizationId",
+                    "size": 100,
+                    "order": 2,
+                    "filterName": "organization"
+                },
+                {
+                    "field": "organizationConsortium.consortiumOrganizationNameFi.keyword",
+                    "name": "organizationName",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
         }
+
     ]
 }
