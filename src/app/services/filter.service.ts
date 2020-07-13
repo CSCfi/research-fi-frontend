@@ -415,6 +415,7 @@ export class FilterService {
             script: s.script,
             size: s.size,
             // Include only active filter buckets
+            // TODO: Solve include on 2nd level (field of science) with low amount of results
             include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
             // Exclude empty strings
             exclude: s.exclude,

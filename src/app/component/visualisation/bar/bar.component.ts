@@ -124,6 +124,8 @@ export class BarComponent implements OnInit, OnChanges {
     // Y axis
     this.g.append('g')
         .call(axisLeft(this.y)
+              // Only show integer ticks
+              .tickValues(this.y.ticks().filter(t => Number.isInteger(t)))
               .tickFormat(d => d + (percentage ? '%' : '')));
 
     // X axis    
@@ -135,10 +137,11 @@ export class BarComponent implements OnInit, OnChanges {
     this.g.append('g')
         .attr('class', 'grid')
         .call(axisLeft(this.y)
-            .ticks(5)
+            // Limit ticks on small amount of results
+            .ticks(Math.min(5, this.y.ticks().filter(t => Number.isInteger(t)).length - 1))
             .tickSize(-this.innerWidth)
             .tickFormat((_, __) => ''));
-  
+
     // Keep track of all keys inserted so far
     const cumulativeKeys: string[] = [];
 
