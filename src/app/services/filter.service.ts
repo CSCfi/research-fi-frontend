@@ -412,6 +412,14 @@ export class FilterService {
               path: s.nested
             }
           }
+        } else if (s.filter) {
+          q.aggs[s.name] = {
+            filter: {
+              terms: {
+                [s.filter.field]: s.filter.value
+              }
+            }
+          }
         } else {
           // Add terms object
           q.aggs[s.name] = {

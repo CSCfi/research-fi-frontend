@@ -24,7 +24,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { publication, funding } from 'src/assets/static-data/visualisation.json'
-import { Visual } from 'src/app/models/visualisation/visualisations.model';
+import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 
 @Component({
   selector: 'app-results',
@@ -75,7 +75,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visual = false;
   visIdx = "0";
   visualLoading = false;
-  visualisationCategories = publication;
+  visualisationCategories: VisualQuery[] = publication;
   visualData: Visual;
   percentage = false;
 

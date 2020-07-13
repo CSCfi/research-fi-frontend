@@ -14,7 +14,8 @@ export class FundingVisual {
 
     constructor(
         public year: VisualData[],
-        public funder: VisualData[]
+        public funder: VisualData[],
+        public organization: VisualData[]
     ) {}
 }
 
@@ -60,6 +61,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         // Init arrays
         const year: VisualData[] = [];
         const funder: VisualData[] = [];
+        const organization: VisualData[] = [];
         
         const field = funding[categoryIdx].field;
 
@@ -67,6 +69,48 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
 
         // Adapt based on current visualisation
         switch (field) {
+
+            case 'organization':
+
+                const combined = [];
+
+                // Combine the two aggregations
+                // fundingGroupPerson
+                item.aggregations.organization.buckets.forEach(b => {
+                    b.orgs = [];
+
+                    b.orgNested.fundedPerson.sectorName.buckets.forEach(s => {
+                        b.orgs.push(...s.organizationId.buckets)
+                    })
+                    combined.push({key: b.key, orgs: b.orgs});
+                });
+                
+                // organizationConsortium
+                item.aggregations.organization2.buckets.forEach(b => {
+                    const target = combined.find(x => x.key === b.key)
+                    b.orgNested.finnishOrganization.sectorName.buckets.forEach(s => {
+                        target.orgs.push(...s.organizationId.buckets);
+                    })
+                })
+
+                // item.aggregations.organization.buckets.forEach(b => tmp.push(b));
+
+                combined.forEach(b => {
+                    b.data = [];
+                    b.orgs.forEach(f => {
+                        const v: any = {};
+                        v.name = f.organizationName.buckets.shift().key.toString();
+                        v.doc_count = f.doc_count;
+                        v.parent = b.key;
+                        b.data.push(v);
+                    })
+                    organization.push(b);
+                })
+
+                // Sort the organizations alphabetically
+                organization.forEach(o => o.data.sort((a, b) => +(b.name > a.name) - 0.5))
+                
+                break;
 
             default:
 
@@ -86,14 +130,16 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     // Push data to correct array
                     eval(`${hierarchyField}.push(b)`);
                 });
-
-
                 break;
         }
+
+        // Group duplicate names from the two aggregations
+        this.groupNames(organization)
                 
         return new FundingVisual(
             year,
-            funder
+            funder,
+            organization
         );
     }
 }

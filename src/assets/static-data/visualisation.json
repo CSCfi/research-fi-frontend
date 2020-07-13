@@ -269,7 +269,7 @@
             "field": "organization",
             "title": "Hankkeiden määrä organisaatioittain",
             "select": "Organisaatio",
-            "message": "Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään",
+            "message": "Huom. Yhdellä hankkeella voi olla useita organisaatioita. Hanke sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään",
             "hierarchy": [
                 {
                     "field": "fundingStartYear",
@@ -282,6 +282,20 @@
                     "nested": "fundingGroupPerson"
                 },
                 {
+                    "name": "fundedPerson",
+                    "filter": {
+                        "field": "fundingGroupPerson.fundedPerson",
+                        "value": [1]
+                    }
+                },
+                {
+                    "field": "fundingGroupPerson.fundedPersonOrganizationNameFi.keyword",
+                    "name": "sectorName",
+                    "size": 10,
+                    "order": 2,
+                    "exclude": " |Rahoittaja"
+                },
+                {
                     "field": "fundingGroupPerson.consortiumOrganizationId.keyword",
                     "name": "organizationId",
                     "size": 100,
@@ -289,7 +303,7 @@
                     "filterName": "organization"
                 },
                 {
-                    "field": "fundingGroupPerson.fundedPerson",
+                    "field": "fundingGroupPerson.consortiumOrganizationNameFi.keyword",
                     "name": "organizationName",
                     "size": 1,
                     "order": 0
@@ -305,6 +319,20 @@
                 {
                     "name": "orgNested",
                     "nested": "organizationConsortium"
+                },
+                {
+                    "name": "finnishOrganization",
+                    "filter": {
+                        "field": "organizationConsortium.isFinnishOrganization",
+                        "value": [1]
+                    }
+                },
+                {
+                    "field": "organizationConsortium.consortiumSectorNameFi.keyword",
+                    "name": "sectorName",
+                    "size": 10,
+                    "order": 2,
+                    "exclude": " |Rahoittaja"
                 },
                 {
                     "field": "organizationConsortium.consortiumOrganizationId.keyword",

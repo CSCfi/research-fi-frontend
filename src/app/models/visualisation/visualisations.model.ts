@@ -29,8 +29,9 @@ export interface VisualQueryHierarchy {
     size?: number,
     order?: number,
     filterName?: string,
-    exclude?: string[],
+    exclude?: string | string[],
     nested?: string,
+    filter?: {field: string, value: any},
     script?: string
 }
 
