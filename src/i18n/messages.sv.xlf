@@ -2706,9 +2706,9 @@
         <source>Lähde: Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi/</source>
         <target state="translated">Källa: Finto - tesaurus- och ontologiservice www.finto.fi/sv/</target>
       </trans-unit>
-      <trans-unit id="yyjSource">
+      <trans-unit id="ytjSource">
         <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi/</source>
-        <target state="translated">Källa: Företags- och organisationsdatasystemet (YTJ) www.ytj.fi</target>
+        <target state="translated">Källa: Företags- och organisationsdatasystemet (YTJ) www.ytj.fi/sv/</target>
       </trans-unit>
       <trans-unit id="tkSource">
         <source>Lähde: Tilastokeskus https://www.stat.fi/</source>
