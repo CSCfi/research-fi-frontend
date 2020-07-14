@@ -56,6 +56,10 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="resetSearchTooltip" datatype="html">
+        <source>Tyhjennä haku</source>
+        <target>Ta bort sökningen</target>
+      </trans-unit>
       <trans-unit id="searchButton" datatype="html">
         <source>Hae</source>
         <target state="translated">Sök</target>
