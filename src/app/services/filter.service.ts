@@ -9,7 +9,8 @@ import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
-import { publication } from 'src/assets/static-data/visualisation.json';
+import { publication, funding } from 'src/assets/static-data/visualisation.json';
+import { VisualQueryHierarchy, VisualQuery } from '../models/visualisation/visualisations.model';
 
 @Injectable({
   providedIn: 'root'
@@ -368,65 +369,78 @@ export class FilterService {
     // Create query with filters and search term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
     // Query field hierarchy
-    let hierarchy = publication[0];
+    let category: VisualQuery = publication[0];
     // Get correct hierarchy based on tab
     switch (tab) {
       case 'publications':
-        hierarchy = publication[categoryIdx];
+        category = publication[categoryIdx];
+        break;
+
+      case 'fundings':
+        category = funding[categoryIdx];
         break;
     
       default:
         break;
     }
 
-    const h = hierarchy;
-    let agg: any = {};
-    let q = agg;
+    // Get hierarchy object
+    const h = category;
 
-    // Populate query with aggregations
-    for (let i = 0; i < h.hierarchy.length; i++) {
-      // Get the next field
-      const s: {
-        field?: string,
-        name: string,
-        size?: number,
-        order?: number,
-        filterName?: string,
-        exclude?: string[],
-        nested?: string,
-        script?: string
-      } = h.hierarchy[i];
-      // Name aggregation hierarchy after field names
-      q = (i === 0) ? q : (q.aggs[h.hierarchy[i - 1].name]);
-      // Add empty aggs
-      q.aggs = {};
-      // Nested logic (author -> organization)
-      if (s.nested) {
-        q.aggs[s.name] = {
-          nested: {
-            path: s.nested
+    // Support for multiple aggregations in one query (funding organization)
+    const levels = 1 + +!!h.hierarchy2;
+    for (let loops = 0; loops < levels; loops++) {
+
+      // Reset query object
+      const agg: any = {};
+      let q = agg;
+
+      const hierarchy = loops ? h.hierarchy2 : h.hierarchy;
+
+      // Populate query with aggregations
+      for (let i = 0; i < hierarchy.length; i++) {
+        // Get the next field
+        const s: VisualQueryHierarchy = hierarchy[i];
+        // Name aggregation hierarchy after field names
+        q = (i === 0) ? q : (q.aggs[hierarchy[i - 1].name]);
+        // Add empty aggs
+        q.aggs = {};
+        // Nested logic (author -> organization)
+        if (s.nested) {
+          q.aggs[s.name] = {
+            nested: {
+              path: s.nested
+            }
           }
+        } else if (s.filter) {
+          q.aggs[s.name] = {
+            filter: {
+              terms: {
+                [s.filter.field]: s.filter.value
+              }
+            }
+          }
+        } else {
+          // Add terms object
+          q.aggs[s.name] = {
+            terms: {
+              field: s.field,
+              script: s.script,
+              size: s.size,
+              // Include only active filter buckets
+              // TODO: Solve include on 2nd level (field of science) with low amount of results
+              include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
+              // Exclude empty strings
+              exclude: s.exclude,
+              // Add order if needed
+              order: s.order ? (s.order - 1 ? orderAsc : orderDesc): undefined
+            }
+          };
         }
-      } else {
-        // Add terms object
-        q.aggs[s.name] = {
-          terms: {
-            field: s.field,
-            script: s.script,
-            size: s.size,
-            // Include only active filter buckets
-            // TODO: Solve include on 2nd level (field of science) with low amount of results
-            include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
-            // Exclude empty strings
-            exclude: s.exclude,
-            // Add order if needed
-            order: s.order ? (s.order - 1 ? orderAsc : orderDesc): undefined
-          }
-        };
       }
+      // Add second level of aggs to query. Differentiate names of aggs
+      res.aggs[h.field + (loops ? loops + 1 : '')] = agg.aggs[hierarchy[0].name];
     }
-    // Add second level of aggs to query
-    res.aggs[h.field] = agg.aggs[h.hierarchy[0].name];
 
     // Add properties
     res.size = 0;

@@ -2,6 +2,8 @@
     "publication": [
         {
             "field": "year",
+            "title": "Julkaisujen määrä vuosittain",
+            "select": "Vuosi",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -19,6 +21,9 @@
         },
         {
             "field": "fieldOfScience",
+            "title": "Julkaisujen määrä tieteenaloittain",
+            "select": "Tieteenala",
+            "message": "Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -44,6 +49,9 @@
         },
         {
             "field": "majorFieldOfScience",
+            "title": "Julkaisujen määrä päätieteenaloittain",
+            "select": "Päätieteenala",
+            "message": "Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -69,6 +77,9 @@
         },
         {
             "field": "organization",
+            "title": "Julkaisujen määrä organisaatioittain",
+            "select": "Organisaatio",
+            "message": "Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -97,6 +108,8 @@
         },
         {
             "field": "publicationType",
+            "title": "Julkaisujen määrä julkaisutyypin mukaan",
+            "select": "Julkaisutyyppi",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -116,6 +129,8 @@
         },
         {
             "field": "country",
+            "title": "Julkaisujen määrä julkaisumaan mukaan",
+            "select": "Julkaisumaa",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -133,6 +148,8 @@
         },
         {
             "field": "lang",
+            "title": "Julkaisujen määrä kielen mukaan",
+            "select": "Kieli",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -157,6 +174,8 @@
         },
         {
             "field": "juFo",
+            "title": "Julkaisujen määrä julkaisufoorumitason mukaan",
+            "select": "Julkaisufoorumitaso",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -175,6 +194,8 @@
         },
         {
             "field": "openAccess",
+            "title": "Julkaisujen määrä avoimen saatavuuden mukaan",
+            "select": "Avoin saatavuus",
             "hierarchy": [
                 {
                     "field": "publicationYear",
@@ -188,7 +209,146 @@
                     "size": 50,
                     "order": 2
                 }
+            ],
+            "hierarchy2": [
+                {
+                    "field": "publicationYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "publicationYear",
+                    "name": "openAccess",
+                    "size": 50,
+                    "order": 2
+                }
             ]
         }
+    ],
+    "funding": [
+        {
+            "field": "year",
+            "title": "Hankkeiden määrä vuosittain",
+            "select": "Vuosi",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
+        },
+        {
+            "field": "funder",
+            "title": "Hankkeiden määrä rahoittajan mukaan",
+            "select": "Rahoittaja",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "funderNameFi.keyword",
+                    "name": "funder",
+                    "size": 100,
+                    "order": 1
+                }
+            ]
+        },
+        {        
+            "field": "organization",
+            "title": "Hankkeiden määrä organisaatioittain",
+            "select": "Organisaatio",
+            "message": "Huom. Yhdellä hankkeella voi olla useita organisaatioita. Hanke sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "name": "orgNested",
+                    "nested": "fundingGroupPerson"
+                },
+                {
+                    "name": "fundedPerson",
+                    "filter": {
+                        "field": "fundingGroupPerson.fundedPerson",
+                        "value": [1]
+                    }
+                },
+                {
+                    "field": "fundingGroupPerson.fundedPersonOrganizationNameFi.keyword",
+                    "name": "sectorName",
+                    "size": 10,
+                    "order": 2,
+                    "exclude": " |Rahoittaja"
+                },
+                {
+                    "field": "fundingGroupPerson.consortiumOrganizationId.keyword",
+                    "name": "organizationId",
+                    "size": 100,
+                    "order": 2,
+                    "filterName": "organization"
+                },
+                {
+                    "field": "fundingGroupPerson.consortiumOrganizationNameFi.keyword",
+                    "name": "organizationName",
+                    "size": 1,
+                    "order": 0
+                }
+            ],
+            "hierarchy2": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "name": "orgNested",
+                    "nested": "organizationConsortium"
+                },
+                {
+                    "name": "finnishOrganization",
+                    "filter": {
+                        "field": "organizationConsortium.isFinnishOrganization",
+                        "value": [1]
+                    }
+                },
+                {
+                    "field": "organizationConsortium.consortiumSectorNameFi.keyword",
+                    "name": "sectorName",
+                    "size": 10,
+                    "order": 2,
+                    "exclude": " |Rahoittaja"
+                },
+                {
+                    "field": "organizationConsortium.consortiumOrganizationId.keyword",
+                    "name": "organizationId",
+                    "size": 100,
+                    "order": 2,
+                    "filterName": "organization"
+                },
+                {
+                    "field": "organizationConsortium.consortiumOrganizationNameFi.keyword",
+                    "name": "organizationName",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
+        }
+
     ]
 }

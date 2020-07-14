@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
-import { publication } from '../categories.json'
-import { Visual, VisualData, VisualDataObject } from 'src/app/models/visualisations.model';
-import { PublicationVisual } from 'src/app/models/publication-visual.model';
+import { publication, funding } from 'src/assets/static-data/visualisation.json'
+import { Visual, VisualData, VisualDataObject, VisualQueryHierarchy, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
+import { PublicationVisual } from 'src/app/models/visualisation/publication-visual.model';
 import { UtilityService } from 'src/app/services/utility.service';
+import { FundingVisual } from 'src/app/models/visualisation/funding-visual.model';
 
 @Component({
   selector: 'app-bar',
@@ -34,7 +35,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   @Input() visIdx: string;
 
-  categories = publication;
+  categories: VisualQuery[] = publication;
 
   constructor() { }
 
@@ -59,21 +60,27 @@ export class BarComponent implements OnInit, OnChanges {
 
   update(fieldIdx: number, percentage = false) {
 
-    let publicationData: PublicationVisual;
+    let visualisationData: PublicationVisual | FundingVisual;
+
 
     switch (this.tab) {
       case 'publications':
-        publicationData = this.data.publicationData;
+        visualisationData = this.data.publicationData;
+        this.categories = publication;
+        break;
+        case 'fundings':
+          visualisationData = this.data.fundingData;
+          this.categories = funding;
         break;
     
       default:
         break;
     }
 
-    const filterObject = this.categories[fieldIdx];
-    const sample: VisualData[] = publicationData[filterObject.field];
+    const categoryObject = this.categories[fieldIdx];
+    const sample: VisualData[] = visualisationData[categoryObject.field];
 
-    console.log(publicationData)
+    console.log(visualisationData)
     console.log(sample)
 
     // Get the doc count of the year with the highest doc count
@@ -225,7 +232,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('x', this.innerWidth / 2)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
-        .text(filterObject.title);
+        .text(categoryObject.title);
 
     this.g.append('foreignObject')
         .attr('x', -this.margin * 2)
@@ -234,7 +241,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.margin * 2)
         .append('xhtml:div')
           .style('font-size', '14px')
-          .html(filterObject.message);  
+          .html(categoryObject.message);  
   }
   
   showInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[], color: d3.ScaleOrdinal<string, string>, percent?: string) {

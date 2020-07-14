@@ -41,7 +41,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </div>
         </div>
         <div>
-            <mat-slide-toggle [(ngModel)]="visual" *ngIf="!mobile && tab==='publications'">Tarkastele visualisaationa</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="visual" *ngIf="!mobile && visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle>
             <div>
                 <mat-form-field *ngIf="visual && !mobile">
                     <mat-label>Valitse visualisaatio</mat-label>

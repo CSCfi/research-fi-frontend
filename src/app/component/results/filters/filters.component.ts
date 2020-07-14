@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild, AfterViewChecked } from '@angular/core';
+  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -227,7 +227,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       // Restore focus after clicking a filter
       if (this.activeElement && isPlatformBrowser(this.platformId)) {
         setTimeout(() => {
-          (this.document.querySelector('#' + this.activeElement) as HTMLElement).focus();
+          (this.document.querySelector('#' + this.activeElement) as HTMLElement)?.focus();
         }, 1);
       }
     }

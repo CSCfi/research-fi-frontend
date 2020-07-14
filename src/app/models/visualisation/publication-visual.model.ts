@@ -5,10 +5,10 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 import { VisualData } from './visualisations.model';
 import { publication } from 'src/assets/static-data/visualisation.json';
-import { StaticDataService } from '../services/static-data.service';
+import { StaticDataService } from '../../services/static-data.service';
 
 export class PublicationVisual {
 
