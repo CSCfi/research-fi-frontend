@@ -33,20 +33,28 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   private commonTags = common;
 
   tab = 'organizations';
+
+  sources = {
+    finto: $localize`:@@fintoSource:Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi`,
+    ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
+    tk: $localize`:@@tkSource:Lähde: Tilastokeskus https://www.stat.fi/`,
+    vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`
+  }
+
   infoFields = [
     {label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`, field: 'nameTranslations'},
-    {label: $localize`:@@orgOtherNames:Muut nimet`, field: 'variantNames', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
-    {label: $localize`:@@orgEstablished:Perustettu`, field: 'established', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
-    {label: $localize`:@@orgBackground:Lisätietoa`, field: 'background', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
-    {label: $localize`:@@orgPredecessor:Edeltävä organisaatio`, field: 'predecessors', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
-    {label: $localize`:@@orgRelated:Liittyvä organisaatio`, field: 'related', tooltip: $localize`:@@fintoSource:Lähde: Finto www.finto.fi/cn/fi/`},
-    {label: $localize`:@@orgType:Organisaatiomuoto`, field: 'organizationType', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
-    {label: $localize`:@@orgSector:Organisaation tyyppi`, field: 'sectorNameFi', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
-    {label: $localize`:@@orgVAddress:Käyntiosoite`, field: 'visitingAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
-    {label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
-    {label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId', tooltip: $localize`:@@yyjSource:Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/`},
-    {label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`, field: 'statCenterId', tooltip: $localize`:@@tkSource:Lähde: Tilastokeskus https://www.stat.fi/`},
-    {label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`, field: 'staffCountAsFte', tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`},
+    {label: $localize`:@@orgOtherNames:Muut nimet`, field: 'variantNames', tooltip: this.sources.finto},
+    {label: $localize`:@@orgEstablished:Perustettu`, field: 'established', tooltip: this.sources.finto},
+    {label: $localize`:@@orgBackground:Lisätietoa`, field: 'background', tooltip: this.sources.finto},
+    {label: $localize`:@@orgPredecessor:Edeltävä organisaatio`, field: 'predecessors', tooltip: this.sources.finto},
+    {label: $localize`:@@orgRelated:Liittyvä organisaatio`, field: 'related', tooltip: this.sources.finto},
+    {label: $localize`:@@orgType:Organisaatiomuoto`, field: 'organizationType', tooltip: this.sources.ytj},
+    {label: $localize`:@@orgSector:Organisaation tyyppi`, field: 'sectorNameFi', tooltip: this.sources.ytj},
+    {label: $localize`:@@orgVAddress:Käyntiosoite`, field: 'visitingAddress', tooltip: this.sources.ytj},
+    {label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress', tooltip: this.sources.ytj},
+    {label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId', tooltip: this.sources.ytj},
+    {label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`, field: 'statCenterId', tooltip: this.sources.tk},
+    {label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`, field: 'staffCountAsFte', tooltip: this.sources.vipunen},
   ];
 
   studentCounts = [
@@ -57,7 +65,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   ];
 
   subUnitFields = [
-    {label: $localize`:@@orgSubUnits:Alayksiköt`, field: 'subUnits', tooltip: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`}
+    {label: $localize`:@@orgSubUnits:Alayksiköt`, field: 'subUnits', tooltip: this.sources.vipunen}
   ];
 
   linkFields = [

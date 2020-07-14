@@ -45,22 +45,22 @@ export class FundingFilters {
 
   shapeData(data) {
     const source = data.aggregations;
-    // Year
-    source.year.buckets = source.year.years.buckets;
-    // Organization
-    source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
-    // Funder
-    source.funder.buckets = this.funder(source.funder.funders.buckets);
-    // Type of funding
-    source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
-    // Major field
-    source.field.buckets = this.minorField(source.field.fields.buckets);
-    // Finnish Academy field
     if (!source.shaped) {
+      // Year
+      source.year.buckets = source.year.years.buckets;
+      // Organization
+      source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
+      // Funder
+      source.funder.buckets = this.funder(source.funder.funders.buckets);
+      // Type of funding
+      source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
+      // Major field
+      source.field.buckets = this.minorField(source.field.fields.buckets);
+      // Finnish Academy field
       source.faField = source.faField.faFields;
+      source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
     }
     source.shaped = true;
-    source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
     return source;
   }
 

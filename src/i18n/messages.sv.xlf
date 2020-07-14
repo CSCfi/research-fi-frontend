@@ -56,6 +56,10 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="resetSearchTooltip" datatype="html">
+        <source>Tyhjennä haku</source>
+        <target>Ta bort sökningen</target>
+      </trans-unit>
       <trans-unit id="searchButton" datatype="html">
         <source>Hae</source>
         <target state="translated">Sök</target>
@@ -1304,8 +1308,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="vipunenSimple" datatype="html">
-        <source>Vipunen</source>
-        <target>Vipunen</target>
+        <source>Vipunen - opetushallinnon tilastopalvelu</source>
+        <target>Vipunen - utbildningsförvaltningens statistiktjänst</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">67</context>
@@ -1344,8 +1348,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="finto" datatype="html">
-        <source>Finto –palvelu</source>
-        <target>Finto service</target>
+        <source>Finto - sanasto- ja ontologiapalvelu</source>
+        <target>Finto - tesaurus- och ontologiservice</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">73</context>
@@ -2699,16 +2703,16 @@
         <target state="translated">Underenheter</target>
       </trans-unit>
       <trans-unit id="fintoSource">
-        <source>Lähde: Finto www.finto.fi/cn/fi/</source>
-        <target state="translated">Källa: Finto www.finto.fi/cn/sv/</target>
+        <source>Lähde: Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi/</source>
+        <target state="translated">Källa: Finto - tesaurus- och ontologiservice www.finto.fi/sv/</target>
       </trans-unit>
-      <trans-unit id="yyjSource">
-        <source>Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/</source>
-        <target state="translated">Källa: Företags- och organisationsdatasystemet YTJ https://tietopalvelu.ytj.fi/yrityshaku.aspx?kielikoodi=2</target>
+      <trans-unit id="ytjSource">
+        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi/</source>
+        <target state="translated">Källa: Företags- och organisationsdatasystemet (YTJ) www.ytj.fi/sv/</target>
       </trans-unit>
       <trans-unit id="tkSource">
-        <source>Lähde: Tilastokeskus</source>
-        <target state="translated">Källa: Statistikcentralen</target>
+        <source>Lähde: Tilastokeskus https://www.stat.fi/</source>
+        <target state="translated">Källa: Statistikcentralen https://www.stat.fi/</target>
       </trans-unit>
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>

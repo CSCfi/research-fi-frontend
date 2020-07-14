@@ -24,6 +24,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
+import { WINDOW } from 'src/app/services/window.service';
 
 interface Target {
   value: string;
@@ -101,7 +102,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
-               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
+               @Inject(DOCUMENT) private document: Document, @Inject(WINDOW) private window: Window, @Inject(PLATFORM_ID) private platformId: object,
                private settingService: SettingsService, public utilityService: UtilityService,
                @Inject(LOCALE_ID) protected localeId, private filterService: FilterService, private resizeService: ResizeService ) {
                 // Capitalize first letter of locale
@@ -134,7 +135,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
     // Let view initialize then calc margin
     setTimeout(() => {
-      this.resetMargin = this.getResetMargin();
+      this.resetMargin = this.getResetMargin(this.window.innerWidth);
     }, 100);
   }
 
@@ -257,11 +258,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     const span = this.document.getElementById('completionAssist');
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
-    span.style.fontSize = 25;
+    span.style.fontSize = '25px';
     this.inputMargin = (width + 210) + 'px';
   }
 
-  getResetMargin() {
+  getResetMargin(w: number) {
+    const margin = w < 1200 ? 30 : 50;
     const outer = this.inputGroup.nativeElement.getBoundingClientRect();
     const inner = this.searchInput.nativeElement.getBoundingClientRect();
     return inner.x - outer.x + inner.width - 30 + 'px';
@@ -390,6 +392,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   onResize(dims: {w: number, h: number}) {
-    this.resetMargin = this.getResetMargin();
+    this.resetMargin = this.getResetMargin(dims.w);
   }
 }

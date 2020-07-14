@@ -2,6 +2,7 @@
 
 @mixin app-search-bar-theme($theme) {
     $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
 
     app-search-bar {
         // Target
@@ -76,6 +77,13 @@
 
         .list-group-item:hover {
             background: #E2E2F2;
+        }
+
+        #resetSearch {
+            color: mat-contrast($primary, 50);
+            &:hover {
+                color: mat-color($warn, 600);
+            }
         }
 
         // .auto-suggest .other-links ul li a {

@@ -38,12 +38,6 @@
                     "order": 1,
                     "filterName": "field",
                     "exclude": [" "]
-                },
-                {
-                    "field": "fields_of_science.fieldIdScience",
-                    "name": "fieldId",
-                    "size": 1,
-                    "order": 0
                 }
             ]
         },
@@ -71,7 +65,8 @@
                     "field": "fields_of_science.fieldIdScience",
                     "name": "fieldId",
                     "size": 1,
-                    "order": 0
+                    "order": 0,
+                    "exclude": [0]
                 }
             ]
         },
