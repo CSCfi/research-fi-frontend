@@ -30,7 +30,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         year: '',
         funder: 'f.key',
         organization: '',
-        typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].length > 1 ? f.typeName.buckets.shift().key.split("|")[0] : f.typeName.buckets.shift().key.split("|")[1].trim() || f.key',
+        // Locale, english, finnish, key
+        typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
         fieldOfScience: 'f.key',
     }
 

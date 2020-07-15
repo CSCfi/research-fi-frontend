@@ -164,11 +164,11 @@ export class PublicationFilters {
       openAccess.forEach(val => {
         switch (val.key) {
             case 1: {
-            openAccessCodes.push({key: 'openAccess', doc_count: val.doc_count, label: $localize`:@@openAccessJournal:Open Access -lehti `});
+            openAccessCodes.push({key: 'openAccess', doc_count: val.doc_count, label: $localize`:@@openAccessJournal:Open Access -lehti`});
             break;
             }
             case 2: {
-            openAccessCodes.push({key: 'otherOpen', doc_count: val.doc_count, label: $localize`:@@otherOpenAccess:Muu avoin saatavuus: `});
+            openAccessCodes.push({key: 'otherOpen', doc_count: val.doc_count, label: $localize`:@@otherOpenAccess:Muu avoin saatavuus`});
             break;
             }
             case 0: {

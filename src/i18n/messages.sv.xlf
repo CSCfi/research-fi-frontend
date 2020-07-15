@@ -2300,8 +2300,8 @@
         <target state="translated">Publikationsforumsnivå</target>
       </trans-unit>
       <trans-unit id="openAccessJournal">
-        <source>Open access -lehti: </source>
-        <target state="translated">Open access </target>
+        <source>Open access -lehti</source>
+        <target state="translated">Open access -publikation</target>
       </trans-unit>
       <trans-unit id="8722392264873780327">
         <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>

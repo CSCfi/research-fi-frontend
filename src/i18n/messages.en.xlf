@@ -2307,8 +2307,8 @@
         <target>​Publication forum level</target>
       </trans-unit>
       <trans-unit id="openAccessJournal">
-        <source>Open access -lehti: </source>
-        <target>Open access journal: </target>
+        <source>Open access -lehti</source>
+        <target>Open access journal</target>
       </trans-unit>
       <trans-unit id="8722392264873780327">
         <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>

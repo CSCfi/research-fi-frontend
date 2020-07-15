@@ -424,8 +424,9 @@ export class FilterService {
           // Add terms object
           q.aggs[s.name] = {
             terms: {
-              field: s.field,
-              script: s.script,
+              // Translations
+              field: s.field?.replace('|locale|', this.localeC),
+              script: s.script?.replace('|locale|', this.localeC),
               size: s.size,
               // Include only active filter buckets
               // TODO: Solve include on 2nd level (field of science) with low amount of results
