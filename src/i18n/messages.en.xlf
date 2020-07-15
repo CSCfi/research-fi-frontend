@@ -2706,20 +2706,20 @@
         <target>Subunits</target>
       </trans-unit>
       <trans-unit id="fintoSource">
-        <source>Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi/</source>
-        <target>Source: Finto - thesaurus and ontology service www.finto.fi/en/</target>
+        <source>Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi</source>
+        <target>Source: Finto - thesaurus and ontology service www.finto.fi</target>
       </trans-unit>
       <trans-unit id="ytjSource">
-        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi/</source>
-        <target>Source: The business information system (YTJ) www.ytj.fi/en/</target>
+        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi</source>
+        <target>Source: Business information system (YTJ) www.ytj.fi</target>
       </trans-unit>
       <trans-unit id="tkSource">
-        <source>Lähde: Tilastokeskus https://www.stat.fi/</source>
-        <target>Source: Statistics Finland https://www.stat.fi/</target>
+        <source>Lähde: Tilastokeskus www.stat.fi</source>
+        <target>Source: Statistics Finland www.stat.fi</target>
       </trans-unit>
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
-        <target>Source: Vipunen - Education Statistics Finland https://vipunen.fi/en-gb/</target>
+        <target>Source: Vipunen - Education Statistics Finland www.vipunen.fi</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">

@@ -2703,20 +2703,20 @@
         <target state="translated">Underenheter</target>
       </trans-unit>
       <trans-unit id="fintoSource">
-        <source>Lähde: Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi/</source>
-        <target state="translated">Källa: Finto - tesaurus- och ontologiservice www.finto.fi/sv/</target>
+        <source>Lähde: Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi</source>
+        <target state="translated">Källa: Finto - tesaurus- och ontologiservice www.finto.fi</target>
       </trans-unit>
       <trans-unit id="ytjSource">
-        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi/</source>
-        <target state="translated">Källa: Företags- och organisationsdatasystemet (YTJ) www.ytj.fi/sv/</target>
+        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi</source>
+        <target state="translated">Källa: Företags- och organisationsdatasystemet (YTJ) www.ytj.fi</target>
       </trans-unit>
       <trans-unit id="tkSource">
-        <source>Lähde: Tilastokeskus https://www.stat.fi/</source>
-        <target state="translated">Källa: Statistikcentralen https://www.stat.fi/</target>
+        <source>Lähde: Tilastokeskus www.stat.fi</source>
+        <target state="translated">Källa: Statistikcentralen www.stat.fi</target>
       </trans-unit>
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
-        <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst https://vipunen.fi/sv-fi/</target>
+        <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst vipunen.fi</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
