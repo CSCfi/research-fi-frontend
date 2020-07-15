@@ -32,7 +32,7 @@
                     "order": 1
                 },
                 {
-                    "field": "fields_of_science.nameFiScience.keyword",
+                    "field": "fields_of_science.name|locale|Science.keyword",
                     "name": "fieldsOfScience",
                     "size": 100,
                     "order": 1,
@@ -54,7 +54,7 @@
                     "order": 1
                 },
                 {
-                    "field": "fields_of_science.nameFiScience.keyword",
+                    "field": "fields_of_science.name|locale|Science.keyword",
                     "name": "majorFieldOfScience",
                     "size": 100,
                     "order": 1,
@@ -94,7 +94,7 @@
                     "filterName": "organization"
                 },
                 {
-                    "field": "author.organization.OrganizationNameFi.keyword",
+                    "field": "author.organization.OrganizationName|locale|.keyword",
                     "name": "organizationName",
                     "size": 1,
                     "order": 0
@@ -160,7 +160,7 @@
                     "exclude": [" "]
                 },
                 {
-                    "field": "languages.languageFi.keyword",
+                    "field": "languages.language|locale|.keyword",
                     "name": "language",
                     "size": 50,
                     "order": 0
@@ -284,7 +284,7 @@
                     }
                 },
                 {
-                    "field": "fundingGroupPerson.fundedPersonOrganizationNameFi.keyword",
+                    "field": "fundingGroupPerson.fundedPersonOrganizationName|locale|.keyword",
                     "name": "sectorName",
                     "size": 10,
                     "order": 2,
@@ -298,7 +298,7 @@
                     "filterName": "organization"
                 },
                 {
-                    "field": "fundingGroupPerson.consortiumOrganizationNameFi.keyword",
+                    "field": "fundingGroupPerson.consortiumOrganizationName|locale|.keyword",
                     "name": "organizationName",
                     "size": 1,
                     "order": 0
@@ -323,7 +323,7 @@
                     }
                 },
                 {
-                    "field": "organizationConsortium.consortiumSectorNameFi.keyword",
+                    "field": "organizationConsortium.consortiumSectorName|locale|.keyword",
                     "name": "sectorName",
                     "size": 10,
                     "order": 2,
@@ -337,7 +337,7 @@
                     "filterName": "organization"
                 },
                 {
-                    "field": "organizationConsortium.consortiumOrganizationNameFi.keyword",
+                    "field": "organizationConsortium.consortiumOrganizationName|locale|.keyword",
                     "name": "organizationName",
                     "size": 1,
                     "order": 0
@@ -363,7 +363,7 @@
                     "order": 1
                 },
                 {
-                    "script": "doc['typeOfFundingNameFi.keyword'].value + '|' + doc['typeOfFundingNameEn.keyword'].value",
+                    "script": "doc['typeOfFundingName|locale|.keyword'].value + '|' + doc['typeOfFundingNameEn.keyword'].value + '|' + doc['typeOfFundingNameFi.keyword'].value",
                     "name": "typeName",
                     "size": 1,
                     "order": 0
@@ -383,7 +383,7 @@
                     "order": 1
                 },
                 {
-                    "field": "fields_of_science.nameFiScience.keyword",
+                    "field": "fields_of_science.name|locale|Science.keyword",
                     "name": "fieldsOfScience",
                     "size": 100,
                     "order": 1,

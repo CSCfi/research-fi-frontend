@@ -42,23 +42,23 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
 
     private openAccessTypes = [
         {
-            name: 'Open access -lehti',
+            name: $localize`:@@openAccessJournal:Open Access -lehti`,
             doc_count: 0
         },
         {
-            name: 'Rinnakkaistallennettu',
+            name: $localize`:@@selfArchived:Rinnakkaistallennettu`,
             doc_count: 0
         },
         {
-            name: 'Muu avoin saatavuus',
+            name: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
             doc_count: 0
         },
         {
-            name: 'Ei avoin',
+            name: $localize`:@@nonOpen:Ei avoin`,
             doc_count: 0
         },
         {
-            name: 'Ei tietoa',
+            name: $localize`:@@noInfo:Ei tietoa`,
             doc_count: 0
         },
     ];
@@ -69,7 +69,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     fieldObjects: any[];
     
     // Names for country data
-    countryNames = ['Suomi', 'Muu'];
+    countryNames = [$localize`:@@finland:Suomi`, $localize`:@@other:Muu`];
     
     constructor(private sds: StaticDataService) {
         // Get class descriptions from static data service, don't modify original data
@@ -85,10 +85,12 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     }
 
     getLang(s: string): string {
-        if (s === 'suomi' || s === 'englanti' || s === 'ruotsi') {
+        if (s === 'suomi'   || s === 'englanti' || s === 'ruotsi' || 
+            s === 'Finnish' || s === 'English'  || s === 'Swedish' ||
+            s === 'finska'  || s === 'engelska' || s === 'svenska') {
             return s;
         } else {
-            return 'Muu';
+            return $localize`:@@other:Muu`;
         }
     }
 
@@ -115,7 +117,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                 valid = true;
             }
             if (openAccessCode === 2) {
-                res[3].doc_count += d.doc_count;
+                res[2].doc_count += d.doc_count;
                 valid = true;
             }
             if (openAccessCode === 0 && selfArchivedCode === 0) {
