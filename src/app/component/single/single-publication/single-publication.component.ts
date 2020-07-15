@@ -332,7 +332,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
           const checkedAuthors = [...new Set(duplicateAuthors)];
 
-          this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
+          // Language check
+          const orgName = org['OrganizationName' + this.currentLocale].trim() || org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() || org?.OrganizationNameSv?.trim();
+
+          this.authorAndOrganization.push({orgName: orgName, orgId: org.organizationId,
             authors: checkedAuthors, orgUnits: orgUnitArr});
         });
       });

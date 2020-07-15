@@ -2224,10 +2224,6 @@
         <source>Perustaso</source>
         <target>Basic</target>
       </trans-unit>
-      <trans-unit id="2280953857653529357">
-        <source>Muut</source>
-        <target>Other</target>
-      </trans-unit>
       <trans-unit id="noRating">
         <source>Ei arviota</source>
         <target>No rating</target>
@@ -2249,8 +2245,8 @@
         <source>Haluttua tietoa ei ole olemassa</source>
         <target>Requested information does not exist</target>
       </trans-unit>
-      <trans-unit id="4505679677960242441">
-        <source>Pyyntömetodi ei ole sallitty</source>
+      <trans-unit id="forbiddenRequest">
+        <source>Pyyntömetodi ei ole sallittu</source>
         <target>Forbidden request method</target>
       </trans-unit>
       <trans-unit id="8402099562411461502">
@@ -2602,6 +2598,10 @@
       </trans-unit>
       <trans-unit id="other">
         <source>Muu</source>
+        <target>Other</target>
+      </trans-unit>
+      <trans-unit id="others">
+        <source>Muut</source>
         <target>Other</target>
       </trans-unit>
       <trans-unit id="notKnown">

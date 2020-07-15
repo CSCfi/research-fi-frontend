@@ -2217,10 +2217,6 @@
         <source>Perustaso</source>
         <target state="translated">Basnivå</target>
       </trans-unit>
-      <trans-unit id="2280953857653529357">
-        <source>Muut</source>
-        <target state="translated">Annan</target>
-      </trans-unit>
       <trans-unit id="noRating">
         <source>Ei arviota</source>
         <target state="translated">Inte bedömned</target>
@@ -2242,8 +2238,8 @@
         <source>Haluttua tietoa ei ole olemassa</source>
         <target state="translated">Den begärda informationen finns inte</target>
       </trans-unit>
-      <trans-unit id="4505679677960242441">
-        <source>Pyyntömetodi ei ole sallitty</source>
+      <trans-unit id="forbiddenRequest">
+        <source>Pyyntömetodi ei ole sallittu</source>
         <target state="translated">Begärningsmetoden är inte tillåten</target>
       </trans-unit>
       <trans-unit id="8402099562411461502">
@@ -2599,6 +2595,10 @@
       </trans-unit>
       <trans-unit id="other">
         <source>Muu</source>
+        <target state="translated">Annan</target>
+      </trans-unit>
+      <trans-unit id="others">
+        <source>Muut</source>
         <target state="translated">Annan</target>
       </trans-unit>
       <trans-unit id="notKnown">
