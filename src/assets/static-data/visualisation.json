@@ -343,7 +343,54 @@
                     "order": 0
                 }
             ]
+        },
+        {
+            "field": "typeOfFunding",
+            "title": "Hankkeiden määrä rahoitusmuodon mukaan",
+            "select": "Rahoitusmuoto",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "typeOfFundingId.keyword",
+                    "name": "typeId",
+                    "size": 100,
+                    "exclude": " *",
+                    "order": 1
+                },
+                {
+                    "script": "doc['typeOfFundingNameFi.keyword'].value + '|' + doc['typeOfFundingNameEn.keyword'].value",
+                    "name": "typeName",
+                    "size": 1,
+                    "order": 0
+                }
+            ]
+        },
+        {
+            "field": "fieldOfScience",
+            "title": "Hankkeiden määrä tieteenaloittain",
+            "select": "Tieteenala",
+            "message": "Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.",
+            "hierarchy": [
+                {
+                    "field": "fundingStartYear",
+                    "name": "year",
+                    "size": 10,
+                    "order": 1
+                },
+                {
+                    "field": "fields_of_science.nameFiScience.keyword",
+                    "name": "fieldsOfScience",
+                    "size": 100,
+                    "order": 1,
+                    "filterName": "field",
+                    "exclude": [" "]
+                }
+            ]
         }
-
     ]
 }

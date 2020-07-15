@@ -15,7 +15,10 @@ export class FundingVisual {
     constructor(
         public year: VisualData[],
         public funder: VisualData[],
-        public organization: VisualData[]
+        public organization: VisualData[],
+        public typeOfFunding: VisualData[],
+        public fieldOfScience: VisualData[],
+        
     ) {}
 }
 
@@ -26,6 +29,9 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
     private names = {
         year: '',
         funder: 'f.key',
+        organization: '',
+        typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].length > 1 ? f.typeName.buckets.shift().key.split("|")[0] : f.typeName.buckets.shift().key.split("|")[1].trim() || f.key',
+        fieldOfScience: 'f.key',
     }
 
     
@@ -53,6 +59,10 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         return arr
     }
 
+    sortByName(arr: VisualData[]) {
+        arr.forEach(o => o.data.sort((a, b) => +(b.name > a.name) - 0.5))
+    }
+
 
     adapt(item: any, categoryIdx?: number): FundingVisual {
         
@@ -62,6 +72,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         const year: VisualData[] = [];
         const funder: VisualData[] = [];
         const organization: VisualData[] = [];
+        const typeOfFunding: VisualData[] = [];
+        const fieldOfScience: VisualData[] = [];
         
         const field = funding[categoryIdx].field;
 
@@ -93,7 +105,6 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     })
                 })
 
-                // item.aggregations.organization.buckets.forEach(b => tmp.push(b));
 
                 combined.forEach(b => {
                     b.data = [];
@@ -106,9 +117,6 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     })
                     organization.push(b);
                 })
-
-                // Sort the organizations alphabetically
-                organization.forEach(o => o.data.sort((a, b) => +(b.name > a.name) - 0.5))
                 
                 break;
 
@@ -122,24 +130,30 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     b.data = [];
                     b[hierarchyField].buckets.forEach(f => {
                         const v: any = {};
-                        v.name = eval(this.names[hierarchyField]);
+                        v.name = eval(this.names[field]);
                         v.doc_count = f.doc_count;
                         v.parent = b.key;
                         b.data.push(v);
                     });
                     // Push data to correct array
-                    eval(`${hierarchyField}.push(b)`);
+                    eval(`${field}.push(b)`);
                 });
                 break;
         }
 
         // Group duplicate names from the two aggregations
         this.groupNames(organization)
+        // Sort the mixed arrays alphabetically
+        this.sortByName(organization)
+        this.sortByName(typeOfFunding)
+
                 
         return new FundingVisual(
             year,
             funder,
-            organization
+            organization,
+            typeOfFunding,
+            fieldOfScience
         );
     }
 }

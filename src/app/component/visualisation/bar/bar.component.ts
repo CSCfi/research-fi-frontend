@@ -61,16 +61,19 @@ export class BarComponent implements OnInit, OnChanges {
   update(fieldIdx: number, percentage = false) {
 
     let visualisationData: PublicationVisual | FundingVisual;
+    let ylabel = '';
 
 
     switch (this.tab) {
       case 'publications':
         visualisationData = this.data.publicationData;
         this.categories = publication;
+        ylabel = 'Julkaisujen määrä';
         break;
         case 'fundings':
           visualisationData = this.data.fundingData;
           this.categories = funding;
+          ylabel = 'Hankkeiden määrä';
         break;
     
       default:
@@ -220,7 +223,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('y', -this.margin)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
-        .text('Julkaisujen määrä');
+        .text(ylabel);
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2)
