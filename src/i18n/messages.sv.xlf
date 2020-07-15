@@ -1617,7 +1617,7 @@
         <source>Voit antaa meille palautetta verkkopalvelun saavutettavuudesta <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>tällä lomakkeella<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
         <target>Ge respons till oss om tillgängligheten med <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>detta webbformulär<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
-                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
+                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Alternativt kan du skicka e-post till oss på adressen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">57</context>
@@ -1677,7 +1677,7 @@
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader12" datatype="html">
         <source>Julkaisu- ja päivitystiedot</source>
-        <target>Vi utvecklar ständigt webbtjänstens tillgänglighet</target>
+        <target>Uppdateringsinformation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">74</context>
