@@ -37,7 +37,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
   sources = {
     finto: $localize`:@@fintoSource:Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi`,
     ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
-    tk: $localize`:@@tkSource:Lähde: Tilastokeskus https://www.stat.fi/`,
+    tk: $localize`:@@tkSource:Lähde: Tilastokeskus www.stat.fi`,
     vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`
   }
 

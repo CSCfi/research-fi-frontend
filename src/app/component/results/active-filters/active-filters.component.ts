@@ -249,11 +249,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'countryCode' && source.countryCode) {
               switch (val.value) {
                 case 'c0': {
-                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Suomi';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': ' + $localize`:@@finland:Suomi`;
                   break;
                 }
                 case 'c1': {
-                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Muut';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': ' + $localize`:@@other:Muu`;
                   break;
                 }
               }

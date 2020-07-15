@@ -79,7 +79,7 @@ export class StaticDataService {
     {key: '3', label: $localize`Korkein taso`},
     {key: '2', label: $localize`Johtava taso`},
     {key: '1', label: $localize`Perustaso`},
-    {key: '0', label: $localize`Muut`},
+    {key: '0', label: $localize`:@@others:Muut`},
     {key: ' ', label: $localize`:@@noRating:Ei arviota`},
   ];
 
@@ -91,7 +91,7 @@ export class StaticDataService {
     401: $localize`Pyyntö vaatii sen käsittelyyn oikeutetut tunnukset`,
     403: $localize`Ei oikeutta käsitellä pyyntöä`,
     404: $localize`Haluttua tietoa ei ole olemassa`,
-    405: $localize`Pyyntömetodi ei ole sallitty`,
+    405: $localize`:@@forbiddenRequest:Pyyntömetodi ei ole sallittu`,
     500: $localize`Palvelinvirhe. Palvelimella tapahtui virhe pyyntöä käsitellessä`
   };
 

@@ -7,10 +7,9 @@
 import { FieldOfScience, FieldOfScienceAdapter } from './field-of-science.model';
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
+import { LanguageCheck } from './utils';
 
 export class Publication {
-    fieldsParsed: string;
-
     constructor(
         public id: string, // publicationId
         public title: string, // publicationName
@@ -48,6 +47,7 @@ export class Publication {
         public languages: any[],
         public countries: any[],
         public fieldsOfScience: FieldOfScience[],
+        public fieldsOfScienceString: string,
         public author: any[],
         public selfArchivedData: any,
         public completions: string[],
@@ -64,6 +64,11 @@ export class PublicationAdapter implements Adapter<Publication> {
         let fieldsOfScience: FieldOfScience[] = [];
         // All items don't have field_of_science field
         item.fields_of_science ? item.fields_of_science.forEach(field => fieldsOfScience.push(this.fs.adapt(field))) : fieldsOfScience = [];
+
+        // Only include fields with id
+        fieldsOfScience = fieldsOfScience.filter(x => x.id);
+        // Create string from array
+        const fieldsOfScienceString = fieldsOfScience.map(x => x.name).join('; ')
 
         const openAccess: boolean = (item.openAccessCode === 1 || item.openAccessCode === 2 || item.selfArchivedCode === 1);
         let openAccessText = '';
@@ -132,6 +137,7 @@ export class PublicationAdapter implements Adapter<Publication> {
             item.languages,
             item.countries,
             fieldsOfScience, // defined above
+            fieldsOfScienceString,
             item.author,
             item.selfArchivedData,
             item.completions,

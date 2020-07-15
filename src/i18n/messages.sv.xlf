@@ -1617,7 +1617,7 @@
         <source>Voit antaa meille palautetta verkkopalvelun saavutettavuudesta <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>tällä lomakkeella<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</source>
         <target>Ge respons till oss om tillgängligheten med <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>detta webbformulär<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
-                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
+                            <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Alternativt kan du skicka e-post till oss på adressen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">57</context>
@@ -1677,7 +1677,7 @@
       </trans-unit>
       <trans-unit id="accessibilityBlockHeader12" datatype="html">
         <source>Julkaisu- ja päivitystiedot</source>
-        <target>Vi utvecklar ständigt webbtjänstens tillgänglighet</target>
+        <target>Uppdateringsinformation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">74</context>
@@ -2217,10 +2217,6 @@
         <source>Perustaso</source>
         <target state="translated">Basnivå</target>
       </trans-unit>
-      <trans-unit id="2280953857653529357">
-        <source>Muut</source>
-        <target state="translated">Annan</target>
-      </trans-unit>
       <trans-unit id="noRating">
         <source>Ei arviota</source>
         <target state="translated">Inte bedömned</target>
@@ -2242,8 +2238,8 @@
         <source>Haluttua tietoa ei ole olemassa</source>
         <target state="translated">Den begärda informationen finns inte</target>
       </trans-unit>
-      <trans-unit id="4505679677960242441">
-        <source>Pyyntömetodi ei ole sallitty</source>
+      <trans-unit id="forbiddenRequest">
+        <source>Pyyntömetodi ei ole sallittu</source>
         <target state="translated">Begärningsmetoden är inte tillåten</target>
       </trans-unit>
       <trans-unit id="8402099562411461502">
@@ -2601,6 +2597,10 @@
         <source>Muu</source>
         <target state="translated">Annan</target>
       </trans-unit>
+      <trans-unit id="others">
+        <source>Muut</source>
+        <target state="translated">Annan</target>
+      </trans-unit>
       <trans-unit id="notKnown">
         <source>Ei tiedossa</source>
         <target state="translated">Ingen information</target>
@@ -2703,20 +2703,20 @@
         <target state="translated">Underenheter</target>
       </trans-unit>
       <trans-unit id="fintoSource">
-        <source>Lähde: Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi/</source>
-        <target state="translated">Källa: Finto - tesaurus- och ontologiservice www.finto.fi/sv/</target>
+        <source>Lähde: Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi</source>
+        <target state="translated">Källa: Finto - tesaurus- och ontologiservice www.finto.fi</target>
       </trans-unit>
       <trans-unit id="ytjSource">
-        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi/</source>
-        <target state="translated">Källa: Företags- och organisationsdatasystemet (YTJ) www.ytj.fi/sv/</target>
+        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi</source>
+        <target state="translated">Källa: Företags- och organisationsdatasystemet (YTJ) www.ytj.fi</target>
       </trans-unit>
       <trans-unit id="tkSource">
-        <source>Lähde: Tilastokeskus https://www.stat.fi/</source>
-        <target state="translated">Källa: Statistikcentralen https://www.stat.fi/</target>
+        <source>Lähde: Tilastokeskus www.stat.fi</source>
+        <target state="translated">Källa: Statistikcentralen www.stat.fi</target>
       </trans-unit>
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
-        <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst https://vipunen.fi/sv-fi/</target>
+        <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst vipunen.fi</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">

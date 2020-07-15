@@ -84,7 +84,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   ];
 
   otherFields  = [
-    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsParsed', tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`},
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScienceString', tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`},
     {label: $localize`:@@openAccess:Avoin saatavuus`, field: 'openAccessText',
     tooltip: '<p><strong>' +  $localize`:@@openAccessJournal:Open access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'},
     {label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries'},
@@ -254,23 +254,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // Capitalize first letter of locale
     const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     const source = this.responseData.publications[0];
-    const fieldsOfScience = source.fieldsOfScience;
     const countries = source.countries;
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
-
-    // Map field names and exclude bad fields
-    if (fieldsOfScience?.length > 0) {
-      // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
-      for (const [i, item] of fieldsOfScience.entries()) {
-        if ( item.id === 0) {
-          fieldsOfScience.splice(i, 1);
-        }
-      }
-      // Get field names by locale
-      source.fieldsParsed = fieldsOfScience.map(x => x['name' + this.currentLocale].trim()).join(', ');
-    }
 
     if (countries?.length > 0) {
       const key = 'country' + locale;
@@ -345,7 +332,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
           const checkedAuthors = [...new Set(duplicateAuthors)];
 
-          this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
+          // Language check
+          const orgName = org['OrganizationName' + this.currentLocale].trim() || org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() || org?.OrganizationNameSv?.trim();
+
+          this.authorAndOrganization.push({orgName: orgName, orgId: org.organizationId,
             authors: checkedAuthors, orgUnits: orgUnitArr});
         });
       });

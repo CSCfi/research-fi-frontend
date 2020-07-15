@@ -2224,10 +2224,6 @@
         <source>Perustaso</source>
         <target>Basic</target>
       </trans-unit>
-      <trans-unit id="2280953857653529357">
-        <source>Muut</source>
-        <target>Other</target>
-      </trans-unit>
       <trans-unit id="noRating">
         <source>Ei arviota</source>
         <target>No rating</target>
@@ -2249,8 +2245,8 @@
         <source>Haluttua tietoa ei ole olemassa</source>
         <target>Requested information does not exist</target>
       </trans-unit>
-      <trans-unit id="4505679677960242441">
-        <source>Pyyntömetodi ei ole sallitty</source>
+      <trans-unit id="forbiddenRequest">
+        <source>Pyyntömetodi ei ole sallittu</source>
         <target>Forbidden request method</target>
       </trans-unit>
       <trans-unit id="8402099562411461502">
@@ -2604,6 +2600,10 @@
         <source>Muu</source>
         <target>Other</target>
       </trans-unit>
+      <trans-unit id="others">
+        <source>Muut</source>
+        <target>Other</target>
+      </trans-unit>
       <trans-unit id="notKnown">
         <source>Ei tiedossa</source>
         <target>Not known</target>
@@ -2706,20 +2706,20 @@
         <target>Subunits</target>
       </trans-unit>
       <trans-unit id="fintoSource">
-        <source>Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi/</source>
-        <target>Source: Finto - thesaurus and ontology service www.finto.fi/en/</target>
+        <source>Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi</source>
+        <target>Source: Finto - thesaurus and ontology service www.finto.fi</target>
       </trans-unit>
       <trans-unit id="ytjSource">
-        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi/</source>
-        <target>Source: The business information system (YTJ) www.ytj.fi/en/</target>
+        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi</source>
+        <target>Source: Business information system (YTJ) www.ytj.fi</target>
       </trans-unit>
       <trans-unit id="tkSource">
-        <source>Lähde: Tilastokeskus https://www.stat.fi/</source>
-        <target>Source: Statistics Finland https://www.stat.fi/</target>
+        <source>Lähde: Tilastokeskus www.stat.fi</source>
+        <target>Source: Statistics Finland www.stat.fi</target>
       </trans-unit>
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
-        <target>Source: Vipunen - Education Statistics Finland https://vipunen.fi/en-gb/</target>
+        <target>Source: Vipunen - Education Statistics Finland www.vipunen.fi</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
