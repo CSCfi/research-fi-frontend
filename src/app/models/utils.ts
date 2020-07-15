@@ -48,6 +48,36 @@ export class LanguageCheck {
     }
   }
 
+  translateFieldOfScience(item) {
+    // Same logic as testLang but different field naming convention
+    const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    const content = item['name' + capitalizedLocale + 'Science'] || '';
+    const contentIsValid = UtilityService.stringHasContent(content);
+
+    switch (contentIsValid) {
+      // If field doesn't exist in its original locale
+      case false: {
+        switch (this.localeId) {
+          case 'fi': {
+            return UtilityService.stringHasContent(item['name' + 'En' + 'Science']) ? item['name' + 'En' + 'Science'] : item['name' + 'Sv' + 'Science'];
+          }
+          case 'en': {
+            return UtilityService.stringHasContent(item['name' + 'Fi' + 'Science']) ? item['name' + 'Fi' + 'Science'] : item['name' + 'Sv' + 'Science'];
+          }
+          case 'sv': {
+            return UtilityService.stringHasContent(item['name' + 'En' + 'Science']) ? item['name' + 'En' + 'Science'] : item['name' + 'Fi' + 'Science'];
+          }
+        }
+        break;
+      }
+      // If field exists in its original locale, take that
+      default: {
+        return item['name' + capitalizedLocale + 'Science'];
+      }
+    }
+
+  }
+
   translateRole(role, euFunding) {
     switch (this.localeId) {
       case 'fi': {
