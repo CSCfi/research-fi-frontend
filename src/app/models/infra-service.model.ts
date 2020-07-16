@@ -32,7 +32,9 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
 
         const servicePoints: ServicePoint[] = [];
 
-        servicePoints.push(this.spa.adapt(item));
+        item.servicePoints.forEach(sp => {
+            servicePoints.push(this.spa.adapt(sp));
+        });
 
         return new InfraService(
             this.langCheck.testLang('serviceName', item),
