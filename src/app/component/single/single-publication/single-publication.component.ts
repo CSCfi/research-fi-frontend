@@ -43,7 +43,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
-    {label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'publicationYear'},
+    {label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'publicationYear'},
     {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', typeLabel: ' ',
     tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
     {label: $localize`:@@authors:Tekijät`, field: 'authors',

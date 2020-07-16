@@ -80,7 +80,7 @@ export class StaticDataService {
     {key: '3', label: $localize`Korkein taso`},
     {key: '2', label: $localize`Johtava taso`},
     {key: '1', label: $localize`Perustaso`},
-    {key: '0', label: $localize`:@@others:Muut`},
+    {key: '0', label: $localize`:@@other:Muut`},
     {key: ' ', label: $localize`:@@noRating:Ei arviota`},
   ];
 
@@ -344,396 +344,382 @@ export class StaticDataService {
   }
 
   visualisationData: {publication: VisualQuery[], funding: VisualQuery[]} = {
-    'publication': [
+    publication: [
         {
-            'field': 'year',
-            'title': 'Julkaisujen määrä vuosittain',
-            'select': 'Vuosi',
-            'hierarchy': [
+            field: 'year',
+            title: 'Julkaisujen määrä vuosittain',
+            select: $localize`:@@yearOfPublication:Julkaisuvuosi`,
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 1,
-                    'order': 0
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 1,
+                    order: 0
                 }
             ]
         },
         {
-            'field': 'fieldOfScience',
-            'title': 'Julkaisujen määrä tieteenaloittain',
-            'select': 'Tieteenala',
-            'message': 'Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
-            'hierarchy': [
+            field: 'fieldOfScience',
+            title: 'Julkaisujen määrä tieteenaloittain',
+            select: $localize`:@@fieldOfScience:Tieteenala`,
+            message: 'Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'fields_of_science.name|locale|Science.keyword',
-                    'name': 'fieldsOfScience',
-                    'size': 100,
-                    'order': 1,
-                    'filterName': 'field',
-                    'exclude': [' ']
+                    field: 'fields_of_science.name|locale|Science.keyword',
+                    name: 'fieldsOfScience',
+                    size: 100,
+                    order: 1,
+                    filterName: 'field',
+                    exclude: [' ']
                 }
             ]
         },
         {
-            'field': 'majorFieldOfScience',
-            'title': 'Julkaisujen määrä päätieteenaloittain',
-            'select': 'Päätieteenala',
-            'message': 'Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
-            'hierarchy': [
+            field: 'majorFieldOfScience',
+            title: 'Julkaisujen määrä päätieteenaloittain',
+            select: $localize`:@@mainFieldOfScience:Päätieteenala`,
+            message: 'Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'fields_of_science.name|locale|Science.keyword',
-                    'name': 'majorFieldOfScience',
-                    'size': 100,
-                    'order': 1,
-                    'filterName': 'field',
-                    'exclude': [' ']
+                    field: 'fields_of_science.name|locale|Science.keyword',
+                    name: 'majorFieldOfScience',
+                    size: 100,
+                    order: 1,
+                    filterName: 'field',
+                    exclude: [' ']
                 },
                 {
-                    'field': 'fields_of_science.fieldIdScience',
-                    'name': 'fieldId',
-                    'size': 1,
-                    'order': 0,
-                    'exclude': [0]
+                    field: 'fields_of_science.fieldIdScience',
+                    name: 'fieldId',
+                    size: 1,
+                    order: 0,
+                    exclude: [0]
                 }
             ]
         },
         {
-            'field': 'organization',
-            'title': 'Julkaisujen määrä organisaatioittain',
-            'select': 'Organisaatio',
-            'message': 'Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
-            'hierarchy': [
+            field: 'organization',
+            title: 'Julkaisujen määrä organisaatioittain',
+            select: $localize`:@@organization:Organisaatio`,
+            message: 'Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'name': 'orgNested',
-                    'nested': 'author'
+                    name: 'orgNested',
+                    nested: 'author'
                 },
                 {
-                    'field': 'author.organization.organizationId.keyword',
-                    'name': 'organizationId',
-                    'size': 100,
-                    'order': 2,
-                    'filterName': 'organization'
+                    field: 'author.organization.organizationId.keyword',
+                    name: 'organizationId',
+                    size: 100,
+                    order: 2,
+                    filterName: 'organization'
                 },
                 {
-                    'field': 'author.organization.OrganizationName|locale|.keyword',
-                    'name': 'organizationName',
-                    'size': 1,
-                    'order': 0
+                    field: 'author.organization.OrganizationName|locale|.keyword',
+                    name: 'organizationName',
+                    size: 1,
+                    order: 0
                 }
             ]
         },
         {
-            'field': 'publicationType',
-            'title': 'Julkaisujen määrä julkaisutyypin mukaan',
-            'select': 'Julkaisutyyppi',
-            'hierarchy': [
+            field: 'publicationType',
+            title: 'Julkaisujen määrä julkaisutyypin mukaan',
+            select: $localize`:@@publicationType:Julkaisutyyppi`,
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'publicationTypeCode.keyword',
-                    'name': 'publicationType',
-                    'size': 100,
-                    'order': 1,
-                    'filterName': 'publicationType',
-                    'exclude': [' ']
+                    field: 'publicationTypeCode.keyword',
+                    name: 'publicationType',
+                    size: 100,
+                    order: 1,
+                    filterName: 'publicationType',
+                    exclude: [' ']
                 }
             ]
         },
         {
-            'field': 'country',
-            'title': 'Julkaisujen määrä julkaisumaan mukaan',
-            'select': 'Julkaisumaa',
-            'hierarchy': [
+            field: 'country',
+            title: 'Julkaisujen määrä julkaisumaan mukaan',
+            select: $localize`:@@publicationCountry:Julkaisumaa`,
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'internationalPublication',
-                    'name': 'country',
-                    'size': 2,
-                    'order': 1
+                    field: 'internationalPublication',
+                    name: 'country',
+                    size: 2,
+                    order: 1
                 }
             ]
         },
         {
-            'field': 'lang',
-            'title': 'Julkaisujen määrä kielen mukaan',
-            'select': 'Kieli',
-            'hierarchy': [
+            field: 'lang',
+            title: 'Julkaisujen määrä kielen mukaan',
+            select: $localize`:@@language:Kieli`,
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'languages.languageCode.keyword',
-                    'name': 'lang',
-                    'size': 50,
-                    'order': 2,
-                    'exclude': [' ']
+                    field: 'languages.languageCode.keyword',
+                    name: 'lang',
+                    size: 50,
+                    order: 2,
+                    exclude: [' ']
                 },
                 {
-                    'field': 'languages.language|locale|.keyword',
-                    'name': 'language',
-                    'size': 50,
-                    'order': 0
+                    field: 'languages.language|locale|.keyword',
+                    name: 'language',
+                    size: 50,
+                    order: 0
                 }
             ]
         },
         {
-            'field': 'juFo',
-            'title': 'Julkaisujen määrä julkaisufoorumitason mukaan',
-            'select': 'Julkaisufoorumitaso',
-            'hierarchy': [
+            field: 'juFo',
+            title: 'Julkaisujen määrä julkaisufoorumitason mukaan',
+            select: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'jufoClassCode.keyword',
-                    'name': 'juFo',
-                    'size': 5,
-                    'order': 2,
-                    'exclude': [' ']
+                    field: 'jufoClassCode.keyword',
+                    name: 'juFo',
+                    size: 5,
+                    order: 2,
+                    exclude: [' ']
                 }
             ]
         },
         {
-            'field': 'openAccess',
-            'title': 'Julkaisujen määrä avoimen saatavuuden mukaan',
-            'select': 'Avoin saatavuus',
-            'hierarchy': [
+            field: 'openAccess',
+            title: 'Julkaisujen määrä avoimen saatavuuden mukaan',
+            select: $localize`:@@openAccess:Avoin saatavuus`,
+            hierarchy: [
                 {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'publicationYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'script': 'doc["openAccessCode"].value * 10 + doc["selfArchivedCode"].value',
-                    'name': 'openAccess',
-                    'size': 50,
-                    'order': 2
-                }
-            ],
-            'hierarchy2': [
-                {
-                    'field': 'publicationYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
-                },
-                {
-                    'field': 'publicationYear',
-                    'name': 'openAccess',
-                    'size': 50,
-                    'order': 2
+                    script: 'doc["openAccessCode"].value * 10 + doc["selfArchivedCode"].value',
+                    name: 'openAccess',
+                    size: 50,
+                    order: 2
                 }
             ]
         }
     ],
-    'funding': [
+    funding: [
         {
-            'field': 'year',
-            'title': 'Hankkeiden määrä vuosittain',
-            'select': 'Vuosi',
-            'hierarchy': [
+            field: 'year',
+            title: 'Hankkeiden määrä vuosittain',
+            select: $localize`:@@startYear:Aloitusvuosi`,
+            hierarchy: [
                 {
-                    'field': 'fundingStartYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'fundingStartYear',
-                    'name': 'year',
-                    'size': 1,
-                    'order': 0
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 1,
+                    order: 0
                 }
             ]
         },
         {
-            'field': 'funder',
-            'title': 'Hankkeiden määrä rahoittajan mukaan',
-            'select': 'Rahoittaja',
-            'hierarchy': [
+            field: 'funder',
+            title: 'Hankkeiden määrä rahoittajan mukaan',
+            select: $localize`:@@fundingFunder:Rahoittaja`,
+            hierarchy: [
                 {
-                    'field': 'fundingStartYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'funderNameFi.keyword',
-                    'name': 'funder',
-                    'size': 100,
-                    'order': 1
+                    field: 'funderNameFi.keyword',
+                    name: 'funder',
+                    size: 100,
+                    order: 1
                 }
             ]
         },
         {        
-            'field': 'organization',
-            'title': 'Hankkeiden määrä organisaatioittain',
-            'select': 'Organisaatio',
-            'message': 'Huom. Yhdellä hankkeella voi olla useita organisaatioita. Hanke sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
-            'hierarchy': [
+            field: 'organization',
+            title: 'Hankkeiden määrä organisaatioittain',
+            select: $localize`:@@organization:Organisaatio`,
+            message: 'Huom. Yhdellä hankkeella voi olla useita organisaatioita. Hanke sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
+            hierarchy: [
                 {
-                    'field': 'fundingStartYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'name': 'orgNested',
-                    'nested': 'fundingGroupPerson'
+                    name: 'orgNested',
+                    nested: 'fundingGroupPerson'
                 },
                 {
-                    'name': 'fundedPerson',
-                    'filter': {
-                        'field': 'fundingGroupPerson.fundedPerson',
-                        'value': [1]
+                    name: 'fundedPerson',
+                    filter: {
+                        field: 'fundingGroupPerson.fundedPerson',
+                        value: [1]
                     }
                 },
                 {
-                    'field': 'fundingGroupPerson.fundedPersonOrganizationName|locale|.keyword',
-                    'name': 'sectorName',
-                    'size': 10,
-                    'order': 2,
-                    'exclude': ' |Rahoittaja'
+                    field: 'fundingGroupPerson.fundedPersonOrganizationName|locale|.keyword',
+                    name: 'sectorName',
+                    size: 10,
+                    order: 2,
+                    exclude: ' |Rahoittaja'
                 },
                 {
-                    'field': 'fundingGroupPerson.consortiumOrganizationId.keyword',
-                    'name': 'organizationId',
-                    'size': 100,
-                    'order': 2,
-                    'filterName': 'organization'
+                    field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
+                    name: 'organizationId',
+                    size: 100,
+                    order: 2,
+                    filterName: 'organization'
                 },
                 {
-                    'field': 'fundingGroupPerson.consortiumOrganizationName|locale|.keyword',
-                    'name': 'organizationName',
-                    'size': 1,
-                    'order': 0
+                    field: 'fundingGroupPerson.consortiumOrganizationName|locale|.keyword',
+                    name: 'organizationName',
+                    size: 1,
+                    order: 0
                 }
             ],
-            'hierarchy2': [
+            hierarchy2: [
                 {
-                    'field': 'fundingStartYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'name': 'orgNested',
-                    'nested': 'organizationConsortium'
+                    name: 'orgNested',
+                    nested: 'organizationConsortium'
                 },
                 {
-                    'name': 'finnishOrganization',
-                    'filter': {
-                        'field': 'organizationConsortium.isFinnishOrganization',
-                        'value': [1]
+                    name: 'finnishOrganization',
+                    filter: {
+                        field: 'organizationConsortium.isFinnishOrganization',
+                        value: [1]
                     }
                 },
                 {
-                    'field': 'organizationConsortium.consortiumSectorName|locale|.keyword',
-                    'name': 'sectorName',
-                    'size': 10,
-                    'order': 2,
-                    'exclude': ' |Rahoittaja'
+                    field: 'organizationConsortium.consortiumSectorName|locale|.keyword',
+                    name: 'sectorName',
+                    size: 10,
+                    order: 2,
+                    exclude: ' |Rahoittaja'
                 },
                 {
-                    'field': 'organizationConsortium.consortiumOrganizationId.keyword',
-                    'name': 'organizationId',
-                    'size': 100,
-                    'order': 2,
-                    'filterName': 'organization'
+                    field: 'organizationConsortium.consortiumOrganizationId.keyword',
+                    name: 'organizationId',
+                    size: 100,
+                    order: 2,
+                    filterName: 'organization'
                 },
                 {
-                    'field': 'organizationConsortium.consortiumOrganizationName|locale|.keyword',
-                    'name': 'organizationName',
-                    'size': 1,
-                    'order': 0
+                    field: 'organizationConsortium.consortiumOrganizationName|locale|.keyword',
+                    name: 'organizationName',
+                    size: 1,
+                    order: 0
                 }
             ]
         },
         {
-            'field': 'typeOfFunding',
-            'title': 'Hankkeiden määrä rahoitusmuodon mukaan',
-            'select': 'Rahoitusmuoto',
-            'hierarchy': [
+            field: 'typeOfFunding',
+            title: 'Hankkeiden määrä rahoitusmuodon mukaan',
+            select: $localize`:@@typeOfFunding:Rahoitusmuoto`,
+            hierarchy: [
                 {
-                    'field': 'fundingStartYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'typeOfFundingId.keyword',
-                    'name': 'typeId',
-                    'size': 100,
-                    'exclude': ' *',
-                    'order': 1
+                    field: 'typeOfFundingId.keyword',
+                    name: 'typeId',
+                    size: 100,
+                    exclude: ' *',
+                    order: 1
                 },
                 {
-                    'script': 'doc["typeOfFundingName|locale|.keyword"].value + "|" + doc["typeOfFundingNameEn.keyword"].value + "|" + doc["typeOfFundingNameFi.keyword"].value',
-                    'name': 'typeName',
-                    'size': 1,
-                    'order': 0
+                    script: 'doc["typeOfFundingName|locale|.keyword"].value + "|" + doc["typeOfFundingNameEn.keyword"].value + "|" + doc["typeOfFundingNameFi.keyword"].value',
+                    name: 'typeName',
+                    size: 1,
+                    order: 0
                 }
             ]
         },
         {
-            'field': 'fieldOfScience',
-            'title': 'Hankkeiden määrä tieteenaloittain',
-            'select': 'Tieteenala',
-            'message': 'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
-            'hierarchy': [
+            field: 'fieldOfScience',
+            title: 'Hankkeiden määrä tieteenaloittain',
+            select: $localize`:@@fieldOfScience:Tieteenala`,
+            message: 'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
+            hierarchy: [
                 {
-                    'field': 'fundingStartYear',
-                    'name': 'year',
-                    'size': 10,
-                    'order': 1
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
                 },
                 {
-                    'field': 'fields_of_science.name|locale|Science.keyword',
-                    'name': 'fieldsOfScience',
-                    'size': 100,
-                    'order': 1,
-                    'filterName': 'field',
-                    'exclude': [' ']
+                    field: 'fields_of_science.name|locale|Science.keyword',
+                    name: 'fieldsOfScience',
+                    size: 100,
+                    order: 1,
+                    filterName: 'field',
+                    exclude: [' ']
                 }
             ]
         }

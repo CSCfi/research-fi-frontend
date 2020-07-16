@@ -472,7 +472,7 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="publicationYear" datatype="html">
+      <trans-unit id="year" datatype="html">
         <source>Vuosi</source>
         <target state="translated">År</target>
         <context-group purpose="location">
@@ -2400,6 +2400,10 @@
         <source>Tieteenala</source>
         <target state="translated">Vetenskapsområde</target>
       </trans-unit>
+      <trans-unit id="mainFieldOfScience">
+        <source>Päätieteenala</source>
+        <target state="translated">Huvudvetenskapsområde</target>
+      </trans-unit>
       <trans-unit id="5693158486934642346">
         <source>Tutkimusalat</source>
         <target state="translated">Forskningsområden</target>
@@ -2594,12 +2598,8 @@
         <target>Finland</target>
       </trans-unit>
       <trans-unit id="other">
-        <source>Muu</source>
-        <target state="translated">Annan</target>
-      </trans-unit>
-      <trans-unit id="others">
         <source>Muut</source>
-        <target state="translated">Annan</target>
+        <target state="translated">Övriga</target>
       </trans-unit>
       <trans-unit id="notKnown">
         <source>Ei tiedossa</source>

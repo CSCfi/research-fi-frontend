@@ -68,7 +68,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     fieldObjects: any[];
     
     // Names for country data
-    countryNames = [$localize`:@@finland:Suomi`, $localize`:@@other:Muu`];
+    countryNames = [$localize`:@@finland:Suomi`, $localize`:@@other:Muut`];
 
     publication = this.sds.visualisationData.publication;
     
@@ -91,7 +91,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
             s === 'finska'  || s === 'engelska' || s === 'svenska') {
             return s;
         } else {
-            return $localize`:@@other:Muu`;
+            return $localize`:@@other:Muut`;
         }
     }
 

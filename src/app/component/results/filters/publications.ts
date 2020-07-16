@@ -122,7 +122,7 @@ export class PublicationFilters {
   publicationCountry(data) {
     const result = data.map(item =>
         item = {key: 'c' + item.key, label: item.key === 0 ?
-        $localize`:@@finland:Suomi` : $localize`:@@other:Muu`, doc_count: item.doc_count, value: item.key});
+        $localize`:@@finland:Suomi` : $localize`:@@other:Muut`, doc_count: item.doc_count, value: item.key});
     return result;
   }
 
