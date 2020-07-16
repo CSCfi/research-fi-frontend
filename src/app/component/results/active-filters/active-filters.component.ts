@@ -71,7 +71,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     switch (this.currentTab) {
       case 'publications':
         this.tabFilters = this.publicationFilters.filterData;
-        this.yearRange = $localize`:@@publicationYear:Julkaisuvuosi` + ': ';
+        this.yearRange = $localize`:@@yearOfPublication:Julkaisuvuosi` + ': ';
         break;
       case 'fundings':
         this.tabFilters = this.fundingFilters.filterData;
@@ -253,7 +253,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                   break;
                 }
                 case 'c1': {
-                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': ' + $localize`:@@other:Muu`;
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': ' + $localize`:@@other:Muut`;
                   break;
                 }
               }

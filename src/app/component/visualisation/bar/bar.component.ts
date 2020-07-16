@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
-import { publication, funding } from 'src/assets/static-data/visualisation.json'
-import { Visual, VisualData, VisualDataObject, VisualQueryHierarchy, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
+import { Visual, VisualData, VisualDataObject, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { PublicationVisual } from 'src/app/models/visualisation/publication-visual.model';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FundingVisual } from 'src/app/models/visualisation/funding-visual.model';
+import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
   selector: 'app-bar',
@@ -35,9 +35,12 @@ export class BarComponent implements OnInit, OnChanges {
 
   @Input() visIdx: string;
 
-  categories: VisualQuery[] = publication;
+  publication = this.staticDataService.visualisationData.publication;
+  funding = this.staticDataService.visualisationData.funding;
 
-  constructor() { }
+  categories = this.publication;
+
+  constructor(private staticDataService: StaticDataService) { }
 
   ngOnInit(): void {
   }
@@ -67,12 +70,12 @@ export class BarComponent implements OnInit, OnChanges {
     switch (this.tab) {
       case 'publications':
         visualisationData = this.data.publicationData;
-        this.categories = publication;
+        this.categories = this.publication;
         ylabel = 'Julkaisujen määrä';
         break;
         case 'fundings':
           visualisationData = this.data.fundingData;
-          this.categories = funding;
+          this.categories = this.funding;
           ylabel = 'Hankkeiden määrä';
         break;
     

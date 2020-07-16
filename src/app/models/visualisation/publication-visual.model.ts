@@ -7,7 +7,6 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { VisualData } from './visualisations.model';
-import { publication } from 'src/assets/static-data/visualisation.json';
 import { StaticDataService } from '../../services/static-data.service';
 
 export class PublicationVisual {
@@ -69,7 +68,9 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     fieldObjects: any[];
     
     // Names for country data
-    countryNames = [$localize`:@@finland:Suomi`, $localize`:@@other:Muu`];
+    countryNames = [$localize`:@@finland:Suomi`, $localize`:@@other:Muut`];
+
+    publication = this.sds.visualisationData.publication;
     
     constructor(private sds: StaticDataService) {
         // Get class descriptions from static data service, don't modify original data
@@ -90,7 +91,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
             s === 'finska'  || s === 'engelska' || s === 'svenska') {
             return s;
         } else {
-            return $localize`:@@other:Muu`;
+            return $localize`:@@other:Muut`;
         }
     }
 
@@ -171,7 +172,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         const juFo: VisualData[] = [];
         const majorFieldOfScience: VisualData[] = [];
         
-        const field = publication[categoryIdx].field;
+        const field = this.publication[categoryIdx].field;
 
         const tmp: any[] = [];
 
@@ -210,7 +211,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
             
             default:
 
-                const hierarchyField = publication[categoryIdx].hierarchy[1].name;
+                const hierarchyField = this.publication[categoryIdx].hierarchy[1].name;
 
                 item.aggregations[field].buckets.forEach(b => tmp.push(b));
 

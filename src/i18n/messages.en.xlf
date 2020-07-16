@@ -478,7 +478,7 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="publicationYear" datatype="html">
+      <trans-unit id="year" datatype="html">
         <source>Vuosi</source>
         <target>Year</target>
         <context-group purpose="location">
@@ -2407,6 +2407,10 @@
         <source>Tieteenala</source>
         <target>Field of science</target>
       </trans-unit>
+      <trans-unit id="mainFieldOfScience">
+        <source>Päätieteenala</source>
+        <target>Main field of science</target>
+      </trans-unit>
       <trans-unit id="5693158486934642346">
         <source>Tutkimusalat</source>
         <target>Research fields</target>
@@ -2597,10 +2601,6 @@
         <target>Finland</target>
       </trans-unit>
       <trans-unit id="other">
-        <source>Muu</source>
-        <target>Other</target>
-      </trans-unit>
-      <trans-unit id="others">
         <source>Muut</source>
         <target>Other</target>
       </trans-unit>
