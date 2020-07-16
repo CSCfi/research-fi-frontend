@@ -9,8 +9,8 @@ import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
 import { SortService } from './sort.service';
 import { BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
-import { publication, funding } from 'src/assets/static-data/visualisation.json';
 import { VisualQueryHierarchy, VisualQuery } from '../models/visualisation/visualisations.model';
+import { StaticDataService } from './static-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,8 @@ export class FilterService {
   filters = this.filterSource.asObservable();
   localeC: string;
   timestamp: string;
+  publication = this.staticDataService.visualisationData.publication;
+  funding = this.staticDataService.visualisationData.funding;
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
@@ -55,7 +57,7 @@ export class FilterService {
   }
 
   constructor(private sortService: SortService, private settingsService: SettingsService,
-              @Inject( LOCALE_ID ) protected localeId: string) {
+              @Inject( LOCALE_ID ) protected localeId: string, private staticDataService: StaticDataService) {
                 this.localeC = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
 
@@ -369,15 +371,15 @@ export class FilterService {
     // Create query with filters and search term
     const query = this.constructQuery(tab.slice(0, -1), searchTerm);
     // Query field hierarchy
-    let category: VisualQuery = publication[0];
+    let category: VisualQuery = this.publication[0];
     // Get correct hierarchy based on tab
     switch (tab) {
       case 'publications':
-        category = publication[categoryIdx];
+        category = this.publication[categoryIdx];
         break;
 
       case 'fundings':
-        category = funding[categoryIdx];
+        category = this.funding[categoryIdx];
         break;
     
       default:

@@ -7,7 +7,6 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { VisualData } from './visualisations.model';
-import { funding } from 'src/assets/static-data/visualisation.json';
 import { StaticDataService } from '../../services/static-data.service';
 
 export class FundingVisual {
@@ -34,6 +33,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
         fieldOfScience: 'f.key',
     }
+
+    funding = this.sds.visualisationData.funding;
 
     
     constructor(private sds: StaticDataService) {}
@@ -76,7 +77,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         const typeOfFunding: VisualData[] = [];
         const fieldOfScience: VisualData[] = [];
         
-        const field = funding[categoryIdx].field;
+        const field = this.funding[categoryIdx].field;
 
         const tmp: any[] = [];
 
@@ -123,7 +124,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
 
             default:
 
-                const hierarchyField = funding[categoryIdx].hierarchy[1].name;
+                const hierarchyField = this.funding[categoryIdx].hierarchy[1].name;
 
                 item.aggregations[field].buckets.forEach(b => tmp.push(b));
 

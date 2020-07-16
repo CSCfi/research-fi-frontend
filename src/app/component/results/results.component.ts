@@ -23,8 +23,8 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
-import { publication, funding } from 'src/assets/static-data/visualisation.json'
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
+import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
   selector: 'app-results',
@@ -72,10 +72,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showSkipLinks: boolean;
   currentLocale: string;
 
+  visualPublication = this.staticDataService.visualisationData.publication;
+  visualFunding = this.staticDataService.visualisationData.funding;
+
   visual = false;
   visIdx = "0";
   visualLoading = false;
-  visualisationCategories: VisualQuery[] = publication;
+  visualisationCategories: VisualQuery[];
   visualData: Visual;
   percentage = false;
 
@@ -88,7 +91,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
                @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService, private modalService: BsModalService,
-               private utilityService: UtilityService, private settingsService: SettingsService ) {
+               private utilityService: UtilityService, private settingsService: SettingsService, private staticDataService: StaticDataService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -178,10 +181,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.updateTitle(this.selectedTabData);
           switch (this.tab) {
             case 'publications':
-              this.visualisationCategories = publication;
+              this.visualisationCategories = this.visualPublication;
               break;
             case 'fundings':
-              this.visualisationCategories = funding;
+              this.visualisationCategories = this.visualFunding;
               break;
           
             default:
