@@ -578,25 +578,26 @@ export class StaticDataService {
                 }
             ]
         },
-        {
-            field: 'amount',
-            title: 'Myönnetty summa vuosittain',
-            select: $localize`:@@fundingGranted:Myönnetty rahoitus`,
-            hierarchy: [
-                {
-                    field: 'fundingStartYear',
-                    name: 'year',
-                    size: 10,
-                    order: 1
-                },
-                {
-                    field: 'amount_in_EUR',
-                    name: 'amount',
-                    size: 1000,
-                    order: 0
-                }
-            ]
-        },
+        // Removed due to incorrect functionality
+        // {
+        //     field: 'amount',
+        //     title: 'Myönnetty summa vuosittain',
+        //     select: $localize`:@@fundingGranted:Myönnetty rahoitus`,
+        //     hierarchy: [
+        //         {
+        //             field: 'fundingStartYear',
+        //             name: 'year',
+        //             size: 10,
+        //             order: 1
+        //         },
+        //         {
+        //             field: 'amount_in_EUR',
+        //             name: 'amount',
+        //             size: 1000,
+        //             order: 0
+        //         }
+        //     ]
+        // },
         {
             field: 'funder',
             title: 'Hankkeiden määrä rahoittajan mukaan',
