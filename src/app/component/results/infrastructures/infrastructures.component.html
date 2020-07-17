@@ -41,7 +41,7 @@
         <ng-container *ngFor="let infra of resultData?.infrastructures; let i = index">
             <div class="row no-margin single">
                 <div class="col col-1 icon">
-                    <a class="icon" routerLink="/results/infrastructure/{{infra.id}}" tabindex="-1">
+                    <a class="icon" routerLink="/results/infrastructure/{{infra.id.replace('/', '%2F')}}" tabindex="-1">
                         <fa-icon [icon]="faIcon"></fa-icon>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                     <span [innerHtml]="infra.acronym?.length > 0 && infra.acronym !== '0' ? infra.acronym : '-' | highlight: input"></span>
                 </div>      
                 <div class="col col-lg-4 col-xl-4 title">
-                    <a routerLink="/results/infrastructure/{{infra.id}}">
+                    <a routerLink="/results/infrastructure/{{infra.id.replace('/', '%2F')}}">
                         <h4 class="result-title" [innerHtml]="infra.name?.trim() | highlight: input"></h4>
                     </a>
                     <div class="row">
