@@ -279,75 +279,74 @@ export class BarComponent implements OnInit, OnChanges {
     const g = d3.select('#main')
         .append('g')
         
-    // Add info box if bar has name
-    if (d.name) {
+    // Add info box 
 
-      // Remove spaces and commas from name in id
-      g.attr('id', `id-${UtilityService.replaceSpaceAndComma(d.name)}-${d.parent}`);
+    // Remove spaces and commas from name in id
+    g.attr('id', `id-${UtilityService.replaceSpaceAndComma(d.name || d.parent)}-${d.parent}`);
 
-      // Append info rectangle so it's on top
-      const rect = g.append('rect');
-      const circle = g.append('circle');
+    // Append info rectangle so it's on top
+    const rect = g.append('rect');
+    const circle = g.append('circle');
 
-      // Append foreignObject so text width can be calculated
-      const fo = g.append('foreignObject');
-      fo.append('xhtml:div')
-        .style('font-size', '12px')
-        .style('color', 'white')
-        .style('white-space', 'wrap')
-        .style('width', 'fit-content')
-        .attr('id', 'name')
-        .html(d.name);
-      
-      
-      fo.append('xhtml:div')
+    // Append foreignObject so text width can be calculated
+    const fo = g.append('foreignObject');
+    fo.append('xhtml:div')
       .style('font-size', '12px')
       .style('color', 'white')
-      .style('white-space', 'nowrap')
+      .style('white-space', 'wrap')
       .style('width', 'fit-content')
-      .style('padding-left', '15px')
-      .attr('id', 'amount')
-      // Show percentage if percentage graph is chosen
-      .html(percent || UtilityService.thousandSeparator(d.doc_count.toString()));
-      
-      // Get the div elements to get their widths
-      const nameElem: HTMLElement = document.querySelector('#name');
-      const amountElem: HTMLElement = document.querySelector('#amount');
+      .attr('id', 'name')
+      .html(d.name || d.parent);
+    
+    
+    fo.append('xhtml:div')
+    .style('font-size', '12px')
+    .style('color', 'white')
+    .style('white-space', 'nowrap')
+    .style('width', 'fit-content')
+    .style('padding-left', '15px')
+    .attr('id', 'amount')
+    // Show percentage if percentage graph is chosen
+    .html(percent || UtilityService.thousandSeparator(d.doc_count.toString()));
+    
+    // Get the div elements to get their widths
+    const nameElem: HTMLElement = document.querySelector('#name');
+    const amountElem: HTMLElement = document.querySelector('#amount');
 
-      // Move rectangle so it's fully visible
-      const paddingX = 10;
-      const rectWidth = Math.max(nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX);
-      let rectX = x + this.x.bandwidth() + paddingX;
-      
-      // In case it's overflowing from the right
-      if (rectX + rectWidth > this.innerWidth) {
-        rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
-      } 
+    // Move rectangle so it's fully visible
+    const paddingX = 10;
+    const rectWidth = Math.max(nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX);
+    let rectX = x + this.x.bandwidth() + paddingX;
+    
+    // In case it's overflowing from the right
+    if (rectX + rectWidth > this.innerWidth) {
+      rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
+    } 
 
-      const rectHeight = nameElem.offsetHeight + 35;
-      const rectY = Math.min(y + (height / 2) - 50, this.innerHeight - rectHeight);
-
-
-      // Fill in attributes based on text size
-      fo.attr('x', rectX + paddingX)
-        .attr('y', rectY + 10)
-        .attr('width', rectWidth - 2 * paddingX)
-        .attr('height', rectHeight);
+    const rectHeight = nameElem.offsetHeight + 35;
+    const rectY = Math.min(y + (height / 2) - 50, this.innerHeight - rectHeight);
 
 
-      // Fill in rect and circle attributes
-      rect.attr('x', rectX)
-      .attr('y', rectY)
-      .attr('width', rectWidth)
-      .attr('height', rectHeight)
-      .attr('fill', 'black')
-      .attr('opacity', 0.8);
+    // Fill in attributes based on text size
+    fo.attr('x', rectX + paddingX)
+      .attr('y', rectY + 10)
+      .attr('width', rectWidth - 2 * paddingX)
+      .attr('height', rectHeight);
 
-      circle.attr('cx', rectX + paddingX + 5)
-      .attr('cy', rectY + rectHeight - 17)
-      .attr('r', 5)
-      .attr('fill', color(d.name));
-    }
+
+    // Fill in rect and circle attributes
+    rect.attr('x', rectX)
+    .attr('y', rectY)
+    .attr('width', rectWidth)
+    .attr('height', rectHeight)
+    .attr('fill', 'black')
+    .attr('opacity', 0.8);
+
+    circle.attr('cx', rectX + paddingX + 5)
+    .attr('cy', rectY + rectHeight - 17)
+    .attr('r', 5)
+    .attr('fill', color(d.name));
+    
   }
 
   hideInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[]) {
@@ -360,9 +359,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('width', this.x.bandwidth())
 
     // Remove info box if bar has name
-    if (d.name) {
-      d3.select(`#id-${UtilityService.replaceSpaceAndComma(d.name)}-${d.parent}`).remove();
-    }
+    d3.select(`#id-${UtilityService.replaceSpaceAndComma(d.name || d.parent)}-${d.parent}`).remove();
   }
 
 }
