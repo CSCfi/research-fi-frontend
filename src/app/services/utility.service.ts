@@ -88,11 +88,11 @@ export class UtilityService {
   }
 
   static replaceSpaceAndComma(s: string) {
-    return s.replace(/ |,|./g, '-');
+    return s.toString().replace(/ |,|./g, '-');
   }
 
   static thousandSeparator(s: string) {
-    return s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 
   // mouseenter handler for tooltipelements

@@ -43,6 +43,7 @@ export class BarComponent implements OnInit, OnChanges {
   constructor(private staticDataService: StaticDataService) { }
 
   ngOnInit(): void {
+    d3.formatDefaultLocale(this.staticDataService.visualisationData.locale);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,12 +52,6 @@ export class BarComponent implements OnInit, OnChanges {
         (changes?.height?.currentValue || this.height) &&
         (changes?.width?.currentValue || this.width)) {
 
-      // No legend for year graph
-      this.legendWidth = +this.visIdx ? 350 : 0;
-
-      // Height and width with margins
-      this.innerHeight = this.height - 3 * this.margin;
-      this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
       this.update(+this.visIdx, this.percentage);
     }
   }
@@ -65,6 +60,7 @@ export class BarComponent implements OnInit, OnChanges {
 
     let visualisationData: PublicationVisual | FundingVisual;
     let ylabel = '';
+    let format = ',';
 
 
     switch (this.tab) {
@@ -85,6 +81,20 @@ export class BarComponent implements OnInit, OnChanges {
 
     const categoryObject = this.categories[fieldIdx];
     const sample: VisualData[] = visualisationData[categoryObject.field];
+
+    // No legend for year and amount graphs
+    this.legendWidth = (categoryObject.field === 'year') ? 0 : 350;
+
+    // Funding amount graph is an exception
+    if (categoryObject.field === 'amount') {
+      this.legendWidth = 0;
+      ylabel = 'Myönnetty summa';
+      format = '$,';
+    }
+
+    // Height and width with margins
+    this.innerHeight = this.height - 3 * this.margin;
+    this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
 
     console.log(visualisationData)
     console.log(sample)
@@ -139,7 +149,8 @@ export class BarComponent implements OnInit, OnChanges {
         .call(axisLeft(this.y)
               // Only show integer ticks
               .tickValues(this.y.ticks().filter(t => Number.isInteger(t)))
-              .tickFormat(d => d + (percentage ? '%' : '')));
+              // .tickFormat(d => d + (percentage ? '%' : '')));
+              .tickFormat(percentage ? (d => d + '%') : d3.format(format)));
 
     // X axis    
     this.g.append('g')
@@ -171,8 +182,8 @@ export class BarComponent implements OnInit, OnChanges {
           .attr('fill', d => color(d.name))
           .attr('height', d => this.innerHeight - this.y(d.doc_count / (percentage ? totalSum : 1))) // Divide by total sum to get percentage, otherwise keep original
           .attr('width', _ => this.x.bandwidth())
-          .on("mouseenter", (d, i, n: any) => this.showInfo(d, i, n, color, percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined)) // Pass percentage if selected
-          .on("mouseout", (d, i, n: any) => this.hideInfo(d, i, n))
+          .on('mouseenter', (d, i, n: any) => this.showInfo(d, i, n, color, percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined)) // Pass percentage if selected
+          .on('mouseout', (d, i, n: any) => this.hideInfo(d, i, n))
           // Cumulative sum calculation for stacking bars
           .each((d, i, n) => {
               d3.select(n[i])
@@ -223,7 +234,7 @@ export class BarComponent implements OnInit, OnChanges {
     // Add axis and graph labels
     this.g.append('text')
         .attr('x', -(this.innerHeight / 2))
-        .attr('y', -this.margin)
+        .attr('y', -this.margin - 35)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
         .text(ylabel);
@@ -268,75 +279,74 @@ export class BarComponent implements OnInit, OnChanges {
     const g = d3.select('#main')
         .append('g')
         
-    // Add info box if bar has name
-    if (d.name) {
+    // Add info box 
 
-      // Remove spaces and commas from name in id
-      g.attr('id', `id-${UtilityService.replaceSpaceAndComma(d.name)}-${d.parent}`);
+    // Remove spaces and commas from name in id
+    g.attr('id', `id-${UtilityService.replaceSpaceAndComma(d.name || d.parent)}-${d.parent}`);
 
-      // Append info rectangle so it's on top
-      const rect = g.append('rect');
-      const circle = g.append('circle');
+    // Append info rectangle so it's on top
+    const rect = g.append('rect');
+    const circle = g.append('circle');
 
-      // Append foreignObject so text width can be calculated
-      const fo = g.append('foreignObject');
-      fo.append('xhtml:div')
-        .style('font-size', '12px')
-        .style('color', 'white')
-        .style('white-space', 'wrap')
-        .style('width', 'fit-content')
-        .attr('id', 'name')
-        .html(d.name);
-      
-      
-      fo.append('xhtml:div')
+    // Append foreignObject so text width can be calculated
+    const fo = g.append('foreignObject');
+    fo.append('xhtml:div')
       .style('font-size', '12px')
       .style('color', 'white')
-      .style('white-space', 'nowrap')
+      .style('white-space', 'wrap')
       .style('width', 'fit-content')
-      .style('padding-left', '15px')
-      .attr('id', 'amount')
-      // Show percentage if percentage graph is chosen
-      .html(percent || UtilityService.thousandSeparator(d.doc_count.toString()));
-      
-      // Get the div elements to get their widths
-      const nameElem: HTMLElement = document.querySelector('#name');
-      const amountElem: HTMLElement = document.querySelector('#amount');
+      .attr('id', 'name')
+      .html(d.name || d.parent);
+    
+    
+    fo.append('xhtml:div')
+    .style('font-size', '12px')
+    .style('color', 'white')
+    .style('white-space', 'nowrap')
+    .style('width', 'fit-content')
+    .style('padding-left', '15px')
+    .attr('id', 'amount')
+    // Show percentage if percentage graph is chosen
+    .html(percent || UtilityService.thousandSeparator(d.doc_count.toString()));
+    
+    // Get the div elements to get their widths
+    const nameElem: HTMLElement = document.querySelector('#name');
+    const amountElem: HTMLElement = document.querySelector('#amount');
 
-      // Move rectangle so it's fully visible
-      const paddingX = 10;
-      const rectWidth = Math.max(nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX);
-      let rectX = x + this.x.bandwidth() + paddingX;
-      
-      // In case it's overflowing from the right
-      if (rectX + rectWidth > this.innerWidth) {
-        rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
-      } 
+    // Move rectangle so it's fully visible
+    const paddingX = 10;
+    const rectWidth = Math.max(nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX);
+    let rectX = x + this.x.bandwidth() + paddingX;
+    
+    // In case it's overflowing from the right
+    if (rectX + rectWidth > this.innerWidth) {
+      rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
+    } 
 
-      const rectHeight = nameElem.offsetHeight + 35;
-      const rectY = Math.min(y + (height / 2) - 50, this.innerHeight - rectHeight);
-
-
-      // Fill in attributes based on text size
-      fo.attr('x', rectX + paddingX)
-        .attr('y', rectY + 10)
-        .attr('width', rectWidth - 2 * paddingX)
-        .attr('height', rectHeight);
+    const rectHeight = nameElem.offsetHeight + 35;
+    const rectY = Math.min(y + (height / 2) - 50, this.innerHeight - rectHeight);
 
 
-      // Fill in rect and circle attributes
-      rect.attr('x', rectX)
-      .attr('y', rectY)
-      .attr('width', rectWidth)
-      .attr('height', rectHeight)
-      .attr('fill', 'black')
-      .attr('opacity', 0.8);
+    // Fill in attributes based on text size
+    fo.attr('x', rectX + paddingX)
+      .attr('y', rectY + 10)
+      .attr('width', rectWidth - 2 * paddingX)
+      .attr('height', rectHeight);
 
-      circle.attr('cx', rectX + paddingX + 5)
-      .attr('cy', rectY + rectHeight - 17)
-      .attr('r', 5)
-      .attr('fill', color(d.name));
-    }
+
+    // Fill in rect and circle attributes
+    rect.attr('x', rectX)
+    .attr('y', rectY)
+    .attr('width', rectWidth)
+    .attr('height', rectHeight)
+    .attr('fill', 'black')
+    .attr('opacity', 0.8);
+
+    circle.attr('cx', rectX + paddingX + 5)
+    .attr('cy', rectY + rectHeight - 17)
+    .attr('r', 5)
+    .attr('fill', color(d.name));
+    
   }
 
   hideInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[]) {
@@ -349,9 +359,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('width', this.x.bandwidth())
 
     // Remove info box if bar has name
-    if (d.name) {
-      d3.select(`#id-${UtilityService.replaceSpaceAndComma(d.name)}-${d.parent}`).remove();
-    }
+    d3.select(`#id-${UtilityService.replaceSpaceAndComma(d.name || d.parent)}-${d.parent}`).remove();
   }
 
 }

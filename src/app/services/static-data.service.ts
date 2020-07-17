@@ -343,7 +343,13 @@ export class StaticDataService {
     return res;
   }
 
-  visualisationData: {publication: VisualQuery[], funding: VisualQuery[]} = {
+  visualisationData: {locale: d3.FormatLocaleDefinition, publication: VisualQuery[], funding: VisualQuery[]} = {
+    locale: {
+      decimal: '.',
+      thousands: ' ',
+      grouping: [3],
+      currency: ['', '€'],
+    },
     publication: [
         {
             field: 'year',
@@ -572,6 +578,26 @@ export class StaticDataService {
                 }
             ]
         },
+        // Removed due to incorrect functionality
+        // {
+        //     field: 'amount',
+        //     title: 'Myönnetty summa vuosittain',
+        //     select: $localize`:@@fundingGranted:Myönnetty rahoitus`,
+        //     hierarchy: [
+        //         {
+        //             field: 'fundingStartYear',
+        //             name: 'year',
+        //             size: 10,
+        //             order: 1
+        //         },
+        //         {
+        //             field: 'amount_in_EUR',
+        //             name: 'amount',
+        //             size: 1000,
+        //             order: 0
+        //         }
+        //     ]
+        // },
         {
             field: 'funder',
             title: 'Hankkeiden määrä rahoittajan mukaan',

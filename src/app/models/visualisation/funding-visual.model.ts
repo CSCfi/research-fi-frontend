@@ -13,6 +13,7 @@ export class FundingVisual {
 
     constructor(
         public year: VisualData[],
+        public amount: VisualData[],
         public funder: VisualData[],
         public organization: VisualData[],
         public typeOfFunding: VisualData[],
@@ -72,6 +73,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         
         // Init arrays
         const year: VisualData[] = [];
+        const amount: VisualData[] = [];
         const funder: VisualData[] = [];
         const organization: VisualData[] = [];
         const typeOfFunding: VisualData[] = [];
@@ -83,6 +85,20 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
 
         // Adapt based on current visualisation
         switch (field) {
+
+            case 'amount': 
+
+                item.aggregations.amount.buckets.forEach(b => {
+                    b.data = [];
+                    const v: any = {};
+                    v.doc_count = b.amount.buckets.reduce((a, b) => a + b.key * b.doc_count, 0);
+                    v.name = undefined;
+                    v.parent = b.key;
+                    b.data.push(v);
+                    amount.push(b);
+                });
+            
+                break;
 
             case 'organization':
 
@@ -152,6 +168,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                 
         return new FundingVisual(
             year,
+            amount,
             funder,
             organization,
             typeOfFunding,
