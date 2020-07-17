@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Inject } from '@angular/core';
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
 import { Visual, VisualData, VisualDataObject, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
@@ -6,6 +6,7 @@ import { PublicationVisual } from 'src/app/models/visualisation/publication-visu
 import { UtilityService } from 'src/app/services/utility.service';
 import { FundingVisual } from 'src/app/models/visualisation/funding-visual.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-bar',
@@ -40,7 +41,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   categories = this.publication;
 
-  constructor(private staticDataService: StaticDataService) { }
+  constructor(private staticDataService: StaticDataService, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
     d3.formatDefaultLocale(this.staticDataService.visualisationData.locale);
@@ -310,8 +311,8 @@ export class BarComponent implements OnInit, OnChanges {
     .html(percent || UtilityService.thousandSeparator(d.doc_count.toString()));
     
     // Get the div elements to get their widths
-    const nameElem: HTMLElement = document.querySelector('#name');
-    const amountElem: HTMLElement = document.querySelector('#amount');
+    const nameElem: HTMLElement = this.document.querySelector('#name');
+    const amountElem: HTMLElement = this.document.querySelector('#amount');
 
     // Move rectangle so it's fully visible
     const paddingX = 10;
