@@ -201,7 +201,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
     // Check for applied university to display correct field name
     if (source.sectorNameFi === 'Ammattikorkeakoulu') {
-      this.studentCounts[0].label = $localize`:@@orgThesisCountBscApplied:Ammattikorkeakoulutukinto`;
+      this.studentCounts[0].label = $localize`:@@orgThesisCountBscApplied:Alempi ammattikorkeakoulutukinto`;
       this.studentCounts[1].label = $localize`:@@orgThesisCountMscApplied:Ylempi ammattikorkeakoulutukinto`;
     }
 

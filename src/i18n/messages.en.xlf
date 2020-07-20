@@ -2687,7 +2687,7 @@
       </trans-unit>
       <trans-unit id="orgThesisCountBscApplied">
         <source>Alempi ammattikorkeakoulututkinto</source>
-        <target>Bachelor's degree</target>
+        <target>Bachelor's degree (polytechnic)</target>
       </trans-unit>
       <trans-unit id="orgThesisCountMsc">
         <source>Ylempi korkeakoulututkinto</source>
@@ -2695,7 +2695,7 @@
       </trans-unit>
       <trans-unit id="orgThesisCountMscApplied">
         <source>Ylempi ammattikorkeakoulututkinto</source>
-        <target>Master's degree</target>
+        <target>Master's degree (polytechnic)</target>
       </trans-unit>
       <trans-unit id="orgThesisCountLic">
         <source>Lisensiaatintutkinto</source>
