@@ -199,6 +199,12 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       source.statCenterId = '';
     }
 
+    // Check for applied university to display correct field name
+    if (source.sectorNameFi === 'Ammattikorkeakoulu') {
+      this.studentCounts[0].label = $localize`:@@orgThesisCountBscApplied:Alempi ammattikorkeakoulutukinto`;
+      this.studentCounts[1].label = $localize`:@@orgThesisCountMscApplied:Ylempi ammattikorkeakoulutukinto`;
+    }
+
     if (subUnits && subUnits.length > 0) {
       // Get latest year of subUnits. Data is in string format
       const subUnitYears = [...new Set(subUnits.map(item => item.year))];

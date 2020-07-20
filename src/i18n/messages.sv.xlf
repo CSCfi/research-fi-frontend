@@ -2682,9 +2682,17 @@
         <source>Alempi korkeakoulututkinto</source>
         <target state="translated">Lägre högskoleexamen</target>
       </trans-unit>
+      <trans-unit id="orgThesisCountBscApplied">
+        <source>Alempi ammattikorkeakoulututkinto</source>
+        <target state="translated">Lägre yrkeshögskoleexamen</target>
+      </trans-unit>
       <trans-unit id="orgThesisCountMsc">
         <source>Ylempi korkeakoulututkinto</source>
         <target state="translated">Högre högskoleexamen</target>
+      </trans-unit>
+      <trans-unit id="orgThesisCountMscApplied">
+        <source>Ylempi ammattikorkeakoulututkinto</source>
+        <target state="translated">Högre yrkeshögskoleexamen</target>
       </trans-unit>
       <trans-unit id="orgThesisCountLic">
         <source>Lisensiaatintutkinto</source>
