@@ -2685,8 +2685,16 @@
         <source>Alempi korkeakoulututkinto</source>
         <target>Bachelor's degree</target>
       </trans-unit>
+      <trans-unit id="orgThesisCountBscApplied">
+        <source>Alempi ammattikorkeakoulututkinto</source>
+        <target>Bachelor's degree</target>
+      </trans-unit>
       <trans-unit id="orgThesisCountMsc">
         <source>Ylempi korkeakoulututkinto</source>
+        <target>Master's degree</target>
+      </trans-unit>
+      <trans-unit id="orgThesisCountMscApplied">
+        <source>Ylempi ammattikorkeakoulututkinto</source>
         <target>Master's degree</target>
       </trans-unit>
       <trans-unit id="orgThesisCountLic">
