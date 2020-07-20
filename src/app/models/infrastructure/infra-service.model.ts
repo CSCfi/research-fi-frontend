@@ -6,9 +6,9 @@
 // # :license: MIT
 
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 import { ServicePoint, ServicePointAdapter } from './service-point.model';
-import { LanguageCheck } from './utils';
+import { LanguageCheck } from '../utils';
 
 export class InfraService {
 

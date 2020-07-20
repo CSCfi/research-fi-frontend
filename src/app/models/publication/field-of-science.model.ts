@@ -6,8 +6,8 @@
 // # :license: MIT
 
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
-import { LanguageCheck } from './utils';
+import { Adapter } from '../adapter.model';
+import { LanguageCheck } from '../utils';
 
 export class FieldOfScience {
 

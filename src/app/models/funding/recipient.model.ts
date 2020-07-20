@@ -6,7 +6,7 @@
 // # :license: MIT
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient-organization.model';
 
 export class Recipient {

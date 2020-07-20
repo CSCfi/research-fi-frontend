@@ -5,10 +5,10 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
-import { LanguageCheck } from './utils';
+import { LanguageCheck } from '../utils';
 
 export class Funding {
 

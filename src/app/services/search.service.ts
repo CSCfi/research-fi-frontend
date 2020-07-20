@@ -17,7 +17,7 @@ import { TabChangeService } from './tab-change.service';
 import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
-import { Publication } from '../models/publication.model';
+import { Publication } from '../models/publication/publication.model';
 import { News, NewsAdapter } from '../models/news.model';
 import { VisualAdapter, Visual } from '../models/visualisation/visualisations.model';
 
