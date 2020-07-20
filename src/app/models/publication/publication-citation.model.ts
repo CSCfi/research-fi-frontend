@@ -34,7 +34,11 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
     adapt(item: any): PublicationCitation {
 
         const formatNamesInitials = (authors: string, order = 0): string => {
+            if (!authors) return '';
+
             let names: any = authors.split(';');
+            // Names with '&'
+            names = authors.split('&').concat(names);
             names = names.map(n => n.trim().split(', '));
             // Initials first 
             if (order) {
@@ -72,8 +76,14 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             } else if (this.types[1].includes(type)) {
                 const pages = (item.pageNumberText || item.articleNumberText) ? ', (' + (item.pageNumberText || item.articleNumberText) +')' : '';
                 const parentPublisherNames = formatNamesInitials(item.parentPublicationPublisher, 1);
-
-                apa = names + ' ' + year + '. ' + item.publicationName + '. In ' + parentPublisherNames + ' (Eds.), ' + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
+                
+                apa = names + ' ' + year + item.publicationName + '. In ' + parentPublisherNames + ' (Eds.), ' + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
+            } else if (this.types[2].includes(type)) {
+                apa = names + ' ' + year + item.publicationName + '. ' + item.publisherName + '. ' + doi;
+            } else if (this.types[3].includes(type)) {
+                const parentPublisherNames = formatNamesInitials(item.parentPublicationPublisher, 1);
+                
+                apa = parentPublisherNames + '(Eds.). ' + year + '<i>' + item.publicationName + '</i>' + '. ' + item.publisherName + '. ' + doi;
             }
 
             console.log(apa);
