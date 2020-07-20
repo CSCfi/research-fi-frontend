@@ -22,41 +22,70 @@ export class PublicationCitation {
 })
 
 export class PublicationCitationAdapter implements Adapter<PublicationCitation> {
+
+    types = [
+        ['A1', 'A2', 'A4', 'B1', 'B3', 'D1', 'D3', 'E1'],
+        ['A3', 'B2', 'D2'],
+        ['C1', 'E2', 'D4', 'D5', 'G4', 'G5'],
+        ['C2', 'E3', 'D6']
+    ]
+
     constructor() {}
     adapt(item: any): PublicationCitation {
 
-        const res = '';
+        const formatNamesInitials = (authors: string, order = 0): string => {
+            let names: any = authors.split(';');
+            names = names.map(n => n.trim().split(', '));
+            // Initials first 
+            if (order) {
+                names = names.map(n => n[1].split(' ').map(f => f[0] + '.').join(' ') + ' ' + n[0]);
+            // Last name first
+            } else {
+                names = names.map(n => n[0] + ' ' + n[1].split(' ').map(f => f[0] + '.').join(' '));
+            }
+            names = names.join(', ')
+            return names;
+    
+        }
 
-        // Lastname F. N., Othername O. N., ...
-        let names = item.authorsText.split(';');
-        names = names.map(n => n.trim().split(', '));
-        names = names.map(n => n[0] + ' ' + n[1].split(' ').map(f => f[0] + '.').join(' '));
-        names = names.join(', ')
-        console.log(names);
+        const createApa = (type: string): string => {
+            let apa = '';
 
-        let year = `(${item.publicationYear})`;
-        console.log(year);
+            // Lastname F. N., Othername O. N., ...
+            const names = formatNamesInitials(item.authorsText);
 
-        const journal = `<i>${item.journalName || item.conferenceName}</i>`;
+            const year = `(${item.publicationYear}). `;
+            
+            const journal = `<i>${item.journalName || item.conferenceName}</i>`;
 
-        const volumeNumber = `<i>${item.volume || ''}</i>` + (item.issueNumber ? `(${item.issueNumber || ''})` : '');
+            const volume = item.volume ? (', <i>' + item.volume + '</i>') : '';
 
-        console.log(volumeNumber)
+            const number = item.issueNumber ? ('(' + item.issueNumber + ')') : '';
+            
+            const doi = item.doi ? ('doi: ' + item.doi) : '';
+            
+            
+            if (this.types[0].includes(type)) {
+                const pages = (item.pageNumberText || item.articleNumberText) ? (', ' + (item.pageNumberText || item.articleNumberText))  : '';
 
-        const pages = item.pageNumberText || item.articleNumberText;
+                apa = names + ' ' + year + item.publicationName + '. ' + journal + volume + number + pages + '. ' + doi;
+            } else if (this.types[1].includes(type)) {
+                const pages = (item.pageNumberText || item.articleNumberText) ? ', (' + (item.pageNumberText || item.articleNumberText) +')' : '';
+                const parentPublisherNames = formatNamesInitials(item.parentPublicationPublisher, 1);
 
-        console.log(pages)
+                apa = names + ' ' + year + '. ' + item.publicationName + '. In ' + parentPublisherNames + ' (Eds.), ' + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
+            }
 
-        const doi = item.doi ? ('doi: ' + item.doi) : '';
+            console.log(apa);
+            return apa;
+        }
 
-        const apa = names + ' ' + year + '. ' + item.publicationName + ', ' + journal + ', ' + volumeNumber + ', ' + pages + '. ' + doi;
-
-        console.log(apa);
+        const apa = createApa(item.publicationTypeCode);
 
         return new PublicationCitation(
-            res,
-            res,
-            res
+            apa,
+            apa,
+            apa
         );
     }
 }
