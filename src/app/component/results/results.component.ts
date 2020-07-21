@@ -245,7 +245,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     // Subscribe to resize
-    this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
+    this.resizeService.onResize$.subscribe(dims => this.onResize(dims.width));
     this.mobile = this.window.innerWidth < 992;
   }
 
@@ -372,8 +372,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  updateMobile(width) {
+  onResize(width) {
     this.mobile = width < 992;
+    this.visual = this.visual && width >= 1200;
   }
 
   changeFocusTarget(target) {

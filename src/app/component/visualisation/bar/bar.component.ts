@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Inject } from '@angular/core';
 import * as d3 from 'd3';
 import { ScaleLinear, scaleLinear, scaleBand, ScaleBand, axisBottom, axisLeft, max } from 'd3';
 import { Visual, VisualData, VisualDataObject, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
@@ -6,6 +6,7 @@ import { PublicationVisual } from 'src/app/models/visualisation/publication-visu
 import { UtilityService } from 'src/app/services/utility.service';
 import { FundingVisual } from 'src/app/models/visualisation/funding-visual.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-bar',
@@ -40,7 +41,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   categories = this.publication;
 
-  constructor(private staticDataService: StaticDataService) { }
+  constructor(private staticDataService: StaticDataService, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {
     d3.formatDefaultLocale(this.staticDataService.visualisationData.locale);
@@ -82,8 +83,8 @@ export class BarComponent implements OnInit, OnChanges {
     const categoryObject = this.categories[fieldIdx];
     const sample: VisualData[] = visualisationData[categoryObject.field];
 
-    // No legend for year and amount graphs
-    this.legendWidth = (categoryObject.field === 'year') ? 0 : 350;
+    // No legend for year graph
+    this.legendWidth = +this.visIdx ? 350 : 0;
 
     // Funding amount graph is an exception
     if (categoryObject.field === 'amount') {
@@ -91,11 +92,11 @@ export class BarComponent implements OnInit, OnChanges {
       ylabel = 'Myönnetty summa';
       format = '$,';
     }
-
+    
     // Height and width with margins
     this.innerHeight = this.height - 3 * this.margin;
     this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
-
+    
     console.log(visualisationData)
     console.log(sample)
 
@@ -253,7 +254,7 @@ export class BarComponent implements OnInit, OnChanges {
 
     this.g.append('foreignObject')
         .attr('x', -this.margin * 2)
-        .attr('y', -this.margin * 2)
+        .attr('y', -this.margin * 2 - 5)
         .attr('width', this.width - this.legendWidth)
         .attr('height', this.margin * 2)
         .append('xhtml:div')
@@ -294,7 +295,7 @@ export class BarComponent implements OnInit, OnChanges {
       .style('font-size', '12px')
       .style('color', 'white')
       .style('white-space', 'wrap')
-      .style('width', 'fit-content')
+      .style('width', 'max-content')
       .attr('id', 'name')
       .html(d.name || d.parent);
     
@@ -303,19 +304,19 @@ export class BarComponent implements OnInit, OnChanges {
     .style('font-size', '12px')
     .style('color', 'white')
     .style('white-space', 'nowrap')
-    .style('width', 'fit-content')
+    .style('width', 'max-content')
     .style('padding-left', '15px')
     .attr('id', 'amount')
     // Show percentage if percentage graph is chosen
     .html(percent || UtilityService.thousandSeparator(d.doc_count.toString()));
     
     // Get the div elements to get their widths
-    const nameElem: HTMLElement = document.querySelector('#name');
-    const amountElem: HTMLElement = document.querySelector('#amount');
+    const nameElem: HTMLElement = this.document.querySelector('#name');
+    const amountElem: HTMLElement = this.document.querySelector('#amount');
 
     // Move rectangle so it's fully visible
     const paddingX = 10;
-    const rectWidth = Math.max(nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX);
+    const rectWidth = Math.max(nameElem.offsetWidth, amountElem.offsetWidth)  + 2 * paddingX;
     let rectX = x + this.x.bandwidth() + paddingX;
     
     // In case it's overflowing from the right
