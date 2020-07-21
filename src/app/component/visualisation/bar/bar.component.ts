@@ -295,7 +295,7 @@ export class BarComponent implements OnInit, OnChanges {
       .style('font-size', '12px')
       .style('color', 'white')
       .style('white-space', 'wrap')
-      .style('width', 'fit-content')
+      .style('width', 'max-content')
       .attr('id', 'name')
       .html(d.name || d.parent);
     
@@ -304,7 +304,7 @@ export class BarComponent implements OnInit, OnChanges {
     .style('font-size', '12px')
     .style('color', 'white')
     .style('white-space', 'nowrap')
-    .style('width', 'fit-content')
+    .style('width', 'max-content')
     .style('padding-left', '15px')
     .attr('id', 'amount')
     // Show percentage if percentage graph is chosen
@@ -316,7 +316,7 @@ export class BarComponent implements OnInit, OnChanges {
 
     // Move rectangle so it's fully visible
     const paddingX = 10;
-    const rectWidth = Math.max(nameElem.offsetWidth + 2 * paddingX, amountElem.offsetWidth + 2 * paddingX);
+    const rectWidth = Math.max(nameElem.offsetWidth, amountElem.offsetWidth)  + 2 * paddingX;
     let rectX = x + this.x.bandwidth() + paddingX;
     
     // In case it's overflowing from the right
