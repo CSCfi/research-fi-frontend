@@ -12,8 +12,8 @@ export class PublicationCitation {
 
     constructor(
         public apa: string,
-        public mla: string,
-        public chicago: string
+        public chicago: string,
+        public mla: string
     ) {}
 }
 
@@ -38,7 +38,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
 
             let names: any = authors.split(';');
             // Names with '&'
-            names = names.map(x => x.split('&')?.flat());
+            names = names.map(x => x.split('&'))?.flat();
             names = names.map(n => n.trim().split(', '));
             // Initials first 
             if (order) {
@@ -53,7 +53,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
         }
 
         const createApa = (type: string): string => {
-            let apa = '';
+            let res = '';
 
             // Lastname F. N., Othername O. N., ...
             const names = formatNamesInitials(item.authorsText);
@@ -72,29 +72,53 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             if (this.types[0].includes(type)) {
                 const pages = (item.pageNumberText || item.articleNumberText) ? (', ' + (item.pageNumberText || item.articleNumberText))  : '';
 
-                apa = names + ' ' + year + item.publicationName + '. ' + journal + volume + number + pages + '. ' + doi;
+                res = names + ' ' + year + item.publicationName + '. ' + journal + volume + number + pages + '. ' + doi;
             } else if (this.types[1].includes(type)) {
                 const pages = (item.pageNumberText || item.articleNumberText) ? ', (' + (item.pageNumberText || item.articleNumberText) +')' : '';
                 const parentPublisherNames = formatNamesInitials(item.parentPublicationPublisher, 1);
                 
-                apa = names + ' ' + year + item.publicationName + '. In ' + parentPublisherNames + ' (Eds.), ' + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
+                res = names + ' ' + year + item.publicationName + '. In ' + parentPublisherNames + ' (Eds.), ' + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
             } else if (this.types[2].includes(type)) {
-                apa = names + ' ' + year + item.publicationName + '. ' + item.publisherName + '. ' + doi;
+                res = names + ' ' + year + item.publicationName + '. ' + item.publisherName + '. ' + doi;
             } else if (this.types[3].includes(type)) {
                 const parentPublisherNames = formatNamesInitials(item.parentPublicationPublisher, 1);
                 
-                apa = parentPublisherNames + '(Eds.). ' + year + '<i>' + item.publicationName + '</i>' + '. ' + item.publisherName + '. ' + doi;
+                res = parentPublisherNames + '(Eds.). ' + year + '<i>' + item.publicationName + '</i>' + '. ' + item.publisherName + '. ' + doi;
             }
 
-            console.log(apa);
-            return apa;
+            return res;
+        }
+
+        const createChicago = (type: string): string => {
+            let res = '';
+
+            // Safe operators for non-split strings
+            const names = item.authorsText.split(';')?.map(x => x?.trim())?.join(', ');
+
+            const journal = `<i>${item.journalName || item.conferenceName}</i>`;
+
+            const volume = item.volume ? (', ' + item.volume) : '';
+
+            const issueNumber = item.issueNumber ? (', no. ' + item.issueNumber) : '';
+            
+            const pages = (item.pageNumberText || item.articleNumberText) ? ': ' + (item.pageNumberText || item.articleNumberText) : '';
+
+            const doi = item.doi ? ('doi: ' + item.doi) : '';
+
+            if (this.types[0].includes(type)) {
+                res = names + '. ' + item.publicationYear + '. \"' + item.publicationName + '.\" ' + journal + volume + issueNumber + pages + '. ' + doi;
+            }
+
+            console.log(res);
+            return res;
         }
 
         const apa = createApa(item.publicationTypeCode);
+        const chicago = createChicago(item.publicationTypeCode);
 
         return new PublicationCitation(
             apa,
-            apa,
+            chicago,
             apa
         );
     }
