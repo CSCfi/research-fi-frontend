@@ -38,7 +38,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
 
             let names: any = authors.split(';');
             // Names with '&'
-            names = authors.split('&').concat(names);
+            names = names.map(x => x.split('&')?.flat());
             names = names.map(n => n.trim().split(', '));
             // Initials first 
             if (order) {
