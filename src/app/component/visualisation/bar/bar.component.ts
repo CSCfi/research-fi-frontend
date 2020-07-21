@@ -83,8 +83,8 @@ export class BarComponent implements OnInit, OnChanges {
     const categoryObject = this.categories[fieldIdx];
     const sample: VisualData[] = visualisationData[categoryObject.field];
 
-    // No legend for year and amount graphs
-    this.legendWidth = (categoryObject.field === 'year') ? 0 : 350;
+    // No legend for year graph
+    this.legendWidth = +this.visIdx ? 350 : 0;
 
     // Funding amount graph is an exception
     if (categoryObject.field === 'amount') {
@@ -92,11 +92,11 @@ export class BarComponent implements OnInit, OnChanges {
       ylabel = 'Myönnetty summa';
       format = '$,';
     }
-
+    
     // Height and width with margins
     this.innerHeight = this.height - 3 * this.margin;
     this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
-
+    
     console.log(visualisationData)
     console.log(sample)
 
@@ -254,7 +254,7 @@ export class BarComponent implements OnInit, OnChanges {
 
     this.g.append('foreignObject')
         .attr('x', -this.margin * 2)
-        .attr('y', -this.margin * 2)
+        .attr('y', -this.margin * 2 - 5)
         .attr('width', this.width - this.legendWidth)
         .attr('height', this.margin * 2)
         .append('xhtml:div')

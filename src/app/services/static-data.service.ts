@@ -705,6 +705,7 @@ export class StaticDataService {
             field: 'typeOfFunding',
             title: 'Hankkeiden määrä rahoitusmuodon mukaan',
             select: $localize`:@@typeOfFunding:Rahoitusmuoto`,
+            message: 'Huom. Hankkeita, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
             hierarchy: [
                 {
                     field: 'fundingStartYear',
@@ -731,7 +732,7 @@ export class StaticDataService {
             field: 'fieldOfScience',
             title: 'Hankkeiden määrä tieteenaloittain',
             select: $localize`:@@fieldOfScience:Tieteenala`,
-            message: 'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
+            message: 'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Hankkeita, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
             hierarchy: [
                 {
                     field: 'fundingStartYear',
