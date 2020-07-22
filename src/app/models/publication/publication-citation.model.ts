@@ -37,6 +37,14 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             // Join with 'and' before last name
             return names.length > 1 ? (names.slice(0, -1).join(', ') + ` ${and} ` + names.slice(-1)) : names.join(', ');
         }
+
+        const formatNames = (s: string): string => {
+            // Split names
+            let names: string[] = s.split(';').map(x => x.trim()) || [];
+            // Reverse all name orders but first
+            names = names.slice(0,1).concat(names.slice(1).map(x => x.split(', ').reverse().join(' '))) || [];
+            return joinWithAnd(names, 'and');
+        }
         
         const formatNamesInitials = (authors: string, order = 0): string => {
             if (!authors) return '';
@@ -102,15 +110,6 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
         const createChicago = (type: string): string => {
             let res = '';
 
-            const formatNames = (s: string): string => {
-                // Split names
-                let names: string[] = s.split(';').map(x => x.trim()) || [];
-                // Reverse all name orders but first
-                names = names.slice(0,1).concat(names.slice(1).map(x => x.split(', ').reverse().join(' '))) || [];
-                return joinWithAnd(names, 'and');
-            }
-
-            // Safe operators for non-split strings
             const names = formatNames(item.authorsText);
 
             const journal = `<i>${item.journalName || item.conferenceName}</i>`;
@@ -145,17 +144,56 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
                 res = editorNames + item.publicationYear + '. <i>' + item.publicationName + '</i>. ' + publisherLocation +  (item.publisherName || '') + '. ' +  doi;
             }
 
-            console.log(res);
             return res;
+        }
+
+        const createMla = (type: string): string => {
+            let res = '';
+
+            const names = formatNames(item.authorsText);
+
+            const journal = `<i>${item.journalName || item.conferenceName}</i>`;
+
+            const volume = item.volume ? (', vol. ' + item.volume) : '';
+
+            const issueNumber = item.issueNumber ? (', no. ' + item.issueNumber) : '';
+
+            const parentPublicationName = item.parentPublicationName ? ('<i>' + item.parentPublicationName + '</i>, ') : '';
+
+            let editorNames = item.parentPublicationPublisher ?  joinWithAnd(item.parentPublicationPublisher.split(';')?.map(x => x.split(', ').reverse().join(' ')), 'and') : '';
+
+            const pages = (item.pageNumberText || item.articleNumberText) ? ' pp. ' + (item.pageNumberText || item.articleNumberText) : '';
+
+            const doi = item.doi ? ('doi: ' + item.doi) : '';
+
+
+
+            if (this.types[0].includes(type)) {
+                res = names + '. \"' + item.publicationName + '.\" ' + journal + volume + issueNumber + ', ' + item.publicationYear + pages + '. ' + doi; 
+            } else if (this.types[1].includes(type)) {
+                editorNames = editorNames ? 'edited by ' + editorNames + ', ' : '';
+                
+                res = names + '. \"' + item.publicationName + '.\" ' + parentPublicationName + editorNames + (item.publisherName || '') + ', ' + item.publicationYear + pages + '. ' + doi; 
+            } else if (this.types[2].includes(type)) {
+                res = names + '. <i>' + item.publicationName + '</i>. ' + (item.publisherName || '') + ', ' + item.publicationYear + '. ' + doi; 
+            } else if (this.types[3].includes(type)) {
+                editorNames = editorNames ? editorNames + ', editor(s). ' : '';
+
+                res = editorNames + '<i>' + item.publicationName + '</i>. ' + (item.publisherName || '') + ', ' + item.publicationYear + '. ' + doi; 
+            }
+
+
+            return res
         }
         
         const apa = createApa(item.publicationTypeCode);
         const chicago = createChicago(item.publicationTypeCode);
+        const mla = createMla(item.publicationTypeCode);
 
         return new PublicationCitation(
             apa,
             chicago,
-            apa
+            mla
         );
     }
 }
