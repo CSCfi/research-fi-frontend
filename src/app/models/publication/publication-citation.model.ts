@@ -33,13 +33,24 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
     constructor() {}
     adapt(item: any): PublicationCitation {
 
+        const joinWithAnd = (names: string[], and = '&'): string => {
+            // Join with 'and' before last name
+            return names.length > 1 ? (names.slice(0, -1).join(', ') + ` ${and} ` + names.slice(-1)) : names.join(', ');
+        }
+        
         const formatNamesInitials = (authors: string, order = 0): string => {
             if (!authors) return '';
 
             let names: any = authors.split(';');
             // Names with '&'
-            names = names.map(x => x.split('&'))?.flat();
-            names = names.map(n => n.trim().split(', '));
+            names = names?.map(x => x.split('&'))?.flat() || names;
+            names = names?.map(n => n.trim().split(', ')) || names;
+
+            // No comma between first and last name, kind of hacky
+            if (names[0].length < 2) {
+                names = names?.map(n => n[0].trim().split(' ')) || names;
+            }
+
             // Initials first 
             if (order) {
                 names = names.map(n => n[1].split(' ').map(f => f[0] + '.').join(' ') + ' ' + n[0]);
@@ -47,9 +58,8 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             } else {
                 names = names.map(n => n[0] + ' ' + n[1].split(' ').map(f => f[0] + '.').join(' '));
             }
-            names = names.join(', ')
+            names = joinWithAnd(names);
             return names;
-    
         }
 
         const createApa = (type: string): string => {
@@ -72,18 +82,18 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             if (this.types[0].includes(type)) {
                 const pages = (item.pageNumberText || item.articleNumberText) ? (', ' + (item.pageNumberText || item.articleNumberText))  : '';
 
-                res = names + ' ' + year + item.publicationName + '. ' + journal + volume + number + pages + '. ' + doi;
+                res = names + ' ' + year + item.publicationName + '. ' + journal + ', ' + volume + number + pages + '. ' + doi;
             } else if (this.types[1].includes(type)) {
                 const pages = (item.pageNumberText || item.articleNumberText) ? ', (' + (item.pageNumberText || item.articleNumberText) +')' : '';
-                const parentPublisherNames = formatNamesInitials(item.parentPublicationPublisher, 1);
+                const parentPublisherNames = item.parentPublicationPublisher ? (formatNamesInitials(item.parentPublicationPublisher, 1) + 'In (Eds.), ') : '';
                 
-                res = names + ' ' + year + item.publicationName + '. In ' + parentPublisherNames + ' (Eds.), ' + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
+                res = names + ' ' + year + item.publicationName + '. ' + parentPublisherNames + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
             } else if (this.types[2].includes(type)) {
                 res = names + ' ' + year + item.publicationName + '. ' + item.publisherName + '. ' + doi;
             } else if (this.types[3].includes(type)) {
-                const parentPublisherNames = formatNamesInitials(item.parentPublicationPublisher, 1);
+                const parentPublisherNames = item.parentPublicationPublisher ? (formatNamesInitials(item.parentPublicationPublisher, 1) + ' (Eds.), ') : '';
                 
-                res = parentPublisherNames + '(Eds.). ' + year + '<i>' + item.publicationName + '</i>' + '. ' + item.publisherName + '. ' + doi;
+                res = parentPublisherNames + year + '<i>' + item.publicationName + '</i>' + '. ' + item.publisherName + '. ' + doi;
             }
 
             return res;
@@ -92,27 +102,48 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
         const createChicago = (type: string): string => {
             let res = '';
 
+            const formatNames = (s: string): string => {
+                // Split names
+                let names: string[] = item.authorsText.split(';').map(x => x.trim()) || [];
+                // Reverse all name orders but first
+                names = names.slice(0,1).concat(names.slice(1).map(x => x.split(', ').reverse().join(' '))) || [];
+                return joinWithAnd(names, 'and');
+            }
+
             // Safe operators for non-split strings
-            const names = item.authorsText.split(';')?.map(x => x?.trim())?.join(', ');
+            const names = formatNames(item.authorsText);
 
             const journal = `<i>${item.journalName || item.conferenceName}</i>`;
 
             const volume = item.volume ? (', ' + item.volume) : '';
 
             const issueNumber = item.issueNumber ? (', no. ' + item.issueNumber) : '';
+
+            const parentPublicationName = item.parentPublicationName ? ('In <i>' + item.parentPublicationName + '</i>') : '';
+            
+            let editorNames = item.parentPublicationPublisher ?  joinWithAnd(item.parentPublicationPublisher.split(';')?.map(x => x.split(', ').reverse().join(' ')), 'and') : '';
+            editorNames = editorNames ? ', <i>edited by</i> ' + editorNames : '';
             
             const pages = (item.pageNumberText || item.articleNumberText) ? ': ' + (item.pageNumberText || item.articleNumberText) : '';
+
+            const publisherLocation = item.publisherLocation ? (item.publisherLocation + ': ') : '';
 
             const doi = item.doi ? ('doi: ' + item.doi) : '';
 
             if (this.types[0].includes(type)) {
                 res = names + '. ' + item.publicationYear + '. \"' + item.publicationName + '.\" ' + journal + volume + issueNumber + pages + '. ' + doi;
+            } else if (this.types[1].includes(type)) {
+                res = names + '. ' + item.publicationYear + '. \"' + item.publicationName + '.\" ' + 
+                parentPublicationName + editorNames + pages + '. ' + 
+                publisherLocation + (item.publisherName || '') + '. ' +  doi;
+            } else if (this.types[2].includes(type)) {
+
             }
 
             console.log(res);
             return res;
         }
-
+        
         const apa = createApa(item.publicationTypeCode);
         const chicago = createChicago(item.publicationTypeCode);
 
