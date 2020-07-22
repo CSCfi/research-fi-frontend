@@ -200,6 +200,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
   }
 
+  checkOverflow(elem: HTMLElement) {
+    return elem.scrollHeight > elem.clientHeight;
+  }
+
   expandInfoDescription(idx: number) {
     this.infoExpand[idx] = !this.infoExpand[idx];
   }

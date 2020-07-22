@@ -103,7 +103,7 @@
                 "<p>The service contains more detailed information on research and funding organizations which are submitting information to the service. Organization information is automatically compiled from the following sources:</p>",
                 "<ul><li><a target=\"_blank\" href=\"https://www.ytj.fi/en/index.html\">Business Information System <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://finto.fi/cn/en/\">Finto - Finnish Thesaurus and Ontology Service: Finnish community names <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://vipunen.fi/en-gb/\">Vipunen - Education Statistics Finland <i class='fas fa-external-link-alt'></i></a></li></ul>",
                 "<h3>Science and research news</h3>",
-                "<p>The latest science and research news is automatically updated from RSS feeds provided by research organizations. The service archives news from the last six months.</p>",
+                "<p>The latest science and research news is automatically updated from RSS feeds provided by research organizations. Each organization decides what news are in the service.</p>",
                 "<p>See <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">list of organizations submitting news <i class='fas fa-external-link-alt'></i></a>.</p>",
                 
                 "<h3>Researchers (pending)</h3>",
@@ -146,7 +146,7 @@
                 "<p>Tjänsten innehåller närmare uppgifter om de organisationer som bedriver och finansierar forskning och som överför sina uppgifter i tjänsten. Organisationernas uppgifter har sammanställts automatiskt utifrån följande källor:<p>",
                 "<ul><li><a target=\"_blank\" href=\"https://www.ytj.fi/\">Företags- och organisationsdatasystemet <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://finto.fi/cn/fi\">Finto – finländsk ämnesords- och ontologitjänst: Finländska samfundsnamn <i class='fas fa-external-link-alt'></i></a></li><li><a target=\"_blank\" href=\"https://www.vipunen.fi\">Vipunen – utbildningsförvaltningens statistiktjänst <i class='fas fa-external-link-alt'></i></a></li></ul>",
                 "<h3>Vetenskapliga nyheter och forskningsnyheter</h3>",
-                "<p>Färska vetenskapliga nyheter och forskningsnyheter uppdateras automatiskt från de RSS-flöden som forskningsorganisationerna tillhandahåller. Nyheter från de senaste sex månaderna sparas i tjänsten.<p>",
+                "<p>Färska vetenskapliga nyheter och forskningsnyheter uppdateras automatiskt från de RSS-flöden som forskningsorganisationerna tillhandahåller. Varje organisation bestämmer vilka av deras nyheter som ska visas i tjänsten<p>",
                 "<p>Se <a target=\"_blank\" href=\"https://wiki.eduuni.fi/pages/viewpage.action?pageId=145298213\">en lista över organisationer som lämnar in nyheter <i class='fas fa-external-link-alt'></i></a>.</p>",
                 
                 "<h3>Forskare (på kommande)</h3>",

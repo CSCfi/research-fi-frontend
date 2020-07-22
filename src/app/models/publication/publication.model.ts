@@ -6,8 +6,8 @@
 // # :license: MIT
 import { FieldOfScience, FieldOfScienceAdapter } from './field-of-science.model';
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
-import { LanguageCheck } from './utils';
+import { Adapter } from '../adapter.model';
+import { PublicationCitationAdapter } from './publication-citation.model';
 
 export class Publication {
     constructor(
@@ -51,7 +51,8 @@ export class Publication {
         public author: any[],
         public selfArchivedData: any,
         public completions: string[],
-        public publicationChannel
+        public publicationChannel: string,
+        public citations: string[]
     ) {}
 }
 
@@ -59,7 +60,7 @@ export class Publication {
     providedIn: 'root'
 })
 export class PublicationAdapter implements Adapter<Publication> {
-    constructor(private fs: FieldOfScienceAdapter) {}
+    constructor(private fs: FieldOfScienceAdapter, private citationAdapter: PublicationCitationAdapter) {}
     adapt(item: any): Publication {
         let fieldsOfScience: FieldOfScience[] = [];
         // All items don't have field_of_science field
@@ -69,6 +70,10 @@ export class PublicationAdapter implements Adapter<Publication> {
         fieldsOfScience = fieldsOfScience.filter(x => x.id);
         // Create string from array
         const fieldsOfScienceString = fieldsOfScience.map(x => x.name).join('; ')
+
+        // Publication citations
+        const citationsObject = this.citationAdapter.adapt(item);
+        const citations = [citationsObject.apa, citationsObject.chicago, citationsObject.mla];
 
         const openAccess: boolean = (item.openAccessCode === 1 || item.openAccessCode === 2 || item.selfArchivedCode === 1);
         let openAccessText = '';
@@ -141,7 +146,8 @@ export class PublicationAdapter implements Adapter<Publication> {
             item.author,
             item.selfArchivedData,
             item.completions,
-            channel
+            channel,
+            citations
         );
     }
 }

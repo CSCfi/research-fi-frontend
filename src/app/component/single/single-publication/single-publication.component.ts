@@ -176,11 +176,14 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const source = this.responseData.publications[0];
     const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
     // tslint:disable-next-line: curly
-    if (!this.hasDoi) return;
+    if (!this.hasDoi) {
+      this.citations = source.citations;
+      return;
+    }
     const doiUrl = source.doi;
     const url = doi.path + doiUrl;
 
-    this.citationStyles.forEach(style => {
+    this.citationStyles.forEach((style, idx) => {
       const options = {
         headers: new HttpHeaders({
           Accept: 'text/x-bibliography; style=' + style.cslStyle
@@ -188,7 +191,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         responseType: 'text'
       };
       this.searchService.getFromUrl(url, options).subscribe(res => {
-        this.citations.push(res);
+        this.citations[idx] = res;
       });
     });
   }
@@ -238,7 +241,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   filterData() {
     // Helper function to check if the field exists and has data
-    const checkEmpty = (item: {field: string} ) =>  {
+    const checkEmpty = (item: {field: string} ) => {
       return UtilityService.stringHasContent(this.responseData.publications[0][item.field]);
     };
     // Filter all the fields to only include properties with defined data
