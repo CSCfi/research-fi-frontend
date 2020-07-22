@@ -104,7 +104,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
 
             const formatNames = (s: string): string => {
                 // Split names
-                let names: string[] = item.authorsText.split(';').map(x => x.trim()) || [];
+                let names: string[] = s.split(';').map(x => x.trim()) || [];
                 // Reverse all name orders but first
                 names = names.slice(0,1).concat(names.slice(1).map(x => x.split(', ').reverse().join(' '))) || [];
                 return joinWithAnd(names, 'and');
@@ -122,7 +122,6 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             const parentPublicationName = item.parentPublicationName ? ('In <i>' + item.parentPublicationName + '</i>') : '';
             
             let editorNames = item.parentPublicationPublisher ?  joinWithAnd(item.parentPublicationPublisher.split(';')?.map(x => x.split(', ').reverse().join(' ')), 'and') : '';
-            editorNames = editorNames ? ', <i>edited by</i> ' + editorNames : '';
             
             const pages = (item.pageNumberText || item.articleNumberText) ? ': ' + (item.pageNumberText || item.articleNumberText) : '';
 
@@ -133,11 +132,17 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             if (this.types[0].includes(type)) {
                 res = names + '. ' + item.publicationYear + '. \"' + item.publicationName + '.\" ' + journal + volume + issueNumber + pages + '. ' + doi;
             } else if (this.types[1].includes(type)) {
+                editorNames = editorNames ? ', <i>edited by</i> ' + editorNames : '';
+                
                 res = names + '. ' + item.publicationYear + '. \"' + item.publicationName + '.\" ' + 
                 parentPublicationName + editorNames + pages + '. ' + 
                 publisherLocation + (item.publisherName || '') + '. ' +  doi;
             } else if (this.types[2].includes(type)) {
+                res = names + '. ' + item.publicationYear + '. <i>' + item.publicationName + '</i>. ' + publisherLocation +  (item.publisherName || '') + '. ' +  doi;
+            } else if (this.types[3].includes(type)) {
+                editorNames = editorNames ? editorNames + ', eds. ' : '';
 
+                res = editorNames + item.publicationYear + '. <i>' + item.publicationName + '</i>. ' + publisherLocation +  (item.publisherName || '') + '. ' +  doi;
             }
 
             console.log(res);
