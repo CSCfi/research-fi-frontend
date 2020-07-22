@@ -6,7 +6,7 @@
 // # :license: MIT
 
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 
 export class ServicePoint {
 
