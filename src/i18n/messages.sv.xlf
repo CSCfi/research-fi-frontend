@@ -2267,6 +2267,10 @@
         <source>Emojulkaisun nimi</source>
         <target state="translated">Moderpublikationens namn</target>
       </trans-unit>
+      <trans-unit id="parentPublicationPublisher">
+        <source>Emojulkaisun toimittajat</source>
+        <target>Emojulkaisun toimittajat</target>
+      </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
         <target state="translated">Konferens</target>

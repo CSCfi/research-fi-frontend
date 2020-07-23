@@ -64,6 +64,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   mediumFields = [
     {label: $localize`Lehti`, field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
+    {label: $localize`:@@parentPublicationPublisher:Emojulkaisun toimittajat`, field: 'parentPublicationPublisher', link: false, linkPath: '/results/publications/'},
     {label: $localize`Konferenssi`, field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: $localize`Kustantaja`, field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: $localize`Volyymi`, field: 'volume', link: false},
