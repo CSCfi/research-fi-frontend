@@ -74,23 +74,25 @@ export class FundingFilters {
 
     // Find differences in organizations and push into parent, sum duplicate orgs doc counts
     fData.forEach((item, i) => {
+
+      // Find differences between fundingGroupPerson and OrganizationConsortiumo
       const diff = oData[i]?.organizations.buckets.filter(item1 =>
-                   !fData[i].organizations?.buckets.some(item2 => (item2.key === item1.key)));
-
+                  !fData[i].organizations?.buckets.some(item2 => (item2.key === item1.key)));
+        
+      // Find duplicates in fundingGroupPerson and OrganizationConsortiumo
       const duplicate = oData[i]?.organizations.buckets.filter(item1 =>
-        fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
+                        fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
 
-      if (diff?.length > 0  && duplicate?.length > 0) {
-        item.organizations.buckets.map(org => {
-          org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
-        });
-      }
+      // Push differences into fundingGroupPerson 
+      diff.forEach(x => {
+        item.organizations.buckets.push(x);
+      });
 
-      if (diff?.length > 0) {
-        diff.forEach(x => {
-          item.organizations.buckets.push(x);
-        });
-      }
+      // Get filtered sums as doc_count
+      item.organizations.buckets.map(org => {
+        org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
+      });
+
     });
 
     // Add data into buckets field, set key and label
