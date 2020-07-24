@@ -30,6 +30,22 @@ img {
     height: auto;
 }
 
+mat-card-content {
+    // IE
+    display: block;
+    line-height: 1.5em;
+    max-height: 4.5em;
+
+    // Major browsers
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+
+}
+
 // Side news
 .side {
     h3 {
