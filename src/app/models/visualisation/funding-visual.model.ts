@@ -44,11 +44,11 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         // For each year
         arr.forEach(d => {
             // Group items with the same name under one object
-            const grouped = d.data.reduce((a: {name: string, doc_count: number, parent: string}[], b) => {
+            const grouped = d.data.reduce((a: {name: string, doc_count: number, parent: string, id: string}[], b) => {
                 // Get current name
                 const name = b.name;
                 // Find the object with the same name, or initialize
-                const obj = a.filter(x => x.name === name).shift() || {name: name, doc_count: 0, parent: b.parent};
+                const obj = a.filter(x => x.name === name).shift() || {name: name, doc_count: 0, parent: b.parent, id: b.id};
                 // Add the current item's doc count
                 obj.doc_count += b.doc_count;
                 // If it's a new item, push it into a
