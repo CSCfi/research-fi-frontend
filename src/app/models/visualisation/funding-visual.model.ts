@@ -34,6 +34,16 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
         fieldOfScience: 'f.key',
     }
+    
+    private ids = {
+        year: '',
+        funder: 'f.key',
+        organization: 'f.key',
+        // Locale, english, finnish, key
+        typeOfFunding: 'f.key',
+        fieldOfScience: 'f.key',
+    }
+
 
     funding = this.sds.visualisationData.funding;
 
@@ -130,6 +140,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                         const v: any = {};
                         v.name = f.organizationName.buckets.shift().key.toString();
                         v.doc_count = f.doc_count;
+                        v.id = f.key;
                         v.parent = b.key;
                         b.data.push(v);
                     })
@@ -149,6 +160,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     b[hierarchyField].buckets.forEach(f => {
                         const v: any = {};
                         v.name = eval(this.names[field]);
+                        v.id = eval(this.ids[field]);
                         v.doc_count = f.doc_count;
                         v.parent = b.key;
                         b.data.push(v);
