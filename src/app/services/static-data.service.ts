@@ -355,6 +355,7 @@ export class StaticDataService {
             field: 'year',
             title: 'Julkaisujen määrä vuosittain',
             select: $localize`:@@yearOfPublication:Julkaisuvuosi`,
+            filter: 'year',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -375,6 +376,7 @@ export class StaticDataService {
             title: 'Julkaisujen määrä tieteenaloittain',
             select: $localize`:@@fieldOfScience:Tieteenala`,
             message: 'Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
+            filter: 'field',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -426,6 +428,7 @@ export class StaticDataService {
             title: 'Julkaisujen määrä organisaatioittain',
             select: $localize`:@@organization:Organisaatio`,
             message: 'Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
+            filter: 'organization',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -456,6 +459,7 @@ export class StaticDataService {
             field: 'publicationType',
             title: 'Julkaisujen määrä julkaisutyypin mukaan',
             select: $localize`:@@publicationType:Julkaisutyyppi`,
+            filter: 'publicationType',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -477,6 +481,7 @@ export class StaticDataService {
             field: 'country',
             title: 'Julkaisujen määrä julkaisumaan mukaan',
             select: $localize`:@@publicationCountry:Julkaisumaa`,
+            filter: 'countryCode',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -496,6 +501,7 @@ export class StaticDataService {
             field: 'lang',
             title: 'Julkaisujen määrä kielen mukaan',
             select: $localize`:@@language:Kieli`,
+            filter: 'lang',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -522,6 +528,7 @@ export class StaticDataService {
             field: 'juFo',
             title: 'Julkaisujen määrä julkaisufoorumitason mukaan',
             select: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
+            filter: 'juFo',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -542,6 +549,7 @@ export class StaticDataService {
             field: 'openAccess',
             title: 'Julkaisujen määrä avoimen saatavuuden mukaan',
             select: $localize`:@@openAccess:Avoin saatavuus`,
+            filter: 'openAccess',
             hierarchy: [
                 {
                     field: 'publicationYear',
@@ -563,6 +571,7 @@ export class StaticDataService {
             field: 'year',
             title: 'Hankkeiden määrä vuosittain',
             select: $localize`:@@startYear:Aloitusvuosi`,
+            filter: 'year',
             hierarchy: [
                 {
                     field: 'fundingStartYear',
@@ -602,6 +611,7 @@ export class StaticDataService {
             field: 'funder',
             title: 'Hankkeiden määrä rahoittajan mukaan',
             select: $localize`:@@fundingFunder:Rahoittaja`,
+            filter: 'funder',
             hierarchy: [
                 {
                     field: 'fundingStartYear',
@@ -622,6 +632,7 @@ export class StaticDataService {
             title: 'Hankkeiden määrä organisaatioittain',
             select: $localize`:@@organization:Organisaatio`,
             message: 'Huom. Yhdellä hankkeella voi olla useita organisaatioita. Hanke sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
+            filter: 'organization',
             hierarchy: [
                 {
                     field: 'fundingStartYear',
@@ -706,6 +717,7 @@ export class StaticDataService {
             title: 'Hankkeiden määrä rahoitusmuodon mukaan',
             select: $localize`:@@typeOfFunding:Rahoitusmuoto`,
             message: 'Huom. Hankkeita, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
+            filter: 'typeOfFunding',
             hierarchy: [
                 {
                     field: 'fundingStartYear',
@@ -733,6 +745,7 @@ export class StaticDataService {
             title: 'Hankkeiden määrä tieteenaloittain',
             select: $localize`:@@fieldOfScience:Tieteenala`,
             message: 'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Hankkeita, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
+            filter: 'field',
             hierarchy: [
                 {
                     field: 'fundingStartYear',

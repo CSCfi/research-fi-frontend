@@ -38,23 +38,37 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         juFo: 'f.key',
         majorFieldOfScience: 'this.fieldObjects[f.fieldId.buckets.shift().key.toString().charAt(0)]',
     }
+    private ids = {
+        year: '',
+        fieldsOfScience: 'f.key',
+        organization: 'f.key',
+        publicationType: 'f.key',
+        country: 'this.countryFilterIds[f.key]',
+        lang: 'this.getLangId(f.key)',
+        juFo: 'f.key',
+        majorFieldOfScience: 'f.key',
+    }
 
     private openAccessTypes = [
         {
             name: $localize`:@@openAccessJournal:Open Access -lehti`,
-            doc_count: 0
+            doc_count: 0,
+            id: 'openAccess'
         },
         {
             name: $localize`:@@selfArchived:Rinnakkaistallennettu`,
-            doc_count: 0
+            doc_count: 0,
+            id: 'selfArchived' 
         },
         {
             name: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
-            doc_count: 0
+            doc_count: 0,
+            id: 'otherOpen'
         },
         {
             name: $localize`:@@nonOpen:Ei avoin`,
-            doc_count: 0
+            doc_count: 0,
+            id: 'nonOpen'
         },
         {
             name: $localize`:@@noInfo:Ei tietoa`,
@@ -69,6 +83,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
     
     // Names for country data
     countryNames = [$localize`:@@finland:Suomi`, $localize`:@@other:Muut`];
+    countryFilterIds = ['c0', 'c1'];
 
     publication = this.sds.visualisationData.publication;
     
@@ -92,6 +107,14 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
             return s;
         } else {
             return $localize`:@@other:Muut`;
+        }
+    }
+
+    getLangId(s: string): string {
+        if (s === 'FI'   || s === 'EN' || s === 'SV') {
+            return s.toLowerCase();
+        } else {
+            return undefined;
         }
     }
 
@@ -138,11 +161,11 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         // For each year
         arr.forEach(d => {
             // Group items with the same name under one object
-            const grouped = d.data.reduce((a: {name: string, doc_count: number, parent: string}[], b) => {
+            const grouped = d.data.reduce((a: {name: string, doc_count: number, parent: string, id: string}[], b) => {
                 // Get current name
                 const name = b.name;
                 // Find the object with the same name, or initialize
-                const obj = a.filter(x => x.name === name).shift() || {name: name, doc_count: 0, parent: b.parent};
+                const obj = a.filter(x => x.name === name).shift() || {name: name, doc_count: 0, parent: b.parent, id: b.id};
                 // Add the current item's doc count
                 obj.doc_count += b.doc_count;
                 // If it's a new item, push it into a
@@ -220,6 +243,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     b[hierarchyField].buckets.forEach(f => {
                         const v: any = {};
                         v.name = eval(this.names[hierarchyField]);
+                        v.id = eval(this.ids[hierarchyField]);
                         v.doc_count = f.doc_count;
                         v.parent = b.key;
                         b.data.push(v);

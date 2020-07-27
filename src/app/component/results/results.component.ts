@@ -81,6 +81,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualisationCategories: VisualQuery[];
   visualData: Visual;
   percentage = false;
+  visualSub: Subscription;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -243,6 +244,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.dataService.updateTotalResultsValue(this.total);
       this.updateTitle(this.selectedTabData);
     });
+
+    this.visualSub = this.dataService.newFilter.subscribe(_ => this.visual = false);
 
     // Subscribe to resize
     this.resizeService.onResize$.subscribe(dims => this.onResize(dims.width));

@@ -18,7 +18,7 @@ export interface VisualData {
 
 export interface VisualDataObject {
     name: string,
-    id?: string;
+    id: string;
     doc_count: number,
     parent: string,
 }
@@ -40,6 +40,7 @@ export interface VisualQuery {
     title: string,
     select: string,
     message?: string,
+    filter?: string,
     hierarchy: VisualQueryHierarchy[],
     hierarchy2?: VisualQueryHierarchy[]
 }

@@ -7,6 +7,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { FundingVisual } from 'src/app/models/visualisation/funding-visual.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
 import { DOCUMENT } from '@angular/common';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-bar',
@@ -40,8 +41,10 @@ export class BarComponent implements OnInit, OnChanges {
   funding = this.staticDataService.visualisationData.funding;
 
   categories = this.publication;
+  categoryObject: VisualQuery;
 
-  constructor(private staticDataService: StaticDataService, @Inject(DOCUMENT) private document: Document) { }
+  constructor(private staticDataService: StaticDataService, @Inject(DOCUMENT) private document: Document,
+              private dataService: DataService) { }
 
   ngOnInit(): void {
     d3.formatDefaultLocale(this.staticDataService.visualisationData.locale);
@@ -80,14 +83,14 @@ export class BarComponent implements OnInit, OnChanges {
         break;
     }
 
-    const categoryObject = this.categories[fieldIdx];
-    const sample: VisualData[] = visualisationData[categoryObject.field];
+    this.categoryObject = this.categories[fieldIdx];
+    const sample: VisualData[] = visualisationData[this.categoryObject.field];
 
     // No legend for year graph
     this.legendWidth = +this.visIdx ? 350 : 0;
 
     // Funding amount graph is an exception
-    if (categoryObject.field === 'amount') {
+    if (this.categoryObject.field === 'amount') {
       this.legendWidth = 0;
       ylabel = 'Myönnetty summa';
       format = '$,';
@@ -185,6 +188,8 @@ export class BarComponent implements OnInit, OnChanges {
           .attr('width', _ => this.x.bandwidth())
           .on('mouseenter', (d, i, n: any) => this.showInfo(d, i, n, color, percentage ? (d.doc_count / totalSum).toFixed(1) + '%' : undefined)) // Pass percentage if selected
           .on('mouseout', (d, i, n: any) => this.hideInfo(d, i, n))
+          .on('click', d => this.onClick(d))
+          .style('cursor', d => (this.categoryObject.filter && (d.id || this.categoryObject.filter === 'year')) ? 'pointer' : 'default') // Pointer if filterable
           // Cumulative sum calculation for stacking bars
           .each((d, i, n) => {
               d3.select(n[i])
@@ -250,7 +255,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('x', this.innerWidth / 2)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
-        .text(categoryObject.title);
+        .text(this.categoryObject.title);
 
     this.g.append('foreignObject')
         .attr('x', -this.margin * 2)
@@ -259,7 +264,22 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.margin * 2)
         .append('xhtml:div')
           .style('font-size', '14px')
-          .html(categoryObject.message);  
+          .html(this.categoryObject.message);  
+  }
+
+  onClick(d: {id: string, parent: string}) {
+    const filterName = this.categoryObject.filter;
+
+    // Only filter if a valid filter with id is available or year
+    if (filterName && (d.id || filterName === 'year')) {
+      // Filter by selected bar (unless year) and year
+      if (d.id) {
+        this.dataService.changeFilter(filterName, d.id);
+      }
+      setTimeout(() => {
+        this.dataService.changeFilter('year', d.parent);
+      }, 1);
+    }
   }
   
   showInfo(d: {name: string, doc_count: number, parent: string}, i: number, n: any[], color: d3.ScaleOrdinal<string, string>, percent?: string) {
