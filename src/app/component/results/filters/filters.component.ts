@@ -156,6 +156,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         // Get from & to year filter preselection
         this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
         this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
+        console.log(this.preSelection);
       });
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     }
