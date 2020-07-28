@@ -27,8 +27,8 @@
     </mat-card-header>
     <mat-card-content *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
         <div class="row">
-            <span class="preview" [innerHTML]="item.content"></span>
-            <div class="pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'" ></div>
+            <span class="preview" [innerHTML]="item.content" [ngClass]="item.mediaUri?.length > 0 ? 'col-10 px-0' : ''"></span>
+            <div class="pl-0" *ngIf="item.mediaUri?.length === 0" [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'"></div>
             <div *ngIf="item.mediaUri?.length > 0" class="col-2 pr-0">
                 <img [src]="item.mediaUri | safeUrl">
             </div>
