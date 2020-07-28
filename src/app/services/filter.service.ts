@@ -487,8 +487,6 @@ export class FilterService {
       return res.concat(active, activeNested, activeBool);
     }
 
-    console.log(filterActive('funderNameFi.keyword'));
-
     // Aggregations
     const payLoad: any = {
       ...(searchTerm ? { query: {
