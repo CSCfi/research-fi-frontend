@@ -186,24 +186,26 @@
                             <!-- First col -->
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
                                <h3 class="th">{{row.label}}</h3>
-                               <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
-                                    {{item[row.field]}}
+                               <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}" [target]="row.field === 'jufoCode' ? '_blank' : ''">
+                                    {{item[row.field]}} <fa-icon *ngIf="row.field === 'jufoCode'" class="icon" icon="external-link-alt"></fa-icon>
                                </a>
                                <span *ngIf="!row.link">{{item[row.field]}}</span>
                             </div>
                             <!-- Second col -->    
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
                                <h3 class="th">{{mediumFields.slice(3)[i + 1].label}}</h3>
-                               <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
-                                    {{item[mediumFields.slice(3)[i + 1].field]}}
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}"
+                               [target]="mediumFields.slice(3)[i + 1].field === 'jufoCode' ? '_blank' : ''">
+                                    {{item[mediumFields.slice(3)[i + 1].field]}} <fa-icon *ngIf="mediumFields.slice(3)[i + 1].field === 'jufoCode'" class="icon" icon="external-link-alt"></fa-icon>
                                </a>
                                <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item[mediumFields.slice(3)[i + 1].field]}}</span>
                             </div> 
                             <!-- Third col -->   
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
                                <h3 class="th">{{mediumFields.slice(3)[i + 2].label}}</h3>
-                               <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
-                                    {{item[mediumFields.slice(3)[i + 2].field]}}
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}"
+                               [target]="mediumFields.slice(3)[i + 2].field === 'jufoCode' ? '_blank' : ''">
+                                    {{item[mediumFields.slice(3)[i + 2].field]}} <fa-icon *ngIf="mediumFields.slice(3)[i + 2].field === 'jufoCode'" class="icon" icon="external-link-alt"></fa-icon>
                                </a>
                                <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item[mediumFields.slice(3)[i + 2].field]}}</span>
                             </div>        
