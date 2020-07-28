@@ -40,7 +40,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
 
         const formatNames = (s: string): string => {
             // Split names
-            let names: string[] = s.split(';').map(x => x.trim()) || [];
+            let names: string[] = s.split(';').map(x => x.trim()).filter(x => x.length > 1) || [];
             // Reverse all name orders but first
             names = names.slice(0,1).concat(names.slice(1).map(x => x.split(', ').reverse().join(' '))) || [];
             return joinWithAnd(names, 'and');
@@ -52,7 +52,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             let names: any = authors.split(';');
             // Names with '&'
             names = names?.map(x => x.split('&'))?.flat() || names;
-            names = names?.map(n => n.trim().split(', ')) || names;
+            names = names?.map(n => n.trim().split(', ')).filter(x => x.length > 1) || names;
 
             // No comma between first and last name, kind of hacky
             if (names[0].length < 2) {

@@ -30,11 +30,11 @@ img {
     height: auto;
 }
 
-mat-card-content {
+mat-card-content .preview {
     // IE
     display: block;
     line-height: 1.5em;
-    max-height: 4.5em;
+    max-height: 4.4em;
 
     // Major browsers
     overflow: hidden;
@@ -43,7 +43,9 @@ mat-card-content {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 
-
+    p {
+        margin-bottom: 0;
+    }
 }
 
 // Side news
