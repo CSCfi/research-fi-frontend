@@ -762,7 +762,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Tähän hankkeeseen liittyvät</source>
+        <source>Hae hankkeeseen liittyvät</source>
         <target>Related to this project</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
@@ -930,7 +930,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedOrganizations" datatype="html">
-        <source>Organisaation</source>
+        <source>Hae organisaatioon liittyvät</source>
         <target>Organization</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
@@ -1119,7 +1119,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedInfrastructures" datatype="html">
-        <source>Infrastruktuurin</source>
+        <source>Hae infrastruktuuriin liittyvät</source>
         <target>Infrastructure</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
