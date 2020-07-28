@@ -19,7 +19,7 @@ export class TabChangeService {
       tooltip: $localize`:@@infrastructuresTooltip:Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.`  },
     { data: '', label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`, link: '3', icon: faSpinner, singular: $localize`:@@otherResearchActivity:muu tutkimustoiminta`,
       tooltip: $localize`:@@otherResearcActivitiesTooltip:Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.`  },
-    { data: 'organizations', label: $localize`:@@organizations:Organisaatiot`, link: 'organizations', icon: faUniversity, singular: $localize`:@@organization:organisaatio`,
+    { data: 'organizations', label: $localize`:@@organizations:Organisaatiot`, link: 'organizations', icon: faUniversity, singular: $localize`:@@organizationSingular:organisaatio`,
       tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.`  }
   ];
 
