@@ -192,25 +192,9 @@ export class SearchService {
   }
 
   getNewsFilters(): Observable<Search[]> {
-    const payLoad = {
-      size: 0,
-      aggs: {
-        organization: {
-          terms: {
-            field: 'organizationId.keyword',
-            size: 50
-          },
-          aggs: {
-            orgName: {
-              terms: {
-                field: 'organizationNameFi.keyword'
-              }
-            }
-          }
-        }
-      }
-    };
-    return this.http.post<Search[]>(this.apiUrl + 'news/_search?', payLoad);
+    const aggs = this.filterService.constructFilterPayload('news', undefined);
+    const payload = Object.assign(aggs);
+    return this.http.post<Search[]>(this.apiUrl + 'news/_search?', payload);
   }
 
   // A simple method that returns the response from the url provided
