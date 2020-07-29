@@ -299,11 +299,12 @@ export class BarComponent implements OnInit, OnChanges {
 
     const g = d3.select('#main')
         .append('g')
+        .style('pointer-events', 'none');
         
     // Add info box 
 
     // Remove spaces and commas from name in id
-    g.attr('id', `id-${UtilityService.replaceSpaceAndComma(d.name || d.parent)}-${d.parent}`);
+    g.attr('id', `id-${UtilityService.replaceSpecialChars(d.name || d.parent)}-${d.parent}`);
 
     // Append info rectangle so it's on top
     const rect = g.append('rect');
@@ -335,23 +336,25 @@ export class BarComponent implements OnInit, OnChanges {
     const amountElem: HTMLElement = this.document.querySelector('#amount');
 
     // Move rectangle so it's fully visible
-    const paddingX = 10;
-    const rectWidth = Math.max(nameElem.offsetWidth, amountElem.offsetWidth)  + 2 * paddingX;
-    let rectX = x + this.x.bandwidth() + paddingX;
+    const padding = 10;
+    const rectWidth = Math.max(nameElem.offsetWidth, amountElem.offsetWidth)  + 2 * padding;
+    let rectX = x + this.x.bandwidth() + padding;
     
     // In case it's overflowing from the right
     if (rectX + rectWidth > this.innerWidth) {
-      rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
-    } 
+      rectX -= this.x.bandwidth() + rectWidth + 2 * padding;
+    }
+    // In case it now overflows from the left
+    rectX = Math.max(rectX, 10);
 
     const rectHeight = nameElem.offsetHeight + 35;
     const rectY = Math.min(y + (height / 2) - 50, this.innerHeight - rectHeight);
 
 
     // Fill in attributes based on text size
-    fo.attr('x', rectX + paddingX)
-      .attr('y', rectY + 10)
-      .attr('width', rectWidth - 2 * paddingX)
+    fo.attr('x', rectX + padding)
+      .attr('y', rectY + padding)
+      .attr('width', rectWidth - 2 * padding)
       .attr('height', rectHeight);
 
 
@@ -363,7 +366,7 @@ export class BarComponent implements OnInit, OnChanges {
     .attr('fill', 'black')
     .attr('opacity', 0.8);
 
-    circle.attr('cx', rectX + paddingX + 5)
+    circle.attr('cx', rectX + padding + 5)
     .attr('cy', rectY + rectHeight - 17)
     .attr('r', 5)
     .attr('fill', color(d.name));
@@ -380,7 +383,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('width', this.x.bandwidth())
 
     // Remove info box if bar has name
-    d3.select(`#id-${UtilityService.replaceSpaceAndComma(d.name || d.parent)}-${d.parent}`).remove();
+    d3.select(`#id-${UtilityService.replaceSpecialChars(d.name || d.parent)}-${d.parent}`).remove();
   }
 
 }
