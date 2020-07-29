@@ -87,8 +87,8 @@ export class UtilityService {
     return res;
   }
 
-  static replaceSpaceAndComma(s: string) {
-    return s.toString().replace(/ |,|./g, '-');
+  static replaceSpecialChars(s: string) {
+    return s.toString().replace(/ |,|\.|\(|\)/g, '-');
   }
 
   static thousandSeparator(s: string) {
