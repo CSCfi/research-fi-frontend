@@ -342,7 +342,9 @@ export class BarComponent implements OnInit, OnChanges {
     // In case it's overflowing from the right
     if (rectX + rectWidth > this.innerWidth) {
       rectX -= this.x.bandwidth() + rectWidth + 2 * paddingX;
-    } 
+    }
+    // In case it now overflows from the left
+    rectX = Math.max(rectX, 10);
 
     const rectHeight = nameElem.offsetHeight + 35;
     const rectY = Math.min(y + (height / 2) - 50, this.innerHeight - rectHeight);
