@@ -20,33 +20,25 @@ export class NewsFilters {
 
   shapeData(data) {
     const source = data.aggregations;
-    console.log(source);
-    // source.organization.buckets = this.organization(source.organization.buckets);
+    source.organization.buckets = this.organization(source.organization.buckets);
     source.shaped = true;
     return source;
   }
 
   organization(data) {
-    // Hotfix to reorder array
-    function move(array, from, to) {
-      if ( to === from ) {return array; }
-      const target = array[from];
-      const increment = to < from ? -1 : 1;
-
-      for (let k = from; k != to; k += increment) {
-        array[k] = array[k + increment];
-      }
-      array[to] = target;
-      return array;
-    }
-
-    const result = data.map(item => item = {
-      key: item.key,
-      label: item.orgName ? item.orgName.buckets[0].key : item.key,
-      doc_count: item.doc_count
+    // Sort by sector id
+    data.sort((a, b) => parseInt(a.key, 10) - parseInt(b.key, 10));
+    // Set sub items
+    data.forEach(item => {
+      item.key = item.sectorName.buckets[0].key.trim();
+      item.subData = item.orgName.buckets;
+      item.subData.map(subItem => {
+        subItem.label = subItem.key.trim();
+        subItem.key = subItem.orgId.buckets[0].key;
+        subItem.doc_count = subItem.doc_count;
+      });
     });
-    // Move Turun yliopisto after Luonnonvarakeskus
-    move(result, 1, 2);
+    const result = data;
     return result;
   }
 
