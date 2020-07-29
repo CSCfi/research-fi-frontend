@@ -487,6 +487,23 @@ export class FilterService {
       return res.concat(active, activeNested, activeBool);
     }
 
+    const yearAgg = {
+      filter: {
+        bool: {
+          filter: filterActive(this.sortService.yearField)
+        }
+      },
+      aggs: {
+        years: {
+          terms: {
+            field: this.sortService.yearField,
+            order: { _key : 'desc' },
+            size: 100
+          }
+        }
+      }
+    };
+
     // Aggregations
     const payLoad: any = {
       ...(searchTerm ? { query: {
@@ -495,27 +512,11 @@ export class FilterService {
         bool: { should: [ this.settingsService.querySettings(tab.slice(0, -1), searchTerm) ] }
         }} : []),
       size: 0,
-      aggs: {
-        year: {
-          filter: {
-            bool: {
-              filter: filterActive(this.sortService.yearField)
-            }
-          },
-          aggs: {
-            years: {
-              terms: {
-                field: this.sortService.yearField,
-                order: { _key : 'desc' },
-                size: 100
-              }
-            }
-          }
-        }
-      }
+      aggs: {}
     };
     switch (tab) {
       case 'publications':
+        payLoad.aggs.year = yearAgg;
         payLoad.aggs.organization = {
           nested: {
             path: 'author'
@@ -774,6 +775,7 @@ export class FilterService {
         };
         break;
       case 'fundings':
+        payLoad.aggs.year = yearAgg;
         // Funder
         payLoad.aggs.funder = {
           filter: {
@@ -1180,6 +1182,7 @@ export class FilterService {
         break;
       // Infrastructures
       case 'infrastructures': {
+        payLoad.aggs.year = yearAgg;
         payLoad.aggs.type = {
           filter: {
             bool: {
@@ -1220,6 +1223,11 @@ export class FilterService {
                       }
                     }
                   }
+                },
+                sectorId: {
+                  terms: {
+                    field: 'responsibleOrganization.responsibleOrganizationSectorId.keyword'
+                  }
                 }
               }
             }
@@ -1243,6 +1251,7 @@ export class FilterService {
       }
       // Organizations
       case 'organizations':
+        payLoad.aggs.year = yearAgg;
         payLoad.aggs.sector = {
           filter: {
             bool: {
@@ -1273,12 +1282,24 @@ export class FilterService {
       case 'news':
         payLoad.aggs.organization = {
           terms: {
-            field: 'organizationId.keyword'
+            field: 'sectorId.keyword'
           },
           aggs: {
+            sectorName: {
+              terms: {
+                field: 'sectorName' + this.localeC + '.keyword'
+              }
+            },
             orgName: {
               terms: {
                 field: 'organizationName' + this.localeC + '.keyword'
+              },
+              aggs: {
+                orgId: {
+                  terms: {
+                    field: 'organizationId.keyword'
+                  }
+                }
               }
             }
           }
