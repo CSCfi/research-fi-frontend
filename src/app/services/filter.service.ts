@@ -543,6 +543,7 @@ export class FilterService {
       size: 0,
       aggs: {}
     };
+
     switch (tab) {
       case 'publications':
         payLoad.aggs.year = yearAgg;
