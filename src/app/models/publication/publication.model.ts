@@ -71,9 +71,12 @@ export class PublicationAdapter implements Adapter<Publication> {
         // Create string from array
         const fieldsOfScienceString = fieldsOfScience.map(x => x.name).join('; ')
 
+        let citations: string[] = [];
         // Publication citations
-        const citationsObject = this.citationAdapter.adapt(item);
-        const citations = [citationsObject.apa, citationsObject.chicago, citationsObject.mla];
+        if (!item.doi) {
+            const citationsObject = this.citationAdapter.adapt(item);
+            citations = [citationsObject.apa, citationsObject.chicago, citationsObject.mla];
+        }
 
         const openAccess: boolean = (item.openAccessCode === 1 || item.openAccessCode === 2 || item.selfArchivedCode === 1);
         let openAccessText = '';

@@ -2870,6 +2870,10 @@
       </trans-unit>
       <trans-unit id="organization">
         <source>Organisaatio</source>
+        <target state="translated">Organisation</target>
+      </trans-unit>
+      <trans-unit id="organizationSingular">
+        <source>Organisaatio</source>
         <target state="translated">Organisations</target>
       </trans-unit>
       <trans-unit id="publicationsTooltip">

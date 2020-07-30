@@ -40,7 +40,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
 
         const formatNames = (s: string): string => {
             // Split names
-            let names: string[] = s.split(';').map(x => x.trim()).filter(x => x.length > 1) || [];
+            let names: string[] = s.split(';').map(x => x.trim())?.filter(x => x.length > 1) || [];
             // Reverse all name orders but first
             names = names.slice(0,1).concat(names.slice(1).map(x => x.split(', ').reverse().join(' '))) || [];
             return joinWithAnd(names, 'and');
@@ -52,12 +52,18 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
             let names: any = authors.split(';');
             // Names with '&'
             names = names?.map(x => x.split('&'))?.flat() || names;
-            names = names?.map(n => n.trim().split(', ')).filter(x => x.length > 1) || names;
+            names = names?.map(n => n.trim().split(', '))?.filter(x => x?.every(y => y.length > 1)) || names;
 
             // No comma between first and last name, kind of hacky
-            if (names[0].length < 2) {
-                names = names?.map(n => n[0].trim().split(' ')) || names;
-            }
+            names.forEach((name, i) => {
+                if (name.length < 2) {
+                    names[i] = name[0].trim().split(' ') || name;
+                }
+                // If still only last name
+                if (names[i].length < 2) {
+                    names[i] = [names[i][0], '_']
+                }
+            })
 
             // Initials first 
             if (order) {
@@ -93,7 +99,7 @@ export class PublicationCitationAdapter implements Adapter<PublicationCitation> 
                 res = names + ' ' + year + item.publicationName + '. ' + journal + ', ' + volume + number + pages + '. ' + doi;
             } else if (this.types[1].includes(type)) {
                 const pages = (item.pageNumberText || item.articleNumberText) ? ', (' + (item.pageNumberText || item.articleNumberText) +')' : '';
-                const parentPublisherNames = item.parentPublicationPublisher ? (formatNamesInitials(item.parentPublicationPublisher, 1) + 'In (Eds.), ') : '';
+                const parentPublisherNames = item.parentPublicationPublisher ? (formatNamesInitials(item.parentPublicationPublisher, 1) + ' (Eds.), ') : '';
                 
                 res = names + ' ' + year + item.publicationName + '. ' + parentPublisherNames + item.parentPublicationName + pages + '. ' + item.publisherName + '. ' + doi;
             } else if (this.types[2].includes(type)) {
