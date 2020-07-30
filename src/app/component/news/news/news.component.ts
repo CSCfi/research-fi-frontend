@@ -76,31 +76,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchService.updateNewsPageNumber(parseInt(query.page, 10));
       // Check for Angular Univeral SSR, get filters if browser
       if (isPlatformBrowser(this.platformId)) {
-        this.filters = {
-          // Global
-          year: [query.year].flat().filter(x => x).sort(),
-          fromYear: [query.fromYear].flat().filter(x => x).sort(),
-          toYear: [query.toYear].flat().filter(x => x).sort(),
-          field: [query.field].flat().filter(x => x).sort(),
-          organization: [query.organization].flat().filter(x => x).sort(),
-          // Publications
-          sector: [query.sector].flat().filter(x => x).sort(),
-          publicationType: [query.publicationType].flat().filter(x => x).sort(),
-          countryCode: [query.countryCode].flat().filter(x => x).sort(),
-          lang: [query.lang].flat().filter(x => x).sort(),
-          juFo: [query.juFo].flat().filter(x => x).sort(),
-          openAccess: [query.openAccess].flat().filter(x => x).sort(),
-          internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x).sort(),
-          // Fundings
-          funder: [query.funder].flat().filter(x => x).sort(),
-          typeOfFunding: [query.typeOfFunding].flat().filter(x => x).sort(),
-          scheme: [query.scheme].flat().filter(x => x).sort(),
-          fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
-          fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
-          faField: [query.faField].flat().filter(x => x).sort(),
-          // Infrastructures
-          type: [query.type].flat().filter(x => x).sort(),
-        };
+        this.filters = this.filterService.filterList(query);
       }
 
       // Check for Angular Univeral SSR, update filters if browser

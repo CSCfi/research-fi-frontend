@@ -61,6 +61,35 @@ export class FilterService {
                 this.localeC = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
 
+  // Elements that are looked from query params.
+  filterList(source) {
+    return {
+      // Global
+      year: [source.year].flat().filter(x => x).sort(),
+      fromYear: [source.fromYear].flat().filter(x => x).sort(),
+      toYear: [source.toYear].flat().filter(x => x).sort(),
+      field: [source.field].flat().filter(x => x).sort(),
+      organization: [source.organization].flat().filter(x => x).sort(),
+      // Publications
+      sector: [source.sector].flat().filter(x => x).sort(),
+      publicationType: [source.publicationType].flat().filter(x => x).sort(),
+      countryCode: [source.countryCode].flat().filter(x => x).sort(),
+      lang: [source.lang].flat().filter(x => x).sort(),
+      juFo: [source.juFo].flat().filter(x => x).sort(),
+      openAccess: [source.openAccess].flat().filter(x => x).sort(),
+      internationalCollaboration: [source.internationalCollaboration].flat().filter(x => x).sort(),
+      // Fundings
+      funder: [source.funder].flat().filter(x => x).sort(),
+      typeOfFunding: [source.typeOfFunding].flat().filter(x => x).sort(),
+      scheme: [source.scheme].flat().filter(x => x).sort(),
+      fundingStatus: [source.fundingStatus].flat().filter(x => x).sort(),
+      fundingAmount: [source.fundingAmount].flat().filter(x => x).sort(),
+      faField: [source.faField].flat().filter(x => x).sort(),
+      // Infrastructures
+      type: [source.type].flat().filter(x => x).sort(),
+    };
+  }
+
   // Filters
   createFilters(filter: any) {
     // Global
@@ -514,6 +543,7 @@ export class FilterService {
       size: 0,
       aggs: {}
     };
+
     switch (tab) {
       case 'publications':
         payLoad.aggs.year = yearAgg;
