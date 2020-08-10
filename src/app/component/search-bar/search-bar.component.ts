@@ -171,8 +171,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           });
           // Show hits for top 2 indices with most results
           this.topData = arr.slice(0, 2);
-          // Todo: Change value to 5 when all indices are added
-          this.otherData = arr.slice(3);
+          // List other indices, filter out indices with no results
+          this.otherData = arr.slice(2).filter(x => x.source.doc_count > 0);
           // Completion
           this.getCompletion();
         });
