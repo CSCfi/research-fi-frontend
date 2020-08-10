@@ -124,7 +124,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   // Toggle between viewing and hiding focused element outlines
   handleTabPressed = (e: any): void => {
     if (isPlatformBrowser(this.platformId)) {
-      const consent = sessionStorage.getItem('cookieConsent');
+      const consent = localStorage.getItem('cookieConsent');
       if (e.keyCode === 9 && consent) {
         if (this.firstTab) {
           this.firstTab = false;
