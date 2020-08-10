@@ -101,7 +101,7 @@
               <div class="col px-0 pb-4" [class.other-links]="otherData">
                 <ul>
                   <li *ngFor="let data of otherData">
-                    <app-list-item *ngIf="data.source.doc_count > 0" class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
+                    <app-list-item class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
                       <a tabindex="-1" class="font-weight-bold" (click)="newInput(data.index, undefined)" href="javascript:void(0);">
                         <ng-container i18n="Suggest results@@suggestResults3">Näytä kaikki </ng-container>{{data.translation}}
                       </a>
