@@ -159,6 +159,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
       this.currentInput = result;
       if (result.length > 2) {
+        this.topData = []; this.otherData = [];
         this.autosuggestService.search(result).pipe(map(response => [response]))
         .subscribe(response => {
           // Sort indices with highest doc count
