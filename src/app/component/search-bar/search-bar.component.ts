@@ -151,7 +151,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Set queryfield value to trigger subscription and fetch suggestions
     this.queryField.setValue(this.searchInput.nativeElement.value);
     this.setCompletionWidth();
-    console.log(this.document.body.scrollHeight);
+
+    // This is used for overlay heigth calcualtion
     this.browserHeight = this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
   }
 
