@@ -98,6 +98,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   queryParams: any;
   selectedTarget: any;
   currentLocale: any;
+  browserHeight: number;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -150,6 +151,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Set queryfield value to trigger subscription and fetch suggestions
     this.queryField.setValue(this.searchInput.nativeElement.value);
     this.setCompletionWidth();
+
+    // This is used for overlay heigth calcualtion
+    this.browserHeight = this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
   }
 
   fireAutoSuggest() {
