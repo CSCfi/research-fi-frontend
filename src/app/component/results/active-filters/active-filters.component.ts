@@ -317,6 +317,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }, 1);
             }
 
+            // Ifrastructure main field of science
+            if (tab === 'infrastructures' && val.category === 'field') {
+              setTimeout(t => {
+                const result = source.field.buckets.find(key => key.key === val.value);
+                const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+              }, 1);
+            }
+
             // Organization, sector
             if (val.category === 'sector' && source.sector) {
               const result = source.sector.sectorId.buckets.find(({ key }) => key === val.value);
