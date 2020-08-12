@@ -111,7 +111,7 @@ export class FilterService {
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword'); // Finnish Academy field
     // Infrastructure
     this.typeFilter = this.basicFilter(filter.type, 'services.serviceType.keyword');
-    this.infraFieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.name' + this.localeC + '.keyword');
+    this.infraFieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.field_id.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
   }
@@ -307,7 +307,10 @@ export class FilterService {
       ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
       ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
       ...(index === 'infrastructure' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
-      ...(index === 'infrastructure' ? (this.infraFieldFilter ? [{ bool: { should: this.infraFieldFilter } }] : []) : []),
+      // ...(index === 'infrastructure' ? (this.infraFieldFilter ? [{ bool: { should: this.infraFieldFilter } }] : []) : []),
+
+      ...(index === 'infrastructure' ? (this.infraFieldFilter?.length > 0 ? [{nested: {path: 'fieldsOfScience', query: {bool: {should: this.infraFieldFilter } }}}] : []) : []),
+
       ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
       ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
       ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
@@ -483,7 +486,6 @@ export class FilterService {
 
   constructFilterPayload(tab: string, searchTerm: string) {
     const filters = this.constructFilters(tab.slice(0, -1));
-
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
     // Actice bool filters come from aggregations that contain multiple terms, eg composite aggregation
@@ -1264,20 +1266,27 @@ export class FilterService {
           }
         };
         payLoad.aggs.infraField = {
-          filter: {
-            bool: {
-              filter: filterActive('fieldsOfScience.name' + this.localeC + '.keyword')
-            }
+          nested: {
+            path: 'fieldsOfScience'
           },
           aggs: {
-            infraFields: {
-              terms: {
-                field: 'fieldsOfScience.name' + this.localeC + '.keyword'
+            iFoS: {
+              filter: {
+                bool: {
+                  filter: filterActiveNested('fieldsOfScience')
+                }
               },
               aggs: {
-                majorId: {
+                infraFields: {
                   terms: {
-                    field: 'fieldsOfScience.field_id.keyword'
+                    field: 'fieldsOfScience.name' + this.localeC + '.keyword'
+                  },
+                  aggs: {
+                    majorId: {
+                      terms: {
+                        field: 'fieldsOfScience.field_id.keyword'
+                      }
+                    }
                   }
                 }
               }
