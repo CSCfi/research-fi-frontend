@@ -99,9 +99,6 @@ export class BarComponent implements OnInit, OnChanges {
     // Height and width with margins
     this.innerHeight = this.height - 3 * this.margin;
     this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
-    
-    console.log(visualisationData)
-    console.log(sample)
 
     // Get the doc count of the year with the highest doc count
     const maxByDocCount = max(sample.map(x => x.data.reduce((a, b) => a + b.doc_count, 0)));

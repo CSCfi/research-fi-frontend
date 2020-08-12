@@ -182,7 +182,6 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
 
     adapt(item: any, categoryIdx?: number): PublicationVisual {
         
-        console.log(item)
         
         // Init arrays
         const year: VisualData[] = [];

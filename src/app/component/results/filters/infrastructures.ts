@@ -37,7 +37,7 @@ export class InfrastructureFilters {
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
-    source.field = source.infraField.infraFields;
+    source.field = this.field(source.infraField.iFoS.infraFields);
     source.shaped = true;
     return source;
   }
@@ -80,6 +80,14 @@ export class InfrastructureFilters {
       doc_count: item.doc_count
     });
     return result;
+  }
+
+  field(data) {
+    data.buckets.map(item => {
+      item.label = item.key;
+      item.key = item.majorId.buckets[0].key;
+    });
+    return data;
   }
 
   getSingleAmount(data) {

@@ -188,6 +188,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
+
+            // Field of science
+            if (val.category === 'field' && source.field?.fields) {
+              const result = source.field.fields.buckets.find(key => parseInt(key.fieldId.buckets[0].key, 10) === parseInt(val.value, 10));
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result.key ? result.key : '';
+            }
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
               const result = source.lang.langs.buckets.find(({ key }) => key.toLowerCase() === val.value);
@@ -305,6 +312,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               // This might cause some latency and therefore timeout is needed.
               setTimeout(x => {
                 const result = source.type.types.buckets.find(({ key }) => key === val.value);
+                const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+              }, 1);
+            }
+
+            // Ifrastructure main field of science
+            if (tab === 'infrastructures' && val.category === 'field') {
+              setTimeout(t => {
+                const result = source.field.buckets.find(key => key.key === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                 this.activeFilters[foundIndex].translation = result.label ? result.label : '';
               }, 1);

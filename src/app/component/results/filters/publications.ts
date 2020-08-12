@@ -85,11 +85,11 @@ export class PublicationFilters {
 
     const result = this.staticDataService.majorFieldsOfScience;
     for (let i = 0; i < combinedMajorFields.length; i++) {
-    if (result[i]) {
-        result[i].subData = combinedMajorFields[i];
-        // Add doc counts to major fields of science
-        result[i].doc_count = result[i].subData.map(x => x.doc_count).reduce((a, b) => a + b, 0);
-    }
+      if (result[i]) {
+          result[i].subData = combinedMajorFields[i];
+          // Add doc counts to major fields of science
+          result[i].doc_count = result[i].subData.map(x => x.doc_count).reduce((a, b) => a + b, 0);
+      }
     }
     return result;
   }

@@ -78,9 +78,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
 
 
     adapt(item: any, categoryIdx?: number): FundingVisual {
-        
-        console.log(item)
-        
+
         // Init arrays
         const year: VisualData[] = [];
         const amount: VisualData[] = [];
@@ -88,7 +86,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         const organization: VisualData[] = [];
         const typeOfFunding: VisualData[] = [];
         const fieldOfScience: VisualData[] = [];
-        
+
         const field = this.funding[categoryIdx].field;
 
         const tmp: any[] = [];
@@ -107,7 +105,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     b.data.push(v);
                     amount.push(b);
                 });
-            
+
                 break;
 
             case 'organization':
