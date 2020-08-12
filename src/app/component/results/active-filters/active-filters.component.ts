@@ -188,6 +188,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
+
+            // Field of science
+            if (val.category === 'field' && source.field?.fields) {
+              const result = source.field.fields.buckets.find(key => parseInt(key.fieldId.buckets[0].key, 10) === parseInt(val.value, 10));
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result.key ? result.key : '';
+            }
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
               const result = source.lang.langs.buckets.find(({ key }) => key.toLowerCase() === val.value);
