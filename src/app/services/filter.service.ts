@@ -535,7 +535,7 @@ export class FilterService {
       }
     };
 
-    const basicAgg = (filterMethod, path: string, fieldName: string, orderBy: string, sizeOf: number, l2) => {
+    const basicAgg = (filterMethod, path: string, fieldName: string, orderBy: string, sizeOf: number) => {
       return {
         filter: {
           bool: {
@@ -548,8 +548,7 @@ export class FilterService {
               field: fieldName,
               ...( orderBy ? {order: { _key : orderBy }} : []),
               ...( sizeOf ? {size: sizeOf} : []),
-            },
-            ...( l2 ? {l2} : [])
+            }
           }
         }
       };
@@ -1235,7 +1234,7 @@ export class FilterService {
       // Infrastructures
       case 'infrastructures': {
         payLoad.aggs.year = yearAgg;
-        payLoad.aggs.type = basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null, null);
+        payLoad.aggs.type = basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null);
         payLoad.aggs.organization = {
           filter: {
             bool: {
