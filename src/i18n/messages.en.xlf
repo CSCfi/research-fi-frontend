@@ -1717,7 +1717,7 @@
       </trans-unit>
       <trans-unit id="authors" datatype="html">
         <source>Tutkijat</source>
-        <target>People</target>
+        <target>Authors</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">28</context>
