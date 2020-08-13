@@ -273,8 +273,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       source.languages = languages.map(x => x[key]);
     }
 
+    // Link with targeted search for keywords
     if (keywords?.length > 0) {
-      source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
+      source.keywords = keywords.map(x =>
+        '<a href="/results/publications/' + x.keyword.trim() + '?target=keywords&page=1">'+ x.keyword.trim() +'</a>').join(', ');
     }
 
     // Get authors per organization

@@ -535,6 +535,25 @@ export class FilterService {
       }
     };
 
+    const basicAgg = (filterMethod, path: string, fieldName: string, orderBy: string, sizeOf: number) => {
+      return {
+        filter: {
+          bool: {
+            filter: filterMethod
+          }
+        },
+        aggs: {
+          [path]: {
+            terms: {
+              field: fieldName,
+              ...( orderBy ? {order: { _key : orderBy }} : []),
+              ...( sizeOf ? {size: sizeOf} : []),
+            }
+          }
+        }
+      };
+    };
+
     // Aggregations
     const payLoad: any = {
       ...(searchTerm ? { query: {
@@ -1215,20 +1234,7 @@ export class FilterService {
       // Infrastructures
       case 'infrastructures': {
         payLoad.aggs.year = yearAgg;
-        payLoad.aggs.type = {
-          filter: {
-            bool: {
-              filter: filterActive('services.serviceType.keyword')
-            }
-          },
-          aggs: {
-            types: {
-              terms: {
-                field: 'services.serviceType.keyword'
-              }
-            }
-          }
-        };
+        payLoad.aggs.type = basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null);
         payLoad.aggs.organization = {
           filter: {
             bool: {
@@ -1270,23 +1276,26 @@ export class FilterService {
             path: 'fieldsOfScience'
           },
           aggs: {
-            iFoS: {
-              filter: {
-                bool: {
-                  filter: filterActiveNested('fieldsOfScience')
-                }
+            infraFields: {
+              terms: {
+                field: 'fieldsOfScience.name' + this.localeC + '.keyword'
               },
               aggs: {
-                infraFields: {
-                  terms: {
-                    field: 'fieldsOfScience.name' + this.localeC + '.keyword'
-                  },
+                filtered: {
+                  reverse_nested: {},
                   aggs: {
-                    majorId: {
-                      terms: {
-                        field: 'fieldsOfScience.field_id.keyword'
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('fieldsOfScience')
+                        }
                       }
                     }
+                  }
+                },
+                majorId: {
+                  terms: {
+                    field: 'fieldsOfScience.field_id.keyword'
                   }
                 }
               }

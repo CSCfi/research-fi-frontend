@@ -231,7 +231,7 @@
                             </ng-container>
                             <!-- Normal lists -->
                             <ng-template #nonField>
-                                <p class="td">{{item[row.field]}}</p>
+                                <p class="td" innerHtml="{{item[row.field]}}"></p>
                             </ng-template>
                         </div>
                     </div>
@@ -240,11 +240,11 @@
                         <div class="row content" *ngIf="i % 2 == 0">
                             <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td">
                                 <h3 class="th">{{row.label}}</h3>
-                                <p class="td">{{item[row.field]}}</p>
+                                <p class="td" innerHtml="{{item[row.field]}}"></p>
                             </div>        
                             <div class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
                                 <h3 class="th">{{otherFields.slice(2)[i + 1].label}}</h3>
-                                <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
+                                <p class="td" innerHtml="{{item[otherFields.slice(2)[i + 1].field]}}"></p>
                             </div>
                         </div>
                     </ng-container>
