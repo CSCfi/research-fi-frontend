@@ -109,7 +109,7 @@
                  <!-- TODO: Change aria label field when content available -->
                     <mat-selection-list [attr.aria-label]="filter.field" (selectionChange)="selectionChange(filter.field, $event.option.value)">
                         <!-- Options -->
-                        <mat-list-option checkboxPosition="before" *ngFor="let item of responseData.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index"
+                        <mat-list-option checkboxPosition="before" *ngFor="let item of responseData.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
                         [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1">
                             <div class="row d-flex justify-content-around">
                                 <div class="col-8 pr-0"><span class="label">{{item.label ? item.label : item.key}}</span></div>
@@ -162,7 +162,7 @@
                                     <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
                                 </mat-list-option>
                                 <!-- Options -->
-                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen))" (click)="selectionChange(filter.field, field.key)"
+                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen)); trackBy: trackByFn" (click)="selectionChange(filter.field, field.key)"
                                 (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" [id]="filter.field + field.key | replaceSpace">
                                     <div class="row d-flex justify-content-around">
                                         <div class="col-9"><span class="label">{{field.label}}</span></div>
