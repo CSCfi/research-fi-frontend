@@ -96,7 +96,7 @@ export class FilterService {
     this.yearFilter = this.filterByYear(filter.year);
     this.organizationFilter = this.filterByOrganization(filter.organization);
     this.yearRangeFilter = this.rangeFilter(filter.fromYear, filter.toYear);
-    this.fieldFilter = this.basicFilter(filter.field, 'fields_of_science.fieldIdScience');
+    this.fieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.fieldIdScience');
     // Publication
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.publicationTypeFilter = this.basicFilter(filter.publicationType, 'publicationTypeCode.keyword');
@@ -281,44 +281,57 @@ export class FilterService {
   }
 
   constructFilters(index) {
+    const globalFilter = (f) => {
+      return f ? [{ bool: { should: f } }] : [];
+    }
+
+    const basicFilter = (i, f) => {
+      return index === i ? (f ? [{ bool: { should: f } }] : []) : [];
+    };
+
+    const nestedFilter = (i, f, p) => {
+      return index === i ? ((f?.length > 0) ? [{nested: {path: p, query: {bool: {should: f } }}}] : []) : [];
+    };
+
     const filters = [
-      ...(index === 'publication' ? (this.juFoCodeFilter ? [{ bool: { should: this.juFoCodeFilter } }] : []) : []),
-      ...(index === 'publication' ? (this.openAccessFilter ? [{ bool: { should: this.openAccessFilter } }] : []) : []),
-      ...(index === 'publication' ? (this.internationalCollaborationFilter ? [{ bool: { should: [this.internationalCollaborationFilter] } }] : []) : []),
-      ...(index === 'publication' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-          [{nested: {path: 'author', query: {bool: {should: this.organizationFilter } }}}] : []) : []),
-      ...(index === 'funding' ? (this.funderFilter ? [{ bool: { should: this.funderFilter } }] : []) : []),
-      // Funding / Organization filter needs to be filtered by fundedPerson code
-      // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-      //     [{nested: {path: 'fundingGroupPerson', query: {bool: {filter: {term: {'fundingGroupPerson.fundedPerson': 1}},
-      //     must: {bool: {should: this.organizationFilter}}}}}}] : []) : []),
-      // ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-      //     [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}},
-      //     must: {bool: {should: this.organizationFilter}}}}}}] : []) : []),
+      // Publications
+      ...(nestedFilter('publication', this.organizationFilter, 'author')),
+      ...(nestedFilter('publication', this.fieldFilter, 'fieldsOfScience')),
+      ...(basicFilter('publication', this.publicationTypeFilter)),
+      ...(basicFilter('publication', this.countryCodeFilter)),
+      ...(basicFilter('publication', this.langFilter)),
+      ...(basicFilter('publication', this.juFoCodeFilter)),
+      ...(basicFilter('publication', this.openAccessFilter)),
+      ...(basicFilter('publication', this.internationalCollaborationFilter)),
 
+      // Fundings
+      // Funding organization filter differs from nested filter since we need to get filter values from two different parents
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
-          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool: {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}}, must: { bool: {should: this.organizationFilter } }}}}},
-          {nested: {path: 'fundingGroupPerson', query: {bool: {filter: {term: {'fundingGroupPerson.fundedPerson': 1}}, must: { bool: { should: this.organizationFilter } }}}}}]}}] : []) : []),
+          [{bool: {should: [{nested: {path: 'organizationConsortium', query: {bool:
+            {filter: {term: {'organizationConsortium.isFinnishOrganization': 1}}, must: {bool: {should: this.organizationFilter } }}}}},
+          {nested: {path: 'fundingGroupPerson', query: {bool: {filter: {term: {'fundingGroupPerson.fundedPerson': 1}}, must: {bool:
+            {should: this.organizationFilter } }}}}}]}}] : []) : []),
+      ...(basicFilter('funding', this.funderFilter)),
+      ...(basicFilter('funding', this.typeOfFundingFilter)),
+      ...(basicFilter('funding', this.faFieldFilter)),
+      ...(nestedFilter('funding', this.fieldFilter, 'fieldsOfScience')),
+      ...(basicFilter('funding', this.fundingSchemeFilter)),
+      ...(basicFilter('funding', this.statusFilter)),
 
-      ...(index === 'funding' ? (this.typeOfFundingFilter ? [{ bool: { should: this.typeOfFundingFilter } }] : []) : []),
-      ...(index === 'funding' ? (this.fundingSchemeFilter ? [{ bool: { should: this.fundingSchemeFilter } }] : []) : []),
-      ...(index === 'funding' ? (this.statusFilter ? [this.statusFilter] : []) : []),
-      ...(index === 'funding' ? (this.fundingAmountFilter ? [this.fundingAmountFilter] : []) : []),
-      ...(index === 'funding' ? (this.faFieldFilter ? [{ bool: { should: this.faFieldFilter } }] : []) : []),
-      ...(index === 'infrastructure' ? (this.typeFilter ? [{ bool: { should: this.typeFilter } }] : []) : []),
-      ...(index === 'infrastructure' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
-      // ...(index === 'infrastructure' ? (this.infraFieldFilter ? [{ bool: { should: this.infraFieldFilter } }] : []) : []),
+      // Infrastructures
+      ...(basicFilter('infrastructure', this.typeFilter)),
+      ...(basicFilter('infrastructure', this.organizationFilter)),
+      ...(nestedFilter('infrastructure', this.infraFieldFilter, 'fieldsOfScience')),
 
-      ...(index === 'infrastructure' ? (this.infraFieldFilter?.length > 0 ? [{nested: {path: 'fieldsOfScience', query: {bool: {should: this.infraFieldFilter } }}}] : []) : []),
+      // Organizations
+      ...(basicFilter('organization', this.sectorFilter)),
 
-      ...(index === 'organization' ? (this.sectorFilter ? [{ bool: { should: this.sectorFilter } }] : []) : []),
-      ...(index === 'news' ? (this.organizationFilter ? [{ bool: { should: this.organizationFilter } }] : []) : []),
-      ...(this.yearFilter ? [{ bool: { should: this.yearFilter } }] : []),
-      // ...(index === 'publication' ? (this.yearRangeFilter ? [{ bool: { should: this.yearRangeFilter } }] : []) : []),
-      ...(index === 'publication' || index === 'funding' ? (this.fieldFilter ? [{ bool: { should: this.fieldFilter } }] : []) : []),
-      ...(this.publicationTypeFilter ? [{ bool: { should: this.publicationTypeFilter } }] : []),
-      ...(this.langFilter ? [{ bool: { should: this.langFilter } }] : []),
-      ...(this.countryCodeFilter ? [{ bool: { should: this.countryCodeFilter } }] : []),
+      // News
+      ...(basicFilter('news', this.organizationFilter)),
+
+      // Global filters
+      ...(globalFilter(this.yearFilter)),
+
     ];
     return filters;
   }
@@ -485,7 +498,7 @@ export class FilterService {
   }
 
   constructFilterPayload(tab: string, searchTerm: string) {
-    const filters = this.constructFilters(tab.slice(0, -1));
+    const filters = this.constructFilters(tab.slice(0, -1)) as any;
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
     // Actice bool filters come from aggregations that contain multiple terms, eg composite aggregation
@@ -553,6 +566,22 @@ export class FilterService {
         }
       };
     };
+
+    // Testing purposes
+    const agg = (aggName, fieldName, orderBy, sizeOf) => {
+      return {
+        [aggName]: {
+          terms: {
+            field: fieldName,
+            ...( orderBy ? {order: { _key : orderBy }} : []),
+            ...( sizeOf ? {size: sizeOf} : []),
+          }
+        }
+      }
+    };
+
+    // console.log(basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null));
+    const test = basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null);
 
     // Aggregations
     const payLoad: any = {
@@ -739,16 +768,15 @@ export class FilterService {
             }
           }
         };
+        // Field of science
         payLoad.aggs.field = {
-          filter: {
-            bool: {
-              filter: filterActive('fields_of_science.fieldIdScience')
-            }
+          nested: {
+            path: 'fieldsOfScience'
           },
           aggs: {
             fields: {
               terms: {
-                field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
+                field: 'fieldsOfScience.name' + this.localeC + 'Science.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {
@@ -756,16 +784,28 @@ export class FilterService {
                 }
               },
               aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('fieldsOfScience')
+                        }
+                      }
+                    }
+                  }
+                },
                 fieldId: {
                   terms: {
-                    field: 'fields_of_science.fieldIdScience',
-                    size: 1
-                  },
+                    field: 'fieldsOfScience.fieldIdScience'
+                  }
                 }
               }
             }
           }
         };
+        // Open access
         payLoad.aggs.selfArchived = {
           filter: {
             bool: {
@@ -1144,16 +1184,15 @@ export class FilterService {
           }
         };
         // Field of science
+
         payLoad.aggs.field = {
-          filter: {
-            bool: {
-              filter: filterActive('fields_of_science.fieldIdScience')
-            }
+          nested: {
+            path: 'fieldsOfScience'
           },
           aggs: {
             fields: {
               terms: {
-                field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
+                field: 'fieldsOfScience.name' + this.localeC + 'Science.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {
@@ -1161,16 +1200,55 @@ export class FilterService {
                 }
               },
               aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('fieldsOfScience')
+                        }
+                      }
+                    }
+                  }
+                },
                 fieldId: {
                   terms: {
-                    field: 'fields_of_science.fieldIdScience.keyword',
-                    size: 1
+                    field: 'fieldsOfScience.fieldIdScience.keyword'
                   }
                 }
               }
             }
           }
         };
+
+        // payLoad.aggs.field = {
+        //   filter: {
+        //     bool: {
+        //       filter: filterActive('fields_of_science.fieldIdScience')
+        //     }
+        //   },
+        //   aggs: {
+        //     fields: {
+        //       terms: {
+        //         field: 'fields_of_science.name' + this.localeC + 'Science.keyword',
+        //         exclude: ' ',
+        //         size: 250,
+        //         order: {
+        //           _key: 'asc'
+        //         }
+        //       },
+        //       aggs: {
+        //         fieldId: {
+        //           terms: {
+        //             field: 'fields_of_science.fieldIdScience.keyword',
+        //             size: 1
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // };
         // Funding status
         payLoad.aggs.fundingStatus = {
           filter: {

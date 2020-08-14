@@ -54,7 +54,7 @@ export class FundingFilters {
       source.funder.buckets = this.funder(source.funder.funders.buckets);
       // Type of funding
       source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
-      // Major field
+      // Field of science
       source.field.buckets = this.minorField(source.field.fields.buckets);
       // Finnish Academy field
       source.faField = source.faField.faFields;
@@ -78,7 +78,7 @@ export class FundingFilters {
       // Find differences between fundingGroupPerson and OrganizationConsortiumo
       const diff = oData[i]?.organizations.buckets.filter(item1 =>
                   !fData[i].organizations?.buckets.some(item2 => (item2.key === item1.key)));
-        
+
       // Find duplicates in fundingGroupPerson and OrganizationConsortiumo
       const duplicate = oData[i]?.organizations.buckets.filter(item1 =>
                         fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));

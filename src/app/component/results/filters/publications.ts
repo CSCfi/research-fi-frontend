@@ -45,7 +45,7 @@ export class PublicationFilters {
     source.year.buckets = source.year.years.buckets;
     // Organization & sector
     this.organization(source.organization);
-    // Major field
+    // Field of science
     source.field.buckets = this.minorField(source.field.fields.buckets);
     // Publication Type
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
