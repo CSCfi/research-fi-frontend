@@ -49,7 +49,7 @@ export class Publication {
         public fieldsOfScience: FieldOfScience[],
         public fieldsOfScienceString: string,
         public author: any[],
-        public selfArchivedData: any,
+        public selfArchivedData: any[],
         public completions: string[],
         public publicationChannel: string,
         public citations: string[]

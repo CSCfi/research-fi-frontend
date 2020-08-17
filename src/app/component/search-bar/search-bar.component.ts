@@ -270,10 +270,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   getResetMargin(w: number) {
-    const margin = w < 1200 ? 30 : 50;
-    const outer = this.inputGroup.nativeElement.getBoundingClientRect();
-    const inner = this.searchInput.nativeElement.getBoundingClientRect();
-    return inner.x - outer.x + inner.width - 30 + 'px';
+    if (isPlatformBrowser(this.platformId)) {
+      const margin = w < 1200 ? 30 : 50;
+      const outer = this.inputGroup.nativeElement.getBoundingClientRect();
+      const inner = this.searchInput.nativeElement.getBoundingClientRect();
+      return inner.x - outer.x + inner.width - 30 + 'px';
+    }
   }
 
   // Add completion with right arrow key if caret is at the end of term
