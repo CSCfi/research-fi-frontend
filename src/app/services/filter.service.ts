@@ -567,22 +567,6 @@ export class FilterService {
       };
     };
 
-    // Testing purposes
-    const agg = (aggName, fieldName, orderBy, sizeOf) => {
-      return {
-        [aggName]: {
-          terms: {
-            field: fieldName,
-            ...( orderBy ? {order: { _key : orderBy }} : []),
-            ...( sizeOf ? {size: sizeOf} : []),
-          }
-        }
-      }
-    };
-
-    // console.log(basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null));
-    const test = basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null);
-
     // Aggregations
     const payLoad: any = {
       ...(searchTerm ? { query: {
