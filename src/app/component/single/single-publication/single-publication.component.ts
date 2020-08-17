@@ -81,7 +81,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   linksFields = [
     {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
     {label: '', field: 'doiHandle'},
-    {label: '', field: 'selfArchivedAddress'},
+    // {label: '', field: 'selfArchivedAddress'},
   ];
 
   otherFields  = [
@@ -382,13 +382,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     source.internationalCollaboration = source.internationalCollaboration ? yes : no;
     source.businessCollaboration = source.businessCollaboration ? yes : no;
-
-    // Filter empty self archived addresses
-    if (source.selfArchivedData) {
-      const filtered = source.selfArchivedData[0].selfArchived.filter(item => UtilityService.stringHasContent(item.selfArchivedAddress));
-      // If empty data, set selfArchivedData to 0 (falsy)
-      filtered[0] ? source.selfArchivedData[0].selfArchived = filtered[0] : source.selfArchivedData = 0;
-    }
 
     // Get & set publication type label
     this.publicationTypeLabel = this.staticDataService.publicationClass.find
