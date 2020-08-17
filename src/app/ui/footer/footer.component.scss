@@ -79,10 +79,10 @@ app-footer {
         cursor: pointer;
     }
 
-    span.reverse {
+    .reverse {
         unicode-bidi: bidi-override;
         direction: rtl;
-      }
+    }
     
     img {
         // padding-top: 10px;
