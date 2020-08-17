@@ -5,7 +5,7 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../services/app-config-service.service';
 import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
@@ -30,6 +30,7 @@ export class FooterComponent implements OnInit {
   faTimes = faTimes;
   showReviewButton: boolean;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
+  @ViewChild('contact') contact: ElementRef;
 
   constructor(private appConfigService: AppConfigService, @Inject(LOCALE_ID) protected localeId: string, public dialog: MatDialog) {
     this.buildInfo = this.appConfigService.buildInfo;
@@ -38,6 +39,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     this.translateContent();
+    this.obfuscate();
   }
 
   translateContent() {
@@ -57,17 +59,42 @@ export class FooterComponent implements OnInit {
     }
   }
 
-    // Review button
-    close() {
-      this.showReviewButton = false;
-    }
+  // Review button
+  close() {
+    this.showReviewButton = false;
+  }
 
-    toggleReview() {
-      this.reviewDialogRef = this.dialog.open(ReviewComponent, {
-        maxWidth: '800px',
-        minWidth: '320px',
-        // minHeight: '60vh'
-      });
+  toggleReview() {
+    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+      maxWidth: '800px',
+      minWidth: '320px',
+      // minHeight: '60vh'
+    });
+  }
+
+  // Email obfuscator
+  obfuscate() {
+    const coded = 'vr7I7CyvMv0rJM9@191.ir';
+    const key = 'm1z6dWNO04fnVsKES5aoLxJeqTIbhugFiQp9GXjtycBUZ7YwkR2M38rAlDHPCv';
+    const shift = coded.length;
+    let link = '';
+
+    for (let i = 0; i < coded.length; i++) {
+      if (key.indexOf(coded.charAt(i)) == -1) {
+        const ltr = coded.charAt(i);
+        link += (ltr);
+      } else {
+        const ltr = (key.indexOf(coded.charAt(i)) - shift + key.length) % key.length;
+        link += (key.charAt(ltr));
+      }
     }
+    return link;
+  }
+
+  getMail() {
+    const link = this.obfuscate();
+    this.contact.nativeElement.innerHTML = link;
+    this.contact.nativeElement.href = 'mailto:' + link;
+  }
 
 }
