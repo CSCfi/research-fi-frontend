@@ -94,6 +94,8 @@ export class PublicationAdapter implements Adapter<Publication> {
             // Check for empty addresses
             item.selfArchivedData[0].selfArchived = item.selfArchivedData[0].selfArchived
             .filter(x => x.selfArchivedAddress.trim().length > 0);
+            // Filter empty items
+            item.selfArchivedData = item.selfArchivedData.filter(x => x.selfArchived.length);
         }
 
         // Prioritize publication channel
