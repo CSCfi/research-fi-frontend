@@ -276,7 +276,7 @@
                             <div class="row links" *ngFor="let row of selfArchived.selfArchived">
                                 <div class="info-link-wrapper">
                                     <div class="col link">
-                                        <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">a {{row.selfArchivedAddress | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
+                                        <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                     </div>
                                 </div>
                             </div>
