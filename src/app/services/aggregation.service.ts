@@ -84,6 +84,7 @@ export class AggregationService {
       }
     };
 
+    // Testing purposes
     const basicAgg = (filterMethod: any, path: string, fieldName: string, orderBy: string, sizeOf: number) => {
       return {
         filter: {
@@ -114,6 +115,7 @@ export class AggregationService {
       aggs: {}
     };
 
+    // Testing purposes
     const terms = (fieldName: string, orderBy: string, sizeOf: number, exclusion: any) => {
       return {
         terms: {
@@ -124,8 +126,6 @@ export class AggregationService {
         }
       };
     };
-
-    console.log(terms('author.name' + this.localeC + 'Sector.keyword', undefined, 50, ' '));
 
     switch (tab) {
       case 'publications':
