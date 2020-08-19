@@ -13,18 +13,13 @@ import { isNumber } from 'util';
   providedIn: 'root'
 })
 export class SettingsService {
-indexList: string;
-aggsOnly: string;
-exactField: any;
+  indexList: string;
+  aggsOnly: string;
   target: any;
 
   constructor( private staticDataService: StaticDataService) {
     this.indexList = 'publication,funding,infrastructure,organization' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
-  }
-
-  strictFields(field) {
-    this.exactField = field;
   }
 
   changeTarget(target) {
@@ -33,20 +28,16 @@ exactField: any;
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: any) {
-    // if (this.exactField === this.exactField) {this.exactField = undefined; }
     let targetFields: any;
     let onlyDigits: any;
     let hasDigits: any;
     let targetAnalyzer: string;
     let targetType: string;
 
-    // Use exact field when doing a search from single document page
-    targetFields = this.exactField ? this.exactField : this.staticDataService.queryFields(index);
-    // const nestedFields = this.staticDataService.nestedQueryFields(index);
+    // Use targeted field when doing a search from single document page
+    targetFields = this.staticDataService.queryFields(index);
 
-    if (this.exactField) {
-      targetFields = this.exactField;
-    } else if (this.target) {
+    if (this.target) {
       targetFields = this.staticDataService.targetFields(this.target, index);
     } else {
       targetFields = this.staticDataService.queryFields(index);
