@@ -81,7 +81,6 @@ export class FundingFilters {
       const diff = oData.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)[i]?.organizations.buckets.filter(item1 =>
                   !fData.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)[i].organizations?.buckets.sort()
                   .some(item2 => (item2.key === item1.key)));
-      console.log(item.key, diff);
 
       // Find duplicates in fundingGroupPerson and OrganizationConsortium
       const duplicate = oData[i]?.organizations.buckets.filter(item1 =>
@@ -96,6 +95,9 @@ export class FundingFilters {
       item.organizations.buckets.map(org => {
         org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
       });
+
+      // Sort by doc count
+      item.organizations.buckets.sort((a, b) => b.doc_count - a.doc_count);
 
     });
 
