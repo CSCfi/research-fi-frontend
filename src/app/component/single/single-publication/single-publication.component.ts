@@ -6,14 +6,13 @@
 //  :license: MIT
 
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef, LOCALE_ID } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
-import { map } from 'rxjs/operators';
 import { SearchService } from '../../../services/search.service';
-import { SettingsService } from '../../../services/settings.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { StaticDataService } from '../../../services/static-data.service';
+import { SettingsService } from '../../../services/settings.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
@@ -63,10 +62,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   mediumFields = [
     {label: $localize`Lehti`, field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
+    {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationName', link: true, linkPath: '/results/publications/'},
     {label: $localize`:@@parentPublicationPublisher:Emojulkaisun toimittajat`, field: 'parentPublicationPublisher', link: false, linkPath: '/results/publications/'},
     {label: $localize`Konferenssi`, field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: $localize`Kustantaja`, field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Kustantaja`, field: 'publisherName', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: $localize`Volyymi`, field: 'volume', link: false},
     {label: $localize`Numero`, field: 'issueNumber', link: false},
     {label: $localize`Sivut`, field: 'pageNumbers', link: false},
@@ -130,9 +129,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
-               private settingsService: SettingsService, private staticDataService: StaticDataService,
-               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
-               private snackBar: MatSnackBar, private metaService: Meta ) {
+               private staticDataService: StaticDataService, private modalService: BsModalService, public utilityService: UtilityService,
+               @Inject(LOCALE_ID) private localeId, private snackBar: MatSnackBar, private settingsService: SettingsService) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
@@ -391,7 +389,4 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
   }
 
-  navigate(field) {
-    this.settingsService.strictFields(field);
-  }
 }
