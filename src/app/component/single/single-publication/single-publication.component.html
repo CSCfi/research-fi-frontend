@@ -159,25 +159,38 @@
                                     </span>
                                 </ng-container>
                             </h3>
-                            <p class="td"*ngIf="row.link && juFoCode?.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
+                            <p class="td"*ngIf="row.link" [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
                              [ngSwitch]="true">
-                            <!-- Check if fields are issn or isbn and target search with exact field  -->
-                            <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'" (click)="navigate(row.field)" 
-                             routerLink="{{row.linkPath}}{{item[row.field]}}">
-                                 {{item[row.field]}}
-                            </a>
-                            <!-- JuFo code links to external path -->
-                            <a class="td" *ngSwitchCase="row.field === 'jufoCode'" (click)="navigate(row.field)" 
-                             href="{{row.linkPath}}{{item[row.field]}}" target="_blank">
-                                 {{item[row.field]}}<fa-icon class="icon" icon="external-link-alt"></fa-icon>
-                            </a>
-                            <!-- Every other link uses jufoCode as search term -->
-                            <a class="td" *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
-                                 {{item[row.field]}}
-                            </a>
+                                <!-- Check if fields are issn or isbn and target search with exact field  -->
+                                <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'"
+                                routerLink="{{row.linkPath}}{{item[row.field]}}" [queryParams]="{target: row.field}">
+                                    {{item[row.field]}}
+                                </a>
+                                <!-- JuFo code links to external path -->
+                                <a class="td" *ngSwitchCase="row.field === 'jufoCode'" 
+                                href="{{row.linkPath}}{{item[row.field]}}" target="_blank">
+                                    {{item[row.field]}}<fa-icon class="icon" icon="external-link-alt"></fa-icon>
+                                </a>
+                                <!-- Parent publication name -->
+                                <a class="td" *ngSwitchCase="row.field === 'parentPublicationName'" routerLink="{{row.linkPath}}{{item[row.field]}}"
+                                [queryParams]="{target: row.field}">
+                                    {{item[row.field]}}
+                                </a>
+                                <ng-container *ngSwitchDefault>
+                                    <ng-container *ngIf="item.jufoCode?.length > 1; else noJufoCode">
+                                        <!-- Every other link field uses jufoCode as search term -->
+                                         <a class="td" routerLink="{{row.linkPath}}{{item.jufoCode}}" [queryParams]="{target: 'jufoCode'}">
+                                            {{item[row.field]}}
+                                        </a>
+                                    </ng-container>
+                                    <ng-template #noJufoCode>
+                                        {{item[row.field]}}
+                                    </ng-template>
+                                </ng-container>
+
                             </p>
                             <!-- Show label only if no search functionality -->
-                            <p class="td" *ngIf="!row.link || (!juFoCode || juFoCode?.length === 1)">{{item[row.field]}}</p>
+                            <p class="td" *ngIf="!row.link">{{item[row.field]}}</p>
                         </div>
                     </div>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
