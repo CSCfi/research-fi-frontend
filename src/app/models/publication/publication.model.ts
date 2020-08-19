@@ -25,11 +25,11 @@ export class Publication {
         public issueNumber: string,
         public pageNumbers: string, // pageNumberText
         public articleNumber: string, // articleNumberText
-        public parentPublicationTitle: string, // parentPublicationName
+        public parentPublicationName: string,
         public parentPublicationPublisher: string,
         public isbn: string,
         public isbn2: string,
-        public publisher: string, // publisherName
+        public publisherName: string,
         public publisherLocation: string,
         public jufoCode: string,
         public jufoClassCode: string,

@@ -323,8 +323,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   newInput(selectedIndex, historyLink) {
     // Copy queryparams, set target and reset page
     const newQueryParams = {...this.queryParams, target: this.selectedTarget, page: 1};
-    // Reset exact field search
-    this.settingService.strictFields(undefined);
     // Hide search helper
     this.showHelp = false;
     // Reset focus target
