@@ -444,7 +444,7 @@ export class AggregationService {
                     sectorId: {
                       terms: {
                         size: 50,
-                        field: 'fundingGroupPerson.consortiumSectorId.keyword'
+                        field: 'fundingGroupPerson.fundedPersonOrganizationSectorId.keyword'
                       }
                     },
                     organizations: {
