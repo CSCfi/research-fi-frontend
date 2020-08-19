@@ -287,6 +287,26 @@ export class StaticDataService {
         }
         break;
       }
+      default: {
+        switch (index) {
+          case 'publication': {
+            res = [target];
+            break;
+          }
+          case 'funding': {
+            res = [''];
+            break;
+          }
+          case 'infrastructure': {
+            res = [''];
+            break;
+          }
+          case 'organization': {
+            res = [''];
+            break;
+          }
+        }
+      }
     }
 
     return res;
