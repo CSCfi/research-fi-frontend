@@ -22,6 +22,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { NewsCardComponent } from '../news-card/news-card.component';
 import { news, common } from 'src/assets/static-data/meta-tags.json'
 import { UtilityService } from 'src/app/services/utility.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -48,6 +49,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   paramSub: any;
   olderData: any;
   olderDataCopy: any;
+  queryField: FormControl = new FormControl();
 
   private currentLocale: string;
   private metaTags = news;
@@ -154,6 +156,12 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       },
         error => this.errorMessage = error as any);
     }
+  }
+
+  searchNews() {
+    const term = this.searchInput.nativeElement.value;
+    this.searchService.searchTerm = term;
+    console.log(term);
   }
 
   ngOnDestroy() {

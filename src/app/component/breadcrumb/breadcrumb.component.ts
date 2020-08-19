@@ -27,7 +27,7 @@ export class BreadcrumbComponent implements OnInit {
   currentLocale: string;
 
   constructor( private searchService: SearchService,  @Inject( LOCALE_ID ) protected localeId: string) {
-    this.searchTerm = this.searchService.singleInput;
+    this.searchTerm = this.searchService.searchTerm;
     this.pageNumber = this.searchService.pageNumber || 1;
     // Capitalize first letter of locale
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);

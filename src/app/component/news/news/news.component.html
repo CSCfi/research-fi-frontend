@@ -36,6 +36,10 @@
                 </a>
             </div>
         </div>
+        <div class="row">
+            <input #searchInput [formControl]="queryField" mat-input type="text">
+            <button mat-button color="primary" (click)="searchNews()">Hae</button>
+        </div>
         <div class="row d-flex justify-content-between" *ngIf="data">
             <div class="col-12 col-lg-7 col px-0" [class.p-0]="mobile">
                 <main>

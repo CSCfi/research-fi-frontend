@@ -56,7 +56,7 @@ describe('SearchService', () => {
     const tabChangeService = TestBed.get(TabChangeService);
     let searchResponse;
 
-    searchService.singleInput = 'searchtext';
+    searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'publications';
 
@@ -76,7 +76,7 @@ describe('SearchService', () => {
     const tabChangeService = TestBed.get(TabChangeService);
     let searchResponse;
 
-    searchService.singleInput = 'searchtext';
+    searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'fundings';
 
@@ -96,7 +96,7 @@ describe('SearchService', () => {
     const tabChangeService = TestBed.get(TabChangeService);
     let searchResponse;
 
-    searchService.singleInput = 'searchtext';
+    searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'infrastructures';
 

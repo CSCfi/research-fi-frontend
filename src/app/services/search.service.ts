@@ -23,7 +23,7 @@ import { VisualAdapter, Visual } from '../models/visualisation/visualisations.mo
 
 @Injectable()
 export class SearchService {
-  singleInput: string;
+  searchTerm: string;
   pageNumber: number;
   newsPageNumber: number;
   fromPage: number;
@@ -55,7 +55,7 @@ export class SearchService {
 
   updateInput(searchTerm: string) {
     this.tabChangeService.resetQueryParams();
-    this.singleInput = searchTerm;
+    this.searchTerm = searchTerm;
     this.inputSource.next(searchTerm);
   }
 
@@ -112,7 +112,7 @@ export class SearchService {
   }
 
   getData(): Observable<Search> {
-    const payload = this.filterService.constructPayload(this.singleInput, this.fromPage, this.pageSize,
+    const payload = this.filterService.constructPayload(this.searchTerm, this.fromPage, this.pageSize,
                                                         this.sortService.sort, this.tabChangeService.tab);
     return this.http.post<Search>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload)
                     .pipe(map((data: any) => this.searchAdapter.adapt(data, this.tabChangeService.tab)));
@@ -120,16 +120,16 @@ export class SearchService {
 
   // Data for results page
   getTabValues(): Observable<Search[]> {
-    this.settingsService.querySettings(this.tabChangeService.tab, this.singleInput);
+    this.settingsService.querySettings(this.tabChangeService.tab, this.searchTerm);
     const payLoad = {
-      ...(this.singleInput ? { query: {
+      ...(this.searchTerm ? { query: {
         bool: {
           should: [
-            this.settingsService.querySettings('publication', this.singleInput),
-            this.settingsService.querySettings('person', this.singleInput),
-            this.settingsService.querySettings('funding', this.singleInput),
-            this.settingsService.querySettings('infrastructure', this.singleInput),
-            this.settingsService.querySettings('organization', this.singleInput)
+            this.settingsService.querySettings('publication', this.searchTerm),
+            this.settingsService.querySettings('person', this.searchTerm),
+            this.settingsService.querySettings('funding', this.searchTerm),
+            this.settingsService.querySettings('infrastructure', this.searchTerm),
+            this.settingsService.querySettings('organization', this.searchTerm)
           ]
         }
       }, } : []),
@@ -172,21 +172,21 @@ export class SearchService {
   }
 
   getFilters(): Observable<Search[]> {
-    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.searchTerm);
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
   }
 
   getVisualData(categoryIdx: number): Observable<Visual> {
-    const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.singleInput, categoryIdx);
+    const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.searchTerm, categoryIdx);
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs)
                     .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab, categoryIdx)));
   }
 
   //
   getQueryFilters(): Observable<Search[]> {
-    const query = this.filterService.constructPayload(this.singleInput, this.fromPage, this.pageSize,
+    const query = this.filterService.constructPayload(this.searchTerm, this.fromPage, this.pageSize,
       this.sortService.sort, this.tabChangeService.tab);
-    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.singleInput);
+    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.searchTerm);
     const payload = Object.assign(query, aggs);
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', payload);
   }
