@@ -7,6 +7,7 @@
 
 @mixin app-news-theme($theme) {
     $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
 
     app-news {
         .content, .side-news {
@@ -15,6 +16,23 @@
 
         .side-news {
             border: 1px solid mat-color($primary);
+        }
+
+        .input {
+            background: white;
+            border: 2px solid mat-color($primary);
+        }
+
+        .reset {
+            &:hover {
+                color: mat-color($warn, 600);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .side-news {
+                border: none;
+            }
         }
     }
 }
