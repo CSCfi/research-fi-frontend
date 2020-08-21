@@ -137,6 +137,10 @@ export class StaticDataService {
         'visitingAddress', 'businessId', 'subUnits'];
         break;
       }
+      case 'news': {
+        res = ['newsHeadline', 'newsContent', 'organizationNameFi'];
+        break;
+      }
     }
     return res;
   }
