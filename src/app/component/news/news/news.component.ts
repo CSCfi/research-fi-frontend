@@ -13,7 +13,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { isPlatformBrowser } from '@angular/common';
 import { map } from 'rxjs/internal/operators/map';
 import { DataService } from 'src/app/services/data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/services/filter.service';
 import { SortService } from 'src/app/services/sort.service';
 import { WINDOW } from 'src/app/services/window.service';
@@ -54,21 +54,30 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   private currentLocale: string;
   private metaTags = news;
   private commonTags = common;
+  inputSub: any;
+  currentTerm: string;
+  queryParams: any;
 
-
-  constructor( private searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
+  constructor( public searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
                private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
                private dataService: DataService, private route: ActivatedRoute, private filterService: FilterService,
                private sortService: SortService, @Inject(WINDOW) private window: Window, private resizeService: ResizeService,
-               private utilityService: UtilityService) {
+               private utilityService: UtilityService, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
 
   }
 
   ngOnInit() {
-    this.getFilterData();
     this.paramSub = this.route.queryParams.subscribe(query => {
+      // Get query params and send search term to service
+      this.queryParams = query;
+      if (query.search) {
+        this.searchService.updateInput(query.search);
+      } else {
+        this.searchService.updateInput('');
+      }
+      // Update sort
       this.sortService.updateTab('news');
       // Scroll to older news header with pagination, TODO: Do without timeout
       if (this.tabChangeService.focus === 'olderNews' && this.mobile) {
@@ -87,7 +96,11 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       // Get data
       this.getNews();
       this.getOlderNews();
+      this.getFilterData();
     });
+
+    this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
+    this.queryField = new FormControl(this.currentTerm);
 
     // Set title
     switch (this.localeId) {
@@ -159,9 +172,22 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   searchNews() {
-    const term = this.searchInput.nativeElement.value;
-    this.searchService.searchTerm = term;
-    console.log(term);
+    const searchTerm = this.searchInput.nativeElement.value;
+    this.searchService.updateInput(searchTerm);
+    const params = Object.assign({}, this.queryParams);
+    params.search = searchTerm;
+    this.router.navigate([], {queryParams: params});
+    this.getNews();
+    this.getFilterData();
+  }
+
+  resetSearch() {
+    this.searchInput.nativeElement.value = '';
+    this.currentTerm = '';
+    this.searchService.updateInput('');
+    const params = Object.assign({}, this.queryParams);
+    params.search = null;
+    this.router.navigate([], {queryParams: params});
   }
 
   ngOnDestroy() {
@@ -172,6 +198,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.searchService.updateNewsPageNumber(1);
     this.tabChangeService.focus = undefined;
+    this.searchService.updateInput('');
   }
 
   closeModal() {
