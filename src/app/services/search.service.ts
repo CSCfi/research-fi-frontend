@@ -192,7 +192,7 @@ export class SearchService {
   }
 
   getNewsFilters(): Observable<Search[]> {
-    const aggs = this.filterService.constructFilterPayload('news', undefined);
+    const aggs = this.filterService.constructFilterPayload('news', this.searchTerm);
     const payload = Object.assign(aggs);
     return this.http.post<Search[]>(this.apiUrl + 'news/_search?', payload);
   }
@@ -206,7 +206,7 @@ export class SearchService {
   getNews(size?: number): Observable<News[]> {
     const sort = {timestamp: {order: 'desc'}};
     const payload = {
-      query: this.filterService.constructNewsPayload(),
+      query: this.filterService.constructNewsPayload(this.searchTerm),
       size,
       sort: [
         sort
@@ -216,18 +216,18 @@ export class SearchService {
     return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
   }
 
-    // News page older news content
-    getOlderNews(size?: number): Observable<News[]> {
-      const sort = {timestamp: {order: 'desc'}};
-      const payload = {
-        query: this.filterService.constructNewsPayload(),
-        size,
-        from: this.fromNewsPage + 5,
-        sort: [
-          sort
-        ]
-      };
+  // News page older news content
+  getOlderNews(size?: number): Observable<News[]> {
+    const sort = {timestamp: {order: 'desc'}};
+    const payload = {
+      query: this.filterService.constructNewsPayload(this.searchTerm),
+      size,
+      from: this.fromNewsPage + 5,
+      sort: [
+        sort
+      ]
+    };
 
-      return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
-    }
+    return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
+  }
 }
