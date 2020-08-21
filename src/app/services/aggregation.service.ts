@@ -109,7 +109,7 @@ export class AggregationService {
       ...(searchTerm ? { query: {
         // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
         // outside path.
-        bool: { should: [ this.settingsService.querySettings(tab.slice(0, -1), searchTerm) ] }
+        bool: { should: [ this.settingsService.querySettings(tab !== 'news' ? tab.slice(0, -1) : tab, searchTerm) ] }
         }} : []),
       size: 0,
       aggs: {}
