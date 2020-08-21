@@ -266,7 +266,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
     span.style.fontSize = '25px';
-    this.inputMargin = (width + 210) + 'px';
+    this.inputMargin = (width + 200) + 'px';
   }
 
   getResetMargin(w: number) {
@@ -322,6 +322,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   newInput(selectedIndex, historyLink) {
+    // Check that current target exists in predefined list, reset if not
+    this.selectedTarget = this.targets.find(item => item.value === this.selectedTarget) ? this.selectedTarget : '';
     // Copy queryparams, set target and reset page
     const newQueryParams = {...this.queryParams, target: this.selectedTarget, page: 1};
     // Hide search helper
