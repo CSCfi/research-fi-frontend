@@ -317,6 +317,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   resetSearch() {
     this.searchInput.nativeElement.value = '';
+    this.selectedTarget = '';
     this.newInput(false, false);
   }
 
