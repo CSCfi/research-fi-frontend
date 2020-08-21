@@ -148,7 +148,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
     this.tabData = this.tabChangeService.tabData.find(item => item.data === 'publications');
-    this.searchTerm = this.searchService.singleInput;
+    this.searchTerm = this.searchService.searchTerm;
   }
 
   ngOnDestroy() {

@@ -383,8 +383,8 @@ export class FilterService {
     };
   }
 
-  constructNewsPayload() {
-    const query = this.constructQuery('news', undefined);
+  constructNewsPayload(searchTerm: string) {
+    const query = this.constructQuery('news', searchTerm);
     return query;
   }
 

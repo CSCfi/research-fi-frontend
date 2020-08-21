@@ -136,7 +136,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.sortService.getTerm(this.searchTerm);
 
         // If there's a new search term, send it to search service
-        if (this.searchTerm !== this.searchService.singleInput) {
+        if (this.searchTerm !== this.searchService.searchTerm) {
           this.searchService.updateInput(this.searchTerm);
         }
 

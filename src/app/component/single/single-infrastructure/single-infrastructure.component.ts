@@ -125,7 +125,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.infrastructures;
     this.tabData = this.tabChangeService.tabData.find(item => item.data === 'infrastructures');
-    this.searchTerm = this.searchService.singleInput;
+    this.searchTerm = this.searchService.searchTerm;
   }
 
   ngOnDestroy() {

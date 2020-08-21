@@ -209,7 +209,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         this.searchService.updateInput(this.searchInput.nativeElement.value);
         this.router.navigate(['results/', doc, id || '']);
       } else if (doc && term) {
-        this.searchService.singleInput = term.value;
+        this.searchService.searchTerm = term.value;
         this.newInput(doc, undefined);
       } else if (history) {
         this.newInput(undefined, history);
@@ -266,7 +266,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
     span.style.fontSize = '25px';
-    this.inputMargin = (width + 210) + 'px';
+    this.inputMargin = (width + 200) + 'px';
   }
 
   getResetMargin(w: number) {
@@ -317,10 +317,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   resetSearch() {
     this.searchInput.nativeElement.value = '';
+    this.selectedTarget = '';
     this.newInput(false, false);
   }
 
   newInput(selectedIndex, historyLink) {
+    // Check that current target exists in predefined list, reset if not
+    this.selectedTarget = this.targets.find(item => item.value === this.selectedTarget) ? this.selectedTarget : '';
     // Copy queryparams, set target and reset page
     const newQueryParams = {...this.queryParams, target: this.selectedTarget, page: 1};
     // Hide search helper
@@ -346,7 +349,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.searchService.updateInput(this.searchInput.nativeElement.value);
     }
     // Reset / generate timestamp for randomized results
-    this.searchService.singleInput.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
+    this.searchService.searchTerm.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
 
     this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
@@ -354,10 +357,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       // Temporary default to publications
       // Change tab if clicked from auto suggest
       if (selectedIndex) {
-        this.router.navigate(['results/', selectedIndex + 's', this.searchService.singleInput || '']);
+        this.router.navigate(['results/', selectedIndex + 's', this.searchService.searchTerm || '']);
         } else {
           // Preserve queryParams with new search to same index. Use queryParams with added target if selected
-          this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || ''],
+          this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.searchTerm || ''],
           {queryParams: newQueryParams});
       }
     });

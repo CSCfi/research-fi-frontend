@@ -136,7 +136,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.organizations;
     this.tabData = this.tabChangeService.tabData.find(item => item.data === 'organizations');
-    this.searchTerm = this.searchService.singleInput;
+    this.searchTerm = this.searchService.searchTerm;
   }
 
   ngOnDestroy() {
