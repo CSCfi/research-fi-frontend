@@ -379,7 +379,7 @@ export class FilterService {
       // TODO: Get completions from all indices
       ...(tab === 'publications' && searchTerm ? this.settingsService.completionsSettings(searchTerm) : []),
       from: fromPage,
-      sort: searchTerm.length > 0 ? ['_score', ...sortOrder] : sortOrder
+      sort: searchTerm.length > 0 ? [...sortOrder, '_score'] : sortOrder
     };
   }
 
