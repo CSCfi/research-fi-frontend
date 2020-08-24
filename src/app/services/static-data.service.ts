@@ -451,6 +451,7 @@ export class StaticDataService {
                     name: 'fieldId',
                     size: 100,
                     order: 0,
+                    filterName: 'field',
                     exclude: [0]
                 }
             ]
