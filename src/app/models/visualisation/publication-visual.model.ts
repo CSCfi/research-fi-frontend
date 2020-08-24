@@ -37,7 +37,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         lang: 'this.getLang(f.language.buckets.shift().key)',
         juFo: 'f.key',
         majorFieldOfScience: 'this.fieldObjects[f.fieldId.buckets.shift().key.toString().charAt(0)]',
-    }
+    };
     private ids = {
         year: '',
         fieldsOfScience: 'f.key',
@@ -47,7 +47,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         lang: 'this.getLangId(f.key)',
         juFo: 'f.key',
         majorFieldOfScience: 'f.key',
-    }
+    };
 
     private openAccessTypes = [
         {
@@ -58,7 +58,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         {
             name: $localize`:@@selfArchived:Rinnakkaistallennettu`,
             doc_count: 0,
-            id: 'selfArchived' 
+            id: 'selfArchived'
         },
         {
             name: $localize`:@@otherOpenAccess:Muu avoin saatavuus`,
@@ -218,6 +218,24 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                         b.data.push(v);
                     });
                     fieldsOfScience.push(b);
+                });
+                break;
+
+            case 'majorFieldOfScience':
+
+                item.aggregations.majorFieldOfScience.buckets.forEach(b => tmp.push(b));
+
+                tmp.forEach(b => {
+                    b.data = [];
+                    b.fieldNested.fieldId.buckets.forEach(f => {
+                        const v: any = {};
+                        v.name = this.fieldObjects[f.key.toString().charAt(0)];
+                        v.id = f.key;
+                        v.doc_count = f.doc_count;
+                        v.parent = b.key;
+                        b.data.push(v);
+                    });
+                    majorFieldOfScience.push(b);
                 });
                 break;
 

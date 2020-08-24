@@ -443,17 +443,13 @@ export class StaticDataService {
                     order: 1
                 },
                 {
-                    field: 'fieldsOfScience.name|locale|Science.keyword',
-                    name: 'majorFieldOfScience',
-                    size: 100,
-                    order: 1,
-                    filterName: 'field',
-                    exclude: [' ']
+                  name: 'fieldNested',
+                  nested: 'fieldsOfScience'
                 },
                 {
                     field: 'fieldsOfScience.fieldIdScience',
                     name: 'fieldId',
-                    size: 1,
+                    size: 100,
                     order: 0,
                     exclude: [0]
                 }
