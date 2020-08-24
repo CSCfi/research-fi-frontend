@@ -2843,6 +2843,10 @@
         <source>Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi ‑palveluun.</source>
         <target state="translated">Forskningsfinansiärer som levererar uppgifter om finansieringsbeslut till tjänsten forskning.fi.</target>
       </trans-unit>
+      <trans-unit id="org6Tooltip">
+        <source>Muut tutkimuskentällä toimivat organisaatiot, jotka eivät kuulu edellisiin kategorioihin.</source>
+        <target state="translated">Andra organisationer som är verksamma på forskningsfält och inte faller inom de tidigare kategorierna.</target>
+      </trans-unit>
       <!-- Tabs -->
       <trans-unit id="publication">
         <source>Julkaisu</source>

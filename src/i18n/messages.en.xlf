@@ -2846,6 +2846,10 @@
         <source>Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi ‑palveluun.</source>
         <target>Research funders, which have submitted information on their funding decisions to the research.fi service.</target>
       </trans-unit>
+      <trans-unit id="org6Tooltip">
+        <source>Muut tutkimuskentällä toimivat organisaatiot, jotka eivät kuulu edellisiin kategorioihin.</source>
+        <target>Other organizations active in the field of research which do not fall into the categories above.</target>
+      </trans-unit>
       <!-- Tabs -->
       <trans-unit id="publication">
         <source>Julkaisu</source>
