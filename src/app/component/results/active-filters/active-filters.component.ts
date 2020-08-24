@@ -242,7 +242,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                     });
                   }
                 }, 1);
-                // Funding organization name
+                // Infrastructure organization name
               } else if (tab === 'infrastructures') {
                 if (source.organization?.sector?.buckets?.length > 0) {
                   source.organization.sector.buckets.forEach(sector => {
@@ -305,19 +305,28 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 });
               }
             }
+            // Funder
+            if (val.category === 'funder' && source.funder) {
+              setTimeout(t => {
+                const result = source.funder.funders.buckets.find(({ key }) => key === val.value);
+                const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+              }, 1);
+            }
 
-            // Infrastructure
+            // Infrastructures
+            // Type
             if (val.category === 'type' && source.type) {
               // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
               // This might cause some latency and therefore timeout is needed.
-              setTimeout(x => {
+              setTimeout(t => {
                 const result = source.type.types.buckets.find(({ key }) => key === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                 this.activeFilters[foundIndex].translation = result.label ? result.label : '';
               }, 1);
             }
 
-            // Ifrastructure main field of science
+            // Infrastructure main field of science
             if (tab === 'infrastructures' && val.category === 'field') {
               setTimeout(t => {
                 const result = source.field.buckets.find(key => key.key === val.value);
