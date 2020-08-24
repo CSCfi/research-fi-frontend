@@ -305,6 +305,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 });
               }
             }
+
             // Funder
             if (val.category === 'funder' && source.funder) {
               setTimeout(t => {
