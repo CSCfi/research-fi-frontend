@@ -106,7 +106,7 @@ export class FilterService {
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
     // Funding
-    this.funderFilter = this.basicFilter(filter.funder, 'funderNameFi.keyword');
+    this.funderFilter = this.basicFilter(filter.funder, 'funderBusinessId.pid_content.keyword');
     this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword');
     this.fundingSchemeFilter = this.basicFilter(filter.scheme, 'keywords.scheme.keyword');
     this.faFieldFilter = this.basicFilter(filter.faField, 'keywords.keyword.keyword'); // Finnish Academy field
