@@ -415,6 +415,13 @@ export class AggregationService {
                 order: {
                   _key: 'asc'
                 }
+              },
+              aggs: {
+                funderId: {
+                  terms: {
+                    field: 'funderBusinessId.pid_content.keyword'
+                  }
+                }
               }
             }
           }
