@@ -64,7 +64,7 @@ export class PublicationAdapter implements Adapter<Publication> {
     adapt(item: any): Publication {
         let fieldsOfScience: FieldOfScience[] = [];
         // All items don't have field_of_science field
-        item.fields_of_science ? item.fields_of_science.forEach(field => fieldsOfScience.push(this.fs.adapt(field))) : fieldsOfScience = [];
+        item.fieldsOfScience ? item.fieldsOfScience.forEach(field => fieldsOfScience.push(this.fs.adapt(field))) : fieldsOfScience = [];
 
         // Only include fields with id
         fieldsOfScience = fieldsOfScience.filter(x => x.id);

@@ -367,6 +367,7 @@ export class StaticDataService {
     return res;
   }
 
+  // tslint:disable-next-line: member-ordering
   visualisationData: {locale: d3.FormatLocaleDefinition, publication: VisualQuery[], funding: VisualQuery[]} = {
     locale: {
       decimal: '.',
@@ -409,11 +410,22 @@ export class StaticDataService {
                     order: 1
                 },
                 {
-                    field: 'fields_of_science.name|locale|Science.keyword',
-                    name: 'fieldsOfScience',
+                  name: 'fieldNested',
+                  nested: 'fieldsOfScience'
+                },
+                {
+                    field: 'fieldsOfScience.fieldIdScience',
+                    name: 'fieldId',
                     size: 100,
                     order: 1,
                     filterName: 'field',
+                    exclude: [0]
+                },
+                {
+                    field: 'fieldsOfScience.name|locale|Science.keyword',
+                    name: 'fieldsOfScience',
+                    size: 1,
+                    order: 1,
                     exclude: [' ']
                 }
             ]
@@ -431,7 +443,7 @@ export class StaticDataService {
                     order: 1
                 },
                 {
-                    field: 'fields_of_science.name|locale|Science.keyword',
+                    field: 'fieldsOfScience.name|locale|Science.keyword',
                     name: 'majorFieldOfScience',
                     size: 100,
                     order: 1,
@@ -439,7 +451,7 @@ export class StaticDataService {
                     exclude: [' ']
                 },
                 {
-                    field: 'fields_of_science.fieldIdScience',
+                    field: 'fieldsOfScience.fieldIdScience',
                     name: 'fieldId',
                     size: 1,
                     order: 0,

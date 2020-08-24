@@ -171,18 +171,20 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                 // If it's a new item, push it into a
                 if (obj.doc_count === b.doc_count) a.push(obj);
                 // Return array for new iteration
-                return a
-            }, [])
+                return a;
+            }, []);
             // Assign grouped to data
             d.data = grouped;
-        })
-        return arr
+        });
+        return arr;
     }
 
 
     adapt(item: any, categoryIdx?: number): PublicationVisual {
-        
-        
+
+        console.log(item)
+
+
         // Init arrays
         const year: VisualData[] = [];
         const fieldsOfScience: VisualData[] = [];
@@ -193,7 +195,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         const lang: VisualData[] = [];
         const juFo: VisualData[] = [];
         const majorFieldOfScience: VisualData[] = [];
-        
+
         const field = this.publication[categoryIdx].field;
 
         const tmp: any[] = [];
@@ -201,10 +203,28 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         // Adapt based on current visualisation
         switch (field) {
 
+            case 'fieldOfScience':
+
+                item.aggregations.fieldOfScience.buckets.forEach(b => tmp.push(b));
+
+                tmp.forEach(b => {
+                    b.data = [];
+                    b.fieldNested.fieldId.buckets.forEach(f => {
+                        const v: any = {};
+                        v.name = f.fieldsOfScience.buckets.shift().key;
+                        v.id = f.key;
+                        v.doc_count = f.doc_count;
+                        v.parent = b.key;
+                        b.data.push(v);
+                    });
+                    fieldsOfScience.push(b);
+                });
+                break;
+
             case 'organization':
-                
+
                 item.aggregations.organization.buckets.forEach(b => tmp.push(b));
-                
+
                 tmp.forEach(b => {
                     b.data = [];
                     b.orgNested.organizationId.buckets.forEach(f => {
@@ -218,9 +238,9 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     organization.push(b);
                 });
                 break;
-                
+
                 case 'openAccess': {
-                    
+
                     item.aggregations.openAccess.buckets.forEach(b => tmp.push(b));
 
                     tmp.forEach(b => {
@@ -230,7 +250,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     break;
             }
 
-            
+
             default:
 
                 const hierarchyField = this.publication[categoryIdx].hierarchy[1].name;
@@ -260,7 +280,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         // Same for major fields
         this.groupNames(majorFieldOfScience);
 
-                
+
         return new PublicationVisual(
             year,
             fieldsOfScience,
