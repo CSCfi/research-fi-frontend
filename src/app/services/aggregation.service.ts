@@ -754,7 +754,7 @@ export class AggregationService {
                 },
                 fieldId: {
                   terms: {
-                    field: 'fieldsOfScience.fieldIdScience.keyword'
+                    field: 'fieldsOfScience.fieldIdScience'
                   }
                 }
               }

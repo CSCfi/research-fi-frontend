@@ -847,12 +847,12 @@ export class StaticDataService {
                   nested: 'fieldsOfScience'
                 },
                 {
-                    field: 'fieldsOfScience.fieldIdScience.keyword',
+                    field: 'fieldsOfScience.fieldIdScience',
                     name: 'fieldId',
                     size: 100,
                     order: 1,
                     filterName: 'field',
-                    exclude: [' ']
+                    exclude: [0]
                 },
                 {
                     field: 'fieldsOfScience.name|locale|Science.keyword',
