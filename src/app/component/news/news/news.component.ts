@@ -182,6 +182,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resetSearch() {
+    this.queryField.reset();
     this.searchInput.nativeElement.value = '';
     this.currentTerm = '';
     this.searchService.updateInput('');

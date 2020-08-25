@@ -937,6 +937,14 @@
           <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="relatedFunded" datatype="html">
+        <source>Hae organisaation rahoittamat</source>
+        <target>Funded</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgInfoSource" datatype="html">
         <source>Organisaatiotiedon lähde</source>
         <target>Source of organization information</target>

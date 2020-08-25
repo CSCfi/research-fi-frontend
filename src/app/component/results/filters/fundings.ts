@@ -120,6 +120,11 @@ export class FundingFilters {
     const res = data.filter(item => {
       return item.key !== ' ';
     });
+
+    res.map(item => {
+      item.label = item.key;
+      item.key = item.funderId.buckets[0].key;
+    });
     return res;
   }
 

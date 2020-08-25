@@ -17,6 +17,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Search } from 'src/app/models/search.model';
 import { singleOrganization, common } from 'src/assets/static-data/meta-tags.json';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-single-organization',
@@ -118,7 +119,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-               public utilityService: UtilityService ) {
+               public utilityService: UtilityService, private settingsService: SettingsService ) {
                  // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
@@ -141,6 +142,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.settingsService.related = false;
   }
 
   getData(id: string) {
@@ -164,8 +166,9 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
         }
         const titleString = this.titleService.getTitle();
         this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
-        
+        this.utilityService.addMeta(titleString,
+          this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+
         this.shapeData();
         this.filterData();
       }

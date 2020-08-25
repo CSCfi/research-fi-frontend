@@ -105,7 +105,7 @@
             <aside>
                  <mat-card>
                     <mat-card-title><h2 i18n="@@organizationHomepage">Organisaation verkkosivu</h2></mat-card-title>
-                    <div class="row links">
+                    <div class="row links" *ngIf="linkFields.length; else noHomePage">
                         <div *ngFor="let row of linkFields" class="info-link-wrapper">
                             <ng-container *ngIf="item[row.field]; else noHomePage">
                                 <div class="col link">
@@ -137,10 +137,15 @@
             </aside>
             <aside>
                 <mat-card>
-                    <mat-card-title><h2><ng-container i18n="@@relatedOrganizations">Hae organisaatioon liittyvät</ng-container></h2></mat-card-title>
+                    <mat-card-title>
+                        <h2>
+                            <ng-container *ngIf="item.sectorNameFi !== 'Rahoittaja'" i18n="@@relatedOrganizations">Hae organisaatioon liittyvät</ng-container>
+                            <ng-container *ngIf="item.sectorNameFi === 'Rahoittaja'" i18n="@@relatedFunded">Hae organisaation rahoittamat</ng-container>
+                        </h2>
+                    </mat-card-title>
                     <!-- TODO: Uncomment when organization names match -->
-                    <!-- <app-related-links [id]="item.sectorNameFi === 'Rahoittaja' ? item.name : item.id" [filter]="item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'"></app-related-links> -->
-                    <app-related-links [id]="item.id" [filter]="'organization'"></app-related-links>
+                    <app-related-links [id]="item.sectorNameFi === 'Rahoittaja' ? item.businessId : item.id" [filter]="item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'"></app-related-links>
+                    <!-- <app-related-links [id]="item.id" [filter]="'organization'"></app-related-links> -->
                 </mat-card>
             </aside>
             <!-- Copy url -->

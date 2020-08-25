@@ -404,7 +404,7 @@ export class AggregationService {
         payLoad.aggs.funder = {
           filter: {
             bool: {
-              filter: filterActive('funderNameFi.keyword')
+              filter: filterActive('funderBusinessId.pid_content.keyword')
             }
           },
           aggs: {
@@ -414,6 +414,13 @@ export class AggregationService {
                 size: 250,
                 order: {
                   _key: 'asc'
+                }
+              },
+              aggs: {
+                funderId: {
+                  terms: {
+                    field: 'funderBusinessId.pid_content.keyword'
+                  }
                 }
               }
             }
