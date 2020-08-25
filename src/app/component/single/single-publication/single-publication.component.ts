@@ -45,7 +45,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'publicationYear'},
     {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', typeLabel: ' ',
     tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
-    {label: $localize`:@@authors:Tekijät`, field: 'authors',
+    {label: $localize`:@@publicationAuthors:Tekijät`, field: 'authors',
     tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`}
   ];
 
