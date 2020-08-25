@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { SearchService} from './search.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
+import { FilterService } from './filter.service';
 
 
 @Injectable({
@@ -22,7 +23,7 @@ export class SingleItemService {
   resultId: string;
 
   constructor( private http: HttpClient, private searchService: SearchService, private appConfigService: AppConfigService,
-               private settingsService: SettingsService, private searchAdapter: SearchAdapter ) {
+               private settingsService: SettingsService, private searchAdapter: SearchAdapter, private filterService: FilterService ) {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
@@ -69,144 +70,20 @@ export class SingleItemService {
 
   // Testing purposes only
   getCount(tab, id, filters): Observable<any> {
-    id = id || 0;
-    let queryOps = {};
-    // TODO: Move queryOps logic to separate config file
-    switch (tab) {
-      case 'publications': {
-        const organizationFilters = [];
-        filters.organizations?.forEach(value => {
-          organizationFilters.push({ term : { organizationId : value } });
-        });
-        // Use: should: organizationFilters when functionality is specified
-        queryOps = {
-          query: {
-            bool: {
-              should: {term: {ORGID: id}}
-            }
-          }
-        };
-        break;
-      }
-      case 'organizations': {
-        queryOps = {
-          query: {
-            bool: {
-              should: [
-                {
-                  bool: {
-                    must: [
-                      {
-                        term: {
-                          _index: 'publication'
-                        }
-                      },
-                      {
-                        bool: {
-                          should: [
-                            {
-                              nested: {
-                                path: 'author',
-                                query: {
-                                  bool: {
-                                    should: [
-                                      {
-                                        term: {
-                                          'author.organization.organizationId.keyword': id
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  bool: {
-                    must: [
-                      {
-                        term: {
-                          _index: 'funding'
-                        }
-                      },
-                      {
-                        bool: {
-                          should: [
-                            {
-                              nested: {
-                                path: 'fundingGroupPerson',
-                                query: {
-                                  bool: {
-                                    should: [
-                                      {
-                                        term: {
-                                          'fundingGroupPerson.consortiumOrganizationId.keyword': id
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            },
-                            {
-                              nested: {
-                                path: 'organizationConsortium',
-                                query: {
-                                  bool: {
-                                    should: [
-                                      {
-                                        term: {
-                                          'organizationConsortium.consortiumOrganizationId.keyword': id
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                },
-                {
-                  bool: {
-                    must: [
-                      {
-                        term: {
-                          _index: 'infrastructure'
-                        }
-                      },
-                      {
-                        bool: {
-                          should: [
-                            {
-                              term: {
-                                'responsibleOrganization.TKOppilaitosTunnus': {
-                                  value: id
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        };
-        break;
-      }
-    }
-    const aggs = {
+    // Set target fields
+    this.settingsService.related = true;
+    const payLoad = {
+      ...(id ? { query: {
+        bool: {
+          should: [
+            this.settingsService.querySettings('publication', id.replace('-', '')),
+            this.settingsService.querySettings('person', id),
+            this.settingsService.querySettings('funding', id),
+            this.settingsService.querySettings('infrastructure', id),
+            this.settingsService.querySettings('organization', id)
+          ]
+        }
+      }, } : []),
       size: 0,
       aggs: {
         _index: {
@@ -214,27 +91,27 @@ export class SingleItemService {
             filters: {
               persons: {
                 match: {
-                  _index: 'person'
+                    _index: 'person'
                 }
               },
               publications: {
                 match: {
-                  _index: 'publication'
+                    _index: 'publication'
                 }
               },
               fundings: {
                 match: {
-                  _index: 'funding'
+                    _index: 'funding'
                 }
               },
               infrastructures: {
                 match: {
-                  _index: 'infrastructure'
+                    _index: 'infrastructure'
                 }
               },
               organizations: {
                 match: {
-                  _index: 'organization'
+                    _index: 'organization'
                 }
               }
             }
@@ -242,8 +119,7 @@ export class SingleItemService {
         }
       }
     };
-    const payLoad = {...queryOps, ...aggs};
-    return this.http.post(this.apiUrl + this.settingsService.indexList + this.settingsService.aggsOnly, payLoad);
+    return this.http.post<Search[]>(this.apiUrl + this.settingsService.indexList + 'request_cache=true', payLoad);
   }
 
   joinEntries(field, subField) {
