@@ -28,7 +28,7 @@ export class FundingVisual {
 export class FundingVisualAdapter implements Adapter<FundingVisual> {
     private names = {
         year: '',
-        funder: 'f.key',
+        funder: 'f.funder.buckets.shift().key',
         organization: '',
         // Locale, english, finnish, key
         typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
