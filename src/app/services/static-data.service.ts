@@ -787,11 +787,22 @@ export class StaticDataService {
                     order: 1
                 },
                 {
-                    field: 'fields_of_science.name|locale|Science.keyword',
-                    name: 'fieldsOfScience',
+                  name: 'fieldNested',
+                  nested: 'fieldsOfScience'
+                },
+                {
+                    field: 'fieldsOfScience.fieldIdScience.keyword',
+                    name: 'fieldId',
                     size: 100,
                     order: 1,
                     filterName: 'field',
+                    exclude: [' ']
+                },
+                {
+                    field: 'fieldsOfScience.name|locale|Science.keyword',
+                    name: 'fieldsOfScience',
+                    size: 1,
+                    order: 1,
                     exclude: [' ']
                 }
             ]

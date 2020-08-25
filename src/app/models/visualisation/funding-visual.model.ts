@@ -18,7 +18,7 @@ export class FundingVisual {
         public organization: VisualData[],
         public typeOfFunding: VisualData[],
         public fieldOfScience: VisualData[],
-        
+
     ) {}
 }
 
@@ -33,8 +33,8 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         // Locale, english, finnish, key
         typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
         fieldOfScience: 'f.key',
-    }
-    
+    };
+
     private ids = {
         year: '',
         funder: 'f.key',
@@ -42,12 +42,12 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         // Locale, english, finnish, key
         typeOfFunding: 'f.key',
         fieldOfScience: 'f.key',
-    }
+    };
 
 
     funding = this.sds.visualisationData.funding;
 
-    
+
     constructor(private sds: StaticDataService) {}
 
     groupNames(arr: VisualData[]): VisualData[] {
@@ -64,12 +64,12 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                 // If it's a new item, push it into a
                 if (obj.doc_count === b.doc_count) a.push(obj);
                 // Return array for new iteration
-                return a
-            }, [])
+                return a;
+            }, []);
             // Assign grouped to data
             d.data = grouped;
-        })
-        return arr
+        });
+        return arr;
     }
 
     sortByName(arr: VisualData[]) {
@@ -94,7 +94,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         // Adapt based on current visualisation
         switch (field) {
 
-            case 'amount': 
+            case 'amount':
 
                 item.aggregations.amount.buckets.forEach(b => {
                     b.data = [];
@@ -118,18 +118,18 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     b.orgs = [];
 
                     b.orgNested.fundedPerson.sectorName.buckets.forEach(s => {
-                        b.orgs.push(...s.organizationId.buckets)
-                    })
+                        b.orgs.push(...s.organizationId.buckets);
+                    });
                     combined.push({key: b.key, orgs: b.orgs});
                 });
-                
+
                 // organizationConsortium
                 item.aggregations.organization2.buckets.forEach(b => {
-                    const target = combined.find(x => x.key === b.key)
+                    const target = combined.find(x => x.key === b.key);
                     b.orgNested.finnishOrganization.sectorName.buckets.forEach(s => {
                         target.orgs.push(...s.organizationId.buckets);
-                    })
-                })
+                    });
+                });
 
 
                 combined.forEach(b => {
@@ -141,11 +141,30 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                         v.id = f.key;
                         v.parent = b.key;
                         b.data.push(v);
-                    })
+                    });
                     organization.push(b);
-                })
-                
+                });
+
                 break;
+
+            case 'fieldOfScience':
+
+                item.aggregations.fieldOfScience.buckets.forEach(b => tmp.push(b));
+
+                tmp.forEach(b => {
+                    b.data = [];
+                    b.fieldNested.fieldId.buckets.forEach(f => {
+                        const v: any = {};
+                        v.name = f.fieldsOfScience.buckets.shift().key;
+                        v.id = f.key;
+                        v.doc_count = f.doc_count;
+                        v.parent = b.key;
+                        b.data.push(v);
+                    });
+                    fieldOfScience.push(b);
+                });
+                break;
+
 
             default:
 
@@ -170,12 +189,12 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
         }
 
         // Group duplicate names from the two aggregations
-        this.groupNames(organization)
+        this.groupNames(organization);
         // Sort the mixed arrays alphabetically
-        this.sortByName(organization)
-        this.sortByName(typeOfFunding)
+        this.sortByName(organization);
+        this.sortByName(typeOfFunding);
 
-                
+
         return new FundingVisual(
             year,
             amount,
