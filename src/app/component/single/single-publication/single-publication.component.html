@@ -278,7 +278,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <div *ngIf="row.field !== 'doi'" class="info-link-wrapper">
+                            <!-- Check that doi & doiHandle mismatch -->
+                            <div *ngIf="row.field !== 'doi' && item[row.field] !== 'https://doi.org/'+item.doi" class="info-link-wrapper">
                                 <div class="col link">
                                     <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
