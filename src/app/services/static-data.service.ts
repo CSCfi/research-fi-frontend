@@ -183,6 +183,55 @@ export class StaticDataService {
     return res;
   }
 
+  relatedFields(index) {
+    let res = [];
+    switch (index) {
+      case 'publication': {
+        res = [''];
+        break;
+      }
+      case 'person': {
+        res = ['firstName', 'lastName'];
+        break;
+      }
+      case 'funding': {
+        res = ['funderBusinessId.pid_content'];
+        break;
+      }
+      case 'infrastructure': {
+        res = ['responsibleOrganization.TKOppilaitosTunnus'];
+        break;
+      }
+      case 'organization': {
+        res = [''];
+        break;
+      }
+      case 'news': {
+        res = [''];
+        break;
+      }
+    }
+    return res;
+  }
+
+  nestedRelatedFields(index) {
+    let res = [];
+    switch (index) {
+      case 'publication': {
+        res = [
+          'author.organization.organizationId',
+        ];
+        break;
+      }
+      case 'funding': {
+        res = [
+          'organizationConsortium.consortiumOrganizationId', 'fundingGroupPerson.consortiumOrganizationId'
+        ];
+      }
+    }
+    return res;
+  }
+
   targetFields(target, index) {
     let res = [];
     switch (target) {
@@ -366,6 +415,7 @@ export class StaticDataService {
     }
     return res;
   }
+  
 
   visualisationData: {locale: d3.FormatLocaleDefinition, publication: VisualQuery[], funding: VisualQuery[]} = {
     locale: {
