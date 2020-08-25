@@ -10,6 +10,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -25,7 +26,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
 
   constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar,
-              private tabChangeService: TabChangeService) { }
+              private tabChangeService: TabChangeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     // Bar can be hidden from privacy / cookies tab
@@ -42,6 +43,33 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       localStorage.getItem('cookieConsent') === 'approved' ? false : true;
     }
 
+    // Set consent if navigated with consent param
+    if (isPlatformBrowser(this.platformId)) {
+      this.routeSub = this.route.queryParams.subscribe(params => {
+        if (!localStorage.getItem('cookieConsent')) {
+          switch (params.consent) {
+            case '0': {
+              this.decline(true);
+              break;
+            }
+            case '1': {
+              this.approve(true);
+              break;
+            }
+          }
+          // Remove consent param
+          if (params.consent) {
+            this.router.navigate([], {
+              queryParams: {
+                consent: null
+              },
+              queryParamsHandling: 'merge'
+            });
+          }
+        }
+      });
+    }
+
     // Focus on bar instead of skip links
     this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(focus => {
       if (focus === 'consent') {
@@ -50,7 +78,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     });
   }
 
-  decline() {
+  decline(showSnackBar) {
     // Hide bar and set opt out + forget consent cookies
     this.showConsent = false;
     if (isPlatformBrowser(this.platformId)) {
@@ -63,10 +91,11 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`);
+    if (!showSnackBar) {this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`); }
   }
 
-  approve() {
+  approve(hideSnackBar) {
+    console.log(hideSnackBar);
     // Hide bar and set consent
     this.showConsent = false;
     this.privacyService.changeConsentStatus('approved');
@@ -80,7 +109,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
+    if (!hideSnackBar) {this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`); }
   }
 
   public loadScript() {
