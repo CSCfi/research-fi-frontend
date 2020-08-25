@@ -116,7 +116,6 @@ export class FundingFilters {
   }
 
   funder(data) {
-    console.log(data);
     // Filter out empty keys
     const res = data.filter(item => {
       return item.key !== ' ';
