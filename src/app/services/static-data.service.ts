@@ -703,9 +703,15 @@ export class StaticDataService {
                     order: 1
                 },
                 {
+                    field: 'funderBusinessId.pid_content.keyword',
+                    name: 'funderPid',
+                    size: 100,
+                    order: 1
+                },
+                {
                     field: 'funderNameFi.keyword',
                     name: 'funder',
-                    size: 100,
+                    size: 1,
                     order: 1
                 }
             ]
@@ -841,12 +847,12 @@ export class StaticDataService {
                   nested: 'fieldsOfScience'
                 },
                 {
-                    field: 'fieldsOfScience.fieldIdScience.keyword',
+                    field: 'fieldsOfScience.fieldIdScience',
                     name: 'fieldId',
                     size: 100,
                     order: 1,
                     filterName: 'field',
-                    exclude: [' ']
+                    exclude: [0]
                 },
                 {
                     field: 'fieldsOfScience.name|locale|Science.keyword',
