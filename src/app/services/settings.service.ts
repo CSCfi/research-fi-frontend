@@ -16,6 +16,8 @@ export class SettingsService {
   indexList: string;
   aggsOnly: string;
   target: any;
+  // Related is used to indicate that query is done with different settings
+  related = false;
 
   constructor( private staticDataService: StaticDataService) {
     this.indexList = 'publication,funding,infrastructure,organization' + '/_search?';
@@ -34,15 +36,13 @@ export class SettingsService {
     let targetAnalyzer: string;
     let targetType: string;
 
-    // Use targeted field when doing a search from single document page
-    targetFields = this.staticDataService.queryFields(index);
-
+    // Targeted search uses exact fields for search
+    // Related fields are used in single result pages
     if (this.target) {
       targetFields = this.staticDataService.targetFields(this.target, index);
     } else {
-      targetFields = this.staticDataService.queryFields(index);
+      targetFields = this.related ? this.staticDataService.relatedFields(index) : this.staticDataService.queryFields(index);
     }
-
 
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
@@ -99,9 +99,11 @@ export class SettingsService {
     return res;
   }
 
+  // Fields with nested type need different query syntax with path
   generateNested(index, term) {
     const targetFields = this.target ? this.staticDataService.targetNestedQueryFields(this.target, index) :
-                                 this.staticDataService.nestedQueryFields(index);
+    (this.related ? this.staticDataService.nestedRelatedFields(index) : this.staticDataService.nestedQueryFields(index));
+
     let res;
     switch (index) {
       case 'publication': {
