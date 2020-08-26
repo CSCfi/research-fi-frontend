@@ -18,6 +18,10 @@
             color: mat-color($primary)!important;
         }
 
+        .search-input input {
+            color: #495057!important;
+        }
+
         .col-12.search {
             background: mat-color($primary);
             color: mat-contrast($primary, 200);

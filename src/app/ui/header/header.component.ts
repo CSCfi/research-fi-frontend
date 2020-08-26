@@ -68,6 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
   consentStatusSub: Subscription;
+  consent: string;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
@@ -87,8 +88,14 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         // Prevent multiple anchors
         this.route.queryParams.subscribe(params => {
           this.params = params;
-        })
+        });
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
+      }
+      // Check if consent has been chosen & set variable. This is used in linking between language versions
+      if (isPlatformBrowser(this.platformId)) {
+        if (localStorage.getItem('cookieConsent')) {
+          this.consent = localStorage.getItem('cookieConsent');
+        }
       }
     });
   }
@@ -104,6 +111,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         this.document.activeElement.blur();
       });
     }
+
+    // Subscribe to consent status and set consent. This is also used in linking between language versions
+    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
+      if (status.length) {
+        this.consent = status;
+      }
+    });
 
     this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(elem => {
       this.hideInputSkip = elem;

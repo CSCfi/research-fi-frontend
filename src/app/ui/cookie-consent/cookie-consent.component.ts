@@ -48,11 +48,11 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       this.routeSub = this.route.queryParams.subscribe(params => {
         if (!localStorage.getItem('cookieConsent')) {
           switch (params.consent) {
-            case '0': {
+            case 'declined': {
               this.decline(true);
               break;
             }
-            case '1': {
+            case 'approved': {
               this.approve(true);
               break;
             }
@@ -95,7 +95,6 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   }
 
   approve(hideSnackBar) {
-    console.log(hideSnackBar);
     // Hide bar and set consent
     this.showConsent = false;
     this.privacyService.changeConsentStatus('approved');

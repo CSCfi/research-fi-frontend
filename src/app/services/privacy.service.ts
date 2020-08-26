@@ -14,7 +14,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 export class PrivacyService {
   private consentBarSource = new BehaviorSubject(false);
   currentConsentBarStatus = this.consentBarSource.asObservable();
-  private consentStatusSource = new BehaviorSubject('declined');
+  private consentStatusSource = new BehaviorSubject('');
   currentConsentStatus = this.consentStatusSource.asObservable();
 
   constructor() { }
