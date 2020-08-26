@@ -345,12 +345,12 @@ app-search-bar {
     }
 
     #resetSearch {
-        position: absolute;
         z-index: 999;
-        font-size: 20px;
-        align-self: center;
-        border: 0;
-        background-color: transparent;
+        position: absolute;
+        top: 17px;
+        cursor: pointer;
+        right: 125px;
+
     }
     
     // Overlay
@@ -379,6 +379,10 @@ app-search-bar {
     @media (max-width: 768px) {
         .search {
             padding: 30px 0!important;
+        }
+
+        #resetSearch {
+            right: 115px;
         }
     
         .no-heading.search {
@@ -437,6 +441,11 @@ app-search-bar {
             font-size: 1.6rem;
         }
     
+        #resetSearch {
+            top: 10px;
+            right: 90px;
+        }
+
         .form-group.has-search .form-control{
             font-size: 1rem;
         }

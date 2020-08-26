@@ -99,6 +99,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   selectedTarget: any;
   currentLocale: any;
   browserHeight: number;
+  browserWidth: number;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -121,8 +122,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     this.queryField = new FormControl(this.currentTerm);
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims))
   }
 
   ngAfterViewInit() {
@@ -134,10 +135,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         this.searchInput.nativeElement.focus();
       }
     });
-    // Let view initialize then calc margin
-    setTimeout(() => {
-      this.resetMargin = this.getResetMargin(this.window.innerWidth);
-    }, 100);
   }
 
   onFocus() {
@@ -150,10 +147,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.queryHistory = this.getHistory();
     // Set queryfield value to trigger subscription and fetch suggestions
     this.queryField.setValue(this.searchInput.nativeElement.value);
-    this.setCompletionWidth();
 
     // This is used for overlay heigth calcualtion
     this.browserHeight = this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
+    this.browserWidth = this.window.innerHeight;
+    
+    this.setCompletionWidth(this.browserWidth);
   }
 
   fireAutoSuggest() {
@@ -261,12 +260,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   // Put input term to hidden span and calulate width. Add margin to completion.
-  setCompletionWidth() {
+  setCompletionWidth(windowWidth: number) {
     const span = this.document.getElementById('completionAssist');
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
     span.style.fontSize = '25px';
-    this.inputMargin = (width + 200) + 'px';
+    const margin = (windowWidth > 768) ? 200 : 16;
+    this.inputMargin = (width + margin) + 'px';
   }
 
   getResetMargin(w: number) {
@@ -401,7 +401,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.showHelp = false;
   }
 
-  onResize(dims: {w: number, h: number}) {
-    this.resetMargin = this.getResetMargin(dims.w);
+  onResize(dims: {width: number, height: number}) {
+    // this.resetMargin = this.getResetMargin(dims.w);
+    this.browserWidth = dims.width;
+    this.setCompletionWidth(this.browserWidth);
   }
 }
