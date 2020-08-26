@@ -68,6 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
   consentStatusSub: Subscription;
+  consent: string;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
@@ -87,8 +88,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         // Prevent multiple anchors
         this.route.queryParams.subscribe(params => {
           this.params = params;
-        })
+        });
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
+      }
+      if (isPlatformBrowser(this.platformId)) {
+        if (localStorage.getItem('cookieConsent')) {
+          this.consent = localStorage.getItem('cookieConsent');
+        }
       }
     });
   }
@@ -104,6 +110,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         this.document.activeElement.blur();
       });
     }
+
+    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
+      console.log(status);
+      if (status.length) {
+        this.consent = status;
+      }
+    });
 
     this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(elem => {
       this.hideInputSkip = elem;
