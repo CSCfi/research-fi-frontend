@@ -27,7 +27,7 @@
           <input type="text" (mouseenter)="utilityService.tooltipMouseenter(elem)" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown.escape"
           #searchInput class="form-control" [formControl]="queryField" i18n-placeholder placeholder="Esim. julkaisu, tieteenala, asiasana"
           value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event); disableKeys($event)"
-          tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth()"/>
+          tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth(browserWidth)"/>
           <!-- Use span to count input width -->
           <span id="completionAssist"></span>
           <span #resetSearchElem id="resetSearch" *ngIf="searchInput.value !== ''" (click)="resetSearch()" tabindex="0"
