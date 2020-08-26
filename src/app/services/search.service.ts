@@ -213,7 +213,8 @@ export class SearchService {
       ]
     };
 
-    return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
+    return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?' + 'request_cache=true', payload)
+    .pipe(map(data => this.newsAdapter.adaptMany(data)));
   }
 
   // News page older news content
@@ -228,6 +229,7 @@ export class SearchService {
       ]
     };
 
-    return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?', payload).pipe(map(data => this.newsAdapter.adaptMany(data)));
+    return this.http.post<News[]>(this.apiUrl + 'news' + '/_search?' + 'request_cache=true', payload)
+    .pipe(map(data => this.newsAdapter.adaptMany(data)));
   }
 }

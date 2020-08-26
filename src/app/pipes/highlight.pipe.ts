@@ -17,9 +17,14 @@ export class HighlightSearch implements PipeTransform {
     transform(value: any, args: any): any {
         // Convert value to string to highlight numbers also
         value = value ? value.toString() : value;
+
         if (!value || !args) {
            return value;
         }
+
+        // Replace coded umlauts
+        value = value.replace(/&auml;/g, 'ä').replace(/&ouml;/g, 'ö');
+
         // Parantheses are removed because of regexp. Asterisk doesn't work with titles containing mulptiple different integers
         args = args.replace(/[\])}[{(]/g, '').replace(/\*/g, '');
         const valueArr = value.split(' ');
@@ -41,6 +46,7 @@ export class HighlightSearch implements PipeTransform {
         });
 
         const result = match.join(' ');
+
         // Needs to be bypassed because of dynamic value
         return this.sanitizer.bypassSecurityTrustHtml(result);
     }

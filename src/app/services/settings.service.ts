@@ -90,6 +90,29 @@ export class SettingsService {
             },
             ...(index === 'publication' ? [{ bool: { should: this.generateNested('publication', term) } }] : []),
             ...(index === 'funding' ? [{ bool: { should: this.generateNested('funding', term) } }] : []),
+            // News content field has umlauts converted to coded characters, query needs to be made with both coded and decoded umlauts
+            ...(index === 'news' ? [
+              {
+                multi_match: {
+                  query: term.replace('ä', '&auml;').replace('ö', '&ouml;'),
+                  analyzer: targetAnalyzer,
+                  type: targetType,
+                  fields: targetFields.length > 0 ? targetFields : '',
+                  operator: 'AND',
+                  lenient: 'true',
+                  max_expansions: 1024
+                }
+              },
+              {
+                multi_match: {
+                  query: term.replace('ä', '&auml;').replace('ö', '&ouml;'),
+                  type: 'cross_fields',
+                  fields: targetFields.length > 0 ? targetFields : '',
+                  operator: 'AND',
+                  lenient: 'true'
+                }
+              }
+            ] : []),
           ]
         }
       }
