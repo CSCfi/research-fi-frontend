@@ -94,7 +94,7 @@ export class SettingsService {
             ...(index === 'news' ? [
               {
                 multi_match: {
-                  query: term.replace('ä', '&auml;').replace('ö', '&ouml;'),
+                  query: term.replace(/ä/g, '&auml;').replace(/ä/g, '&ouml;'),
                   analyzer: targetAnalyzer,
                   type: targetType,
                   fields: targetFields.length > 0 ? targetFields : '',
@@ -105,7 +105,7 @@ export class SettingsService {
               },
               {
                 multi_match: {
-                  query: term.replace('ä', '&auml;').replace('ö', '&ouml;'),
+                  query: term.replace(/ä/g, '&auml;').replace(/ö/g, '&ouml;'),
                   type: 'cross_fields',
                   fields: targetFields.length > 0 ? targetFields : '',
                   operator: 'AND',
