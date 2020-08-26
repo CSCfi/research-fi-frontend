@@ -91,6 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         });
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
       }
+      // Check if consent has been chosen & set variable. This is used in linking between language versions
       if (isPlatformBrowser(this.platformId)) {
         if (localStorage.getItem('cookieConsent')) {
           this.consent = localStorage.getItem('cookieConsent');
@@ -111,8 +112,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
 
+    // Subscribe to consent status and set consent. This is also used in linking between language versions
     this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      console.log(status);
       if (status.length) {
         this.consent = status;
       }
