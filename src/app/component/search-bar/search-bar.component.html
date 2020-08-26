@@ -16,6 +16,7 @@
           <span tabindex="-1" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem></span>
         </div>
         <div class="input-group" #inputGroup>
+          <!-- Search target -->
           <mat-form-field class="search-target">
             <mat-label i18n="@@searchTarget">Kohdista haku</mat-label>
             <mat-select (selectionChange)="changeTarget($event)" [(value)]="selectedTarget">
@@ -24,21 +25,27 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <input type="text" (mouseenter)="utilityService.tooltipMouseenter(elem)" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown.escape"
-          #searchInput class="form-control" [formControl]="queryField" i18n-placeholder placeholder="Esim. julkaisu, tieteenala, asiasana"
-          value="{{searchService.currentInput | async}}" id="searchInput" autocomplete="off" (keydown)="onKeydown($event); disableKeys($event)"
-          tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth(browserWidth)"/>
-          <!-- Use span to count input width -->
-          <span id="completionAssist"></span>
-          <span #resetSearchElem id="resetSearch" *ngIf="searchInput.value !== ''" (click)="resetSearch()" tabindex="0"
-          (mouseenter)="utilityService.tooltipMouseenter(resetSearchElem)" i18n-tooltip="@@resetSearchTooltip" tooltip="Tyhjennä haku" triggers="focus keydown.escape" (keydown)="utilityService.tooltipKeydown(elem, $event)">
-            <i class="fa fa-times"></i>
-          </span>
-          <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">
-            <div class="align-self-center">
-              {{completion}}
+          <div class="search-input form-control row d-flex">
+            <input class="col-11 pr-0" #searchInput [formControl]="queryField" mat-input type="text" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown.escape"
+            (mouseenter)="utilityService.tooltipMouseenter(elem)" i18n-placeholder placeholder="Esim. julkaisu, tieteenala, asiasana" id="searchInput" autocomplete="off" tabindex="0"
+            value="{{searchService.currentInput | async}}" (focus)="onFocus()" (keyup)="setCompletionWidth(browserWidth)" (keydown)="onKeydown($event); disableKeys($event)">
+            <!-- Reset button -->
+            <div class="col-1 reset align-self-center text-center p-0">
+              <span #resetSearchElem id="resetSearch" *ngIf="searchInput.value !== ''" (click)="resetSearch()" tabindex="0"
+              (mouseenter)="utilityService.tooltipMouseenter(resetSearchElem)" i18n-tooltip="@@resetSearchTooltip" tooltip="Tyhjennä haku" triggers="focus keydown.escape" (keydown)="utilityService.tooltipKeydown(elem, $event)">
+                <i class="fa fa-times"></i>
+              </span>
+            </div>
+            <!-- Completion -->
+            <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">
+              <div class="align-self-center">
+                {{completion}}
+              </div>
             </div>
           </div>
+          <!-- Completion assist is for measuring input content width -->
+          <span id="completionAssist"></span>
+          <!-- Send -->
           <div class="input-group-append">
             <button mat-button (blur)="showAutoSuggest = false" class="btn btn-search" type="button" (keydown.enter)="setFocus()" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
               <i class="fa fa-search"></i>
