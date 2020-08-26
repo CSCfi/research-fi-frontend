@@ -319,7 +319,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.searchInput.nativeElement.value = '';
     this.selectedTarget = '';
     // Navigate only if search term already in use
-    console.log(this.searchService.searchTerm);
     if (this.searchService.searchTerm.length > 0) {this.newInput(false, false); }
   }
 
