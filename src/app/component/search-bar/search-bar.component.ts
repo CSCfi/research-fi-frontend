@@ -94,7 +94,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   topMargin: any;
   currentTerm: string;
   inputSub: Subscription;
-  resizeSub: Subscription;
   queryParams: any;
   selectedTarget: any;
   currentLocale: any;
@@ -105,7 +104,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: Document, @Inject(WINDOW) private window: Window, @Inject(PLATFORM_ID) private platformId: object,
                private settingService: SettingsService, public utilityService: UtilityService,
-               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService, private resizeService: ResizeService ) {
+               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService ) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                 this.queryHistory = this.getHistory();
@@ -121,7 +120,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     this.queryField = new FormControl(this.currentTerm);
   }
 
@@ -134,10 +132,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         this.searchInput.nativeElement.focus();
       }
     });
-    // Let view initialize then calc margin
-    setTimeout(() => {
-      this.resetMargin = this.getResetMargin(this.window.innerWidth);
-    }, 100);
   }
 
   onFocus() {
@@ -402,6 +396,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   onResize(dims: {w: number, h: number}) {
-    this.resetMargin = this.getResetMargin(dims.w);
+    // this.resetMargin = this.getResetMargin(dims.w);
   }
 }

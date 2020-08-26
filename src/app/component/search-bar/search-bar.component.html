@@ -30,10 +30,10 @@
           tabindex="0" (focus)="onFocus()" (keyup)="setCompletionWidth()"/>
           <!-- Use span to count input width -->
           <span id="completionAssist"></span>
-          <button #resetSearchElem id="resetSearch" *ngIf="resetMargin && searchInput.value !== ''" [ngStyle]="{'margin-left': resetMargin }" (click)="resetSearch()"
+          <span #resetSearchElem id="resetSearch" *ngIf="searchInput.value !== ''" (click)="resetSearch()" tabindex="0"
           (mouseenter)="utilityService.tooltipMouseenter(resetSearchElem)" i18n-tooltip="@@resetSearchTooltip" tooltip="Tyhjennä haku" triggers="focus keydown.escape" (keydown)="utilityService.tooltipKeydown(elem, $event)">
-            <fa-icon class="icon" [icon]="faTimes"></fa-icon>
-          </button>
+            <i class="fa fa-times"></i>
+          </span>
           <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">
             <div class="align-self-center">
               {{completion}}
