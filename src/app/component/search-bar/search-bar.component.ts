@@ -266,8 +266,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     const width = span.offsetWidth;
     span.style.fontSize = '25px';
     const margin = (windowWidth > 768) ? 200 : 16;
-    console.log(windowWidth)
-    console.log(margin)
     this.inputMargin = (width + margin) + 'px';
   }
 
