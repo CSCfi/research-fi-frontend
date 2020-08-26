@@ -14,7 +14,7 @@ export class NewsCardComponent implements OnInit {
   @Input() term: string;
 
   constructor() {
-    this.term = this.term?.replace('ä', '&auml;').replace('ö', '&ouml;');
+    this.term = this.term?.replace(/ä/g, '&auml;').replace(/ö/g, '&ouml;');
    }
 
   ngOnInit(): void {
