@@ -151,7 +151,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // This is used for overlay heigth calcualtion
     this.browserHeight = this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
     this.browserWidth = this.window.innerHeight;
-    
+
     this.setCompletionWidth(this.browserWidth);
   }
 
@@ -265,7 +265,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
     span.style.fontSize = '25px';
-    const margin = (windowWidth > 768) ? 200 : 16;
+    const margin = 16;
     this.inputMargin = (width + margin) + 'px';
   }
 
@@ -318,7 +318,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   resetSearch() {
     this.searchInput.nativeElement.value = '';
     this.selectedTarget = '';
-    this.newInput(false, false);
+    // Navigate only if search term already in use
+    console.log(this.searchService.searchTerm);
+    if (this.searchService.searchTerm.length > 0) {this.newInput(false, false); }
   }
 
   newInput(selectedIndex, historyLink) {
