@@ -91,7 +91,7 @@
                                     <mat-form-field class="lang-select">
                                         <!-- Navigate with consent if consent is set -->
                                         <mat-select [(value)]="currentLang" >
-                                            <a href="https://www.tiedejatutkimus.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                                            <a href="https://tiedejatutkimus.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
                                                 <mat-option value="FI">FI</mat-option>
                                             </a>
                                             <a href="https://forskning.fi/sv{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
