@@ -89,14 +89,15 @@
                             <li #navLink class="nav-item col col-auto p-0 mr-0">
                                 <div class="navbar-expand navbar-nav lang langSelect">
                                     <mat-form-field class="lang-select">
+                                        <!-- Navigate with consent if consent is set -->
                                         <mat-select [(value)]="currentLang" >
-                                            <a href="https://tiedejatutkimus.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                                            <a href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
                                                 <mat-option value="FI">FI</mat-option>
                                             </a>
-                                            <a href="https://forskning.fi/sv{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                                            <a href="https://researchfi-test-sv.rahtiapp.fi/sv{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
                                                 <mat-option value="SV">SV</mat-option>
                                             </a>
-                                            <a href="https://research.fi/en{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                                            <a href="https://researchfi-test-en.rahtiapp.fi/en{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
                                                 <mat-option value="EN">EN</mat-option>
                                             </a>
                                         </mat-select>
