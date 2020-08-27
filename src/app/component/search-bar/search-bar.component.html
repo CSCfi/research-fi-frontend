@@ -37,7 +37,7 @@
               </span>
             </div>
             <!-- Completion -->
-            <div class="completion" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">
+            <div class="completion d-none d-lg-flex" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">
               <div class="align-self-center">
                 {{completion}}
               </div>
