@@ -88,6 +88,16 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
         // Prevent multiple anchors
         this.route.queryParams.subscribe(params => {
           this.params = params;
+          // Remove consent param
+          if (params.consent) {
+            this.router.navigate([], {
+              queryParams: {
+                consent: null
+              },
+              queryParamsHandling: 'merge',
+              replaceUrl: true
+            });
+          }
         });
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
       }
