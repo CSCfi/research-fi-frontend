@@ -91,13 +91,13 @@
                                     <mat-form-field class="lang-select">
                                         <!-- Navigate with consent if consent is set -->
                                         <mat-select [(value)]="currentLang" >
-                                            <a href="https://researchfi-test.rahtiapp.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                                            <a href="https://www.tiedejatutkimus.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
                                                 <mat-option value="FI">FI</mat-option>
                                             </a>
-                                            <a href="https://researchfi-test-sv.rahtiapp.fi/sv{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                                            <a href="https://forskning.fi/sv{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
                                                 <mat-option value="SV">SV</mat-option>
                                             </a>
-                                            <a href="https://researchfi-test-en.rahtiapp.fi/en{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                                            <a href="https://research.fi/en{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
                                                 <mat-option value="EN">EN</mat-option>
                                             </a>
                                         </mat-select>
