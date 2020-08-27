@@ -58,17 +58,6 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
               break;
             }
           }
-
-          // Remove consent param
-          // if (params.consent) {
-          //   this.router.navigate([], {
-          //     queryParams: {
-          //       consent: null
-          //     },
-          //     queryParamsHandling: 'merge',
-          //     replaceUrl: true
-          //   });
-          // }
         }
       });
     }
