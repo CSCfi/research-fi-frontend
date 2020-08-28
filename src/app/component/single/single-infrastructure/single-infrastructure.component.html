@@ -120,11 +120,7 @@
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
-                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" #overflow>
-                                        {{item[row.field]}}
-                                    </p>
-                                    <a href="javascript:void(0)" class="read-more" *ngIf="checkOverflow(overflow) || infoExpand[i]"
-                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
+                                    <p>{{item[row.field]}}</p>
                                </div>
                             </div>
                          </ng-container>
@@ -165,11 +161,7 @@
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
-                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" #overflow>
-                                        {{item[row.field]}}
-                                    </p>
-                                    <a href="javascript:void(0)" class="read-more" *ngIf="checkOverflow(overflow) || infoExpand[i]"
-                                       (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
+                                    <p>{{item[row.field]}}</p>
                                </div>
                             </div>
                          </ng-container>
