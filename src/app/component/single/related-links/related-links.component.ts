@@ -62,7 +62,6 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
     this.singleService.getCount(this.currentParent, id, this.relatedFilters).subscribe((data) => {
       // TODO: Remove check for currentParent
       this.docCountData = this.currentParent === 'organizations' ? data : [];
-      console.log(this.docCountData);
       if (this.docCountData.aggregations) {
         this.docCountData = this.docCountData?.aggregations?._index.buckets;
 
