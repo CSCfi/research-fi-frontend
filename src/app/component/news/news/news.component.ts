@@ -48,7 +48,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   resizeSub: any;
   paramSub: any;
   olderData: any;
-  olderDataCopy: any;
   queryField: FormControl = new FormControl();
 
   private currentLocale: string;
@@ -154,7 +153,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.getOlderNews()
     .subscribe(data => {
       this.olderData = data;
-      this.olderDataCopy = data;
     }, error => this.errorMessage = error as any);
   }
 
