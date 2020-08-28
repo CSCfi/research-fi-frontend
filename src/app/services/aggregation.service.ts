@@ -965,7 +965,7 @@ export class AggregationService {
             },
             orgName: {
               terms: {
-                field: 'organizationName' + this.localeC + '.keyword'
+                field: 'organizationNameFi.keyword'
               },
               aggs: {
                 orgId: {
