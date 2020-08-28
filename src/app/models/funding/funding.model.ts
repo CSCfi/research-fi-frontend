@@ -96,11 +96,10 @@ export class FundingAdapter implements Adapter<Funding> {
         const recipient = this.r.adapt(item);
 
         // TODO: Translate
-        const science = item.fields_of_science?.map(x => this.lang.translateFieldOfScience(x)).join('; ');
+        const science = item.fieldsOfScience?.map(x => this.lang.translateFieldOfScience(x)).join('; ');
         const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
         const theme = item.keywords?.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
         const keyword = item.keywords?.filter(x => x.scheme === 'Avainsana').map(x => x.keyword).join(', ');
-
 
         return new Funding(
             item.projectId,
