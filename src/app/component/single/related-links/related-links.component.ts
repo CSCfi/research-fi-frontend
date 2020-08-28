@@ -62,10 +62,13 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
     this.singleService.getCount(this.currentParent, id, this.relatedFilters).subscribe((data) => {
       // TODO: Remove check for currentParent
       this.docCountData = this.currentParent === 'organizations' ? data : [];
-      this.docCountData = this.docCountData?.aggregations._index.buckets;
+      if (this.docCountData.aggregations) {
+        this.docCountData = this.docCountData?.aggregations?._index.buckets;
 
-      // Set related list item to disabled to false if matching item has docs
-      this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
+        // Set related list item to disabled to false if matching item has docs
+        this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
+      }
+
     });
   }
 
