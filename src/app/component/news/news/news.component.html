@@ -63,7 +63,7 @@
             <div class="col-12 col-lg-7 col px-0" [class.p-0]="mobile">
                 <main>
                     <div class="row content">
-                        <h2 class="col-12 px-0 pt-0 pt-lg-3" i18n="@@latest">Uusimmat</h2>
+                        <h2 class="col-12 px-0 pt-0 pt-lg-3"><ng-container i18n="@@latest">Uusimmat</ng-container> ({{data[0]?.total | thousandSeparator}})</h2>
                         <app-news-card *ngFor="let item of data" [item]="item" [term]="currentTerm"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
                             <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
