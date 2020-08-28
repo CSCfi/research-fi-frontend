@@ -125,6 +125,10 @@
         </context-group>
         <note priority="1" from="description">Search suggest</note>
       </trans-unit>
+      <trans-unit id="searchNewsPlaceHolder" datatype="html">
+        <source>Hae uutisista...</source>
+        <target>Search for news...</target>
+      </trans-unit>
       <trans-unit id="suggestResults1" datatype="html">
         <source>Ei ehdotuksia</source>
         <target>No suggestions</target>
