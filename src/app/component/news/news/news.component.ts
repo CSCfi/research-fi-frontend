@@ -61,7 +61,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
                private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
                private dataService: DataService, private route: ActivatedRoute, private filterService: FilterService,
                private sortService: SortService, @Inject(WINDOW) private window: Window, private resizeService: ResizeService,
-               private utilityService: UtilityService, private router: Router) {
+               public utilityService: UtilityService, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
 
