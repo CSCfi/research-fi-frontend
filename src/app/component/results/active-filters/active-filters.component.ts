@@ -212,7 +212,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 });
               }
             }
-
             // Organization
             if (val.category === 'organization' && source.organization) {
               // Publication organization name
@@ -252,6 +251,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                         this.activeFilters[foundIndex].translation = org.key?.trim();
                       }
                     });
+                  });
+                }
+              } else if (tab === 'organizations') {
+                if (source.organization?.organizationName?.buckets?.length > 0) {
+                  source.organization.organizationName.buckets.forEach(org => {
+                    if (org.organizationId.buckets[0]?.key === val.value) {
+                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                      this.activeFilters[foundIndex].translation = org.key?.trim();
+                    }
                   });
                 }
               }
