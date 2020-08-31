@@ -171,6 +171,10 @@ export class FilterService {
         filter.forEach(value => { res.push({ term : { [filterString] : value } }); });
         break;
       }
+      case 'organizations': {
+        filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
+        break;
+      }
       case 'news': {
         filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
         break;
@@ -326,6 +330,7 @@ export class FilterService {
 
       // Organizations
       ...(basicFilter('organization', this.sectorFilter)),
+      ...(basicFilter('organization', this.organizationFilter)),
 
       // News
       ...(basicFilter('news', this.organizationFilter)),
