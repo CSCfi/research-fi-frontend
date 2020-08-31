@@ -110,6 +110,13 @@ export class PublicationAdapter implements Adapter<Publication> {
             channel = '-';
         }
 
+        // Trim finnish organization names. These come often with trailing white space
+        if (item.author) {
+            item.author.forEach(sector => {
+                sector.organization.map(org => org.OrganizationNameFi = org.OrganizationNameFi.trim());
+            });
+        }
+
         return new Publication(
             item.publicationId,
             item.publicationName,
