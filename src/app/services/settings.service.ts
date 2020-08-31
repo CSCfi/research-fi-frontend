@@ -151,12 +151,21 @@ export class SettingsService {
           nested: {
             path: 'organizationConsortium',
             query: {
-              multi_match: {
-                query: term,
-                type: 'cross_fields',
-                fields: targetFields.length > 0 ? targetFields : '',
-                operator: 'AND',
-                lenient: 'true'
+              bool: {
+                filter: {
+                  term: {
+                    'organizationConsortium.isFinnishOrganization': 1
+                  }
+                },
+                must: {
+                  multi_match: {
+                    query: term,
+                    type: 'cross_fields',
+                    fields: targetFields.length > 0 ? targetFields : '',
+                    operator: 'AND',
+                    lenient: 'true'
+                  }
+                }
               }
             }
           }
@@ -165,12 +174,21 @@ export class SettingsService {
           nested: {
             path: 'fundingGroupPerson',
             query: {
-              multi_match: {
-                query: term,
-                type: 'cross_fields',
-                fields: targetFields.length > 0 ? targetFields : '',
-                operator: 'AND',
-                lenient: 'true'
+              bool: {
+                filter: {
+                  term: {
+                    'fundingGroupPerson.fundedPerson': 1
+                  }
+                },
+                must: {
+                  multi_match: {
+                    query: term,
+                    type: 'cross_fields',
+                    fields: targetFields.length > 0 ? targetFields : '',
+                    operator: 'AND',
+                    lenient: 'true'
+                  }
+                }
               }
             }
           }
