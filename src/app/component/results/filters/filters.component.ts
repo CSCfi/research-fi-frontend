@@ -28,6 +28,7 @@ import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { SearchService } from 'src/app/services/search.service';
 import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { tap } from 'rxjs/operators';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-filters',
@@ -55,6 +56,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   modalRef: BsModalRef;
   activeFilters: any;
   queryParamSub: Subscription;
+  visualFilterSub: Subscription;
   subFilters: MatSelectionList[];
   totalCount = 0;
   faSlidersH = faSlidersH;
@@ -79,7 +81,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
                private sortService: SortService, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
-               @Inject(PLATFORM_ID) private platformId: object ) {
+               @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
                 this.showMoreCount = [];
                 }
 
@@ -96,6 +98,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.modalService.onShown
     .pipe(tap(() => (document.querySelector('[autofocus]') as HTMLElement).focus() ))
     .subscribe();
+
+    // Visualisation click filtering
+    this.visualFilterSub = this.dataService.newFilter.subscribe(f => this.selectionChange(f.filter, f.key, true))
 
     // Focus on open filters button when modal closes
     this.modalService.onHidden
@@ -227,7 +232,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       // Restore focus after clicking a filter
       if (this.activeElement && isPlatformBrowser(this.platformId)) {
         setTimeout(() => {
-          (this.document.querySelector('#' + this.activeElement) as HTMLElement).focus();
+          (this.document.querySelector('#' + this.activeElement) as HTMLElement)?.focus();
         }, 1);
       }
     }
@@ -274,7 +279,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.selectionChange('year', selected);
   }
 
-  selectionChange(filter, key) {
+  selectionChange(filter, key, forceOn = false) {
     let selectedFilters: any = {};
     // Reset selected filters
     if (!this.activeFilters[filter]) {selectedFilters[filter] = []; }
@@ -300,7 +305,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
       // Remove filter if selection exists
       if (selectedFilters[filter] && selectedFilters[filter].includes(key)) {
-        selectedFilters[filter].splice(selectedFilters[filter].indexOf(key), 1);
+        // If new filter is not forced on (visualisations)
+        if (!forceOn) {
+          selectedFilters[filter].splice(selectedFilters[filter].indexOf(key), 1);
+        }
       } else {
         // Add new filter
         if (selectedFilters[filter] && selectedFilters[filter].length > 0) {
@@ -400,8 +408,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - this.defaultOpen};
   }
 
-  trackByFn(index: any, item: any) {
-    return index;
+  trackByFn(index: any, item) {
+    return item.key;
   }
 
 }

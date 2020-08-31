@@ -105,10 +105,18 @@
             .pagination-button button.secondary-button:not(.small) {
                 min-width: 120px;
             }
-    
+            
             .pagination .page-button {
                 padding: 13px 10px;
             }
+        }
+    }
+    
+    app-news-pagination {
+        @media (min-width: 992px) {
+            .pagination-button button.secondary-button {
+                min-width: 110px;
+            }        
         }
     }
 }

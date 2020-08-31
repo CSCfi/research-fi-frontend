@@ -53,6 +53,7 @@
 @import './app/ui/review/review.component.scss-theme.scss';
 @import './app/component/results/pagination/pagination.component.scss';
 @import './app/component/science-politics/figures/carousel/carousel.component.scss-theme.scss';
+@import './app/component/visualisation/bar/bar.component.scss-theme.scss';
 
 
 // Global element color definitions
@@ -93,6 +94,7 @@
   @include app-review-theme($theme);
   @include app-pagination-shared;
   @include app-carousel-theme($theme);
+  @include app-bar-chart-theme($theme);
 
 
   $primary: map-get($theme, primary);
@@ -142,6 +144,10 @@ html {
   height: 44px;
   font-size: 1rem;
   padding: 0 32px;
+}
+
+fa-icon[icon="external-link-alt"] {
+  padding-left: 5px;
 }
 
 // Dont show outlines for mouse users

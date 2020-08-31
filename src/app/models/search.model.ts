@@ -5,12 +5,12 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Publication, PublicationAdapter } from './publication.model';
+import { Publication, PublicationAdapter } from './publication/publication.model';
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
-import { FundingAdapter, Funding } from './funding.model';
+import { FundingAdapter, Funding } from './funding/funding.model';
 import { OrganizationAdapter, Organization } from './organization.model';
-import { InfrastructureAdapter, Infrastructure } from './infrastructure.model';
+import { InfrastructureAdapter, Infrastructure } from './infrastructure/infrastructure.model';
 
 export class Search {
     constructor(

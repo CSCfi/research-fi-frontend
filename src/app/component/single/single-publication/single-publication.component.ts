@@ -6,14 +6,13 @@
 //  :license: MIT
 
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef, LOCALE_ID } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
-import { map } from 'rxjs/operators';
 import { SearchService } from '../../../services/search.service';
-import { SettingsService } from '../../../services/settings.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { StaticDataService } from '../../../services/static-data.service';
+import { SettingsService } from '../../../services/settings.service';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
@@ -43,10 +42,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
-    {label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'publicationYear'},
+    {label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'publicationYear'},
     {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', typeLabel: ' ',
     tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
-    {label: $localize`:@@authors:Tekijät`, field: 'authors',
+    {label: $localize`:@@publicationAuthors:Tekijät`, field: 'authors',
     tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`}
   ];
 
@@ -63,9 +62,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   mediumFields = [
     {label: $localize`Lehti`, field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationTitle', link: true, linkPath: '/results/publications/'},
+    {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationName', link: true, linkPath: '/results/publications/'},
+    {label: $localize`:@@parentPublicationPublisher:Emojulkaisun toimittajat`, field: 'parentPublicationPublisher', link: false, linkPath: '/results/publications/'},
     {label: $localize`Konferenssi`, field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: $localize`Kustantaja`, field: 'publisher', link: true, linkPath: '/results/publications/' /*, lang: true */},
+    {label: $localize`Kustantaja`, field: 'publisherName', link: true, linkPath: '/results/publications/' /*, lang: true */},
     {label: $localize`Volyymi`, field: 'volume', link: false},
     {label: $localize`Numero`, field: 'issueNumber', link: false},
     {label: $localize`Sivut`, field: 'pageNumbers', link: false},
@@ -80,13 +80,13 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   linksFields = [
     {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
     {label: '', field: 'doiHandle'},
-    {label: '', field: 'selfArchivedAddress'},
+    // {label: '', field: 'selfArchivedAddress'},
   ];
 
   otherFields  = [
-    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsParsed', tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`},
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScienceString', tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`},
     {label: $localize`:@@openAccess:Avoin saatavuus`, field: 'openAccessText',
-    tooltip: '<p><strong>' +  $localize`:@@openAccessJournal:Open access -lehti: ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'},
+    tooltip: '<p><strong>' +  $localize`:@@openAccessJournal:Open access -lehti` + ': </strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'},
     {label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries'},
     {label: $localize`:@@language:Kieli`, field: 'languages'},
     {label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`, field: 'internationalCollaboration',
@@ -129,9 +129,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
-               private settingsService: SettingsService, private staticDataService: StaticDataService,
-               private modalService: BsModalService, public utilityService: UtilityService, @Inject(LOCALE_ID) private localeId,
-               private snackBar: MatSnackBar, private metaService: Meta ) {
+               private staticDataService: StaticDataService, private modalService: BsModalService, public utilityService: UtilityService,
+               @Inject(LOCALE_ID) private localeId, private snackBar: MatSnackBar, private settingsService: SettingsService) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
@@ -149,11 +148,12 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
     this.tabData = this.tabChangeService.tabData.find(item => item.data === 'publications');
-    this.searchTerm = this.searchService.singleInput;
+    this.searchTerm = this.searchService.searchTerm;
   }
 
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.settingsService.related = false;
   }
 
   openModal(template: TemplateRef<any>) {
@@ -176,11 +176,14 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     const source = this.responseData.publications[0];
     const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
     // tslint:disable-next-line: curly
-    if (!this.hasDoi) return;
+    if (!this.hasDoi) {
+      this.citations = source.citations;
+      return;
+    }
     const doiUrl = source.doi;
     const url = doi.path + doiUrl;
 
-    this.citationStyles.forEach(style => {
+    this.citationStyles.forEach((style, idx) => {
       const options = {
         headers: new HttpHeaders({
           Accept: 'text/x-bibliography; style=' + style.cslStyle
@@ -188,7 +191,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         responseType: 'text'
       };
       this.searchService.getFromUrl(url, options).subscribe(res => {
-        this.citations.push(res);
+        this.citations[idx] = res;
       });
     });
   }
@@ -218,7 +221,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         }
         const titleString = this.titleService.getTitle();
         this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+        this.utilityService.addMeta(titleString,
+          this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
         // juFoCode is used for exact search
         this.juFoCode = this.responseData.publications[0].jufoCode;
         this.shapeData();
@@ -238,7 +242,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   filterData() {
     // Helper function to check if the field exists and has data
-    const checkEmpty = (item: {field: string} ) =>  {
+    const checkEmpty = (item: {field: string} ) => {
       return UtilityService.stringHasContent(this.responseData.publications[0][item.field]);
     };
     // Filter all the fields to only include properties with defined data
@@ -254,23 +258,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     // Capitalize first letter of locale
     const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     const source = this.responseData.publications[0];
-    const fieldsOfScience = source.fieldsOfScience;
     const countries = source.countries;
     const languages = source.languages;
     const keywords = source.keywords;
     const author = source.author;
-
-    // Map field names and exclude bad fields
-    if (fieldsOfScience?.length > 0) {
-      // Remove fields where ID is 0. ToDo: Recheck when document with more than one field of science is found
-      for (const [i, item] of fieldsOfScience.entries()) {
-        if ( item.id === 0) {
-          fieldsOfScience.splice(i, 1);
-        }
-      }
-      // Get field names by locale
-      source.fieldsParsed = fieldsOfScience.map(x => x['name' + this.currentLocale].trim()).join(', ');
-    }
 
     if (countries?.length > 0) {
       const key = 'country' + locale;
@@ -282,8 +273,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       source.languages = languages.map(x => x[key]);
     }
 
+    // Link with targeted search for keywords
     if (keywords?.length > 0) {
-      source.keywords = keywords.map(x => x.keyword.trim()).join(', ');
+      source.keywords = keywords.map(x =>
+        '<a href="/results/publications/' + x.keyword.trim() + '?target=keywords&page=1">'+ x.keyword.trim() +'</a>').join(', ');
     }
 
     // Get authors per organization
@@ -345,7 +338,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
           const checkedAuthors = [...new Set(duplicateAuthors)];
 
-          this.authorAndOrganization.push({orgName: org.OrganizationNameFi.trim(), orgId: org.organizationId,
+          // Language check
+          const orgName = org['OrganizationName' + this.currentLocale].trim() || org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() || org?.OrganizationNameSv?.trim();
+
+          this.authorAndOrganization.push({orgName: orgName, orgId: org.organizationId,
             authors: checkedAuthors, orgUnits: orgUnitArr});
         });
       });
@@ -387,11 +383,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     source.internationalCollaboration = source.internationalCollaboration ? yes : no;
     source.businessCollaboration = source.businessCollaboration ? yes : no;
 
-    // Filter empty self archived addresses
-    if (source.selfArchivedData) {
-      source.selfArchivedData[0].selfArchived = source.selfArchivedData[0].selfArchived.filter(item => item.selfArchivedAddress !== ' ');
-    }
-
     // Get & set publication type label
     this.publicationTypeLabel = this.staticDataService.publicationClass.find
     (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find(type => type.type === source.publicationTypeCode).label;
@@ -400,7 +391,4 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
   }
 
-  navigate(field) {
-    this.settingsService.strictFields(field);
-  }
 }

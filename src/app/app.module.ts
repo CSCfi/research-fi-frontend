@@ -140,6 +140,7 @@ import { TabChangeService } from './services/tab-change.service';
 import { NewsPaginationComponent } from './component/news/news-pagination/news-pagination.component';
 import { CarouselComponent } from './component/science-politics/figures/carousel/carousel.component';
 import { ResultCountComponent } from './component/results/result-count/result-count.component';
+import { BarComponent } from './component/visualisation/bar/bar.component';
 
 @NgModule({
   declarations: [
@@ -198,7 +199,8 @@ import { ResultCountComponent } from './component/results/result-count/result-co
     TabItemComponent,
     NewsPaginationComponent,
     CarouselComponent,
-    ResultCountComponent
+    ResultCountComponent,
+    BarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

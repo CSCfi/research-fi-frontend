@@ -11,7 +11,11 @@ export class NewsCardComponent implements OnInit {
   @Input() item: News;
   @Input() sideNews: boolean;
   @Input() isHomepage = false;
-  constructor() { }
+  @Input() term: string;
+
+  constructor() {
+    this.term = this.term?.replace(/ä/g, '&auml;').replace(/ö/g, '&ouml;');
+   }
 
   ngOnInit(): void {
   }

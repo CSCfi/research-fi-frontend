@@ -6,11 +6,10 @@
 // # :license: MIT
 import { FieldOfScience, FieldOfScienceAdapter } from './field-of-science.model';
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
+import { PublicationCitationAdapter } from './publication-citation.model';
 
 export class Publication {
-    fieldsParsed: string;
-
     constructor(
         public id: string, // publicationId
         public title: string, // publicationName
@@ -26,11 +25,11 @@ export class Publication {
         public issueNumber: string,
         public pageNumbers: string, // pageNumberText
         public articleNumber: string, // articleNumberText
-        public parentPublicationTitle: string, // parentPublicationName
+        public parentPublicationName: string,
         public parentPublicationPublisher: string,
         public isbn: string,
         public isbn2: string,
-        public publisher: string, // publisherName
+        public publisherName: string,
         public publisherLocation: string,
         public jufoCode: string,
         public jufoClassCode: string,
@@ -48,10 +47,12 @@ export class Publication {
         public languages: any[],
         public countries: any[],
         public fieldsOfScience: FieldOfScience[],
+        public fieldsOfScienceString: string,
         public author: any[],
         public selfArchivedData: any[],
         public completions: string[],
-        public publicationChannel
+        public publicationChannel: string,
+        public citations: string[]
     ) {}
 }
 
@@ -59,11 +60,23 @@ export class Publication {
     providedIn: 'root'
 })
 export class PublicationAdapter implements Adapter<Publication> {
-    constructor(private fs: FieldOfScienceAdapter) {}
+    constructor(private fs: FieldOfScienceAdapter, private citationAdapter: PublicationCitationAdapter) {}
     adapt(item: any): Publication {
         let fieldsOfScience: FieldOfScience[] = [];
         // All items don't have field_of_science field
-        item.fields_of_science ? item.fields_of_science.forEach(field => fieldsOfScience.push(this.fs.adapt(field))) : fieldsOfScience = [];
+        item.fieldsOfScience ? item.fieldsOfScience.forEach(field => fieldsOfScience.push(this.fs.adapt(field))) : fieldsOfScience = [];
+
+        // Only include fields with id
+        fieldsOfScience = fieldsOfScience.filter(x => x.id);
+        // Create string from array
+        const fieldsOfScienceString = fieldsOfScience.map(x => x.name).join('; ')
+
+        let citations: string[] = [];
+        // Publication citations
+        if (!item.doi) {
+            const citationsObject = this.citationAdapter.adapt(item);
+            citations = [citationsObject.apa, citationsObject.chicago, citationsObject.mla];
+        }
 
         const openAccess: boolean = (item.openAccessCode === 1 || item.openAccessCode === 2 || item.selfArchivedCode === 1);
         let openAccessText = '';
@@ -81,6 +94,8 @@ export class PublicationAdapter implements Adapter<Publication> {
             // Check for empty addresses
             item.selfArchivedData[0].selfArchived = item.selfArchivedData[0].selfArchived
             .filter(x => x.selfArchivedAddress.trim().length > 0);
+            // Filter empty items
+            item.selfArchivedData = item.selfArchivedData.filter(x => x.selfArchived.length);
         }
 
         // Prioritize publication channel
@@ -132,10 +147,12 @@ export class PublicationAdapter implements Adapter<Publication> {
             item.languages,
             item.countries,
             fieldsOfScience, // defined above
+            fieldsOfScienceString,
             item.author,
             item.selfArchivedData,
             item.completions,
-            channel
+            channel,
+            citations
         );
     }
 }

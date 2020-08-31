@@ -17,6 +17,7 @@ import { Search } from 'src/app/models/search.model';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { singleInfrastructure, common } from 'src/assets/static-data/meta-tags.json';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-single-infrastructure',
@@ -109,7 +110,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string,
-               private utilityService: UtilityService ) {
+               private utilityService: UtilityService, private settingsService: SettingsService ) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }
@@ -125,11 +126,12 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.infrastructures;
     this.tabData = this.tabChangeService.tabData.find(item => item.data === 'infrastructures');
-    this.searchTerm = this.searchService.singleInput;
+    this.searchTerm = this.searchService.searchTerm;
   }
 
   ngOnDestroy() {
     this.idSub?.unsubscribe();
+    this.settingsService.related = false;
   }
 
   getData(id: string) {
@@ -198,6 +200,10 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     });
 
     source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
+  }
+
+  checkOverflow(elem: HTMLElement) {
+    return elem.scrollHeight > elem.clientHeight;
   }
 
   expandInfoDescription(idx: number) {

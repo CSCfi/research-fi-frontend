@@ -13,7 +13,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { isPlatformBrowser } from '@angular/common';
 import { map } from 'rxjs/internal/operators/map';
 import { DataService } from 'src/app/services/data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from 'src/app/services/filter.service';
 import { SortService } from 'src/app/services/sort.service';
 import { WINDOW } from 'src/app/services/window.service';
@@ -22,6 +22,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { NewsCardComponent } from '../news-card/news-card.component';
 import { news, common } from 'src/assets/static-data/meta-tags.json'
 import { UtilityService } from 'src/app/services/utility.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -47,26 +48,35 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   resizeSub: any;
   paramSub: any;
   olderData: any;
-  olderDataCopy: any;
+  queryField: FormControl = new FormControl();
 
   private currentLocale: string;
   private metaTags = news;
   private commonTags = common;
+  inputSub: any;
+  currentTerm: string;
+  queryParams: any;
 
-
-  constructor( private searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
+  constructor( public searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
                private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
                private dataService: DataService, private route: ActivatedRoute, private filterService: FilterService,
                private sortService: SortService, @Inject(WINDOW) private window: Window, private resizeService: ResizeService,
-               private utilityService: UtilityService) {
+               public utilityService: UtilityService, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
 
   }
 
   ngOnInit() {
-    this.getFilterData();
     this.paramSub = this.route.queryParams.subscribe(query => {
+      // Get query params and send search term to service
+      this.queryParams = query;
+      if (query.search) {
+        this.searchService.updateInput(query.search);
+      } else {
+        this.searchService.updateInput('');
+      }
+      // Update sort
       this.sortService.updateTab('news');
       // Scroll to older news header with pagination, TODO: Do without timeout
       if (this.tabChangeService.focus === 'olderNews' && this.mobile) {
@@ -76,31 +86,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchService.updateNewsPageNumber(parseInt(query.page, 10));
       // Check for Angular Univeral SSR, get filters if browser
       if (isPlatformBrowser(this.platformId)) {
-        this.filters = {
-          // Global
-          year: [query.year].flat().filter(x => x).sort(),
-          fromYear: [query.fromYear].flat().filter(x => x).sort(),
-          toYear: [query.toYear].flat().filter(x => x).sort(),
-          field: [query.field].flat().filter(x => x).sort(),
-          organization: [query.organization].flat().filter(x => x).sort(),
-          // Publications
-          sector: [query.sector].flat().filter(x => x).sort(),
-          publicationType: [query.publicationType].flat().filter(x => x).sort(),
-          countryCode: [query.countryCode].flat().filter(x => x).sort(),
-          lang: [query.lang].flat().filter(x => x).sort(),
-          juFo: [query.juFo].flat().filter(x => x).sort(),
-          openAccess: [query.openAccess].flat().filter(x => x).sort(),
-          internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x).sort(),
-          // Fundings
-          funder: [query.funder].flat().filter(x => x).sort(),
-          typeOfFunding: [query.typeOfFunding].flat().filter(x => x).sort(),
-          scheme: [query.scheme].flat().filter(x => x).sort(),
-          fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
-          fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
-          faField: [query.faField].flat().filter(x => x).sort(),
-          // Infrastructures
-          type: [query.type].flat().filter(x => x).sort(),
-        };
+        this.filters = this.filterService.filterList(query);
       }
 
       // Check for Angular Univeral SSR, update filters if browser
@@ -109,7 +95,11 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       // Get data
       this.getNews();
       this.getOlderNews();
+      this.getFilterData();
     });
+
+    this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
+    this.queryField = new FormControl(this.currentTerm);
 
     // Set title
     switch (this.localeId) {
@@ -163,7 +153,6 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.getOlderNews()
     .subscribe(data => {
       this.olderData = data;
-      this.olderDataCopy = data;
     }, error => this.errorMessage = error as any);
   }
 
@@ -180,6 +169,26 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  searchNews() {
+    const searchTerm = this.searchInput.nativeElement.value;
+    this.searchService.updateInput(searchTerm);
+    const params = Object.assign({}, this.queryParams);
+    params.search = searchTerm;
+    this.router.navigate([], {queryParams: params});
+    this.getNews();
+    this.getFilterData();
+  }
+
+  resetSearch() {
+    this.queryField.reset();
+    this.searchInput.nativeElement.value = '';
+    this.currentTerm = '';
+    this.searchService.updateInput('');
+    const params = Object.assign({}, this.queryParams);
+    params.search = null;
+    this.router.navigate([], {queryParams: params});
+  }
+
   ngOnDestroy() {
     this.tabChangeService.targetFocus('');
     if (isPlatformBrowser(this.platformId)) {
@@ -188,6 +197,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.searchService.updateNewsPageNumber(1);
     this.tabChangeService.focus = undefined;
+    this.searchService.updateInput('');
   }
 
   closeModal() {

@@ -159,25 +159,38 @@
                                     </span>
                                 </ng-container>
                             </h3>
-                            <p class="td"*ngIf="row.link && juFoCode?.length > 1 " [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
+                            <p class="td"*ngIf="row.link" [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
                              [ngSwitch]="true">
-                            <!-- Check if fields are issn or isbn and target search with exact field  -->
-                            <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'" (click)="navigate(row.field)" 
-                             routerLink="{{row.linkPath}}{{item[row.field]}}">
-                                 {{item[row.field]}}
-                            </a>
-                            <!-- JuFo code links to external path -->
-                            <a class="td" *ngSwitchCase="row.field === 'jufoCode'" (click)="navigate(row.field)" 
-                             href="{{row.linkPath}}{{item[row.field]}}" target="_blank">
-                                 {{item[row.field]}} <fa-icon class="icon" icon="external-link-alt"></fa-icon>
-                            </a>
-                            <!-- Every other link uses jufoCode as search term -->
-                            <a class="td" *ngSwitchDefault (click)="navigate('jufoCode.keyword')" routerLink="{{row.linkPath}}{{juFoCode}}">
-                                 {{item[row.field]}}
-                            </a>
+                                <!-- Check if fields are issn or isbn and target search with exact field  -->
+                                <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'"
+                                routerLink="{{row.linkPath}}{{item[row.field]}}" [queryParams]="{target: row.field}">
+                                    {{item[row.field]}}
+                                </a>
+                                <!-- JuFo code links to external path -->
+                                <a class="td" *ngSwitchCase="row.field === 'jufoCode'" 
+                                href="{{row.linkPath}}{{item[row.field]}}" target="_blank">
+                                    {{item[row.field]}}<fa-icon class="icon" icon="external-link-alt"></fa-icon>
+                                </a>
+                                <!-- Parent publication name -->
+                                <a class="td" *ngSwitchCase="row.field === 'parentPublicationName'" routerLink="{{row.linkPath}}{{item[row.field]}}"
+                                [queryParams]="{target: row.field}">
+                                    {{item[row.field]}}
+                                </a>
+                                <ng-container *ngSwitchDefault>
+                                    <ng-container *ngIf="item.jufoCode?.length > 1; else noJufoCode">
+                                        <!-- Every other link field uses jufoCode as search term -->
+                                         <a class="td" routerLink="{{row.linkPath}}{{item.jufoCode}}" [queryParams]="{target: 'jufoCode'}">
+                                            {{item[row.field]}}
+                                        </a>
+                                    </ng-container>
+                                    <ng-template #noJufoCode>
+                                        {{item[row.field]}}
+                                    </ng-template>
+                                </ng-container>
+
                             </p>
                             <!-- Show label only if no search functionality -->
-                            <p class="td" *ngIf="!row.link || (!juFoCode || juFoCode?.length === 1)">{{item[row.field]}}</p>
+                            <p class="td" *ngIf="!row.link">{{item[row.field]}}</p>
                         </div>
                     </div>
                     <ng-container *ngFor="let row of mediumFields.slice(3); let i = index">
@@ -186,24 +199,26 @@
                             <!-- First col -->
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
                                <h3 class="th">{{row.label}}</h3>
-                               <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}">
-                                    {{item[row.field]}}
+                               <a class="td" *ngIf="row.link" href="{{row.linkPath}}{{item[row.field]}}" [target]="row.field === 'jufoCode' ? '_blank' : ''">
+                                    {{item[row.field]}} <fa-icon *ngIf="row.field === 'jufoCode'" class="icon" icon="external-link-alt"></fa-icon>
                                </a>
                                <span *ngIf="!row.link">{{item[row.field]}}</span>
                             </div>
                             <!-- Second col -->    
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+1">
                                <h3 class="th">{{mediumFields.slice(3)[i + 1].label}}</h3>
-                               <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}">
-                                    {{item[mediumFields.slice(3)[i + 1].field]}}
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 1].link" href="{{mediumFields.slice(3)[i + 1].linkPath}}{{item[mediumFields.slice(3)[i + 1].field]}}"
+                               [target]="mediumFields.slice(3)[i + 1].field === 'jufoCode' ? '_blank' : ''">
+                                    {{item[mediumFields.slice(3)[i + 1].field]}} <fa-icon *ngIf="mediumFields.slice(3)[i + 1].field === 'jufoCode'" class="icon" icon="external-link-alt"></fa-icon>
                                </a>
                                <span *ngIf="!mediumFields.slice(3)[i + 1].link">{{item[mediumFields.slice(3)[i + 1].field]}}</span>
                             </div> 
                             <!-- Third col -->   
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="mediumFields.slice(3).length > i+2">
                                <h3 class="th">{{mediumFields.slice(3)[i + 2].label}}</h3>
-                               <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}">
-                                    {{item[mediumFields.slice(3)[i + 2].field]}}
+                               <a class="td" *ngIf="mediumFields.slice(3)[i + 2].link" href="{{mediumFields.slice(3)[i + 2].linkPath}}{{item[mediumFields.slice(3)[i + 2].field]}}"
+                               [target]="mediumFields.slice(3)[i + 2].field === 'jufoCode' ? '_blank' : ''">
+                                    {{item[mediumFields.slice(3)[i + 2].field]}} <fa-icon *ngIf="mediumFields.slice(3)[i + 2].field === 'jufoCode'" class="icon" icon="external-link-alt"></fa-icon>
                                </a>
                                <span *ngIf="!mediumFields.slice(3)[i + 2].link">{{item[mediumFields.slice(3)[i + 2].field]}}</span>
                             </div>        
@@ -229,7 +244,7 @@
                             </ng-container>
                             <!-- Normal lists -->
                             <ng-template #nonField>
-                                <p class="td">{{item[row.field]}}</p>
+                                <p class="td" innerHtml="{{item[row.field]}}"></p>
                             </ng-template>
                         </div>
                     </div>
@@ -238,11 +253,11 @@
                         <div class="row content" *ngIf="i % 2 == 0">
                             <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td">
                                 <h3 class="th">{{row.label}}</h3>
-                                <p class="td">{{item[row.field]}}</p>
+                                <p class="td" innerHtml="{{item[row.field]}}"></p>
                             </div>        
                             <div class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="otherFields.slice(2).length > i+1">
                                 <h3 class="th">{{otherFields.slice(2)[i + 1].label}}</h3>
-                                <p class="td">{{item[otherFields.slice(2)[i + 1].field]}}</p>
+                                <p class="td" innerHtml="{{item[otherFields.slice(2)[i + 1].field]}}"></p>
                             </div>
                         </div>
                     </ng-container>
@@ -259,28 +274,29 @@
                                 <div class="col link doi">
                                     <span class="doi-tag">DOI</span>
                                     <span class="doi-link">
-                                        <a [attr.href]="'https://doi.org/'+item.doi" target="_blank">{{item.doi}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                        <a [attr.href]="'https://doi.org/'+item.doi" target="_blank">{{item.doi}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                     </span>
                                 </div>
                             </div>
-                            <div *ngIf="row.field !== 'doi'" class="info-link-wrapper">
+                            <!-- Check that doi & doiHandle mismatch -->
+                            <div *ngIf="row.field !== 'doi' && item[row.field] !== 'https://doi.org/'+item.doi" class="info-link-wrapper">
                                 <div class="col link">
-                                    <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a class="info-link" href={{row.path}}{{item[row.field]}} target="_blank">{{item[row.field] | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
                         <!-- Self archived addresses -->
                         <ng-container *ngFor="let selfArchived of item.selfArchivedData">
-                            <ng-container *ngFor="let row of selfArchived.selfArchived">
-                                <div class="row links">
-                                    <div class="info-link-wrapper">
-                                        <div class="col link">
-                                            <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}} <fa-icon icon="external-link-alt"></fa-icon></a>
-                                        </div>
+                            <div class="row links" *ngFor="let row of selfArchived.selfArchived">
+                                <div class="info-link-wrapper">
+                                    <div class="col link">
+                                        <a class="info-link" href={{row.selfArchivedAddress}} target="_blank">{{row.selfArchivedAddress | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                     </div>
                                 </div>
-                            </ng-container>
+                            </div>
                         </ng-container>
+
+
                         <div *ngIf="!linksFields.length && !item.selfArchivedData" class="no-links" i18n="@@noPublicationLinks">Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</div>
                     </mat-card>
                 </aside>
@@ -289,11 +305,11 @@
                         <mat-card-title><h2 i18n="@@externalLinks">Hae julkaisua muualta</h2></mat-card-title>
                         <div class="row other-links">
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
-                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar <fa-icon icon="external-link-alt"></fa-icon></a>
+                                <a href="https://scholar.google.com/scholar?q={{item.title}}" target="_blank">Google Scholar<fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                             <div class="col-12 col-sm-6 col-md-12 col-xl-6 other-link">
                                 <a href="https://search.crossref.org/?q={{item.doi !== ' ' ? item.doi : item.title}}" 
-                                target="_blank">CrossRef <fa-icon icon="external-link-alt"></fa-icon></a>
+                                target="_blank">CrossRef<fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                         </div>
                     </mat-card>
@@ -308,8 +324,8 @@
                     <mat-card-title><h2 i18n="@@citationHeader">Viittaa</h2></mat-card-title>
                     <div>
                         <div class="reference">
-                            <app-secondary-button (click)="openModal(citeModal)" [content]="copyReferences" [icon]="faQuoteRight" [disabled]="!hasDoi" [big]="true"></app-secondary-button>
-                            <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small>
+                            <app-secondary-button (click)="openModal(citeModal)" [content]="copyReferences" [icon]="faQuoteRight" [big]="true"></app-secondary-button>
+                            <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
                         </div>
                     </div>
                 </mat-card>
@@ -343,12 +359,12 @@
     <div class="modal-body reference-modal pb-5">
         <div *ngFor="let citation of citations; let i = index" class="cite-block">
             <h4>{{citationStyles[i].label}}: </h4>
-            <span>{{citation | cleanCitation}}</span>
+            <span [innerHTML]="citation | cleanCitation"></span>
             <div class="copy-wrapper">
                 <app-secondary-button [cdkCopyToClipboard]="citation" (click)="openSnackBar()" class="copy" [content]="copyToClipboard" [icon]="faCopy"></app-secondary-button>
             </div>
         </div>
-        <div *ngIf="hasDoi; else noDoi">
+        <div *ngIf="hasDoi">
             <div *ngIf="citations.length < citationStyles.length">
                 <div class="row justify-content-center">
                     <div class="col" align="center" style="margin-top:25px">
@@ -358,6 +374,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="modal-footer reference-modal align-items-center justify-content-center">
+        <p>Automaattisesti luotujen viitteiden tiedoissa voi esiintyä virheitä. Tarkista aina viitteen tiedot.</p>
     </div>
 </ng-template>
 

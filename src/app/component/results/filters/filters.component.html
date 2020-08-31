@@ -3,7 +3,7 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
     
- <div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
+<div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
     <app-secondary-button [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader" [icon]="faSlidersH" [noSmIcon]="true" [big]="true"
     (click)="openModal(filterModal)" (keydown.enter)="openModal(filterModal)" #openFilters tabindex="-1"></app-secondary-button>
 </div>
@@ -162,7 +162,7 @@
                                     <!-- <div class="col col-3 count align-self-center"><span class="amount" [innerHtml]="(item.subData | filterSum) | thousandSeparator"></span></div> -->
                                 </mat-list-option>
                                 <!-- Options -->
-                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen))" (click)="selectionChange(filter.field, field.key)"
+                                <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen)); trackBy: trackByFn" (click)="selectionChange(filter.field, field.key)"
                                 (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" [id]="filter.field + field.key | replaceSpace">
                                     <div class="row d-flex justify-content-around">
                                         <div class="col-9"><span class="label">{{field.label}}</span></div>

@@ -16,30 +16,48 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div class="row">
         <app-result-tab style="width:100%" [allData]="tabValues"></app-result-tab>
         <div class="col-12 px-0">
-        <div class="row total" #totalHeader>
-            <div class="col">
-                <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.label : ''">
-                    {{selectedTabData.label}} - <span class="total">{{parsedTotal}}</span>
-                    <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
-                </h2>
-                <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
-                    <a (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
-                    (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus(); showSkipLinks = false" href="javascript:void(0)">
-                        <span i18n="@@skipToResults">Hyppää hakutuloksiin</span>
-                    </a>
+        <div class="total" #totalHeader>
+            <div class="row justify-content-between">
+                <div class="col-auto p-0">
+                    <h2 role="status" class="total" *ngIf="selectedTabData ? selectedTabData.label : ''">
+                        {{selectedTabData.label}} - <span class="total">{{parsedTotal}}</span>
+                        <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
+                    </h2>
+                </div>
+                <div class="col-auto col-lg-8 justify-content-end row">
+                    <div class="col-auto align-self-center px-0 pr-lg-3" *ngIf="selectedTabData">
+                        <app-result-count></app-result-count>
+                    </div>
+                    <!-- <div class="col-12"></div> -->
+                    <div class="col-auto text-right align-self-center d-none d-lg-block">
+                        <a routerLink="/service-info" fragment="1" class="theme-link">
+                            <strong>
+                                <ng-container i18n="@@resultInfo1">Mitä</ng-container><span> {{selectedTabData.singular.toLowerCase()}}</span>
+                                <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
+                            </strong>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-auto align-self-center px-0 pr-lg-3" *ngIf="selectedTabData">
-                <app-result-count></app-result-count>
+        </div>
+        <!-- Uncomment for visualization toggle -->
+        <!-- <div>
+            <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle>
+            <div>
+                <mat-form-field *ngIf="visual && !mobile">
+                    <mat-label>Valitse visualisaatio</mat-label>
+                    <mat-select (selectionChange)="changeVisual($event)">
+                        <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-slide-toggle [(ngModel)]="percentage" *ngIf="visual && !mobile">Näytä prosentteina</mat-slide-toggle>
             </div>
-            <div class="col-auto text-right align-self-center d-none d-lg-block">
-                <a routerLink="/service-info" fragment="1" class="theme-link">
-                    <strong>
-                        <ng-container i18n="@@resultInfo1">Mitä</ng-container><span> {{selectedTabData.singular.toLowerCase()}}</span>
-                        <ng-container i18n="@@resultInfo2">tietoja palvelu sisältää?</ng-container>
-                    </strong>
-                </a>
-            </div>
+        </div> -->
+        <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
+            <a (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
+            (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus(); showSkipLinks = false" href="javascript:void(0)">
+                <span i18n="@@skipToResults">Hyppää hakutuloksiin</span>
+            </a>
         </div>
         </div>
     </div>
@@ -78,7 +96,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <main class="col-12 pr-xl-0">
             <app-active-filters></app-active-filters>
             <h3 class="sr-only">Hakutulokset</h3>
-            <app-search-results id="main-content" [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
+            <app-search-results *ngIf="!visual" id="main-content" [currentTab]="selectedTabData" [updateFilters]="updateFilters"></app-search-results>
+            <app-visualisation *ngIf="visual" [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading"></app-visualisation>
         </main>
     </div>
 </ng-template>

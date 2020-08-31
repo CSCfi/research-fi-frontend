@@ -23,6 +23,8 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
+import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
+import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
   selector: 'app-results',
@@ -70,6 +72,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   showSkipLinks: boolean;
   currentLocale: string;
 
+  visualPublication = this.staticDataService.visualisationData.publication;
+  visualFunding = this.staticDataService.visualisationData.funding;
+
+  visual = false;
+  visIdx = "0";
+  visualLoading = false;
+  visualisationCategories: VisualQuery[];
+  visualData: Visual;
+  percentage = false;
+  visualSub: Subscription;
+
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
   private commonTags = common;
@@ -79,7 +92,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
                @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService, private modalService: BsModalService,
-               private utilityService: UtilityService, private settingsService: SettingsService ) {
+               private utilityService: UtilityService, private settingsService: SettingsService, private staticDataService: StaticDataService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -113,31 +126,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Check for Angular Univeral SSR, get filters if browser
         if (isPlatformBrowser(this.platformId)) {
-          this.filters = {
-            // Global
-            year: [query.year].flat().filter(x => x).sort(),
-            fromYear: [query.fromYear].flat().filter(x => x).sort(),
-            toYear: [query.toYear].flat().filter(x => x).sort(),
-            field: [query.field].flat().filter(x => x).sort(),
-            // Publications
-            sector: [query.sector].flat().filter(x => x).sort(),
-            organization: [query.organization].flat().filter(x => x).sort(),
-            publicationType: [query.publicationType].flat().filter(x => x).sort(),
-            countryCode: [query.countryCode].flat().filter(x => x).sort(),
-            lang: [query.lang].flat().filter(x => x).sort(),
-            juFo: [query.juFo].flat().filter(x => x).sort(),
-            openAccess: [query.openAccess].flat().filter(x => x).sort(),
-            internationalCollaboration: [query.internationalCollaboration].flat().filter(x => x).sort(),
-            // Fundings
-            funder: [query.funder].flat().filter(x => x).sort(),
-            typeOfFunding: [query.typeOfFunding].flat().filter(x => x).sort(),
-            scheme: [query.scheme].flat().filter(x => x).sort(),
-            fundingStatus: [query.fundingStatus].flat().filter(x => x).sort(),
-            fundingAmount: [query.fundingAmount].flat().filter(x => x).sort(),
-            faField: [query.faField].flat().filter(x => x).sort(),
-            // Infrastructures
-            type: [query.type].flat().filter(x => x).sort(),
-          };
+          this.filters = this.filterService.filterList(query);
         }
 
         const tabChanged = this.tab !== params.tab;
@@ -147,7 +136,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.sortService.getTerm(this.searchTerm);
 
         // If there's a new search term, send it to search service
-        if (this.searchTerm !== this.searchService.singleInput) {
+        if (this.searchTerm !== this.searchService.searchTerm) {
           this.searchService.updateInput(this.searchTerm);
         }
 
@@ -167,7 +156,20 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tabChangeService.changeTab(this.selectedTabData);
           this.sortService.updateTab(this.selectedTabData.data);
           this.updateTitle(this.selectedTabData);
-
+          switch (this.tab) {
+            case 'publications':
+              this.visualisationCategories = this.visualPublication;
+              break;
+            case 'fundings':
+              this.visualisationCategories = this.visualFunding;
+              break;
+          
+            default:
+              this.visualisationCategories = [];
+              break;
+          }
+          this.visIdx = '0';
+          this.visual = this.visual && !!this.visualisationCategories.length;
         }
 
         this.sortService.updateSort(query.sort);
@@ -201,6 +203,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Get data filter data
         this.getFilterData();
+        
+        // Get visualisation data
+        this.getVisualData();
         // this.getQueryFilterData();
         // Reset flags
         this.searchService.redirecting = false;
@@ -216,8 +221,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateTitle(this.selectedTabData);
     });
 
+    this.visualSub = this.dataService.newFilter.subscribe(_ => this.visual = false);
+
     // Subscribe to resize
-    this.resizeService.onResize$.subscribe(dims => this.updateMobile(dims.width));
+    this.resizeService.onResize$.subscribe(dims => this.onResize(dims.width));
     this.mobile = this.window.innerWidth < 992;
   }
 
@@ -275,6 +282,27 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         error => this.errorMessage = error as any);
     }
   }
+  
+  changeVisual(event: any) {
+    // Update idx
+    this.visIdx = event.value
+    // Get data
+    this.getVisualData();
+  }
+
+  getVisualData() {
+    // Reset data so old data isn't used
+    this.visualData = undefined;
+    this.visualLoading = true;
+    // Check for Angular Univeral SSR, get filter data if browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.searchService.getVisualData(+this.visIdx)
+      .subscribe(values => {
+        this.visualData = values;
+        this.visualLoading = false;
+      })
+    }
+  }
 
   getQueryFilterData() {
     // Check for Angular Univeral SSR, get filter data if browser
@@ -323,8 +351,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  updateMobile(width) {
+  onResize(width) {
     this.mobile = width < 992;
+    this.visual = this.visual && width >= 1200;
   }
 
   changeFocusTarget(target) {

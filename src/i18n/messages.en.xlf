@@ -58,6 +58,10 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="resetSearchTooltip" datatype="html">
+        <source>Tyhjennä haku</source>
+        <target>Clear search</target>
+      </trans-unit>
       <trans-unit id="searchButton" datatype="html">
         <source>Hae</source>
         <target>Search</target>
@@ -120,6 +124,10 @@
           <context context-type="linenumber">58</context>
         </context-group>
         <note priority="1" from="description">Search suggest</note>
+      </trans-unit>
+      <trans-unit id="searchNewsPlaceHolder" datatype="html">
+        <source>Hae uutisista...</source>
+        <target>Search for news...</target>
       </trans-unit>
       <trans-unit id="suggestResults1" datatype="html">
         <source>Ei ehdotuksia</source>
@@ -474,7 +482,7 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="publicationYear" datatype="html">
+      <trans-unit id="year" datatype="html">
         <source>Vuosi</source>
         <target>Year</target>
         <context-group purpose="location">
@@ -758,7 +766,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Tähän hankkeeseen liittyvät</source>
+        <source>Hae hankkeeseen liittyvät</source>
         <target>Related to this project</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
@@ -926,8 +934,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedOrganizations" datatype="html">
-        <source>Organisaation</source>
+        <source>Hae organisaatioon liittyvät</source>
         <target>Organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="relatedFunded" datatype="html">
+        <source>Hae organisaation rahoittamat</source>
+        <target>Funded</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">135</context>
@@ -1115,7 +1131,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedInfrastructures" datatype="html">
-        <source>Infrastruktuurin</source>
+        <source>Hae infrastruktuuriin liittyvät</source>
         <target>Infrastructure</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
@@ -1309,6 +1325,14 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="vipunenSimple" datatype="html">
+        <source>Vipunen - opetushallinnon tilastopalvelu</source>
+        <target>Vipunen - Education Statistics Finland </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="tilastokeskus" datatype="html">
         <source>Tilastokeskus</source>
         <target>Statistics Finland</target>
@@ -1336,6 +1360,22 @@
       <trans-unit id="csc" datatype="html">
         <source>CSC - Tieteen tietotekniikan keskus Oy</source>
         <target>CSC</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="finto" datatype="html">
+        <source>Finto - sanasto- ja ontologiapalvelu</source>
+        <target>Finto - thesaurus and ontology service</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ytj" datatype="html">
+        <source>Yritys– ja yhteisötietojärjestelmä (YTJ)</source>
+        <target>Business Information System (YTJ)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">73</context>
@@ -1620,10 +1660,10 @@
       <trans-unit id="accessibilityParagraph15" datatype="html">
         <source>Jos et ole tyytyväinen meiltä saamaasi vastaukseen, tai vastauksemme ei saavu 14 päivän kuluessa, voit tehdä ilmoituksen Etelä-Suomen aluehallintavirastoon.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
         <target>If you are not satisfied with the response you have received from us, or if our response does not arrive within 14 days, you may file a complaint with the Regional State Administrative Agency for Southern Finland.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
-                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/ <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+                            <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">63</context>
@@ -1968,8 +2008,8 @@
         <note priority="1" from="description">Footer-link</note>
       </trans-unit>
       <trans-unit id="footerLink7" datatype="html">
-        <source>tiedejatutkimus@csc.fi</source>
-        <target>tiedejatutkimus@csc.fi</target>
+        <source>Ota yhteyttä</source>
+        <target>Contact</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
           <context context-type="linenumber">46</context>
@@ -2196,10 +2236,6 @@
         <source>Perustaso</source>
         <target>Basic</target>
       </trans-unit>
-      <trans-unit id="2280953857653529357">
-        <source>Muut</source>
-        <target>Other</target>
-      </trans-unit>
       <trans-unit id="noRating">
         <source>Ei arviota</source>
         <target>No rating</target>
@@ -2221,8 +2257,8 @@
         <source>Haluttua tietoa ei ole olemassa</source>
         <target>Requested information does not exist</target>
       </trans-unit>
-      <trans-unit id="4505679677960242441">
-        <source>Pyyntömetodi ei ole sallitty</source>
+      <trans-unit id="forbiddenRequest">
+        <source>Pyyntömetodi ei ole sallittu</source>
         <target>Forbidden request method</target>
       </trans-unit>
       <trans-unit id="8402099562411461502">
@@ -2249,6 +2285,10 @@
       <trans-unit id="3537901381707941652">
         <source>Emojulkaisun nimi</source>
         <target>Parent publication name</target>
+      </trans-unit>
+      <trans-unit id="parentPublicationPublisher">
+        <source>Emojulkaisun toimittajat</source>
+        <target>Parent publication publishers</target>
       </trans-unit>
       <trans-unit id="5762426248501746892">
         <source>Konferenssi</source>
@@ -2283,8 +2323,8 @@
         <target>​Publication forum level</target>
       </trans-unit>
       <trans-unit id="openAccessJournal">
-        <source>Open access -lehti: </source>
-        <target>Open access journal: </target>
+        <source>Open access -lehti</source>
+        <target>Open access journal</target>
       </trans-unit>
       <trans-unit id="8722392264873780327">
         <source>Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.</source>
@@ -2382,6 +2422,10 @@
       <trans-unit id="fieldOfScience">
         <source>Tieteenala</source>
         <target>Field of science</target>
+      </trans-unit>
+      <trans-unit id="mainFieldOfScience">
+        <source>Päätieteenala</source>
+        <target>Main field of science</target>
       </trans-unit>
       <trans-unit id="5693158486934642346">
         <source>Tutkimusalat</source>
@@ -2573,7 +2617,7 @@
         <target>Finland</target>
       </trans-unit>
       <trans-unit id="other">
-        <source>Muu</source>
+        <source>Muut</source>
         <target>Other</target>
       </trans-unit>
       <trans-unit id="notKnown">
@@ -2651,15 +2695,23 @@
       </trans-unit>
       <trans-unit id="orgStaffCount">
         <source>Opetus- ja tutkimushenkilöstön määrä (htv)</source>
-        <target>Number of teaching and research staff (py</target>
+        <target>Number of teaching and research staff (py)</target>
       </trans-unit>
       <trans-unit id="orgThesisCountBsc">
         <source>Alempi korkeakoulututkinto</source>
         <target>Bachelor's degree</target>
       </trans-unit>
+      <trans-unit id="orgThesisCountBscApplied">
+        <source>Alempi ammattikorkeakoulututkinto</source>
+        <target>Bachelor's degree (polytechnic)</target>
+      </trans-unit>
       <trans-unit id="orgThesisCountMsc">
         <source>Ylempi korkeakoulututkinto</source>
         <target>Master's degree</target>
+      </trans-unit>
+      <trans-unit id="orgThesisCountMscApplied">
+        <source>Ylempi ammattikorkeakoulututkinto</source>
+        <target>Master's degree (polytechnic)</target>
       </trans-unit>
       <trans-unit id="orgThesisCountLic">
         <source>Lisensiaatintutkinto</source>
@@ -2669,25 +2721,29 @@
         <source>Tohtorintutkinto</source>
         <target>Doctoral degree</target>
       </trans-unit>
+      <trans-unit id="thesisCount">
+        <source>Tutkintojen määrä</source>
+        <target>Number of degress attained</target>
+      </trans-unit>
       <trans-unit id="orgSubUnits">
         <source>Alayksiköt</source>
         <target>Subunits</target>
       </trans-unit>
       <trans-unit id="fintoSource">
-        <source>Lähde: Finto www.finto.fi/cn/fi/</source>
-        <target>Source: Finto www.finto.fi/cn/en/</target>
+        <source>Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi</source>
+        <target>Source: Finto - thesaurus and ontology service www.finto.fi</target>
       </trans-unit>
-      <trans-unit id="yyjSource">
-        <source>Lähde: Yritys- ja yhteisötietojärjestelmä YTJ https://tietopalvelu.ytj.fi/</source>
-        <target>Source: The business information system YTJ https://tietopalvelu.ytj.fi/yrityshaku.aspx?kielikoodi=3</target>
+      <trans-unit id="ytjSource">
+        <source>Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi</source>
+        <target>Source: Business information system (YTJ) www.ytj.fi</target>
       </trans-unit>
       <trans-unit id="tkSource">
-        <source>Lähde: Tilastokeskus</source>
-        <target>Source: Statistics Finland</target>
+        <source>Lähde: Tilastokeskus www.stat.fi</source>
+        <target>Source: Statistics Finland www.stat.fi</target>
       </trans-unit>
       <trans-unit id="vipunenSource">
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
-        <target>Source: Vipunen - Education Statistics Finland</target>
+        <target>Source: Vipunen - Education Statistics Finland www.vipunen.fi</target>
       </trans-unit>
       <!-- Filters -->
       <trans-unit id="filterSearchHeader">
@@ -2802,6 +2858,10 @@
         <source>Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi ‑palveluun.</source>
         <target>Research funders, which have submitted information on their funding decisions to the research.fi service.</target>
       </trans-unit>
+      <trans-unit id="org6Tooltip">
+        <source>Muut tutkimuskentällä toimivat organisaatiot, jotka eivät kuulu edellisiin kategorioihin.</source>
+        <target>Other organizations active in the field of research which do not fall into the categories above.</target>
+      </trans-unit>
       <!-- Tabs -->
       <trans-unit id="publication">
         <source>Julkaisu</source>
@@ -2828,6 +2888,10 @@
         <target>Other research activitity</target>
       </trans-unit>
       <trans-unit id="organization">
+        <source>Organisaatio</source>
+        <target>Organization</target>
+      </trans-unit>
+      <trans-unit id="organizationSingular">
         <source>Organisaatio</source>
         <target>Organization</target>
       </trans-unit>
@@ -2993,8 +3057,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="PP12" datatype="html">
-        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
-        <target><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>List of other controllers acting as joint controllers and their contact details <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+        <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+        <target><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>List of other controllers acting as joint controllers and their contact details<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">48</context>

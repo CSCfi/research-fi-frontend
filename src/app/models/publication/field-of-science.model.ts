@@ -6,19 +6,14 @@
 // # :license: MIT
 
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
-import { LanguageCheck } from './utils';
+import { Adapter } from '../adapter.model';
+import { LanguageCheck } from '../utils';
 
 export class FieldOfScience {
 
     constructor(
         public id: number,
-        public nameFi: string,
-        public nameSv: string,
-        public nameEn: string,
-        public mainFieldNameFi: string,
-        public mainFieldNameSv: string,
-        public mainFieldNameEn: string,
+        public name
     ) {}
 }
 
@@ -31,12 +26,7 @@ export class FieldOfScienceAdapter implements Adapter<FieldOfScience> {
     adapt(item: any): FieldOfScience {
         return new FieldOfScience(
             item.fieldIdScience,
-            item.nameFiScience,
-            item.nameSvScience,
-            item.nameEnScience,
-            this.lang.testLang('mainFieldOfScienceName', item),
-            this.lang.testLang('mainFieldOfScienceName', item),
-            this.lang.testLang('mainFieldOfScienceName', item),
+            this.lang.translateFieldOfScience(item)
         );
     }
 }

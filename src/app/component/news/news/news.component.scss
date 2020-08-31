@@ -14,11 +14,55 @@ app-news {
     h3 {
         font-size: 1.3rem;
     }
+
+    .side-news {
+        height: max-content;
+    }
     
     app-filters {
         .mobile {
             margin: 0!important
         }
+    }
+
+    // Search
+    .input {
+        border-radius: 6px;
+    }
+
+    input.search {
+        width: 97.5%;
+        padding: 8px;
+        border: none;
+        background: none;
+    }
+
+    .reset {
+        position: absolute;
+        top: 8px;
+        cursor: pointer;
+        right: 11px;
+    }
+
+    .reset button {
+        border: 0px;
+        background: none;
+        padding: 0 10px;
+    }
+
+    .fa-search {
+        font-size: 1rem;
+    }
+
+    button.search {
+        height: 100%;
+        background: white;
+        border: 2px solid;
+    }
+
+    // Override filter button width
+    .mobile {
+        max-width: 100%!important;
     }
 }
 

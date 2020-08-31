@@ -5,10 +5,10 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 import { Injectable } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
-import { LanguageCheck } from './utils';
+import { LanguageCheck } from '../utils';
 
 export class Funding {
 
@@ -96,11 +96,10 @@ export class FundingAdapter implements Adapter<Funding> {
         const recipient = this.r.adapt(item);
 
         // TODO: Translate
-        const science = item.fields_of_science?.map(x => x.nameFiScience).join('; ');
+        const science = item.fieldsOfScience?.map(x => this.lang.translateFieldOfScience(x)).join('; ');
         const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
         const theme = item.keywords?.filter(x => x.scheme === 'Teema-ala').map(x => x.keyword).join(', ');
         const keyword = item.keywords?.filter(x => x.scheme === 'Avainsana').map(x => x.keyword).join(', ');
-
 
         return new Funding(
             item.projectId,

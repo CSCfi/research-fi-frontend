@@ -10,6 +10,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TabChangeService } from 'src/app/services/tab-change.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -25,7 +26,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
 
   constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar,
-              private tabChangeService: TabChangeService) { }
+              private tabChangeService: TabChangeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     // Bar can be hidden from privacy / cookies tab
@@ -38,8 +39,26 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     this.loadScript();
     // Get consent status from local storage and set visibility
     if (isPlatformBrowser(this.platformId)) {
-      this.showConsent = sessionStorage.getItem('cookieConsent') === 'declined' ||
-      sessionStorage.getItem('cookieConsent') === 'approved' ? false : true;
+      this.showConsent = localStorage.getItem('cookieConsent') === 'declined' ||
+      localStorage.getItem('cookieConsent') === 'approved' ? false : true;
+    }
+
+    // Set consent if navigated with consent param
+    if (isPlatformBrowser(this.platformId)) {
+      this.routeSub = this.route.queryParams.subscribe(params => {
+        if (!localStorage.getItem('cookieConsent')) {
+          switch (params.consent) {
+            case 'declined': {
+              this.decline(true);
+              break;
+            }
+            case 'approved': {
+              this.approve(true);
+              break;
+            }
+          }
+        }
+      });
     }
 
     // Focus on bar instead of skip links
@@ -50,11 +69,11 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     });
   }
 
-  decline() {
+  decline(showSnackBar) {
     // Hide bar and set opt out + forget consent cookies
     this.showConsent = false;
     if (isPlatformBrowser(this.platformId)) {
-      sessionStorage.setItem('cookieConsent', 'declined');
+      localStorage.setItem('cookieConsent', 'declined');
       const node = this.document.createElement('script');
       node.type = 'text/javascript';
       node.innerHTML = `var _paq = window._paq || [];
@@ -63,15 +82,15 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`);
+    if (!showSnackBar) {this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`); }
   }
 
-  approve() {
+  approve(hideSnackBar) {
     // Hide bar and set consent
     this.showConsent = false;
     this.privacyService.changeConsentStatus('approved');
     if (isPlatformBrowser(this.platformId)) {
-      sessionStorage.setItem('cookieConsent', 'approved');
+      localStorage.setItem('cookieConsent', 'approved');
       const node = this.document.createElement('script');
       node.id = 'matomo-consent';
       node.type = 'text/javascript';
@@ -80,7 +99,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
+    if (!hideSnackBar) {this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`); }
   }
 
   public loadScript() {

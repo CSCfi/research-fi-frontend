@@ -36,10 +36,10 @@
                                     </ng-container>    
                                 </h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
-                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" [ngSwitch]="row.field">
+                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" [ngSwitch]="row.field" #overflow>
                                         {{item[row.field]}}
                                     </p>
-                                    <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
+                                    <a href="javascript:void(0)" class="read-more" *ngIf="checkOverflow(overflow) || infoExpand[i]"
                                        (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
                                </div>
                             </div>
@@ -72,10 +72,10 @@
                                                 </ng-container>                
                                             </h4>
                                             <div class="col-12 col-sm-6 col-lg-9 td">
-                                                <p [ngClass]="serviceExpand[serviceExpandId(i, j)] ? 'expand' : 'short'">
+                                                <p [ngClass]="serviceExpand[serviceExpandId(i, j)] ? 'expand' : 'short'" #overflow>
                                                     {{service[row.field]}}
                                                 </p>
-                                                <a href="javascript:void(0)" class="read-more" *ngIf="service[row.field]?.length > 256" 
+                                                <a href="javascript:void(0)" class="read-more" *ngIf="checkOverflow(overflow) || serviceExpand[serviceExpandId(i, j)]"
                                                     (click)="expandServiceDescription(serviceExpandId(i, j))" [innerHTML]="serviceExpand[serviceExpandId(i, j)] ? showLess : showMore"></a>    
                                             </div>
                                         </ng-container>
@@ -120,10 +120,10 @@
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
-                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'">
+                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" #overflow>
                                         {{item[row.field]}}
                                     </p>
-                                    <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
+                                    <a href="javascript:void(0)" class="read-more" *ngIf="checkOverflow(overflow) || infoExpand[i]"
                                        (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
                                </div>
                             </div>
@@ -165,10 +165,10 @@
                             <div class="row" *ngIf="item[row.field]">
                                 <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}}</h2>
                                 <div class="col-12 col-sm-6 col-lg-9 td">
-                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'">
+                                    <p [ngClass]="infoExpand[i] ? 'expand' : 'short'" #overflow>
                                         {{item[row.field]}}
                                     </p>
-                                    <a href="javascript:void(0)" class="read-more" *ngIf="item[row.field].length > 256" 
+                                    <a href="javascript:void(0)" class="read-more" *ngIf="checkOverflow(overflow) || infoExpand[i]"
                                        (click)="expandInfoDescription(i)" [innerHTML]="infoExpand[i] ? showLess : showMore"></a>    
                                </div>
                             </div>
@@ -190,7 +190,7 @@
                      <div class="row links" *ngIf="linkFields?.length > 0">
                          <div *ngFor="let row of linkFields" class="info-link-wrapper">
                             <div class="link">
-                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                          </div>
                      </div>
@@ -199,7 +199,7 @@
              </aside>
              <aside>
                  <mat-card>
-                     <mat-card-title><h2><ng-container i18n="@@relatedInfrastructures">Infrastruktuurin</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
+                     <mat-card-title><h2><ng-container i18n="@@relatedInfrastructures">Hae infrastruktuuriin liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
                      <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                  </mat-card>
              </aside>

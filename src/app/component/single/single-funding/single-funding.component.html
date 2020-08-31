@@ -231,8 +231,8 @@
                             <div *ngFor="let row of linkFields" class="info-link-wrapper">
                                 <div class="col link">
                                     <!-- Cordis link is displayed only with eu funding. Filtering is done in ts file -->
-                                    <a *ngIf="row.field === 'funderProjectNumber'" class="info-link" href="https://cordis.europa.eu/project/id/{{item[row.field]}}" target="_blank">https://cordis.europa.eu/project/id/{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
-                                    <a *ngIf="row.field !== 'funderProjectNumber'" class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}} <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a *ngIf="row.field === 'funderProjectNumber'" class="info-link" href="https://cordis.europa.eu/project/id/{{item[row.field]}}" target="_blank">https://cordis.europa.eu/project/id/{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
+                                    <a *ngIf="row.field !== 'funderProjectNumber'" class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                     </mat-card>
                 </aside>
                 <mat-card>
-                    <mat-card-title><h2><ng-container i18n="@@relatedFundings">Tähän hankkeeseen liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
+                    <mat-card-title><h2><ng-container i18n="@@relatedFundings">Hae hankkeeseen liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
                     <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
                 </mat-card>
             </aside>

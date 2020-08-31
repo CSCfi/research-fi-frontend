@@ -73,6 +73,16 @@ app-footer {
         list-style: none;
         font-weight: bold;
     }
+
+    .href:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .reverse {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
     
     img {
         // padding-top: 10px;

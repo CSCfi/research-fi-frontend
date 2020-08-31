@@ -2,7 +2,7 @@
 
 $researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
 $researchfi-accent:  mat-palette($mat-green);
-$researchfi-warn:    mat-palette($mat-deep-orange);
+$researchfi-warn:    mat-palette($mat-red);
 
 $researchfi-theme: mat-light-theme($researchfi-primary, $researchfi-accent, $researchfi-warn);
 

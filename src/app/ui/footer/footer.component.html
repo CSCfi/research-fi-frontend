@@ -43,7 +43,9 @@
             <h2 class="header" i18n="Footer-header@@footerHeader4">Info ja yhteystiedot</h2>
             <ul>
               <li><a i18n="Footer-link@@footerLink6" href="javascript:void(0)" (click)="toggleReview()">Anna palautetta</a></li>
-              <li><a i18n="Footer-link@@footerLink7" href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a></li>
+              <li>
+                <a tabindex="0" #contact class="href" (focus)="getMail()" (mouseover)="getMail()"><span class="reverse">if.csc@sumiktutajedeit</span></a>
+              </li>
             </ul>
           </div>
         </div>

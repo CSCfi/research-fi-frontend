@@ -20,6 +20,7 @@ import { FundingFilters } from '../filters/fundings';
 import { InfrastructureFilters } from '../filters/infrastructures';
 import { OrganizationFilters } from '../filters/organizations';
 import { SettingsService } from 'src/app/services/settings.service';
+import { NewsFilters } from '../filters/news';
 
 @Component({
   selector: 'app-active-filters',
@@ -63,7 +64,8 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                private dataService: DataService, private tabChangeService: TabChangeService,
                public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, private settingsService: SettingsService ) {
+               private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
+               private settingsService: SettingsService ) {
    }
 
   ngOnInit() {
@@ -71,7 +73,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
     switch (this.currentTab) {
       case 'publications':
         this.tabFilters = this.publicationFilters.filterData;
-        this.yearRange = $localize`:@@publicationYear:Julkaisuvuosi` + ': ';
+        this.yearRange = $localize`:@@yearOfPublication:Julkaisuvuosi` + ': ';
         break;
       case 'fundings':
         this.tabFilters = this.fundingFilters.filterData;
@@ -86,6 +88,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         break;
       case 'organizations':
         this.tabFilters = this.organizationFilters.filterData;
+        break;
+      case 'news':
+        this.tabFilters = this.newsFilters.filterData;
         break;
 
       default:
@@ -183,6 +188,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
+
+            // Field of science
+            if (val.category === 'field' && source.field?.fields) {
+              const result = source.field.fields.buckets.find(key => parseInt(key.fieldId.buckets[0].key, 10) === parseInt(val.value, 10));
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result.key ? result.key : '';
+            }
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
               const result = source.lang.langs.buckets.find(({ key }) => key.toLowerCase() === val.value);
@@ -230,7 +242,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                     });
                   }
                 }, 1);
-                // Funding organization name
+                // Infrastructure organization name
               } else if (tab === 'infrastructures') {
                 if (source.organization?.sector?.buckets?.length > 0) {
                   source.organization.sector.buckets.forEach(sector => {
@@ -249,11 +261,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'countryCode' && source.countryCode) {
               switch (val.value) {
                 case 'c0': {
-                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Suomi';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': ' + $localize`:@@finland:Suomi`;
                   break;
                 }
                 case 'c1': {
-                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': Muut';
+                  val.translation = $localize`:@@publicationCountry:Julkaisumaa` + ': ' + $localize`:@@other:Muut`;
                   break;
                 }
               }
@@ -294,12 +306,31 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
 
-            // Infrastructure
+            // Funder
+            if (val.category === 'funder' && source.funder) {
+              setTimeout(t => {
+                const result = source.funder.funders.buckets.find(({ key }) => key === val.value);
+                const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+              }, 1);
+            }
+
+            // Infrastructures
+            // Type
             if (val.category === 'type' && source.type) {
               // Hotfix for type translation. Type is translated in filters / infrastructures via localize method.
               // This might cause some latency and therefore timeout is needed.
-              setTimeout(x => {
+              setTimeout(t => {
                 const result = source.type.types.buckets.find(({ key }) => key === val.value);
+                const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+              }, 1);
+            }
+
+            // Infrastructure main field of science
+            if (tab === 'infrastructures' && val.category === 'field') {
+              setTimeout(t => {
+                const result = source.field.buckets.find(key => key.key === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                 this.activeFilters[foundIndex].translation = result.label ? result.label : '';
               }, 1);
@@ -314,9 +345,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
             // News, organization
             if (tab === 'news' && source.organization) {
-              const result = source.organization.buckets.find(({ key }) => key === val.value);
-              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result?.label ? result.label.trim() : result?.orgName.buckets[0].key.trim();
+              setTimeout(t => {
+                if (source.organization.buckets) {
+                  source.organization.buckets.forEach(sector => {
+                    if (sector.orgName.buckets.find(x => x.key === val.value)) {
+                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                      this.activeFilters[foundIndex].translation =
+                      sector.orgName.buckets.find(x => x.key === val.value).label.trim();
+                    }
+                  });
+                }
+              }, 1);
             }
           });
           // Set flag when all filters are translated & filter items that aren't hidden

@@ -45,20 +45,22 @@ export class FundingFilters {
 
   shapeData(data) {
     const source = data.aggregations;
-    // Year
-    source.year.buckets = source.year.years.buckets;
-    // Organization
-    source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
-    // Funder
-    source.funder.buckets = this.funder(source.funder.funders.buckets);
-    // Type of funding
-    source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
-    // Major field
-    source.field.buckets = this.minorField(source.field.fields.buckets);
-    // Finnish Academy field
-    source.faField = source.faField.faFields;
+    if (!source.shaped) {
+      // Year
+      source.year.buckets = source.year.years.buckets;
+      // Organization
+      source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
+      // Funder
+      source.funder.buckets = this.funder(source.funder.funders.buckets);
+      // Type of funding
+      source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
+      // Field of science
+      source.field.buckets = this.minorField(source.field.fields.buckets);
+      // Finnish Academy field
+      source.faField = source.faField.faFields;
+      source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
+    }
     source.shaped = true;
-    source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
     return source;
   }
 
@@ -66,29 +68,37 @@ export class FundingFilters {
     let fData = fgp.funded.sectorName.buckets;
     const oData = oc.funded.sectorName.buckets;
 
-    // // Find differences in consortium and funding group data, merge difference into fData
+
+    // Find differences in consortium and funding group data, merge difference into fData
     const parentDiff = oData.filter(item1 => !fData.some(item2 => (item2.key === item1.key)));
     if (parentDiff.length > 0) {fData = fData.concat(parentDiff); }
 
+
     // Find differences in organizations and push into parent, sum duplicate orgs doc counts
     fData.forEach((item, i) => {
-      const diff = oData[i]?.organizations.buckets.filter(item1 =>
-                   !fData[i].organizations?.buckets.some(item2 => (item2.key === item1.key)));
+      // Find differences between fundingGroupPerson and OrganizationConsortium.
+      // Both data sources are sorted alphabetically to match sectors
+      const diff = oData.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)[i]?.organizations.buckets.filter(item1 =>
+                  !fData.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)[i].organizations?.buckets.sort()
+                  .some(item2 => (item2.key === item1.key)));
 
+      // Find duplicates in fundingGroupPerson and OrganizationConsortium
       const duplicate = oData[i]?.organizations.buckets.filter(item1 =>
-        fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
+                        fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
 
-      if (diff?.length > 0  && duplicate?.length > 0) {
-        item.organizations.buckets.map(org => {
-          org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
-        });
-      }
+      // Push differences into fundingGroupPerson
+      diff.forEach(x => {
+        item.organizations.buckets.push(x);
+      });
 
-      if (diff?.length > 0) {
-        diff.forEach(x => {
-          item.organizations.buckets.push(x);
-        });
-      }
+      // Get filtered sums as doc_count
+      item.organizations.buckets.map(org => {
+        org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
+      });
+
+      // Sort by doc count
+      item.organizations.buckets.sort((a, b) => b.doc_count - a.doc_count);
+
     });
 
     // Add data into buckets field, set key and label
@@ -101,6 +111,7 @@ export class FundingFilters {
           subItem.doc_count = subItem.doc_count;
       });
     });
+
     return merged;
   }
 
@@ -108,6 +119,11 @@ export class FundingFilters {
     // Filter out empty keys
     const res = data.filter(item => {
       return item.key !== ' ';
+    });
+
+    res.map(item => {
+      item.label = item.key;
+      item.key = item.funderId.buckets[0].key;
     });
     return res;
   }

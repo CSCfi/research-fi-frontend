@@ -13,18 +13,15 @@ import { isNumber } from 'util';
   providedIn: 'root'
 })
 export class SettingsService {
-indexList: string;
-aggsOnly: string;
-exactField: any;
+  indexList: string;
+  aggsOnly: string;
   target: any;
+  // Related is used to indicate that query is done with different settings
+  related = false;
 
   constructor( private staticDataService: StaticDataService) {
     this.indexList = 'publication,funding,infrastructure,organization' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
-  }
-
-  strictFields(field) {
-    this.exactField = field;
   }
 
   changeTarget(target) {
@@ -33,25 +30,19 @@ exactField: any;
 
    // Global settings for query, auto-suggest settings are located in autosuggest.service
   querySettings(index: string, term: any) {
-    // if (this.exactField === this.exactField) {this.exactField = undefined; }
     let targetFields: any;
     let onlyDigits: any;
     let hasDigits: any;
     let targetAnalyzer: string;
     let targetType: string;
 
-    // Use exact field when doing a search from single document page
-    targetFields = this.exactField ? this.exactField : this.staticDataService.queryFields(index);
-    // const nestedFields = this.staticDataService.nestedQueryFields(index);
-
-    if (this.exactField) {
-      targetFields = this.exactField;
-    } else if (this.target) {
+    // Targeted search uses exact fields for search
+    // Related fields are used in single result pages
+    if (this.target) {
       targetFields = this.staticDataService.targetFields(this.target, index);
     } else {
-      targetFields = this.staticDataService.queryFields(index);
+      targetFields = this.related ? this.staticDataService.relatedFields(index) : this.staticDataService.queryFields(index);
     }
-
 
     // Set analyzer & type
     onlyDigits = /^\d+$/.test(term);
@@ -84,7 +75,8 @@ exactField: any;
                 type: targetType,
                 fields: targetFields.length > 0 ? targetFields : '',
                 operator: 'AND',
-                lenient: 'true'
+                lenient: 'true',
+                max_expansions: 1024
               }
             },
             {
@@ -98,6 +90,29 @@ exactField: any;
             },
             ...(index === 'publication' ? [{ bool: { should: this.generateNested('publication', term) } }] : []),
             ...(index === 'funding' ? [{ bool: { should: this.generateNested('funding', term) } }] : []),
+            // News content field has umlauts converted to coded characters, query needs to be made with both coded and decoded umlauts
+            ...(index === 'news' ? [
+              {
+                multi_match: {
+                  query: term.replace(/ä/g, '&auml;').replace(/ä/g, '&ouml;'),
+                  analyzer: targetAnalyzer,
+                  type: targetType,
+                  fields: targetFields.length > 0 ? targetFields : '',
+                  operator: 'AND',
+                  lenient: 'true',
+                  max_expansions: 1024
+                }
+              },
+              {
+                multi_match: {
+                  query: term.replace(/ä/g, '&auml;').replace(/ö/g, '&ouml;'),
+                  type: 'cross_fields',
+                  fields: targetFields.length > 0 ? targetFields : '',
+                  operator: 'AND',
+                  lenient: 'true'
+                }
+              }
+            ] : []),
           ]
         }
       }
@@ -107,9 +122,11 @@ exactField: any;
     return res;
   }
 
+  // Fields with nested type need different query syntax with path
   generateNested(index, term) {
     const targetFields = this.target ? this.staticDataService.targetNestedQueryFields(this.target, index) :
-                                 this.staticDataService.nestedQueryFields(index);
+    (this.related ? this.staticDataService.nestedRelatedFields(index) : this.staticDataService.nestedQueryFields(index));
+
     let res;
     switch (index) {
       case 'publication': {

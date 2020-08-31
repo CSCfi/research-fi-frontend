@@ -28,7 +28,7 @@
         </div>
         <div class="col col-lg-1 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="utilityService.sortBy('year')" (keydown.enter)="utilityService.sortBy('year')" i18n="@@publicationYear">Vuosi</span>
+            (click)="utilityService.sortBy('year')" (keydown.enter)="utilityService.sortBy('year')" i18n="@@year">Vuosi</span>
         </div>
     </div>
     <div *ngIf="resultData" class="result-container">

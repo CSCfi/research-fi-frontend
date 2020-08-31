@@ -35,11 +35,11 @@ export class FilterMethodService {
     // Map fields by field & nested id
     if (source && source.length > 0) {
       mapped = source.map(majorField => ({
-        key: majorField.key,
+        key: majorField.fieldId.buckets[0]?.key || - 1,
         label: majorField.key,
         // Invalid response if key is 0
-        id: majorField.fieldId.buckets[0].key || - 1,
-        doc_count: majorField.fieldId.buckets[0].key ? majorField.fieldId.buckets[0].doc_count : - 1
+        id: majorField.fieldId.buckets[0]?.key || - 1,
+        doc_count: majorField.fieldId.buckets[0]?.key ? majorField.fieldId.buckets[0].doc_count : - 1
       }));
     }
     // Loop through major fields & push all instances as separate arrays

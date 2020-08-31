@@ -21,7 +21,6 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() relatedFilters: any;
 
   relatedList = [
-    // LOCALIZE
     {label: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: true},
     {label: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true},
     {label: $localize`:@@fundings:Hankkeet`, tab: 'fundings', disabled: true},
@@ -61,10 +60,15 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   // Get doc counts with single service getCount method, assign to to docCountData and show in appropriate counts in template
   getDocCounts(id: string) {
     this.singleService.getCount(this.currentParent, id, this.relatedFilters).subscribe((data) => {
-      this.docCountData = data;
-      this.docCountData = this.docCountData.aggregations._index.buckets;
-      // Set related list item to disabled to false if matching item has docs
-      this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
+      // TODO: Remove check for currentParent
+      this.docCountData = this.currentParent === 'organizations' ? data : [];
+      if (this.docCountData.aggregations) {
+        this.docCountData = this.docCountData?.aggregations?._index.buckets;
+
+        // Set related list item to disabled to false if matching item has docs
+        this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
+      }
+
     });
   }
 

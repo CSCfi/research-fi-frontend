@@ -18,6 +18,9 @@ export class DataService {
   private errorSource = new Subject<HttpErrorResponse>();
   currentError = this.errorSource.asObservable();
 
+  private filterSource = new Subject<{filter: string, key: string}>();
+  newFilter = this.filterSource.asObservable();
+
   totalResults: number | string = 0;
 
   researchFigureScrollLocation = 0;
@@ -45,5 +48,9 @@ export class DataService {
 
   updateResearchScroll(value: number) {
     this.researchFigureScrollLocation = value;
+  }
+
+  changeFilter(filter: string, key: string) {
+    this.filterSource.next({filter: filter, key: key});
   }
 }

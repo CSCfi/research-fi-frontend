@@ -28,7 +28,7 @@ export class OrganizationFilters {
     {id: '3', tooltip: $localize`:@@org3Tooltip:Eri hallinnonalojen alaiset tutkimuslaitokset, jotka ovat toimittaneet tietoja tiedejatutkimus.fi &#8209;palveluun.`},
     {id: '4', tooltip: $localize`:@@org4Tooltip:Suomessa on viisi asetuksella säädettyä yliopistollisen sairaalan erityisvastuualuetta. Kaikki toimittavat julkaisutietojaan tiedejatutkimus.fi &#8209;palveluun.`},
     {id: '5', tooltip: $localize`:@@org5Tooltip:Tutkimusrahoittajat, jotka ovat toimittaneet rahoituspäätösten tietoja tiedejatutkimus.fi &#8209;palveluun.`},
-    {id: '6', tooltip: $localize`:@@other:Muu`}
+    {id: '6', tooltip: $localize`:@@org6Tooltip:Muut tutkimuskentällä toimivat organisaatiot, jotka eivät kuulu edellisiin kategorioihin.`}
   ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}

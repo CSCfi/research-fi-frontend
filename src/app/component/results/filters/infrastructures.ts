@@ -37,7 +37,7 @@ export class InfrastructureFilters {
     // Type
     source.type.buckets = this.typeLabel(source.type.types.buckets);
     // Field of science
-    source.field = source.infraField.infraFields;
+    source.field = this.field(source.infraField.infraFields);
     source.shaped = true;
     return source;
   }
@@ -45,6 +45,7 @@ export class InfrastructureFilters {
   organization(data) {
     data.buckets = data.sector ? data.sector.buckets : [];
     data.buckets.forEach(item => {
+      item.id = item.sectorId.buckets[0].key;
       item.subData = item.organizations.buckets;
       item.subData.map(subItem => {
           subItem.label = subItem.key;
@@ -52,6 +53,8 @@ export class InfrastructureFilters {
           // subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
     });
+    // Sort by sector id
+    data.buckets.sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
   }
 
   typeLabel(data) {
@@ -77,6 +80,15 @@ export class InfrastructureFilters {
       doc_count: item.doc_count
     });
     return result;
+  }
+
+  field(data) {
+    data.buckets.map(item => {
+      item.label = item.key;
+      item.key = item.majorId.buckets[0].key;
+      item.doc_count = item.filtered.filterCount.doc_count;
+    });
+    return data;
   }
 
   getSingleAmount(data) {

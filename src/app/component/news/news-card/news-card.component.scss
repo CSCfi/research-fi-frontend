@@ -26,8 +26,26 @@ a:focus {
 }
 
 img {
-    max-width: 140px;
-    height: auto;
+    max-width: 100%;
+    max-height: 100px;
+}
+
+mat-card-content .preview {
+    // IE
+    display: block;
+    line-height: 1.5em;
+    max-height: 4.4em;
+
+    // Major browsers
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    p {
+        margin-bottom: 0;
+    }
 }
 
 // Side news

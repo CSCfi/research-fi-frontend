@@ -62,7 +62,6 @@ app-search-bar {
         display: table-cell;
         vertical-align: middle;
         padding-right: .1px;
-        // display: none;
     }
 
     .mat-select-arrow {
@@ -86,9 +85,19 @@ app-search-bar {
     }
 
     // Input
-
     .form-control {
-        border: 1px solid #ced4da;
+        border: none
+    }
+
+    .search-input {
+        padding: 5px 0;
+    }
+
+    .search-input input {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        border: none;
     }
     
     .col-12.search.increase {
@@ -96,7 +105,7 @@ app-search-bar {
     }
     
     .has-search .form-control {
-        padding-left: 25px;
+        padding: 0;
         font-size: 25px;
         border-top-right-radius: .25rem!important;
         border-bottom-right-radius: .25rem!important;
@@ -129,7 +138,7 @@ app-search-bar {
         padding: 15px;
     }
     
-    input {
+    input, .search-input {
         z-index: 102;
     }
     
@@ -175,6 +184,7 @@ app-search-bar {
         font-size: 25px;
         position: absolute;
         z-index: -999;
+        // left: -9999px;
     }
     
     .completion {
@@ -182,6 +192,16 @@ app-search-bar {
         opacity: 0.4;
         height: 100%;
         display: flex;
+    }
+
+    // Reset search
+    .reset {
+        margin-top: -4px;
+    }
+
+    #resetSearch {
+        cursor: pointer;
+        font-size: 1rem;
     }
     
     // Button
@@ -237,10 +257,6 @@ app-search-bar {
     .row.results {
         padding: 10px 0;
     }
-    
-    // .row.helper {
-    //     padding-bottom: 1rem;
-    // }
     
     .auto-suggest h2, .auto-suggest h3 {
         font-size: 0.9rem;
@@ -349,10 +365,8 @@ app-search-bar {
         position: absolute;
         z-index: 98;
         left: 0;
-        // top: 212px;
         background: rgba(0,0,0,0.5);
         width: 100%;
-        height: calc(100% - 23px);
     }
     
     // Responsive
@@ -381,9 +395,8 @@ app-search-bar {
             padding: 0;
             padding-top: 15px;
         }
-    
-        .has-search .form-control {
-            padding-left: 15px;
+
+        .has-search .form-control, .search-input input {
             border-radius: .25rem!important;
         }
     
@@ -429,6 +442,10 @@ app-search-bar {
             font-size: 1.6rem;
         }
     
+        .reset {
+            margin-top: 2px;
+        }
+
         .form-group.has-search .form-control{
             font-size: 1rem;
         }

@@ -6,7 +6,7 @@
 // # :license: MIT
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient-organization.model';
 
 export class Recipient {
@@ -97,7 +97,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             recipientObj?.consortiumOrganizationNameFi, // organizationName
             recipientObj?.consortiumOrganizationId,
             recipientObj?.shareOfFundingInEur,
-            item.amount_in_EUR,
+            Math.round(item.amount_in_EUR),
             // tslint:disable-next-line: max-line-length
             (item.fundingContactPersonFirstNames || '') + ' ' + (item.fundingContactPersonLastName || ''), // Add "existence check" because of string operation
             item.fundingContactPersonOrcid,

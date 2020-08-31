@@ -11,17 +11,9 @@
                 color: mat-contrast($primary, 200);
             }
             
-            li a {
+            li a, li a:hover, .href, .href:hover, .fa {
                 color: mat-color($primary);
             }
-            
-            li a:hover {
-                color: mat-color($primary);
-            }
-            
-            .fa {
-                color: mat-color($primary);
-            } 
         }
     }
 }

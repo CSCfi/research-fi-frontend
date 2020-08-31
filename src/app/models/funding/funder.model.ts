@@ -5,9 +5,9 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Adapter } from './adapter.model';
+import { Adapter } from '../adapter.model';
 import { Injectable } from '@angular/core';
-import { LanguageCheck } from './utils';
+import { LanguageCheck } from '../utils';
 
 export class Funder {
     constructor(

@@ -22,6 +22,9 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SettingsService } from 'src/app/services/settings.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FilterService } from 'src/app/services/filter.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ResizeService } from 'src/app/services/resize.service';
+import { WINDOW } from 'src/app/services/window.service';
 
 interface Target {
   value: string;
@@ -54,6 +57,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   @ViewChildren(ListItemComponent) items: QueryList<any>;
   private keyManager: ActiveDescendantKeyManager<ListItemComponent>;
 
+  faTimes = faTimes;
+
   docList = [
     {index: 'publication', field: 'publicationName', link: 'publicationId'},
     {index: 'funding', field: 'projectNameFi', link: 'projectId'},
@@ -81,6 +86,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   additionalItems = ['clear'];
   completion: string;
   inputMargin: string;
+  resetMargin: string;
   isBrowser: boolean;
   currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
   selectedTab: string;
@@ -91,11 +97,12 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   queryParams: any;
   selectedTarget: any;
   currentLocale: any;
+  browserHeight: number;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
-               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
+               @Inject(DOCUMENT) private document: Document, @Inject(WINDOW) private window: Window, @Inject(PLATFORM_ID) private platformId: object,
                private settingService: SettingsService, public utilityService: UtilityService,
                @Inject(LOCALE_ID) protected localeId, private filterService: FilterService ) {
                 // Capitalize first letter of locale
@@ -128,13 +135,19 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   onFocus() {
-    this.fireAutoSuggest();
     // Show auto-suggest when input in focus
+    if (this.currentInput !== this.queryField.value) {
+      this.fireAutoSuggest();
+    }
     this.showAutoSuggest = true;
     // Hides query history if search term isn't altered after history clear button click
     this.queryHistory = this.getHistory();
     // Set queryfield value to trigger subscription and fetch suggestions
     this.queryField.setValue(this.searchInput.nativeElement.value);
+
+    // This is used for overlay heigth calcualtion
+    this.browserHeight = this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
+
     this.setCompletionWidth();
   }
 
@@ -147,6 +160,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
       this.currentInput = result;
       if (result.length > 2) {
+        this.topData = []; this.otherData = [];
         this.autosuggestService.search(result).pipe(map(response => [response]))
         .subscribe(response => {
           // Sort indices with highest doc count
@@ -159,8 +173,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
           });
           // Show hits for top 2 indices with most results
           this.topData = arr.slice(0, 2);
-          // Todo: Change value to 5 when all indices are added
-          this.otherData = arr.slice(3);
+          // List other indices, filter out indices with no results
+          this.otherData = arr.slice(2).filter(x => x.source.doc_count > 0);
           // Completion
           this.getCompletion();
         });
@@ -171,6 +185,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   // Keycodes
   onKeydown(event) {
+    // Reset completion with else than right arrow
+    if (event.keyCode !== 39) {this.completion = ''; }
     this.showAutoSuggest = true;
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
@@ -188,7 +204,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
         this.searchService.updateInput(this.searchInput.nativeElement.value);
         this.router.navigate(['results/', doc, id || '']);
       } else if (doc && term) {
-        this.searchService.singleInput = term.value;
+        this.searchService.searchTerm = term.value;
         this.newInput(doc, undefined);
       } else if (history) {
         this.newInput(undefined, history);
@@ -244,8 +260,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     const span = this.document.getElementById('completionAssist');
     span.innerHTML = this.searchInput.nativeElement.value;
     const width = span.offsetWidth;
-    span.style.fontSize = 25;
-    this.inputMargin = (width + 210) + 'px';
+    span.style.fontSize = '25px';
+    const margin = 16;
+    this.inputMargin = (width + margin) + 'px';
+  }
+
+  getResetMargin(w: number) {
+    if (isPlatformBrowser(this.platformId)) {
+      const margin = w < 1200 ? 30 : 50;
+      const outer = this.inputGroup.nativeElement.getBoundingClientRect();
+      const inner = this.searchInput.nativeElement.getBoundingClientRect();
+      return inner.x - outer.x + inner.width - 30 + 'px';
+    }
   }
 
   // Add completion with right arrow key if caret is at the end of term
@@ -285,11 +311,18 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     this.selectedTarget = target || null;
   }
 
+  resetSearch() {
+    this.searchInput.nativeElement.value = '';
+    this.selectedTarget = '';
+    // Navigate only if search term already in use
+    if (this.searchService.searchTerm.length > 0) {this.newInput(false, false); }
+  }
+
   newInput(selectedIndex, historyLink) {
+    // Check that current target exists in predefined list, reset if not
+    this.selectedTarget = this.targets.find(item => item.value === this.selectedTarget) ? this.selectedTarget : '';
     // Copy queryparams, set target and reset page
     const newQueryParams = {...this.queryParams, target: this.selectedTarget, page: 1};
-    // Reset exact field search
-    this.settingService.strictFields(undefined);
     // Hide search helper
     this.showHelp = false;
     // Reset focus target
@@ -313,7 +346,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       this.searchService.updateInput(this.searchInput.nativeElement.value);
     }
     // Reset / generate timestamp for randomized results
-    this.searchService.singleInput.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
+    this.searchService.searchTerm.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
 
     this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
@@ -321,10 +354,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
       // Temporary default to publications
       // Change tab if clicked from auto suggest
       if (selectedIndex) {
-        this.router.navigate(['results/', selectedIndex + 's', this.searchService.singleInput || '']);
+        this.router.navigate(['results/', selectedIndex + 's', this.searchService.searchTerm || '']);
         } else {
           // Preserve queryParams with new search to same index. Use queryParams with added target if selected
-          this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.singleInput || ''],
+          this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.searchTerm || ''],
           {queryParams: newQueryParams});
       }
     });
@@ -363,5 +396,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
 
   onClickedOutside(e: Event) {
     this.showHelp = false;
+  }
+
+  onResize(dims: {width: number, height: number}) {
+    // this.resetMargin = this.getResetMargin(dims.w);
   }
 }

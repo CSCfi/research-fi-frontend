@@ -7,7 +7,7 @@ export class ReplaceSpacePipe implements PipeTransform {
 
   transform(value: string): unknown {
     // tslint:disable-next-line: curly
-    return value.replace(/ |,/g, '-');
+    return value.replace(/ |,|./g, '-');
   }
 
 }

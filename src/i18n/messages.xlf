@@ -635,7 +635,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedFundings" datatype="html">
-        <source>Tähän hankkeeseen liittyvät</source>
+        <source>Hae hankkeeseen liittyvät</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">242</context>
@@ -777,7 +777,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedOrganizations" datatype="html">
-        <source>Organisaation</source>
+        <source>Hae organisaatioon liittyvät</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">135</context>
@@ -935,7 +935,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="relatedInfrastructures" datatype="html">
-        <source>Infrastruktuurin</source>
+        <source>Hae infrastruktuuriin liittyvät</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">166</context>
@@ -1803,7 +1803,7 @@
         <note priority="1" from="description">Footer-link</note>
       </trans-unit>
       <trans-unit id="footerLink7" datatype="html">
-        <source>tiedejatutkimus@csc.fi</source>
+        <source>Ota yhteyttä</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
           <context context-type="linenumber">46</context>
