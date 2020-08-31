@@ -34,7 +34,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
   currentParent: string;
   routeSub: any;
   currentLocale: string;
-  queryParams: { [x: string]: any; };
+  queryParams: any;
 
   constructor( private singleService: SingleItemService, private route: ActivatedRoute, private router: Router,
                @Inject(LOCALE_ID) protected localeId: string ) {
@@ -44,7 +44,6 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit(): void {
-    this.queryParams = {[this.filter]: this.id};
     // Subscribe to route params, get current parent from current url
     this.routeSub = this.route.params.subscribe(param => {
       const currentUrl = this.router.url;
@@ -54,21 +53,42 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
       this.currentParent = s[1].path + 's';
       this.relatedList = this.relatedList.filter(item => item.tab !== this.currentParent);
     });
-    if (this.id) {this.getDocCounts(this.id); }
+
+
+    // Testing
+    if (this.relatedFilters) {
+      this.setRelated();
+    } else {
+      if (this.id) {this.getDocCounts(this.id); }
+    }
+  }
+
+  setRelated() {
+    this.queryParams = {};
+    const orgDocCount = this.relatedFilters[0].organizations.reduce((acc, element) => acc + element.organization.length, 0);
+    this.docCountData.organizations = {doc_count: orgDocCount};
+    this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
+
+    // Join organizations and map IDs
+    const orgs = this.relatedFilters[0].organizations.flatMap(item => item.organization).map(item => item.organizationId);
+
+
+    // Set query params
+    Object.assign(this.queryParams, {organization: orgs});
+
   }
 
   // Get doc counts with single service getCount method, assign to to docCountData and show in appropriate counts in template
   getDocCounts(id: string) {
+    this.queryParams = {[this.filter]: this.id};
     this.singleService.getCount(this.currentParent, id, this.relatedFilters).subscribe((data) => {
       // TODO: Remove check for currentParent
       this.docCountData = this.currentParent === 'organizations' ? data : [];
       if (this.docCountData.aggregations) {
         this.docCountData = this.docCountData?.aggregations?._index.buckets;
-
         // Set related list item to disabled to false if matching item has docs
         this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
       }
-
     });
   }
 
