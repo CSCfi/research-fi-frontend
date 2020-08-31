@@ -228,9 +228,21 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.shapeData();
         this.filterData();
         this.checkDoi();
+        this.related();
       }
     },
       error => this.errorMessage = error as any);
+  }
+
+  related() {
+    const source = this.responseData.publications[0];
+
+    const target = [
+      {
+        organizations: source.author
+      }
+    ];
+    return target;
   }
 
   checkDoi() {
