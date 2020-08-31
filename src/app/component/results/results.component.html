@@ -28,7 +28,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <div class="col-auto align-self-center px-0 pr-lg-3" *ngIf="selectedTabData">
                         <app-result-count></app-result-count>
                     </div>
-                    <div class="col-12"></div>
+                    <!-- <div class="col-12"></div> -->
                     <div class="col-auto text-right align-self-center d-none d-lg-block">
                         <a routerLink="/service-info" fragment="1" class="theme-link">
                             <strong>
@@ -40,7 +40,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 </div>
             </div>
         </div>
-        <div>
+        <!-- <div>
             <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle>
             <div>
                 <mat-form-field *ngIf="visual && !mobile">
@@ -51,7 +51,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 </mat-form-field>
                 <mat-slide-toggle [(ngModel)]="percentage" *ngIf="visual && !mobile">Näytä prosentteina</mat-slide-toggle>
             </div>
-        </div>
+        </div> -->
         <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
             <a (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
             (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus(); showSkipLinks = false" href="javascript:void(0)">
