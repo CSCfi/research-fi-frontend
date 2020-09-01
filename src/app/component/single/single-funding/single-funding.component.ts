@@ -96,6 +96,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   tabData: any;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
+  relatedData: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
@@ -191,6 +192,23 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
     // Get label by locale
     source.academyConsortium = source.academyConsortium ? source?.academyConsortium['label' + locale] : '';
+
+    // Related data
+    let relatedOrgs = [];
+    if (source.recipient.organizations.length) {
+      relatedOrgs = source.recipient.organizations.filter(item => item.businessId).map(item => item.id);
+    } else if (source.recipient.organizationId) {
+      relatedOrgs.push(source.recipient.organizationId);
+    }
+
+    // Add funder to organizations, excluding EU as funder
+    if (source.funder.businessId && !source.euFunding) {
+      relatedOrgs.push(source.funder.businessId.replace('-', ''));
+    }
+
+    this.relatedData = {
+      organizations: relatedOrgs
+    };
   }
 
   shapeAmount(val) {
