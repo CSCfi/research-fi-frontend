@@ -60,6 +60,13 @@ app-news {
         border: 2px solid;
     }
 
+    .older-search-term {
+        padding-bottom: 1rem;
+        mark {
+            padding: 0 2px;
+        }
+    }
+
     // Override filter button width
     .mobile {
         max-width: 100%!important;

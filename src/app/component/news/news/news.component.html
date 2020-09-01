@@ -77,7 +77,8 @@
             </div>
             <div class="col-12 col-lg-4 col side-news" [class.p-0]="mobile" *ngIf="olderData?.length">
                 <h2 class="pt-3 px-0 pb-3" #older i18n="@@olderNews">Aiempia uutisia</h2>
-                <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true"></app-news-card>
+                <div *ngIf="currentTerm" class="older-search-term">Joihin sisältyy hakutermi <mark>{{currentTerm}}</mark></div>
+                <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true" [term]="currentTerm"></app-news-card>
                 <app-news-pagination [responseData]="data"></app-news-pagination>
             </div>
         </div>
