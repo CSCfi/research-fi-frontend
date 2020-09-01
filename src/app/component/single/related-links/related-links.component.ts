@@ -65,17 +65,18 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
 
   setRelated() {
     this.queryParams = {};
-    const orgDocCount = this.relatedFilters[0].organizations.reduce((acc, element) => acc + element.organization.length, 0);
-    this.docCountData.organizations = {doc_count: orgDocCount};
-    this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
+    if (this.relatedFilters[0]?.organizations) {
+      const orgDocCount = this.relatedFilters[0].organizations.reduce((acc, element) => acc + element.organization.length, 0);
+      this.docCountData.organizations = {doc_count: orgDocCount};
+      this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
 
-    // Join organizations and map IDs
-    const orgs = this.relatedFilters[0].organizations.flatMap(item => item.organization).map(item => item.organizationId);
+      // Join organizations and map IDs
+      const orgs = this.relatedFilters[0].organizations.flatMap(item => item.organization).map(item => item.organizationId);
 
 
-    // Set query params
-    Object.assign(this.queryParams, {organization: orgs});
-
+      // Set query params
+      Object.assign(this.queryParams, {organization: orgs});
+    }
   }
 
   // Get doc counts with single service getCount method, assign to to docCountData and show in appropriate counts in template
