@@ -69,7 +69,7 @@
                         <h2 class="col-12 px-0 pt-0 pt-lg-3"><ng-container i18n="@@latest">Uusimmat</ng-container> ({{data[0]?.total | thousandSeparator}})</h2>
                         <app-news-card *ngFor="let item of data" [item]="item" [term]="currentTerm"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
-                            <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
+                            <h3><ng-container i18n="@@noResults">Ei tuloksia hakutermillä</ng-container> "{{currentTerm}}".</h3><br>
                             <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
                         </div>
                     </div>
