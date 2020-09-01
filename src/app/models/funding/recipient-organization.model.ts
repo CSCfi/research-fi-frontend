@@ -17,7 +17,8 @@ export class RecipientOrganization {
         public role: string,
         public shareOfFundingEur: number,
         public pic: string,
-        public countryCode: string
+        public countryCode: string,
+        public sectorId: string
     ) {}
 }
 
@@ -38,7 +39,8 @@ export class RecipientOrganizationAdapter implements Adapter<RecipientOrganizati
             this.lang.translateRole(item.roleInConsortium, item.euFunding),
             item.shareOfFundingInEur,
             item.consortiumOrganizationPic,
-            item.consortiumOrganizationCountryCode
+            item.consortiumOrganizationCountryCode,
+            item.consortiumSectorId
         );
     }
 }
