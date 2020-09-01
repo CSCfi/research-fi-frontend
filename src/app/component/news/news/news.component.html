@@ -25,7 +25,8 @@
                         <form>
                             <div class="row d-flex">
                                 <div class="col input pl-0">
-                                    <input #searchInput [formControl]="queryField" mat-input type="text" value="{{searchService.currentInput | async}}" id="searchInput"
+                                    <label for="searchInput" class="sr-only" i18n="@@searchNewsPlaceHolder">Hae uutisista...</label>
+                                    <input #searchInput id="searchInput" [formControl]="queryField" mat-input type="text" value="{{searchService.currentInput | async}}" id="searchInput"
                                     i18n-placeholder="@@searchNewsPlaceHolder" placeholder="Hae uutisista..." class="search">
                                     <span #reset tabindex="0" class="reset" *ngIf="queryField?.value?.length > 0" (click)="resetSearch()"
                                     (mouseenter)="utilityService.tooltipMouseenter(reset)" i18n-tooltip="@@resetSearchTooltip" tooltip="Tyhjennä haku" triggers="focus keydown.escape" (keydown)="utilityService.tooltipKeydown(elem, $event)">
@@ -34,7 +35,7 @@
                                 </div>
                                 <div class="col-auto pr-0">
                                     <button type="submit" class="search" mat-button color="primary" (click)="searchNews()">
-                                        <ng-container i18n="Search@@searchButton">Hae</ng-container><i class="pl-1 fa fa-search"></i>
+                                        <i class="pr-1 fa fa-search"></i><ng-container i18n="Search@@searchButton">Hae</ng-container>
                                     </button>
                                 </div>
                             </div>
@@ -69,7 +70,7 @@
                         <h2 class="col-12 px-0 pt-0 pt-lg-3"><ng-container i18n="@@latest">Uusimmat</ng-container> ({{data[0]?.total | thousandSeparator}})</h2>
                         <app-news-card *ngFor="let item of data" [item]="item" [term]="currentTerm"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
-                            <h3 i18n="@@noResults">Ei tuloksia.</h3><br>
+                            <h3><ng-container i18n="@@noResults">Ei tuloksia hakutermillä</ng-container> "{{currentTerm}}".</h3><br>
                             <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
                         </div>
                     </div>
@@ -77,6 +78,7 @@
             </div>
             <div class="col-12 col-lg-4 col side-news" [class.p-0]="mobile" *ngIf="olderData?.length">
                 <h2 class="pt-3 px-0 pb-3" #older i18n="@@olderNews">Aiempia uutisia</h2>
+                <div *ngIf="currentTerm" class="older-search-term">Joihin sisältyy hakutermi <mark>{{currentTerm}}</mark></div>
                 <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true" [term]="currentTerm"></app-news-card>
                 <app-news-pagination [responseData]="data"></app-news-pagination>
             </div>

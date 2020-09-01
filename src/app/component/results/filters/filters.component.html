@@ -154,7 +154,7 @@
                             <!-- TODO: Change aria label field when content available -->
                             <mat-selection-list [attr.aria-label]="filter.field">
                                 <!-- Select all -->
-                                <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" 
+                                <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" (keydown.space)="selectAll(filter.field, item)" 
                                 [selected]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')" [id]="filter.field + 'all' | replaceSpace">
                                     <div class="row d-flex justify-content-start">
                                         <div class="col-9"><span class="font-weight-bold label" i18n="@@selectAll">Valitse kaikki</span></div>
@@ -163,7 +163,7 @@
                                 </mat-list-option>
                                 <!-- Options -->
                                 <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen)); trackBy: trackByFn" (click)="selectionChange(filter.field, field.key)"
-                                (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" [id]="filter.field + field.key | replaceSpace">
+                                (keydown.enter)="selectionChange(filter.field, field.key)" (keydown.space)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" [id]="filter.field + field.key | replaceSpace">
                                     <div class="row d-flex justify-content-around">
                                         <div class="col-9"><span class="label">{{field.label}}</span></div>
                                         <div class="col-3 count align-self-center"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>

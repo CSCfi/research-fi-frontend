@@ -18,6 +18,10 @@
             border: 1px solid mat-color($primary);
         }
 
+        .older-search-term {
+            color: mat-contrast($primary, 400)
+        }
+
         .input {
             background: white;
             border: 2px solid mat-color($primary);
