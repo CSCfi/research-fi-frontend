@@ -91,7 +91,9 @@ export class FundingAdapter implements Adapter<Funding> {
         }
 
         const funder = this.f.adapt(item);
-        item.euFunding = funder.name?.toLowerCase() === 'euroopan unioni' ? true : false;
+
+        // Set EU funding status
+        item.euFunding = item.funderNameFi.toLowerCase() === 'euroopan unioni' ? true : false;
 
         const recipient = this.r.adapt(item);
 
