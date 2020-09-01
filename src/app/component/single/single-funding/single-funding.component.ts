@@ -195,8 +195,9 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
     // Related data
     let relatedOrgs = [];
+    // Filter items with sectorId, this makes sure that the organization can be found from organizations tab
     if (source.recipient.organizations.length) {
-      relatedOrgs = source.recipient.organizations.filter(item => item.businessId).map(item => item.id);
+      relatedOrgs = source.recipient.organizations.filter(item => item.sectorId).map(item => item.id);
     } else if (source.recipient.organizationId) {
       relatedOrgs.push(source.recipient.organizationId);
     }
