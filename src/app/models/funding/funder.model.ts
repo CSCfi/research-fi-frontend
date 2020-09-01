@@ -18,6 +18,7 @@ export class Funder {
         public callProgrammeName: string,
         public callProgrammeNameUnd: string,
         public callProgrammeHomePage: string,
+        public businessId: string
     ) {}
 }
 
@@ -34,7 +35,8 @@ export class FunderAdapter implements Adapter<Funder> {
             this.lang.testLang('typeOfFundingName', item).trim().length > 0 ? this.lang.testLang('typeOfFundingName', item) : item.typeOfFundingId,
             this.lang.testLang('callProgrammeName', item),
             item.callProgrammeNameUnd,
-            item.callProgrammeHomePage
+            item.callProgrammeHomePage,
+            item.funderBusinessId[0].pid_content
         );
     }
 }

@@ -950,6 +950,32 @@ export class AggregationService {
             }
           }
         };
+        // organization agg is for filter translations
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('sectorId.keyword')
+            }
+          },
+          aggs: {
+            organizationName: {
+              terms: {
+                field: 'name' + this.localeC + '.keyword',
+                size: 50,
+                order: {
+                  _key: 'asc'
+                }
+              },
+              aggs: {
+                organizationId: {
+                  terms: {
+                    field: 'organizationId.keyword',
+                  }
+                }
+              }
+            }
+          }
+        };
         break;
       // News
       case 'news':

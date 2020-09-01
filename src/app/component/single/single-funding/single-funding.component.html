@@ -78,16 +78,16 @@
                                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                             </div> -->
                                             <div class="col-12 td" [ngClass]="item.euFunding ? 'col-sm-5' : 'col-auto'">
-                                                <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.name}}</a>
-                                                <ng-container *ngIf="org.id && !org.pic">{{org.name}}</ng-container>    
+                                                <a *ngIf="org.id && org.pic && org.sectorId" routerLink="/results/organization/{{org.id}}">{{org.name}}</a>
+                                                <ng-container *ngIf="org.id && (!org.pic || !org.sectorId)">{{org.name}}</ng-container>    
                                                 <ng-container *ngIf="!org.id">{{org.name}}</ng-container>
                                                 <!-- Organization country code when funder is EU -->
                                                 <ng-container *ngIf="item.euFunding && org.countryCode && org.countryCode !== 'FI'"> ({{org.countryCode}})</ng-container>
                                             </div>
-                                            <div class="col-12 td col-sm-3 py-0 py-sm-3" *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
+                                            <div class="col-12 td col-sm-3 mobile-list" *ngIf="org.shareOfFundingEur !== item.recipient.amountEur">
                                                 {{org.shareOfFundingEur | thousandSeparator}} €
                                             </div>
-                                            <div class="col-12 td col-sm-3 py-0 py-sm-3 pb-3" *ngIf="item.euFunding">
+                                            <div class="col-12 td col-sm-3 mobile-list pb-3" *ngIf="item.euFunding">
                                                 {{org.role}}
                                             </div>
                                         </div>
@@ -241,7 +241,7 @@
                 </aside>
                 <mat-card>
                     <mat-card-title><h2><ng-container i18n="@@relatedFundings">Hae hankkeeseen liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
-                    <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
+                    <app-related-links [id]="" [relatedData]="relatedData"></app-related-links>
                 </mat-card>
             </aside>
             <!-- <aside>
