@@ -18,7 +18,7 @@ import { ActivatedRoute, Router, UrlTree, UrlSegmentGroup, PRIMARY_OUTLET, UrlSe
 export class RelatedLinksComponent implements OnInit, OnDestroy {
   @Input() id: any;
   @Input() filter: string;
-  @Input() relatedFilters: any;
+  @Input() relatedData: any;
 
   relatedList = [
     {label: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: true},
@@ -56,7 +56,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
 
 
     // Testing
-    if (this.relatedFilters) {
+    if (this.relatedData) {
       this.setRelated();
     } else {
       if (this.id) {this.getDocCounts(this.id); }
@@ -65,24 +65,19 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
 
   setRelated() {
     this.queryParams = {};
-    if (this.relatedFilters[0]?.organizations) {
-      const orgDocCount = this.relatedFilters[0].organizations.reduce((acc, element) => acc + element.organization.length, 0);
-      this.docCountData.organizations = {doc_count: orgDocCount};
+    if (this.relatedData?.organizations) {
+      this.docCountData.organizations = {doc_count: this.relatedData.organizations.length};
       this.relatedList.map(item => item.disabled = this.docCountData[item.tab]?.doc_count > 0 ? false : true);
 
-      // Join organizations and map IDs
-      const orgs = this.relatedFilters[0].organizations.flatMap(item => item.organization).map(item => item.organizationId);
-
-
       // Set query params
-      Object.assign(this.queryParams, {organization: orgs});
+      Object.assign(this.queryParams, {organization: this.relatedData.organizations});
     }
   }
 
   // Get doc counts with single service getCount method, assign to to docCountData and show in appropriate counts in template
   getDocCounts(id: string) {
     this.queryParams = {[this.filter]: this.id};
-    this.singleService.getCount(this.currentParent, id, this.relatedFilters).subscribe((data) => {
+    this.singleService.getCount(this.currentParent, id, this.relatedData).subscribe((data) => {
       // TODO: Remove check for currentParent
       this.docCountData = this.currentParent === 'organizations' ? data : [];
       if (this.docCountData.aggregations) {
