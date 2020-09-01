@@ -228,21 +228,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
         this.shapeData();
         this.filterData();
         this.checkDoi();
-        this.related();
       }
     },
       error => this.errorMessage = error as any);
-  }
-
-  related() {
-    const source = this.responseData.publications[0];
-
-    const target = [
-      {
-        organizations: source.author
-      }
-    ];
-    return target;
   }
 
   checkDoi() {
@@ -351,7 +339,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           const checkedAuthors = [...new Set(duplicateAuthors)];
 
           // Language check
-          const orgName = org['OrganizationName' + this.currentLocale].trim() || org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() || org?.OrganizationNameSv?.trim();
+          const orgName = org['OrganizationName' + this.currentLocale].trim() ||
+          org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() ||
+          org?.OrganizationNameSv?.trim();
 
           this.authorAndOrganization.push({orgName: orgName, orgId: org.organizationId,
             authors: checkedAuthors, orgUnits: orgUnitArr});
@@ -363,6 +353,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
       this.hasSubUnits = combinedSubUnits.find(item => item.subUnit !== null) ? true : false;
 
+
+      // Related
       this.relatedData = {
           organizations: this.authorAndOrganization.map(item => item.orgId)
       };
