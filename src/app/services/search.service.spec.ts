@@ -54,11 +54,13 @@ describe('SearchService', () => {
     const searchResponseMock = ResponseJsonPublications;
     const http = TestBed.get(HttpTestingController);
     const tabChangeService = TestBed.get(TabChangeService);
+    const sortService = TestBed.get(SortService);
     let searchResponse;
 
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'publications';
+    sortService.sort = '';
 
     searchService.getData().subscribe((response) => {
       searchResponse = response;
@@ -74,11 +76,13 @@ describe('SearchService', () => {
     const searchResponseMock = ResponseJsonFundings;
     const http = TestBed.get(HttpTestingController);
     const tabChangeService = TestBed.get(TabChangeService);
+    const sortService = TestBed.get(SortService);
     let searchResponse;
 
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'fundings';
+    sortService.sort = '';
 
     searchService.getData().subscribe((response) => {
       searchResponse = response;
@@ -94,11 +98,13 @@ describe('SearchService', () => {
     const searchResponseMock = ResponseJsonInfrastructures;
     const http = TestBed.get(HttpTestingController);
     const tabChangeService = TestBed.get(TabChangeService);
+    const sortService = TestBed.get(SortService);
     let searchResponse;
 
     searchService.searchTerm = 'searchtext';
     searchService.fromPage = 1;
     tabChangeService.tab = 'infrastructures';
+    sortService.sort = '';
 
     searchService.getData().subscribe((response) => {
       searchResponse = response;
