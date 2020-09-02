@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID, ViewEncapsulation, LOCALE_ID } from '@angular/core';
+  PLATFORM_ID, ViewEncapsulation, LOCALE_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -40,7 +40,7 @@ interface Target {
     encapsulation: ViewEncapsulation.None,
 })
 
-export class SearchBarComponent implements OnInit, AfterViewInit {
+export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
@@ -98,6 +98,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   selectedTarget: any;
   currentLocale: any;
   browserHeight: number;
+  autoSuggestSub: Subscription;
+  tabSub: Subscription;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -134,6 +136,14 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.routeSub?.unsubscribe();
+      this.autoSuggestSub?.unsubscribe();
+      this.tabSub?.unsubscribe();
+    }
+  }
+
   onFocus() {
     // Show auto-suggest when input in focus
     if (this.currentInput !== this.queryField.value) {
@@ -152,7 +162,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   fireAutoSuggest() {
-    this.queryField.valueChanges.pipe(
+    this.autoSuggestSub = this.queryField.valueChanges.pipe(
       debounceTime(1000),
       distinctUntilChanged()
     )
@@ -348,7 +358,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Reset / generate timestamp for randomized results
     this.searchService.searchTerm.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
 
-    this.searchService.getTabValues().subscribe((data: any) => {
+    this.tabSub = this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
       this.searchService.redirecting = true;
       // Temporary default to publications
