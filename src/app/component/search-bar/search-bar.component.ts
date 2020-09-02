@@ -129,7 +129,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     // Get items for list
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
 
-    this.tabSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
+    this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'search-input') {
         this.searchInput.nativeElement.focus();
       }
@@ -358,7 +358,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     // Reset / generate timestamp for randomized results
     this.searchService.searchTerm.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
 
-    this.searchService.getTabValues().subscribe((data: any) => {
+    this.tabSub = this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
       this.searchService.redirecting = true;
       // Temporary default to publications
