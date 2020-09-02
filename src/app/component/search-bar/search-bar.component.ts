@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID, ViewEncapsulation, LOCALE_ID } from '@angular/core';
+  PLATFORM_ID, ViewEncapsulation, LOCALE_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -40,7 +40,7 @@ interface Target {
     encapsulation: ViewEncapsulation.None,
 })
 
-export class SearchBarComponent implements OnInit, AfterViewInit {
+export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
   @ViewChild('searchBar', { static: true }) searchBar: ElementRef;
@@ -98,6 +98,8 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   selectedTarget: any;
   currentLocale: any;
   browserHeight: number;
+  autoSuggestSub: Subscription;
+  tabSub: Subscription;
 
   constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
                public router: Router, private eRef: ElementRef, private sortService: SortService,
@@ -127,11 +129,19 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
     // Get items for list
     this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
 
-    this.tabChangeService.currentFocusTarget.subscribe(target => {
+    this.tabSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
       if (target === 'search-input') {
         this.searchInput.nativeElement.focus();
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.routeSub?.unsubscribe();
+      this.autoSuggestSub?.unsubscribe();
+      this.tabSub?.unsubscribe();
+    }
   }
 
   onFocus() {
@@ -152,7 +162,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit {
   }
 
   fireAutoSuggest() {
-    this.queryField.valueChanges.pipe(
+    this.autoSuggestSub = this.queryField.valueChanges.pipe(
       debounceTime(1000),
       distinctUntilChanged()
     )
