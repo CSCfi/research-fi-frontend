@@ -35,3 +35,12 @@ td p:first-child {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+@media (max-width: 575px) {
+    .mobile-list {
+        padding: 0 15px!important;
+        &:last-child{
+            margin-bottom: 1rem;
+        }
+    }
+}
