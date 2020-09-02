@@ -16,10 +16,13 @@ export class ScrollService {
   public onScroll = new EventEmitter<{x: number; y: number}>();
 
   private getScroll = (e: any): void => {
-    this.onScroll.emit({
-      x: e.path[1].scrollX,
-      y: e.path[1].scrollY,
-    });
+    if (e.path) {
+      this.onScroll.emit({
+        x: e.path[1].scrollX,
+        y: e.path[1].scrollY,
+      });
+    }
+
   }
 
   constructor(eventManager: EventManager) {
