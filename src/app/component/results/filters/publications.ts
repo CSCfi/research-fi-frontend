@@ -227,7 +227,7 @@ export class PublicationFilters {
     }
 
     if (openAccessCodes.some(e => e.key === 'nonOpenAccess') && openAccessCodes.some(e => e.key === 'selfArchivedNonOpen')) {
-      result.push({key: 'nonOpen', doc_count: nonOpenAccess.filtered.doc_count,  label: $localize`:@@nonOpen:Ei avoin`});
+      result.push({key: 'nonOpen', doc_count: nonOpenAccess?.filtered.doc_count,  label: $localize`:@@nonOpen:Ei avoin`});
     }
 
     if (openAccessCodes.some(e => e.key === 'noOpenAccessData')) {
