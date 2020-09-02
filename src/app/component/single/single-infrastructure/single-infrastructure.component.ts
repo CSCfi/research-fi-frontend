@@ -107,6 +107,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
+  relatedData: {};
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string,
@@ -200,6 +201,12 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     });
 
     source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
+
+    // Related data
+    this.relatedData = {
+      organizations: [source.responsibleOrganizationId]
+    };
+
   }
 
   checkOverflow(elem: HTMLElement) {
