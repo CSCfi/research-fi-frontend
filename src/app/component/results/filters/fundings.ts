@@ -65,8 +65,8 @@ export class FundingFilters {
   }
 
   organization(fgp, oc) {
-    let fData = fgp.funded.sectorName.buckets;
-    const oData = oc.funded.sectorName.buckets;
+    let fData = fgp.funded?.sectorName.buckets || [];
+    const oData = oc.funded?.sectorName.buckets || [];
 
 
     // Find differences in consortium and funding group data, merge difference into fData
