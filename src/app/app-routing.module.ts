@@ -23,6 +23,7 @@ import { PrivacyComponent } from './component/privacy/privacy.component';
 import { AccessibilityComponent } from './component/accessibility/accessibility.component';
 import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
+import { NotFoundComponent } from './common-components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -134,6 +135,10 @@ const routes: Routes = [
   {
     path: 'sitemap',
     component: SitemapComponent
+  },
+  {
+    path: '404',
+    component: NotFoundComponent
   },
   {
     path: '**',
