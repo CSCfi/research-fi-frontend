@@ -71,8 +71,11 @@ export class StaticDataService {
     checked: false
     },
     {id: 7, class: 'G', label: $localize`Opinnäytteet`, types: [
-      {type: 'G4', label: $localize`Monografiaväitöskirja`, key: '', doc_count: 0},
-      {type: 'G5', label: $localize`Artikkeliväitöskirja`, key: '', doc_count: 0}
+      {type: 'G1', label: $localize`:@@gBachelor:Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö`, key: '', doc_count: 0},
+      {type: 'G2', label: $localize`:@@gMaster:Pro gradu, diplomityö, ylempi amk-opinnäytetyö`, key: '', doc_count: 0},
+      {type: 'G3', label: $localize`:@@gLicenciate:Lisensiaatintyö`, key: '', doc_count: 0},
+      {type: 'G4', label: $localize`:@@gMonograph:Monografiaväitöskirja`, key: '', doc_count: 0},
+      {type: 'G5', label: $localize`:@@gArticle:Artikkeliväitöskirja`, key: '', doc_count: 0}
     ]}
   ];
 
