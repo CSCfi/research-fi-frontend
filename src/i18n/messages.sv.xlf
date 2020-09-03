@@ -2208,13 +2208,25 @@
         <source>Opinnäytteet</source>
         <target state="translated">Lärdomsprov</target>
       </trans-unit>
-      <trans-unit id="3294727584034930678">
-        <source>Monografiaväitöskirja</source>
-        <target state="translated">Monografiavhandling</target>
+      <trans-unit id="gBachelor">
+        <source>Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö</source>
+        <target>Lärdomsprov för yrkeshögskoleexamen, kandidatavhandling</target>
       </trans-unit>
-      <trans-unit id="474366377571454001">
+      <trans-unit id="gMaster">
+        <source>Pro gradu, diplomityö, ylempi amk-opinnäytetyö</source>
+        <target>Pro gradu-avhandling, diplomarbete, högre YH-lärdomsprov</target>
+      </trans-unit>
+      <trans-unit id="gLicenciate">
+        <source>Lisensiaatintyö</source>
+        <target>Licentiatavhandling</target>
+      </trans-unit>
+      <trans-unit id="gMonograph">
+        <source>Monografiaväitöskirja</source>
+        <target>Doctoral dissertation (monograph)</target>
+      </trans-unit>
+      <trans-unit id="gArticle">
         <source>Artikkeliväitöskirja</source>
-        <target state="translated">Artikelavhandling</target>
+        <target>Doctoral dissertation (articles)</target>
       </trans-unit>
       <!-- JUFO codes -->
       <trans-unit id="3426911634399671069">

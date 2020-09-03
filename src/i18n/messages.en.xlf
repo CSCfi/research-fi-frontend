@@ -2215,11 +2215,23 @@
         <source>Opinnäytteet</source>
         <target>Theses</target>
       </trans-unit>
-      <trans-unit id="3294727584034930678">
+      <trans-unit id="gBachelor">
+        <source>Ammattikorkeakoulututkinnon opinnäytetyö, kandidaatintyö</source>
+        <target>Polytechnic thesis, Bachelor’s thesis</target>
+      </trans-unit>
+      <trans-unit id="gMaster">
+        <source>Pro gradu, diplomityö, ylempi amk-opinnäytetyö</source>
+        <target>Master’s thesis, polytechnic Master’s thesis</target>
+      </trans-unit>
+      <trans-unit id="gLicenciate">
+        <source>Lisensiaatintyö</source>
+        <target>Licentiate thesis</target>
+      </trans-unit>
+      <trans-unit id="gMonograph">
         <source>Monografiaväitöskirja</source>
         <target>Doctoral dissertation (monograph)</target>
       </trans-unit>
-      <trans-unit id="474366377571454001">
+      <trans-unit id="gArticle">
         <source>Artikkeliväitöskirja</source>
         <target>Doctoral dissertation (articles)</target>
       </trans-unit>
