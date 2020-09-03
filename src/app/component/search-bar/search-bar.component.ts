@@ -123,6 +123,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     // Get previous search term and set it to form control value
     this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
     this.queryField = new FormControl(this.currentTerm);
+
+    // Hotfix to set docList infrastructure field with locale
+    this.docList[2].field = this.docList[2].field + this.currentLocale;
   }
 
   ngAfterViewInit() {
@@ -181,6 +184,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
           .forEach((key) => {
             arr.push({index: key, source: source[key], translation: this.translations[key]});
           });
+          console.log(arr);
           // Show hits for top 2 indices with most results
           this.topData = arr.slice(0, 2);
           // List other indices, filter out indices with no results
