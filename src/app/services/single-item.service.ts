@@ -1,13 +1,17 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { SearchService} from './search.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
-import { FilterService } from './filter.service';
-
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +26,8 @@ export class SingleItemService {
   currentId = this.getIdSubject.asObservable();
   resultId: string;
 
-  constructor( private http: HttpClient, private searchService: SearchService, private appConfigService: AppConfigService,
-               private settingsService: SettingsService, private searchAdapter: SearchAdapter, private filterService: FilterService ) {
+  constructor( private http: HttpClient, private appConfigService: AppConfigService,
+               private settingsService: SettingsService, private searchAdapter: SearchAdapter ) {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
