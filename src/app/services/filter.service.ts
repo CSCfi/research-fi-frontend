@@ -146,7 +146,7 @@ export class FilterService {
       res.push({ range: {publicationYear: {gte : f, lte: t} } });
     } else if (f) {
       res.push({ range: {publicationYear: {gte : f} } });
-    } else {
+    } else if (t) {
       res.push({ range: {publicationYear: {lte : t} } });
     }
 
@@ -462,7 +462,6 @@ export class FilterService {
               script: s.script?.replace('|locale|', this.localeC),
               size: s.size,
               // Include only active filter buckets
-              // TODO: Solve include on 2nd level (field of science) with low amount of results
               include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
               // Exclude empty strings
               exclude: s.exclude,
