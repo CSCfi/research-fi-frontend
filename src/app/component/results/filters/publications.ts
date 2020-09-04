@@ -111,11 +111,16 @@ export class PublicationFilters {
           type: type.type,
           label: type.type + ' ' + type.label,
           key: type.type,
-          doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : ''
+          doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : 0
       })}
     );
+
     // Get higher level doc counts for visualisation
     result.forEach(x => x.doc_count = x.subData.map(a => a.doc_count).reduce((a, b) => a + b, 0));
+
+    // Filter items with doc counts
+    result.map(x => x.subData = x.subData.filter(item => item.doc_count > 0));
+
     return result;
   }
 

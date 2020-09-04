@@ -176,6 +176,12 @@ export class SearchService {
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
   }
 
+  // Used to translate active filters
+  getAllFilters(): Observable<Search[]> {
+    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, '');
+    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
+  }
+
   getVisualData(categoryIdx: number): Observable<Visual> {
     const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.searchTerm, categoryIdx);
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs)

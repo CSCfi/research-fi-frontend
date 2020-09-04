@@ -352,17 +352,16 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       this.hasSubUnits = false;
       const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
       this.hasSubUnits = combinedSubUnits.find(item => item.subUnit !== null) ? true : false;
-
-
-      // Related
-      this.relatedData = {
-          organizations: this.authorAndOrganization.map(item => item.orgId)
-      };
     }
 
     // Remove duplicate organizations
     this.authorAndOrganization = this.authorAndOrganization.filter((v, i, a) =>
                                  a.findIndex(t => (t.orgName === v.orgName)) === i);
+
+    // RelatedQ
+    this.relatedData = {
+      organizations: this.authorAndOrganization.map(item => item.orgId)
+    };
 
     // Is this needed anymore?
     let yes = '';
@@ -389,7 +388,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     // Get & set publication type label
     this.publicationTypeLabel = this.staticDataService.publicationClass.find
-    (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find(type => type.type === source.publicationTypeCode).label;
+      (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find
+      (type => type.type === source.publicationTypeCode)?.label || source.publicationTypeCode;
 
     // tslint:disable-next-line: curly
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';

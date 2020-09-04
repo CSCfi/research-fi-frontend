@@ -22,7 +22,6 @@ export class ScrollService {
         y: e.path[1].scrollY,
       });
     }
-
   }
 
   constructor(eventManager: EventManager) {

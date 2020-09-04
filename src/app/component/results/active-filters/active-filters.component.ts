@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Input, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { FilterService } from '../../../services/filter.service';
@@ -21,6 +21,8 @@ import { InfrastructureFilters } from '../filters/infrastructures';
 import { OrganizationFilters } from '../filters/organizations';
 import { SettingsService } from 'src/app/services/settings.service';
 import { NewsFilters } from '../filters/news';
+import { SearchService } from 'src/app/services/search.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-active-filters',
@@ -59,13 +61,18 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   @ViewChildren('container') container: QueryList<ElementRef>;
   containerSub: any;
   yearRange: string;
+  isBrowser: any;
+  filterValues: import("d:/Code/research-fi-frontend/src/app/models/search.model").Search[];
+  errorMessage: any;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
                public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
                private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
                private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
-               private settingsService: SettingsService ) {
+               private settingsService: SettingsService, @Inject(PLATFORM_ID) private platformId: object,
+               private searchService: SearchService ) {
+                this.isBrowser = isPlatformBrowser(this.platformId);
    }
 
   ngOnInit() {
@@ -108,7 +115,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       const arr = item.toArray();
       this.dataService.changeActiveFilterHeight(arr[0]?.nativeElement.offsetHeight);
     });
-
   }
 
   translate() {
@@ -145,8 +151,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
+
       // Subscribe to aggregation data
-      this.filterResponse = this.dataService.currentResponse.subscribe(response => {
+      this.filterResponse = this.searchService.getAllFilters().subscribe(response => {
         this.response = response;
         if (response) {
           const source = this.response.aggregations;
@@ -193,7 +200,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'field' && source.field?.fields) {
               const result = source.field.fields.buckets.find(key => parseInt(key.fieldId.buckets[0].key, 10) === parseInt(val.value, 10));
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.key ? result.key : '';
+              this.activeFilters[foundIndex].translation = result?.key ? result.key : '';
             }
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
