@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SingleItemService } from './single-item.service';
 import { SettingsService } from './settings.service';
@@ -42,21 +42,39 @@ describe('SingleItemService', () => {
     expect(SingleItemService).toBeTruthy();
   });
 
-  it('should send API request to publication/_search from single publication', () => {
+  it('should send API request and should get matching publication by id', () => {
     const searchResponseMock = ResponseJsonPublications;
     const http = TestBed.inject(HttpTestingController);
     TestBed.inject(SettingsService);
+    let response;
 
-    const queryUrl = mockApiUrl + 'publication/_search';
-    let searchResponse;
-
-    service.getSinglePublication('0367228520').subscribe((response) => {
-      searchResponse = response;
+    service.getSinglePublication('0367228520').subscribe((r) => {
+      response = r;
     });
 
     http.expectOne({
       url: mockApiUrl + 'publication/_search',
       method: 'POST'
     }).flush(searchResponseMock);
+
+    expect(response.publications.length).toBe(1);
+  });
+
+  it('should return match query with provided id', () => {
+    const field = 'field';
+    const res = service.constructPayload(field, 'id');
+    expect(res.query.match[field]).toBe('id');
+  });
+
+  it('should return id as observable', () => {
+    let testId: string;
+
+    service.currentId.subscribe(id => {
+      testId = id;
+    });
+
+    service.updateId('id');
+
+    expect(testId).toBe('id');
   });
 });
