@@ -27,13 +27,13 @@ describe('FilterService', () => {
             ]
         });
 
-        filterService = TestBed.get(FilterService);
+        filterService = TestBed.inject(FilterService);
     });
 
     it('should be created', () => {
-        expect(FilterService).toBeTruthy();
+        expect(filterService).toBeDefined();
     });
-    
+
     it('#rangeFilter should work as expected', () => {
         // Empty
         expect(filterService.rangeFilter([], [])).toEqual([]);

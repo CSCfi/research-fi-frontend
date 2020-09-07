@@ -11,7 +11,7 @@ import { TabChangeService } from './tab-change.service';
 describe('TabChangeService', () => {
     let tabChangeService: TabChangeService;
     const locale = 'fi';
-    const mockTab = {data: '', label: '', link: 'publications', icon: '', singular: ''}
+    const mockTab = {data: '', label: '', link: 'publications', icon: '', singular: ''};
 
     beforeEach(() => {
         tabChangeService = new TabChangeService(locale);
@@ -41,5 +41,5 @@ describe('TabChangeService', () => {
             expect(tab.link).toBe('publications');
             done();
         });
-    })
+    });
 });

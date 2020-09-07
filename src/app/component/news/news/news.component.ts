@@ -20,7 +20,7 @@ import { WINDOW } from 'src/app/services/window.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { NewsCardComponent } from '../news-card/news-card.component';
-import { news, common } from 'src/assets/static-data/meta-tags.json'
+import { news, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
 
@@ -119,7 +119,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
                                 this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+                                this.commonTags['imgAlt' + this.currentLocale]);
 
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
