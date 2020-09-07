@@ -15,8 +15,6 @@ describe('NewsComponent', () => {
     let newsComponent: NewsComponent;
     let fixture: ComponentFixture<NewsComponent>;
 
-    let router: Router;
-
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [NewsComponent],
@@ -28,8 +26,6 @@ describe('NewsComponent', () => {
             ],
             imports: [HttpClientTestingModule, RouterTestingModule, ModalModule.forRoot()]
         });
-
-        router = TestBed.inject(Router);
 
         fixture = TestBed.createComponent(NewsComponent);
         newsComponent = fixture.componentInstance;
