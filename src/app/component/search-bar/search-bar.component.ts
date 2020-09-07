@@ -184,7 +184,6 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
           .forEach((key) => {
             arr.push({index: key, source: source[key], translation: this.translations[key]});
           });
-          console.log(arr);
           // Show hits for top 2 indices with most results
           this.topData = arr.slice(0, 2);
           // List other indices, filter out indices with no results
