@@ -61,8 +61,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   @ViewChildren('container') container: QueryList<ElementRef>;
   containerSub: any;
   yearRange: string;
-  isBrowser: any;
-  filterValues: import("d:/Code/research-fi-frontend/src/app/models/search.model").Search[];
+  isBrowser: any;ActivatedRouteMock
   errorMessage: any;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
