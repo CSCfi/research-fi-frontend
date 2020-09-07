@@ -41,7 +41,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
             </div>
         </div>
         <!-- Uncomment for visualization toggle -->
-        <!-- <div>
+        <div>
             <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle>
             <div>
                 <mat-form-field *ngIf="visual && !mobile">
@@ -52,7 +52,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 </mat-form-field>
                 <mat-slide-toggle [(ngModel)]="percentage" *ngIf="visual && !mobile">Näytä prosentteina</mat-slide-toggle>
             </div>
-        </div> -->
+        </div>
         <div id="sr-helper" class="row skip-links pb-2" [ngClass]="showSkipLinks ? 'show' : 'sr-only'">
             <a (focus)="showSkipLinks = true" #skipToResults tabindex="0" (click)="changeFocusTarget('main')" 
             (keydown.enter)="changeFocusTarget('main')" (blur)="resetFocus(); showSkipLinks = false" href="javascript:void(0)">
