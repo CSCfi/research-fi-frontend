@@ -87,13 +87,15 @@ export class FundingFilters {
                         fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
 
       // Push differences into fundingGroupPerson
-      diff.forEach(x => {
-        item.organizations.buckets.push(x);
-      });
+      if (diff) {
+        diff.forEach(x => {
+          item.organizations.buckets.push(x);
+        });
+      }
 
       // Get filtered sums as doc_count
       item.organizations.buckets.map(org => {
-        org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
+        org.doc_count = org.filtered.filterCount.doc_count + (duplicate?.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
       });
 
       // Sort by doc count
