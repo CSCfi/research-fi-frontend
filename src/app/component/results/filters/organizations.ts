@@ -5,8 +5,6 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { FilterMethodService } from '../../../services/filter-method.service';
-import { StaticDataService } from '../../../services/static-data.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -31,7 +29,7 @@ export class OrganizationFilters {
     {id: '6', tooltip: $localize`:@@org6Tooltip:Muut tutkimuskentällä toimivat organisaatiot, jotka eivät kuulu edellisiin kategorioihin.`}
   ];
 
-  constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
+  constructor() {}
 
   shapeData(data) {
     const source = data.aggregations;
