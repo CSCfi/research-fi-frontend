@@ -323,9 +323,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Funder
             if (val.category === 'funder' && source.funder) {
               setTimeout(t => {
-                const result = source.funder.funders.buckets.find(({ key }) => key === val.value);
+                const result = source.funder.funders.buckets.find(key => key.funderId.buckets[0].key === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+                this.activeFilters[foundIndex].translation = result.key ? result.key : '';
               }, 1);
             }
 
