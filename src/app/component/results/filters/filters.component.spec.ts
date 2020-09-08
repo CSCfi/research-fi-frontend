@@ -2,19 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FiltersComponent } from './filters.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SortService } from '../../../services/sort.service';
-import { ResizeService } from '../../../services/resize.service';
-import { FilterService } from '../../../services/filter.service';
-import { UtilityService } from 'src/app/services/utility.service';
-import { PublicationFilters } from './publications';
-import { PersonFilters } from './persons';
-import { FundingFilters } from './fundings';
-import { InfrastructureFilters } from './infrastructures';
-import { OrganizationFilters } from './organizations';
-import { NewsFilters } from './news';
-import { DataService } from 'src/app/services/data.service';
 import { WINDOW_PROVIDERS } from 'src/app/services/window.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 
@@ -91,7 +79,7 @@ describe('FiltersComponent', () => {
 
     component.selectAll('year', subFilter);
 
-    // Note: Year params are not in order because of previous test
+    // Note: Year params are not in order because of preselection test
     expect (routerSpy.navigate).toHaveBeenCalledWith([], {
       queryParams: {
         year: [ '2020', '2019', '2021' ],
@@ -102,9 +90,12 @@ describe('FiltersComponent', () => {
     );
   });
 
-  // it('should filter with term', () => {
-  //   const term = Object.assign({}, {event: {target: {value: 'test'}}});
-  //   console.log(term.event.target.value);
-  //   component.filterInput(term, 'testField');
-  // });
+  it('should filter with term', () => {
+    const event = Object.assign({}, {target: {value: 'test'}});
+    // Buckets need to be moved up one level until shapeData method is called
+    component.responseData.aggregations.testField.buckets = AggResponse.aggregations.testField.testFields.buckets;
+    component.filterInput(event, 'testField');
+
+    expect (component.showMoreCount.testField).toBeDefined();
+  });
 });
