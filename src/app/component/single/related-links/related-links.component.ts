@@ -55,9 +55,9 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
     });
 
 
-    // Testing
+    // Uncomment setRelated method call when developing
     if (this.relatedData) {
-      this.setRelated();
+      // this.setRelated();
     } else {
       if (this.id) {this.getDocCounts(this.id); }
     }
