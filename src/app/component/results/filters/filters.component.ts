@@ -238,47 +238,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  // Navigate
-  rangeChange(event, dir) {
-    // Set range query param to active filters, helps with active filters component. This query param doesn't do anything in filter service.
-    const obj = {};
-    let newFilters = {};
-    obj[dir] = event.value ? dir.slice(0, 1) + event.value : null;
-    newFilters = Object.assign({}, this.activeFilters, obj);
-    this.activeFilters = newFilters;
-  }
-
-  range(event, dir) {
-    // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
-    // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
-    const source = this.responseData.aggregations.year.buckets;
-    const selected = [];
-    switch (dir) {
-      case 'from': {
-        this.fromYear = event.value;
-        if (event.value) {
-          this.toYear ? source.map(x => x.key >= event.value && x.key <= this.toYear ? selected.push(x.key.toString()) : null) :
-          source.map(x => x.key >= event.value ? selected.push(x.key.toString()) : null);
-        } else {
-          source.map(x => x.key <= this.toYear ? selected.push(x.key.toString()) : null);
-        }
-        break;
-      }
-      case 'to': {
-        this.toYear = event.value;
-        if (event.value) {
-          this.fromYear ? source.map(x => x.key <= event.value && x.key >= this.fromYear ? selected.push(x.key.toString()) : null) :
-          source.map(x => x.key <= event.value ? selected.push(x.key.toString()) : null);
-        } else {
-          source.map(x => x.key >= this.fromYear ? selected.push(x.key.toString()) : null);
-        }
-        break;
-      }
-    }
-
-    this.selectionChange('year', selected);
-  }
-
+  // Navigate with selected filters. Results.component catches query parameters for filters
   selectionChange(filter, key, forceOn = false) {
     let selectedFilters: any = {};
     // Reset selected filters
@@ -356,6 +316,46 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Pass selection
 
     this.selectionChange(filter, result);
+  }
+
+  rangeChange(event, dir) {
+    // Set range query param to active filters, helps with active filters component. This query param doesn't do anything in filter service.
+    const obj = {};
+    let newFilters = {};
+    obj[dir] = event.value ? dir.slice(0, 1) + event.value : null;
+    newFilters = Object.assign({}, this.activeFilters, obj);
+    this.activeFilters = newFilters;
+  }
+
+  range(event, dir) {
+    // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
+    // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
+    const source = this.responseData.aggregations.year.buckets;
+    const selected = [];
+    switch (dir) {
+      case 'from': {
+        this.fromYear = event.value;
+        if (event.value) {
+          this.toYear ? source.map(x => x.key >= event.value && x.key <= this.toYear ? selected.push(x.key.toString()) : null) :
+          source.map(x => x.key >= event.value ? selected.push(x.key.toString()) : null);
+        } else {
+          source.map(x => x.key <= this.toYear ? selected.push(x.key.toString()) : null);
+        }
+        break;
+      }
+      case 'to': {
+        this.toYear = event.value;
+        if (event.value) {
+          this.fromYear ? source.map(x => x.key <= event.value && x.key >= this.fromYear ? selected.push(x.key.toString()) : null) :
+          source.map(x => x.key <= event.value ? selected.push(x.key.toString()) : null);
+        } else {
+          source.map(x => x.key >= this.fromYear ? selected.push(x.key.toString()) : null);
+        }
+        break;
+      }
+    }
+
+    this.selectionChange('year', selected);
   }
 
   filterInput(event, parent) {
