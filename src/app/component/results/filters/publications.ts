@@ -16,7 +16,7 @@ import { Injectable } from '@angular/core';
 export class PublicationFilters {
     filterData = [
       {field: 'year', label: $localize`:@@yearOfPublication:Julkaisuvuosi`, hasSubFields: false, open: true, hideSearch: true},
-      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, open: false,
+      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, open: false, relatedPublications: true,
       tooltip: $localize`:@@pOrgFTooltip:Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.`},
       {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, open: false,
       tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
