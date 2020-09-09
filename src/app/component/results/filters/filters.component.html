@@ -183,6 +183,15 @@
                             </div>
                         </mat-expansion-panel>
                     </div>
+                    <!-- Related publications toggle -->
+                    <div class="row" *ngIf="filter.relatedPublications">
+                        <div class="col">
+                            <mat-slide-toggle class="slider" (change)="selectionChange('related', true)" [labelPosition]="'before'">
+                                Näytä ainoastaan yhteisjulkaisut
+                            </mat-slide-toggle>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- Add empty pading if there are no results -->
                 <div *ngIf="responseData.aggregations[filter.field]?.buckets?.length == 0" class="empty-pad"></div>

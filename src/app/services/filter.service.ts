@@ -40,7 +40,7 @@ export class FilterService {
 
   private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: []});
+    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: [], related: []});
   filters = this.filterSource.asObservable();
   localeC: string;
   timestamp: string;
@@ -49,7 +49,8 @@ export class FilterService {
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
-    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[]}) {
+    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[],
+    related: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -79,6 +80,7 @@ export class FilterService {
       juFo: [source.juFo].flat().filter(x => x).sort(),
       openAccess: [source.openAccess].flat().filter(x => x).sort(),
       internationalCollaboration: [source.internationalCollaboration].flat().filter(x => x).sort(),
+      related: [source.related].flat().filter(x => x).sort(),
       // Fundings
       funder: [source.funder].flat().filter(x => x).sort(),
       typeOfFunding: [source.typeOfFunding].flat().filter(x => x).sort(),

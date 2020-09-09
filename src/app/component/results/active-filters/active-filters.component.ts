@@ -34,7 +34,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   activeFilters = [];
 
   translations = {
-    true: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
     noAccessInfo: $localize`:@@noInfo:Ei tietoa`,
     openAccess: $localize`:@@openAccessJournal:Open Access -lehti`,
     nonOpen: $localize`:@@nonOpen:Ei avoin`,
@@ -218,7 +217,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 });
               }
             }
-            // Organization
+
+            if (val.category === 'internationalCollaboration') {
+              this.activeFilters.find(item => item.category === 'internationalCollaboration')
+              .translation = $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`;
+            }
+
+            // Global organization filter
             if (val.category === 'organization' && source.organization) {
               // Publication organization name
               if (tab === 'publications') {

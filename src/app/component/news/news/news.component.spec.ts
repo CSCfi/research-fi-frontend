@@ -9,7 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppConfigService } from 'src/app/services/app-config-service.service';
 import { AppConfigServiceMock } from 'src/app/services/search.service.spec';
 import { ModalModule } from 'ngx-bootstrap';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('NewsComponent', () => {
     let newsComponent: NewsComponent;
@@ -24,12 +24,15 @@ describe('NewsComponent', () => {
                 {provide: AppConfigService, useClass: AppConfigServiceMock},
                 WINDOW_PROVIDERS,
             ],
-            imports: [HttpClientTestingModule, RouterTestingModule, ModalModule.forRoot()]
+            imports: [HttpClientTestingModule, RouterTestingModule, ModalModule.forRoot()],
+            schemas: [NO_ERRORS_SCHEMA]
         });
 
         fixture = TestBed.createComponent(NewsComponent);
         newsComponent = fixture.componentInstance;
     });
+
+
 
     it('should be created', () => {
         expect(newsComponent).toBeDefined();

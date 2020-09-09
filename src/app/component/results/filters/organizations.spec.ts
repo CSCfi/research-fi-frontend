@@ -21,7 +21,8 @@ describe('OrganizationFilters', () => {
         const sectorName = 'sectorName';
         data.testFields.buckets.map(item => {item[sectorName] = item.testFieldId, item.key = '1'; });
 
-        expect(filter.sector(AggResponse.aggregations.testField.testFields.buckets)).toBeDefined();
+        const res = filter.sector(AggResponse.aggregations.testField.testFields.buckets);
+        expect(res[0].label).toBeDefined();
     });
 
   });

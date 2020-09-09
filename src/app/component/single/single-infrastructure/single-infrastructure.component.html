@@ -181,8 +181,8 @@
                      <mat-card-title><h2 i18n="@@infraHomePage">Infrastruktuurin verkkosivu</h2></mat-card-title>
                      <div class="row links" *ngIf="linkFields?.length > 0">
                          <div *ngFor="let row of linkFields" class="info-link-wrapper">
-                            <div class="link">
-                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
+                            <div class="col link">
+                                <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field] | cutContent: 40}}<fa-icon icon="external-link-alt"></fa-icon></a>
                             </div>
                          </div>
                      </div>

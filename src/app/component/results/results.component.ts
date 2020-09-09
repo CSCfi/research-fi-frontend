@@ -50,7 +50,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('skipToResults') skipToResults: ElementRef;
   queryParams: Subscription;
   publicationFilters: {fromYear: any[], toYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
-    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[]};
+    lang: any[], juFo: any[], openAccess: any[], internationalCollaboration: any[], organization: any[], related: any[]};
   fundingFilters: {funder: any[], typeOfFunding: any[], scheme: any[], fundingStatus: any[], fundingAmount: any[], sector: any[],
     faField: any[]};
   infrastructureFilters: {type: any[]};
@@ -92,7 +92,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
                private sortService: SortService, private filterService: FilterService, private cdr: ChangeDetectorRef,
                @Inject( LOCALE_ID ) protected localeId: string, @Inject(WINDOW) private window: Window,
                @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService, private modalService: BsModalService,
-               private utilityService: UtilityService, private settingsService: SettingsService, private staticDataService: StaticDataService ) {
+               private utilityService: UtilityService, private settingsService: SettingsService,
+               private staticDataService: StaticDataService ) {
     this.filters = Object.assign({}, this.publicationFilters, this.fundingFilters);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.total = 1;
@@ -163,7 +164,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
             case 'fundings':
               this.visualisationCategories = this.visualFunding;
               break;
-          
             default:
               this.visualisationCategories = [];
               break;
@@ -201,9 +201,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           this.filterValues = undefined;
         }
 
-        // Get data filter data
+        // Get data filter
         this.getFilterData();
-        
+
         // Get visualisation data
         this.getVisualData();
         // this.getQueryFilterData();
@@ -282,10 +282,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         error => this.errorMessage = error as any);
     }
   }
-  
+
   changeVisual(event: any) {
     // Update idx
-    this.visIdx = event.value
+    this.visIdx = event.value;
     // Get data
     this.getVisualData();
   }

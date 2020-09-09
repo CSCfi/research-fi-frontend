@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { WINDOW_PROVIDERS } from 'src/app/services/window.service';
 import { ModalModule } from 'ngx-bootstrap';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import AggResponse from '../../../../testdata/aggregationresponse.json';
 
@@ -35,7 +36,8 @@ describe('FiltersComponent', () => {
       ],
       imports: [
         ModalModule.forRoot(),
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
