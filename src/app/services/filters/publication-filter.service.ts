@@ -67,7 +67,7 @@ export class PublicationFilterService {
   organization(data) {
     data.buckets = data.sectorName ? data.sectorName.buckets : [];
     data.buckets.forEach(item => {
-      item.subData = item.organization.org.buckets;
+      item.subData = item.organization.org.buckets.filter(x => x.filtered.filterCount.doc_count > 0);
       item.subData.map(subItem => {
           subItem.label = subItem.key;
           subItem.key = subItem.orgId.buckets[0].key;
