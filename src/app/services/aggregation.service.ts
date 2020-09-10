@@ -149,32 +149,6 @@ export class AggregationService {
                   }
                 },
                 organization: {
-                  terms: {
-                    size: 50,
-                    field: 'author.organization.OrganizationName' + this.localeC + '.keyword'
-                  },
-                  aggs: {
-                    filtered: {
-                      reverse_nested: {},
-                      aggs: {
-                        filterCount: {
-                          filter: {
-                            bool: {
-                              filter: filterActiveNested('author')
-                            }
-                          }
-                        }
-                      }
-                    },
-                    orgId: {
-                      terms: {
-                        size: 1,
-                        field: 'author.organization.organizationId.keyword'
-                      }
-                    }
-                  }
-                },
-                org: {
                   nested: {
                     path: 'author.organization'
                   },
@@ -724,7 +698,6 @@ export class AggregationService {
           }
         };
         // Field of science
-
         payLoad.aggs.field = {
           nested: {
             path: 'fieldsOfScience'
