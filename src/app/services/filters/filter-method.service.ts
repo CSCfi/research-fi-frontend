@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { StaticDataService } from './static-data.service';
+import { StaticDataService } from '../static-data.service';
 
 @Injectable({
   providedIn: 'root'

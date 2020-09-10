@@ -1,6 +1,6 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { SortService } from './sort.service';
-import { SettingsService } from './settings.service';
+import { SortService } from '../sort.service';
+import { SettingsService } from '../settings.service';
 
 @Injectable({
   providedIn: 'root'

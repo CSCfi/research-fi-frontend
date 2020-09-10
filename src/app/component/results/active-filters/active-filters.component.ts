@@ -8,7 +8,7 @@
 import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Input, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { FilterService } from '../../../services/filter.service';
+import { FilterService } from '../../../services/filters/filter.service';
 import { DataService } from '../../../services/data.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { faExclamationTriangle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';

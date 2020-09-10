@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { FilterMethodService } from '../../services/filter-method.service';
+import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../../services/static-data.service';
 
 @Injectable({

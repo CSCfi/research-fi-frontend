@@ -11,7 +11,7 @@ import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { ResizeService } from '../../../services/resize.service';
-import { FilterService } from '../../../services/filter.service';
+import { FilterService } from '../../../services/filters/filter.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';

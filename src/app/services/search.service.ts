@@ -12,7 +12,7 @@ import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SortService } from './sort.service';
-import { FilterService } from './filter.service';
+import { FilterService } from './filters/filter.service';
 import { TabChangeService } from './tab-change.service';
 import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';

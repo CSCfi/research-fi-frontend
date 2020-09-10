@@ -21,7 +21,7 @@ import { ListItemComponent } from './list-item/list-item.component';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SettingsService } from 'src/app/services/settings.service';
 import { UtilityService } from 'src/app/services/utility.service';
-import { FilterService } from 'src/app/services/filter.service';
+import { FilterService } from 'src/app/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
