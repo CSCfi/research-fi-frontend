@@ -14,13 +14,13 @@ import { TabChangeService } from '../../../services/tab-change.service';
 import { faExclamationTriangle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FilterListComponent} from './filter-list/filter-list.component';
-import { PublicationFilters } from '../filters/publications';
-import { PersonFilters } from '../filters/persons';
-import { FundingFilters } from '../filters/fundings';
-import { InfrastructureFilters } from '../filters/infrastructures';
-import { OrganizationFilters } from '../filters/organizations';
+import { PublicationFilterService } from 'src/app/services/filters/publication-filter.service';
+import { PersonFilterService } from 'src/app/services/filters/person-filter.service';
+import { FundingFilterService } from 'src/app/services/filters/funding-filter.service';
+import { InfrastructureFilterService } from 'src/app/services/filters/infrastructure-filter.service';
+import { OrganizationFilterService } from 'src/app/services/filters/organization-filter.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { NewsFilters } from '../filters/news';
+import { NewsFilterService } from 'src/app/services/filters/news-filter.service';
 import { SearchService } from 'src/app/services/search.service';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -65,9 +65,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
-               public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
-               private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
+               public dialog: MatDialog, private publicationFilters: PublicationFilterService, private personFilters: PersonFilterService,
+               private fundingFilters: FundingFilterService, private infrastructureFilters: InfrastructureFilterService,
+               private organizationFilters: OrganizationFilterService, private newsFilters: NewsFilterService,
                private settingsService: SettingsService, @Inject(PLATFORM_ID) private platformId: object,
                private searchService: SearchService ) {
                 this.isBrowser = isPlatformBrowser(this.platformId);
@@ -88,9 +88,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         this.tabFilters = this.infrastructureFilters.filterData;
         this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
-      case 'persons':
-        this.tabFilters = this.personFilters.filterData;
-        break;
+      // case 'persons':
+      //   this.tabFilters = this.personFilters.filterData;
+      //   break;
       case 'organizations':
         this.tabFilters = this.organizationFilters.filterData;
         break;
@@ -231,10 +231,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                   source.organization.sectorName.buckets.forEach(sector => {
                     setTimeout(t => {
-                      if (sector.org.org.buckets.find(x => x.key === val.value)) {
+                      if (sector.organization.org.buckets.find(x => x.orgId.buckets[0].key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
-                        sector.org.org.buckets.find(x => x.key === val.value).label.trim();
+                        sector.organization.org.buckets.find(x => x.orgId.buckets[0].key === val.value).key.trim();
                       }
                     }, 1);
                   });
@@ -242,12 +242,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 // Funding organization name
               } else if (tab === 'fundings') {
                 setTimeout(t => {
-                  if (source.organization.buckets) {
-                    source.organization.buckets.forEach(sector => {
-                      if (sector.organizations.buckets.find(x => x.key === val.value)) {
+                  if (source.organization.funded.sectorName.buckets) {
+                    source.organization.funded.sectorName.buckets.forEach(sector => {
+                      if (sector.organizations.buckets.find(x => x.orgId.buckets[0].key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
-                        sector.organizations.buckets.find(x => x.key === val.value).label.trim();
+                        sector.organizations.buckets.find(x => x.orgId.buckets[0].key === val.value).key.trim();
                       }
                     });
                   }
