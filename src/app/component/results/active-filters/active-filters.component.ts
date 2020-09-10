@@ -392,7 +392,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   removeFilter(event): void {
     // Remove range filters. Check that target active filter matches fromYear filter
-    if (event.target.id.length === 5 && event.target.id.slice(0, 1) === 'f') {
+    if (event.target.id.length === 5 && (event.target.id.slice(0, 1) === 'f' || event.target.id.slice(0, 1) === 't')) {
       if (this.fromYear && this.toYear) {
         this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'fromYear');
         this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'toYear');
