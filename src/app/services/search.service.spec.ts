@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { TestBed } from '@angular/core/testing';
-import { FilterService } from './filter.service';
+import { FilterService } from './filters/filter.service';
 import { SortService } from './sort.service';
 import { TabChangeService } from './tab-change.service';
 import { SearchService } from './search.service';

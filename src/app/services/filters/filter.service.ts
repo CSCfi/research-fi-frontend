@@ -6,11 +6,11 @@
 //  :license: MIT
 
 import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
-import { SortService } from './sort.service';
+import { SortService } from '../sort.service';
 import { BehaviorSubject } from 'rxjs';
-import { SettingsService } from './settings.service';
-import { VisualQueryHierarchy, VisualQuery } from '../models/visualisation/visualisations.model';
-import { StaticDataService } from './static-data.service';
+import { SettingsService } from '../settings.service';
+import { VisualQueryHierarchy, VisualQuery } from '../../models/visualisation/visualisations.model';
+import { StaticDataService } from '../static-data.service';
 import { AggregationService } from './aggregation.service';
 
 @Injectable({

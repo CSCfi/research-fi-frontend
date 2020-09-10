@@ -7,10 +7,10 @@
 
 import { TestBed } from '@angular/core/testing';
 import { FilterService } from './filter.service';
-import { SortService } from './sort.service';
-import { SettingsService } from './settings.service';
-import { StaticDataService } from './static-data.service';
-import { AggregationService } from './aggregation.service';
+import { SortService } from '../sort.service';
+import { SettingsService } from '../settings.service';
+import { StaticDataService } from '../static-data.service';
+import { AggregationService } from '../filters/aggregation.service';
 import { LOCALE_ID } from '@angular/core';
 
 describe('FilterService', () => {

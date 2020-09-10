@@ -8,10 +8,9 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
-  })
-
-export class OrganizationFilters {
+  providedIn: 'root'
+})
+export class OrganizationFilterService {
   filterData = [
     {field: 'sector', label: $localize`:@@sector:Sektori`, hasSubFields: false, limitHeight: false, open: true},
   ];
@@ -29,7 +28,7 @@ export class OrganizationFilters {
     {id: '6', tooltip: $localize`:@@org6Tooltip:Muut tutkimuskentällä toimivat organisaatiot, jotka eivät kuulu edellisiin kategorioihin.`}
   ];
 
-  constructor() {}
+  constructor() { }
 
   shapeData(data) {
     const source = data.aggregations;
@@ -46,12 +45,5 @@ export class OrganizationFilters {
       tooltip: this.infoData.find(el => el.id === item.key).tooltip
     });
     return result;
-  }
-
-
-  getSingleAmount(data) {
-    if (data.length > 0) {
-      return data.filter(x => x.key === 1);
-    }
   }
 }

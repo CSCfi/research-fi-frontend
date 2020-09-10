@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { StaticDataService } from './static-data.service';
+import { StaticDataService } from '../static-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,14 +39,14 @@ export class FilterMethodService {
         label: majorField.key,
         // Invalid response if key is 0
         id: majorField.fieldId.buckets[0]?.key || - 1,
-        doc_count: majorField.fieldId.buckets[0]?.key ? majorField.fieldId.buckets[0].doc_count : - 1
+        doc_count: majorField.fieldId.buckets[0]?.key ? majorField.filtered.filterCount.doc_count : - 1
       }));
     }
     // Loop through major fields & push all instances as separate arrays
     for (let i = 1; i < this.staticDataService.majorFieldsOfScience.length; i++) {
       if (i === 7) { i = 9; }
       if (mapped) {
-        this.combined.push(mapped.filter(obj => obj.id.toString().charAt(0).includes(i)));
+        this.combined.push(mapped.filter(obj => obj.id.toString().charAt(0).includes(i)).filter(x => x.doc_count > 0));
       }
     }
     return this.combined;

@@ -15,7 +15,7 @@ import { map, multicast, debounceTime, take, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from '../../services/tab-change.service';
 import { ResizeService } from '../../services/resize.service';
-import { FilterService } from '../../services/filter.service';
+import { FilterService } from '../../services/filters/filter.service';
 import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
