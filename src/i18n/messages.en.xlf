@@ -1094,6 +1094,14 @@
           <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="filterCoPublications">
+        <source>Näytä ainoastaan yhteisjulkaisut</source>
+        <target>Show only co-publications</target>
+      </trans-unit>
+      <trans-unit id="coPublications">
+        <source>Yhteisjulkaisut</source>
+        <target>Co-publications</target>
+      </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
         <target>Copy link</target>
