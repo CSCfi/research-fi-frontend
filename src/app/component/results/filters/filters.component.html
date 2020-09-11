@@ -65,8 +65,17 @@
                         </div>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
+                <!-- Co publications toggle -->
+                <!-- <div class="row" *ngIf="filter.relatedPublications">
+                    <div class="col py-3">
+                        <mat-slide-toggle class="slider" (change)="selectionChange('coPublication', true)" (keydown.enter)="selectionChange('coPublication', true)" [labelPosition]="'before'"
+                        [checked]="(activeFilters ? activeFilters.coPublication?.length : 0) > 0" >
+                            <strong><ng-container i18n="@@filterCoPublications">Näytä ainoastaan yhteisjulkaisut</ng-container></strong>
+                        </mat-slide-toggle>
+                    </div>
+                </div> -->
+                <!-- Search in Filter -->
                 <ng-container *ngIf="!filter.hasSubFields">
-                    <!-- Search in Filter -->
                     <label for="filter-query-{{i}}" class="sr-only" i18n="SR Search@@SRSearch">Hae</label>
                     <input [id]="'filter-query-' + i" #filterSearch *ngIf="(responseData.aggregations[filter.field]?.buckets?.length > 5 || responseData.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
                     i18n-placeholder placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="responseData.aggregations[filter.field]?.filterTerm ? responseData.aggregations[filter.field]?.filterTerm : ''">
@@ -183,16 +192,6 @@
                             </div>
                         </mat-expansion-panel>
                     </div>
-                    <!-- Related publications toggle -->
-                    <div class="row" *ngIf="filter.relatedPublications">
-                        <div class="col py-3">
-                            <mat-slide-toggle class="slider" (change)="selectionChange('coPublication', true)" (keydown.enter)="selectionChange('coPublication', true)" [labelPosition]="'before'"
-                            [checked]="(activeFilters ? activeFilters.coPublication?.length : 0) > 0" >
-                                <strong><ng-container i18n="@@filterCoPublications">Näytä ainoastaan yhteisjulkaisut</ng-container></strong>
-                            </mat-slide-toggle>
-                        </div>
-                    </div>
-
                 </div>
                 <!-- Add empty pading if there are no results -->
                 <div *ngIf="responseData.aggregations[filter.field]?.buckets?.length == 0" class="empty-pad"></div>
