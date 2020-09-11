@@ -242,9 +242,9 @@ export class PublicationFilterService {
   }
 
   getSingleAmount(data) {
-      if (data.length > 0) {
-        return data.filter(x => x.key === 1);
-      }
+    if (data.length > 0) {
+      return data.filter(x => x.key === 1);
     }
+  }
 
 }
