@@ -177,9 +177,10 @@ export class SearchService {
   }
 
   // Used to translate active filters
-  getAllFilters(): Observable<Search[]> {
-    const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, '');
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?' + 'request_cache=true', aggs);
+  getAllFilters(tab): Observable<Search[]> {
+    const currentTab = tab === 'news' ? tab : tab.slice(0, -1);
+    const aggs = this.filterService.constructFilterPayload(tab, '');
+    return this.http.post<Search[]>(this.apiUrl + currentTab + '/_search?' + 'request_cache=true', aggs);
   }
 
   getVisualData(categoryIdx: number): Observable<Visual> {
