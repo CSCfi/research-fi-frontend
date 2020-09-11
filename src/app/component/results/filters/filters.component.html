@@ -185,10 +185,10 @@
                     </div>
                     <!-- Related publications toggle -->
                     <div class="row" *ngIf="filter.relatedPublications">
-                        <div class="col">
+                        <div class="col py-3">
                             <mat-slide-toggle class="slider" (change)="selectionChange('coPublication', true)" (keydown.enter)="selectionChange('coPublication', true)" [labelPosition]="'before'"
                             [checked]="(activeFilters ? activeFilters.coPublication?.length : 0) > 0" >
-                                <ng-container i18n="@@filterCoPublications">Näytä ainoastaan yhteisjulkaisut</ng-container>
+                                <strong><ng-container i18n="@@filterCoPublications">Näytä ainoastaan yhteisjulkaisut</ng-container></strong>
                             </mat-slide-toggle>
                         </div>
                     </div>
