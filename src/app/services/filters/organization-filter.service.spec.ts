@@ -9,6 +9,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { OrganizationFilterService } from './organization-filter.service';
 
+import AggResponse from '../../../testdata/aggorganizationresponse.json';
+
+
 describe('OrganizationFilterService', () => {
   let service: OrganizationFilterService;
 
@@ -19,5 +22,17 @@ describe('OrganizationFilterService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should shape data', () => {
+    const res = service.shapeData(AggResponse);
+
+    expect(res.shaped).toBeDefined();
+  });
+
+  it('should map sector data', () => {
+    const res = service.sector(AggResponse.aggregations.sector.sectorId.buckets);
+
+    expect(Object.keys(res[0]).length).toBe(4);
   });
 });
