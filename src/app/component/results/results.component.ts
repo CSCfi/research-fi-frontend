@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy, ChangeDetectorRef, Inject, LOCALE_ID,
-  PLATFORM_ID, AfterViewInit } from '@angular/core';
+  PLATFORM_ID, AfterViewInit, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
@@ -19,7 +19,7 @@ import { FilterService } from '../../services/filters/filter.service';
 import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
@@ -76,12 +76,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualFunding = this.staticDataService.visualisationData.funding;
 
   visual = false;
-  visIdx = "0";
+  visIdx = '0';
   visualLoading = false;
   visualisationCategories: VisualQuery[];
   visualData: Visual;
   percentage = false;
   visualSub: Subscription;
+  modalRef: BsModalRef;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -104,6 +105,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, Object.assign({}, {class: 'wide-modal'}));
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+    this.modalRef = undefined;
+  }
+
 
   ngOnInit() {
     // Subscribe to route params and query params in one subscription
@@ -170,6 +181,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           }
           this.visIdx = '0';
           this.visual = this.visual && !!this.visualisationCategories.length;
+          console.log(this.visualisationCategories);
         }
 
         this.sortService.updateSort(query.sort);

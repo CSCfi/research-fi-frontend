@@ -13,12 +13,14 @@ $background: map-get($researchfi-theme, background);
 $background: map_merge($background, (card: $background-color));
 $researchfi-theme: map_merge($researchfi-theme, (background: $background));
 
+$primary: map-get($researchfi-theme, primary);
+
 html.cdk-global-scrollblock {
     overflow: hidden!important;
 }
 
 body {
-    color: map-get(map-get($researchfi-primary, contrast), 300);
+    color: mat-contrast($primary, 300);
     font-family: 'Roboto', sans-serif;
 }
 
@@ -28,7 +30,8 @@ body div.cdk-overlay-container {
 }
 
 h1, h2, h3, h4, h5 {
-    color: map-get(map-get($researchfi-primary, contrast), 200);
+    // color: map-get(map-get($researchfi-primary, contrast), 200);
+    color: mat-contrast($primary, 200);
     // line-height: 1.5;
 }
 
@@ -103,7 +106,7 @@ mark, .mark {
     padding: 0;
     // font-weight: bold;
     font-weight: 400;
-    color: map-get(map-get($researchfi-primary, contrast), 200);
+    color: mat-contrast($primary, 300);
     background-color: #FFC000;
 }
 
@@ -114,7 +117,7 @@ mark, .mark {
 
 // Help icon
 .info-icon {
-    color: map-get($researchfi-primary, 500);
+    color: mat-color($primary, 500);
     cursor: pointer;
 }
 
@@ -152,7 +155,16 @@ mark, .mark {
 }
 
 .bg-bubble, .circle-small {
-    background: map-get($researchfi-primary, 200);
+    background: mat-color($primary, 200);
+}
+
+// Visualisation modal
+.wide-modal {
+    max-width: max-content;
+    .visual-select {
+        background-color: mat-color($primary, 50);
+    }
+
 }
 
 @media (max-width: 575px) {

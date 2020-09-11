@@ -16,3 +16,16 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <app-bar [data]="data" [tab]="tab" [height]="height" [width]="width" [visIdx]="visIdx" [percentage]="percentage"></app-bar>
     </div>
 </div>
+
+<ng-template #visualModal>
+    <div cdkTrapFocus>
+        <div class="modal-header">
+            <h5 class="modal-title">Visual</h5>
+            <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
+        </div>
+        <div class="modal-body">
+            <app-bar [data]="data" [tab]="tab" [height]="height" [width]="width" [visIdx]="visIdx" [percentage]="percentage"></app-bar>
+        </div>
+    </div>
+</ng-template>
+
