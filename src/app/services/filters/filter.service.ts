@@ -31,6 +31,7 @@ export class FilterService {
   fundingAmountFilter: any;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
+  coPublicationFilter: any;
   sectorFilter: any;
   faFieldFilter: any;
   organizationFilter: any;
@@ -40,7 +41,7 @@ export class FilterService {
 
   private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: [], related: []});
+    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: [], coPublication: []});
   filters = this.filterSource.asObservable();
   localeC: string;
   timestamp: string;
@@ -50,7 +51,7 @@ export class FilterService {
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
     scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[],
-    related: any[]}) {
+    coPublication: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -80,7 +81,7 @@ export class FilterService {
       juFo: [source.juFo].flat().filter(x => x).sort(),
       openAccess: [source.openAccess].flat().filter(x => x).sort(),
       internationalCollaboration: [source.internationalCollaboration].flat().filter(x => x).sort(),
-      related: [source.related].flat().filter(x => x).sort(),
+      coPublication: [source.coPublication].flat().filter(x => x).sort(),
       // Fundings
       funder: [source.funder].flat().filter(x => x).sort(),
       typeOfFunding: [source.typeOfFunding].flat().filter(x => x).sort(),
@@ -107,6 +108,7 @@ export class FilterService {
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
+    this.coPublicationFilter = this.customValueFilters(filter.coPublication, 'publicationStatusCode.keyword', '9');
     // Funding
     this.funderFilter = this.basicFilter(filter.funder, 'funderBusinessId.pid_content.keyword');
     this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword');
@@ -117,6 +119,24 @@ export class FilterService {
     this.infraFieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.field_id.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
+  }
+
+
+  // Regular terms filter
+  basicFilter(field: any[], path) {
+    const res = [];
+    field.forEach(value => {
+      res.push({ term: {[path] : value}});
+    });
+    return res;
+  }
+
+  customValueFilters(field: any[], path, value) {
+    const res = [];
+    field.forEach(item => {
+      res.push({ term: {[path] : value}});
+    });
+    return res;
   }
 
   // Year filter is global, different year -fields per index
@@ -182,15 +202,6 @@ export class FilterService {
         break;
       }
     }
-    return res;
-  }
-
-  // Regular terms filter
-  basicFilter(field: any[], path) {
-    const res = [];
-    field.forEach(value => {
-      res.push({ term: {[path] : value}});
-    });
     return res;
   }
 
@@ -310,7 +321,7 @@ export class FilterService {
       ...(basicFilter('publication', this.juFoCodeFilter)),
       ...(basicFilter('publication', this.openAccessFilter)),
       ...(basicFilter('publication', this.internationalCollaborationFilter)),
-
+      ...(basicFilter('publication', this.coPublicationFilter)),
       // Fundings
       // Funding organization filter differs from nested filter since we need to get filter values from two different parents
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
