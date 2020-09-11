@@ -310,6 +310,11 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
+            // Related publications
+            if (val.category === 'coPublication') {
+              this.activeFilters.find(item => item.category === 'coPublication').translation = $localize`:@@coPublications:Yhteisjulkaisut`;
+            }
+
             // Funding
             // Type of funding
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
