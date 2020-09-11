@@ -108,7 +108,7 @@ export class FilterService {
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
-    this.coPublicationFilter = this.customValueFilters(filter.coPublication, 'publicationStatusCode.keyword', '9');
+    this.coPublicationFilter = this.customValueFilter(filter.coPublication, 'publicationStatusCode.keyword', '9');
     // Funding
     this.funderFilter = this.basicFilter(filter.funder, 'funderBusinessId.pid_content.keyword');
     this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword');
@@ -131,7 +131,7 @@ export class FilterService {
     return res;
   }
 
-  customValueFilters(field: any[], path, value) {
+  customValueFilter(field: any[], path, value) {
     const res = [];
     field.forEach(item => {
       res.push({ term: {[path] : value}});
