@@ -1088,6 +1088,14 @@
           <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="filterCoPublications">
+        <source>Näytä ainoastaan yhteisjulkaisut</source>
+        <target>Visa endast sampublikationer</target>
+      </trans-unit>
+      <trans-unit id="coPublications">
+        <source>Yhteisjulkaisut</source>
+        <target>Sampublikationer</target>
+      </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
         <target state="translated">Kopiera länken</target>
