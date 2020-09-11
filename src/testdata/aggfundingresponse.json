@@ -1593,12 +1593,12 @@
 		},
 		"fundingStatus": {
 			"meta": {},
-			"doc_count": 3271,
+			"doc_count": 3272,
 			"status": {
 				"buckets": [
 					{
 						"key": "*-*",
-						"doc_count": 3271
+						"doc_count": 3272
 					}
 				]
 			}
