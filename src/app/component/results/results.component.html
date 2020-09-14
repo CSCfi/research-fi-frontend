@@ -136,7 +136,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     </div>
                 </div>
                 <div class="col-9">
-                    <app-visualisation [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading"></app-visualisation>
+                    <app-visualisation [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading" [searchTerm]="searchTerm" [searchTarget]="searchTargetName"></app-visualisation>
                     <div class="row vis-info">
                         <div>
                             <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false">Lukuina</button>

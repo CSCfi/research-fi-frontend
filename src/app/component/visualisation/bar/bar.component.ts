@@ -21,6 +21,8 @@ export class BarComponent implements OnInit, OnChanges {
   @Input() width: number;
   @Input() tab: string;
   @Input() percentage: boolean;
+  @Input() searchTerm: string;
+  @Input() searchTarget: string;
 
   margin = 50;
   legendWidth = 350;
@@ -39,6 +41,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   publication = this.staticDataService.visualisationData.publication;
   funding = this.staticDataService.visualisationData.funding;
+  targets = this.staticDataService.targets;
 
   categories = this.publication;
   categoryObject: VisualQuery;
@@ -73,12 +76,12 @@ export class BarComponent implements OnInit, OnChanges {
         this.categories = this.publication;
         ylabel = 'Julkaisujen määrä';
         break;
-        case 'fundings':
-          visualisationData = this.data.fundingData;
-          this.categories = this.funding;
-          ylabel = 'Hankkeiden määrä';
+      case 'fundings':
+        visualisationData = this.data.fundingData;
+        this.categories = this.funding;
+        ylabel = 'Hankkeiden määrä';
         break;
-    
+
       default:
         break;
     }
@@ -95,7 +98,7 @@ export class BarComponent implements OnInit, OnChanges {
       ylabel = 'Myönnetty summa';
       format = '$,';
     }
-    
+
     // Height and width with margins
     this.innerHeight = this.height - 3 * this.margin;
     this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
@@ -250,9 +253,10 @@ export class BarComponent implements OnInit, OnChanges {
 
     // Graph title
     this.g.append('text')
-        .attr('x', this.margin * 2)
+        .attr('x', this.margin * 2.5)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
+        .attr('font-weight', 'bold')
         .text(this.categoryObject.title);
 
     // Search term info
@@ -263,12 +267,13 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.margin / 2)
         .append('xhtml:div')
           .style('text-align', 'right')
-          .html('<mark>Hakusana</mark>, kohdesisältö');
+          .html((this.searchTerm ? `<mark>${this.searchTerm}</mark>` : 'Ei hakusanaa') + ', ' +
+                (this.searchTarget ? this.searchTarget : 'Koko sisältö'));
 
     this.g.append('foreignObject')
         .attr('x', 0)
         .attr('y', -this.margin * 2 - 5)
-        .attr('width', this.width - this.legendWidth)
+        .attr('width', this.width - this.legendWidth - this.margin * 2)
         .attr('height', this.margin * 2)
         .append('xhtml:div')
           .style('font-size', '14px')

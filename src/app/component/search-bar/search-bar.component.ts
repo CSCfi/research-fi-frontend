@@ -25,13 +25,7 @@ import { FilterService } from 'src/app/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
-
-interface Target {
-  value: string;
-  viewValueFi: string;
-  viewValueEn: string;
-  viewValueSv: string;
-}
+import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
     selector: 'app-search-bar',
@@ -74,14 +68,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     organization: $localize`:@@organizations:tutkimusorganisaatiot`
   };
 
-  targets: Target[] = [
-    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: 'All content', viewValueSv: ''},
-    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: 'Person name', viewValueSv: ''},
-    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: 'Title', viewValueSv: ''},
-    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: 'Keywords', viewValueSv: ''},
-    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: 'Organization', viewValueSv: ''},
-    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: 'Funder', viewValueSv: ''}
-  ];
+  targets = this.staticDataService.targets;
 
   additionalItems = ['clear'];
   completion: string;
@@ -106,7 +93,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
                private autosuggestService: AutosuggestService, private singleService: SingleItemService,
                @Inject(DOCUMENT) private document: Document, @Inject(WINDOW) private window: Window, @Inject(PLATFORM_ID) private platformId: object,
                private settingService: SettingsService, public utilityService: UtilityService,
-               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService ) {
+               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService, private staticDataService: StaticDataService ) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                 this.queryHistory = this.getHistory();

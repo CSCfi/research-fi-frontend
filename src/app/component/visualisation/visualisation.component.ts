@@ -32,6 +32,8 @@ export class VisualisationComponent implements OnInit {
   @Input() loading: boolean;
   @Input() tab: string;
   @Input() percentage: boolean;
+  @Input() searchTarget: string;
+  @Input() searchTerm: string;
 
   title = '';
 

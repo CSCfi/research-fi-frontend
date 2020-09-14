@@ -8,10 +8,19 @@
 import { Injectable } from '@angular/core';
 import { VisualQuery } from '../models/visualisation/visualisations.model';
 
+
+interface Target {
+  value: string;
+  viewValueFi: string;
+  viewValueEn: string;
+  viewValueSv: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class StaticDataService {
+  
   // Filters, Fields of study
   majorFieldsOfScience = [
     {id: 1, key: $localize`:@@naturalSciences:Luonnontieteet`, checked: false, subData: [], doc_count: 0},
@@ -77,6 +86,15 @@ export class StaticDataService {
       {type: 'G4', label: $localize`:@@gMonograph:Monografiaväitöskirja`, key: '', doc_count: 0},
       {type: 'G5', label: $localize`:@@gArticle:Artikkeliväitöskirja`, key: '', doc_count: 0}
     ]}
+  ];
+
+  targets: Target[] = [
+    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: 'All content', viewValueSv: ''},
+    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: 'Person name', viewValueSv: ''},
+    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: 'Title', viewValueSv: ''},
+    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: 'Keywords', viewValueSv: ''},
+    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: 'Organization', viewValueSv: ''},
+    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: 'Funder', viewValueSv: ''}
   ];
 
   juFoCode = [

@@ -76,6 +76,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualPublication = this.staticDataService.visualisationData.publication;
   visualFunding = this.staticDataService.visualisationData.funding;
 
+  searchTargetName: string;
   visual = false;
   visIdx = '0';
   visualLoading = false;
@@ -132,6 +133,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Change query target
         this.settingsService.changeTarget(query.target ? query.target : null);
+        // Get search target name for visuals
+        this.searchTargetName = this.staticDataService.targets?.find(t => t.value === query.target)['viewValue' + this.currentLocale];
+
 
         this.page = +query.page || 1;
         if (this.page > 1000) {
