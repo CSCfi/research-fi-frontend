@@ -248,11 +248,22 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('text-anchor', 'middle');
         // .text('Vuosi');
 
+    // Graph title
     this.g.append('text')
-        .attr('x', this.innerWidth / 2)
+        .attr('x', this.margin * 2)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
         .text(this.categoryObject.title);
+
+    // Search term info
+    this.g.append('foreignObject')
+        .attr('x', 0)
+        .attr('y', -this.margin / 2)
+        .attr('width', this.innerWidth)
+        .attr('height', this.margin / 2)
+        .append('xhtml:div')
+          .style('text-align', 'right')
+          .html('<mark>Hakusana</mark>, kohdesisältö');
 
     this.g.append('foreignObject')
         .attr('x', 0)
