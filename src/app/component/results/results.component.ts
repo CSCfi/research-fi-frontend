@@ -25,6 +25,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-results',
@@ -84,6 +85,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualSub: Subscription;
   modalRef: BsModalRef;
 
+  faDownload = faDownload;
+
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
   private commonTags = common;
@@ -113,6 +116,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   closeModal() {
     this.modalRef.hide();
     this.modalRef = undefined;
+    this.percentage = false;
   }
 
 

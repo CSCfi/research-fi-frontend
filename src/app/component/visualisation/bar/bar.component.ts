@@ -126,7 +126,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.height)
         .append('g')
         .attr('id', 'main')
-        .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
+        .attr('transform', `translate(${this.margin}, ${this.margin * 2})`);
     
     // Legend init
     const legendSvg = d3.select('svg#legend');
@@ -153,7 +153,7 @@ export class BarComponent implements OnInit, OnChanges {
               // .tickFormat(d => d + (percentage ? '%' : '')));
               .tickFormat(percentage ? (d => d + '%') : d3.format(format)));
 
-    // X axis    
+    // X axis
     this.g.append('g')
         .attr('transform', `translate(0, ${this.innerHeight})`)
         .call(axisBottom(this.x));
@@ -228,7 +228,7 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('x', 10 + 20)
       .attr('y', (_, j) => this.margin / 2 + j * 25 - 25 / 2)
         .append('xhtml:div')
-        .style('width', '320px')
+        .style('width', '300px')
         .style('white-space', 'nowrap')
         .style('text-overflow', 'ellipsis')
         .style('overflow', 'hidden')
@@ -239,14 +239,14 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('x', -(this.innerHeight / 2))
         .attr('y', -this.margin - 35)
         .attr('transform', 'rotate(-90)')
-        .attr('text-anchor', 'middle')
-        .text(ylabel);
+        .attr('text-anchor', 'middle');
+        // .text(ylabel);
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2)
         .attr('y', this.innerHeight + this.margin - 5)
-        .attr('text-anchor', 'middle')
-        .text('Vuosi');
+        .attr('text-anchor', 'middle');
+        // .text('Vuosi');
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2)
@@ -255,13 +255,13 @@ export class BarComponent implements OnInit, OnChanges {
         .text(this.categoryObject.title);
 
     this.g.append('foreignObject')
-        .attr('x', -this.margin * 2)
+        .attr('x', 0)
         .attr('y', -this.margin * 2 - 5)
         .attr('width', this.width - this.legendWidth)
         .attr('height', this.margin * 2)
         .append('xhtml:div')
           .style('font-size', '14px')
-          .html(this.categoryObject.message);  
+          .html(this.categoryObject.message);
   }
 
   onClick(d: {id: string, parent: string}) {

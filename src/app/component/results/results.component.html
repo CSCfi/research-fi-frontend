@@ -43,10 +43,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <!-- Uncomment for visualization toggle -->
         <div>
             <!-- <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle> -->
-            <button mat-button (click)="openModal(visualModal)">Avaa visualisaatio</button>
+            <button mat-raised-button (click)="openModal(visualModal)" class="mb-2">Avaa visualisaatio</button>
             <div>
                 <mat-form-field *ngIf="visual && !mobile">
-                    <mat-label>Valitse visualisaatio</mat-label>
+                    <mat-label>Teema</mat-label>
                     <mat-select (selectionChange)="changeVisual($event)">
                         <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
                     </mat-select>
@@ -127,14 +127,24 @@ Copyright 2019 Ministry of Education and Culture, Finland
                             <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <app-filters *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
-                    <app-filters *ngIf="tab===tabData[1].link"  [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>
-                    <app-filters *ngIf="tab===tabData[2].link"  [responseData]="filterValues" [tabData]="tabData[2].data"></app-filters>
-                    <app-filters *ngIf="tab===tabData[4].link"  [responseData]="filterValues" [tabData]="tabData[4].data"></app-filters>
-                    <app-filters *ngIf="tab===tabData[6].link"  [responseData]="filterValues" [tabData]="tabData[6].data"></app-filters>            
+                    <div class="overflow-wrapper">
+                        <app-filters *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[1].link"  [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[2].link"  [responseData]="filterValues" [tabData]="tabData[2].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[4].link"  [responseData]="filterValues" [tabData]="tabData[4].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[6].link"  [responseData]="filterValues" [tabData]="tabData[6].data"></app-filters>            
+                    </div>
                 </div>
                 <div class="col-9">
                     <app-visualisation [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading"></app-visualisation>
+                    <div class="row vis-info">
+                        <div>
+                            <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false">Lukuina</button>
+                            <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true">Prosentteina</button>
+                        </div>
+                        <app-secondary-button [icon]="'info-circle'" [content]="'Info'"></app-secondary-button>
+                        <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana'"></app-secondary-button>
+                    </div>
                 </div>
             </div>
         </div>

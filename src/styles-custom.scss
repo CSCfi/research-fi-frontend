@@ -160,11 +160,19 @@ mark, .mark {
 
 // Visualisation modal
 .wide-modal {
-    max-width: max-content;
+    max-width: 97%;
     .visual-select {
         background-color: mat-color($primary, 50);
     }
-
+    .vis-style-toggle {
+        background-color: mat-contrast($primary, 500);
+        color: mat-color($primary, 500);
+        border-color: mat-color($primary, 500);
+        &.active {
+            background-color: mat-color($primary, 500);
+            color: mat-contrast($primary, 500);
+        }
+    }
 }
 
 @media (max-width: 575px) {

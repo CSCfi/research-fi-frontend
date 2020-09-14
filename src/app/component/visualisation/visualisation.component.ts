@@ -55,7 +55,7 @@ export class VisualisationComponent implements OnInit {
       // Offset if wanted to be used to determine height
       const offset = this.main.nativeElement.getBoundingClientRect().y - this.document.body.getBoundingClientRect().y;
       // Arbitrary height, testing
-      this.height = this.window.innerHeight - 100;
+      this.height = this.window.innerHeight - 300;
       this.width = (this.window.innerWidth - 100) * 0.75;
       // this.width = this.main.nativeElement.offsetWidth + 400;
       // console.log(this.main.nativeElement.offsetWidth)
