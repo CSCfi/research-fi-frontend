@@ -2419,7 +2419,11 @@
         <source>Rahoitusmuoto</source>
         <target>Funding instrument</target>
       </trans-unit>
-      <trans-unit id="5379863279381131239">
+      <trans-unit id="frameworkProgramme">
+        <source>Puiteohjelma</source>
+        <target>Framework programme</target>
+      </trans-unit>
+      <trans-unit id="callProgramme">
         <source>Haku</source>
         <target>Call</target>
       </trans-unit>

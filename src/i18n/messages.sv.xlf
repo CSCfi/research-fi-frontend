@@ -2412,7 +2412,11 @@
         <source>Rahoitusmuoto</source>
         <target state="translated">Typ av finansiering</target>
       </trans-unit>
-      <trans-unit id="5379863279381131239">
+      <trans-unit id="frameworkProgramme">
+        <source>Puiteohjelma</source>
+        <target state="translated">Puiteohjelma</target>
+      </trans-unit>
+      <trans-unit id="callProgramme">
         <source>Haku</source>
         <target state="translated">Sökning</target>
       </trans-unit>

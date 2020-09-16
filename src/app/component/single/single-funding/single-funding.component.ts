@@ -46,7 +46,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   funder =  [
     {label: $localize`:@@typeOfFunding:Rahoitusmuoto`, field: 'typeOfFundingName', tooltip: $localize`:@@sfTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.`},
-    {label: $localize`Haku`, field: 'callProgrammeName', tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`}
+    {label: $localize`:@@frameworkProgramme:Puiteohjelma`, field: 'frameworkProgramme', tooltip: 'Puiteohjelma'},
+    // {label: $localize`Haku`, field: 'callProgrammeName', tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`}
   ];
 
   other = [
@@ -73,6 +74,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   funderTooltip = {
     tooltip: $localize`Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.`,
+  };
+
+  callProgrammeTooltip = {
+    tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`,
   };
 
   homepageTooltip = {
@@ -134,6 +139,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.fundings[0]) {
+        console.log(this.responseData.fundings[0].funder)
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.fundings[0].name + ' - Tiedejatutkimus.fi');
