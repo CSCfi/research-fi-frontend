@@ -18,6 +18,8 @@ export class LanguageCheck {
 
   // Point of language test is to populate data if no content available.
   testLang(field, item) {
+    // tslint:disable-next-line: curly
+    if (!item) return undefined;
     // Change locale to field name format
     const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     // Get the content based on the current locale

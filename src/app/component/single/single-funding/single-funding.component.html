@@ -194,6 +194,26 @@
                             </h2>
                             <div class="col-12 col-sm-8 col-lg-9 td">{{item.funder[row.field]}}</div>
                         </div>
+
+                        <!-- Eu vs normal funding callProgramme logic -->
+                        <div class="row" *ngIf="(item.euFunding && item.funder.euCallProgrammes.length > 0) || (!item.euFunding && item.funder.callProgrammeName)">
+                            <h2 class="col-12 col-sm-4 col-lg-3 th">
+                                <ng-container i18n="callProgramme">Haku</ng-container>
+                                <ng-template #tooltipTemplate><div [innerHtml]="callProgrammeTooltip.tooltip"></div></ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
+                            </h2>
+                            <ng-container *ngIf="!item.euFunding; else euCallProgramme">
+                                <div class="col-12 col-sm-8 col-lg-9 td">{{item.funder.callProgrammeName}}</div>    
+                            </ng-container>
+                            <ng-template #euCallProgramme>
+                                <div class="col-12 col-sm-8 col-lg-9 td">{{item.funder.euCallProgrammes[0].name}} ({{item.funder.euCallProgrammes[0].id}})</div>    
+                                <div *ngFor="let call of item.funder.euCallProgrammes.slice(1)" class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">{{call.name}} ({{call.id}})</div>    
+                                <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">{{item.funder.topicName}} ({{item.funder.topicId}})</div>    
+                                <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">{{item.funder.euCallId}}</div>    
+                            </ng-template>
+                        </div>
                     </div>
                     <!-- Other -->
                     <div class="content" *ngIf="otherFields.length > 0">
