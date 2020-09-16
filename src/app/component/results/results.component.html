@@ -42,10 +42,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </div>
         <!-- Uncomment for visualization toggle -->
         <div>
-            <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle>
+            <!-- <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle> -->
+            <button mat-raised-button (click)="openModal(visualModal)" class="mb-2">Avaa visualisaatio</button>
             <div>
                 <mat-form-field *ngIf="visual && !mobile">
-                    <mat-label>Valitse visualisaatio</mat-label>
+                    <mat-label>Teema</mat-label>
                     <mat-select (selectionChange)="changeVisual($event)">
                         <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
                     </mat-select>
@@ -85,7 +86,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 </div>
 
 <ng-template #desktop>
-    <aside class="col-4 col-xl-3 filters">
+    <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
         <app-filters *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
         <app-filters *ngIf="tab===tabData[1].link"  [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>
         <app-filters *ngIf="tab===tabData[2].link"  [responseData]="filterValues" [tabData]="tabData[2].data"></app-filters>
@@ -110,3 +111,44 @@ Copyright 2019 Ministry of Education and Culture, Finland
         </div>
     </div>
 </ng-template>
+
+<ng-template #visualModal>
+    <div cdkTrapFocus>
+        <div class="modal-header">
+            <h5 class="modal-title">{{visualisationCategories[visIdx].title}}</h5>
+            <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-3">
+                    <mat-form-field class="visual-select">
+                        <mat-label>Valitse visualisaatio</mat-label>
+                        <mat-select (selectionChange)="changeVisual($event)">
+                            <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="overflow-wrapper mb-2">
+                        <app-filters *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[1].link"  [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[2].link"  [responseData]="filterValues" [tabData]="tabData[2].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[4].link"  [responseData]="filterValues" [tabData]="tabData[4].data"></app-filters>
+                        <app-filters *ngIf="tab===tabData[6].link"  [responseData]="filterValues" [tabData]="tabData[6].data"></app-filters>
+                    </div>
+                    <app-secondary-button (click)="clearFilters()" [big]="true" [content]="'Tyhjennä rajaukset'" [icon]="faTrash"></app-secondary-button>
+                </div>
+                <div class="col-9">
+                    <app-visualisation [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading" [searchTerm]="searchTerm" [searchTarget]="searchTargetName"></app-visualisation>
+                    <div class="row vis-info">
+                        <div>
+                            <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false">Lukuina</button>
+                            <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true">Prosentteina</button>
+                        </div>
+                        <app-secondary-button [icon]="'info-circle'" [content]="'Info'"></app-secondary-button>
+                        <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana'"></app-secondary-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+

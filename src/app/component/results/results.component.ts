@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy, ChangeDetectorRef, Inject, LOCALE_ID,
-  PLATFORM_ID, AfterViewInit } from '@angular/core';
+  PLATFORM_ID, AfterViewInit, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
@@ -19,12 +19,13 @@ import { FilterService } from '../../services/filters/filter.service';
 import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
+import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-results',
@@ -75,13 +76,18 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualPublication = this.staticDataService.visualisationData.publication;
   visualFunding = this.staticDataService.visualisationData.funding;
 
+  searchTargetName: string;
   visual = false;
-  visIdx = "0";
+  visIdx = '0';
   visualLoading = false;
   visualisationCategories: VisualQuery[];
   visualData: Visual;
   percentage = false;
   visualSub: Subscription;
+  modalRef: BsModalRef;
+
+  faDownload = faDownload;
+  faTrash = faTrash;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -105,6 +111,17 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.titleService.setTitle(newTitle);
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, Object.assign({}, {class: 'wide-modal'}));
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+    this.modalRef = undefined;
+    this.percentage = false;
+  }
+
+
   ngOnInit() {
     // Subscribe to route params and query params in one subscription
     this.combinedRouteParams = combineLatest([this.route.params, this.route.queryParams])
@@ -117,6 +134,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Change query target
         this.settingsService.changeTarget(query.target ? query.target : null);
+        // Get search target name for visuals
+        this.searchTargetName = this.staticDataService.targets?.find(t => t.value === query.target)?.['viewValue' + this.currentLocale];
+
 
         this.page = +query.page || 1;
         if (this.page > 1000) {
@@ -170,6 +190,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           }
           this.visIdx = '0';
           this.visual = this.visual && !!this.visualisationCategories.length;
+          console.log(this.visualisationCategories);
         }
 
         this.sortService.updateSort(query.sort);
@@ -283,6 +304,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  clearFilters() {
+    this.router.navigate([], {queryParams: {target: this.settingsService.target}});
+  }
+
   changeVisual(event: any) {
     // Update idx
     this.visIdx = event.value;
@@ -300,7 +325,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(values => {
         this.visualData = values;
         this.visualLoading = false;
-      })
+      });
     }
   }
 

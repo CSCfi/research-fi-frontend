@@ -4,3 +4,12 @@
 // 
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
+.overflow-wrapper {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 440px);
+}
+
+.legend {
+    margin-top: 100px;
+}

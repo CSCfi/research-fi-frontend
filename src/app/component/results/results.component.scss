@@ -70,6 +70,27 @@ span.total {
   align-content: flex-start;
 }
 
+// Visualisation modal
+.modal-body {
+  padding: 10px;
+  .visual-select {
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .overflow-wrapper {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 390px);
+  }
+  .vis-info {
+    justify-content: space-between;
+  }
+  .vis-style-toggle {
+    border-radius: 0;
+  }
+}
+
 // No results
 .no-results {
   min-height: 420px;
