@@ -25,7 +25,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-results',
@@ -87,6 +87,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   modalRef: BsModalRef;
 
   faDownload = faDownload;
+  faTrash = faTrash;
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -134,7 +135,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Change query target
         this.settingsService.changeTarget(query.target ? query.target : null);
         // Get search target name for visuals
-        this.searchTargetName = this.staticDataService.targets?.find(t => t.value === query.target)['viewValue' + this.currentLocale];
+        this.searchTargetName = this.staticDataService.targets?.find(t => t.value === query.target)?.['viewValue' + this.currentLocale];
 
 
         this.page = +query.page || 1;
@@ -303,6 +304,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  clearFilters() {
+    this.router.navigate([], {queryParams: {target: this.settingsService.target}});
+  }
+
   changeVisual(event: any) {
     // Update idx
     this.visIdx = event.value;
@@ -320,7 +325,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(values => {
         this.visualData = values;
         this.visualLoading = false;
-      })
+      });
     }
   }
 
