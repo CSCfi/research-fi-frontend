@@ -137,6 +137,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         // Get search target name for visuals
         this.searchTargetName = this.staticDataService.targets?.find(t => t.value === query.target)?.['viewValue' + this.currentLocale];
 
+        this.searchService.pageSize = parseInt(query.size, 10) || 10;
+
 
         this.page = +query.page || 1;
         if (this.page > 1000) {
@@ -194,7 +196,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         this.sortService.updateSort(query.sort);
-        this.searchService.updatePageNumber(this.page);
+        this.searchService.updatePageNumber(this.page, this.searchService.pageSize);
         this.searchService.updateQueryParams(query);
 
         // Check for Angular Univeral SSR, update filters if browser
