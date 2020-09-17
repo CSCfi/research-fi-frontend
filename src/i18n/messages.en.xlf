@@ -2427,6 +2427,18 @@
         <source>Haku</source>
         <target>Call</target>
       </trans-unit>
+      <trans-unit id="funderProgramme">
+        <source>Programme</source>
+        <target>Programme</target>
+      </trans-unit>
+      <trans-unit id="funderTopic">
+        <source>Topic</source>
+        <target>Topic</target>
+      </trans-unit>
+      <trans-unit id="funderCallId">
+        <source>Call ID</source>
+        <target>Call ID</target>
+      </trans-unit>
       <trans-unit id="1429405664221353899">
         <source>Rahoituspäätöksen numero</source>
         <target>Funding decision number</target>
