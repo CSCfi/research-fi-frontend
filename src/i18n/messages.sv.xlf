@@ -2414,15 +2414,15 @@
       </trans-unit>
       <trans-unit id="frameworkProgramme">
         <source>Puiteohjelma</source>
-        <target state="translated">Puiteohjelma</target>
+        <target state="translated">Ramprogram</target>
       </trans-unit>
       <trans-unit id="callProgramme">
         <source>Haku</source>
         <target state="translated">Sökning</target>
       </trans-unit>
       <trans-unit id="funderProgramme">
-        <source>Ohjelma</source>
-        <target state="translated">Program</target>
+        <source>Programme</source>
+        <target state="translated">Programme</target>
       </trans-unit>
       <trans-unit id="funderTopic">
         <source>Topic</source>

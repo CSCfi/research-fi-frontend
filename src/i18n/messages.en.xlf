@@ -2428,7 +2428,7 @@
         <target>Call</target>
       </trans-unit>
       <trans-unit id="funderProgramme">
-        <source>Ohjelma</source>
+        <source>Programme</source>
         <target>Programme</target>
       </trans-unit>
       <trans-unit id="funderTopic">
