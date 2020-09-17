@@ -84,6 +84,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     tooltip: $localize`Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.`,
   };
 
+  cordisLink = 'https://cordis.europa.eu/programme/id/';
+
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
   idSub: Subscription;
