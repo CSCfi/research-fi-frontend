@@ -338,7 +338,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     // Reset sort
     this.sortService.sortMethod = 'desc';
     // Reset page number
-    this.searchService.updatePageNumber(1);
+    this.searchService.updatePageNumber(1, this.searchService.pageSize);
     // If query history link is clicked, send value to service and navigate
     if (historyLink) {
       this.searchService.updateInput(historyLink);

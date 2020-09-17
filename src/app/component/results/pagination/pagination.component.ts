@@ -23,6 +23,7 @@ export class PaginationComponent implements OnInit {
   page: number;
   fromPage: number; // Used for HTML rendering
   pages: number[];
+  pageSize: number;
   maxPage: number;
   @Input() responseData: Search;
   @Input() tab: string;
@@ -47,10 +48,12 @@ export class PaginationComponent implements OnInit {
     // Reset pagination
     this.page = this.searchService.pageNumber;
 
-    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
+    this.pageSize = this.searchService.pageSize;
+
+    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop, this.pageSize);
 
     // Initialize fromPage
-    this.fromPage = (this.page - 1) * 10;
+    this.fromPage = (this.page - 1) * this.pageSize;
 
     // Get total value of results and send to search service
     this.totalSub = this.searchService.currentTotal.subscribe(total => this.total = total.value);
@@ -59,9 +62,9 @@ export class PaginationComponent implements OnInit {
     this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
   }
 
-  generatePages(currentPage: number, length: number = 5) {
+  generatePages(currentPage: number, length: number, pageSize: number) {
     // Get the highest page number for the query
-    this.maxPage = this.getHighestPage(this.responseData.total);
+    this.maxPage = this.getHighestPage(this.responseData.total, pageSize);
     // Init array to correct length, make it odd and squish if not enough pages
     // Number of pages should be odd to make centering current page easy
     // tslint:disable-next-line: curly
@@ -87,15 +90,15 @@ export class PaginationComponent implements OnInit {
     return res;
   }
 
-  getHighestPage(results: number, interval: number = 10) {
+  getHighestPage(results: number, pageSize: number) {
     // tslint:disable-next-line: no-bitwise
-    return ((results - 1) / interval) + 1 | 0;
+    return ((results - 1) / pageSize) + 1 | 0;
   }
 
-  goToPage(n: number) {
+  goToPage(n: number, pageSize: number) {
     this.page = n;
-    this.fromPage = (this.page - 1) * 10;
-    this.searchService.updatePageNumber(this.page);
+    this.fromPage = (this.page - 1) * pageSize;
+    this.searchService.updatePageNumber(this.page, pageSize);
     this.navigate();
   }
 
@@ -107,7 +110,7 @@ export class PaginationComponent implements OnInit {
     this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {
-      this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop);
+      this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop, this.pageSize);
     }
   }
 

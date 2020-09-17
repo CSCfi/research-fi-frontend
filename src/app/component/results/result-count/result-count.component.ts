@@ -30,12 +30,9 @@ export class ResultCountComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.routeSub = this.route.queryParams.subscribe(params => {
-      this.searchService.pageSize = params.size;
-      this.currentSize = parseInt(params.size, 10) || 10;
-    });
 
     this.totalSub = this.dataService.currentTotal.subscribe(total => {
+      this.currentSize = this.searchService.pageSize;
       this.total = total;
       // Get current page
       this.page = this.searchService.pageNumber;

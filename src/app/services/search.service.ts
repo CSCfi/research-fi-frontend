@@ -72,9 +72,9 @@ export class SearchService {
   }
 
   // Fetch page number from results page
-  updatePageNumber(pageNumber: number) {
+  updatePageNumber(pageNumber: number, pageSize = this.pageSize) {
     this.pageNumber = pageNumber;
-    this.fromPage = this.pageNumber * 10 - 10;
+    this.fromPage = (this.pageNumber - 1) * pageSize;
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
       this.fromPage = 0;
       this.pageNumber = 1;
