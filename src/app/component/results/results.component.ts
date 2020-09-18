@@ -117,8 +117,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   closeModal() {
     this.modalRef.hide();
-    this.modalRef = undefined;
-    this.percentage = false;
+    // Logic implemented in hide sub
+    // this.visIdx = '0';
+    // this.modalRef = undefined;
+    // this.percentage = false;
   }
 
 
@@ -240,6 +242,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.cdr.detectChanges();
       this.dataService.updateTotalResultsValue(this.total);
       this.updateTitle(this.selectedTabData);
+    });
+
+    this.modalService.onHide.subscribe(s => {
+      // this.modalRef.hide();
+      this.modalRef = undefined;
+      this.percentage = false;
+      this.visIdx = '0';
     });
 
     this.visualSub = this.dataService.newFilter.subscribe(_ => this.visual = false);
