@@ -81,6 +81,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visIdx = '0';
   visualLoading = false;
   visualisationCategories: VisualQuery[];
+  visualisationInfo: string;
   visualData: Visual;
   percentage = false;
   visualSub: Subscription;
@@ -88,6 +89,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   faDownload = faDownload;
   faTrash = faTrash;
+
+  betaTooltip = 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.'
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -182,9 +185,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           switch (this.tab) {
             case 'publications':
               this.visualisationCategories = this.visualPublication;
+              this.visualisationInfo = this.staticDataService.visualisationData.publicationTooltip;
               break;
             case 'fundings':
               this.visualisationCategories = this.visualFunding;
+              this.visualisationInfo = this.staticDataService.visualisationData.fundingTooltip;
               break;
             default:
               this.visualisationCategories = [];
@@ -192,7 +197,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           }
           this.visIdx = '0';
           this.visual = this.visual && !!this.visualisationCategories.length;
-          console.log(this.visualisationCategories);
         }
 
         this.sortService.updateSort(query.sort);
@@ -248,7 +252,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.modalRef.hide();
       this.modalRef = undefined;
       this.percentage = false;
-      this.visIdx = '0';
+      this.changeVisual({value: '0'});
     });
 
     this.visualSub = this.dataService.newFilter.subscribe(_ => this.visual = false);

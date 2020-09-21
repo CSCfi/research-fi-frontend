@@ -116,14 +116,19 @@ Copyright 2019 Ministry of Education and Culture, Finland
     <div cdkTrapFocus>
         <div class="modal-header">
                 <span></span> <!-- invisible flex item for auto margin -->
-                <h5 class="modal-title ">{{visualisationCategories[visIdx].title}}</h5>
+                <span class="d-flex align-items-center">
+                    <h5 class="modal-title pr-2">{{visualisationCategories[visIdx].title}}</h5>
+                    <span [tooltip]="betaTooltip" triggers="focus keydown" placement="top" tabindex="0" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
+                        <app-secondary-button [icon]="'info-circle'" [content]="'Beta'"></app-secondary-button>
+                    </span>
+                </span>
                 <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="col-3">
                     <mat-form-field class="visual-select">
-                        <mat-label>Valitse visualisaatio</mat-label>
+                        <mat-label>Valitse teema</mat-label>
                         <mat-select (selectionChange)="changeVisual($event)">
                             <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
                         </mat-select>
@@ -138,14 +143,18 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <app-secondary-button (click)="clearFilters()" [big]="true" [content]="'Tyhjennä rajaukset'" [icon]="faTrash"></app-secondary-button>
                 </div>
                 <div class="col-9">
+                    <app-active-filters></app-active-filters>
                     <app-visualisation [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading" [searchTerm]="searchTerm" [searchTarget]="searchTargetName"></app-visualisation>
                     <div class="row vis-info">
                         <div>
-                            <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false">Lukuina</button>
+                            <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false">Lukumäärinä</button>
                             <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true">Prosentteina</button>
                         </div>
-                        <app-secondary-button [icon]="'info-circle'" [content]="'Info'"></app-secondary-button>
-                        <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana'"></app-secondary-button>
+                        <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
+                        <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="0" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                            <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
+                        </span>
+                        <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana'" [disabled]="true"></app-secondary-button>
                     </div>
                 </div>
             </div>
