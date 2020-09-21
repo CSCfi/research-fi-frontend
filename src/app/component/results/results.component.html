@@ -24,12 +24,15 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         <span class="sr-only" i18n="@@resultCount">hakutulosta</span>
                     </h2>
                 </div>
-                <div class="col-auto col-lg-8 justify-content-end row">
-                    <div class="col-auto align-self-center px-0 pr-lg-3" *ngIf="selectedTabData">
+                <div class="col-auto col-lg-9 justify-content-end align-items-center row">
+                    <div class="col-auto px-0 py-2 pr-lg-3 mr-xl-auto d-none d-lg-block">
+                        <app-secondary-button [content]="'Visualisointityökalu'" [icon]="faChartBar" (click)="openModal(visualModal)"></app-secondary-button>
+                    </div>
+                    <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
                         <app-result-count></app-result-count>
                     </div>
                     <!-- <div class="col-12"></div> -->
-                    <div class="col-auto text-right align-self-center d-none d-lg-block">
+                    <div class="col-auto text-right d-none d-lg-block">
                         <a routerLink="/service-info" fragment="1" class="theme-link">
                             <strong>
                                 <ng-container i18n="@@resultInfo1">Mitä</ng-container><span> {{selectedTabData?.singular.toLowerCase()}}</span>
@@ -43,7 +46,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <!-- Uncomment for visualization toggle -->
         <div>
             <!-- <mat-slide-toggle [(ngModel)]="visual" class="d-none d-xl-inline-block" *ngIf="visualisationCategories?.length">Tarkastele visualisaationa</mat-slide-toggle> -->
-            <button mat-raised-button (click)="openModal(visualModal)" class="mb-2">Avaa visualisaatio</button>
+            <!-- <button mat-raised-button (click)="openModal(visualModal)" class="mb-2">Avaa visualisaatio</button> -->
             <div>
                 <mat-form-field *ngIf="visual && !mobile">
                     <mat-label>Teema</mat-label>
@@ -118,7 +121,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <span></span> <!-- invisible flex item for auto margin -->
                 <span class="d-flex align-items-center">
                     <h5 class="modal-title pr-2">{{visualisationCategories[visIdx].title}}</h5>
-                    <span [tooltip]="betaTooltip" triggers="focus keydown" placement="top" tabindex="0" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
+                    <span [tooltip]="betaTooltip" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
                         <app-secondary-button [icon]="'info-circle'" [content]="'Beta'"></app-secondary-button>
                     </span>
                 </span>
@@ -151,7 +154,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                             <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true">Prosentteina</button>
                         </div>
                         <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
-                        <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="0" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                        <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                             <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
                         </span>
                         <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana'" [disabled]="true"></app-secondary-button>

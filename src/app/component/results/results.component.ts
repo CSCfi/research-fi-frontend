@@ -25,7 +25,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
-import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faTrash, faChartBar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-results',
@@ -89,6 +89,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   faDownload = faDownload;
   faTrash = faTrash;
+  faChartBar = faChartBar;
 
   betaTooltip = 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.'
 
