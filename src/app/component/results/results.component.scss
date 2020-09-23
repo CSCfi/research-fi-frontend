@@ -71,8 +71,24 @@ span.total {
 }
 
 // Visualisation modal
+.modal-header {
+  justify-content: unset;
+  > *:first-child {
+    margin-right: auto;
+    visibility: hidden;
+    width: 74px;
+  }
+  > *:last-child {
+    margin-left: auto;
+  }
+  .modal-title {
+    font-size: 22px;
+  }
+
+}
 .modal-body {
   padding: 10px;
+  padding-bottom: 20px;
   .visual-select {
     padding: 1rem;
     width: 100%;
@@ -81,7 +97,7 @@ span.total {
   .overflow-wrapper {
     overflow: auto;
     overflow-x: hidden;
-    max-height: calc(100vh - 390px);
+    max-height: calc(100vh - 415px);
   }
   .vis-info {
     justify-content: space-between;

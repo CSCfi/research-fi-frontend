@@ -25,7 +25,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
-import { faDownload, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faTrash, faChartBar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-results',
@@ -81,6 +81,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visIdx = '0';
   visualLoading = false;
   visualisationCategories: VisualQuery[];
+  visualisationInfo: string;
   visualData: Visual;
   percentage = false;
   visualSub: Subscription;
@@ -88,6 +89,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   faDownload = faDownload;
   faTrash = faTrash;
+  faChartBar = faChartBar;
+
+  betaTooltip = 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.'
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -117,8 +121,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   closeModal() {
     this.modalRef.hide();
-    this.modalRef = undefined;
-    this.percentage = false;
+    // Logic implemented in hide sub
+    // this.visIdx = '0';
+    // this.modalRef = undefined;
+    // this.percentage = false;
   }
 
 
@@ -182,9 +188,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           switch (this.tab) {
             case 'publications':
               this.visualisationCategories = this.visualPublication;
+              this.visualisationInfo = this.staticDataService.visualisationData.publicationTooltip;
               break;
             case 'fundings':
               this.visualisationCategories = this.visualFunding;
+              this.visualisationInfo = this.staticDataService.visualisationData.fundingTooltip;
               break;
             default:
               this.visualisationCategories = [];
@@ -192,7 +200,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           }
           this.visIdx = '0';
           this.visual = this.visual && !!this.visualisationCategories.length;
-          console.log(this.visualisationCategories);
         }
 
         this.sortService.updateSort(query.sort);
@@ -242,6 +249,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.cdr.detectChanges();
       this.dataService.updateTotalResultsValue(this.total);
       this.updateTitle(this.selectedTabData);
+    });
+
+    this.modalService.onHide.subscribe(s => {
+      // this.modalRef.hide();
+      this.modalRef = undefined;
+      this.percentage = false;
+      this.changeVisual({value: '0'});
     });
 
     this.visualSub = this.dataService.newFilter.subscribe(_ => this.visual = false);

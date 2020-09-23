@@ -439,13 +439,15 @@ export class StaticDataService {
   
 
   // tslint:disable-next-line: member-ordering
-  visualisationData: {locale: d3.FormatLocaleDefinition, publication: VisualQuery[], funding: VisualQuery[]} = {
+  visualisationData: {locale: d3.FormatLocaleDefinition, publicationTooltip: string, fundingTooltip: string, publication: VisualQuery[], funding: VisualQuery[]} = {
     locale: {
       decimal: '.',
       thousands: ' ',
       grouping: [3],
       currency: ['', '€'],
     },
+    publicationTooltip: 'Voit valita julkaisumäärien tarkasteluun vasemmalta teeman, jolloin voit tarkastella julkaisujen jakautumista vuosittain päätieteenalan, tieteenalan, organisaation, julkaisutyypin, avoimen saatavuuden, julkaisumaan tai julkaisufoorumitason mukaan. Vasemmalta valikosta voit rajata julkaisumääriin sisällytettäväksi haluamasi julkaisuvuodet, organisaatiot, tieteenalat jne. <br>Huom. Yhdellä julkaisulla voi olla useita tieteenaloja ja organisaatioita. Julkaisu sisältyy tällöin tieteenala-/organisaatiokohtaisessa tarkastelussa jokaisen siihen liitetyn tieteenalan/organisaation lukumäärään.',
+    fundingTooltip: 'Voit valita hankemäärien tarkasteluun vasemmalta teeman, jolloin voit tarkastella hankkeiden jakautumista vuosittain rahoittajan, organisaation, rahoitusmuodon tai tieteenalan mukaan. Vasemmalta valikosta voit rajata hankkeiden lukumääriin sisällytettäväksi haluamasi vuodet, organisaatiot, rahoittajat jne.<br>Huom. Yhdellä hankkeella voi olla useita tieteenaloja ja organisaatioita. Hanke sisältyy tällöin tieteenala-/organisaatiokohtaisessa tarkastelussa jokaisen siihen liitetyn tieteenalan/organisaation lukumäärään.',
     publication: [
         {
             field: 'year',

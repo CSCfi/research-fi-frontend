@@ -256,8 +256,8 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('x', this.margin * 2.5)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
-        .attr('font-weight', 'bold')
-        .text(this.categoryObject.title);
+        .attr('font-weight', 'bold');
+        // .text(this.categoryObject.title);
 
     // Search term info
     this.g.append('foreignObject')
@@ -266,9 +266,9 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('width', this.innerWidth)
         .attr('height', this.margin / 2)
         .append('xhtml:div')
-          .style('text-align', 'right')
-          .html((this.searchTerm ? `<mark>${this.searchTerm}</mark>` : 'Ei hakusanaa') + ', ' +
-                (this.searchTarget ? this.searchTarget : 'Koko sisältö'));
+          .style('text-align', 'left')
+          .html((this.searchTerm ? `"<mark>${this.searchTerm}</mark>"` : 'Ei hakusanaa') +
+                (this.searchTarget ? (', ' + this.searchTarget) : ''));
 
     this.g.append('foreignObject')
         .attr('x', 0)
@@ -276,8 +276,8 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('width', this.width - this.legendWidth - this.margin * 2)
         .attr('height', this.margin * 2)
         .append('xhtml:div')
-          .style('font-size', '14px')
-          .html(this.categoryObject.message);
+          .style('font-size', '14px');
+          // .html(this.categoryObject.message);
   }
 
   onClick(d: {id: string, parent: string}) {
