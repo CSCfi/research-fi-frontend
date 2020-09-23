@@ -150,6 +150,11 @@ fa-icon[icon="external-link-alt"] {
   padding-left: 5px;
 }
 
+// Modal doesnt scroll page
+.modal-open modal-container.modal {
+  overflow-y: hidden;
+}
+
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
   button:focus, input:focus, select:focus, textarea:focus, *:focus {
