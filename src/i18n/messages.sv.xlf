@@ -1048,6 +1048,14 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="withTerm" datatype="html">
+        <source>Joihin sisältyy hakutermi</source>
+        <target state="translated">Som inkluderar söktermen</target>
+      </trans-unit>
+      <trans-unit id="noResultsWithTerm" datatype="html">
+        <source>Ei tuloksia hakutermillä</source>
+        <target state="translated">Inga resultat med söktermen</target>
+      </trans-unit>
       <trans-unit id="noResults" datatype="html">
         <source>Ei tuloksia.</source>
         <target state="translated">Inga resultat.</target>
