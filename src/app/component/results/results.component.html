@@ -26,7 +26,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 </div>
                 <div class="col-auto col-lg-9 justify-content-end align-items-center row">
                     <div class="col-auto px-0 py-2 pr-lg-3 mr-xl-auto d-none d-lg-block">
-                        <app-secondary-button [content]="'Visualisointityökalu'" [icon]="faChartBar" (click)="openModal(visualModal)"></app-secondary-button>
+                        <app-secondary-button [content]="'Katso kuvana'" [icon]="faChartBar" (click)="openModal(visualModal)"></app-secondary-button>
                     </div>
                     <div class="col-auto px-0 pr-lg-3" *ngIf="selectedTabData">
                         <app-result-count></app-result-count>
@@ -130,6 +130,14 @@ Copyright 2019 Ministry of Education and Culture, Finland
         <div class="modal-body">
             <div class="row">
                 <div class="col-3">
+                    <div (click)="showInfo = !showInfo" (keydown.enter)="showInfo = !showInfo" tabindex="0" (clickOutside)="onClickedOutside($event)">
+                        <fa-icon class="info-icon pr-2" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
+                        <a>Lisätietoa</a>
+                    </div>
+                    <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
+                        <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
+                        <div [innerHtml]="visualisationInfo"></div>
+                    </div>
                     <mat-form-field class="visual-select">
                         <mat-label>Valitse teema</mat-label>
                         <mat-select (selectionChange)="changeVisual($event)">
@@ -153,11 +161,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
                             <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false">Lukumäärinä</button>
                             <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true">Prosentteina</button>
                         </div>
-                        <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
+                        <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                             <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
-                        </span>
-                        <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana'" [disabled]="true"></app-secondary-button>
+                        </span> -->
+                        <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana (tulossa)'" [disabled]="true"></app-secondary-button>
                     </div>
                 </div>
             </div>

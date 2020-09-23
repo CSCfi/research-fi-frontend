@@ -86,6 +86,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   percentage = false;
   visualSub: Subscription;
   modalRef: BsModalRef;
+  showInfo = true;
 
   faDownload = faDownload;
   faTrash = faTrash;
@@ -125,6 +126,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // this.visIdx = '0';
     // this.modalRef = undefined;
     // this.percentage = false;
+  }
+
+  onClickedOutside($event) {
+    this.showInfo = false;
   }
 
 

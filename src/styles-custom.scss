@@ -173,6 +173,13 @@ mark, .mark {
             color: mat-contrast($primary, 500);
         }
     }
+    .info {
+        background-color: mat-contrast($primary, 500);
+        border-color: mat-color($primary, 50);
+        ul {
+            list-style: inside !important;
+        }
+    }
 }
 
 @media (max-width: 575px) {
