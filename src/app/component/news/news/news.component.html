@@ -70,7 +70,7 @@
                         <h2 class="col-12 px-0 pt-0 pt-lg-3"><ng-container i18n="@@latest">Uusimmat</ng-container> ({{data[0]?.total | thousandSeparator}})</h2>
                         <app-news-card *ngFor="let item of data" [item]="item" [term]="currentTerm"></app-news-card>
                         <div *ngIf="!data?.length" role="alert" class="col-12 justify-content-center justify-content-lg-start mt-4 d-flex flex-column">
-                            <h3><ng-container i18n="@@noResults">Ei tuloksia hakutermillä</ng-container> "{{currentTerm}}".</h3><br>
+                            <h3><ng-container i18n="@@noResultsWithTerm">Ei tuloksia hakutermillä</ng-container> "{{currentTerm}}".</h3><br>
                             <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</p>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="col-12 col-lg-4 col side-news" [class.p-0]="mobile" *ngIf="olderData?.length">
                 <h2 class="pt-3 px-0 pb-3" #older i18n="@@olderNews">Aiempia uutisia</h2>
-                <div *ngIf="currentTerm" class="older-search-term">Joihin sisältyy hakutermi <mark>{{currentTerm}}</mark></div>
+                <div *ngIf="currentTerm" class="older-search-term"><ng-container i18n="@@withTerm">Joihin sisältyy hakutermi</ng-container> <mark>{{currentTerm}}</mark></div>
                 <app-news-card *ngFor="let item of olderData" [item]="item" [sideNews]="true" [term]="currentTerm"></app-news-card>
                 <app-news-pagination [responseData]="data"></app-news-pagination>
             </div>
