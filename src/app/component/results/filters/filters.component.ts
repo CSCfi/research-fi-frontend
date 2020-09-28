@@ -314,7 +314,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       result = itemArr;
     }
     // Pass selection
-    console.log(result);
     this.selectionChange(filter, result);
   }
 
