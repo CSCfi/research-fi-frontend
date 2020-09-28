@@ -149,12 +149,13 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
-
+      const currentTab = this.sortService.currentTab;
       // Subscribe to aggregation data
-      this.filterResponse = this.searchService.getAllFilters(this.currentTab).subscribe(response => {
+      this.filterResponse = this.searchService.getAllFilters(currentTab).subscribe(response => {
         this.response = response;
         if (response) {
           const source = this.response.aggregations;
+          console.log(source);
           const tab = this.sortService.currentTab;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
@@ -318,10 +319,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Funding
             // Type of funding
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
-              if (source.typeOfFunding.types.buckets?.length > 0) {
-                source.typeOfFunding.types.buckets.forEach(type => {
+              // Needs to be shaped by service
+              const shaped = this.fundingFilters.typeOfFunding(source.typeOfFunding.types.buckets);
+              if (shaped.length) {
+                shaped.forEach(type => {
                   setTimeout(t => {
-                    if (type.subData.find(x => x.key === val.value)) {
+                     if (type.subData.find(x => x.key === val.value)) {
                       const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                       this.activeFilters[foundIndex].translation = type.subData.find(x => x.key === val.value).label;
                     }
