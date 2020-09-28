@@ -39,4 +39,29 @@ describe('SearchBarComponent', () => {
     it('should be created', () => {
         expect(searchBarComponent).toBeDefined();
     });
+
+    it('should change search target', () => {
+        searchBarComponent.changeTarget({value: 'name'});
+        expect(searchBarComponent.selectedTarget).toBe('name');
+
+        searchBarComponent.changeTarget({value: 'all'});
+        expect(searchBarComponent.selectedTarget).toBe(null);
+
+        searchBarComponent.changeTarget({value: 'title'});
+        expect(searchBarComponent.selectedTarget).toBe('title');
+    });
+
+    it('should reset search', () => {
+        searchBarComponent.searchInput.nativeElement.value = 'test';
+        searchBarComponent.selectedTarget = 'test';
+        expect(searchBarComponent.searchInput.nativeElement.value).toBe('test');
+
+        // Needed for term length check
+        searchBarComponent.searchService.searchTerm = 'test';
+
+        searchBarComponent.resetSearch();
+        expect(searchBarComponent.selectedTarget).toBeFalsy();
+        expect(searchBarComponent.searchInput.nativeElement.value).toBeFalsy();
+    });
+
 });
