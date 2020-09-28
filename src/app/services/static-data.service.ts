@@ -8,10 +8,19 @@
 import { Injectable } from '@angular/core';
 import { VisualQuery } from '../models/visualisation/visualisations.model';
 
+
+interface Target {
+  value: string;
+  viewValueFi: string;
+  viewValueEn: string;
+  viewValueSv: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class StaticDataService {
+  
   // Filters, Fields of study
   majorFieldsOfScience = [
     {id: 1, key: $localize`:@@naturalSciences:Luonnontieteet`, checked: false, subData: [], doc_count: 0},
@@ -77,6 +86,15 @@ export class StaticDataService {
       {type: 'G4', label: $localize`:@@gMonograph:Monografiaväitöskirja`, key: '', doc_count: 0},
       {type: 'G5', label: $localize`:@@gArticle:Artikkeliväitöskirja`, key: '', doc_count: 0}
     ]}
+  ];
+
+  targets: Target[] = [
+    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: 'All content', viewValueSv: ''},
+    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: 'Person name', viewValueSv: ''},
+    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: 'Title', viewValueSv: ''},
+    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: 'Keywords', viewValueSv: ''},
+    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: 'Organization', viewValueSv: ''},
+    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: 'Funder', viewValueSv: ''}
   ];
 
   juFoCode = [
@@ -421,13 +439,15 @@ export class StaticDataService {
   
 
   // tslint:disable-next-line: member-ordering
-  visualisationData: {locale: d3.FormatLocaleDefinition, publication: VisualQuery[], funding: VisualQuery[]} = {
+  visualisationData: {locale: d3.FormatLocaleDefinition, publicationTooltip: string, fundingTooltip: string, publication: VisualQuery[], funding: VisualQuery[]} = {
     locale: {
       decimal: '.',
       thousands: ' ',
       grouping: [3],
       currency: ['', '€'],
     },
+    publicationTooltip: '<ul><li>Voit valita julkaisumäärien tarkasteluun teeman, jolloin näet julkaisujen jakautumisen vuosittain joko päätieteenalan, tieteenalan, organisaation, julkaisutyypin, avoimen saatavuuden, julkaisumaan tai julkaisufoorumitason mukaan.</li><li> Alla olevista valikoista voit rajata julkaisumääriin sisällytettäväksi haluamasi julkaisuvuodet, organisaatiot, tieteenalat jne. </li><li>Huom. Yhdellä julkaisulla voi olla useita tieteenaloja ja organisaatioita. Julkaisu sisältyy tällöin tieteenala-/organisaatiokohtaisessa tarkastelussa jokaisen siihen liitetyn tieteenalan/organisaation lukumäärään.</li><li>Lukumäärät sisältävät Tiedejatutkimus.fi-palvelun sisältämät julkaisut. Ne päivittyvät päivittäin, kun palveluun lisätään uusia julkaisuja. Varsinaisia vuositilastoja tieteestä ja tutkimuksesta löydät <a href=\"/science-innovation-policy/science-research-figures\">Lukuja tieteestä ja tutkimuksesta -osiosta</a> sekä opetushallinnon tilastopalvelu <a href=\"https://vipunen.fi/fi-fi/korkeakoulutuksen-yhteiset-ja-tk-toiminta\">Vipusesta <fa-icon class="icon" icon="external-link-alt"></fa-icon></a>.</li></ul>',
+    fundingTooltip: '<ul><li>Voit valita hankemäärien tarkasteluun teeman, jolloin näet hankkeiden jakautumisen vuosittain joko rahoittajan, organisaation, rahoitusmuodon tai tieteenalan mukaan. Alla olevista valikoista voit rajata hankkeiden lukumääriin sisällytettäväksi haluamasi vuodet, organisaatiot, rahoittajat jne.</li><li>Huom. Yhdellä hankkeella voi olla useita tieteenaloja ja organisaatioita. Hanke sisältyy tällöin tieteenala-/organisaatiokohtaisessa tarkastelussa jokaisen siihen liitetyn tieteenalan/organisaation lukumäärään.</li><li>Lukumäärät sisältävät Tiedejatutkimus.fi-palvelun sisältämät hankkeet. Ne päivittyvät jatkuvasti, kun palveluun lisätään uusia hankkeita. Varsinaisia vuositilastoja tieteestä ja tutkimuksesta löydät <a href=\"/science-innovation-policy/science-research-figures\">Lukuja tieteestä ja tutkimuksesta -osiosta</a> sekä opetushallinnon tilastopalvelu <a href=\"https://vipunen.fi/fi-fi/korkeakoulutuksen-yhteiset-ja-tk-toiminta\">Vipusesta <fa-icon class="icon" icon="external-link-alt"></fa-icon></a>.</li></ul>',
     publication: [
         {
             field: 'year',

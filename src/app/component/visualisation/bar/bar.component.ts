@@ -21,6 +21,8 @@ export class BarComponent implements OnInit, OnChanges {
   @Input() width: number;
   @Input() tab: string;
   @Input() percentage: boolean;
+  @Input() searchTerm: string;
+  @Input() searchTarget: string;
 
   margin = 50;
   legendWidth = 350;
@@ -39,6 +41,7 @@ export class BarComponent implements OnInit, OnChanges {
 
   publication = this.staticDataService.visualisationData.publication;
   funding = this.staticDataService.visualisationData.funding;
+  targets = this.staticDataService.targets;
 
   categories = this.publication;
   categoryObject: VisualQuery;
@@ -73,12 +76,12 @@ export class BarComponent implements OnInit, OnChanges {
         this.categories = this.publication;
         ylabel = 'Julkaisujen määrä';
         break;
-        case 'fundings':
-          visualisationData = this.data.fundingData;
-          this.categories = this.funding;
-          ylabel = 'Hankkeiden määrä';
+      case 'fundings':
+        visualisationData = this.data.fundingData;
+        this.categories = this.funding;
+        ylabel = 'Hankkeiden määrä';
         break;
-    
+
       default:
         break;
     }
@@ -95,7 +98,7 @@ export class BarComponent implements OnInit, OnChanges {
       ylabel = 'Myönnetty summa';
       format = '$,';
     }
-    
+
     // Height and width with margins
     this.innerHeight = this.height - 3 * this.margin;
     this.innerWidth = this.width - 3 * this.margin - this.legendWidth;
@@ -126,7 +129,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.height)
         .append('g')
         .attr('id', 'main')
-        .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
+        .attr('transform', `translate(${this.margin}, ${this.margin * 2})`);
     
     // Legend init
     const legendSvg = d3.select('svg#legend');
@@ -153,7 +156,7 @@ export class BarComponent implements OnInit, OnChanges {
               // .tickFormat(d => d + (percentage ? '%' : '')));
               .tickFormat(percentage ? (d => d + '%') : d3.format(format)));
 
-    // X axis    
+    // X axis
     this.g.append('g')
         .attr('transform', `translate(0, ${this.innerHeight})`)
         .call(axisBottom(this.x));
@@ -228,7 +231,7 @@ export class BarComponent implements OnInit, OnChanges {
       .attr('x', 10 + 20)
       .attr('y', (_, j) => this.margin / 2 + j * 25 - 25 / 2)
         .append('xhtml:div')
-        .style('width', '320px')
+        .style('width', '300px')
         .style('white-space', 'nowrap')
         .style('text-overflow', 'ellipsis')
         .style('overflow', 'hidden')
@@ -239,29 +242,42 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('x', -(this.innerHeight / 2))
         .attr('y', -this.margin - 35)
         .attr('transform', 'rotate(-90)')
-        .attr('text-anchor', 'middle')
-        .text(ylabel);
+        .attr('text-anchor', 'middle');
+        // .text(ylabel);
 
     this.g.append('text')
         .attr('x', this.innerWidth / 2)
         .attr('y', this.innerHeight + this.margin - 5)
-        .attr('text-anchor', 'middle')
-        .text('Vuosi');
+        .attr('text-anchor', 'middle');
+        // .text('Vuosi');
 
+    // Graph title
     this.g.append('text')
-        .attr('x', this.innerWidth / 2)
+        .attr('x', this.margin * 2.5)
         .attr('y', -this.margin / 2)
         .attr('text-anchor', 'middle')
-        .text(this.categoryObject.title);
+        .attr('font-weight', 'bold');
+        // .text(this.categoryObject.title);
+
+    // Search term info
+    this.g.append('foreignObject')
+        .attr('x', 0)
+        .attr('y', -this.margin / 2)
+        .attr('width', this.innerWidth)
+        .attr('height', this.margin / 2)
+        .append('xhtml:div')
+          .style('text-align', 'left')
+          .html((this.searchTerm ? `"<mark>${this.searchTerm}</mark>"` : 'Ei hakusanaa') +
+                (this.searchTarget ? (', ' + this.searchTarget) : ''));
 
     this.g.append('foreignObject')
-        .attr('x', -this.margin * 2)
+        .attr('x', 0)
         .attr('y', -this.margin * 2 - 5)
-        .attr('width', this.width - this.legendWidth)
+        .attr('width', this.width - this.legendWidth - this.margin * 2)
         .attr('height', this.margin * 2)
         .append('xhtml:div')
-          .style('font-size', '14px')
-          .html(this.categoryObject.message);  
+          .style('font-size', '14px');
+          // .html(this.categoryObject.message);
   }
 
   onClick(d: {id: string, parent: string}) {

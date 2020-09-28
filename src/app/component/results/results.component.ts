@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy, ChangeDetectorRef, Inject, LOCALE_ID,
-  PLATFORM_ID, AfterViewInit } from '@angular/core';
+  PLATFORM_ID, AfterViewInit, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
@@ -19,12 +19,13 @@ import { FilterService } from '../../services/filters/filter.service';
 import { DataService } from '../../services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
+import { faDownload, faTrash, faChartBar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-results',
@@ -75,13 +76,23 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualPublication = this.staticDataService.visualisationData.publication;
   visualFunding = this.staticDataService.visualisationData.funding;
 
+  searchTargetName: string;
   visual = false;
-  visIdx = "0";
+  visIdx = '0';
   visualLoading = false;
   visualisationCategories: VisualQuery[];
+  visualisationInfo: string;
   visualData: Visual;
   percentage = false;
   visualSub: Subscription;
+  modalRef: BsModalRef;
+  showInfo = true;
+
+  faDownload = faDownload;
+  faTrash = faTrash;
+  faChartBar = faChartBar;
+
+  betaTooltip = 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.'
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -105,6 +116,23 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.titleService.setTitle(newTitle);
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, Object.assign({}, {class: 'wide-modal'}));
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+    // Logic implemented in hide sub
+    // this.visIdx = '0';
+    // this.modalRef = undefined;
+    // this.percentage = false;
+  }
+
+  onClickedOutside($event) {
+    this.showInfo = false;
+  }
+
+
   ngOnInit() {
     // Subscribe to route params and query params in one subscription
     this.combinedRouteParams = combineLatest([this.route.params, this.route.queryParams])
@@ -117,6 +145,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Change query target
         this.settingsService.changeTarget(query.target ? query.target : null);
+        // Get search target name for visuals
+        this.searchTargetName = this.staticDataService.targets?.find(t => t.value === query.target)?.['viewValue' + this.currentLocale];
+
+        this.searchService.pageSize = parseInt(query.size, 10) || 10;
+
 
         this.page = +query.page || 1;
         if (this.page > 1000) {
@@ -160,9 +193,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           switch (this.tab) {
             case 'publications':
               this.visualisationCategories = this.visualPublication;
+              this.visualisationInfo = this.staticDataService.visualisationData.publicationTooltip;
               break;
             case 'fundings':
               this.visualisationCategories = this.visualFunding;
+              this.visualisationInfo = this.staticDataService.visualisationData.fundingTooltip;
               break;
             default:
               this.visualisationCategories = [];
@@ -173,7 +208,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         this.sortService.updateSort(query.sort);
-        this.searchService.updatePageNumber(this.page);
+        this.searchService.updatePageNumber(this.page, this.searchService.pageSize);
         this.searchService.updateQueryParams(query);
 
         // Check for Angular Univeral SSR, update filters if browser
@@ -219,6 +254,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.cdr.detectChanges();
       this.dataService.updateTotalResultsValue(this.total);
       this.updateTitle(this.selectedTabData);
+    });
+
+    this.modalService.onHide.subscribe(s => {
+      // this.modalRef.hide();
+      this.modalRef = undefined;
+      this.percentage = false;
+      this.changeVisual({value: '0'});
     });
 
     this.visualSub = this.dataService.newFilter.subscribe(_ => this.visual = false);
@@ -283,6 +325,10 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  clearFilters() {
+    this.router.navigate([], {queryParams: {target: this.settingsService.target}});
+  }
+
   changeVisual(event: any) {
     // Update idx
     this.visIdx = event.value;
@@ -300,7 +346,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(values => {
         this.visualData = values;
         this.visualLoading = false;
-      })
+      });
     }
   }
 

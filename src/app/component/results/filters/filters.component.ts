@@ -294,7 +294,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Push subfilter items into array
     const itemArr = [];
     subFilter.subData.forEach(item => {
-      itemArr.push(item.key);
+      itemArr.push(item.key.toString());
     });
     let result = [];
     // Check if all items already selected
@@ -314,7 +314,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       result = itemArr;
     }
     // Pass selection
-
     this.selectionChange(filter, result);
   }
 
