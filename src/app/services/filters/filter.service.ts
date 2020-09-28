@@ -175,11 +175,14 @@ export class FilterService {
     return res;
   }
 
-  filterByOrganization(filter: any[]) {
+  filterByOrganization(filter: any[], coPublication = false) {
+    // add argument coPublication = false; and change on call, add publication organizations with separated nested paths
     const res = [];
     const currentTab = this.sortService.currentTab;
     switch (currentTab) {
       case 'publications': {
+        coPublication ?
+        filter.forEach(value => { res.push({ bool: { should: { nested: { path: 'author', query: { bool: { should: {term: { 'author.organization.organizationId.keyword' : value }}}}}}}}); }) :
         filter.forEach(value => { res.push({ term : { 'author.organization.organizationId.keyword' : value } }); });
         break;
       }
@@ -311,6 +314,12 @@ export class FilterService {
       return index === i ? ((f?.length > 0) ? [{nested: {path: p, query: {bool: {should: f } }}}] : []) : [];
     };
 
+    // const coPublication = () => {
+    //   console.log
+    // }
+
+    // console.log(this.coPublicationFilter);
+    console.log('f: ', this.organizationFilter);
     const filters = [
       // Publications
       ...(nestedFilter('publication', this.organizationFilter, 'author')),
