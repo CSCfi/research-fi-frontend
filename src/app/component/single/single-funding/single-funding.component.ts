@@ -141,7 +141,6 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     .subscribe(responseData => {
       this.responseData = responseData;
       if (this.responseData.fundings[0]) {
-        console.log(this.responseData.fundings[0].funder)
         switch (this.localeId) {
           case 'fi': {
             this.setTitle(this.responseData.fundings[0].name + ' - Tiedejatutkimus.fi');

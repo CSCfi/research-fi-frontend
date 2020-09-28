@@ -155,7 +155,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         this.response = response;
         if (response) {
           const source = this.response.aggregations;
-          console.log(source);
           const tab = this.sortService.currentTab;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
