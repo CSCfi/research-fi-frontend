@@ -5,28 +5,25 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { FilterMethodService } from '../../../services/filter-method.service';
-import { StaticDataService } from '../../../services/static-data.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
-  })
-
-export class InfrastructureFilters {
+  providedIn: 'root'
+})
+export class InfrastructureFilterService {
   filterData = [
-      {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
-      tooltip:  $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`},
-      {field: 'organization', label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, hasSubFields: true, open: false, limitHeight: true},
-      {field: 'type', label: $localize`:@@serviceType:Palvelun tyyppi`, hasSubFields: false, open: true, limitHeight: true},
-      {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: false, open: true, limitHeight: true}
-    ];
+    {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
+    tooltip:  $localize`:@@iYearFTooltip:Tutkimusinfrastruktuurin toiminnan aloitusvuosi. Jos aloitusvuosi ei ole tiedossa, käytetään vuotta jolloin tiedot on toimitettu tiedejatutkimus.fi-palveluun.`},
+    {field: 'organization', label: $localize`:@@responsibleOrganization:Vastuuorganisaatio`, hasSubFields: true, open: false, limitHeight: true},
+    {field: 'type', label: $localize`:@@serviceType:Palvelun tyyppi`, hasSubFields: false, open: true, limitHeight: true},
+    {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: false, open: true, limitHeight: true}
+  ];
 
-    singleFilterData = [
-      // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteisjulkaisu'}
-    ];
+  singleFilterData = [
+    // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteisjulkaisu'}
+  ];
 
-  constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
+  constructor() { }
 
   shapeData(data) {
     const source = data.aggregations;

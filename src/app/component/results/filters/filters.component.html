@@ -65,8 +65,17 @@
                         </div>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
+                <!-- Co publications toggle -->
+                <!-- <div class="row" *ngIf="filter.relatedPublications">
+                    <div class="col py-3">
+                        <mat-slide-toggle class="slider" (change)="selectionChange('coPublication', true)" (keydown.enter)="selectionChange('coPublication', true)" [labelPosition]="'before'"
+                        [checked]="(activeFilters ? activeFilters.coPublication?.length : 0) > 0" >
+                            <strong><ng-container i18n="@@filterCoPublications">Näytä ainoastaan yhteisjulkaisut</ng-container></strong>
+                        </mat-slide-toggle>
+                    </div>
+                </div> -->
+                <!-- Search in Filter -->
                 <ng-container *ngIf="!filter.hasSubFields">
-                    <!-- Search in Filter -->
                     <label for="filter-query-{{i}}" class="sr-only" i18n="SR Search@@SRSearch">Hae</label>
                     <input [id]="'filter-query-' + i" #filterSearch *ngIf="(responseData.aggregations[filter.field]?.buckets?.length > 5 || responseData.aggregations[filter.field]?.original?.length > 5) && !filter.hideSearch"
                     i18n-placeholder placeholder="Hae" autocomplete="off" (keyup)="filterInput($event, filter.field)" class="filter-search"  [value]="responseData.aggregations[filter.field]?.filterTerm ? responseData.aggregations[filter.field]?.filterTerm : ''">
@@ -154,7 +163,7 @@
                             <!-- TODO: Change aria label field when content available -->
                             <mat-selection-list [attr.aria-label]="filter.field">
                                 <!-- Select all -->
-                                <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" 
+                                <mat-list-option *ngIf="item.subData?.length" checkboxPosition="before" (click)="selectAll(filter.field, item)" (keydown.enter)="selectAll(filter.field, item)" (keydown.space)="selectAll(filter.field, item)" 
                                 [selected]="(item | filterItem: activeFilters ? activeFilters[filter.field] : '')" [id]="filter.field + 'all' | replaceSpace">
                                     <div class="row d-flex justify-content-start">
                                         <div class="col-9"><span class="font-weight-bold label" i18n="@@selectAll">Valitse kaikki</span></div>
@@ -163,7 +172,7 @@
                                 </mat-list-option>
                                 <!-- Options -->
                                 <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen)); trackBy: trackByFn" (click)="selectionChange(filter.field, field.key)"
-                                (keydown.enter)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" [id]="filter.field + field.key | replaceSpace">
+                                (keydown.enter)="selectionChange(filter.field, field.key)" (keydown.space)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" [id]="filter.field + field.key | replaceSpace">
                                     <div class="row d-flex justify-content-around">
                                         <div class="col-9"><span class="label">{{field.label}}</span></div>
                                         <div class="col-3 count align-self-center"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>

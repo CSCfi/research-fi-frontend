@@ -5,22 +5,24 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, Input, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
-import { FilterService } from '../../../services/filter.service';
+import { FilterService } from '../../../services/filters/filter.service';
 import { DataService } from '../../../services/data.service';
 import { TabChangeService } from '../../../services/tab-change.service';
 import { faExclamationTriangle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FilterListComponent} from './filter-list/filter-list.component';
-import { PublicationFilters } from '../filters/publications';
-import { PersonFilters } from '../filters/persons';
-import { FundingFilters } from '../filters/fundings';
-import { InfrastructureFilters } from '../filters/infrastructures';
-import { OrganizationFilters } from '../filters/organizations';
+import { PublicationFilterService } from 'src/app/services/filters/publication-filter.service';
+import { PersonFilterService } from 'src/app/services/filters/person-filter.service';
+import { FundingFilterService } from 'src/app/services/filters/funding-filter.service';
+import { InfrastructureFilterService } from 'src/app/services/filters/infrastructure-filter.service';
+import { OrganizationFilterService } from 'src/app/services/filters/organization-filter.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { NewsFilters } from '../filters/news';
+import { NewsFilterService } from 'src/app/services/filters/news-filter.service';
+import { SearchService } from 'src/app/services/search.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-active-filters',
@@ -32,7 +34,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   activeFilters = [];
 
   translations = {
-    true: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
     noAccessInfo: $localize`:@@noInfo:Ei tietoa`,
     openAccess: $localize`:@@openAccessJournal:Open Access -lehti`,
     nonOpen: $localize`:@@nonOpen:Ei avoin`,
@@ -59,13 +60,17 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   @ViewChildren('container') container: QueryList<ElementRef>;
   containerSub: any;
   yearRange: string;
+  isBrowser: any;ActivatedRouteMock
+  errorMessage: any;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
                private dataService: DataService, private tabChangeService: TabChangeService,
-               public dialog: MatDialog, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
-               private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
-               private settingsService: SettingsService ) {
+               public dialog: MatDialog, private publicationFilters: PublicationFilterService, private personFilters: PersonFilterService,
+               private fundingFilters: FundingFilterService, private infrastructureFilters: InfrastructureFilterService,
+               private organizationFilters: OrganizationFilterService, private newsFilters: NewsFilterService,
+               private settingsService: SettingsService, @Inject(PLATFORM_ID) private platformId: object,
+               private searchService: SearchService ) {
+                this.isBrowser = isPlatformBrowser(this.platformId);
    }
 
   ngOnInit() {
@@ -83,9 +88,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         this.tabFilters = this.infrastructureFilters.filterData;
         this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
         break;
-      case 'persons':
-        this.tabFilters = this.personFilters.filterData;
-        break;
+      // case 'persons':
+      //   this.tabFilters = this.personFilters.filterData;
+      //   break;
       case 'organizations':
         this.tabFilters = this.organizationFilters.filterData;
         break;
@@ -108,7 +113,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       const arr = item.toArray();
       this.dataService.changeActiveFilterHeight(arr[0]?.nativeElement.offsetHeight);
     });
-
   }
 
   translate() {
@@ -145,8 +149,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
+      const currentTab = this.sortService.currentTab;
       // Subscribe to aggregation data
-      this.filterResponse = this.dataService.currentResponse.subscribe(response => {
+      this.filterResponse = this.searchService.getAllFilters(currentTab).subscribe(response => {
         this.response = response;
         if (response) {
           const source = this.response.aggregations;
@@ -193,7 +198,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'field' && source.field?.fields) {
               const result = source.field.fields.buckets.find(key => parseInt(key.fieldId.buckets[0].key, 10) === parseInt(val.value, 10));
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-              this.activeFilters[foundIndex].translation = result.key ? result.key : '';
+              this.activeFilters[foundIndex].translation = result?.key ? result.key : '';
             }
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
@@ -213,7 +218,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               }
             }
 
-            // Organization
+            if (val.category === 'internationalCollaboration') {
+              this.activeFilters.find(item => item.category === 'internationalCollaboration')
+              .translation = $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`;
+            }
+
+            // Global organization filter
             if (val.category === 'organization' && source.organization) {
               // Publication organization name
               if (tab === 'publications') {
@@ -221,10 +231,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
                   source.organization.sectorName.buckets.forEach(sector => {
                     setTimeout(t => {
-                      if (sector.org.org.buckets.find(x => x.key === val.value)) {
+                      if (sector.organization.org.buckets.find(x => x.orgId.buckets[0].key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
-                        sector.org.org.buckets.find(x => x.key === val.value).label.trim();
+                        sector.organization.org.buckets.find(x => x.orgId.buckets[0].key === val.value).key.trim();
                       }
                     }, 1);
                   });
@@ -232,12 +242,12 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 // Funding organization name
               } else if (tab === 'fundings') {
                 setTimeout(t => {
-                  if (source.organization.buckets) {
-                    source.organization.buckets.forEach(sector => {
-                      if (sector.organizations.buckets.find(x => x.key === val.value)) {
+                  if (source.organization.funded.sectorName.buckets) {
+                    source.organization.funded.sectorName.buckets.forEach(sector => {
+                      if (sector.organizations.buckets.find(x => x.orgId.buckets[0].key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
-                        sector.organizations.buckets.find(x => x.key === val.value).label.trim();
+                        sector.organizations.buckets.find(x => x.orgId.buckets[0].key === val.value).key.trim();
                       }
                     });
                   }
@@ -252,6 +262,15 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                         this.activeFilters[foundIndex].translation = org.key?.trim();
                       }
                     });
+                  });
+                }
+              } else if (tab === 'organizations') {
+                if (source.organization?.organizationName?.buckets?.length > 0) {
+                  source.organization.organizationName.buckets.forEach(org => {
+                    if (org.organizationId.buckets[0]?.key === val.value) {
+                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                      this.activeFilters[foundIndex].translation = org.key?.trim();
+                    }
                   });
                 }
               }
@@ -291,13 +310,20 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 }
               }
             }
+            // Related publications
+            if (val.category === 'coPublication') {
+              this.activeFilters.find(item => item.category === 'coPublication').translation = $localize`:@@coPublications:Yhteisjulkaisut`;
+            }
+
             // Funding
             // Type of funding
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
-              if (source.typeOfFunding.types.buckets?.length > 0) {
-                source.typeOfFunding.types.buckets.forEach(type => {
+              // Needs to be shaped by service
+              const shaped = this.fundingFilters.typeOfFunding(source.typeOfFunding.types.buckets);
+              if (shaped.length) {
+                shaped.forEach(type => {
                   setTimeout(t => {
-                    if (type.subData.find(x => x.key === val.value)) {
+                     if (type.subData.find(x => x.key === val.value)) {
                       const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                       this.activeFilters[foundIndex].translation = type.subData.find(x => x.key === val.value).label;
                     }
@@ -309,9 +335,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Funder
             if (val.category === 'funder' && source.funder) {
               setTimeout(t => {
-                const result = source.funder.funders.buckets.find(({ key }) => key === val.value);
+                const result = source.funder.funders.buckets.find(key => key.funderId.buckets[0].key === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+                this.activeFilters[foundIndex].translation = result.key ? result.key : '';
               }, 1);
             }
 
@@ -373,7 +399,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   removeFilter(event): void {
     // Remove range filters. Check that target active filter matches fromYear filter
-    if (event.target.id.length === 5 && event.target.id.slice(0, 1) === 'f') {
+    if (event.target.id.length === 5 && (event.target.id.slice(0, 1) === 'f' || event.target.id.slice(0, 1) === 't')) {
       if (this.fromYear && this.toYear) {
         this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'fromYear');
         this.activeFilters = this.activeFilters.filter(elem => elem.category !== 'toYear');

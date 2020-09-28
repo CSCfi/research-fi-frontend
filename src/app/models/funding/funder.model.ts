@@ -18,6 +18,12 @@ export class Funder {
         public callProgrammeName: string,
         public callProgrammeNameUnd: string,
         public callProgrammeHomePage: string,
+        public frameworkProgramme: string,
+        public euCallProgrammes: {name: string, id: string}[],
+        public topicName: string,
+        public topicId: string,
+        public euCallId: string,
+        public businessId: string
     ) {}
 }
 
@@ -27,6 +33,13 @@ export class Funder {
 export class FunderAdapter implements Adapter<Funder> {
     constructor(private lang: LanguageCheck) {}
     adapt(item: any): Funder {
+
+        const callProgrammes: {name: string, id: string}[] = [];
+
+        item?.callProgrammes?.forEach(p => {
+            callProgrammes.push({name: this.lang.testLang('callProgrammeName', p), id: p?.callProgrammeId});
+        });
+
         return new Funder(
             this.lang.testLang('funderName', item),
             item.funderNameUnd,
@@ -34,7 +47,13 @@ export class FunderAdapter implements Adapter<Funder> {
             this.lang.testLang('typeOfFundingName', item).trim().length > 0 ? this.lang.testLang('typeOfFundingName', item) : item.typeOfFundingId,
             this.lang.testLang('callProgrammeName', item),
             item.callProgrammeNameUnd,
-            item.callProgrammeHomePage
+            item.callProgrammeHomePage,
+            this.lang.testLang('frameworkProgrammeName', item?.frameworkProgramme?.slice(0).pop()),
+            callProgrammes,
+            this.lang.testLang('topicName', item),
+            item?.topicId,
+            item?.euCallId,
+            item.funderBusinessId[0].pid_content
         );
     }
 }

@@ -49,7 +49,7 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
 
   generatePages(currentPage: number, length: number = 5) {
     // Get the highest page number for the query
-    this.maxPage = this.getHighestPage(this.responseData[0].total);
+    this.maxPage = this.getHighestPage(this.responseData[0]?.total);
     // Init array to correct length, make it odd and squish if not enough pages
     // Number of pages should be odd to make centering current page easy
     // tslint:disable-next-line: curly

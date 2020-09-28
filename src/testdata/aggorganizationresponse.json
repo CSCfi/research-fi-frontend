@@ -1,0 +1,166 @@
+{
+	"took": 1,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 66,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": []
+	},
+	"aggregations": {
+		"year": {
+			"meta": {},
+			"doc_count": 66,
+			"years": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "2019",
+						"doc_count": 66
+					}
+				]
+			}
+		},
+		"organization": {
+			"meta": {},
+			"doc_count": 66,
+			"organizationName": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 16,
+				"buckets": [
+					{
+						"key": "Aalto-yliopisto",
+						"doc_count": 1,
+						"organizationId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "10076",
+									"doc_count": 1
+								}
+							]
+						}
+					},
+					{
+						"key": "Alkoholitutkimussäätiö",
+						"doc_count": 1,
+						"organizationId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "02009295",
+									"doc_count": 1
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		"sector": {
+			"meta": {},
+			"doc_count": 66,
+			"sectorId": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "1",
+						"doc_count": 14,
+						"sectorName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Yliopisto",
+									"doc_count": 14
+								}
+							]
+						}
+					},
+					{
+						"key": "2",
+						"doc_count": 23,
+						"sectorName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Ammattikorkeakoulu",
+									"doc_count": 23
+								}
+							]
+						}
+					},
+					{
+						"key": "3",
+						"doc_count": 12,
+						"sectorName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Tutkimuslaitos",
+									"doc_count": 12
+								}
+							]
+						}
+					},
+					{
+						"key": "4",
+						"doc_count": 5,
+						"sectorName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Yliopistollisen sairaalan erityisvastuualue",
+									"doc_count": 5
+								}
+							]
+						}
+					},
+					{
+						"key": "5",
+						"doc_count": 9,
+						"sectorName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Rahoittaja",
+									"doc_count": 9
+								}
+							]
+						}
+					},
+					{
+						"key": "6",
+						"doc_count": 3,
+						"sectorName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Muu",
+									"doc_count": 3
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	}
+}

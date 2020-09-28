@@ -14,13 +14,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { map } from 'rxjs/internal/operators/map';
 import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterService } from 'src/app/services/filter.service';
+import { FilterService } from 'src/app/services/filters/filter.service';
 import { SortService } from 'src/app/services/sort.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { NewsCardComponent } from '../news-card/news-card.component';
-import { news, common } from 'src/assets/static-data/meta-tags.json'
+import { news, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FormControl } from '@angular/forms';
 
@@ -119,7 +119,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
                                 this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+                                this.commonTags['imgAlt' + this.currentLocale]);
 
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));

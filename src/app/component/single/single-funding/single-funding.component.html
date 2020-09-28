@@ -78,8 +78,8 @@
                                                 <app-orcid *ngIf="item.recipient.personOrcid" [orcid]="item.recipient.personOrcid"></app-orcid>
                                             </div> -->
                                             <div class="col-12 td" [ngClass]="item.euFunding ? 'col-sm-5' : 'col-auto'">
-                                                <a *ngIf="org.id && org.pic" routerLink="/results/organization/{{org.id}}">{{org.name}}</a>
-                                                <ng-container *ngIf="org.id && !org.pic">{{org.name}}</ng-container>    
+                                                <a *ngIf="org.id && org.pic && org.sectorId" routerLink="/results/organization/{{org.id}}">{{org.name}}</a>
+                                                <ng-container *ngIf="org.id && (!org.pic || !org.sectorId)">{{org.name}}</ng-container>    
                                                 <ng-container *ngIf="!org.id">{{org.name}}</ng-container>
                                                 <!-- Organization country code when funder is EU -->
                                                 <ng-container *ngIf="item.euFunding && org.countryCode && org.countryCode !== 'FI'"> ({{org.countryCode}})</ng-container>
@@ -194,6 +194,39 @@
                             </h2>
                             <div class="col-12 col-sm-8 col-lg-9 td">{{item.funder[row.field]}}</div>
                         </div>
+
+                        <!-- Eu vs normal funding callProgramme logic -->
+                        <div class="row" *ngIf="(item.euFunding && item.funder.euCallProgrammes.length > 0) || (!item.euFunding && item.funder.callProgrammeName)">
+                            <h2 class="col-12 col-sm-4 col-lg-3 th">
+                                <ng-container i18n="callProgramme">Haku</ng-container>
+                                <ng-template #tooltipTemplate><div [innerHtml]="callProgrammeTooltip.tooltip"></div></ng-template>
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
+                            </h2>
+                            <!-- Normal funding -->
+                            <ng-container *ngIf="!item.euFunding; else euCallProgramme">
+                                <div class="col-12 col-sm-8 col-lg-9 td">{{item.funder.callProgrammeName}}</div>    
+                            </ng-container>
+                            <!-- Eu funding -->
+                            <ng-template #euCallProgramme>
+                                <div class="col-12 col-sm-8 col-lg-9 td">
+                                    <div><strong i18n="@@funderProgramme">Programme</strong></div>
+                                    {{item.funder.euCallProgrammes[0].name}} (<a [href]="cordisLink + item.funder.euCallProgrammes[0].id" target="_blank">{{item.funder.euCallProgrammes[0].id}}<fa-icon icon="external-link-alt"></fa-icon></a>)
+                                </div>    
+                                <div *ngFor="let programme of item.funder.euCallProgrammes.slice(1)" class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
+                                    {{programme.name}} (<a [href]="cordisLink + programme.id" target="_blank">{{programme.id}}<fa-icon icon="external-link-alt"></fa-icon></a>)
+                                </div>    
+                                <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
+                                    <div><strong i18n="@@funderTopic">Topic</strong></div>
+                                    {{item.funder.topicName}} (<a [href]="cordisLink + 'H2020_' + item.funder.topicId" target="_blank">{{item.funder.topicId}}<fa-icon icon="external-link-alt"></fa-icon></a>)
+                                </div>    
+                                <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
+                                    <div><strong i18n="funderCallId">Call ID</strong></div>
+                                    {{item.funder.euCallId}}
+                                </div>    
+                            </ng-template>
+                        </div>
                     </div>
                     <!-- Other -->
                     <div class="content" *ngIf="otherFields.length > 0">
@@ -241,7 +274,7 @@
                 </aside>
                 <mat-card>
                     <mat-card-title><h2><ng-container i18n="@@relatedFundings">Hae hankkeeseen liittyvät</ng-container> (<ng-container i18n="@@comingSoon">tulossa</ng-container>)</h2></mat-card-title>
-                    <app-related-links [id]="" [relatedFilters]="{}"></app-related-links>
+                    <app-related-links [id]="" [relatedData]="relatedData"></app-related-links>
                 </mat-card>
             </aside>
             <!-- <aside>

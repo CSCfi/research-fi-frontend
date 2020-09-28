@@ -6,11 +6,11 @@
 //  :license: MIT
 
 import { Injectable, Inject, LOCALE_ID  } from '@angular/core';
-import { SortService } from './sort.service';
+import { SortService } from '../sort.service';
 import { BehaviorSubject } from 'rxjs';
-import { SettingsService } from './settings.service';
-import { VisualQueryHierarchy, VisualQuery } from '../models/visualisation/visualisations.model';
-import { StaticDataService } from './static-data.service';
+import { SettingsService } from '../settings.service';
+import { VisualQueryHierarchy, VisualQuery } from '../../models/visualisation/visualisations.model';
+import { StaticDataService } from '../static-data.service';
 import { AggregationService } from './aggregation.service';
 
 @Injectable({
@@ -31,6 +31,7 @@ export class FilterService {
   fundingAmountFilter: any;
   openAccessFilter: any;
   internationalCollaborationFilter: any;
+  coPublicationFilter: any;
   sectorFilter: any;
   faFieldFilter: any;
   organizationFilter: any;
@@ -40,7 +41,7 @@ export class FilterService {
 
   private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
     juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: []});
+    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: [], coPublication: []});
   filters = this.filterSource.asObservable();
   localeC: string;
   timestamp: string;
@@ -49,7 +50,8 @@ export class FilterService {
 
   updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
     lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
-    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[]}) {
+    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[],
+    coPublication: any[]}) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -79,6 +81,7 @@ export class FilterService {
       juFo: [source.juFo].flat().filter(x => x).sort(),
       openAccess: [source.openAccess].flat().filter(x => x).sort(),
       internationalCollaboration: [source.internationalCollaboration].flat().filter(x => x).sort(),
+      coPublication: [source.coPublication].flat().filter(x => x).sort(),
       // Fundings
       funder: [source.funder].flat().filter(x => x).sort(),
       typeOfFunding: [source.typeOfFunding].flat().filter(x => x).sort(),
@@ -105,6 +108,7 @@ export class FilterService {
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
     this.internationalCollaborationFilter = this.filterByInternationalCollaboration(filter.internationalCollaboration);
+    this.coPublicationFilter = this.customValueFilter(filter.coPublication, 'publicationStatusCode.keyword', '9');
     // Funding
     this.funderFilter = this.basicFilter(filter.funder, 'funderBusinessId.pid_content.keyword');
     this.typeOfFundingFilter = this.basicFilter(filter.typeOfFunding, 'typeOfFundingId.keyword');
@@ -115,6 +119,24 @@ export class FilterService {
     this.infraFieldFilter = this.basicFilter(filter.field, 'fieldsOfScience.field_id.keyword');
     // Organization
     this.sectorFilter = this.filterBySector(filter.sector);
+  }
+
+
+  // Regular terms filter
+  basicFilter(field: any[], path) {
+    const res = [];
+    field.forEach(value => {
+      res.push({ term: {[path] : value}});
+    });
+    return res;
+  }
+
+  customValueFilter(field: any[], path, value) {
+    const res = [];
+    field.forEach(item => {
+      res.push({ term: {[path] : value}});
+    });
+    return res;
   }
 
   // Year filter is global, different year -fields per index
@@ -146,7 +168,7 @@ export class FilterService {
       res.push({ range: {publicationYear: {gte : f, lte: t} } });
     } else if (f) {
       res.push({ range: {publicationYear: {gte : f} } });
-    } else {
+    } else if (t) {
       res.push({ range: {publicationYear: {lte : t} } });
     }
 
@@ -171,20 +193,15 @@ export class FilterService {
         filter.forEach(value => { res.push({ term : { [filterString] : value } }); });
         break;
       }
+      case 'organizations': {
+        filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
+        break;
+      }
       case 'news': {
         filter.forEach(value => { res.push({ term : { 'organizationId.keyword' : value } }); });
         break;
       }
     }
-    return res;
-  }
-
-  // Regular terms filter
-  basicFilter(field: any[], path) {
-    const res = [];
-    field.forEach(value => {
-      res.push({ term: {[path] : value}});
-    });
     return res;
   }
 
@@ -304,7 +321,7 @@ export class FilterService {
       ...(basicFilter('publication', this.juFoCodeFilter)),
       ...(basicFilter('publication', this.openAccessFilter)),
       ...(basicFilter('publication', this.internationalCollaborationFilter)),
-
+      ...(basicFilter('publication', this.coPublicationFilter)),
       // Fundings
       // Funding organization filter differs from nested filter since we need to get filter values from two different parents
       ...(index === 'funding' ? ((this.organizationFilter && this.organizationFilter.length > 0) ?
@@ -326,6 +343,7 @@ export class FilterService {
 
       // Organizations
       ...(basicFilter('organization', this.sectorFilter)),
+      ...(basicFilter('organization', this.organizationFilter)),
 
       // News
       ...(basicFilter('news', this.organizationFilter)),
@@ -457,7 +475,6 @@ export class FilterService {
               script: s.script?.replace('|locale|', this.localeC),
               size: s.size,
               // Include only active filter buckets
-              // TODO: Solve include on 2nd level (field of science) with low amount of results
               include: this.currentFilters[s.filterName]?.length ? this.currentFilters[s.filterName] : undefined,
               // Exclude empty strings
               exclude: s.exclude,

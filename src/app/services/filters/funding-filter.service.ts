@@ -5,36 +5,36 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { FilterMethodService } from '../../../services/filter-method.service';
-import { StaticDataService } from '../../../services/static-data.service';
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
+import { FilterMethodService } from './filter-method.service';
+import { StaticDataService } from '../../services/static-data.service';
 
 @Injectable({
-    providedIn: 'root'
-  })
-
-export class FundingFilters {
+  providedIn: 'root'
+})
+export class FundingFilterService {
   filterData = [
-      {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
-      tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`},
-      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, limitHeight: false,
-      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`, errorTooltip: $localize`:@@fOrgErrorTooltip:Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.`},
-      {field: 'funder', label: $localize`:@@fundingFunder:Rahoittaja`, hasSubFields: false, limitHeight: false, open: true,
-      tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`},
-      {field: 'typeOfFunding', label: $localize`:@@typeOfFunding:Rahoitusmuoto`, hasSubFields: true, limitHeight: false, open: false,
-      tooltip: $localize`:@@fTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.`},
-      {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, limitHeight: false,
-      tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`},
-      // {field: 'scheme', label: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
-      // tooltip: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
-      {field: 'faField', label: $localize`:@@FAField:Teemat`, hasSubFields: false,  open: true}
-    ];
+    {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
+    tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`},
+    {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, limitHeight: false,
+    tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`, errorTooltip: $localize`:@@fOrgErrorTooltip:Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.`},
+    {field: 'funder', label: $localize`:@@fundingFunder:Rahoittaja`, hasSubFields: false, limitHeight: false, open: true,
+    tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`},
+    {field: 'typeOfFunding', label: $localize`:@@typeOfFunding:Rahoitusmuoto`, hasSubFields: true, limitHeight: false, open: false,
+    tooltip: $localize`:@@fTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.`},
+    {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, limitHeight: false,
+    tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`},
+    // {field: 'scheme', label: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
+    // tooltip: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
+    {field: 'faField', label: $localize`:@@FAField:Teemat`, hasSubFields: false,  open: true}
+  ];
 
-    singleFilterData = [
-      // {field: 'fundingStatus', label: 'Näytä vain käynnissä olevat hankkeet',
-      // tooltip: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
-      // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteistyö'}
-    ];
+  singleFilterData = [
+    // {field: 'fundingStatus', label: 'Näytä vain käynnissä olevat hankkeet',
+    // tooltip: 'Suodatukseen eivät sisälly ne hankkeet, joilla ei ole päättymisvuotta.'},
+    // {field: 'internationalCollaboration', label: 'Kansainvälinen yhteistyö'}
+  ];
+
   currentLocale: string;
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService,
@@ -87,13 +87,15 @@ export class FundingFilters {
                         fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
 
       // Push differences into fundingGroupPerson
-      diff.forEach(x => {
-        item.organizations.buckets.push(x);
-      });
+      if (diff) {
+        diff.forEach(x => {
+          item.organizations.buckets.push(x);
+        });
+      }
 
       // Get filtered sums as doc_count
       item.organizations.buckets.map(org => {
-        org.doc_count = org.filtered.filterCount.doc_count + (duplicate.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
+        org.doc_count = org.filtered.filterCount.doc_count + (duplicate?.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
       });
 
       // Sort by doc count
@@ -101,10 +103,11 @@ export class FundingFilters {
 
     });
 
-    // Add data into buckets field, set key and label
+    // Add data into buckets field, filter items with doc count, set key and label
     const merged = fData ? fData : [];
+
     merged.forEach(item => {
-      item.subData = item.organizations.buckets;
+      item.subData = item.organizations.buckets.filter(x => x.doc_count > 0);
       item.subData.map(subItem => {
           subItem.label = subItem.key.trim();
           subItem.key = subItem.orgId.buckets[0].key;

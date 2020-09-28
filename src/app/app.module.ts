@@ -107,12 +107,6 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { CleanCitationPipe } from './pipes/clean-citation';
 import { ReplaceSpacePipe } from './pipes/replace-space';
 
-import { PublicationFilters } from './component/results/filters/publications';
-import { PersonFilters } from './component/results/filters/persons';
-import { FundingFilters } from './component/results/filters/fundings';
-import { InfrastructureFilters } from './component/results/filters/infrastructures';
-import { OrganizationFilters } from './component/results/filters/organizations';
-import { NewsFilters } from './component/results/filters/news';
 import { ErrorHandlerService } from './services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
@@ -271,12 +265,6 @@ import { BarComponent } from './component/visualisation/bar/bar.component';
       provide: ErrorHandler,
       useClass: ErrorHandlerService
     },
-    PublicationFilters,
-    PersonFilters,
-    FundingFilters,
-    InfrastructureFilters,
-    OrganizationFilters,
-    NewsFilters,
     {
       provide: ApmService,
       useClass: ApmService,

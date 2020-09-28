@@ -5,37 +5,36 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { FilterMethodService } from '../../../services/filter-method.service';
-import { StaticDataService } from '../../../services/static-data.service';
 import { Injectable } from '@angular/core';
+import { FilterMethodService } from './filter-method.service';
+import { StaticDataService } from '../../services/static-data.service';
 
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
+export class PublicationFilterService {
+  filterData = [
+    {field: 'year', label: $localize`:@@yearOfPublication:Julkaisuvuosi`, hasSubFields: false, open: true, hideSearch: true},
+    {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, open: false, relatedPublications: true,
+    tooltip: $localize`:@@pOrgFTooltip:Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.`},
+    {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, open: false,
+    tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
+    {field: 'publicationType', label: $localize`:@@publicationType:Julkaisutyyppi`, hasSubFields: true, open: false,
+    tooltip: $localize`:@@pTypeFTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+    {field: 'countryCode', label: $localize`:@@publicationCountry:Julkaisumaa`, hasSubFields: false, open: true,
+    tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`},
+    {field: 'lang', label: $localize`:@@language:Kieli`, hasSubFields: false, open: true,
+    tooltip: $localize`:@@pLangFTooltip:Kieli, jolla julkaisu on kirjoitettu.`},
+    {field: 'juFo', label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, hasSubFields: false, open: true,
+    tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`},
+    {field: 'openAccess', label: $localize`:@@openAccess:Avoin saatavuus`, hasSubFields: false, open: true,
+    tooltip: '<p><strong>' +  $localize`:@@openAccessJournal:Open access -lehti ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'}
+  ];
 
-export class PublicationFilters {
-    filterData = [
-      {field: 'year', label: $localize`:@@yearOfPublication:Julkaisuvuosi`, hasSubFields: false, open: true, hideSearch: true},
-      {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, open: false,
-      tooltip: $localize`:@@pOrgFTooltip:Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.`},
-      {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, open: false,
-      tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
-      {field: 'publicationType', label: $localize`:@@publicationType:Julkaisutyyppi`, hasSubFields: true, open: false,
-      tooltip: $localize`:@@pTypeFTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
-      {field: 'countryCode', label: $localize`:@@publicationCountry:Julkaisumaa`, hasSubFields: false, open: true,
-      tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`},
-      {field: 'lang', label: $localize`:@@language:Kieli`, hasSubFields: false, open: true,
-      tooltip: $localize`:@@pLangFTooltip:Kieli, jolla julkaisu on kirjoitettu.`},
-      {field: 'juFo', label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, hasSubFields: false, open: true,
-      tooltip: $localize`:@@pJufoFTooltip:Julkaisufoorumin (www.julkaisufoorumi.fi) mukainen julkaisukanavan (kirjakustantaja, konferenssi tai julkaisusarja) tasoluokitus: 1 = perustaso, 2 = johtava taso, 3 = korkein taso. Tasolla 0 ovat kanavat, jotka eivät joltain osin täytä tason 1 vaatimuksia tai ovat uusia.`},
-      {field: 'openAccess', label: $localize`:@@openAccess:Avoin saatavuus`, hasSubFields: false, open: true,
-      tooltip: '<p><strong>' +  $localize`:@@openAccessJournal:Open access -lehti ` + '</strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'}
-    ];
-
-    singleFilterData = [
-      {field: 'internationalCollaboration', label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
-      tooltip: $localize`:@@intCoPublicationTooltip:Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.`}
-    ];
+  singleFilterData = [
+    {field: 'internationalCollaboration', label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
+    tooltip: $localize`:@@intCoPublicationTooltip:Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.`}
+  ];
 
   constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService) {}
 
@@ -68,7 +67,7 @@ export class PublicationFilters {
   organization(data) {
     data.buckets = data.sectorName ? data.sectorName.buckets : [];
     data.buckets.forEach(item => {
-      item.subData = item.org.org.buckets;
+      item.subData = item.organization.org.buckets.filter(x => x.filtered.filterCount.doc_count > 0);
       item.subData.map(subItem => {
           subItem.label = subItem.key;
           subItem.key = subItem.orgId.buckets[0].key;
@@ -111,9 +110,10 @@ export class PublicationFilters {
           type: type.type,
           label: type.type + ' ' + type.label,
           key: type.type,
-          doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : ''
+          doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : 0
       })}
     );
+
     // Get higher level doc counts for visualisation
     result.forEach(x => x.doc_count = x.subData.map(a => a.doc_count).reduce((a, b) => a + b, 0));
 
@@ -242,8 +242,9 @@ export class PublicationFilters {
   }
 
   getSingleAmount(data) {
-      if (data.length > 0) {
-        return data.filter(x => x.key === 1);
-      }
+    if (data.length > 0) {
+      return data.filter(x => x.key === 1);
     }
+  }
+
 }

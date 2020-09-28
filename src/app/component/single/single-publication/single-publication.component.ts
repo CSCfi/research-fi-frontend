@@ -72,7 +72,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
     {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
     // \u00AD soft hyphen, break word here if needed
-    {label: $localize`Julkaisu\u00ADfoorumi`, field: 'jufoCode', link: true, linkPath: 'https://www.tsv.fi/julkaisufoorumi/haku.php?issn=',
+    {label: $localize`Julkaisu\u00ADfoorumi`, field: 'jufoCode', link: true, linkPath: 'http://jfp.csc.fi:8080/fi/web/haku#!PublicationInformationView/id/',
     tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`},
     {label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
   ];
@@ -339,7 +339,9 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           const checkedAuthors = [...new Set(duplicateAuthors)];
 
           // Language check
-          const orgName = org['OrganizationName' + this.currentLocale].trim() || org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() || org?.OrganizationNameSv?.trim();
+          const orgName = org['OrganizationName' + this.currentLocale].trim() ||
+          org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() ||
+          org?.OrganizationNameSv?.trim();
 
           this.authorAndOrganization.push({orgName: orgName, orgId: org.organizationId,
             authors: checkedAuthors, orgUnits: orgUnitArr});
@@ -350,15 +352,16 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       this.hasSubUnits = false;
       const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
       this.hasSubUnits = combinedSubUnits.find(item => item.subUnit !== null) ? true : false;
-
-      this.relatedData = {
-          organizations: this.authorAndOrganization.map(item => item.orgId)
-      };
     }
 
     // Remove duplicate organizations
     this.authorAndOrganization = this.authorAndOrganization.filter((v, i, a) =>
                                  a.findIndex(t => (t.orgName === v.orgName)) === i);
+
+    // RelatedQ
+    this.relatedData = {
+      organizations: this.authorAndOrganization.map(item => item.orgId)
+    };
 
     // Is this needed anymore?
     let yes = '';

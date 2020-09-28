@@ -12,7 +12,7 @@ import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SortService } from './sort.service';
-import { FilterService } from './filter.service';
+import { FilterService } from './filters/filter.service';
 import { TabChangeService } from './tab-change.service';
 import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
@@ -72,9 +72,9 @@ export class SearchService {
   }
 
   // Fetch page number from results page
-  updatePageNumber(pageNumber: number) {
+  updatePageNumber(pageNumber: number, pageSize = this.pageSize) {
     this.pageNumber = pageNumber;
-    this.fromPage = this.pageNumber * 10 - 10;
+    this.fromPage = (this.pageNumber - 1) * pageSize;
     if (isNaN(this.pageNumber) || this.pageNumber < 0) {
       this.fromPage = 0;
       this.pageNumber = 1;
@@ -174,6 +174,13 @@ export class SearchService {
   getFilters(): Observable<Search[]> {
     const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.searchTerm);
     return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
+  }
+
+  // Used to translate active filters
+  getAllFilters(tab): Observable<Search[]> {
+    const currentTab = tab === 'news' ? tab : tab.slice(0, -1);
+    const aggs = this.filterService.constructFilterPayload(tab, '');
+    return this.http.post<Search[]>(this.apiUrl + currentTab + '/_search?' + 'request_cache=true', aggs);
   }
 
   getVisualData(categoryIdx: number): Observable<Visual> {

@@ -10,7 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '../../../services/single-item.service';
 import { SearchService } from '../../../services/search.service';
 import { Title } from '@angular/platform-browser';
-import { map } from 'rxjs/operators';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { Search } from 'src/app/models/search.model';
@@ -92,6 +91,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   ];
 
   linkFields = [
+    {field: 'homepage'}
   ];
 
   errorMessage = [];
@@ -107,6 +107,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
   serviceHeader = $localize`:@@infraServiceHeader:Palvelu`;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
+  relatedData: {};
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string,
@@ -156,10 +157,12 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
         }
         const titleString = this.titleService.getTitle();
         this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-        this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
-        
+        this.utilityService.addMeta
+          (titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
+
         this.shapeData();
         this.filterData();
+
       }
     },
       error => this.errorMessage = error as any);
@@ -171,13 +174,13 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
       return UtilityService.stringHasContent(this.responseData.infrastructures[0][item.field]);
     };
 
-
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
     this.fieldsOfScience = this.fieldsOfScience.filter(item => checkEmpty(item));
     this.classificationFields = this.classificationFields.filter(item => checkEmpty(item));
     this.contactFields = this.contactFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
+    this.linkFields = this.linkFields.filter(item => checkEmpty(item));
 
     // Init expand and show lists
     this.infoFields.forEach(_ => this.infoExpand.push(false));
@@ -200,6 +203,12 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
     });
 
     source.services = source.services.map(service => UtilityService.objectHasContent(service) ? service : undefined).filter(x => x);
+
+    // Related data
+    this.relatedData = {
+      organizations: [source.responsibleOrganizationId]
+    };
+
   }
 
   checkOverflow(elem: HTMLElement) {

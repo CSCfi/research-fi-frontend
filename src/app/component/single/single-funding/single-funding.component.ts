@@ -46,7 +46,8 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
   funder =  [
     {label: $localize`:@@typeOfFunding:Rahoitusmuoto`, field: 'typeOfFundingName', tooltip: $localize`:@@sfTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuodot ovat usein rahoittajakohtaisia.`},
-    {label: $localize`Haku`, field: 'callProgrammeName', tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`}
+    {label: $localize`:@@frameworkProgramme:Puiteohjelma`, field: 'frameworkProgramme', tooltip: 'Puiteohjelma'},
+    // {label: $localize`Haku`, field: 'callProgrammeName', tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`}
   ];
 
   other = [
@@ -75,9 +76,15 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     tooltip: $localize`Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.`,
   };
 
+  callProgrammeTooltip = {
+    tooltip: $localize`:@@sfCallProgrammeTooltip:Rahoittajan haku, josta rahoitus on myönnetty. Kilpailtu tutkimusrahoitus myönnetään usein avoimien hakujen kautta, joissa rahoituksen myöntämisen perusteena ovat ennalta määrätyt kriteerit. Hakemukset arvioidaan ja rahoitus myönnetään kriteerien ja muiden tavoitteiden perusteella parhaiksi katsotuille hakemuksille.`,
+  };
+
   homepageTooltip = {
     tooltip: $localize`Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.`,
   };
+
+  cordisLink = 'https://cordis.europa.eu/programme/id/';
 
   errorMessage = [];
   @ViewChild('srHeader', { static: true }) srHeader: ElementRef;
@@ -96,6 +103,7 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
   tabData: any;
   showMore = $localize`:@@showMore:Näytä enemmän`;
   showLess = $localize`:@@showLess:Näytä vähemmän`;
+  relatedData: any;
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
@@ -191,6 +199,24 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
 
     // Get label by locale
     source.academyConsortium = source.academyConsortium ? source?.academyConsortium['label' + locale] : '';
+
+    // Related data
+    let relatedOrgs = [];
+    // Filter items with sectorId, this makes sure that the organization can be found from organizations tab
+    if (source.recipient.organizations.length) {
+      relatedOrgs = source.recipient.organizations.filter(item => item.sectorId).map(item => item.id);
+    } else if (source.recipient.organizationId) {
+      relatedOrgs.push(source.recipient.organizationId);
+    }
+
+    // Add funder to organizations, excluding EU as funder
+    if (source.funder.businessId && !source.euFunding) {
+      relatedOrgs.push(source.funder.businessId.replace('-', ''));
+    }
+
+    this.relatedData = {
+      organizations: relatedOrgs
+    };
   }
 
   shapeAmount(val) {

@@ -1,0 +1,1607 @@
+{
+	"took": 4,
+	"timed_out": false,
+	"_shards": {
+		"total": 1,
+		"successful": 1,
+		"skipped": 0,
+		"failed": 0
+	},
+	"hits": {
+		"total": {
+			"value": 3271,
+			"relation": "eq"
+		},
+		"max_score": null,
+		"hits": []
+	},
+	"aggregations": {
+		"typeOfFunding": {
+			"meta": {},
+			"doc_count": 3271,
+			"types": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "0003",
+						"doc_count": 1369,
+						"headerEn": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "0003",
+									"doc_count": 1120,
+									"headerEn": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "European Union (Horizon 2020)",
+												"doc_count": 1120,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 593,
+													"buckets": [
+														{
+															"key": "Research and Innovation action",
+															"doc_count": 462,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "RIA",
+																		"doc_count": 462
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 0,
+													"buckets": []
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 0,
+													"buckets": []
+												}
+											}
+										]
+									},
+									"headerSv": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": []
+									},
+									"headerFi": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": []
+									}
+								},
+								{
+									"key": "0001",
+									"doc_count": 707,
+									"headerEn": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Academy of Finland",
+												"doc_count": 707,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 444,
+													"buckets": [
+														{
+															"key": "Academy projects",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 444,
+													"buckets": [
+														{
+															"key": "Akademiprojekt",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 445,
+													"buckets": [
+														{
+															"key": "Akatemiahanke",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									"headerSv": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Finlands Akademi",
+												"doc_count": 707,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 444,
+													"buckets": [
+														{
+															"key": "Academy projects",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 445,
+													"buckets": [
+														{
+															"key": "Akatemiahanke",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 444,
+													"buckets": [
+														{
+															"key": "Akademiprojekt",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									"headerFi": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Suomen Akatemia",
+												"doc_count": 707,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 444,
+													"buckets": [
+														{
+															"key": "Academy projects",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 444,
+													"buckets": [
+														{
+															"key": "Akademiprojekt",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 445,
+													"buckets": [
+														{
+															"key": "Akatemiahanke",
+															"doc_count": 262,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "11",
+																		"doc_count": 262
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									}
+								},
+								{
+									"key": "0002",
+									"doc_count": 660,
+									"headerEn": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Business Finland",
+												"doc_count": 660,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Public research networked with companies (incl. Co-Innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Offentlig forskning i samarbete med näringslivet (m.m. Co-innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Elinkeinoelämän kanssa verkottunut tutkimus (ml. Co-Innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									"headerSv": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Business Finland",
+												"doc_count": 660,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Public research networked with companies (incl. Co-Innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Elinkeinoelämän kanssa verkottunut tutkimus (ml. Co-Innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Offentlig forskning i samarbete med näringslivet (m.m. Co-innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									"headerFi": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Business Finland",
+												"doc_count": 660,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Public research networked with companies (incl. Co-Innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Offentlig forskning i samarbete med näringslivet (m.m. Co-innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 316,
+													"buckets": [
+														{
+															"key": "Elinkeinoelämän kanssa verkottunut tutkimus (ml. Co-Innovation)",
+															"doc_count": 344,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "05098",
+																		"doc_count": 344
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									}
+								},
+								{
+									"key": "0004",
+									"doc_count": 267,
+									"headerEn": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "General",
+												"doc_count": 267,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Research grant",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Forskningsbidrag",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Tutkimusapuraha",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									"headerSv": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Allmän",
+												"doc_count": 267,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Research grant",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Tutkimusapuraha",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Forskningsbidrag",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									"headerFi": {
+										"doc_count_error_upper_bound": 0,
+										"sum_other_doc_count": 0,
+										"buckets": [
+											{
+												"key": "Yleinen",
+												"doc_count": 267,
+												"typeNameEn": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Research grant",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameSv": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Forskningsbidrag",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												},
+												"typeNameFi": {
+													"doc_count_error_upper_bound": 0,
+													"sum_other_doc_count": 88,
+													"buckets": [
+														{
+															"key": "Tutkimusapuraha",
+															"doc_count": 179,
+															"typeId": {
+																"doc_count_error_upper_bound": 0,
+																"sum_other_doc_count": 0,
+																"buckets": [
+																	{
+																		"key": "200",
+																		"doc_count": 179
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		"funder": {
+			"meta": {},
+			"doc_count": 3271,
+			"funders": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Euroopan unioni",
+						"doc_count": 1423,
+						"funderId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "dc232f2fb922b4764be8355d17f9b627a27516cc",
+									"doc_count": 1423
+								}
+							]
+						}
+					},
+					{
+						"key": "Helsingin Sanomain Säätiö sr",
+						"doc_count": 6,
+						"funderId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "2066823-5",
+									"doc_count": 6
+								}
+							]
+						}
+					},
+					{
+						"key": "Innovaatiorahoituskeskus Business Finland",
+						"doc_count": 660,
+						"funderId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "0512696-4",
+									"doc_count": 660
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		"faField": {
+			"meta": {},
+			"doc_count": 3271,
+			"faFields": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 412,
+				"buckets": [
+					{
+						"key": "Biolääketieteet",
+						"doc_count": 45
+					},
+					{
+						"key": "Ilmastonmuutos",
+						"doc_count": 34
+					},
+					{
+						"key": "Ekologia, evoluutiobiologia ja ekofysiologia",
+						"doc_count": 25
+					}
+				]
+			}
+		},
+		"scheme": {
+			"meta": {},
+			"doc_count": 3271,
+			"types": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Tutkimusala",
+						"doc_count": 708,
+						"typeName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": []
+						}
+					},
+					{
+						"key": "Avainsana",
+						"doc_count": 225,
+						"typeName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": []
+						}
+					},
+					{
+						"key": "Teema-ala",
+						"doc_count": 42,
+						"typeName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": []
+						}
+					},
+					{
+						"key": " ",
+						"doc_count": 2,
+						"typeName": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": []
+						}
+					}
+				]
+			}
+		},
+		"field": {
+			"meta": {},
+			"doc_count": 1186,
+			"fields": {
+				"meta": {},
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Arkkitehtuuri",
+						"doc_count": 2,
+						"filtered": {
+							"meta": {},
+							"doc_count": 2,
+							"filterCount": {
+								"meta": {},
+								"doc_count": 2
+							}
+						},
+						"fieldId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": 211,
+									"doc_count": 2
+								}
+							]
+						}
+					},
+					{
+						"key": "Avaruustieteet ja tähtitiede",
+						"doc_count": 2,
+						"filtered": {
+							"meta": {},
+							"doc_count": 2,
+							"filterCount": {
+								"meta": {},
+								"doc_count": 2
+							}
+						},
+						"fieldId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": 115,
+									"doc_count": 2
+								}
+							]
+						}
+					},
+					{
+						"key": "Biokemia, solu- ja molekyylibiologia",
+						"doc_count": 50,
+						"filtered": {
+							"meta": {},
+							"doc_count": 50,
+							"filterCount": {
+								"meta": {},
+								"doc_count": 50
+							}
+						},
+						"fieldId": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": 1182,
+									"doc_count": 50
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		"year": {
+			"meta": {},
+			"doc_count": 3271,
+			"years": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": 2021,
+						"doc_count": 12
+					},
+					{
+						"key": 2020,
+						"doc_count": 1163
+					},
+					{
+						"key": 2019,
+						"doc_count": 699
+					},
+					{
+						"key": 2018,
+						"doc_count": 474
+					},
+					{
+						"key": 2017,
+						"doc_count": 317
+					},
+					{
+						"key": 2016,
+						"doc_count": 262
+					},
+					{
+						"key": 2015,
+						"doc_count": 313
+					},
+					{
+						"key": 2014,
+						"doc_count": 25
+					},
+					{
+						"key": 2013,
+						"doc_count": 3
+					},
+					{
+						"key": 2010,
+						"doc_count": 1
+					},
+					{
+						"key": 2009,
+						"doc_count": 1
+					},
+					{
+						"key": 2007,
+						"doc_count": 1
+					}
+				]
+			}
+		},
+		"organization": {
+			"meta": {},
+			"doc_count": 2249,
+			"funded": {
+				"meta": {},
+				"doc_count": 1959,
+				"sectorName": {
+					"meta": {},
+					"doc_count_error_upper_bound": 0,
+					"sum_other_doc_count": 0,
+					"buckets": [
+						{
+							"key": "Yliopisto",
+							"doc_count": 1190,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "1",
+										"doc_count": 1190
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Helsingin yliopisto",
+										"doc_count": 325,
+										"filtered": {
+											"meta": {},
+											"doc_count": 325,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 325
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "01901",
+													"doc_count": 325
+												}
+											]
+										}
+									},
+									{
+										"key": "Aalto-yliopisto",
+										"doc_count": 224,
+										"filtered": {
+											"meta": {},
+											"doc_count": 224,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 224
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "10076",
+													"doc_count": 224
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"key": "Tutkimuslaitos",
+							"doc_count": 228,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "3",
+										"doc_count": 228
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Teknologian tutkimuskeskus VTT Oy",
+										"doc_count": 158,
+										"filtered": {
+											"meta": {},
+											"doc_count": 158,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 158
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "26473754",
+													"doc_count": 158
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"key": "Ammattikorkeakoulu",
+							"doc_count": 72,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "2",
+										"doc_count": 72
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Turun ammattikorkeakoulu",
+										"doc_count": 12,
+										"filtered": {
+											"meta": {},
+											"doc_count": 12,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 12
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "02509",
+													"doc_count": 12
+												}
+											]
+										}
+									},
+									{
+										"key": "LAB-ammattikorkeakoulu",
+										"doc_count": 10,
+										"filtered": {
+											"meta": {},
+											"doc_count": 10,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 10
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "10126",
+													"doc_count": 10
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"key": "Yliopistollisen sairaalan erityisvastuualue",
+							"doc_count": 4,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "4",
+										"doc_count": 4
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Turun yliopistollisen keskussairaalan erityisvastuualue",
+										"doc_count": 2,
+										"filtered": {
+											"meta": {},
+											"doc_count": 2,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 2
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "08282559",
+													"doc_count": 2
+												}
+											]
+										}
+									},
+									{
+										"key": "Kuopion yliopistollisen sairaalan erityisvastuualue",
+										"doc_count": 1,
+										"filtered": {
+											"meta": {},
+											"doc_count": 1,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 1
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "01714953",
+													"doc_count": 1
+												}
+											]
+										}
+									},
+									{
+										"key": "Oulun yliopistollisen sairaalan erityisvastuualue",
+										"doc_count": 1,
+										"filtered": {
+											"meta": {},
+											"doc_count": 1,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 1
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "06794809",
+													"doc_count": 1
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"organizationConsortium": {
+			"meta": {},
+			"doc_count": 19536,
+			"funded": {
+				"meta": {},
+				"doc_count": 2825,
+				"sectorName": {
+					"meta": {},
+					"doc_count_error_upper_bound": 0,
+					"sum_other_doc_count": 0,
+					"buckets": [
+						{
+							"key": "Yliopisto",
+							"doc_count": 1148,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "1",
+										"doc_count": 1148
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Aalto-yliopisto",
+										"doc_count": 222,
+										"filtered": {
+											"meta": {},
+											"doc_count": 222,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 222
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "10076",
+													"doc_count": 222
+												}
+											]
+										}
+									},
+									{
+										"key": "Helsingin yliopisto",
+										"doc_count": 217,
+										"filtered": {
+											"meta": {},
+											"doc_count": 217,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 217
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "01901",
+													"doc_count": 217
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"key": "Tutkimuslaitos",
+							"doc_count": 617,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "3",
+										"doc_count": 617
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Teknologian tutkimuskeskus VTT Oy",
+										"doc_count": 416,
+										"filtered": {
+											"meta": {},
+											"doc_count": 416,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 416
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "26473754",
+													"doc_count": 416
+												}
+											]
+										}
+									},
+									{
+										"key": "Luonnonvarakeskus",
+										"doc_count": 58,
+										"filtered": {
+											"meta": {},
+											"doc_count": 58,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 58
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "4100010",
+													"doc_count": 58
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"key": "Ammattikorkeakoulu",
+							"doc_count": 113,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "2",
+										"doc_count": 113
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Turun ammattikorkeakoulu",
+										"doc_count": 18,
+										"filtered": {
+											"meta": {},
+											"doc_count": 18,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 18
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "02509",
+													"doc_count": 18
+												}
+											]
+										}
+									},
+									{
+										"key": "Laurea-ammattikorkeakoulu",
+										"doc_count": 12,
+										"filtered": {
+											"meta": {},
+											"doc_count": 12,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 12
+											}
+										}}
+								]
+							}
+						},
+						{
+							"key": "Muu",
+							"doc_count": 26,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "6",
+										"doc_count": 26
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "CSC - Tieteen tietotekniikan keskus Oy",
+										"doc_count": 25,
+										"filtered": {
+											"meta": {},
+											"doc_count": 25,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 25
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "09206320",
+													"doc_count": 25
+												}
+											]
+										}
+									},
+									{
+										"key": "Lääkealan turvallisuus- ja kehittämiskeskus",
+										"doc_count": 1,
+										"filtered": {
+											"meta": {},
+											"doc_count": 1,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 1
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "558005",
+													"doc_count": 1
+												}
+											]
+										}
+									}
+								]
+							}
+						},
+						{
+							"key": "Yliopistollisen sairaalan erityisvastuualue",
+							"doc_count": 20,
+							"sectorId": {
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "4",
+										"doc_count": 20
+									}
+								]
+							},
+							"organizations": {
+								"meta": {},
+								"doc_count_error_upper_bound": 0,
+								"sum_other_doc_count": 0,
+								"buckets": [
+									{
+										"key": "Helsingin seudun yliopistollisen keskussairaalan erityisvastuualue",
+										"doc_count": 10,
+										"filtered": {
+											"meta": {},
+											"doc_count": 10,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 10
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "15675350",
+													"doc_count": 10
+												}
+											]
+										}
+									},
+									{
+										"key": "Kuopion yliopistollisen sairaalan erityisvastuualue",
+										"doc_count": 5,
+										"filtered": {
+											"meta": {},
+											"doc_count": 5,
+											"filterCount": {
+												"meta": {},
+												"doc_count": 5
+											}
+										},
+										"orgId": {
+											"doc_count_error_upper_bound": 0,
+											"sum_other_doc_count": 0,
+											"buckets": [
+												{
+													"key": "01714953",
+													"doc_count": 5
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"fundingStatus": {
+			"meta": {},
+			"doc_count": 3272,
+			"status": {
+				"buckets": [
+					{
+						"key": "*-*",
+						"doc_count": 3272
+					}
+				]
+			}
+		}
+	}
+}

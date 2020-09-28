@@ -1,6 +1,6 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { SortService } from './sort.service';
-import { SettingsService } from './settings.service';
+import { SortService } from '../sort.service';
+import { SettingsService } from '../settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -149,32 +149,6 @@ export class AggregationService {
                   }
                 },
                 organization: {
-                  terms: {
-                    size: 50,
-                    field: 'author.organization.OrganizationName' + this.localeC + '.keyword'
-                  },
-                  aggs: {
-                    filtered: {
-                      reverse_nested: {},
-                      aggs: {
-                        filterCount: {
-                          filter: {
-                            bool: {
-                              filter: filterActiveNested('author')
-                            }
-                          }
-                        }
-                      }
-                    },
-                    orgId: {
-                      terms: {
-                        size: 1,
-                        field: 'author.organization.organizationId.keyword'
-                      }
-                    }
-                  }
-                },
-                org: {
                   nested: {
                     path: 'author.organization'
                   },
@@ -724,7 +698,6 @@ export class AggregationService {
           }
         };
         // Field of science
-
         payLoad.aggs.field = {
           nested: {
             path: 'fieldsOfScience'
@@ -944,6 +917,32 @@ export class AggregationService {
                 sectorName: {
                   terms: {
                     field: 'sectorName' + this.localeC + '.keyword',
+                  }
+                }
+              }
+            }
+          }
+        };
+        // organization agg is for filter translations
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive('sectorId.keyword')
+            }
+          },
+          aggs: {
+            organizationName: {
+              terms: {
+                field: 'name' + this.localeC + '.keyword',
+                size: 50,
+                order: {
+                  _key: 'asc'
+                }
+              },
+              aggs: {
+                organizationId: {
+                  terms: {
+                    field: 'organizationId.keyword',
                   }
                 }
               }

@@ -11,18 +11,18 @@ import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { ResizeService } from '../../../services/resize.service';
-import { FilterService } from '../../../services/filter.service';
+import { FilterService } from '../../../services/filters/filter.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 
-import { PublicationFilters } from './publications';
-import { PersonFilters } from './persons';
-import { FundingFilters } from './fundings';
-import { InfrastructureFilters } from './infrastructures';
-import { OrganizationFilters } from './organizations';
-import { NewsFilters } from './news';
+import { PublicationFilterService } from 'src/app/services/filters/publication-filter.service';
+import { PersonFilterService } from 'src/app/services/filters/person-filter.service';
+import { FundingFilterService } from 'src/app/services/filters/funding-filter.service';
+import { InfrastructureFilterService } from 'src/app/services/filters/infrastructure-filter.service';
+import { OrganizationFilterService } from 'src/app/services/filters/organization-filter.service';
+import { NewsFilterService } from 'src/app/services/filters/news-filter.service';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { SearchService } from 'src/app/services/search.service';
@@ -77,11 +77,11 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor( private router: Router, private filterService: FilterService,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
-               private modalService: BsModalService,private route: ActivatedRoute, public utilityService: UtilityService,
-               private sortService: SortService, private publicationFilters: PublicationFilters, private personFilters: PersonFilters,
-               private fundingFilters: FundingFilters, private infrastructureFilters: InfrastructureFilters,
-               private organizationFilters: OrganizationFilters, private newsFilters: NewsFilters,
-               @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
+               private modalService: BsModalService, private route: ActivatedRoute, public utilityService: UtilityService,
+               private sortService: SortService, private publicationFilters: PublicationFilterService,
+               private personFilters: PersonFilterService, private fundingFilters: FundingFilterService,
+               private infrastructureFilters: InfrastructureFilterService, private organizationFilters: OrganizationFilterService,
+               private newsFilters: NewsFilterService, @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
                 this.showMoreCount = [];
                 }
 
@@ -199,8 +199,8 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           break;
         }
         case 'persons': {
-          this.currentFilter = this.personFilters.filterData;
-          this.currentSingleFilter = this.personFilters.singleFilterData;
+          // this.currentFilter = this.personFilters.filterData;
+          // this.currentSingleFilter = this.personFilters.singleFilterData;
           // TODO: Shape data
           break;
         }
@@ -238,47 +238,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  // Navigate
-  rangeChange(event, dir) {
-    // Set range query param to active filters, helps with active filters component. This query param doesn't do anything in filter service.
-    const obj = {};
-    let newFilters = {};
-    obj[dir] = event.value ? dir.slice(0, 1) + event.value : null;
-    newFilters = Object.assign({}, this.activeFilters, obj);
-    this.activeFilters = newFilters;
-  }
-
-  range(event, dir) {
-    // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
-    // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
-    const source = this.responseData.aggregations.year.buckets;
-    const selected = [];
-    switch (dir) {
-      case 'from': {
-        this.fromYear = event.value;
-        if (event.value) {
-          this.toYear ? source.map(x => x.key >= event.value && x.key <= this.toYear ? selected.push(x.key.toString()) : null) :
-          source.map(x => x.key >= event.value ? selected.push(x.key.toString()) : null);
-        } else {
-          source.map(x => x.key <= this.toYear ? selected.push(x.key.toString()) : null);
-        }
-        break;
-      }
-      case 'to': {
-        this.toYear = event.value;
-        if (event.value) {
-          this.fromYear ? source.map(x => x.key <= event.value && x.key >= this.fromYear ? selected.push(x.key.toString()) : null) :
-          source.map(x => x.key <= event.value ? selected.push(x.key.toString()) : null);
-        } else {
-          source.map(x => x.key >= this.fromYear ? selected.push(x.key.toString()) : null);
-        }
-        break;
-      }
-    }
-
-    this.selectionChange('year', selected);
-  }
-
+  // Navigate with selected filters. Results.component catches query parameters for filters
   selectionChange(filter, key, forceOn = false) {
     let selectedFilters: any = {};
     // Reset selected filters
@@ -334,7 +294,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     // Push subfilter items into array
     const itemArr = [];
     subFilter.subData.forEach(item => {
-      itemArr.push(item.key);
+      itemArr.push(item.key.toString());
     });
     let result = [];
     // Check if all items already selected
@@ -354,8 +314,47 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       result = itemArr;
     }
     // Pass selection
-
     this.selectionChange(filter, result);
+  }
+
+  rangeChange(event, dir) {
+    // Set range query param to active filters, helps with active filters component. This query param doesn't do anything in filter service.
+    const obj = {};
+    let newFilters = {};
+    obj[dir] = event.value ? dir.slice(0, 1) + event.value : null;
+    newFilters = Object.assign({}, this.activeFilters, obj);
+    this.activeFilters = newFilters;
+  }
+
+  range(event, dir) {
+    // Range filter works only for years for now. Point is to get data from aggregation, perform selection based on range direction
+    // and push new range as array. Range selection overrides single year selects but single selection can be made after range selection.
+    const source = this.responseData.aggregations.year.buckets;
+    const selected = [];
+    switch (dir) {
+      case 'from': {
+        this.fromYear = event.value;
+        if (event.value) {
+          this.toYear ? source.map(x => x.key >= event.value && x.key <= this.toYear ? selected.push(x.key.toString()) : null) :
+          source.map(x => x.key >= event.value ? selected.push(x.key.toString()) : null);
+        } else {
+          source.map(x => x.key <= this.toYear ? selected.push(x.key.toString()) : null);
+        }
+        break;
+      }
+      case 'to': {
+        this.toYear = event.value;
+        if (event.value) {
+          this.fromYear ? source.map(x => x.key <= event.value && x.key >= this.fromYear ? selected.push(x.key.toString()) : null) :
+          source.map(x => x.key <= event.value ? selected.push(x.key.toString()) : null);
+        } else {
+          source.map(x => x.key >= this.fromYear ? selected.push(x.key.toString()) : null);
+        }
+        break;
+      }
+    }
+
+    this.selectionChange('year', selected);
   }
 
   filterInput(event, parent) {

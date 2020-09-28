@@ -1054,6 +1054,14 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="withTerm" datatype="html">
+        <source>Joihin sisältyy hakutermi</source>
+        <target>Containing the search term</target>
+      </trans-unit>
+      <trans-unit id="noResultsWithTerm" datatype="html">
+        <source>Ei tuloksia hakutermillä</source>
+        <target>No results with the search term</target>
+      </trans-unit>
       <trans-unit id="noResults" datatype="html">
         <source>Ei tuloksia.</source>
         <target>No results.</target>
@@ -1093,6 +1101,14 @@
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">144</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="filterCoPublications">
+        <source>Näytä ainoastaan yhteisjulkaisut</source>
+        <target>Show only co-publications</target>
+      </trans-unit>
+      <trans-unit id="coPublications">
+        <source>Yhteisjulkaisut</source>
+        <target>Co-publications</target>
       </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
@@ -2411,9 +2427,25 @@
         <source>Rahoitusmuoto</source>
         <target>Funding instrument</target>
       </trans-unit>
-      <trans-unit id="5379863279381131239">
+      <trans-unit id="frameworkProgramme">
+        <source>Puiteohjelma</source>
+        <target>Framework programme</target>
+      </trans-unit>
+      <trans-unit id="callProgramme">
         <source>Haku</source>
         <target>Call</target>
+      </trans-unit>
+      <trans-unit id="funderProgramme">
+        <source>Programme</source>
+        <target>Programme</target>
+      </trans-unit>
+      <trans-unit id="funderTopic">
+        <source>Topic</source>
+        <target>Topic</target>
+      </trans-unit>
+      <trans-unit id="funderCallId">
+        <source>Call ID</source>
+        <target>Call ID</target>
       </trans-unit>
       <trans-unit id="1429405664221353899">
         <source>Rahoituspäätöksen numero</source>
