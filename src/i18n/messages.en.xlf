@@ -2436,15 +2436,15 @@
         <target>Call</target>
       </trans-unit>
       <trans-unit id="funderProgramme">
-        <source>Programme</source>
-        <target>Programme</target>
+        <source>Ohjelman osa</source>
+        <target>Programme name</target>
       </trans-unit>
       <trans-unit id="funderTopic">
-        <source>Topic</source>
+        <source>Aihe</source>
         <target>Topic</target>
       </trans-unit>
       <trans-unit id="funderCallId">
-        <source>Call ID</source>
+        <source>Haun tunniste</source>
         <target>Call ID</target>
       </trans-unit>
       <trans-unit id="1429405664221353899">
