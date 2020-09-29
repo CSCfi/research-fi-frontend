@@ -198,7 +198,7 @@
                         <!-- Eu vs normal funding callProgramme logic -->
                         <div class="row" *ngIf="(item.euFunding && item.funder.euCallProgrammes.length > 0) || (!item.euFunding && item.funder.callProgrammeName)">
                             <h2 class="col-12 col-sm-4 col-lg-3 th">
-                                <ng-container i18n="callProgramme">Haku</ng-container>
+                                <ng-container i18n="@@callProgramme">Haku</ng-container>
                                 <ng-template #tooltipTemplate><div [innerHtml]="callProgrammeTooltip.tooltip"></div></ng-template>
                                 <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                                     <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
@@ -211,18 +211,18 @@
                             <!-- Eu funding -->
                             <ng-template #euCallProgramme>
                                 <div class="col-12 col-sm-8 col-lg-9 td">
-                                    <div><strong i18n="@@funderProgramme">Programme</strong></div>
+                                    <div><strong i18n="@@funderProgramme">Ohjelman osa</strong></div>
                                     {{item.funder.euCallProgrammes[0].name}} (<a [href]="cordisLink + item.funder.euCallProgrammes[0].id" target="_blank">{{item.funder.euCallProgrammes[0].id}}<fa-icon icon="external-link-alt"></fa-icon></a>)
                                 </div>    
                                 <div *ngFor="let programme of item.funder.euCallProgrammes.slice(1)" class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
                                     {{programme.name}} (<a [href]="cordisLink + programme.id" target="_blank">{{programme.id}}<fa-icon icon="external-link-alt"></fa-icon></a>)
                                 </div>    
                                 <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
-                                    <div><strong i18n="@@funderTopic">Topic</strong></div>
+                                    <div><strong i18n="@@funderTopic">Aihe</strong></div>
                                     {{item.funder.topicName}} (<a [href]="cordisLink + 'H2020_' + item.funder.topicId" target="_blank">{{item.funder.topicId}}<fa-icon icon="external-link-alt"></fa-icon></a>)
                                 </div>    
                                 <div class="col-12 col-sm-8 col-lg-9 offset-sm-4 offset-lg-3 td">
-                                    <div><strong i18n="funderCallId">Call ID</strong></div>
+                                    <div><strong i18n="@@funderCallId">Haun tunniste</strong></div>
                                     {{item.funder.euCallId}}
                                 </div>    
                             </ng-template>

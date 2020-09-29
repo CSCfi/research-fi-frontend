@@ -69,7 +69,7 @@ export class PublicationFilterService {
     data.buckets.forEach(item => {
       item.subData = item.organization.org.buckets.filter(x => x.filtered.filterCount.doc_count > 0);
       item.subData.map(subItem => {
-          subItem.label = subItem.key;
+          subItem.label = subItem.label ? subItem.label : subItem.key;
           subItem.key = subItem.orgId.buckets[0].key;
           subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
