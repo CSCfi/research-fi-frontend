@@ -2437,7 +2437,7 @@
       </trans-unit>
       <trans-unit id="funderProgramme">
         <source>Ohjelman osa</source>
-        <target>Programme name</target>
+        <target>Programme part</target>
       </trans-unit>
       <trans-unit id="funderTopic">
         <source>Aihe</source>
