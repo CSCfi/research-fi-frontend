@@ -72,6 +72,12 @@
                         [checked]="(activeFilters ? activeFilters.coPublication?.length : 0) > 0" >
                             <strong><ng-container i18n="@@filterCoPublications">Näytä ainoastaan yhteisjulkaisut</ng-container></strong>
                         </mat-slide-toggle>
+                        <div class="pl-2 d-inline-block">
+                            <ng-template #tooltipTemplate><div>Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana.</div></ng-template>
+                            <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                <fa-icon class="info-icon" icon="info-circle"></fa-icon>
+                            </span>
+                        </div>
                     </div>
                 </div> -->
                 <!-- Search in Filter -->
