@@ -66,7 +66,7 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <!-- Co publications toggle -->
-                <div class="row" *ngIf="filter.relatedPublications">
+                <!-- <div class="row" *ngIf="filter.relatedPublications">
                     <div class="col py-3">
                         <mat-slide-toggle class="slider" (change)="selectionChange('coPublication', true)" (keydown.enter)="selectionChange('coPublication', true)" [labelPosition]="'before'"
                         [checked]="(activeFilters ? activeFilters.coPublication?.length : 0) > 0" >
@@ -78,9 +78,8 @@
                                 <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                             </span>
                         </div>
-
                     </div>
-                </div>
+                </div> -->
                 <!-- Search in Filter -->
                 <ng-container *ngIf="!filter.hasSubFields">
                     <label for="filter-query-{{i}}" class="sr-only" i18n="SR Search@@SRSearch">Hae</label>
