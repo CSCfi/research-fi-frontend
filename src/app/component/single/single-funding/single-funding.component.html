@@ -166,7 +166,7 @@
                         </ng-container>
                     </div>
                     <!-- Funder -->
-                    <div class="content" *ngIf="item.funder && funderFields.length > 0">
+                    <div class="content" *ngIf="item.funder && (funderFields.length > 0 || item.funder.callProgrammeName)">
                         <div class="row">
                             <h2 class="col-12 col-sm-4 col-lg-3 th">
                                 <ng-container i18n="@@fundingFunder">Rahoittaja</ng-container>

@@ -311,9 +311,20 @@ export class FilterService {
       return index === i ? ((f?.length > 0) ? [{nested: {path: p, query: {bool: {should: f } }}}] : []) : [];
     };
 
+    const coPublicationOrgs = () => {
+      if (this.coPublicationFilter[0]) {
+        const res = [];
+        this.organizationFilter.forEach(item => {
+          res.push({bool: {should: {nested: {path: 'author', query: {bool: {should: item}}}}}});
+        });
+        return res;
+      }
+    };
+
     const filters = [
       // Publications
-      ...(nestedFilter('publication', this.organizationFilter, 'author')),
+      // Organization query differs when co-publication filter is selected
+      ...(this.coPublicationFilter[0] ? coPublicationOrgs() : nestedFilter('publication', this.organizationFilter, 'author')),
       ...(nestedFilter('publication', this.fieldFilter, 'fieldsOfScience')),
       ...(basicFilter('publication', this.publicationTypeFilter)),
       ...(basicFilter('publication', this.countryCodeFilter)),
