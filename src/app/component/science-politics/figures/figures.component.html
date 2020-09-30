@@ -15,6 +15,7 @@
                         <h1 i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
                     </div>
                 </div>
+                <!-- Navigation -->
                 <nav>
                     <ul>
                         <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
@@ -42,10 +43,20 @@
                                 </div>
                             </form>
                         </li>
+                        <li class="pl-3">
+                            <mat-chip-list class="mat-chip-list-stacked" aria-label="Tiekartta" [selectable]="true">
+                                <mat-chip [selected]="!roadmapFilter" (click)="filter(false)">
+                                    Kaikki tilastot
+                                </mat-chip>
+                                <mat-chip [selected]="roadmapFilter" (click)="filter(true)">
+                                    Vain TKI-tiekartan seurantamittarit
+                                </mat-chip>
+                            </mat-chip-list>
+                        </li>
                     </ul>
                 </nav>
             </div>
-
+            <!-- Content -->
             <div class="col-12 col-lg-9 px-0 px-lg-3">
                 <main>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
@@ -74,70 +85,23 @@
                                             <li><a [href]="cscLink[currentLocale]" target="_blank"><ng-container i18n="@@csc">CSC - Tieteen tietotekniikan keskus Oy</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
                                         </ul>
                                         <p>Bibliometric results presented here are derived from the Web of Science® prepared by CLARIVATE ANALYTICS®, Inc. (Formerly the IP & Science business of Thomson Reuters®), Philadelphia, Pennsylvania, USA: © Copyright CLARIVATE ANALYTICS® 2020. All rights reserved. Results are taken with permission from the bibliometric analysis system provided by CSC - IT Center for Science Ltd., Espoo, Finland.</p>
-                                        <!-- <div class="row justify-content-center justify-content-lg-start">
-                                            <div class="col-6 m-3 col-lg-3 p-3 m-lg-0 mr-lg-5 card text-center" *ngFor="let item of coLink">
-                                                <a href="">
-                                                    <div class="circle-small"></div>
-                                                    <span class="title">{{item.labelFi}}</span>
-                                                </a>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="segment" *ngFor="let content of allContent" id={{content.id}}>
-                            <h2 class="px-2 lx-lg-0">{{content['header' + currentLocale]}}</h2>
-                            <div class="row">
-                                <div class="col p-1">
-                                    <div class="base content">
-                                        <div class="card list" *ngFor="let item of content.items">
-                                            <a routerLink="{{item.link}}">
-                                                <div class="row d-flex justify-content-around">
-                                                    <div class="col-12 col-md-8">
-                                                        <h3 class="title">{{item['label' + currentLocale]}}</h3>
-                                                        <div class="col-12 figure d-block d-md-none">
-                                                            <img [src]="item.img" >
-                                                        </div>
-                                                        <div class="description">
-                                                            <p [innerHtml]="item['description' + currentLocale] | cutContent: 200"></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4 figure d-none d-md-block">
-                                                        <img [src]="item.img">
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- Figures -->
+                        <div class="segment" #segments *ngFor="let content of allContent" id={{content.id}}>
+                            <ng-container *ngIf="content.items.length">
+                                <h2 class="px-2 lx-lg-0">{{content['header' + currentLocale]}}</h2>
+                                <ng-container *ngTemplateOutlet="figureTemplate; context:{data: content.items}"></ng-container>
+                            </ng-container>
                         </div>
                     </div>
+                    <!-- Search results -->
                     <ng-template #queryResultTemplate>
-                        <div class="segment" *ngIf="hasResults; else noResults">
+                        <div class="segment" #segments *ngIf="hasResults; else noResults">
                             <h3 class="px-2 lx-lg-0"><ng-container i18n="@@figureSearchResults">Haun tulokset</ng-container> ({{queryResults.length}})</h3>
-                            <div class="row">
-                                <div class="col p-1">
-                                    <div class="base content">
-                                        <div class="card list" *ngFor="let item of queryResults">
-                                            <a routerLink="{{item.link}}">
-                                                <div class="row d-flex justify-content-around">
-                                                    <div class="col-8">
-                                                        <span class="title">{{item['label' + currentLocale]}}</span>
-                                                        <div class="description">
-                                                            <p [innerHtml]="item['description' + currentLocale] | cutContent: 200"></p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <img [src]="item.img">
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <ng-container *ngTemplateOutlet="figureTemplate; context:{data: queryResults}"></ng-container>
                         </div>
                         <ng-template #noResults>
                             <div role="alert" class="col-auto">
@@ -145,6 +109,38 @@
                                 <p i18n="@@noResultsInfo">Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä portaalissa.</p>
                             </div>
                         </ng-template>
+                    </ng-template>
+                    <!-- Template -->
+                    <ng-template let-data="data" #figureTemplate>
+                        <div class="row">
+                            <div class="col p-1">
+                                <div class="base content">
+                                    <div class="card list" *ngFor="let item of data">
+                                        <a routerLink="{{item.link}}">
+                                            <div class="row d-flex justify-content-around">
+                                                <div class="col-12 col-md-8">
+                                                    <h3 class="title">{{item['label' + currentLocale]}}</h3>
+                                                    <div class="col-12 figure d-block d-md-none">
+                                                        <img [src]="item.img" >
+                                                    </div>
+                                                    <div class="description">
+                                                        <p [innerHtml]="item['description' + currentLocale] | cutContent: 200"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 figure d-none d-md-block">
+                                                    <img [src]="item.img">
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="row" *ngIf="item.roadmap">
+                                            <div class="col-12 tags">
+                                                <mat-basic-chip class="tag" [disableRipple]="true">TKI-tiekartan seurantamittari</mat-basic-chip>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </ng-template>
                 </main>
             </div>
