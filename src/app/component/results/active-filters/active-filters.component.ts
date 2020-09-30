@@ -349,16 +349,18 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               setTimeout(t => {
                 const result = source.type.types.buckets.find(({ key }) => key === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+                this.activeFilters[foundIndex].translation = result.key ? result.key.charAt(0).toUpperCase() + result.key.slice(1) : '';
               }, 1);
             }
 
             // Infrastructure main field of science
-            if (tab === 'infrastructures' && val.category === 'field') {
+            if (tab === 'infrastructures' && val.category === 'field' && source.infraField) {
+              // Map id to root so it's easier to find
+              source.infraField.infraFields.buckets.map(item => item.id = item.majorId.buckets[0].key);
               setTimeout(t => {
-                const result = source.field.buckets.find(key => key.key === val.value);
+                const result = source.infraField.infraFields.buckets.find(id => id.id === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                this.activeFilters[foundIndex].translation = result.label ? result.label : '';
+                this.activeFilters[foundIndex].translation = result.key ? result.key : '';
               }, 1);
             }
 
