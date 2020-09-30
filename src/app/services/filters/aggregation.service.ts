@@ -50,17 +50,18 @@ export class AggregationService {
     const coPublicationFilter = filters.filter(item => item.bool?.should.nested?.path === 'author');
 
     // Functions to filter out active filters. These prevents doc count changes on active filter categories
+    // Filtering is disabled for active filters translations
     function filterActive(field) {
       if (!disableFiltering) {
-      // Open access aggregations come from 3 different aggs and need special case for filters
-      if (field === 'openAccess') {
-        const filteredActive = active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
-                                            Object.keys(item.bool.should[0].term)?.toString() !== 'selfArchivedCode');
-        return filteredActive.concat(activeNested, activeMultipleNested, coPublication ? coPublicationFilter : []);
-      } else {
-        return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field)
-        .concat(activeNested, activeMultipleNested, activeBool, coPublication ? coPublicationFilter : []);
-      }
+        // Open access aggregations come from 3 different aggs and need special case for filters
+        if (field === 'openAccess') {
+          const filteredActive = active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
+                                              Object.keys(item.bool.should[0].term)?.toString() !== 'selfArchivedCode');
+          return filteredActive.concat(activeNested, activeMultipleNested, coPublication ? coPublicationFilter : []);
+        } else {
+          return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field)
+          .concat(activeNested, activeMultipleNested, activeBool, coPublication ? coPublicationFilter : []);
+        }
       }
 
     }
