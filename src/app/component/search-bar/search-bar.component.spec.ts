@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { SearchService } from 'src/app/services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -8,13 +8,17 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppConfigService } from 'src/app/services/app-config-service.service';
 import { AppConfigServiceMock } from 'src/app/services/search.service.spec';
 import { ModalModule } from 'ngx-bootstrap';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, QueryList } from '@angular/core';
 import { SearchBarComponent } from './search-bar.component';
 import { AutosuggestService } from 'src/app/services/autosuggest.service';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 describe('SearchBarComponent', () => {
     let searchBarComponent: SearchBarComponent;
     let fixture: ComponentFixture<SearchBarComponent>;
+    let autoSuggestService: AutosuggestService;
+    let activatedRouteStub: ActivatedRoute;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -32,6 +36,8 @@ describe('SearchBarComponent', () => {
 
         fixture = TestBed.createComponent(SearchBarComponent);
         searchBarComponent = fixture.componentInstance;
+        autoSuggestService = TestBed.inject(AutosuggestService);
+        activatedRouteStub = TestBed.inject(ActivatedRoute);
     });
 
 
@@ -63,5 +69,25 @@ describe('SearchBarComponent', () => {
         expect(searchBarComponent.selectedTarget).toBeFalsy();
         expect(searchBarComponent.searchInput.nativeElement.value).toBeFalsy();
     });
+
+    it('autosuggest response should be valid', fakeAsync(() => {
+        spyOn(autoSuggestService, 'search').and.returnValue(of(1).pipe(delay(1)));
+
+        fixture.detectChanges();
+        tick(1);
+
+        fixture.detectChanges();
+        tick(1);
+
+        // searchBarComponent.items = new QueryList();
+        // expect(searchBarComponent.items).toBe();
+        searchBarComponent.queryField.setValue('');
+        searchBarComponent.fireAutoSuggest();
+        searchBarComponent.queryField.setValue('test');
+
+        tick(1500);
+
+        expect(searchBarComponent.autoSuggestResponse).toBe('test');
+    }));
 
 });
