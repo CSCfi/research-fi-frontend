@@ -88,7 +88,7 @@ export class UtilityService {
   }
 
   static replaceSpecialChars(s: string) {
-    return s.toString().replace(/ |,|\.|\(|\)/g, '-');
+    return s.toString().replace(/ |,|\.|\(|\)|\&/g, '-');
   }
 
   static thousandSeparator(s: string) {

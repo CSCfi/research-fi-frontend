@@ -179,11 +179,8 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         return arr;
     }
 
-    sortByName(arr: VisualData[]): VisualData[] {
-        arr.forEach(d => {
-            d.data = d.data.sort((a, b) => +(a.name < b.name) - 0.5);
-        });
-        return arr;
+    sortByName(arr: VisualData[]) {
+        arr.forEach(d => d.data.sort((a, b) => +(a.name < b.name) - 0.5));
     }
 
 
