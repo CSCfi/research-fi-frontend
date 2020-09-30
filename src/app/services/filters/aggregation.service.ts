@@ -34,7 +34,7 @@ export class AggregationService {
     return field;
   }
 
-  constructAggregations(filters: any, tab: string, searchTerm: string) {
+  constructAggregations(filters: any, tab: string, searchTerm: string, disableFiltering = false) {
     filters = filters.filter(item => item.bool?.should.length || item.bool?.should.nested);
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
@@ -51,6 +51,7 @@ export class AggregationService {
 
     // Functions to filter out active filters. These prevents doc count changes on active filter categories
     function filterActive(field) {
+      if (!disableFiltering) {
       // Open access aggregations come from 3 different aggs and need special case for filters
       if (field === 'openAccess') {
         const filteredActive = active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
@@ -60,19 +61,25 @@ export class AggregationService {
         return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field)
         .concat(activeNested, activeMultipleNested, activeBool, coPublication ? coPublicationFilter : []);
       }
+      }
+
     }
 
     function filterActiveNested(path) {
-      return activeNested.filter(item => item.nested?.path !== path)
-      .concat(active, activeMultipleNested, activeBool, coPublication ? coPublicationFilter : []);
+      if (!disableFiltering) {
+        return activeNested.filter(item => item.nested?.path !== path)
+        .concat(active, activeMultipleNested, activeBool, coPublication ? coPublicationFilter : []);
+      }
     }
 
     // TODO: Don't rely on path order. Use protype find instead
     function filterActiveMultipleNested(path1, path2) {
-      const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path2)
-                  .concat(activeMultipleNested
-                  .filter(item => item.bool.should[1].nested.path !== path1), coPublication ? coPublicationFilter : []);
-      return res.concat(active, activeNested, activeBool, coPublication ? coPublicationFilter : []);
+      if (!disableFiltering) {
+        const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path2)
+                    .concat(activeMultipleNested
+                    .filter(item => item.bool.should[1].nested.path !== path1), coPublication ? coPublicationFilter : []);
+        return res.concat(active, activeNested, activeBool, coPublication ? coPublicationFilter : []);
+      }
     }
 
     const yearAgg = {
