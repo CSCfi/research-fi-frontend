@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy,
-         LOCALE_ID } from '@angular/core';
+         LOCALE_ID, ViewChildren, QueryList } from '@angular/core';
 import { faInfoCircle, faSearch, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { DOCUMENT } from '@angular/common';
@@ -22,8 +22,9 @@ import { content } from '../../../../assets/static-data/figures-content.json';
 import { WINDOW } from 'src/app/services/window.service';
 import { Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
-import { figures, common } from 'src/assets/static-data/meta-tags.json'
+import { figures, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-figures',
@@ -54,35 +55,33 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     Fi: 'https://vipunen.fi/',
     En: 'https://vipunen.fi/en-gb/',
     Sv: 'https://vipunen.fi/sv-fi/'
-  }
+  };
 
   statcenterLink = {
     Fi: 'http://www.tilastokeskus.fi/',
     En: 'http://www.tilastokeskus.fi/index_en.html',
     Sv: 'http://www.tilastokeskus.fi/index_sv.html'
-  }
+  };
 
   okmLink = {
     Fi: 'https://www.minedu.fi/',
     En: 'https://minedu.fi/en/frontpage',
     Sv: 'https://minedu.fi/sv/framsida'
-  }
+  };
 
   akaLink = {
     Fi: 'https://www.aka.fi/',
     En: 'https://www.aka.fi/en',
     Sv: 'https://www.aka.fi/sv/'
-  }
+  };
 
   cscLink = {
     Fi: 'https://www.csc.fi',
     En: 'https://www.csc.fi/en/home',
     Sv: 'https://www.csc.fi'
-  }
+  };
 
   allContent = content;
-
-  description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
   link = 'test';
   currentSection: any;
   queryField: FormControl = new FormControl();
@@ -93,6 +92,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainContent') mainContent: ElementRef;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChildren('segments') segments: QueryList<ElementRef>;
   querySub: Subscription;
   resizeSub: Subscription;
   scrollSub: Subscription;
@@ -103,6 +103,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private metaTags = figures;
   private commonTags = common;
+  roadmapFilter = false;
+  filtered: any[];
+  filteredQuery: any[];
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
@@ -139,23 +142,26 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
                                 this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+                                this.commonTags['imgAlt' + this.currentLocale]);
 
 
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
     this.scrollSub = this.scrollService.onScroll.pipe(debounceTime(300)).subscribe(e => this.onScroll(e.y));
 
-    // Get data from assets
-    const combined = [];
-    // Combine all items
-    this.allContent.forEach(segment => combined.push(segment.items));
-    this.combinedData = combined.flat();
+    this.search();
+  }
 
+  search() {
     // Subscribe to input changes
     this.querySub = this.queryField.valueChanges.pipe(
       distinctUntilChanged()
       )
       .subscribe(term => {
+        // Get data from assets
+        const combined = [];
+        // Combine all items
+        this.allContent.forEach(segment => combined.push(segment.items));
+        this.combinedData = combined.flat();
         this.queryTerm = term;
         this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
           item['label' + this.currentLocale].toLowerCase().includes(term.toLowerCase()) ||
@@ -165,6 +171,23 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         // Highlight side nav item
         this.currentSection = this.queryResults.length > 0 ? '' : 's1';
     });
+  }
+
+  // Roadmap filtering with cloned content. Filter both allContent and query results
+  filter(status: boolean) {
+    this.roadmapFilter = status;
+    const data = cloneDeep(this.allContent);
+
+    const filtered = data.map(s => {
+      s.items = s.items.filter(item => status ? item.roadmap : item);
+      return s;
+    });
+
+    this.allContent = status ? filtered : content;
+    this.queryResults = this.combinedData?.filter(item => status ? item.roadmap : item);
+
+    // Scroll into first segment header
+    this.segments.first?.nativeElement.scrollIntoView();
 
   }
 

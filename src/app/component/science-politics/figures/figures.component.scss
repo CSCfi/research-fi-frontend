@@ -60,6 +60,11 @@
 
 .search .search-icon {left: auto; right: 1.7rem;;}
 
+.nav mat-chip {
+    cursor: pointer;
+    max-width: fit-content;
+}
+
 // Content
 .segment {
     padding-bottom: 3rem;

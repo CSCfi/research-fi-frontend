@@ -116,9 +116,17 @@ app-single-figure {
         }
     }
 
-
+    mat-basic-chip.tag {
+        margin-top: -6px;
+    }
 
     // Responsive
+    @media (max-width: 449px) {
+        mat-basic-chip.tag {
+            margin-top: 1rem;
+        }
+    }
+
     // Custom carousel breakpoint
     @media (max-width: 1120px) {
         .carousel-wrapper {
@@ -144,6 +152,5 @@ app-single-figure {
         .content {
             overflow-x: hidden;
         }
-
     }
 }

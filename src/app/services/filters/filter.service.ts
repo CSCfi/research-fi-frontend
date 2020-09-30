@@ -324,7 +324,7 @@ export class FilterService {
     const filters = [
       // Publications
       // Organization query differs when co-publication filter is selected
-      ...(this.coPublicationFilter[0] ? coPublicationOrgs() : nestedFilter('publication', this.organizationFilter, 'author')),
+      ...(this.coPublicationFilter?.length > 0 ? coPublicationOrgs() : nestedFilter('publication', this.organizationFilter, 'author')),
       ...(nestedFilter('publication', this.fieldFilter, 'fieldsOfScience')),
       ...(basicFilter('publication', this.publicationTypeFilter)),
       ...(basicFilter('publication', this.countryCodeFilter)),
