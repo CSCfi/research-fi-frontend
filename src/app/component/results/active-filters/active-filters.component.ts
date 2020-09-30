@@ -152,10 +152,35 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       const currentTab = this.sortService.currentTab;
       // Subscribe to aggregation data
       this.filterResponse = this.searchService.getAllFilters(currentTab).subscribe(response => {
-        this.response = response;
+
+        const tab = this.sortService.currentTab;
+
+        switch (tab) {
+          case 'publications': {
+            this.response = this.publicationFilters.shapeData(response);
+            break;
+          }
+          case 'fundings': {
+            this.response = this.fundingFilters.shapeData(response);
+            break;
+          }
+          case 'infrastructures': {
+            this.response = this.infrastructureFilters.shapeData(response);
+            break;
+          }
+          case 'organizations': {
+            this.response = this.organizationFilters.shapeData(response);
+            break;
+          }
+          case 'news': {
+            this.response = this.newsFilters.shapeData(response);
+            break;
+          }
+        }
+
+        // this.response = response;
         if (response) {
-          const source = this.response.aggregations;
-          const tab = this.sortService.currentTab;
+          const source = this.response;
           // Replace values with translated ones
           this.activeFilters.forEach(val => {
             // Active year filters can be displayed with range. Hide items that are within the range
@@ -227,43 +252,44 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             if (val.category === 'organization' && source.organization) {
               // Publication organization name
               if (tab === 'publications') {
-                // There is some latency, timeout fixes missing translations
-                if (source.organization.sectorName && source.organization.sectorName.buckets.length > 0) {
-                  source.organization.sectorName.buckets.forEach(sector => {
-                    setTimeout(t => {
-                      if (sector.organization.org.buckets.find(x => x.orgId.buckets[0].key === val.value)) {
+                setTimeout(t => {
+                  if (source.organization.sectorName.buckets) {
+                    source.organization.sectorName.buckets.forEach(sector => {
+                      if (sector.subData.find(x => x.key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
-                        sector.organization.org.buckets.find(x => x.orgId.buckets[0].key === val.value).key.trim();
+                        sector.subData.find(x => x.key === val.value).label.trim();
                       }
-                    }, 1);
-                  });
-                }
+                    });
+                  }
+                }, 1);
                 // Funding organization name
               } else if (tab === 'fundings') {
                 setTimeout(t => {
                   if (source.organization.funded.sectorName.buckets) {
                     source.organization.funded.sectorName.buckets.forEach(sector => {
-                      if (sector.organizations.buckets.find(x => x.orgId.buckets[0].key === val.value)) {
+                      if (sector.subData.find(x => x.key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
-                        sector.organizations.buckets.find(x => x.orgId.buckets[0].key === val.value).key.trim();
+                        sector.subData.find(x => x.key === val.value).label.trim();
                       }
                     });
                   }
                 }, 1);
                 // Infrastructure organization name
               } else if (tab === 'infrastructures') {
-                if (source.organization?.sector?.buckets?.length > 0) {
-                  source.organization.sector.buckets.forEach(sector => {
-                    sector.organizations.buckets.forEach(org => {
-                      if (org.organizationId.buckets[0]?.key === val.value) {
+                setTimeout(t => {
+                  if (source.organization.sector.buckets) {
+                    source.organization.sector.buckets.forEach(sector => {
+                      console.log(sector.subData.find(x => x.key === val.value));
+                      if (sector.subData.find(x => x.key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                        this.activeFilters[foundIndex].translation = org.key?.trim();
+                        this.activeFilters[foundIndex].translation =
+                        sector.subData.find(x => x.key === val.value).label.trim();
                       }
                     });
-                  });
-                }
+                  }
+                }, 1);
               } else if (tab === 'organizations') {
                 if (source.organization?.organizationName?.buckets?.length > 0) {
                   source.organization.organizationName.buckets.forEach(org => {
@@ -318,18 +344,14 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
             // Funding
             // Type of funding
             if (val.category === 'typeOfFunding' && source.typeOfFunding) {
-              // Needs to be shaped by service
-              const shaped = this.fundingFilters.typeOfFunding(source.typeOfFunding.types.buckets);
-              if (shaped.length) {
-                shaped.forEach(type => {
-                  setTimeout(t => {
-                     if (type.subData.find(x => x.key === val.value)) {
-                      const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                      this.activeFilters[foundIndex].translation = type.subData.find(x => x.key === val.value).label;
-                    }
-                  }, 1);
-                });
-              }
+              source.typeOfFunding.types.buckets.forEach(type => {
+                setTimeout(t => {
+                    if (type.subData.find(x => x.key === val.value)) {
+                    const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+                    this.activeFilters[foundIndex].translation = type.subData.find(x => x.key === val.value).label;
+                  }
+                }, 1);
+              });
             }
 
             // Funder
@@ -337,7 +359,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               setTimeout(t => {
                 const result = source.funder.funders.buckets.find(key => key.funderId.buckets[0].key === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                this.activeFilters[foundIndex].translation = result.key ? result.key : '';
+                this.activeFilters[foundIndex].translation = result.label ? result.label : result.key;
               }, 1);
             }
 
@@ -360,7 +382,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               setTimeout(t => {
                 const result = source.infraField.infraFields.buckets.find(id => id.id === val.value);
                 const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
-                this.activeFilters[foundIndex].translation = result.key ? result.key : '';
+                this.activeFilters[foundIndex].translation = result.label ? result.label : result.key;
               }, 1);
             }
 
@@ -379,7 +401,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                     if (sector.orgName.buckets.find(x => x.orgId.buckets[0].key === val.value)) {
                       const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                       this.activeFilters[foundIndex].translation =
-                      sector.orgName.buckets.find(x => x.orgId.buckets[0].key === val.value).key.trim();
+                      sector.orgName.buckets.find(x => x.orgId.buckets[0].key === val.value).label.trim();
                     }
                   });
                 }

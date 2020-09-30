@@ -20,6 +20,7 @@ import { SettingsService } from './settings.service';
 import { Publication } from '../models/publication/publication.model';
 import { News, NewsAdapter } from '../models/news.model';
 import { VisualAdapter, Visual } from '../models/visualisation/visualisations.model';
+import { AggregationService } from './filters/aggregation.service';
 
 @Injectable()
 export class SearchService {
@@ -49,7 +50,8 @@ export class SearchService {
 
   constructor(private http: HttpClient , private sortService: SortService, private tabChangeService: TabChangeService,
               private filterService: FilterService, private appConfigService: AppConfigService, private settingsService: SettingsService,
-              private searchAdapter: SearchAdapter, private newsAdapter: NewsAdapter, private visualAdapter: VisualAdapter) {
+              private searchAdapter: SearchAdapter, private newsAdapter: NewsAdapter, private visualAdapter: VisualAdapter,
+              private aggService: AggregationService) {
       this.apiUrl = this.appConfigService.apiUrl;
   }
 
@@ -179,7 +181,7 @@ export class SearchService {
   // Used to translate active filters
   getAllFilters(tab): Observable<Search[]> {
     const currentTab = tab === 'news' ? tab : tab.slice(0, -1);
-    const aggs = this.filterService.constructFilterPayload(tab, '');
+    const aggs = this.aggService.constructAggregations(this.filterService.constructFilters(tab.slice(0, -1)) as any, tab, this.searchTerm, true);
     return this.http.post<Search[]>(this.apiUrl + currentTab + '/_search?' + 'request_cache=true', aggs);
   }
 
