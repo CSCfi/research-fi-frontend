@@ -150,7 +150,7 @@ export class FundingFilterService {
       item.key = item['header' + this.currentLocale].buckets[0].key;
       item.subData = item['header' + this.currentLocale].buckets[0]['typeName' + this.currentLocale].buckets;
       item.subData.map(type => {
-        type.label = type.key,
+        type.label = type.label ? type.label : type.key,
         type.key = type.typeId.buckets[0].key,
         type.doc_count = type.doc_count;
       });
