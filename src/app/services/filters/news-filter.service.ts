@@ -41,11 +41,4 @@ export class NewsFilterService {
     const result = data;
     return result;
   }
-
-
-  getSingleAmount(data) {
-    if (data.length > 0) {
-      return data.filter(x => x.key === 1);
-    }
-  }
 }
