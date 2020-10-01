@@ -81,16 +81,10 @@ export class InfrastructureFilterService {
 
   field(data) {
     data.buckets.map(item => {
-      item.label = item.key;
+      item.label = item.label ? item.label : item.key;
       item.key = item.majorId.buckets[0].key;
       item.doc_count = item.filtered.filterCount.doc_count;
     });
     return data;
-  }
-
-  getSingleAmount(data) {
-    if (data.length > 0) {
-      return data.filter(x => x.key === 1);
-    }
   }
 }
