@@ -35,7 +35,6 @@ export class AggregationService {
   }
 
   constructAggregations(filters: any, tab: string, searchTerm: string, disableFiltering = false) {
-    // filters = filters.filter(item => item.bool?.should.length || item.bool?.should.nested);
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
     const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
