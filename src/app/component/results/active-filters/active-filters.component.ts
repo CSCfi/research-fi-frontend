@@ -281,7 +281,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 setTimeout(t => {
                   if (source.organization.sector.buckets) {
                     source.organization.sector.buckets.forEach(sector => {
-                      console.log(sector.subData.find(x => x.key === val.value));
                       if (sector.subData.find(x => x.key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
