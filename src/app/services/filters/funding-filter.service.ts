@@ -109,7 +109,7 @@ export class FundingFilterService {
     merged.forEach(item => {
       item.subData = item.organizations.buckets.filter(x => x.doc_count > 0);
       item.subData.map(subItem => {
-          subItem.label = subItem.key.trim();
+          subItem.label = subItem.label || subItem.key.trim();
           subItem.key = subItem.orgId.buckets[0].key;
           subItem.doc_count = subItem.doc_count;
       });
@@ -125,7 +125,7 @@ export class FundingFilterService {
     });
 
     res.map(item => {
-      item.label = item.key;
+      item.label = item.label || item.key;
       item.key = item.funderId.buckets[0].key;
     });
     return res;
