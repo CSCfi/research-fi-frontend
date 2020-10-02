@@ -16,19 +16,7 @@ export class FilterMethodService {
 
   constructor( private staticDataService: StaticDataService) { }
 
-  mergeChildren(source) {
-    // Get data from viewChildren (multiple selection lists)
-    const merged = [];
-    // Loop through child elements & check for mapped fields that have values
-    source.forEach(child => {
-      if (child.options.first && child.options.first.selectionList.selectedOptions.selected.length > 0) {
-        // Push mapped values into array
-        merged.push(child.options.first.selectionList.selectedOptions.selected.map(s => s.value));
-      }
-     });
-    return merged.flat();
-  }
-
+  // Map minor fields of science to arrays by major
   separateMinor(source) {
     let mapped: any;
     this.combined = [];
@@ -52,35 +40,4 @@ export class FilterMethodService {
     return this.combined;
   }
 
-  isChecked(parent, dataArray) {
-    switch(dataArray) {
-      case 'majorFieldsOfScience': {
-        dataArray = this.staticDataService.majorFieldsOfScience;
-        break;
-      }
-      case 'publicationClass': {
-        dataArray = this.staticDataService.publicationClass;
-        break;
-      }
-    }
-
-    let objIndex: number;
-    const array = parent.toArray();
-
-    // Loop through items and find a match where selected items match parent item count
-    for (const [i, item] of array.entries()) {
-      setTimeout(() => {
-        if (item.options.length > 0 && item.options.length === item.selectedOptions.selected.length) {
-          objIndex = dataArray.findIndex((obj => obj.id === i + 1));
-          dataArray[objIndex].checked = true;
-        } else {
-          dataArray[i].checked = false;
-        }
-      }, 0);
-    }
-  }
-
-  subFilter(source: any, term: string) {
-    return source.filter(obj => obj.key.toLowerCase().includes(term.toLowerCase()));
-  }
 }

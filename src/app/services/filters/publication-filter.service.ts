@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../../services/static-data.service';
+import { cloneDeep } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class PublicationFilterService {
     // Organization & sector
     this.organization(source.organization);
     // Field of science
-    source.field.buckets = this.minorField(source.field.fields.buckets);
+    source.field.buckets = this.minorField(source.field.fields.buckets.filter(item => item.filtered.filterCount.doc_count > 0));
     // Publication Type
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
     // Country code
@@ -69,7 +70,7 @@ export class PublicationFilterService {
     data.buckets.forEach(item => {
       item.subData = item.organization.org.buckets.filter(x => x.filtered.filterCount.doc_count > 0);
       item.subData.map(subItem => {
-          subItem.label = subItem.label ? subItem.label : subItem.key;
+          subItem.label = subItem.label || subItem.key;
           subItem.key = subItem.orgId.buckets[0].key;
           subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
@@ -78,19 +79,24 @@ export class PublicationFilterService {
   }
 
   minorField(data) {
-    // check if major aggregation is available
-    const combinedMajorFields =  data ?
-    (this.filterMethodService.separateMinor(data ? data : []) ) : [];
+    if (data.length) {
+      // check if major aggregation is available
+      const combinedMajorFields = data.length ?
+      (this.filterMethodService.separateMinor(data ? data : []) ) : [];
 
-    const result = this.staticDataService.majorFieldsOfScience;
-    for (let i = 0; i < combinedMajorFields.length; i++) {
-      if (result[i]) {
+      const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
+
+      for (let i = 0; i < combinedMajorFields.length; i++) {
+        if (result[i]) {
           result[i].subData = combinedMajorFields[i];
           // Add doc counts to major fields of science
           result[i].doc_count = result[i].subData.map(x => x.doc_count).reduce((a, b) => a + b, 0);
+        }
       }
+
+      return [...result.filter(item => item.subData.length > 0)];
     }
-    return result;
+
   }
 
   separatePublicationClass(data) {
@@ -105,12 +111,15 @@ export class PublicationFilterService {
 
     // Map items for subData
     const result = combined.map(
-      x => x = {key: x + ' ' + staticData.find(item => item.class === x).label, doc_count: 0, subData: staticData.find(item => item.class === x)
-      .types.map(type => type = {
-          type: type.type,
-          label: type.type + ' ' + type.label,
-          key: type.type,
-          doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : 0
+      x => x = {
+        key: x + ' ' + staticData.find(item => item.class === x).label,
+        doc_count: 0,
+        subData: staticData.find(item => item.class === x)
+        .types.map(type => type = {
+            type: type.type,
+            label: type.type + ' ' + type.label,
+            key: type.type,
+            doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : 0
       })}
     );
 

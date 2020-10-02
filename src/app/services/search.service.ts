@@ -181,7 +181,7 @@ export class SearchService {
   // Used to translate active filters
   getAllFilters(tab): Observable<Search[]> {
     const currentTab = tab === 'news' ? tab : tab.slice(0, -1);
-    const aggs = this.aggService.constructAggregations(this.filterService.constructFilters(tab.slice(0, -1)) as any, tab, this.searchTerm, true);
+    const aggs = this.aggService.constructAggregations(this.filterService.constructFilters(tab.slice(0, -1)) as any, tab, '', true);
     return this.http.post<Search[]>(this.apiUrl + currentTab + '/_search?' + 'request_cache=true', aggs);
   }
 

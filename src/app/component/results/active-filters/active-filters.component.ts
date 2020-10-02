@@ -60,7 +60,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
   @ViewChildren('container') container: QueryList<ElementRef>;
   containerSub: any;
   yearRange: string;
-  isBrowser: any;ActivatedRouteMock
+  isBrowser: any;
   errorMessage: any;
 
   constructor( private router: Router, private sortService: SortService, private filterService: FilterService,
@@ -142,6 +142,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
       // Reset active filter so push doesn't duplicate
       this.activeFilters = [];
       const newFilters = {};
+
       // Merge and format arrays
       Object.keys(filter).forEach(key => {
         newFilters[key] = filter[key].map(val => {
@@ -149,7 +150,9 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
+
       const currentTab = this.sortService.currentTab;
+
       // Subscribe to aggregation data
       this.filterResponse = this.searchService.getAllFilters(currentTab).subscribe(response => {
 
@@ -178,7 +181,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
           }
         }
 
-        // this.response = response;
         if (response) {
           const source = this.response;
           // Replace values with translated ones
@@ -281,7 +283,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
                 setTimeout(t => {
                   if (source.organization.sector.buckets) {
                     source.organization.sector.buckets.forEach(sector => {
-                      console.log(sector.subData.find(x => x.key === val.value));
                       if (sector.subData.find(x => x.key === val.value)) {
                         const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
                         this.activeFilters[foundIndex].translation =
