@@ -8,6 +8,7 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { FilterMethodService } from './filter-method.service';
 import { StaticDataService } from '../../services/static-data.service';
+import { cloneDeep } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -188,7 +189,9 @@ export class FundingFilterService {
     if (data.length) {
       const combinedMajorFields =  data ?
       (this.filterMethodService.separateMinor(data ? data : []) ) : [];
-      const result = this.staticDataService.majorFieldsOfScience;
+
+      const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
+
       for (let i = 0; i < combinedMajorFields.length; i++) {
         if (result[i]) {
             result[i].subData = combinedMajorFields[i];
