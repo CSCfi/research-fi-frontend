@@ -13,6 +13,7 @@ import { SearchBarComponent } from './search-bar.component';
 import { AutosuggestService } from 'src/app/services/autosuggest.service';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { aggregations, hits, suggest } from 'src/testdata/autosuggest-response.json';
 
 describe('SearchBarComponent', () => {
     let searchBarComponent: SearchBarComponent;
@@ -71,7 +72,7 @@ describe('SearchBarComponent', () => {
     });
 
     it('autosuggest response should be valid', fakeAsync(() => {
-        spyOn(autoSuggestService, 'search').and.returnValue(of(1).pipe(delay(1)));
+        spyOn(autoSuggestService, 'search').and.returnValue(of({aggregations, hits, suggest}).pipe(delay(1)));
 
         fixture.detectChanges();
         tick(1);
@@ -87,7 +88,7 @@ describe('SearchBarComponent', () => {
 
         tick(1500);
 
-        expect(searchBarComponent.autoSuggestResponse).toBe('test');
+        expect(searchBarComponent.autoSuggestResponse).toBe({aggregations, hits, suggest});
     }));
 
 });
