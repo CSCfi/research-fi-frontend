@@ -86,9 +86,14 @@ describe('SearchBarComponent', () => {
         searchBarComponent.fireAutoSuggest();
         searchBarComponent.queryField.setValue('test');
 
-        tick(1500);
+        // Tick over the debounce time of 1000
+        tick(1001);
 
-        expect(searchBarComponent.autoSuggestResponse).toBe({aggregations, hits, suggest});
+        // Example check
+        expect(searchBarComponent.autoSuggestResponse[0].hits.hits[0]._source.publicationName)
+            .toBe('Eksaktit testit testissä:Fisher, Barnard ja Boschloo');
+
+        // Check completion
     }));
 
 });

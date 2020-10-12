@@ -1,7 +1,6 @@
 // https://angular.io/guide/testing#routing-component
 import { convertToParamMap, ParamMap, Params } from '@angular/router';
-import { of, ReplaySubject } from 'rxjs';
-import { repeat } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
 
 /**
  * An ActivateRoute test double with a `paramMap` observable.
