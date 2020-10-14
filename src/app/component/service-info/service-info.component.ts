@@ -5,7 +5,7 @@ import { contents } from '../../../assets/static-data/service-info.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Location } from '@angular/common';
 import { UtilityService } from 'src/app/services/utility.service';
-import { serviceInfo, common } from 'src/assets/static-data/meta-tags.json'
+import { serviceInfo, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-service-info',
