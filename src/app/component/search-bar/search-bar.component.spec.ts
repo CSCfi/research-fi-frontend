@@ -19,6 +19,7 @@ describe('SearchBarComponent', () => {
     let searchBarComponent: SearchBarComponent;
     let fixture: ComponentFixture<SearchBarComponent>;
     let autoSuggestService: AutosuggestService;
+    let searchService: SearchService;
     let activatedRouteStub: ActivatedRoute;
 
     beforeEach(() => {
@@ -39,6 +40,7 @@ describe('SearchBarComponent', () => {
         searchBarComponent = fixture.componentInstance;
         autoSuggestService = TestBed.inject(AutosuggestService);
         activatedRouteStub = TestBed.inject(ActivatedRoute);
+        searchService = TestBed.inject(SearchService);
     });
 
 
@@ -72,16 +74,18 @@ describe('SearchBarComponent', () => {
     });
 
     it('autosuggest response should be valid', fakeAsync(() => {
+        // Spy for autosuggest service search to return mock response
         spyOn(autoSuggestService, 'search').and.returnValue(of({aggregations, hits, suggest}).pipe(delay(1)));
 
+        // ngOnInit
         fixture.detectChanges();
         tick(1);
 
+        // subscription
         fixture.detectChanges();
         tick(1);
 
-        // searchBarComponent.items = new QueryList();
-        // expect(searchBarComponent.items).toBe();
+        // Init values
         searchBarComponent.queryField.setValue('');
         searchBarComponent.fireAutoSuggest();
         searchBarComponent.queryField.setValue('tes');
@@ -98,7 +102,7 @@ describe('SearchBarComponent', () => {
     }));
 
     // Check completion
-    it('should return correct competion', () => {
+    it('should return correct completion', () => {
         // Test case
         searchBarComponent.autoSuggestResponse = [
             {suggest: {mySuggestions: [{options: [{text: '3-legged-person'}]}]
@@ -111,7 +115,40 @@ describe('SearchBarComponent', () => {
     });
 
     // Check keydown after completion
+    it('should empty completion and add it to searchInput', () => {
+
+        searchBarComponent.completion = 'test-case';
+        searchBarComponent.searchInput.nativeElement.value = 'complete ';
+
+        // Init keyManager required for onKeydown
+        searchBarComponent.items = new QueryList<any>();
+        searchBarComponent.ngAfterViewInit();
+
+        searchBarComponent.onKeydown({keyCode: 39});
+
+        // Expect completion to be moved to search input
+        expect(searchBarComponent.searchInput.nativeElement.value).toBe('complete test-case');
+        expect(searchBarComponent.completion).toBe('');
+    });
 
     // Check new input
+    it('newInput should update search service input', () => {
+        // Init values
+        let term;
+        const newTerm = 'test-term';
+        searchBarComponent.searchInput.nativeElement.value = newTerm;
+
+        // Check that term is initially empty
+        searchService.currentInput.subscribe(val => term = val);
+        expect(term).toBeFalsy();
+
+        // Call new input
+        searchBarComponent.newInput(undefined, undefined);
+        // Get search service input
+        searchService.currentInput.subscribe(val => term = val);
+
+        // Check that input matches
+        expect(term).toBe(newTerm);
+    });
 
 });
