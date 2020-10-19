@@ -38,10 +38,15 @@
                     </div>
                     <div class="col col-lg-3 pl-0 pl-lg-4">
                         <div class="row pb-3">
-                            <div class="col align-self-center pointer pl-0" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
-                            tabindex="0" (keydown.enter)="showInfo = !showInfo">
-                                <fa-icon class="info-icon" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
-                                <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
+                            <div class="col align-self-center pl-0">
+                                <div class="pointer" *ngIf="item['info' + currentLocale]; else infoHeader" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
+                                    tabindex="0" (keydown.enter)="showInfo = !showInfo">
+                                    <fa-icon class="info-icon" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
+                                    <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
+                                </div>
+                                <ng-template #infoHeader>
+                                    <span class="strong text-uppercase" i18n="@@additionalInfo">Lisätietoa</span>
+                                </ng-template>
                             </div>
                             <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
                                 <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
