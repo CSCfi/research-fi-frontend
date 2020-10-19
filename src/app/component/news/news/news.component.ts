@@ -68,6 +68,9 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Tab change is needed for filters
+    this.tabChangeService.tab = 'news';
+
     this.paramSub = this.route.queryParams.subscribe(query => {
       // Get query params and send search term to service
       this.queryParams = query;

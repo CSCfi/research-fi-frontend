@@ -6,7 +6,7 @@
 <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
     <div class="tab-icon" class="tab-icon {{tab.data}}" [style.display]="isHomepage ? 'block' : 'none'"><fa-icon [icon]="tab.icon"></fa-icon></div>
     <div class="label text-center" [class.homepage-label]="isHomepage">{{tab.label}}</div>
-    <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="countOps">0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
+    <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data].doc_count : 999" [options]="countOps" [reanimateOnClick]="false" >0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
 </div>
 <ng-template #disabledTab>
     <div class="tab-icon" class="tab-icon {{tab.data}}" [style.display]="isHomepage ? 'block' : 'none'"><fa-icon [icon]="tab.icon"></fa-icon></div>

@@ -17,15 +17,17 @@ export class TabItemComponent implements OnInit, AfterViewInit {
   @Input() counted: any;
   @Input() locale: string;
   @Input() tooltipClass: string;
+  @Input() count = false;
   targetQueryParams: any;
 
   // CountUp animation options
   countOps = {
-    duration: 0.5,
+    duration: 0,
     separator: ' '
   };
 
   @ViewChild('tabList') tabElem: ElementRef;
+  searchTermSub: any;
 
   constructor(public searchService: SearchService, private dataService: DataService, private settingsService: SettingsService,
               public utilityService: UtilityService) { }
@@ -33,6 +35,11 @@ export class TabItemComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // Set target to params
     this.targetQueryParams = {...this.queryParams[this.tab.data], target: this.settingsService.target, size: this.searchService.pageSize};
+
+    // Subscribe to search term, animate tab count if search term changes
+    this.searchTermSub = this.searchService.currentInput.subscribe(() => {
+      this.countOps.duration = 0.5;
+    });
   }
 
   ngAfterViewInit(): void {

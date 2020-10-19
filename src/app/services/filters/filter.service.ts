@@ -12,6 +12,7 @@ import { SettingsService } from '../settings.service';
 import { VisualQueryHierarchy, VisualQuery } from '../../models/visualisation/visualisations.model';
 import { StaticDataService } from '../static-data.service';
 import { AggregationService } from './aggregation.service';
+import { TabChangeService } from '../tab-change.service';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,7 @@ export class FilterService {
 
   constructor(private sortService: SortService, private settingsService: SettingsService,
               @Inject( LOCALE_ID ) protected localeId: string, private staticDataService: StaticDataService,
-              private aggService: AggregationService) {
+              private aggService: AggregationService, private tabChangeService: TabChangeService) {
                 this.localeC = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
 
@@ -142,7 +143,7 @@ export class FilterService {
   // Year filter is global, different year -fields per index
   filterByYear(filter: any[]) {
     const res = [];
-    const currentTab = this.sortService.currentTab;
+    const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
       case 'publications': {
         filter.forEach(value => { res.push({ term : { publicationYear : value } }); });
@@ -177,7 +178,7 @@ export class FilterService {
 
   filterByOrganization(filter: any[]) {
     const res = [];
-    const currentTab = this.sortService.currentTab;
+    const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
       case 'publications': {
         filter.forEach(value => { res.push({ term : { 'author.organization.organizationId.keyword' : value } }); });
@@ -280,7 +281,7 @@ export class FilterService {
   // Sector
   filterBySector(sector: any[]) {
     const res = [];
-    const currentTab = this.sortService.currentTab;
+    const currentTab = this.tabChangeService.tab;
     switch (currentTab) {
       case 'publications': {
         sector.forEach(value => { res.push({ term : { 'author.sectorId.keyword' : value } }); });
