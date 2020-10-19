@@ -1110,6 +1110,10 @@
         <source>Yhteisjulkaisut</source>
         <target>Co-publications</target>
       </trans-unit>
+      <trans-unit id="filterCoPublicationsTooltip">
+        <source>Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana.</source>
+        <target>By choosing the ”show only co-publications” you can see what publications are made as a collaboration between Finnish research organizations. The search results will show only those publications where the authors are from all of the organizations selected in the list below.</target>
+      </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
         <target>Copy link</target>
