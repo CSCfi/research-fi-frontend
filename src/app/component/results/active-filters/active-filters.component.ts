@@ -74,7 +74,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
    }
 
   ngOnInit() {
-    this.currentTab = this.sortService.currentTab;
+    this.currentTab = this.tabChangeService.tab;
     switch (this.currentTab) {
       case 'publications':
         this.tabFilters = this.publicationFilters.filterData;
@@ -151,13 +151,10 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         this.activeFilters.push(...newFilters[key]);
       });
 
-      const currentTab = this.sortService.currentTab;
+      const tab = this.tabChangeService.tab;
 
-      // Subscribe to aggregation data
-      this.filterResponse = this.searchService.getAllFilters(currentTab).subscribe(response => {
-
-        const tab = this.sortService.currentTab;
-
+      // Subscribe to aggregation data and shape to get corresponding values
+      this.filterResponse = this.searchService.getAllFilters(tab).subscribe(response => {
         switch (tab) {
           case 'publications': {
             this.response = this.publicationFilters.shapeData(response);
