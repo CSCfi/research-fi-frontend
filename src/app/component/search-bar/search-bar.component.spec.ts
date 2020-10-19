@@ -84,7 +84,7 @@ describe('SearchBarComponent', () => {
         // expect(searchBarComponent.items).toBe();
         searchBarComponent.queryField.setValue('');
         searchBarComponent.fireAutoSuggest();
-        searchBarComponent.queryField.setValue('test');
+        searchBarComponent.queryField.setValue('tes');
 
         // Tick over the debounce time of 1000
         tick(1001);
@@ -94,6 +94,24 @@ describe('SearchBarComponent', () => {
             .toBe('Eksaktit testit testissä:Fisher, Barnard ja Boschloo');
 
         // Check completion
+        expect(searchBarComponent.completion).toBe('tesla');
     }));
+
+    // Check completion
+    it('should return correct competion', () => {
+        // Test case
+        searchBarComponent.autoSuggestResponse = [
+            {suggest: {mySuggestions: [{options: [{text: '3-legged-person'}]}]
+        }}];
+
+        searchBarComponent.searchInput.nativeElement.value = 'legge';
+        searchBarComponent.getCompletion();
+
+        expect(searchBarComponent.completion).toBe('d-person');
+    });
+
+    // Check keydown after completion
+
+    // Check new input
 
 });
