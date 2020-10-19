@@ -141,7 +141,9 @@ img {
     }
 
     .mat-button {
-        padding: 0;
+        // padding: 0;
+        margin-left: -1rem;
+        padding-top: .5rem;
     }
 
     ::ng-deep .dropdown .mat-button-wrapper {
