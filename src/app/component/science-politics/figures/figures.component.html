@@ -46,10 +46,10 @@
                         <li class="pl-3">
                             <mat-chip-list class="mat-chip-list-stacked" aria-label="Tiekartta" [selectable]="true">
                                 <mat-chip [selected]="!roadmapFilter" (click)="filter(false)">
-                                    Kaikki tilastot
+                                    Näytä kaikki
                                 </mat-chip>
                                 <mat-chip [selected]="roadmapFilter" (click)="filter(true)">
-                                    Vain TKI-tiekartan seurantamittarit
+                                    Näytä vain TKI-tiekartan seurantamittarit
                                 </mat-chip>
                             </mat-chip-list>
                         </li>
@@ -61,7 +61,7 @@
                 <main>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                         <div class="dropdown px-2 pb-4">
-                            <button mat-button class="dropdown d-flex" *ngIf="mobile" (click)="showIntro = !showIntro" href="javascript:void(0)"><h2 i18n="@@informationSourceProducers">Tiedon lähteet ja tuottajat</h2><fa-icon class="dropdown-icon" [icon]="showIntro ? faChevronUp : faChevronDown"></fa-icon></button>
+                            <button mat-button class="dropdown d-flex" *ngIf="mobile" (click)="showIntro = !showIntro" href="javascript:void(0)"><h2 i18n="@@informationSourceProducers">Tiedon lähteet ja tuottajat</h2><fa-icon class="dropdown-icon align-self-center" [icon]="showIntro ? faChevronUp : faChevronDown"></fa-icon></button>
                         </div>              
                         <div class="segment" *ngIf="showIntro" id="s1">
                             <h1 *ngIf="!mobile" i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
