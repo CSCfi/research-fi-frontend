@@ -20,7 +20,7 @@ import { ScrollService } from 'src/app/services/scroll.service';
 import { DataService } from 'src/app/services/data.service';
 import { content } from '../../../../assets/static-data/figures-content.json';
 import { WINDOW } from 'src/app/services/window.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
 import { figures, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
@@ -103,14 +103,19 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private metaTags = figures;
   private commonTags = common;
-  roadmapFilter = false;
+  roadmapFilter: string;
   filtered: any[];
   filteredQuery: any[];
+  queryParamSub: Subscription;
+  filterHasBeenClicked: boolean;
+  queryParams: any;
+  currentFilter = 'all';
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService,
-               private historyService: HistoryService, private utilityService: UtilityService ) {
+               private historyService: HistoryService, private utilityService: UtilityService, private route: ActivatedRoute,
+               private router: Router ) {
     // Default to first segment
     this.currentSection = 's1';
     this.queryResults = [];
@@ -125,6 +130,16 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.queryParamSub = this.route.queryParams.subscribe(params => {
+      this.currentFilter = params.filter || 'all';
+      this.filter(params.filter || null);
+      this.queryParams = params;
+      // Scroll into first segment header
+      if (this.filterHasBeenClicked) {
+        this.segments.first?.nativeElement.scrollIntoView();
+      }
+    });
+
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Lukuja tieteestä ja tutkimuksesta - Tiedejatutkimus.fi');
@@ -174,21 +189,39 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Roadmap filtering with cloned content. Filter both allContent and query results
-  filter(status: boolean) {
-    this.roadmapFilter = status;
+  filter(filter: string) {
     const data = cloneDeep(this.allContent);
 
     const filtered = data.map(s => {
-      s.items = s.items.filter(item => status ? item.roadmap : item);
+      s.items = s.items.filter(item => filter !== 'all' ? item[filter] : item);
       return s;
     });
 
-    this.allContent = status ? filtered : content;
-    this.queryResults = this.combinedData?.filter(item => status ? item.roadmap : item);
+    this.allContent = filter !== 'all' ? filtered : content;
 
-    // Scroll into first segment header
-    this.segments.first?.nativeElement.scrollIntoView();
+    // Set link disabled if no items
+    for (const navItem of this.navItems.slice(1)) {
+      Object.assign(this.navItems.find(item => item.id === navItem.id),
+      {disabled: this.allContent.find(item => item.id === navItem.id).items.length > 0 ? false : true});
+    }
+    // Set search results data
+    this.queryResults = this.combinedData?.filter(item => filter !== 'all' ? item.roadmap : item);
+  }
 
+  // Navigate with params
+  navigate(params) {
+    this.filterHasBeenClicked = true;
+    let target;
+    switch (params) {
+      case 'roadmap': {
+        target = 'roadmap';
+        break;
+      }
+      default: {
+        target = 'all';
+      }
+    }
+    this.router.navigate([], {queryParams: {filter: target}});
   }
 
   ngAfterViewInit() {
@@ -220,6 +253,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resizeSub?.unsubscribe();
     this.scrollSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
+    this.queryParamSub?.unsubscribe();
   }
 
   onSectionChange(sectionId: any) {

@@ -51,10 +51,11 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
         sourceFi: string;
         sourceEn: string;
         sourceSv: string;
-        infoFi: string;
-        infoEn: string;
-        infoSv: string;
-        segment?: string
+        infoFi?: string;
+        infoEn?: string;
+        infoSv?: string;
+        segment?: string;
+        roadmap?: boolean;
     }[]}[] = content;
   flatData: any[] = [];
 
@@ -101,7 +102,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       const parent = this.dataContent.find(item => item.id === this.currentParent);
       this.result = [parent.items.find(item => item.link === this.currentItem)];
     });
-    
+
     // Set title
     this.label = this.result[0]['label' + this.currentLocale];
     switch (this.localeId) {
