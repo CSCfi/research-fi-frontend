@@ -19,7 +19,7 @@
                 <nav>
                     <ul>
                         <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
-                            <a [routerLink]="['.']" fragment="{{item.id}}">
+                            <a [class.disabled]="item.disabled" [routerLink]="['.']" fragment="{{item.id}}" [queryParams]="queryParams">
                                 <div class="row">
                                     <div class="col-auto pr-0">
                                         <fa-icon class="icon" [icon]="item.icon"></fa-icon>
@@ -45,10 +45,10 @@
                         </li>
                         <li class="pl-3">
                             <mat-chip-list class="mat-chip-list-stacked" aria-label="Tiekartta" [selectable]="true">
-                                <mat-chip [selected]="!roadmapFilter" (click)="filter(false)">
+                                <mat-chip [selected]="currentFilter === 'all'" (click)="navigate('all')">
                                     Näytä kaikki
                                 </mat-chip>
-                                <mat-chip [selected]="roadmapFilter" (click)="filter(true)">
+                                <mat-chip [selected]="currentFilter === 'roadmap'" (click)="navigate('roadmap')">
                                     Näytä vain TKI-tiekartan seurantamittarit
                                 </mat-chip>
                             </mat-chip-list>
