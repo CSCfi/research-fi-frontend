@@ -122,6 +122,10 @@ img {
     max-width: 100%;
 }
 
+.disabled {
+    pointer-events: none;
+}
+
 //Responsive
 .row.mobile-header {
     padding: 0 0 1rem;
