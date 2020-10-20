@@ -301,10 +301,10 @@ export class AppModule {
       return false;
     // Check deepest locations without query params
     } else if (oldUrl?.split('/').slice(-1)[0].split('?')[0] === newUrl.split('/').slice(-1)[0].split('?')[0]) {
-      return false
+      return false;
     // Same for fragments
     } else if (oldUrl?.split('/').slice(-1)[0].split('#')[0] === newUrl.split('/').slice(-1)[0].split('#')[0]) {
-      return false
+      return false;
     // Otherwise new page
     } else {
       return true;
@@ -331,6 +331,8 @@ export class AppModule {
           viewportScroller.scrollToPosition([0, 0]);
         }
         this.startPage = targetPage;
+      } else if ((e.routerEvent.url.includes('/science-research-figures?filter'))) {
+        // this statement disables scroll to top
       } else {
         viewportScroller.scrollToPosition([0, 0]);
       }
