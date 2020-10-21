@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-figure-filters',
@@ -12,7 +12,7 @@ export class FigureFiltersComponent implements OnInit, OnChanges {
   @Input() filter: any;
   filterHasBeenClicked: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
