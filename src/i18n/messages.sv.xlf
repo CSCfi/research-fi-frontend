@@ -172,6 +172,10 @@
         </context-group>
         <note priority="1" from="description">Empty search history</note>
       </trans-unit>
+      <trans-unit id="homeNewsHeaderPlain">
+        <source>Tiede ja tutkimus Suomessa</source>
+        <target>Senaste vetenskaps- och forskningsnyheterna</target>
+      </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
         <source>Uusimmat tiede- ja tutkimusuutiset 
             <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
@@ -204,7 +208,7 @@
         </context-group>
         <note priority="1" from="description">Home page read more news link</note>
       </trans-unit>
-      <trans-unit id="finlandResearch">
+      <trans-unit id="researchFinland">
         <source>Tiede ja tutkimus Suomessa</source>
         <target>Vetenskap och forskning i Finland</target>
       </trans-unit>
