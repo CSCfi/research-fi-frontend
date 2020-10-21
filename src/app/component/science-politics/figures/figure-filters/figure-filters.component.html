@@ -4,11 +4,20 @@
 #
 # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 # :license: MIT -->
-<mat-chip-list class="mat-chip-list-stacked" aria-label="Tiekartta" [selectable]="true">
-    <mat-chip [selected]="!filter || filter === 'all'" (click)="navigate('all')">
-        <ng-container i18n="@@showAll">Näytä kaikki</ng-container>
-    </mat-chip>
-    <mat-chip [selected]="filter === 'roadmap'" (click)="navigate('roadmap')">
-        <ng-container i18n="@@showOnlyTKIfilter"></ng-container>Näytä vain TKI-tiekartan seurantamittarit
-    </mat-chip>
-</mat-chip-list>
+
+<div class="row">
+    <div class="col px-0">
+        <div class="row pb-2" *ngFor="let item of filters">
+            <div class="col-auto filter-chip px-0">
+                <mat-chip-list class="mat-chip-list-stacked" [selectable]="true">
+                    <mat-chip [selected]="(!filter && item.filter === 'all') || filter === item.filter" (click)="navigate(item.filter)">
+                        {{item.label}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+            <div *ngIf="item.info" class="col-auto align-self-center info-button">
+                <app-figures-info i18n-labelText="@@additionalInfo" [labelText]="'Lisätietoa'" [content]="item.info" [position]="'nextTo'"></app-figures-info>
+            </div>
+        </div>
+    </div>
+</div>
