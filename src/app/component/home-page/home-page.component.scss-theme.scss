@@ -26,6 +26,10 @@
                 color: mat-contrast($primary, 500);
             }
         }
+        
+        .news a.news-header:hover {
+            color: mat-contrast($primary, 500);
+        }
 
         .news-feed {
             outline: 3px solid mat-contrast($primary, 500);
