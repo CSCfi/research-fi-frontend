@@ -136,6 +136,7 @@ import { CarouselComponent } from './component/science-politics/figures/carousel
 import { ResultCountComponent } from './component/results/result-count/result-count.component';
 import { BarComponent } from './component/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './component/science-politics/figures/figure-filters/figure-filters.component';
+import { FiguresInfoComponent } from './component/science-politics/figures/figures-info/figures-info.component';
 
 @NgModule({
   declarations: [
@@ -196,7 +197,8 @@ import { FigureFiltersComponent } from './component/science-politics/figures/fig
     CarouselComponent,
     ResultCountComponent,
     BarComponent,
-    FigureFiltersComponent
+    FigureFiltersComponent,
+    FiguresInfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
