@@ -210,6 +210,10 @@
         </context-group>
         <note priority="1" from="description">Home page read more news link</note>
       </trans-unit>
+      <trans-unit id="finlandResearch">
+        <source>Tiede ja tutkimus Suomessa</source>
+        <target>Science and research in Finland</target>
+      </trans-unit>
       <trans-unit id="resultCount" datatype="html">
         <source>hakutulosta</source>
         <target>search results</target>

@@ -19,6 +19,8 @@ import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
 import { UtilityService } from 'src/app/services/utility.service';
 import { homepage, common } from 'src/assets/static-data/meta-tags.json';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ReviewComponent } from 'src/app/ui/review/review.component';
 
 @Component({
   providers: [SearchBarComponent],
@@ -45,7 +47,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   resizeSub: Subscription;
 
   private metaTags = homepage;
-  private commonTags = common
+  private commonTags = common;
 
   shortcuts = [
     {
@@ -58,6 +60,18 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       imgPath: 'assets/img/home/finnish_science_state.jpg',
       col: 6,
       link: '/science-innovation-policy/science-research-figures',
+      alt: ' '
+    },
+    {
+      titleFi: 'Uusimmat tutkimushankkeet',
+      titleEn: 'Latest research projects',
+      titleSv: 'De senaste forskningsprojekten',
+      captionFi: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
+      captionEn: 'See the latest research funding decisions',
+      captionSv: 'Bekanta dig med de senaste besluten om forskningsfinansiering',
+      imgPath: 'assets/img/home/funding.jpg',
+      col: 4,
+      link: '/results/fundings',
       alt: ' '
     },
     {
@@ -74,18 +88,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     },
     {
-      titleFi: 'Uusimmat tutkimushankkeet',
-      titleEn: 'Latest research projects',
-      titleSv: 'De senaste forskningsprojekten',
-      captionFi: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
-      captionEn: 'See the latest research funding decisions',
-      captionSv: 'Bekanta dig med de senaste besluten om forskningsfinansiering',
-      imgPath: 'assets/img/home/funding.jpg',
-      col: 4,
-      link: '/results/fundings',
-      alt: ' '
-    },
-    {
       titleFi: 'Tietoa palvelusta',
       titleEn: 'About the Service',
       titleSv: 'Information om tjänsten',
@@ -93,6 +95,18 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       captionEn: 'What is found in research.fi? How do you make your information visible the service as a researcher? How do I use the service?',
       captionSv: 'Vad innehåller forskning.fi? Hur får du som forskare information om tjänsten? Hur används tjänsten?',
       imgPath: 'assets/img/home/info.jpg',
+      col: 4,
+      link: '/service-info',
+      alt: ' '
+    },
+    {
+      titleFi: 'Anna palautetta',
+      titleEn: 'Give feedback',
+      titleSv: 'Ge respons',
+      captionFi: 'Voit antaa palautetta tästä verkkopalvelusta',
+      captionEn: 'You can give feedback about this service',
+      captionSv: 'Lämna feedback om webbtjänsten',
+      imgPath: 'assets/img/home/search.jpg',
       col: 4,
       link: '/service-info',
       alt: ' '
@@ -110,14 +124,25 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       last: true,
       alt: ' '
     }
+
   ];
+
+  newsImage = {
+    link: '/news',
+    alt: ' ',
+    imgPath: 'assets/img/home/search.jpg'
+  };
+
   focusSub: any;
   currentLocale: string;
+  reviewDialogRef: MatDialogRef<ReviewComponent>;
+
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService ) {
+               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService,
+               public dialog: MatDialog) {
                  // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
@@ -129,7 +154,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
                                 this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+                                this.commonTags['imgAlt' + this.currentLocale]);
     // Reset search term
     this.searchService.updateInput('');
 
@@ -137,7 +162,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAllData();
 
     // Get news data
-    this.searchService.getNews(3).subscribe(data => {
+    this.searchService.getNews(10).subscribe(data => {
       this.news = data;
     });
 
@@ -206,6 +231,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     .subscribe(allData => this.allData = allData,
       error => this.errorMessage = error as any);
   }
+
+  toggleReview() {
+    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+      maxWidth: '800px',
+      minWidth: '320px',
+      // minHeight: '60vh'
+    });
+  }
+
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();

@@ -15,61 +15,96 @@
 
 <main id="main-content" style="margin-top: 0">
   <div class="wrapper">
-    <div class="row">
-      <div class="col-12 shortcuts">
-        <div class="row">
-          <div *ngFor="let item of shortcuts.slice(0,2)" class="col-12 col-sm-6 link-img" [ngClass]="{'col-lg-6': item.col === 6}">
-            <a class="shortcut" #main routerLink="{{item.link}}">
-              <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
-              <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
-                <div>
-                  <h2 class="header">
-                    {{item['title' + currentLocale]}}
-                  </h2>
-                  <span class="hint">
-                    {{item['caption' + currentLocale]}}
-                  </span>
-                </div>
-              </div>
-            </a>
-          </div>
+    <div class="row justify-content-center">
+
+      <!-- First column -->
+      <div class="col-12 col-md-9 col-lg-5 col-xl-4 shortcuts">
+        <div class="col-header">
+          <h2 i18n="@@researchFinland" class="text-center">Tiede ja tutkimus Suomessa</h2>
         </div>
-        <div class="row">
-          <div *ngFor="let item of shortcuts.slice(2)" class="col-12 link-img"
-          [ngClass]="{'col-lg-4': item.col === 4, 'col-lg-8': item.col === 8, 'col-sm-12': item.last, 'col-sm-6': !item.last}">
-            <a class="shortcut" #main routerLink="{{item.link}}">
-              <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
-              <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
-                <div>
-                  <h2 class="header">
-                    {{item['title' + currentLocale]}}
-                  </h2>
-                  <span class="hint">
-                    {{item['caption' + currentLocale]}}
-                  </span>
-                </div>
+        <div *ngFor="let item of shortcuts.slice(0,3)" class="col-12 link-img">
+          <a class="shortcut" #main routerLink="{{item.link}}">
+            <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
+            <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
+              <div>
+                <h3 class="header">
+                  {{item['title' + currentLocale]}}
+                </h3>
+                <span class="hint">
+                  {{item['caption' + currentLocale]}}
+                </span>
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
-    </div>
-    <div class="row mt-4 news-feed d-flex justify-content-around">
-      <div class="col-12 p-0">
-        <div class="news-container">
-          <h2 i18n="Home page news header@@homeNewsHeader">Uusimmat tiede- ja tutkimusuutiset 
-            <span i18n-tooltip tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta." tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-              <fa-icon class="info-icon" icon="info-circle"></fa-icon>
-            </span>
-            <!-- <app-info tooltip="Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta."></app-info> -->
-          </h2>
-          <app-news-card *ngFor="let item of news" [item]="item" [isHomepage]="true" tabindex="0" class="d-flex justify-content-center"></app-news-card>
-          <div class="read-more">
-            <a routerLink="/news" class="link-news" aria-label="Lisää tiede- ja tutkimusuutisia tässä portaalissa" i18n="Home page read more news link@@homeReadMoreNewsLink">Lisää tiede- ja tutkimusuutisia tässä portaalissa >></a>
+      
+      <!-- Second column -->
+      <div class="col-12 col-md-9 col-lg-5 col-xl-4 news">
+        <a class="news-header" routerLink="/news">
+        <div class="col-header">
+            <h2 i18n="@@homeNewsHeader" class="text-center">Uusimmat tiede- ja tutkimusuutiset</h2>
           </div>
+        </a>
+        <div class="col-12 link-img mb-4">
+          <div class="cover-img" [title]="newsImage.alt"><img [src]="newsImage.imgPath" [alt]="newsImage.alt"></div>
+        </div>
+        <div class="col-12 col side-news p-0">
+          <app-news-card *ngFor="let item of news.slice(0,6)" [item]="item" [sideNews]="true"></app-news-card>
         </div>
       </div>
+
     </div>
+
+    <!-- Divider -->
+    <hr>
+    <div class="row justify-content-center">
+      <div class="sub-header">
+        <h2 i18n="@@appSlogan">Tiedejatutkimus.fi</h2>
+      </div>
+    </div>
+
+    <!-- Bottom cards -->
+    <div class="row justify-content-center bottom">
+
+      <div class="col-12 col-md-9 col-lg-5 col-xl-4">
+        <div *ngFor="let item of shortcuts.slice(4, 5)" class="col-12 link-img">
+          <a class="shortcut" (click)="toggleReview()" href="javascript:void(0)">
+            <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
+            <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
+              <div>
+                <h3 class="header">
+                  {{item['title' + currentLocale]}}
+                </h3>
+                <span class="hint">
+                  {{item['caption' + currentLocale]}}
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-9 col-lg-5 col-xl-4">
+        <div *ngFor="let item of shortcuts.slice(3, 4)" class="col-12 link-img">
+          <a class="shortcut" routerLink="{{item.link}}">
+            <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
+            <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
+              <div>
+                <h3 class="header">
+                  {{item['title' + currentLocale]}}
+                </h3>
+                <span class="hint">
+                  {{item['caption' + currentLocale]}}
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </main>
 
