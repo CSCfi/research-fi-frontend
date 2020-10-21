@@ -19,6 +19,8 @@ import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
 import { UtilityService } from 'src/app/services/utility.service';
 import { homepage, common } from 'src/assets/static-data/meta-tags.json';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ReviewComponent } from 'src/app/ui/review/review.component';
 
 @Component({
   providers: [SearchBarComponent],
@@ -45,7 +47,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   resizeSub: Subscription;
 
   private metaTags = homepage;
-  private commonTags = common
+  private commonTags = common;
 
   shortcuts = [
     {
@@ -98,6 +100,18 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       alt: ' '
     },
     {
+      titleFi: 'Anna palautetta',
+      titleEn: 'Give feedback',
+      titleSv: 'Ge respons',
+      captionFi: 'Voit antaa palautetta tästä verkkopalvelusta',
+      captionEn: 'You can give feedback about this service',
+      captionSv: 'Lämna feedback om webbtjänsten',
+      imgPath: 'assets/img/home/search.jpg',
+      col: 4,
+      link: '/service-info',
+      alt: ' '
+    },
+    {
       titleFi: 'Etsi julkaisuja!',
       titleEn: 'Search for publications!',
       titleSv: 'Sök publikationer!',
@@ -121,11 +135,14 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   focusSub: any;
   currentLocale: string;
+  reviewDialogRef: MatDialogRef<ReviewComponent>;
+
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService ) {
+               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService,
+               public dialog: MatDialog) {
                  // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
@@ -137,7 +154,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
                                 this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+                                this.commonTags['imgAlt' + this.currentLocale]);
     // Reset search term
     this.searchService.updateInput('');
 
@@ -214,6 +231,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     .subscribe(allData => this.allData = allData,
       error => this.errorMessage = error as any);
   }
+
+  toggleReview() {
+    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+      maxWidth: '800px',
+      minWidth: '320px',
+      // minHeight: '60vh'
+    });
+  }
+
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();
