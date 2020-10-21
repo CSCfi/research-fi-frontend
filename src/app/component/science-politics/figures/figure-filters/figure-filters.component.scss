@@ -9,3 +9,29 @@ mat-chip {
     cursor: pointer;
     max-width: fit-content;
 }
+
+.mat-standard-chip {
+    display: inline-table;
+}
+
+@media (max-width: 1440px) {
+    .filter-chip {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 1107px) {
+    .filter-chip {
+        max-width: 170px;
+    }
+}
+
+@media (max-width: 991px) {
+    .filter-chip {
+        max-width: unset;
+    }
+
+    .info-button {
+        display: none;
+    }
+}
