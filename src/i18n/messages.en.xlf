@@ -1397,6 +1397,10 @@
           <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="showOnlyTKIfilter">
+        <source>Näytä vain TKI-tiekartan seurantamittarit</source>
+        <target></target>
+      </trans-unit>
       <trans-unit id="figureSearchResults" datatype="html">
         <source>Haun tulokset</source>
         <target>Search results</target>
