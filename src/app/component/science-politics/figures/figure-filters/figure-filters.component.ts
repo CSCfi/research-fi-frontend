@@ -12,6 +12,13 @@ export class FigureFiltersComponent implements OnInit, OnChanges {
   @Input() filter: any;
   filterHasBeenClicked: boolean;
 
+  filters = [
+    {label: $localize`:@@showAll:Näytä kaikki`, filter: 'all'},
+    {label: $localize`:@@showOnlyTKIfilter:Näytä vain TKI-tiekartan seurantamittarit`,
+      info: $localize`:@@roadMapFilterInfo:Kansallinen tutkimuksen, kehittämisen ja innovaatioiden tiekartta <a href="https://minedu.fi/tki-tiekartta" target="_blank" class='external'>https://minedu.fi/tki-tiekartta <i class='fas fa-external-link-alt'></i></a>`,
+      filter: 'roadmap'},
+  ];
+
   constructor(private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
