@@ -71,7 +71,8 @@
             </div>
             <div class="carousel-wrapper">
                 <h2 class="pb-3" i18n="@@moreFiguresFrom">Lisää lukuja tieteestä ja tutkimuksesta</h2>
-                <app-carousel [data]="flatData" [id]="currentItem" class="carousel"></app-carousel>
+                <app-figure-filters [filter]="queryParams.filter"></app-figure-filters>
+                <app-carousel [data]="flatData" [id]="currentItem" [queryParams]="queryParams" class="carousel"></app-carousel>
             </div>
         </div>
     </div>
