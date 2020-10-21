@@ -1295,15 +1295,15 @@
       </trans-unit>
       <trans-unit id="figuresIntro1" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</source>
-        <target>In the Figures on Science and Research section, you can find information on the funding, human resources, publishing activity and scientific impact of Finnish research. The section also includes international comparisons of Finland with, for example, EU and OECD countries.</target>
+        <target>The ‘Figures on science and research’ section shows information on funding, human resources as well as publication activities and scientific impact in Finland. The section also includes comparisons between Finland and the EU and OECD countries, for instance.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="figuresIntro2" datatype="html">
-        <source>Tiedot perustuvat opetushallinnon Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</source>
-        <target>The information is based on Vipunen - Education Statistics Finland, Statistics Finland statistics, and OECD statistics. The section on publication activities and scientific impact also uses information from Clarivate Analytics' Web of Science citation database.</target>
+        <source>Tiedot perustuvat opetushallinnon Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja Maahanmuuttoviraston tietoihin. Kansainvälisessä vertailussa käytetään OECD:n tilastoja ja Euroopan Unionin CORDIS-palvelua. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</source>
+        <target>The information is based on the statistical portal Vipunen, the education administration's reporting portal and on statistics from Statistics Finland and the OECD. The section on publication activities and scientific impact utilises data of the Web of Science publication database, which is maintained by Clarivate Analytics.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">60</context>
@@ -1311,7 +1311,7 @@
       </trans-unit>
       <trans-unit id="figuresIntro3" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</source>
-        <target>Figures on science and research was jointly produced by the Ministry of Education and Culture, the Academy of Finland and CSC - IT Center for Science. The page is constantly being developed and the statistics are updated every year.</target>
+        <target>The section has been produced collaboratively by the Ministry of Education, Science and Culture, the Academy of Finland, and CSC – IT Center for Science. The page is under constant development and the statistics are updated annually.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">61</context>
