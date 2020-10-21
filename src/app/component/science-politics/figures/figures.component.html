@@ -19,7 +19,7 @@
                 <nav>
                     <ul>
                         <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
-                            <a [class.disabled]="item.disabled" [routerLink]="['.']" fragment="{{item.id}}" [queryParams]="queryParams">
+                            <a [class.disabled]="item.disabled" [routerLink]="['.']" fragment="{{item.disabled ? null : item.id}}" [queryParams]="queryParams">
                                 <div class="row">
                                     <div class="col-auto pr-0">
                                         <fa-icon class="icon" [icon]="item.icon"></fa-icon>
@@ -44,14 +44,7 @@
                             </form>
                         </li>
                         <li class="pl-3">
-                            <mat-chip-list class="mat-chip-list-stacked" aria-label="Tiekartta" [selectable]="true">
-                                <mat-chip [selected]="currentFilter === 'all'" (click)="navigate('all')">
-                                    Näytä kaikki
-                                </mat-chip>
-                                <mat-chip [selected]="currentFilter === 'roadmap'" (click)="navigate('roadmap')">
-                                    Näytä vain TKI-tiekartan seurantamittarit
-                                </mat-chip>
-                            </mat-chip-list>
+                            <app-figure-filters [filter]="queryParams.filter" (clicked)="scrollTo($event)"></app-figure-filters>
                         </li>
                     </ul>
                 </nav>
@@ -63,7 +56,7 @@
                         <div class="dropdown px-2 pb-4">
                             <button mat-button class="dropdown d-flex" *ngIf="mobile" (click)="showIntro = !showIntro" href="javascript:void(0)"><h2 i18n="@@informationSourceProducers">Tiedon lähteet ja tuottajat</h2><fa-icon class="dropdown-icon align-self-center" [icon]="showIntro ? faChevronUp : faChevronDown"></fa-icon></button>
                         </div>              
-                        <div class="segment" *ngIf="showIntro" id="s1">
+                        <div class="segment" *ngIf="showIntro" id="s0">
                             <h1 *ngIf="!mobile" i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
                             <div class="row">
                                 <div class="col p-1">
@@ -116,7 +109,7 @@
                             <div class="col p-1">
                                 <div class="base content">
                                     <div class="card list" *ngFor="let item of data">
-                                        <a routerLink="{{item.link}}">
+                                        <a routerLink="{{item.link}}" [queryParams]="queryParams">
                                             <div class="row d-flex justify-content-around">
                                                 <div class="col-12 col-md-8">
                                                     <h3 class="title">{{item['label' + currentLocale]}}</h3>
