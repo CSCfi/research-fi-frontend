@@ -61,6 +61,18 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       alt: ' '
     },
     {
+      titleFi: 'Uusimmat tutkimushankkeet',
+      titleEn: 'Latest research projects',
+      titleSv: 'De senaste forskningsprojekten',
+      captionFi: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
+      captionEn: 'See the latest research funding decisions',
+      captionSv: 'Bekanta dig med de senaste besluten om forskningsfinansiering',
+      imgPath: 'assets/img/home/funding.jpg',
+      col: 4,
+      link: '/results/fundings',
+      alt: ' '
+    },
+    {
       titleFi: 'Suomalainen tutkimus- ja innovaatiojärjestelmä',
       titleEn: 'Research and innovation system in Finland',
       titleSv: 'Forskningssystem i Finland',
@@ -72,18 +84,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       link: '/science-innovation-policy/research-innovation-system',
       alt: ' '
 
-    },
-    {
-      titleFi: 'Uusimmat tutkimushankkeet',
-      titleEn: 'Latest research projects',
-      titleSv: 'De senaste forskningsprojekten',
-      captionFi: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
-      captionEn: 'See the latest research funding decisions',
-      captionSv: 'Bekanta dig med de senaste besluten om forskningsfinansiering',
-      imgPath: 'assets/img/home/funding.jpg',
-      col: 4,
-      link: '/results/fundings',
-      alt: ' '
     },
     {
       titleFi: 'Tietoa palvelusta',
@@ -110,7 +110,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       last: true,
       alt: ' '
     }
+
   ];
+
+  newsImage = {
+    link: '/news',
+    alt: ' ',
+    imgPath: 'assets/img/home/search.jpg'
+  };
+
   focusSub: any;
   currentLocale: string;
 
@@ -137,7 +145,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAllData();
 
     // Get news data
-    this.searchService.getNews(3).subscribe(data => {
+    this.searchService.getNews(10).subscribe(data => {
       this.news = data;
     });
 

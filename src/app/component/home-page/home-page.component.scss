@@ -29,6 +29,7 @@
     padding: 0;
     transition: 0.2s linear;
     cursor: pointer;
+    z-index: 0;
 }
 
 .link-img img {
@@ -49,6 +50,16 @@
     font-size: 1.1rem;
     line-height: 1.6rem;
     font-weight: 500;
+}
+
+// Columns
+
+.col-header {
+    min-height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 // News feed
@@ -96,9 +107,10 @@ a.link-news {
 
 //responsive
 @media (max-width: 991px) {
-    .shortcuts {
+    .shortcuts, .news {
         padding-right: 0;
         padding-left: 0;
+        padding-bottom: 1rem;
     }
 
     .news-feed {
