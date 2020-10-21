@@ -29,7 +29,6 @@
     padding: 0;
     transition: 0.2s linear;
     cursor: pointer;
-    z-index: 0;
 }
 
 .link-img img {
@@ -59,7 +58,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+}
+
+.sub-header {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 4rem;
+    max-width: 100%;
+}
+
+.mb-100 {
+    margin-bottom: 100px;
+}
+
+hr {
+    border: 0;
+    border: 2px solid rgba(0,0,0, 0.2);
 }
 
 // News feed

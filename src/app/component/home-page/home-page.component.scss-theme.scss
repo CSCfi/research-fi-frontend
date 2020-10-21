@@ -20,7 +20,7 @@
             }
         }
 
-        .col-header {
+        .col-header, .sub-header {
             background-color: mat-color($primary);
             h2 {
                 color: mat-contrast($primary, 500);
