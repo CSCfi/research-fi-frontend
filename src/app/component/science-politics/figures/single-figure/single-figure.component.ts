@@ -11,14 +11,13 @@ import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
-import { SearchService } from 'src/app/services/search.service';
-import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from 'src/app/services/window.service';
 import { content } from '../../../../../assets/static-data/figures-content.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
-import { singleFigure, common } from 'src/assets/static-data/meta-tags.json'
+import { singleFigure, common } from 'src/assets/static-data/meta-tags.json';
+import { cloneDeep } from 'lodash';
 
 
 @Component({
@@ -79,10 +78,12 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   currentLocale: string;
   private metaTags = singleFigure;
   private commonTags = common;
-
+  queryParamSub: Subscription;
+  queryParams: any;
+  filter: any;
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
-               private resizeService: ResizeService, private searchService: SearchService, private route: ActivatedRoute,
+               private resizeService: ResizeService, private route: ActivatedRoute,
                @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService,
                private utilityService: UtilityService) {
                   // Capitalize first letter of locale
@@ -103,6 +104,25 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       this.result = [parent.items.find(item => item.link === this.currentItem)];
     });
 
+    // Subscribe to query parameters. This is used to pass filters to carousel and set filter indicator
+    this.queryParamSub = this.route.queryParams.subscribe(param => {
+      this.queryParams = param;
+      this.filter = param.filter === 'all' ? null : param.filter;
+
+      // Get all visualisations into a flat array
+      const dataCopy = cloneDeep(this.dataContent);
+      this.flatData = [];
+      dataCopy.forEach(segment => {
+        // Hack to get segment header into item (replace an unused field with it)
+        segment.items.forEach(item => item.segment = segment['header' + this.currentLocale]);
+        this.flatData.push(segment.items);
+      });
+      this.flatData = this.flatData.flat();
+
+      // Filter data if filtering is enabled
+      this.flatData = this.filter ? this.flatData.filter(item => item[this.filter]) : this.flatData;
+    });
+
     // Set title
     this.label = this.result[0]['label' + this.currentLocale];
     switch (this.localeId) {
@@ -121,17 +141,8 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     const titleString = this.titleService.getTitle();
-    this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
-
-
-    // Get all visualisations into a flat array
-    this.dataContent.forEach(segment => {
-      // Hack to get segment header into item (replace an unused field with it)
-      segment.items.forEach(item => item.segment = segment['header' + this.currentLocale]);
-      this.flatData.push(segment.items);
-    });
-    this.flatData = this.flatData.flat();
-
+    this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale],
+    this.commonTags['imgAlt' + this.currentLocale]);
 
     this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
@@ -188,5 +199,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     this.resizeSub?.unsubscribe();
     this.routeSub?.unsubscribe();
     this.contentSub?.unsubscribe();
+    this.queryParamSub?.unsubscribe();
   }
 }
