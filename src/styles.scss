@@ -40,6 +40,7 @@
 @import './app/component/science-politics/figures/figures.component.scss-theme.scss';
 @import './app/component/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss';
 @import './app/component/science-politics/figures/single-figure/single-figure.component.scss-theme.scss';
+@import './app/component/science-politics/figures/figures-info/figures-info.component.scss-theme.scss';
 @import './app/component/science-politics/science-politics.scss-shared.scss';
 @import './app/component/science-politics/science-politics.scss-theme-shared.scss';
 @import './app/component/service-info/service-info.component.scss-theme.scss';
@@ -83,6 +84,7 @@
   @include app-single-figure-theme($theme);
   @include app-science-politics-shared;
   @include app-science-politics-theme-shared($theme);
+  @include app-figures-info-theme($theme);
   @include app-info-component-theme($theme);
   @include app-secondary-button-theme($theme);
   @include app-primary-action-button-theme($theme);
