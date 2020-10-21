@@ -105,7 +105,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       titleSv: 'Ge respons',
       captionFi: 'Voit antaa palautetta tästä verkkopalvelusta',
       captionEn: 'You can give feedback on this online service',
-      captionSv: 'Du kan lämna feedback om webbtjänsten',
+      captionSv: 'Du kan lämna respons om webbtjänsten',
       imgPath: 'assets/img/home/search.jpg',
       col: 4,
       link: '/service-info',
