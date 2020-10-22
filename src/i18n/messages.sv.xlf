@@ -1351,6 +1351,10 @@
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="maahanmuuttovirasto">
+        <source>Maahanmuuttovirasto</source>
+        <target>Migrationsverket</target>
+      </trans-unit>
       <trans-unit id="okm" datatype="html">
         <source>Opetus- ja kulttuuriministeriö</source>
         <target state="translated">Undervisnings- och kulturministeriet</target>
