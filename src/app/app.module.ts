@@ -337,6 +337,9 @@ export class AppModule {
         this.startPage = targetPage;
       } else if ((e.routerEvent.url.includes('/science-research-figures'))) {
           // scroll to top only in single figure view
+          if (!this.historyService.history[this.historyService.history.length - 2]?.includes('figures/s')) {
+            viewportScroller.scrollToPosition([0, 0]);
+          }
           if (!e.routerEvent.url.includes('filter')) {
             viewportScroller.scrollToPosition([0, 0]);
           }
