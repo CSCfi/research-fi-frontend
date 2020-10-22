@@ -17,9 +17,9 @@ export class FigureFiltersComponent implements OnInit, OnChanges {
     {label: $localize`:@@showAll:Näytä kaikki`, filter: 'all'},
     {label: $localize`:@@showOnlyTKIfilter:Näytä vain TKI-tiekartan seurantamittarit`,
       filter: 'roadmap',
-      infoFi: 'Kansallinen tutkimuksen, kehittämisen ja innovaatioiden tiekartta <a href="https://minedu.fi/tki-tiekartta" target="_blank" class="external">https://minedu.fi/tki-tiekartta <i class="fas fa-external-link-alt"></i></a>',
-      infoEn: 'The National Roadmap for Research, Development and Innovation <a href="https://minedu.fi/en/rdi-roadmap" target="_blank" class="external">https://minedu.fi/en/rdi-roadmap <i class="fas fa-external-link-alt"></i></a>',
-      infoSv: 'Den nationella färdplanen för forsknings-, utvecklings- och innovationsverksamhet <a href="https://minedu.fi/sv/fui-fardplan" target="_blank" class="external">https://minedu.fi/sv/fui-fardplan <i class="fas fa-external-link-alt"></i></a>'
+      infoFi: 'Keväällä 2020 julkaistussa Valtioneuvoston <a href="https://minedu.fi/tki-tiekartta/tavoitteet-ja-paamaarat" target="_blank" class="external">TKI-tiekartassa <i class="fas fa-external-link-alt"></i></a> määritellyt tki-toiminnan seurantaindikaattorit.',
+      infoEn: 'RDI activities’ follow up indicators defined in <a href="https://minedu.fi/en/rdi-roadmap/objectives-and-targets" target="_blank" class="external">the Government’s RDI roadmap <i class="fas fa-external-link-alt"></i></a>, published in spring 2020.',
+      infoSv: 'Uppföljningsmätare för FUI-verksamhet definierat i <a href="https://minedu.fi/sv/fui-fardplan/mal-och-ambitioner" target="_blank" class="external">Statsrådets FUI-färdplan <i class="fas fa-external-link-alt"></i></a>, publicerad våren 2020.'
     },
   ];
   currentLocale: string;
