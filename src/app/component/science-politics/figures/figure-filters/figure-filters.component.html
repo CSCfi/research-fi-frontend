@@ -8,15 +8,15 @@
 <div class="row">
     <div class="col px-0">
         <div class="row pb-2" *ngFor="let item of filters">
-            <div class="col-auto filter-chip px-0">
+            <div class="col-auto px-0" [class.narrow]="narrow">
                 <mat-chip-list class="mat-chip-list-stacked" [selectable]="true">
                     <mat-chip [selected]="(!filter && item.filter === 'all') || filter === item.filter" (click)="navigate(item.filter)">
                         {{item.label}}
                     </mat-chip>
                 </mat-chip-list>
             </div>
-            <div *ngIf="item.info" class="col-auto align-self-center info-button">
-                <app-figures-info i18n-labelText="@@additionalInfo" [labelText]="'Lisätietoa'" [content]="item.info" [position]="'nextTo'"></app-figures-info>
+            <div *ngIf="item['info' + currentLocale]" class="col-auto align-self-center info-button">
+                <app-figures-info labelText="Lisätietoa" i18n-labelText="@@additionalInfo" [content]="item['info' + currentLocale]" [position]="'nextTo'"></app-figures-info>
             </div>
         </div>
     </div>
