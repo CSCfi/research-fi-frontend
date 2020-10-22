@@ -26,7 +26,7 @@
                             </div>                    
                         </div>
                     </div>
-                    <mat-basic-chip *ngIf="item.roadmap" class="tag align-self-center" [disableRipple]="true">TKI-tiekartan seurantamittari</mat-basic-chip>
+                    <mat-basic-chip *ngIf="item.roadmap" class="tag align-self-center" [disableRipple]="true" i18n="@@TKIRoadmap">TKI-tiekartan seurantamittari</mat-basic-chip>
                 </div>
             </div>
             <div class="col col-lg-10 base content" #content>
@@ -39,18 +39,10 @@
                     <div class="col col-lg-3 pl-0 pl-lg-4">
                         <div class="row pb-3">
                             <div class="col align-self-center pl-0">
-                                <div class="pointer" *ngIf="item['info' + currentLocale]; else infoHeader" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
-                                    tabindex="0" (keydown.enter)="showInfo = !showInfo">
-                                    <fa-icon class="info-icon" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
-                                    <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
+                                <div>
+                                    <app-figures-info *ngIf="item['info' + currentLocale]" i18n-labelText="@@additionalInfo" labelText="Lisätietoa" [content]="item['info' + currentLocale]"></app-figures-info> 
+                                    <a class="strong text-uppercase info-label" [class.pl-2]="item['info' + currentLocale]" i18n="@@additionalInfo">Lisätietoa</a>
                                 </div>
-                                <ng-template #infoHeader>
-                                    <span class="strong text-uppercase" i18n="@@additionalInfo">Lisätietoa</span>
-                                </ng-template>
-                            </div>
-                            <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
-                                <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
-                                <p [innerHtml]="item['info' + currentLocale]"></p>
                             </div>
                         </div>
                         <div class="row pb-3">
@@ -71,7 +63,8 @@
             </div>
             <div class="carousel-wrapper">
                 <h2 class="pb-3" i18n="@@moreFiguresFrom">Lisää lukuja tieteestä ja tutkimuksesta</h2>
-                <app-carousel [data]="flatData" [id]="currentItem" class="carousel"></app-carousel>
+                <app-figure-filters [filter]="queryParams.filter"></app-figure-filters>
+                <app-carousel [data]="flatData" [id]="currentItem" [queryParams]="queryParams" class="carousel"></app-carousel>
             </div>
         </div>
     </div>

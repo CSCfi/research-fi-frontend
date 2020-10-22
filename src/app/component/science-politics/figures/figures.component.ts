@@ -39,10 +39,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronUp = faChevronUp;
 
   navItems = [
-    {id: 's1', label: $localize`:@@figuresSecHeader:Tiedon lähteet ja tuottajat`, icon: this.faIconCircle, active: true},
-    {id: 's2', label: $localize`:@@figuresSec1:Tutkimuksen rahoitus`, icon: this.faChartBar, active: false},
-    {id: 's3', label: $localize`:@@figuresSec2:Tutkimuksen henkilövoimavarat`, icon: this.faChartBar, active: false},
-    {id: 's4', label: $localize`:@@figuresSec3:Julkaisutoiminta ja tieteellinen vaikuttavuus`, icon: this.faChartBar, active: false},
+    {id: 's0', label: $localize`:@@figuresSecHeader:Tiedon lähteet ja tuottajat`, icon: this.faIconCircle, active: true},
+    {id: 's1', label: $localize`:@@figuresSec1:Tutkimuksen rahoitus`, icon: this.faChartBar, active: false},
+    {id: 's2', label: $localize`:@@figuresSec2:Tutkimuksen henkilövoimavarat`, icon: this.faChartBar, active: false},
+    {id: 's3', label: $localize`:@@figuresSec3:Julkaisutoiminta ja tieteellinen vaikuttavuus`, icon: this.faChartBar, active: false},
   ];
 
   coLink = [
@@ -109,7 +109,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   queryParamSub: Subscription;
   filterHasBeenClicked: boolean;
   queryParams: any;
-  currentFilter = 'all';
+  currentFilter = null;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
@@ -117,7 +117,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
                private historyService: HistoryService, private utilityService: UtilityService, private route: ActivatedRoute,
                private router: Router ) {
     // Default to first segment
-    this.currentSection = 's1';
+    this.currentSection = 's0';
     this.queryResults = [];
     this.queryTerm = '';
     this.hasResults = true;
@@ -131,13 +131,9 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.queryParamSub = this.route.queryParams.subscribe(params => {
-      this.currentFilter = params.filter || 'all';
-      this.filter(params.filter || null);
+      this.currentFilter = params.filter || null;
+      this.filter(this.currentFilter);
       this.queryParams = params;
-      // Scroll into first segment header
-      if (this.filterHasBeenClicked) {
-        this.segments.first?.nativeElement.scrollIntoView();
-      }
     });
 
     switch (this.localeId) {
@@ -188,16 +184,17 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // Roadmap filtering with cloned content. Filter both allContent and query results
+  // Filtering with cloned content. Filter both allContent and query results
   filter(filter: string) {
     const data = cloneDeep(this.allContent);
+    filter = filter === 'all' ? null : filter;
 
     const filtered = data.map(s => {
-      s.items = s.items.filter(item => filter !== 'all' ? item[filter] : item);
+      s.items = s.items.filter(item => filter ? item[filter] : item);
       return s;
     });
 
-    this.allContent = filter !== 'all' ? filtered : content;
+    this.allContent = filter ? filtered : content;
 
     // Set link disabled if no items
     for (const navItem of this.navItems.slice(1)) {
@@ -205,7 +202,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
       {disabled: this.allContent.find(item => item.id === navItem.id).items.length > 0 ? false : true});
     }
     // Set search results data
-    this.queryResults = this.combinedData?.filter(item => filter !== 'all' ? item.roadmap : item);
+    this.queryResults = this.combinedData?.filter(item => filter ? item.roadmap : item);
+  }
+
+  scrollTo(event: any) {
+    this.segments.first?.nativeElement.scrollIntoView();
   }
 
   // Navigate with params
@@ -218,7 +219,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       default: {
-        target = 'all';
+        target = null;
       }
     }
     this.router.navigate([], {queryParams: {filter: target}});
@@ -257,7 +258,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSectionChange(sectionId: any) {
-    this.currentSection = sectionId ? sectionId : 's1';
+    this.currentSection = sectionId ? sectionId : 's0';
   }
 
   onResize() {

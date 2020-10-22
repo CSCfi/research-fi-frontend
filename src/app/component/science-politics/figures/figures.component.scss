@@ -31,6 +31,7 @@
     padding: 0;
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 
 .nav ul li {
@@ -59,11 +60,6 @@
 }
 
 .search .search-icon {left: auto; right: 1.7rem;;}
-
-.nav mat-chip {
-    cursor: pointer;
-    max-width: fit-content;
-}
 
 // Content
 .segment {

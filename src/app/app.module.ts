@@ -135,6 +135,8 @@ import { NewsPaginationComponent } from './component/news/news-pagination/news-p
 import { CarouselComponent } from './component/science-politics/figures/carousel/carousel.component';
 import { ResultCountComponent } from './component/results/result-count/result-count.component';
 import { BarComponent } from './component/visualisation/bar/bar.component';
+import { FigureFiltersComponent } from './component/science-politics/figures/figure-filters/figure-filters.component';
+import { FiguresInfoComponent } from './component/science-politics/figures/figures-info/figures-info.component';
 
 @NgModule({
   declarations: [
@@ -194,7 +196,9 @@ import { BarComponent } from './component/visualisation/bar/bar.component';
     NewsPaginationComponent,
     CarouselComponent,
     ResultCountComponent,
-    BarComponent
+    BarComponent,
+    FigureFiltersComponent,
+    FiguresInfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -331,8 +335,14 @@ export class AppModule {
           viewportScroller.scrollToPosition([0, 0]);
         }
         this.startPage = targetPage;
-      } else if ((e.routerEvent.url.includes('/science-research-figures?filter'))) {
-        // this statement disables scroll to top
+      } else if ((e.routerEvent.url.includes('/science-research-figures'))) {
+          // scroll to top only in single figure view
+          if (!this.historyService.history[this.historyService.history.length - 2]?.includes('figures/s')) {
+            viewportScroller.scrollToPosition([0, 0]);
+          }
+          if (!e.routerEvent.url.includes('filter')) {
+            viewportScroller.scrollToPosition([0, 0]);
+          }
       } else {
         viewportScroller.scrollToPosition([0, 0]);
       }

@@ -19,15 +19,11 @@ app-single-figure {
         font-weight: bold;
     }
 
-    .info-icon {
-        font-size: 1.4rem;
-    }
-
     .info-label {
         vertical-align: .125em;
     }
 
-    .help, .info {
+    .help {
         position: absolute;
         z-index: 1;
         padding: .5rem;
@@ -36,55 +32,6 @@ app-single-figure {
 
     .help {
         max-width: 320px;
-    }
-
-    .info {
-        overflow-wrap: break-word;
-        min-width: 528px;
-        bottom: calc(100% - 33px);
-    }
-
-    .info li {
-        padding-bottom: 1rem!important;
-        list-style: disc;
-        margin-inline-start: 1rem;
-    }
-
-    .info.left {
-        right: 100%;
-    }
-
-    .info.right {
-        left: 145px;
-    }
-
-    .info.left:after, .info.left:before {
-        left: 100%;
-        bottom: 11px;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    .info.left:after, .info.right:after {
-        border-width: 7px !important;
-        margin-bottom: -1px;
-    }
-    .info.left:before, .info.right::before {
-        border-width: 8px !important;
-        margin-bottom: -2px;
-    }
-
-    .info.right:after, .info.right:before {
-        right: 100%;
-        bottom: 11px;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
     }
 
     .pointer {
@@ -141,12 +88,6 @@ app-single-figure {
         
         h2 {
             padding: 0 1rem;
-        }
-
-        .info {
-            min-width: auto;
-            max-width: 70%;
-            bottom: calc(100% - 35px);
         }
 
         .content {
