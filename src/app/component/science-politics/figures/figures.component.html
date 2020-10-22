@@ -44,7 +44,7 @@
                             </form>
                         </li>
                         <li class="pl-3">
-                            <app-figure-filters [filter]="queryParams.filter" (clicked)="scrollTo($event)"></app-figure-filters>
+                            <app-figure-filters [filter]="queryParams.filter" [narrow]="true" (clicked)="scrollTo($event)"></app-figure-filters>
                         </li>
                     </ul>
                 </nav>
@@ -127,7 +127,7 @@
                                         </a>
                                         <div class="row" *ngIf="item.roadmap">
                                             <div class="col-12 tags">
-                                                <mat-basic-chip class="tag" [disableRipple]="true">TKI-tiekartan seurantamittari</mat-basic-chip>
+                                                <mat-basic-chip class="tag" [disableRipple]="true" i18n="@@TKIRoadmap">TKI-tiekartan seurantamittari</mat-basic-chip>
                                             </div>
                                         </div>
                                     </div>
