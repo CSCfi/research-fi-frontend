@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
 
@@ -8,7 +8,7 @@ import { WINDOW } from 'src/app/services/window.service';
   styleUrls: ['./figures-info.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FiguresInfoComponent implements OnInit {
+export class FiguresInfoComponent implements OnInit, OnDestroy {
   @Input() labelText: string;
   @Input() content: any;
   @Input() position: string;
@@ -38,4 +38,7 @@ export class FiguresInfoComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.resizeSub?.unsubscribe();
+  }
 }
