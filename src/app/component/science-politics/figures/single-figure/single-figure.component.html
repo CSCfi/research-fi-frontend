@@ -26,7 +26,7 @@
                             </div>                    
                         </div>
                     </div>
-                    <mat-basic-chip *ngIf="item.roadmap" class="tag align-self-center" [disableRipple]="true">TKI-tiekartan seurantamittari</mat-basic-chip>
+                    <mat-basic-chip *ngIf="item.roadmap" class="tag align-self-center" [disableRipple]="true" i18n="@@TKIRoadmap">TKI-tiekartan seurantamittari</mat-basic-chip>
                 </div>
             </div>
             <div class="col col-lg-10 base content" #content>
@@ -39,19 +39,10 @@
                     <div class="col col-lg-3 pl-0 pl-lg-4">
                         <div class="row pb-3">
                             <div class="col align-self-center pl-0">
-                                <!-- <div class="pointer" *ngIf="item['info' + currentLocale]; else infoHeader" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
-                                    tabindex="0" (keydown.enter)="showInfo = !showInfo"> -->
                                 <div>
-                                    <app-figures-info i18n-labelText="@@additionalInfo" [labelText]="'Lisätietoa'" [content]="item['info' + currentLocale]"></app-figures-info> 
+                                    <app-figures-info *ngIf="item['info' + currentLocale]" i18n-labelText="@@additionalInfo" labelText="Lisätietoa" [content]="item['info' + currentLocale]"></app-figures-info> 
                                     <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
                                 </div>
-                                <ng-template #infoHeader>
-                                    <span class="strong text-uppercase" i18n="@@additionalInfo">Lisätietoa</span>
-                                </ng-template>
-                            </div>
-                            <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
-                                <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
-                                <p [innerHtml]="item['info' + currentLocale]"></p>
                             </div>
                         </div>
                         <div class="row pb-3">
