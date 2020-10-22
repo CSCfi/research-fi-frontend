@@ -1,0 +1,16 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<ng-container (clickOutside)="onClickedOutside($event)">
+    <fa-icon tabindex="0" class="info-icon d-inline-block" icon="info-circle" (mouseenter)="showInfo = true" (keydown.enter)="showInfo = !showInfo"></fa-icon>
+    <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'" [class.next-to]="position">
+        <strong class="d-block pb-2">{{labelText}}</strong>
+        <!-- Add times icon and close on click -->
+        <p [innerHtml]="content"></p>
+    </div>
+</ng-container>
+
