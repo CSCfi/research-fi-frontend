@@ -85,7 +85,19 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       col: 6,
       link: '/science-innovation-policy/research-innovation-system',
       alt: ' '
-
+    },
+    {
+      titleFi: 'Anna palautetta',
+      titleEn: 'Give feedback',
+      titleSv: 'Ge respons',
+      captionFi: 'Kerro meille ajatuksiasi palvelusta. Sekä kehut että huomaamasi puutteet ovat tervetulleita. Otamme mielellämme vastaan myös uusia ideoita palvelun kehittämiseksi.',
+      captionEn: 'Let us know your thoughts about the service. We welcome both the strengths and shortcomings you notice. We are also happy to hear about new ideas for developing the service.',
+      captionSv: 'Låt oss veta dina tankar om tjänsten. Både ris och ros är välkomna. Gärna hör vi också nya utvecklingsidéer.',
+      imgPath: 'assets/img/home/feedback.jpg',
+      col: 6,
+      link: '#',
+      alt: ' ',
+      toggleReview: true
     },
     {
       titleFi: 'Tietoa palvelusta',
