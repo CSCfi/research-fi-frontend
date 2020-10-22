@@ -1113,8 +1113,8 @@
         <target>Sampublikationer</target>
       </trans-unit>
       <trans-unit id="filterCoPublicationsTooltip">
-        <source>Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana.</source>
-        <target>Om man väljar “visa endast sampublikationer” kan man observera sampublikationer från finländska forskningsorganisationer. I detta fall kommer sökresultatet att visa bara de publikationer där alla organisationer som valts i listan nedan är med.</target>
+        <source>Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut.</source>
+        <target>Om man väljar “visa endast sampublikationer” kan man observera sampublikationer från finländska forskningsorganisationer. I detta fall kommer sökresultatet att visa bara de publikationer där alla organisationer som valts i listan nedan är med. Om ingen organisation är valt visas alla sampublikationer i sökresultaten.</target>
       </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
