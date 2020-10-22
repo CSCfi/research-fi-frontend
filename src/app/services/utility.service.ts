@@ -143,7 +143,10 @@ export class UtilityService {
       { property: 'og:image:alt', content: imageAlt },
       { property: 'og:image:height', content: '100' },
       { property: 'og:image:width', content: '100' },
+      { property: 'twitter:title', content: title },
+      { property: 'twitter:description', content: description },
+      { property: 'twitter:image', content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg' },
+      { property: 'twitter:card', content: 'summary_large_image' },
    ]);
   }
-
 }
