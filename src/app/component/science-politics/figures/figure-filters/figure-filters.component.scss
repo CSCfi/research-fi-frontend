@@ -14,20 +14,24 @@ mat-chip {
     display: inline-table;
 }
 
+.narrow {
+    max-width: 286px;
+}
+
 @media (max-width: 1440px) {
-    .filter-chip {
+    .narrow {
         max-width: 200px;
     }
 }
 
 @media (max-width: 1107px) {
-    .filter-chip {
+    .narrow {
         max-width: 170px;
     }
 }
 
 @media (max-width: 991px) {
-    .filter-chip {
+    .narrow {
         max-width: unset;
     }
 
