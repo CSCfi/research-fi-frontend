@@ -11,10 +11,12 @@ import { FiltersComponent } from './filters.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WINDOW_PROVIDERS } from 'src/app/services/window.service';
 import { ModalModule } from 'ngx-bootstrap';
-import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import AggResponse from '../../../../testdata/aggregationresponse.json';
+import AggPublicationResponse from '../../../../testdata/aggpublicationresponse.json';
+import { of } from 'rxjs/internal/observable/of';
+import { PublicationFilterService } from 'src/app/services/filters/publication-filter.service';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
@@ -24,6 +26,11 @@ describe('FiltersComponent', () => {
     navigate: jasmine.createSpy('navigate')
   };
 
+  const mockActivatedRoute = {
+    queryParams: of({ param: 'testParam' }),
+    params: of({ input: 'test input' }),
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -31,8 +38,9 @@ describe('FiltersComponent', () => {
       ],
       providers: [
         {provide: Router, useValue: routerSpy},
-        {provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
+        {provide: ActivatedRoute, useValue: mockActivatedRoute},
         WINDOW_PROVIDERS,
+        PublicationFilterService
       ],
       imports: [
         ModalModule.forRoot(),
@@ -45,6 +53,9 @@ describe('FiltersComponent', () => {
     component = fixture.componentInstance;
     component.responseData = AggResponse;
     component.activeFilters = {};
+    component.width = 1000;
+    component.mobile = false;
+    component.showButton = false;
   }));
 
   it('should create', () => {
@@ -106,5 +117,16 @@ describe('FiltersComponent', () => {
     component.filterInput(event, 'testField');
 
     expect (component.showMoreCount.testField).toBeDefined();
+  });
+
+  it('should render corresponding filter header', () => {
+    component.responseData = AggPublicationResponse;
+    component.currentFilter = [{field: 'testField', label: 'Test header'}];
+    component.ngOnChanges();
+
+    fixture.detectChanges();
+
+    const span = fixture.nativeElement.querySelector('span');
+    expect(span.textContent).toBe('Test header');
   });
 });

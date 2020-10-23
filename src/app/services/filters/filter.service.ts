@@ -134,7 +134,7 @@ export class FilterService {
 
   customValueFilter(field: any[], path, value) {
     const res = [];
-    field.forEach(item => {
+    field.forEach(() => {
       res.push({ term: {[path] : value}});
     });
     return res;

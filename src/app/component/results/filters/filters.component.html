@@ -43,17 +43,17 @@
                             </div>
                             <!-- Filter label -->
                             <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
-                                <span>{{filter?.label}}</span>
+                                <span class="pr-2">{{filter?.label}}</span>
                                 <ng-container *ngIf="filter.tooltip">
                                     <ng-template #tooltipTemplate><div [innerHtml]="filter?.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                                     </span>
                                 </ng-container>
                                 <ng-container *ngIf="filter.errorTooltip">
                                     <ng-template #tooltipTemplate><div [innerHtml]="filter?.errorTooltip"></div></ng-template>
-                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                        <fa-icon class="info-icon pl-2 error-color" icon="info-circle"></fa-icon>
+                                    <span class="ml-2" [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon error-color" icon="info-circle"></fa-icon>
                                     </span>
                                 </ng-container>
                             </div>
@@ -127,11 +127,11 @@
                         <mat-list-option checkboxPosition="before" *ngFor="let item of responseData.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
                         [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1">
                             <div class="row d-flex justify-content-around">
-                                <div class="col-8 pr-0"><span class="label">{{item.label ? item.label : item.key}}</span></div>
+                                <div class="col-8 pr-0"><span class="label pr-2">{{item.label ? item.label : item.key}}</span></div>
                                 <div class="col-2 pr-0 text-right" *ngIf="item.tooltip">
                                     <ng-template #tooltipTemplate><div [innerHtml]="item?.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                                     </span>
                                 </div>
                                 <div class="col-2 count"><span class="amount" [innerHtml]="(item.doc_count | thousandSeparator)"></span></div>
@@ -210,11 +210,11 @@
                             (click)="selectionChange(item.field, responseData.aggregations[item?.field]?.buckets[0].key_as_string ? responseData.aggregations[item?.field]?.buckets[0].key_as_string : responseData.aggregations[item?.field]?.buckets[0].key)"
                             (keydown.enter)="selectionChange(item.field, responseData.aggregations[item?.field]?.buckets[0].key_as_string ? responseData.aggregations[item?.field]?.buckets[0].key_as_string : responseData.aggregations[item?.field]?.buckets[0].key)">
                             <div class="col row">
-                                <span class="label">{{item?.label}}</span>
+                                <span class="label pr-2">{{item?.label}}</span>
                                 <ng-container *ngIf="item.tooltip">
                                     <ng-template #tooltipTemplate><div [innerHtml]="item.tooltip"></div></ng-template>
                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        <fa-icon class="info-icon" icon="info-circle"></fa-icon>
                                     </span>
                                 </ng-container>
                             </div>
