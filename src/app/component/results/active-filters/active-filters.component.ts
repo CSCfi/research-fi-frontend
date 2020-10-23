@@ -151,7 +151,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
-
+      console.log(this.activeFilters);
       const tab = this.tabChangeService.tab;
 
       // Subscribe to aggregation data and shape to get corresponding values
@@ -228,25 +228,25 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
             if (val.category === 'publicationFormat' && source.publicationFormat.buckets) {
               const result = source.publicationFormat.buckets.find(item => item.key === val.value);
-              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.category === 'publicationFormat' && x.value === val.value);
               this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
             }
 
             if (val.category === 'publicationAudience' && source.publicationAudience.buckets) {
               const result = source.publicationAudience.buckets.find(item => item.key === val.value);
-              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.category === 'publicationAudience' && x.value === val.value);
               this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
             }
 
             if (val.category === 'parentPublicationType' && source.parentPublicationType.buckets) {
               const result = source.parentPublicationType.buckets.find(item => item.key === val.value);
-              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.category === 'parentPublicationType' && x.value === val.value);
               this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
             }
 
             if (val.category === 'peerReviewed' && source.peerReviewed.buckets) {
               const result = source.peerReviewed.buckets.find(item => item.key === val.value);
-              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.category === 'peerReviewed' && x.value === val.value);
               this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
             }
 
