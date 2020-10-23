@@ -267,6 +267,7 @@ export class AggregationService {
             publicationFormats: {
               terms: {
                 field: 'publicationFormat.name' + this.localeC + 'PublicationFormat.keyword',
+                exclude: ' ',
               }
             }
           }
@@ -281,6 +282,7 @@ export class AggregationService {
             publicationAudiences: {
               terms: {
                 field: 'publicationAudience.name' + this.localeC + 'PublicationAudience.keyword',
+                exclude: ' ',
               }
             }
           }
@@ -310,6 +312,7 @@ export class AggregationService {
             peerReviewedValues: {
               terms: {
                 field: 'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword',
+                exclude: ' ',
               }
             }
           }
