@@ -2322,6 +2322,22 @@
         <source>Julkaisutyyppi</source>
         <target>Publication type</target>
       </trans-unit>
+      <trans-unit id="publicationFormat">
+        <source>Julkaisumuoto</source>
+        <target>Publication format</target>
+      </trans-unit>
+      <trans-unit id="publicationAudience">
+        <source>Julkaisun yleisö</source>
+        <target>Publication audience</target>
+      </trans-unit>
+      <trans-unit id="parentPublicationType">
+        <source>Emojulkaisun tyyppi</source>
+        <target>Host publication type</target>
+      </trans-unit>
+      <trans-unit id="peerReviewedFilter">
+        <source>Vertaisarvioitu</source>
+        <target>Peer-reviewed</target>
+      </trans-unit>
       <trans-unit id="publicationTypeTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
         <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>

@@ -2315,6 +2315,22 @@
         <source>Julkaisutyyppi</source>
         <target state="translated">Publikationstyp</target>
       </trans-unit>
+      <trans-unit id="publicationFormat">
+        <source>Julkaisumuoto</source>
+        <target>Publikationens form</target>
+      </trans-unit>
+      <trans-unit id="publicationAudience">
+        <source>Julkaisun yleisö</source>
+        <target>Publikationens målgrupp</target>
+      </trans-unit>
+      <trans-unit id="parentPublicationType">
+        <source>Emojulkaisun tyyppi</source>
+        <target>Publiceringsplattformens typ</target>
+      </trans-unit>
+      <trans-unit id="peerReviewedFilter">
+        <source>Vertaisarvioitu</source>
+        <target>Kollegialt utvärderad</target>
+      </trans-unit>
       <trans-unit id="publicationTypeTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
         <target state="translated">Publikationstyp A–G enligt UKM:s publikationsdatainsamling.</target>
