@@ -158,13 +158,10 @@ export class FilterService {
     // Publication
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.publicationTypeFilter = this.basicFilter(filter.publicationType, 'publicationTypeCode.keyword');
-    this.publicationFormatFilter = this.basicFilter(filter.publicationFormat,
-      'publicationFormat.name' + this.localeC + 'PublicationFormat.keyword');
-    this.publicationAudienceFilter = this.basicFilter(filter.publicationAudience,
-      'publicationAudience.name' + this.localeC + 'PublicationAudience.keyword');
-    this.parentPublicationTypeFilter = this.basicFilter(filter.parentPublicationType,
-      'parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword');
-    this.peerReviewedFilter = this.basicFilter(filter.peerReviewed, 'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword');
+    this.publicationFormatFilter = this.basicFilter(filter.publicationFormat, 'publicationFormat.id');
+    this.publicationAudienceFilter = this.basicFilter(filter.publicationAudience, 'publicationAudience.id');
+    this.parentPublicationTypeFilter = this.basicFilter(filter.parentPublicationType, 'parentPublicationType.id');
+    this.peerReviewedFilter = this.basicFilter(filter.peerReviewed, 'peerReviewed.id');
     this.countryCodeFilter = this.filterByCountryCode(filter.countryCode);
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);

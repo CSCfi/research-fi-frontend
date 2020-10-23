@@ -175,7 +175,8 @@ export class SearchService {
 
   getFilters(): Observable<Search[]> {
     const aggs = this.filterService.constructFilterPayload(this.tabChangeService.tab, this.searchTerm);
-    return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs);
+    const tab = this.tabChangeService.tab === 'news' ? this.tabChangeService.tab : this.tabChangeService.tab.slice(0, -1);
+    return this.http.post<Search[]>(this.apiUrl + tab + '/_search?', aggs);
   }
 
   // Used to translate active filters
@@ -187,7 +188,7 @@ export class SearchService {
 
   getVisualData(categoryIdx: number): Observable<Visual> {
     // Need to check against tab since navigation from results to news causes problems since getVisualData is called from filters.
-    if (this.tabChangeService.tab) {
+    if (this.tabChangeService.tab !== 'news') {
       const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.searchTerm, categoryIdx);
       return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs)
                       .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab, categoryIdx)));

@@ -117,6 +117,7 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
 
   translate() {
     this.translationFlag = false;
+    const errorMsg = 'error translating filter';
     this.queryParams = this.filterService.filters.subscribe(filter => {
       // Get from & to year values from filter list
       this.fromYear = parseInt(filter.fromYear[0]?.slice(1), 10);
@@ -224,6 +225,31 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
               const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
               this.activeFilters[foundIndex].translation = result?.key ? result.key : '';
             }
+
+            if (val.category === 'publicationFormat' && source.publicationFormat.buckets) {
+              const result = source.publicationFormat.buckets.find(item => item.key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
+            }
+
+            if (val.category === 'publicationAudience' && source.publicationAudience.buckets) {
+              const result = source.publicationAudience.buckets.find(item => item.key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
+            }
+
+            if (val.category === 'parentPublicationType' && source.parentPublicationType.buckets) {
+              const result = source.parentPublicationType.buckets.find(item => item.key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
+            }
+
+            if (val.category === 'peerReviewed' && source.peerReviewed.buckets) {
+              const result = source.peerReviewed.buckets.find(item => item.key === val.value);
+              const foundIndex = this.activeFilters.findIndex(x => x.value === val.value);
+              this.activeFilters[foundIndex].translation = result?.label ? result.label : errorMsg;
+            }
+
             // Language, publications
             if (val.category === 'lang' && source.lang?.langs) {
               const result = source.lang.langs.buckets.find(({ key }) => key.toLowerCase() === val.value);

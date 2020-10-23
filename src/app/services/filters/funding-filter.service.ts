@@ -48,7 +48,7 @@ export class FundingFilterService {
     const source = data.aggregations;
     if (!source.shaped) {
       // Year
-      source.year.buckets = source.year.years.buckets;
+      source.year.buckets = this.mapYear(source.year.years.buckets);
       // Organization
       source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
       // Funder
@@ -63,6 +63,14 @@ export class FundingFilterService {
     }
     source.shaped = true;
     return source;
+  }
+
+  mapYear(data) {
+    const clone = cloneDeep(data);
+    clone.map(item => {
+      item.key = item.key.toString();
+    });
+    return clone;
   }
 
   organization(fgp, oc) {
