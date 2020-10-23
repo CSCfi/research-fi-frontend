@@ -6,12 +6,11 @@
 //  :license: MIT
 
 import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild, AfterViewChecked } from '@angular/core';
+  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
 import { ResizeService } from '../../../services/resize.service';
-import { FilterService } from '../../../services/filters/filter.service';
 import { Subscription } from 'rxjs';
 import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -25,8 +24,6 @@ import { OrganizationFilterService } from 'src/app/services/filters/organization
 import { NewsFilterService } from 'src/app/services/filters/news-filter.service';
 import { faSlidersH, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
-import { SearchService } from 'src/app/services/search.service';
-import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { tap } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
 
@@ -48,7 +45,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   parentPanel: string;
   subPanel: string;
   height: number;
-  preSelection = [];
   filterSub: any;
   resizeSub: any;
   width = this.window.innerWidth;
@@ -75,7 +71,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   filterSearchHeader = $localize`:@@filterSearchHeader:Rajaa hakua`;
   filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
 
-  constructor( private router: Router, private filterService: FilterService,
+  constructor( private router: Router,
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
                private modalService: BsModalService, private route: ActivatedRoute, public utilityService: UtilityService,
                private sortService: SortService, private publicationFilters: PublicationFilterService,
@@ -149,15 +145,6 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
     // Browser check
     if (isPlatformBrowser(this.platformId)) {
-      // Subscribe to filterService filters
-      this.filterSub = this.filterService.filters.subscribe(filters => {
-        // Get preselected filters from filterService
-        this.preSelection = [];
-        Object.values(filters).flat().forEach(filter => this.preSelection.push(filter));
-        // Get from & to year filter preselection
-        this.fromYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 'f')?.slice(1), 10);
-        this.toYear = parseInt(this.preSelection.find(item => item.length === 5 && item.slice(0, 1) === 't')?.slice(1), 10);
-      });
       this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
     }
   }
