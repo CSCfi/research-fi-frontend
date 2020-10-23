@@ -260,7 +260,7 @@ export class AggregationService {
         payLoad.aggs.publicationFormat = {
           filter: {
             bool: {
-              filter: filterActive('publicationFormat.name' + this.localeC + 'PublicationFormat.keyword')
+              filter: filterActive('publicationFormat.id')
             }
           },
           aggs: {
@@ -268,6 +268,13 @@ export class AggregationService {
               terms: {
                 field: 'publicationFormat.name' + this.localeC + 'PublicationFormat.keyword',
                 exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'publicationFormat.id.keyword'
+                  }
+                }
               }
             }
           }
@@ -275,7 +282,7 @@ export class AggregationService {
         payLoad.aggs.publicationAudience = {
           filter: {
             bool: {
-              filter: filterActive('publicationAudience.name' + this.localeC + 'PublicationAudience.keyword')
+              filter: filterActive('publicationAudience.id')
             }
           },
           aggs: {
@@ -283,6 +290,13 @@ export class AggregationService {
               terms: {
                 field: 'publicationAudience.name' + this.localeC + 'PublicationAudience.keyword',
                 exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'publicationAudience.id.keyword'
+                  }
+                }
               }
             }
           }
@@ -290,7 +304,7 @@ export class AggregationService {
         payLoad.aggs.parentPublicationType = {
           filter: {
             bool: {
-              filter: filterActive('parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword')
+              filter: filterActive('parentPublicationType.id')
             }
           },
           aggs: {
@@ -298,6 +312,13 @@ export class AggregationService {
               terms: {
                 field: 'parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword',
                 exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'parentPublicationType.id.keyword'
+                  }
+                }
               }
             }
           }
@@ -305,7 +326,7 @@ export class AggregationService {
         payLoad.aggs.peerReviewed = {
           filter: {
             bool: {
-              filter: filterActive('name' + this.localeC + 'PeerReviewed.keyword')
+              filter: filterActive('peerReviewed.id')
             }
           },
           aggs: {
@@ -313,6 +334,13 @@ export class AggregationService {
               terms: {
                 field: 'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword',
                 exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'peerReviewed.id'
+                  }
+                }
               }
             }
           }
