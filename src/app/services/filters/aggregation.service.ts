@@ -257,6 +257,66 @@ export class AggregationService {
             }
           }
         };
+        payLoad.aggs.publicationFormat = {
+          filter: {
+            bool: {
+              filter: filterActive('publicationFormat.name' + this.localeC + 'PublicationFormat.keyword')
+            }
+          },
+          aggs: {
+            publicationFormats: {
+              terms: {
+                field: 'publicationFormat.name' + this.localeC + 'PublicationFormat.keyword',
+                exclude: ' ',
+              }
+            }
+          }
+        };
+        payLoad.aggs.publicationAudience = {
+          filter: {
+            bool: {
+              filter: filterActive('publicationAudience.name' + this.localeC + 'PublicationAudience.keyword')
+            }
+          },
+          aggs: {
+            publicationAudiences: {
+              terms: {
+                field: 'publicationAudience.name' + this.localeC + 'PublicationAudience.keyword',
+                exclude: ' ',
+              }
+            }
+          }
+        };
+        payLoad.aggs.parentPublicationType = {
+          filter: {
+            bool: {
+              filter: filterActive('parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword')
+            }
+          },
+          aggs: {
+            parentPublicationTypes: {
+              terms: {
+                field: 'parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword',
+                exclude: ' ',
+              }
+            }
+          }
+        };
+        payLoad.aggs.peerReviewed = {
+          filter: {
+            bool: {
+              filter: filterActive('name' + this.localeC + 'PeerReviewed.keyword')
+            }
+          },
+          aggs: {
+            peerReviewedValues: {
+              terms: {
+                field: 'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword',
+                exclude: ' ',
+              }
+            }
+          }
+        };
         payLoad.aggs.juFo = {
           filter: {
             bool: {

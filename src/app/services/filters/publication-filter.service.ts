@@ -22,6 +22,10 @@ export class PublicationFilterService {
     tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
     {field: 'publicationType', label: $localize`:@@publicationType:Julkaisutyyppi`, hasSubFields: true, open: false,
     tooltip: $localize`:@@pTypeFTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+    {field: 'publicationFormat', label: $localize`:@@publicationFormat:Julkaisumuoto`, hasSubFields: false, open: false, tooltip: ''},
+    {field: 'publicationAudience', label: $localize`:@@publicationAudience:Julkaisun yleisö`, hasSubFields: false, open: false, tooltip: ''},
+    {field: 'parentPublicationType', label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`, hasSubFields: false, open: false, tooltip: ''},
+    {field: 'peerReviewed', label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, hasSubFields: false, open: false, tooltip: ''},
     {field: 'countryCode', label: $localize`:@@publicationCountry:Julkaisumaa`, hasSubFields: false, open: true,
     tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`},
     {field: 'lang', label: $localize`:@@language:Kieli`, hasSubFields: false, open: true,
@@ -49,6 +53,10 @@ export class PublicationFilterService {
     source.field.buckets = this.minorField(source.field.fields.buckets.filter(item => item.filtered.filterCount.doc_count > 0));
     // Publication Type
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
+    source.publicationFormat.buckets = source.publicationFormat.publicationFormats.buckets;
+    source.publicationAudience.buckets = source.publicationAudience.publicationAudiences.buckets;
+    source.parentPublicationType.buckets = source.parentPublicationType.parentPublicationTypes.buckets;
+    source.peerReviewed.buckets = source.peerReviewed.peerReviewedValues.buckets;
     // Country code
     source.countryCode.buckets = this.publicationCountry(source.countryCode.countryCodes.buckets);
     // Language code
