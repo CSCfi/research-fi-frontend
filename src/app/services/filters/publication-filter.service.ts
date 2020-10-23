@@ -46,17 +46,17 @@ export class PublicationFilterService {
   shapeData(data) {
     const source = data.aggregations;
     // Year
-    source.year.buckets = source.year.years.buckets;
+    source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
     this.organization(source.organization);
     // Field of science
     source.field.buckets = this.minorField(source.field.fields.buckets.filter(item => item.filtered.filterCount.doc_count > 0));
     // Publication Type
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
-    source.publicationFormat.buckets = source.publicationFormat.publicationFormats.buckets;
-    source.publicationAudience.buckets = source.publicationAudience.publicationAudiences.buckets;
-    source.parentPublicationType.buckets = source.parentPublicationType.parentPublicationTypes.buckets;
-    source.peerReviewed.buckets = source.peerReviewed.peerReviewedValues.buckets;
+    source.publicationFormat.buckets = this.mapKey(source.publicationFormat.publicationFormats.buckets);
+    source.publicationAudience.buckets = this.mapKey(source.publicationAudience.publicationAudiences.buckets);
+    source.parentPublicationType.buckets = this.mapKey(source.parentPublicationType.parentPublicationTypes.buckets);
+    source.peerReviewed.buckets = this.mapKey(source.peerReviewed.peerReviewedValues.buckets);
     // Country code
     source.countryCode.buckets = this.publicationCountry(source.countryCode.countryCodes.buckets);
     // Language code
@@ -86,6 +86,23 @@ export class PublicationFilterService {
     });
   }
 
+  mapYear(data) {
+    const clone = cloneDeep(data);
+    clone.map(item => {
+      item.key = item.key.toString();
+    });
+    return clone;
+  }
+
+  mapKey(data) {
+    const clone = cloneDeep(data);
+    clone.map(item => {
+      item.label = item.label || item.key;
+      item.key = item.id.buckets[0].key;
+    });
+    return clone;
+  }
+
   minorField(data) {
     if (data.length) {
       // check if major aggregation is available
@@ -104,7 +121,6 @@ export class PublicationFilterService {
 
       return [...result.filter(item => item.subData.length > 0)];
     }
-
   }
 
   separatePublicationClass(data) {
