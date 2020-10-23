@@ -63,6 +63,12 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     Sv: 'http://www.tilastokeskus.fi/index_sv.html'
   };
 
+  migriLink = {
+    Fi: 'https://migri.fi/etusivu',
+    En: 'www.migri.fi/en',
+    Sv: 'https://migri.fi/sv/'
+  };
+
   okmLink = {
     Fi: 'https://www.minedu.fi/',
     En: 'https://minedu.fi/en/frontpage',
