@@ -45,7 +45,6 @@ export class PublicationFilterService {
 
   shapeData(data) {
     const source = data.aggregations;
-    console.log(source);
     // Year
     source.year.buckets = source.year.years.buckets;
     // Organization & sector
