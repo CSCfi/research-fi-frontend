@@ -96,7 +96,7 @@
                         <div class="col-4">
                             <mat-form-field>
                                 <mat-label i18n="Year start filter@@yearRangeStart">Alku</mat-label>
-                                <mat-select (selectionChange)="rangeChange($event, 'fromYear'); range($event, 'from')" [(value)]="fromYear">
+                                <mat-select (selectionChange)="rangeChange($event, 'fromYear'); range($event, 'from')" [value]="activeFilters['fromYear']?.slice(1)">
                                     <mat-option i18n="Year range filter no selection@@yearRangeNoSelection">Ei valintaa</mat-option>
                                     <mat-option *ngFor="let year of responseData.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key >= toYear}" [value]="year.key">{{year.key}}</mat-option>
                                 </mat-select>
@@ -108,7 +108,7 @@
                         <div class="col-4">
                             <mat-form-field>
                                 <mat-label i18n="Year end filter@@yearRangeEnd">Loppu</mat-label>
-                                <mat-select (selectionChange)="rangeChange($event, 'toYear'); range($event, 'to')" [(value)]="toYear">
+                                <mat-select (selectionChange)="rangeChange($event, 'toYear'); range($event, 'to')" [value]="activeFilters['toYear']?.slice(1)">
                                     <mat-option i18n="Year range filter no selection@@yearRangeNoSelection">Ei valintaa</mat-option>
                                     <mat-option *ngFor="let year of responseData.aggregations?.year?.buckets" [ngClass]="{'d-none': year.key <= fromYear}" [value]="year.key">{{year.key}}</mat-option>
                                 </mat-select>
@@ -125,7 +125,7 @@
                     <mat-selection-list [attr.aria-label]="filter.field" (selectionChange)="selectionChange(filter.field, $event.option.value)">
                         <!-- Options -->
                         <mat-list-option checkboxPosition="before" *ngFor="let item of responseData.aggregations[filter.field]?.buckets?.slice(0, (showMoreCount[filter.field] ? showMoreCount[filter.field].count : defaultOpen)); let j = index; trackBy: trackByFn"
-                        [value]="item.key" [selected]="preSelection.indexOf(''+item.key) > -1">
+                        [value]="item.key" [selected]="activeFilters[filter.field] && activeFilters[filter.field].indexOf(item.key) > -1">
                             <div class="row d-flex justify-content-around">
                                 <div class="col-8 pr-0"><span class="label pr-2">{{item.label ? item.label : item.key}}</span></div>
                                 <div class="col-2 pr-0 text-right" *ngIf="item.tooltip">
@@ -178,7 +178,7 @@
                                 </mat-list-option>
                                 <!-- Options -->
                                 <mat-list-option checkboxPosition="before" *ngFor="let field of item.subData.slice(0, (showMoreCount[item.key] ? showMoreCount[item.key].count : defaultOpen)); trackBy: trackByFn" (click)="selectionChange(filter.field, field.key)"
-                                (keydown.enter)="selectionChange(filter.field, field.key)" (keydown.space)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="preSelection.indexOf(''+field.key) > -1" [id]="filter.field + field.key | replaceSpace">
+                                (keydown.enter)="selectionChange(filter.field, field.key)" (keydown.space)="selectionChange(filter.field, field.key)" [value]="field.key" [selected]="activeFilters[filter.field] && activeFilters[filter.field].indexOf(field.key) > -1" [id]="filter.field + field.key | replaceSpace">
                                     <div class="row d-flex justify-content-around">
                                         <div class="col-9"><span class="label">{{field.label}}</span></div>
                                         <div class="col-3 count align-self-center"><span class="amount" [innerHtml]="(field.doc_count | thousandSeparator)"></span></div>
