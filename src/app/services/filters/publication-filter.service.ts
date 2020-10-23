@@ -98,7 +98,7 @@ export class PublicationFilterService {
     const clone = cloneDeep(data);
     clone.map(item => {
       item.label = item.label || item.key;
-      item.key = item.id.buckets[0].key;
+      item.key = typeof(item.id.buckets[0].key) === 'number' ? item.id.buckets[0].key.toString() : item.id.buckets[0].key;
     });
     return clone;
   }
