@@ -23,6 +23,10 @@ export class FilterService {
   juFoCodeFilter: any;
   fieldFilter: any;
   publicationTypeFilter: any;
+  publicationFormatFilter: any;
+  publicationAudienceFilter: any;
+  parentPublicationTypeFilter: any;
+  peerReviewedFilter: any;
   countryCodeFilter: any;
   langFilter: any;
   funderFilter: any;
@@ -40,19 +44,64 @@ export class FilterService {
   infraFieldFilter: any;
   currentFilters: any;
 
-  private filterSource = new BehaviorSubject({toYear: [], fromYear: [], year: [], field: [], publicationType: [], countryCode: [], lang: [],
-    juFo: [], openAccess: [], internationalCollaboration: [], funder: [], typeOfFunding: [], scheme: [], fundingStatus: [],
-    fundingAmount: [], faFieldFilter: [], sector: [], organization: [], type: [], coPublication: []});
+  private filterSource = new BehaviorSubject({
+    toYear: [],
+    fromYear: [],
+    year: [],
+    field: [],
+    publicationType: [],
+    publicationFormat: [],
+    publicationAudience: [],
+    parentPublicationType: [],
+    peerReviewed: [],
+    countryCode: [],
+    lang: [],
+    juFo: [],
+    openAccess: [],
+    internationalCollaboration: [],
+    funder: [],
+    typeOfFunding: [],
+    scheme: [],
+    fundingStatus: [],
+    fundingAmount: [],
+    faFieldFilter: [],
+    sector: [],
+    organization: [],
+    type: [],
+    coPublication: []
+  });
   filters = this.filterSource.asObservable();
   localeC: string;
   timestamp: string;
   publication = this.staticDataService.visualisationData.publication;
   funding = this.staticDataService.visualisationData.funding;
 
-  updateFilters(filters: {toYear: any[], fromYear: any[], year: any[], field: any[], publicationType: any[], countryCode: any[],
-    lang: any[], openAccess: any[], juFo: any[], internationalCollaboration: any[], funder: any[], typeOfFunding: any[],
-    scheme: any[], fundingStatus: any[], fundingAmount: any[], faFieldFilter: any[], sector: any[], organization: any[], type: any[],
-    coPublication: any[]}) {
+  updateFilters(filters: {
+    toYear: any[],
+    fromYear: any[],
+    year: any[],
+    field: any[],
+    publicationType: any[],
+    publicationFormat: any[],
+    publicationAudience: any[],
+    parentPublicationType: any[],
+    peerReviewed: any[],
+    countryCode: any[],
+    lang: any[],
+    openAccess: any[],
+    juFo: any[],
+    internationalCollaboration: any[],
+    funder: any[],
+    typeOfFunding: any[],
+    scheme: any[],
+    fundingStatus: any[],
+    fundingAmount: any[],
+    faFieldFilter: any[],
+    sector: any[],
+    organization: any[],
+    type: any[],
+    coPublication: any[]
+  }) {
     // Create new filters first before sending updated values to components
     this.currentFilters = filters;
     this.createFilters(filters);
@@ -77,6 +126,10 @@ export class FilterService {
       // Publications
       sector: [source.sector].flat().filter(x => x).sort(),
       publicationType: [source.publicationType].flat().filter(x => x).sort(),
+      publicationFormat: [source.publicationFormat].flat().filter(x => x).sort(),
+      publicationAudience: [source.publicationAudience].flat().filter(x => x).sort(),
+      parentPublicationType: [source.parentPublicationType].flat().filter(x => x).sort(),
+      peerReviewed: [source.peerReviewed].flat().filter(x => x).sort(),
       countryCode: [source.countryCode].flat().filter(x => x).sort(),
       lang: [source.lang].flat().filter(x => x).sort(),
       juFo: [source.juFo].flat().filter(x => x).sort(),
@@ -105,6 +158,13 @@ export class FilterService {
     // Publication
     this.juFoCodeFilter = this.filterByJuFoCode(filter.juFo);
     this.publicationTypeFilter = this.basicFilter(filter.publicationType, 'publicationTypeCode.keyword');
+    this.publicationFormatFilter = this.basicFilter(filter.publicationFormat,
+      'publicationFormat.name' + this.localeC + 'PublicationFormat.keyword');
+    this.publicationAudienceFilter = this.basicFilter(filter.publicationAudience,
+      'publicationAudience.name' + this.localeC + 'PublicationAudience.keyword');
+    this.parentPublicationTypeFilter = this.basicFilter(filter.parentPublicationType,
+      'parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword');
+    this.peerReviewedFilter = this.basicFilter(filter.peerReviewed, 'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword');
     this.countryCodeFilter = this.filterByCountryCode(filter.countryCode);
     this.langFilter = this.basicFilter(filter.lang, 'languages.languageCode');
     this.openAccessFilter = this.filterByOpenAccess(filter.openAccess);
@@ -302,7 +362,7 @@ export class FilterService {
   constructFilters(index) {
     const globalFilter = (f) => {
       return f ? [{ bool: { should: f } }] : [];
-    }
+    };
 
     const basicFilter = (i, f) => {
       return index === i ? (f ? [{ bool: { should: f } }] : []) : [];
@@ -328,6 +388,10 @@ export class FilterService {
       ...(this.coPublicationFilter?.length > 0 ? coPublicationOrgs() : nestedFilter('publication', this.organizationFilter, 'author')),
       ...(nestedFilter('publication', this.fieldFilter, 'fieldsOfScience')),
       ...(basicFilter('publication', this.publicationTypeFilter)),
+      ...(basicFilter('publication', this.publicationFormatFilter)),
+      ...(basicFilter('publication', this.publicationAudienceFilter)),
+      ...(basicFilter('publication', this.parentPublicationTypeFilter)),
+      ...(basicFilter('publication', this.peerReviewedFilter)),
       ...(basicFilter('publication', this.countryCodeFilter)),
       ...(basicFilter('publication', this.langFilter)),
       ...(basicFilter('publication', this.juFoCodeFilter)),
@@ -469,7 +533,7 @@ export class FilterService {
             nested: {
               path: s.nested
             }
-          }
+          };
         } else if (s.filter) {
           q.aggs[s.name] = {
             filter: {
@@ -477,7 +541,7 @@ export class FilterService {
                 [s.filter.field]: s.filter.value
               }
             }
-          }
+          };
         } else {
           // Add terms object
           q.aggs[s.name] = {
@@ -491,7 +555,7 @@ export class FilterService {
               // Exclude empty strings
               exclude: s.exclude,
               // Add order if needed
-              order: s.order ? (s.order - 1 ? orderAsc : orderDesc): undefined
+              order: s.order ? (s.order - 1 ? orderAsc : orderDesc) : undefined
             }
           };
         }
