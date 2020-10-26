@@ -136,7 +136,6 @@ export class PublicationAdapter implements Adapter<Publication> {
         const peerReviewed = item.peerReviewed ?
             item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed'] : undefined;
 
-        console.log(this.capitalizedLocale);
         return new Publication(
             item.publicationId,
             item.publicationName,
