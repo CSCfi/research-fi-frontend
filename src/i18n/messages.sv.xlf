@@ -2315,13 +2315,25 @@
         <source>Julkaisutyyppi</source>
         <target state="translated">Publikationstyp</target>
       </trans-unit>
+      <trans-unit id="OKMPublicationType">
+        <source>OKM:n julkaisutyyppiluokitus</source>
+        <target>UKM:s publikationstyp</target>
+      </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>
+        <target>Publikationens form</target>
+      </trans-unit>
+      <trans-unit id="publicationsFormat">
+        <source>Julkaisun muoto</source>
         <target>Publikationens form</target>
       </trans-unit>
       <trans-unit id="publicationAudience">
         <source>Julkaisun yleisö</source>
         <target>Publikationens målgrupp</target>
+      </trans-unit>
+      <trans-unit id="audience">
+        <source>Yleisö</source>
+        <target>Målgrupp</target>
       </trans-unit>
       <trans-unit id="parentPublicationType">
         <source>Emojulkaisun tyyppi</source>

@@ -2322,13 +2322,25 @@
         <source>Julkaisutyyppi</source>
         <target>Publication type</target>
       </trans-unit>
+      <trans-unit id="OKMPublicationType">
+        <source>OKM:n julkaisutyyppiluokitus</source>
+        <target>MINEDU’s publication type classification code</target>
+      </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>
+        <target>Publication format</target>
+      </trans-unit>
+      <trans-unit id="publicationsFormat">
+        <source>Julkaisun muoto</source>
         <target>Publication format</target>
       </trans-unit>
       <trans-unit id="publicationAudience">
         <source>Julkaisun yleisö</source>
         <target>Publication audience</target>
+      </trans-unit>
+      <trans-unit id="audience">
+        <source>Yleisö</source>
+        <target>Audience</target>
       </trans-unit>
       <trans-unit id="parentPublicationType">
         <source>Emojulkaisun tyyppi</source>
