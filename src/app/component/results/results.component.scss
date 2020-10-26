@@ -83,6 +83,11 @@ span.total {
 }
 
 // Visualisation modal
+.visual-button-container {
+  padding: 15px 0;
+  margin-bottom: 10px;
+}
+
 .modal-header {
   justify-content: unset;
   > *:first-child {
