@@ -20,6 +20,10 @@
             color: mat-color($primary);
         }
 
+        .visual-button-container {
+            background-color: mat-color($primary, 100);
+        }
+
         // "Bleed" the styles into sub-pages
         app-publications, app-fundings, app-infrastructures, app-organizations, app-related-results {
 
