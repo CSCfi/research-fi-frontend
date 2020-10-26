@@ -29,7 +29,8 @@
                                 </span>
                             </ng-container>
                         </h2>
-                        <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div>
+                        <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}</div>
+                        <!-- <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.typeLabel"> {{publicationTypeLabel}}</span></div> -->
                     </div>
                     <div class="row content pb-0" [class.pb-0]="hasSubUnits" [class.auth-min-height]="hasSubUnits && authorAndOrganization.length <= 1" *ngIf="authorAndOrganization[0]?.orgName.length > 0 || authorAndOrganization[0]?.authors.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th" [class.auth-header-min-height]="hasSubUnits"><ng-container i18n="@@authorOrganization">Organisaatiot ja tekijät</ng-container>
@@ -146,6 +147,43 @@
                             </div>        
                         </div>
                     </ng-container>
+                    <!-- Publication type -->
+                    <div class="row content"  *ngIf="typeFields?.length > 0">
+                        <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationType">Julkaisutyyppi</h2>
+                        <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of typeFields?.slice(0,3)">
+                            <h3 class="th">
+                                {{row.label}}
+                                <ng-container *ngIf="row.tooltip">
+                                    <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                    <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                        <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                    </span>
+                                </ng-container>
+                            </h3>
+                            <p class="td" innerHtml="{{item[row.field]}}"></p>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let row of typeFields.slice(3); let i = index">
+                        <div *ngIf="i % 3 == 0"></div>
+                        <div class="row content" *ngIf="i % 3 == 0">
+                            <!-- First col -->
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
+                               <h3 class="th">{{row.label}}</h3>
+                               <span *ngIf="!row.link">{{item[row.field]}}</span>
+                            </div>
+                            <!-- Second col -->    
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+1">
+                               <h3 class="th">{{typeFields.slice(3)[i + 1].label}}</h3>
+                               <span>{{item[typeFields.slice(3)[i + 1].field]}}</span>
+                            </div> 
+                            <!-- Third col -->   
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+2">
+                               <h3 class="th">{{typeFields.slice(3)[i + 2].label}}</h3>
+                               <span>{{item[typeFields.slice(3)[i + 2].field]}}</span>
+                            </div>        
+                        </div>
+                    </ng-container>
+                    <!-- Medium -->
                     <div class="row content" *ngIf="mediumFields?.length > 0">
                         <!-- Top row links, switch case to check for different search targets -->
                         <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationMediumInfo">Julkaisukanavan tiedot</h2>

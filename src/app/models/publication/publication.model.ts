@@ -5,9 +5,10 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 import { FieldOfScience, FieldOfScienceAdapter } from './field-of-science.model';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { PublicationCitationAdapter } from './publication-citation.model';
+import { LanguageCheck } from '../utils';
 
 export class Publication {
     constructor(
@@ -17,6 +18,10 @@ export class Publication {
         public publicationTypeCode: string,
         public authors: string, // authorsText
         public organizationId: number, // publicationOrgId
+        public format: string,
+        public audience: string,
+        public parentPublicationType: string,
+        public peerReviewed: string,
         public journalName: string,
         public conferenceName: string,
         public issn: string,
@@ -60,7 +65,11 @@ export class Publication {
     providedIn: 'root'
 })
 export class PublicationAdapter implements Adapter<Publication> {
-    constructor(private fs: FieldOfScienceAdapter, private citationAdapter: PublicationCitationAdapter) {}
+    capitalizedLocale: string;
+    constructor(private fs: FieldOfScienceAdapter, private citationAdapter: PublicationCitationAdapter,
+                @Inject( LOCALE_ID ) protected localeId: string) {
+                    this.capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+                }
     adapt(item: any): Publication {
         let fieldsOfScience: FieldOfScience[] = [];
         // All items don't have field_of_science field
@@ -69,7 +78,7 @@ export class PublicationAdapter implements Adapter<Publication> {
         // Only include fields with id
         fieldsOfScience = fieldsOfScience.filter(x => x.id);
         // Create string from array
-        const fieldsOfScienceString = fieldsOfScience.map(x => x.name).join('; ')
+        const fieldsOfScienceString = fieldsOfScience.map(x => x.name).join('; ');
 
         let citations: string[] = [];
         // Publication citations
@@ -116,7 +125,7 @@ export class PublicationAdapter implements Adapter<Publication> {
                 sector.organization.map(org => org.OrganizationNameFi = org.OrganizationNameFi.trim());
             });
         }
-
+        console.log(this.capitalizedLocale);
         return new Publication(
             item.publicationId,
             item.publicationName,
@@ -124,6 +133,10 @@ export class PublicationAdapter implements Adapter<Publication> {
             item.publicationTypeCode,
             item.authorsText,
             +item.publicationOrgId,
+            item.publicationFormat[0]['name' + this.capitalizedLocale + 'PublicationFormat'],
+            item.publicationAudience[0]['name' + this.capitalizedLocale + 'PublicationAudience'],
+            item.parentPublicationType[0]['name' + this.capitalizedLocale + 'ParentPublicationType'],
+            item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed'],
             item.journalName,
             item.conferenceName,
             item.issn,
