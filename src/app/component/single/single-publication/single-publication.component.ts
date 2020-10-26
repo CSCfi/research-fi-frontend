@@ -282,9 +282,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     }
 
     // Link with targeted search for keywords
+    // We need to espace parentheses because these are registered in Angular router as secondary segments.
     if (keywords?.length > 0) {
       source.keywords = keywords.map(x =>
-        '<a href="/results/publications/' + x.keyword.trim() + '?target=keywords&page=1">'+ x.keyword.trim() +'</a>').join(', ');
+        '<a href="/results/publications/' + x.keyword.replaceAll(/\(/g, '%28').replaceAll(/\)/g, '%29').trim()
+        + '?target=keywords&page=1">' + x.keyword.trim() +'</a>').join(', ');
     }
 
     // Get authors per organization
