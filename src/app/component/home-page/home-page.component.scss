@@ -5,6 +5,10 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
+.main-content {
+    margin-top: 40px;
+}
+
 .wrapper {
     overflow: hidden;
 }
@@ -14,8 +18,9 @@
     margin-left: 0px!important;
 }
 
-.shortcuts {
+.shortcuts, .news {
     padding: 0;
+    margin: 0 10px;
 }
 
 .cover-img {
@@ -59,6 +64,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    h2 {
+        font-size: 1.4rem;
+    }
 }
 
 .sub-header {
@@ -70,6 +78,9 @@
     max-width: 100%;
     margin-bottom: 6rem;
     margin-top: -50px;
+    h2 {
+        font-size: 1.4rem;
+    }
 }
 
 hr {

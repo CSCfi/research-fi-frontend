@@ -142,7 +142,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   newsImage = {
     link: '/news',
     alt: ' ',
-    imgPath: 'assets/img/home/search.jpg'
+    imgPath: 'assets/img/home/news.jpeg'
   };
 
   focusSub: any;
