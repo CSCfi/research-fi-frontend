@@ -125,6 +125,17 @@ export class PublicationAdapter implements Adapter<Publication> {
                 sector.organization.map(org => org.OrganizationNameFi = org.OrganizationNameFi.trim());
             });
         }
+
+        // Check if publication type fields exist
+        const publicationFormat = item.publicationFormat ?
+            item.publicationFormat[0]['name' + this.capitalizedLocale + 'PublicationFormat'] : undefined;
+        const publicationAudience = item.publicationAudience ?
+            item.publicationAudience[0]['name' + this.capitalizedLocale + 'PublicationAudience'] : undefined;
+        const parentPublicationType = item.parentPublicationType ?
+            item.parentPublicationType[0]['name' + this.capitalizedLocale + 'ParentPublicationType'] : undefined;
+        const peerReviewed = item.peerReviewed ?
+            item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed'] : undefined;
+
         console.log(this.capitalizedLocale);
         return new Publication(
             item.publicationId,
@@ -133,10 +144,10 @@ export class PublicationAdapter implements Adapter<Publication> {
             item.publicationTypeCode,
             item.authorsText,
             +item.publicationOrgId,
-            item.publicationFormat[0]['name' + this.capitalizedLocale + 'PublicationFormat'],
-            item.publicationAudience[0]['name' + this.capitalizedLocale + 'PublicationAudience'],
-            item.parentPublicationType[0]['name' + this.capitalizedLocale + 'ParentPublicationType'],
-            item.peerReviewed[0]['name' + this.capitalizedLocale + 'PeerReviewed'],
+            publicationFormat,
+            publicationAudience,
+            parentPublicationType,
+            peerReviewed,
             item.journalName,
             item.conferenceName,
             item.issn,
