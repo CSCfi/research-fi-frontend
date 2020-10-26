@@ -89,12 +89,12 @@ export class StaticDataService {
   ];
 
   targets: Target[] = [
-    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: 'All content', viewValueSv: ''},
-    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: 'Person name', viewValueSv: ''},
-    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: 'Title', viewValueSv: ''},
-    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: 'Keywords', viewValueSv: ''},
-    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: 'Organization', viewValueSv: ''},
-    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: 'Funder', viewValueSv: ''}
+    {value: 'all', viewValueFi: 'Koko sisältö', viewValueEn: 'All content', viewValueSv: 'Alla innehåll'},
+    {value: 'name', viewValueFi: 'Henkilön nimi', viewValueEn: 'Person name', viewValueSv: 'Person namn'},
+    {value: 'title', viewValueFi: 'Otsikko', viewValueEn: 'Title', viewValueSv: 'Titel'},
+    {value: 'keywords', viewValueFi: 'Avainsanat', viewValueEn: 'Keywords', viewValueSv: 'Nyckelord'},
+    {value: 'organization', viewValueFi: 'Organisaatio', viewValueEn: 'Organization', viewValueSv: 'Organisation'},
+    {value: 'funder', viewValueFi: 'Rahoittaja', viewValueEn: 'Funder', viewValueSv: 'Finansiären'}
   ];
 
   juFoCode = [
