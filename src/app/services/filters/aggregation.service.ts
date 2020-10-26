@@ -257,6 +257,94 @@ export class AggregationService {
             }
           }
         };
+        payLoad.aggs.publicationFormat = {
+          filter: {
+            bool: {
+              filter: filterActive('publicationFormat.id')
+            }
+          },
+          aggs: {
+            publicationFormats: {
+              terms: {
+                field: 'publicationFormat.name' + this.localeC + 'PublicationFormat.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'publicationFormat.id.keyword'
+                  }
+                }
+              }
+            }
+          }
+        };
+        payLoad.aggs.publicationAudience = {
+          filter: {
+            bool: {
+              filter: filterActive('publicationAudience.id')
+            }
+          },
+          aggs: {
+            publicationAudiences: {
+              terms: {
+                field: 'publicationAudience.name' + this.localeC + 'PublicationAudience.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'publicationAudience.id.keyword'
+                  }
+                }
+              }
+            }
+          }
+        };
+        payLoad.aggs.parentPublicationType = {
+          filter: {
+            bool: {
+              filter: filterActive('parentPublicationType.id')
+            }
+          },
+          aggs: {
+            parentPublicationTypes: {
+              terms: {
+                field: 'parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'parentPublicationType.id.keyword'
+                  }
+                }
+              }
+            }
+          }
+        };
+        payLoad.aggs.peerReviewed = {
+          filter: {
+            bool: {
+              filter: filterActive('peerReviewed.id')
+            }
+          },
+          aggs: {
+            peerReviewedValues: {
+              terms: {
+                field: 'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                id: {
+                  terms: {
+                    field: 'peerReviewed.id'
+                  }
+                }
+              }
+            }
+          }
+        };
         payLoad.aggs.juFo = {
           filter: {
             bool: {

@@ -6,7 +6,7 @@
 // :license: MIT
 
 import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy,
-         LOCALE_ID } from '@angular/core';
+         LOCALE_ID, ViewChildren, QueryList } from '@angular/core';
 import { faInfoCircle, faSearch, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 import { DOCUMENT } from '@angular/common';
@@ -20,10 +20,11 @@ import { ScrollService } from 'src/app/services/scroll.service';
 import { DataService } from 'src/app/services/data.service';
 import { content } from '../../../../assets/static-data/figures-content.json';
 import { WINDOW } from 'src/app/services/window.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
-import { figures, common } from 'src/assets/static-data/meta-tags.json'
+import { figures, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-figures',
@@ -38,10 +39,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronUp = faChevronUp;
 
   navItems = [
-    {id: 's1', label: $localize`:@@figuresSecHeader:Tiedon lähteet ja tuottajat`, icon: this.faIconCircle, active: true},
-    {id: 's2', label: $localize`:@@figuresSec1:Tutkimuksen rahoitus`, icon: this.faChartBar, active: false},
-    {id: 's3', label: $localize`:@@figuresSec2:Tutkimuksen henkilövoimavarat`, icon: this.faChartBar, active: false},
-    {id: 's4', label: $localize`:@@figuresSec3:Julkaisutoiminta ja tieteellinen vaikuttavuus`, icon: this.faChartBar, active: false},
+    {id: 's0', label: $localize`:@@figuresSecHeader:Tiedon lähteet ja tuottajat`, icon: this.faIconCircle, active: true},
+    {id: 's1', label: $localize`:@@figuresSec1:Tutkimuksen rahoitus`, icon: this.faChartBar, active: false},
+    {id: 's2', label: $localize`:@@figuresSec2:Tutkimuksen henkilövoimavarat`, icon: this.faChartBar, active: false},
+    {id: 's3', label: $localize`:@@figuresSec3:Julkaisutoiminta ja tieteellinen vaikuttavuus`, icon: this.faChartBar, active: false},
   ];
 
   coLink = [
@@ -54,35 +55,39 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     Fi: 'https://vipunen.fi/',
     En: 'https://vipunen.fi/en-gb/',
     Sv: 'https://vipunen.fi/sv-fi/'
-  }
+  };
 
   statcenterLink = {
     Fi: 'http://www.tilastokeskus.fi/',
     En: 'http://www.tilastokeskus.fi/index_en.html',
     Sv: 'http://www.tilastokeskus.fi/index_sv.html'
-  }
+  };
+
+  migriLink = {
+    Fi: 'https://migri.fi/etusivu',
+    En: 'www.migri.fi/en',
+    Sv: 'https://migri.fi/sv/'
+  };
 
   okmLink = {
     Fi: 'https://www.minedu.fi/',
     En: 'https://minedu.fi/en/frontpage',
     Sv: 'https://minedu.fi/sv/framsida'
-  }
+  };
 
   akaLink = {
     Fi: 'https://www.aka.fi/',
     En: 'https://www.aka.fi/en',
     Sv: 'https://www.aka.fi/sv/'
-  }
+  };
 
   cscLink = {
     Fi: 'https://www.csc.fi',
     En: 'https://www.csc.fi/en/home',
     Sv: 'https://www.csc.fi'
-  }
+  };
 
   allContent = content;
-
-  description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
   link = 'test';
   currentSection: any;
   queryField: FormControl = new FormControl();
@@ -93,6 +98,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainContent') mainContent: ElementRef;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChildren('segments') segments: QueryList<ElementRef>;
   querySub: Subscription;
   resizeSub: Subscription;
   scrollSub: Subscription;
@@ -103,13 +109,21 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private metaTags = figures;
   private commonTags = common;
+  roadmapFilter: string;
+  filtered: any[];
+  filteredQuery: any[];
+  queryParamSub: Subscription;
+  filterHasBeenClicked: boolean;
+  queryParams: any;
+  currentFilter = null;
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService,
-               private historyService: HistoryService, private utilityService: UtilityService ) {
+               private historyService: HistoryService, private utilityService: UtilityService, private route: ActivatedRoute,
+               private router: Router ) {
     // Default to first segment
-    this.currentSection = 's1';
+    this.currentSection = 's0';
     this.queryResults = [];
     this.queryTerm = '';
     this.hasResults = true;
@@ -122,6 +136,12 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.queryParamSub = this.route.queryParams.subscribe(params => {
+      this.currentFilter = params.filter || null;
+      this.filter(this.currentFilter);
+      this.queryParams = params;
+    });
+
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Lukuja tieteestä ja tutkimuksesta - Tiedejatutkimus.fi');
@@ -139,23 +159,26 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
                                 this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+                                this.commonTags['imgAlt' + this.currentLocale]);
 
 
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
     this.scrollSub = this.scrollService.onScroll.pipe(debounceTime(300)).subscribe(e => this.onScroll(e.y));
 
-    // Get data from assets
-    const combined = [];
-    // Combine all items
-    this.allContent.forEach(segment => combined.push(segment.items));
-    this.combinedData = combined.flat();
+    this.search();
+  }
 
+  search() {
     // Subscribe to input changes
     this.querySub = this.queryField.valueChanges.pipe(
       distinctUntilChanged()
       )
       .subscribe(term => {
+        // Get data from assets
+        const combined = [];
+        // Combine all items
+        this.allContent.forEach(segment => combined.push(segment.items));
+        this.combinedData = combined.flat();
         this.queryTerm = term;
         this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
           item['label' + this.currentLocale].toLowerCase().includes(term.toLowerCase()) ||
@@ -165,7 +188,47 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         // Highlight side nav item
         this.currentSection = this.queryResults.length > 0 ? '' : 's1';
     });
+  }
 
+  // Filtering with cloned content. Filter both allContent and query results
+  filter(filter: string) {
+    const data = cloneDeep(this.allContent);
+    filter = filter === 'all' ? null : filter;
+
+    const filtered = data.map(s => {
+      s.items = s.items.filter(item => filter ? item[filter] : item);
+      return s;
+    });
+
+    this.allContent = filter ? filtered : content;
+
+    // Set link disabled if no items
+    for (const navItem of this.navItems.slice(1)) {
+      Object.assign(this.navItems.find(item => item.id === navItem.id),
+      {disabled: this.allContent.find(item => item.id === navItem.id).items.length > 0 ? false : true});
+    }
+    // Set search results data
+    this.queryResults = this.combinedData?.filter(item => filter ? item.roadmap : item);
+  }
+
+  scrollTo(event: any) {
+    this.segments.first?.nativeElement.scrollIntoView();
+  }
+
+  // Navigate with params
+  navigate(params) {
+    this.filterHasBeenClicked = true;
+    let target;
+    switch (params) {
+      case 'roadmap': {
+        target = 'roadmap';
+        break;
+      }
+      default: {
+        target = null;
+      }
+    }
+    this.router.navigate([], {queryParams: {filter: target}});
   }
 
   ngAfterViewInit() {
@@ -197,10 +260,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resizeSub?.unsubscribe();
     this.scrollSub?.unsubscribe();
     this.tabChangeService.targetFocus('');
+    this.queryParamSub?.unsubscribe();
   }
 
   onSectionChange(sectionId: any) {
-    this.currentSection = sectionId ? sectionId : 's1';
+    this.currentSection = sectionId ? sectionId : 's0';
   }
 
   onResize() {

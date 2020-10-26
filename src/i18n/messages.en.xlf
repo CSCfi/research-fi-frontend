@@ -174,6 +174,10 @@
         </context-group>
         <note priority="1" from="description">Empty search history</note>
       </trans-unit>
+      <trans-unit id="homeNewsHeaderPlain">
+        <source>Tiede ja tutkimus Suomessa</source>
+        <target>Latest science and research news</target>
+      </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
         <source>Uusimmat tiede- ja tutkimusuutiset 
             <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>
@@ -209,6 +213,10 @@
           <context context-type="linenumber">68</context>
         </context-group>
         <note priority="1" from="description">Home page read more news link</note>
+      </trans-unit>
+      <trans-unit id="researchFinland">
+        <source>Tiede ja tutkimus Suomessa</source>
+        <target>Science and research in Finland</target>
       </trans-unit>
       <trans-unit id="resultCount" datatype="html">
         <source>hakutulosta</source>
@@ -1110,6 +1118,10 @@
         <source>Yhteisjulkaisut</source>
         <target>Co-publications</target>
       </trans-unit>
+      <trans-unit id="filterCoPublicationsTooltip">
+        <source>Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos näyttää tällöin vain sellaiset julkaisut, joissa kaikki alla olevasta listasta valitut organisaatiot ovat mukana. Jos yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki yhteisjulkaisut.</source>
+        <target>By choosing the ”show only co-publications” you can see what publications are made as a collaboration between Finnish research organizations. The search results will show only those publications where the authors are from all of the organizations selected in the list below. If no organization is selected, the search result will show all co-publications.</target>
+      </trans-unit>
       <trans-unit id="copyLink" datatype="html">
         <source>Kopioi linkki</source>
         <target>Copy link</target>
@@ -1295,15 +1307,15 @@
       </trans-unit>
       <trans-unit id="figuresIntro1" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</source>
-        <target>In the Figures on Science and Research section, you can find information on the funding, human resources, publishing activity and scientific impact of Finnish research. The section also includes international comparisons of Finland with, for example, EU and OECD countries.</target>
+        <target>The ‘Figures on science and research’ section shows information on research funding, human resources as well as publication activities and scientific impact in Finland. The section also includes comparisons between Finland and the EU and OECD countries, for instance.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="figuresIntro2" datatype="html">
-        <source>Tiedot perustuvat opetushallinnon Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja OECD:n tilastoihin. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</source>
-        <target>The information is based on Vipunen - Education Statistics Finland, Statistics Finland statistics, and OECD statistics. The section on publication activities and scientific impact also uses information from Clarivate Analytics' Web of Science citation database.</target>
+        <source>Tiedot perustuvat opetushallinnon Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja Maahanmuuttoviraston tietoihin. Kansainvälisessä vertailussa käytetään OECD:n tilastoja ja Euroopan Unionin CORDIS-palvelua. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</source>
+        <target>The information is based on statistics from Vipunen - Education Statistics Finland, statistics from Statistics Finland and data from the Finnish Immigration Service. The international comparison uses OECD statistics and the European Union’s CORDIS service. The section on publication activities and scientific impact utilises data from the Web of Science publication database maintained by Clarivate Analytics.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">60</context>
@@ -1311,7 +1323,7 @@
       </trans-unit>
       <trans-unit id="figuresIntro3" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</source>
-        <target>Figures on science and research was jointly produced by the Ministry of Education and Culture, the Academy of Finland and CSC - IT Center for Science. The page is constantly being developed and the statistics are updated every year.</target>
+        <target>The section has been produced collaboratively by the Ministry of Education and Culture, the Academy of Finland, and CSC – IT Center for Science. The page is under constant development and the statistics are updated annually.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">61</context>
@@ -1357,6 +1369,10 @@
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="maahanmuuttovirasto">
+        <source>Maahanmuuttovirasto</source>
+        <target>Finnish Immigration Service</target>
+      </trans-unit>
       <trans-unit id="okm" datatype="html">
         <source>Opetus- ja kulttuuriministeriö</source>
         <target>Ministry of Education and Culture</target>
@@ -1396,6 +1412,14 @@
           <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">73</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="showOnlyTKIfilter">
+        <source>Näytä vain TKI-tiekartan seurantamittarit</source>
+        <target>Show only the RDI roadmap's follow up indicators</target>
+      </trans-unit>
+      <trans-unit id="TKIRoadmap">
+        <source>TKI-tiekartan seurantamittari</source>
+        <target>RDI roadmap follow up indicator</target>
       </trans-unit>
       <trans-unit id="figureSearchResults" datatype="html">
         <source>Haun tulokset</source>
@@ -2297,6 +2321,34 @@
       <trans-unit id="publicationType">
         <source>Julkaisutyyppi</source>
         <target>Publication type</target>
+      </trans-unit>
+      <trans-unit id="OKMPublicationType">
+        <source>OKM:n julkaisutyyppiluokitus</source>
+        <target>MINEDU’s publication type classification code</target>
+      </trans-unit>
+      <trans-unit id="publicationFormat">
+        <source>Julkaisumuoto</source>
+        <target>Publication format</target>
+      </trans-unit>
+      <trans-unit id="publicationsFormat">
+        <source>Julkaisun muoto</source>
+        <target>Publication format</target>
+      </trans-unit>
+      <trans-unit id="publicationAudience">
+        <source>Julkaisun yleisö</source>
+        <target>Publication audience</target>
+      </trans-unit>
+      <trans-unit id="audience">
+        <source>Yleisö</source>
+        <target>Audience</target>
+      </trans-unit>
+      <trans-unit id="parentPublicationType">
+        <source>Emojulkaisun tyyppi</source>
+        <target>Host publication type</target>
+      </trans-unit>
+      <trans-unit id="peerReviewedFilter">
+        <source>Vertaisarvioitu</source>
+        <target>Peer-reviewed</target>
       </trans-unit>
       <trans-unit id="publicationTypeTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>

@@ -105,7 +105,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     b.data.push(v);
                     amount.push(b);
                 });
-
+                this.sortByName(amount);
                 break;
 
             case 'organization':
@@ -163,6 +163,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     });
                     fieldOfScience.push(b);
                 });
+                this.sortByName(fieldOfScience)
                 break;
 
 
@@ -184,6 +185,7 @@ export class FundingVisualAdapter implements Adapter<FundingVisual> {
                     });
                     // Push data to correct array
                     eval(`${field}.push(b)`);
+                    eval(`this.sortByName(${field})`);
                 });
                 break;
         }

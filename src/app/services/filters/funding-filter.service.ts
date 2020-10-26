@@ -48,7 +48,7 @@ export class FundingFilterService {
     const source = data.aggregations;
     if (!source.shaped) {
       // Year
-      source.year.buckets = source.year.years.buckets;
+      source.year.buckets = this.mapYear(source.year.years.buckets);
       // Organization
       source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
       // Funder
@@ -63,6 +63,14 @@ export class FundingFilterService {
     }
     source.shaped = true;
     return source;
+  }
+
+  mapYear(data) {
+    const clone = cloneDeep(data);
+    clone.map(item => {
+      item.key = item.key.toString();
+    });
+    return clone;
   }
 
   organization(fgp, oc) {
@@ -110,7 +118,7 @@ export class FundingFilterService {
     merged.forEach(item => {
       item.subData = item.organizations.buckets.filter(x => x.doc_count > 0);
       item.subData.map(subItem => {
-          subItem.label = subItem.key.trim();
+          subItem.label = subItem.label || subItem.key.trim();
           subItem.key = subItem.orgId.buckets[0].key;
           subItem.doc_count = subItem.doc_count;
       });
@@ -126,7 +134,7 @@ export class FundingFilterService {
     });
 
     res.map(item => {
-      item.label = item.key;
+      item.label = item.label || item.key;
       item.key = item.funderId.buckets[0].key;
     });
     return res;

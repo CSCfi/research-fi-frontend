@@ -179,6 +179,10 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
         return arr;
     }
 
+    sortByName(arr: VisualData[]) {
+        arr.forEach(d => d.data.sort((a, b) => +(a.name < b.name) - 0.5));
+    }
+
 
     adapt(item: any, categoryIdx?: number): PublicationVisual {
         // Init arrays
@@ -215,6 +219,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     });
                     fieldsOfScience.push(b);
                 });
+                this.sortByName(fieldsOfScience);
                 break;
 
             case 'majorFieldOfScience':
@@ -233,6 +238,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     });
                     majorFieldOfScience.push(b);
                 });
+                this.sortByName(majorFieldOfScience);
                 break;
 
             case 'organization':
@@ -251,6 +257,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     });
                     organization.push(b);
                 });
+                this.sortByName(organization);
                 break;
 
                 case 'openAccess': {
@@ -261,6 +268,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                         b.data = this.getOpenAccess(b.openAccess.buckets, b.key);
                         openAccess.push(b);
                     });
+                    this.sortByName(openAccess);
                     break;
             }
 
@@ -283,6 +291,7 @@ export class PublicationVisualAdapter implements Adapter<PublicationVisual> {
                     });
                     // Push data to correct array
                     eval(`${hierarchyField}.push(b)`);
+                    eval(`this.sortByName(${hierarchyField})`);
                 });
 
 

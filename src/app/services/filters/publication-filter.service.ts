@@ -22,6 +22,10 @@ export class PublicationFilterService {
     tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
     {field: 'publicationType', label: $localize`:@@publicationType:Julkaisutyyppi`, hasSubFields: true, open: false,
     tooltip: $localize`:@@pTypeFTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+    // {field: 'publicationFormat', label: $localize`:@@publicationFormat:Julkaisumuoto`, hasSubFields: false, open: false, tooltip: ''},
+    // {field: 'publicationAudience', label: $localize`:@@publicationAudience:Julkaisun yleisö`, hasSubFields: false, open: false, tooltip: ''},
+    // {field: 'parentPublicationType', label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`, hasSubFields: false, open: false, tooltip: ''},
+    // {field: 'peerReviewed', label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, hasSubFields: false, open: false, tooltip: ''},
     {field: 'countryCode', label: $localize`:@@publicationCountry:Julkaisumaa`, hasSubFields: false, open: true,
     tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`},
     {field: 'lang', label: $localize`:@@language:Kieli`, hasSubFields: false, open: true,
@@ -42,13 +46,17 @@ export class PublicationFilterService {
   shapeData(data) {
     const source = data.aggregations;
     // Year
-    source.year.buckets = source.year.years.buckets;
+    source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
     this.organization(source.organization);
     // Field of science
-    source.field.buckets = this.minorField(source.field.fields.buckets);
+    source.field.buckets = this.minorField(source.field.fields.buckets.filter(item => item.filtered.filterCount.doc_count > 0));
     // Publication Type
     source.publicationType.buckets = this.separatePublicationClass(source.publicationType.publicationTypes.buckets);
+    source.publicationFormat.buckets = this.mapKey(source.publicationFormat.publicationFormats.buckets);
+    source.publicationAudience.buckets = this.mapKey(source.publicationAudience.publicationAudiences.buckets);
+    source.parentPublicationType.buckets = this.mapKey(source.parentPublicationType.parentPublicationTypes.buckets);
+    source.peerReviewed.buckets = this.mapKey(source.peerReviewed.peerReviewedValues.buckets);
     // Country code
     source.countryCode.buckets = this.publicationCountry(source.countryCode.countryCodes.buckets);
     // Language code
@@ -70,7 +78,7 @@ export class PublicationFilterService {
     data.buckets.forEach(item => {
       item.subData = item.organization.org.buckets.filter(x => x.filtered.filterCount.doc_count > 0);
       item.subData.map(subItem => {
-          subItem.label = subItem.label ? subItem.label : subItem.key;
+          subItem.label = subItem.label || subItem.key;
           subItem.key = subItem.orgId.buckets[0].key;
           subItem.doc_count = subItem.filtered.filterCount.doc_count;
       });
@@ -78,21 +86,41 @@ export class PublicationFilterService {
     });
   }
 
+  mapYear(data) {
+    const clone = cloneDeep(data);
+    clone.map(item => {
+      item.key = item.key.toString();
+    });
+    return clone;
+  }
+
+  mapKey(data) {
+    const clone = cloneDeep(data);
+    clone.map(item => {
+      item.label = item.label || item.key;
+      item.key = typeof(item.id.buckets[0].key) === 'number' ? item.id.buckets[0].key.toString() : item.id.buckets[0].key;
+    });
+    return clone;
+  }
+
   minorField(data) {
-    // check if major aggregation is available
-    const combinedMajorFields =  data ?
-    (this.filterMethodService.separateMinor(data ? data : []) ) : [];
+    if (data.length) {
+      // check if major aggregation is available
+      const combinedMajorFields = data.length ?
+      (this.filterMethodService.separateMinor(data ? data : []) ) : [];
 
-    const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
+      const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
 
-    for (let i = 0; i < combinedMajorFields.length; i++) {
-      if (result[i]) {
+      for (let i = 0; i < combinedMajorFields.length; i++) {
+        if (result[i]) {
           result[i].subData = combinedMajorFields[i];
           // Add doc counts to major fields of science
           result[i].doc_count = result[i].subData.map(x => x.doc_count).reduce((a, b) => a + b, 0);
+        }
       }
+
+      return [...result.filter(item => item.subData.length > 0)];
     }
-    return result;
   }
 
   separatePublicationClass(data) {
@@ -107,12 +135,15 @@ export class PublicationFilterService {
 
     // Map items for subData
     const result = combined.map(
-      x => x = {key: x + ' ' + staticData.find(item => item.class === x).label, doc_count: 0, subData: staticData.find(item => item.class === x)
-      .types.map(type => type = {
-          type: type.type,
-          label: type.type + ' ' + type.label,
-          key: type.type,
-          doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : 0
+      x => x = {
+        key: x + ' ' + staticData.find(item => item.class === x).label,
+        doc_count: 0,
+        subData: staticData.find(item => item.class === x)
+        .types.map(type => type = {
+            type: type.type,
+            label: type.type + ' ' + type.label,
+            key: type.type,
+            doc_count: data.find(doc => doc.key === type.type) ? data.find(doc => doc.key === type.type).doc_count : 0
       })}
     );
 

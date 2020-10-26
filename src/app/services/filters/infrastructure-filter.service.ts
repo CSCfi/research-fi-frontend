@@ -6,6 +6,7 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
+import { cloneDeep } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class InfrastructureFilterService {
   shapeData(data) {
     const source = data.aggregations;
     // Year
-    source.year.buckets = source.year.years.buckets;
+    source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
     this.organization(source.organization);
     // Type
@@ -37,6 +38,14 @@ export class InfrastructureFilterService {
     source.field = this.field(source.infraField.infraFields);
     source.shaped = true;
     return source;
+  }
+
+  mapYear(data) {
+    const clone = cloneDeep(data);
+    clone.map(item => {
+      item.key = item.key.toString();
+    });
+    return clone;
   }
 
   organization(data) {
@@ -81,16 +90,10 @@ export class InfrastructureFilterService {
 
   field(data) {
     data.buckets.map(item => {
-      item.label = item.key;
+      item.label = item.label ? item.label : item.key;
       item.key = item.majorId.buckets[0].key;
       item.doc_count = item.filtered.filterCount.doc_count;
     });
     return data;
-  }
-
-  getSingleAmount(data) {
-    if (data.length > 0) {
-      return data.filter(x => x.key === 1);
-    }
   }
 }

@@ -97,6 +97,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
   private commonTags = common;
+  inputSub: Subscription;
 
   constructor( private searchService: SearchService, private route: ActivatedRoute, private titleService: Title,
                private tabChangeService: TabChangeService, private router: Router, private resizeService: ResizeService,
@@ -227,9 +228,6 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         //   }, 1);
         // }
 
-        // Get values for results tab
-        this.getTabValues();
-
         // If new filter data is neeed
         if (tabChanged || this.init) {
           // Reset filter values so new tab doesn't try to use previous tab's filters.
@@ -246,6 +244,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         this.searchService.redirecting = false;
         this.init = false;
       });
+
+    // Get tab values only on search term change
+    this.inputSub = this.searchService.currentInput.subscribe(() => {
+      this.getTabValues();
+    });
 
     this.totalSub = this.searchService.currentTotal.subscribe(total => {
       this.total = total || 0;
@@ -413,6 +416,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.combinedRouteParams?.unsubscribe();
       this.totalSub?.unsubscribe();
       this.tabSub?.unsubscribe();
+      this.inputSub?.unsubscribe();
     }
   }
 

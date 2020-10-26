@@ -11,13 +11,22 @@
         <a routerLink="/science-innovation-policy/science-research-figures/" class="back"><< <ng-container i18n="@@back">Takaisin</ng-container></a>
         <div class="row" *ngFor="let item of result; trackBy: trackByFn">
             <div class="col-12 px-lg-0 pb-2">
-                <h1>{{item['label' + currentLocale]}}</h1>
-                <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)" #keyboardHelp i18n="@@kbHelpHint">Ohje näppäimistökäyttäjälle</a>
-                <div *ngIf="showHelp" class="help p-3">
-                    <div class="m-0">
-                        <p i18n="@@figureKeyboardHelp1">Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>
-                        <p i18n="@@figureKeyboardHelp2">Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.</p>
-                    </div>                    
+                <div class="row">
+                    <h1>{{item['label' + currentLocale]}}</h1>
+                </div>
+            </div>
+            <div class="col-12 col-lg-10 px-lg-0 pb-2">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-auto px-0">
+                        <a href="javascript:void(0)" (click)="showHelp = !showHelp" (clickOutside)="onClickedOutsideHelp($event)" #keyboardHelp i18n="@@kbHelpHint">Ohje näppäimistökäyttäjälle</a>
+                        <div *ngIf="showHelp" class="help p-3">
+                            <div class="m-0">
+                                <p i18n="@@figureKeyboardHelp1">Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</p>
+                                <p i18n="@@figureKeyboardHelp2">Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.</p>
+                            </div>                    
+                        </div>
+                    </div>
+                    <mat-basic-chip *ngIf="item.roadmap" class="tag align-self-center" [disableRipple]="true" i18n="@@TKIRoadmap">TKI-tiekartan seurantamittari</mat-basic-chip>
                 </div>
             </div>
             <div class="col col-lg-10 base content" #content>
@@ -29,14 +38,11 @@
                     </div>
                     <div class="col col-lg-3 pl-0 pl-lg-4">
                         <div class="row pb-3">
-                            <div class="col align-self-center pointer pl-0" (click)="showInfo = !showInfo" (clickOutside)="onClickedOutside($event)"
-                            tabindex="0" (keydown.enter)="showInfo = !showInfo">
-                                <fa-icon class="info-icon" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
-                                <a class="strong text-uppercase pl-2 info-label" i18n="@@additionalInfo">Lisätietoa</a>
-                            </div>
-                            <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
-                                <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
-                                <p [innerHtml]="item['info' + currentLocale]"></p>
+                            <div class="col align-self-center pl-0">
+                                <div>
+                                    <app-figures-info *ngIf="item['info' + currentLocale]" i18n-labelText="@@additionalInfo" labelText="Lisätietoa" [content]="item['info' + currentLocale]"></app-figures-info> 
+                                    <a class="strong text-uppercase info-label" [class.pl-2]="item['info' + currentLocale]" i18n="@@additionalInfo">Lisätietoa</a>
+                                </div>
                             </div>
                         </div>
                         <div class="row pb-3">
@@ -57,7 +63,8 @@
             </div>
             <div class="carousel-wrapper">
                 <h2 class="pb-3" i18n="@@moreFiguresFrom">Lisää lukuja tieteestä ja tutkimuksesta</h2>
-                <app-carousel [data]="flatData" [id]="currentItem" class="carousel"></app-carousel>
+                <app-figure-filters [filter]="queryParams.filter"></app-figure-filters>
+                <app-carousel [data]="flatData" [id]="currentItem" [queryParams]="queryParams" class="carousel"></app-carousel>
             </div>
         </div>
     </div>

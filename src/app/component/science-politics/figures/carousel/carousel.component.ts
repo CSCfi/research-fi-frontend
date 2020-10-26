@@ -1,8 +1,12 @@
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+
 import { Component, OnInit, Input, OnChanges, Inject, LOCALE_ID } from '@angular/core';
 import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
-
-
-
 
 @Component({
   selector: 'app-carousel',
@@ -10,11 +14,12 @@ import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-s
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit, OnChanges {
-  
+
   @Input() data: any[];
   @Input() id: string;
-  
-  slicedData;
+  @Input() queryParams: any[];
+
+  slicedData: any[];
   idx: number;
   maxIdx: number;
   currentLocale: string;
@@ -34,7 +39,8 @@ export class CarouselComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.maxIdx = this.data.length - 1;
-    this.idx = this.data.findIndex(x => x.link === this.id);
+    // Default to first item if no matching ID when filtering
+    this.idx = this.data.find(x => x.link === this.id) ? this.data.findIndex(x => x.link === this.id) : 0;
     this.slicedData = this.sliceAround(this.idx, this.maxIdx, this.data);
   }
 

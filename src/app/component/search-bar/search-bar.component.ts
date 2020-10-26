@@ -248,9 +248,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       completionData = this.autoSuggestResponse[0].suggest.mySuggestions[0].options[1] ?
       this.autoSuggestResponse[0].suggest.mySuggestions[0].options[1].text : '';
     }
-    // Replace characters other than alphabetical letters
-    if (!completionData.match(/^[A-Z]/i)) {
-      completionData = completionData.replace(/[\W_0-9]+/g, '');
+    // Replace characters other than alphabetical letters at the start of completion
+    if (completionData.match(/^[^A-Z]/i)) {
+      completionData = completionData.replace(/^[^A-Z]+/i, '');
     }
     this.completion = completionData.slice(this.searchInput.nativeElement.value.split(' ').splice(-1)[0].length);
   }

@@ -43,10 +43,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
     {label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'publicationYear'},
-    {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', typeLabel: ' ',
-    tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+    {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', // Remove when type fields in use
+    tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`}, // Remove when type fields in use
     {label: $localize`:@@publicationAuthors:Tekijät`, field: 'authors',
-    tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`}
+    tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`},
   ];
 
   // authorFields = [
@@ -58,6 +58,15 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   organizationSubFields = [
     {label: $localize`:@@orgOrganization:Organisaatio`, field: 'organizationId'}
+  ];
+
+  typeFields = [
+    {label: $localize`:@@publicationsFormat:Julkaisun muoto`, field: 'format'},
+    {label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`, field: 'parentPublicationType'},
+    {label: $localize`:@@audience:Yleisö`, field: 'audience'},
+    {label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, field: 'peerReviewed'},
+    {label: $localize`:@@OKMPublicationType:OKM:n julkaisutyyppiluokitus`, field: 'publicationTypeCode',
+    tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
   ];
 
   mediumFields = [
@@ -249,6 +258,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
     // this.authorFields = this.authorFields.filter(item => checkEmpty(item));
     this.organizationSubFields = this.organizationSubFields.filter(item => checkEmpty(item));
+    this.typeFields = this.typeFields.filter(item => checkEmpty(item));
     this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
     this.linksFields = this.linksFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
@@ -274,9 +284,11 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     }
 
     // Link with targeted search for keywords
+    // We need to espace parentheses because these are registered in Angular router as secondary segments.
     if (keywords?.length > 0) {
       source.keywords = keywords.map(x =>
-        '<a href="/results/publications/' + x.keyword.trim() + '?target=keywords&page=1">'+ x.keyword.trim() +'</a>').join(', ');
+        '<a href="/results/publications/' + x.keyword.replaceAll(/\(/g, '%28').replaceAll(/\)/g, '%29').trim()
+        + '?target=keywords&page=1">' + x.keyword.trim() + '</a>').join(', ');
     }
 
     // Get authors per organization
@@ -390,6 +402,10 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.publicationTypeLabel = this.staticDataService.publicationClass.find
       (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find
       (type => type.type === source.publicationTypeCode)?.label || source.publicationTypeCode;
+
+    if (this.publicationTypeLabel) {
+      source.publicationTypeCode = source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;
+    }
 
     // tslint:disable-next-line: curly
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';

@@ -35,7 +35,7 @@ export class NewsAdapter implements Adapter<News> {
             item.total,
             item.feedUrl,
             item.newsHeadline,
-            item.newsContent,
+            item.newsContent.replace(/<img.*?>/g, ''), // Remove img tags
             item.url,
             item.author,
             Date.parse(item.timestamp),

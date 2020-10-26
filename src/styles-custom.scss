@@ -137,11 +137,22 @@ mark, .mark {
     animation-duration: .1s; /* Adjust this duration */
   }
   
-  @keyframes delayedFadeIn {
-    0% {opacity: 0;}
-    99% {opacity: 0;} /* Set this to 99% for no fade-in. */
-    100% {opacity: 1;}
-  }
+@keyframes delayedFadeIn {
+0% {opacity: 0;}
+99% {opacity: 0;} /* Set this to 99% for no fade-in. */
+100% {opacity: 1;}
+}
+
+// Tags
+mat-basic-chip.tag {
+    padding: 7px 12px;
+    border-radius: 1rem;
+    align-items: center;
+    cursor: default;
+    min-height: 2rem;
+    border: 1px solid mat-color($primary);
+    color: mat-color($primary);
+}
 
 // Bubble background
 .bg-bubble {
