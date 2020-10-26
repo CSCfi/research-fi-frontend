@@ -288,7 +288,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     if (keywords?.length > 0) {
       source.keywords = keywords.map(x =>
         '<a href="/results/publications/' + x.keyword.replaceAll(/\(/g, '%28').replaceAll(/\)/g, '%29').trim()
-        + '?target=keywords&page=1">' + x.keyword.trim() +'</a>').join(', ');
+        + '?target=keywords&page=1">' + x.keyword.trim() + '</a>').join(', ');
     }
 
     // Get authors per organization
@@ -404,7 +404,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       (type => type.type === source.publicationTypeCode)?.label || source.publicationTypeCode;
 
     if (this.publicationTypeLabel) {
-      source.publicationTypeCode = source.publicationTypeCode.trim() + ', ' + this.publicationTypeLabel;
+      source.publicationTypeCode = source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;
     }
 
     // tslint:disable-next-line: curly
