@@ -147,7 +147,7 @@
                         </div>
                     </ng-container>
                     <!-- Publication type -->
-                    <!-- <div class="row content"  *ngIf="typeFields?.length > 0">
+                    <div class="row content"  *ngIf="typeFields?.length > 0">
                         <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@publicationType">Julkaisutyyppi</h2>
                         <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of typeFields?.slice(0,3)">
                             <h3 class="th">
@@ -166,22 +166,22 @@
                         <div *ngIf="i % 3 == 0"></div>
                         <div class="row content" *ngIf="i % 3 == 0">
                             <!-- First col -->
-                            <!-- <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
                                <h3 class="th">{{row.label}}</h3>
                                <span *ngIf="!row.link">{{item[row.field]}}</span>
-                            </div> -->
+                            </div>
                             <!-- Second col -->    
-                            <!-- <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+1">
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+1">
                                <h3 class="th">{{typeFields.slice(3)[i + 1].label}}</h3>
                                <span>{{item[typeFields.slice(3)[i + 1].field]}}</span>
-                            </div>  -->
+                            </div> 
                             <!-- Third col -->   
-                            <!-- <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+2">
+                            <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+2">
                                <h3 class="th">{{typeFields.slice(3)[i + 2].label}}</h3>
                                <span>{{item[typeFields.slice(3)[i + 2].field]}}</span>
                             </div>        
                         </div>
-                    </ng-container> -->
+                    </ng-container>
                     <!-- Medium -->
                     <div class="row content" *ngIf="mediumFields?.length > 0">
                         <!-- Top row links, switch case to check for different search targets -->
