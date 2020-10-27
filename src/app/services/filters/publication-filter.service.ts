@@ -48,7 +48,7 @@ export class PublicationFilterService {
     // Year
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
-    this.organization(source.organization);
+    source.organization = this.organization(source.organization);
     // Field of science
     source.field.buckets = this.minorField(source.field.fields.buckets.filter(item => item.filtered.filterCount.doc_count > 0));
     // Publication Type
@@ -74,8 +74,9 @@ export class PublicationFilterService {
   }
 
   organization(data) {
-    data.buckets = data.sectorName ? data.sectorName.buckets : [];
-    data.buckets.forEach(item => {
+    const source = cloneDeep(data) || [];
+    source.buckets = source.sectorName ? source.sectorName.buckets : [];
+    source.buckets.forEach(item => {
       item.subData = item.organization.org.buckets.filter(x => x.filtered.filterCount.doc_count > 0);
       item.subData.map(subItem => {
           subItem.label = subItem.label || subItem.key;
@@ -84,6 +85,7 @@ export class PublicationFilterService {
       });
       item.doc_count = item.subData.map(s => s.doc_count).reduce((a, b) => a + b, 0);
     });
+    return source;
   }
 
   mapYear(data) {
