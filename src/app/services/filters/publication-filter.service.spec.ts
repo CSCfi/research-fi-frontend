@@ -28,16 +28,10 @@ describe('PublicationFilterService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should shape data', () => {
-    const res = service.shapeData(AggResponse);
-
-    expect(res.shaped).toBeDefined();
-  });
-
   it('should map organizations', () => {
-    service.organization(data);
+    const res = service.organization(data.organization);
     const subData = 'subData';
-    expect(data.organization.sectorName.buckets[0][subData]).toBeDefined();
+    expect(res.buckets[0][subData]).toBeDefined();
   });
 
   it('should map fields of science to major fields', () => {
