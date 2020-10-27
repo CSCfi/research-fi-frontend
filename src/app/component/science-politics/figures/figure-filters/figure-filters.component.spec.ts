@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatChipsModule } from '@angular/material/chips';
 import { Router } from '@angular/router';
 import { FigureFiltersComponent } from './figure-filters.component';
+
 
 describe('FigureFiltersComponent', () => {
   let component: FigureFiltersComponent;
@@ -12,7 +14,8 @@ describe('FigureFiltersComponent', () => {
       declarations: [ FigureFiltersComponent ],
       providers: [
         { provide: Router, useValue: routerSpy }
-      ]
+      ],
+      imports: [MatChipsModule]
     })
     .compileComponents();
   }));
