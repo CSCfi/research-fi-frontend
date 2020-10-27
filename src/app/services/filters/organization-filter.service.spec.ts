@@ -24,12 +24,6 @@ describe('OrganizationFilterService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should shape data', () => {
-    const res = service.shapeData(AggResponse);
-
-    expect(res.shaped).toBeDefined();
-  });
-
   it('should map sector data', () => {
     const res = service.sector(AggResponse.aggregations.sector.sectorId.buckets);
 
