@@ -338,7 +338,7 @@ export class AggregationService {
               aggs: {
                 id: {
                   terms: {
-                    field: 'peerReviewed.id'
+                    field: 'peerReviewed.id.keyword'
                   }
                 }
               }
