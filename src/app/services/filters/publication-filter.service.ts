@@ -22,10 +22,10 @@ export class PublicationFilterService {
     tooltip: $localize`:@@pFOSFTooltip:Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.`},
     {field: 'publicationType', label: $localize`:@@publicationType:Julkaisutyyppi`, hasSubFields: true, open: false,
     tooltip: $localize`:@@pTypeFTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
-    // {field: 'publicationFormat', label: $localize`:@@publicationFormat:Julkaisumuoto`, hasSubFields: false, open: false, tooltip: ''},
-    // {field: 'publicationAudience', label: $localize`:@@publicationAudience:Julkaisun yleisö`, hasSubFields: false, open: false, tooltip: ''},
-    // {field: 'parentPublicationType', label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`, hasSubFields: false, open: false, tooltip: ''},
-    // {field: 'peerReviewed', label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, hasSubFields: false, open: false, tooltip: ''},
+    {field: 'publicationFormat', label: $localize`:@@publicationFormat:Julkaisumuoto`, hasSubFields: false, open: false, tooltip: ''},
+    {field: 'publicationAudience', label: $localize`:@@publicationAudience:Julkaisun yleisö`, hasSubFields: false, open: false, tooltip: ''},
+    {field: 'parentPublicationType', label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`, hasSubFields: false, open: false, tooltip: ''},
+    {field: 'peerReviewed', label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, hasSubFields: false, open: false, tooltip: ''},
     {field: 'countryCode', label: $localize`:@@publicationCountry:Julkaisumaa`, hasSubFields: false, open: true,
     tooltip: $localize`:@@pCountryFTooltip:Julkaisijan maa.`},
     {field: 'lang', label: $localize`:@@language:Kieli`, hasSubFields: false, open: true,
@@ -48,7 +48,7 @@ export class PublicationFilterService {
     // Year
     source.year.buckets = this.mapYear(source.year.years.buckets);
     // Organization & sector
-    this.organization(source.organization);
+    source.organization = this.organization(source.organization);
     // Field of science
     source.field.buckets = this.minorField(source.field.fields.buckets.filter(item => item.filtered.filterCount.doc_count > 0));
     // Publication Type
@@ -74,8 +74,9 @@ export class PublicationFilterService {
   }
 
   organization(data) {
-    data.buckets = data.sectorName ? data.sectorName.buckets : [];
-    data.buckets.forEach(item => {
+    const source = cloneDeep(data) || [];
+    source.buckets = source.sectorName ? source.sectorName.buckets : [];
+    source.buckets.forEach(item => {
       item.subData = item.organization.org.buckets.filter(x => x.filtered.filterCount.doc_count > 0);
       item.subData.map(subItem => {
           subItem.label = subItem.label || subItem.key;
@@ -84,6 +85,7 @@ export class PublicationFilterService {
       });
       item.doc_count = item.subData.map(s => s.doc_count).reduce((a, b) => a + b, 0);
     });
+    return source;
   }
 
   mapYear(data) {

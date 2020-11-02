@@ -151,7 +151,6 @@ export class ActiveFiltersComponent implements OnInit, OnDestroy, AfterContentIn
         });
         this.activeFilters.push(...newFilters[key]);
       });
-      console.log(this.activeFilters);
       const tab = this.tabChangeService.tab;
 
       // Subscribe to aggregation data and shape to get corresponding values

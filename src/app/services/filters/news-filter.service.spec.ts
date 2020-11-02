@@ -22,11 +22,6 @@ describe('NewsFilterService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should shape data', () => {
-    const res = service.shapeData(AggResponse);
-    expect(res.shaped).toBeDefined();
-  });
-
   it('should map organizations', () => {
     const res = service.organization(AggResponse.aggregations.organization.buckets);
     res.forEach(item => {
