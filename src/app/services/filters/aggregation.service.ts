@@ -260,7 +260,7 @@ export class AggregationService {
         payLoad.aggs.publicationFormat = {
           filter: {
             bool: {
-              filter: filterActive('publicationFormat.id')
+              filter: filterActive('publicationFormat.id.keyword')
             }
           },
           aggs: {
@@ -282,7 +282,7 @@ export class AggregationService {
         payLoad.aggs.publicationAudience = {
           filter: {
             bool: {
-              filter: filterActive('publicationAudience.id')
+              filter: filterActive('publicationAudience.id.keyword')
             }
           },
           aggs: {
@@ -304,7 +304,7 @@ export class AggregationService {
         payLoad.aggs.parentPublicationType = {
           filter: {
             bool: {
-              filter: filterActive('parentPublicationType.id')
+              filter: filterActive('parentPublicationType.id.keyword')
             }
           },
           aggs: {
@@ -326,7 +326,7 @@ export class AggregationService {
         payLoad.aggs.peerReviewed = {
           filter: {
             bool: {
-              filter: filterActive('peerReviewed.id')
+              filter: filterActive('peerReviewed.id.keyword')
             }
           },
           aggs: {
