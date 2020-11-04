@@ -113,7 +113,7 @@ export class BarComponent implements OnInit, OnChanges {
       // Shuffle the color order from the first onward (year colors stay same)
       d3.shuffle(
         // Quantize the desired scale to the length of data
-        d3.quantize(d3.interpolateCool, max([len, 3])), 1
+        d3.quantize(d3.interpolateSinebow, max([len, 3])), 1
         )
     );
 
