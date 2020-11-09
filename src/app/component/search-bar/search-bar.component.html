@@ -124,7 +124,7 @@
               </div>
               <ng-template #showHistory>
                 <div class="col query-history">
-                  <h3 class="font-weight-bold" i18n="Search history@@searchHistory">Hait viimeeksi:</h3>
+                  <h3 class="font-weight-bold" i18n="Search history@@searchHistory">Hait viimeksi:</h3>
                   <ul>
                     <app-list-item *ngFor="let item of queryHistory" class="list-group-item" [historyItem]="item">
                       <a tabindex="-1" href="javascript:void(0);" (click)="newInput(undefined, item); clearResponse()">{{item}}</a>
