@@ -78,17 +78,21 @@ app.use(helmet.contentSecurityPolicy({
     styleSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
+      'https://*.twitter.com:*',
       'https://fonts.googleapis.com:*'
     ],
     scriptSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
       '\'unsafe-eval\'',
-      'https://*.csc.fi:*'
+      'https://*.csc.fi:*',
+      'https://*.twitter.com:*',
+      'https://cdn.syndication.twimg.com:*',
     ],
     frameSrc: [
       'https://app.powerbi.com:*',
-      'https://rihmatomo-analytics.csc.fi:*'
+      'https://rihmatomo-analytics.csc.fi:*',
+      'https://*.twitter.com:*'
     ],
     fontSrc: [
       '\'self\'',
@@ -106,7 +110,8 @@ app.use(helmet.contentSecurityPolicy({
       'https://wiki.eduuni.fi:*',
       'https://www.hamk.fi',
       'https://mediapankki.tuni.fi:*',
-      'https://www.turkuamk.fi:*'
+      'https://www.turkuamk.fi:*',
+      'https://*.twitter.com:*'
 
     ]
   }

@@ -31,7 +31,6 @@ export class News {
 export class NewsAdapter implements Adapter<News> {
     constructor() {}
     adapt(item: any): News {
-        console.log('asd')
         return new News(
             item.total,
             item.feedUrl,

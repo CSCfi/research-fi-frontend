@@ -22,6 +22,8 @@ import { homepage, common } from 'src/assets/static-data/meta-tags.json';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
 
+declare var twttr: any;
+
 @Component({
   providers: [SearchBarComponent],
   selector: 'app-home-page',
@@ -200,7 +202,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.srHeader.nativeElement.innerHTML = this.document.title.split(' - ', 1);
 
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
-
     // Reset local storage
     // if (isPlatformBrowser(this.platformId)) {
     //   localStorage.removeItem('Pagenumber');
@@ -224,6 +225,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.tabChangeService.targetFocus(null);
       }
     });
+    twttr.widgets.load();
   }
 
   // Get height of div with most height
