@@ -172,9 +172,13 @@
         </context-group>
         <note priority="1" from="description">Empty search history</note>
       </trans-unit>
+      <trans-unit id="researchfiTwitter">
+        <source>Tiedejatutkimus.fi Twitterissä</source>
+        <target>Senaste vetenskaps- och forskningsnyheterna</target>
+      </trans-unit>
       <trans-unit id="homeNewsHeaderPlain">
         <source>Tiede ja tutkimus Suomessa</source>
-        <target>Senaste vetenskaps- och forskningsnyheterna</target>
+        <target>Forskning.fi på twitter</target>
       </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
         <source>Uusimmat tiede- ja tutkimusuutiset 

@@ -18,9 +18,10 @@
     margin-left: 0px!important;
 }
 
-.shortcuts, .news {
+.shortcuts, .news, .twitter {
     padding: 0;
-    margin: 0 10px;
+    margin: 0;
+    margin-bottom: 1rem;
 }
 
 .cover-img {
@@ -66,8 +67,19 @@
     justify-content: center;
     h2 {
         font-size: 1.4rem;
+        padding: 0 1rem;
     }
 }
+
+.twitter {
+    // max-height: 855px;
+    .col-header {
+        min-height: 4.57rem; // z-index issues
+        h2 {
+            margin: 0;
+        }
+    }
+} 
 
 .sub-header {
     width: fit-content;
@@ -80,6 +92,7 @@
     margin-top: -50px;
     h2 {
         font-size: 1.4rem;
+        margin: 0;
     }
 }
 
@@ -150,6 +163,10 @@ a.link-news {
 }
 
 @media (max-width: 621px) {
+    .twitter {
+        max-height: 680px;
+    }
+
     .col-6.link-img {
         max-width: 100%;
         flex: auto;
