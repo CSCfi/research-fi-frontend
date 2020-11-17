@@ -128,6 +128,7 @@ export class FundingFilterService {
   }
 
   funder(data) {
+    console.log(data)
     // Filter out empty keys
     const res = data.filter(item => {
       return item.key !== ' ';
@@ -135,7 +136,7 @@ export class FundingFilterService {
 
     res.map(item => {
       item.label = item.label || item.key;
-      item.key = item.funderId.buckets[0].key;
+      item.key = item.funderId.buckets[0]?.key || item.key;
     });
     return res;
   }
