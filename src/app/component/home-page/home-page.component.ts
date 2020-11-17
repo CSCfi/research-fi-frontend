@@ -21,6 +21,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { homepage, common } from 'src/assets/static-data/meta-tags.json';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
+import { PrivacyService } from 'src/app/services/privacy.service';
 
 declare var twttr: any;
 
@@ -150,13 +151,15 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: any;
   currentLocale: string;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
+  consentStatus: string;
+  consentStatusSub: any;
 
 
   constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService,
-               public dialog: MatDialog) {
+               public dialog: MatDialog, private privacyService: PrivacyService) {
                  // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
@@ -207,6 +210,11 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     //   localStorage.removeItem('Pagenumber');
     //   localStorage.setItem('Pagenumber', JSON.stringify(1));
     // }
+
+    // Get consent status
+    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
+      this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
+    });
   }
 
   onResize() {
@@ -257,5 +265,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();
+    this.consentStatusSub?.unsubscribe();
   }
 }
