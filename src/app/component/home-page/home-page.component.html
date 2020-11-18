@@ -22,7 +22,7 @@
         <div class="mx-1">
 
           <div class="col-header">
-            <h2 i18n="@@researchFinland" class="text-center">Tiede ja tutkimus Suomessa</h2>
+            <h2 i18n="@@researchFinland" class="text-center m-0">Tiede ja tutkimus Suomessa</h2>
           </div>
           <div *ngFor="let item of shortcuts.slice(0, 3)" class="col-12 link-img drop-shadow">
             <a class="shortcut" #main routerLink="{{item.link}}" (click)="item.toggleReview ? toggleReview() : null">
@@ -49,7 +49,7 @@
         <div class="mx-1 drop-shadow">
           <a class="header-link" routerLink="/news">
             <div class="col-header">
-              <h2 i18n="@@homeNewsHeaderPlain" class="text-center">Uusimmat tiede- ja tutkimusuutiset</h2>
+              <h2 i18n="@@homeNewsHeaderPlain" class="text-center m-0">Uusimmat tiede- ja tutkimusuutiset</h2>
             </div>
           </a>
           <div class="col-12 link-img mb-4">

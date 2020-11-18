@@ -62,7 +62,7 @@
 // Columns
 
 .col-header {
-    min-height: 5rem;
+    min-height: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,7 +75,7 @@
 .twitter {
     // max-height: 855px;
     .col-header {
-        min-height: 4.57rem; // z-index issues
+        min-height: 4rem; // z-index issues
         h2 {
             margin: 0;
         }
