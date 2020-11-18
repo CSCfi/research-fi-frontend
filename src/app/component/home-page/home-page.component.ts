@@ -6,9 +6,9 @@
 //  :license: MIT
 
 import { Component, OnInit, ViewChild, ViewChildren, ElementRef, Inject, PLATFORM_ID, QueryList, AfterViewInit,
-  HostListener, ChangeDetectorRef, LOCALE_ID, OnDestroy } from '@angular/core';
+         ChangeDetectorRef, LOCALE_ID, OnDestroy } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Title, Meta } from '@angular/platform-browser';
+import { Title, } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -22,8 +22,7 @@ import { homepage, common } from 'src/assets/static-data/meta-tags.json';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
 import { PrivacyService } from 'src/app/services/privacy.service';
-
-declare var twttr: any;
+import { WINDOW } from 'src/app/services/window.service';
 
 @Component({
   providers: [SearchBarComponent],
@@ -155,10 +154,10 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   consentStatusSub: any;
 
 
-  constructor( private searchService: SearchService, private sortService: SortService, private searchBar: SearchBarComponent,
+  constructor( private searchService: SearchService, private sortService: SortService, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, private metaService: Meta, public utilityService: UtilityService,
+               private resizeService: ResizeService, public utilityService: UtilityService,
                public dialog: MatDialog, private privacyService: PrivacyService) {
                  // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
@@ -205,11 +204,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.srHeader.nativeElement.innerHTML = this.document.title.split(' - ', 1);
 
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
-    // Reset local storage
-    // if (isPlatformBrowser(this.platformId)) {
-    //   localStorage.removeItem('Pagenumber');
-    //   localStorage.setItem('Pagenumber', JSON.stringify(1));
-    // }
 
     // Get consent status
     this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
@@ -233,7 +227,9 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.tabChangeService.targetFocus(null);
       }
     });
-    twttr.widgets.load();
+    if (isPlatformBrowser(this.platformId)) {
+      (this.window as any).twttr?.widgets?.load();
+    }
   }
 
   // Get height of div with most height
