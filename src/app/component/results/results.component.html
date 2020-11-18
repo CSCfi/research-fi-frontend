@@ -120,19 +120,19 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <span></span> <!-- invisible flex item for auto margin -->
                 <span class="d-flex align-items-center">
                     <h5 class="modal-title pr-2">{{visualisationCategories[visIdx].title}}</h5>
-                    <span [tooltip]="betaTooltip" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
-                        <app-secondary-button [icon]="'info-circle'" [content]="'Beta'"></app-secondary-button>
-                    </span>
+                    <!-- <span [tooltip]="betaTooltip" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
+                        <app-secondary-button [icon]="'info-circle'" [content]="additionalInfo"></app-secondary-button>
+                    </span> -->
+                    <div (click)="showInfo = !showInfo" (keydown.enter)="showInfo = !showInfo" tabindex="0" (clickOutside)="onClickedOutside($event)">
+                        <fa-icon class="info-icon pr-2" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
+                        <a>Lisätietoa </a>
+                    </div>
                 </span>
                 <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="col-3">
-                    <div (click)="showInfo = !showInfo" (keydown.enter)="showInfo = !showInfo" tabindex="0" (clickOutside)="onClickedOutside($event)">
-                        <fa-icon class="info-icon pr-2" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
-                        <a>Lisätietoa</a>
-                    </div>
                     <div #info *ngIf="showInfo" class="info p-3" [ngClass]="mobile ? 'right' : 'left'">
                         <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
                         <div [innerHtml]="visualisationInfo"></div>
