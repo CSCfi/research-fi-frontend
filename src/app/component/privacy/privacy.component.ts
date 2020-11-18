@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { privacy, common } from 'src/assets/static-data/meta-tags.json'
 import { UtilityService } from 'src/app/services/utility.service';
+import { WINDOW } from 'src/app/services/window.service';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
               private privacyService: PrivacyService, private snackBar: MatSnackBar, private route: ActivatedRoute,
-              private router: Router, private utilityService: UtilityService) {
+              private router: Router, private utilityService: UtilityService, @Inject(WINDOW) private window: Window) {
     this.locale = localeId;
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
@@ -80,9 +81,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.title = this.getTitle();
 
     // Get consent status
-    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
+        this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
+      });
+    }
   }
 
   changeConsent(status) {
@@ -114,6 +117,8 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       _paq.push(['forgetConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
+      this.document.getElementById('twitter-cookie').remove();
+      this.window.location.reload();
     }
     this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`);
   }
@@ -128,8 +133,18 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       _paq.push(['rememberConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
+      this.setTwitterCookie();
     }
     this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
+  }
+
+  setTwitterCookie() {
+    const node = this.document.createElement('script');
+    node.id = 'twitter-cookie';
+    node.async = true;
+    node.src = 'https://platform.twitter.com/widgets.js';
+    node.charset = 'utf-8';
+    this.document.getElementsByTagName('head')[0].appendChild(node);
   }
 
   setTitle(title: string) {
