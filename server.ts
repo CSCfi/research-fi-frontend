@@ -115,6 +115,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://*.twitter.com:*',
       'https://*.twimg.com:*',
       'https://*.w3.org:*',
+      'data:',
     ]
   }
 }));
