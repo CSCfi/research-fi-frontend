@@ -111,8 +111,8 @@ app.use(helmet.contentSecurityPolicy({
       'https://www.hamk.fi',
       'https://mediapankki.tuni.fi:*',
       'https://www.turkuamk.fi:*',
-      'https://*.twitter.com:*'
-
+      'https://*.twitter.com:*',
+      'https://*.twimg.com:*'
     ]
   }
 }));
