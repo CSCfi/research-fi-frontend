@@ -736,7 +736,27 @@ export class StaticDataService {
                     name: 'funder',
                     size: 1,
                     order: 1
-                }
+                },
+                {
+                    name: 'orgNested',
+                    nested: 'fundingGroupPerson'
+                },
+                {
+                  field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
+                  name: 'organizationId',
+                  size: 100,
+                  filterName: 'organization'
+                },
+                {
+                  field: 'fundingGroupPerson.consortiumOrganizationName|locale|.keyword',
+                  name: 'organizationName',
+                  size: 1
+                },
+                {
+                  sum: 'fundingGroupPerson.shareOfFundingInEur',
+                  name: 'moneySum',
+                  size: 1
+                },
             ]
         },
         {        

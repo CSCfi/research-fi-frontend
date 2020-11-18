@@ -11,38 +11,39 @@ import { PublicationVisual, PublicationVisualAdapter } from './publication-visua
 import { FundingVisual, FundingVisualAdapter } from './funding-visual.model';
 
 export interface VisualData {
-    key: string,
-    doc_count: number,
-    data: VisualDataObject[]
+    key: string;
+    doc_count: number;
+    data: VisualDataObject[];
 }
 
 export interface VisualDataObject {
-    name: string,
+    name: string;
     id: string;
-    doc_count: number,
-    parent: string,
+    doc_count: number;
+    parent: string;
 }
 
 export interface VisualQueryHierarchy {
-    field?: string,
-    name: string,
-    size?: number,
-    order?: number,
-    filterName?: string,
-    exclude?: string | string[] | number[],
-    nested?: string,
-    filter?: {field: string, value: any},
-    script?: string
+    field?: string;
+    name: string;
+    size?: number;
+    order?: number;
+    filterName?: string;
+    exclude?: string | string[] | number[];
+    nested?: string;
+    filter?: {field: string, value: any};
+    sum?: string;
+    script?: string;
 }
 
 export interface VisualQuery {
-    field: string,
-    title: string,
-    select: string,
-    message?: string,
-    filter?: string,
-    hierarchy: VisualQueryHierarchy[],
-    hierarchy2?: VisualQueryHierarchy[]
+    field: string;
+    title: string;
+    select: string;
+    message?: string;
+    filter?: string;
+    hierarchy: VisualQueryHierarchy[];
+    hierarchy2?: VisualQueryHierarchy[];
 }
 
 
