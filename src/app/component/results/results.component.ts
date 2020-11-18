@@ -87,6 +87,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualSub: Subscription;
   modalRef: BsModalRef;
   showInfo = true;
+  fundingAmount = true;
 
   faDownload = faDownload;
   faTrash = faTrash;
@@ -345,7 +346,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.visualLoading = true;
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getVisualData(+this.visIdx)
+      this.searchService.getVisualData(+this.visIdx, this.fundingAmount)
       .subscribe(values => {
         this.visualData = values;
         this.visualLoading = false;

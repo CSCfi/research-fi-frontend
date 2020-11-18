@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { PublicationVisual, PublicationVisualAdapter } from './publication-visual.model';
 import { FundingVisual, FundingVisualAdapter } from './funding-visual.model';
+import { FundingVisualAmountAdapter } from './funding-amount-visual.model';
 
 export interface VisualData {
     key: string;
@@ -58,8 +59,9 @@ export class Visual {
     providedIn: 'root'
 })
 export class VisualAdapter implements Adapter<Visual> {
-    constructor(private publicationVisualAdapter: PublicationVisualAdapter, private fundingVisualAdapter: FundingVisualAdapter) {}
-    adapt(item: any, tab?: string, categoryIdx?: number): Visual {
+    constructor(private publicationVisualAdapter: PublicationVisualAdapter, private fundingVisualAdapter: FundingVisualAdapter,
+                private fundingAmountAdapter: FundingVisualAmountAdapter) {}
+    adapt(item: any, tab?: string, categoryIdx?: number, fundingAmount?: boolean): Visual {
 
         let publicationData: PublicationVisual;
         let fundingData: FundingVisual;
@@ -69,7 +71,12 @@ export class VisualAdapter implements Adapter<Visual> {
                 publicationData = this.publicationVisualAdapter.adapt(item, categoryIdx);
                 break;
             case 'fundings':
-                fundingData = this.fundingVisualAdapter.adapt(item, categoryIdx);
+                // tslint:disable-next-line: curly
+                if (!fundingAmount)
+                    fundingData = this.fundingVisualAdapter.adapt(item, categoryIdx);
+                // tslint:disable-next-line: curly
+                else
+                    fundingData = this.fundingAmountAdapter.adapt(item, categoryIdx);
                 break;
         }
 

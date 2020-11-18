@@ -748,11 +748,6 @@ export class StaticDataService {
                   filterName: 'organization'
                 },
                 {
-                  field: 'fundingGroupPerson.consortiumOrganizationName|locale|.keyword',
-                  name: 'organizationName',
-                  size: 1
-                },
-                {
                   sum: 'fundingGroupPerson.shareOfFundingInEur',
                   name: 'moneySum',
                   size: 1
