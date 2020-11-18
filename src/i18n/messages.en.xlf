@@ -2348,7 +2348,7 @@
       </trans-unit>
       <trans-unit id="parentPublicationType">
         <source>Emojulkaisun tyyppi</source>
-        <target>Host publication type</target>
+        <target>Parent publication type</target>
       </trans-unit>
       <trans-unit id="peerReviewedFilter">
         <source>Vertaisarvioitu</source>
