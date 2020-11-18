@@ -81,9 +81,11 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.title = this.getTitle();
 
     // Get consent status
-    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
+        this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
+      });
+    }
   }
 
   changeConsent(status) {

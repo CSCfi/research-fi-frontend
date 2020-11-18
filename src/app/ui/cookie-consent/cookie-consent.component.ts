@@ -130,8 +130,10 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
     })();`;
     this.document.getElementsByTagName('head')[0].appendChild(node);
-    if (localStorage.getItem('cookieConsent') === 'approved') {
-      this.setTwitterCookie();
+    if (isPlatformBrowser(this.platformId)) {
+      if (localStorage.getItem('cookieConsent') === 'approved') {
+        this.setTwitterCookie();
+      }
     }
   }
 

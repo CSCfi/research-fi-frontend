@@ -206,9 +206,11 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
 
     // Get consent status
-    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
+        this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
+      });
+    }
   }
 
   onResize() {
