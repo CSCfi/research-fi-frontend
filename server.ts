@@ -79,7 +79,8 @@ app.use(helmet.contentSecurityPolicy({
       '\'self\'',
       '\'unsafe-inline\'',
       'https://*.twitter.com:*',
-      'https://fonts.googleapis.com:*'
+      'https://fonts.googleapis.com:*',
+      'https://*.twimg.com:*',
     ],
     scriptSrc: [
       '\'self\'',
@@ -108,11 +109,12 @@ app.use(helmet.contentSecurityPolicy({
       'https://www.maanmittauslaitos.fi:*',
       'https://rihmatomo-analytics.csc.fi:*',
       'https://wiki.eduuni.fi:*',
-      'https://www.hamk.fi',
+      'https://www.hamk.fi:*',
       'https://mediapankki.tuni.fi:*',
       'https://www.turkuamk.fi:*',
       'https://*.twitter.com:*',
-      'https://*.twimg.com:*'
+      'https://*.twimg.com:*',
+      'https://*.w3.org:*',
     ]
   }
 }));
