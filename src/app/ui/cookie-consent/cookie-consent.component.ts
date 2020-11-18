@@ -109,7 +109,6 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     node.async = true;
     node.src = 'https://platform.twitter.com/widgets.js';
     node.charset = 'utf-8';
-    console.log(node);
     this.document.getElementsByTagName('head')[0].appendChild(node);
   }
 
