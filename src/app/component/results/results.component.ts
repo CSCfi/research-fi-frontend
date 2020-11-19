@@ -91,6 +91,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   faDownload = faDownload;
   faTrash = faTrash;
   faChartBar = faChartBar;
+  showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
   additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
   downloadImage = $localize`:@@downloadAsImage:Lataa kuvana (tulossa)`;
@@ -202,7 +203,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
               break;
             case 'fundings':
               this.visualisationCategories = this.visualFunding;
-              this.visualisationInfo = this.staticDataService.visualisationData.fundingTooltip;
+              this.visualisationInfo = this.staticDataService.visualisationData['fundingTooltip' + this.currentLocale];
               break;
             default:
               this.visualisationCategories = [];

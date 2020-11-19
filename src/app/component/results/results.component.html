@@ -87,7 +87,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #desktop>
     <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
         <div class="justify-content-center align-items-center d-none d-lg-flex visual-button-container" *ngIf="tab === 'publications' || tab === 'fundings'">
-            <app-primary-action-button [content]="'Näytä kuvana'" [icon]="faChartBar" (click)="openModal(visualModal)"></app-primary-action-button>
+            <app-primary-action-button [content]="showAsVisual" [icon]="faChartBar" (click)="openModal(visualModal)"></app-primary-action-button>
         </div>
         <app-filters *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
         <app-filters *ngIf="tab===tabData[1].link"  [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>

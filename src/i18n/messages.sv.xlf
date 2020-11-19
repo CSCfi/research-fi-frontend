@@ -1519,6 +1519,10 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="showAsVisual">
+        <source>Näytä kuvana</source>
+        <target>Visa som bild</target>
+      </trans-unit>
       <trans-unit id="additionalInfo" datatype="html">
         <source>Lisätietoa</source>
         <target state="translated">Mer information</target>
