@@ -138,7 +138,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         <div [innerHtml]="visualisationInfo"></div>
                     </div>
                     <mat-form-field class="visual-select">
-                        <mat-label>Valitse teema</mat-label>
+                        <mat-label class="strong">Valitse teema</mat-label>
                         <mat-select (selectionChange)="changeVisual($event)">
                             <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
                         </mat-select>
