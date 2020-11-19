@@ -889,6 +889,26 @@
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="chooseTheme">
+        <source>Valitse teema</source>
+        <target>Select theme</target>
+      </trans-unit>
+      <trans-unit id="noSearchTerm">
+        <source>Ei hakusanaa</source>
+        <target>No search word</target>
+      </trans-unit>
+      <trans-unit id="asCount">
+        <source>Lukumäärinä</source>
+        <target>In numbers</target>
+      </trans-unit>
+      <trans-unit id="asPercent">
+        <source>Prosentteina</source>
+        <target>In percentages</target>
+      </trans-unit>
+      <trans-unit id="downloadAsImage">
+        <source>Lataa kuvana (tulossa)</source>
+        <target>Download as image (coming soon)</target>
+      </trans-unit>
       <trans-unit id="orgName" datatype="html">
         <source>Nimi</source>
         <target>Name</target>
@@ -968,6 +988,62 @@
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">148</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="publicationCountByYear">
+        <source>Julkaisujen määrä vuosittain</source>
+        <target>Number of publications by year  </target>
+      </trans-unit>
+      <trans-unit id="publicationCountByFOS">
+        <source>Julkaisujen määrä tieteenaloittain</source>
+        <target>Number of publications by field of science</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByMajor">
+        <source>Julkaisujen määrä päätieteenaloittain</source>
+        <target>Number of publications by main field of science</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByOrg">
+        <source>Julkaisujen määrä organisaatioittain</source>
+        <target>Number of publications by organization</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByType">
+        <source>Julkaisujen määrä julkaisutyypin mukaan</source>
+        <target>Number of publications by publication type</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByCountry">
+        <source>Julkaisujen määrä julkaisumaan mukaan</source>
+        <target>Number of publications by publication country</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByLang">
+        <source>Julkaisujen määrä kielen mukaan</source>
+        <target>Number of publications by language</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByJuFo">
+        <source>Julkaisujen määrä julkaisufoorumitason mukaan</source>
+        <target>Number of publications by publication forum level</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByOA">
+        <source>Julkaisujen määrä avoimen saatavuuden mukaan</source>
+        <target>Number of publications by open access</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByYear">
+        <source>Hankkeiden määrä vuosittain</source>
+        <target>Number of projects by year</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByFunder">
+        <source>Hankkeiden määrä rahoittajan mukaan</source>
+        <target>Number of projects by funder</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByOrg">
+        <source>Hankkeiden määrä organisaatioittain</source>
+        <target>Number of projects by organization</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByType">
+        <source>Hankkeiden määrä rahoitusmuodon mukaan</source>
+        <target>Number of projects by funding instrument</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByFOS">
+        <source>Hankkeiden määrä tieteenaloittain</source>
+        <target>Number of projects by field of science</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>

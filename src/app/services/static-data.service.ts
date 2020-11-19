@@ -20,7 +20,6 @@ interface Target {
   providedIn: 'root'
 })
 export class StaticDataService {
-  
   // Filters, Fields of study
   majorFieldsOfScience = [
     {id: 1, key: $localize`:@@naturalSciences:Luonnontieteet`, checked: false, subData: [], doc_count: 0},
@@ -57,6 +56,7 @@ export class StaticDataService {
     },
     {id: 4, class: 'D', label: $localize`Ammattiyhteisölle suunnatut julkaisut`, types: [
       {type: 'D1', label: $localize`Artikkeli ammattilehdessä`, key: '', doc_count: 0},
+      // tslint:disable-next-line: max-line-length
       {type: 'D2', label: $localize`Artikkeli ammatillisessa käsi- tai opaskirjassa, ammatillisessa tietojärjestelmässä tai oppikirja-aineisto`, key: '', doc_count: 0},
       {type: 'D3', label: $localize`Artikkeli ammatillisessa konferenssijulkaisussa`, key: '', doc_count: 0},
       {type: 'D4', label: $localize`Julkaistu kehittämis- tai tutkimusraportti taikka -selvitys`, key: '', doc_count: 0},
@@ -129,7 +129,7 @@ export class StaticDataService {
               'publisherName', 'publisherLocation', 'doi', 'doiHandle', 'greenOpenAccessAddress',  'fields_of_education',
               'issn', 'issn2', 'isbn', 'isbn2', 'keywords.keyword',
               'jufoCode', 'jufoClassCode', 'fields_of_science.nameFiScience', 'fields_of_science.nameEnScience',
-              'fields_of_science.nameSvScience',];
+              'fields_of_science.nameSvScience', ];
         break;
       }
       case 'person': {
@@ -198,7 +198,7 @@ export class StaticDataService {
           'fundingGroupPerson.consortiumOrganizationNameSv',
           'fundingGroupPerson.roleInFundingGroup',
           'fundingGroupPerson.consortiumProject'
-        ]
+        ];
       }
     }
     return res;
@@ -436,22 +436,35 @@ export class StaticDataService {
     }
     return res;
   }
-  
 
   // tslint:disable-next-line: member-ordering
-  visualisationData: {locale: d3.FormatLocaleDefinition, publicationTooltip: string, fundingTooltip: string, publication: VisualQuery[], funding: VisualQuery[]} = {
+  visualisationData: {
+    locale: d3.FormatLocaleDefinition,
+    publicationTooltipFi: string,
+    publicationTooltipSv: string,
+    publicationTooltipEn: string,
+    fundingTooltip: string,
+    publication: VisualQuery[],
+    funding: VisualQuery[]
+    } = {
     locale: {
       decimal: '.',
       thousands: ' ',
       grouping: [3],
       currency: ['', '€'],
     },
-    publicationTooltip: '<ul><li>Voit valita julkaisumäärien tarkasteluun teeman, jolloin näet julkaisujen jakautumisen vuosittain joko päätieteenalan, tieteenalan, organisaation, julkaisutyypin, avoimen saatavuuden, julkaisumaan tai julkaisufoorumitason mukaan.</li><li> Alla olevista valikoista voit rajata julkaisumääriin sisällytettäväksi haluamasi julkaisuvuodet, organisaatiot, tieteenalat jne. </li><li>Huom. Yhdellä julkaisulla voi olla useita tieteenaloja ja organisaatioita. Julkaisu sisältyy tällöin tieteenala-/organisaatiokohtaisessa tarkastelussa jokaisen siihen liitetyn tieteenalan/organisaation lukumäärään.</li><li>Lukumäärät sisältävät Tiedejatutkimus.fi-palvelun sisältämät julkaisut. Ne päivittyvät päivittäin, kun palveluun lisätään uusia julkaisuja. Varsinaisia vuositilastoja tieteestä ja tutkimuksesta löydät <a href=\"/science-innovation-policy/science-research-figures\">Lukuja tieteestä ja tutkimuksesta -osiosta</a> sekä opetushallinnon tilastopalvelu <a href=\"https://vipunen.fi/fi-fi/korkeakoulutuksen-yhteiset-ja-tk-toiminta\">Vipusesta <fa-icon class="icon" icon="external-link-alt"></fa-icon></a>.</li></ul>',
+    // tslint:disable-next-line: max-line-length
+    publicationTooltipFi: '<ul><li>Voit valita julkaisumäärien tarkasteluun teeman, jolloin näet julkaisujen jakautumisen vuosittain joko päätieteenalan, tieteenalan, organisaation, julkaisutyypin, avoimen saatavuuden, julkaisumaan tai julkaisufoorumitason mukaan.</li><li> Alla olevista valikoista voit rajata julkaisumääriin sisällytettäväksi haluamasi julkaisuvuodet, organisaatiot, tieteenalat jne. </li><li>Huom. Yhdellä julkaisulla voi olla useita tieteenaloja ja organisaatioita. Julkaisu sisältyy tällöin tieteenala-/organisaatiokohtaisessa tarkastelussa jokaisen siihen liitetyn tieteenalan/organisaation lukumäärään.</li><li>Lukumäärät sisältävät Tiedejatutkimus.fi-palvelun sisältämät julkaisut. Ne päivittyvät päivittäin, kun palveluun lisätään uusia julkaisuja. Varsinaisia vuositilastoja tieteestä ja tutkimuksesta löydät <a href=\"/science-innovation-policy/science-research-figures\">Lukuja tieteestä ja tutkimuksesta -osiosta</a> sekä opetushallinnon tilastopalvelu <a href=\"https://vipunen.fi/fi-fi/korkeakoulutuksen-yhteiset-ja-tk-toiminta\">Vipusesta <i class="fas fa-external-link-alt"></i></a>.</li></ul>',
+    // tslint:disable-next-line: max-line-length
+    publicationTooltipSv: '<ul><li>Efter du har valt ett tema för att visa antalet publikationer, kan du undersöka den årliga distributionen av publikationer enligt huvudvetenskapsområde, vetenskapsområde, organisation, publikationstyp, öppen tillgång, publiceringsland eller publikationsforumsnivå.</li><li><p>Från menyerna nedan kan du begränsa de publiceringsår, organisationer, vetenskapsområden osv. som du vill inkludera i antalet publikationer.</p><p>Använd menyerna nedan för att begränsa antalet publikationer som ska visas efter publiceringsår, organisationer, vetenskapsområden osv. </p></li><li>Obs: En publikation kan ha flera vetenskapsområden och organisationer. I det här fallet ingår publikationen i det vetenskapsområde/organisationsspecifika granskningen av antalet för varje vetenskapsområde/organisation som är fogat till den.</li><li>Siffrorna inkluderar publikationer i forskning.fi-tjänsten. Informationen uppdateras dagligen. Egentliga årliga statistiken om vetenskap och forskning hittar du både i avsnittet <a href=\"/science-innovation-policy/science-research-figures\">‘Siffror om vetenskap och forskning’</a> och från utbildningsförvaltningens statistiktjänst <a href=\"https://vipunen.fi/sv-fi/h%C3%B6gskoleutbildning-och-fou-verksamhet\">Vipunen <i class="fas fa-external-link-alt"></i></a>.</li></ul>',
+    // tslint:disable-next-line: max-line-length
+    publicationTooltipEn: '<ul><li>You can select a theme to view the number of publications, in which case you can see the annual distribution of publications by field of science, main field of science, organization, publication type, open access, publication country, or publication forum level.</li><li>You can filter the number of publications to include the publication years, organizations, fields of science, etc. from the menus below.</li><li>NB: A publication can have multiple fields of science and organizations. In this case, the publication is included in the field of science/organization-specific review of the number of each field of science/organization attached to it.</li><li>The numbers include the publications included in the Research.fi service. They are updated daily as new publications are added to the service. You can find the actual annual statistics on science and research in the <a href=\"/science-innovation-policy/science-research-figures\">‘Figures on science and research’ section</a> and from <a href=\"https://vipunen.fi/en-gb/higher-education-and-r-d-activity\">Vipunen <i class="fas fa-external-link-alt"></i></a> - the statistical portal of the Finnish education administration.</li></ul>',
+    // tslint:disable-next-line: max-line-length
     fundingTooltip: '<ul><li>Voit valita hankemäärien tarkasteluun teeman, jolloin näet hankkeiden jakautumisen vuosittain joko rahoittajan, organisaation, rahoitusmuodon tai tieteenalan mukaan. Alla olevista valikoista voit rajata hankkeiden lukumääriin sisällytettäväksi haluamasi vuodet, organisaatiot, rahoittajat jne.</li><li>Huom. Yhdellä hankkeella voi olla useita tieteenaloja ja organisaatioita. Hanke sisältyy tällöin tieteenala-/organisaatiokohtaisessa tarkastelussa jokaisen siihen liitetyn tieteenalan/organisaation lukumäärään.</li><li>Lukumäärät sisältävät Tiedejatutkimus.fi-palvelun sisältämät hankkeet. Ne päivittyvät jatkuvasti, kun palveluun lisätään uusia hankkeita. Varsinaisia vuositilastoja tieteestä ja tutkimuksesta löydät <a href=\"/science-innovation-policy/science-research-figures\">Lukuja tieteestä ja tutkimuksesta -osiosta</a> sekä opetushallinnon tilastopalvelu <a href=\"https://vipunen.fi/fi-fi/korkeakoulutuksen-yhteiset-ja-tk-toiminta\">Vipusesta <fa-icon class="icon" icon="external-link-alt"></fa-icon></a>.</li></ul>',
     publication: [
         {
             field: 'year',
-            title: 'Julkaisujen määrä vuosittain',
+            title: $localize`:@@publicationCountByYear:Julkaisujen määrä vuosittain`,
             select: $localize`:@@yearOfPublication:Julkaisuvuosi`,
             filter: 'year',
             hierarchy: [
@@ -471,8 +484,9 @@ export class StaticDataService {
         },
         {
             field: 'fieldOfScience',
-            title: 'Julkaisujen määrä tieteenaloittain',
+            title: $localize`:@@publicationCountByFOS:Julkaisujen määrä tieteenaloittain`,
             select: $localize`:@@fieldOfScience:Tieteenala`,
+            // tslint:disable-next-line: max-line-length
             message: 'Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
             filter: 'field',
             hierarchy: [
@@ -505,8 +519,9 @@ export class StaticDataService {
         },
         {
             field: 'majorFieldOfScience',
-            title: 'Julkaisujen määrä päätieteenaloittain',
+            title: $localize`:@@publicationCountByMajor:Julkaisujen määrä päätieteenaloittain`,
             select: $localize`:@@mainFieldOfScience:Päätieteenala`,
+            // tslint:disable-next-line: max-line-length
             message: 'Huom. Yhdellä julkaisulla voi olla useita tieteenaloja. Julkaisu sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään.',
             hierarchy: [
                 {
@@ -531,8 +546,9 @@ export class StaticDataService {
         },
         {
             field: 'organization',
-            title: 'Julkaisujen määrä organisaatioittain',
+            title: $localize`:@@publicationCountByOrg:Julkaisujen määrä organisaatioittain`,
             select: $localize`:@@organization:Organisaatio`,
+            // tslint:disable-next-line: max-line-length
             message: 'Huom. Yhdellä julkaisulla voi olla useita organisaatioita. Julkaisu sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
             filter: 'organization',
             hierarchy: [
@@ -563,7 +579,7 @@ export class StaticDataService {
         },
         {
             field: 'publicationType',
-            title: 'Julkaisujen määrä julkaisutyypin mukaan',
+            title: $localize`:@@publicationCountByType:Julkaisujen määrä julkaisutyypin mukaan`,
             select: $localize`:@@publicationType:Julkaisutyyppi`,
             filter: 'publicationType',
             hierarchy: [
@@ -585,7 +601,7 @@ export class StaticDataService {
         },
         {
             field: 'country',
-            title: 'Julkaisujen määrä julkaisumaan mukaan',
+            title: $localize`:@@publicationCountByCountry:Julkaisujen määrä julkaisumaan mukaan`,
             select: $localize`:@@publicationCountry:Julkaisumaa`,
             filter: 'countryCode',
             hierarchy: [
@@ -605,7 +621,7 @@ export class StaticDataService {
         },
         {
             field: 'lang',
-            title: 'Julkaisujen määrä kielen mukaan',
+            title: $localize`:@@publicationCountByLang:Julkaisujen määrä kielen mukaan`,
             select: $localize`:@@language:Kieli`,
             filter: 'lang',
             hierarchy: [
@@ -632,7 +648,7 @@ export class StaticDataService {
         },
         {
             field: 'juFo',
-            title: 'Julkaisujen määrä julkaisufoorumitason mukaan',
+            title: $localize`:@@publicationCountByJuFo:Julkaisujen määrä julkaisufoorumitason mukaan`,
             select: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
             filter: 'juFo',
             hierarchy: [
@@ -653,7 +669,7 @@ export class StaticDataService {
         },
         {
             field: 'openAccess',
-            title: 'Julkaisujen määrä avoimen saatavuuden mukaan',
+            title: $localize`:@@publicationCountByOA:Julkaisujen määrä avoimen saatavuuden mukaan`,
             select: $localize`:@@openAccess:Avoin saatavuus`,
             filter: 'openAccess',
             hierarchy: [
@@ -675,7 +691,7 @@ export class StaticDataService {
     funding: [
         {
             field: 'year',
-            title: 'Hankkeiden määrä vuosittain',
+            title: $localize`:@@fundingCountByYear:Hankkeiden määrä vuosittain<`,
             select: $localize`:@@startYear:Aloitusvuosi`,
             filter: 'year',
             hierarchy: [
@@ -715,7 +731,7 @@ export class StaticDataService {
         // },
         {
             field: 'funder',
-            title: 'Hankkeiden määrä rahoittajan mukaan',
+            title: $localize`:@@fundingCountByFunder:Hankkeiden määrä rahoittajan mukaan`,
             select: $localize`:@@fundingFunder:Rahoittaja`,
             filter: 'funder',
             hierarchy: [
@@ -739,10 +755,11 @@ export class StaticDataService {
                 }
             ]
         },
-        {        
+        {
             field: 'organization',
-            title: 'Hankkeiden määrä organisaatioittain',
+            title: $localize`:@@fundingCountByOrg:Hankkeiden määrä organisaatioittain`,
             select: $localize`:@@organization:Organisaatio`,
+            // tslint:disable-next-line: max-line-length
             message: 'Huom. Yhdellä hankkeella voi olla useita organisaatioita. Hanke sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
             filter: 'organization',
             hierarchy: [
@@ -826,7 +843,7 @@ export class StaticDataService {
         },
         {
             field: 'typeOfFunding',
-            title: 'Hankkeiden määrä rahoitusmuodon mukaan',
+            title: $localize`:@@fundingCountByType:Hankkeiden määrä rahoitusmuodon mukaan`,
             select: $localize`:@@typeOfFunding:Rahoitusmuoto`,
             message: 'Huom. Hankkeita, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
             filter: 'typeOfFunding',
@@ -845,6 +862,7 @@ export class StaticDataService {
                     order: 1
                 },
                 {
+                    // tslint:disable-next-line: max-line-length
                     script: 'doc["typeOfFundingName|locale|.keyword"].value + "|" + doc["typeOfFundingNameEn.keyword"].value + "|" + doc["typeOfFundingNameFi.keyword"].value',
                     name: 'typeName',
                     size: 1,
@@ -854,8 +872,9 @@ export class StaticDataService {
         },
         {
             field: 'fieldOfScience',
-            title: 'Hankkeiden määrä tieteenaloittain',
+            title: $localize`:@@fundingCountByFOS:Hankkeiden määrä tieteenaloittain`,
             select: $localize`:@@fieldOfScience:Tieteenala`,
+            // tslint:disable-next-line: max-line-length
             message: 'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Hankkeita, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',
             filter: 'field',
             hierarchy: [
@@ -887,5 +906,5 @@ export class StaticDataService {
             ]
         }
     ]
-}
+};
 }
