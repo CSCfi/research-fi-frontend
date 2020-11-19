@@ -87,7 +87,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #desktop>
     <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
         <div class="justify-content-center align-items-center d-none d-lg-flex visual-button-container" *ngIf="tab === 'publications' || tab === 'fundings'">
-            <app-primary-action-button [content]="'Näytä kuvana'" [icon]="faChartBar" (click)="openModal(visualModal)"></app-primary-action-button>
+            <app-primary-action-button [content]="showAsVisual" [icon]="faChartBar" (click)="openModal(visualModal)"></app-primary-action-button>
         </div>
         <app-filters *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
         <app-filters *ngIf="tab===tabData[1].link"  [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>
@@ -125,7 +125,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     </span> -->
                     <div (click)="showInfo = !showInfo" (keydown.enter)="showInfo = !showInfo" tabindex="0" (clickOutside)="onClickedOutside($event)">
                         <fa-icon class="info-icon pr-2" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
-                        <a>Lisätietoa </a>
+                        <a>{{additionalInfo}} </a>
                     </div>
                 </span>
                 <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
@@ -138,7 +138,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         <div [innerHtml]="visualisationInfo"></div>
                     </div>
                     <mat-form-field class="visual-select">
-                        <mat-label class="strong">Valitse teema</mat-label>
+                        <mat-label class="strong" i18n="@@chooseTheme">Valitse teema</mat-label>
                         <mat-select (selectionChange)="changeVisual($event)">
                             <mat-option *ngFor="let category of visualisationCategories; let i = index" value="{{i}}">{{category.select}}</mat-option>
                         </mat-select>
@@ -150,21 +150,21 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         <app-filters *ngIf="tab===tabData[4].link"  [responseData]="filterValues" [tabData]="tabData[4].data"></app-filters>
                         <app-filters *ngIf="tab===tabData[6].link"  [responseData]="filterValues" [tabData]="tabData[6].data"></app-filters>
                     </div>
-                    <app-secondary-button (click)="clearFilters()" [big]="true" [content]="'Tyhjennä rajaukset'" [icon]="faTrash"></app-secondary-button>
+                    <app-secondary-button (click)="clearFilters()" [big]="true" [content]="clearActiveFilters" [icon]="faTrash"></app-secondary-button>
                 </div>
                 <div class="col-9">
                     <app-active-filters></app-active-filters>
                     <app-visualisation [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading" [searchTerm]="searchTerm" [searchTarget]="searchTargetName"></app-visualisation>
                     <div class="row vis-info">
                         <div>
-                            <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false">Lukumäärinä</button>
-                            <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true">Prosentteina</button>
+                            <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false" i18n="@@asCount">Lukumäärinä</button>
+                            <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true" i18n="@@asPercent">Prosentteina</button>
                         </div>
                         <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                             <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
                         </span> -->
-                        <app-secondary-button [icon]="faDownload" [content]="'Lataa kuvana (tulossa)'" [disabled]="true"></app-secondary-button>
+                        <app-secondary-button [icon]="faDownload" [content]="downloadImage" [disabled]="true"></app-secondary-button>
                     </div>
                 </div>
             </div>
