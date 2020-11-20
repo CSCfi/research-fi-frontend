@@ -23,6 +23,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { WINDOW } from 'src/app/services/window.service';
+import { ContentDataService } from 'src/app/services/content-data.service';
 
 @Component({
   providers: [SearchBarComponent],
@@ -158,7 +159,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, public utilityService: UtilityService,
-               public dialog: MatDialog, private privacyService: PrivacyService) {
+               public dialog: MatDialog, private privacyService: PrivacyService, private cds: ContentDataService) {
                  // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
