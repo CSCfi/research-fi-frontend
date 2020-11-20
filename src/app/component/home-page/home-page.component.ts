@@ -17,6 +17,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { News } from 'src/app/models/news.model';
+import { Shortcuts } from 'src/app/models/shortcuts.model';
 import { UtilityService } from 'src/app/services/utility.service';
 import { homepage, common } from 'src/assets/static-data/meta-tags.json';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -153,7 +154,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   reviewDialogRef: MatDialogRef<ReviewComponent>;
   consentStatus: string;
   consentStatusSub: any;
-
+  shortcutData: Shortcuts[] = [];
 
   constructor( private searchService: SearchService, private sortService: SortService, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
@@ -212,6 +213,11 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
       });
     }
+
+    // Get shortcuts from API
+    this.cds.getData('shortcuts').subscribe(data => {
+      this.shortcutData = data;
+    });
   }
 
   onResize() {
