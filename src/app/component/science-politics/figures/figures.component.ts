@@ -25,6 +25,8 @@ import { HistoryService } from 'src/app/services/history.service';
 import { figures, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
 import { cloneDeep } from 'lodash';
+import { ContentDataService } from 'src/app/services/content-data.service';
+import { Figure } from 'src/app/models/figure/figure.model';
 
 @Component({
   selector: 'app-figures',
@@ -116,12 +118,13 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   filterHasBeenClicked: boolean;
   queryParams: any;
   currentFilter = null;
+  figureData: Figure[] = [];
 
   constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService,
                private historyService: HistoryService, private utilityService: UtilityService, private route: ActivatedRoute,
-               private router: Router ) {
+               private router: Router, private cds: ContentDataService ) {
     // Default to first segment
     this.currentSection = 's0';
     this.queryResults = [];
@@ -136,6 +139,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Get data from API
+    this.cds.getFigures().subscribe(data => {
+      this.figureData = data;
+    }),
+
     this.queryParamSub = this.route.queryParams.subscribe(params => {
       this.currentFilter = params.filter || null;
       this.filter(this.currentFilter);
