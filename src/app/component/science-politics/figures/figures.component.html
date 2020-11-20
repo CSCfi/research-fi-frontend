@@ -18,14 +18,24 @@
                 <!-- Navigation -->
                 <nav>
                     <ul>
-                        <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
+                        <li [ngClass]="{'active': currentSection === 's0'}">
+                            <a [routerLink]="['.']" [queryParams]="queryParams">
+                                <div class="row">
+                                    <div class="col-auto pr-0">
+                                        <fa-icon class="icon" [icon]="faIconCircle"></fa-icon>
+                                    </div>
+                                    <div class="col" i18n="@@figuresSecHeader">Tiedon lähteet ja tuottajat</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li *ngFor="let item of figureData" [ngClass]="{'active': currentSection === item.id}">
                             <a [class.disabled]="item.disabled" [routerLink]="['.']" fragment="{{item.disabled ? null : item.id}}" [queryParams]="queryParams">
                                 <div class="row">
                                     <div class="col-auto pr-0">
-                                        <fa-icon class="icon" [icon]="item.icon"></fa-icon>
+                                        <fa-icon class="icon" [icon]="item.placement > 0 ? faChartBar : faIconCircle"></fa-icon>
                                     </div>
                                     <div class="col">
-                                        {{item.label}}
+                                        {{item['title' + currentLocale]}}
                                     </div>
                                 </div>
                             </a>
@@ -85,10 +95,10 @@
                             </div>
                         </div>
                         <!-- Figures -->
-                        <div class="segment" #segments *ngFor="let content of allContent" id={{content.id}}>
-                            <ng-container *ngIf="content.items.length">
-                                <h2 class="px-2 lx-lg-0">{{content['header' + currentLocale]}}</h2>
-                                <ng-container *ngTemplateOutlet="figureTemplate; context:{data: content.items}"></ng-container>
+                        <div class="segment" #segments *ngFor="let figure of figureData" id={{figure.id}}>
+                            <ng-container *ngIf="figure.figures.length">
+                                <h2 class="px-2 lx-lg-0">{{figure['title' + currentLocale]}}</h2>
+                                <ng-container *ngTemplateOutlet="figureTemplate; context:{data: {figures: figure.figures, parent: figure.id}}"></ng-container>
                             </ng-container>
                         </div>
                     </div>
@@ -110,11 +120,11 @@
                         <div class="row">
                             <div class="col p-1">
                                 <div class="base content">
-                                    <div class="card list" *ngFor="let item of data">
-                                        <a routerLink="{{item.link}}" [queryParams]="queryParams">
+                                    <div class="card list" *ngFor="let item of data.figures">
+                                        <a [routerLink]="data.parent + '_' + item.placement" [queryParams]="queryParams">
                                             <div class="row d-flex justify-content-around">
                                                 <div class="col-12 col-md-8">
-                                                    <h3 class="title">{{item['label' + currentLocale]}}</h3>
+                                                    <h3 class="title">{{item['title' + currentLocale]}}</h3>
                                                     <div class="col-12 figure d-block d-md-none">
                                                         <img [src]="item.img" >
                                                     </div>
@@ -123,7 +133,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4 figure d-none d-md-block">
-                                                    <img [src]="item.img">
+                                                    <img [src]="item.thumbnail">
                                                 </div>
                                             </div>
                                         </a>
