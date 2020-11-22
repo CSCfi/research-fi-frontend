@@ -26,7 +26,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
 
     private ids = {
         year: '',
-        funder: 'f.key',
+        funder: 'f.id',
         organization: 'f.key',
         // Locale, english, finnish, key
         typeOfFunding: 'f.key',
@@ -175,23 +175,22 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
 
                 const both = [];
 
-                item.aggregations[field].buckets.forEach(b => tmp.push(b));
-                item.aggregations[field + '2'].buckets.forEach(b => tmp.push(b));
-
-
                 item.aggregations[field].buckets.forEach(b => {
                     b.categs = [];
                     b[hierarchyField].buckets.forEach(s => {
-                        b.categs.push(...s[categoryHierarchy].buckets);
+                        const f = s[categoryHierarchy].buckets[0];
+                        f.id = s.key;
+                        b.categs.push(f);
                     });
-
-                    both.push({key: b.key, categs: b.categs});
+                    both.push({key: b.key, id: b.key, categs: b.categs});
                 });
 
                 item.aggregations[field + '2'].buckets.forEach(b => {
                     const target = both.find(x => x.key === b.key);
                     b[hierarchyField].buckets.forEach(s => {
-                        target.categs.push(...s[categoryHierarchy].buckets);
+                        const f = s[categoryHierarchy].buckets[0];
+                        f.id = s.key;
+                        target.categs.push(f);
                     });
                 });
 
