@@ -87,7 +87,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualSub: Subscription;
   modalRef: BsModalRef;
   showInfo = true;
-  fundingAmount = true;
+  fundingAmount = false;
 
   faDownload = faDownload;
   faTrash = faTrash;
@@ -335,7 +335,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeVisual(event: any) {
     // Update idx
-    this.visIdx = event.value;
+    this.visIdx = event.value || this.visIdx;
     // Get data
     this.getVisualData();
   }
