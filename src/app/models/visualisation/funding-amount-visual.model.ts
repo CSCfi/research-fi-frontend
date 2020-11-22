@@ -17,7 +17,7 @@ import { FundingVisual } from './funding-visual.model';
 export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
     private names = {
         year: '',
-        funder: 'f.funder.buckets[0].key',
+        funder: 'f.key',
         organization: '',
         // Locale, english, finnish, key
         typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
@@ -51,7 +51,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
                 // Add the current item's doc count
                 obj.doc_count += b.doc_count;
                 // If it's a new item, push it into a
-                if (obj.doc_count === b.doc_count) a.push(obj);
+                if (obj.doc_count === b.doc_count && b.doc_count > 0) a.push(obj);
                 // Return array for new iteration
                 return a;
             }, []);
@@ -67,7 +67,9 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
 
     getFundingSum(f: any, field: string): number {
         let res = 0;
-        const buckets = f[field].buckets[0].orgNested.organizationId.buckets;
+        let buckets = f.orgNested;
+        // Depends on which aggregation the bucket is from
+        buckets = buckets.finnishOrganization ? buckets.finnishOrganization.organizationId.buckets : buckets.organizationId.buckets;
         buckets.forEach(b => res += b.moneySum.value);
         return res;
     }
@@ -169,12 +171,33 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
 
                 // debugger;
                 const hierarchyField = this.funding[categoryIdx].hierarchy[1].name;
+                const categoryHierarchy = this.funding[categoryIdx].hierarchy[2].name;
+
+                const both = [];
 
                 item.aggregations[field].buckets.forEach(b => tmp.push(b));
+                item.aggregations[field + '2'].buckets.forEach(b => tmp.push(b));
 
-                tmp.forEach(b => {
+
+                item.aggregations[field].buckets.forEach(b => {
+                    b.categs = [];
+                    b[hierarchyField].buckets.forEach(s => {
+                        b.categs.push(...s[categoryHierarchy].buckets);
+                    });
+
+                    both.push({key: b.key, categs: b.categs});
+                });
+
+                item.aggregations[field + '2'].buckets.forEach(b => {
+                    const target = both.find(x => x.key === b.key);
+                    b[hierarchyField].buckets.forEach(s => {
+                        target.categs.push(...s[categoryHierarchy].buckets);
+                    });
+                });
+
+                both.forEach(b => {
                     b.data = [];
-                    b[hierarchyField].buckets.forEach(f => {
+                    b.categs.forEach(f => {
                         const v: any = {};
                         v.name = eval(this.names[field]);
                         v.id = eval(this.ids[field]);
@@ -190,11 +213,10 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
         }
 
         // Group duplicate names from the two aggregations
-        this.groupNames(organization);
+        this.groupNames(funder);
         // Sort the mixed arrays alphabetically
         this.sortByName(organization);
         this.sortByName(typeOfFunding);
-
 
         return new FundingVisual(
             year,

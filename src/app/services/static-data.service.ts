@@ -752,6 +752,48 @@ export class StaticDataService {
                   name: 'moneySum',
                   size: 1
                 },
+            ],
+            hierarchy2: [
+                {
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
+                },
+                {
+                    field: 'funderBusinessId.pid_content.keyword',
+                    name: 'funderPid',
+                    size: 100,
+                    order: 1
+                },
+                {
+                    field: 'funderNameFi.keyword',
+                    name: 'funder',
+                    size: 1,
+                    order: 1
+                },
+                {
+                    name: 'orgNested',
+                    nested: 'organizationConsortium'
+                },
+                {
+                  name: 'finnishOrganization',
+                  filter: {
+                      field: 'organizationConsortium.isFinnishOrganization',
+                      value: [1]
+                  }
+                },
+                {
+                  field: 'organizationConsortium.consortiumOrganizationId.keyword',
+                  name: 'organizationId',
+                  size: 100,
+                  filterName: 'organization'
+                },
+                {
+                  sum: 'organizationConsortium.shareOfFundingInEur',
+                  name: 'moneySum',
+                  size: 1
+                },
             ]
         },
         {        

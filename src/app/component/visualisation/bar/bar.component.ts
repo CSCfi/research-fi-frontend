@@ -129,7 +129,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.height)
         .append('g')
         .attr('id', 'main')
-        .attr('transform', `translate(${this.margin}, ${this.margin * 2})`);
+        .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
     
     // Legend init
     const legendSvg = d3.select('svg#legend');
