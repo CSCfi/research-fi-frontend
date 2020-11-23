@@ -168,7 +168,7 @@
                             <!-- First col -->
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
                                <h3 class="th">{{row.label}}</h3>
-                               <span *ngIf="!row.link">{{item[row.field]}}</span>
+                               <span *ngIf="!row['link']">{{item[row.field]}}</span>
                             </div>
                             <!-- Second col -->    
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+1">
@@ -196,7 +196,7 @@
                                     </span>
                                 </ng-container>
                             </h3>
-                            <p class="td"*ngIf="row.link" [attr.lang]="row.lang && item.languageCode !== documentLang ? item.languageCode : null" 
+                            <p class="td"*ngIf="row.link" [attr.lang]="row['lang'] && item.languageCode !== documentLang ? item.languageCode : null" 
                              [ngSwitch]="true">
                                 <!-- Check if fields are issn or isbn and target search with exact field  -->
                                 <a class="td" *ngSwitchCase="row.field === 'issn' || row.field === 'isbn'"
@@ -406,7 +406,7 @@
                 <div class="row justify-content-center">
                     <div class="col" align="center" style="margin-top:25px">
                         <mat-spinner [diameter]="40"></mat-spinner>
-                        <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2>
+                        <!-- <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2> -->
                     </div>
                 </div>
             </div>
