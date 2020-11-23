@@ -6,19 +6,18 @@
 // :license: MIT
 
 import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy,
-         LOCALE_ID, ViewChildren, QueryList } from '@angular/core';
+         LOCALE_ID, ViewChildren, QueryList, PLATFORM_ID } from '@angular/core';
 import { faInfoCircle, faSearch, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
-import { DOCUMENT } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { DataService } from 'src/app/services/data.service';
-import { content } from '../../../../assets/static-data/figures-content.json';
 import { WINDOW } from 'src/app/services/window.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
@@ -89,10 +88,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     Sv: 'https://www.csc.fi'
   };
 
-  allContent = content;
   link = 'test';
   currentSection: any;
   queryField: FormControl = new FormControl();
+  figureData: Figure[] = [];
+  filteredData: any[];
   queryResults: any[];
   combinedData: any;
   hasResults: boolean;
@@ -108,7 +108,6 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   showIntro: boolean;
   focusSub: any;
   currentLocale: string;
-
   private metaTags = figures;
   private commonTags = common;
   roadmapFilter: string;
@@ -118,13 +117,12 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   filterHasBeenClicked: boolean;
   queryParams: any;
   currentFilter = null;
-  figureData: Figure[] = [];
 
-  constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
+  constructor( private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService,
                private historyService: HistoryService, private utilityService: UtilityService, private route: ActivatedRoute,
-               private router: Router, private cds: ContentDataService ) {
+               private router: Router, private cds: ContentDataService, @Inject(PLATFORM_ID) private platformId: object ) {
     // Default to first segment
     this.currentSection = 's0';
     this.queryResults = [];
@@ -139,10 +137,17 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Get data from API
-    this.cds.getFigures().subscribe(data => {
-      this.figureData = data;
-    }),
+    // Get data from API and set into sessionStorage to be reusable in single figure view.
+    if (isPlatformBrowser(this.platformId)) {
+      if (!sessionStorage.getItem('figureData')) {
+        this.cds.getFigures().subscribe(data => {
+          this.figureData = data;
+          sessionStorage.setItem('figureData', JSON.stringify(data));
+        });
+      } else {
+        this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
+      }
+    }
 
     this.queryParamSub = this.route.queryParams.subscribe(params => {
       this.currentFilter = params.filter || null;
@@ -185,11 +190,11 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         // Get data from assets
         const combined = [];
         // Combine all items
-        this.allContent.forEach(segment => combined.push(segment.items));
+        this.figureData.forEach(segment => combined.push(segment.figures));
         this.combinedData = combined.flat();
         this.queryTerm = term;
         this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
-          item['label' + this.currentLocale].toLowerCase().includes(term.toLowerCase()) ||
+          item['title' + this.currentLocale].toLowerCase().includes(term.toLowerCase()) ||
           item['description' + this.currentLocale].toLowerCase().includes(term.toLowerCase())) : [];
         // Set results flag, used to show right template
         this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
@@ -198,23 +203,24 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // Filtering with cloned content. Filter both allContent and query results
+  // Filtering with cloned content. Filter both figureData and query results
   filter(filter: string) {
-    const data = cloneDeep(this.allContent);
+    const data = cloneDeep(this.figureData);
     filter = filter === 'all' ? null : filter;
 
     const filtered = data.map(s => {
-      s.items = s.items.filter(item => filter ? item[filter] : item);
+      s.figures = s.figures.filter(item => filter ? item[filter] : item);
       return s;
     });
 
-    this.allContent = filter ? filtered : content;
+    this.filteredData = filter ? filtered : this.figureData;
 
     // Set link disabled if no items
-    for (const navItem of this.navItems.slice(1)) {
-      Object.assign(this.navItems.find(item => item.id === navItem.id),
-      {disabled: this.allContent.find(item => item.id === navItem.id).items.length > 0 ? false : true});
+    for (const navItem of this.figureData) {
+      Object.assign(this.figureData.find(item => item.id === navItem.id),
+      {disabled: this.filteredData.find(item => item.id === navItem.id).figures.length > 0 ? false : true});
     }
+
     // Set search results data
     this.queryResults = this.combinedData?.filter(item => filter ? item.roadmap : item);
   }
