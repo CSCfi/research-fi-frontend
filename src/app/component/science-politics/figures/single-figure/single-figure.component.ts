@@ -6,11 +6,13 @@
 // :license: MIT
 
 import { Component, OnInit, ElementRef, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID, OnDestroy,
-         ViewChildren, QueryList, HostListener, ViewEncapsulation, ViewChild } from '@angular/core';
+         ViewChildren, QueryList, HostListener, ViewEncapsulation, ViewChild, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
-import { Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
+import { mergeMap, filter, catchError, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from 'src/app/services/window.service';
 import { content } from '../../../../../assets/static-data/figures-content.json';
@@ -18,7 +20,8 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { singleFigure, common } from 'src/assets/static-data/meta-tags.json';
 import { cloneDeep } from 'lodash';
-
+import { ContentDataService } from 'src/app/services/content-data.service';
+import { Figure } from 'src/app/models/figure/figure.model';
 
 @Component({
   selector: 'app-single-figure',
@@ -69,7 +72,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   currentItem: any;
   result: any;
   contentSub: Subscription;
-  label: any;
+  title: any;
   mobile = this.window.innerWidth < 992;
   height = this.window.innerHeight;
   width = this.window.innerWidth;
@@ -81,11 +84,12 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   queryParamSub: Subscription;
   queryParams: any;
   filter: any;
+  figureData: Figure[] = [];
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
-               private resizeService: ResizeService, private route: ActivatedRoute,
+               private resizeService: ResizeService, private route: ActivatedRoute, private cds: ContentDataService,
                @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService,
-               private utilityService: UtilityService) {
+               private utilityService: UtilityService, @Inject(PLATFORM_ID) private platformId: object) {
                   // Capitalize first letter of locale
                   this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                 }
@@ -95,47 +99,66 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // Subscribe to route and get parent and path from params
-    this.routeSub = this.route.params.subscribe(param => {
-      this.currentParent = param.id.slice(0, 2);
-      this.currentItem = param.id;
-      // Get data from assets by parent and content link
-      const parent = this.dataContent.find(item => item.id === this.currentParent);
-      this.result = [parent.items.find(item => item.link === this.currentItem)];
+    this.routeSub = combineLatest([this.route.params, this.route.queryParams])
+    .pipe(map(res => ({params: res[0], queryParams: res[1]})))
+    .subscribe(res => {
+      this.currentParent = res.params.id.slice(0, 2);
+      this.currentItem = res.params.id;
+
+      // Call API only if no data in session storage
+      if (isPlatformBrowser(this.platformId)) {
+        if (!sessionStorage.getItem('figureData')) {
+          this.cds.getFigures().subscribe(data => {
+            this.figureData = data;
+            sessionStorage.setItem('figureData', JSON.stringify(data));
+            this.setContent(res);
+          });
+        } else {
+          this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
+          this.setContent(res);
+        }
+      }
     });
 
-    // Subscribe to query parameters. This is used to pass filters to carousel and set filter indicator
-    this.queryParamSub = this.route.queryParams.subscribe(param => {
-      this.queryParams = param;
-      this.filter = param.filter === 'all' ? null : param.filter;
+    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+  }
 
-      // Get all visualisations into a flat array
-      const dataCopy = cloneDeep(this.dataContent);
-      this.flatData = [];
-      dataCopy.forEach(segment => {
-        // Hack to get segment header into item (replace an unused field with it)
-        segment.items.forEach(item => item.segment = segment['header' + this.currentLocale]);
-        this.flatData.push(segment.items);
+  setContent(res) {
+    this.queryParams = res.queryParams;
+    this.filter = res.queryParams.filter === 'all' ? null : res.queryParams.filter;
+
+    const parent = this.figureData.find(item => item.id === this.currentParent);
+    this.result = [parent.figures.find(item => item.id === this.currentItem)];
+
+    // Get all visualisations into a flat array
+    const dataCopy = cloneDeep(this.figureData);
+    this.flatData = [];
+    dataCopy.forEach(segment => {
+      // Hack to get segment header into item (Assign new key / value pair)
+      segment.figures.forEach(item => {
+        // item.segment = segment['header' + this.currentLocale];
+        Object.assign(item, {segment: segment['title' + this.currentLocale]});
       });
-      this.flatData = this.flatData.flat();
-
-      // Filter data if filtering is enabled
-      this.flatData = this.filter ? this.flatData.filter(item => item[this.filter]) : this.flatData;
+      this.flatData.push(segment.figures);
     });
+    this.flatData = this.flatData.flat();
+
+    // Filter data if filtering is enabled
+    this.flatData = this.filter ? this.flatData.filter(item => item[this.filter]) : this.flatData;
 
     // Set title
-    this.label = this.result[0]['label' + this.currentLocale];
+    this.title = this.result[0]['title' + this.currentLocale];
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle(this.label + ' - Tiedejatutkimus.fi');
+        this.setTitle(this.title + ' - Tiedejatutkimus.fi');
         break;
       }
       case 'en': {
-        this.setTitle(this.label + ' - Research.fi');
+        this.setTitle(this.title + ' - Research.fi');
         break;
       }
       case 'sv': {
-        this.setTitle(this.label + ' - Forskning.fi');
+        this.setTitle(this.title + ' - Forskning.fi');
         break;
       }
     }
@@ -143,8 +166,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     const titleString = this.titleService.getTitle();
     this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale],
     this.commonTags['imgAlt' + this.currentLocale]);
-
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
   }
 
   ngAfterViewInit() {
