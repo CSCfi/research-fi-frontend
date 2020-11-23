@@ -117,6 +117,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   filterHasBeenClicked: boolean;
   queryParams: any;
   currentFilter = null;
+  loading = true;
 
   constructor( private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
@@ -142,10 +143,12 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!sessionStorage.getItem('figureData')) {
         this.cds.getFigures().subscribe(data => {
           this.figureData = data;
+          this.loading = false;
           sessionStorage.setItem('figureData', JSON.stringify(data));
         });
       } else {
         this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
+        this.loading = false;
       }
     }
 

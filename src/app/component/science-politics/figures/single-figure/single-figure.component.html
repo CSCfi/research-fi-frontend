@@ -6,7 +6,10 @@
 # :license: MIT -->
 <div class="full-width"></div>
 <main id="main-content">
-    <div class="wrapper">
+    <div class="row justify-content-center" *ngIf="loading">
+        <mat-spinner  [diameter]="40"></mat-spinner>
+    </div>
+    <div class="wrapper" *ngIf="!loading">
         <app-breadcrumb [responseData]="result" [type]="'figure'"></app-breadcrumb>
         <a routerLink="/science-innovation-policy/science-research-figures/" class="back"><< <ng-container i18n="@@back">Takaisin</ng-container></a>
         <div class="row" *ngFor="let item of result; trackBy: trackByFn">

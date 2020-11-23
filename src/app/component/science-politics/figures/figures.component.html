@@ -28,8 +28,11 @@
                                 </div>
                             </a>
                         </li>
+                        <li *ngIf="loading">
+                            <mat-spinner [diameter]="40"></mat-spinner>
+                        </li>
                         <li *ngFor="let item of figureData" [ngClass]="{'active': currentSection === item.id}">
-                            <a [class.disabled]="item.disabled" [routerLink]="['.']" fragment="{{item.disabled ? null : item.id}}" [queryParams]="queryParams">
+                            <a [class.disabled]="item['disabled']" [routerLink]="['.']" fragment="{{item['disabled'] ? null : item.id}}" [queryParams]="queryParams">
                                 <div class="row">
                                     <div class="col-auto pr-0">
                                         <fa-icon class="icon" [icon]="item.placement > 0 ? faChartBar : faIconCircle"></fa-icon>
@@ -95,12 +98,17 @@
                             </div>
                         </div>
                         <!-- Figures -->
-                        <div class="segment" #segments *ngFor="let figure of filteredData ? filteredData : figureData" id={{figure.id}}>
-                            <ng-container *ngIf="figure.figures.length">
-                                <h2 class="px-2 lx-lg-0">{{figure['title' + currentLocale]}}</h2>
-                                <ng-container *ngTemplateOutlet="figureTemplate; context:{data: {figures: figure.figures, parent: figure.id}}"></ng-container>
-                            </ng-container>
+                        <div class="row justify-content-center" *ngIf="loading">
+                            <mat-spinner  [diameter]="40"></mat-spinner>
                         </div>
+                        <ng-container *ngIf="!loading">
+                            <div class="segment" #segments *ngFor="let figure of filteredData?.length > 0 ? filteredData : figureData" id={{figure.id}}>
+                                <ng-container *ngIf="figure.figures.length">
+                                    <h2 class="px-2 lx-lg-0">{{figure['title' + currentLocale]}}</h2>
+                                    <ng-container *ngTemplateOutlet="figureTemplate; context:{data: {figures: figure.figures, parent: figure.id}}"></ng-container>
+                                </ng-container>
+                            </div>
+                        </ng-container>
                     </div>
                     <!-- Search results -->
                     <ng-template #queryResultTemplate>

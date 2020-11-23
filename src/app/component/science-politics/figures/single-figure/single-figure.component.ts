@@ -85,6 +85,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   queryParams: any;
   filter: any;
   figureData: Figure[] = [];
+  loading = true;
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
                private resizeService: ResizeService, private route: ActivatedRoute, private cds: ContentDataService,
@@ -124,6 +125,7 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setContent(res) {
+    this.loading = false;
     this.queryParams = res.queryParams;
     this.filter = res.queryParams.filter === 'all' ? null : res.queryParams.filter;
 
