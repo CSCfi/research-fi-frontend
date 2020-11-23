@@ -28,8 +28,8 @@ export class Figure {
 export class FigureAdapter implements Adapter<Figure> {
   constructor( private sf: SingleFigureAdapter) {}
   adapt(item: any): Figure {
-    let singleFigure: SingleFigure[] = [];
-    item.items ? item.items.forEach(el => singleFigure.push(this.sf.adapt(el))) : singleFigure = [];
+    let figures: SingleFigure[] = [];
+    item.items ? item.items.forEach(el => figures.push(this.sf.adapt({...el, parent: item.placement_id}))) : figures = [];
 
     return new Figure(
       's' + item.placement_id,
@@ -37,7 +37,7 @@ export class FigureAdapter implements Adapter<Figure> {
       item.title_fi,
       item.title_sv,
       item.title_en,
-      singleFigure
+      figures
     );
   }
 
