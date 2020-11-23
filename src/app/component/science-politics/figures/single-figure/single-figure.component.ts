@@ -12,10 +12,9 @@ import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription, combineLatest } from 'rxjs';
-import { mergeMap, filter, catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from 'src/app/services/window.service';
-import { content } from '../../../../../assets/static-data/figures-content.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { singleFigure, common } from 'src/assets/static-data/meta-tags.json';
@@ -33,34 +32,8 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;
   @ViewChild('keyboardHelp') keyboardHelp: ElementRef;
 
-  dataContent: {
-    id: string;
-    headerFi: string;
-    headerEn: string;
-    headerSv: string;
-    items: {
-        labelFi: string;
-        labelEn: string;
-        labelSv: string;
-        descriptionFi: string;
-        descriptionEn: string;
-        descriptionSv: string;
-        img: string;
-        iframeFi: string;
-        iframeEn: string;
-        iframeSv: string;
-        link: string;
-        sourceFi: string;
-        sourceEn: string;
-        sourceSv: string;
-        infoFi?: string;
-        infoEn?: string;
-        infoSv?: string;
-        segment?: string;
-        roadmap?: boolean;
-    }[]}[] = content;
+  figureData: Figure[] = [];
   flatData: any[] = [];
-
   colWidth: number;
   faQuestion = faQuestionCircle;
   resizeSub: Subscription;
@@ -84,7 +57,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   queryParamSub: Subscription;
   queryParams: any;
   filter: any;
-  figureData: Figure[] = [];
   loading = true;
 
   constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
