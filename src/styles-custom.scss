@@ -50,6 +50,13 @@ a:hover {
     text-decoration: underline;
 }
 
+// Add icon to external links. This class is added in CMS.
+a.ext::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f35d";
+}
+
 ul {
     list-style: none;
     padding-inline-start: 0;
