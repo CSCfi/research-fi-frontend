@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <!-- Figures -->
-                        <div class="segment" #segments *ngFor="let figure of figureData" id={{figure.id}}>
+                        <div class="segment" #segments *ngFor="let figure of filteredData ? filteredData : figureData" id={{figure.id}}>
                             <ng-container *ngIf="figure.figures.length">
                                 <h2 class="px-2 lx-lg-0">{{figure['title' + currentLocale]}}</h2>
                                 <ng-container *ngTemplateOutlet="figureTemplate; context:{data: {figures: figure.figures, parent: figure.id}}"></ng-container>
@@ -106,7 +106,7 @@
                     <ng-template #queryResultTemplate>
                         <div class="segment" #segments *ngIf="hasResults; else noResults">
                             <h3 class="px-2 lx-lg-0"><ng-container i18n="@@figureSearchResults">Haun tulokset</ng-container> ({{queryResults.length}})</h3>
-                            <ng-container *ngTemplateOutlet="figureTemplate; context:{data: queryResults}"></ng-container>
+                            <ng-container *ngTemplateOutlet="figureTemplate; context:{data: {figures: queryResults}}"></ng-container>
                         </div>
                         <ng-template #noResults>
                             <div role="alert" class="col-auto">
