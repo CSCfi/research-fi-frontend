@@ -15,21 +15,9 @@ export class Page {
     public titleFi: string,
     public titleSv: string,
     public titleEn: string,
-    public descriptionFi: string,
-    public descriptionSv: string,
-    public descriptionEn: string,
-    public image: string,
-    public iframeFi: string,
-    public iframeSv: string,
-    public iframeEn: string,
-    public link: string,
-    public sourceFi: string,
-    public sourceSv: string,
-    public sourceEn: string,
-    public infoFi: string,
-    public infoSv: string,
-    public infoEn: string,
-    public roadmap: boolean,
+    public contentFi: string,
+    public contentSv: string,
+    public contentEn: string,
   ) {}
 }
 
@@ -45,28 +33,16 @@ export class PageAdapter implements Adapter<Page> {
       item.title_fi,
       item.title_sv,
       item.title_en,
-      item.description_fi,
-      item.description_sv,
-      item.description_en,
-      item.thumbnail,
-      item.iframe_fi,
-      item.iframe_sv,
-      item.iframe_en,
-      item.link_id,
-      item.source_fi,
-      item.source_sv,
-      item.source_en,
-      item.info_fi,
-      item.info_sv,
-      item.info_en,
-      item.roadmap,
+      item.content_fi,
+      item.content_sv,
+      item.content_en,
     );
   }
 
   adaptMany(item: any): Page[] {
-    const shortcuts: Page[] = [];
+    const pages: Page[] = [];
     const source = item;
-    source.forEach(el => shortcuts.push(this.adapt(el)));
-    return shortcuts;
+    source.forEach(el => pages.push(this.adapt(el)));
+    return pages;
   }
 }
