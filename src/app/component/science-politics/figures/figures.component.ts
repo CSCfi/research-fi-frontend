@@ -199,7 +199,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         // Set results flag, used to show right template
         this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
         // Highlight side nav item
-        this.currentSection = this.queryResults.length > 0 ? '' : 's1';
+        this.currentSection = this.queryResults.length > 0 ? '' : 's0';
     });
   }
 
