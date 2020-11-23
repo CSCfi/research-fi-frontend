@@ -40,7 +40,7 @@ export class CarouselComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.maxIdx = this.data.length - 1;
     // Default to first item if no matching ID when filtering
-    this.idx = this.data.find(x => x.link === this.id) ? this.data.findIndex(x => x.link === this.id) : 0;
+    this.idx = this.data.find(x => x.id === this.id) ? this.data.findIndex(x => x.id === this.id) : 0;
     this.slicedData = this.sliceAround(this.idx, this.maxIdx, this.data);
   }
 
