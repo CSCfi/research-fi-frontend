@@ -169,7 +169,6 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
 
             default:
 
-                // debugger;
                 const hierarchyField = this.funding[categoryIdx].hierarchy[1].name;
                 const categoryHierarchy = this.funding[categoryIdx].hierarchy[2].name;
 
@@ -212,6 +211,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
         }
 
         // Group duplicate names from the two aggregations
+        this.groupNames(year);
         this.groupNames(funder);
         // Sort the mixed arrays alphabetically
         this.sortByName(organization);
