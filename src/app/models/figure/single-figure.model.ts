@@ -42,7 +42,7 @@ export class SingleFigureAdapter implements Adapter<SingleFigure> {
   constructor() {}
   adapt(item: any): SingleFigure {
     return new SingleFigure(
-      item.placement_id,
+      's' + item.parent + '_' + item.placement_id,
       item.placement_id,
       item.title_fi,
       item.title_sv,
