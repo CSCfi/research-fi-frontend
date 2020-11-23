@@ -31,7 +31,7 @@ export class ContentDataService {
   }
 
   getFigures(): Observable<Figure[]> {
-    return this.http.get<Figure[]>(this.apiUrl + 'figure/')
+    return this.http.get<Figure[]>(this.apiUrl + 'figures/')
     .pipe(map(data => this.figureAdapter.adaptMany(data)));
   }
 }
