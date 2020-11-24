@@ -7,10 +7,10 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
 <main id="main-content">
     <div class="wrapper">
-        <div class="row justify-content-center" *ngIf="loading">
+        <div class="row justify-content-center" *ngIf="isLoader">
             <mat-spinner  [diameter]="40"></mat-spinner>
         </div>
-        <ng-container *ngIf="!loading">
+        <ng-container>
             <div class="row">
                 <div class="col pb-4">
                     <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
