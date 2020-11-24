@@ -33,12 +33,13 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   consentStatusSub: any;
   routeSub: Subscription;
   selectedIndex: any;
+  currentLocale: string;
 
-  private currentLocale: string;
   private metaTags = privacy;
   private commonTags = common;
 
-
+  privacyPolicyContent: any[];
+  cookiePolicyContent: any[];
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
               @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
@@ -51,6 +52,12 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
    }
 
   ngOnInit(): void {
+    // Get page data. Data is passed with resolver in router
+    const pageData = this.route.snapshot.data.pages;
+    this.privacyPolicyContent = pageData.find(el => el.id === 'privacy-statement');
+    this.cookiePolicyContent = pageData.find(el => el.id === 'cookie-policy');
+    console.log(this.privacyPolicyContent);
+
     // Open tab
     this.routeSub = this.route.params.subscribe(param => {
       this.selectedIndex = param.tab || 0;
