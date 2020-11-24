@@ -115,10 +115,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
-      if (!sessionStorage.getItem('pageData')) {
+      if (!this.cds.pageDataFlag) {
         this.pageDataSub = this.cds.getPages().subscribe(data => {
-          console.log(data);
-          sessionStorage.setItem('pageData', JSON.stringify(data));
+          this.cds.setPageData(data);
+          // sessionStorage.setItem('pageData', JSON.stringify(data));
         });
       }
       // this.window.addEventListener('keydown', this.handleTabPressed);
