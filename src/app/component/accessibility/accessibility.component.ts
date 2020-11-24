@@ -26,19 +26,20 @@ import { skipWhile } from 'rxjs/operators';
 export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;
   @ViewChild('mainFocus') mainFocus: ElementRef;
+  @ViewChild('contentContainer') contentContainer: ElementRef;
   title: string;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
   currentLocale: string;
-
+  loading = true;
 
   private metaTags = accessibility;
   private commonTags = common;
-  content: any;
+  content: any[];
   contentSub: Subscription;
 
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              public dialog: MatDialog, private utilityService: UtilityService, private cds: ContentDataService) {
+              public dialog: MatDialog, private utilityService: UtilityService, private cds: ContentDataService,) {
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
@@ -48,8 +49,15 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
     .pipe(skipWhile(val => val.length === 0))
     .subscribe(data => {
       this.content = data.find(el => el.placement === '4');
+      // console.log(this.content['content' + this.currentLocale]);
+      const el = document.createElement('html');
+      el.innerHTML = this.content['content' + this.currentLocale];
+      console.log(data['content' + this.currentLocale]);
+      console.log(el.getElementsByTagName('a'));
+      this.loading = false;
     });
 
+    // Add meta tags and title
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
     this.metaTags['description' + this.currentLocale],
     this.commonTags['imgAlt' + this.currentLocale])
@@ -87,6 +95,8 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
         this.mainFocus.nativeElement.focus();
       }
     });
+    // console.log(this.contentContainer);
+    // console.log(document.getElementById('toggle-review'));
   }
 
   toggleReview() {
