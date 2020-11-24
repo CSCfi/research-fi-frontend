@@ -6,5 +6,8 @@
  :license: MIT -->
 
 <app-layout>
-<router-outlet></router-outlet>
+  <div class="row justify-content-center" *ngIf="loading">
+      <mat-spinner  [diameter]="40"></mat-spinner>
+  </div>
+  <router-outlet *ngIf="!loading"></router-outlet>
 </app-layout>
