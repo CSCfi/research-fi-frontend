@@ -24,6 +24,7 @@ import { AccessibilityComponent } from './component/accessibility/accessibility.
 import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { NotFoundComponent } from './common-components/not-found/not-found.component';
+import { PageResolverService } from './resolvers/page-resolver.service';
 
 const routes: Routes = [
   {
@@ -130,7 +131,10 @@ const routes: Routes = [
   },
   {
     path: 'accessibility',
-    component: AccessibilityComponent
+    component: AccessibilityComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'sitemap',
