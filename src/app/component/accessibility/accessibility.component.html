@@ -23,7 +23,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <div class="col px-0">
                         <div class="content" #mainFocus tabindex="0">
                             <div class="row">
-                                <div class="col page-content" #contentContainer [innerHTML]="content['content' + currentLocale] | sanitizeHtml">
+                                <div class="col page-content" [innerHTML]="content['content' + currentLocale] | sanitizeHtml">
                                     <!-- <p i18n="@@accessibilityParagraph1">Tämä on Tiedejatutkimus.fi -verkkopalvelun saavutettavuusseloste.
                                     Verkkopalvelun saavutettavuusvaatimukset perustuvat kansalliseen lakiin digitaalisten palveluiden tarjoamisesta (306/2019).
                                     Tämä saavutettavuusseloste on laadittu 5.6.2020.</p>
