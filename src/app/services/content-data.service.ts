@@ -12,12 +12,17 @@ import { Shortcut, ShortcutAdapter } from '../models/shortcut.model';
 import { Figure, FigureAdapter } from '../models/figure/figure.model';
 import { Page, PageAdapter } from '../models/page.model';
 import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContentDataService {
   apiUrl: string;
+  private pageSource = new BehaviorSubject([]);
+  pageData = this.pageSource.asObservable();
+  pageDataFlag = false;
+
   constructor(private http: HttpClient, private shortcutAdapter: ShortcutAdapter, private figureAdapter: FigureAdapter,
               private pageAdapter: PageAdapter) {
     this.apiUrl = 'http://127.0.0.1:8000/apis/v1/';
@@ -26,7 +31,6 @@ export class ContentDataService {
   /*
    * Get data from backend
    */
-
   getShortcuts(): Observable<Shortcut[]> {
     return this.http.get<Shortcut[]>(this.apiUrl + 'shortcuts/')
     .pipe(map(data => this.shortcutAdapter.adaptMany(data)));
@@ -40,5 +44,13 @@ export class ContentDataService {
   getPages(): Observable<Page[]> {
     return this.http.get<Page[]>(this.apiUrl + 'pages/')
     .pipe(map(data => this.pageAdapter.adaptMany(data)));
+  }
+
+  /*
+   * Set data
+   */
+  setPageData(data: any) {
+    this.pageDataFlag = true;
+    this.pageSource.next(data);
   }
 }
