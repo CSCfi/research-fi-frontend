@@ -41,7 +41,7 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngOnInit(): void {
     // Get page data. Data is passed with resolver in router
-    this.content = this.route.snapshot.data.pages.find((e: { placement: string; }) => e.placement === '4');
+    this.content = this.route.snapshot.data.pages.find((e: { id: string; }) => e.id === '4');
 
     // Add meta tags and title
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
