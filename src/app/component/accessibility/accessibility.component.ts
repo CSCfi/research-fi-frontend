@@ -14,6 +14,8 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
 import { UtilityService } from 'src/app/services/utility.service';
 import { accessibility, common } from 'src/assets/static-data/meta-tags.json'
+import { ContentDataService } from 'src/app/services/content-data.service';
+import { skipWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -26,19 +28,28 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChild('mainFocus') mainFocus: ElementRef;
   title: string;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
-  private currentLocale: string;
+  currentLocale: string;
 
 
   private metaTags = accessibility;
   private commonTags = common;
+  content: any;
+  contentSub: Subscription;
 
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              public dialog: MatDialog, private utilityService: UtilityService) {
+              public dialog: MatDialog, private utilityService: UtilityService, private cds: ContentDataService) {
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   ngOnInit(): void {
+    // Get page data
+    this.contentSub = this.cds.pageData
+    .pipe(skipWhile(val => val.length === 0))
+    .subscribe(data => {
+      this.content = data.find(el => el.placement === '4');
+    });
+
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
     this.metaTags['description' + this.currentLocale],
     this.commonTags['imgAlt' + this.currentLocale])
@@ -91,6 +102,7 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
+    this.contentSub?.unsubscribe();
   }
 
 }
