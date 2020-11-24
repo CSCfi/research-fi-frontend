@@ -126,11 +126,17 @@ const routes: Routes = [
   },
   {
     path: 'privacy',
-    component: PrivacyComponent
+    component: PrivacyComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'privacy/:tab',
-    component: PrivacyComponent
+    component: PrivacyComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'accessibility',
