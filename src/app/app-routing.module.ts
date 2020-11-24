@@ -119,7 +119,10 @@ const routes: Routes = [
   },
   {
     path: 'service-info',
-    component: ServiceInfoComponent
+    component: ServiceInfoComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'privacy',
