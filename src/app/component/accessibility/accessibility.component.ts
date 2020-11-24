@@ -13,13 +13,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
 import { UtilityService } from 'src/app/services/utility.service';
 import { accessibility, common } from 'src/assets/static-data/meta-tags.json';
-import {
-  Router,
-  RouterEvent,
-  NavigationStart,
-  NavigationEnd,
-  ActivatedRoute
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-accessibility',
@@ -38,13 +32,10 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   private metaTags = accessibility;
   private commonTags = common;
   content: any[];
-  contentSub: Subscription;
-  loaded: Promise<boolean>;
-  isLoader: boolean;
+
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              public dialog: MatDialog, private utilityService: UtilityService,
-              private router: Router, private route: ActivatedRoute) {
+              public dialog: MatDialog, private utilityService: UtilityService, private route: ActivatedRoute) {
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
@@ -74,22 +65,7 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
     this.tabChangeService.toggleSkipToInput(false);
 
     this.title = this.getTitle();
-  }
-
-
-  routerEvents() {
-    this.router.events.subscribe((event: RouterEvent) => {
-      switch (true) {
-        case event instanceof NavigationStart: {
-          this.isLoader = true;
-          break;
-        }
-        case event instanceof NavigationEnd: {
-          this.isLoader = false;
-          break;
-        }
-      }
-    });
+    this.loading = false;
   }
 
   setTitle(title: string) {
@@ -128,6 +104,5 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
     // Reset skip to input - skip-link
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
-    this.contentSub?.unsubscribe();
   }
 }
