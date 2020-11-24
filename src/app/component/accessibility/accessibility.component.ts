@@ -86,6 +86,7 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
     // Add review toggle onclick functionality to corresponding ling
     const reviewLink = document.getElementById('toggle-review');
     if (reviewLink) {
+      reviewLink.setAttribute('href', 'javascript:void(0)');
       reviewLink.addEventListener('click',  (evt: Event) => this.toggleReview());
     }
 
