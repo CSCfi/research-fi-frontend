@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
     this.routerEvents();
   }
 
+  // Set loading indicator. This useful for pages that rely on resolvers
   routerEvents() {
     this.router.events.subscribe((event: RouterEvent) => {
       switch (true) {
