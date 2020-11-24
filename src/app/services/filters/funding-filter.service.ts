@@ -135,7 +135,7 @@ export class FundingFilterService {
 
     res.map(item => {
       item.label = item.label || item.key;
-      item.key = item.funderId.buckets[0].key;
+      item.key = item.funderId.buckets[0]?.key || item.key;
     });
     return res;
   }

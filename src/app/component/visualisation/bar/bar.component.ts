@@ -113,7 +113,7 @@ export class BarComponent implements OnInit, OnChanges {
       // Shuffle the color order from the first onward (year colors stay same)
       d3.shuffle(
         // Quantize the desired scale to the length of data
-        d3.quantize(d3.interpolateCool, max([len, 3])), 1
+        d3.quantize(d3.interpolateSinebow, max([len, 3])), 1
         )
     );
 
@@ -267,7 +267,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.margin / 2)
         .append('xhtml:div')
           .style('text-align', 'left')
-          .html((this.searchTerm ? `"<mark>${this.searchTerm}</mark>"` : 'Ei hakusanaa') +
+          .html((this.searchTerm ? `"<mark>${this.searchTerm}</mark>"` : $localize`:@@noSearchTerm:Ei hakusanaa`) +
                 (this.searchTarget ? (', ' + this.searchTarget) : ''));
 
     this.g.append('foreignObject')

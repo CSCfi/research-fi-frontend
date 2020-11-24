@@ -91,8 +91,13 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   faDownload = faDownload;
   faTrash = faTrash;
   faChartBar = faChartBar;
+  showAsVisual = $localize`:@@showAsVisual:Näytä kuvana`;
+  additionalInfo = $localize`:@@additionalInfo:Lisätietoa`;
+  clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
+  downloadImage = $localize`:@@downloadAsImage:Lataa kuvana (tulossa)`;
 
-  betaTooltip = 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.'
+  // tslint:disable-next-line: max-line-length
+  betaTooltip = 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.';
 
   private metaTagsList = [publications, fundings, infrastructures, organizations];
   private metaTags: {link: string};
@@ -194,11 +199,11 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
           switch (this.tab) {
             case 'publications':
               this.visualisationCategories = this.visualPublication;
-              this.visualisationInfo = this.staticDataService.visualisationData.publicationTooltip;
+              this.visualisationInfo = this.staticDataService.visualisationData['publicationTooltip' + this.currentLocale];
               break;
             case 'fundings':
               this.visualisationCategories = this.visualFunding;
-              this.visualisationInfo = this.staticDataService.visualisationData.fundingTooltip;
+              this.visualisationInfo = this.staticDataService.visualisationData['fundingTooltip' + this.currentLocale];
               break;
             default:
               this.visualisationCategories = [];

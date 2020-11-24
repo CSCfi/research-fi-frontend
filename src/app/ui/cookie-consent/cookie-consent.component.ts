@@ -10,7 +10,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TabChangeService } from 'src/app/services/tab-change.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cookie-consent',
@@ -26,7 +26,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
 
   constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar,
-              private tabChangeService: TabChangeService, private route: ActivatedRoute, private router: Router) { }
+              private tabChangeService: TabChangeService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // Bar can be hidden from privacy / cookies tab
@@ -98,8 +98,18 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       _paq.push(['rememberConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
+      // this.setTwitterCookie();
     }
     if (!hideSnackBar) {this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`); }
+  }
+
+  setTwitterCookie() {
+    const node = this.document.createElement('script');
+    node.id = 'twitter-cookie';
+    node.async = true;
+    node.src = 'https://platform.twitter.com/widgets.js';
+    node.charset = 'utf-8';
+    this.document.getElementsByTagName('head')[0].appendChild(node);
   }
 
   public loadScript() {
@@ -119,6 +129,11 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
     })();`;
     this.document.getElementsByTagName('head')[0].appendChild(node);
+    // if (isPlatformBrowser(this.platformId)) {
+    //   if (localStorage.getItem('cookieConsent') === 'approved') {
+    //     this.setTwitterCookie();
+    //   }
+    // }
   }
 
   ngOnDestroy() {
