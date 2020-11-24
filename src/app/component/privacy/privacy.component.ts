@@ -117,7 +117,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       _paq.push(['forgetConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
-      // this.document.getElementById('twitter-cookie')?.remove();
+      this.document.getElementById('twitter-cookie')?.remove();
       this.window.location.reload();
     }
     this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`);
@@ -133,7 +133,7 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
       _paq.push(['rememberConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
-      // this.setTwitterCookie();
+      this.setTwitterCookie();
     }
     this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
   }
