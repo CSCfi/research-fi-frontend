@@ -11,7 +11,7 @@ import { Adapter } from './adapter.model';
 export class Page {
 
   constructor(
-    public placement: number,
+    public id: number,
     public titleFi: string,
     public titleSv: string,
     public titleEn: string,
@@ -29,7 +29,7 @@ export class PageAdapter implements Adapter<Page> {
   constructor() {}
   adapt(item: any): Page {
     return new Page(
-      item.placement_id,
+      item.page_id,
       item.title_fi,
       item.title_sv,
       item.title_en,
