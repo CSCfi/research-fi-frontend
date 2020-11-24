@@ -6,7 +6,7 @@
 # :license: MIT
 
 # Stage 1: Build Angular application
-FROM node:12.12.0-alpine as builder
+FROM docker-registry.default.svc:5000/researchfi/node:12.12.0-alpine as builder
 COPY . /app
 WORKDIR /app
 RUN chown -R node:node /app
@@ -15,7 +15,7 @@ RUN npm install
 RUN npm run build:ssr
 
 # Stage 2: Serve Angular application
-FROM node:12.12.0-alpine as angular
+FROM docker-registry.default.svc:5000/researchfi/node:12.12.0-alpine as angular
 COPY --from=builder /app/dist/ /dist/
 WORKDIR /
 
