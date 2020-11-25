@@ -5,19 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable, EventEmitter  } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable  } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filters/filter.service';
 import { TabChangeService } from './tab-change.service';
-import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
-import { Publication } from '../models/publication/publication.model';
 import { News, NewsAdapter } from '../models/news.model';
 import { VisualAdapter, Visual } from '../models/visualisation/visualisations.model';
 import { AggregationService } from './filters/aggregation.service';
