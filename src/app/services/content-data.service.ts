@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Shortcut, ShortcutAdapter } from '../models/shortcut.model';
 import { Figure, FigureAdapter } from '../models/figure/figure.model';
 import { Page, PageAdapter } from '../models/page.model';
+import { Sector, SectorAdapter } from '../models/research-innovation-system/sector.model';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
@@ -24,7 +25,7 @@ export class ContentDataService {
   pageDataFlag = false;
 
   constructor(private http: HttpClient, private shortcutAdapter: ShortcutAdapter, private figureAdapter: FigureAdapter,
-              private pageAdapter: PageAdapter) {
+              private pageAdapter: PageAdapter, private sectorAdapter: SectorAdapter) {
     this.apiUrl = 'http://127.0.0.1:8000/apis/v1/';
    }
 
@@ -44,6 +45,11 @@ export class ContentDataService {
   getPages(): Observable<Page[]> {
     return this.http.get<Page[]>(this.apiUrl + 'pages/')
     .pipe(map(data => this.pageAdapter.adaptMany(data)));
+  }
+
+  getSectors(): Observable<Sector[]> {
+    return this.http.get<Sector[]>(this.apiUrl + 'sectors/')
+    .pipe(map(data => this.sectorAdapter.adaptMany(data)));
   }
 
   /*
