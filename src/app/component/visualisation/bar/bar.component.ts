@@ -107,11 +107,15 @@ export class BarComponent implements OnInit, OnChanges {
     const maxByDocCount = max(sample.map(x => x.data.reduce((a, b) => a + b.doc_count, 0)));
 
     // Color stuff
+    // Init seeding again with seedrandom
+    const seedrandom = require('seedrandom');
+    seedrandom('randomseed', {global: true});
+
     const len = max(sample.map(x => x.data.length));
     // Create color scale
     const color = d3.scaleOrdinal(
       // Shuffle the color order from the first onward (year colors stay same)
-      d3.shuffle(
+      UtilityService.shuffle(
         // Quantize the desired scale to the length of data
         d3.quantize(d3.interpolateSinebow, max([len, 3])), 1
         )

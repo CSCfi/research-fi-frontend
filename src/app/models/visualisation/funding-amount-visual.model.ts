@@ -20,7 +20,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
         funder: 'f.key',
         organization: '',
         // Locale, english, finnish, key
-        typeOfFunding: 'f.typeName.buckets[0].key.split("|")[0].trim() || f.typeName.buckets[0].key.split("|")[1].trim() || f.typeName.buckets[0].key.split("|")[2].trim() || f.key',
+        typeOfFunding: 'f.key.split("|")[0].trim() || f.key.split("|")[1].trim() || f.key.split("|")[2].trim() || f.id',
         fieldOfScience: 'f.key',
     };
 
@@ -213,9 +213,15 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
         // Group duplicate names from the two aggregations
         this.groupNames(year);
         this.groupNames(funder);
+        this.groupNames(organization);
+        this.groupNames(typeOfFunding);
+        this.groupNames(fieldOfScience);
         // Sort the mixed arrays alphabetically
+        this.sortByName(year);
+        this.sortByName(funder);
         this.sortByName(organization);
         this.sortByName(typeOfFunding);
+        this.sortByName(fieldOfScience);
 
         return new FundingVisual(
             year,

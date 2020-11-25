@@ -95,6 +95,32 @@ export class UtilityService {
     return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 
+  // Fisher–Yates Shuffle
+  // https://bost.ocks.org/mike/shuffle/
+  static shuffle(arr: any[], start = 0): any[] {
+    const prefix = arr.slice(0, start);
+    const array = arr.slice(start);
+
+    let m = array.length;
+    let t;
+    let i;
+
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+
+    return prefix.concat(array);
+  }
+
   // mouseenter handler for tooltipelements
   tooltipMouseenter(elem: HTMLElement) {
     elem.blur();
