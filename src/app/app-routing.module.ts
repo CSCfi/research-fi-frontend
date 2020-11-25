@@ -25,6 +25,7 @@ import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { NotFoundComponent } from './common-components/not-found/not-found.component';
 import { PageResolverService } from './resolvers/page-resolver.service';
+import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
 
 const routes: Routes = [
   {
@@ -106,7 +107,11 @@ const routes: Routes = [
   {
     path: 'science-innovation-policy/research-innovation-system',
     pathMatch: 'full',
-    component: ResearchInnovationSystemComponent
+    component: ResearchInnovationSystemComponent,
+    resolve: {
+      pages: PageResolverService,
+      sectorData: ResearchInnovationSystemSectorResolver,
+    }
   },
   {
     path: 'science-innovation-policy/science-research-figures',
