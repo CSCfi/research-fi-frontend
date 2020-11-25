@@ -26,12 +26,16 @@ import { SingleInfrastructureComponent } from './component/single/single-infrast
 import { NotFoundComponent } from './common-components/not-found/not-found.component';
 import { PageResolverService } from './resolvers/page-resolver.service';
 import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
+import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: HomePageComponent
+    component: HomePageComponent,
+    resolve: {
+      shortcuts: ShortcutResolverService
+    }
   },
   {
     path: 'results/publication',
