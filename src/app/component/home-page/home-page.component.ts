@@ -24,7 +24,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/ui/review/review.component';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { WINDOW } from 'src/app/services/window.service';
-import { ContentDataService } from 'src/app/services/content-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   providers: [SearchBarComponent],
@@ -53,96 +53,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   private metaTags = homepage;
   private commonTags = common;
 
-  shortcuts = [
-    {
-      titleFi: 'Lukuja tieteestä ja tutkimuksesta',
-      titleEn: 'Figures on science and research',
-      titleSv: 'Siffror om vetenskap och forskning',
-      captionFi: 'Tutustu tilastoihin tutkimuksen henkilöstöstä, rahoituksesta ja julkaisutoiminnasta',
-      captionEn: 'Read statistics on research personnel, funding and publishing.',
-      captionSv: 'Bekanta dig med statistiken över forskningspersonalen samt finansieringen och publikationsverksamheten.',
-      imgPath: 'assets/img/home/finnish_science_state.jpg',
-      col: 6,
-      link: '/science-innovation-policy/science-research-figures',
-      alt: ' '
-    },
-    {
-      titleFi: 'Uusimmat tutkimushankkeet',
-      titleEn: 'Latest research projects',
-      titleSv: 'De senaste forskningsprojekten',
-      captionFi: 'Tutustu uusimpiin tutkimusrahoituspäätöksiin',
-      captionEn: 'See the latest research funding decisions',
-      captionSv: 'Bekanta dig med de senaste besluten om forskningsfinansiering',
-      imgPath: 'assets/img/home/funding.jpg',
-      col: 4,
-      link: '/results/fundings',
-      alt: ' '
-    },
-    {
-      titleFi: 'Suomalainen tutkimus- ja innovaatiojärjestelmä',
-      titleEn: 'Research and innovation system in Finland',
-      titleSv: 'Forskningssystem i Finland',
-      captionFi: 'Mistä suomalainen tutkimusjärjestelmä koostuu?',
-      captionEn: 'What does the Finnish research system consist of?',
-      captionSv: 'Vad består det finländska forskningssystemet av?',
-      imgPath: 'assets/img/home/research_innovation.jpg',
-      col: 6,
-      link: '/science-innovation-policy/research-innovation-system',
-      alt: ' '
-    },
-    {
-      titleFi: 'Anna palautetta',
-      titleEn: 'Give feedback',
-      titleSv: 'Ge respons',
-      captionFi: 'Kerro meille ajatuksiasi palvelusta. Sekä kehut että huomaamasi puutteet ovat tervetulleita. Otamme mielellämme vastaan myös uusia ideoita palvelun kehittämiseksi.',
-      captionEn: 'Let us know your thoughts about the service. We welcome both the strengths and shortcomings you notice. We are also happy to hear about new ideas for developing the service.',
-      captionSv: 'Låt oss veta dina tankar om tjänsten. Både ris och ros är välkomna. Gärna hör vi också nya utvecklingsidéer.',
-      imgPath: 'assets/img/home/feedback.jpg',
-      col: 6,
-      link: '#',
-      alt: ' ',
-      toggleReview: true
-    },
-    {
-      titleFi: 'Tietoa palvelusta',
-      titleEn: 'About the Service',
-      titleSv: 'Information om tjänsten',
-      captionFi: 'Mitä tiedejatutkimus.fi sisältää? Miten tutkijana saat tietosi palveluun? Miten palvelua käytetään?',
-      captionEn: 'What is found in research.fi? How do you make your information visible the service as a researcher? How do I use the service?',
-      captionSv: 'Vad innehåller forskning.fi? Hur får du som forskare information om tjänsten? Hur används tjänsten?',
-      imgPath: 'assets/img/home/info.jpg',
-      col: 4,
-      link: '/service-info',
-      alt: ' '
-    },
-    {
-      titleFi: 'Anna palautetta',
-      titleEn: 'Give feedback',
-      titleSv: 'Ge respons',
-      captionFi: 'Voit antaa palautetta tästä verkkopalvelusta',
-      captionEn: 'You can give feedback on this online service',
-      captionSv: 'Du kan lämna respons om webbtjänsten',
-      imgPath: 'assets/img/home/search.jpg',
-      col: 4,
-      link: '/service-info',
-      alt: ' '
-    },
-    {
-      titleFi: 'Etsi julkaisuja!',
-      titleEn: 'Search for publications!',
-      titleSv: 'Sök publikationer!',
-      captionFi: 'Etsi tietoa suomalaisten tutkimusorganisaatioiden julkaisuista',
-      captionEn: 'Search for information on publications by Finnish research organizations',
-      captionSv: 'Sök information i finländska forskningsorganisationers publikationer',
-      imgPath: 'assets/img/home/search.jpg',
-      col: 4,
-      link: '/results/publications',
-      last: true,
-      alt: ' '
-    }
-
-  ];
-
   newsImage = {
     link: '/news',
     alt: ' ',
@@ -159,8 +69,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor( private searchService: SearchService, private sortService: SortService, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
                private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, public utilityService: UtilityService,
-               public dialog: MatDialog, private privacyService: PrivacyService, private cds: ContentDataService) {
+               private resizeService: ResizeService, public utilityService: UtilityService, private route: ActivatedRoute,
+               public dialog: MatDialog, private privacyService: PrivacyService) {
                  // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
                }
@@ -214,10 +124,8 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
 
-    // Get shortcuts from API
-    this.cds.getShortcuts().subscribe(data => {
-      this.shortcutData = data;
-    });
+    // Get shortcuts from Resolver
+    this.shortcutData = this.route.snapshot.data.shortcuts;
   }
 
   onResize() {
