@@ -43,6 +43,11 @@ export class AppConfigService {
     return this.appConfig.apiUrl + '/portalapi/';
   }
 
+  // Content data API url
+  get contentApiUrl() {
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.contentApiUrl;
+  }
   // Application performance monitoring Url
   get apmUrl() {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }

@@ -13,6 +13,7 @@ import { Figure, FigureAdapter } from '../models/figure/figure.model';
 import { Page, PageAdapter } from '../models/page.model';
 import { Sector, SectorAdapter } from '../models/research-innovation-system/sector.model';
 import { map } from 'rxjs/operators';
+import { AppConfigService } from './app-config-service.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -25,8 +26,8 @@ export class ContentDataService {
   pageDataFlag = false;
 
   constructor(private http: HttpClient, private shortcutAdapter: ShortcutAdapter, private figureAdapter: FigureAdapter,
-              private pageAdapter: PageAdapter, private sectorAdapter: SectorAdapter) {
-    this.apiUrl = 'http://127.0.0.1:8000/apis/v1/';
+              private pageAdapter: PageAdapter, private sectorAdapter: SectorAdapter, private appConfigService: AppConfigService) {
+    this.apiUrl = this.appConfigService.contentApiUrl;
    }
 
   /*
