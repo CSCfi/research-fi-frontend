@@ -137,6 +137,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
                         <div [innerHtml]="visualisationInfo"></div>
                     </div>
+                    <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle>
                     <mat-form-field class="visual-select">
                         <mat-label class="strong" i18n="@@chooseTheme">Valitse teema</mat-label>
                         <mat-select (selectionChange)="changeVisual($event)">
