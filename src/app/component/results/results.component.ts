@@ -264,6 +264,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.modalRef.hide();
       this.modalRef = undefined;
       this.percentage = false;
+      this.fundingAmount = false;
       this.changeVisual({value: '0'});
     });
 

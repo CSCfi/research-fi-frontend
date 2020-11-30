@@ -1062,9 +1062,73 @@ export class StaticDataService {
                     size: 1,
                     order: 1,
                     exclude: [' ']
-                }
+                },
+                {
+                  name: 'orgNested',
+                  nested: 'fundingGroupPerson'
+                },
+                {
+                  field: 'fundingGroupPerson.consortiumOrganizationId.keyword',
+                  name: 'organizationId',
+                  size: 100,
+                  filterName: 'organization'
+                },
+                {
+                  sum: 'fundingGroupPerson.shareOfFundingInEur',
+                  name: 'moneySum',
+                  size: 1
+                },
+            ],
+            hierarchy2: [
+                {
+                    field: 'fundingStartYear',
+                    name: 'year',
+                    size: 10,
+                    order: 1
+                },
+                {
+                  name: 'fieldNested',
+                  nested: 'fieldsOfScience'
+                },
+                {
+                    field: 'fieldsOfScience.fieldIdScience',
+                    name: 'fieldId',
+                    size: 100,
+                    order: 1,
+                    filterName: 'field',
+                    exclude: [0]
+                },
+                {
+                    field: 'fieldsOfScience.name|locale|Science.keyword',
+                    name: 'fieldsOfScience',
+                    size: 1,
+                    order: 1,
+                    exclude: [' ']
+                },
+                {
+                  name: 'orgNested',
+                  nested: 'organizationConsortium'
+                },
+                {
+                  name: 'finnishOrganization',
+                  filter: {
+                      field: 'organizationConsortium.isFinnishOrganization',
+                      value: [1]
+                  }
+                },
+                {
+                  field: 'organizationConsortium.consortiumOrganizationId.keyword',
+                  name: 'organizationId',
+                  size: 100,
+                  filterName: 'organization'
+                },
+                {
+                  sum: 'organizationConsortium.shareOfFundingInEur',
+                  name: 'moneySum',
+                  size: 1
+                },
             ]
         }
     ]
-}
+};
 }
