@@ -899,6 +899,14 @@
         <source>Prosentteina</source>
         <target>I procent</target>
       </trans-unit>
+      <trans-unit id="asAmount">
+        <source>Myöntösummana</source>
+        <target>I antal</target>
+      </trans-unit>
+      <trans-unit id="asPercentAmount">
+        <source>Prosentteina</source>
+        <target>I procent</target>
+      </trans-unit>
       <trans-unit id="downloadAsImage">
         <source>Lataa kuvana (tulossa)</source>
         <target>Ladda ner bild (på kommande)</target>
@@ -1037,6 +1045,26 @@
       </trans-unit>
       <trans-unit id="fundingCountByFOS">
         <source>Hankkeiden määrä tieteenaloittain</source>
+        <target>Antal projekt per vetenskapsområde</target>
+      </trans-unit>
+            <trans-unit id="fundingAmountByYear">
+        <source>Hankkeiden myöntösumma vuosittain</source>
+        <target>Antal projekt per år</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByFunder">
+        <source>Hankkeiden myöntösumma rahoittajan mukaan</source>
+        <target>Antal projekt per finansiär</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByOrg">
+        <source>Hankkeiden myöntösumma organisaatioittain</source>
+        <target>Antal projekt per organisation</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByType">
+        <source>Hankkeiden myöntösumma rahoitusmuodon mukaan</source>
+        <target>Antal projekt per typ av finansiering</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByFOS">
+        <source>Hankkeiden myöntösumma tieteenaloittain</source>
         <target>Antal projekt per vetenskapsområde</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">

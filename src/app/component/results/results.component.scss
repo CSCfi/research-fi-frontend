@@ -118,6 +118,12 @@ span.total {
   .vis-info {
     justify-content: space-between;
   }
+  .vis-style-toggles {
+    width: 460px; // Adjust width according to longest translation when done
+    padding: 0;
+    padding-bottom: 10px;
+    padding-right: 10px;
+  }
   .vis-style-toggle {
     border-radius: 0;
   }

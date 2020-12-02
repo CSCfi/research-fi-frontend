@@ -269,6 +269,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.modalRef.hide();
       this.modalRef = undefined;
       this.percentage = false;
+      this.fundingAmount = false;
       this.changeVisual({value: '0'});
     });
 
@@ -409,6 +410,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   onResize(width) {
     this.mobile = width < 992;
     this.visual = this.visual && width >= 1200;
+    if (this.mobile && this.modalRef) {
+      this.closeModal();
+    }
   }
 
   changeFocusTarget(target) {

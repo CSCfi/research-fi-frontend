@@ -30,7 +30,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
         organization: 'f.key',
         // Locale, english, finnish, key
         typeOfFunding: 'f.key',
-        fieldOfScience: 'f.key',
+        fieldOfScience: 'f.id',
     };
 
 
@@ -137,7 +137,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
                     b.orgs.forEach(f => {
                         const v: any = {};
                         v.name = f.organizationName.buckets[0].key.toString();
-                        v.doc_count = f.doc_count;
+                        v.doc_count = f.organizationName.buckets[0].moneySum.value;
                         v.id = f.key;
                         v.parent = b.key;
                         b.data.push(v);
@@ -149,23 +149,46 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
 
             case 'fieldOfScience':
 
-                item.aggregations.fieldOfScience.buckets.forEach(b => tmp.push(b));
+                const comb = [];
 
-                tmp.forEach(b => {
+                item.aggregations.fieldOfScience.buckets.forEach(b => {
+                    b.categs = [];
+
+                    b.fieldNested.fieldId.buckets.forEach(s => {
+                        const f = s.fieldsOfScience.buckets[0];
+                        f.id = s.key;
+                        b.categs.push(f);
+                    });
+                    comb.push({key: b.key, id: b.key, categs: b.categs});
+                });
+
+                // debugger;
+
+                item.aggregations.fieldOfScience2.buckets.forEach(b => {
+                    // debugger;
+                    const target = comb.find(x => x.key === b.key);
+                    b.fieldNested.fieldId.buckets.forEach(s => {
+                        const f = s.fieldsOfScience.buckets[0];
+                        f.id = s.key;
+                        target.categs.push(f);
+                    });
+                });
+
+                comb.forEach(b => {
                     b.data = [];
-                    b.fieldNested.fieldId.buckets.forEach(f => {
+                    b.categs.forEach(f => {
                         const v: any = {};
-                        v.name = f.fieldsOfScience.buckets[0].key;
-                        v.id = f.key;
-                        v.doc_count = f.doc_count;
+                        v.name = eval(this.names[field]);
+                        v.id = eval(this.ids[field]);
+                        v.doc_count = this.getFundingSum(f, field);
                         v.parent = b.key;
                         b.data.push(v);
                     });
-                    fieldOfScience.push(b);
+                    // Push data to correct array
+                    eval(`${field}.push(b)`);
+                    eval(`this.sortByName(${field})`);
                 });
-                this.sortByName(fieldOfScience);
                 break;
-
 
             default:
 
