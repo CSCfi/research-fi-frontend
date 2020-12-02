@@ -78,17 +78,22 @@ app.use(helmet.contentSecurityPolicy({
     styleSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
-      'https://fonts.googleapis.com:*'
+      'https://*.twitter.com:*',
+      'https://fonts.googleapis.com:*',
+      'https://*.twimg.com:*',
     ],
     scriptSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
       '\'unsafe-eval\'',
-      'https://*.csc.fi:*'
+      'https://*.csc.fi:*',
+      'https://*.twitter.com:*',
+      'https://cdn.syndication.twimg.com:*',
     ],
     frameSrc: [
       'https://app.powerbi.com:*',
-      'https://rihmatomo-analytics.csc.fi:*'
+      'https://rihmatomo-analytics.csc.fi:*',
+      'https://*.twitter.com:*'
     ],
     fontSrc: [
       '\'self\'',
@@ -104,10 +109,13 @@ app.use(helmet.contentSecurityPolicy({
       'https://www.maanmittauslaitos.fi:*',
       'https://rihmatomo-analytics.csc.fi:*',
       'https://wiki.eduuni.fi:*',
-      'https://www.hamk.fi',
+      'https://www.hamk.fi:*',
       'https://mediapankki.tuni.fi:*',
-      'https://www.turkuamk.fi:*'
-
+      'https://www.turkuamk.fi:*',
+      'https://*.twitter.com:*',
+      'https://*.twimg.com:*',
+      'https://*.w3.org:*',
+      'data:',
     ]
   }
 }));

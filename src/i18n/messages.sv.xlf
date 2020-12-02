@@ -172,9 +172,13 @@
         </context-group>
         <note priority="1" from="description">Empty search history</note>
       </trans-unit>
+      <trans-unit id="researchfiTwitter">
+        <source>Tiedejatutkimus.fi Twitterissä</source>
+        <target>Senaste vetenskaps- och forskningsnyheterna</target>
+      </trans-unit>
       <trans-unit id="homeNewsHeaderPlain">
         <source>Tiede ja tutkimus Suomessa</source>
-        <target>Senaste vetenskaps- och forskningsnyheterna</target>
+        <target>Forskning.fi på twitter</target>
       </trans-unit>
       <trans-unit id="homeNewsHeader" datatype="html">
         <source>Uusimmat tiede- ja tutkimusuutiset 
@@ -879,6 +883,26 @@
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="chooseTheme">
+        <source>Valitse teema</source>
+        <target>Välj en tema</target>
+      </trans-unit>
+      <trans-unit id="noSearchTerm">
+        <source>Ei hakusanaa</source>
+        <target>Inte sökordet</target>
+      </trans-unit>
+      <trans-unit id="asCount">
+        <source>Lukumäärinä</source>
+        <target>I antal</target>
+      </trans-unit>
+      <trans-unit id="asPercent">
+        <source>Prosentteina</source>
+        <target>I procent</target>
+      </trans-unit>
+      <trans-unit id="downloadAsImage">
+        <source>Lataa kuvana (tulossa)</source>
+        <target>Ladda ner bild (på kommande)</target>
+      </trans-unit>
       <trans-unit id="orgName" datatype="html">
         <source>Nimi</source>
         <target state="translated">Namn</target>
@@ -958,6 +982,62 @@
           <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">148</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="publicationCountByYear">
+        <source>Julkaisujen määrä vuosittain</source>
+        <target>Antal publikationer per år</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByFOS">
+        <source>Julkaisujen määrä tieteenaloittain</source>
+        <target>Antal publikationer per vetenskapsområde</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByMajor">
+        <source>Julkaisujen määrä päätieteenaloittain</source>
+        <target>Antal publikationer per huvudvetenskapsområde</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByOrg">
+        <source>Julkaisujen määrä organisaatioittain</source>
+        <target>Antal publikationer per organisation</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByType">
+        <source>Julkaisujen määrä julkaisutyypin mukaan</source>
+        <target>Antal publikationer per publikationstyp</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByCountry">
+        <source>Julkaisujen määrä julkaisumaan mukaan</source>
+        <target>Antal publikationer per publiceringsland</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByLang">
+        <source>Julkaisujen määrä kielen mukaan</source>
+        <target>Antal publikationer per språk</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByJuFo">
+        <source>Julkaisujen määrä julkaisufoorumitason mukaan</source>
+        <target>Antal publikationer per publikationsforumsnivå</target>
+      </trans-unit>
+      <trans-unit id="publicationCountByOA">
+        <source>Julkaisujen määrä avoimen saatavuuden mukaan</source>
+        <target>Antal publikationer per öppen tillgång</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByYear">
+        <source>Hankkeiden määrä vuosittain</source>
+        <target>Antal projekt per år</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByFunder">
+        <source>Hankkeiden määrä rahoittajan mukaan</source>
+        <target>Antal projekt per finansiär</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByOrg">
+        <source>Hankkeiden määrä organisaatioittain</source>
+        <target>Antal projekt per organisation</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByType">
+        <source>Hankkeiden määrä rahoitusmuodon mukaan</source>
+        <target>Antal projekt per typ av finansiering</target>
+      </trans-unit>
+      <trans-unit id="fundingCountByFOS">
+        <source>Hankkeiden määrä tieteenaloittain</source>
+        <target>Antal projekt per vetenskapsområde</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>
@@ -1438,6 +1518,10 @@
           <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="showAsVisual">
+        <source>Näytä kuvana</source>
+        <target>Visa som bild</target>
       </trans-unit>
       <trans-unit id="additionalInfo" datatype="html">
         <source>Lisätietoa</source>
@@ -2337,7 +2421,7 @@
       </trans-unit>
       <trans-unit id="parentPublicationType">
         <source>Emojulkaisun tyyppi</source>
-        <target>Publiceringsplattformens typ</target>
+        <target>Moderpublikationens typ</target>
       </trans-unit>
       <trans-unit id="peerReviewedFilter">
         <source>Vertaisarvioitu</source>

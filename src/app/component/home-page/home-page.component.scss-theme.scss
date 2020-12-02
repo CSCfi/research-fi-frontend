@@ -4,12 +4,13 @@
     $primary: map-get($theme, primary);
 
     app-home-page {
-        .link-img {
-            outline: 6px solid mat-contrast($primary, 500);
+        .drop-shadow {
+            box-shadow: 0px 9px 11px -4px rgba(0,0,0,0.1);
+            -webkit-box-shadow: 0px 9px 11px -4px rgba(0,0,0,0.1);
         }
 
         .header, .caption {
-            background: mat-color($primary, 100);
+            // background: mat-color($primary, 100);
             color: mat-contrast($primary, 100);
         }
 
@@ -27,17 +28,13 @@
             }
         }
         
-        .news a.news-header:hover {
+        a.header-link:hover {
             color: mat-contrast($primary, 500);
         }
 
-        .news-feed {
-            outline: 3px solid mat-contrast($primary, 500);
+        .tint-background {
+            background: mat-color($primary, 50);
         }
-
-        // .news-feed .news-container {
-        //     background: mat-color($primary, 100);
-        // }
 
         .news-feed .news-card {
             background: mat-contrast($primary, 500);

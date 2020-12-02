@@ -271,7 +271,7 @@ export class BarComponent implements OnInit, OnChanges {
         .attr('height', this.margin / 2)
         .append('xhtml:div')
           .style('text-align', 'left')
-          .html((this.searchTerm ? `"<mark>${this.searchTerm}</mark>"` : 'Ei hakusanaa') +
+          .html((this.searchTerm ? `"<mark>${this.searchTerm}</mark>"` : $localize`:@@noSearchTerm:Ei hakusanaa`) +
                 (this.searchTarget ? (', ' + this.searchTarget) : ''));
 
     this.g.append('foreignObject')
