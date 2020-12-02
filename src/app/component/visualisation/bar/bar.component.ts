@@ -117,7 +117,7 @@ export class BarComponent implements OnInit, OnChanges {
       // Shuffle the color order from the first onward (year colors stay same)
       UtilityService.shuffle(
         // Quantize the desired scale to the length of data
-        d3.quantize(d3.interpolateSinebow, max([len, 3])), 1
+        d3.quantize(d3.interpolateSinebow, max([len + 1, 3])).slice(0, -1), 1 // quantize() sets first and last element to same
         )
     );
 
@@ -125,8 +125,8 @@ export class BarComponent implements OnInit, OnChanges {
     // Clear contents
     this.svg = d3.select('svg#chart');
     this.svg.selectAll('*').remove();
-    
-    
+
+
     // Init dims for svg and add top-level group
     this.g = this.svg
         .attr('width', this.width - this.legendWidth)
@@ -134,7 +134,7 @@ export class BarComponent implements OnInit, OnChanges {
         .append('g')
         .attr('id', 'main')
         .attr('transform', `translate(${this.margin * 2}, ${this.margin * 2})`);
-    
+
     // Legend init
     const legendSvg = d3.select('svg#legend');
     legendSvg.selectAll('*').remove();
