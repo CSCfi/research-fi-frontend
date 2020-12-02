@@ -98,7 +98,6 @@ export class UtilityService {
   // Fisher–Yates Shuffle
   // https://bost.ocks.org/mike/shuffle/
   static shuffle(arr: any[], start = 0): any[] {
-    console.log(arr)
     const prefix = arr.slice(0, start);
     const array = arr.slice(start);
 
