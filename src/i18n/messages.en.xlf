@@ -905,6 +905,14 @@
         <source>Prosentteina</source>
         <target>In percentages</target>
       </trans-unit>
+      <trans-unit id="asAmount">
+        <source>Myöntösummana</source>
+        <target>In numbers</target>
+      </trans-unit>
+      <trans-unit id="asPercentAmount">
+        <source>Prosentteina</source>
+        <target>In percentages</target>
+      </trans-unit>
       <trans-unit id="downloadAsImage">
         <source>Lataa kuvana (tulossa)</source>
         <target>Download as image (coming soon)</target>
