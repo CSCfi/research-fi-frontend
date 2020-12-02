@@ -698,6 +698,7 @@ export class StaticDataService {
         {
             field: 'year',
             title: $localize`:@@fundingCountByYear:Hankkeiden määrä vuosittain`,
+            amountTitle: $localize`:@@fundingAmountByYear:Hankkeiden myöntösumma vuosittain`,
             select: $localize`:@@startYear:Aloitusvuosi`,
             filter: 'year',
             hierarchy: [
@@ -802,6 +803,7 @@ export class StaticDataService {
         {
             field: 'funder',
             title: $localize`:@@fundingCountByFunder:Hankkeiden määrä rahoittajan mukaan`,
+            amountTitle: $localize`:@@fundingAmountByFunder:Hankkeiden myöntösumma rahoittajan mukaan`,
             select: $localize`:@@fundingFunder:Rahoittaja`,
             filter: 'funder',
             hierarchy: [
@@ -885,6 +887,7 @@ export class StaticDataService {
         {
             field: 'organization',
             title: $localize`:@@fundingCountByOrg:Hankkeiden määrä organisaatioittain`,
+            amountTitle: $localize`:@@fundingCountByOrg:Hankkeiden myöntösumma organisaatioittain`,
             select: $localize`:@@organization:Organisaatio`,
             // tslint:disable-next-line: max-line-length
             message: 'Huom. Yhdellä hankkeella voi olla useita organisaatioita. Hanke sisältyy tällöin jokaisen siihen liitetyn organisaation lukumäärään',
@@ -982,6 +985,7 @@ export class StaticDataService {
         {
             field: 'typeOfFunding',
             title: $localize`:@@fundingCountByType:Hankkeiden määrä rahoitusmuodon mukaan`,
+            amountTitle: $localize`:@@fundingCountByType:Hankkeiden myöntösumma rahoitusmuodon mukaan`,
             select: $localize`:@@typeOfFunding:Rahoitusmuoto`,
             message: 'Huom. Hankkeita, joille ei ole määritelty rahoitusmuotoa, ei lasketa mukaan kuavaajaan.',
             filter: 'typeOfFunding',
@@ -1069,6 +1073,7 @@ export class StaticDataService {
         {
             field: 'fieldOfScience',
             title: $localize`:@@fundingCountByFOS:Hankkeiden määrä tieteenaloittain`,
+            amountTitle: $localize`:@@fundingCountByFOS:Hankkeiden myöntösumma tieteenaloittain`,
             select: $localize`:@@fieldOfScience:Tieteenala`,
             // tslint:disable-next-line: max-line-length
             message: 'Huom. Yhdellä hankkeella voi olla useita tieteenaloja. Hanke sisältyy tällöin jokaisen siihen liitetyn tieteenalan lukumäärään. Hankkeita, joille ei ole määritelty tieteenalaa, ei lasketa mukaan kuvaajaan.',

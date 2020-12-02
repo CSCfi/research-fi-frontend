@@ -1045,6 +1045,26 @@
         <source>Hankkeiden määrä tieteenaloittain</source>
         <target>Number of projects by field of science</target>
       </trans-unit>
+      <trans-unit id="fundingAmountByYear">
+        <source>Hankkeiden myöntösumma vuosittain</source>
+        <target>Number of projects by year</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByFunder">
+        <source>Hankkeiden myöntösumma rahoittajan mukaan</source>
+        <target>Number of projects by funder</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByOrg">
+        <source>Hankkeiden myöntösumma organisaatioittain</source>
+        <target>Number of projects by organization</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByType">
+        <source>Hankkeiden myöntösumma rahoitusmuodon mukaan</source>
+        <target>Number of projects by funding instrument</target>
+      </trans-unit>
+      <trans-unit id="fundingAmountByFOS">
+        <source>Hankkeiden myöntösumma tieteenaloittain</source>
+        <target>Number of projects by field of science</target>
+      </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>
         <target>Change visualization type</target>
