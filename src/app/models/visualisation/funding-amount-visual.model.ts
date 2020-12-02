@@ -137,7 +137,7 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
                     b.orgs.forEach(f => {
                         const v: any = {};
                         v.name = f.organizationName.buckets[0].key.toString();
-                        v.doc_count = f.doc_count;
+                        v.doc_count = f.organizationName.buckets[0].moneySum.value;
                         v.id = f.key;
                         v.parent = b.key;
                         b.data.push(v);

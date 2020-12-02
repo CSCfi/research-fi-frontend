@@ -903,7 +903,13 @@ export class StaticDataService {
                     name: 'organizationName',
                     size: 1,
                     order: 0
-                }
+                },
+                {
+                  sum: 'fundingGroupPerson.shareOfFundingInEur',
+                  name: 'moneySum',
+                  size: 1
+                },
+
             ],
             hierarchy2: [
                 {
@@ -942,7 +948,12 @@ export class StaticDataService {
                     name: 'organizationName',
                     size: 1,
                     order: 0
-                }
+                },
+                {
+                  sum: 'fundingGroupPerson.shareOfFundingInEur',
+                  name: 'moneySum',
+                  size: 1
+                },
             ]
         },
         {
