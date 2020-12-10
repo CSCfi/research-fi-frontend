@@ -167,18 +167,42 @@
                         <div class="row content" *ngIf="i % 3 == 0">
                             <!-- First col -->
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-3 td">
-                               <h3 class="th">{{row.label}}</h3>
+                               <h3 class="th">
+                                   {{row.label}}
+                                   <ng-container *ngIf="row.tooltip">
+                                        <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                        <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                            <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        </span>
+                                    </ng-container>
+                                </h3>
                                <span *ngIf="!row.link">{{item[row.field]}}</span>
                             </div>
                             <!-- Second col -->    
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+1">
-                               <h3 class="th">{{typeFields.slice(3)[i + 1].label}}</h3>
-                               <span>{{item[typeFields.slice(3)[i + 1].field]}}</span>
+                               <h3 class="th">
+                                {{typeFields.slice(3)[i + 1].label}}
+                                    <ng-container *ngIf="typeFields.slice(3)[i + 1].tooltip">
+                                        <ng-template #tooltipTemplate><div [innerHtml]="typeFields.slice(3)[i + 1].tooltip"></div></ng-template>
+                                        <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                            <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        </span>
+                                    </ng-container>
+                                </h3>
+                                <span>{{item[typeFields.slice(3)[i + 1].field]}}</span>
                             </div> 
                             <!-- Third col -->   
                             <div class="col-12 col-sm-6 col-lg-3 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="typeFields.slice(3).length > i+2">
-                               <h3 class="th">{{typeFields.slice(3)[i + 2].label}}</h3>
-                               <span>{{item[typeFields.slice(3)[i + 2].field]}}</span>
+                                <h3 class="th">
+                                 {{typeFields.slice(3)[i + 2].label}}
+                                     <ng-container *ngIf="typeFields.slice(3)[i + 2].tooltip">
+                                         <ng-template #tooltipTemplate><div [innerHtml]="typeFields.slice(3)[i + 2].tooltip"></div></ng-template>
+                                         <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                             <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                         </span>
+                                     </ng-container>
+                                 </h3>
+                                <span>{{item[typeFields.slice(3)[i + 2].field]}}</span>
                             </div>        
                         </div>
                     </ng-container>
