@@ -2459,6 +2459,46 @@
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
         <target state="translated">Publikationstyp A–G enligt UKM:s publikationsdatainsamling.</target>
       </trans-unit>
+      <trans-unit id="article">
+        <source>Artikkeli</source>
+        <target>Artikel</target>
+      </trans-unit>
+      <trans-unit id="articleTooltipContent">
+        <source>sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
+        <target>omfattar original- och översiktsartiklar, inledningar och förord till en bok eller tidning, korta forskningsrapporter, ledare, debattinlägg och kommentarer.</target>
+      </trans-unit>
+      <trans-unit id="monograph">
+        <source>Erillisteos</source>
+        <target>Separat utgivna verk</target>
+      </trans-unit>
+      <trans-unit id="monographTooltipContent">
+        <source>sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
+        <target>omfattar monografier/böcker, utvecklings- eller forskningsrapporter som baserar sig på forsknings- och utvecklingsarbete, utredningar, publikationer av typen whitepapers, working papers och discussion papers.</target>
+      </trans-unit>
+      <trans-unit id="editorial">
+        <source>Toimitustyö</source>
+        <target>Redaktionsarbete</target>
+      </trans-unit>
+      <trans-unit id="editorialTooltipContent">
+        <source>sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
+        <target>omfattar redigerat verk av vetenskapliga böcker eller specialnummer av tidningar som består av flera artiklar av olika författare.</target>
+      </trans-unit>
+      <trans-unit id="abstract">
+        <source>Abstrakti</source>
+        <target>Abstrakt</target>
+      </trans-unit>
+      <trans-unit id="abstractTooltipContent">
+        <source>sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
+        <target>omfattar abstrakta till konferenspresentationer och utvidgade abstrakta.</target>
+      </trans-unit>
+      <trans-unit id="poster">
+        <source>Posteri</source>
+        <target>Poster</target>
+      </trans-unit>
+      <trans-unit id="posterTooltipContent">
+        <source>sisältää konferenssiesitelmien posterit.</source>
+        <target>omfattar postrar om konferenspresentationer.</target>
+      </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
         <target state="translated">Fullständig information om publikationens upphovsmän anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>

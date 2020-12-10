@@ -61,7 +61,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   ];
 
   typeFields = [
-    {label: $localize`:@@publicationsFormat:Julkaisun muoto`, field: 'format'},
+    {label: $localize`:@@publicationFormat:Julkaisumuoto`, field: 'format',
+    tooltip: '<p><strong>' +  $localize`:@@article:Artikkeli` + ': </strong>' + $localize`:@@articleTooltipContent:sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` + '</p><p><strong>' + $localize`:@@monograph:Erillisteos` + ': </strong>' + $localize`:@@monographTooltipContent:sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` + '</p><p><strong>' + $localize`:@@editorial:Toimitustyö` + ': </strong>' + $localize`:@@editorialTooltipContent:sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt `+ '</p><p><strong>' + $localize`:@@abstract:Abstrakti` + ': </strong>' + $localize`:@@abstractTooltipContent:sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.`+ '</p><p><strong>' + $localize`:@@poster:Posteri` + ': </strong>' + $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.` },
     {label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`, field: 'parentPublicationType'},
     {label: $localize`:@@audience:Yleisö`, field: 'audience'},
     {label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, field: 'peerReviewed'},

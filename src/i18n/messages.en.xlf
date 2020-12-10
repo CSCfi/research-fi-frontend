@@ -2466,6 +2466,46 @@
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
         <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
       </trans-unit>
+      <trans-unit id="article">
+        <source>Artikkeli</source>
+        <target>Article</target>
+      </trans-unit>
+      <trans-unit id="articleTooltipContent">
+        <source>sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
+        <target>includes original and review articles, introductions and forewords of a book or journal, short research reports, editorials, contributions to a debate and comments.</target>
+      </trans-unit>
+      <trans-unit id="monograph">
+        <source>Erillisteos</source>
+        <target>Monograph</target>
+      </trans-unit>
+      <trans-unit id="monographTooltipContent">
+        <source>sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
+        <target>includes monographs/books, development or research reports based on R&D efforts, assessments, white papers, working papers and discussion papers.</target>
+      </trans-unit>
+      <trans-unit id="editorial">
+        <source>Toimitustyö</source>
+        <target>Editorial work</target>
+      </trans-unit>
+      <trans-unit id="editorialTooltipContent">
+        <source>sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
+        <target>includes editorial work in research books or special issues of journals consisting of various articles by several authors.</target>
+      </trans-unit>
+      <trans-unit id="abstract">
+        <source>Abstrakti</source>
+        <target>Abstract</target>
+      </trans-unit>
+      <trans-unit id="abstractTooltipContent">
+        <source>sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
+        <target>includes abstracts and extended abstracts of conference presentations.</target>
+      </trans-unit>
+      <trans-unit id="poster">
+        <source>Posteri</source>
+        <target>Poster</target>
+      </trans-unit>
+      <trans-unit id="posterTooltipContent">
+        <source>sisältää konferenssiesitelmien posterit.</source>
+        <target>includes posters of conference presentations.</target>
+      </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
         <target>Publication authors in the order they are listed in the original publication. If there are more than 20 authors, not all of them will necessarily be mentioned.</target>
