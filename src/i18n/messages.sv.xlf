@@ -2499,6 +2499,58 @@
         <source>sisältää konferenssiesitelmien posterit.</source>
         <target>omfattar postrar om konferenspresentationer.</target>
       </trans-unit>
+      <trans-unit id="journal">
+        <source>Lehti</source>
+        <target>Tidning</target>
+      </trans-unit>
+      <trans-unit id="journalTooltipContent">
+        <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
+        <target>omfattar vetenskapliga tidskrifter och facktidningar.</target>
+      </trans-unit>
+      <trans-unit id="researchBook">
+        <source>Kokoomateos</source>
+        <target>Samlingsverk</target>
+      </trans-unit>
+      <trans-unit id="researchBookTooltipContent">
+        <source>sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
+        <target>omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
+      </trans-unit>
+      <trans-unit id="conferencePlatform">
+        <source>Konferenssialusta</source>
+        <target>Konferensplattform</target>
+      </trans-unit>
+      <trans-unit id="conferencePlatformTooltipContent">
+        <source>sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
+        <target>omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
+      </trans-unit>
+      <trans-unit id="scientificPublication">
+        <source>Tieteellinen julkaisu</source>
+        <target>Vetenskaplig publikation</target>
+      </trans-unit>
+      <trans-unit id="scientificPublicationTooltipContent">
+        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>publikationer vars syfte är att främja vetenskap samt producera ny information.</target>
+      </trans-unit>
+      <trans-unit id="professionalPublication">
+        <source>Ammatillinen julkaisu</source>
+        <target>Yrkesinriktad publikation</target>
+      </trans-unit>
+      <trans-unit id="professionalPublicationBookTooltipContent">
+        <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för en yrkesgrupp.</target>
+      </trans-unit>
+      <trans-unit id="popularPublication">
+        <source>Yleistajuinen julkaisu</source>
+        <target>Populärvetenskaplig publikation</target>
+      </trans-unit>
+      <trans-unit id="popularPublicationPlatformTooltipContent">
+        <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
+        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för allmänheten och vars innehåll kan förstås utan särskild kännedom om branschen.</target>
+      </trans-unit>
+      <trans-unit id="peerReviewedTooltip">
+        <source>Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</source>
+        <target>Med referentgranskning av vetenskapliga publikationer avses ett förfarande där en tidskrift, en konferens eller ett bokförlag som publicerar forskningsresultat ber experter inom ett vetenskapsområde att göra en förhandsbedömning av huruvida de manuskript som har erbjudits för  publicering går att publicera i vetenskapligt avseende.</target>
+      </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
         <target state="translated">Fullständig information om publikationens upphovsmän anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
