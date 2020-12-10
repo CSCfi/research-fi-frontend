@@ -77,8 +77,6 @@ export class FundingVisualAmountAdapter implements Adapter<FundingVisual> {
 
     adapt(item: any, categoryIdx?: number): FundingVisual {
 
-        console.log(item)
-
         // Init arrays
         const year: VisualData[] = [];
         const amount: VisualData[] = [];

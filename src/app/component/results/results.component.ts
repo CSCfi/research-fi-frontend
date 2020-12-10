@@ -340,10 +340,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   changeVisual(event: any) {
+    // Check if theme is changed (or doesn't exist)
+    const themeChanged = this.fundingAmount !== event.fundingAmount;
     // Update idx
     this.visIdx = event.value || this.visIdx;
-    // Get data
-    this.getVisualData();
+    // Get data (if changed)
+    if (themeChanged) {
+      // Update theme
+      this.fundingAmount = event.fundingAmount || false;
+      this.getVisualData();
+    }
   }
 
   getVisualData() {

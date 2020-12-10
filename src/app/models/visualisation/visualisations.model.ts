@@ -40,7 +40,6 @@ export interface VisualQueryHierarchy {
 export interface VisualQuery {
     field: string;
     title: string;
-    amountTitle?: string;
     select: string;
     message?: string;
     filter?: string;

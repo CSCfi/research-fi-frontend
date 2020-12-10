@@ -897,21 +897,29 @@
         <source>Ei hakusanaa</source>
         <target>No search word</target>
       </trans-unit>
-      <trans-unit id="asCount">
-        <source>Lukumäärinä</source>
+      <trans-unit id="asCountPublication">
+        <source>Julkaisujen määrä</source>
+        <target>Number of publications</target>
+      </trans-unit>
+      <trans-unit id="asPercentPublication">
+        <source>% julkaisujen määrästä</source>
+        <target>Percentage of the number of publications</target>
+      </trans-unit>
+      <trans-unit id="asCountFunding">
+        <source>Hankkeiden määrä</source>
         <target>In numbers</target>
       </trans-unit>
-      <trans-unit id="asPercent">
-        <source>Prosentteina</source>
-        <target>In percentages</target>
+      <trans-unit id="asPercentFunding">
+        <source>% hankkeiden määrästä</source>
+        <target>Percentage of the number of projects</target>
       </trans-unit>
       <trans-unit id="asAmount">
-        <source>Myöntösummana</source>
-        <target>In numbers</target>
+        <source>Myöntösummana (eur)</source>
+        <target>Granted amount (EUR)</target>
       </trans-unit>
       <trans-unit id="asPercentAmount">
-        <source>Prosentteina</source>
-        <target>In percentages</target>
+        <source>% myöntösummasta</source>
+        <target>Percentage of the amount granted</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
         <source>Lataa kuvana (tulossa)</source>
@@ -1034,44 +1042,24 @@
         <target>Number of publications by open access</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear">
-        <source>Hankkeiden määrä vuosittain</source>
-        <target>Number of projects by year</target>
+        <source>Hankkeiden jakautuminen vuosittain</source>
+        <target>Distribution of projects by year</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder">
-        <source>Hankkeiden määrä rahoittajan mukaan</source>
-        <target>Number of projects by funder</target>
+        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <target>Distribution of projects by funder</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg">
-        <source>Hankkeiden määrä organisaatioittain</source>
-        <target>Number of projects by organization</target>
+        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <target>Distribution of projects by organization</target>
       </trans-unit>
       <trans-unit id="fundingCountByType">
-        <source>Hankkeiden määrä rahoitusmuodon mukaan</source>
-        <target>Number of projects by funding instrument</target>
+        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <target>Distribution of projects by funding instrument</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS">
-        <source>Hankkeiden määrä tieteenaloittain</source>
-        <target>Number of projects by field of science</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByYear">
-        <source>Hankkeiden myöntösumma vuosittain</source>
-        <target>Number of projects by year</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByFunder">
-        <source>Hankkeiden myöntösumma rahoittajan mukaan</source>
-        <target>Number of projects by funder</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByOrg">
-        <source>Hankkeiden myöntösumma organisaatioittain</source>
-        <target>Number of projects by organization</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByType">
-        <source>Hankkeiden myöntösumma rahoitusmuodon mukaan</source>
-        <target>Number of projects by funding instrument</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByFOS">
-        <source>Hankkeiden myöntösumma tieteenaloittain</source>
-        <target>Number of projects by field of science</target>
+        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <target>Distribution of projects by field of science</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>

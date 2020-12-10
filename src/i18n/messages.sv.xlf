@@ -891,21 +891,29 @@
         <source>Ei hakusanaa</source>
         <target>Inte sökordet</target>
       </trans-unit>
-      <trans-unit id="asCount">
-        <source>Lukumäärinä</source>
-        <target>I antal</target>
+      <trans-unit id="asCountPublication">
+        <source>Julkaisujen määrä</source>
+        <target>Antalet publikationer</target>
       </trans-unit>
-      <trans-unit id="asPercent">
-        <source>Prosentteina</source>
-        <target>I procent</target>
+      <trans-unit id="asPercentPublication">
+        <source>% julkaisujen määrästä</source>
+        <target>Procent av antalet publikationer</target>
+      </trans-unit>
+      <trans-unit id="asCountFunding">
+        <source>Hankkeiden määrä</source>
+        <target>Antalet projekter</target>
+      </trans-unit>
+      <trans-unit id="asPercentFunding">
+        <source>% hankkeiden määrästä</source>
+        <target>Procent av antalet projekter</target>
       </trans-unit>
       <trans-unit id="asAmount">
-        <source>Myöntösummana</source>
-        <target>I antal</target>
+        <source>Myöntösummana (eur)</source>
+        <target>Beviljat belopp (EUR)</target>
       </trans-unit>
       <trans-unit id="asPercentAmount">
-        <source>Prosentteina</source>
-        <target>I procent</target>
+        <source>% myöntösummasta</source>
+        <target>Procent av det beviljade beloppet</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
         <source>Lataa kuvana (tulossa)</source>
@@ -1028,44 +1036,24 @@
         <target>Antal publikationer per öppen tillgång</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear">
-        <source>Hankkeiden määrä vuosittain</source>
-        <target>Antal projekt per år</target>
+        <source>Hankkeiden jakautuminen vuosittain</source>
+        <target>Fördelning projekt per år</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder">
-        <source>Hankkeiden määrä rahoittajan mukaan</source>
-        <target>Antal projekt per finansiär</target>
+        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <target>Fördelning projekt per finansiär</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg">
-        <source>Hankkeiden määrä organisaatioittain</source>
-        <target>Antal projekt per organisation</target>
+        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <target>Fördelning projekt per organisation</target>
       </trans-unit>
       <trans-unit id="fundingCountByType">
-        <source>Hankkeiden määrä rahoitusmuodon mukaan</source>
-        <target>Antal projekt per typ av finansiering</target>
+        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <target>Fördelning projekt per typ av finansiering</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS">
-        <source>Hankkeiden määrä tieteenaloittain</source>
-        <target>Antal projekt per vetenskapsområde</target>
-      </trans-unit>
-            <trans-unit id="fundingAmountByYear">
-        <source>Hankkeiden myöntösumma vuosittain</source>
-        <target>Antal projekt per år</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByFunder">
-        <source>Hankkeiden myöntösumma rahoittajan mukaan</source>
-        <target>Antal projekt per finansiär</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByOrg">
-        <source>Hankkeiden myöntösumma organisaatioittain</source>
-        <target>Antal projekt per organisation</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByType">
-        <source>Hankkeiden myöntösumma rahoitusmuodon mukaan</source>
-        <target>Antal projekt per typ av finansiering</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByFOS">
-        <source>Hankkeiden myöntösumma tieteenaloittain</source>
-        <target>Antal projekt per vetenskapsområde</target>
+        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <target>Fördelning projekt per vetenskapsområde</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>
