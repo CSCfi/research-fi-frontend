@@ -98,7 +98,7 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       _paq.push(['rememberConsentGiven']);
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
-      this.setTwitterCookie();
+      // this.setTwitterCookie();
     }
     if (!hideSnackBar) {this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`); }
   }
@@ -129,11 +129,11 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
     })();`;
     this.document.getElementsByTagName('head')[0].appendChild(node);
-    if (isPlatformBrowser(this.platformId)) {
-      if (localStorage.getItem('cookieConsent') === 'approved') {
-        this.setTwitterCookie();
-      }
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   if (localStorage.getItem('cookieConsent') === 'approved') {
+    //     this.setTwitterCookie();
+    //   }
+    // }
   }
 
   ngOnDestroy() {
