@@ -891,21 +891,29 @@
         <source>Ei hakusanaa</source>
         <target>Inte sökordet</target>
       </trans-unit>
-      <trans-unit id="asCount">
-        <source>Lukumäärinä</source>
-        <target>I antal</target>
+      <trans-unit id="asCountPublication">
+        <source>Julkaisujen määrä</source>
+        <target>Antalet publikationer</target>
       </trans-unit>
-      <trans-unit id="asPercent">
-        <source>Prosentteina</source>
-        <target>I procent</target>
+      <trans-unit id="asPercentPublication">
+        <source>% julkaisujen määrästä</source>
+        <target>Procent av antalet publikationer</target>
+      </trans-unit>
+      <trans-unit id="asCountFunding">
+        <source>Hankkeiden määrä</source>
+        <target>Antalet projekter</target>
+      </trans-unit>
+      <trans-unit id="asPercentFunding">
+        <source>% hankkeiden määrästä</source>
+        <target>Procent av antalet projekter</target>
       </trans-unit>
       <trans-unit id="asAmount">
-        <source>Myöntösummana</source>
-        <target>I antal</target>
+        <source>Myöntösummana (eur)</source>
+        <target>Beviljat belopp (EUR)</target>
       </trans-unit>
       <trans-unit id="asPercentAmount">
-        <source>Prosentteina</source>
-        <target>I procent</target>
+        <source>% myöntösummasta</source>
+        <target>Procent av det beviljade beloppet</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
         <source>Lataa kuvana (tulossa)</source>
