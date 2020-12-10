@@ -2436,19 +2436,19 @@
       </trans-unit>
       <trans-unit id="OKMPublicationType">
         <source>OKM:n julkaisutyyppiluokitus</source>
-        <target>MINEDU’s publication type classification code</target>
+        <target>Publication types A–G according to the Ministry of Education and Culture’s publication data collection</target>
       </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>
         <target>Publication format</target>
       </trans-unit>
-      <trans-unit id="publicationsFormat">
-        <source>Julkaisun muoto</source>
-        <target>Publication format</target>
-      </trans-unit>
       <trans-unit id="publicationAudience">
         <source>Julkaisun yleisö</source>
         <target>Publication audience</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelAudience">
+        <source>Julkaisukanavan kodheyleisö</source>
+        <target>Publication channel’s target audience</target>
       </trans-unit>
       <trans-unit id="audience">
         <source>Yleisö</source>
@@ -2542,7 +2542,7 @@
         <source>Ammatillinen julkaisu</source>
         <target>Professional publication</target>
       </trans-unit>
-      <trans-unit id="professionalPublicationBookTooltipContent">
+      <trans-unit id="professionalPublicationTooltipContent">
         <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
         <target>publications disseminating information on research and development for a professional community.</target>
       </trans-unit>
@@ -2550,7 +2550,7 @@
         <source>Yleistajuinen julkaisu</source>
         <target>Popular publication</target>
       </trans-unit>
-      <trans-unit id="popularPublicationPlatformTooltipContent">
+      <trans-unit id="popularPublicationTooltipContent">
         <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
         <target>publications disseminating information on research and development for the public and the content of which does not require particular familiarity with the field.</target>
       </trans-unit>

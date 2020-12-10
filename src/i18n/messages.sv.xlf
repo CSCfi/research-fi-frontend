@@ -2429,19 +2429,19 @@
       </trans-unit>
       <trans-unit id="OKMPublicationType">
         <source>OKM:n julkaisutyyppiluokitus</source>
-        <target>UKM:s publikationstyp</target>
+        <target>Publikationstyp A–G enligt UKM:s publikationsdatainsamling.</target>
       </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>
-        <target>Publikationens form</target>
-      </trans-unit>
-      <trans-unit id="publicationsFormat">
-        <source>Julkaisun muoto</source>
-        <target>Publikationens form</target>
+        <target>Publikationsform</target>
       </trans-unit>
       <trans-unit id="publicationAudience">
         <source>Julkaisun yleisö</source>
         <target>Publikationens målgrupp</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelAudience">
+        <source>Julkaisukanavan kodheyleisö</source>
+        <target>Publikationskanalens målgrupp</target>
       </trans-unit>
       <trans-unit id="audience">
         <source>Yleisö</source>
@@ -2535,7 +2535,7 @@
         <source>Ammatillinen julkaisu</source>
         <target>Yrkesinriktad publikation</target>
       </trans-unit>
-      <trans-unit id="professionalPublicationBookTooltipContent">
+      <trans-unit id="professionalPublicationTooltipContent">
         <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
         <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för en yrkesgrupp.</target>
       </trans-unit>
@@ -2543,7 +2543,7 @@
         <source>Yleistajuinen julkaisu</source>
         <target>Populärvetenskaplig publikation</target>
       </trans-unit>
-      <trans-unit id="popularPublicationPlatformTooltipContent">
+      <trans-unit id="popularPublicationTooltipContent">
         <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
         <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för allmänheten och vars innehåll kan förstås utan särskild kännedom om branschen.</target>
       </trans-unit>
