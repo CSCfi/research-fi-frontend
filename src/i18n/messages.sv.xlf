@@ -2429,7 +2429,7 @@
       </trans-unit>
       <trans-unit id="OKMPublicationType">
         <source>OKM:n julkaisutyyppiluokitus</source>
-        <target>Publikationstyp A–G enligt UKM:s publikationsdatainsamling.</target>
+        <target>UKM:s publikationstyp</target>
       </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>

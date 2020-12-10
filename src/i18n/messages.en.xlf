@@ -2436,7 +2436,7 @@
       </trans-unit>
       <trans-unit id="OKMPublicationType">
         <source>OKM:n julkaisutyyppiluokitus</source>
-        <target>Publication types A–G according to the Ministry of Education and Culture’s publication data collection</target>
+        <target>MINEDU's publication type classification code</target>
       </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>
@@ -2464,7 +2464,7 @@
       </trans-unit>
       <trans-unit id="publicationTypeTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
-        <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
+        <target>Publication types A–G according to the Ministry of Education and Culture’s publication data collection</target>
       </trans-unit>
       <trans-unit id="article">
         <source>Artikkeli</source>
