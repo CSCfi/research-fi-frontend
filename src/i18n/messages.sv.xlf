@@ -1036,44 +1036,24 @@
         <target>Antal publikationer per öppen tillgång</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear">
-        <source>Hankkeiden määrä vuosittain</source>
-        <target>Antal projekt per år</target>
+        <source>Hankkeiden jakautuminen vuosittain</source>
+        <target>Fördelning projekt per år</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder">
-        <source>Hankkeiden määrä rahoittajan mukaan</source>
-        <target>Antal projekt per finansiär</target>
+        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <target>Fördelning projekt per finansiär</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg">
-        <source>Hankkeiden määrä organisaatioittain</source>
-        <target>Antal projekt per organisation</target>
+        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <target>Fördelning projekt per organisation</target>
       </trans-unit>
       <trans-unit id="fundingCountByType">
-        <source>Hankkeiden määrä rahoitusmuodon mukaan</source>
-        <target>Antal projekt per typ av finansiering</target>
+        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <target>Fördelning projekt per typ av finansiering</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS">
-        <source>Hankkeiden määrä tieteenaloittain</source>
-        <target>Antal projekt per vetenskapsområde</target>
-      </trans-unit>
-            <trans-unit id="fundingAmountByYear">
-        <source>Hankkeiden myöntösumma vuosittain</source>
-        <target>Antal projekt per år</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByFunder">
-        <source>Hankkeiden myöntösumma rahoittajan mukaan</source>
-        <target>Antal projekt per finansiär</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByOrg">
-        <source>Hankkeiden myöntösumma organisaatioittain</source>
-        <target>Antal projekt per organisation</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByType">
-        <source>Hankkeiden myöntösumma rahoitusmuodon mukaan</source>
-        <target>Antal projekt per typ av finansiering</target>
-      </trans-unit>
-      <trans-unit id="fundingAmountByFOS">
-        <source>Hankkeiden myöntösumma tieteenaloittain</source>
-        <target>Antal projekt per vetenskapsområde</target>
+        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <target>Fördelning projekt per vetenskapsområde</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>
