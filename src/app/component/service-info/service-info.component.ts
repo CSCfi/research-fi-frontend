@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
-import { contents } from '../../../assets/static-data/service-info.json';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Location } from '@angular/common';
 import { UtilityService } from 'src/app/services/utility.service';
@@ -16,7 +15,6 @@ import { ActivatedRoute } from '@angular/router';
 export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   faInfo = faInfo;
 
-  contents = contents;
   @ViewChild('mainFocus') mainFocus: ElementRef;
   focusSub: any;
   title: string;
@@ -37,7 +35,6 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     // Get page data. Data is passed with resolver in router
     const pageData = this.route.snapshot.data.pages;
     this.content = pageData.filter(el => el.id.includes('service-info'));
-    console.log(this.content);
 
     this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
                                 this.metaTags['description' + this.currentLocale],
