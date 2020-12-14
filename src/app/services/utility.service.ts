@@ -103,7 +103,7 @@ export class UtilityService {
   }
 
   // keydown handler for tooltip elements
-  tooltipKeydown(elem: HTMLElement, event: any) {
+  tooltipKeydown(event: any) {
     // Timeout because event propagates here before header and thus esc would open navbar incorrecly
     if (event.keyCode === 27) {
       setTimeout(() => {
