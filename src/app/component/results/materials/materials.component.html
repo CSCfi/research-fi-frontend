@@ -1,0 +1,93 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+ <div class="spinner-center" *ngIf="!resultData">
+    <mat-spinner [diameter]="80"></mat-spinner>
+</div>
+<!-- Data -->
+<div *ngIf="resultData && resultData.total > 0; else noResults">
+    <!-- Results -->
+    <!-- <div class="row no-margin sticky-header" [ngStyle]="{'top': marginTop + 'px'}"> -->
+    <div class="row no-margin sticky-header">
+        <div class="col col-1 icon"></div>
+        <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
+            <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="utilityService.sortBy('name')" (keydown.enter)="utilityService.sortBy('name')" i18n="@@">Tutkimusaineiston nimi</span>
+        </div>
+        <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'author' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="utilityService.sortBy('author')" (keydown.enter)="utilityService.sortBy('author')" i18n="@@publicationAuthors">Tutkimusaineiston tekijät / organisaatio</span>
+        </div>
+        <div class="col col-lg-1 d-none d-lg-block">
+            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="utilityService.sortBy('year')" (keydown.enter)="utilityService.sortBy('year')" i18n="@@year">Vuosi</span>
+        </div>
+        <div class="col col-xl-3 d-none d-xl-block">
+            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
+            (click)="utilityService.sortBy('medium')" (keydown.enter)="utilityService.sortBy('medium')" i18n="@@publicationMedium">Tagit</span>
+        </div>
+    </div>
+    <div *ngIf="resultData" class="result-container">
+        <div *ngFor="let publication of resultData.publications; let i = index" class="single">
+            <div class="row no-margin">
+                <div class="col col-1 icon">
+                    <a routerLink="/results/publication/{{publication.id}}" class="icon" tabindex="-1" title="Julkaisujen tiedon ikoni">
+                        <fa-icon [icon]="faIcon"></fa-icon>
+                    </a>
+                </div>
+                <div class="col col-8 col-lg-5 col-xl-4 title">
+                    <a routerLink="/results/publication/{{publication.id}}">
+                        <h4 class="result-title" 
+                        [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
+                        [innerHtml]="publication.title | highlight: input">
+                        </h4>
+                    </a>
+                    <div class="tags">
+                        <div *ngIf="isReviewed(publication.publicationTypeCode)" class="peer-reviewed" i18n="@@peerReviewed">Vertaisarvioitu</div>
+                        <a *ngIf="publication.openAccess && (publication | links)" href="{{publication | links}}" target="_blank" class="open-access div">
+                            <span class="open-access-image"></span>
+                            <span i18n="@@openAccess">Avoin saatavuus</span><fa-icon icon="external-link-alt"></fa-icon>
+                        </a>
+                        <!-- Span is for publications that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
+                        <span *ngIf="publication.openAccess && !(publication | links)" class="open-access div">
+                            <span class="open-access-image"></span>
+                            <span i18n="@@openAccess">Avoin saatavuus</span>
+                        </span>
+                        <div *ngIf="publication.doi?.trim()" class="doi">
+                            <span class="doi-tag">DOI</span>
+                            <span class="doi-link"><a href="https://doi.org/{{publication.doi}}" target="_blank">{{publication.doi}}<fa-icon icon="external-link-alt"></fa-icon></a></span>
+                        </div>
+                    </div>
+                </div>          
+                <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
+                    <span [innerHtml]="(publication.authors | cutContent: 100) | highlight: input"></span>
+                </div>          
+                <div class="col col-xl-3 shorten d-none d-xl-block">
+                    <span [attr.lang]="publication.languageCode !== documentLang ? publication.languageCode : null"
+                    [innerHtml]="(publication.publicationChannel | cutContent: 100) | highlight: input">
+                    </span>
+                </div>          
+                <div class="col col-lg-1">
+                    <span [innerHtml]="publication.publicationYear | highlight: input"></span>
+                </div>
+            </div>
+            <!-- <app-related-results class="row related-fields" [class.expand]="expandStatus[i]"></app-related-results> -->
+        </div>
+    </div>
+    <!-- Pagination -->
+    <app-pagination [responseData]="resultData"></app-pagination>
+</div>
+
+<ng-template #noResults>
+    <div class="row main-content" *ngIf="resultData && resultData.total === 0">
+        <div class="col text-center no-results" role="alert">
+            <h2 i18n="@@noPublications">Ei julkaisuja</h2>
+            <br>
+            <p i18n="@@resultSearchTermWarning">Tarkista, onko hakutermissä kirjoitusvirheitä.<br>
+               Voi myös olla, että hakemaasi tietoa ei ole tarjolla tässä verkkopalvelussa.</p>
+            <p><a routerLink="/service-info" fragment="1" i18n="@@resultsAboutService">Mitä tietoja Tiedejatutkimus.fi sisältää?</a></p>
+        </div>
+    </div>
+</ng-template>

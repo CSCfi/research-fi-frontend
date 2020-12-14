@@ -193,6 +193,9 @@ export class SortService {
         }
         break;
       }
+      default: {
+        this.sort = ['defaultSort']
+      }
     }
     return this.sort;
   }
