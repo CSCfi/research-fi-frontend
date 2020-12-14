@@ -69,8 +69,8 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     tooltip: '<p>' + $localize`:@@publicationChannelAudience:Julkaisukanavan kohdeyleisö` + '</p>' + '<p><strong>' + $localize`:@@scientificPublication:Tieteellinen julkaisu` + ': </strong>' + $localize`:@@scientificPublicationTooltipContent:julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` + '</p><p><strong>' + $localize`:@@professionalPublication:Ammatillinen julkaisu` + ': </strong>' + $localize`:@@professionalPublicationTooltipContent:julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` + '</p><p><strong>' + $localize`:@@popularPublication:Yleistajuinen julkaisu` + ': </strong>' + $localize`:@@popularPublicationTooltipContent:julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.` },
     {label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, field: 'peerReviewed',
     tooltip: $localize`:@@peerReviewedTooltip:Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.`},
-    {label: $localize`:@@OKMPublicationType:OKM:n julkaisutyyppiluokitus`, field: 'publicationTypeCode',
-    tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
+    {label: $localize`:@@OKMPublicationType:OKM:n julkaisutyyppiluokitus`, field: 'publicationTypeCode'},
+    // tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
   ];
 
   mediumFields = [
