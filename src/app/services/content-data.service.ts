@@ -27,7 +27,7 @@ export class ContentDataService {
 
   constructor(private http: HttpClient, private shortcutAdapter: ShortcutAdapter, private figureAdapter: FigureAdapter,
               private pageAdapter: PageAdapter, private sectorAdapter: SectorAdapter, private appConfigService: AppConfigService) {
-    this.apiUrl = this.appConfigService.contentApiUrl;
+    this.apiUrl = this.appConfigService.cmsUrl + '/apis/v1/';
    }
 
   /*
