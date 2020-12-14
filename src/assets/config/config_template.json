@@ -1,5 +1,6 @@
 {
     "apiUrl": "<API_HOST>/portalapi/",
+    "cmsUrl": "<CMS_HOST>",
     "buildInfo": "<BUILD_INFO>",
     "environmentName": "local|test|production",
     "email": {
