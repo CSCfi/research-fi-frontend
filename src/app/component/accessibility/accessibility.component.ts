@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild, ElementRef, PLATFORM_ID } from '@angular/core';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,7 @@ import { ReviewComponent } from 'src/app/ui/review/review.component';
 import { UtilityService } from 'src/app/services/utility.service';
 import { accessibility, common } from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-accessibility',
@@ -35,7 +36,8 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
 
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              public dialog: MatDialog, private utilityService: UtilityService, private route: ActivatedRoute) {
+              public dialog: MatDialog, private utilityService: UtilityService, private route: ActivatedRoute,
+              @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object) {
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
@@ -83,11 +85,13 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
       }
     });
 
-    // Add review toggle onclick functionality to corresponding ling
-    const reviewLink = document.getElementById('toggle-review');
-    if (reviewLink) {
-      reviewLink.setAttribute('href', 'javascript:void(0)');
-      reviewLink.addEventListener('click',  (evt: Event) => this.toggleReview());
+    // Add review toggle onclick functionality to corresponding link
+    if (isPlatformBrowser(this.platformId)) {
+      const reviewLink = this.document.getElementById('toggle-review');
+      if (reviewLink) {
+        reviewLink.setAttribute('href', 'javascript:void(0)');
+        reviewLink.addEventListener('click',  (evt: Event) => this.toggleReview());
+      }
     }
 
   }
