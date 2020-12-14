@@ -44,10 +44,11 @@ export class AppConfigService {
   }
 
   // Content data API url
-  get contentApiUrl() {
+  get cmsUrl() {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }
-    return this.appConfig.contentApiUrl;
+    return this.appConfig.cmsUrl;
   }
+
   // Application performance monitoring Url
   get apmUrl() {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }
