@@ -143,7 +143,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       // Get first segment content from content data service
       this.contentSub = this.cds.pageData.subscribe(data => {
-        this.content = data.find(el => el.id === '3');
+        this.content = data.find(el => el.id === 'figures-intro');
         this.loading = false;
       });
 
