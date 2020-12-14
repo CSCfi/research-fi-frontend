@@ -2917,6 +2917,10 @@
         <source>Palvelupiste</source>
         <target state="translated">Serviceställe</target>
       </trans-unit>
+      <trans-unit id="infraOtherInfo">
+        <source>Tutkimusinfrastruktuurin muut tiedot</source>
+        <target>Övriga uppgifter</target>
+      </trans-unit>
       <trans-unit id="infraClassifications" datatype="html">
         <source>Luokituksia</source>
         <target state="translated">Klassifikationer</target>

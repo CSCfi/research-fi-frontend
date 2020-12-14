@@ -2920,6 +2920,10 @@
         <source>Palvelupiste</source>
         <target>Service point</target>
       </trans-unit>
+      <trans-unit id="infraOtherInfo">
+        <source>Tutkimusinfrastruktuurin muut tiedot</source>
+        <target>Other information</target>
+      </trans-unit>
       <trans-unit id="infraClassifications" datatype="html">
         <source>Luokituksia</source>
         <target>Classifications</target>
