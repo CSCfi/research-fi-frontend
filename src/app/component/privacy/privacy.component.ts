@@ -56,7 +56,6 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     const pageData = this.route.snapshot.data.pages;
     this.privacyPolicyContent = pageData.find(el => el.id === 'privacy-statement');
     this.cookiePolicyContent = pageData.find(el => el.id === 'cookie-policy');
-    console.log(this.privacyPolicyContent);
 
     // Open tab
     this.routeSub = this.route.params.subscribe(param => {
