@@ -35,7 +35,7 @@
                                 <span *ngIf="openedIdx === i" class="align-self-center mr-2" i18n="@@close">Sulje</span>
                             </mat-expansion-panel-header>
                             <div class="row">
-                                <div class="col-12 description" [innerHTML]='item["content" + currentLocale]'></div>
+                                <div class="col-12 description" [innerHTML]='item["content" + currentLocale] | sanitizeHtml'></div>
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>
