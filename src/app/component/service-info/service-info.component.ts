@@ -1,11 +1,13 @@
-import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, ViewChild, ElementRef, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
-import { Location } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
 import { UtilityService } from 'src/app/services/utility.service';
 import { serviceInfo, common } from 'src/assets/static-data/meta-tags.json';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ReviewComponent } from 'src/app/ui/review/review.component';
 
 @Component({
   selector: 'app-service-info',
@@ -24,9 +26,11 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   private metaTags = serviceInfo;
   private commonTags = common;
   content: any[];
+  reviewDialogRef: MatDialogRef<ReviewComponent>;
 
   constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              private location: Location, private utilityService: UtilityService, private route: ActivatedRoute) {
+              private location: Location, private utilityService: UtilityService, private route: ActivatedRoute,
+              @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object, public dialog: MatDialog) {
     // Capitalize first letter of locale
     this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
@@ -74,6 +78,23 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
       if (target === 'main-link') {
         this.mainFocus.nativeElement.focus();
       }
+    });
+
+    // Add review toggle onclick functionality to corresponding link
+    if (isPlatformBrowser(this.platformId)) {
+      const reviewLink = this.document.getElementById('toggle-review');
+      if (reviewLink) {
+        reviewLink.setAttribute('href', 'javascript:void(0)');
+        reviewLink.addEventListener('click',  (evt: Event) => this.toggleReview());
+      }
+    }
+  }
+
+  toggleReview() {
+    this.reviewDialogRef = this.dialog.open(ReviewComponent, {
+      maxWidth: '800px',
+      minWidth: '320px',
+      // minHeight: '60vh'
     });
   }
 
