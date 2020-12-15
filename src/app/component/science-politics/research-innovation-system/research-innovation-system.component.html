@@ -22,7 +22,8 @@
             <div class="col">
                 <div class="content" #mainFocus tabindex="0">
                     <mat-accordion>
-                        <mat-expansion-panel *ngFor="let sector of sectorData; let i = index; trackBy: trackByFn" [expanded]="openedIdx === i" (opened)="openedIdx = i" (closed)="openedIdx = -1">
+                        <mat-expansion-panel *ngFor="let sector of sectorData; let i = index; trackBy: trackByFn"
+                            [expanded]="openedIdx === i" (opened)="openedIdx = i" (closed)="openedIdx = -1">
                             <mat-expansion-panel-header collapsedHeight="61px">
                                 <mat-panel-title>
                                     <i class='icon fas' [ngClass]="'fa-' + sector.icon"></i>
@@ -34,17 +35,21 @@
                                 <span *ngIf="openedIdx === i" class="align-self-center mr-2" i18n="@@close">Sulje</span>
                             </mat-expansion-panel-header>
                             <div class="row">
-                                <div class="col-12 description" [innerHTML]="sector['description' + currentLocale]"></div>
+                                <div class="col-12 description" [innerHTML]="sector['description' + currentLocale]">
+                                </div>
                                 <div class="col-12 col-md-3">
                                     <h3>{{sector['subtitle' + currentLocale]}}</h3>
-                                    <ul class="org-links list-unstyled">
+                                    <ul class="org-links">
                                         <li *ngFor="let org of sector?.organizations" class="organization">
                                             <a routerLink="/results/organization/{{org.link}}"><span>{{org['name' + currentLocale]}}</span></a>
                                         </li>
                                     </ul>
                                 </div>
-                                <div *ngIf="sector['iframe' + currentLocale].length > 0" #iframe class="col-12 col-md-8 iframe-container">
-                                    <iframe width="{{colWidth}}" height="{{colWidth * 0.75}}" [src]="sector['iframe' + currentLocale] | safeUrl" frameborder="0" allowfullscreen='true'></iframe>
+                                <div *ngIf="sector['iframe' + currentLocale].length > 0" #iframe
+                                    class="col-12 col-md-8 iframe-container">
+                                    <iframe width="{{colWidth}}" height="{{colWidth * 0.75}}"
+                                        [src]="sector['iframe' + currentLocale] | safeUrl" frameborder="0"
+                                        allowfullscreen='true'></iframe>
                                 </div>
                             </div>
                         </mat-expansion-panel>
