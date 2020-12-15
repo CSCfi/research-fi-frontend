@@ -891,13 +891,29 @@
         <source>Ei hakusanaa</source>
         <target>Inte sökordet</target>
       </trans-unit>
-      <trans-unit id="asCount">
-        <source>Lukumäärinä</source>
-        <target>I antal</target>
+      <trans-unit id="asCountPublication">
+        <source>Julkaisujen määrä</source>
+        <target>Antalet publikationer</target>
       </trans-unit>
-      <trans-unit id="asPercent">
-        <source>Prosentteina</source>
-        <target>I procent</target>
+      <trans-unit id="asPercentPublication">
+        <source>% julkaisujen määrästä</source>
+        <target>Procent av antalet publikationer</target>
+      </trans-unit>
+      <trans-unit id="asCountFunding">
+        <source>Hankkeiden määrä</source>
+        <target>Antalet projekter</target>
+      </trans-unit>
+      <trans-unit id="asPercentFunding">
+        <source>% hankkeiden määrästä</source>
+        <target>Procent av antalet projekter</target>
+      </trans-unit>
+      <trans-unit id="asAmount">
+        <source>Myöntösummana (eur)</source>
+        <target>Beviljat belopp (EUR)</target>
+      </trans-unit>
+      <trans-unit id="asPercentAmount">
+        <source>% myöntösummasta</source>
+        <target>Procent av det beviljade beloppet</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
         <source>Lataa kuvana (tulossa)</source>
@@ -1020,24 +1036,24 @@
         <target>Antal publikationer per öppen tillgång</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear">
-        <source>Hankkeiden määrä vuosittain</source>
-        <target>Antal projekt per år</target>
+        <source>Hankkeiden jakautuminen vuosittain</source>
+        <target>Fördelning projekt per år</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder">
-        <source>Hankkeiden määrä rahoittajan mukaan</source>
-        <target>Antal projekt per finansiär</target>
+        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <target>Fördelning projekt per finansiär</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg">
-        <source>Hankkeiden määrä organisaatioittain</source>
-        <target>Antal projekt per organisation</target>
+        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <target>Fördelning projekt per organisation</target>
       </trans-unit>
       <trans-unit id="fundingCountByType">
-        <source>Hankkeiden määrä rahoitusmuodon mukaan</source>
-        <target>Antal projekt per typ av finansiering</target>
+        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <target>Fördelning projekt per typ av finansiering</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS">
-        <source>Hankkeiden määrä tieteenaloittain</source>
-        <target>Antal projekt per vetenskapsområde</target>
+        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <target>Fördelning projekt per vetenskapsområde</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>
@@ -2405,15 +2421,15 @@
       </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>
-        <target>Publikationens form</target>
-      </trans-unit>
-      <trans-unit id="publicationsFormat">
-        <source>Julkaisun muoto</source>
-        <target>Publikationens form</target>
+        <target>Publikationsform</target>
       </trans-unit>
       <trans-unit id="publicationAudience">
         <source>Julkaisun yleisö</source>
         <target>Publikationens målgrupp</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelAudience">
+        <source>Julkaisukanavan kodheyleisö</source>
+        <target>Publikationskanalens målgrupp</target>
       </trans-unit>
       <trans-unit id="audience">
         <source>Yleisö</source>
@@ -2430,6 +2446,98 @@
       <trans-unit id="publicationTypeTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
         <target state="translated">Publikationstyp A–G enligt UKM:s publikationsdatainsamling.</target>
+      </trans-unit>
+      <trans-unit id="article">
+        <source>Artikkeli</source>
+        <target>Artikel</target>
+      </trans-unit>
+      <trans-unit id="articleTooltipContent">
+        <source>sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
+        <target>omfattar original- och översiktsartiklar, inledningar och förord till en bok eller tidning, korta forskningsrapporter, ledare, debattinlägg och kommentarer.</target>
+      </trans-unit>
+      <trans-unit id="monograph">
+        <source>Erillisteos</source>
+        <target>Separat utgivna verk</target>
+      </trans-unit>
+      <trans-unit id="monographTooltipContent">
+        <source>sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
+        <target>omfattar monografier/böcker, utvecklings- eller forskningsrapporter som baserar sig på forsknings- och utvecklingsarbete, utredningar, publikationer av typen whitepapers, working papers och discussion papers.</target>
+      </trans-unit>
+      <trans-unit id="editorial">
+        <source>Toimitustyö</source>
+        <target>Redaktionsarbete</target>
+      </trans-unit>
+      <trans-unit id="editorialTooltipContent">
+        <source>sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
+        <target>omfattar redigerat verk av vetenskapliga böcker eller specialnummer av tidningar som består av flera artiklar av olika författare.</target>
+      </trans-unit>
+      <trans-unit id="abstract">
+        <source>Abstrakti</source>
+        <target>Abstrakt</target>
+      </trans-unit>
+      <trans-unit id="abstractTooltipContent">
+        <source>sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
+        <target>omfattar abstrakta till konferenspresentationer och utvidgade abstrakta.</target>
+      </trans-unit>
+      <trans-unit id="poster">
+        <source>Posteri</source>
+        <target>Poster</target>
+      </trans-unit>
+      <trans-unit id="posterTooltipContent">
+        <source>sisältää konferenssiesitelmien posterit.</source>
+        <target>omfattar postrar om konferenspresentationer.</target>
+      </trans-unit>
+      <trans-unit id="journal">
+        <source>Lehti</source>
+        <target>Tidning</target>
+      </trans-unit>
+      <trans-unit id="journalTooltipContent">
+        <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
+        <target>omfattar vetenskapliga tidskrifter och facktidningar.</target>
+      </trans-unit>
+      <trans-unit id="researchBook">
+        <source>Kokoomateos</source>
+        <target>Samlingsverk</target>
+      </trans-unit>
+      <trans-unit id="researchBookTooltipContent">
+        <source>sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
+        <target>omfattar vetenskapliga samlingsverk, vetenskapliga årsböcker och motsvarande, yrkesinriktade handböcker eller guider, yrkesinriktade informationssystem eller samlingsverk, läroboksmaterial och korta encyklopeditexter.</target>
+      </trans-unit>
+      <trans-unit id="conferencePlatform">
+        <source>Konferenssialusta</source>
+        <target>Konferensplattform</target>
+      </trans-unit>
+      <trans-unit id="conferencePlatformTooltipContent">
+        <source>sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
+        <target>omfattar tryckta eller offentligt tillgängliga publikationer, s.k. proceedings-publikationer för en konferens.</target>
+      </trans-unit>
+      <trans-unit id="scientificPublication">
+        <source>Tieteellinen julkaisu</source>
+        <target>Vetenskaplig publikation</target>
+      </trans-unit>
+      <trans-unit id="scientificPublicationTooltipContent">
+        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>publikationer vars syfte är att främja vetenskap samt producera ny information.</target>
+      </trans-unit>
+      <trans-unit id="professionalPublication">
+        <source>Ammatillinen julkaisu</source>
+        <target>Yrkesinriktad publikation</target>
+      </trans-unit>
+      <trans-unit id="professionalPublicationTooltipContent">
+        <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för en yrkesgrupp.</target>
+      </trans-unit>
+      <trans-unit id="popularPublication">
+        <source>Yleistajuinen julkaisu</source>
+        <target>Populärvetenskaplig publikation</target>
+      </trans-unit>
+      <trans-unit id="popularPublicationTooltipContent">
+        <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
+        <target>publikationer som gör information som grundar sig på forsknings- och utvecklingsarbete tillgänglig för allmänheten och vars innehåll kan förstås utan särskild kännedom om branschen.</target>
+      </trans-unit>
+      <trans-unit id="peerReviewedTooltip">
+        <source>Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</source>
+        <target>Med referentgranskning av vetenskapliga publikationer avses ett förfarande där en tidskrift, en konferens eller ett bokförlag som publicerar forskningsresultat ber experter inom ett vetenskapsområde att göra en förhandsbedömning av huruvida de manuskript som har erbjudits för  publicering går att publicera i vetenskapligt avseende.</target>
       </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
@@ -2808,6 +2916,10 @@
       <trans-unit id="infraServicePoint">
         <source>Palvelupiste</source>
         <target state="translated">Serviceställe</target>
+      </trans-unit>
+      <trans-unit id="infraOtherInfo">
+        <source>Tutkimusinfrastruktuurin muut tiedot</source>
+        <target>Övriga uppgifter</target>
       </trans-unit>
       <trans-unit id="infraClassifications" datatype="html">
         <source>Luokituksia</source>

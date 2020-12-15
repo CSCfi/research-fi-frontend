@@ -539,6 +539,12 @@ export class FilterService {
               }
             }
           };
+        } else if (s.sum) {
+          q.aggs[s.name] = {
+            sum: {
+              field: s.sum
+            }
+          };
         } else {
           // Add terms object
           q.aggs[s.name] = {

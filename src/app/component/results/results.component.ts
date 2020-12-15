@@ -87,6 +87,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   visualSub: Subscription;
   modalRef: BsModalRef;
   showInfo = true;
+  fundingAmount = false;
 
   faDownload = faDownload;
   faTrash = faTrash;
@@ -268,6 +269,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.modalRef.hide();
       this.modalRef = undefined;
       this.percentage = false;
+      this.fundingAmount = false;
       this.changeVisual({value: '0'});
     });
 
@@ -338,10 +340,16 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   changeVisual(event: any) {
+    // Check if theme is changed (or doesn't exist)
+    const themeChanged = this.fundingAmount !== event.fundingAmount;
     // Update idx
-    this.visIdx = event.value;
-    // Get data
-    this.getVisualData();
+    this.visIdx = event.value || this.visIdx;
+    // Get data (if changed)
+    if (themeChanged) {
+      // Update theme
+      this.fundingAmount = event.fundingAmount || false;
+      this.getVisualData();
+    }
   }
 
   getVisualData() {
@@ -350,7 +358,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.visualLoading = true;
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getVisualData(+this.visIdx)
+      this.searchService.getVisualData(+this.visIdx, this.fundingAmount)
       .subscribe(values => {
         this.visualData = values;
         this.visualLoading = false;
@@ -408,6 +416,9 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   onResize(width) {
     this.mobile = width < 992;
     this.visual = this.visual && width >= 1200;
+    if (this.mobile && this.modalRef) {
+      this.closeModal();
+    }
   }
 
   changeFocusTarget(target) {

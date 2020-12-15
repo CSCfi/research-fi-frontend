@@ -184,12 +184,12 @@ export class SearchService {
     return this.http.post<Search[]>(this.apiUrl + currentTab + '/_search?' + 'request_cache=true', aggs);
   }
 
-  getVisualData(categoryIdx: number): Observable<Visual> {
+  getVisualData(categoryIdx: number, fundingAmount = false): Observable<Visual> {
     // Need to check against tab since navigation from results to news causes problems since getVisualData is called from filters.
     if (this.tabChangeService.tab !== 'news') {
       const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.searchTerm, categoryIdx);
       return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs)
-                      .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab, categoryIdx)));
+                      .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab, categoryIdx, fundingAmount)));
     }
   }
 
