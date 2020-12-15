@@ -10,7 +10,6 @@ import { Adapter } from '../adapter.model';
 import { Organization, OrganizationAdapter } from './organization.model';
 
 export class Sector {
-
   constructor(
     public placement: number,
     public nameFi: string,
@@ -26,26 +25,30 @@ export class Sector {
     public iframeSv: string,
     public iframeEn: string,
     public icon: string,
-    public organizations: Organization[],
+    public organizations: Organization[]
   ) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class SectorAdapter implements Adapter<Sector> {
-  constructor( private sf: OrganizationAdapter) {}
+  constructor(private sf: OrganizationAdapter) {}
   adapt(item: any): Sector {
     let organizations: Organization[] = [];
-    item.organizations ? item.organizations.forEach(el => organizations
-      .push(this.sf.adapt({...el, parent: item.placement_id}))) : organizations = [];
+    item.organizations
+      ? item.organizations.forEach((el) =>
+          organizations.push(
+            this.sf.adapt({ ...el, parent: item.placement_id })
+          )
+        )
+      : (organizations = []);
 
     return new Sector(
       item.placement_id,
       item.name_fi,
       item.name_sv,
-      item.name_e,
+      item.name_en,
       item.description_fi,
       item.description_sv,
       item.description_en,
@@ -56,14 +59,14 @@ export class SectorAdapter implements Adapter<Sector> {
       item.iframe_sv,
       item.iframe_en,
       item.icon,
-      organizations,
+      organizations
     );
   }
 
   adaptMany(item: any): Sector[] {
     const sectors: Sector[] = [];
     const source = item;
-    source.forEach(el => sectors.push(this.adapt(el)));
+    source.forEach((el) => sectors.push(this.adapt(el)));
     return sectors;
   }
 }
