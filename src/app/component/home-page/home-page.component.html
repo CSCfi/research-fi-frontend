@@ -24,9 +24,9 @@
           <div class="col-header">
             <h2 i18n="@@researchFinland" class="text-center m-0">Tiede ja tutkimus Suomessa</h2>
           </div>
-          <div *ngFor="let item of shortcuts.slice(0, 3)" class="col-12 link-img drop-shadow">
-            <a class="shortcut" #main routerLink="{{item.link}}" (click)="item.toggleReview ? toggleReview() : null">
-              <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
+          <div *ngFor="let item of shortcutData?.slice(0, 3)" class="col-12 link-img drop-shadow">
+            <a class="shortcut" #main routerLink="{{item.link}}" (click)="item[toggleReview] ? toggleReview() : null">
+              <div class="cover-img" title="{{item['imageAlt' + currentLocale]}}"><img [src]="item.image" [alt]="item['imageAlt' + currentLocale]"></div>
               <!-- <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}"> -->
               <!--  Use line above for calculated height. Note: remove shortcutItem pb-3 class if calculated height is in use. -->
               <div class="caption text-center pb-3" #shortcutItem>
@@ -56,7 +56,7 @@
             <div class="cover-img" [title]="newsImage.alt"><img [src]="newsImage.imgPath" [alt]="newsImage.alt"></div>
           </div>
           <div class="col-12 col side-news p-0">
-            <app-news-card *ngFor="let item of news.slice(0, 6)" [item]="item" [sideNews]="true"></app-news-card>
+            <app-news-card *ngFor="let item of news?.slice(0, 6)" [item]="item" [sideNews]="true"></app-news-card>
           </div>
         </div>
       </div>
@@ -86,9 +86,9 @@
     <div class="row justify-content-center bottom">
 
       <div class="col-12 col-md-9 col-lg-5 col-xl-4">
-        <div *ngFor="let item of shortcuts.slice(3, 4)" class="col-12 link-img drop-shadow">
+        <div *ngFor="let item of shortcutData?.slice(3, 4)" class="col-12 link-img drop-shadow">
           <a class="shortcut"  (click)="toggleReview()" href="javascript:void(0)">
-            <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
+            <div class="cover-img" title="{{item['imageAlt' + currentLocale]}}"><img [src]="item.image" [alt]="item['imageAlt' + currentLocale]"></div>
             <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
               <div>
                 <h3 class="header">
@@ -104,9 +104,9 @@
       </div>
 
       <div class="col-12 col-md-9 col-lg-5 col-xl-4">
-        <div *ngFor="let item of shortcuts.slice(4, 5)" class="col-12 link-img drop-shadow">
+        <div *ngFor="let item of shortcutData?.slice(4, 5)" class="col-12 link-img drop-shadow">
           <a class="shortcut" routerLink="{{item.link}}">
-            <div class="cover-img" title="{{item.alt}}"><img [src]="item.imgPath" [alt]="item.alt"></div>
+            <div class="cover-img" title="{{item['imageAlt' + currentLocale]}}"><img [src]="item.image" [alt]="item['imageAlt' + currentLocale]"></div>
             <div class="caption text-center" #shortcutItem [ngStyle]="{'height': maxHeight + 'px'}">
               <div>
                 <h3 class="header">

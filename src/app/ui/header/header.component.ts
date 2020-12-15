@@ -19,6 +19,7 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BetaInfoComponent } from '../beta-info/beta-info.component';
 import { PrivacyService } from 'src/app/services/privacy.service';
+import { ContentDataService } from 'src/app/services/content-data.service';
 
 @Component({
   selector: 'app-header',
@@ -69,11 +70,12 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   betaReviewDialogRef: MatDialogRef<BetaInfoComponent>;
   consentStatusSub: Subscription;
   consent: string;
+  pageDataSub: Subscription;
 
   constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
               @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
               @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
-              private cdr: ChangeDetectorRef, private renderer: Renderer2, private route: ActivatedRoute,
+              private cds: ContentDataService, private renderer: Renderer2, private route: ActivatedRoute,
               private tabChangeService: TabChangeService, public dialog: MatDialog, private privacyService: PrivacyService) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
@@ -112,6 +114,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
+      // Get page data from API and set to localStorage. This data is used to generate content on certain pages
+      if (!this.cds.pageDataFlag) {
+        this.pageDataSub = this.cds.getPages().subscribe(data => {
+          this.cds.setPageData(data);
+          // sessionStorage.setItem('pageData', JSON.stringify(data));
+        });
+      }
       // this.window.addEventListener('keydown', this.handleTabPressed);
       // this.window.addEventListener('mousedown', this.handleMouseDown);
       // this.window.addEventListener('keydown', this.escapeListener);

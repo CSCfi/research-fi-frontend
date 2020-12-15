@@ -24,12 +24,18 @@ import { AccessibilityComponent } from './component/accessibility/accessibility.
 import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { NotFoundComponent } from './common-components/not-found/not-found.component';
+import { PageResolverService } from './resolvers/page-resolver.service';
+import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
+import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: HomePageComponent
+    component: HomePageComponent,
+    resolve: {
+      shortcuts: ShortcutResolverService
+    }
   },
   {
     path: 'results/publication',
@@ -105,7 +111,11 @@ const routes: Routes = [
   {
     path: 'science-innovation-policy/research-innovation-system',
     pathMatch: 'full',
-    component: ResearchInnovationSystemComponent
+    component: ResearchInnovationSystemComponent,
+    resolve: {
+      pages: PageResolverService,
+      sectorData: ResearchInnovationSystemSectorResolver,
+    }
   },
   {
     path: 'science-innovation-policy/science-research-figures',
@@ -118,19 +128,31 @@ const routes: Routes = [
   },
   {
     path: 'service-info',
-    component: ServiceInfoComponent
+    component: ServiceInfoComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'privacy',
-    component: PrivacyComponent
+    component: PrivacyComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'privacy/:tab',
-    component: PrivacyComponent
+    component: PrivacyComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'accessibility',
-    component: AccessibilityComponent
+    component: AccessibilityComponent,
+    resolve: {
+      pages: PageResolverService
+    }
   },
   {
     path: 'sitemap',

@@ -17,15 +17,28 @@
                 </div>
                 <!-- Navigation -->
                 <nav>
-                    <ul>
-                        <li *ngFor="let item of navItems" [ngClass]="{'active': currentSection === item.id}">
-                            <a [class.disabled]="item.disabled" [routerLink]="['.']" fragment="{{item.disabled ? null : item.id}}" [queryParams]="queryParams">
+                    <ul class="list-unstyled">
+                        <li [ngClass]="{'active': currentSection === 's0'}">
+                            <a [routerLink]="['.']" [queryParams]="queryParams">
                                 <div class="row">
                                     <div class="col-auto pr-0">
-                                        <fa-icon class="icon" [icon]="item.icon"></fa-icon>
+                                        <fa-icon class="icon" [icon]="faIconCircle"></fa-icon>
+                                    </div>
+                                    <div class="col" i18n="@@figuresSecHeader">Tiedon lähteet ja tuottajat</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li *ngIf="loading">
+                            <mat-spinner [diameter]="40"></mat-spinner>
+                        </li>
+                        <li *ngFor="let item of figureData" [ngClass]="{'active': currentSection === item.id}">
+                            <a [class.disabled]="item['disabled']" [routerLink]="['.']" fragment="{{item['disabled'] ? null : item.id}}" [queryParams]="queryParams">
+                                <div class="row">
+                                    <div class="col-auto pr-0">
+                                        <fa-icon class="icon" [icon]="item.placement > 0 ? faChartBar : faIconCircle"></fa-icon>
                                     </div>
                                     <div class="col">
-                                        {{item.label}}
+                                        {{item['title' + currentLocale]}}
                                     </div>
                                 </div>
                             </a>
@@ -52,51 +65,38 @@
             <!-- Content -->
             <div class="col-12 col-lg-9 px-0 px-lg-3">
                 <main>
+                    <div class="row justify-content-center" *ngIf="loading">
+                        <mat-spinner  [diameter]="40"></mat-spinner>
+                    </div>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                         <div class="dropdown px-2 pb-4">
                             <button mat-button class="dropdown d-flex" *ngIf="mobile" (click)="showIntro = !showIntro" href="javascript:void(0)"><h2 i18n="@@informationSourceProducers">Tiedon lähteet ja tuottajat</h2><fa-icon class="dropdown-icon align-self-center" [icon]="showIntro ? faChevronUp : faChevronDown"></fa-icon></button>
-                        </div>              
-                        <div class="segment" *ngIf="showIntro" id="s0">
-                            <h1 *ngIf="!mobile" i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</h1>
-                            <div class="row">
-                                <div class="col p-1">
-                                    <div class="base content intro">
-                                        <p i18n="@@figuresIntro1">Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</p>
-                                        <p i18n="@@figuresIntro2">Tiedot perustuvat opetushallinnon Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja Maahanmuuttoviraston tietoihin. Kansainvälisessä vertailussa käytetään OECD:n tilastoja ja Euroopan Unionin CORDIS-palvelua. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</p>
-                                        <p i18n="@@figuresIntro3">Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</p>
-                                        <br>
-                                        <span class="strong pb-2 d-block" i18n="@@figuresIntroBlockHeader1">Aineistolähteet</span>
-                                        <ul class="disc">
-                                            <li><a [href]="vipunenLink[currentLocale]" target="_blank" #mainFocus><ng-container i18n="@@vipunen">Vipunen</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a [href]="statcenterLink[currentLocale]" target="_blank"><ng-container i18n="@@tilastokeskus">Tilastokeskus</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a [href]="migriLink[currentLocale]" target="_blank"><ng-container i18n="@@maahanmuuttovirasto">Maahanmuuttovirasto</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a href="http://www.oecd.org/" target="_blank">OECD<fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a href="https://cordis.europa.eu/en" target="_blank">CORDIS<fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                        </ul>
-                                        <span class="strong pb-2 d-block" i18n="@@figuresIntroBlockHeader2">Tuottajat</span>
-                                        <ul class="disc">
-                                            <li><a [href]="okmLink[currentLocale]" target="_blank"><ng-container i18n="@@okm">Opetus- ja kulttuuriministeriö</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a [href]="akaLink[currentLocale]" target="_blank"><ng-container i18n="@@suomenAkatemia">Suomen Akatemia</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                            <li><a [href]="cscLink[currentLocale]" target="_blank"><ng-container i18n="@@csc">CSC - Tieteen tietotekniikan keskus Oy</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                                        </ul>
-                                        <p>Bibliometric results presented here are derived from the Web of Science® prepared by CLARIVATE ANALYTICS®, Inc. (Formerly the IP & Science business of Thomson Reuters®), Philadelphia, Pennsylvania, USA: © Copyright CLARIVATE ANALYTICS® 2020. All rights reserved. Results are taken with permission from the bibliometric analysis system provided by CSC - IT Center for Science Ltd., Espoo, Finland.</p>
+                        </div>
+                        <ng-container *ngIf="showIntro && content && !loading">
+                            <div class="segment" id="s0">
+                                <h1 *ngIf="!mobile">{{content['title' + currentLocale]}}</h1>
+                                <div class="row">
+                                    <div class="col p-1">
+                                        <div class="base content intro" [innerHTML]="content['content' + currentLocale]"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
                         <!-- Figures -->
-                        <div class="segment" #segments *ngFor="let content of allContent" id={{content.id}}>
-                            <ng-container *ngIf="content.items.length">
-                                <h2 class="px-2 lx-lg-0">{{content['header' + currentLocale]}}</h2>
-                                <ng-container *ngTemplateOutlet="figureTemplate; context:{data: content.items}"></ng-container>
-                            </ng-container>
-                        </div>
+                        <ng-container *ngIf="!loading">
+                            <div class="segment" #segments *ngFor="let figure of filteredData?.length > 0 ? filteredData : figureData" id={{figure.id}}>
+                                <ng-container *ngIf="figure.figures.length">
+                                    <h2 class="px-2 lx-lg-0">{{figure['title' + currentLocale]}}</h2>
+                                    <ng-container *ngTemplateOutlet="figureTemplate; context:{data: {figures: figure.figures, parent: figure.id}}"></ng-container>
+                                </ng-container>
+                            </div>
+                        </ng-container>
                     </div>
                     <!-- Search results -->
                     <ng-template #queryResultTemplate>
                         <div class="segment" #segments *ngIf="hasResults; else noResults">
                             <h3 class="px-2 lx-lg-0"><ng-container i18n="@@figureSearchResults">Haun tulokset</ng-container> ({{queryResults.length}})</h3>
-                            <ng-container *ngTemplateOutlet="figureTemplate; context:{data: queryResults}"></ng-container>
+                            <ng-container *ngTemplateOutlet="figureTemplate; context:{data: {figures: queryResults}}"></ng-container>
                         </div>
                         <ng-template #noResults>
                             <div role="alert" class="col-auto">
@@ -110,11 +110,11 @@
                         <div class="row">
                             <div class="col p-1">
                                 <div class="base content">
-                                    <div class="card list" *ngFor="let item of data">
-                                        <a routerLink="{{item.link}}" [queryParams]="queryParams">
+                                    <div class="card list" *ngFor="let item of data.figures">
+                                        <a [routerLink]="data.parent + '_' + item.placement" [queryParams]="queryParams">
                                             <div class="row d-flex justify-content-around">
                                                 <div class="col-12 col-md-8">
-                                                    <h3 class="title">{{item['label' + currentLocale]}}</h3>
+                                                    <h3 class="title">{{item['title' + currentLocale]}}</h3>
                                                     <div class="col-12 figure d-block d-md-none">
                                                         <img [src]="item.img" >
                                                     </div>
@@ -123,7 +123,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4 figure d-none d-md-block">
-                                                    <img [src]="item.img">
+                                                    <img [src]="item.thumbnail">
                                                 </div>
                                             </div>
                                         </a>

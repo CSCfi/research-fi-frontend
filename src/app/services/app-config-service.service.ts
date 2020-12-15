@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /*
@@ -26,44 +26,55 @@ CI/CD pipeline adds the file automatically
 export class AppConfigService {
   private appConfig: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Read configuartion file
   loadAppConfig() {
-    return this.http.get('assets/config/config.json')
+    return this.http
+      .get('assets/config/config.json')
       .toPromise()
-      .then(data => {
+      .then((data) => {
         this.appConfig = data;
       });
   }
 
   // API Url
   get apiUrl() {
-    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
     return this.appConfig.apiUrl + '/portalapi/';
   }
 
   // CMS Url
   get cmsUrl() {
-    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
     return this.appConfig.cmsUrl;
   }
 
   // Application performance monitoring Url
   get apmUrl() {
-    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
     return this.appConfig.apiUrl + '/apm/';
   }
 
   // Build info
   get buildInfo() {
-    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
     return this.appConfig.buildInfo;
   }
 
   // Environment name
   get environmentName() {
-    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
     return this.appConfig.environmentName;
   }
 }

@@ -1,14 +1,14 @@
 {
-    "apiUrl": "<API_HOST>/portalapi/",
-    "cmsUrl": "<CMS_HOST>",
-    "buildInfo": "<BUILD_INFO>",
-    "environmentName": "local|test|production",
-    "email": {
-        "enabled": true,
-        "host": "<smtp host>",
-        "port": 25,
-        "username": "<optional username>",
-        "password": "<optional password>",
-        "receiver": "<receiver email address>"
-    }
+  "apiUrl": "<API_HOST>/portalapi/",
+  "cmsUrl": "<CMS_HOST>",
+  "buildInfo": "<BUILD_INFO>",
+  "environmentName": "local|test|production",
+  "email": {
+    "enabled": true,
+    "host": "<smtp host>",
+    "port": 25,
+    "username": "<optional username>",
+    "password": "<optional password>",
+    "receiver": "<receiver email address>"
+  }
 }

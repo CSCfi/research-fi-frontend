@@ -7,76 +7,30 @@ Copyright 2019 Ministry of Education and Culture, Finland
 
 <main id="main-content">
     <div class="wrapper">
-        <div class="row">
-            <div class="col pb-4">
-                <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
+        <ng-container>
+            <div class="row">
+                <div class="col pb-4">
+                    <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h1 i18n="@@accessibilityHeader">Saavutettavuusseloste</h1>
-            </div>
-        </div>
-        <div class="row base">
-            <div class="col px-0">
-                <div class="content" #mainFocus tabindex="0">
-                    <div class="row">
-                        <div class="col">
-                            <p i18n="@@accessibilityParagraph1">Tämä on Tiedejatutkimus.fi -verkkopalvelun saavutettavuusseloste.
-                            Verkkopalvelun saavutettavuusvaatimukset perustuvat kansalliseen lakiin digitaalisten palveluiden tarjoamisesta (306/2019).
-                            Tämä saavutettavuusseloste on laadittu 5.6.2020.</p>
-
-                            <h2 i18n="@@accessibilityBlockHeader1">Verkkopalvelun saavutettavuuden tila</h2>
-                            <p i18n="@@accessibilityParagraph2">Itsearvioon perustuen, verkkopalvelu täyttää WCAG 2.1 AA -tason kriittiset saavutettavuusvaatimukset.</p>
-
-                            <h2 i18n="@@accessibilityBlockHeader2">Verkkopalvelun ei-saavutettava sisältö</h2>
-                            <h3 i18n="@@accessibilityBlockHeader3">Ei-saavutettava osio: </h3>
-                            <p i18n="@@accessibilityParagraph3">Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisällöt voivat olla ongelmallisia ruudunlukijakäyttäjille, koska tilastojen kieliattribuuttina on tietyssä tapauksissa englanti, vaikka käyttäjällä olisi muuten kieliasetuksena suomi.
-                            Englannin kieliattribuutti luo ristiriitaisen tilanteen, jossa ruudunlukija lukee tilaston suomenkielisen sisällön englanniksi ääntäen.
-                            Kieliattribuuttivirhe koskee ainakin selaimia Safari ja Mozilla Firefox. Kieliattribuutti on kuitenkin pääsäntöisesti toiminut selaimilla Google Chrome ja Microsoft Edge.</p>
-                            <h4 i18n="@@accessibilityBlockHeader4">WCAG-vaatimus, joka ei tällöin toteudu</h4>
-                            <p i18n="@@accessibilityParagraph4">3.1.2 Osien kieli (AA)</p>
-                            <h4 i18n="@@accessibilityBlockHeader5">Syy noudattamatta jättämiselle </h4>
-                            <p i18n="@@accessibilityParagraph6">Kolmannen osapuolen sisältö</p>
-                            <p i18n="@@accessibilityParagraph7">Taustaa: Tilastot tuodaan portaaliin iframe-sisällöksi toisesta verkkopalvelusta, joka taas hyödyntää sellaista teknologiaa, jolla ei ole mahdollista konfiguroida iframeksi tarjottavan sisällön kieliattribuuttia kattavasti.</p>
-
-                            <h3 i18n="@@accessibilityBlockHeader6">Ei-saavutettava osio:</h3>
-                            <p i18n="@@accessibilityParagraph8">Portaalin "Lukuja tieteestä ja tutkimuksesta" -osion tilastosisältöjen ohjeet, jotka ilmestyvät silloin kun hiiren osoitin on niiden päällä, eivät ole täysin saavutettavuusvaatimusten mukaisia. Hiiren osoitinta ei saa 
-                            vietyä dynaamisen ohjeen päälle, vaan teksti katoaa, kun osoitin liikkuu kohde-elementin ulkopuolelle.</p>
-                            <h4 i18n="@@accessibilityBlockHeader7">WCAG-vaatimus, joka ei tällöin toteudu:</h4>
-                            <p i18n="@@accessibilityParagraph9">1.4.13 Sisältö osoittaessa tai kohdistaessa</p>
-                            <h4 i18n="@@accessibilityBlockHeader8">Syy noudattamatta jättämiselle</h4>
-                            <p i18n="@@accessibilityParagraph10">Kolmannen osapuolen sisältö</p>
-                            
-                            <br>
-                            <h2 i18n="@@accessibilityBlockHeader13">Seuraavat askeleet verkkopalvelun saavutettavuustyössä</h2>
-                            <p i18n="@@accessibilityParagraph11">Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</p>
-
-                            <h2 i18n="@@accessibilityBlockHeader9">Saavutettavuuspalaute</h2>
-                            <p i18n="@@accessibilityParagraph13">Voit antaa meille palautetta verkkopalvelun saavutettavuudesta <a href="javascript:void(0)" (click)="toggleReview()">tällä lomakkeella</a>.
-                            <br>Voit antaa saavutettavuuspalautteen vaihtoehtoisesti myös sähköpostilla osoitteeseen: <a href="mailto:tiedejatutkimus@csc.fi">tiedejatutkimus@csc.fi</a>.</p>
-
-                            <h2 i18n="@@accessibilityBlockHeader10">Valvontaviranomainen</h2>
-                            <p i18n="@@accessibilityParagraph14">Jos huomaat verkkopalvelussa saavutettavuusongelmia, anna palautetta ensin meille, eli verkkopalvelun ylläpitäjälle. Vastaamme yhteydenottoosi 14 päivän kuluessa.</p>
-
-                            <p i18n="@@accessibilityParagraph15">Jos et ole tyytyväinen meiltä saamaasi vastaukseen, tai vastauksemme ei saavu 14 päivän kuluessa, voit tehdä ilmoituksen Etelä-Suomen aluehallintavirastoon.
-                            <br>
-                            <a href="https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/" target="_blank">https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<fa-icon icon="external-link-alt"></fa-icon></a></p>
-
-                            <h3 i18n="@@accessibilityBlockHeader11">Valvontaviranomaisen yhteystiedot</h3>
-                            <p i18n="@@accessibilityParagraph16">Etelä-Suomen aluehallintovirasto<br>
-                            Saavutettavuuden valvonnan yksikkö<br>
-                            www.saavutettavuusvaatimukset.fi<br>
-                            saavutettavuus@avi.fi<br>
-                            Puhelinnumero vaihde 0295 016 000</p>
-
-                            <h2 i18n="@@accessibilityBlockHeader12">Julkaisu- ja päivitystiedot</h2>
-                            <p i18n="@@accessibilityParagraph17">Tämä verkkopalvelu on julkaistu 9.6.2020<br>
-                            Tämä saavutettavuusseloste on päivitetty viimeksi 5.6.2020</p>
+            <ng-container>
+                <div class="row">
+                    <div class="col">
+                        <h1 [innerHTML]="content['title' + currentLocale]"></h1>
+                    </div>
+                </div>
+                <div class="row base">
+                    <div class="col px-0">
+                        <div class="content" #mainFocus tabindex="0">
+                            <div class="row">
+                                <div class="col page-content"
+                                    [innerHTML]="content['content' + currentLocale] | sanitizeHtml">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </ng-container>
+        </ng-container>
     </div>
 </main>

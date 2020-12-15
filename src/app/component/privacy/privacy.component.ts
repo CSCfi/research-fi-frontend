@@ -5,7 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild, ElementRef, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  LOCALE_ID,
+  AfterViewInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  PLATFORM_ID,
+} from '@angular/core';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
@@ -13,15 +23,14 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { privacy, common } from 'src/assets/static-data/meta-tags.json'
+import { privacy, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
 import { WINDOW } from 'src/app/services/window.service';
-
 
 @Component({
   selector: 'app-privacy',
   templateUrl: './privacy.component.html',
-  styleUrls: ['./privacy.component.scss']
+  styleUrls: ['./privacy.component.scss'],
 })
 export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;
@@ -33,33 +42,54 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   consentStatusSub: any;
   routeSub: Subscription;
   selectedIndex: any;
+  currentLocale: string;
 
-  private currentLocale: string;
   private metaTags = privacy;
   private commonTags = common;
 
+  privacyPolicyContent: any[];
+  cookiePolicyContent: any[];
 
-
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-              private privacyService: PrivacyService, private snackBar: MatSnackBar, private route: ActivatedRoute,
-              private router: Router, private utilityService: UtilityService, @Inject(WINDOW) private window: Window) {
+  constructor(
+    private titleService: Title,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private tabChangeService: TabChangeService,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private privacyService: PrivacyService,
+    private snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    private router: Router,
+    private utilityService: UtilityService,
+    @Inject(WINDOW) private window: Window
+  ) {
     this.locale = localeId;
-    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-    this.matomoUrl = 'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
-                      this.locale + '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif';
-   }
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.matomoUrl =
+      'https://rihmatomo-analytics.csc.fi/index.php?module=CoreAdminHome&action=optOut&language=' +
+      this.locale +
+      '&backgroundColor=&fontColor=&fontSize=&fontFamily=Roboto, sans-serif';
+  }
 
   ngOnInit(): void {
+    // Get page data. Data is passed with resolver in router
+    const pageData = this.route.snapshot.data.pages;
+    this.privacyPolicyContent = pageData.find(
+      (el) => el.id === 'privacy-statement'
+    );
+    this.cookiePolicyContent = pageData.find((el) => el.id === 'cookie-policy');
+
     // Open tab
-    this.routeSub = this.route.params.subscribe(param => {
+    this.routeSub = this.route.params.subscribe((param) => {
       this.selectedIndex = param.tab || 0;
     });
 
-    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
-                                this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
-
+    this.utilityService.addMeta(
+      this.metaTags['title' + this.currentLocale],
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
 
     switch (this.localeId) {
       case 'fi': {
@@ -71,7 +101,9 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       case 'sv': {
-        this.setTitle('Dataskydd och behandling av personuppgifter - Forskning.fi');
+        this.setTitle(
+          'Dataskydd och behandling av personuppgifter - Forskning.fi'
+        );
         break;
       }
     }
@@ -82,9 +114,13 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Get consent status
     if (isPlatformBrowser(this.platformId)) {
-      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-        this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
-      });
+      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(
+        (status) => {
+          this.consentStatus = localStorage.getItem('cookieConsent')
+            ? localStorage.getItem('cookieConsent')
+            : status;
+        }
+      );
     }
   }
 
@@ -156,11 +192,13 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'main-link') {
-        this.mainFocus.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.mainFocus.nativeElement.focus();
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy() {
@@ -170,5 +208,4 @@ export class PrivacyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.consentStatusSub?.unsubscribe();
     this.routeSub?.unsubscribe();
   }
-
 }

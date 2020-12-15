@@ -40,6 +40,12 @@ h2 { font-size: 1.7rem;}
 h3 { font-size: 1.5rem;}
 h4 { font-size: 1.2rem;}
 
+.page-content {
+    h2, h3, h4 {
+        margin-top: 2rem;
+    }
+}
+
 a {
     // Accessibility checked color
     color: #3366CC;
@@ -50,13 +56,25 @@ a:hover {
     text-decoration: underline;
 }
 
+// Add icon to external links. This class is added in CMS.
+a.ext::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f35d";
+    margin-left: .3rem;
+}
+
 ul {
-    list-style: none;
-    padding-inline-start: 0;
+    list-style: disc;
+    padding-inline-start: 1rem;
 }
 
 #main-content {
     margin-top: 1.5rem;
+}
+
+.main-loader {
+    height: 100%;
 }
 
 .row {

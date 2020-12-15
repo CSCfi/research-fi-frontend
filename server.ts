@@ -27,7 +27,7 @@ import { EmailService } from './src/app/services/email.service';
 
 // Add timestamp to logs
 require('log-timestamp');
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 enableProdMode();
 
@@ -54,71 +54,89 @@ app.use(helmet.featurePolicy({
   }
 }));
 
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-    defaultSrc: [
-      '\'self\'',
-      'ws://localhost:4200',
-      'http://localhost:*',
-      'http://*.csc.fi:*',
-      'https://*.csc.fi:*',
-      'http://*.rahtiapp.fi:*',
-      'https://*.rahtiapp.fi:*',
-      'http://*.tiedejatutkimus.fi:*',
-      'https://*.tiedejatutkimus.fi:*',
-      'http://*.forskning.fi:*',
-      'https://*.forskning.fi:*',
-      'http://*.research.fi:*',
-      'https://*.research.fi:*',
-      'https://doi.org:*',
-      'https://data.crossref.org:*',
-      'https://app.powerbi.com:*',
-      'https://fonts.googleapis.com:*',
-    ],
-    styleSrc: [
-      '\'self\'',
-      '\'unsafe-inline\'',
-      'https://*.twitter.com:*',
-      'https://fonts.googleapis.com:*',
-      'https://*.twimg.com:*',
-    ],
-    scriptSrc: [
-      '\'self\'',
-      '\'unsafe-inline\'',
-      '\'unsafe-eval\'',
-      'https://*.csc.fi:*',
-      'https://*.twitter.com:*',
-      'https://cdn.syndication.twimg.com:*',
-    ],
-    frameSrc: [
-      'https://app.powerbi.com:*',
-      'https://rihmatomo-analytics.csc.fi:*',
-      'https://*.twitter.com:*'
-    ],
-    fontSrc: [
-      '\'self\'',
-      'fonts.googleapis.com:*',
-      'fonts.gstatic.com:*'
-    ],
-    imgSrc: [
-      '\'self\'',
-      'ws://localhost:4200',
-      'http://localhost:*',
-      'https://apps.utu.fi:*',
-      'https://tt.eduuni.fi:*',
-      'https://www.maanmittauslaitos.fi:*',
-      'https://rihmatomo-analytics.csc.fi:*',
-      'https://wiki.eduuni.fi:*',
-      'https://www.hamk.fi:*',
-      'https://mediapankki.tuni.fi:*',
-      'https://www.turkuamk.fi:*',
-      'https://*.twitter.com:*',
-      'https://*.twimg.com:*',
-      'https://*.w3.org:*',
-      'data:',
-    ]
-  }
-}));
+// Set default sources after app config file load. Use dynamic CMS address
+const getAppConfig = new Promise((resolve, reject) => {
+  const fs = require('fs');
+  fs.readFile(DIST_FOLDER + '/browser/fi/assets/config/config.json', (err, data) => {
+    if (err) {
+      const errorMsg = 'Error: Could not open config.json';
+      console.error(errorMsg);
+      reject(errorMsg);
+    } else {
+      resolve(JSON.parse(data));
+    }
+  });
+});
+
+getAppConfig.then((data: any) => {
+  app.use(helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [
+        '\'self\'',
+        'ws://localhost:4200',
+        'http://localhost:*',
+        'http://*.csc.fi:*',
+        'https://*.csc.fi:*',
+        'http://*.rahtiapp.fi:*',
+        'https://*.rahtiapp.fi:*',
+        'http://*.tiedejatutkimus.fi:*',
+        'https://*.tiedejatutkimus.fi:*',
+        'http://*.forskning.fi:*',
+        'https://*.forskning.fi:*',
+        'http://*.research.fi:*',
+        'https://*.research.fi:*',
+        'https://doi.org:*',
+        'https://data.crossref.org:*',
+        'https://app.powerbi.com:*',
+        'https://fonts.googleapis.com:*',
+        data.cmsUrl
+      ],
+      styleSrc: [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        'https://*.twitter.com:*',
+        'https://fonts.googleapis.com:*',
+        'https://*.twimg.com:*',
+      ],
+      scriptSrc: [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        '\'unsafe-eval\'',
+        'https://*.csc.fi:*',
+        'https://*.twitter.com:*',
+        'https://cdn.syndication.twimg.com:*',
+      ],
+      frameSrc: [
+        'https://app.powerbi.com:*',
+        'https://rihmatomo-analytics.csc.fi:*',
+        'https://*.twitter.com:*'
+      ],
+      fontSrc: [
+        '\'self\'',
+        'fonts.googleapis.com:*',
+        'fonts.gstatic.com:*'
+      ],
+      imgSrc: [
+        '\'self\'',
+        'ws://localhost:4200',
+        'http://localhost:*',
+        'https://apps.utu.fi:*',
+        'https://tt.eduuni.fi:*',
+        'https://www.maanmittauslaitos.fi:*',
+        'https://rihmatomo-analytics.csc.fi:*',
+        'https://wiki.eduuni.fi:*',
+        'https://www.hamk.fi:*',
+        'https://mediapankki.tuni.fi:*',
+        'https://www.turkuamk.fi:*',
+        'https://*.twitter.com:*',
+        'https://*.twimg.com:*',
+        'https://*.w3.org:*',
+        'data:',
+        data.cmsUrl
+      ]
+    }
+  }));
+});
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 // We have one configuration per locale and use designated server file for matching route.
@@ -211,37 +229,35 @@ routes.forEach((route) => {
 // Email server configuration is read from file config.json.
 // Email is sent using nodemailer.
 const emailService = new EmailService();
-app.post("/feedback", (req, res) => {
+app.post('/feedback', (req, res) => {
   const fs = require('fs');
   fs.readFile(DIST_FOLDER + '/browser/fi/assets/config/config.json', (err, data) => {
     if (err) {
-      let errorMsg = 'Email: Error: Could not open config.json';
+      const errorMsg = 'Email: Error: Could not open config.json';
       console.error(errorMsg);
       res.status(500).send({ error: errorMsg });
-    } else { 
-      let appConfig = JSON.parse(data);
+    } else {
+      const appConfig = JSON.parse(data);
 
-      if (!appConfig['email']) {
-        let errorMsg = 'Email: Error: Could not find configuration in config.json';
+      if (!appConfig.email) {
+        const errorMsg = 'Email: Error: Could not find configuration in config.json';
         console.error(errorMsg);
         res.status(500).send({ error: errorMsg });
-      }
-      else if (!appConfig['email']['enabled']) {
-        let errorMsg = 'Email: Error: Sending is disabled';
+      } else if (!appConfig.email.enabled) {
+        const errorMsg = 'Email: Error: Sending is disabled';
         console.error(errorMsg);
         res.status(500).send({ error: errorMsg });
-      }
-      else {
-        let host = appConfig['email']['host'];
-        let port = appConfig['email']['port'];
-        let username = appConfig['email']['username'];
-        let password = appConfig['email']['password'];
-        let receiver = appConfig['email']['receiver'];
-        
+      } else {
+        const host = appConfig.email.host;
+        const port = appConfig.email.port;
+        const username = appConfig.email.username;
+        const password = appConfig.email.password;
+        const receiver = appConfig.email.receiver;
+
         emailService.sendMail(host, port, username, password, receiver, req.body, info => {
           console.log('Email: Success: Sent message to ' + receiver + ' via ' + host + ':' + port);
           res.send(info);
-        })
+        });
       }
     }
   });
