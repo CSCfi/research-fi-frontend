@@ -4,7 +4,7 @@
  :license: MIT -->
 
 <div class="spinner-center" *ngIf="!resultData">
-    <mat-spinner [diameter]="80"></mat-spinner>
+    <mat-spinner [diameter]="80" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
 </div>
 <!-- Data -->
 <div *ngIf="resultData && resultData.total > 0; else noResults">

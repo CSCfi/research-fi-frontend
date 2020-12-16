@@ -71,9 +71,9 @@
                   <span *ngIf="searchInput.value.length >= 3" i18n="Search suggest@@searchSuggest2">Muuta hakua saadaksesi ehdotuksia</span>
               </div>
             </div>
-            <div class="row" *ngIf="!topData?.length > 0 && queryField.value.length > 2">
+            <div class="row" *ngIf="topData?.length === 0 && queryField.value.length > 2">
               <div class="col text-center">
-                <mat-spinner [diameter]="40"></mat-spinner>
+                <mat-spinner [diameter]="40" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
               </div>
             </div>
             <div class="results" *ngIf="topData">

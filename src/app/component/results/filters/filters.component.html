@@ -22,7 +22,7 @@
 
 <!-- showButton enables mobile behaviour on desktop -->
 <ng-container *ngIf="!mobile && !showButton">
-    <mat-spinner *ngIf="!responseData"></mat-spinner>
+    <mat-spinner *ngIf="!responseData" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
     <ng-container *ngTemplateOutlet="filters"></ng-container>
 </ng-container>
 
