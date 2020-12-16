@@ -8,7 +8,7 @@
 <app-layout>
   <div class="row justify-content-center main-loader" *ngIf="loading">
     <div class="col-auto align-self-center">
-      <mat-spinner  [diameter]="80"></mat-spinner>
+      <mat-spinner [diameter]="80" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
     </div>
   </div>
   <router-outlet *ngIf="!loading"></router-outlet>

@@ -29,7 +29,7 @@
                             </a>
                         </li>
                         <li *ngIf="loading">
-                            <mat-spinner [diameter]="40"></mat-spinner>
+                            <mat-spinner [diameter]="40" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
                         </li>
                         <li *ngFor="let item of figureData" [ngClass]="{'active': currentSection === item.id}">
                             <a [class.disabled]="item['disabled']" [routerLink]="['.']" fragment="{{item['disabled'] ? null : item.id}}" [queryParams]="queryParams">
@@ -66,7 +66,7 @@
             <div class="col-12 col-lg-9 px-0 px-lg-3">
                 <main>
                     <div class="row justify-content-center" *ngIf="loading">
-                        <mat-spinner  [diameter]="40"></mat-spinner>
+                        <mat-spinner [diameter]="40" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
                     </div>
                     <div *ngIf="hasResults && queryTerm.length === 0; else queryResultTemplate" appScrollSpy [spiedTags]="['DIV']" (sectionChange)="onSectionChange($event)">
                         <div class="dropdown px-2 pb-4">

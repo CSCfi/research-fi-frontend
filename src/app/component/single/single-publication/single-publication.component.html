@@ -519,7 +519,7 @@
             <div *ngIf="citations.length < citationStyles.length">
                 <div class="row justify-content-center">
                     <div class="col" align="center" style="margin-top:25px">
-                        <mat-spinner [diameter]="40"></mat-spinner>
+                        <mat-spinner [diameter]="40" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
                         <!-- <h2 class="error" *ngIf="errorTimeout">Yhteysongelma. Dataa ei saatavilla.</h2> -->
                     </div>
                 </div>
