@@ -165,8 +165,8 @@ Copyright 2019 Ministry of Education and Culture, Finland
                             <button class="col-6 vis-style-toggle ttv-button" [class.active]="!percentage && !fundingAmount" (click)="changeVisual({fundingAmount: false}); percentage=false; fundingAmount=false;" i18n="@@asCountFunding">Hankkeiden määrä</button>
                             <button class="col-6 vis-style-toggle ttv-button" [class.active]="percentage && !fundingAmount"  (click)="changeVisual({fundingAmount: false}); percentage=true; fundingAmount=false" i18n="@@asPercentFunding">% hankkeiden määrästä</button>
                             <div class="col-12"></div>
-                            <button class="col-6 vis-style-toggle ttv-button" [class.active]="!percentage && fundingAmount" (click)="changeVisual({fundingAmount: true}); percentage=false; fundingAmount=true;" i18n="@@asAmount">Myöntösumma (eur)</button>
-                            <button class="col-6 vis-style-toggle ttv-button" [class.active]="percentage && fundingAmount"  (click)="changeVisual({fundingAmount: true}); percentage=true; fundingAmount=true" i18n="@@asPercentAmount">% myöntösummasta</button>
+                            <!-- <button class="col-6 vis-style-toggle ttv-button" [class.active]="!percentage && fundingAmount" (click)="changeVisual({fundingAmount: true}); percentage=false; fundingAmount=true;" i18n="@@asAmount">Myöntösumma (eur)</button>
+                            <button class="col-6 vis-style-toggle ttv-button" [class.active]="percentage && fundingAmount"  (click)="changeVisual({fundingAmount: true}); percentage=true; fundingAmount=true" i18n="@@asPercentAmount">% myöntösummasta</button> -->
                         </div>
                         <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
