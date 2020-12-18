@@ -201,10 +201,10 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.updateNewsPageNumber(1);
     this.tabChangeService.focus = undefined;
     this.searchService.updateInput('');
-    if (this.filters && this.filters.organization) {
+    if (this.filters) {
       this.filters.organization = [];
+      this.filterService.updateFilters(this.filters);
     }
-    this.filterService.updateFilters(this.filters);
   }
 
   closeModal() {
