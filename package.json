@@ -18,8 +18,7 @@
     "build:client-and-server-bundles": "npm run build:prod && npm run build:server:prod",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
     "serve:ssr": "node dist/server.js",
-    "compile_countup.js": "babel node_modules/countup.js -d node_modules/countup.js --presets @babel/preset-env",
-    "postinstall": "npm run compile_countup.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
   "dependencies": {
@@ -52,7 +51,6 @@
     "cacache": "^13.0.1",
     "compression": "^1.7.4",
     "core-js": "^2.6.11",
-    "countup.js-angular2": "^7.3.0",
     "d3": "^5.16.0",
     "d3-zoom": "^1.8.3",
     "express": "^4.15.2",
@@ -64,6 +62,7 @@
     "mississippi": "^4.0.0",
     "ng-click-outside": "^6.0.0",
     "ngx-bootstrap": "^5.3.2",
+    "ngx-countup": "^7.3.3",
     "nodemailer": "^6.4.6",
     "popper.js": "^1.16.0",
     "reflect-metadata": "^0.1.13",
