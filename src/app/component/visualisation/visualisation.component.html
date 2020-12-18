@@ -6,7 +6,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="main-content" #main>
     <div class="row justify-content-center">
         <h1 class="col-12">{{title}}</h1>
-        <mat-spinner *ngIf="loading" [diameter]="40" class="position-absolute"></mat-spinner>
+        <mat-spinner *ngIf="loading" [diameter]="40" class="position-absolute" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
         <!-- <p class="col-6 offset-3">{{nOfResults + " tulos" + ((nOfResults - 1) ? "ta" : "")}}</p> -->
         <!-- <button class="col-3" mat-raised-button color="primary" (click)="swapVis()" i18n="@@visualType">Vaihda visualisaation tyyppiä</button> -->
     </div>

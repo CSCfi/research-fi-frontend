@@ -111,7 +111,7 @@ export class SingleInfrastructureComponent implements OnInit, OnDestroy {
 
   constructor( private route: ActivatedRoute, private singleService: SingleItemService, private searchService: SearchService,
                private titleService: Title, private tabChangeService: TabChangeService, @Inject(LOCALE_ID) protected localeId: string,
-               private utilityService: UtilityService, private settingsService: SettingsService ) {
+               public utilityService: UtilityService, private settingsService: SettingsService ) {
                 // Capitalize first letter of locale
                 this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
    }

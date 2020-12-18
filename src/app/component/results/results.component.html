@@ -137,6 +137,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         <strong class="d-block pb-2" i18n="@@additionalInfo">Lisätietoa</strong>
                         <div [innerHtml]="visualisationInfo"></div>
                     </div>
+                    <!-- <mat-slide-toggle [(ngModel)]="fundingAmount" *ngIf="tab === 'fundings'" (change)="changeVisual($event)">Myönnetyn summan mukaan</mat-slide-toggle> -->
                     <mat-form-field class="visual-select">
                         <mat-label class="strong" i18n="@@chooseTheme">Valitse teema</mat-label>
                         <mat-select (selectionChange)="changeVisual($event)">
@@ -156,15 +157,22 @@ Copyright 2019 Ministry of Education and Culture, Finland
                     <app-active-filters></app-active-filters>
                     <app-visualisation [data]="visualData" [tab]="tab" [visIdx]="visIdx" [percentage]="percentage" [loading]="visualLoading" [searchTerm]="searchTerm" [searchTarget]="searchTargetName"></app-visualisation>
                     <div class="row vis-info">
-                        <div>
-                            <button class="vis-style-toggle ttv-button" [class.active]="!percentage" (click)="percentage=false" i18n="@@asCount">Lukumäärinä</button>
-                            <button class="vis-style-toggle ttv-button" [class.active]="percentage"  (click)="percentage=true" i18n="@@asPercent">Prosentteina</button>
+                        <div *ngIf="tab === 'publications'" class="vis-style-toggles row">
+                            <button class="col vis-style-toggle ttv-button" [class.active]="!percentage && !fundingAmount" (click)="percentage=false; fundingAmount=false; changeVisual($event)" i18n="@@asCountPublication">Julkaisujen määrä</button>
+                            <button class="col vis-style-toggle ttv-button" [class.active]="percentage && !fundingAmount"  (click)="percentage=true; fundingAmount=false" i18n="@@asPercentPublication">% julkaisujen määrästä</button>
+                        </div>
+                        <div *ngIf="tab === 'fundings'" class="vis-style-toggles row">
+                            <button class="col-6 vis-style-toggle ttv-button" [class.active]="!percentage && !fundingAmount" (click)="changeVisual({fundingAmount: false}); percentage=false; fundingAmount=false;" i18n="@@asCountFunding">Hankkeiden määrä</button>
+                            <button class="col-6 vis-style-toggle ttv-button" [class.active]="percentage && !fundingAmount"  (click)="changeVisual({fundingAmount: false}); percentage=true; fundingAmount=false" i18n="@@asPercentFunding">% hankkeiden määrästä</button>
+                            <div class="col-12"></div>
+                            <!-- <button class="col-6 vis-style-toggle ttv-button" [class.active]="!percentage && fundingAmount" (click)="changeVisual({fundingAmount: true}); percentage=false; fundingAmount=true;" i18n="@@asAmount">Myöntösumma (eur)</button>
+                            <button class="col-6 vis-style-toggle ttv-button" [class.active]="percentage && fundingAmount"  (click)="changeVisual({fundingAmount: true}); percentage=true; fundingAmount=true" i18n="@@asPercentAmount">% myöntösummasta</button> -->
                         </div>
                         <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
                             <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
                         </span> -->
-                        <app-secondary-button [icon]="faDownload" [content]="downloadImage" [disabled]="true"></app-secondary-button>
+                        <app-secondary-button id="download-image" [icon]="faDownload" [content]="downloadImage" [disabled]="true"></app-secondary-button>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
  :license: MIT -->
 
 <div class="spinner-center" *ngIf="!resultData">
-    <mat-spinner [diameter]="80"></mat-spinner>
+    <mat-spinner [diameter]="80" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
 </div>
 <!-- Data -->
 <div *ngIf="resultData && resultData.total > 0; else noResults">
@@ -47,7 +47,7 @@
                 </a>
             </div>
             <div class="col col-lg-4 col-xl-3 d-none d-lg-block">
-                <span [innerHtml]="((funding.funder.nameFi !== 'UNDEFINED' ? funding.funder.name : '') | cutContent: 100) | highlight: input"></span>
+                <span [innerHtml]="((funding.funder['nameFi'] !== 'UNDEFINED' ? funding.funder.name : '') | cutContent: 100) | highlight: input"></span>
             </div>          
             <div class="col col-xl-3 d-none d-xl-block">
                 <span [innerHtml]="((funding.recipient.combined ? funding.recipient.combined : '')  | cutContent: 100) | highlight: input"></span>

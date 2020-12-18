@@ -117,9 +117,20 @@ span.total {
   }
   .vis-info {
     justify-content: space-between;
+    align-items: flex-end;
+  }
+  .vis-style-toggles {
+    width: 465px; // Adjust width according to longest translation when done
+    padding: 0;
+    margin-bottom: 10px;
+    padding-right: 10px;
   }
   .vis-style-toggle {
     border-radius: 0;
+    height: 55px;
+  }
+  #download-image {
+    margin-bottom: 10px;
   }
 }
 

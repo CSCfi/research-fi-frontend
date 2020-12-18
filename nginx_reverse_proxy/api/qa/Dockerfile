@@ -6,6 +6,6 @@
 # :license: MIT
 
 # Use non-root version of nginx
-FROM nginxinc/nginx-unprivileged
+FROM docker-registry.default.svc:5000/researchfi/nginx-unprivileged
 COPY nginx_reverse_proxy/api/devel/nginx.conf /etc/nginx/
 EXPOSE 8080

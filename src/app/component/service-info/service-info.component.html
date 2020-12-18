@@ -23,19 +23,19 @@
             <div class="col">
                 <div class="content" #mainFocus tabindex="0">
                     <mat-accordion>
-                        <mat-expansion-panel *ngFor="let item of contents; let i = index;" [expanded]="openedIdx === i" (opened)="open(i)" (closed)="close()" id="{{i}}">
+                        <mat-expansion-panel *ngFor="let item of content; let i = index;" [expanded]="openedIdx === i" (opened)="open(i)" (closed)="close()" id="{{i}}">
                             <mat-expansion-panel-header collapsedHeight="61px">
                                 <mat-panel-title>
                                     <fa-icon class="icon" [icon]="faInfo"></fa-icon>
                                     <div class="title align-self-center">
-                                        <h2 [id]="item.title">{{item['title' + currentLocale]}}</h2>
+                                        <h2 [id]="item['title' + currentLocale]">{{item['title' + currentLocale]}}</h2>
                                     </div>
                                 </mat-panel-title>
                                 <span *ngIf="openedIdx !== i" class="align-self-center mr-2" i18n="@@open">Avaa</span>
                                 <span *ngIf="openedIdx === i" class="align-self-center mr-2" i18n="@@close">Sulje</span>
                             </mat-expansion-panel-header>
                             <div class="row">
-                                <div class="col-12 description" [innerHTML]='item["description" + currentLocale].join("")'></div>
+                                <div class="col-12 description" [innerHTML]='item["content" + currentLocale] | sanitizeHtml'></div>
                             </div>
                         </mat-expansion-panel>
                     </mat-accordion>

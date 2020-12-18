@@ -897,13 +897,29 @@
         <source>Ei hakusanaa</source>
         <target>No search word</target>
       </trans-unit>
-      <trans-unit id="asCount">
-        <source>Lukumäärinä</source>
+      <trans-unit id="asCountPublication">
+        <source>Julkaisujen määrä</source>
+        <target>Number of publications</target>
+      </trans-unit>
+      <trans-unit id="asPercentPublication">
+        <source>% julkaisujen määrästä</source>
+        <target>Percentage of the number of publications</target>
+      </trans-unit>
+      <trans-unit id="asCountFunding">
+        <source>Hankkeiden määrä</source>
         <target>In numbers</target>
       </trans-unit>
-      <trans-unit id="asPercent">
-        <source>Prosentteina</source>
-        <target>In percentages</target>
+      <trans-unit id="asPercentFunding">
+        <source>% hankkeiden määrästä</source>
+        <target>Percentage of the number of projects</target>
+      </trans-unit>
+      <trans-unit id="asAmount">
+        <source>Myöntösummana (eur)</source>
+        <target>Granted amount (EUR)</target>
+      </trans-unit>
+      <trans-unit id="asPercentAmount">
+        <source>% myöntösummasta</source>
+        <target>Percentage of the amount granted</target>
       </trans-unit>
       <trans-unit id="downloadAsImage">
         <source>Lataa kuvana (tulossa)</source>
@@ -1026,24 +1042,24 @@
         <target>Number of publications by open access</target>
       </trans-unit>
       <trans-unit id="fundingCountByYear">
-        <source>Hankkeiden määrä vuosittain</source>
-        <target>Number of projects by year</target>
+        <source>Hankkeiden jakautuminen vuosittain</source>
+        <target>Distribution of projects by year</target>
       </trans-unit>
       <trans-unit id="fundingCountByFunder">
-        <source>Hankkeiden määrä rahoittajan mukaan</source>
-        <target>Number of projects by funder</target>
+        <source>Hankkeiden jakautuminen rahoittajan mukaan</source>
+        <target>Distribution of projects by funder</target>
       </trans-unit>
       <trans-unit id="fundingCountByOrg">
-        <source>Hankkeiden määrä organisaatioittain</source>
-        <target>Number of projects by organization</target>
+        <source>Hankkeiden jakautuminen organisaatioittain</source>
+        <target>Distribution of projects by organization</target>
       </trans-unit>
       <trans-unit id="fundingCountByType">
-        <source>Hankkeiden määrä rahoitusmuodon mukaan</source>
-        <target>Number of projects by funding instrument</target>
+        <source>Hankkeiden jakautuminen rahoitusmuodon mukaan</source>
+        <target>Distribution of projects by funding instrument</target>
       </trans-unit>
       <trans-unit id="fundingCountByFOS">
-        <source>Hankkeiden määrä tieteenaloittain</source>
-        <target>Number of projects by field of science</target>
+        <source>Hankkeiden jakautuminen tieteenaloittain</source>
+        <target>Distribution of projects by field of science</target>
       </trans-unit>
       <trans-unit id="visualType" datatype="html">
         <source>Vaihda visualisaation tyyppiä</source>
@@ -2408,19 +2424,19 @@
       </trans-unit>
       <trans-unit id="OKMPublicationType">
         <source>OKM:n julkaisutyyppiluokitus</source>
-        <target>MINEDU’s publication type classification code</target>
+        <target>MINEDU's publication type classification code</target>
       </trans-unit>
       <trans-unit id="publicationFormat">
         <source>Julkaisumuoto</source>
         <target>Publication format</target>
       </trans-unit>
-      <trans-unit id="publicationsFormat">
-        <source>Julkaisun muoto</source>
-        <target>Publication format</target>
-      </trans-unit>
       <trans-unit id="publicationAudience">
         <source>Julkaisun yleisö</source>
         <target>Publication audience</target>
+      </trans-unit>
+      <trans-unit id="publicationChannelAudience">
+        <source>Julkaisukanavan kodheyleisö</source>
+        <target>Publication channel’s target audience</target>
       </trans-unit>
       <trans-unit id="audience">
         <source>Yleisö</source>
@@ -2436,7 +2452,99 @@
       </trans-unit>
       <trans-unit id="publicationTypeTooltip">
         <source>OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.</source>
-        <target>Publication type A-G categories according to Ministry of Education and Culture Publication data collection.</target>
+        <target>Publication types A–G according to the Ministry of Education and Culture’s publication data collection</target>
+      </trans-unit>
+      <trans-unit id="article">
+        <source>Artikkeli</source>
+        <target>Article</target>
+      </trans-unit>
+      <trans-unit id="articleTooltipContent">
+        <source>sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit.</source>
+        <target>includes original and review articles, introductions and forewords of a book or journal, short research reports, editorials, contributions to a debate and comments.</target>
+      </trans-unit>
+      <trans-unit id="monograph">
+        <source>Erillisteos</source>
+        <target>Monograph</target>
+      </trans-unit>
+      <trans-unit id="monographTooltipContent">
+        <source>sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut.</source>
+        <target>includes monographs/books, development or research reports based on R&D efforts, assessments, white papers, working papers and discussion papers.</target>
+      </trans-unit>
+      <trans-unit id="editorial">
+        <source>Toimitustyö</source>
+        <target>Editorial work</target>
+      </trans-unit>
+      <trans-unit id="editorialTooltipContent">
+        <source>sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt.</source>
+        <target>includes editorial work in research books or special issues of journals consisting of various articles by several authors.</target>
+      </trans-unit>
+      <trans-unit id="abstract">
+        <source>Abstrakti</source>
+        <target>Abstract</target>
+      </trans-unit>
+      <trans-unit id="abstractTooltipContent">
+        <source>sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.</source>
+        <target>includes abstracts and extended abstracts of conference presentations.</target>
+      </trans-unit>
+      <trans-unit id="poster">
+        <source>Posteri</source>
+        <target>Poster</target>
+      </trans-unit>
+      <trans-unit id="posterTooltipContent">
+        <source>sisältää konferenssiesitelmien posterit.</source>
+        <target>includes posters of conference presentations.</target>
+      </trans-unit>
+      <trans-unit id="journal">
+        <source>Lehti</source>
+        <target>Journal</target>
+      </trans-unit>
+      <trans-unit id="journalTooltipContent">
+        <source>sisältää tieteelliset aikakauslehdet ja ammattilehdet.</source>
+        <target>includes scientific journals and professional journals.</target>
+      </trans-unit>
+      <trans-unit id="researchBook">
+        <source>Kokoomateos</source>
+        <target>Research book</target>
+      </trans-unit>
+      <trans-unit id="researchBookTooltipContent">
+        <source>sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit.</source>
+        <target>includes scientific research books, scientific yearbooks and similar publications, professional manuals or guides, professional information systems or research books, textbook materials, and short encyclopedia texts.</target>
+      </trans-unit>
+      <trans-unit id="conferencePlatform">
+        <source>Konferenssialusta</source>
+        <target>Conference platform</target>
+      </trans-unit>
+      <trans-unit id="conferencePlatformTooltipContent">
+        <source>sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.</source>
+        <target>includes the printed publications and other openly accessible publications of the conference, the so-called proceedings.</target>
+      </trans-unit>
+      <trans-unit id="scientificPublication">
+        <source>Tieteellinen julkaisu</source>
+        <target>Scientific publication</target>
+      </trans-unit>
+      <trans-unit id="scientificPublicationTooltipContent">
+        <source>julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>publications intended to promote science and to produce new information.</target>
+      </trans-unit>
+      <trans-unit id="professionalPublication">
+        <source>Ammatillinen julkaisu</source>
+        <target>Professional publication</target>
+      </trans-unit>
+      <trans-unit id="professionalPublicationTooltipContent">
+        <source>sjulkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.</source>
+        <target>publications disseminating information on research and development for a professional community.</target>
+      </trans-unit>
+      <trans-unit id="popularPublication">
+        <source>Yleistajuinen julkaisu</source>
+        <target>Popular publication</target>
+      </trans-unit>
+      <trans-unit id="popularPublicationTooltipContent">
+        <source>julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.</source>
+        <target>publications disseminating information on research and development for the public and the content of which does not require particular familiarity with the field.</target>
+      </trans-unit>
+      <trans-unit id="peerReviewedTooltip">
+        <source>Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.</source>
+        <target>The peer review of scientific publications refers to a procedure by which a journal, conference or publishing house publishing research results requests that experts in the field of science carry out a preliminary evaluation of the scientific fitness for publication of manuscripts intended for publication.</target>
       </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
@@ -2811,6 +2919,10 @@
       <trans-unit id="infraServicePoint">
         <source>Palvelupiste</source>
         <target>Service point</target>
+      </trans-unit>
+      <trans-unit id="infraOtherInfo">
+        <source>Tutkimusinfrastruktuurin muut tiedot</source>
+        <target>Other information</target>
       </trans-unit>
       <trans-unit id="infraClassifications" datatype="html">
         <source>Luokituksia</source>
@@ -4263,6 +4375,10 @@
       <trans-unit id="research">
         <source>Tutkimustoiminta</source>
         <target>Research</target>
+      </trans-unit>
+      <trans-unit id="loading">
+        <source>Ladataan</source>
+        <target>Loading</target>
       </trans-unit>
     </body>
   </file>

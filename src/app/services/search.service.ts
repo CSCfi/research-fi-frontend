@@ -5,19 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Injectable, EventEmitter  } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable  } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filters/filter.service';
 import { TabChangeService } from './tab-change.service';
-import { StaticDataService } from './static-data.service';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
-import { Publication } from '../models/publication/publication.model';
 import { News, NewsAdapter } from '../models/news.model';
 import { VisualAdapter, Visual } from '../models/visualisation/visualisations.model';
 import { AggregationService } from './filters/aggregation.service';
@@ -186,12 +184,12 @@ export class SearchService {
     return this.http.post<Search[]>(this.apiUrl + currentTab + '/_search?' + 'request_cache=true', aggs);
   }
 
-  getVisualData(categoryIdx: number): Observable<Visual> {
+  getVisualData(categoryIdx: number, fundingAmount = false): Observable<Visual> {
     // Need to check against tab since navigation from results to news causes problems since getVisualData is called from filters.
     if (this.tabChangeService.tab !== 'news') {
       const aggs = this.filterService.constructVisualPayload(this.tabChangeService.tab, this.searchTerm, categoryIdx);
       return this.http.post<Search[]>(this.apiUrl + this.tabChangeService.tab.slice(0, -1) + '/_search?', aggs)
-                      .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab, categoryIdx)));
+                      .pipe(map((data: any) => this.visualAdapter.adapt(data, this.tabChangeService.tab, categoryIdx, fundingAmount)));
     }
   }
 
