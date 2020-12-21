@@ -22,8 +22,8 @@ import express from 'express';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import {join} from 'path';
-import { EXPRESS_HTTP_PORT } from './src/app/app.global';
-import { EmailService } from './src/app/services/email.service';
+import { EXPRESS_HTTP_PORT } from './projects/portal/src/app/app.global';
+import { EmailService } from './projects/portal/src/app/services/email.service';
 
 // Add timestamp to logs
 require('log-timestamp');
