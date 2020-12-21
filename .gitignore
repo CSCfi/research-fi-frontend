@@ -46,9 +46,9 @@ testem.log
 Thumbs.db
 
 # Custom environment files
-src/environments/environment.researchfi.ts
-src/environments/environment.researchfi.prod.ts
-src/assets/config/config.json
+projects/portal/src/environments/environment.researchfi.ts
+projects/portal/src/environments/environment.researchfi.prod.ts
+projects/portal/src/assets/config/config.json
 
 # Nginx reverse proxy api.conf files
 nginx_reverse_proxy/**/api.conf
