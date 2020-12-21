@@ -22,14 +22,32 @@
       "dom",
       "esnext.array"
     ],
-    "paths" : {
-      "@portal/*" : ["portal/*"],
-      "@portal.services/*" : ["portal/src/app/services/*"],
-      "@portal.models/*" : ["portal/src/app/models/*"],
-      "@portal.assets/*" : ["portal/src/assets/*"],
-      "@portal.ui/*" : ["portal/src/app/ui/*"],
-      "@portal.testdata/*" : ["portal/src/testdata/*"],
-      "@portal.testing/*" : ["portal/src/testing/*"],
-    },
+    "paths": {
+      "@portal/*": [
+        "portal/*"
+      ],
+      "@portal.services/*": [
+        "portal/src/app/services/*"
+      ],
+      "@portal.models/*": [
+        "portal/src/app/models/*"
+      ],
+      "@portal.assets/*": [
+        "portal/src/assets/*"
+      ],
+      "@portal.ui/*": [
+        "portal/src/app/ui/*"
+      ],
+      "@portal.testdata/*": [
+        "portal/src/testdata/*"
+      ],
+      "@portal.testing/*": [
+        "portal/src/testing/*"
+      ],
+      "ui-library": [
+        "dist/ui-library/ui-library",
+        "dist/ui-library"
+      ]
+    }
   }
 }
