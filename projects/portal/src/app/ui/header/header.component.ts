@@ -5,8 +5,20 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID, ViewChildren,
-  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation, HostListener} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  Inject,
+  LOCALE_ID,
+  PLATFORM_ID,
+  ViewChildren,
+  Renderer2,
+  ViewEncapsulation,
+  HostListener,
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from '@portal.services/resize.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +26,11 @@ import { WINDOW } from '@portal.services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { UtilityService } from '@portal.services/utility.service';
-import { faChevronDown, faChevronUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronDown,
+  faChevronUp,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from '@portal.services/tab-change.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BetaInfoComponent } from '../beta-info/beta-info.component';
@@ -25,9 +41,9 @@ import { ContentDataService } from '@portal.services/content-data.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
   @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
@@ -43,7 +59,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   height = this.window.innerHeight;
   width = this.window.innerWidth;
   private resizeSub: Subscription;
-
 
   currentLang: string;
   lang: string;
@@ -72,11 +87,44 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   consent: string;
   pageDataSub: Subscription;
 
-  constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
-              @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
-              private cds: ContentDataService, private renderer: Renderer2, private route: ActivatedRoute,
-              private tabChangeService: TabChangeService, public dialog: MatDialog, private privacyService: PrivacyService) {
+  navItems = [
+    { label: $localize`:@@headerLink1:Etusivu`, link: '/' },
+    { label: $localize`:@@headerLink2:Haku`, link: '/results/' },
+    {
+      label: $localize`:@@headerLink3:Tiede- ja innovaatiopolitiikka`,
+      link: '/science-innovation-policy/',
+      dropdownItems: [
+        {
+          label: $localize`:@@headerLink4:Tutkimus- ja innovaatiojärjestelmä`,
+          link: '/science-innovation-policy/research-innovation-system/',
+        },
+        {
+          label: $localize`:@@headerLink5:Tiede ja tutkimus lukuina`,
+          link: '/science-innovation-policy/science-research-figures/',
+        },
+      ],
+    },
+    {
+      label: $localize`:@@headerLink6:Tiede- ja tutkimusuutiset`,
+      link: '/news',
+    },
+  ];
+
+  constructor(
+    private resizeService: ResizeService,
+    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(WINDOW) private window: Window,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private router: Router,
+    private utilityService: UtilityService,
+    private cds: ContentDataService,
+    private renderer: Renderer2,
+    private route: ActivatedRoute,
+    private tabChangeService: TabChangeService,
+    public dialog: MatDialog,
+    private privacyService: PrivacyService
+  ) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
@@ -85,19 +133,19 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Get current url
   routeEvent(router: Router) {
-    this.routeSub = router.events.subscribe(e => {
+    this.routeSub = router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         // Prevent multiple anchors
-        this.route.queryParams.subscribe(params => {
+        this.route.queryParams.subscribe((params) => {
           this.params = params;
           // Remove consent param
           if (params.consent) {
             this.router.navigate([], {
               queryParams: {
-                consent: null
+                consent: null,
               },
               queryParamsHandling: 'merge',
-              replaceUrl: true
+              replaceUrl: true,
             });
           }
         });
@@ -114,38 +162,44 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // Get page data from API and set to localStorage. This data is used to generate content on certain pages
+      // Get page data
       if (!this.cds.pageDataFlag) {
-        this.pageDataSub = this.cds.getPages().subscribe(data => {
+        this.pageDataSub = this.cds.getPages().subscribe((data) => {
           this.cds.setPageData(data);
-          // sessionStorage.setItem('pageData', JSON.stringify(data));
         });
       }
-      // this.window.addEventListener('keydown', this.handleTabPressed);
-      // this.window.addEventListener('mousedown', this.handleMouseDown);
-      // this.window.addEventListener('keydown', this.escapeListener);
-      this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
-      this.newPageSub = this.tabChangeService.newPage.subscribe(_ => {
+      this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
+        this.onResize(dims)
+      );
+      this.newPageSub = this.tabChangeService.newPage.subscribe((_) => {
         this.firstTab = true;
         this.document.activeElement.blur();
       });
     }
 
     // Subscribe to consent status and set consent. This is also used in linking between language versions
-    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      if (status.length) {
-        this.consent = status;
+    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(
+      (status) => {
+        if (status.length) {
+          this.consent = status;
+        }
       }
-    });
+    );
 
-    this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(elem => {
-      this.hideInputSkip = elem;
-    });
+    this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(
+      (elem) => {
+        this.hideInputSkip = elem;
+      }
+    );
   }
 
   @HostListener('document:keydown.escape', ['$event'])
   escapeListener(event: any) {
-    if (this.mobile && !this.utilityService.modalOpen && !this.utilityService.tooltipOpen) {
+    if (
+      this.mobile &&
+      !this.utilityService.modalOpen &&
+      !this.utilityService.tooltipOpen
+    ) {
       this.toggleNavbar();
       setTimeout(() => {
         this.navbarToggler.nativeElement.focus();
@@ -172,36 +226,18 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tabChangeService.targetFocus('consent');
         }
         this.document.body.classList.add('user-tabbing');
-        }
+      }
     }
   }
 
-  @HostListener('document:mousedown',['$event'])
+  @HostListener('document:mousedown', ['$event'])
   handleMouseDown = (): void => {
     this.firstTab = false;
     this.document.body.classList.remove('user-tabbing');
   }
 
-  ngAfterViewInit() {
-    // if (!this.mobile) {
-    //   const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
-    //   this.navLink.forEach((item, index) => {
-    //     this.renderer.setStyle(
-    //       item.nativeElement,
-    //       'width',
-    //       `${widths[index]}px`
-    //     );
-    //   });
-    //   this.widthFlag = true;
-    // }
-  }
-
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      // this.window.removeEventListener('keydown', this.handleTabPressed);
-      // this.window.removeEventListener('keydown', this.escapeListener);
-      // this.window.removeEventListener('mousedown', this.handleMouseDown);
-
       this.resizeSub?.unsubscribe();
     }
     this.routeSub?.unsubscribe();
@@ -221,7 +257,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.navbarOpen) {
       setTimeout(() => {
         // tslint:disable-next-line: no-unused-expression
-        this.overlay && this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+        this.overlay &&
+          this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
       }, 500);
     }
 
@@ -245,23 +282,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getLang(lang: string) {
-    let current = '';
-    switch (lang) {
-      case 'fi': {
-        current = 'FI';
-        break;
-      }
-      case 'sv': {
-        current = 'SV';
-        break;
-      }
-      case 'en': {
-        current = 'EN';
-        break;
-      }
-    }
     this.document.documentElement.lang = lang;
-    return current;
+    return lang.toUpperCase();
   }
 
   onResize(dims) {
@@ -269,28 +291,14 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.width = dims.width;
     if (this.width >= 1200) {
       this.mobile = false;
-      if (this.navbarOpen) { this.toggleNavbar(); }
+      if (this.navbarOpen) {
+        this.toggleNavbar();
+      }
       this.mainNavbar.nativeElement.style.cssText = '';
     } else {
       this.mobile = true;
     }
-
-    // if (!this.mobile && !this.widthFlag) {
-    //   setTimeout(x => {
-    //     const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
-    //     const arr = this.navLink.toArray();
-    //     arr.forEach((item, index) => {
-    //       this.renderer.setStyle(
-    //         item.nativeElement,
-    //         'width',
-    //         `${widths[index]}px`
-    //       );
-    //     });
-    //   }, 200);
-    //   this.widthFlag = true;
-    // }
   }
-
 
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
@@ -308,5 +316,4 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       autoFocus: false,
     });
   }
-
 }
