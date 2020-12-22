@@ -14,11 +14,13 @@
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
 // Import theme from shared files
-@import '../../shared/theme/researchfi-theme.scss';
+@import 'researchfi-theme.scss';
+
+// Custom themes from library
+@import 'header/header.component-theme.scss';
 
 // Component custom styles
 @import './styles-custom-expansion-panel.scss';
-@import './app/ui/header/header.component.scss-theme.scss';
 @import './app/ui/footer/footer.component.scss-theme.scss';
 @import './app/component/home-page/home-page.component.scss-theme.scss';
 @import './app/component/search-bar/search-bar.component.scss-theme.scss';
@@ -55,7 +57,6 @@
 @import './app/component/results/pagination/pagination.component.scss';
 @import './app/component/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 @import './app/component/visualisation/bar/bar.component.scss-theme.scss';
-
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
