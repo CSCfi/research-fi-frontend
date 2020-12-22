@@ -28,6 +28,7 @@ import { WINDOW } from '../services/window.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @Input() appSlogan: string;
   @Input() navItems: any;
   @Input() currentLang: any;
   @Input() currentRoute: any;
