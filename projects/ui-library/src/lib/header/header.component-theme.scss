@@ -13,12 +13,6 @@
 
     app-header {
         >header {
-            // Beta review button
-            .review-button button.close {
-                color: mat-color($primary);
-                opacity: 1;
-            }
-
             .logo-text {
                 color: mat-contrast($primary, 200);
             }
@@ -58,7 +52,6 @@
 
             ul.dropdown {
                 background: mat-contrast($primary, 500);
-                // box-shadow: 0 1rem 1rem 0 rgba(0,0,0,0.2);
             }
 
             ul.dropdown li:hover, .mat-form-field:hover {
@@ -87,11 +80,6 @@
 
             ::ng-deep .mat-select-value-text:hover {
                 opacity: 1;
-            }
-            
-
-            @media (min-width: 991px) {
-
             }
         }
     }
