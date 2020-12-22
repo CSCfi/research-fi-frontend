@@ -6,16 +6,23 @@
 # :license: MIT -->
 
 <header class="wrapper">
-    <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'" #srHelper>
-        <ul>
-            <li *ngIf="hideInputSkip"><a i18n="@@skipToInput" (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää hakukenttään</a></li>
-            <li><a i18n="@@skipToMain" (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää sivun pääsisältöön</a></li>
-            <li><a i18n="@@skipToAccessibility" (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a></li>
-        </ul>
-    </div>
-
-    <!-- Shared header -->
-    <lib-header [navItems]="navItems" [currentLang]="currentLang" [currentRoute]="currentRoute"></lib-header>
-
-
+  <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'" #srHelper>
+    <ul>
+      <li *ngIf="hideInputSkip">
+        <a i18n="@@skipToInput" (blur)="showSkipLinks = false" (click)="changeFocus('search-input')"
+          (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää hakukenttään</a>
+      </li>
+      <li>
+        <a i18n="@@skipToMain" (blur)="showSkipLinks = false" (click)="changeFocus('main-link')"
+          (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää sivun
+          pääsisältöön</a>
+      </li>
+      <li>
+        <a i18n="@@skipToAccessibility" (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0"
+          routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a>
+      </li>
+    </ul>
+  </div>
+  <!-- Shared header -->
+  <lib-header [navItems]="navItems" [currentLang]="lang" [currentRoute]="currentRoute"></lib-header>
 </header>
