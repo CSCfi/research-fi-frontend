@@ -7,8 +7,8 @@
       "i18n": {
         "sourceLocale": "fi",
         "locales": {
-          "en": "projects/portal/src/i18n/messages.en.xlf",
-          "sv": "projects/portal/src/i18n/messages.sv.xlf"
+          "en": "projects/shared/i18n/messages.en.xlf",
+          "sv": "projects/shared/i18n/messages.sv.xlf"
         }
       },
       "projectType": "application",
@@ -36,18 +36,17 @@
               "projects/portal/src/assets"
             ],
             "styles": [
-              {
-                "input": "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
-              },
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "projects/portal/src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/shared/theme"]
+            }
           },
           "configurations": {
             "production": {
@@ -184,7 +183,10 @@
           "options": {
             "main": "projects/portal/src/main.server.ts",
             "tsConfig": "projects/portal/tsconfig.server.json",
-            "localize": ["fi", "en", "sv"]
+            "localize": ["fi", "en", "sv"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/shared/theme"]
+            }
           },
           "configurations": {
             "production": {
@@ -204,8 +206,8 @@
           "options": {
             "xliffmergeOptions": {
               "i18nFormat": "xlf",
-              "srcDir": "projects/portal/src/i18n",
-              "genDir": "projects/portal/src/i18n",
+              "srcDir": "projects/shared/i18n",
+              "genDir": "projects/shared/i18n",
               "defaultLanguage": "fi",
               "languages": [
                 "fi",
