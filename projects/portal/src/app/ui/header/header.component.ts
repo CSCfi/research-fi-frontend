@@ -48,6 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   consentStatusSub: Subscription;
   consent: string;
   pageDataSub: Subscription;
+  appSlogan = $localize`:@@appSlogan:Tiedejatutkimus.fi`;
 
   navItems = [
     { label: $localize`:@@headerLink1:Etusivu`, link: '/' },
