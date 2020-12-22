@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "projects/",
+    "baseUrl": "./",
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -27,26 +27,29 @@
         "portal/*"
       ],
       "@portal.services/*": [
-        "portal/src/app/services/*"
+        "projects/portal/src/app/services/*"
       ],
       "@portal.models/*": [
-        "portal/src/app/models/*"
+        "projects/portal/src/app/models/*"
       ],
       "@portal.assets/*": [
-        "portal/src/assets/*"
+        "projects/portal/src/assets/*"
       ],
       "@portal.ui/*": [
-        "portal/src/app/ui/*"
+        "projects/portal/src/app/ui/*"
       ],
       "@portal.testdata/*": [
-        "portal/src/testdata/*"
+        "projects/portal/src/testdata/*"
       ],
       "@portal.testing/*": [
-        "portal/src/testing/*"
+        "projects/portal/src/testing/*"
       ],
       "ui-library": [
         "dist/ui-library/ui-library",
         "dist/ui-library"
+      ],
+      "shared": [
+        "projects/shared/*"
       ]
     }
   }
