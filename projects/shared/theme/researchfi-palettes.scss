@@ -1,0 +1,39 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+$researchfi-primary-palette: (
+  50: #f7f7fb,
+  100: #e8e8f5,
+  200: #c5c5e5,
+  300: #9f9fd4,
+  400: #7469cc,
+  500: #4546b9,
+  600: #3839a0,
+  700: #303197,
+  800: #28298d,
+  900: #1b1b7d,
+  A100: #b7b7ff,
+  A200: #007bff,
+  A400: #5151ff,
+  A700: #3737ff,
+  contrast: (
+    50: black,
+    100: black,
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.79),
+    400: rgba(0, 0, 0, 0.5),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: white,
+    A700: white,
+  ),
+);
