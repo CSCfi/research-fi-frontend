@@ -45,7 +45,10 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["projects/shared/theme"]
+              "includePaths": [
+                "projects/shared/theme",
+                "projects/ui-library/src/lib"
+              ]
             }
           },
           "configurations": {
