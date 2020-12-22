@@ -504,7 +504,7 @@
 <ng-template #citeModal>
     <div class="modal-header reference-modal align-items-center">
         <h3 class="modal-title" i18n="@@copyReferences">Kopioi viitetiedot</h3>
-        <app-close-button (click)="closeModal()"></app-close-button>
+        <lib-close-button (click)="closeModal()"></lib-close-button>
     </div>
     <div class="modal-body reference-modal pb-5">
         <div *ngFor="let citation of citations; let i = index" class="cite-block">

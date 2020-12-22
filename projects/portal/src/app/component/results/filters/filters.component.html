@@ -12,7 +12,7 @@
     <div cdkTrapFocus>
         <div class="modal-header">
             <h5 class="modal-title"><fa-icon class="filter-icon" [icon]="faSlidersH"></fa-icon>{{tabData === 'news' ? filterNewsHeader : filterSearchHeader}}</h5>
-            <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
+            <lib-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></lib-close-button>
         </div>
         <div class="modal-body">
             <ng-container *ngTemplateOutlet="filters"></ng-container>
