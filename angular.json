@@ -33,7 +33,12 @@
             "tsConfig": "projects/portal/tsconfig.app.json",
             "assets": [
               "projects/portal/src/assets/favicon.ico",
-              "projects/portal/src/assets"
+              "projects/portal/src/assets",
+              {
+                "input": "projects/ui-library/src/assets",
+                "glob": "**/*",
+                "output": "assets"
+              }
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
