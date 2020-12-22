@@ -4,7 +4,7 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'lib-close-button',
   templateUrl: './close-button.component.html',
-  styleUrls: ['./close-button.component.css']
+  styleUrls: ['./close-button.component.scss']
 })
 export class CloseButtonComponent implements OnInit {
 
