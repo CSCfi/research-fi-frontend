@@ -6,9 +6,9 @@
 <div class="pagination-container" *ngFor="let response of [responseData]">
   <div class="pagination">
     <div class="buttons row" *ngIf="response?.total">
-      <app-secondary-button class="col-5 col-md-3 p-0 pagination-button text-left text-lg-right" [class.pagination-link-active]="fromPage > 1" (click)="goToPage(page-1, pageSize)"
+      <lib-secondary-button class="col-5 col-md-3 p-0 pagination-button text-left text-lg-right" [class.pagination-link-active]="fromPage > 1" (click)="goToPage(page-1, pageSize)"
                             [disabled]="fromPage <= 1" [content]="previous" [icon]="faAngleDoubleLeft" [noSmIcon]="true">
-      </app-secondary-button>
+      </lib-secondary-button>
 
       <div class="pages col-12 col-md-6" [class.order-last]="!order">
         <button *ngFor="let number of pages" class="page-button" [disabled]="page === number" (click)="goToPage(number, pageSize)" [class.current-page]="page === number">
@@ -16,9 +16,9 @@
         </button>
       </div>
 
-      <app-secondary-button class="col-5 col-md-3 p-0 pagination-button text-right text-lg-left" [class.pagination-link-active]="fromPage + pageSize  < response.total" (click)="goToPage(page+1, pageSize)"
+      <lib-secondary-button class="col-5 col-md-3 p-0 pagination-button text-right text-lg-left" [class.pagination-link-active]="fromPage + pageSize  < response.total" (click)="goToPage(page+1, pageSize)"
                             [disabled]="fromPage + pageSize >= response.total" [content]="next" [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true">
-      </app-secondary-button>
+      </lib-secondary-button>
     </div>
   </div>
   <app-result-count [pagination]="true"></app-result-count>

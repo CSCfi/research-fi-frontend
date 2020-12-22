@@ -87,7 +87,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <ng-template #desktop>
     <aside class="col-4 col-xl-3 filters" *ngIf="!modalRef">
         <div class="justify-content-center align-items-center d-none d-lg-flex visual-button-container" *ngIf="tab === 'publications' || tab === 'fundings'">
-            <app-primary-action-button [content]="showAsVisual" [icon]="faChartBar" (click)="openModal(visualModal)"></app-primary-action-button>
+            <lib-primary-action-button [content]="showAsVisual" [icon]="faChartBar" (click)="openModal(visualModal)"></lib-primary-action-button>
         </div>
         <app-filters *ngIf="tab===tabData[0].link"  [responseData]="filterValues" [tabData]="tabData[0].data"></app-filters>
         <app-filters *ngIf="tab===tabData[1].link"  [responseData]="filterValues" [tabData]="tabData[1].data"></app-filters>
@@ -120,9 +120,6 @@ Copyright 2019 Ministry of Education and Culture, Finland
                 <span></span> <!-- invisible flex item for auto margin -->
                 <span class="d-flex align-items-center">
                     <h5 class="modal-title pr-2">{{visualisationCategories[visIdx].title}}</h5>
-                    <!-- <span [tooltip]="betaTooltip" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(beta)" (keydown)="utilityService.tooltipKeydown(beta, $event)" #beta>
-                        <app-secondary-button [icon]="'info-circle'" [content]="additionalInfo"></app-secondary-button>
-                    </span> -->
                     <div (click)="showInfo = !showInfo" (keydown.enter)="showInfo = !showInfo" tabindex="0" (clickOutside)="onClickedOutside($event)">
                         <fa-icon class="info-icon pr-2" icon="info-circle" (mouseenter)="showInfo = true"></fa-icon>
                         <a>{{additionalInfo}} </a>
@@ -151,7 +148,7 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         <app-filters *ngIf="tab===tabData[4].link"  [responseData]="filterValues" [tabData]="tabData[4].data"></app-filters>
                         <app-filters *ngIf="tab===tabData[6].link"  [responseData]="filterValues" [tabData]="tabData[6].data"></app-filters>
                     </div>
-                    <app-secondary-button (click)="clearFilters()" [big]="true" [content]="clearActiveFilters" [icon]="faTrash"></app-secondary-button>
+                    <lib-secondary-button (click)="clearFilters()" [big]="true" [content]="clearActiveFilters" [icon]="faTrash"></lib-secondary-button>
                 </div>
                 <div class="col-9">
                     <app-active-filters></app-active-filters>
@@ -170,9 +167,9 @@ Copyright 2019 Ministry of Education and Culture, Finland
                         </div>
                         <!-- <ng-template #tooltipTemplate><div [innerHtml]=visualisationInfo></div></ng-template>
                         <span [tooltip]="tooltipTemplate" triggers="focus keydown" placement="top" tabindex="-1" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                            <app-secondary-button [icon]="'info-circle'" [content]="'Info'" ></app-secondary-button>
+                            <lib-secondary-button [icon]="'info-circle'" [content]="'Info'" ></lib-secondary-button>
                         </span> -->
-                        <app-secondary-button id="download-image" [icon]="faDownload" [content]="downloadImage" [disabled]="true"></app-secondary-button>
+                        <lib-secondary-button id="download-image" [icon]="faDownload" [content]="downloadImage" [disabled]="true"></lib-secondary-button>
                     </div>
                 </div>
             </div>

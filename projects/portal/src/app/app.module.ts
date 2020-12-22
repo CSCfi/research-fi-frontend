@@ -139,6 +139,8 @@ import { FigureFiltersComponent } from './component/science-politics/figures/fig
 import { FiguresInfoComponent } from './component/science-politics/figures/figures-info/figures-info.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 
+import { UiLibraryModule } from 'ui-library';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -238,7 +240,8 @@ import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
     ClickOutsideModule,
     CommonComponentsModule,
     A11yModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    UiLibraryModule,
   ],
   providers: [
     SearchService,

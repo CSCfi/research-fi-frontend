@@ -1,8 +1,8 @@
 <div class="d-flex flex-direction-row justify-content-center align-items-center carousel-container">
     <div class="button-container prev text-left">
-        <app-secondary-button *ngIf="idx > 0" [big]="true" [content]="previous" routerLink="/science-innovation-policy/science-research-figures/{{data[idx-1].id}}"
-            [icon]="faAngleDoubleLeft"  [queryParams]="queryParams"></app-secondary-button>
-        <app-secondary-button *ngIf="idx === 0" [big]="true" [disabled]="true" [content]="previous" [icon]="faAngleDoubleLeft" ></app-secondary-button>
+        <lib-secondary-button *ngIf="idx > 0" [big]="true" [content]="previous" routerLink="/science-innovation-policy/science-research-figures/{{data[idx-1].id}}"
+            [icon]="faAngleDoubleLeft"  [queryParams]="queryParams"></lib-secondary-button>
+        <lib-secondary-button *ngIf="idx === 0" [big]="true" [disabled]="true" [content]="previous" [icon]="faAngleDoubleLeft" ></lib-secondary-button>
     </div>
     <div *ngFor="let item of slicedData" class="figure-item" [class.active]="item.id === id">
             <div class="img-container" [routerLink]="item.id === id ? undefined : '/science-innovation-policy/science-research-figures/' + item.id" [queryParams]="queryParams">
@@ -14,8 +14,8 @@
             </div>
     </div>
     <div class="button-container next text-right">
-        <app-secondary-button *ngIf="idx < maxIdx" [big]="true" [content]="next" routerLink="/science-innovation-policy/science-research-figures/{{data[idx+1].id}}" 
-            [icon]="faAngleDoubleRight" [iconAfter]="true" [queryParams]="queryParams"></app-secondary-button>
-        <app-secondary-button *ngIf="idx === maxIdx" [big]="true" [disabled]="true" [content]="next" [icon]="faAngleDoubleRight" [iconAfter]="true"></app-secondary-button>
+        <lib-secondary-button *ngIf="idx < maxIdx" [big]="true" [content]="next" routerLink="/science-innovation-policy/science-research-figures/{{data[idx+1].id}}" 
+            [icon]="faAngleDoubleRight" [iconAfter]="true" [queryParams]="queryParams"></lib-secondary-button>
+        <lib-secondary-button *ngIf="idx === maxIdx" [big]="true" [disabled]="true" [content]="next" [icon]="faAngleDoubleRight" [iconAfter]="true"></lib-secondary-button>
     </div>
 </div>

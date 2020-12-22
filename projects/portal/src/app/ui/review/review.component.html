@@ -92,10 +92,10 @@
       
       <div class="row pt-5 pt-md-4 send-button-wrapper">
         <div class="col-12 col-md-6 px-0 pb-3 pb-md-0 text-center text-md-left">
-          <app-secondary-button *ngIf="underReview" (click)="underReview = false" [content]="back" [disabled]="sending"></app-secondary-button>
+          <lib-secondary-button *ngIf="underReview" (click)="underReview = false" [content]="back" [disabled]="sending"></lib-secondary-button>
         </div>
         <div class="col-12 col-md-6 px-0 text-center text-md-right">
-          <app-primary-action-button (click)="underReview ? send() : validate()" [content]="sendText" [disabled]="sending"></app-primary-action-button>
+          <lib-primary-action-button (click)="underReview ? send() : validate()" [content]="sendText" [disabled]="sending"></lib-primary-action-button>
         </div>
       </div>
 

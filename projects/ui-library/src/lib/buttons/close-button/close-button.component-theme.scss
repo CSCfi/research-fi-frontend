@@ -1,0 +1,18 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
+@import '~@angular/material/theming';
+
+@mixin app-close-button-theme($theme) {
+    $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
+
+    .close-button {
+        color: mat-color($primary, 500);
+        background-color: mat-contrast($primary, 500);
+    }
+}

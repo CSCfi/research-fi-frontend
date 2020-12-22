@@ -4,8 +4,8 @@
  :license: MIT -->
     
 <div class="mobile mx-auto" id="navbar-toggle" [class.d-block]="showButton">
-    <app-secondary-button [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader" [icon]="faSlidersH" [noSmIcon]="true" [big]="true"
-    (click)="openModal(filterModal)" (keydown.enter)="openModal(filterModal)" #openFilters tabindex="-1"></app-secondary-button>
+    <lib-secondary-button [content]="tabData === 'news' ? filterNewsHeader : filterSearchHeader" [icon]="faSlidersH" [noSmIcon]="true" [big]="true"
+    (click)="openModal(filterModal)" (keydown.enter)="openModal(filterModal)" #openFilters tabindex="-1"></lib-secondary-button>
 </div>
 
 <ng-template #filterModal>

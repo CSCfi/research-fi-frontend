@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private resizeService: ResizeService,
-    @Inject(WINDOW) private window: Window,
+    @Inject(WINDOW) private window: any,
     @Inject(DOCUMENT) private document: any
   ) {}
 

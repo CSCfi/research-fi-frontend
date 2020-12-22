@@ -18,6 +18,9 @@
 
 // Custom themes from library
 @import 'header/header.component-theme.scss';
+@import 'buttons/close-button/close-button.component-theme.scss';
+@import 'buttons/secondary-button/secondary-button.component-theme.scss';
+@import 'buttons/primary-action-button/primary-action-button.component-theme.scss';
 
 // Component custom styles
 @import './styles-custom-expansion-panel.scss';
@@ -49,9 +52,6 @@
 @import './app/component/news/news/news.component.scss-theme.scss';
 @import './app/component/news/news-card/news-card.component.scss-theme.scss';
 @import './app/common-components/info/info.component-theme.scss';
-@import './app/common-components/secondary-button/secondary-button.component.scss-theme.scss';
-@import './app/common-components/primary-action-button/primary-action-button.component.scss-theme.scss';
-@import './app/common-components/close-button/close-button.component.scss-theme.scss';
 @import './app/ui/cookie-consent/cookie-consent-theme.scss';
 @import './app/ui/review/review.component.scss-theme.scss';
 @import './app/component/results/pagination/pagination.component.scss';

@@ -468,8 +468,8 @@
                     </mat-card-title>
                     <div>
                         <div class="reference">
-                            <app-secondary-button (click)="openModal(citeModal)" [content]="copyReferences"
-                                [icon]="faQuoteRight" [big]="true"></app-secondary-button>
+                            <lib-secondary-button (click)="openModal(citeModal)" [content]="copyReferences"
+                                [icon]="faQuoteRight" [big]="true"></lib-secondary-button>
                             <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
                         </div>
                     </div>
@@ -511,8 +511,8 @@
             <h4>{{citationStyles[i].label}}: </h4>
             <span [innerHTML]="citation | cleanCitation"></span>
             <div class="copy-wrapper">
-                <app-secondary-button [cdkCopyToClipboard]="citation" (click)="openSnackBar()" class="copy"
-                    [content]="copyToClipboard" [icon]="faCopy"></app-secondary-button>
+                <lib-secondary-button [cdkCopyToClipboard]="citation" (click)="openSnackBar()" class="copy"
+                    [content]="copyToClipboard" [icon]="faCopy"></lib-secondary-button>
             </div>
         </div>
         <div *ngIf="hasDoi">
