@@ -5,7 +5,7 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonComponentsModule } from '../common-components/common-components.module';
 import { LayoutComponent } from './layout/layout.component';
@@ -30,6 +30,8 @@ import { BetaInfoComponent } from './beta-info/beta-info.component';
 import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 import { WINDOW_PROVIDERS } from '@portal.services/window.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { UiLibraryModule } from 'ui-library';
+import { UiLibraryModule } from '../../../../ui-library/src/public-api';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, ReviewComponent, BetaInfoComponent,
@@ -50,10 +52,14 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     FormsModule,
     FontAwesomeModule,
     ClickOutsideModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    UiLibraryModule,
   ],
   exports: [LayoutComponent],
   entryComponents: [ReviewComponent],
-  providers: [WINDOW_PROVIDERS]
+  providers: [WINDOW_PROVIDERS],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ]
 })
 export class UiModule { }
