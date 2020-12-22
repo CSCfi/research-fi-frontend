@@ -30,8 +30,7 @@ import { BetaInfoComponent } from './beta-info/beta-info.component';
 import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 import { WINDOW_PROVIDERS } from '@portal.services/window.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-// import { UiLibraryModule } from 'ui-library';
-import { UiLibraryModule } from '../../../../ui-library/src/public-api';
+import { UiLibraryModule } from 'ui-library';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, ReviewComponent, BetaInfoComponent,
