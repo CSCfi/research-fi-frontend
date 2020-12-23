@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UiLibraryComponent } from './ui-library.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CloseButtonComponent } from './buttons/close-button/close-button.component';
@@ -14,7 +13,6 @@ import { WINDOW_PROVIDERS } from './services/window.service';
 
 @NgModule({
   declarations: [
-    UiLibraryComponent,
     HeaderComponent,
     CloseButtonComponent,
     PrimaryActionButtonComponent,
@@ -29,7 +27,6 @@ import { WINDOW_PROVIDERS } from './services/window.service';
     FontAwesomeModule,
   ],
   exports: [
-    UiLibraryComponent,
     HeaderComponent,
     CloseButtonComponent,
     PrimaryActionButtonComponent,
