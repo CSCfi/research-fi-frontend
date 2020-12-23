@@ -7,22 +7,22 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomePageComponent } from './component/home-page/home-page.component';
-import { ResultsComponent } from './component/results/results.component';
-import { SinglePublicationComponent } from './component/single/single-publication/single-publication.component';
-import { SingleFundingComponent } from './component/single/single-funding/single-funding.component';
-import { SingleOrganizationComponent } from './component/single/single-organization/single-organization.component';
-import { VisualisationComponent } from './component/visualisation/visualisation.component';
-import { NewsComponent } from './component/news/news/news.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ResultsComponent } from './components/results/results.component';
+import { SinglePublicationComponent } from './components/single/single-publication/single-publication.component';
+import { SingleFundingComponent } from './components/single/single-funding/single-funding.component';
+import { SingleOrganizationComponent } from './components/single/single-organization/single-organization.component';
+import { VisualisationComponent } from './components/visualisation/visualisation.component';
+import { NewsComponent } from './components/news/news/news.component';
 // tslint:disable-next-line: max-line-length
-import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
-import { FiguresComponent } from './component/science-politics/figures/figures.component';
-import { SingleFigureComponent} from './component/science-politics/figures/single-figure/single-figure.component';
-import { ServiceInfoComponent } from './component/service-info/service-info.component';
-import { PrivacyComponent } from './component/privacy/privacy.component';
-import { AccessibilityComponent } from './component/accessibility/accessibility.component';
-import { SitemapComponent } from './component/sitemap/sitemap.component';
-import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
+import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
+import { FiguresComponent } from './components/science-politics/figures/figures.component';
+import { SingleFigureComponent} from './components/science-politics/figures/single-figure/single-figure.component';
+import { ServiceInfoComponent } from './components/service-info/service-info.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { AccessibilityComponent } from './components/accessibility/accessibility.component';
+import { SitemapComponent } from './components/sitemap/sitemap.component';
+import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
 import { NotFoundComponent } from './common-components/not-found/not-found.component';
 import { PageResolverService } from './resolvers/page-resolver.service';
 import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';

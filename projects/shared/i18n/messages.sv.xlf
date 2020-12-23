@@ -6,19 +6,19 @@
         <source>404 - Virheellinen osoite</source>
         <target state="translated">404 - Fel adress</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -28,7 +28,7 @@
       </source>
       <target state="translated">Sök information om forskning i Finland</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -36,7 +36,7 @@
         <source>Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa.</source>
         <target state="translated">Sökningen gäller publikationer, finansieringsbeslut, infrastrukturer och organisationer.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -44,7 +44,7 @@
         <source>Kohdista haku</source>
         <target state="translated">Rikta sökningen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -52,7 +52,7 @@
         <source>Esim. julkaisu, tieteenala, asiasana</source>
         <target state="translated">Till exempel publikation, vetenskapsområde, ämnesord</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -64,7 +64,7 @@
         <source>Hae</source>
         <target state="translated">Sök</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
         <note priority="1" from="description">Search</note>
@@ -73,7 +73,7 @@
         <source>Hakuohje</source>
         <target state="translated">Sökanvisning</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
         <note priority="1" from="description">Search help button</note>
@@ -82,7 +82,7 @@
         <source>Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi tai esimerkiksi organisaation nimi.</source>
         <target state="translated">Skriv publikationens namn, ämnesord, projektets namn eller t.ex. organisationens namn i sökfältet.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">47</context>
         </context-group>
         <note priority="1" from="description">Search help</note>
@@ -91,7 +91,7 @@
         <source>Hakutulosten rajaaminen onnistuu haun jälkeen haku -näkymässä.</source>
         <target state="translated">Efter sökningen kan du avgränsa sökresultaten i vyn Sök.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">48</context>
         </context-group>
         <note priority="1" from="description">Search help</note>
@@ -100,7 +100,7 @@
         <source>Haku kohdistuu julkaisuihin, hankkeisiin, infrastruktuureihin ja organisaatioihin.</source>
         <target state="translated">Sökningen gäller publikationer, projekt, infrastrukturer och organisationer.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
         <note priority="1" from="description">Search help</note>
@@ -109,7 +109,7 @@
         <source>Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</source>
         <target state="translated">Skriv minst 3 bokstäver att få förslag</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
         <note priority="1" from="description">Search suggest</note>
@@ -118,7 +118,7 @@
         <source>Muuta hakua saadaksesi ehdotuksia</source>
         <target state="translated">Ändra sökningen att få förslag</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">58</context>
         </context-group>
         <note priority="1" from="description">Search suggest</note>
@@ -131,7 +131,7 @@
         <source>Ei ehdotuksia</source>
         <target state="translated">Inga förslag</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">69</context>
         </context-group>
         <note priority="1" from="description">Suggest results</note>
@@ -140,7 +140,7 @@
         <source>Näytä kaikki </source>
         <target state="translated">Visa alla </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">88</context>
         </context-group>
         <note priority="1" from="description">Suggest results</note>
@@ -149,7 +149,7 @@
         <source>Näytä kaikki </source>
         <target state="translated">Visa alla </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">100</context>
         </context-group>
         <note priority="1" from="description">Suggest results</note>
@@ -158,7 +158,7 @@
         <source>Hait viimeeksi:</source>
         <target state="translated">Du sökte senast:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">114</context>
         </context-group>
         <note priority="1" from="description">Search history</note>
@@ -167,7 +167,7 @@
         <source>Tyhjennä hakuhistoria</source>
         <target state="translated">Töm sökhistoriken</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/search-bar/search-bar.component.html</context>
+          <context context-type="sourcefile">app/components/search-bar/search-bar.component.html</context>
           <context context-type="linenumber">122</context>
         </context-group>
         <note priority="1" from="description">Empty search history</note>
@@ -190,7 +190,7 @@
         <target state="translated">Senaste vetenskaps- och forskningsnyheterna 
             <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="sourcefile">app/components/home-page/home-page.component.html</context>
           <context context-type="linenumber">60</context>
         </context-group>
         <note priority="1" from="description">Home page news header</note>
@@ -199,7 +199,7 @@
         <source>Tutkimusorganisaatioiden uutisia viimeisten kuuden kuukauden ajalta.</source>
         <target state="translated">Forskningsorganisationernas nyheter under de senaste sex månaderna.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="sourcefile">app/components/home-page/home-page.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
@@ -207,7 +207,7 @@
         <source>Lisää tiede- ja tutkimusuutisia tässä portaalissa &gt;&gt;</source>
         <target state="translated">Läs fler vetenskapsnyheter &gt;&gt;</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/home-page/home-page.component.html</context>
+          <context context-type="sourcefile">app/components/home-page/home-page.component.html</context>
           <context context-type="linenumber">68</context>
         </context-group>
         <note priority="1" from="description">Home page read more news link</note>
@@ -220,7 +220,7 @@
         <source>hakutulosta</source>
         <target state="translated">sökresultat</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/results.component.html</context>
+          <context context-type="sourcefile">app/components/results/results.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
@@ -228,7 +228,7 @@
         <source>Hyppää hakutuloksiin</source>
         <target state="translated">Gå till sökresultaten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/results.component.html</context>
+          <context context-type="sourcefile">app/components/results/results.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -236,7 +236,7 @@
         <source>Mitä</source>
         <target state="translated">Vilka</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/results.component.html</context>
+          <context context-type="sourcefile">app/components/results/results.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
@@ -244,7 +244,7 @@
         <source>tietoja palvelu sisältää?</source>
         <target state="translated">uppgifter finns i tjänsten?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/results.component.html</context>
+          <context context-type="sourcefile">app/components/results/results.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -256,7 +256,7 @@
         <source>Tuloksia näytetään enintään 10 000</source>
         <target state="translated">Högst 10 000 resultat visas</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/results.component.html</context>
+          <context context-type="sourcefile">app/components/results/results.component.html</context>
           <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
@@ -264,7 +264,7 @@
         <source>Jos hakemaasi tulosta ei löytynyt, yritä tarkentaa hakua.</source>
         <target state="translated">Om det du sökte inte hittades, försök precisera sökningen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/results.component.html</context>
+          <context context-type="sourcefile">app/components/results/results.component.html</context>
           <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
@@ -272,19 +272,19 @@
         <source>Takaisin hakutuloksiin</source>
         <target state="translated">Tillbaka till sökresultaten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -324,7 +324,7 @@
         <source>Organisaatiot ja tekijät</source>
         <target state="translated">Organisationer och upphovsmän</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
@@ -332,7 +332,7 @@
         <source>Julkaisun tekijät, joilla on suomalainen organisaatio.</source>
         <target state="translated">Upphovsmän till publikationen, som har en finländsk organisation.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -340,7 +340,7 @@
         <source>Näytä tarkemmin</source>
         <target state="translated">Visa närmare</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -348,7 +348,7 @@
         <source>Piilota alayksiköt</source>
         <target state="translated">Dölj underenheter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
@@ -356,7 +356,7 @@
         <source>Julkaisukanavan tiedot</source>
         <target state="translated">Publikationskanalens uppgifter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
@@ -364,7 +364,7 @@
         <source>Muut tiedot</source>
         <target state="translated">Övriga uppgifter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">200</context>
         </context-group>
       </trans-unit>
@@ -372,7 +372,7 @@
         <source>Linkit julkaisuun</source>
         <target state="translated">Länkar till publikationen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">243</context>
         </context-group>
       </trans-unit>
@@ -380,7 +380,7 @@
         <source>Julkaisuun ei ole tarjolla linkkejä tässä portaalissa</source>
         <target state="translated">Det finns inga länkar till publikationen i denna portal</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">271</context>
         </context-group>
       </trans-unit>
@@ -388,7 +388,7 @@
         <source>Hae julkaisua muualta</source>
         <target state="translated">Sök publikationen någon annanstans</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">276</context>
         </context-group>
       </trans-unit>
@@ -396,7 +396,7 @@
         <source>Hae julkaisuun liittyvät</source>
         <target state="translated">Sök sådana som är förknippade med publikationen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">289</context>
         </context-group>
       </trans-unit>
@@ -404,7 +404,7 @@
         <source>Viittaa</source>
         <target state="translated">Hänvisa</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">295</context>
         </context-group>
       </trans-unit>
@@ -412,7 +412,7 @@
         <source>Kopioi viitetiedot</source>
         <target state="translated">Kopiera referensinformation</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">300</context>
         </context-group>
       </trans-unit>
@@ -420,7 +420,7 @@
         <source>Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</source>
         <target state="translated">Referensuppgifterna är inte tillgängliga eftersom publikationen saknar DOI-kod.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">299</context>
         </context-group>
       </trans-unit>
@@ -428,7 +428,7 @@
         <source>Jaa</source>
         <target state="translated">Dela</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">310</context>
         </context-group>
       </trans-unit>
@@ -436,7 +436,7 @@
         <source>Julkaisutiedon lähde</source>
         <target state="translated">Publiceringsinformationens källa</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">313</context>
         </context-group>
       </trans-unit>
@@ -444,7 +444,7 @@
         <source>Kopioi leikepöydälle</source>
         <target state="translated">Kopiera till urklipp</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">334</context>
         </context-group>
       </trans-unit>
@@ -452,7 +452,7 @@
         <source>Julkaisulla täytyy olla DOI-tunniste viitetietojen hakemiseen</source>
         <target state="translated">Publikationen måste ha en DOI-kod för att referensuppgifter ska kunna sökas</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">354</context>
         </context-group>
       </trans-unit>
@@ -460,7 +460,7 @@
         <source>Julkaisun nimi</source>
         <target state="translated">Publikationens namn</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -468,7 +468,7 @@
         <source>Tekijät</source>
         <target state="translated">Upphovsmän</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -476,7 +476,7 @@
         <source>Lehti, kustantaja tai sarja, jossa julkaisu on ilmestynyt.</source>
         <target>Tidskrift, förläggare eller serie där publikationen har publicerats.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
@@ -484,7 +484,7 @@
         <source>Julkaisukanava</source>
         <target state="translated">Publikationskanal</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
@@ -492,7 +492,7 @@
         <source>Vuosi</source>
         <target state="translated">År</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
@@ -500,7 +500,7 @@
         <source>Vertaisarvioitu</source>
         <target state="translated">Referentgranskad</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
@@ -508,11 +508,11 @@
         <source>Avoin saatavuus</source>
         <target state="translated">Öppen tillgång</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">53</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
@@ -520,7 +520,7 @@
         <source>Ei julkaisuja</source>
         <target state="translated">Inga publikationer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
@@ -530,19 +530,19 @@
         <target state="translated">Kolla sökord för skrivfel. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                Det är möjligt att den information du söker inte finns i den här webbtjänsten.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">90</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
+          <context context-type="sourcefile">app/components/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">68</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
+          <context context-type="sourcefile">app/components/results/organizations/organizations.component.html</context>
           <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
@@ -550,19 +550,19 @@
         <source>Mitä tietoja Tiedejatutkimus.fi sisältää?</source>
         <target state="translated">Vilken information forskning.fi innehåller?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
+          <context context-type="sourcefile">app/components/results/publications/publications.component.html</context>
           <context context-type="linenumber">92</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
+          <context context-type="sourcefile">app/components/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
+          <context context-type="sourcefile">app/components/results/organizations/organizations.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
@@ -570,7 +570,7 @@
         <source>Yhteysongelma. Dataa ei saatavilla.</source>
         <target state="translated">Kontaktproblem. Ingen data tillgänglig.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/result-tab/result-tab.component.html</context>
+          <context context-type="sourcefile">app/components/result-tab/result-tab.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
         <note priority="1" from="description">Connection problem</note>
@@ -579,7 +579,7 @@
         <source>Osuvin tulos ensin</source>
         <target state="translated">Bästa sökträffen först</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/sort/sort.component.html</context>
+          <context context-type="sourcefile">app/components/results/sort/sort.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -587,7 +587,7 @@
         <source>Edellinen sivu</source>
         <target state="translated">Föregående sida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/components/results/pagination/pagination.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -595,7 +595,7 @@
         <source>Seuraava sivu</source>
         <target state="translated">Nästa sida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/components/results/pagination/pagination.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -603,11 +603,11 @@
         <source>Näytetään tulokset</source>
         <target state="translated">Resultaten visas</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/components/results/pagination/pagination.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/components/results/pagination/pagination.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -615,7 +615,7 @@
         <source>Sivu</source>
         <target state="translated">Sida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/pagination/pagination.component.html</context>
+          <context context-type="sourcefile">app/components/results/pagination/pagination.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -623,15 +623,15 @@
         <source>Haku</source>
         <target state="translated">Sökning</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/breadcrumb/breadcrumb.component.html</context>
+          <context context-type="sourcefile">app/components/breadcrumb/breadcrumb.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">145</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -639,7 +639,7 @@
         <source>Tiede- ja innovaatiopolitiikka</source>
         <target state="translated">Vetenskaps- och innovationspolitik</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/breadcrumb/breadcrumb.component.html</context>
+          <context context-type="sourcefile">app/components/breadcrumb/breadcrumb.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -647,15 +647,15 @@
         <source>Lukuja tieteestä ja tutkimuksesta</source>
         <target state="translated">Siffror om vetenskap och forskning</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/breadcrumb/breadcrumb.component.html</context>
+          <context context-type="sourcefile">app/components/breadcrumb/breadcrumb.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
@@ -663,11 +663,11 @@
         <source>Etusivu</source>
         <target state="translated">Ingångssida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/breadcrumb/breadcrumb.component.html</context>
+          <context context-type="sourcefile">app/components/breadcrumb/breadcrumb.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -675,7 +675,7 @@
         <source>Hankkeen nimi</source>
         <target state="translated">Projektets namn</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
+          <context context-type="sourcefile">app/components/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
@@ -683,11 +683,11 @@
         <source>Rahoittaja</source>
         <target state="translated">Finansiär</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
+          <context context-type="sourcefile">app/components/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
@@ -695,7 +695,7 @@
         <source>Saaja</source>
         <target state="translated">Mottagare</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
+          <context context-type="sourcefile">app/components/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -703,7 +703,7 @@
         <source>Aloitusvuosi</source>
         <target state="translated">Startår</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
+          <context context-type="sourcefile">app/components/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -711,7 +711,7 @@
         <source>Ei hankkeita</source>
         <target state="translated">Inga projekt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
+          <context context-type="sourcefile">app/components/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
@@ -719,7 +719,7 @@
         <source>Myönnetty rahoitus</source>
         <target state="translated">Beviljade finansiering</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
@@ -727,7 +727,7 @@
         <source>Yhteyshenkilö</source>
         <target state="translated">Kontaktperson</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
@@ -735,7 +735,7 @@
         <source>Rooli Suomen Akatemian konsortiossa</source>
         <target state="translated">Rollen i Finlands Akademis konsortium</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
@@ -743,7 +743,7 @@
         <source>Muut osapuolet</source>
         <target state="translated">Övriga parter i konsortiet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
@@ -751,7 +751,7 @@
         <source>Muut tiedot</source>
         <target state="translated">Övriga uppgifter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">201</context>
         </context-group>
       </trans-unit>
@@ -759,7 +759,7 @@
         <source>Hankkeen verkkosivu</source>
         <target state="translated">Projektets webbplats</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">223</context>
         </context-group>
       </trans-unit>
@@ -767,7 +767,7 @@
         <source>Hankkeeseen ei ole tarjolla linkkejä tässä portaalissa</source>
         <target>Project has no links available in this portal</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
@@ -775,7 +775,7 @@
         <source>Hae hankkeeseen liittyvät</source>
         <target state="translated">Relaterade till detta projekt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">240</context>
         </context-group>
       </trans-unit>
@@ -783,15 +783,15 @@
         <source>Jaa</source>
         <target state="translated">Dela</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">257</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">142</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
@@ -799,7 +799,7 @@
         <source>Hanketiedon lähde</source>
         <target state="translated">Projektinformationens källa</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">263</context>
         </context-group>
       </trans-unit>
@@ -807,7 +807,7 @@
         <source>Rahoittaja: <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></source>
         <target state="translated">Finansiär <x id="INTERPOLATION" equiv-text="{{source.funder.name}}"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">265</context>
         </context-group>
       </trans-unit>
@@ -815,7 +815,7 @@
         <source>Tiedon lähde ei saatavilla.</source>
         <target state="translated">Informationskällan inte tillgänglig.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-funding/single-funding.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-funding/single-funding.component.html</context>
           <context context-type="linenumber">266</context>
         </context-group>
       </trans-unit>
@@ -823,11 +823,11 @@
         <source>Rajaukset</source>
         <target state="translated">Avgränsningar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/filter-list/filter-list.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/filter-list/filter-list.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/active-filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/active-filters.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
@@ -835,7 +835,7 @@
         <source>Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla hakutulosnäkymään.</source>
         <target state="translated">Du kan ta bort avgränsningar i denna lista. Ändringarna i avgränsningarna uppdateras samtidigt i sökresultatvyn.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/filter-list/filter-list.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/filter-list/filter-list.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -843,11 +843,11 @@
         <source>Sulje</source>
         <target state="translated">Stäng</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/filter-list/filter-list.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/filter-list/filter-list.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/research-innovation-system/research-innovation-system.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/research-innovation-system/research-innovation-system.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
@@ -855,7 +855,7 @@
         <source>Tyhjennä kaikki rajaukset</source>
         <target state="translated">Töm alla avgränsningar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/filter-list/filter-list.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/filter-list/filter-list.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
@@ -863,7 +863,7 @@
         <source>Aikavälissä ei ole mukana kaikkia vuosia. Voit tarkistaa vuodet "Rajaa hakua" -valikosta vasemmalla.</source>
         <target state="translated">I tidsintervallet ingår inte alla år. Du kan kontrollera åren i menyn \"Avgränsa sökningen\” till vänster.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/active-filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/active-filters.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -871,7 +871,7 @@
         <source>Näytä kaikki</source>
         <target state="translated">Visa alla</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/active-filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/active-filters.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
@@ -879,7 +879,7 @@
         <source>Tyhjennä rajaukset</source>
         <target state="translated">Töm avgränsningarna</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/active-filters/active-filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/active-filters/active-filters.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
@@ -923,7 +923,7 @@
         <source>Nimi</source>
         <target state="translated">Namn</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
+          <context context-type="sourcefile">app/components/results/organizations/organizations.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
@@ -931,7 +931,7 @@
         <source>Nimi (EN, SV)</source>
         <target state="translated">Namn (FI, EN)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
+          <context context-type="sourcefile">app/components/results/organizations/organizations.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
@@ -939,7 +939,7 @@
         <source>Organisaatio</source>
         <target state="translated">Organisation</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
+          <context context-type="sourcefile">app/components/results/organizations/organizations.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
@@ -947,7 +947,7 @@
         <source>Ei organisaatioita</source>
         <target state="translated">Inga organisationer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/organizations/organizations.component.html</context>
+          <context context-type="sourcefile">app/components/results/organizations/organizations.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
@@ -955,7 +955,7 @@
         <source>Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi</source>
         <target state="translated">Källa: Vipunen – utbildningsförvaltningens statistiktjänst www.vipunen.fi</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
@@ -963,7 +963,7 @@
         <source>Organisaation verkkosivu</source>
         <target state="translated">Organisationens webbplats</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
@@ -971,7 +971,7 @@
         <source>Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</source>
         <target state="translated">Det finns inga länkar till organisationen i denna portal</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
@@ -979,7 +979,7 @@
         <source>Hae organisaatioon liittyvät</source>
         <target state="translated">Organisationens</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
@@ -987,7 +987,7 @@
         <source>Hae organisaation rahoittamat</source>
         <target>Finansierade</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
@@ -995,7 +995,7 @@
         <source>Organisaatiotiedon lähde</source>
         <target state="translated">Organisationsinformationens källa</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-organization/single-organization.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-organization/single-organization.component.html</context>
           <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
@@ -1059,7 +1059,7 @@
         <source>Vaihda visualisaation tyyppiä</source>
         <target state="translated">Byt visualiseringstyp</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/visualisation/visualisation.component.html</context>
+          <context context-type="sourcefile">app/components/visualisation/visualisation.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -1067,7 +1067,7 @@
         <source>Lyhenne</source>
         <target state="translated">Förkortning</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -1075,7 +1075,7 @@
         <source>Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.</source>
         <target state="translated">Forskningsinfrastrukturens förkortning. Det är typiskt för infrastrukturerna att de känns igen utifrån sina förkortningar.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -1083,7 +1083,7 @@
         <source>Tutkimusinfrastruktuurin lyhenne. Infrastruktuureille on tyypillistä, että ne tunnetaan lyhenteellään.</source>
         <target state="translated">Forskningsinfrastrukturens förkortning. Det är typiskt för infrastrukturerna att de känns igen utifrån sina förkortningar.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -1091,7 +1091,7 @@
         <source>Nimi</source>
         <target state="translated">Namn</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
@@ -1099,7 +1099,7 @@
         <source>Organisaatio</source>
         <target state="translated">Organisation</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -1107,7 +1107,7 @@
         <source>Tutkimusinfrastruktuurin vastuuorganisaatio. Etenkin suurilla infrastruktuureilla voi olla useita palveluita, joista vastaa joku muu organisaatio. Muut organisaatiot näkee infrastruktuurin tietosivulta.</source>
         <target state="translated">Forskningsinfrastrukturens ansvarsorganisation. I synnerhet stora infrastrukturer kan ha flera tjänster som någon annan organisation ansvarar för. De övriga organisationerna ser infrastrukturen på informationssidan.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -1115,7 +1115,7 @@
         <source>Ei infrastruktuureja</source>
         <target state="translated">Inga infrastrukturer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/infrastructures/infrastructures.component.html</context>
+          <context context-type="sourcefile">app/components/results/infrastructures/infrastructures.component.html</context>
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
@@ -1123,7 +1123,7 @@
         <source>Hankkeen kuvaus</source>
         <target state="translated">Projektbeskrivning</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/tooltip/tooltip.component.html</context>
+          <context context-type="sourcefile">app/components/results/tooltip/tooltip.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -1131,7 +1131,7 @@
         <source>Kuvausta ei saatavilla.</source>
         <target state="translated">Ingen beskrivning tillgänglig.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/tooltip/tooltip.component.html</context>
+          <context context-type="sourcefile">app/components/results/tooltip/tooltip.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <note priority="1" from="description">noFundingDescription</note>
@@ -1140,7 +1140,7 @@
         <source>Lue koko uutinen yliopiston verkkosivuilla </source>
         <target state="translated">Läs den hela nyheten på organisations webbsida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/news/news-card/news-card.component.html</context>
+          <context context-type="sourcefile">app/components/news/news-card/news-card.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -1148,7 +1148,7 @@
         <source>Tiede- ja tutkimusuutiset</source>
         <target state="translated">Vetenskaps- och forskningsnyheter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/news/news/news.component.html</context>
+          <context context-type="sourcefile">app/components/news/news/news.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
@@ -1164,19 +1164,19 @@
         <source>Ei tuloksia.</source>
         <target state="translated">Inga resultat.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/news/news/news.component.html</context>
+          <context context-type="sourcefile">app/components/news/news/news.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">120</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">167</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
@@ -1184,19 +1184,19 @@
         <source>Hakutermissä voi olla kirjoitusvirhe, tai sitä vastaavaa rajaustekijää ei ole tarjolla tässä osiossa.</source>
         <target state="translated">Sökordet kan innehålla skrivfel eller en avgränsningsfaktor som motsvarar det är inte tillgänglig i detta avsnitt.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/news/news/news.component.html</context>
+          <context context-type="sourcefile">app/components/news/news/news.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">121</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">168</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
@@ -1216,7 +1216,7 @@
         <source>Kopioi linkki</source>
         <target state="translated">Kopiera länken</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/share/share.component.html</context>
+          <context context-type="sourcefile">app/components/single/share/share.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
@@ -1224,7 +1224,7 @@
         <source>Tutkimusinfrastruktuurin palvelut</source>
         <target state="translated">Forskningsinfrastrukturens tjänster</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -1236,7 +1236,7 @@
         <source>Infrastruktuurin verkkosivu</source>
         <target state="translated">Infrastrukturens webbplats</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
@@ -1244,7 +1244,7 @@
         <source>Infrastruktuuriin ei ole tarjolla linkkejä tässä portaalissa</source>
         <target state="translated">Det finns inga länkar till infrastrukturen i denna portal</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
@@ -1252,7 +1252,7 @@
         <source>Hae infrastruktuuriin liittyvät</source>
         <target state="translated">Infrastrukturens</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
@@ -1260,7 +1260,7 @@
         <source>Infrastruktuuritiedon lähde</source>
         <target state="translated">Infrastrukturinformationens källa</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
@@ -1268,7 +1268,7 @@
         <source>Infrastruktuuritiedon lähde puuttuu.</source>
         <target state="translated">Infrastrukturinformationens källa saknas.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">186</context>
         </context-group>
       </trans-unit>
@@ -1276,7 +1276,7 @@
         <source>Sulje</source>
         <target state="translated">Stäng</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <note priority="1" from="description">Close button</note>
@@ -1285,7 +1285,7 @@
         <source>Hae</source>
         <target state="translated">Sök</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">64</context>
         </context-group>
         <note priority="1" from="description">SR Search</note>
@@ -1294,7 +1294,7 @@
         <source>Valitse aikaväli</source>
         <target state="translated">Välj tidsintervall</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
         <note priority="1" from="description">Year range filter</note>
@@ -1303,7 +1303,7 @@
         <source>Alku</source>
         <target state="translated">Början</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
         <note priority="1" from="description">Year start filter</note>
@@ -1312,11 +1312,11 @@
         <source>Ei valintaa</source>
         <target state="translated">Inget val</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">79</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">91</context>
         </context-group>
         <note priority="1" from="description">Year range filter no selection</note>
@@ -1325,7 +1325,7 @@
         <source>Loppu</source>
         <target state="translated">Slut</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">89</context>
         </context-group>
         <note priority="1" from="description">Year end filter</note>
@@ -1334,7 +1334,7 @@
         <source>Valitse yksitellen</source>
         <target state="translated">Välj en åt gången</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">99</context>
         </context-group>
         <note priority="1" from="description">Year filter separate</note>
@@ -1343,11 +1343,11 @@
         <source>Näytä enemmän</source>
         <target state="translated">Visa mer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">127</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">174</context>
         </context-group>
       </trans-unit>
@@ -1355,11 +1355,11 @@
         <source>Näytä vähemmän</source>
         <target state="translated">Visa mindre</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">129</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">176</context>
         </context-group>
       </trans-unit>
@@ -1367,7 +1367,7 @@
         <source>Hae</source>
         <target state="translated">Sök</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
@@ -1375,7 +1375,7 @@
         <source>Valitse kaikki</source>
         <target state="translated">Välj alla</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/results/filters/filters.component.html</context>
+          <context context-type="sourcefile">app/components/results/filters/filters.component.html</context>
           <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
@@ -1383,7 +1383,7 @@
         <source>Tutkimus- ja innovaatiojärjestelmä</source>
         <target state="translated">Forsknings- och innovationssystem</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/research-innovation-system/research-innovation-system.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/research-innovation-system/research-innovation-system.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
@@ -1391,7 +1391,7 @@
         <source>Avaa</source>
         <target state="translated">Öppna</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/research-innovation-system/research-innovation-system.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/research-innovation-system/research-innovation-system.component.html</context>
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
@@ -1399,7 +1399,7 @@
         <source>Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta. Osio sisältää myös Suomen kansainvälistä vertailua esimerkiksi EU- ja OECD-maihin.</source>
         <target state="translated">I avsnittet Siffror om vetenskap och forskning hittar du information om den finländska forskningens finansiering, personresurser, publiceringsverksamhet och vetenskapliga genomslag. Avsnittet omfattar även en internationell jämförelse mellan Finland och exempelvis EU- och OECD-länder.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
@@ -1407,7 +1407,7 @@
         <source>Tiedot perustuvat opetushallinnon Vipunen-tilastopalveluun, Tilastokeskuksen tilastoihin ja Maahanmuuttoviraston tietoihin. Kansainvälisessä vertailussa käytetään OECD:n tilastoja ja Euroopan Unionin CORDIS-palvelua. Julkaisutoiminnan ja tieteellisen vaikuttavuuden osiossa käytetään myös Clarivate Analyticsin Web of Science -julkaisutietokannan tietoja.</source>
         <target state="translated">Uppgifterna baserar sig på utbildningsförvaltningens statistiktjänst Vipunen och statistik från Statistikcentralen och Migrationsverket. I den internationella jämförelsen utnyttjas OECD:s statistik och Europeiska unionens CORDIS-tjänst. I avsnittet om publikationsverksamhet och genomslag används dessutom information från publikationsdatabasen Web of Science som upprätthålls av Clarivate Analytics.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
@@ -1415,7 +1415,7 @@
         <source>Lukuja tieteestä ja tutkimuksesta on tuotettu opetus- ja kulttuuriministeriön, Suomen Akatemian ja CSC – Tieteen tietotekniikan keskuksen yhteistyönä. Sivua kehitetään jatkuvasti ja tilastot päivitetään vuosittain.</source>
         <target state="translated">Avsnittet har producerats i samarbete mellan Undervisnings- och kulturministeriet, Finlands Akademi och CSC – Centret för IT-expertis. Webbplatsen utvecklas kontinuerligt och statistiken uppdateras varje år.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
@@ -1423,7 +1423,7 @@
         <source>Aineistolähteet</source>
         <target state="translated">Materialkällor</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
@@ -1431,7 +1431,7 @@
         <source>Tuottajat</source>
         <target state="translated">Producenter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
@@ -1439,7 +1439,7 @@
         <source>Vipunen</source>
         <target>Vipunen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -1447,7 +1447,7 @@
         <source>Vipunen - opetushallinnon tilastopalvelu</source>
         <target>Vipunen - utbildningsförvaltningens statistiktjänst</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -1455,7 +1455,7 @@
         <source>Tilastokeskus</source>
         <target>Statistikcentralen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -1467,7 +1467,7 @@
         <source>Opetus- ja kulttuuriministeriö</source>
         <target state="translated">Undervisnings- och kulturministeriet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
@@ -1475,7 +1475,7 @@
         <source>Suomen Akatemia</source>
         <target state="translated">Finlands Akademi</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
@@ -1483,7 +1483,7 @@
         <source>CSC - Tieteen tietotekniikan keskus Oy</source>
         <target>CSC</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
@@ -1491,7 +1491,7 @@
         <source>Finto - sanasto- ja ontologiapalvelu</source>
         <target>Finto - tesaurus- och ontologiservice</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
@@ -1499,7 +1499,7 @@
         <source>Yritys– ja yhteisötietojärjestelmä (YTJ)</source>
         <target>Företags- och organisationsdatasystemet (YTJ)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
@@ -1515,7 +1515,7 @@
         <source>Haun tulokset</source>
         <target state="translated">Sökresultat</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/figures.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/figures.component.html</context>
           <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
@@ -1523,7 +1523,7 @@
         <source>Saat näppäimistöohjeet esiin näppäinyhdistelmällä “vaihtonäppäin + ?" silloin, kun selaimesi fokus on allaolevassa visualisoinnissa.</source>
         <target state="translated">Du kan ta fram tangentbordsanvisningarna med tangentkombinationen "Shift + ?"när webbläsarens fokus ligger på visualiseringen nedan.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -1531,7 +1531,7 @@
         <source>Näppäimistöohje esitetään selaimesi kieliasetuksen mukaisella kielellä.</source>
         <target state="translated">Tangentbordsanvisningen visas på det språk som har ställts in för din webbläsare.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
@@ -1543,11 +1543,11 @@
         <source>Lisätietoa</source>
         <target state="translated">Mer information</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
@@ -1555,7 +1555,7 @@
         <source>Lähde:</source>
         <target state="translated">Källa:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
@@ -1567,7 +1567,7 @@
         <source>Jaa tämä sivu:</source>
         <target state="translated">Dela denna sida:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/science-politics/figures/single-figure/single-figure.component.html</context>
+          <context context-type="sourcefile">app/components/science-politics/figures/single-figure/single-figure.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
@@ -1575,7 +1575,7 @@
         <source>Tietoa palvelusta</source>
         <target state="translated">Information om tjänsten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/service-info/service-info.component.html</context>
+          <context context-type="sourcefile">app/components/service-info/service-info.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
@@ -1583,7 +1583,7 @@
         <source>Tietosuoja</source>
         <target state="translated">Dataskydd</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -1591,7 +1591,7 @@
         <source>Saavutettavuusseloste</source>
         <target>Tillgänglighetsutlåtande</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -1603,7 +1603,7 @@
                             Webbtjänstens tillgänglighetsutlåtande grundar sig på den nationella lagen om tillhandahållande av digitala tjänster (306/2019). 
                             Detta tillgänglighetsutlåtande har upprättats den 5 juni 2020.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -1611,7 +1611,7 @@
         <source>Verkkopalvelun saavutettavuuden tila</source>
         <target>Statusen för webbtjänstens tillgänglighet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -1619,7 +1619,7 @@
         <source>Itsearvioon perustuen, verkkopalvelu täyttää WCAG 2.1 AA -tason kriittiset saavutettavuusvaatimukset.</source>
         <target>Baserat på självbedömning, uppfyller webbtjänsten de kritiska tillgänglighetskraven på nivån WCAG 2.1 AA.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
@@ -1627,7 +1627,7 @@
         <source>Verkkopalvelun ei-saavutettava sisältö</source>
         <target>Webbtjänstens otillgängliga innehåll</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
@@ -1635,7 +1635,7 @@
         <source>Ei-saavutettava osio:</source>
         <target>Otillgängligt innehåll:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
@@ -1647,7 +1647,7 @@
                             Att språkattributet är engelska skapar en motsägelsefull situation där skärmläsaren läser det finskspråkiga innehållet på engelska. 
                             Språkattributfelet gäller åtminstone webbläsarna Safari och Mozilla Firefox. Med webbläsarna Chrome och Edge har språkattributet dock i huvudsak fungerat.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
@@ -1655,7 +1655,7 @@
         <source>WCAG-vaatimus, joka ei tällöin toteudu</source>
         <target>WCAG-krav, som då inte uppfylls</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -1663,7 +1663,7 @@
         <source>3.1.2 Osien kieli (AA)</source>
         <target>3.1.2 Språket i delarna (AA)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
@@ -1671,7 +1671,7 @@
         <source>Syy noudattamatta jättämiselle</source>
         <target>Orsak till underlåtenhet att iaktta bestämmelserna</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
@@ -1679,7 +1679,7 @@
         <source>Kolmannen osapuolen sisältö</source>
         <target>Tredje parts innehåll</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
@@ -1687,7 +1687,7 @@
         <source>Taustaa: Tilastot tuodaan portaaliin iframe-sisällöksi toisesta verkkopalvelusta, joka taas hyödyntää sellaista teknologiaa, jolla ei ole mahdollista konfiguroida iframeksi tarjottavan sisällön kieliattribuuttia kattavasti.</source>
         <target>Bakgrund: Statistiken förs in i portalen som iframe-innehåll från en annan webbtjänst, som i sin tur utnyttjar sådan teknik som inte på ett heltäckande sätt kan konfigurera språkattributet för det innehåll som tillhandahålls som iframe.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
@@ -1695,7 +1695,7 @@
         <source>Ei-saavutettava osio:</source>
         <target>Otillgängligt innehåll</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
@@ -1705,7 +1705,7 @@
         <target>Anvisningarna för det statistiska innehållet i portalen "Siffror om vetenskap och forskning", som visas när muspekaren förs över det, överensstämmer inte helt med tillgänglighetskraven. Det går inte 
                             att föra muspekaren över den dynamiska anvisningen, utan texten försvinner när pekaren rör sig utanför målelementet.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
@@ -1713,7 +1713,7 @@
         <source>WCAG-vaatimus, joka ei tällöin toteudu:</source>
         <target>WCAG-krav, som då inte uppfylls</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
@@ -1721,7 +1721,7 @@
         <source>1.4.13 Sisältö osoittaessa tai kohdistaessa</source>
         <target>1.4.13 Innehåll när muspekaren förs över ett visst objekt eller vid tangentbordsfokus (AA)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
@@ -1729,7 +1729,7 @@
         <source>Syy noudattamatta jättämiselle</source>
         <target>Orsak till underlåtelse att iaktta bestämmelserna:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
@@ -1737,7 +1737,7 @@
         <source>Kolmannen osapuolen sisältö</source>
         <target>Tredje parts innehåll</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
@@ -1745,7 +1745,7 @@
         <source>Seuraavat askeleet verkkopalvelun saavutettavuustyössä</source>
         <target>Nästa steg i tillgänglighetsarbetet för webbtjänsten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -1753,7 +1753,7 @@
         <source>Seuraavana askeleena portaalin saavutettavuustyössä on rikastuttaa HTML-komponenttien ARIA-tukea, esimerkiksi hakutulosten rajaamisen yhteydessä.</source>
         <target>Nästa steg i tillgänglighetsarbete är förbättringen av ARIA-stödet för HTML-komponenter, till exempel i samband med avgränsningen av sökresultaten.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -1761,7 +1761,7 @@
         <source>Saavutettavuuspalaute</source>
         <target>Tillgänglighetsrespons</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
@@ -1771,7 +1771,7 @@
         <target>Ge respons till oss om tillgängligheten med <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>detta webbformulär<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Alternativt kan du skicka e-post till oss på adressen: <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>tiedejatutkimus@csc.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
@@ -1779,7 +1779,7 @@
         <source>Valvontaviranomainen</source>
         <target>Tillsynsmyndighet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
@@ -1787,7 +1787,7 @@
         <source>Jos huomaat verkkopalvelussa saavutettavuusongelmia, anna palautetta ensin meille, eli verkkopalvelun ylläpitäjälle. Vastaamme yhteydenottoosi 14 päivän kuluessa.</source>
         <target>Om du upptäcker tillgänglighetsproblem i webbtjänsten, ge först respons till oss, dvs. webbtjänstens administratör. Vi svarar på din kontakt inom 14 dagar.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
@@ -1799,7 +1799,7 @@
                             <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
@@ -1807,7 +1807,7 @@
         <source>Valvontaviranomaisen yhteystiedot</source>
         <target>Tillsynsmyndighetens kontaktuppgifter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -1823,7 +1823,7 @@
                             webbtillganglighet@rfv.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             Telefonnummer växel 0295 016 000</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
@@ -1831,7 +1831,7 @@
         <source>Julkaisu- ja päivitystiedot</source>
         <target>Uppdateringsinformation</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
@@ -1841,7 +1841,7 @@
         <target>Denna webbtjänst har publicerats den 9 juni 2020<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>
                             Detta tillgänglighetsutlåtande har senast uppdaterats den 5 juni 2020</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/accessibility/accessibility.component.html</context>
+          <context context-type="sourcefile">app/components/accessibility/accessibility.component.html</context>
           <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
@@ -1849,7 +1849,7 @@
         <source>Sivukartta</source>
         <target state="translated">Sidkarta</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -1857,7 +1857,7 @@
         <source>Julkaisut</source>
         <target state="translated">Publikationer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -1865,7 +1865,7 @@
         <source>Tutkijat</source>
         <target state="translated">Personer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -1873,7 +1873,7 @@
         <source>Hankkeet</source>
         <target state="translated">Projekt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -1881,7 +1881,7 @@
         <source>Aineistot</source>
         <target state="translated">Data</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
@@ -1889,7 +1889,7 @@
         <source>Infrastruktuurit</source>
         <target state="translated">Infrastrukturer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
@@ -1897,7 +1897,7 @@
         <source>Muut tutkimusaktiviteetit</source>
         <target state="translated">Aktiviteter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
@@ -1905,7 +1905,7 @@
         <source>Organisaatiot</source>
         <target state="translated">Organisationer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
@@ -1926,7 +1926,7 @@
         <source>Tiede- ja innovaatiopolitiikka</source>
         <target state="translated">Vetenskaps- och innovationspolitik</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
@@ -1938,7 +1938,7 @@
         <source>Tutkimus- ja innovaatiojärjestelmä</source>
         <target state="translated">Forsknings- och innovationssystem</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
@@ -1950,7 +1950,7 @@
         <source>Lukuja tieteestä ja tutkimuksesta</source>
         <target state="translated">Siffror om vetenskap och forskning</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
@@ -1966,7 +1966,7 @@
         <source>Tiede- ja tutkimusuutiset</source>
         <target state="translated">Vetenskaps- och forskningsnyheter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
@@ -1978,7 +1978,7 @@
         <source>Tietoa palvelusta</source>
         <target state="translated">Information om tjänsten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
@@ -1990,7 +1990,7 @@
         <source>Sivukartta</source>
         <target state="translated">Sidkarta</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
@@ -2002,7 +2002,7 @@
         <source>Saavutettavuusseloste</source>
         <target state="translated">Tillgänglighetsredogörelse</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
@@ -2014,7 +2014,7 @@
         <source>Tietosuoja</source>
         <target state="translated">Dataskydd</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/sitemap/sitemap.component.html</context>
+          <context context-type="sourcefile">app/components/sitemap/sitemap.component.html</context>
           <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
@@ -2925,7 +2925,7 @@
         <source>Luokituksia</source>
         <target state="translated">Klassifikationer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/single/single-infrastructure/single-infrastructure.component.html</context>
+          <context context-type="sourcefile">app/components/single/single-infrastructure/single-infrastructure.component.html</context>
           <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
@@ -3263,11 +3263,11 @@
         <source>Tietosuojailmoitus</source>
         <target state="translated">Dataskyddsmeddelande </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
@@ -3275,7 +3275,7 @@
         <source>Julkaistu 24.04.2020</source>
         <target state="translated">Publicerad den 24 april 2020 </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -3283,7 +3283,7 @@
         <source>Opetus- ja kulttuuriministeriön tietosuojailmoitus rekisteröidylle</source>
         <target state="translated">Undervisnings- och kulturministeriets dataskyddsmeddelande till den registrerade</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -3291,7 +3291,7 @@
         <source>Tutkimustietovarannossa käsiteltävät henkilötiedot</source>
         <target state="translated">Personuppgifter som behandlas i datalagret för forskningsinformation </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
@@ -3299,7 +3299,7 @@
         <source>Yleistä</source>
         <target state="translated">Allmänt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
@@ -3309,7 +3309,7 @@
         <target state="translated">Det här dataskyddsmeddelandet innehåller uppgifter till registrerade (fysiska personer) enligt 13 och 14 artikeln i EU:s dataskyddsförordning (EU) 679/2016. 
 Det här meddelandet ges till registrerade när personuppgifter samlas in.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
@@ -3317,7 +3317,7 @@ Det här meddelandet ges till registrerade när personuppgifter samlas in.</targ
         <source>Rekisterinpitäjät</source>
         <target state="translated">Personuppgiftsansvariga</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
@@ -3327,7 +3327,7 @@ Det här meddelandet ges till registrerade när personuppgifter samlas in.</targ
         <target state="translated">Undervisnings- och kulturministeriet har kommit överens om gemensamma personuppgiftsansvariga med finländska forskningsfinansiärer och forskningsorganisationer som lämnar ut 
 uppgifter till datalagret för forskningsinformation. De gemensamma personuppgiftsansvariga ansvarar var och en för sina egna uppgifter i datalagret för forskningsinformation. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
@@ -3342,7 +3342,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Postadress: PB 29, 00023 STATSRÅDET
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>E-postadress: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>kirjaamo@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Tfn 0295 16001 (växel)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -3350,7 +3350,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Lista yhteisrekisterinpitäjinä toimivista muista rekisterinpitäjistä ja näiden yhteystiedoista<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
         <target state="translated"><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Förteckning över övriga personuppgiftsansvariga som fungerar som gemensamma personuppgiftsansvariga och deras kontaktuppgifter<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
@@ -3358,7 +3358,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tietosuojavastaavan yhteystiedot</source>
         <target state="translated">Kontaktuppgifter till dataskyddsombudet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
@@ -3370,7 +3370,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                 <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/> E-postadress: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>okmtietosuojavastaava@minedu.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/> Postadress: Undervisnings- och kulturministeriet, PB 29, 00023 STATSRÅDET </target>
         
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -3378,7 +3378,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen käsittelyn tarkoitukset, henkilötietoryhmät ja oikeusperusteet</source>
         <target state="translated">Ändamålet för behandling av personuppgifter, personuppgiftsgrupper och rättsliga grunder </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
@@ -3386,7 +3386,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen käyttötarkoitukset ovat:</source>
         <target state="translated">Personuppgifterna används för: </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
@@ -3394,7 +3394,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tutkimustietovarannon sisältämien tietojen julkaiseminen ja selailu.</source>
         <target state="translated">Publicering av och bläddring i uppgifter i datalagret för forskningsinformation. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
@@ -3402,7 +3402,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tutkimustietovarannon sisältämien tietojen välittäminen tahoille, joilla on niihin lakisääteinen käsittelyperuste.</source>
         <target state="translated">Förmedling av uppgifter i datalagret för forskningsinformation till aktörer som har en lagstadgad grund för behandling av uppgifterna.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
@@ -3413,7 +3413,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                             och <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a>"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
@@ -3421,7 +3421,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Palvelun käyttöön ja kehittämiseen liittyvä tilastointi, analytiikka ja hallinta.</source>
         <target state="translated">Statistikföring, analys och administration i anslutning till användningen och utvecklingen av tjänsten. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
@@ -3429,7 +3429,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Käsiteltävät henkilötietoryhmät:</source>
         <target state="translated">Personuppgiftsgrupper som behandlas: </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -3438,7 +3438,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                             ja sukunimi, ORCID-tunniste sekä organisaatio.</source>
         <target state="translated">Uppgifter om publikationer, forskningsdata, finansieringsbeslut, forskningsinfrastrukturer och vetenskapliga nyheter som överfört till datalagret för forskningsinformation samt forskarens för- och efternamn, ORCID iD och organisation, som nämns i dem. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
@@ -3447,7 +3447,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                             ja tekniset tapahtumat, jotka liittyvät tarjottuihin palveluihin mukaan lukien järjestelmä- ja sovelluslokitiedot.</source>
         <target state="translated">IT-administrationsuppgifter såsom uppgifter om utrustning i anslutning till tjänsterna som tillhandahålls, inklusive tekniska identifierare, läge, kontaktuppgifter, kommunikationsuppgifter och metadata samt tekniska händelser som hänför sig till tjänsterna, inklusive system- och applikationslogguppgifter. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
@@ -3459,7 +3459,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Laki valtioneuvostosta (175/2003)</source>
         <target state="translated">Lag om statsrådet (175/2003) </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
@@ -3467,7 +3467,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Valtioneuvoston ohjesääntö (262/2003)</source>
         <target state="translated">Reglemente för statsrådet (262/2003) </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
@@ -3475,7 +3475,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Valtioneuvoston asetus opetus- ja kulttuuriministeriöstä (310/2010)</source>
         <target state="translated">Statsrådets förordning om undervisnings- och kulturministeriet (310/2010) </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
@@ -3483,7 +3483,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Yliopistolaki (558/2009)</source>
         <target state="translated">Universitetslagen (558/2009) </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
@@ -3491,7 +3491,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Ammattikorkeakoululaki (932/2014)</source>
         <target state="translated">Lag om yrkeshögskolor (932/2014) </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
@@ -3499,7 +3499,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Rahoituspäätöksiin liittyvien tietojen käsittelyn peruste on rahoittajakohtainen. Perusteita ovat rahoittajan oikeutettu etu taikka rahoittajan omassa palvelussa tehty tai annettu sopimus tai suostumus.</source>
         <target state="translated">Grunden för behandlingen av uppgifter i anslutning till finansieringsbeslut är finansiärspecifik. Grunderna kan vara finansiärens berättigade intresse eller ett avtal eller samtycke som ingåtts eller getts i finansiärens egen tjänst. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
@@ -3507,7 +3507,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Muihin tutkimustietovarannon tietoihin liittyvien henkilötietojen käsittelyyn ja niiden julkaisemiseen sovelletaan lainmukaisuuden arvioinnissa yleistä etua.</source>
         <target state="translated">Vid bedömningen av lagenligheten beträffande behandling och publicering av personuppgifter som hänför sig till andra uppgifter i datalagret för forskningsinformation tillämpas det allmänna bästa. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
@@ -3515,7 +3515,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen käsittelijät</source>
         <target state="translated">De som behandlar personuppgifter </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
@@ -3523,7 +3523,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen käsittelijöitä ovat CSC - Tieteen tietotekniikan keskus Oy ja sen alihankkijat, jotka toteuttavat opetus- ja kulttuuriministeriön kanssa tehtyyn sopimukseen perustuen palvelun kehitystä, ylläpitoa ja säilytystä.</source>
         <target state="translated">Personuppgifter behandlas av CSC – Tieteen tietotekniikan keskus Oy och dess underleverantörer, som på basis av ett avtal med undervisnings- och kulturministeriet genomför utvecklingen, underhållet och förvaringen av tjänsten.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
@@ -3532,7 +3532,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                     lainsäädännön mukaisesti niitä hyödyntäville tahoille, kuten tutkimusorganisaatioille tai -rahoittajille.</source>
         <target state="translated">Dessutom kan metadata om publikationer, forskningsdata, finansieringsbeslut och forskningsinfrastrukturer (inkl. uppgifter om upphovsmän) som ingår i datalagret för forskningsinformation i enskilda fall i enlighet med gällande lagstiftning lämnas ut till aktörer som utnyttjar dem, såsom forskningsorganisationer eller forskningsfinansiärer. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
@@ -3540,7 +3540,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen siirtäminen kolmansiin maihin tai kansainvälisille järjestöille</source>
         <target state="translated">Överföring av personuppgifter till tredje länder eller internationella organisationer </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
@@ -3549,7 +3549,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                     alan toimijoille niin EU/ETA-alueella kuin niiden ulkopuolella. Muita henkilötietoja ei luovuteta EU/ETA-alueen ulkopuolelle.</source>
         <target state="translated">Metadata om publikationer, forskningsdata, finansieringsbeslut och infrastrukturer (inkl. upphovsuppgifter) som ingår i datalagret för forskningsinformation kan i enlighet med gällande lagstiftning överlåtas till internationella organisationer eller aktörer inom branschen både inom och utanför EU/EES-området. Andra personuppgifter överlåts inte utanför EU/EES-området. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
@@ -3557,7 +3557,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen säilyttämisajat</source>
         <target state="translated">Personuppgifternas uppbevaringstid </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
@@ -3565,7 +3565,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tutkimustietovarannon tietoihin liittyviä henkilötietoja säilytetään toistaiseksi tiedonhallintalain 21 § kohdan 1 ja 2 mukaisesti ellei arkistointia koskevasta lainsäädännöstä tai muista säädöksistä muuta johdu. </source>
         <target state="translated">Personuppgifter i anslutning till uppgifterna i datalagret för forskningsinformation förvaras tills vidare i enlighet med 21 § 1 och 2 punkten i lagen om informationshantering, om inte något annat följer av lagstiftningen om arkivering eller andra författningar. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
@@ -3573,7 +3573,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Julkaisujen, tutkimusaineistojen ja muiden tietoaineistojen, joihin liittyy tekijyyksiä, tietojen säilytysaika pohjautuu kohtiin 1 ja 2. Muiden tietojen osalta kohtaan 1. Suostumukseen perustuvia tietoja säilytetään niin kauan kuin suostumus on voimassa.</source>
         <target state="translated">Förvaringstiden för uppgifter i publikationer, forskningsdata och annat informationsmaterial förknippat med upphovsmannaskap baserar sig på punkterna 1 och 2. Övriga uppgifter baserar sig på punkt 1. Uppgifter som grundar sig på samtycke förvaras så länge samtycket är i kraft. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
@@ -3581,7 +3581,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Rekisteröidyn oikeudet</source>
         <target state="translated">Den registrerades rättigheter </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
@@ -3589,7 +3589,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Seuraavat rekisteröidyn oikeudet ovat ehdottomia ja seuraavat tietosuoja-asetuksesta:</source>
         <target state="translated">Följande rättigheter för den registrerade är ovillkorliga och följer av dataskyddsförordningen: </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
@@ -3597,7 +3597,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tarkastusoikeus</source>
         <target state="translated">Rätt till insyn </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
@@ -3608,7 +3608,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                     <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>www.tiedejatutkimus.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>, <x id="START_LINK_1" ctype="x-a" equiv-text="&lt;a>"/>www.research.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/> och <x id="START_LINK_2" ctype="x-a" equiv-text="&lt;a>"/>www.forskning.fi<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
@@ -3616,7 +3616,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Oikeus oikaisuun</source>
         <target state="translated">Rätt till korrigering </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
@@ -3624,7 +3624,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Rekisteröidyllä on oikeus pyytää oikaisemaan tutkimustietovarantoon tallennetut virheelliset tai epätarkat henkilötiedot.</source>
         <target state="translated">Den registrerade har rätt att begära korrigering av felaktiga eller inexakta personuppgifter i datalagret för forskningsinformation. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
@@ -3632,7 +3632,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Valitusoikeus</source>
         <target state="translated">Besvärsrätt </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
@@ -3643,7 +3643,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                     <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>https://tietosuoja.fi/en/contact-information<x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.</target>
         
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
@@ -3651,7 +3651,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Seuraavat tietosuoja-asetuksen mukaiset rekisteröidyn oikeudet ovat ehdollisia ja edellyttävät tiettyjen ehtojen täyttymistä: </source>
         <target state="translated">Följande rättigheter enligt dataskyddsförordningen är villkorliga för den registrerade och förutsätter att vissa villkor uppfylls: </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
@@ -3659,7 +3659,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen poistaminen</source>
         <target state="translated">Radering av personuppgifter </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
@@ -3667,7 +3667,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Rekisteröidyllä voi olla oikeus vaatia joidenkin tietojen poistamista tutkimustietovarannosta, jos tietyt ehdot täyttyvät. Esimerkiksi, jos tietoja käsitellään suostumuksen perusteella (osa rahoituspäätöstiedoista).</source>
         <target state="translated">Den registrerade kan ha rätt att kräva att vissa uppgifter raderas från datalagret för forskningsinformation om vissa villkor uppfylls. Till exempel om uppgifterna behandlas med samtycke (en del uppgifter i finansieringsbeslut). </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
@@ -3675,7 +3675,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Käsittelyn rajoittaminen</source>
         <target state="translated">Begränsning av behandlingen </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
@@ -3683,7 +3683,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tietyissä tilanteissa rekisteröidyllä on oikeus vaatia henkilötietojen käsittelyn rajoittamista tutkimustietovarannossa. Esimerkiksi tarvitessaan niitä oikeudellista vaadetta varten.</source>
         <target state="translated">I vissa situationer har den registrerade rätt att kräva att behandlingen av personuppgifter begränsas i datalagret för forskningsinformation. Till exempel när de behövs för rättsliga anspråk. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
@@ -3691,7 +3691,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Käsittelyn vastustaminen</source>
         <target state="translated">Motsätta sig behandling </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
@@ -3699,7 +3699,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Rekisteröidyllä voi olla oikeus vastustaa henkilötietojen käsittelyä. Vastustaminen on mahdollista esimerkiksi silloin, kun henkilötietoja käsitellään oikeutettuun etuun perustuen (osa rahoituspäätöstiedoista).</source>
         <target state="translated">Den registrerade kan ha rätt att motsätta sig behandlingen av personuppgifter. Motsättande är möjligt till exempel när personuppgifter behandlas utifrån ett berättigat intresse (en del uppgifter i finansieringsbeslut). </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
@@ -3707,7 +3707,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen lähde/lähteet</source>
         <target state="translated">Personuppgifternas källa/källor </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
@@ -3716,7 +3716,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                                                     kulttuuriministeriö siirtää tutkimustietovarantoon tietoja ulkoisista lähteistä (esimerkiksi EU:n ylläpitämä CORDIS-tietokanta). Henkilötiedon lähde on mainittu tutkimustietovarannon verkkosivustoilla kunkin tiedon kohdalla.</source>
         <target state="translated">I datalagret för forskningsinformation förvaras uppgifter av finländska forskningsorganisationer (universitet, yrkeshögskolor, forskningsinstitut, universitetssjukhus) och forskningsfinansiärer. Dessutom överför undervisnings- och kulturministeriet uppgifter från externa källor (till exempel EU:s CORDIS-databas) till datalagret för forskningsinformation. Personuppgiftens källa anges på webbplatsen för datalagret för forskningsinformation vid respektive personuppgift. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
@@ -3724,7 +3724,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Kukin tutkimustietovarannossa tietoja säilyttävä organisaatio vastaa tutkimustietovarantoon toimittamiensa tietojen oikeellisuudesta.</source>
         <target state="translated">Varje organisation som förvarar uppgifter i datalagret för forskningsinformation ansvarar för att uppgifterna är korrekta. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
@@ -3732,7 +3732,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Henkilötietojen käsittelyn suojaaminen</source>
         <target state="translated">Skydd av behandlingen av personuppgifter </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
@@ -3740,7 +3740,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Opetus- ja kulttuuriministeriö tutkimustietovarannon teknisenä ylläpitäjänä on toteuttanut tarvittavat tekniset ja organisatoriset toimet sekä vaatii sitä myös henkilötietojen käsittelijöiltä.</source>
         <target state="translated">Undervisnings- och kulturministeriet har i egenskap av teknisk administratör för datalagret för forskningsinformation vidtagit nödvändiga tekniska och organisatoriska åtgärder samt kräver detta även av dem som behandlar personuppgifter. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
@@ -3748,11 +3748,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Evästekäytännöt</source>
         <target>Kakpolicy</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">146</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
@@ -3768,7 +3768,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
           <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Om du vill kan du alltid <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>koppla bort kakorna på dataskyddssidan.<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
@@ -3776,7 +3776,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Välttämättömät evästeet</source>
         <target>Nödvändiga kakor</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
@@ -3784,7 +3784,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Sessioeväste</source>
         <target>Sessionskaka</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
@@ -3800,7 +3800,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna kaka styr användarens webbtrafir konsekvent i servermiljön. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Kakan bidrar till att tjänsten fungerar smidigt.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
@@ -3816,7 +3816,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Denna kaka styr användarens webbtrafir konsekvent i servermiljön. <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/>Kakan bidrar till att tjänsten fungerar smidigt.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
@@ -3824,7 +3824,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Seurantaevästeet</source>
         <target>Kartläggningskakor</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">167</context>
         </context-group>
       </trans-unit>
@@ -3832,7 +3832,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Seurantaevästeiden keräämää tietoa ei luovuteta kolmansille osapuolille.</source>
         <target>Information som samlats in med hjälp av kartläggningskakor lämnas inte ut till tredje part.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
@@ -3840,7 +3840,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Matomo-eväste (sessio)</source>
         <target>Matomo-kaka (session)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
@@ -3858,7 +3858,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Berättar för analysverktyget att ett aktivt besök pågår.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">170</context>
         </context-group>
       </trans-unit>
@@ -3866,15 +3866,15 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Matomo-eväste</source>
         <target>Matomo kaka</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">177</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">206</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">215</context>
         </context-group>
       </trans-unit>
@@ -3934,7 +3934,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
               till exempel utifrån vilken typ av utrustning som används mest eller varifrån man i regel kommer till tjänsten.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">178</context>
         </context-group>
       </trans-unit>
@@ -3952,7 +3952,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Role: En tillfällig kaka skapas om användaren kopplar bort kartläggningskakorna.<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">207</context>
         </context-group>
       </trans-unit>
@@ -3970,7 +3970,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
           <x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li>"/>Roll: Godkännande av kakor<x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li>"/>    
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">216</context>
         </context-group>
       </trans-unit>
@@ -3982,7 +3982,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                 Användaren kan också radera sin sökhistorik direkt i sökelementet.
         </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">224</context>
         </context-group>
       </trans-unit>
@@ -3990,7 +3990,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Clear search history</source>
         <target>Radera sökhistorik</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">224</context>
         </context-group>
       </trans-unit>
@@ -3998,11 +3998,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Hallinnoi evästeasetuksia</source>
         <target>Manage cookies</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">231</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
+          <context context-type="sourcefile">app/components/privacy/privacy.component.html</context>
           <context context-type="linenumber">229</context>
         </context-group>
       </trans-unit>

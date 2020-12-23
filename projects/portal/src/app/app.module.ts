@@ -29,9 +29,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 import { UiModule } from './ui/ui.module';
-import { HomePageComponent } from './component/home-page/home-page.component';
-import { SearchBarComponent } from './component/search-bar/search-bar.component';
-import { ResultsComponent } from './component/results/results.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { ResultsComponent } from './components/results/results.component';
 
 import { SearchService } from './services/search.service';
 import { AutosuggestService} from './services/autosuggest.service';
@@ -57,28 +57,28 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 import { CountUpModule } from 'ngx-countup';
 
-import { SinglePublicationComponent } from './component/single/single-publication/single-publication.component';
-import { SingleFundingComponent } from './component/single/single-funding/single-funding.component';
-import { SingleOrganizationComponent } from './component/single/single-organization/single-organization.component';
+import { SinglePublicationComponent } from './components/single/single-publication/single-publication.component';
+import { SingleFundingComponent } from './components/single/single-funding/single-funding.component';
+import { SingleOrganizationComponent } from './components/single/single-organization/single-organization.component';
 
-import { PublicationsComponent } from './component/results/publications/publications.component';
-import { PersonsComponent } from './component/results/persons/persons.component';
-import { FundingsComponent } from './component/results/fundings/fundings.component';
-import { OrganizationsComponent } from './component/results/organizations/organizations.component';
+import { PublicationsComponent } from './components/results/publications/publications.component';
+import { PersonsComponent } from './components/results/persons/persons.component';
+import { FundingsComponent } from './components/results/fundings/fundings.component';
+import { OrganizationsComponent } from './components/results/organizations/organizations.component';
 
-import { ResultTabComponent } from './component/result-tab/result-tab.component';
-import { SortComponent } from './component/results/sort/sort.component';
-import { PaginationComponent } from './component/results/pagination/pagination.component';
-import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
-import { ActiveFiltersComponent } from './component/results/active-filters/active-filters.component';
-import { VisualisationComponent } from './component/visualisation/visualisation.component';
-import { RelatedResultsComponent } from './component/results/related-results/related-results.component';
-import { SearchResultsComponent, EmptyResultComponent } from './component/results/search-results/search-results.component';
+import { ResultTabComponent } from './components/result-tab/result-tab.component';
+import { SortComponent } from './components/results/sort/sort.component';
+import { PaginationComponent } from './components/results/pagination/pagination.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { ActiveFiltersComponent } from './components/results/active-filters/active-filters.component';
+import { VisualisationComponent } from './components/visualisation/visualisation.component';
+import { RelatedResultsComponent } from './components/results/related-results/related-results.component';
+import { SearchResultsComponent, EmptyResultComponent } from './components/results/search-results/search-results.component';
 
 import { PortalModule } from '@angular/cdk/portal';
-import { ListItemComponent } from './component/search-bar/list-item/list-item.component';
-import { SunburstComponent } from './component/visualisation/sunburst/sunburst.component';
-import { TreemapComponent } from './component/visualisation/treemap/treemap.component';
+import { ListItemComponent } from './components/search-bar/list-item/list-item.component';
+import { SunburstComponent } from './components/visualisation/sunburst/sunburst.component';
+import { TreemapComponent } from './components/visualisation/treemap/treemap.component';
 import { HighlightSearch } from './pipes/highlight.pipe';
 import { LinksPipe } from './pipes/links.pipe';
 
@@ -89,18 +89,18 @@ import localeEn from '@angular/common/locales/en';
 
 registerLocaleData(localeFi, localeEn);
 
-import { TooltipComponent } from './component/results/tooltip/tooltip.component';
+import { TooltipComponent } from './components/results/tooltip/tooltip.component';
 import { WINDOW_PROVIDERS } from './services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
-import { SuggestComponent } from './component/results/suggest/suggest.component';
-import { NewsComponent } from './component/news/news/news.component';
-import { InfrastructuresComponent } from './component/results/infrastructures/infrastructures.component';
-import { ShareComponent } from './component/single/share/share.component';
-import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
-import { OrcidComponent } from './component/single/orcid/orcid.component';
+import { SuggestComponent } from './components/results/suggest/suggest.component';
+import { NewsComponent } from './components/news/news/news.component';
+import { InfrastructuresComponent } from './components/results/infrastructures/infrastructures.component';
+import { ShareComponent } from './components/single/share/share.component';
+import { SingleInfrastructureComponent } from './components/single/single-infrastructure/single-infrastructure.component';
+import { OrcidComponent } from './components/single/orcid/orcid.component';
 import { InterceptService } from './services/intercept.service';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
-import { FiltersComponent } from './component/results/filters/filters.component';
+import { FiltersComponent } from './components/results/filters/filters.component';
 import { CounterPipe } from './pipes/counter.pipe';
 import { FilterItemPipe } from './pipes/filter-item.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
@@ -109,34 +109,34 @@ import { ReplaceSpacePipe } from './pipes/replace-space';
 
 import { ErrorHandlerService } from './services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
-import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
-import { FiguresComponent } from './component/science-politics/figures/figures.component';
+import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
+import { FiguresComponent } from './components/science-politics/figures/figures.component';
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { CutContentPipe } from './pipes/cut-content.pipe';
-import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
-import { RelatedLinksComponent } from './component/single/related-links/related-links.component';
+import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
+import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
 import { Event, Scroll, Router, PRIMARY_OUTLET } from '@angular/router'; // Router required by ApmService and scroll logic
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
-import { FilterListComponent } from './component/results/active-filters/filter-list/filter-list.component';
-import { ServiceInfoComponent } from './component/service-info/service-info.component';
-import { PrivacyComponent } from './component/privacy/privacy.component';
-import { AccessibilityComponent } from './component/accessibility/accessibility.component';
+import { FilterListComponent } from './components/results/active-filters/filter-list/filter-list.component';
+import { ServiceInfoComponent } from './components/service-info/service-info.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { AccessibilityComponent } from './components/accessibility/accessibility.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 import { CommonComponentsModule } from './common-components/common-components.module';
 import { filter } from 'rxjs/operators';
-import { NewsCardComponent } from './component/news/news-card/news-card.component';
-import { SitemapComponent } from './component/sitemap/sitemap.component';
-import { TabItemComponent } from './component/result-tab/tab-item/tab-item.component';
+import { NewsCardComponent } from './components/news/news-card/news-card.component';
+import { SitemapComponent } from './components/sitemap/sitemap.component';
+import { TabItemComponent } from './components/result-tab/tab-item/tab-item.component';
 import { HistoryService } from './services/history.service';
 import { TabChangeService } from './services/tab-change.service';
-import { NewsPaginationComponent } from './component/news/news-pagination/news-pagination.component';
-import { CarouselComponent } from './component/science-politics/figures/carousel/carousel.component';
-import { ResultCountComponent } from './component/results/result-count/result-count.component';
-import { BarComponent } from './component/visualisation/bar/bar.component';
-import { FigureFiltersComponent } from './component/science-politics/figures/figure-filters/figure-filters.component';
-import { FiguresInfoComponent } from './component/science-politics/figures/figures-info/figures-info.component';
+import { NewsPaginationComponent } from './components/news/news-pagination/news-pagination.component';
+import { CarouselComponent } from './components/science-politics/figures/carousel/carousel.component';
+import { ResultCountComponent } from './components/results/result-count/result-count.component';
+import { BarComponent } from './components/visualisation/bar/bar.component';
+import { FigureFiltersComponent } from './components/science-politics/figures/figure-filters/figure-filters.component';
+import { FiguresInfoComponent } from './components/science-politics/figures/figures-info/figures-info.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 
 import { UiLibraryModule } from 'ui-library';
