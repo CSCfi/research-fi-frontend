@@ -256,6 +256,13 @@
       }
     },
     "mydata": {
+      "i18n": {
+        "sourceLocale": "fi",
+        "locales": {
+          "en": "projects/shared/i18n/messages.en.xlf",
+          "sv": "projects/shared/i18n/messages.sv.xlf"
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -277,15 +284,33 @@
             "aot": true,
             "assets": [
               "projects/mydata/src/favicon.ico",
-              "projects/mydata/src/assets"
+              "projects/mydata/src/assets",
+              {
+                "input": "projects/ui-library/src/assets",
+                "glob": "**/*",
+                "output": "assets"
+              }
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "projects/mydata/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/shared/theme",
+                "projects/ui-library/src/lib"
+              ]
+            }
           },
           "configurations": {
             "production": {
+              "outputPath": "dist/mydata/",
+              "baseHref": "/",
               "fileReplacements": [
                 {
                   "replace": "projects/mydata/src/environments/environment.ts",
@@ -308,21 +333,59 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "6kb"
                 }
               ]
+            },
+            "fi": {
+              "localize": [
+                "fi"
+              ],
+              "i18nLocale": "fi"
+            },
+            "en": {
+              "localize": [
+                "en"
+              ],
+              "i18nLocale": "en"
+            },
+            "sv": {
+              "localize": [
+                "sv"
+              ],
+              "i18nLocale": "sv"
+            },
+            "es5": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "tsConfig": "./tsconfig.es5.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mydata:build"
+            "browserTarget": "mydata:build:fi"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "mydata:build:production"
+            "fi": {
+              "browserTarget": "mydata:build:fi",
+              "aot": true
+            },
+            "en": {
+              "browserTarget": "mydata:build:en",
+              "aot": true
+            },
+            "sv": {
+              "browserTarget": "mydata:build:sv",
+              "aot": true
+            },
+            "es5": {
+              "browserTarget": "mydata:build:es5"
             }
           }
         },
