@@ -2,5 +2,9 @@
  * Public API Surface of ui-library
  */
 
-export * from './lib/header/header.component';
+export * from './lib/buttons/close-button/close-button.component';
+export * from './lib/buttons/primary-action-button/primary-action-button.component';
+export * from './lib/buttons/secondary-button/secondary-button.component';
+export * from './lib/header/logo/logo.component';
+export * from './lib/header/navigation/navigation.component';
 export * from './lib/ui-library.module';

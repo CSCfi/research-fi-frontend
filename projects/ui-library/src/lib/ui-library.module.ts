@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CloseButtonComponent } from './buttons/close-button/close-button.component';
 import { PrimaryActionButtonComponent } from './buttons/primary-action-button/primary-action-button.component';
@@ -10,13 +9,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { WINDOW_PROVIDERS } from './services/window.service';
+import { LogoComponent } from './header/logo/logo.component';
+import { NavigationComponent } from './header/navigation/navigation.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent,
     CloseButtonComponent,
     PrimaryActionButtonComponent,
     SecondaryButtonComponent,
+    LogoComponent,
+    NavigationComponent,
   ],
   imports: [
     RouterModule,
@@ -27,10 +29,11 @@ import { WINDOW_PROVIDERS } from './services/window.service';
     FontAwesomeModule,
   ],
   exports: [
-    HeaderComponent,
     CloseButtonComponent,
     PrimaryActionButtonComponent,
     SecondaryButtonComponent,
+    LogoComponent,
+    NavigationComponent,
   ],
   providers: [WINDOW_PROVIDERS],
 })
