@@ -13,12 +13,12 @@
           <img src="assets/img/logo.svg" i18n-alt alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
         </a>
       </div>
-      <div class="col col-auto align-self-center p-0">
+      <div *ngIf="appSlogan !== ''" class="col col-auto align-self-center p-0">
         <a class="logo-text" routerLink="">{{appSlogan}}</a>
       </div>
     </div>
   </div>
-  <nav class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
+  <nav *ngIf="langSelector" class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
     <div class="mobile ml-auto toggle-button-wrapper">
       <button *ngIf="!navbarOpen" class="navbar-toggler navbar-toggler-right menu" type="button"
         (click)="toggleNavbar()" #navbarToggler>
@@ -30,6 +30,7 @@
       [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
       <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile"
         #mainNavbar>
+        <!-- Lang selector is optional -->
         <div class="navbar-expand mx-auto navbar-nav lang mobile">
           <ul class="navbar-nav mx-auto">
             <li [class.col-4]="mobile">
@@ -80,8 +81,8 @@
                 </li>
               </ng-template>
             </ng-container>
-
-            <li #navLink class="nav-item col col-auto p-0 mr-0">
+            <!-- Lang selector is optional -->
+            <li *ngIf="langSelector" #navLink class="nav-item col col-auto p-0 mr-0">
               <div class="navbar-expand navbar-nav lang langSelect">
                 <mat-form-field class="lang-select">
                   <!-- Navigate with consent if consent is set -->
