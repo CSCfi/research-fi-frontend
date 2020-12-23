@@ -28,10 +28,11 @@ import { WINDOW } from '../services/window.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  @Input() appSlogan: string;
+  @Input() appSlogan = '';
   @Input() navItems: any;
   @Input() currentLang: any;
   @Input() currentRoute: any;
+  @Input() langSelector = false;
   mobile = this.window.innerWidth < 1200;
   height = this.window.innerHeight;
   width = this.window.innerWidth;
