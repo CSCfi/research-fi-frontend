@@ -12,3 +12,21 @@
 .mat-checkbox-inner-container {
   margin-top: 4px !important;
 }
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.mat-radio-label {
+  white-space: normal !important;
+}
+
+.mat-radio-label-content {
+  padding-left: 1rem !important;
+}
