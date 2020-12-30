@@ -42,7 +42,6 @@
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "projects/portal/src/styles.scss"
             ],
             "scripts": [
@@ -293,7 +292,6 @@
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "projects/mydata/src/styles.scss"
             ],
             "scripts": [
