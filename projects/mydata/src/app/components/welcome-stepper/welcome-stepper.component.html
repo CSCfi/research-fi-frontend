@@ -6,81 +6,138 @@
 <main id="main-content">
   <div class="wrapper">
     <ng-container *ngIf="!cancel; else cancelTemplate">
-      <div class="row">
+      <div class="row" *ngIf="step <= 3">
         <div class="col text-center">
           <h2>{{step}} / 3</h2>
         </div>
       </div>
 
-      <!-- First step -->
-      <ng-container *ngIf="step === 1">
-        <div class="row pb-4">
-          <div class="col text-center">
-            <h2 class="text-primary">Tervetuloa!</h2>
+      <ng-container [ngSwitch]="step">
+        <!-- First step -->
+        <ng-container *ngSwitchCase="1">
+          <div class="row pb-4">
+            <div class="col text-center">
+              <h2 class="text-primary">Tervetuloa!</h2>
+            </div>
+          </div>
+      
+          <div class="row pb-4">
+            <div class="col text-center">
+              <p>Ennen kuin aloitat palvelun käyttämisen, pyydämme sinua lukemaan ja hyväksymään palvelun käyttöehdot ja
+                tietosuojakäytännöt</p>
+            </div>
+          </div>
+      
+          <div class="row pb-3">
+            <div class="col text-center">
+              <lib-primary-action-button content="Käyttöehdot ja tietosuoja" (click)="increment()" [big]="true">
+              </lib-primary-action-button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <lib-secondary-button content="Peruuta käyttöönotto" (click)="toggleCancel()" [big]="true">
+              </lib-secondary-button>
+            </div>
+          </div>
+        </ng-container>
+      
+        <!-- Second step -->
+        <ng-container *ngSwitchCase="2">
+          <div class="row pb-4">
+            <div class="col text-center">
+              <h2 class="text-primary">Käyttöehdot ja tietosuoja</h2>
+            </div>
+          </div>
+      
+          <div class="row pb-4">
+            <div class="col">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.</p>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.</p>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              </p>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                laborum.</p>
+            </div>
+          </div>
+      
+          <div class="row pb-4">
+            <div class="col">
+              <mat-checkbox color="primary" [(ngModel)]="termsApproved">Olen lukenut palvelun käyttöehdot ja tietosuojan,
+                ja hyväksyn ne</mat-checkbox>
+            </div>
+          </div>
+      
+          <div class="row pb-4">
+            <div class="col-6 text-center">
+              <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
+                [noSmIcon]="true">
+              </lib-secondary-button>
+            </div>
+            <div class="col-6 text-center">
+              <lib-primary-action-button content="Seuraava" [disabled]="!termsApproved" (click)="increment()" [big]="true"
+                [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
+            </div>
+          </div>
+        </ng-container>
+      
+        <!-- Third step -->
+        <ng-container *ngSwitchCase="3">
+          <div class="row pb-4">
+            <div class="col text-center">
+              <h2 class="text-primary">Tietojen tuominen Orcidista</h2>
+            </div>
+          </div>
+      
+          <div class="row pb-3">
+            <div class="col">
+              <p>Saammeko luvan tuoda kaikki Orcid-tietosi tämän palvelun tietolähteiksi?</p>
+              <p>Nimeäsi ja Orcid-tunnustasi lukuunottamatta muita tietoja ei vielä julkaista tässä vaiheessa.</p>
+              <p>Voit hallinnoida tietojesi jakamista ja näkyvyyttä tuonnin jälkeen.</p>
+            </div>
+          </div>
+      
+          <div class="row pb-3">
+            <div class="col">
+              <mat-radio-group
+              aria-label="Orcid-tietojen valinta"
+              class="example-radio-group"
+              [(ngModel)]="orcidSetting"
+              color="primary">
+              <mat-radio-button class="example-radio-button" value="all">Tuo kaikki ORCID-tietoni</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="basic">Tuo ORCIDista vain nimi ja ORCID id</mat-radio-button>
+            </mat-radio-group>
+            </div>
+          </div>
+      
+          <div class="row pb-4">
+            <div class="col-6 text-center">
+              <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
+                [noSmIcon]="true">
+              </lib-secondary-button>
+            </div>
+            <div class="col-6 text-center">
+              <lib-primary-action-button content="Seuraava" [disabled]="!orcidSetting" (click)="increment()" [big]="true"
+                [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
+            </div>
+          </div>
+        </ng-container>
+      
+        <!-- Fourth step -->
+        <div *ngSwitchCase="4" class="row">
+          <div class="col">
+            <app-orcid-data-handler (cancel)="onCancelClick($event)"></app-orcid-data-handler>
           </div>
         </div>
 
-        <div class="row pb-4">
-          <div class="col text-center">
-            <p>Ennen kuin aloitat palvelun käyttämisen, pyydämme sinua lukemaan ja hyväksymään palvelun käyttöehdot ja
-              tietosuojakäytännöt</p>
-          </div>
-        </div>
 
-        <div class="row pb-3">
-          <div class="col text-center">
-            <lib-primary-action-button content="Käyttöehdot ja tietosuoja" (click)="increment()" [big]="true">
-            </lib-primary-action-button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col text-center">
-            <lib-secondary-button content="Peruuta käyttöönotto" (click)="toggleCancel()" [big]="true">
-            </lib-secondary-button>
-          </div>
-        </div>
+        <!-- Default to 404 -->
+        <app-not-found *ngSwitchDefault></app-not-found>
+
       </ng-container>
 
-      <!-- Second step -->
-      <ng-container *ngIf="step === 2">
-        <div class="row pb-4">
-          <div class="col text-center">
-            <h2 class="text-primary">Käyttöehdot ja tietosuoja</h2>
-          </div>
-        </div>
-
-        <div class="row pb-4">
-          <div class="col">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.</p>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat.</p>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.</p>
-          </div>
-        </div>
-
-        <div class="row pb-4">
-          <div class="col">
-            <mat-checkbox color="primary" [(ngModel)]="termsApproved">Olen lukenut palvelun käyttöehdot ja tietosuojan,
-              ja hyväksyn ne</mat-checkbox>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-6 text-center">
-            <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
-              [noSmIcon]="true">
-            </lib-secondary-button>
-          </div>
-          <div class="col-6 text-center">
-            <lib-primary-action-button content="Seuraava" [disabled]="!termsApproved" (click)="increment()" [big]="true"
-              [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
-          </div>
-        </div>
-      </ng-container>
     </ng-container>
 
     <!-- Cancel -->
