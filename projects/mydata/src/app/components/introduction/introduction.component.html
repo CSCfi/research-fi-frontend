@@ -5,13 +5,13 @@
 
 <main id="main-content">
   <div class="wrapper">
-    <div class="row">
+    <div class="row pb-4">
       <div class="col text-center">
-        <h2>Palvelun käyttöönotto</h2>
+        <h2 class="text-primary">Palvelun käyttöönotto</h2>
       </div>
     </div>
   
-    <div class="row">
+    <div class="row pb-4">
       <div class="col text-center">
         <p>Palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla ei vielä ole ORCID-tunnuksia, voit luoda sellaiset <a href="https://orcid.org/">ORCID-palvelussa</a>.</p>
       </div>
@@ -19,7 +19,7 @@
   
     <div class="row pb-3">
       <div class="col text-center">
-        <lib-primary-action-button content="Aloita" [big]="true"></lib-primary-action-button>
+        <lib-primary-action-button content="Aloita" [big]="true" routerLink="/welcome"></lib-primary-action-button>
       </div>
     </div>
     <div class="row">
