@@ -1,3 +1,10 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -11,17 +18,22 @@ import { LayoutModule } from './layout/layout.module';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { HomeComponent } from './components/home/home.component';
 import { IntroductionComponent } from './components/introduction/introduction.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
+import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-data-handler/orcid-data-handler.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     IntroductionComponent,
-    WelcomeStepperComponent
+    WelcomeStepperComponent,
+    OrcidDataHandlerComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +44,7 @@ import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-st
     LayoutModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
