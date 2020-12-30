@@ -15,9 +15,11 @@ import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-s
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent implements OnInit {
-  step = 2;
+  step = 1;
   cancel = false;
   termsApproved = false;
+  orcidSetting: string;
+  fetching = false;
 
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
@@ -37,6 +39,10 @@ export class WelcomeStepperComponent implements OnInit {
 
   toggleCancel() {
     this.cancel = !this.cancel;
+  }
+
+  onCancelClick(event) {
+    this.toggleCancel();
   }
 
 }
