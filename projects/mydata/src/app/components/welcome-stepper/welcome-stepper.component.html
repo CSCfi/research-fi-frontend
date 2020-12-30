@@ -21,21 +21,21 @@
             </div>
           </div>
       
-          <div class="row pb-4">
-            <div class="col text-center">
+          <div class="row pb-4 d-flex justify-content-center">
+            <div class="col col-lg-4 text-center">
               <p>Ennen kuin aloitat palvelun käyttämisen, pyydämme sinua lukemaan ja hyväksymään palvelun käyttöehdot ja
                 tietosuojakäytännöt</p>
             </div>
           </div>
       
-          <div class="row pb-3">
-            <div class="col text-center">
+          <div class="row pb-3 d-flex justify-content-center">
+            <div class="col col-lg-auto">
               <lib-primary-action-button content="Käyttöehdot ja tietosuoja" (click)="increment()" [big]="true">
               </lib-primary-action-button>
             </div>
           </div>
-          <div class="row">
-            <div class="col text-center">
+          <div class="row d-flex justify-content-center">
+            <div class="col col-lg-auto">
               <lib-secondary-button content="Peruuta käyttöönotto" (click)="toggleCancel()" [big]="true">
               </lib-secondary-button>
             </div>
@@ -50,8 +50,8 @@
             </div>
           </div>
       
-          <div class="row pb-4">
-            <div class="col">
+          <div class="row pb-4 d-flex justify-content-center">
+            <div class="col col-lg-4">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua.</p>
               <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -63,20 +63,20 @@
             </div>
           </div>
       
-          <div class="row pb-4">
-            <div class="col">
+          <div class="row pb-4 d-flex justify-content-center">
+            <div class="col col-lg-4">
               <mat-checkbox color="primary" [(ngModel)]="termsApproved">Olen lukenut palvelun käyttöehdot ja tietosuojan,
                 ja hyväksyn ne</mat-checkbox>
             </div>
           </div>
       
-          <div class="row pb-4">
-            <div class="col-6 text-center">
+          <div class="row pb-4 d-flex justify-content-center">
+            <div class="col-6 col-lg-2">
               <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
                 [noSmIcon]="true">
               </lib-secondary-button>
             </div>
-            <div class="col-6 text-center">
+            <div class="col-6 col-lg-2">
               <lib-primary-action-button content="Seuraava" [disabled]="!termsApproved" (click)="increment()" [big]="true"
                 [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
             </div>
@@ -91,16 +91,16 @@
             </div>
           </div>
       
-          <div class="row pb-3">
-            <div class="col">
+          <div class="row pb-3 d-flex justify-content-center">
+            <div class="col col-lg-4">
               <p>Saammeko luvan tuoda kaikki Orcid-tietosi tämän palvelun tietolähteiksi?</p>
               <p>Nimeäsi ja Orcid-tunnustasi lukuunottamatta muita tietoja ei vielä julkaista tässä vaiheessa.</p>
               <p>Voit hallinnoida tietojesi jakamista ja näkyvyyttä tuonnin jälkeen.</p>
             </div>
           </div>
       
-          <div class="row pb-3">
-            <div class="col">
+          <div class="row pb-3 d-flex justify-content-center">
+            <div class="col col-lg-4">
               <mat-radio-group
               aria-label="Orcid-tietojen valinta"
               class="example-radio-group"
@@ -112,13 +112,13 @@
             </div>
           </div>
       
-          <div class="row pb-4">
-            <div class="col-6 text-center">
+          <div class="row pb-4 d-flex justify-content-center">
+            <div class="col-6 col-lg-2">
               <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
                 [noSmIcon]="true">
               </lib-secondary-button>
             </div>
-            <div class="col-6 text-center">
+            <div class="col-6 col-lg-2">
               <lib-primary-action-button content="Seuraava" [disabled]="!orcidSetting" (click)="increment()" [big]="true"
                 [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
             </div>
@@ -148,21 +148,21 @@
         </div>
       </div>
 
-      <div class="row pb-4">
-        <div class="col">
+      <div class="row pb-4 d-flex justify-content-center">
+        <div class="col col-lg-4">
           <p>Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.<br>
             Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat käyttöönoton alusta.</p>
         </div>
       </div>
 
-      <div class="row pb-3">
-        <div class="col text-center">
+      <div class="row pb-3 d-flex justify-content-center">
+        <div class="col col-lg-4">
           <lib-secondary-button content="Kyllä, peruutan käyttöönoton" routerLink="" [big]="true">
           </lib-secondary-button>
         </div>
       </div>
-      <div class="row">
-        <div class="col text-center">
+      <div class="row d-flex justify-content-center">
+        <div class="col col-lg-4">
           <lib-secondary-button content="Ei, jatkan käyttöönottoa" (click)="toggleCancel()" [big]="true">
           </lib-secondary-button>
         </div>
