@@ -1,5 +1,11 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
+
+import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -8,7 +14,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   lang = 'fi';
   currentRoute: string;
   navItems = [
@@ -46,9 +52,6 @@ export class HeaderComponent implements OnInit {
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
       }
     });
-  }
-
-  ngOnInit(): void {
   }
 
 }
