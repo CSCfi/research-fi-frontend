@@ -1,12 +1,12 @@
 <header class="wrapper">
   <div class="navbar navbar-expand-xl navbar-light row">
     <!-- Logo / slogan -->
-    <lib-logo class="logo col-7 col-xs-9 col-xl-2"></lib-logo>
+    <lib-logo class="logo col-7 col-xs-9 col-xl-2 px-0"></lib-logo>
     <!-- Navigation -->
     <lib-navigation class="nav-top col-auto col-xs-3 col-xl-10 p-0" *ngIf="currentRoute === '/'; else title"
       [navItems]="navItems" [currentLang]="lang" [currentRoute]="currentRoute"></lib-navigation>
     <ng-template #title>
-      <div class="col">
+      <div class="col center-container">
         <h1 class="title">Tutkijan tiedot</h1>
       </div>
     </ng-template>
