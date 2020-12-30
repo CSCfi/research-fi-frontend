@@ -6,8 +6,9 @@
 //  :license: MIT
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
-import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-orcid-data-handler',
@@ -21,6 +22,7 @@ export class OrcidDataHandlerComponent implements OnInit {
   loaderInterval: NodeJS.Timeout;
   success: boolean;
   @Output() cancel = new EventEmitter<boolean>();
+  faCheckCircle = faCheckCircle;
 
   constructor() { }
 
