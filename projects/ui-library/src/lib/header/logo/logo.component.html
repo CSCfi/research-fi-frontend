@@ -1,12 +1,15 @@
-<div class="">
-  <div class="row logo-wrapper">
-    <div class="col col-auto p-0">
-      <a class="navbar-brand" routerLink="">
-        <img src="assets/img/logo.svg" i18n-alt alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
-      </a>
-    </div>
-    <div *ngIf="appSlogan !== ''" class="col col-auto align-self-center p-0">
-      <a class="logo-text" routerLink="">{{appSlogan}}</a>
-    </div>
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<div class="row logo-wrapper">
+  <div class="col col-auto p-0">
+    <a class="navbar-brand" routerLink="">
+      <img src="assets/img/logo.svg" i18n-alt alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
+    </a>
+  </div>
+  <div *ngIf="appSlogan !== ''" class="col col-auto align-self-center p-0">
+    <a class="logo-text" routerLink="">{{appSlogan}}</a>
   </div>
 </div>
