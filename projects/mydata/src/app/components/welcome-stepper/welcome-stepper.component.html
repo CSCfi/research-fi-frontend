@@ -1,0 +1,115 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<main id="main-content">
+  <div class="wrapper">
+    <ng-container *ngIf="!cancel; else cancelTemplate">
+      <div class="row">
+        <div class="col text-center">
+          <h2>{{step}} / 3</h2>
+        </div>
+      </div>
+
+      <!-- First step -->
+      <ng-container *ngIf="step === 1">
+        <div class="row pb-4">
+          <div class="col text-center">
+            <h2 class="text-primary">Tervetuloa!</h2>
+          </div>
+        </div>
+
+        <div class="row pb-4">
+          <div class="col text-center">
+            <p>Ennen kuin aloitat palvelun käyttämisen, pyydämme sinua lukemaan ja hyväksymään palvelun käyttöehdot ja
+              tietosuojakäytännöt</p>
+          </div>
+        </div>
+
+        <div class="row pb-3">
+          <div class="col text-center">
+            <lib-primary-action-button content="Käyttöehdot ja tietosuoja" (click)="increment()" [big]="true">
+            </lib-primary-action-button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <lib-secondary-button content="Peruuta käyttöönotto" (click)="toggleCancel()" [big]="true">
+            </lib-secondary-button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Second step -->
+      <ng-container *ngIf="step === 2">
+        <div class="row pb-4">
+          <div class="col text-center">
+            <h2 class="text-primary">Käyttöehdot ja tietosuoja</h2>
+          </div>
+        </div>
+
+        <div class="row pb-4">
+          <div class="col">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+              laborum.</p>
+          </div>
+        </div>
+
+        <div class="row pb-4">
+          <div class="col">
+            <mat-checkbox color="primary" [(ngModel)]="termsApproved">Olen lukenut palvelun käyttöehdot ja tietosuojan,
+              ja hyväksyn ne</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6 text-center">
+            <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
+              [noSmIcon]="true">
+            </lib-secondary-button>
+          </div>
+          <div class="col-6 text-center">
+            <lib-primary-action-button content="Seuraava" [disabled]="!termsApproved" (click)="increment()" [big]="true"
+              [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- Cancel -->
+    <ng-template #cancelTemplate>
+      <div class="row pb-4">
+        <div class="col text-center">
+          <h2 class="text-primary">Peruutetaanko palvelun käyttöönotto?</h2>
+        </div>
+      </div>
+
+      <div class="row pb-4">
+        <div class="col">
+          <p>Käyttöönotto keskeytetään, ja mitään tietoja ei tallenneta.<br>
+            Mikäli haluat ottaa palvelun käyttöön myöhemmin, aloitat käyttöönoton alusta.</p>
+        </div>
+      </div>
+
+      <div class="row pb-3">
+        <div class="col text-center">
+          <lib-secondary-button content="Kyllä, peruutan käyttöönoton" routerLink="" [big]="true">
+          </lib-secondary-button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <lib-secondary-button content="Ei, jatkan käyttöönottoa" (click)="toggleCancel()" [big]="true">
+          </lib-secondary-button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</main>
