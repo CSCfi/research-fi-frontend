@@ -36,6 +36,10 @@ $researchfi-theme: map_merge(
 
 $primary: map-get($researchfi-theme, primary);
 
+$theme-colors: (
+    primary: mat-color($primary, 500),
+);
+
 html.cdk-global-scrollblock {
   overflow: hidden !important;
 }
