@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -14,7 +14,7 @@ import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-s
   styleUrls: ['./welcome-stepper.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class WelcomeStepperComponent implements OnInit {
+export class WelcomeStepperComponent {
   step = 1;
   cancel = false;
   termsApproved = false;
@@ -24,10 +24,6 @@ export class WelcomeStepperComponent implements OnInit {
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   increment() {
     this.step = this.step + 1;
