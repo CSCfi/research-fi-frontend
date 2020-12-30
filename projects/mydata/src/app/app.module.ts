@@ -26,6 +26,8 @@ import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-st
 import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-data-handler/orcid-data-handler.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +47,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatRadioModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
