@@ -9,12 +9,13 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
-@import "~bootstrap/dist/css/bootstrap.css";
+// Import theme from shared files
+@import 'researchfi-theme.scss';
+
+@import "~bootstrap/scss/bootstrap.scss";
 @import "~font-awesome/css/font-awesome.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
-// Import theme from shared files
-@import 'researchfi-theme.scss';
 
 // Custom themes from library
 @import 'header/shared-theme.scss';
