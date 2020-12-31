@@ -8,12 +8,15 @@
 @import '~@angular/material/theming';
 
 @mixin app-header-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-header {
-        .title {
-            color: mat-color($primary);
-        }
-
+  app-header {
+    .title {
+      color: mat-color($primary);
     }
+
+    a.nav-item {
+      color: mat-color($primary) !important;
+    }
+  }
 }

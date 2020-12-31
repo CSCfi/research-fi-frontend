@@ -1,7 +1,7 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
@@ -12,9 +12,9 @@
 // Import theme from shared files
 @import 'researchfi-theme.scss';
 
-@import "~bootstrap/scss/bootstrap.scss";
-@import "~font-awesome/css/font-awesome.css";
-@import "~@fortawesome/fontawesome-free/css/all.css";
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 // Custom themes from library
 @import 'header/shared-theme.scss';
@@ -34,17 +34,17 @@
   @include app-header-theme($theme);
 
   $primary: map-get($theme, primary);
-  
+
   .full-width {
     background: mat-color($primary);
     min-height: 3rem;
   }
-  
+
   .wrapper {
     max-width: 1440px;
     margin: auto;
   }
-  
+
   @media (max-width: 1199px) {
     .wrapper {
       padding: 0 8px;
@@ -58,16 +58,16 @@
 
   // Disable link
   a.disabled {
-      color: mat-color($primary, lighter) !important;
+    color: mat-color($primary, lighter) !important;
   }
 }
 
 // Global style definitions
 html {
-    height: 100%;
-    box-sizing: border-box;
-  }
-  
+  height: 100%;
+  box-sizing: border-box;
+}
+
 *,
 *:before,
 *:after {
@@ -84,7 +84,7 @@ html {
   height: 44px;
 }
 
-fa-icon[icon="external-link-alt"] {
+fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
 }
 
@@ -103,7 +103,11 @@ a {
 
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
-  button:focus, input:focus, select:focus, textarea:focus, *:focus {
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  *:focus {
     outline: none;
   }
 }
