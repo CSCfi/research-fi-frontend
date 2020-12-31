@@ -8,7 +8,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonComponentsModule } from '../common-components/common-components.module';
-import { LayoutComponent } from './layout/layout.component';
+import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from '../app-routing.module';
@@ -19,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule  } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
@@ -33,8 +33,15 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { UiLibraryModule } from 'ui-library';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, ReviewComponent, BetaInfoComponent,
-    CookieConsentComponent],
+  declarations: [
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    ErrorModalComponent,
+    ReviewComponent,
+    BetaInfoComponent,
+    CookieConsentComponent,
+  ],
   imports: [
     CommonModule,
     CommonComponentsModule,
@@ -57,8 +64,6 @@ import { UiLibraryModule } from 'ui-library';
   exports: [LayoutComponent],
   entryComponents: [ReviewComponent],
   providers: [WINDOW_PROVIDERS],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class UiModule { }
+export class LayoutModule {}

@@ -1616,7 +1616,7 @@
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
@@ -1627,7 +1627,7 @@
           <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
@@ -1638,7 +1638,7 @@
           <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
@@ -1649,7 +1649,7 @@
           <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
@@ -1660,7 +1660,7 @@
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -1671,7 +1671,7 @@
           <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
@@ -1682,7 +1682,7 @@
           <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
@@ -1693,49 +1693,49 @@
           <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="skipToInput" datatype="html">
         <source>Hyppää hakukenttään</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="skipToMain" datatype="html">
         <source>Hyppää sivun pääsisältöön</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="skipToAccessibility" datatype="html">
         <source>Hyppää saavutettavuusselosteeseen</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5c2d2055a2262a206484249f7f476d8b5378f2ba" datatype="html">
         <source>Tutkimustietovarannon portaalin logo, abstrakti ikkuna</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="appSlogan" datatype="html">
         <source>Tiedejatutkimus.fi</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="headerLink1" datatype="html">
         <source>Etusivu</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
         <note priority="1" from="description">Header</note>
@@ -1743,7 +1743,7 @@
       <trans-unit id="headerLink2" datatype="html">
         <source>Haku</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
         <note priority="1" from="description">Header</note>
@@ -1751,7 +1751,7 @@
       <trans-unit id="footerHeader1" datatype="html">
         <source>Palvelun tarjoaa</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -1759,14 +1759,14 @@
       <trans-unit id="523f293e9145a7fa463284ffb6ca74f3de18e7c3" datatype="html">
         <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footerHeader2" datatype="html">
         <source>Yhteistyössä</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -1774,14 +1774,14 @@
       <trans-unit id="babe40c53fe2da92826f7c65a0b48c5f721154ae" datatype="html">
         <source>Organisaation CSC - Tieteen ja tietotekniikan keskus logo</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footerHeader3" datatype="html">
         <source>Palvelun käyttö</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -1789,7 +1789,7 @@
       <trans-unit id="footerHeader4" datatype="html">
         <source>Info ja yhteystiedot</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -1797,7 +1797,7 @@
       <trans-unit id="footerLink6" datatype="html">
         <source>Anna palautetta</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">45</context>
         </context-group>
         <note priority="1" from="description">Footer-link</note>
@@ -1805,7 +1805,7 @@
       <trans-unit id="footerLink7" datatype="html">
         <source>Ota yhteyttä</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
         <note priority="1" from="description">Footer-link</note>
@@ -1813,7 +1813,7 @@
       <trans-unit id="footerHeader5" datatype="html">
         <source>Selosteet ja käytännöt</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">54</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -1821,7 +1821,7 @@
       <trans-unit id="followUs" datatype="html">
         <source>Seuraa meitä!</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
@@ -1829,7 +1829,7 @@
         <source>
                     <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon&gt;"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon&gt;"/>Tiedejatutkimus.fi Twitterissä</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
         <note priority="1" from="description">Twitter-footer</note>
@@ -1837,14 +1837,14 @@
       <trans-unit id="d35ddab289fbd3df7ee5b2a38fa533fb01e5312a" datatype="html">
         <source>Twitter -palvelun logo</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reviewButton" datatype="html">
         <source>Anna palautetta!</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
         <note priority="1" from="description">Review-button</note>

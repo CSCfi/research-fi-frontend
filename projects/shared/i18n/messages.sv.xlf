@@ -1917,7 +1917,7 @@
         <source>Valikko</source>
         <target>Menu</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
         <note priority="1" from="description">Close button</note>
@@ -1930,7 +1930,7 @@
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
@@ -1942,7 +1942,7 @@
           <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
@@ -1954,7 +1954,7 @@
           <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
@@ -1970,7 +1970,7 @@
           <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
@@ -1982,7 +1982,7 @@
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -1994,7 +1994,7 @@
           <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
@@ -2006,7 +2006,7 @@
           <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
@@ -2018,7 +2018,7 @@
           <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
@@ -2026,7 +2026,7 @@
         <source>Hyppää hakukenttään</source>
         <target state="translated">Gå till sökfältet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -2034,7 +2034,7 @@
         <source>Hyppää sivun pääsisältöön</source>
         <target state="translated">Gå till sidans huvudinnehåll</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -2042,7 +2042,7 @@
         <source>Hyppää saavutettavuusselosteeseen</source>
         <target state="translated">Gå till tillgänglighetsredogörelsen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -2050,7 +2050,7 @@
         <source>Tutkimustietovarannon portaalin logo, abstrakti ikkuna</source>
         <target state="translated">Portalens logotyp, ett abstrakt fönster</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -2058,7 +2058,7 @@
         <source>Tiedejatutkimus.fi</source>
         <target state="translated">Forskning.fi</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -2066,7 +2066,7 @@
         <source>Etusivu</source>
         <target state="translated">Ingångssida</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
         <note priority="1" from="description">Header</note>
@@ -2075,7 +2075,7 @@
         <source>Haku</source>
         <target state="translated">Sökning</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/header/header.component.html</context>
+          <context context-type="sourcefile">app/layout/header/header.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
         <note priority="1" from="description">Header</note>
@@ -2084,7 +2084,7 @@
         <source>Palvelun tarjoaa</source>
         <target state="translated">Tjänsten tillhandahålls av</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -2093,7 +2093,7 @@
         <source>Opetus- ja kulttuuriministeriön logo, leijonavaakuna vihreällä pohjalla</source>
         <target state="translated">Undervisnings- och kulturministeriets logotyp, lejonvapen på grön botten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -2101,7 +2101,7 @@
         <source>Yhteistyössä</source>
         <target state="translated">I samarbete</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -2110,7 +2110,7 @@
         <source>Organisaation CSC - Tieteen ja tietotekniikan keskus logo</source>
         <target state="translated">Logotyp för organisationen CSC – Tieteen ja tietotekniikan keskus</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -2118,7 +2118,7 @@
         <source>Palvelun käyttö</source>
         <target state="translated">Användning av tjänsten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -2127,7 +2127,7 @@
         <source>Info ja yhteystiedot</source>
         <target>Info and contact information</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -2136,7 +2136,7 @@
         <source>Anna palautetta</source>
         <target state="translated">Ge respons</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">45</context>
         </context-group>
         <note priority="1" from="description">Footer-link</note>
@@ -2145,7 +2145,7 @@
         <source>Ota yhteyttä</source>
         <target>Kontakt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
         <note priority="1" from="description">Footer-link</note>
@@ -2154,7 +2154,7 @@
         <source>Selosteet ja käytännöt</source>
         <target state="translated">Redogörelser och praxis</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">54</context>
         </context-group>
         <note priority="1" from="description">Footer-header</note>
@@ -2163,7 +2163,7 @@
         <source>Seuraa meitä!</source>
         <target state="translated">Följ oss!</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
@@ -2172,7 +2172,7 @@
                     <x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/>Tiedejatutkimus.fi Twitterissä</source>
         <target state="translated"><x id="START_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;fa-icon>"/><x id="CLOSE_TAG_FA-ICON" ctype="x-fa-icon" equiv-text="&lt;/fa-icon>"/>Forskning.fi i Twitter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
         <note priority="1" from="description">Twitter-footer</note>
@@ -2181,7 +2181,7 @@
         <source>Twitter -palvelun logo</source>
         <target state="translated">Twitter-tjänstens logotyp</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
@@ -2189,7 +2189,7 @@
         <source>Anna palautetta!</source>
         <target state="translated">Ge respons!</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/footer/footer.component.html</context>
+          <context context-type="sourcefile">app/layout/footer/footer.component.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
         <note priority="1" from="description">Review-button</note>
@@ -4027,7 +4027,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Anna palautetta tai kysy</source>
         <target state="translated">Lämna feedback eller fråga!</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -4037,7 +4037,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Tietosuojaseloste<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
         <target state="translated">På denna blankett kan du lämna feedback om webbtjänsten forskning.fi. All feedback och alla frågor är välkomna! Du kan också skicka din feedback eller dina frågor fritt formulerat via e-post till tiedejatutkimus@csc.fi<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/>"/><x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Dataskyddsmeddelande<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
@@ -4045,7 +4045,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Kerro palautteesi tai kysy!</source>
         <target state="translated">Lämna feedback eller fråga</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -4053,11 +4053,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Pakollinen tieto.</source>
         <target state="translated">Obligatorisk uppgift.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -4069,7 +4069,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Haluan antaa palautetta *</source>
         <target state="translated">Jag vill lämna feedback om *</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -4077,7 +4077,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Palaute tai kysymys *</source>
         <target state="translated">Feedback eller fråga *</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
@@ -4085,7 +4085,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Kirjoita palaute ylläolevaan kenttään.</source>
         <target state="translated">Skriv din feedback i fältet ovan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -4093,7 +4093,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Palautetta koskeva sijainti verkkopalvelussa</source>
         <target state="translated">Plats i webbtjänsten som feedbacken rör</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
@@ -4101,7 +4101,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Nykyinen sijainti: </source>
         <target state="translated">Nuvarande plats:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
@@ -4109,7 +4109,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Muu</source>
         <target state="translated">Annat</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
@@ -4117,7 +4117,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Mitä osiota palautteesi koskee?</source>
         <target state="translated">Vilken sektion gäller din feedback?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -4125,7 +4125,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Esim. yleinen palaute, sivun otsikko, URL</source>
         <target state="translated">T.ex. allmän feedback, sidans rubrik, UR</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
@@ -4133,7 +4133,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Virheellinen sähköpostiosoite.</source>
         <target state="translated">Ogiltig e-postadress</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
@@ -4141,7 +4141,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Toivon yhteydenottoa palautteestani</source>
         <target state="translated">Jag vill att ni kontaktar mig angående min feedback</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
@@ -4149,7 +4149,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Valitse tämä, jos toivot, että otamme sinuun yhteyttä</source>
         <target state="translated">Välj detta alternativ om du vill att vi kontaktar di</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
@@ -4157,11 +4157,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Sähköpostiosoite</source>
         <target state="translated">E-postadress</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">83</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
@@ -4169,7 +4169,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tarkista ja lähetä</source>
         <target state="translated">Granska och skicka</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
@@ -4177,7 +4177,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Tarkista antamasi palaute</source>
         <target state="translated">Granska din feedback</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
@@ -4185,7 +4185,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Palautteen aihe: <x id="INTERPOLATION" equiv-text="{{reviewTarget}}"/></source>
         <target state="translated">Feedbackens ämne: <x id="INTERPOLATION" equiv-text="{{reviewTarget}}"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
@@ -4193,7 +4193,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Palaute:</source>
         <target>Feedback:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
@@ -4201,7 +4201,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Palautetta koskeva sijainti verkkopalvelussa</source>
         <target state="translated">Plats i webbtjänsten som feedbacken rör</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
@@ -4209,7 +4209,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Olen tarkistanut syöttämäni tiedot *</source>
         <target state="translated">Jag har granskat uppgifterna</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
@@ -4217,7 +4217,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Valitse tämä, kun olet tarkistanut että ylläolevat tiedot ovat oikein.</source>
         <target state="translated">Välj detta alternativ när du har granskat att uppgifterna ovan stämmer. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
@@ -4225,7 +4225,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Varmistus, että palautteenantaja on ihminen *</source>
         <target state="translated">Verifiering att feedbacken inte lämnas av en robot </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
@@ -4233,7 +4233,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Olemme vastaanottaneet palautteesi. Kiitos!</source>
         <target state="translated">Tack för din feedback!</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">136</context>
         </context-group>
       </trans-unit>
@@ -4241,11 +4241,11 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source><x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u>"/>Tietosuojaseloste<x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u>"/></source>
         <target state="translated"><x id="START_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;u>"/>Dataskyddsmeddelande<x id="CLOSE_UNDERLINED_TEXT" ctype="x-u" equiv-text="&lt;/u>"/></target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">138</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
@@ -4253,7 +4253,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
         <source>Lomakkeen lähetys epäonnistui :(</source>
         <target state="translated">Formulär inlämning misslyckades :(</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/review/review.component.html</context>
+          <context context-type="sourcefile">app/layout/review/review.component.html</context>
           <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
@@ -4272,7 +4272,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                 Uppgifterna lämnas inte ut till tredje parter.  
             </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/cookie-consent/cookie-consent.component.html</context>
+          <context context-type="sourcefile">app/layout/cookie-consent/cookie-consent.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -4284,7 +4284,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
                 Läs mer om våra  <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>cookiepolicy på dataskyddssidan<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>.
             </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/ui/cookie-consent/cookie-consent.component.html</context>
+          <context context-type="sourcefile">app/layout/cookie-consent/cookie-consent.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>

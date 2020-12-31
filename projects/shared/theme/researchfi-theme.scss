@@ -211,7 +211,7 @@ mark,
 // Navigation
 .navbar {
   padding: 1.2rem 0rem !important;
-  margin: 0 15px 0 10px !important;
+  margin: 0 !important;
 }
 
 // Tags
@@ -297,7 +297,6 @@ mat-basic-chip.tag {
 
 @media (max-width: 1199px) {
   .navbar {
-    margin-right: 0 !important;
     padding: 8px 0 !important;
   }
 }

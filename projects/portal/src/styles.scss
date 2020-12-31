@@ -24,7 +24,7 @@
 
 // Component custom styles
 @import './styles-custom-expansion-panel.scss';
-@import './app/ui/footer/footer.component.scss-theme.scss';
+@import './app/layout/footer/footer.component.scss-theme.scss';
 @import './app/components/home-page/home-page.component.scss-theme.scss';
 @import './app/components/search-bar/search-bar.component.scss-theme.scss';
 @import './app/components/result-tab/result-tab.component.scss-theme.scss';
@@ -52,8 +52,8 @@
 @import './app/components/news/news/news.component.scss-theme.scss';
 @import './app/components/news/news-card/news-card.component.scss-theme.scss';
 @import './app/common-components/info/info.component-theme.scss';
-@import './app/ui/cookie-consent/cookie-consent-theme.scss';
-@import './app/ui/review/review.component.scss-theme.scss';
+@import './app/layout/cookie-consent/cookie-consent-theme.scss';
+@import './app/layout/review/review.component.scss-theme.scss';
 @import './app/components/results/pagination/pagination.component.scss';
 @import './app/components/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 @import './app/components/visualisation/bar/bar.component.scss-theme.scss';

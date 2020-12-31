@@ -34,7 +34,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { UiModule } from './ui/ui.module';
+import { LayoutModule } from './layout/layout.module';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ResultsComponent } from './components/results/results.component';
@@ -227,7 +227,7 @@ import { UiLibraryModule } from 'ui-library';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    UiModule,
+    LayoutModule,
     TypeaheadModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
