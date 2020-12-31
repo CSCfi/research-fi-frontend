@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { IntroductionComponent } from './components/introduction/introduction.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 
 const routes: Routes = [
@@ -9,11 +8,6 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: HomeComponent,
-  },
-  {
-    path: 'introduction',
-    pathMatch: 'full',
-    component: IntroductionComponent,
   },
   {
     path: 'welcome',
@@ -24,6 +18,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

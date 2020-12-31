@@ -21,7 +21,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { HomeComponent } from './components/home/home.component';
-import { IntroductionComponent } from './components/introduction/introduction.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
 import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-data-handler/orcid-data-handler.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -32,10 +31,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [
     AppComponent,
     HomeComponent,
-    IntroductionComponent,
     WelcomeStepperComponent,
     OrcidDataHandlerComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +48,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

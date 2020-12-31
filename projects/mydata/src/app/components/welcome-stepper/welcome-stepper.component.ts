@@ -6,7 +6,10 @@
 //  :license: MIT
 
 import { Component, ViewEncapsulation } from '@angular/core';
-import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -15,7 +18,7 @@ import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-s
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent {
-  step = 1;
+  step = 0;
   cancel = false;
   termsApproved = false;
   orcidSetting: string;
@@ -23,7 +26,6 @@ export class WelcomeStepperComponent {
 
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
-
 
   increment() {
     this.step = this.step + 1;
@@ -40,5 +42,4 @@ export class WelcomeStepperComponent {
   onCancelClick(event) {
     this.toggleCancel();
   }
-
 }

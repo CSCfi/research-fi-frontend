@@ -6,13 +6,41 @@
 <main id="main-content">
   <div class="wrapper">
     <ng-container *ngIf="!cancel; else cancelTemplate">
-      <div class="row" *ngIf="step <= 3">
+      <div class="row" *ngIf="step > 0 && step <= 3">
         <div class="col text-center">
           <h2>{{step}} / 3</h2>
         </div>
       </div>
 
       <ng-container [ngSwitch]="step">
+        <!-- Intro -->
+        <ng-container *ngSwitchCase="0">
+          <div class="row pb-4">
+            <div class="col text-center">
+              <h2 class="text-primary">Palvelun käyttöönotto</h2>
+            </div>
+          </div>
+
+          <div class="row pb-4  d-flex justify-content-center">
+            <div class="col col-lg-8 text-center">
+              <p>Palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla ei vielä ole ORCID-tunnuksia, voit luoda
+                sellaiset <a href="https://orcid.org/">ORCID-palvelussa</a>.</p>
+            </div>
+          </div>
+
+          <div class="row pb-3 d-flex justify-content-center">
+            <div class="col col-lg-auto">
+              <lib-primary-action-button content="Aloita" [big]="true" (click)="increment()">
+              </lib-primary-action-button>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col col-lg-auto">
+              <lib-secondary-button content="Peruuta" routerLink="" [big]="true"></lib-secondary-button>
+            </div>
+          </div>
+        </ng-container>
+
         <!-- First step -->
         <ng-container *ngSwitchCase="1">
           <div class="row pb-4">
@@ -20,14 +48,14 @@
               <h2 class="text-primary">Tervetuloa!</h2>
             </div>
           </div>
-      
+
           <div class="row pb-4 d-flex justify-content-center">
             <div class="col col-lg-4 text-center">
               <p>Ennen kuin aloitat palvelun käyttämisen, pyydämme sinua lukemaan ja hyväksymään palvelun käyttöehdot ja
                 tietosuojakäytännöt</p>
             </div>
           </div>
-      
+
           <div class="row pb-3 d-flex justify-content-center">
             <div class="col col-lg-auto">
               <lib-primary-action-button content="Käyttöehdot ja tietosuoja" (click)="increment()" [big]="true">
@@ -41,7 +69,7 @@
             </div>
           </div>
         </ng-container>
-      
+
         <!-- Second step -->
         <ng-container *ngSwitchCase="2">
           <div class="row pb-4">
@@ -49,7 +77,7 @@
               <h2 class="text-primary">Käyttöehdot ja tietosuoja</h2>
             </div>
           </div>
-      
+
           <div class="row pb-4 d-flex justify-content-center">
             <div class="col col-lg-4">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
@@ -62,14 +90,15 @@
                 laborum.</p>
             </div>
           </div>
-      
+
           <div class="row pb-4 d-flex justify-content-center">
             <div class="col col-lg-4">
-              <mat-checkbox color="primary" [(ngModel)]="termsApproved">Olen lukenut palvelun käyttöehdot ja tietosuojan,
+              <mat-checkbox color="primary" [(ngModel)]="termsApproved">Olen lukenut palvelun käyttöehdot ja
+                tietosuojan,
                 ja hyväksyn ne</mat-checkbox>
             </div>
           </div>
-      
+
           <div class="row pb-4 d-flex justify-content-center">
             <div class="col-6 col-lg-2">
               <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
@@ -77,12 +106,13 @@
               </lib-secondary-button>
             </div>
             <div class="col-6 col-lg-2">
-              <lib-primary-action-button content="Seuraava" [disabled]="!termsApproved" (click)="increment()" [big]="true"
-                [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
+              <lib-primary-action-button content="Seuraava" [disabled]="!termsApproved" (click)="increment()"
+                [big]="true" [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true">
+              </lib-primary-action-button>
             </div>
           </div>
         </ng-container>
-      
+
         <!-- Third step -->
         <ng-container *ngSwitchCase="3">
           <div class="row pb-4">
@@ -90,7 +120,7 @@
               <h2 class="text-primary">Tietojen tuominen Orcidista</h2>
             </div>
           </div>
-      
+
           <div class="row pb-3 d-flex justify-content-center">
             <div class="col col-lg-4">
               <p>Saammeko luvan tuoda kaikki Orcid-tietosi tämän palvelun tietolähteiksi?</p>
@@ -98,20 +128,18 @@
               <p>Voit hallinnoida tietojesi jakamista ja näkyvyyttä tuonnin jälkeen.</p>
             </div>
           </div>
-      
+
           <div class="row pb-3 d-flex justify-content-center">
             <div class="col col-lg-4">
-              <mat-radio-group
-              aria-label="Orcid-tietojen valinta"
-              class="example-radio-group"
-              [(ngModel)]="orcidSetting"
-              color="primary">
-              <mat-radio-button class="example-radio-button" value="all">Tuo kaikki ORCID-tietoni</mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="basic">Tuo ORCIDista vain nimi ja ORCID id</mat-radio-button>
-            </mat-radio-group>
+              <mat-radio-group aria-label="Orcid-tietojen valinta" class="example-radio-group"
+                [(ngModel)]="orcidSetting" color="primary">
+                <mat-radio-button class="example-radio-button" value="all">Tuo kaikki ORCID-tietoni</mat-radio-button>
+                <mat-radio-button class="example-radio-button" value="basic">Tuo ORCIDista vain nimi ja ORCID id
+                </mat-radio-button>
+              </mat-radio-group>
             </div>
           </div>
-      
+
           <div class="row pb-4 d-flex justify-content-center">
             <div class="col-6 col-lg-2">
               <lib-secondary-button content="Edellinen" (click)="decrement()" [big]="true" [icon]="faAngleDoubleLeft"
@@ -119,12 +147,13 @@
               </lib-secondary-button>
             </div>
             <div class="col-6 col-lg-2">
-              <lib-primary-action-button content="Seuraava" [disabled]="!orcidSetting" (click)="increment()" [big]="true"
-                [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true"></lib-primary-action-button>
+              <lib-primary-action-button content="Seuraava" [disabled]="!orcidSetting" (click)="increment()"
+                [big]="true" [icon]="faAngleDoubleRight" [iconAfter]="true" [noSmIcon]="true">
+              </lib-primary-action-button>
             </div>
           </div>
         </ng-container>
-      
+
         <!-- Fourth step -->
         <div *ngSwitchCase="4" class="row">
           <div class="col">
