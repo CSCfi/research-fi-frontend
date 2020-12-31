@@ -31,7 +31,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from '@portal.services/tab-change.service';
-import { ResizeService } from '@portal.services/resize.service';
+import { ResizeService } from 'ui-library';
 import { Subscription } from 'rxjs';
 import { ScrollService } from '@portal.services/scroll.service';
 import { DataService } from '@portal.services/data.service';

@@ -1,16 +1,23 @@
-import { Component, OnInit, Input, Inject, OnChanges, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Inject,
+  OnChanges,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Search } from '@portal.models/search.model';
 import { Subscription } from 'rxjs';
 import { SearchService } from '@portal.services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResizeService } from '@portal.services/resize.service';
+import { ResizeService } from 'ui-library';
 import { WINDOW } from '@portal.services/window.service';
 import { TabChangeService } from '@portal.services/tab-change.service';
 
 @Component({
   selector: 'app-news-pagination',
   templateUrl: './news-pagination.component.html',
-  styleUrls: ['./news-pagination.component.scss']
+  styleUrls: ['./news-pagination.component.scss'],
 })
 export class NewsPaginationComponent implements OnInit, OnChanges {
   page: number;
@@ -29,16 +36,23 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
   next = $localize`:@@next:Seuraava`;
   paramSub: Subscription;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window,
-               private tabChangeService: TabChangeService ) { }
+  constructor(
+    private searchService: SearchService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private resizeService: ResizeService,
+    @Inject(WINDOW) private window: Window,
+    private tabChangeService: TabChangeService
+  ) {}
 
   ngOnInit(): void {
     // Initialize fromPage
     this.fromPage = (this.page - 1) * 10;
 
     // Get updates for window resize
-    this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
+    this.resizeSub = this.resizeService.onResize$.subscribe((size) =>
+      this.onResize(size)
+    );
   }
 
   ngOnChanges() {
@@ -58,26 +72,25 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
     const res = Array(length);
     // If page is at end, count from top
     // tslint:disable-next-line: no-bitwise
-    if (this.page > this.maxPage - (length / 2 | 0)) {
+    if (this.page > this.maxPage - ((length / 2) | 0)) {
       res[length - 1] = this.maxPage;
       for (let i = length - 2; i >= 0; i--) {
         res[i] = res[i + 1] - 1;
       }
-    // Otherwise count from bottom
+      // Otherwise count from bottom
     } else {
       // tslint:disable-next-line: no-bitwise
-      res[0] = Math.max(1, currentPage - (length / 2 | 0));
+      res[0] = Math.max(1, currentPage - ((length / 2) | 0));
       for (let i = 1; i < length; i++) {
         res[i] = res[i - 1] + 1;
       }
-
     }
     return res;
   }
 
   getHighestPage(results: number, interval: number = 10) {
     // tslint:disable-next-line: no-bitwise
-    return ((results - 1) / interval) + 1 | 0;
+    return ((results - 1) / interval + 1) | 0;
   }
 
   goToPage(n: number) {
@@ -92,7 +105,8 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
   onResize(size) {
     const w = size.width;
     // Change if swap to or from desktop
-    const changePages = (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
+    const changePages =
+      (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
     this.desktop = w >= 1200;
     this.navSmall = w >= 992;
     this.order = w >= 768;
@@ -102,15 +116,11 @@ export class NewsPaginationComponent implements OnInit, OnChanges {
     }
   }
 
-
   navigate() {
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: { page: this.page },
-        queryParamsHandling: 'merge'
-      });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.page },
+      queryParamsHandling: 'merge',
+    });
   }
-
 }

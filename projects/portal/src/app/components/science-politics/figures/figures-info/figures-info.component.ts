@@ -1,12 +1,19 @@
-import { Component, Inject, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ResizeService } from '@portal.services/resize.service';
+import {
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import { ResizeService } from 'ui-library';
 import { WINDOW } from '@portal.services/window.service';
 
 @Component({
   selector: 'app-figures-info',
   templateUrl: './figures-info.component.html',
   styleUrls: ['./figures-info.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class FiguresInfoComponent implements OnInit, OnDestroy {
   @Input() labelText: string;
@@ -18,10 +25,15 @@ export class FiguresInfoComponent implements OnInit, OnDestroy {
   width = this.window.innerWidth;
   resizeSub: any;
 
-  constructor(@Inject(WINDOW) private window: Window, private resizeService: ResizeService) { }
+  constructor(
+    @Inject(WINDOW) private window: Window,
+    private resizeService: ResizeService
+  ) {}
 
   ngOnInit(): void {
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
+      this.onResize(dims)
+    );
   }
 
   onClickedOutside(event) {
