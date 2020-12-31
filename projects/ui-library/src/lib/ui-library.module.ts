@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CloseButtonComponent } from './buttons/close-button/close-button.component';
@@ -37,4 +37,11 @@ import { NavigationComponent } from './header/navigation/navigation.component';
   ],
   providers: [WINDOW_PROVIDERS],
 })
-export class UiLibraryModule {}
+export class UiLibraryModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: UiLibraryModule,
+      providers: [WINDOW_PROVIDERS],
+    };
+  }
+}
