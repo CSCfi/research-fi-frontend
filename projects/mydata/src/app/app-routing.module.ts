@@ -14,6 +14,11 @@ const routes: Routes = [
     pathMatch: 'full',
     component: WelcomeStepperComponent,
   },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
