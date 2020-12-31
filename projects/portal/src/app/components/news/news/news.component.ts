@@ -5,31 +5,41 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, ViewChild, ElementRef, AfterViewInit, OnDestroy, PLATFORM_ID, ViewChildren,
-         QueryList, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  LOCALE_ID,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  PLATFORM_ID,
+  ViewChildren,
+  QueryList,
+  ViewEncapsulation,
+} from '@angular/core';
 import { SearchService } from '@portal.services/search.service';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from '@portal.services/tab-change.service';
 import { isPlatformBrowser } from '@angular/common';
-import { map } from 'rxjs/internal/operators/map';
 import { DataService } from '@portal.services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterService } from '@portal.services/filters/filter.service';
 import { SortService } from '@portal.services/sort.service';
-import { WINDOW } from '@portal.services/window.service';
-import { ResizeService } from '@portal.services/resize.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { WINDOW } from 'ui-library';
+import { ResizeService } from 'ui-library';
+import { BsModalRef } from 'ngx-bootstrap';
 import { NewsCardComponent } from '../news-card/news-card.component';
 import { news, common } from '@portal.assets/static-data/meta-tags.json';
 import { UtilityService } from '@portal.services/utility.service';
 import { FormControl } from '@angular/forms';
 
-
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   data: any;
@@ -38,7 +48,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   focusSub: any;
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild('older') olderHeader: ElementRef;
-  @ViewChildren(NewsCardComponent, {read: ElementRef }) cards: QueryList<ElementRef>;
+  @ViewChildren(NewsCardComponent, { read: ElementRef })
+  cards: QueryList<ElementRef>;
   width = this.window.innerWidth;
   mobile = this.width < 992;
   isBrowser: any;
@@ -57,21 +68,31 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   currentTerm: string;
   queryParams: any;
 
-  constructor( public searchService: SearchService, private titleService: Title, @Inject(LOCALE_ID) protected localeId: string,
-               private tabChangeService: TabChangeService, @Inject(PLATFORM_ID) private platformId: object,
-               private dataService: DataService, private route: ActivatedRoute, private filterService: FilterService,
-               private sortService: SortService, @Inject(WINDOW) private window: Window, private resizeService: ResizeService,
-               public utilityService: UtilityService, private router: Router) {
+  constructor(
+    public searchService: SearchService,
+    private titleService: Title,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private tabChangeService: TabChangeService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private filterService: FilterService,
+    private sortService: SortService,
+    @Inject(WINDOW) private window: Window,
+    private resizeService: ResizeService,
+    public utilityService: UtilityService,
+    private router: Router
+  ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   ngOnInit() {
     // Tab change is needed for filters
     this.tabChangeService.tab = 'news';
 
-    this.paramSub = this.route.queryParams.subscribe(query => {
+    this.paramSub = this.route.queryParams.subscribe((query) => {
       // Get query params and send search term to service
       this.queryParams = query;
       if (query.search) {
@@ -83,8 +104,8 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.sortService.updateTab('news');
       // Scroll to older news header with pagination, TODO: Do without timeout
       if (this.tabChangeService.focus === 'olderNews' && this.mobile) {
-        setTimeout(x => this.olderHeader.nativeElement?.scrollIntoView(), 1);
-        }
+        setTimeout((x) => this.olderHeader.nativeElement?.scrollIntoView(), 1);
+      }
 
       this.searchService.updateNewsPageNumber(parseInt(query.page, 10));
       // Check for Angular Univeral SSR, get filters if browser
@@ -93,7 +114,9 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       // Check for Angular Univeral SSR, update filters if browser
-      if (isPlatformBrowser(this.platformId)) {this.filterService.updateFilters(this.filters); }
+      if (isPlatformBrowser(this.platformId)) {
+        this.filterService.updateFilters(this.filters);
+      }
 
       // Get data
       this.getNews();
@@ -101,7 +124,9 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getFilterData();
     });
 
-    this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
+    this.inputSub = this.searchService.currentInput.subscribe(
+      (input) => (this.currentTerm = input)
+    );
     this.queryField = new FormControl(this.currentTerm);
 
     // Set title
@@ -115,60 +140,72 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
         break;
       }
       case 'sv': {
-        this.setTitle('De senaste vetenskaps- och forskningsnyheterna - Forskning.fi');
+        this.setTitle(
+          'De senaste vetenskaps- och forskningsnyheterna - Forskning.fi'
+        );
         break;
       }
     }
 
-    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
-                                this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale]);
+    this.utilityService.addMeta(
+      this.metaTags['title' + this.currentLocale],
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
 
-
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
+      this.onResize(dims)
+    );
   }
 
   ngAfterViewInit() {
     // Focus with skip-links
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'search-input') {
-        this.searchInput.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'search-input') {
+          this.searchInput.nativeElement.focus();
+        }
+        if (target === 'main-link') {
+          this.cards.first.nativeElement.focus();
+        }
       }
-      if (target === 'main-link') {
-        this.cards.first.nativeElement.focus();
-      }
-    });
+    );
   }
 
-  public setTitle( newTitle: string) {
-    this.titleService.setTitle( newTitle );
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   getNews() {
-    this.searchService.getNews(5)
-    .subscribe(data => {
-      this.data = data;
-      this.dataCopy = data;
-    }, error => this.errorMessage = error as any);
+    this.searchService.getNews(5).subscribe(
+      (data) => {
+        this.data = data;
+        this.dataCopy = data;
+      },
+      (error) => (this.errorMessage = error as any)
+    );
   }
 
   getOlderNews() {
-    this.searchService.getOlderNews()
-    .subscribe(data => {
-      this.olderData = data;
-    }, error => this.errorMessage = error as any);
+    this.searchService.getOlderNews().subscribe(
+      (data) => {
+        this.olderData = data;
+      },
+      (error) => (this.errorMessage = error as any)
+    );
   }
 
   getFilterData() {
     // Check for Angular Univeral SSR, get filter data if browser
     if (isPlatformBrowser(this.platformId)) {
-      this.searchService.getNewsFilters()
-      .subscribe(filterValues => {
-        this.filterValues = filterValues;
-        // Send response to data service
-        this.dataService.changeResponse(this.filterValues);
-      },
-        error => this.errorMessage = error as any);
+      this.searchService.getNewsFilters().subscribe(
+        (filterValues) => {
+          this.filterValues = filterValues;
+          // Send response to data service
+          this.dataService.changeResponse(this.filterValues);
+        },
+        (error) => (this.errorMessage = error as any)
+      );
     }
   }
 
@@ -177,7 +214,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.updateInput(searchTerm);
     const params = Object.assign({}, this.queryParams);
     params.search = searchTerm;
-    this.router.navigate([], {queryParams: params});
+    this.router.navigate([], { queryParams: params });
     this.getNews();
     this.getFilterData();
   }
@@ -189,7 +226,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.updateInput('');
     const params = Object.assign({}, this.queryParams);
     params.search = null;
-    this.router.navigate([], {queryParams: params});
+    this.router.navigate([], { queryParams: params });
   }
 
   ngOnDestroy() {
@@ -212,7 +249,7 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleData() {
-    this.data.length > 0 ? this.data = [] : this.data = this.dataCopy;
+    this.data.length > 0 ? (this.data = []) : (this.data = this.dataCopy);
   }
 
   onResize(event) {
@@ -226,5 +263,4 @@ export class NewsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mobile = true;
     }
   }
-
 }
