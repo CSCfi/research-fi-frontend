@@ -12,24 +12,19 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
   lang = 'fi';
   currentRoute: string;
-  navItems = [
-    { label: 'Kirjaudu sisään', link: '/login'},
-  ];
+  navItems = [{ label: 'Kirjaudu sisään', link: '' }];
 
   routeSub: Subscription;
   params: any;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-  ) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.routeEvent(router);
-   }
+  }
 
   // Get current url
   routeEvent(router: Router) {
@@ -53,5 +48,4 @@ export class HeaderComponent {
       }
     });
   }
-
 }
