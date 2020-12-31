@@ -50,8 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   appSlogan = $localize`:@@appSlogan:Tiedejatutkimus.fi`;
 
   navItems = [
-    { label: $localize`:@@headerLink1:Etusivu`, link: '/' },
-    { label: $localize`:@@headerLink2:Haku`, link: '/results/' },
+    { label: $localize`:@@headerLink1:Etusivu`, link: '/', exact: true },
+    { label: $localize`:@@headerLink2:Haku`, link: '/results/', exact: false },
     {
       label: $localize`:@@headerLink3:Tiede- ja innovaatiopolitiikka`,
       link: '/science-innovation-policy/',
@@ -59,16 +59,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
         {
           label: $localize`:@@headerLink4:Tutkimus- ja innovaatiojärjestelmä`,
           link: '/science-innovation-policy/research-innovation-system/',
+          exact: true,
         },
         {
           label: $localize`:@@headerLink5:Tiede ja tutkimus lukuina`,
           link: '/science-innovation-policy/science-research-figures/',
+          exact: true,
         },
       ],
     },
     {
       label: $localize`:@@headerLink6:Tiede- ja tutkimusuutiset`,
       link: '/news',
+      exact: true,
     },
   ];
 

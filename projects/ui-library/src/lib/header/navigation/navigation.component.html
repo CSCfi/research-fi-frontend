@@ -50,7 +50,7 @@
             <ng-container *ngFor="let item of navItems">
               <li *ngIf="!item.dropdownItems; else dropdownLink" class="nav-item col col-auto p-0">
                 <a class="nav-item nav-link" [routerLink]="item.link" routerLinkActive="active-link"
-                  [routerLinkActiveOptions]="{exact: true}" (click)="navbarOpen && toggleNavbar()">
+                  [routerLinkActiveOptions]="{exact: item.exact}" (click)="navbarOpen && toggleNavbar()">
                   <span class="label">{{item.label}}</span>
                 </a>
               </li>
