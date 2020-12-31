@@ -146,8 +146,8 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   clearActiveFilters = $localize`:@@clearActiveFilters: Tyhjennä rajaukset`;
   downloadImage = $localize`:@@downloadAsImage:Lataa kuvana (tulossa)`;
 
-  // tslint:disable-next-line: max-line-length
   betaTooltip =
+    // tslint:disable-next-line: max-line-length
     'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.';
 
   private metaTagsList = [
