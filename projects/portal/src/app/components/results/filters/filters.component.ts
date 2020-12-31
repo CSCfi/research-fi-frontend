@@ -25,7 +25,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '@portal.services/sort.service';
 import { ResizeService } from 'ui-library';
 import { Subscription } from 'rxjs';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from '@portal.services/utility.service';
 

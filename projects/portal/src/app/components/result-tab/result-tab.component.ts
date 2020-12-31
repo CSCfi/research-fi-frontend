@@ -9,7 +9,6 @@ import {
   OnChanges,
   Inject,
   LOCALE_ID,
-  HostListener,
   PLATFORM_ID,
   ViewEncapsulation,
   ViewChild,
@@ -18,7 +17,7 @@ import { SearchService } from '@portal.services/search.service';
 import { TabChangeService } from '@portal.services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from 'ui-library';
-import { UrlSerializer, Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   faArrowLeft,
   faArrowRight,
@@ -26,9 +25,7 @@ import {
   faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
-import { zhCnLocale } from 'ngx-bootstrap';
-import { WINDOW } from '@portal.services/window.service';
-import { SettingsService } from '@portal.services/settings.service';
+import { WINDOW } from 'ui-library';
 import { DataService } from '@portal.services/data.service';
 
 @Component({
@@ -94,7 +91,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     private router: Router,
     private dataService: DataService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private route: ActivatedRoute,
     @Inject(WINDOW) private window: Window
   ) {
     this.locale = localeId;

@@ -5,19 +5,26 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, Input, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  Input,
+  ViewChild,
+  ElementRef,
+  TemplateRef,
+} from '@angular/core';
 import { Visual } from '@portal.models/visualisation/visualisations.model';
 import { DOCUMENT } from '@angular/common';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-visualisation',
   templateUrl: './visualisation.component.html',
-  styleUrls: ['./visualisation.component.scss']
+  styleUrls: ['./visualisation.component.scss'],
 })
 export class VisualisationComponent implements OnInit {
-
   @ViewChild('main') main: ElementRef;
   @ViewChild('visualModal') modal: TemplateRef<any>;
 
@@ -39,23 +46,30 @@ export class VisualisationComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  constructor(@Inject(DOCUMENT) private document: Document, @Inject(WINDOW) private window: Window, private modalService: BsModalService) {
-  }
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(WINDOW) private window: Window,
+    private modalService: BsModalService
+  ) {}
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, Object.assign({}, {class: 'wide-modal'}));
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'wide-modal' })
+    );
   }
 
   closeModal() {
     this.modalRef.hide();
   }
 
-
   ngOnInit() {
     // Timeout waits for viewchild init
     setTimeout(() => {
       // Offset if wanted to be used to determine height
-      const offset = this.main.nativeElement.getBoundingClientRect().y - this.document.body.getBoundingClientRect().y;
+      const offset =
+        this.main.nativeElement.getBoundingClientRect().y -
+        this.document.body.getBoundingClientRect().y;
       // Arbitrary height, testing
       this.height = this.window.innerHeight - 300;
       this.width = (this.window.innerWidth - 100) * 0.75;

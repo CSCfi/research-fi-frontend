@@ -35,7 +35,7 @@ import { homepage, common } from '@portal.assets/static-data/meta-tags.json';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from '@portal.ui/review/review.component';
 import { PrivacyService } from '@portal.services/privacy.service';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

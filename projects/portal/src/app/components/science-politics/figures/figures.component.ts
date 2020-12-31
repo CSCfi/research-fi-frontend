@@ -35,7 +35,7 @@ import { ResizeService } from 'ui-library';
 import { Subscription } from 'rxjs';
 import { ScrollService } from '@portal.services/scroll.service';
 import { DataService } from '@portal.services/data.service';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from '@portal.services/history.service';
 import { figures, common } from '@portal.assets/static-data/meta-tags.json';

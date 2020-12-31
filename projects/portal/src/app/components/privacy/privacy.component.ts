@@ -25,7 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { privacy, common } from '@portal.assets/static-data/meta-tags.json';
 import { UtilityService } from '@portal.services/utility.service';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 
 @Component({
   selector: 'app-privacy',

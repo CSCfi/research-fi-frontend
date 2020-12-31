@@ -29,7 +29,7 @@ import { ResizeService } from 'ui-library';
 import { FilterService } from '@portal.services/filters/filter.service';
 import { DataService } from '@portal.services/data.service';
 import { Subscription, combineLatest, Subject, merge } from 'rxjs';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from '@portal.services/utility.service';
 import { SettingsService } from '@portal.services/settings.service';

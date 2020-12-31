@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ResizeService } from 'ui-library';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 
 @Component({
   selector: 'app-figures-info',

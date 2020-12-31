@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { SearchService } from '@portal.services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResizeService } from 'ui-library';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { TabChangeService } from '@portal.services/tab-change.service';
 
 @Component({

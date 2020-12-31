@@ -10,7 +10,7 @@ import { SearchService } from '@portal.services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ResizeService } from 'ui-library';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { Search } from '@portal.models/search.model';
 import {
   faAngleDoubleRight,

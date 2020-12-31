@@ -28,7 +28,7 @@ import { ResizeService } from 'ui-library';
 import { Subscription, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { WINDOW } from '@portal.services/window.service';
+import { WINDOW } from 'ui-library';
 import { TabChangeService } from '@portal.services/tab-change.service';
 import { UtilityService } from '@portal.services/utility.service';
 import {
