@@ -17,8 +17,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faExternalLinkAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  FontAwesomeModule,
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
+import {
+  faExternalLinkAlt,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
 
 import { AppComponent } from './app.component';
 
@@ -34,7 +40,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { ResultsComponent } from './components/results/results.component';
 
 import { SearchService } from './services/search.service';
-import { AutosuggestService} from './services/autosuggest.service';
+import { AutosuggestService } from './services/autosuggest.service';
 import { AppConfigService } from './services/app-config-service.service';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -49,7 +55,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -73,7 +82,10 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { ActiveFiltersComponent } from './components/results/active-filters/active-filters.component';
 import { VisualisationComponent } from './components/visualisation/visualisation.component';
 import { RelatedResultsComponent } from './components/results/related-results/related-results.component';
-import { SearchResultsComponent, EmptyResultComponent } from './components/results/search-results/search-results.component';
+import {
+  SearchResultsComponent,
+  EmptyResultComponent,
+} from './components/results/search-results/search-results.component';
 
 import { PortalModule } from '@angular/cdk/portal';
 import { ListItemComponent } from './components/search-bar/list-item/list-item.component';
@@ -82,8 +94,13 @@ import { TreemapComponent } from './components/visualisation/treemap/treemap.com
 import { HighlightSearch } from './pipes/highlight.pipe';
 import { LinksPipe } from './pipes/links.pipe';
 
-import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData, Location, LocationStrategy, PathLocationStrategy, ViewportScroller } from '@angular/common';
+import {
+  registerLocaleData,
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+  ViewportScroller,
+} from '@angular/common';
 import localeFi from '@angular/common/locales/fi';
 import localeEn from '@angular/common/locales/en';
 
@@ -109,6 +126,7 @@ import { ReplaceSpacePipe } from './pipes/replace-space';
 
 import { ErrorHandlerService } from './services/error-handler.service';
 import { FilterSumPipe } from './pipes/filter-sum.pipe';
+// tslint:disable-next-line: max-line-length
 import { ResearchInnovationSystemComponent } from './components/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './components/science-politics/figures/figures.component';
 import { ScrollSpyDirective } from './directives/scroll-spy.directive';
@@ -213,7 +231,8 @@ import { UiLibraryModule } from 'ui-library';
     TypeaheadModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule, MatInputModule,
+    MatIconModule,
+    MatInputModule,
     MatAutocompleteModule,
     MatChipsModule,
     MatFormFieldModule,
@@ -241,7 +260,7 @@ import { UiLibraryModule } from 'ui-library';
     CommonComponentsModule,
     A11yModule,
     TooltipModule.forRoot(),
-    UiLibraryModule,
+    UiLibraryModule.forRoot(),
   ],
   providers: [
     SearchService,
@@ -252,7 +271,8 @@ import { UiLibraryModule } from 'ui-library';
     AppConfigService,
     Location,
     {
-      provide: LocationStrategy, useClass: PathLocationStrategy
+      provide: LocationStrategy,
+      useClass: PathLocationStrategy,
     },
     {
       provide: APP_INITIALIZER,
@@ -263,95 +283,119 @@ import { UiLibraryModule } from 'ui-library';
         return () => {
           return appConfigService.loadAppConfig();
         };
-      }
+      },
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
-      multi: true
+      multi: true,
     },
     {
       provide: ErrorHandler,
-      useClass: ErrorHandlerService
+      useClass: ErrorHandlerService,
     },
     {
       provide: ApmService,
       useClass: ApmService,
-      deps: [Router]
+      deps: [Router],
     },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: {duration: 3000}
+      useValue: { duration: 3000 },
     },
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   entryComponents: [
     PublicationsComponent,
     PersonsComponent,
     FundingsComponent,
     InfrastructuresComponent,
     OrganizationsComponent,
-    EmptyResultComponent
-  ]
+    EmptyResultComponent,
+  ],
 })
-
 export class AppModule {
-
   startPage;
 
   isResultPage(url: string) {
     // Check if the page is on results, and that the tabname ends with 's' (not single result)
-    return url?.includes('/results') && url?.split('/')[2].split('?')[0].slice(-1) === 's';
+    return (
+      url?.includes('/results') &&
+      url?.split('/')[2].split('?')[0].slice(-1) === 's'
+    );
   }
 
   newPage(oldUrl: string, newUrl: string) {
     // Check if both urls are on the results page (tab change)
     if (this.isResultPage(oldUrl) && this.isResultPage(newUrl)) {
       return false;
-    // Check deepest locations without query params
-    } else if (oldUrl?.split('/').slice(-1)[0].split('?')[0] === newUrl.split('/').slice(-1)[0].split('?')[0]) {
+      // Check deepest locations without query params
+    } else if (
+      oldUrl?.split('/').slice(-1)[0].split('?')[0] ===
+      newUrl.split('/').slice(-1)[0].split('?')[0]
+    ) {
       return false;
-    // Same for fragments
-    } else if (oldUrl?.split('/').slice(-1)[0].split('#')[0] === newUrl.split('/').slice(-1)[0].split('#')[0]) {
+      // Same for fragments
+    } else if (
+      oldUrl?.split('/').slice(-1)[0].split('#')[0] ===
+      newUrl.split('/').slice(-1)[0].split('#')[0]
+    ) {
       return false;
-    // Otherwise new page
+      // Otherwise new page
     } else {
       return true;
     }
   }
 
-  constructor(library: FaIconLibrary, router: Router, viewportScroller: ViewportScroller, private historyService: HistoryService,
-              private tabChangeService: TabChangeService) {
+  constructor(
+    library: FaIconLibrary,
+    router: Router,
+    viewportScroller: ViewportScroller,
+    private historyService: HistoryService,
+    private tabChangeService: TabChangeService
+  ) {
     this.startPage = router.parseUrl(router.url).queryParams.page || 1;
     // Used to prevent scroll to top when filters are selected
     router.events
-    .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
-    .subscribe(e => {
-      // Trigger new page so first tab focuses skip links
-      const prevPageLocation = this.historyService.history[this.historyService.history.length - 2];
-      const currentPageLocation = e.routerEvent.url;
-      if (this.newPage(prevPageLocation, currentPageLocation)) {
-        this.tabChangeService.triggerNewPage();
-      }
-      if ((e.routerEvent.url.includes('/results'))) {
-        const targetPage = +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
-        // Different page or coming from different route
-        if (this.startPage !== targetPage || !this.historyService.history[this.historyService.history.length - 2]?.includes('/results')) {
-          viewportScroller.scrollToPosition([0, 0]);
+      .pipe(filter((e: Event): e is Scroll => e instanceof Scroll))
+      .subscribe((e) => {
+        // Trigger new page so first tab focuses skip links
+        const prevPageLocation = this.historyService.history[
+          this.historyService.history.length - 2
+        ];
+        const currentPageLocation = e.routerEvent.url;
+        if (this.newPage(prevPageLocation, currentPageLocation)) {
+          this.tabChangeService.triggerNewPage();
         }
-        this.startPage = targetPage;
-      } else if ((e.routerEvent.url.includes('/science-research-figures'))) {
+        if (e.routerEvent.url.includes('/results')) {
+          const targetPage =
+            +router.parseUrl(e.routerEvent.url).queryParams.page || 1;
+          // Different page or coming from different route
+          if (
+            this.startPage !== targetPage ||
+            !this.historyService.history[
+              this.historyService.history.length - 2
+            ]?.includes('/results')
+          ) {
+            viewportScroller.scrollToPosition([0, 0]);
+          }
+          this.startPage = targetPage;
+        } else if (e.routerEvent.url.includes('/science-research-figures')) {
           // scroll to top only in single figure view
-          if (!this.historyService.history[this.historyService.history.length - 2]?.includes('figures/s')) {
+          if (
+            !this.historyService.history[
+              this.historyService.history.length - 2
+            ]?.includes('figures/s')
+          ) {
             viewportScroller.scrollToPosition([0, 0]);
           }
           if (!e.routerEvent.url.includes('filter')) {
             viewportScroller.scrollToPosition([0, 0]);
           }
-      } else {
-        viewportScroller.scrollToPosition([0, 0]);
-      }
-    });
+        } else {
+          viewportScroller.scrollToPosition([0, 0]);
+        }
+      });
     // Add global icons
     library.addIcons(faExternalLinkAlt, faInfoCircle);
   }
