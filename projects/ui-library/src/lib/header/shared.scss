@@ -19,14 +19,12 @@ a.logo-text:hover {
   text-decoration: none;
 }
 
-.navbar-brand {
-  margin-right: 0;
+a {
+  text-decoration: none;
 }
 
-// Navigation
-.navbar {
-  padding: 1.2rem 0rem;
-  margin: 0 15px 0 10px;
+.navbar-brand {
+  margin-right: 0;
 }
 
 .navbar-expand .navbar-nav .nav-link {
@@ -361,8 +359,8 @@ mat-form-field.lang-select .mat-form-field-underline {
   }
 
   .navbar {
-      margin-right: 0;
-      padding: 8px 0;
+      margin-right: 0 !important;
+      padding: 8px 0 !important;
   }
 
   .navbar-toggler, .navbar-toggler-right {

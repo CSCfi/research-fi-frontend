@@ -46,7 +46,7 @@ html.cdk-global-scrollblock {
 
 body {
   color: mat-contrast($primary, 300);
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif !important;
 }
 
 // Override for mat select
@@ -208,6 +208,13 @@ mark,
   }
 }
 
+// Navigation
+.navbar {
+  padding: 1.2rem 0rem !important;
+  margin: 0 15px 0 10px !important;
+}
+
+
 // Tags
 mat-basic-chip.tag {
   padding: 7px 12px;
@@ -286,5 +293,12 @@ mat-basic-chip.tag {
 @media (max-width: 991px) {
   .info-icon {
     display: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  .navbar {
+    margin-right: 0 !important;
+    padding: 8px 0 !important;
   }
 }
