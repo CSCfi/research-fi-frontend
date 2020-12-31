@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-@import "./researchfi-palettes.scss";
+@import './researchfi-palettes.scss';
 
 $researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
 $researchfi-accent: mat-palette($mat-green);
@@ -37,7 +37,7 @@ $researchfi-theme: map_merge(
 $primary: map-get($researchfi-theme, primary);
 
 $theme-colors: (
-    primary: mat-color($primary, 500),
+  primary: mat-color($primary, 500),
 );
 
 html.cdk-global-scrollblock {
@@ -46,7 +46,7 @@ html.cdk-global-scrollblock {
 
 body {
   color: mat-contrast($primary, 300);
-  font-family: "Roboto", sans-serif !important;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 // Override for mat select
@@ -99,9 +99,9 @@ a:hover {
 
 // Add icon to external links. This class is added in CMS.
 a.ext::after {
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Font Awesome 5 Free';
   font-weight: 900;
-  content: "\f35d";
+  content: '\f35d';
   margin-left: 0.3rem;
 }
 
@@ -187,8 +187,8 @@ mark,
 
 // Tooltip
 .tooltip-inner {
-  max-width: 276px;
-  width: max-content;
+  max-width: 276px !important;
+  width: max-content !important;
 }
 
 .tooltip > div {
@@ -213,7 +213,6 @@ mark,
   padding: 1.2rem 0rem !important;
   margin: 0 15px 0 10px !important;
 }
-
 
 // Tags
 mat-basic-chip.tag {
