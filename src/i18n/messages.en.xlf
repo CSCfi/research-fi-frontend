@@ -721,6 +721,10 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="noMaterials" datatype="html">
+        <source>Ei tutkimusaineistoja</source>
+        <target>No research data</target>
+      </trans-unit>
       <trans-unit id="fundingRecipientHeader" datatype="html">
         <source>Myönnetty rahoitus</source>
         <target>Granted funding</target>

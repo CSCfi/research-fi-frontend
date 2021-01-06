@@ -130,6 +130,7 @@ export class SearchService {
             this.settingsService.querySettings('publication', this.searchTerm),
             this.settingsService.querySettings('person', this.searchTerm),
             this.settingsService.querySettings('funding', this.searchTerm),
+            this.settingsService.querySettings('material', this.searchTerm),
             this.settingsService.querySettings('infrastructure', this.searchTerm),
             this.settingsService.querySettings('organization', this.searchTerm)
           ]
@@ -153,6 +154,11 @@ export class SearchService {
               fundings: {
                 match: {
                     _index: 'funding'
+                }
+              },
+              materials: {
+                match: {
+                    _index: 'material'
                 }
               },
               infrastructures: {
