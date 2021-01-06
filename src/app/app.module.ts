@@ -137,6 +137,7 @@ import { ResultCountComponent } from './component/results/result-count/result-co
 import { BarComponent } from './component/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './component/science-politics/figures/figure-filters/figure-filters.component';
 import { FiguresInfoComponent } from './component/science-politics/figures/figures-info/figures-info.component';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { MaterialsComponent } from './component/results/materials/materials.component';
 import { SingleMaterialComponent } from './component/single/single-material/single-material.component';
 
@@ -201,6 +202,7 @@ import { SingleMaterialComponent } from './component/single/single-material/sing
     BarComponent,
     FigureFiltersComponent,
     FiguresInfoComponent,
+    SanitizeHtmlPipe,
     MaterialsComponent,
     SingleMaterialComponent
   ],

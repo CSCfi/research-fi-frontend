@@ -4384,6 +4384,10 @@
         <source>Tutkimustoiminta</source>
         <target>Research</target>
       </trans-unit>
+      <trans-unit id="loading">
+        <source>Ladataan</source>
+        <target>Loading</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

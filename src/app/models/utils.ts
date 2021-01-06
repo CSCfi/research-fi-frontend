@@ -125,4 +125,15 @@ export class LanguageCheck {
       }
     }
   }
+
+  translateKeywords(item) {
+    const endings = ['', 'En', 'Sv'];
+    const keywordsObj = {};
+
+    endings.forEach(lang => {
+      const keywords = item['keywords' + lang] ? item['keywords' + lang].map(x => x.keyword) : [];
+      keywordsObj['keyword' + (lang ? lang : 'Fi')] = keywords.join(', ');
+    })
+    return this.testLang('keyword', keywordsObj);
+  }
 }
