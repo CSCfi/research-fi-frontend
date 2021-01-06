@@ -409,6 +409,8 @@ export class FilterService {
       ...(basicFilter('funding', this.fundingSchemeFilter)),
       ...(basicFilter('funding', this.statusFilter)),
 
+      // Materials
+
       // Infrastructures
       ...(basicFilter('infrastructure', this.typeFilter)),
       ...(basicFilter('infrastructure', this.organizationFilter)),
