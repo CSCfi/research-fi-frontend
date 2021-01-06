@@ -101,6 +101,7 @@ export class SearchService {
             persons : { match : { _index : 'person' }},
             publications : { match : { _index : 'publication' }},
             fundings : { match : { _index : 'funding' }},
+            materials : { match : { _index : 'material' }},
             infrastructures : { match : { _index : 'infrastructure' }},
             organizations : { match : { _index : 'organization' }}
           }
