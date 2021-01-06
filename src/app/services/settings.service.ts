@@ -20,7 +20,7 @@ export class SettingsService {
   related = false;
 
   constructor( private staticDataService: StaticDataService) {
-    this.indexList = 'publication,funding,infrastructure,organization' + '/_search?';
+    this.indexList = 'publication,funding,material,infrastructure,organization' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 

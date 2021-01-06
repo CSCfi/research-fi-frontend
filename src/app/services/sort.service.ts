@@ -193,6 +193,19 @@ export class SortService {
         }
         break;
       }
+      case 'materials': {
+        switch (this.sortColumn) {
+          default: {
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type: 'long'}}];
+            break;
+          }
+        }
+        break;
+      }
+      default: {
+        this.sort = ['defaultSort']
+      }
     }
     return this.sort;
   }

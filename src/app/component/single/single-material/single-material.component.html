@@ -1,0 +1,80 @@
+<!--  This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+ <h1 #srHeader class="sr-only"></h1>
+ <aside>
+     <app-search-bar></app-search-bar>
+ </aside>
+  
+ <div class="wrapper" *ngIf="responseData" id="main-content">
+     <!-- Breadcrumb -->
+     <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
+     <div class="row shared">
+         <p class="back col-12">
+             <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a>
+         </p>
+         <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
+              <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+         </div>
+         <main class="col-12 col-md-8">
+             <div *ngFor="let item of responseData.materials">
+                 <div class="row d-flex justify-content-around">
+                     <div class="col p-0">
+                         <h1 class="result-header">{{item.name}}</h1>
+                     </div>
+                     <div *ngIf="item.logo && item.logo !== null" class="col p-0 org-logo text-right align-self-center">
+                         <img [src]="item.logo | safeUrl">
+                     </div>
+                 </div>
+ 
+                 <div id="info" class="table">
+                     <div class="row content">
+                         <ng-container *ngFor="let row of infoFields">
+                             <!-- Labels -->
+                             <h2 class="col-12 col-sm-6 col-lg-3 th">
+                                 {{row.label}}
+                                 <!-- Show year with staff count -->
+                                 <ng-container *ngIf="row.tooltip">
+                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        </span>
+                                    </ng-container>
+                                </h2>
+                                <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item[row.fieldEn]}}</div>
+                            </ng-container>
+                        </div>
+                     <div class="row content">
+                         <ng-container *ngFor="let row of otherFields">
+                             <!-- Labels -->
+                             <h2 class="col-12 col-sm-6 col-lg-3 th">
+                                 {{row.label}}
+                                 <!-- Show year with staff count -->
+                                 <ng-container *ngIf="row.tooltip">
+                                     <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
+                                     <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                         <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                        </span>
+                                    </ng-container>
+                                </h2>
+                                <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row.fieldEn">,</span> {{item[row.fieldEn]}}</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+          </main>
+          <div *ngFor="let item of responseData.materials" class="col-12 col-md-4">
+             <!-- Copy url -->
+             <aside>
+                 <mat-card>
+                     <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
+                     <app-share></app-share>
+                 </mat-card>
+             </aside>
+         </div>
+     </div>
+ </div>

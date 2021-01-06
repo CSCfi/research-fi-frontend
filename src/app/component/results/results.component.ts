@@ -22,7 +22,7 @@ import { WINDOW } from 'src/app/services/window.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from 'src/app/services/utility.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { publications, fundings, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
+import { publications, fundings, materials, infrastructures, organizations, common } from 'src/assets/static-data/meta-tags.json';
 import { Visual, VisualQuery } from 'src/app/models/visualisation/visualisations.model';
 import { StaticDataService } from 'src/app/services/static-data.service';
 import { faDownload, faTrash, faChartBar } from '@fortawesome/free-solid-svg-icons';
@@ -100,7 +100,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   // tslint:disable-next-line: max-line-length
   betaTooltip = 'Hakutulosten visualisaatiot ovat Tiedejatutkimus.fi –palvelun käyttäjien testikäytössä. Toiminnallisuutta parannetaan saadun palautteen perusteella syksyn 2020 aikana. Lisäksi visuaaleista on tulossa ruotsin- ja englanninkieliset versiot. Hankkeiden visuaalisiin tarkasteluihin lisätään myös myöntösummien jakaumat.';
 
-  private metaTagsList = [publications, fundings, infrastructures, organizations];
+  private metaTagsList = [publications, fundings, materials, infrastructures, organizations];
   private metaTags: {link: string};
   private commonTags = common;
   inputSub: Subscription;

@@ -721,6 +721,10 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="noMaterials" datatype="html">
+        <source>Ei tutkimusaineistoja</source>
+        <target>No research data</target>
+      </trans-unit>
       <trans-unit id="fundingRecipientHeader" datatype="html">
         <source>Myönnetty rahoitus</source>
         <target>Granted funding</target>
@@ -1132,6 +1136,10 @@
           <context context-type="sourcefile">app/component/results/tooltip/tooltip.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="description" datatype="html">
+        <source>Kuvaus</source>
+        <target>Description</target>
       </trans-unit>
       <trans-unit id="06f7177479837b356eabf8274c9785f3d6c5829b" datatype="html">
         <source>Kuvausta ei saatavilla.</source>
