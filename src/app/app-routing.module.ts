@@ -24,6 +24,7 @@ import { AccessibilityComponent } from './component/accessibility/accessibility.
 import { SitemapComponent } from './component/sitemap/sitemap.component';
 import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
 import { NotFoundComponent } from './common-components/not-found/not-found.component';
+import { SingleMaterialComponent } from './component/single/single-material/single-material.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
   {
     path: 'results/funding/:id',
     component: SingleFundingComponent
+  },
+  {
+    path: 'results/material/:id',
+    component: SingleMaterialComponent
   },
   {
     path: 'results/organization/:id',
