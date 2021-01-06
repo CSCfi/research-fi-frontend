@@ -1137,6 +1137,10 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="description" datatype="html">
+        <source>Kuvaus</source>
+        <target>Description</target>
+      </trans-unit>
       <trans-unit id="06f7177479837b356eabf8274c9785f3d6c5829b" datatype="html">
         <source>Kuvausta ei saatavilla.</source>
         <target>Description not available.</target>

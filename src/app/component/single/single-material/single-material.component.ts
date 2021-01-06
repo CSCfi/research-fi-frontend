@@ -28,42 +28,13 @@ export class SingleMaterialComponent implements OnInit {
 
   tab = 'materials';
 
-  sources = {
-    finto: $localize`:@@fintoSource:Lähde: Finto - sanasto- ja ontologiapalvelu www.finto.fi`,
-    ytj: $localize`:@@ytjSource:Lähde: Yritys- ja yhteisötietojärjestelmä (YTJ) www.ytj.fi`,
-    tk: $localize`:@@tkSource:Lähde: Tilastokeskus www.stat.fi`,
-    vipunen: $localize`:@@vipunenSource:Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi`
-  }
-
   infoFields = [
-    {label: $localize`:@@orgNameTranslation:Nimi (EN, SV)`, field: 'nameTranslations'},
-    {label: $localize`:@@orgOtherNames:Muut nimet`, field: 'variantNames', tooltip: this.sources.finto},
-    {label: $localize`:@@orgEstablished:Perustettu`, field: 'established', tooltip: this.sources.finto},
-    {label: $localize`:@@orgBackground:Lisätietoa`, field: 'background', tooltip: this.sources.finto},
-    {label: $localize`:@@orgPredecessor:Edeltävä organisaatio`, field: 'predecessors', tooltip: this.sources.finto},
-    {label: $localize`:@@orgRelated:Liittyvä organisaatio`, field: 'related', tooltip: this.sources.finto},
-    {label: $localize`:@@orgType:Organisaatiomuoto`, field: 'organizationType', tooltip: this.sources.ytj},
-    {label: $localize`:@@orgSector:Organisaation tyyppi`, field: 'sectorNameFi', tooltip: this.sources.ytj},
-    {label: $localize`:@@orgVAddress:Käyntiosoite`, field: 'visitingAddress', tooltip: this.sources.ytj},
-    {label: $localize`:@@orgAddress:Postiosoite`, field: 'postalAddress', tooltip: this.sources.ytj},
-    {label: $localize`:@@orgBID:Y-tunnus`, field: 'businessId', tooltip: this.sources.ytj},
-    {label: $localize`:@@orgSTID:Tilastokeskuksen oppilaitostunnus`, field: 'statCenterId', tooltip: this.sources.tk},
-    {label: $localize`:@@orgStaffCount:Opetus- ja tutkimushenkilöstön määrä (htv)`, field: 'staffCountAsFte', tooltip: this.sources.vipunen},
+    {label: $localize`:@@description:Kuvaus`, field: 'description'},
+    {label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'year'},
   ];
 
-  studentCounts = [
-    {label: $localize`:@@orgThesisCountBsc:Alempi korkeakoulututkinto`, field: 'thesisCountBsc'},
-    {label: $localize`:@@orgThesisCountMsc:Ylempi korkeakoulututkinto`, field: 'thesisCountMsc'},
-    {label: $localize`:@@orgThesisCountLic:Lisensiaatintutkinto`, field: 'thesisCountLic'},
-    {label: $localize`:@@orgThesisCountPhd:Tohtorintutkinto`, field: 'thesisCountPhd'}
-  ];
-
-  subUnitFields = [
-    {label: $localize`:@@orgSubUnits:Alayksiköt`, field: 'subUnits', tooltip: this.sources.vipunen}
-  ];
-
-  linkFields = [
-    {label: $localize`:@@links:Linkit`, field: 'homepage'}
+  otherFields = [
+    {label: $localize`:@@relatedMaterials:Liittyvät aineistot`, field: 'name', tooltip: ''}
   ];
 
   relatedList = [
@@ -73,31 +44,6 @@ export class SingleMaterialComponent implements OnInit {
     {labelFi: $localize`:@@infrastructures:Infrastruktuurit`, tab: 'infrastructures', disabled: true},
     {labelFi: $localize`:@@otherResearchActivity:Muu tutkimustoiminta`, tab: '', disabled: true},
   ];
-
-  // Translation links
-  vipunenLink = {
-    Fi: 'https://vipunen.fi/',
-    En: 'https://vipunen.fi/en-gb/',
-    Sv: 'https://vipunen.fi/sv-fi/'
-  }
-
-  statcenterLink = {
-    Fi: 'http://www.tilastokeskus.fi/',
-    En: 'http://www.tilastokeskus.fi/index_en.html',
-    Sv: 'http://www.tilastokeskus.fi/index_sv.html'
-  }
-
-  fintoLink = {
-    Fi: 'http://finto.fi/cn/fi/',
-    En: 'http://finto.fi/cn/en/',
-    Sv: 'http://finto.fi/cn/sv/'
-  }
-
-  ytjLink = {
-    Fi: 'https://www.ytj.fi/',
-    En: 'https://www.ytj.fi/en/index.html',
-    Sv: 'https://www.ytj.fi/sv/index.html'
-  }
 
 
   errorMessage = [];
@@ -176,9 +122,6 @@ export class SingleMaterialComponent implements OnInit {
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
-    this.studentCounts = this.studentCounts.filter(item => checkEmpty(item));
-    this.subUnitFields = this.subUnitFields.filter(item => checkEmpty(item));
-    this.linkFields = this.linkFields.filter(item => checkEmpty(item));
   }
 
   shapeData() {
