@@ -31,7 +31,19 @@ export class SingleMaterialComponent implements OnInit {
   infoFields = [
     {label: $localize`:@@description:Kuvaus`, field: 'description'},
     {label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'year'},
+    {label: $localize`:@@materialType:Aineiston tyyppi`, field: 'type'},
+    {label: $localize`:@@authors:Tekijät`, field: 'authors'},
+    {label: $localize`:@@materialProject:Projekti`, field: 'project'},
   ];
+  
+  otherInfoFields = [
+    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScience'},
+    {label: $localize`:@@language:Kieli`, field: 'lang'},
+    {label: $localize`:@@availability:Saatavuus`, field: 'availability'},
+    {label: $localize`:@@license:Lisenssi`, field: 'license'},
+    {label: $localize`:@@keywords:Avainsanat`, field: 'keywords'},
+    {label: $localize`:@@temporalCoverage:Ajallinen kattavuus`, field: 'coverage'},
+  ]
 
   otherFields = [
     {label: $localize`:@@relatedMaterials:Liittyvät aineistot`, field: 'name', tooltip: ''}
@@ -122,6 +134,8 @@ export class SingleMaterialComponent implements OnInit {
     };
     // Filter all the fields to only include properties with defined data
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.otherInfoFields = this.otherInfoFields.filter(item => checkEmpty(item));
+    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
   }
 
   shapeData() {
