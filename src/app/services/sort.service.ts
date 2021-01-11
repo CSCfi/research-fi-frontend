@@ -194,9 +194,25 @@ export class SortService {
         break;
       }
       case 'materials': {
+        this.yearField = 'datasetCreated';
         switch (this.sortColumn) {
-          default: {
+          case 'name': {
             const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'author': {
+            const sortString = 'authorsText.keyword';
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          case 'year': {
+            const sortString = this.yearField;
+            this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type : 'long'}}];
+            break;
+          }
+          default: {
+            const sortString = this.yearField;
             this.sort = [{[sortString]: {order: this.sortDirection ? 'desc' : 'asc', unmapped_type: 'long'}}];
             break;
           }
