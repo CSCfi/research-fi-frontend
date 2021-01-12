@@ -48,14 +48,21 @@ export class SingleMaterialComponent implements OnInit {
   otherFields = [
     {label: $localize`:@@relatedMaterials:Liittyvät aineistot`, field: 'name', tooltip: ''}
   ];
+  
+  linksFields = [
+    {label: $localize`:@@doi:DOI`, field: 'doi', tooltip: ''}
+  ]
 
   relatedList = [
-    {labelFi: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: false},
+    {labelFi: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: true},
     {labelFi: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true},
-    {labelFi: $localize`:@@materials:Aineistot`, tab: '', disabled: true},
+    {labelFi: $localize`:@@fundings:Hankkeet`, tab: '', disabled: true},
     {labelFi: $localize`:@@infrastructures:Infrastruktuurit`, tab: 'infrastructures', disabled: true},
     {labelFi: $localize`:@@otherResearchActivity:Muu tutkimustoiminta`, tab: '', disabled: true},
   ];
+
+  copyReferences = $localize`:@@copyReferences:Kopioi viitetiedot`;
+  copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
 
 
   errorMessage = [];
@@ -136,6 +143,7 @@ export class SingleMaterialComponent implements OnInit {
     this.infoFields = this.infoFields.filter(item => checkEmpty(item));
     this.otherInfoFields = this.otherInfoFields.filter(item => checkEmpty(item));
     this.otherFields = this.otherFields.filter(item => checkEmpty(item));
+    this.linksFields = this.linksFields.filter(item => checkEmpty(item));
   }
 
   shapeData() {

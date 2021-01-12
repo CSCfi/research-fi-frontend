@@ -142,13 +142,96 @@
             </div>
           </main>
           <div *ngFor="let item of responseData.materials" class="col-12 col-md-4">
-             <!-- Copy url -->
-             <aside>
-                 <mat-card>
-                     <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
-                     <app-share></app-share>
-                 </mat-card>
-             </aside>
+            <aside>
+                <aside>
+                    <mat-card>
+                        <mat-card-title>
+                            <h2 i18n="@@materialLinks">Linkit tutkimusaineistoon</h2>
+                        </mat-card-title>
+                        <div class="row links" *ngFor="let row of linksFields">
+                            <div *ngIf="row.field === 'doi'" class=" info-link-wrapper">
+                                <div class="col link doi">
+                                    <span class="doi-tag">DOI</span>
+                                    <span class="doi-link">
+                                        <a [attr.href]="'https://doi.org/'+item.doi" target="_blank">{{item.doi}}
+                                            <fa-icon icon="external-link-alt"></fa-icon></a>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Check that doi & doiHandle mismatch -->
+                            <div *ngIf="row.field !== 'doi' && item[row.field] !== 'https://doi.org/'+item.doi"
+                                class="info-link-wrapper">
+                                <div class="col link">
+                                    <a class="info-link" href={{row.path}}{{item[row.field]}}
+                                        target="_blank">{{item[row.field] | cutContent: 40}}<fa-icon
+                                            icon="external-link-alt"></fa-icon></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Self archived addresses -->
+                        <ng-container *ngFor="let selfArchived of item.selfArchivedData">
+                            <div class="row links" *ngFor="let row of selfArchived.selfArchived">
+                                <div class="info-link-wrapper">
+                                    <div class="col link">
+                                        <a class="info-link" href={{row.selfArchivedAddress}}
+                                            target="_blank">{{row.selfArchivedAddress | cutContent: 40}}<fa-icon
+                                                icon="external-link-alt"></fa-icon></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+                        <div *ngIf="!linksFields.length && !item.selfArchivedData" class="no-links"
+                            i18n="@@noMaterialLinks">Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa</div>
+                    </mat-card>
+                </aside>
+                <mat-card>
+                    <mat-card-title>
+                        <h2>
+                            <ng-container i18n="@@relatedMaterials">Hae tutkimusaineistoon liittyvät</ng-container> (
+                            <ng-container i18n="@@comingSoon">tulossa</ng-container>)
+                        </h2>
+                    </mat-card-title>
+                    <app-related-links [id]="item.id">
+                    </app-related-links>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title>
+                        <h2 i18n="@@citationHeader">Viittaa</h2>
+                    </mat-card-title>
+                    <div>
+                        <div class="reference">
+                            <app-secondary-button (click)="openModal(citeModal)" [content]="copyReferences"
+                                [icon]="faQuoteRight" [big]="true" [disabled]="true"></app-secondary-button>
+                            <!-- <small *ngIf="!hasDoi" class="no-doi-warn" i18n="@@doiWarning">Viitetiedot eivät ole saatavilla, koska julkaisulla ei ole DOI-tunnistetta.</small> -->
+                        </div>
+                    </div>
+                </mat-card>
+            </aside>
+            <!-- Copy url -->
+            <aside>
+                <mat-card>
+                    <mat-card-title>
+                        <h2 i18n="@@shareHeader">Jaa</h2>
+                    </mat-card-title>
+                    <app-share></app-share>
+                </mat-card>
+            </aside>
+            <aside>
+                <mat-card>
+                    <mat-card-title>
+                        <h2 i18n="@@materialSource">Tutkimusaineistotiedon lähde</h2>
+                    </mat-card-title>
+                    <div>
+                        <p *ngIf="item.dataCatalog?.length > 0">{{item.dataCatalog}}</p>
+                        <p *ngIf="item.dataCatalog?.length === 0">Tiedon lähde ei saatavilla.</p>
+                    </div>
+                    <div class="clear"></div>
+                </mat-card>
+            </aside>
          </div>
      </div>
  </div>

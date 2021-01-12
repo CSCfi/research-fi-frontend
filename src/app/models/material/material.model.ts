@@ -25,6 +25,7 @@ export class Material {
         public license: string,
         public keywords: string,
         public coverage: string,
+        public dataCatalog: string,
         public openAccess: boolean,
         public doi: string,
     ) {}
@@ -55,6 +56,7 @@ export class MaterialAdapter implements Adapter<Material> {
             'lisenssi - test',
             keywords.join(', '),
             'kattavuus - test',
+            this.lang.testLang('name', item?.dataCatalog[0]),
             Math.random() > 0.5, // Open access test
             Math.random() > 0.5 ? 'test' : undefined // DOI test
         );
