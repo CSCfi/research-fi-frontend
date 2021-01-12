@@ -15,7 +15,17 @@ export class Material {
         public id: string,
         public name: string,
         public description: string,
-        public year: number,
+        public year: string,
+        public type: string,
+        public authors: string,
+        public project: string,
+        public fieldsOfScience: string,
+        public lang: string,
+        public availability: string,
+        public license: string,
+        public keywords: string,
+        public coverage: string,
+        public dataCatalog: string,
         public openAccess: boolean,
         public doi: string,
     ) {}
@@ -29,11 +39,24 @@ export class MaterialAdapter implements Adapter<Material> {
     constructor(private lang: LanguageCheck) {}
     adapt(item: any): Material {
 
+
+        const keywords = item.keywords ? item.keywords.map(x => x.keyword) : [];
+
         return new Material(
             item.identifier,
             this.lang.testLang('name', item),
             this.lang.testLang('description', item),
             item.datasetCreated.slice(0, 4),
+            'tyyppi - test',
+            'tekijät - test',
+            'projekti - test',
+            'tieteenalat - test',
+            'kieli - test',
+            'saatavuus - test',
+            'lisenssi - test',
+            keywords.join(', '),
+            'kattavuus - test',
+            this.lang.testLang('name', item?.dataCatalog[0]),
             Math.random() > 0.5, // Open access test
             Math.random() > 0.5 ? 'test' : undefined // DOI test
         );

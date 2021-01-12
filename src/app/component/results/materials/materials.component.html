@@ -14,19 +14,18 @@
         <div class="col col-1 icon"></div>
         <div class="col col-lg-5 col-xl-4 d-none d-lg-block">
             <span #main tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'name' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="utilityService.sortBy('name')" (keydown.enter)="utilityService.sortBy('name')" i18n="@@">Tutkimusaineiston nimi</span>
+            (click)="utilityService.sortBy('name')" (keydown.enter)="utilityService.sortBy('name')" i18n="@@materialName">Tutkimusaineiston nimi</span>
         </div>
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'author' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="utilityService.sortBy('author')" (keydown.enter)="utilityService.sortBy('author')" i18n="@@publicationAuthors">Tutkimusaineiston tekijät / organisaatio</span>
+            (click)="utilityService.sortBy('author')" (keydown.enter)="utilityService.sortBy('author')" i18n="@@materialAuthors">Tutkimusaineiston tekijät / organisaatio</span>
         </div>
         <div class="col col-lg-1 d-none d-lg-block">
             <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'year' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
             (click)="utilityService.sortBy('year')" (keydown.enter)="utilityService.sortBy('year')" i18n="@@year">Vuosi</span>
         </div>
         <div class="col col-xl-3 d-none d-xl-block">
-            <span tabindex="0" class="bold uppercase" [ngClass]="sortColumn === 'medium' ? (!sortDirection ? 'asc' : 'desc') : 'unsorted'"
-            (click)="utilityService.sortBy('medium')" (keydown.enter)="utilityService.sortBy('medium')" i18n="@@publicationMedium">Tagit</span>
+            <span class="bold uppercase cursor-default" (keydown.enter)="utilityService.sortBy('medium')" i18n="@@tags">Tagit</span>
         </div>
     </div>
     <div *ngIf="resultData" class="result-container">
