@@ -208,4 +208,6 @@ export class SingleMaterialComponent implements OnInit {
   expandDescription() {
     this.expand = !this.expand;
   }
+
+  openModal(cite) {}
 }
