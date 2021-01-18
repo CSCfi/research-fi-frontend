@@ -1,0 +1,122 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+// You can add global styles to this file, and also import other style files
+@import '~@angular/material/theming';
+@include mat-core();
+
+// Import theme from shared files
+@import 'researchfi-theme.scss';
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+// Custom themes from library
+@import 'header/shared-theme.scss';
+@import 'buttons/close-button/close-button.component-theme.scss';
+@import 'buttons/secondary-button/secondary-button.component-theme.scss';
+@import 'buttons/primary-action-button/primary-action-button.component-theme.scss';
+
+// Component custom styles
+@import './app/layout/header/header.component-theme.scss';
+
+// Global element color definitions
+@mixin researchfi-components-theme($theme) {
+  @include app-header-theme($theme);
+  @include app-secondary-button-theme($theme);
+  @include app-primary-action-button-theme($theme);
+  @include app-close-button-theme($theme);
+  @include app-header-theme($theme);
+
+  $primary: map-get($theme, primary);
+
+  .full-width {
+    background: mat-color($primary);
+    min-height: 3rem;
+  }
+
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+
+  @media (max-width: 1199px) {
+    .wrapper {
+      padding: 0 8px;
+    }
+  }
+  @media (min-width: 1200px) and (max-width: 1440px) {
+    .wrapper {
+      max-width: 90vw;
+    }
+  }
+
+  // Disable link
+  a.disabled {
+    color: mat-color($primary, lighter) !important;
+  }
+}
+
+// Global style definitions
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.ttv-button {
+  border-radius: 6px;
+  font-size: 1rem;
+  padding: 0 32px;
+}
+
+.ttv-button:not(.big) {
+  height: 44px;
+}
+
+fa-icon[icon='external-link-alt'] {
+  padding-left: 5px;
+}
+
+h2 {
+  font-size: 1.7rem;
+}
+
+a {
+  text-decoration: underline;
+}
+
+// Modal doesnt scroll page
+.modal-open modal-container.modal {
+  overflow-y: hidden;
+}
+
+// Dont show outlines for mouse users
+body:not(.user-tabbing) {
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  *:focus {
+    outline: none;
+  }
+}
+
+body {
+  @include angular-material-theme($researchfi-theme);
+  @include researchfi-components-theme($researchfi-theme);
+  overflow-y: scroll;
+  position: relative;
+  margin: 0 auto;
+  min-height: 100%;
+}

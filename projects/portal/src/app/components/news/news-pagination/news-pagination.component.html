@@ -1,0 +1,26 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<div class="pagination-container" *ngFor="let response of [responseData]">
+    <div class="pagination">
+      <div class="buttons row" *ngIf="response[0]?.total">
+        <lib-secondary-button class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-left text-lg-right" [class.pagination-link-active]="fromPage > 1" (click)="goToPage(page-1)"
+          [disabled]="fromPage <= 1" [content]="previous" [small]="navSmall">
+        </lib-secondary-button>
+
+        <div class="pages col-12 col-md-6" [class.order-last]="!order">
+          <button *ngFor="let number of pages" class="page-button" [disabled]="page === number" (click)="goToPage(number)" [class.current-page]="page === number">
+            {{number}}
+          </button>
+        </div>
+        
+        <lib-secondary-button class="col-5 col-md-3 col-lg-auto p-0 pagination-button text-right text-lg-left" [class.pagination-link-active]="fromPage + 10  < response[0].total" (click)="goToPage(page+1)"
+          [disabled]="fromPage + 10 >= response[0].total" [content]="next" [small]="navSmall">
+        </lib-secondary-button>
+      </div>
+    </div>
+</div>

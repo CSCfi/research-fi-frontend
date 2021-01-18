@@ -1,0 +1,179 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+// You can add global styles to this file, and also import other style files
+@import '~@angular/material/theming';
+@include mat-core();
+
+// Import theme from shared files
+@import 'researchfi-theme.scss';
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+// Custom themes from library
+@import 'header/shared-theme.scss';
+@import 'buttons/close-button/close-button.component-theme.scss';
+@import 'buttons/secondary-button/secondary-button.component-theme.scss';
+@import 'buttons/primary-action-button/primary-action-button.component-theme.scss';
+
+// Component custom styles
+@import './styles-custom-expansion-panel.scss';
+@import './app/layout/footer/footer.component.scss-theme.scss';
+@import './app/component/home-page/home-page.component.scss-theme.scss';
+@import './app/component/search-bar/search-bar.component.scss-theme.scss';
+@import './app/component/result-tab/result-tab.component.scss-theme.scss';
+@import './app/component/results/results.component.scss-theme-shared.scss';
+@import './app/component/results/results.component.scss-shared.scss';
+@import './app/component/single/single-result.scss-shared.scss';
+@import './app/component/single/single-result.scss-theme-shared.scss';
+@import './app/component/results/pagination/pagination.component.scss-theme.scss';
+@import './app/component/results/sort/sort.component.scss-theme.scss';
+@import './app/component/results/active-filters/active-filters.component.scss-theme.scss';
+@import './app/component/results/active-filters/active-filters-shared.scss';
+@import './app/component/results/active-filters/active-filters-theme-shared.scss';
+@import './app/component/breadcrumb/breadcrumb.component.scss-theme.scss';
+@import './app/component/results/filters/filters-shared.scss';
+@import './app/component/results/filters/filters.theme-shared.scss';
+@import './app/component/single/single-publication/single-publication.component.scss-theme.scss';
+@import './app/component/single/single-material/single-material.component.scss-theme.scss';
+@import './app/component/single/single-funding/single-funding.component.scss-theme.scss';
+@import './app/component/science-politics/figures/figures.component.scss-theme.scss';
+@import './app/component/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss';
+@import './app/component/science-politics/figures/single-figure/single-figure.component.scss-theme.scss';
+@import './app/component/science-politics/figures/figures-info/figures-info.component.scss-theme.scss';
+@import './app/component/science-politics/science-politics.scss-shared.scss';
+@import './app/component/science-politics/science-politics.scss-theme-shared.scss';
+@import './app/component/service-info/service-info.component.scss-theme.scss';
+@import './app/component/news/news/news.component.scss-theme.scss';
+@import './app/component/news/news-card/news-card.component.scss-theme.scss';
+@import './app/common-components/info/info.component-theme.scss';
+@import './app/layout/cookie-consent/cookie-consent-theme.scss';
+@import './app/layout/review/review.component.scss-theme.scss';
+@import './app/components/results/pagination/pagination.component.scss';
+@import './app/components/science-politics/figures/carousel/carousel.component.scss-theme.scss';
+@import './app/components/visualisation/bar/bar.component.scss-theme.scss';
+
+// Global element color definitions
+@mixin researchfi-components-theme($theme) {
+  @include mat-expansion-panel-style($theme);
+  @include app-header-theme($theme);
+  @include app-footer-theme($theme);
+  @include app-home-page-theme($theme);
+  @include app-search-bar-theme($theme);
+  @include app-result-tab-theme($theme);
+  @include app-filters-theme-shared($theme);
+  @include app-filters-shared;
+  @include app-results-theme-shared($theme);
+  @include app-results-shared;
+  @include app-single-result-theme-shared($theme);
+  @include app-single-result-shared;
+  @include app-pagination-theme($theme);
+  @include app-sort-theme($theme);
+  @include app-active-filters-theme($theme);
+  @include app-active-filters-shared;
+  @include app-active-filters-shared-theme($theme);
+  @include app-breadcrumb-theme($theme);
+  @include app-single-publication-theme($theme);
+  @include app-single-funding-theme($theme);
+  @include app-single-material-theme($theme);
+  @include app-figures-theme($theme);
+  @include app-research-innovation-system-theme($theme);
+  @include app-single-figure-theme($theme);
+  @include app-science-politics-shared;
+  @include app-science-politics-theme-shared($theme);
+  @include app-figures-info-theme($theme);
+  @include app-info-component-theme($theme);
+  @include app-secondary-button-theme($theme);
+  @include app-primary-action-button-theme($theme);
+  @include app-close-button-theme($theme);
+  @include app-service-info-theme($theme);
+  @include app-news-theme($theme);
+  @include app-news-card-theme($theme);
+  @include app-cookie-consent-theme($theme);
+  @include app-review-theme($theme);
+  @include app-pagination-shared;
+  @include app-carousel-theme($theme);
+  @include app-bar-chart-theme($theme);
+
+  $primary: map-get($theme, primary);
+
+  .full-width {
+    background: mat-color($primary);
+    min-height: 3rem;
+  }
+
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+
+  @media (max-width: 1199px) {
+    .wrapper {
+      padding: 0 8px;
+    }
+  }
+  @media (min-width: 1200px) and (max-width: 1440px) {
+    .wrapper {
+      max-width: 90vw;
+    }
+  }
+
+  // Disable link
+  a.disabled {
+    color: mat-color($primary, lighter) !important;
+  }
+}
+
+// Global style definitions
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.ttv-button {
+  border-radius: 6px;
+  height: 44px;
+  font-size: 1rem;
+  padding: 0 32px;
+}
+
+fa-icon[icon='external-link-alt'] {
+  padding-left: 5px;
+}
+
+// Modal doesnt scroll page
+.modal-open modal-container.modal {
+  overflow-y: hidden;
+}
+
+// Dont show outlines for mouse users
+body:not(.user-tabbing) {
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  *:focus {
+    outline: none;
+  }
+}
+
+body {
+  @include angular-material-theme($researchfi-theme);
+  @include researchfi-components-theme($researchfi-theme);
+  overflow-y: scroll;
+  position: relative;
+  margin: 0 auto;
+  min-height: 100%;
+}

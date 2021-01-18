@@ -1,0 +1,153 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+.col-9.row.main-content {
+  padding-top: 15px;
+}
+
+.spinner-center {
+  margin-top: 25px;
+  height: 100px;
+  padding-left: 40%;
+}
+
+// Breadcrumbs
+.breadcrumb {
+  position: absolute;
+  background-color: transparent;
+  color: #000;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+// Hard coded breadcrumb for demo purpose
+.row.breadcrumbs {
+  padding: 15px 0px;
+}
+
+span.arrow:after {
+  font-family: 'FontAwesome';
+  content: '\f061';
+  padding: 0 6px;
+}
+
+// Total
+h2 {
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.info {
+  overflow-wrap: break-word;
+  min-width: 528px;
+  position: absolute;
+  z-index: 1;
+  padding: 0.5rem;
+  left: 100%;
+  border: solid 1px;
+}
+
+span.total {
+  font-style: italic;
+  white-space: nowrap;
+}
+
+// Filters
+.filters {
+  padding: 0;
+  align-self: flex-start;
+}
+
+.sort {
+  padding: 0;
+}
+
+.main-content {
+  align-content: flex-start;
+}
+
+// Visualisation modal
+.visual-button-container {
+  padding: 15px 0;
+  margin-bottom: 10px;
+}
+
+.modal-header {
+  justify-content: unset;
+  > *:first-child {
+    margin-right: auto;
+    visibility: hidden;
+    width: 74px;
+  }
+  > *:last-child {
+    margin-left: auto;
+  }
+  .modal-title {
+    font-size: 22px;
+  }
+}
+.modal-body {
+  padding: 10px;
+  padding-bottom: 20px;
+  .visual-select {
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .overflow-wrapper {
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 415px);
+  }
+  .vis-info {
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .vis-style-toggles {
+    width: 465px; // Adjust width according to longest translation when done
+    padding: 0;
+    margin-bottom: 10px;
+    padding-right: 10px;
+  }
+  .vis-style-toggle {
+    border-radius: 0;
+    height: 55px;
+  }
+  #download-image {
+    margin-bottom: 10px;
+  }
+}
+
+// No results
+.no-results {
+  min-height: 420px;
+}
+
+// Responsive
+@media (max-width: 991px) {
+  main {
+    padding: 5px 0;
+  }
+
+  .filters {
+    align-self: center;
+  }
+
+  h2 {
+    font-size: 28px;
+    padding: 24px 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .filters {
+    margin-bottom: 5px;
+    // Fix for overflow on 320px width
+    max-width: 49%;
+  }
+}

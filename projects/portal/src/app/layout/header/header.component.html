@@ -1,0 +1,36 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<header class="wrapper">
+  <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'" #srHelper>
+    <ul>
+      <li *ngIf="hideInputSkip">
+        <a i18n="@@skipToInput" (blur)="showSkipLinks = false" (click)="changeFocus('search-input')"
+          (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää hakukenttään</a>
+      </li>
+      <li>
+        <a i18n="@@skipToMain" (blur)="showSkipLinks = false" (click)="changeFocus('main-link')"
+          (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää sivun
+          pääsisältöön</a>
+      </li>
+      <li>
+        <a i18n="@@skipToAccessibility" (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0"
+          routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a>
+      </li>
+    </ul>
+  </div>
+  <!-- Shared header -->
+  <!-- <lib-header [appSlogan]="appSlogan" [navItems]="navItems" [currentLang]="lang" [currentRoute]="currentRoute" [langSelector]="true"></lib-header> -->
+
+  <div class="navbar navbar-expand-xl navbar-light row">
+    <!-- Logo / slogan -->
+    <lib-logo class="logo col-7 col-xs-9 col-xl-2 px-0" [appSlogan]="appSlogan"></lib-logo>
+    <!-- Navigation -->
+    <lib-navigation class="nav-top col-auto col-xs-3 col-xl-10 p-0" [navItems]="navItems" [currentLang]="lang"
+      [currentRoute]="currentRoute" [langSelector]="true"></lib-navigation>
+  </div>
+</header>

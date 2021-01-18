@@ -1,0 +1,302 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+@import './researchfi-palettes.scss';
+
+$researchfi-primary: mat-palette($researchfi-primary-palette, 500, 300, 900);
+$researchfi-accent: mat-palette($mat-green);
+$researchfi-warn: mat-palette($mat-red);
+
+$researchfi-theme: mat-light-theme(
+  $researchfi-primary,
+  $researchfi-accent,
+  $researchfi-warn
+);
+
+// Insert custom background color
+// https://stackoverflow.com/questions/43919927/angular-material2-theming-how-to-set-app-background
+$background-color: map-get($researchfi-primary, 100);
+$background: map-get($researchfi-theme, background);
+$background: map_merge(
+  $background,
+  (
+    card: $background-color,
+  )
+);
+$researchfi-theme: map_merge(
+  $researchfi-theme,
+  (
+    background: $background,
+  )
+);
+
+$primary: map-get($researchfi-theme, primary);
+
+html.cdk-global-scrollblock {
+  overflow: hidden !important;
+}
+
+body {
+  color: mat-contrast($primary, 300);
+  font-family: 'Roboto', sans-serif !important;
+}
+
+// Override for mat select
+body div.cdk-overlay-container {
+  z-index: 1051;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  // color: map-get(map-get($researchfi-primary, contrast), 200);
+  color: mat-contrast($primary, 200);
+  // line-height: 1.5;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+h2 {
+  font-size: 1.7rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.2rem;
+}
+
+.page-content {
+  h2,
+  h3,
+  h4 {
+    margin-top: 2rem;
+  }
+}
+
+.primary-color {
+  color: mat-color($primary, 500);
+}
+
+a {
+  // Accessibility checked color
+  color: #3366cc;
+  font-weight: 400;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+// Add icon to external links. This class is added in CMS.
+a.ext::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f35d';
+  margin-left: 0.3rem;
+}
+
+ul {
+  list-style: disc;
+  padding-inline-start: 1rem;
+}
+
+#main-content {
+  margin-top: 1.5rem;
+}
+
+.main-loader {
+  height: 100%;
+}
+
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+.full-width .row {
+  margin: 0 auto;
+}
+
+.container-fluid {
+  padding: 0px !important;
+}
+
+.container {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+// Disable link
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
+
+// Typography
+h2 {
+  font-weight: 700;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+span.bold {
+  font-weight: bold;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+mark,
+.mark {
+  padding: 0;
+  // font-weight: bold;
+  font-weight: 400;
+  color: mat-contrast($primary, 300);
+  background-color: #ffc000;
+}
+
+// Forms
+.mat-pseudo-checkbox {
+  background: #fff;
+}
+
+// Help icon
+.info-icon {
+  color: mat-color($primary, 500);
+  cursor: pointer;
+}
+
+// Mat select
+.mat-select-panel {
+  background: white !important;
+}
+
+// Tooltip
+.tooltip-inner {
+  max-width: 276px !important;
+  width: max-content !important;
+}
+
+.tooltip > div {
+  animation-name: delayedFadeIn;
+  animation-duration: 0.1s; /* Adjust this duration */
+}
+
+@keyframes delayedFadeIn {
+  0% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  } /* Set this to 99% for no fade-in. */
+  100% {
+    opacity: 1;
+  }
+}
+
+// Navigation
+.navbar {
+  padding: 1.2rem 0rem !important;
+  margin: 0 !important;
+}
+
+// Tags
+mat-basic-chip.tag {
+  padding: 7px 12px;
+  border-radius: 1rem;
+  align-items: center;
+  cursor: default;
+  min-height: 2rem;
+  border: 1px solid mat-color($primary);
+  color: mat-color($primary);
+}
+
+// Bubble background
+.bg-bubble {
+  position: absolute;
+  border-radius: 50%;
+  width: 500px;
+  height: 500px;
+  right: 1%;
+  margin-top: -48px;
+  z-index: -1;
+}
+
+.bg-bubble,
+.circle-small {
+  background: mat-color($primary, 200);
+}
+
+// Visualisation modal
+.wide-modal {
+  max-width: 97%;
+  .visual-select {
+    background-color: mat-color($primary, 50);
+  }
+  .vis-style-toggle {
+    background-color: mat-contrast($primary, 500);
+    color: mat-color($primary, 500);
+    border-color: mat-color($primary, 500);
+    &.active {
+      background-color: mat-color($primary, 500);
+      color: mat-contrast($primary, 500);
+    }
+  }
+  .info {
+    background-color: mat-contrast($primary, 500);
+    border-color: mat-color($primary, 50);
+    ul {
+      list-style: inside !important;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 399px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .info-icon {
+    display: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  .navbar {
+    padding: 8px 0 !important;
+  }
+}

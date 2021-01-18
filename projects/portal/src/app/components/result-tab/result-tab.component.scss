@@ -1,0 +1,278 @@
+// # This file is part of the research.fi API service
+// #
+// # Copyright 2019 Ministry of Education and Culture, Finland
+// #
+// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// # :license: MIT
+
+app-result-tab {
+
+
+    .scroll {
+        scroll-behavior: smooth;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: auto;
+        white-space: nowrap; 
+        justify-content: space-between;
+        // Hide scrollbar on firefox
+        scrollbar-width: none;
+    }
+
+    .wrapper {
+        position: relative;
+    }
+
+    // Hide scrollbar on chrome
+    .scroll::-webkit-scrollbar {
+        display: none; 
+    }
+
+    .numeric-box {
+        font-size: 1.5em;
+    }
+
+    .mat-tab-body-wrapper{
+        display: none;
+    }
+
+    .text-center {
+        font-size: 0.9em;
+    }
+
+    .bundler.active {
+        margin-top: 10px;
+        border-bottom: 0px;
+        background: none;
+        z-index: 1;
+        padding-bottom: 18px;
+    }
+
+    .bundler {
+        display: block;
+        cursor: pointer;
+        min-width: 205.7px;
+        margin: 23px 0 0;
+        padding: 5px 0;
+        border-radius: 0;
+    }
+
+    .bundler.active .numeric-box.d-none.d-sm-block {
+        font-weight: bold;
+    }
+
+    .bundler.active .text-center {
+        font-weight: 700;
+    }
+
+    .bundler .numeric-box.d-none.d-sm-block, .bundler .text-center {
+        font-weight: 400;
+    }
+
+    .bundler .label {
+        font-size: 16px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .bundler .numeric-box {
+        font-size: 16px;
+        font-weight: bold!important;
+        padding-bottom: 7px;
+    }
+
+    .text-center, .numeric-box {
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .edge {
+        display: flex;
+    }
+
+    .nav-arrow {
+        top: 33%;
+        position: absolute;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        box-shadow: 1px 3px 3px;
+        font-size: 2em;
+        text-align: center;
+        fa-icon {
+            display: block;
+            margin-top: 2px;
+        }
+    }
+
+    .nav-arrow-left, .nav-arrow-right {
+        z-index: 2;
+    }
+
+    .nav-arrow-left {
+        left: 3px;
+    }
+
+    .nav-arrow-right {
+        right: 3px;
+    }
+
+    .grad {
+        position: absolute;
+        min-width: 100px;
+        min-height: 100%;
+        pointer-events: none;
+        vertical-align: middle;
+    }
+
+    .grad-left {
+        left: 0;
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    }
+
+    .grad-right {
+        right: 0;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    }
+
+    // Icons
+    .tab-icon {
+        height: 51px;
+        width: 51px;
+        border-radius: 50%;
+        margin: 0 auto;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+    }
+
+    // Disabled
+    .bundler.disabled {
+        cursor: default;
+    }
+
+    .disabled-home {
+        opacity: 0.5;
+    }
+
+    // Tooltip
+    .tooltip {
+        // margin-top: 212px!important;
+        // margin-top: -20%!important;
+    }
+
+    // bs-tooltip-container {
+    //     margin-top: -88px;
+    // }
+
+    .bundler.toggle-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: unset;
+        margin: 12px 2px !important;
+    }
+
+    // Homepage styles
+    .homepage {
+        border: 0px !important;
+        margin: 6px 2px !important;
+        min-width: 180px !important;
+    }
+
+    .label.homepage-label {
+        font-size: 14px !important;
+        display: block;
+    }
+
+    .row-wrapper {
+        display: flex;
+        justify-content: center;
+        &-homepage {
+            width: 100%;
+        }
+    }
+    // Custom tooltip locations
+    .tooltip-publications {
+        top: 85px !important;
+        &-home {
+            top: 72px !important;
+        }
+    }
+    
+    .tooltip-fundings {
+        top: 155px !important;
+        &-home {
+            top: 155px !important;
+        }
+    }
+        
+    .tooltip-infrastructures {
+        top: 155px !important;
+        &-home {
+            top: 155px !important;
+        }
+        &-open {
+            top: 155px !important;
+        }
+    }
+        
+    .tooltip-organizations {
+        top: 85px !important;
+        &-home {
+            top: 72px !important;
+        }
+        &-open {
+            top: 72px !important;
+        }
+    }
+
+    @media (max-width: 617px) {
+        .bundler {
+            min-width: auto;
+            border-radius: 0;
+            margin: 5px 0 0;
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .bundler.active {
+            margin-top: 3px;
+            height: 100%;
+        }
+
+        .text-center {
+            display: table-cell;
+            font-size: 1.2em;
+        }
+
+        .homepage {
+            min-width: 148px !important;
+            width: 48% !important;
+        }
+
+        app-tab-item .homepage {
+            width: 100% !important;
+        }
+
+        .label.homepage-label {
+            font-size: 12px !important;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .tooltip {
+            display: none!important;
+        }
+    }
+}

@@ -1,0 +1,86 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+@import '~@angular/material/theming';
+
+@mixin app-header-theme($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+
+    app-header {
+        >header {
+            .logo-text {
+                color: mat-contrast($primary, 200);
+            }
+
+            .beta-info {
+                background: #fff;
+                box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar-light .navbar-nav .nav-link, .mat-select-value {
+                color: mat-contrast($primary, 200);
+            }
+
+            a.nav-item.nav-link.active-link, a.nav-item.nav-link.active-lang {
+                color: mat-contrast($primary, 200);
+            }
+            
+            .navbar-light .navbar-nav .nav-link:hover, .parent:hover {
+                color: mat-contrast($primary, 200);
+                background: #E8E9F4;
+            }
+            
+            .collapse.navbar-collapse.menu.mobile-bar {
+                background: mat-contrast($primary, 600);
+                color: mat-color($primary);
+                
+                li a.lang-box {
+                    background: mat-contrast($primary, 600);
+                    border: solid 2px mat-color($primary);
+                }
+                
+                li a.lang-box.active-lang {
+                    background: mat-color($primary);
+                    color: mat-color($primary, default-contrast);
+                }
+            }
+
+            ul.dropdown {
+                background: mat-contrast($primary, 500);
+            }
+
+            ul.dropdown li:hover, .mat-form-field:hover {
+                color: mat-contrast($primary, 200);
+                background: #E8E9F4;
+            }
+
+            ul.dropdown li a {
+                color: mat-contrast($primary, 200);
+            }
+
+            button span.fa, .separator {
+                color: mat-color($primary);
+            }
+
+            .toggle-menu-text {
+                color: mat-contrast($primary, 300);
+                &::after {
+                    color: mat-color($primary)
+                }
+            }
+
+            ::ng-deep .mat-select-value-text {
+                color: mat-contrast($primary, 200);
+            }
+
+            ::ng-deep .mat-select-value-text:hover {
+                opacity: 1;
+            }
+        }
+    }
+}

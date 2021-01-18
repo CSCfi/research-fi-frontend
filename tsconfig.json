@@ -14,13 +14,18 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom",
-      "esnext.array"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom", "esnext.array"],
+    "paths": {
+      "@portal/*": ["portal/*"],
+      "@portal.services/*": ["projects/portal/src/app/services/*"],
+      "@portal.models/*": ["projects/portal/src/app/models/*"],
+      "@portal.assets/*": ["projects/portal/src/assets/*"],
+      "@portal.layout/*": ["projects/portal/src/app/layout/*"],
+      "@portal.testdata/*": ["projects/portal/src/testdata/*"],
+      "@portal.testing/*": ["projects/portal/src/testing/*"],
+      "ui-library": ["dist/ui-library/ui-library", "dist/ui-library"],
+      "shared": ["projects/shared/*"]
+    }
   }
 }

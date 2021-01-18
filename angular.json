@@ -7,8 +7,8 @@
       "i18n": {
         "sourceLocale": "fi",
         "locales": {
-          "en": "src/i18n/messages.en.xlf",
-          "sv": "src/i18n/messages.sv.xlf"
+          "en": "projects/shared/i18n/messages.en.xlf",
+          "sv": "projects/shared/i18n/messages.sv.xlf"
         }
       },
       "projectType": "application",
@@ -18,8 +18,8 @@
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/portal",
+      "sourceRoot": "projects/portal/src",
       "prefix": "app",
       "architect": {
         "build": {
@@ -27,27 +27,33 @@
           "options": {
             "aot": true,
             "outputPath": "dist/browser/",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "index": "projects/portal/src/index.html",
+            "main": "projects/portal/src/main.ts",
+            "polyfills": "projects/portal/src/polyfills.ts",
+            "tsConfig": "projects/portal/tsconfig.app.json",
             "assets": [
-              "src/assets/favicon.ico",
-              "src/assets"
+              "projects/portal/src/assets/favicon.ico",
+              "projects/portal/src/assets",
+              {
+                "input": "projects/ui-library/src/assets",
+                "glob": "**/*",
+                "output": "assets"
+              }
             ],
             "styles": [
-              {
-                "input": "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
-              },
               "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "src/styles.scss"
+              "projects/portal/src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/shared/theme",
+                "projects/ui-library/src/lib"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -55,8 +61,8 @@
               "baseHref": "/",
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/portal/src/environments/environment.ts",
+                  "with": "projects/portal/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -141,14 +147,14 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
+            "main": "projects/portal/src/test.ts",
+            "polyfills": "projects/portal/src/polyfills.ts",
+            "tsConfig": "projects/portal/tsconfig.spec.json",
+            "karmaConfig": "projects/portal/src/karma.conf.js",
             "assets": [
-              "src/assets/favicon.ico",
-              "src/assets",
-              "src/assets/config/config.json"
+              "projects/portal/src/assets/favicon.ico",
+              "projects/portal/src/assets",
+              "projects/portal/src/assets/config/config.json"
             ],
             "styles": [],
             "scripts": []
@@ -158,9 +164,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "projects/portal/tsconfig.app.json",
+              "projects/portal/tsconfig.spec.json",
+              "projects/portal/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -182,9 +188,12 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json",
-            "localize": ["fi", "en", "sv"]
+            "main": "projects/portal/src/main.server.ts",
+            "tsConfig": "projects/portal/tsconfig.server.json",
+            "localize": ["fi", "en", "sv"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/shared/theme"]
+            }
           },
           "configurations": {
             "production": {
@@ -192,8 +201,8 @@
               "outputPath": "dist/server",
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/portal/src/environments/environment.ts",
+                  "with": "projects/portal/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -204,8 +213,8 @@
           "options": {
             "xliffmergeOptions": {
               "i18nFormat": "xlf",
-              "srcDir": "src/i18n",
-              "genDir": "src/i18n",
+              "srcDir": "projects/shared/i18n",
+              "genDir": "projects/shared/i18n",
               "defaultLanguage": "fi",
               "languages": [
                 "fi",
@@ -225,7 +234,7 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
+            "protractorConfig": "projects/portal/e2e/protractor.conf.js",
             "devServerTarget": "research-fi:serve"
           },
           "configurations": {
@@ -237,7 +246,230 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
+            "tsConfig": "projects/portal/e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "mydata": {
+      "i18n": {
+        "sourceLocale": "fi",
+        "locales": {
+          "en": "projects/shared/i18n/messages.en.xlf",
+          "sv": "projects/shared/i18n/messages.sv.xlf"
+        }
+      },
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/mydata",
+      "sourceRoot": "projects/mydata/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/mydata",
+            "index": "projects/mydata/src/index.html",
+            "main": "projects/mydata/src/main.ts",
+            "polyfills": "projects/mydata/src/polyfills.ts",
+            "tsConfig": "projects/mydata/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/mydata/src/favicon.ico",
+              "projects/mydata/src/assets",
+              {
+                "input": "projects/ui-library/src/assets",
+                "glob": "**/*",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "node_modules/@fortawesome/fontawesome-svg-core/styles.css",
+              "projects/mydata/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/shared/theme",
+                "projects/ui-library/src/lib"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "outputPath": "dist/mydata/",
+              "baseHref": "/",
+              "fileReplacements": [
+                {
+                  "replace": "projects/mydata/src/environments/environment.ts",
+                  "with": "projects/mydata/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
+            },
+            "fi": {
+              "localize": [
+                "fi"
+              ],
+              "i18nLocale": "fi"
+            },
+            "en": {
+              "localize": [
+                "en"
+              ],
+              "i18nLocale": "en"
+            },
+            "sv": {
+              "localize": [
+                "sv"
+              ],
+              "i18nLocale": "sv"
+            },
+            "es5": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "tsConfig": "./tsconfig.es5.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mydata:build:fi"
+          },
+          "configurations": {
+            "fi": {
+              "browserTarget": "mydata:build:fi",
+              "aot": true
+            },
+            "en": {
+              "browserTarget": "mydata:build:en",
+              "aot": true
+            },
+            "sv": {
+              "browserTarget": "mydata:build:sv",
+              "aot": true
+            },
+            "es5": {
+              "browserTarget": "mydata:build:es5"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mydata:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mydata/src/test.ts",
+            "polyfills": "projects/mydata/src/polyfills.ts",
+            "tsConfig": "projects/mydata/tsconfig.spec.json",
+            "karmaConfig": "projects/mydata/karma.conf.js",
+            "assets": [
+              "projects/mydata/src/favicon.ico",
+              "projects/mydata/src/assets"
+            ],
+            "styles": [
+              "projects/mydata/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/mydata/tsconfig.app.json",
+              "projects/mydata/tsconfig.spec.json",
+              "projects/mydata/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/mydata/e2e/protractor.conf.js",
+            "devServerTarget": "mydata:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mydata:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "ui-library": {
+      "projectType": "library",
+      "root": "projects/ui-library",
+      "sourceRoot": "projects/ui-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ui-library/tsconfig.lib.json",
+            "project": "projects/ui-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ui-library/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ui-library/src/test.ts",
+            "tsConfig": "projects/ui-library/tsconfig.spec.json",
+            "karmaConfig": "projects/ui-library/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ui-library/tsconfig.lib.json",
+              "projects/ui-library/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

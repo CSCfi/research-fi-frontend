@@ -1,0 +1,102 @@
+<nav class="">
+  <ng-container *ngIf="navItems.length === 1; else navigationTemplate">
+    <ul class="nav-right navbar-nav main" [class.row]="!mobile">
+      <ng-container *ngFor="let item of navItems">
+        <li class="nav-item col col-auto p-0">
+          <a class="nav-item nav-link" [routerLink]="item.link">
+            <span class="label font-weight-bold">{{item.label}}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+  <ng-template #navigationTemplate>
+    <div class="mobile ml-auto toggle-button-wrapper">
+      <button *ngIf="!navbarOpen" class="navbar-toggler navbar-toggler-right menu" type="button"
+        (click)="toggleNavbar()" #navbarToggler>
+        <div class="toggle-menu-text closed" i18n="@@headerMenuOpen">Valikko</div>
+      </button>
+      <lib-close-button *ngIf="navbarOpen" (click)="toggleNavbar()"></lib-close-button>
+    </div>
+    <div class="" [class.overflow-hider]="hideOverflow && mobile" [class.absolute]="mobile"
+      [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
+      <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile"
+        #mainNavbar>
+        <!-- Lang selector is optional -->
+        <div *ngIf="langSelector" class="navbar-expand mx-auto navbar-nav lang mobile">
+          <ul class="navbar-nav mx-auto">
+            <li [class.col-4]="mobile">
+              <a class="nav-item nav-link lang-box" [class.active-lang]="currentLang==='fi'"
+                href="https://tiedejatutkimus.fi/fi{{currentRoute}}">
+                <span class="label">Suomi</span>
+              </a>
+            </li>
+            <li [class.col-4]="mobile">
+              <a class="nav-item nav-link lang-box" [class.active-lang]="currentLang==='sv'"
+                href="https://forskning.fi/sv{{currentRoute}}">
+                <span class="label">Svenska</span>
+              </a>
+            </li>
+            <li [class.col-4]="mobile">
+              <a class="nav-item nav-link lang-box" [class.active-lang]="currentLang==='en'"
+                href="https://research.fi/en{{currentRoute}}">
+                <span class="label">English</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col p-0">
+          <ul class="nav-right navbar-nav main" [class.row]="!mobile">
+            <ng-container *ngFor="let item of navItems">
+              <li *ngIf="!item.dropdownItems; else dropdownLink" class="nav-item col col-auto p-0">
+                <a class="nav-item nav-link" [routerLink]="item.link" routerLinkActive="active-link"
+                  [routerLinkActiveOptions]="{exact: item.exact}" (click)="navbarOpen && toggleNavbar()">
+                  <span class="label">{{item.label}}</span>
+                </a>
+              </li>
+              <ng-template #dropdownLink>
+                <li class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen"
+                  (clickOutside)="onClickedOutside($event)">
+                  <a class="nav-item nav-link parent-link disabled-link" tabindex="0" [routerLink]="item.link"
+                    routerLinkActive="active-link" (keydown.enter)="$event.preventDefault(); dropdownOpen = true"
+                    (keydown.space)="$event.preventDefault(); dropdownOpen = true" [class.open]="dropdownOpen"
+                    [class.font-weight-bold]="dropdownOpen">
+                    <span class="label">{{item.label}}</span>
+                  </a>
+                  <ul class="dropdown" *ngIf="dropdownOpen">
+                    <li *ngFor="let subItem of item.dropdownItems">
+                      <a [routerLink]="subItem.link" routerLinkActive="active-link"
+                        (click)="navbarOpen && toggleNavbar()">{{subItem.label}}
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ng-template>
+            </ng-container>
+            <!-- Lang selector is optional -->
+            <li *ngIf="langSelector" #navLink class="nav-item col col-auto p-0 mr-0">
+              <div class="navbar-expand navbar-nav lang langSelect">
+                <mat-form-field class="lang-select">
+                  <!-- Navigate with consent if consent is set -->
+                  <mat-select [(value)]="lang">
+                    <a href="https://tiedejatutkimus.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                      <mat-option value="FI">FI</mat-option>
+                    </a>
+                    <a href="https://forskning.fi/sv{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                      <mat-option value="SV">SV</mat-option>
+                    </a>
+                    <a href="https://research.fi/en{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
+                      <mat-option value="EN">EN</mat-option>
+                    </a>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </li>
+            <div *ngIf="mobile" class=""></div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</nav>
+<div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
