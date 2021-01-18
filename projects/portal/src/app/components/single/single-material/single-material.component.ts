@@ -20,6 +20,7 @@ import {
   singleMaterial,
   common,
 } from '@portal.assets/static-data/meta-tags.json';
+import { faQuoteRight, faCopy } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-single-material',
@@ -102,6 +103,8 @@ export class SingleMaterialComponent implements OnInit {
   subUnitSlice = 10;
   currentLocale: string;
   tabData: any;
+  faQuoteRight = faQuoteRight;
+  faCopy = faCopy;
 
   constructor(
     private route: ActivatedRoute,
