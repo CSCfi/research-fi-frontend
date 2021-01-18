@@ -156,8 +156,8 @@ import { BarComponent } from './components/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './components/science-politics/figures/figure-filters/figure-filters.component';
 import { FiguresInfoComponent } from './components/science-politics/figures/figures-info/figures-info.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
-import { MaterialsComponent } from './component/results/materials/materials.component';
-import { SingleMaterialComponent } from './component/single/single-material/single-material.component';
+import { MaterialsComponent } from './components/results/materials/materials.component';
+import { SingleMaterialComponent } from './components/single/single-material/single-material.component';
 
 import { UiLibraryModule } from 'ui-library';
 
@@ -224,7 +224,7 @@ import { UiLibraryModule } from 'ui-library';
     FiguresInfoComponent,
     SanitizeHtmlPipe,
     MaterialsComponent,
-    SingleMaterialComponent
+    SingleMaterialComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
