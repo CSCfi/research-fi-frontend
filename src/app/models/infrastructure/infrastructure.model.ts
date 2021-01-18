@@ -35,7 +35,6 @@ export class Infrastructure {
         public participantOrganizations: string,
         public statCenterId: string,
         public replacingInfraStructure: string,
-        public keywords: string[],
         public fieldsOfScience: object[],
         public services: InfraService[],
         public keywordsString: string,
@@ -51,7 +50,6 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
     constructor(private isa: InfraServiceAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Infrastructure {
         const services: InfraService[] = [];
-        const keywords: string[] = [];
         const fieldsOfScience: string[] = [];
 
         item.infraConPoint = item.infraConPoint?.shift();
@@ -77,10 +75,7 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
         const esfriCode = item.ESFRICodes?.length > 0 ? item.ESFRICodes.map(x => x.ESFRICode)[0] : '';
 
         item.services?.forEach(service => services.push(this.isa.adapt(service)));
-        item.keywords?.forEach(obj => keywords.push(obj.keyword));
         item.fieldsOfScience?.forEach(obj => fieldsOfScience.push(this.lang.testLang('name', obj)));
-
-        const keywordsString = keywords?.join(', ');
 
         const fieldsOfScienceString = fieldsOfScience?.join(', ');
 
@@ -107,10 +102,9 @@ export class InfrastructureAdapter implements Adapter<Infrastructure> {
             participantOrganizations,
             item.TKOppilaitosTunnus,
             item.replacingInfraStructure,
-            keywords,
             item.fieldsOfScience,
             services,
-            keywordsString,
+            this.lang.translateKeywords(item),
             fieldsOfScienceString
         );
     }

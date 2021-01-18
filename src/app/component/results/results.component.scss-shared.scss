@@ -13,7 +13,7 @@
         }
 
         // "Bleed" the styles into child components
-        app-publications, app-fundings, app-infrastructures, app-organizations, app-related-results {
+        app-publications, app-fundings, app-materials, app-infrastructures, app-organizations, app-related-results {
 
             // .result-container {
             //     max-height: 880px;
@@ -74,6 +74,9 @@
             span.bold {
                 font-weight: bold;
                 cursor: pointer;
+                &.cursor-default {
+                    cursor: default;
+                }
             }
 
             .result-title {

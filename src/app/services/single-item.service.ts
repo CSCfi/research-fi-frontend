@@ -20,6 +20,7 @@ export class SingleItemService {
   apiUrl: any;
   publicationApiUrl = '';
   fundingApiUrl = '';
+  materialApiUrl = '';
   organizationApiUrl = '';
   infrastructureApiUrl = '';
   private getIdSubject = new Subject<string>();
@@ -31,6 +32,7 @@ export class SingleItemService {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
+    this.materialApiUrl = this.apiUrl + 'material/_search';
     this.organizationApiUrl = this.apiUrl + 'organization/_search';
     this.infrastructureApiUrl = this.apiUrl + 'infrastructure/_search';
   }
@@ -60,6 +62,10 @@ export class SingleItemService {
   getSingleFunding(id): Observable<Search> {
     return this.http.post<Search>(this.fundingApiUrl, this.constructPayload('projectId', id))
                     .pipe(map((data: any) => this.searchAdapter.adapt(data, 'fundings')));
+  }
+  getSingleMaterial(id): Observable<Search> {
+    return this.http.post<Search>(this.materialApiUrl, this.constructPayload('identifier', id))
+                    .pipe(map((data: any) => this.searchAdapter.adapt(data, 'materials')));
   }
 
   getSingleOrganization(id): Observable<Search> {
