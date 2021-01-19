@@ -138,34 +138,15 @@ export class LanguageCheck {
   }
 
   translateInfraServiceType(type) {
-    switch (this.localeId) {
-      case 'en': {
-        switch (type) {
-          case 'aineisto': {
-            return 'data';
-          }
-          case 'laitteisto': {
-            return 'equipment';
-          }
-          case 'palvelu': {
-            return 'service';
-          }
-        }
-        break;
+    switch (type) {
+      case 'laitteisto': {
+        return $localize`:@@infraServiceTypeEquipment:Laitteisto`;
       }
-      case 'sv': {
-        switch (type) {
-          case 'aineisto': {
-            return 'data';
-          }
-          case 'laitteisto': {
-            return 'utrustning';
-          }
-          case 'palvelu': {
-            return 'tjänst';
-          }
-        }
-        break;
+      case 'aineisto': {
+        return $localize`:@@infraServiceTypeMaterial:Aineisto`;
+      }
+      case 'palvelu': {
+        return $localize`:@@infraServiceTypeService:Palvelu`;
       }
     }
     // Return finnish if not english or swedish
@@ -173,48 +154,24 @@ export class LanguageCheck {
   }
 
   translateAccessType(type) {
-    switch (this.localeId) {
-      case 'fi': {
-        switch (type) {
-          case 'open': {
-            return 'Avoin';
-          }
-          case 'restricted': {
-            return 'Saatavuutta rajoitettu';
-          }
-          case 'permit': {
-            return 'Vaatii luvan hakemista Fairdata-palvelussa';
-          }
-          case 'login': {
-            return 'Vaatii kirjautumisen Fairdata-palvelussa';
-          }
-          case 'embargo': {
-            return 'Embargo';
-          }
-        }
-        break;
+    switch (type) {
+      case 'open': {
+        return $localize`:@@datasetAccessOpen:Avoin`;
       }
-      default: {
-        switch (type) {
-          case 'open': {
-            return 'Open';
-          }
-          case 'restricted': {
-            return 'Restricted use';
-          }
-          case 'permit': {
-            return 'Requires applying permission in Fairdata service';
-          }
-          case 'login': {
-            return 'Requires login in Fairdata service';
-          }
-          case 'embargo': {
-            return 'Embargo';
-          }
-        }
-        break;
+      case 'permit': {
+        return $localize`:@@datasetAccessPermin:Vaatii luvan hakemista Fairdata-palvelussa`;
+      }
+      case 'login': {
+        return $localize`:@@datasetAccessLogin:Vaatii kirjautumisen Fairdata-palvelussa`;
+      }
+      case 'restricted': {
+        return $localize`:@@datasetAccessrestricted:Saatavuutta rajoitettu`;
+      }
+      case 'embargo': {
+        return $localize`:@@datasetAccessEmbargo:Embargo`;
       }
     }
+    // Return finnish if not english or swedish
     return type;
   }
 }

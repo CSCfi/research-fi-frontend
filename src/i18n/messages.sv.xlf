@@ -2764,6 +2764,27 @@
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
       </trans-unit>
+      <!-- Datasets -->
+      <trans-unit id="datasetAccessOpen">
+        <source>Avoin</source>
+        <target>Open</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessPermit">
+        <source>Vaatii luvan hakemista Fairdata-palvelussa</source>
+        <target>Requires applying permission in Fairdata service</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessLogin">
+        <source>Vaatii kirjautumisen Fairdata-palvelussa</source>
+        <target>Requires login in Fairdata service</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessRestricted">
+        <source>Saatavuutta rajoitettu</source>
+        <target>Restricted use</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessEmbargo">
+        <source>Embargo</source>
+        <target>Embargo</target>
+      </trans-unit>
       <!-- Infrastructures -->
       <trans-unit id="infraServicesLabel">
         <source>Palveluita</source>
