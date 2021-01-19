@@ -136,4 +136,39 @@ export class LanguageCheck {
     })
     return this.testLang('keyword', keywordsObj);
   }
+
+  translateInfraServiceType(type) {
+    switch (this.localeId) {
+      case 'en': {
+        switch (type) {
+          case 'aineisto': {
+            return 'data';
+          }
+          case 'laitteisto': {
+            return 'equipment';
+          }
+          case 'palvelu': {
+            return 'service';
+          }
+        }
+        break;
+      }
+      case 'sv': {
+        switch (type) {
+          case 'aineisto': {
+            return 'data';
+          }
+          case 'laitteisto': {
+            return 'utrustning';
+          }
+          case 'palvelu': {
+            return 'tjänst';
+          }
+        }
+        break;
+      }
+    }
+    // Return finnish if not english or swedish
+    return type;
+  }
 }
