@@ -721,7 +721,7 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="noMaterials" datatype="html">
+      <trans-unit id="noDatasets" datatype="html">
         <source>Ei tutkimusaineistoja</source>
         <target>No research data</target>
       </trans-unit>
@@ -1891,7 +1891,7 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="materials" datatype="html">
+      <trans-unit id="datasets" datatype="html">
         <source>Aineistot</source>
         <target>Research data</target>
         <context-group purpose="location">
@@ -3175,7 +3175,7 @@
         <source>Hanke</source>
         <target>Project</target>
       </trans-unit>
-      <trans-unit id="material">
+      <trans-unit id="dataset">
         <source>Aineisto</source>
         <target>Research data</target>
       </trans-unit>
@@ -3207,7 +3207,7 @@
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
         <target>Funding decisions issued by Finnish public and private research funders starting from the date each funder joined the service. Funding decisions issued to Finnish organizations by the EU starting from the Horizon 2020 framework program.</target>
       </trans-unit>
-      <trans-unit id="materialsTooltip">
+      <trans-unit id="datasetsTooltip">
         <source>Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.</source>
         <target>Research data produced in Finland.</target>
       </trans-unit>

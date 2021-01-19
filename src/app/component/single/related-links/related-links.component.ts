@@ -24,7 +24,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
     {label: $localize`:@@publications:Julkaisut`, tab: 'publications', disabled: true},
     {label: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true},
     {label: $localize`:@@fundings:Hankkeet`, tab: 'fundings', disabled: true},
-    {label: $localize`:@@materials:Aineistot`, tab: 'materials', disabled: true},
+    {label: $localize`:@@datasets:Aineistot`, tab: 'datasets', disabled: true},
     {label: $localize`:@@infrastructures:Infrastruktuurit`, tab: 'infrastructures', disabled: true},
     {label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`, tab: '', disabled: true},
     {label: $localize`:@@organizations:Organisaatiot`, tab: 'organizations', disabled: true},

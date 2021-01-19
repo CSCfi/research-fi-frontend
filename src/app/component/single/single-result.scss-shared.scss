@@ -6,7 +6,7 @@
 //  :license: MIT
 
 @mixin app-single-result-shared {
-    app-single-publication, app-single-funding, app-single-material, app-single-infrastructure, app-single-organization {
+    app-single-publication, app-single-funding, app-single-dataset, app-single-infrastructure, app-single-organization {
         // Prevent style bleeding
         .shared {
             .header {

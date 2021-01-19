@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { LanguageCheck } from '../utils';
 
-export class Material {
+export class Dataset {
 
     constructor(
         public id: string,
@@ -35,14 +35,14 @@ export class Material {
     providedIn: 'root'
 })
 
-export class MaterialAdapter implements Adapter<Material> {
+export class DatasetAdapter implements Adapter<Dataset> {
     constructor(private lang: LanguageCheck) {}
-    adapt(item: any): Material {
+    adapt(item: any): Dataset {
 
 
         const keywords = item.keywords ? item.keywords.map(x => x.keyword) : [];
 
-        return new Material(
+        return new Dataset(
             item.identifier,
             this.lang.testLang('name', item),
             this.lang.testLang('description', item),

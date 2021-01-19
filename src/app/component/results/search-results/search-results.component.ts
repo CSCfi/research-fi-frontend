@@ -11,7 +11,7 @@ import { OrganizationsComponent } from '../organizations/organizations.component
 import { PersonsComponent } from '../persons/persons.component';
 import { InfrastructuresComponent } from '../infrastructures/infrastructures.component';
 import { Search } from 'src/app/models/search.model';
-import { MaterialsComponent } from '../materials/materials.component';
+import { DatasetsComponent } from '../datasets/datasets.component';
 
 @Component({
   selector: 'app-search-results',
@@ -86,8 +86,8 @@ export class SearchResultsComponent implements OnInit, OnChanges {
         child = FundingsComponent;
         break;
 
-      case 'materials':
-        child = MaterialsComponent;
+      case 'datasets':
+        child = DatasetsComponent;
         break;
 
       case 'infrastructures':

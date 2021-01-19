@@ -193,7 +193,7 @@ export class SortService {
         }
         break;
       }
-      case 'materials': {
+      case 'datasets': {
         this.yearField = 'datasetCreated';
         switch (this.sortColumn) {
           case 'name': {

@@ -212,6 +212,7 @@ export class LanguageCheck {
             return 'Embargo';
           }
         }
+        break;
       }
     }
     return type;

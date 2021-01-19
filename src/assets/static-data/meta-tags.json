@@ -94,16 +94,16 @@
         "descriptionEn": "Read more about the funding decision in Research.fi.",
         "descriptionSv": "Bekanta dig med närmare uppgifter om finansieringsbeslutet i forksning.fi."
     },
-    "materials": {
+    "datasets": {
         "titleFi": "",
         "titleEn": "",
         "titleSv": "",
         "descriptionFi": "",
         "descriptionEn": "",
         "descriptionSv": "",
-        "link": "materials"
+        "link": "datasets"
     },
-    "singleMaterial": {
+    "singleDataset": {
         "titleFi": "",
         "titleEn": "",
         "titleSv": "",
