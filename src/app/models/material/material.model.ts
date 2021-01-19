@@ -46,18 +46,18 @@ export class MaterialAdapter implements Adapter<Material> {
             item.identifier,
             this.lang.testLang('name', item),
             this.lang.testLang('description', item),
-            item.datasetCreated.slice(0, 4),
+            item.datasetCreated,
             'tyyppi - test',
             'tekijät - test',
             'projekti - test',
             'tieteenalat - test',
             'kieli - test',
-            'saatavuus - test',
-            'lisenssi - test',
+            this.lang.translateAccessType(item.accessType),
+            item.licenseCode,
             keywords.join(', '),
             'kattavuus - test',
             this.lang.testLang('name', item?.dataCatalog[0]),
-            Math.random() > 0.5, // Open access test
+            item.accessType === 'open',
             Math.random() > 0.5 ? 'test' : undefined // DOI test
         );
     }

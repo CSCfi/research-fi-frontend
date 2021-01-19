@@ -136,4 +136,49 @@ export class LanguageCheck {
     })
     return this.testLang('keyword', keywordsObj);
   }
+
+  translateAccessType(type) {
+    switch (this.localeId) {
+      case 'fi': {
+        switch (type) {
+          case 'open': {
+            return 'Avoin';
+          }
+          case 'restricted': {
+            return 'Saatavuutta rajoitettu';
+          }
+          case 'permit': {
+            return 'Vaatii luvan hakemista Fairdata-palvelussa';
+          }
+          case 'login': {
+            return 'Vaatii kirjautumisen Fairdata-palvelussa';
+          }
+          case 'embargo': {
+            return 'Embargo';
+          }
+        }
+        break;
+      }
+      default: {
+        switch (type) {
+          case 'open': {
+            return 'Open';
+          }
+          case 'restricted': {
+            return 'Restricted use';
+          }
+          case 'permit': {
+            return 'Requires applying permission in Fairdata service';
+          }
+          case 'login': {
+            return 'Requires login in Fairdata service';
+          }
+          case 'embargo': {
+            return 'Embargo';
+          }
+        }
+      }
+    }
+    return type;
+  }
 }
