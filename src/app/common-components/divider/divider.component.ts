@@ -5,12 +5,12 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: "app-divider.",
-  templateUrl: "./divider.component.html",
-  styleUrls: ["./divider.component.scss"],
+  selector: 'app-divider.',
+  templateUrl: './divider.component.html',
+  styleUrls: ['./divider.component.scss'],
 })
 export class DividerComponent {
   @Input() headingText: string;

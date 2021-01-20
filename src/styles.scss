@@ -6,57 +6,57 @@
 //  :license: MIT
 
 // You can add global styles to this file, and also import other style files
-@import "~@angular/material/theming";
+@import '~@angular/material/theming';
 @include mat-core();
 
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "~font-awesome/css/font-awesome.css";
-@import "~@fortawesome/fontawesome-free/css/all.css";
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
-@import "styles-custom.scss";
+@import 'styles-custom.scss';
 // @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
 
 // Component custom styles
-@import "./styles-custom-expansion-panel.scss";
-@import "./app/ui/header/header.component.scss-theme.scss";
-@import "./app/ui/footer/footer.component.scss-theme.scss";
-@import "./app/component/home-page/home-page.component.scss-theme.scss";
-@import "./app/component/search-bar/search-bar.component.scss-theme.scss";
-@import "./app/component/result-tab/result-tab.component.scss-theme.scss";
-@import "./app/component/results/results.component.scss-theme-shared.scss";
-@import "./app/component/results/results.component.scss-shared.scss";
-@import "./app/component/single/single-result.scss-shared.scss";
-@import "./app/component/single/single-result.scss-theme-shared.scss";
-@import "./app/component/results/pagination/pagination.component.scss-theme.scss";
-@import "./app/component/results/sort/sort.component.scss-theme.scss";
-@import "./app/component/results/active-filters/active-filters.component.scss-theme.scss";
-@import "./app/component/results/active-filters/active-filters-shared.scss";
-@import "./app/component/results/active-filters/active-filters-theme-shared.scss";
-@import "./app/component/breadcrumb/breadcrumb.component.scss-theme.scss";
-@import "./app/component/results/filters/filters-shared.scss";
-@import "./app/component/results/filters/filters.theme-shared.scss";
-@import "./app/component/single/single-publication/single-publication.component.scss-theme.scss";
-@import "./app/component/single/single-material/single-material.component.scss-theme.scss";
-@import "./app/component/single/single-funding/single-funding.component.scss-theme.scss";
-@import "./app/component/science-politics/figures/figures.component.scss-theme.scss";
-@import "./app/component/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss";
-@import "./app/component/science-politics/figures/single-figure/single-figure.component.scss-theme.scss";
-@import "./app/component/science-politics/figures/figures-info/figures-info.component.scss-theme.scss";
-@import "./app/component/science-politics/science-politics.scss-shared.scss";
-@import "./app/component/science-politics/science-politics.scss-theme-shared.scss";
-@import "./app/component/service-info/service-info.component.scss-theme.scss";
-@import "./app/component/news/news/news.component.scss-theme.scss";
-@import "./app/component/news/news-card/news-card.component.scss-theme.scss";
-@import "./app/common-components/info/info.component-theme.scss";
-@import "./app/common-components/secondary-button/secondary-button.component.scss-theme.scss";
-@import "./app/common-components/primary-action-button/primary-action-button.component.scss-theme.scss";
-@import "./app/common-components/close-button/close-button.component.scss-theme.scss";
-@import "./app/common-components/divider/divider.component-theme.scss";
-@import "./app/ui/cookie-consent/cookie-consent-theme.scss";
-@import "./app/ui/review/review.component.scss-theme.scss";
-@import "./app/component/results/pagination/pagination.component.scss";
-@import "./app/component/science-politics/figures/carousel/carousel.component.scss-theme.scss";
-@import "./app/component/visualisation/bar/bar.component.scss-theme.scss";
+@import './styles-custom-expansion-panel.scss';
+@import './app/ui/header/header.component.scss-theme.scss';
+@import './app/ui/footer/footer.component.scss-theme.scss';
+@import './app/component/home-page/home-page.component.scss-theme.scss';
+@import './app/component/search-bar/search-bar.component.scss-theme.scss';
+@import './app/component/result-tab/result-tab.component.scss-theme.scss';
+@import './app/component/results/results.component.scss-theme-shared.scss';
+@import './app/component/results/results.component.scss-shared.scss';
+@import './app/component/single/single-result.scss-shared.scss';
+@import './app/component/single/single-result.scss-theme-shared.scss';
+@import './app/component/results/pagination/pagination.component.scss-theme.scss';
+@import './app/component/results/sort/sort.component.scss-theme.scss';
+@import './app/component/results/active-filters/active-filters.component.scss-theme.scss';
+@import './app/component/results/active-filters/active-filters-shared.scss';
+@import './app/component/results/active-filters/active-filters-theme-shared.scss';
+@import './app/component/breadcrumb/breadcrumb.component.scss-theme.scss';
+@import './app/component/results/filters/filters-shared.scss';
+@import './app/component/results/filters/filters.theme-shared.scss';
+@import './app/component/single/single-publication/single-publication.component.scss-theme.scss';
+@import './app/component/single/single-material/single-material.component.scss-theme.scss';
+@import './app/component/single/single-funding/single-funding.component.scss-theme.scss';
+@import './app/component/science-politics/figures/figures.component.scss-theme.scss';
+@import './app/component/science-politics/research-innovation-system/research-innovation-system.component.scss-theme.scss';
+@import './app/component/science-politics/figures/single-figure/single-figure.component.scss-theme.scss';
+@import './app/component/science-politics/figures/figures-info/figures-info.component.scss-theme.scss';
+@import './app/component/science-politics/science-politics.scss-shared.scss';
+@import './app/component/science-politics/science-politics.scss-theme-shared.scss';
+@import './app/component/service-info/service-info.component.scss-theme.scss';
+@import './app/component/news/news/news.component.scss-theme.scss';
+@import './app/component/news/news-card/news-card.component.scss-theme.scss';
+@import './app/common-components/info/info.component-theme.scss';
+@import './app/common-components/secondary-button/secondary-button.component.scss-theme.scss';
+@import './app/common-components/primary-action-button/primary-action-button.component.scss-theme.scss';
+@import './app/common-components/close-button/close-button.component.scss-theme.scss';
+@import './app/common-components/divider/divider.component-theme.scss';
+@import './app/ui/cookie-consent/cookie-consent-theme.scss';
+@import './app/ui/review/review.component.scss-theme.scss';
+@import './app/component/results/pagination/pagination.component.scss';
+@import './app/component/science-politics/figures/carousel/carousel.component.scss-theme.scss';
+@import './app/component/visualisation/bar/bar.component.scss-theme.scss';
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -149,7 +149,7 @@ html {
   padding: 0 32px;
 }
 
-fa-icon[icon="external-link-alt"] {
+fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
 }
 

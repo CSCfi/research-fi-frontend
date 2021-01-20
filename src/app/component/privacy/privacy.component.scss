@@ -6,41 +6,41 @@
 //  :license: MIT
 
 h2 {
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 h3 {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 h4 {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 ol {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 ul {
-    list-style: outside;
-    padding-left: 1.5rem;
-    padding-bottom: 1rem;
+  list-style: outside;
+  padding-left: 1.5rem;
+  padding-bottom: 1rem;
 }
 
 li {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 img {
-    width: 100%;
-    height: auto;
-    max-width: 800px;
-    display: block;
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  display: block;
 }
 
 @media (max-width: 575px) {
-    mat-tab-group {
-        max-width: 80vw;
-        word-wrap: break-word;
-    }
+  mat-tab-group {
+    max-width: 80vw;
+    word-wrap: break-word;
+  }
 }

@@ -11,7 +11,6 @@ import { OrganizationFilterService } from './organization-filter.service';
 
 import AggResponse from '../../../testdata/aggorganizationresponse.json';
 
-
 describe('OrganizationFilterService', () => {
   let service: OrganizationFilterService;
 
@@ -25,7 +24,9 @@ describe('OrganizationFilterService', () => {
   });
 
   it('should map sector data', () => {
-    const res = service.sector(AggResponse.aggregations.sector.sectorId.buckets);
+    const res = service.sector(
+      AggResponse.aggregations.sector.sectorId.buckets
+    );
 
     expect(Object.keys(res[0]).length).toBe(4);
   });

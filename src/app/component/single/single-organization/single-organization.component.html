@@ -7,170 +7,338 @@
 
 <h1 #srHeader class="sr-only"></h1>
 <aside>
-    <app-search-bar></app-search-bar>
+  <app-search-bar></app-search-bar>
 </aside>
- 
+
 <div class="wrapper" *ngIf="responseData" id="main-content">
-    <!-- Breadcrumb -->
-    <app-breadcrumb [type]="'single'" [responseData]="responseData" [tab]="tab" [tabName]="tabData.label" [resultNameField]="'name'" [queryParams]="tabQueryParams"></app-breadcrumb>
-    <div class="row shared">
-        <p class="back col-12">
-            <a routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="tabQueryParams">&lt; <ng-container i18n="@@backToResults">Takaisin hakutuloksiin</ng-container></a>
-        </p>
-        <div class="col-12" style="margin: 10px 0 10px 0;" *ngIf="responseData.total === 0">
-             <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+  <!-- Breadcrumb -->
+  <app-breadcrumb
+    [type]="'single'"
+    [responseData]="responseData"
+    [tab]="tab"
+    [tabName]="tabData.label"
+    [resultNameField]="'name'"
+    [queryParams]="tabQueryParams"
+  ></app-breadcrumb>
+  <div class="row shared">
+    <p class="back col-12">
+      <a
+        routerLink="/results/{{ tab }}/{{ searchTerm }}"
+        [queryParams]="tabQueryParams"
+        >&lt;
+        <ng-container i18n="@@backToResults"
+          >Takaisin hakutuloksiin</ng-container
+        ></a
+      >
+    </p>
+    <div
+      class="col-12"
+      style="margin: 10px 0 10px 0"
+      *ngIf="responseData.total === 0"
+    >
+      <h2 i18n="@@404">404 - Virheellinen osoite</h2>
+    </div>
+    <main class="col-12 col-md-8">
+      <div *ngFor="let item of responseData.organizations">
+        <div class="row d-flex justify-content-around">
+          <div class="col p-0">
+            <h1 class="result-header">{{ item.name }}</h1>
+          </div>
+          <div
+            *ngIf="item.logo && item.logo !== null"
+            class="col p-0 org-logo text-right align-self-center"
+          >
+            <img [src]="item.logo | safeUrl" />
+          </div>
         </div>
-        <main class="col-12 col-md-8">
-            <div *ngFor="let item of responseData.organizations">
-                <div class="row d-flex justify-content-around">
-                    <div class="col p-0">
-                        <h1 class="result-header">{{item.name}}</h1>
-                    </div>
-                    <div *ngIf="item.logo && item.logo !== null" class="col p-0 org-logo text-right align-self-center">
-                        <img [src]="item.logo | safeUrl">
-                    </div>
-                </div>
 
-                <div id="info" class="table">
-                    <div class="row content" *ngFor="let row of infoFields">
-                        <!-- Labels -->
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            {{row.label}}
-                            <!-- Show year with staff count -->
-                            <span *ngIf="row.field === 'staffCountAsFte'">({{item.staffYear}})</span>
-                            <ng-container *ngIf="row.tooltip">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
-                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                                </span>
-                                </ng-container>
-                        </h2>
-                        <div class="col-12 col-sm-6 col-lg-9 td">{{item[row.field]}}<span *ngIf="row['fieldEn']">,</span> {{item[row['fieldEn']]}}</div>
-                    </div>
-                    <div class="row content" *ngIf="studentCounts.length > 0">
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">
-                            <ng-container i18n="@@thesisCount">Tutkintojen määrä</ng-container> ({{item.thesisYear}})
-                            <span i18n-tooltip="@@vipunenSource" tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                            </span>
-                        </h2>
-                        <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td" *ngFor="let row of studentCounts.slice(0,2)">
-                            <h3 class="th">{{row.label}}</h3>
-                            <p class="td">{{item[row.field]}}</p>
-                        </div>
-                    </div>
-                    <ng-container *ngFor="let row of studentCounts.slice(2); let i = index">
-                        <div *ngIf="i % 2 == 0"></div>
-                        <div class="row content" *ngIf="i % 2 == 0">
-                            <div class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td">
-                                <h3 class="th">{{row.label}}</h3>
-                                <p class="td" *ngIf="item[row.field] !== 'below_5'">{{item[row.field]}}</p>
-                                <p class="td" *ngIf="item[row.field] === 'below_5'">Alle 5</p>
-                            </div>        
-                            <div class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td" *ngIf="studentCounts.slice(2).length > i+1">
-                                <h3 class="th">{{studentCounts.slice(2)[i + 1].label}}</h3>
-                                <p class="td" *ngIf="item[studentCounts.slice(2)[i + 1].field] !== 'below_5'">{{item[studentCounts.slice(2)[i + 1].field]}}</p>
-                                <p class="td" *ngIf="item[studentCounts.slice(2)[i + 1].field] === 'below_5'">Alle 5</p>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- Sub units -->
-                    <div class="row content" *ngFor="let row of subUnitFields">
-                        <h2 class="col-12 col-sm-6 col-lg-3 th">{{row.label}} ({{latestSubUnitYear}})
-                            <ng-container *ngIf="row.tooltip">
-                                <ng-template #tooltipTemplate><div [innerHtml]="row.tooltip"></div></ng-template>
-                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
-                                </span>
-                            </ng-container>
-                        </h2>
-                        <div class="col-12 col-sm-6 col-lg-9 td">
-                            <ul class="list-unstyled">
-                                <li *ngFor="let subUnit of item.subUnits.slice(0, subUnitSlice)">
-                                    {{subUnit.subUnitName}}
-                                </li>
-                            </ul>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length > subUnitSlice" (click)="subUnitSlice = item.subUnits.length" i18n="@@showMore">
-                                Näytä enemmän
-                            </a>
-                            <a href="javascript:void(0)" class="read-more" *ngIf="item.subUnits.length === subUnitSlice" (click)="subUnitSlice = 10" i18n="@@showLess">
-                                Näytä vähemmän
-                            </a>
-                        </div>
-                    </div>
+        <div id="info" class="table">
+          <div class="row content" *ngFor="let row of infoFields">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              {{ row.label }}
+              <!-- Show year with staff count -->
+              <span *ngIf="row.field === 'staffCountAsFte'"
+                >({{ item.staffYear }})</span
+              >
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate
+                  ><div [innerHtml]="row.tooltip"></div
+                ></ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  triggers="focus keydown"
+                  placement="top"
+                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                  #elem
+                >
+                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-6 col-lg-9 td">
+              {{ item[row.field] }}<span *ngIf="row['fieldEn']">,</span>
+              {{ item[row['fieldEn']] }}
+            </div>
+          </div>
+          <div class="row content" *ngIf="studentCounts.length > 0">
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              <ng-container i18n="@@thesisCount"
+                >Tutkintojen määrä</ng-container
+              >
+              ({{ item.thesisYear }})
+              <span
+                i18n-tooltip="@@vipunenSource"
+                tooltip="Lähde: Vipunen – opetushallinnon tilastopalvelu www.vipunen.fi"
+                tabindex="0"
+                triggers="focus keydown"
+                placement="top"
+                (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                #elem
+              >
+                <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+              </span>
+            </h2>
+            <div
+              class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-0 first-no-offset-mobile td"
+              *ngFor="let row of studentCounts.slice(0, 2)"
+            >
+              <h3 class="th">{{ row.label }}</h3>
+              <p class="td">{{ item[row.field] }}</p>
+            </div>
+          </div>
+          <ng-container
+            *ngFor="let row of studentCounts.slice(2); let i = index"
+          >
+            <div *ngIf="i % 2 == 0"></div>
+            <div class="row content" *ngIf="i % 2 == 0">
+              <div
+                class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td"
+              >
+                <h3 class="th">{{ row.label }}</h3>
+                <p class="td" *ngIf="item[row.field] !== 'below_5'">
+                  {{ item[row.field] }}
+                </p>
+                <p class="td" *ngIf="item[row.field] === 'below_5'">Alle 5</p>
+              </div>
+              <div
+                class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td"
+                *ngIf="studentCounts.slice(2).length > i + 1"
+              >
+                <h3 class="th">{{ studentCounts.slice(2)[i + 1].label }}</h3>
+                <p
+                  class="td"
+                  *ngIf="
+                    item[studentCounts.slice(2)[i + 1].field] !== 'below_5'
+                  "
+                >
+                  {{ item[studentCounts.slice(2)[i + 1].field] }}
+                </p>
+                <p
+                  class="td"
+                  *ngIf="
+                    item[studentCounts.slice(2)[i + 1].field] === 'below_5'
+                  "
+                >
+                  Alle 5
+                </p>
+              </div>
+            </div>
+          </ng-container>
+          <!-- Sub units -->
+          <div class="row content" *ngFor="let row of subUnitFields">
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              {{ row.label }} ({{ latestSubUnitYear }})
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate
+                  ><div [innerHtml]="row.tooltip"></div
+                ></ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  triggers="focus keydown"
+                  placement="top"
+                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                  #elem
+                >
+                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-6 col-lg-9 td">
+              <ul class="list-unstyled">
+                <li
+                  *ngFor="let subUnit of item.subUnits.slice(0, subUnitSlice)"
+                >
+                  {{ subUnit.subUnitName }}
+                </li>
+              </ul>
+              <a
+                href="javascript:void(0)"
+                class="read-more"
+                *ngIf="item.subUnits.length > subUnitSlice"
+                (click)="subUnitSlice = item.subUnits.length"
+                i18n="@@showMore"
+              >
+                Näytä enemmän
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="read-more"
+                *ngIf="item.subUnits.length === subUnitSlice"
+                (click)="subUnitSlice = 10"
+                i18n="@@showLess"
+              >
+                Näytä vähemmän
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div
+      *ngFor="let item of responseData.organizations"
+      class="col-12 col-md-4"
+    >
+      <aside>
+        <mat-card>
+          <mat-card-title
+            ><h2 i18n="@@organizationHomepage">
+              Organisaation verkkosivu
+            </h2></mat-card-title
+          >
+          <div class="row links" *ngIf="linkFields.length; else noHomePage">
+            <div *ngFor="let row of linkFields" class="info-link-wrapper">
+              <ng-container *ngIf="item[row.field]; else noHomePage">
+                <div class="col link">
+                  <a
+                    class="info-link"
+                    href="{{ item[row.field] }}"
+                    target="_blank"
+                    >{{ item[row.field]
+                    }}<fa-icon icon="external-link-alt"></fa-icon
+                  ></a>
                 </div>
-             </div>
-         </main>
-         <div *ngFor="let item of responseData.organizations" class="col-12 col-md-4">
-            <aside>
-                 <mat-card>
-                    <mat-card-title><h2 i18n="@@organizationHomepage">Organisaation verkkosivu</h2></mat-card-title>
-                    <div class="row links" *ngIf="linkFields.length; else noHomePage">
-                        <div *ngFor="let row of linkFields" class="info-link-wrapper">
-                            <ng-container *ngIf="item[row.field]; else noHomePage">
-                                <div class="col link">
-                                    <a class="info-link" href="{{item[row.field]}}" target="_blank">{{item[row.field]}}<fa-icon icon="external-link-alt"></fa-icon></a>
-                                </div>
-                            </ng-container>
-                        </div>
-                    </div>
-                    <ng-container *ngIf="item.id === '4940015'">
-                        <div class="row links">
-                            <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
-                            <div class="info-link-wrapper">
-                                <div class="col link">
-                                    <a href="https://en.ilmatieteenlaitos.fi/research" target="_blank"><ng-container i18n="@@research">Tutkimustoiminta</ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
-                                </div>
-                            </div>
-                            <div class="info-link-wrapper">
-                                <div class="col link">
-                                    <a href="https://julkaisut.fmi.fi/intl-peer-reviewed/" target="_blank"><ng-container i18n="@@publications">Julkaisut</ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <ng-container *ngIf="item.id === '4940015'">
+            <div class="row links">
+              <strong class="pb-2" i18n="@@readMore">Lisätietoa</strong>:
+              <div class="info-link-wrapper">
+                <div class="col link">
+                  <a
+                    href="https://en.ilmatieteenlaitos.fi/research"
+                    target="_blank"
+                    ><ng-container i18n="@@research"
+                      >Tutkimustoiminta</ng-container
+                    ><fa-icon icon="external-link-alt"></fa-icon
+                  ></a>
+                </div>
+              </div>
+              <div class="info-link-wrapper">
+                <div class="col link">
+                  <a
+                    href="https://julkaisut.fmi.fi/intl-peer-reviewed/"
+                    target="_blank"
+                    ><ng-container i18n="@@publications">Julkaisut</ng-container
+                    ><fa-icon icon="external-link-alt"></fa-icon
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </ng-container>
 
-                    <ng-template #noHomePage>
-                        <div class="no-links" i18n="@@noOrganizationLinks">Organisaatioon ei ole tarjolla linkkejä tässä portaalissa</div>
-                    </ng-template>
-                </mat-card>
-            </aside>
-            <aside>
-                <mat-card>
-                    <mat-card-title>
-                        <h2>
-                            <ng-container *ngIf="item.sectorNameFi !== 'Rahoittaja'" i18n="@@relatedOrganizations">Hae organisaatioon liittyvät</ng-container>
-                            <ng-container *ngIf="item.sectorNameFi === 'Rahoittaja'" i18n="@@relatedFunded">Hae organisaation rahoittamat</ng-container>
-                        </h2>
-                    </mat-card-title>
-                    <!-- TODO: Uncomment when organization names match -->
-                    <app-related-links [id]="item.sectorNameFi === 'Rahoittaja' ? item.businessId : item.id" [filter]="item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'"></app-related-links>
-                    <!-- <app-related-links [id]="item.id" [filter]="'organization'"></app-related-links> -->
-                </mat-card>
-            </aside>
-            <!-- Copy url -->
-            <aside>
-                <mat-card>
-                    <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
-                    <app-share></app-share>
-                </mat-card>
-            </aside>
-            <aside>
-                <mat-card>
-                    <mat-card-title><h2 i18n="@@orgInfoSource">Organisaatiotiedon lähde</h2></mat-card-title>
-                    <!-- <div *ngFor="let source of responseData.organizations">
+          <ng-template #noHomePage>
+            <div class="no-links" i18n="@@noOrganizationLinks">
+              Organisaatioon ei ole tarjolla linkkejä tässä portaalissa
+            </div>
+          </ng-template>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <mat-card-title>
+            <h2>
+              <ng-container
+                *ngIf="item.sectorNameFi !== 'Rahoittaja'"
+                i18n="@@relatedOrganizations"
+                >Hae organisaatioon liittyvät</ng-container
+              >
+              <ng-container
+                *ngIf="item.sectorNameFi === 'Rahoittaja'"
+                i18n="@@relatedFunded"
+                >Hae organisaation rahoittamat</ng-container
+              >
+            </h2>
+          </mat-card-title>
+          <!-- TODO: Uncomment when organization names match -->
+          <app-related-links
+            [id]="
+              item.sectorNameFi === 'Rahoittaja' ? item.businessId : item.id
+            "
+            [filter]="
+              item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'
+            "
+          ></app-related-links>
+          <!-- <app-related-links [id]="item.id" [filter]="'organization'"></app-related-links> -->
+        </mat-card>
+      </aside>
+      <!-- Copy url -->
+      <aside>
+        <mat-card>
+          <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
+          <app-share></app-share>
+        </mat-card>
+      </aside>
+      <aside>
+        <mat-card>
+          <mat-card-title
+            ><h2 i18n="@@orgInfoSource">
+              Organisaatiotiedon lähde
+            </h2></mat-card-title
+          >
+          <!-- <div *ngFor="let source of responseData.organizations">
                         <p>Virta/Vipunen/etc?</p>
                     </div> -->
-                    <ul>
-                        <li class="py-2"><a [href]="vipunenLink[currentLocale]" target="_blank"><ng-container i18n="@@vipunenSimple">Vipunen - opetushallinnon tilastopalvelu</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a [href]="fintoLink[currentLocale]" target="_blank"><ng-container i18n="@@finto">Finto - sanasto- ja ontologiapalvelu</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a [href]="ytjLink[currentLocale]" target="_blank"><ng-container i18n="@@ytj">Yritys– ja yhteisötietojärjestelmä (YTJ)</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                        <li class="py-2"><a [href]="statcenterLink[currentLocale]" target="_blank"><ng-container i18n="@@tilastokeskus">Tilastokeskus</ng-container><fa-icon icon="external-link-alt"></fa-icon></a></li>
-                    </ul>
-                    <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
+          <ul>
+            <li class="py-2">
+              <a [href]="vipunenLink[currentLocale]" target="_blank"
+                ><ng-container i18n="@@vipunenSimple"
+                  >Vipunen - opetushallinnon tilastopalvelu</ng-container
+                ><fa-icon icon="external-link-alt"></fa-icon
+              ></a>
+            </li>
+            <li class="py-2">
+              <a [href]="fintoLink[currentLocale]" target="_blank"
+                ><ng-container i18n="@@finto"
+                  >Finto - sanasto- ja ontologiapalvelu</ng-container
+                ><fa-icon icon="external-link-alt"></fa-icon
+              ></a>
+            </li>
+            <li class="py-2">
+              <a [href]="ytjLink[currentLocale]" target="_blank"
+                ><ng-container i18n="@@ytj"
+                  >Yritys– ja yhteisötietojärjestelmä (YTJ)</ng-container
+                ><fa-icon icon="external-link-alt"></fa-icon
+              ></a>
+            </li>
+            <li class="py-2">
+              <a [href]="statcenterLink[currentLocale]" target="_blank"
+                ><ng-container i18n="@@tilastokeskus"
+                  >Tilastokeskus</ng-container
+                ><fa-icon icon="external-link-alt"></fa-icon
+              ></a>
+            </li>
+          </ul>
+          <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
                     <div class="clear"></div> -->
-                </mat-card>
-            </aside>
-        </div>
+        </mat-card>
+      </aside>
     </div>
+  </div>
 </div>

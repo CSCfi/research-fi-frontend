@@ -1,429 +1,429 @@
 {
-	"took": 1195,
-	"timed_out": false,
-	"_shards": {
-		"total": 1,
-		"successful": 1,
-		"skipped": 0,
-		"failed": 0
-	},
-	"hits": {
-		"total": {
-			"value": 10000,
-			"relation": "gte"
-		},
-		"max_score": null,
-		"hits": []
-	},
-	"aggregations": {
-		"field": {
-			"meta": {},
-			"doc_count": 671008,
-			"fields": {
-				"meta": {},
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": "Arkkitehtuuri",
-						"doc_count": 2548,
-						"filtered": {
-							"meta": {},
-							"doc_count": 2548,
-							"filterCount": {
-								"meta": {},
-								"doc_count": 2548
-							}
-						},
-						"fieldId": {
-							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 0,
-							"buckets": [
-								{
-									"key": 211,
-									"doc_count": 2548
-								}
-							]
-						}
-					},
-					{
-						"key": "Avaruustieteet ja tähtitiede",
-						"doc_count": 5251,
-						"filtered": {
-							"meta": {},
-							"doc_count": 5251,
-							"filterCount": {
-								"meta": {},
-								"doc_count": 5251
-							}
-						},
-						"fieldId": {
-							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 0,
-							"buckets": [
-								{
-									"key": 115,
-									"doc_count": 5251
-								}
-							]
-						}
-					}
-				]
-			}
-		},
-		"oaComposite": {
-			"meta": {},
-			"after_key": {
-				"selfArchived": 1,
-				"openAccess": 2
-			},
-			"buckets": [
-				{
-					"key": {
-						"selfArchived": 0,
-						"openAccess": 0
-					},
-					"doc_count": 277705,
-					"filtered": {
-						"meta": {},
-						"doc_count": 277705
-					}
-				},
-				{
-					"key": {
-						"selfArchived": 0,
-						"openAccess": 1
-					},
-					"doc_count": 85917,
-					"filtered": {
-						"meta": {},
-						"doc_count": 85917
-					}
-				},
-				{
-					"key": {
-						"selfArchived": 0,
-						"openAccess": 2
-					},
-					"doc_count": 16196,
-					"filtered": {
-						"meta": {},
-						"doc_count": 16196
-					}
-				},
-				{
-					"key": {
-						"selfArchived": 0,
-						"openAccess": 9
-					},
-					"doc_count": 56663,
-					"filtered": {
-						"meta": {},
-						"doc_count": 56663
-					}
-				},
-				{
-					"key": {
-						"selfArchived": 1,
-						"openAccess": 0
-					},
-					"doc_count": 28047,
-					"filtered": {
-						"meta": {},
-						"doc_count": 28047
-					}
-				},
-				{
-					"key": {
-						"selfArchived": 1,
-						"openAccess": 1
-					},
-					"doc_count": 30022,
-					"filtered": {
-						"meta": {},
-						"doc_count": 30022
-					}
-				},
-				{
-					"key": {
-						"selfArchived": 1,
-						"openAccess": 2
-					},
-					"doc_count": 12476,
-					"filtered": {
-						"meta": {},
-						"doc_count": 12476
-					}
-				}
-			]
-		},
-		"juFo": {
-			"meta": {},
-			"doc_count": 507026,
-			"juFoCodes": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": "3",
-						"doc_count": 24786
-					},
-					{
-						"key": "2",
-						"doc_count": 60884
-					},
-					{
-						"key": "1",
-						"doc_count": 132289
-					},
-					{
-						"key": "0",
-						"doc_count": 31706
-					}
-				]
-			}
-		},
-		"year": {
-			"meta": {},
-			"doc_count": 507026,
-			"years": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": 2021,
-						"doc_count": 4
-					},
-					{
-						"key": 2020,
-						"doc_count": 18728
-					},
-					{
-						"key": 2019,
-						"doc_count": 53240
-					}
-				]
-			}
-		},
-		"countryCode": {
-			"meta": {},
-			"doc_count": 507026,
-			"countryCodes": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": 0,
-						"key_as_string": "false",
-						"doc_count": 245511
-					},
-					{
-						"key": 1,
-						"key_as_string": "true",
-						"doc_count": 261515
-					}
-				]
-			}
-		},
-		"openAccess": {
-			"meta": {},
-			"doc_count": 507026,
-			"openAccessCodes": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": 0,
-						"doc_count": 305752
-					},
-					{
-						"key": 1,
-						"doc_count": 115939
-					},
-					{
-						"key": 9,
-						"doc_count": 56663
-					},
-					{
-						"key": 2,
-						"doc_count": 28672
-					}
-				]
-			}
-		},
-		"organization": {
-			"meta": {},
-			"doc_count": 553056,
-			"sectorName": {
-				"meta": {},
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": "Yliopisto",
-						"doc_count": 408552,
-						"sectorId": {
-							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 0,
-							"buckets": [
-								{
-									"key": "1",
-									"doc_count": 408552
-								}
-							]
-						},
-						"organization": {
-							"meta": {},
-							"doc_count": 442003,
-							"org": {
-								"meta": {},
-								"doc_count_error_upper_bound": 0,
-								"sum_other_doc_count": 0,
-								"buckets": [
-									{
-										"key": "Helsingin yliopisto",
-										"doc_count": 113886,
-										"filtered": {
-											"meta": {},
-											"doc_count": 113886,
-											"filterCount": {
-												"meta": {},
-												"doc_count": 113886
-											}
-										},
-										"orgId": {
-											"doc_count_error_upper_bound": 0,
-											"sum_other_doc_count": 0,
-											"buckets": [
-												{
-													"key": "01901",
-													"doc_count": 113886
-												}
-											]
-										}
-									},
-									{
-										"key": "Aalto-yliopisto",
-										"doc_count": 109418,
-										"filtered": {
-											"meta": {},
-											"doc_count": 109418,
-											"filterCount": {
-												"meta": {},
-												"doc_count": 109418
-											}
-										},
-										"orgId": {
-											"doc_count_error_upper_bound": 0,
-											"sum_other_doc_count": 0,
-											"buckets": [
-												{
-													"key": "10076",
-													"doc_count": 109418
-												}
-											]
-										}
-									}
-								]
-							}
-						}
-					}
-				]
-			}
-		},
-		"publicationType": {
-			"meta": {},
-			"doc_count": 507026,
-			"publicationTypes": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": "A1",
-						"doc_count": 189805
-					},
-					{
-						"key": "A2",
-						"doc_count": 10268
-					}
-				]
-			}
-		},
-		"selfArchived": {
-			"meta": {},
-			"doc_count": 507026,
-			"selfArchivedCodes": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": 0,
-						"doc_count": 436481
-					},
-					{
-						"key": 1,
-						"doc_count": 70545
-					}
-				]
-			}
-		},
-		"lang": {
-			"meta": {},
-			"doc_count": 507026,
-			"langs": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 7,
-				"buckets": [
-					{
-						"key": "EN",
-						"doc_count": 306128,
-						"language": {
-							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 0,
-							"buckets": [
-								{
-									"key": "englanti",
-									"doc_count": 306128
-								}
-							]
-						}
-					},
-					{
-						"key": "FI",
-						"doc_count": 137474,
-						"language": {
-							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 0,
-							"buckets": [
-								{
-									"key": "suomi",
-									"doc_count": 137474
-								}
-							]
-						}
-					}
-				]
-			}
-		},
-		"internationalCollaboration": {
-			"meta": {},
-			"doc_count": 507026,
-			"internationalCollaborationCodes": {
-				"doc_count_error_upper_bound": 0,
-				"sum_other_doc_count": 0,
-				"buckets": [
-					{
-						"key": 0,
-						"key_as_string": "false",
-						"doc_count": 380008
-					},
-					{
-						"key": 1,
-						"key_as_string": "true",
-						"doc_count": 127018
-					}
-				]
-			}
-		}
-	}
+  "took": 1195,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "field": {
+      "meta": {},
+      "doc_count": 671008,
+      "fields": {
+        "meta": {},
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "Arkkitehtuuri",
+            "doc_count": 2548,
+            "filtered": {
+              "meta": {},
+              "doc_count": 2548,
+              "filterCount": {
+                "meta": {},
+                "doc_count": 2548
+              }
+            },
+            "fieldId": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": 211,
+                  "doc_count": 2548
+                }
+              ]
+            }
+          },
+          {
+            "key": "Avaruustieteet ja tähtitiede",
+            "doc_count": 5251,
+            "filtered": {
+              "meta": {},
+              "doc_count": 5251,
+              "filterCount": {
+                "meta": {},
+                "doc_count": 5251
+              }
+            },
+            "fieldId": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": 115,
+                  "doc_count": 5251
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "oaComposite": {
+      "meta": {},
+      "after_key": {
+        "selfArchived": 1,
+        "openAccess": 2
+      },
+      "buckets": [
+        {
+          "key": {
+            "selfArchived": 0,
+            "openAccess": 0
+          },
+          "doc_count": 277705,
+          "filtered": {
+            "meta": {},
+            "doc_count": 277705
+          }
+        },
+        {
+          "key": {
+            "selfArchived": 0,
+            "openAccess": 1
+          },
+          "doc_count": 85917,
+          "filtered": {
+            "meta": {},
+            "doc_count": 85917
+          }
+        },
+        {
+          "key": {
+            "selfArchived": 0,
+            "openAccess": 2
+          },
+          "doc_count": 16196,
+          "filtered": {
+            "meta": {},
+            "doc_count": 16196
+          }
+        },
+        {
+          "key": {
+            "selfArchived": 0,
+            "openAccess": 9
+          },
+          "doc_count": 56663,
+          "filtered": {
+            "meta": {},
+            "doc_count": 56663
+          }
+        },
+        {
+          "key": {
+            "selfArchived": 1,
+            "openAccess": 0
+          },
+          "doc_count": 28047,
+          "filtered": {
+            "meta": {},
+            "doc_count": 28047
+          }
+        },
+        {
+          "key": {
+            "selfArchived": 1,
+            "openAccess": 1
+          },
+          "doc_count": 30022,
+          "filtered": {
+            "meta": {},
+            "doc_count": 30022
+          }
+        },
+        {
+          "key": {
+            "selfArchived": 1,
+            "openAccess": 2
+          },
+          "doc_count": 12476,
+          "filtered": {
+            "meta": {},
+            "doc_count": 12476
+          }
+        }
+      ]
+    },
+    "juFo": {
+      "meta": {},
+      "doc_count": 507026,
+      "juFoCodes": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "3",
+            "doc_count": 24786
+          },
+          {
+            "key": "2",
+            "doc_count": 60884
+          },
+          {
+            "key": "1",
+            "doc_count": 132289
+          },
+          {
+            "key": "0",
+            "doc_count": 31706
+          }
+        ]
+      }
+    },
+    "year": {
+      "meta": {},
+      "doc_count": 507026,
+      "years": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": 2021,
+            "doc_count": 4
+          },
+          {
+            "key": 2020,
+            "doc_count": 18728
+          },
+          {
+            "key": 2019,
+            "doc_count": 53240
+          }
+        ]
+      }
+    },
+    "countryCode": {
+      "meta": {},
+      "doc_count": 507026,
+      "countryCodes": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": 0,
+            "key_as_string": "false",
+            "doc_count": 245511
+          },
+          {
+            "key": 1,
+            "key_as_string": "true",
+            "doc_count": 261515
+          }
+        ]
+      }
+    },
+    "openAccess": {
+      "meta": {},
+      "doc_count": 507026,
+      "openAccessCodes": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": 0,
+            "doc_count": 305752
+          },
+          {
+            "key": 1,
+            "doc_count": 115939
+          },
+          {
+            "key": 9,
+            "doc_count": 56663
+          },
+          {
+            "key": 2,
+            "doc_count": 28672
+          }
+        ]
+      }
+    },
+    "organization": {
+      "meta": {},
+      "doc_count": 553056,
+      "sectorName": {
+        "meta": {},
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "Yliopisto",
+            "doc_count": 408552,
+            "sectorId": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": "1",
+                  "doc_count": 408552
+                }
+              ]
+            },
+            "organization": {
+              "meta": {},
+              "doc_count": 442003,
+              "org": {
+                "meta": {},
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+                "buckets": [
+                  {
+                    "key": "Helsingin yliopisto",
+                    "doc_count": 113886,
+                    "filtered": {
+                      "meta": {},
+                      "doc_count": 113886,
+                      "filterCount": {
+                        "meta": {},
+                        "doc_count": 113886
+                      }
+                    },
+                    "orgId": {
+                      "doc_count_error_upper_bound": 0,
+                      "sum_other_doc_count": 0,
+                      "buckets": [
+                        {
+                          "key": "01901",
+                          "doc_count": 113886
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "key": "Aalto-yliopisto",
+                    "doc_count": 109418,
+                    "filtered": {
+                      "meta": {},
+                      "doc_count": 109418,
+                      "filterCount": {
+                        "meta": {},
+                        "doc_count": 109418
+                      }
+                    },
+                    "orgId": {
+                      "doc_count_error_upper_bound": 0,
+                      "sum_other_doc_count": 0,
+                      "buckets": [
+                        {
+                          "key": "10076",
+                          "doc_count": 109418
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "publicationType": {
+      "meta": {},
+      "doc_count": 507026,
+      "publicationTypes": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "A1",
+            "doc_count": 189805
+          },
+          {
+            "key": "A2",
+            "doc_count": 10268
+          }
+        ]
+      }
+    },
+    "selfArchived": {
+      "meta": {},
+      "doc_count": 507026,
+      "selfArchivedCodes": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": 0,
+            "doc_count": 436481
+          },
+          {
+            "key": 1,
+            "doc_count": 70545
+          }
+        ]
+      }
+    },
+    "lang": {
+      "meta": {},
+      "doc_count": 507026,
+      "langs": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 7,
+        "buckets": [
+          {
+            "key": "EN",
+            "doc_count": 306128,
+            "language": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": "englanti",
+                  "doc_count": 306128
+                }
+              ]
+            }
+          },
+          {
+            "key": "FI",
+            "doc_count": 137474,
+            "language": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": "suomi",
+                  "doc_count": 137474
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "internationalCollaboration": {
+      "meta": {},
+      "doc_count": 507026,
+      "internationalCollaborationCodes": {
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": 0,
+            "key_as_string": "false",
+            "doc_count": 380008
+          },
+          {
+            "key": 1,
+            "key_as_string": "true",
+            "doc_count": 127018
+          }
+        ]
+      }
+    }
+  }
 }

@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'cutContent'
+  name: 'cutContent',
 })
 export class CutContentPipe implements PipeTransform {
-
   transform(value: string, maxLength: number): unknown {
     // tslint:disable-next-line: curly
     if (value === undefined) return '';
@@ -16,5 +15,4 @@ export class CutContentPipe implements PipeTransform {
     }
     return result;
   }
-
 }

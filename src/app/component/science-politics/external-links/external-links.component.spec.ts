@@ -8,9 +8,8 @@ describe('ExternalLinksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExternalLinksComponent ]
-    })
-    .compileComponents();
+      declarations: [ExternalLinksComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

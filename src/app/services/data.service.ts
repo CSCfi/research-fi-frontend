@@ -3,7 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
   private responseSource = new BehaviorSubject('');
@@ -18,7 +18,7 @@ export class DataService {
   private errorSource = new Subject<HttpErrorResponse>();
   currentError = this.errorSource.asObservable();
 
-  private filterSource = new Subject<{filter: string, key: string}>();
+  private filterSource = new Subject<{ filter: string; key: string }>();
   newFilter = this.filterSource.asObservable();
 
   totalResults: number | string = 0;
@@ -27,7 +27,7 @@ export class DataService {
 
   resultTabList: any[] = [];
 
-  constructor() { }
+  constructor() {}
 
   changeResponse(response: any) {
     this.responseSource.next(response);
@@ -51,6 +51,6 @@ export class DataService {
   }
 
   changeFilter(filter: string, key: string) {
-    this.filterSource.next({filter: filter, key: key});
+    this.filterSource.next({ filter: filter, key: key });
   }
 }

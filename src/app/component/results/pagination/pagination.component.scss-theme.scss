@@ -1,17 +1,18 @@
 @import '~@angular/material/theming';
 
 @mixin app-pagination-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-pagination, app-news-pagination {
-        button {
-            background: mat-contrast($primary, 600);
-            color: mat-color($primary);
-        }
-
-        button.pagination-link-active {
-            background: mat-color($primary);
-            color: mat-contrast($primary, 600);
-        }
+  app-pagination,
+  app-news-pagination {
+    button {
+      background: mat-contrast($primary, 600);
+      color: mat-color($primary);
     }
+
+    button.pagination-link-active {
+      background: mat-color($primary);
+      color: mat-contrast($primary, 600);
+    }
+  }
 }

@@ -8,16 +8,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterSum'
+  name: 'filterSum',
 })
 export class FilterSumPipe implements PipeTransform {
   // Sum doc_count of filter options
   transform(value: any): any {
     let result = 0;
-    value.forEach(item => {
+    value.forEach((item) => {
       result = result + item.doc_count;
     });
     return result;
   }
-
 }

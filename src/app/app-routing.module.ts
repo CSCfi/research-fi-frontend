@@ -18,7 +18,7 @@ import { NewsComponent } from './component/news/news/news.component';
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
 import { ExternalLinksComponent } from './component/science-politics/external-links/external-links.component';
-import { SingleFigureComponent} from './component/science-politics/figures/single-figure/single-figure.component';
+import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { AccessibilityComponent } from './component/accessibility/accessibility.component';
@@ -36,83 +36,83 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomePageComponent,
     resolve: {
-      shortcuts: ShortcutResolverService
-    }
+      shortcuts: ShortcutResolverService,
+    },
   },
   {
     path: 'results/publication',
     redirectTo: 'results/publications',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'results/funding',
     redirectTo: 'results/fundings',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'results/organization',
     redirectTo: 'results/organizations',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'results/publication/:id',
-    component: SinglePublicationComponent
+    component: SinglePublicationComponent,
   },
   {
     path: 'results/funding/:id',
-    component: SingleFundingComponent
+    component: SingleFundingComponent,
   },
   {
     path: 'results/material/:id',
-    component: SingleMaterialComponent
+    component: SingleMaterialComponent,
   },
   {
     path: 'results/organization/:id',
-    component: SingleOrganizationComponent
+    component: SingleOrganizationComponent,
   },
   {
     path: 'results/infrastructure/:id',
-    component: SingleInfrastructureComponent
+    component: SingleInfrastructureComponent,
   },
   {
     path: 'results',
     redirectTo: 'results/publications',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'results/:tab',
-    component: ResultsComponent
+    component: ResultsComponent,
   },
   {
     path: 'results/:tab/:input',
-    component: ResultsComponent
+    component: ResultsComponent,
   },
   {
     path: 'results/:tab/:input/:page',
-    component: ResultsComponent
+    component: ResultsComponent,
   },
   {
     path: 'visual',
     redirectTo: 'visual/publications',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'visual/:tab',
-    component: VisualisationComponent
+    component: VisualisationComponent,
   },
   {
     path: 'visual/:tab/:input',
-    component: VisualisationComponent
+    component: VisualisationComponent,
   },
   {
     path: 'news',
     pathMatch: 'full',
-    component: NewsComponent
+    component: NewsComponent,
   },
   {
     path: 'science-innovation-policy',
     component: ResearchInnovationSystemComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'science-innovation-policy/research-innovation-system',
@@ -121,67 +121,67 @@ const routes: Routes = [
     resolve: {
       pages: PageResolverService,
       sectorData: ResearchInnovationSystemSectorResolver,
-    }
+    },
   },
   {
     path: 'science-innovation-policy/external-links',
     pathMatch: 'full',
-    component: ExternalLinksComponent
+    component: ExternalLinksComponent,
   },
   {
     path: 'science-innovation-policy/science-research-figures',
     pathMatch: 'full',
-    component: FiguresComponent
+    component: FiguresComponent,
   },
   {
     path: 'science-innovation-policy/science-research-figures/:id',
-    component: SingleFigureComponent
+    component: SingleFigureComponent,
   },
   {
     path: 'service-info',
     component: ServiceInfoComponent,
     resolve: {
-      pages: PageResolverService
-    }
+      pages: PageResolverService,
+    },
   },
   {
     path: 'privacy',
     component: PrivacyComponent,
     resolve: {
-      pages: PageResolverService
-    }
+      pages: PageResolverService,
+    },
   },
   {
     path: 'privacy/:tab',
     component: PrivacyComponent,
     resolve: {
-      pages: PageResolverService
-    }
+      pages: PageResolverService,
+    },
   },
   {
     path: 'accessibility',
     component: AccessibilityComponent,
     resolve: {
-      pages: PageResolverService
-    }
+      pages: PageResolverService,
+    },
   },
   {
     path: 'sitemap',
-    component: SitemapComponent
+    component: SitemapComponent,
   },
   {
     path: '404',
-    component: NotFoundComponent
+    component: NotFoundComponent,
   },
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {anchorScrolling: 'enabled'})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled' })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

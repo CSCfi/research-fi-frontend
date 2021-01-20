@@ -6,34 +6,33 @@
 //  :license: MIT
 
 .cookie-consent {
-    position: fixed;
-    z-index: 9999;
-    bottom: 0;
-    width: 100%;
-    padding: 1rem;
-    font-size: 14px;
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  font-size: 14px;
 }
 
 a.read-more {
-    // font-size: 0.9rem;
-    text-decoration: underline;
+  // font-size: 0.9rem;
+  text-decoration: underline;
 }
 
 .cdk-focused {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 button {
-    font-size: 14px;
-    font-weight: bold;
-    padding: .3rem .8rem;
-
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0.3rem 0.8rem;
 }
 
 @media (max-width: 991px) {
-    button {
-        max-width: 130px;
-        line-height: 20px;
-        white-space: normal;
-    }
+  button {
+    max-width: 130px;
+    line-height: 20px;
+    white-space: normal;
+  }
 }

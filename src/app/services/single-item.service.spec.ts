@@ -6,7 +6,10 @@
 //  :license: MIT
 
 import { TestBed, async } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { SingleItemService } from './single-item.service';
 import { SettingsService } from './settings.service';
 import { AppConfigService } from './app-config-service.service';
@@ -17,7 +20,7 @@ const mockApiUrl = 'test.api.fi/';
 
 export class AppConfigServiceMock {
   get apiUrl() {
-      return mockApiUrl;
+    return mockApiUrl;
   }
 }
 
@@ -26,14 +29,12 @@ describe('SingleItemService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-      ],
+      imports: [HttpClientTestingModule],
       providers: [
         SingleItemService,
         SettingsService,
-        { provide: AppConfigService, useClass: AppConfigServiceMock}
-      ]
+        { provide: AppConfigService, useClass: AppConfigServiceMock },
+      ],
     });
     service = TestBed.inject(SingleItemService);
   });
@@ -52,10 +53,12 @@ describe('SingleItemService', () => {
       response = r;
     });
 
-    http.expectOne({
-      url: mockApiUrl + 'publication/_search',
-      method: 'POST'
-    }).flush(searchResponseMock);
+    http
+      .expectOne({
+        url: mockApiUrl + 'publication/_search',
+        method: 'POST',
+      })
+      .flush(searchResponseMock);
 
     expect(response.publications.length).toBe(1);
   });
@@ -69,7 +72,7 @@ describe('SingleItemService', () => {
   it('should return id as observable', () => {
     let testId: string;
 
-    service.currentId.subscribe(id => {
+    service.currentId.subscribe((id) => {
       testId = id;
     });
 

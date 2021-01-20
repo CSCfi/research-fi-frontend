@@ -6,92 +6,91 @@
 // :license: MIT
 
 app-single-figure {
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
 
-    h1 {
-        font-size: 2rem;
-        font-weight: bold;
-    }
+  a.back {
+    padding: 1rem 0;
+    display: block;
+    width: max-content;
+    font-weight: bold;
+  }
 
-    a.back {
-        padding: 1rem 0;
-        display: block;
-        width: max-content;
-        font-weight: bold;
-    }
+  .info-label {
+    vertical-align: 0.125em;
+  }
 
-    .info-label {
-        vertical-align: .125em;
-    }
+  .help {
+    position: absolute;
+    z-index: 1;
+    padding: 0.5rem;
+    overflow-wrap: break-word;
+  }
 
-    .help {
-        position: absolute;
-        z-index: 1;
-        padding: .5rem;
-        overflow-wrap: break-word;
-    }
+  .help {
+    max-width: 320px;
+  }
 
-    .help {
-        max-width: 320px;
-    }
+  .pointer {
+    cursor: pointer;
+  }
 
-    .pointer {
-        cursor: pointer;
-    }
+  .carousel-wrapper {
+    margin-top: 50px;
+  }
 
-    .carousel-wrapper {
-        margin-top: 50px;
-    }
-
-    app-share {
-        .secondary-button {
-            text-align: left !important;
-            padding-right: 8px;
-        }
-    }
-
-    app-carousel {
-        .secondary-button {
-            padding: 0 10px;   
-        }
-    }
-
+  app-share {
     .secondary-button {
-        font-size: 14px;
-
-        fa-icon {
-            padding: 0 10px !important;
-        }
+      text-align: left !important;
+      padding-right: 8px;
     }
+  }
 
+  app-carousel {
+    .secondary-button {
+      padding: 0 10px;
+    }
+  }
+
+  .secondary-button {
+    font-size: 14px;
+
+    fa-icon {
+      padding: 0 10px !important;
+    }
+  }
+
+  mat-basic-chip.tag {
+    margin-top: -6px;
+  }
+
+  // Responsive
+  @media (max-width: 449px) {
     mat-basic-chip.tag {
-        margin-top: -6px;
+      margin-top: 1rem;
+    }
+  }
+
+  // Custom carousel breakpoint
+  @media (max-width: 1120px) {
+    .carousel-wrapper {
+      display: none;
+    }
+  }
+
+  @media (max-width: 991px) {
+    a.back {
+      padding: 1rem;
     }
 
-    // Responsive
-    @media (max-width: 449px) {
-        mat-basic-chip.tag {
-            margin-top: 1rem;
-        }
+    h2 {
+      padding: 0 1rem;
     }
 
-    // Custom carousel breakpoint
-    @media (max-width: 1120px) {
-        .carousel-wrapper {
-            display: none;
-        }
+    .content {
+      overflow-x: hidden;
     }
-
-    @media (max-width: 991px) {
-        a.back {
-            padding: 1rem
-        }
-        
-        h2 {
-            padding: 0 1rem;
-        }
-
-        .content {
-            overflow-x: hidden;
-        }
-    }
+  }
 }

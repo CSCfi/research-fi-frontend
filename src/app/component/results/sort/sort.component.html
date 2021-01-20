@@ -3,11 +3,15 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="sort" >
-    <mat-form-field class="sort-button">
-        <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
-            <mat-option value="reset" i18n="@@sortByRelevance">Osuvin tulos ensin</mat-option>
-            <mat-option *ngFor="let row of tabFields" [value]="row.value">{{row.label}}</mat-option>
-        </mat-select>
-    </mat-form-field>
+<div class="sort">
+  <mat-form-field class="sort-button">
+    <mat-select [(ngModel)]="sortBy" (ngModelChange)="orderBy()">
+      <mat-option value="reset" i18n="@@sortByRelevance"
+        >Osuvin tulos ensin</mat-option
+      >
+      <mat-option *ngFor="let row of tabFields" [value]="row.value">{{
+        row.label
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>

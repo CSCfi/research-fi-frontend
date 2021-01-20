@@ -12,102 +12,102 @@ import {
   ViewChild,
   LOCALE_ID,
   AfterViewInit,
-} from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { TabChangeService } from "./../../../services/tab-change.service";
+} from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { TabChangeService } from './../../../services/tab-change.service';
 
 @Component({
-  selector: "app-external-links",
-  templateUrl: "./external-links.component.html",
-  styleUrls: ["./external-links.component.scss"],
+  selector: 'app-external-links',
+  templateUrl: './external-links.component.html',
+  styleUrls: ['./external-links.component.scss'],
 })
 export class ExternalLinksComponent implements OnInit, AfterViewInit {
-  @ViewChild("mainFocus") mainFocus: ElementRef;
+  @ViewChild('mainFocus') mainFocus: ElementRef;
   data = [
     {
-      heading: "Tiedettä ja tutkimusta tukevia tai ohjaavia tahoja suomessa",
+      heading: 'Tiedettä ja tutkimusta tukevia tai ohjaavia tahoja suomessa',
       items: [
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
       ],
     },
     {
-      heading: "Tieteen ja tutkimuksen kansainvälisiä toimijoita",
+      heading: 'Tieteen ja tutkimuksen kansainvälisiä toimijoita',
       items: [
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
       ],
     },
     {
-      heading: "AAAA",
+      heading: 'AAAA',
       items: [
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa, Testilinkin testisisältö, johon tulee jonkin verran tavaraa, Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa, Testilinkin testisisältö, johon tulee jonkin verran tavaraa, Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
         {
-          label: "Testilinkki",
+          label: 'Testilinkki',
           content:
-            "Testilinkin testisisältö, johon tulee jonkin verran tavaraa",
-          url: "https://google.fi",
+            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
+          url: 'https://google.fi',
         },
       ],
     },
@@ -126,18 +126,18 @@ export class ExternalLinksComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // Set title
     switch (this.localeId) {
-      case "fi": {
+      case 'fi': {
         this.setTitle(
-          "Tieteestä ja tutkimuksesta muualla - Tiedejatutkimus.fi"
+          'Tieteestä ja tutkimuksesta muualla - Tiedejatutkimus.fi'
         );
         break;
       }
-      case "en": {
-        this.setTitle("Tieteestä ja tutkimuksesta muualla - Research.fi");
+      case 'en': {
+        this.setTitle('Tieteestä ja tutkimuksesta muualla - Research.fi');
         break;
       }
-      case "sv": {
-        this.setTitle("Tieteestä ja tutkimuksesta muualla - Forskning.fi");
+      case 'sv': {
+        this.setTitle('Tieteestä ja tutkimuksesta muualla - Forskning.fi');
         break;
       }
     }
@@ -150,7 +150,7 @@ export class ExternalLinksComponent implements OnInit, AfterViewInit {
     // Focus with skip-links
     this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
       (target) => {
-        if (target === "main-link") {
+        if (target === 'main-link') {
           console.log(this.mainFocus);
           this.mainFocus.nativeElement.focus();
         }

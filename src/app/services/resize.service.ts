@@ -11,18 +11,17 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ResizeService {
-
-  public onResize$ = new EventEmitter<{width: number; height: number}>();
+  public onResize$ = new EventEmitter<{ width: number; height: number }>();
 
   private getDims = (e: any): void => {
     this.onResize$.emit({
       width: e.target.innerWidth,
-      height: e.target.innerHeight
+      height: e.target.innerHeight,
     });
-  }
+  };
 
   constructor(eventManager: EventManager) {
     eventManager.addGlobalEventListener('window', 'resize', this.getDims);

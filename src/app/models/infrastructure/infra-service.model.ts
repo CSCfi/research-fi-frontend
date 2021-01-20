@@ -11,38 +11,38 @@ import { ServicePoint, ServicePointAdapter } from './service-point.model';
 import { LanguageCheck } from '../utils';
 
 export class InfraService {
-
-    constructor(
-        public name: string,
-        public description: string,
-        public scientificDescription: string,
-        public acronym: string,
-        public type: string,
-        public servicePoints: ServicePoint[],
-    ) {}
+  constructor(
+    public name: string,
+    public description: string,
+    public scientificDescription: string,
+    public acronym: string,
+    public type: string,
+    public servicePoints: ServicePoint[]
+  ) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class InfraServiceAdapter implements Adapter<InfraService> {
-    constructor(private spa: ServicePointAdapter, private langCheck: LanguageCheck) {}
-    adapt(item: any): InfraService {
+  constructor(
+    private spa: ServicePointAdapter,
+    private langCheck: LanguageCheck
+  ) {}
+  adapt(item: any): InfraService {
+    const servicePoints: ServicePoint[] = [];
 
-        const servicePoints: ServicePoint[] = [];
+    item.servicePoints.forEach((sp) => {
+      servicePoints.push(this.spa.adapt(sp));
+    });
 
-        item.servicePoints.forEach(sp => {
-            servicePoints.push(this.spa.adapt(sp));
-        });
-
-        return new InfraService(
-            this.langCheck.testLang('serviceName', item),
-            this.langCheck.testLang('serviceDescription', item),
-            this.langCheck.testLang('serviceScientificDescription', item),
-            item.serviceAcronym,
-            item.serviceType,
-            servicePoints,
-        );
-    }
+    return new InfraService(
+      this.langCheck.testLang('serviceName', item),
+      this.langCheck.testLang('serviceDescription', item),
+      this.langCheck.testLang('serviceScientificDescription', item),
+      item.serviceAcronym,
+      item.serviceType,
+      servicePoints
+    );
+  }
 }

@@ -1,9 +1,8 @@
 @import '~@angular/material/theming';
 
 @mixin app-organizations-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-organizations {
-
-    }
+  app-organizations {
+  }
 }
