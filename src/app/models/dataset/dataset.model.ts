@@ -39,7 +39,6 @@ export class DatasetAdapter implements Adapter<Dataset> {
     constructor(private lang: LanguageCheck) {}
     adapt(item: any): Dataset {
 
-
         const keywords = item.keywords ? item.keywords.map(x => x.keyword) : [];
 
         return new Dataset(
@@ -53,7 +52,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
             'tieteenalat - test',
             'kieli - test',
             this.lang.translateAccessType(item.accessType),
-            item.licenseCode,
+            this.lang.testLang('licenseName', item),
             keywords.join(', '),
             'kattavuus - test',
             this.lang.testLang('name', item?.dataCatalog[0]),
