@@ -27,6 +27,7 @@ import { SingleInfrastructureComponent } from './component/single/single-infrast
 import { NotFoundComponent } from './common-components/not-found/not-found.component';
 import { PageResolverService } from './resolvers/page-resolver.service';
 import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
+import { ExternalLinkResolver } from './resolvers/external-link-resolver.service';
 import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
 import { SingleMaterialComponent } from './component/single/single-material/single-material.component';
 
@@ -127,6 +128,9 @@ const routes: Routes = [
     path: 'science-innovation-policy/external-links',
     pathMatch: 'full',
     component: ExternalLinksComponent,
+    resolve: {
+      links: ExternalLinkResolver,
+    },
   },
   {
     path: 'science-innovation-policy/science-research-figures',

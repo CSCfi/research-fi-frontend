@@ -12,118 +12,46 @@ import {
   ViewChild,
   LOCALE_ID,
   AfterViewInit,
+  OnDestroy,
+  ElementRef,
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { TabChangeService } from './../../../services/tab-change.service';
+import { ActivatedRoute } from '@angular/router';
+import { TabChangeService } from 'src/app/services/tab-change.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-external-links',
   templateUrl: './external-links.component.html',
   styleUrls: ['./external-links.component.scss'],
 })
-export class ExternalLinksComponent implements OnInit, AfterViewInit {
+export class ExternalLinksComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;
-  data = [
-    {
-      heading: 'Tiedettä ja tutkimusta tukevia tai ohjaavia tahoja suomessa',
-      items: [
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa. Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-      ],
-    },
-    {
-      heading: 'Tieteen ja tutkimuksen kansainvälisiä toimijoita',
-      items: [
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-      ],
-    },
-    {
-      heading: 'AAAA',
-      items: [
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa, Testilinkin testisisältö, johon tulee jonkin verran tavaraa, Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-        {
-          label: 'Testilinkki',
-          content:
-            'Testilinkin testisisältö, johon tulee jonkin verran tavaraa',
-          url: 'https://google.fi',
-        },
-      ],
-    },
-  ];
+  focusSub: Subscription;
+  data: any;
+  currentLocale: string;
 
   constructor(
     @Inject(LOCALE_ID) protected localeId: string,
     private titleService: Title,
-    private tabChangeService: TabChangeService
-  ) {}
+    private tabChangeService: TabChangeService,
+    private route: ActivatedRoute
+  ) {
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
   ngOnInit(): void {
+    // Get data
+    // this.sectorData = this.route.snapshot.data.sectorData;
+    console.log(this.route.snapshot.data);
+    this.data = this.route.snapshot.data.links;
+
     // Set title
     switch (this.localeId) {
       case 'fi': {
@@ -151,10 +79,13 @@ export class ExternalLinksComponent implements OnInit, AfterViewInit {
     this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
       (target) => {
         if (target === 'main-link') {
-          console.log(this.mainFocus);
-          this.mainFocus.nativeElement.focus();
+          this.mainFocus?.nativeElement.focus();
         }
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.focusSub?.unsubscribe();
   }
 }

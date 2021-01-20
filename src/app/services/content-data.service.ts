@@ -12,6 +12,10 @@ import { Shortcut, ShortcutAdapter } from '../models/shortcut.model';
 import { Figure, FigureAdapter } from '../models/figure/figure.model';
 import { Page, PageAdapter } from '../models/page.model';
 import {
+  ExternalLinkGroup,
+  ExternalLinkGroupAdapter,
+} from '../models/research-innovation-system/external-link-group.model';
+import {
   Sector,
   SectorAdapter,
 } from '../models/research-innovation-system/sector.model';
@@ -34,6 +38,7 @@ export class ContentDataService {
     private figureAdapter: FigureAdapter,
     private pageAdapter: PageAdapter,
     private sectorAdapter: SectorAdapter,
+    private externalLinkAdapter: ExternalLinkGroupAdapter,
     private appConfigService: AppConfigService
   ) {
     this.apiUrl = this.appConfigService.cmsUrl + '/apis/v1/';
@@ -64,6 +69,12 @@ export class ContentDataService {
     return this.http
       .get<Sector[]>(this.apiUrl + 'sectors/')
       .pipe(map((data) => this.sectorAdapter.adaptMany(data)));
+  }
+
+  getExternalLinks(): Observable<ExternalLinkGroup[]> {
+    return this.http
+      .get<ExternalLinkGroup[]>(this.apiUrl + 'external_links/')
+      .pipe(map((data) => this.externalLinkAdapter.adaptMany(data)));
   }
 
   /*

@@ -14,18 +14,23 @@
       </div>
     </div>
     <ng-container *ngFor="let section of data">
-      <app-divider headingText="{{ section.heading }}"></app-divider>
+      <app-divider
+        headingText="{{ section['title' + currentLocale] }}"
+      ></app-divider>
       <div class="row">
         <div
-          [ngClass]="section.items.length === 3 ? 'col-lg-4' : 'col-lg-6'"
+          [ngClass]="section.links.length === 3 ? 'col-lg-4' : 'col-lg-6'"
           class="col-12 pb-3"
-          *ngFor="let item of section.items; let i = index"
+          *ngFor="let link of section.links"
         >
           <ul class="item-container list-unstyled">
-            <li class="item-heading pb-2">{{ item.label }} {{ i }}</li>
-            <li class="pb-1">{{ item.content }}</li>
-            <a #mainFocus [href]="item.url" target="_blank"
-              ><fa-icon icon="external-link-alt"></fa-icon> {{ item.url }}</a
+            <li class="item-heading pb-2">
+              {{ link['label' + currentLocale] }}
+            </li>
+            <li class="pb-1">{{ link['content' + currentLocale] }}</li>
+            <a #mainFocus [href]="link.url" target="_blank"
+              ><fa-icon class="pl-0" icon="external-link-alt"></fa-icon>
+              {{ link.url }}</a
             >
           </ul>
         </div>
