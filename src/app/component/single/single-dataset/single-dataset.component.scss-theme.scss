@@ -7,11 +7,11 @@
 
 @import '~@angular/material/theming';
 
-@mixin app-single-material-theme($theme) {
+@mixin app-single-dataset-theme($theme) {
     $primary: map-get($theme, primary);
     $warn: map-get($theme, warn);
 
-    app-single-material {
+    app-single-dataset {
         div.links {
             color: mat-contrast($primary, 500);
             

@@ -3,7 +3,7 @@
 @mixin app-single-result-theme-shared($theme) {
     $primary: map-get($theme, primary);
 
-    app-single-publication, app-single-funding, app-single-material, app-single-infrastructure, app-single-organization {
+    app-single-publication, app-single-funding, app-single-dataset, app-single-infrastructure, app-single-organization {
 
         .shared {
             tr:nth-child(even), .content:nth-child(even) {

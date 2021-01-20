@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { LanguageCheck } from '../utils';
 
-export class Material {
+export class Dataset {
 
     constructor(
         public id: string,
@@ -35,29 +35,28 @@ export class Material {
     providedIn: 'root'
 })
 
-export class MaterialAdapter implements Adapter<Material> {
+export class DatasetAdapter implements Adapter<Dataset> {
     constructor(private lang: LanguageCheck) {}
-    adapt(item: any): Material {
-
+    adapt(item: any): Dataset {
 
         const keywords = item.keywords ? item.keywords.map(x => x.keyword) : [];
 
-        return new Material(
+        return new Dataset(
             item.identifier,
             this.lang.testLang('name', item),
             this.lang.testLang('description', item),
-            item.datasetCreated.slice(0, 4),
+            item.datasetCreated,
             'tyyppi - test',
             'tekijät - test',
             'projekti - test',
             'tieteenalat - test',
             'kieli - test',
-            'saatavuus - test',
-            'lisenssi - test',
+            this.lang.translateAccessType(item.accessType),
+            this.lang.testLang('licenseName', item),
             keywords.join(', '),
             'kattavuus - test',
             this.lang.testLang('name', item?.dataCatalog[0]),
-            Math.random() > 0.5, // Open access test
+            item.accessType === 'open',
             Math.random() > 0.5 ? 'test' : undefined // DOI test
         );
     }
