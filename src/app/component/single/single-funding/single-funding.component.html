@@ -106,8 +106,32 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Related fundings -->
+                        <div class="row" *ngIf="item.relatedFundings">
+                            <h2 class="col-12 col-sm-4 col-lg-3 th" i18n="@@relatedFundings" i18n-aria-label="@@additionalInfo" aria-label="Lisätietoa">Muut päätökset
+                                <ng-template #tooltipTemplate>
+                                    <div [innerHtml]="relatedFundingsTooltip.tooltip"></div>
+                                </ng-template>                                
+                                <span [tooltip]="tooltipTemplate" tabindex="0" triggers="focus keydown" placement="top" (mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
+                                    <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                                </span>
+                            </h2>
+                            <div *ngFor="let relatedFunding of item.relatedFundings; first as isFirst" class="col-12 col-sm-8 col-lg-9 px-0" [class.offset-sm-4]="!isFirst" [class.offset-lg-3]="!isFirst">
+                                <div class="row">
+                                    <div class="col-12 col-lg-3 td pr-0 ">
+                                        <span *ngIf="relatedFunding.recipientName?.length > 0" i18n-aria-label="@@fundingRecipient" aria-label="Rahoituksen saaja">{{relatedFunding.recipientName}}</span>
+                                    </div>
+                                    <div class="td col-12 col-lg-4 ">
+                                        <span *ngIf="relatedFunding.typeOfFundingName?.length > 0" i18n-aria-label="@@typeOfFunding" aria-label="Rahoitusmuoto">{{relatedFunding.typeOfFundingName}}</span>
+                                    </div>
+                                    <div class="td col-12 col-lg-3 " i18n-aria-label="@@sumGranted" aria-label="Summa">
+                                        {{relatedFunding.shareOfFunding | thousandSeparator}} €
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Funding amount -->
-                        <div class="row" *ngIf="item.recipient.amountEur !== item.recipient.shareOfFundingEur">
+                        <div class="row" *ngIf="item.totalFundingAmount !== item.recipient.shareOfFundingEur">
                             <h2 class="col-12 col-sm-4 col-lg-3 th">
                                 <ng-container [ngSwitch]="item.recipientType">
                                     <ng-container i18n="@@amountGranted" *ngSwitchCase="'organization'">Myönnetty summa </ng-container>
@@ -122,7 +146,7 @@
                             </h2>
                             <div class="col px-0">
                                 <div class="col-12 col-sm-4 col-lg-3  offset-0 td" [ngClass]="item.recipientType === 'organization' ? (item.euFunding ? 'offset-sm-5' : '') : 'offset-sm-7'">
-                                    <div [class.bold]="item.recipientType==='organization'">{{item.recipient.amountEur | thousandSeparator}} €</div>
+                                    <div [class.bold]="item.recipientType==='organization' || item.relatedFundings" i18n-aria-label="@@totalAmount" aria-label="Rahoitusten kokonaissumma">{{item.totalFundingAmount | thousandSeparator}} €</div>
                                 </div>
                             </div>
                         </div>

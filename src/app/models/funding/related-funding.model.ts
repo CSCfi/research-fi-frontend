@@ -14,6 +14,7 @@ export class RelatedFunding {
         public typeOfFundingName: string,
         public typeOfFundingId: number,
         public shareOfFunding: number,
+        public recipientName: string
     ) {}
 }
 
@@ -27,7 +28,8 @@ export class RelatedFundingAdapter implements Adapter<RelatedFunding> {
         return new RelatedFunding(
             this.lang.testLang('typeOfFundingName', item),
             item.typeOfFundingId,
-            item.shareOfFundingInEur
+            item.shareOfFundingInEur,
+            ''
         );
     }
 }
