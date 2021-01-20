@@ -55,7 +55,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { A11yModule } from '@angular/cdk/a11y';
 
-import { CountUpModule } from 'countup.js-angular2';
+import { CountUpModule } from 'ngx-countup';
 
 import { SinglePublicationComponent } from './component/single/single-publication/single-publication.component';
 import { SingleFundingComponent } from './component/single/single-funding/single-funding.component';
@@ -140,6 +140,7 @@ import { FiguresInfoComponent } from './component/science-politics/figures/figur
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { MaterialsComponent } from './component/results/materials/materials.component';
 import { SingleMaterialComponent } from './component/single/single-material/single-material.component';
+import { ExternalLinksComponent } from './component/science-politics/external-links/external-links.component';
 
 @NgModule({
   declarations: [
@@ -204,7 +205,8 @@ import { SingleMaterialComponent } from './component/single/single-material/sing
     FiguresInfoComponent,
     SanitizeHtmlPipe,
     MaterialsComponent,
-    SingleMaterialComponent
+    SingleMaterialComponent,
+    ExternalLinksComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

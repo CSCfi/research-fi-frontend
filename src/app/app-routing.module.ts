@@ -17,6 +17,7 @@ import { NewsComponent } from './component/news/news/news.component';
 // tslint:disable-next-line: max-line-length
 import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
 import { FiguresComponent } from './component/science-politics/figures/figures.component';
+import { ExternalLinksComponent } from './component/science-politics/external-links/external-links.component';
 import { SingleFigureComponent} from './component/science-politics/figures/single-figure/single-figure.component';
 import { ServiceInfoComponent } from './component/service-info/service-info.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
@@ -121,6 +122,11 @@ const routes: Routes = [
       pages: PageResolverService,
       sectorData: ResearchInnovationSystemSectorResolver,
     }
+  },
+  {
+    path: 'science-innovation-policy/external-links',
+    pathMatch: 'full',
+    component: ExternalLinksComponent
   },
   {
     path: 'science-innovation-policy/science-research-figures',

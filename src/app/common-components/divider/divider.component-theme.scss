@@ -7,21 +7,13 @@
 
 @import "~@angular/material/theming";
 
-@mixin app-primary-action-button-theme($theme) {
+@mixin app-divider-theme($theme) {
   $primary: map-get($theme, primary);
-  $warn: map-get($theme, warn);
 
-  .primary-action {
+  .divider {
     background-color: mat-color($primary);
-
-    border: 2px solid mat-color($primary);
-    color: mat-contrast($primary, 500);
-
-    &:hover,
-    &:active {
-      &:not([disabled]) {
-        border-color: mat-contrast($primary, 500);
-      }
+    h2 {
+      color: mat-contrast($primary, 500);
     }
   }
 }
