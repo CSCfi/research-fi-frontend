@@ -9,6 +9,7 @@ import { Adapter } from '../adapter.model';
 import { Recipient, RecipientAdapter } from './recipient.model';
 import { Funder, FunderAdapter } from './funder.model';
 import { LanguageCheck } from '../utils';
+import { RelatedFunding, RelatedFundingAdapter } from './related-funding.model';
 
 export class Funding {
 
@@ -30,8 +31,9 @@ export class Funding {
         public keywords: string,
         public projectHomepage: string,
         public recipientType: string,
-        public euFunding: boolean
-
+        public euFunding: boolean,
+        public relatedFundings: RelatedFunding[],
+        public totalFundingAmount: number
     ) {}
 }
 
@@ -39,7 +41,7 @@ export class Funding {
     providedIn: 'root'
 })
 export class FundingAdapter implements Adapter<Funding> {
-    constructor(private r: RecipientAdapter, private f: FunderAdapter, private lang: LanguageCheck) {}
+    constructor(private r: RecipientAdapter, private f: FunderAdapter, private rf: RelatedFundingAdapter, private lang: LanguageCheck) {}
     adapt(item: any): Funding {
         const recipientObj = item.fundingGroupPerson ?
                              item.fundingGroupPerson.filter(x => x.consortiumProject === item.funderProjectNumber).shift() : {};
@@ -97,6 +99,11 @@ export class FundingAdapter implements Adapter<Funding> {
 
         const recipient = this.r.adapt(item);
 
+        const relatedFundings = item?.relatedFunding?.map(x => this.rf.adapt(x));
+
+        // Sum of original funding and related fundings, or only original if no related fundings
+        const totalFundingAmount = relatedFundings ? recipient.amountEur + relatedFundings?.map(x => x.shareOfFunding)?.reduce((a, b) => a + b, 0) : recipient.amountEur;
+
         // TODO: Translate
         const science = item.fieldsOfScience?.map(x => this.lang.translateFieldOfScience(x)).join('; ');
         const research = item.keywords?.filter(x => x.scheme === 'Tutkimusala').map(x => x.keyword).join(', ');
@@ -121,7 +128,9 @@ export class FundingAdapter implements Adapter<Funding> {
             keyword,
             item.projetHomepage,
             item.recipientType,
-            item.euFunding
+            item.euFunding,
+            relatedFundings,
+            totalFundingAmount
         );
     }
 }
