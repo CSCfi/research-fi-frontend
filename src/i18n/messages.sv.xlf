@@ -2704,6 +2704,14 @@
         <source>Summa</source>
         <target>Belopp</target>
       </trans-unit>
+      <trans-unit id="fundingRecipient">
+        <source>Rahoituksen saaja</source>
+        <target>Funding recipient</target>
+      </trans-unit>
+      <!-- <trans-unit id="totalAmount">
+        <source>Rahoitusten kokonaissumma</source>
+        <target>Funding recipient</target>
+      </trans-unit> -->
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
         <target state="translated">Vetenskapsområden</target>
