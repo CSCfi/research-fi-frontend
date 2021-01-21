@@ -24,7 +24,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   @Input() navItems: any;
   @Input() currentLang: any;
   @Input() currentRoute: any;
-  @Input() langSelector = false;
   mobile = this.window.innerWidth < 1200;
   height = this.window.innerHeight;
   width = this.window.innerWidth;
@@ -84,7 +83,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
       if (this.navbarOpen) {
         this.toggleNavbar();
       }
-      if (this.mainNavbar) { this.mainNavbar.nativeElement.style.cssText = ''; }
+      if (this.mainNavbar) {
+        this.mainNavbar.nativeElement.style.cssText = '';
+      }
     } else {
       this.mobile = true;
     }

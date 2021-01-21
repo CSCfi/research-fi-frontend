@@ -28,10 +28,10 @@
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
   @include app-header-theme($theme);
+  @include app-header-component-theme($theme);
   @include app-secondary-button-theme($theme);
   @include app-primary-action-button-theme($theme);
   @include app-close-button-theme($theme);
-  @include app-header-theme($theme);
 
   $primary: map-get($theme, primary);
 

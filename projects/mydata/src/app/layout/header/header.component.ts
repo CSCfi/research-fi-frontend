@@ -5,7 +5,7 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
   lang = 'fi';

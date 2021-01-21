@@ -5,15 +5,21 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-.center-container {
-  position: absolute;
-  width: 200px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
+app-header {
+  .center-container {
+    position: absolute;
+    width: 200px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
 
-.title {
-  font-size: 1.3rem;
+  .title {
+    font-size: 1.3rem;
+  }
+
+  mat-form-field .mat-select-value-text {
+    font-weight: bold !important;
+  }
 }
