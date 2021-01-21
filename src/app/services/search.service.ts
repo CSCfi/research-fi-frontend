@@ -109,14 +109,12 @@ export class SearchService {
       aggs: {
         _index: {
           filters: {
-            filters: {
-              persons: { match: { _index: 'person' } },
-              publications: { match: { _index: 'publication' } },
-              fundings: { match: { _index: 'funding' } },
-              materials: { match: { _index: 'material' } },
-              infrastructures: { match: { _index: 'infrastructure' } },
-              organizations: { match: { _index: 'organization' } },
-            },
+            persons: { match: { _index: 'person' } },
+            publications: { match: { _index: 'publication' } },
+            fundings: { match: { _index: 'funding' } },
+            datasets: { match: { _index: 'dataset' } },
+            infrastructures: { match: { _index: 'infrastructure' } },
+            organizations: { match: { _index: 'organization' } },
           },
         },
       },
@@ -170,7 +168,7 @@ export class SearchService {
                     this.searchTerm
                   ),
                   this.settingsService.querySettings(
-                    'material',
+                    'dataset',
                     this.searchTerm
                   ),
                   this.settingsService.querySettings(
@@ -206,9 +204,9 @@ export class SearchService {
                   _index: 'funding',
                 },
               },
-              materials: {
+              datasets: {
                 match: {
-                  _index: 'material',
+                  _index: 'dataset',
                 },
               },
               infrastructures: {

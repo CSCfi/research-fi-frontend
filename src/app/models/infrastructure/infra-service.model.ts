@@ -41,7 +41,7 @@ export class InfraServiceAdapter implements Adapter<InfraService> {
       this.langCheck.testLang('serviceDescription', item),
       this.langCheck.testLang('serviceScientificDescription', item),
       item.serviceAcronym,
-      item.serviceType,
+      this.langCheck.translateInfraServiceType(item.serviceType),
       servicePoints
     );
   }

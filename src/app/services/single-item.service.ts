@@ -6,10 +6,10 @@
 //  :license: MIT
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Search, SearchAdapter } from '../models/search.model';
-import { Subject, Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AppConfigService } from './app-config-service.service';
 import { SettingsService } from './settings.service';
 
@@ -20,7 +20,7 @@ export class SingleItemService {
   apiUrl: any;
   publicationApiUrl = '';
   fundingApiUrl = '';
-  materialApiUrl = '';
+  datasetApiUrl = '';
   organizationApiUrl = '';
   infrastructureApiUrl = '';
   private getIdSubject = new Subject<string>();
@@ -36,7 +36,7 @@ export class SingleItemService {
     this.apiUrl = this.appConfigService.apiUrl;
     this.publicationApiUrl = this.apiUrl + 'publication/_search';
     this.fundingApiUrl = this.apiUrl + 'funding/_search';
-    this.materialApiUrl = this.apiUrl + 'material/_search';
+    this.datasetApiUrl = this.apiUrl + 'dataset/_search';
     this.organizationApiUrl = this.apiUrl + 'organization/_search';
     this.infrastructureApiUrl = this.apiUrl + 'infrastructure/_search';
   }
@@ -72,13 +72,10 @@ export class SingleItemService {
       .post<Search>(this.fundingApiUrl, this.constructPayload('projectId', id))
       .pipe(map((data: any) => this.searchAdapter.adapt(data, 'fundings')));
   }
-  getSingleMaterial(id): Observable<Search> {
+  getSingleDataset(id): Observable<Search> {
     return this.http
-      .post<Search>(
-        this.materialApiUrl,
-        this.constructPayload('identifier', id)
-      )
-      .pipe(map((data: any) => this.searchAdapter.adapt(data, 'materials')));
+      .post<Search>(this.datasetApiUrl, this.constructPayload('identifier', id))
+      .pipe(map((data: any) => this.searchAdapter.adapt(data, 'datasets')));
   }
 
   getSingleOrganization(id): Observable<Search> {

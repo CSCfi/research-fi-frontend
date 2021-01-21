@@ -6,8 +6,6 @@
 //  :license: MIT
 
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
-import { SearchService } from './search.service';
-import { path } from 'd3';
 
 @Injectable({
   providedIn: 'root',
@@ -333,7 +331,7 @@ export class SortService {
         }
         break;
       }
-      case 'materials': {
+      case 'datasets': {
         this.yearField = 'datasetCreated';
         switch (this.sortColumn) {
           case 'name': {
@@ -377,7 +375,7 @@ export class SortService {
             this.sort = [
               {
                 [sortString]: {
-                  order: this.sortDirection ? 'desc' : 'asc',
+                  order: this.sortDirection ? 'asc' : 'desc',
                   unmapped_type: 'long',
                 },
               },

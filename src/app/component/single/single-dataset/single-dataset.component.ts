@@ -1,3 +1,10 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
 import {
   Component,
   ElementRef,
@@ -16,30 +23,30 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { SingleItemService } from 'src/app/services/single-item.service';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
-import { singleMaterial, common } from 'src/assets/static-data/meta-tags.json';
+import { singleDataset, common } from 'src/assets/static-data/meta-tags.json';
 
 @Component({
-  selector: 'app-single-material',
-  templateUrl: './single-material.component.html',
-  styleUrls: ['./single-material.component.scss'],
+  selector: 'app-single-dataset',
+  templateUrl: './single-dataset.component.html',
+  styleUrls: ['./single-dataset.component.scss'],
 })
-export class SingleMaterialComponent implements OnInit {
+export class SingleDatasetComponent implements OnInit {
   public singleId: any;
   responseData: Search;
   searchTerm: string;
   pageNumber: any;
   tabQueryParams: any;
-  private metaTags = singleMaterial;
+  private metaTags = singleDataset;
   private commonTags = common;
 
-  tab = 'materials';
+  tab = 'datasets';
 
   infoFields = [
     { label: $localize`:@@description:Kuvaus`, field: 'description' },
     { label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'year' },
-    { label: $localize`:@@materialType:Aineiston tyyppi`, field: 'type' },
+    { label: $localize`:@@datasetType:Aineiston tyyppi`, field: 'type' },
     { label: $localize`:@@authors:Tekijät`, field: 'authors' },
-    { label: $localize`:@@materialProject:Projekti`, field: 'project' },
+    { label: $localize`:@@datasetProject:Projekti`, field: 'project' },
   ];
 
   otherInfoFields = [
@@ -59,7 +66,7 @@ export class SingleMaterialComponent implements OnInit {
 
   otherFields = [
     {
-      label: $localize`:@@relatedMaterials:Liittyvät aineistot`,
+      label: $localize`:@@relatedDatasets:Liittyvät aineistot`,
       field: 'name',
       tooltip: '',
     },
@@ -126,9 +133,9 @@ export class SingleMaterialComponent implements OnInit {
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
-    this.tabQueryParams = this.tabChangeService.tabQueryParams.materials;
+    this.tabQueryParams = this.tabChangeService.tabQueryParams.datasets;
     this.tabData = this.tabChangeService.tabData.find(
-      (item) => item.data === 'materials'
+      (item) => item.data === 'datasets'
     );
     this.searchTerm = this.searchService.searchTerm;
   }
@@ -139,26 +146,26 @@ export class SingleMaterialComponent implements OnInit {
   }
 
   getData(id: string) {
-    this.singleService.getSingleMaterial(id).subscribe(
+    this.singleService.getSingleDataset(id).subscribe(
       (responseData) => {
         this.responseData = responseData;
-        if (this.responseData.materials[0]) {
+        if (this.responseData.datasets[0]) {
           switch (this.localeId) {
             case 'fi': {
               this.setTitle(
-                this.responseData.materials[0].name + ' - Tiedejatutkimus.fi'
+                this.responseData.datasets[0].name + ' - Tiedejatutkimus.fi'
               );
               break;
             }
             case 'en': {
               this.setTitle(
-                this.responseData.materials[0].name.trim() + ' - Research.fi'
+                this.responseData.datasets[0].name.trim() + ' - Research.fi'
               );
               break;
             }
             case 'sv': {
               this.setTitle(
-                this.responseData.materials[0].name.trim() + ' - Forskning.fi'
+                this.responseData.datasets[0].name.trim() + ' - Forskning.fi'
               );
               break;
             }
@@ -183,7 +190,7 @@ export class SingleMaterialComponent implements OnInit {
     // Helper function to check if the field exists and has data
     const checkEmpty = (item: { field: string }) => {
       return UtilityService.stringHasContent(
-        this.responseData.materials[0][item.field]
+        this.responseData.datasets[0][item.field]
       );
     };
     // Filter all the fields to only include properties with defined data
@@ -196,7 +203,7 @@ export class SingleMaterialComponent implements OnInit {
   }
 
   shapeData() {
-    const source = this.responseData.materials[0];
+    const source = this.responseData.datasets[0];
   }
 
   expandDescription() {

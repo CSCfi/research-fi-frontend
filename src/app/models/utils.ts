@@ -155,4 +155,42 @@ export class LanguageCheck {
     });
     return this.testLang('keyword', keywordsObj);
   }
+
+  translateInfraServiceType(type) {
+    switch (type) {
+      case 'laitteisto': {
+        return $localize`:@@infraServiceTypeEquipment:Laitteisto`;
+      }
+      case 'aineisto': {
+        return $localize`:@@infraServiceTypeMaterial:Aineisto`;
+      }
+      case 'palvelu': {
+        return $localize`:@@infraServiceTypeService:Palvelu`;
+      }
+    }
+    // Return finnish if not english or swedish
+    return type;
+  }
+
+  translateAccessType(type) {
+    switch (type) {
+      case 'open': {
+        return $localize`:@@datasetAccessOpen:Avoin`;
+      }
+      case 'permit': {
+        return $localize`:@@datasetAccessPermin:Vaatii luvan hakemista Fairdata-palvelussa`;
+      }
+      case 'login': {
+        return $localize`:@@datasetAccessLogin:Vaatii kirjautumisen Fairdata-palvelussa`;
+      }
+      case 'restricted': {
+        return $localize`:@@datasetAccessrestricted:Saatavuutta rajoitettu`;
+      }
+      case 'embargo': {
+        return $localize`:@@datasetAccessEmbargo:Embargo`;
+      }
+    }
+    // Return finnish if not english or swedish
+    return type;
+  }
 }

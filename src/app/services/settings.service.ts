@@ -21,7 +21,7 @@ export class SettingsService {
 
   constructor(private staticDataService: StaticDataService) {
     this.indexList =
-      'publication,funding,material,infrastructure,organization' + '/_search?';
+      'publication,funding,dataset,infrastructure,organization' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 

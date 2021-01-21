@@ -156,7 +156,7 @@ export class SingleOrganizationComponent implements OnInit, OnDestroy {
       disabled: false,
     },
     { labelFi: $localize`:@@authors:Tutkijat`, tab: 'persons', disabled: true },
-    { labelFi: $localize`:@@materials:Aineistot`, tab: '', disabled: true },
+    { labelFi: $localize`:@@datasets:Aineistot`, tab: '', disabled: true },
     {
       labelFi: $localize`:@@infrastructures:Infrastruktuurit`,
       tab: 'infrastructures',

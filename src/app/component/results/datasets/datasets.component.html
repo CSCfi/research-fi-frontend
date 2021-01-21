@@ -22,7 +22,7 @@
         "
         (click)="utilityService.sortBy('name')"
         (keydown.enter)="utilityService.sortBy('name')"
-        i18n="@@materialName"
+        i18n="@@datasetName"
         >Tutkimusaineiston nimi</span
       >
     </div>
@@ -39,7 +39,7 @@
         "
         (click)="utilityService.sortBy('author')"
         (keydown.enter)="utilityService.sortBy('author')"
-        i18n="@@materialAuthors"
+        i18n="@@datasetAuthors"
         >Tutkimusaineiston tekijät / organisaatio</span
       >
     </div>
@@ -67,13 +67,13 @@
   </div>
   <div *ngIf="resultData" class="result-container">
     <div
-      *ngFor="let material of resultData.materials; let i = index"
+      *ngFor="let dataset of resultData.datasets; let i = index"
       class="single"
     >
       <div class="row no-margin">
         <div class="col col-1 icon">
           <a
-            routerLink="/results/material/{{ material.id }}"
+            routerLink="/results/dataset/{{ dataset.id }}"
             class="icon"
             tabindex="-1"
             title="Julkaisujen tiedon ikoni"
@@ -82,20 +82,20 @@
           </a>
         </div>
         <div class="col col-8 col-lg-5 col-xl-4 title">
-          <a routerLink="/results/material/{{ material.id }}">
+          <a routerLink="/results/dataset/{{ dataset.id }}">
             <h4
               class="result-title"
               [attr.lang]="
-                material.languageCode !== documentLang
-                  ? material.languageCode
+                dataset.languageCode !== documentLang
+                  ? dataset.languageCode
                   : null
               "
-              [innerHtml]="material.name | highlight: input"
+              [innerHtml]="dataset.name | highlight: input"
             ></h4>
           </a>
           <div class="tags d-xl-none">
             <a
-              *ngIf="material.openAccess"
+              *ngIf="dataset.openAccess"
               href=""
               target="_blank"
               class="open-access div"
@@ -104,16 +104,16 @@
               <span i18n="@@openAccess">Avoin saatavuus</span
               ><fa-icon icon="external-link-alt"></fa-icon>
             </a>
-            <!-- Span is for materials that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-            <!-- <span *ngIf="material.openAccess" class="open-access div">
-                            <span class="open-access-image"></span>
-                            <span i18n="@@openAccess">Avoin saatavuus</span>
-                        </span> -->
-            <div *ngIf="material.doi?.trim()" class="doi">
+            <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
+            <!-- <span *ngIf="dataset.openAccess" class="open-access div">
+                          <span class="open-access-image"></span>
+                          <span i18n="@@openAccess">Avoin saatavuus</span>
+                      </span> -->
+            <div *ngIf="dataset.doi?.trim()" class="doi">
               <span class="doi-tag">DOI</span>
               <span class="doi-link"
-                ><a href="https://doi.org/{{ material.doi }}" target="_blank"
-                  >{{ material.doi
+                ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
+                  >{{ dataset.doi
                   }}<fa-icon icon="external-link-alt"></fa-icon></a
               ></span>
             </div>
@@ -122,17 +122,17 @@
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
           <span
             [innerHtml]="
-              material.description | cutContent: 100 | highlight: input
+              dataset.description | cutContent: 100 | highlight: input
             "
           ></span>
         </div>
         <div class="col col-xl-1">
-          <span [innerHtml]="material.year | highlight: input"></span>
+          <span [innerHtml]="dataset.year | highlight: input"></span>
         </div>
         <div class="col col-lg-3 d-none d-xl-block">
           <div class="tags">
             <a
-              *ngIf="material.openAccess"
+              *ngIf="dataset.openAccess"
               href=""
               target="_blank"
               class="open-access div"
@@ -141,16 +141,16 @@
               <span i18n="@@openAccess">Avoin saatavuus</span
               ><fa-icon icon="external-link-alt"></fa-icon>
             </a>
-            <!-- Span is for materials that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-            <!-- <span *ngIf="material.openAccess" class="open-access div">
-                            <span class="open-access-image"></span>
-                            <span i18n="@@openAccess">Avoin saatavuus</span>
-                        </span> -->
-            <div *ngIf="material.doi?.trim()" class="doi">
+            <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
+            <!-- <span *ngIf="dataset.openAccess" class="open-access div">
+                          <span class="open-access-image"></span>
+                          <span i18n="@@openAccess">Avoin saatavuus</span>
+                      </span> -->
+            <div *ngIf="dataset.doi?.trim()" class="doi">
               <span class="doi-tag">DOI</span>
               <span class="doi-link"
-                ><a href="https://doi.org/{{ material.doi }}" target="_blank"
-                  >{{ material.doi
+                ><a href="https://doi.org/{{ dataset.doi }}" target="_blank"
+                  >{{ dataset.doi
                   }}<fa-icon icon="external-link-alt"></fa-icon></a
               ></span>
             </div>

@@ -156,8 +156,8 @@ import { BarComponent } from './component/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './component/science-politics/figures/figure-filters/figure-filters.component';
 import { FiguresInfoComponent } from './component/science-politics/figures/figures-info/figures-info.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
-import { MaterialsComponent } from './component/results/materials/materials.component';
-import { SingleMaterialComponent } from './component/single/single-material/single-material.component';
+import { DatasetsComponent } from './component/results/datasets/datasets.component';
+import { SingleDatasetComponent } from './component/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './component/science-politics/external-links/external-links.component';
 
 @NgModule({
@@ -222,8 +222,8 @@ import { ExternalLinksComponent } from './component/science-politics/external-li
     FigureFiltersComponent,
     FiguresInfoComponent,
     SanitizeHtmlPipe,
-    MaterialsComponent,
-    SingleMaterialComponent,
+    DatasetsComponent,
+    SingleDatasetComponent,
     ExternalLinksComponent,
   ],
   imports: [

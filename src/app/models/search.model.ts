@@ -12,7 +12,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { FundingAdapter, Funding } from './funding/funding.model';
-import { MaterialAdapter, Material } from './material/material.model';
+import { DatasetAdapter, Dataset } from './dataset/dataset.model';
 import { OrganizationAdapter, Organization } from './organization.model';
 import {
   InfrastructureAdapter,
@@ -24,7 +24,7 @@ export class Search {
     public total: number,
     public publications: Publication[],
     public fundings: Funding[],
-    public materials: Material[],
+    public datasets: Dataset[],
     public infrastructures: Infrastructure[],
     public organizations: Organization[]
   ) {}
@@ -37,14 +37,14 @@ export class SearchAdapter implements Adapter<Search> {
   constructor(
     private publicationAdapter: PublicationAdapter,
     private fundingAdapter: FundingAdapter,
-    private materialAdapter: MaterialAdapter,
+    private datasetAdapter: DatasetAdapter,
     private organizationAdapter: OrganizationAdapter,
     private infrastructureAdapter: InfrastructureAdapter
   ) {}
   adapt(item: any, tab?: string): Search {
     const publications: Publication[] = [];
     const fundings: Funding[] = [];
-    const materials: Material[] = [];
+    const datasets: Dataset[] = [];
     const infrastructures: Infrastructure[] = [];
     const organizations: Organization[] = [];
 
@@ -59,9 +59,9 @@ export class SearchAdapter implements Adapter<Search> {
           fundings.push(this.fundingAdapter.adapt(e._source))
         );
         break;
-      case 'materials':
+      case 'datasets':
         item.hits.hits.forEach((e) =>
-          materials.push(this.materialAdapter.adapt(e._source))
+          datasets.push(this.datasetAdapter.adapt(e._source))
         );
         break;
       case 'infrastructures':
@@ -80,7 +80,7 @@ export class SearchAdapter implements Adapter<Search> {
       item.hits.total.value,
       publications,
       fundings,
-      materials,
+      datasets,
       infrastructures,
       organizations
     );

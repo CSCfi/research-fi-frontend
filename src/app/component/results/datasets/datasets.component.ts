@@ -17,11 +17,11 @@ import { TabChangeService } from 'src/app/services/tab-change.service';
 import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
-  selector: 'app-materials',
-  templateUrl: './materials.component.html',
-  styleUrls: ['./materials.component.scss'],
+  selector: 'app-datasets',
+  templateUrl: './datasets.component.html',
+  styleUrls: ['./datasets.component.scss'],
 })
-export class MaterialsComponent implements OnInit {
+export class DatasetsComponent implements OnInit {
   @Input() resultData: Search;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
@@ -29,7 +29,7 @@ export class MaterialsComponent implements OnInit {
   @ViewChild('main') mainContent: ElementRef;
 
   faIcon = this.tabChangeService.tabData
-    .filter((t) => t.data === 'materials')
+    .filter((t) => t.data === 'datasets')
     .map((t) => t.icon)
     .pop();
   documentLang: any;

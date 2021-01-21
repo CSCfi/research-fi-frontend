@@ -36,7 +36,7 @@ import { SettingsService } from 'src/app/services/settings.service';
 import {
   publications,
   fundings,
-  materials,
+  datasets,
   infrastructures,
   organizations,
   common,
@@ -154,7 +154,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   private metaTagsList = [
     publications,
     fundings,
-    materials,
+    datasets,
     infrastructures,
     organizations,
   ];

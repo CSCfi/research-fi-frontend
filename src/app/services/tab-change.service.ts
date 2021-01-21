@@ -40,12 +40,12 @@ export class TabChangeService {
       tooltip: $localize`:@@fundingsTooltip:Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.`,
     },
     {
-      data: 'materials',
-      label: $localize`:@@materials:Aineistot`,
-      link: 'materials',
+      data: 'datasets',
+      label: $localize`:@@datasets:Aineistot`,
+      link: 'datasets',
       icon: faAlignLeft,
-      singular: $localize`:@@material:aineisto`,
-      tooltip: $localize`:@@materialsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.`,
+      singular: $localize`:@@dataset:aineisto`,
+      tooltip: $localize`:@@datasetsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.`,
     },
     {
       data: 'infrastructures',

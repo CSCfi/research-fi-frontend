@@ -104,6 +104,10 @@ export class SingleFundingComponent implements OnInit, OnDestroy {
     tooltip: $localize`Rahoittajan rahoituspäätöksessään myöntämä rahoitus. Summa ei sisällä hankkeen kaikkia kustannuksia. Organisaatio, jossa hanke toteutetaan, voi rahoittaa siitä tietyn osan (ns. omarahoitusosuus) ja hankkeella voi olla muitakin rahoittajia.`,
   };
 
+  relatedFundingsTooltip = {
+    tooltip: 'Placeholder tooltip',
+  };
+
   funderTooltip = {
     tooltip: $localize`Tutkimusrahoittaja, joka on myöntänyt rahoituksen. Kaikki tiedejatutkimus.fi &#8209;palveluun tietoja toimittavat tutkimusrahoittajat ovat organisaatiot-osiossa.`,
   };
