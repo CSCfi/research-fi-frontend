@@ -1,320 +1,344 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 @mixin app-single-result-shared {
-    app-single-publication, app-single-funding, app-single-material, app-single-infrastructure, app-single-organization {
-        // Prevent style bleeding
-        .shared {
-            .header {
-                font-weight: bold;
-                padding-left: 15px;
-            }
+  app-single-publication,
+  app-single-funding,
+  app-single-material,
+  app-single-infrastructure,
+  app-single-organization {
+    // Prevent style bleeding
+    .shared {
+      .header {
+        font-weight: bold;
+        padding-left: 15px;
+      }
 
-            .content {
-                padding-bottom: 1rem;
-            }
+      .content {
+        padding-bottom: 1rem;
+      }
 
-            .trHeader {
-                padding-top: 1rem;
-            }
+      .trHeader {
+        padding-top: 1rem;
+      }
 
-            .th {
-                font-weight: 500;
-            }
+      .th {
+        font-weight: 500;
+      }
 
-            h2, h3, h4, h5, h6 {
-                &.th, &.header {
-                    font-weight: 600;
-                    font-size: inherit;
-                }
-            }
-
-            h2.th, h2.header {
-                margin-bottom: 0;
-                position: unset;
-            }
-
-            h3.th {
-                margin: 0;
-                padding: 0;
-            }
-
-            .bold {
-                font-weight: bold;
-            }
-
-            p.th, p.td, a.th, a.td {
-                padding: 0;
-                margin: 0;
-            }
-
-            a.th, a.td {
-                font-weight: bold;
-            }
-
-            .th, .td {
-                padding: 11px 15px;
-            }
-
-            tr {
-                padding: 0.5rem 0;
-            }
-
-            tr.row:empty {
-                display: none;
-            }
-
-            th {
-                vertical-align: top;
-                padding: 8px 0px 5px 15px;
-            }
-
-            td {
-                vertical-align: top;
-                // word-wrap: break-word;
-                // word-break: break-word;
-                padding: 8px;
-                p {
-                    margin-bottom: 0.2rem;
-                    word-wrap: break-word;
-                }
-                p:first-child {
-                    font-weight: bold;
-                }
-            }
-
-            .td {
-                vertical-align: top;
-                // word-wrap: break-word;
-                // word-break: break-word;
-            }
-
-            table {
-                margin: 20px 0px;
-                width: 100%;
-                table-layout: fixed;
-                overflow: hidden;
-            }
-
-            #links td {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            main h1 {
-                margin: 2rem 0;
-                font-size: 1.4rem;
-            }
-
-            h2 {
-                overflow: hidden;
-                font-size: 1.2em;
-                line-height: 1.5;
-                font-weight: bold;
-            }
-
-            h2.result-header {
-                padding-left: 15px;
-                line-height: 2rem;
-            }
-
-            a {
-                font-weight: bold;
-            }
-
-            li {
-                list-style: none;
-            }
-
-            .mat-checkbox {
-                cursor: default;
-            }
-
-            .center {
-                display: flex;
-                align-items: center;
-                justify-content: space-evenly;
-            }
-
-            .back {
-                margin: 0;
-            }
-
-            // Sidebar
-            mat-card.mat-card {
-                margin-bottom: 10px;
-                border-radius: 0px;
-                padding: 20px;
-                box-shadow: none;
-            }
-
-            .mat-card-title {
-                font-size: 0.85em;
-                line-height: 1.275;
-                text-transform: uppercase;
-            }
-            
-            // Links
-            div.links {
-                border-radius: 3px;
-                font-weight: bold;
-                margin: 15px;
-                margin-inline-start: 0;
-                // display: flex;
-                // height: fit-content;
-                white-space: nowrap;
-                .doi, .info-link-wrapper {
-                    padding: 0;
-                    display: inherit;
-                    max-width: 100%;
-                }
-                .doi-tag, span.doi-link, .link {
-                    padding: 4px 10px 3px;
-                }
-                .doi-link {
-                    padding: 3px 10px;
-                }
-            
-                .doi-tag, .doi-link {
-                    vertical-align: middle;
-                }
-            
-                span.doi-link, .link {
-                    max-width: max-content;
-                    height: fit-content;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            
-                .link, .icon {
-                    padding: 0;
-                }
-            
-                .icon {
-                    font-size: 35px;
-                    line-height: 0;
-                    max-width: 30px;
-                }
-            }
-            
-            .info-link-wrapper, .info-link {
-                width: 100%;
-                padding-top: 10px;
-            }
-            
-            .info-link {
-                display: block;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-            }
-            
-            .no-links {
-                font-style: italic;
-            }
-            
-            .other-link {
-                padding-block-start: 0.85em;
-            }
-
-            // Related
-            .row.related, .row.other-links {
-                margin-top: 20px;
-            }
-
-            .related ul, .other-link {
-                margin: 0;
-                padding: 0;
-            }
-
-            .related li {
-                display: block;
-                list-style-type: none;
-                padding: 0;
-                margin-block-end: 1em;
-            }
-
-            span.mat-button-wrapper {
-                font-size: 1.3em;
-                line-height: 1.95;
-                font-weight: bold;
-                white-space: normal;
-            }
-
-            button.mat-raised-button {
-                width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                box-shadow: none;
-            }
-
-            .refer {
-                font-size: 10px;
-                line-height: 15px;
-                float: right;
-            }
-
-            .share {
-                text-align: left;
-                width: 100%;
-            }
-
-            a.icon {
-                font-size: 2rem;
-                padding: 1rem 1rem 0 0;
-            }
-
-            a.icon:hover {
-                opacity: 0.7;
-            }
-
-            .no-links {
-                font-style: italic;
-            }
-
-            // Show more
-            .short {
-                text-overflow: ellipsis;
-                overflow: hidden;
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-            }
-
-            button.show-more {
-                border: 0px;
-                padding: 5px 10px;
-                font-weight: 500;
-            }
-
-            // Sub units
-            p.sub-unit {
-                margin-left: 15px;
-            }
-
-            @media (max-width: 991px) {
-                .first-no-offset-mobile:nth-child(2) {
-                    margin-left: 0;
-                }
-            }
-            
-            @media (max-width: 575px) {
-                .td {
-                    padding-top: 0!important;
-                }
-            }
-
-            @media (min-width: 768px) and (max-width: 991px) {
-                .reference {
-                    padding: 0;
-                }
-            }
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        &.th,
+        &.header {
+          font-weight: 600;
+          font-size: inherit;
         }
+      }
+
+      h2.th,
+      h2.header {
+        margin-bottom: 0;
+        position: unset;
+      }
+
+      h3.th {
+        margin: 0;
+        padding: 0;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      p.th,
+      p.td,
+      a.th,
+      a.td {
+        padding: 0;
+        margin: 0;
+      }
+
+      a.th,
+      a.td {
+        font-weight: bold;
+      }
+
+      .th,
+      .td {
+        padding: 11px 15px;
+      }
+
+      tr {
+        padding: 0.5rem 0;
+      }
+
+      tr.row:empty {
+        display: none;
+      }
+
+      th {
+        vertical-align: top;
+        padding: 8px 0px 5px 15px;
+      }
+
+      td {
+        vertical-align: top;
+        // word-wrap: break-word;
+        // word-break: break-word;
+        padding: 8px;
+        p {
+          margin-bottom: 0.2rem;
+          word-wrap: break-word;
+        }
+        p:first-child {
+          font-weight: bold;
+        }
+      }
+
+      .td {
+        vertical-align: top;
+        // word-wrap: break-word;
+        // word-break: break-word;
+      }
+
+      table {
+        margin: 20px 0px;
+        width: 100%;
+        table-layout: fixed;
+        overflow: hidden;
+      }
+
+      #links td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      main h1 {
+        margin: 2rem 0;
+        font-size: 1.4rem;
+      }
+
+      h2 {
+        overflow: hidden;
+        font-size: 1.2em;
+        line-height: 1.5;
+        font-weight: bold;
+      }
+
+      h2.result-header {
+        padding-left: 15px;
+        line-height: 2rem;
+      }
+
+      a {
+        font-weight: bold;
+      }
+
+      li {
+        list-style: none;
+      }
+
+      .mat-checkbox {
+        cursor: default;
+      }
+
+      .center {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .back {
+        margin: 0;
+      }
+
+      // Sidebar
+      mat-card.mat-card {
+        margin-bottom: 10px;
+        border-radius: 0px;
+        padding: 20px;
+        box-shadow: none;
+      }
+
+      .mat-card-title {
+        font-size: 0.85em;
+        line-height: 1.275;
+        text-transform: uppercase;
+      }
+
+      // Links
+      div.links {
+        border-radius: 3px;
+        font-weight: bold;
+        margin: 15px;
+        margin-inline-start: 0;
+        // display: flex;
+        // height: fit-content;
+        white-space: nowrap;
+        .doi,
+        .info-link-wrapper {
+          padding: 0;
+          display: inherit;
+          max-width: 100%;
+        }
+        .doi-tag,
+        span.doi-link,
+        .link {
+          padding: 4px 10px 3px;
+        }
+        .doi-link {
+          padding: 3px 10px;
+        }
+
+        .doi-tag,
+        .doi-link {
+          vertical-align: middle;
+        }
+
+        span.doi-link,
+        .link {
+          max-width: max-content;
+          height: fit-content;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .link,
+        .icon {
+          padding: 0;
+        }
+
+        .icon {
+          font-size: 35px;
+          line-height: 0;
+          max-width: 30px;
+        }
+      }
+
+      .info-link-wrapper,
+      .info-link {
+        width: 100%;
+        padding-top: 10px;
+      }
+
+      .info-link {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .no-links {
+        font-style: italic;
+      }
+
+      .other-link {
+        padding-block-start: 0.85em;
+      }
+
+      // Related
+      .row.related,
+      .row.other-links {
+        margin-top: 20px;
+      }
+
+      .related ul,
+      .other-link {
+        margin: 0;
+        padding: 0;
+      }
+
+      .related li {
+        display: block;
+        list-style-type: none;
+        padding: 0;
+        margin-block-end: 1em;
+      }
+
+      span.mat-button-wrapper {
+        font-size: 1.3em;
+        line-height: 1.95;
+        font-weight: bold;
+        white-space: normal;
+      }
+
+      button.mat-raised-button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        box-shadow: none;
+      }
+
+      .refer {
+        font-size: 10px;
+        line-height: 15px;
+        float: right;
+      }
+
+      .share {
+        text-align: left;
+        width: 100%;
+      }
+
+      a.icon {
+        font-size: 2rem;
+        padding: 1rem 1rem 0 0;
+      }
+
+      a.icon:hover {
+        opacity: 0.7;
+      }
+
+      .no-links {
+        font-style: italic;
+      }
+
+      // Show more
+      .short {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+
+      button.show-more {
+        border: 0px;
+        padding: 5px 10px;
+        font-weight: 500;
+      }
+
+      // Sub units
+      p.sub-unit {
+        margin-left: 15px;
+      }
+
+      @media (max-width: 991px) {
+        .first-no-offset-mobile:nth-child(2) {
+          margin-left: 0;
+        }
+      }
+
+      @media (max-width: 575px) {
+        .td {
+          padding-top: 0 !important;
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 991px) {
+        .reference {
+          padding: 0;
+        }
+      }
     }
+  }
 }

@@ -8,9 +8,8 @@ describe('OrcidDataHandlerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrcidDataHandlerComponent ]
-    })
-    .compileComponents();
+      declarations: [OrcidDataHandlerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

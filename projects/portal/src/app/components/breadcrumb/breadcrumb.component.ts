@@ -11,7 +11,7 @@ import { SearchService } from '@portal.services/search.service';
 @Component({
   selector: 'app-breadcrumb',
   templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss']
+  styleUrls: ['./breadcrumb.component.scss'],
 })
 export class BreadcrumbComponent implements OnInit {
   @Input() responseData: any;
@@ -26,13 +26,16 @@ export class BreadcrumbComponent implements OnInit {
   pageNumber: number;
   currentLocale: string;
 
-  constructor( private searchService: SearchService,  @Inject( LOCALE_ID ) protected localeId: string) {
+  constructor(
+    private searchService: SearchService,
+    @Inject(LOCALE_ID) protected localeId: string
+  ) {
     this.searchTerm = this.searchService.searchTerm;
     this.pageNumber = this.searchService.pageNumber || 1;
     // Capitalize first letter of locale
-    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

@@ -4,8 +4,8 @@ import { Highlightable } from '@angular/cdk/a11y';
 @Component({
   selector: 'app-list-item',
   template: `<div [class.disabled]="disabled">
-            <ng-content></ng-content>
-            </div>`
+    <ng-content></ng-content>
+  </div>`,
 })
 export class ListItemComponent implements Highlightable {
   @Input() id;
@@ -30,6 +30,13 @@ export class ListItemComponent implements Highlightable {
   }
 
   getLabel() {
-    return this.id + this.doc + this.term + this.historyItem + this.clear + this.empty;
+    return (
+      this.id +
+      this.doc +
+      this.term +
+      this.historyItem +
+      this.clear +
+      this.empty
+    );
   }
 }

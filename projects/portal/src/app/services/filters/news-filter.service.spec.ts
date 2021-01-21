@@ -23,8 +23,10 @@ describe('NewsFilterService', () => {
   });
 
   it('should map organizations', () => {
-    const res = service.organization(AggResponse.aggregations.organization.buckets);
-    res.forEach(item => {
+    const res = service.organization(
+      AggResponse.aggregations.organization.buckets
+    );
+    res.forEach((item) => {
       expect(item.subData).toBeDefined();
     });
   });

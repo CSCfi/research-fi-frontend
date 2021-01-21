@@ -5,17 +5,15 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-
 .close-button {
-
   font-weight: bold;
   border: none;
 
   &:hover {
-      text-decoration: underline;
+    text-decoration: underline;
   }
 
   fa-icon {
-      padding-right: 10px;
+    padding-right: 10px;
   }
 }

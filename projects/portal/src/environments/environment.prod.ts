@@ -7,5 +7,5 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :license: MIT
 */
 export const environment = {
-  production: true
+  production: true,
 };

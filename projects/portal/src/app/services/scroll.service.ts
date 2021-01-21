@@ -9,11 +9,10 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScrollService {
-
-  public onScroll = new EventEmitter<{x: number; y: number}>();
+  public onScroll = new EventEmitter<{ x: number; y: number }>();
 
   private getScroll = (e: any): void => {
     if (e.path) {
@@ -22,10 +21,9 @@ export class ScrollService {
         y: e.path[1].scrollY,
       });
     }
-  }
+  };
 
   constructor(eventManager: EventManager) {
     eventManager.addGlobalEventListener('window', 'scroll', this.getScroll);
   }
 }
-

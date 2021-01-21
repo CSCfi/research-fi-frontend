@@ -5,7 +5,6 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CloseButtonComponent } from './close-button.component';
@@ -16,9 +15,8 @@ describe('CloseButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CloseButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [CloseButtonComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

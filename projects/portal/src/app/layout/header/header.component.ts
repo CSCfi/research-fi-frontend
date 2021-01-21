@@ -170,13 +170,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.document.body.classList.add('user-tabbing');
       }
     }
-  }
+  };
 
   @HostListener('document:mousedown', ['$event'])
   handleMouseDown = (): void => {
     this.firstTab = false;
     this.document.body.classList.remove('user-tabbing');
-  }
+  };
 
   ngOnDestroy() {
     this.routeSub?.unsubscribe();

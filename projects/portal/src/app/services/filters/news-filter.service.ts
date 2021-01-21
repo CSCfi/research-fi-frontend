@@ -8,19 +8,26 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NewsFilterService {
-
   filterData = [
-    {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, open: true, limitHeight: true},
+    {
+      field: 'organization',
+      label: $localize`:@@organization:Organisaatio`,
+      hasSubFields: true,
+      open: true,
+      limitHeight: true,
+    },
   ];
 
   constructor() {}
 
   shapeData(data) {
     const source = data.aggregations;
-    source.organization.buckets = this.organization(source.organization.buckets);
+    source.organization.buckets = this.organization(
+      source.organization.buckets
+    );
     source.shaped = true;
     return source;
   }
@@ -29,10 +36,10 @@ export class NewsFilterService {
     // Sort by sector id
     data.sort((a, b) => parseInt(a.key, 10) - parseInt(b.key, 10));
     // Set sub items
-    data.forEach(item => {
+    data.forEach((item) => {
       item.key = item.sectorName.buckets[0].key.trim();
       item.subData = item.orgName.buckets;
-      item.subData.map(subItem => {
+      item.subData.map((subItem) => {
         subItem.label = subItem.key.trim();
         subItem.key = subItem.orgId.buckets[0].key;
         subItem.doc_count = subItem.doc_count;

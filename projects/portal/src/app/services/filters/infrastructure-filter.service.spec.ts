@@ -37,14 +37,14 @@ describe('InfrastructureFilterService', () => {
   it('should map types', () => {
     const res = service.typeLabel(data.type.types.buckets);
 
-    res.forEach(element => {
+    res.forEach((element) => {
       expect(element.label).toBeDefined();
     });
   });
 
   it('should map field of science', () => {
     const res = service.field(data.infraField.infraFields).buckets;
-    res.forEach(element => {
+    res.forEach((element) => {
       expect(element.label).toBeDefined();
     });
   });

@@ -5,7 +5,16 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Inject, TemplateRef, LOCALE_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+  Inject,
+  TemplateRef,
+  LOCALE_ID,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SingleItemService } from '@portal.services/single-item.service';
@@ -22,12 +31,15 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { UtilityService } from '@portal.services/utility.service';
 import { Search } from '@portal.models/search.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { singlePublication, common } from '@portal.assets/static-data/meta-tags.json';
+import {
+  singlePublication,
+  common,
+} from '@portal.assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-single-publication',
   templateUrl: './single-publication.component.html',
-  styleUrls: ['./single-publication.component.scss']
+  styleUrls: ['./single-publication.component.scss'],
 })
 export class SinglePublicationComponent implements OnInit, OnDestroy {
   public singleId: any;
@@ -39,14 +51,19 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   private metaTags = singlePublication;
   private commonTags = common;
 
-
   infoFields = [
     // {label: 'Julkaisun nimi', field: 'title'},
-    {label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'publicationYear'},
+    {
+      label: $localize`:@@yearOfPublication:Julkaisuvuosi`,
+      field: 'publicationYear',
+    },
     // {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', // Remove when type fields in use
     // tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`}, // Remove when type fields in use
-    {label: $localize`:@@publicationAuthors:Tekijät`, field: 'authors',
-    tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`},
+    {
+      label: $localize`:@@publicationAuthors:Tekijät`,
+      field: 'authors',
+      tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`,
+    },
   ];
 
   // authorFields = [
@@ -57,62 +74,199 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   authorAndOrganization = [];
 
   organizationSubFields = [
-    {label: $localize`:@@orgOrganization:Organisaatio`, field: 'organizationId'}
+    {
+      label: $localize`:@@orgOrganization:Organisaatio`,
+      field: 'organizationId',
+    },
   ];
 
   typeFields = [
-    {label: $localize`:@@publicationFormat:Julkaisumuoto`, field: 'format',
-    tooltip: '<p><strong>' + $localize`:@@article:Artikkeli` + ': </strong>' + $localize`:@@articleTooltipContent:sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` + '</p><p><strong>' + $localize`:@@monograph:Erillisteos` + ': </strong>' + $localize`:@@monographTooltipContent:sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` + '</p><p><strong>' + $localize`:@@editorial:Toimitustyö` + ': </strong>' + $localize`:@@editorialTooltipContent:sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt `+ '</p><p><strong>' + $localize`:@@abstract:Abstrakti` + ': </strong>' + $localize`:@@abstractTooltipContent:sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.`+ '</p><p><strong>' + $localize`:@@poster:Posteri` + ': </strong>' + $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.` },
-    {label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`, field: 'parentPublicationType',
-    tooltip: '<p><strong>' + $localize`:@@journal:Lehti` + ': </strong>' + $localize`:@@journalTooltipContent:sisältää tieteelliset aikakauslehdet ja ammattilehdet.` + '</p><p><strong>' + $localize`:@@researchBook:Kokoomateos` + ': </strong>' + $localize`:@@researchBookTooltipContent:sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` + '</p><p><strong>' + $localize`:@@conferencePlatform:Konferenssialusta` + ': </strong>' + $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.` },
-    {label: $localize`:@@audience:Yleisö`, field: 'audience',
-    tooltip: '<p>' + $localize`:@@publicationChannelAudience:Julkaisukanavan kohdeyleisö` + '</p>' + '<p><strong>' + $localize`:@@scientificPublication:Tieteellinen julkaisu` + ': </strong>' + $localize`:@@scientificPublicationTooltipContent:julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` + '</p><p><strong>' + $localize`:@@professionalPublication:Ammatillinen julkaisu` + ': </strong>' + $localize`:@@professionalPublicationTooltipContent:julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` + '</p><p><strong>' + $localize`:@@popularPublication:Yleistajuinen julkaisu` + ': </strong>' + $localize`:@@popularPublicationTooltipContent:julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.` },
-    {label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`, field: 'peerReviewed',
-    tooltip: $localize`:@@peerReviewedTooltip:Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.`},
-    {label: $localize`:@@OKMPublicationType:OKM:n julkaisutyyppiluokitus`, field: 'publicationTypeCode'},
+    {
+      label: $localize`:@@publicationFormat:Julkaisumuoto`,
+      field: 'format',
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@article:Artikkeli` +
+        ': </strong>' +
+        $localize`:@@articleTooltipContent:sisältää alkuperäis- ja katsausartikkelit, kirjan tai lehden johdannot ja esipuheet, lyhyet tutkimusselostukset, pääkirjoitukset, keskustelupuheenvuorot ja kommentit. ` +
+        '</p><p><strong>' +
+        $localize`:@@monograph:Erillisteos` +
+        ': </strong>' +
+        $localize`:@@monographTooltipContent:sisältää monografiat/kirjat, tutkimus- ja kehitystyöhön perustuva kehittämis- tai tutkimusraportti, selvitykset, ns. white paperit sekä working papers ja discussion papers -tyyppiset julkaisut. ` +
+        '</p><p><strong>' +
+        $localize`:@@editorial:Toimitustyö` +
+        ': </strong>' +
+        $localize`:@@editorialTooltipContent:sisältää useista eri kirjoittajien artikkeleista koostuvan tieteellisen kirjan tai lehden erikoisnumeron toimitustyöt ` +
+        '</p><p><strong>' +
+        $localize`:@@abstract:Abstrakti` +
+        ': </strong>' +
+        $localize`:@@abstractTooltipContent:sisältää konferenssiesitelmien abstraktit sekä laajennetut abstraktit.` +
+        '</p><p><strong>' +
+        $localize`:@@poster:Posteri` +
+        ': </strong>' +
+        $localize`:@@posterTooltipContent:sisältää konferenssiesitelmien posterit.`,
+    },
+    {
+      label: $localize`:@@parentPublicationType:Emojulkaisun tyyppi`,
+      field: 'parentPublicationType',
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@journal:Lehti` +
+        ': </strong>' +
+        $localize`:@@journalTooltipContent:sisältää tieteelliset aikakauslehdet ja ammattilehdet.` +
+        '</p><p><strong>' +
+        $localize`:@@researchBook:Kokoomateos` +
+        ': </strong>' +
+        $localize`:@@researchBookTooltipContent:sisältää tieteelliset kokoomateokset, tieteelliset vuosikirjat ja vastaavat, ammatilliset käsi- tai opaskirjat, ammatilliset tietojärjestelmät tai kokoomateokset, oppikirja-aineistot sekä lyhyet ensyklopediatekstit. ` +
+        '</p><p><strong>' +
+        $localize`:@@conferencePlatform:Konferenssialusta` +
+        ': </strong>' +
+        $localize`:@@conferencePlatformTooltipContent:sisältää konferenssin painetut tai julkisesti saatavilla olevat julkaisut, ns. proceedings-julkaisut.`,
+    },
+    {
+      label: $localize`:@@audience:Yleisö`,
+      field: 'audience',
+      tooltip:
+        '<p>' +
+        $localize`:@@publicationChannelAudience:Julkaisukanavan kohdeyleisö` +
+        '</p>' +
+        '<p><strong>' +
+        $localize`:@@scientificPublication:Tieteellinen julkaisu` +
+        ': </strong>' +
+        $localize`:@@scientificPublicationTooltipContent:julkaisut, jotka on tarkoitettu edistämään tiedettä sekä tuottamaan uutta tietoa.` +
+        '</p><p><strong>' +
+        $localize`:@@professionalPublication:Ammatillinen julkaisu` +
+        ': </strong>' +
+        $localize`:@@professionalPublicationTooltipContent:julkaisut, jotka levittävät tutkimukseen ja kehitystyöhön perustuvaa tietoa ammattiyhteisön käyttöön.` +
+        '</p><p><strong>' +
+        $localize`:@@popularPublication:Yleistajuinen julkaisu` +
+        ': </strong>' +
+        $localize`:@@popularPublicationTooltipContent:julkaisut, jotka levittävät tutkimus- ja kehitystyöhön perustuvaa tietoa suurelle yleisölle ja joiden sisällön ymmärtäminen ei edellytä erityistä perehtyneisyyttä alaan.`,
+    },
+    {
+      label: $localize`:@@peerReviewedFilter:Vertaisarvioitu`,
+      field: 'peerReviewed',
+      tooltip: $localize`:@@peerReviewedTooltip:Tieteellisten julkaisujen vertaisarvioinnilla tarkoitetaan menettelyä, jossa tutkimustuloksia julkaiseva lehti, konferenssi tai kirjakustantaja pyytää tieteenalan asiantuntijoita suorittamaan ennakkoarvion julkaistavaksi tarjottujen käsikirjoitusten tieteellisestä julkaisukelpoisuudesta.`,
+    },
+    {
+      label: $localize`:@@OKMPublicationType:OKM:n julkaisutyyppiluokitus`,
+      field: 'publicationTypeCode',
+    },
     // tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
   ];
 
   mediumFields = [
-    {label: $localize`Lehti`, field: 'journalName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: $localize`Emojulkaisun nimi`, field: 'parentPublicationName', link: true, linkPath: '/results/publications/'},
-    {label: $localize`:@@parentPublicationPublisher:Emojulkaisun toimittajat`, field: 'parentPublicationPublisher', link: false, linkPath: '/results/publications/'},
-    {label: $localize`Konferenssi`, field: 'conferenceName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: $localize`Kustantaja`, field: 'publisherName', link: true, linkPath: '/results/publications/' /*, lang: true */},
-    {label: $localize`Volyymi`, field: 'volume', link: false},
-    {label: $localize`Numero`, field: 'issueNumber', link: false},
-    {label: $localize`Sivut`, field: 'pageNumbers', link: false},
-    {label: 'ISSN', field: 'issn', link: true, linkPath: '/results/publications/'},
-    {label: 'ISBN', field: 'isbn', link: true, linkPath: '/results/publications/'},
+    {
+      label: $localize`Lehti`,
+      field: 'journalName',
+      link: true,
+      linkPath: '/results/publications/' /*, lang: true */,
+    },
+    {
+      label: $localize`Emojulkaisun nimi`,
+      field: 'parentPublicationName',
+      link: true,
+      linkPath: '/results/publications/',
+    },
+    {
+      label: $localize`:@@parentPublicationPublisher:Emojulkaisun toimittajat`,
+      field: 'parentPublicationPublisher',
+      link: false,
+      linkPath: '/results/publications/',
+    },
+    {
+      label: $localize`Konferenssi`,
+      field: 'conferenceName',
+      link: true,
+      linkPath: '/results/publications/' /*, lang: true */,
+    },
+    {
+      label: $localize`Kustantaja`,
+      field: 'publisherName',
+      link: true,
+      linkPath: '/results/publications/' /*, lang: true */,
+    },
+    { label: $localize`Volyymi`, field: 'volume', link: false },
+    { label: $localize`Numero`, field: 'issueNumber', link: false },
+    { label: $localize`Sivut`, field: 'pageNumbers', link: false },
+    {
+      label: 'ISSN',
+      field: 'issn',
+      link: true,
+      linkPath: '/results/publications/',
+    },
+    {
+      label: 'ISBN',
+      field: 'isbn',
+      link: true,
+      linkPath: '/results/publications/',
+    },
     // \u00AD soft hyphen, break word here if needed
-    {label: $localize`Julkaisu\u00ADfoorumi`, field: 'jufoCode', link: true, linkPath: 'http://jfp.csc.fi:8080/fi/web/haku#!PublicationInformationView/id/',
-    tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`},
-    {label: $localize`:@@jufoLevel:Julkaisufoorumitaso`, field: 'jufoClassCode', link: false, linkPath: '/results/publications?page=1&juFo='},
+    {
+      label: $localize`Julkaisu\u00ADfoorumi`,
+      field: 'jufoCode',
+      link: true,
+      linkPath:
+        'http://jfp.csc.fi:8080/fi/web/haku#!PublicationInformationView/id/',
+      tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`,
+    },
+    {
+      label: $localize`:@@jufoLevel:Julkaisufoorumitaso`,
+      field: 'jufoClassCode',
+      link: false,
+      linkPath: '/results/publications?page=1&juFo=',
+    },
   ];
 
   linksFields = [
-    {label: 'DOI', field: 'doi', path: 'https://doi.org/'},
-    {label: '', field: 'doiHandle'},
+    { label: 'DOI', field: 'doi', path: 'https://doi.org/' },
+    { label: '', field: 'doiHandle' },
     // {label: '', field: 'selfArchivedAddress'},
   ];
 
-  otherFields  = [
-    {label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScienceString', tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`},
-    {label: $localize`:@@openAccess:Avoin saatavuus`, field: 'openAccessText',
-    tooltip: '<p><strong>' +  $localize`:@@openAccessJournal:Open access -lehti` + ': </strong>' + $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` + '</p><p><strong>' + $localize`:@@selfArchived:Rinnakkaistallennettu` + ': </strong>' + $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` + '</p><p><strong>' + $localize`:@@otherOpenAccess:Muu avoin saatavuus` + ': </strong>' + $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` + '</p>'},
-    {label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries'},
-    {label: $localize`:@@language:Kieli`, field: 'languages'},
-    {label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`, field: 'internationalCollaboration',
-    tooltip: $localize`:@@intCoPublicationAuthors:Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista`},
-    {label: $localize`:@@publicationWithCompany:Yhteisjulkaisu yrityksen kanssa`, field: 'businessCollaboration',
-    tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`},
-    {label: $localize`:@@keywords:Avainsanat`, field: 'keywords'}
+  otherFields = [
+    {
+      label: $localize`:@@fieldsOfScience:Tieteenalat`,
+      field: 'fieldsOfScienceString',
+      tooltip: $localize`:@@TKFOS:Tilastokeskuksen luokituksen mukaiset tieteenalat.`,
+    },
+    {
+      label: $localize`:@@openAccess:Avoin saatavuus`,
+      field: 'openAccessText',
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@openAccessJournal:Open access -lehti` +
+        ': </strong>' +
+        $localize`Julkaisu on ilmestynyt julkaisukanavassa, jonka kaikki julkaisut ovat avoimesti saatavilla.` +
+        '</p><p><strong>' +
+        $localize`:@@selfArchived:Rinnakkaistallennettu` +
+        ': </strong>' +
+        $localize`Julkaisu on tallennettu organisaatio- tai tieteenalakohtaiseen julkaisuarkistoon joko välittömästi tai kustantajan määrittämän kohtuullisen embargoajan jälkeen.` +
+        '</p><p><strong>' +
+        $localize`:@@otherOpenAccess:Muu avoin saatavuus` +
+        ': </strong>' +
+        $localize`Julkaisu on avoimesti saatavilla, mutta se on ilmestynyt ns. hybridijulkaisukanavassa, jossa kaikki muut julkaisut eivät ole avoimesti saatavilla.` +
+        '</p>',
+    },
+    { label: $localize`:@@publicationCountry:Julkaisumaa`, field: 'countries' },
+    { label: $localize`:@@language:Kieli`, field: 'languages' },
+    {
+      label: $localize`:@@intCoPublication:Kansainvälinen yhteisjulkaisu`,
+      field: 'internationalCollaboration',
+      tooltip: $localize`:@@intCoPublicationAuthors:Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista`,
+    },
+    {
+      label: $localize`:@@publicationWithCompany:Yhteisjulkaisu yrityksen kanssa`,
+      field: 'businessCollaboration',
+      tooltip: $localize`:@@publicationCompanyAuthors:Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.`,
+    },
+    { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
   ];
 
   citationStyles = [
-    {label: 'APA', cslStyle: 'apa'},
-    {label: 'Chicago', cslStyle: 'chicago-author-date'},
-    {label: 'MLA', cslStyle: 'mla'}
+    { label: 'APA', cslStyle: 'apa' },
+    { label: 'Chicago', cslStyle: 'chicago-author-date' },
+    { label: 'MLA', cslStyle: 'mla' },
   ];
 
   copyToClipboard = $localize`:@@copyToClipboard:Kopioi leikepöydälle`;
@@ -140,27 +294,40 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   currentLocale: any;
   tabData: any;
 
-  constructor( private route: ActivatedRoute, private singleService: SingleItemService, public searchService: SearchService,
-               private titleService: Title, private tabChangeService: TabChangeService, @Inject(DOCUMENT) private document: any,
-               private staticDataService: StaticDataService, private modalService: BsModalService, public utilityService: UtilityService,
-               @Inject(LOCALE_ID) private localeId, private snackBar: MatSnackBar, private settingsService: SettingsService) {
-                // Capitalize first letter of locale
-                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-   }
+  constructor(
+    private route: ActivatedRoute,
+    private singleService: SingleItemService,
+    public searchService: SearchService,
+    private titleService: Title,
+    private tabChangeService: TabChangeService,
+    @Inject(DOCUMENT) private document: any,
+    private staticDataService: StaticDataService,
+    private modalService: BsModalService,
+    public utilityService: UtilityService,
+    @Inject(LOCALE_ID) private localeId,
+    private snackBar: MatSnackBar,
+    private settingsService: SettingsService
+  ) {
+    // Capitalize first letter of locale
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   public setTitle(newTitle: string) {
     this.titleService.setTitle(newTitle);
   }
 
   ngOnInit() {
-    this.idSub = this.route.params.subscribe(params => {
+    this.idSub = this.route.params.subscribe((params) => {
       this.getData(params.id);
     });
     this.singleId = this.route.snapshot.params.id;
     this.singleService.updateId(this.singleId);
     this.pageNumber = this.searchService.pageNumber || 1;
     this.tabQueryParams = this.tabChangeService.tabQueryParams.publications;
-    this.tabData = this.tabChangeService.tabData.find(item => item.data === 'publications');
+    this.tabData = this.tabChangeService.tabData.find(
+      (item) => item.data === 'publications'
+    );
     this.searchTerm = this.searchService.searchTerm;
   }
 
@@ -187,7 +354,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
   getCitations() {
     const source = this.responseData.publications[0];
-    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    const doi = this.linksFields.filter((x) => x.label === 'DOI').shift();
     // tslint:disable-next-line: curly
     if (!this.hasDoi) {
       this.citations = source.citations;
@@ -199,78 +366,96 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
     this.citationStyles.forEach((style, idx) => {
       const options = {
         headers: new HttpHeaders({
-          Accept: 'text/x-bibliography; style=' + style.cslStyle
+          Accept: 'text/x-bibliography; style=' + style.cslStyle,
         }),
-        responseType: 'text'
+        responseType: 'text',
       };
-      this.searchService.getFromUrl(url, options).subscribe(res => {
+      this.searchService.getFromUrl(url, options).subscribe((res) => {
         this.citations[idx] = res;
       });
     });
   }
 
   getData(id: string) {
-    this.singleService.getSinglePublication(id)
-    // .pipe(map(responseData => [responseData]))
-    .subscribe(responseData => {
-      this.responseData = responseData;
+    this.singleService
+      .getSinglePublication(id)
+      // .pipe(map(responseData => [responseData]))
+      .subscribe(
+        (responseData) => {
+          this.responseData = responseData;
 
-      // Reset authors & organizations on new result
-      this.authorAndOrganization = [];
-      if (this.responseData.publications[0]) {
-        switch (this.localeId) {
-          case 'fi': {
-            this.setTitle(this.responseData.publications[0].title + ' - Tiedejatutkimus.fi');
-            break;
+          // Reset authors & organizations on new result
+          this.authorAndOrganization = [];
+          if (this.responseData.publications[0]) {
+            switch (this.localeId) {
+              case 'fi': {
+                this.setTitle(
+                  this.responseData.publications[0].title +
+                    ' - Tiedejatutkimus.fi'
+                );
+                break;
+              }
+              case 'en': {
+                this.setTitle(
+                  this.responseData.publications[0].title + ' - Research.fi'
+                );
+                break;
+              }
+              case 'sv': {
+                this.setTitle(
+                  this.responseData.publications[0].title + ' - Forskning.fi'
+                );
+                break;
+              }
+            }
+            const titleString = this.titleService.getTitle();
+            this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
+            this.utilityService.addMeta(
+              titleString,
+              this.metaTags['description' + this.currentLocale],
+              this.commonTags['imgAlt' + this.currentLocale]
+            );
+            // juFoCode is used for exact search
+            this.juFoCode = this.responseData.publications[0].jufoCode;
+            this.shapeData();
+            this.filterData();
+            this.checkDoi();
           }
-          case 'en': {
-            this.setTitle(this.responseData.publications[0].title + ' - Research.fi');
-            break;
-          }
-          case 'sv': {
-            this.setTitle(this.responseData.publications[0].title + ' - Forskning.fi');
-            break;
-          }
-        }
-        const titleString = this.titleService.getTitle();
-        this.srHeader.nativeElement.innerHTML = titleString.split(' - ', 1);
-        this.utilityService.addMeta(titleString,
-          this.metaTags['description' + this.currentLocale], this.commonTags['imgAlt' + this.currentLocale])
-        // juFoCode is used for exact search
-        this.juFoCode = this.responseData.publications[0].jufoCode;
-        this.shapeData();
-        this.filterData();
-        this.checkDoi();
-      }
-    },
-      error => this.errorMessage = error as any);
+        },
+        (error) => (this.errorMessage = error as any)
+      );
   }
 
   checkDoi() {
     // Check if the doi exists (the field is filtered on init if it doesn't)
-    const doi = this.linksFields.filter(x => x.label === 'DOI').shift();
+    const doi = this.linksFields.filter((x) => x.label === 'DOI').shift();
     // Flag needed for template
     this.hasDoi = !!doi;
   }
 
   filterData() {
     // Helper function to check if the field exists and has data
-    const checkEmpty = (item: {field: string} ) => {
-      return UtilityService.stringHasContent(this.responseData.publications[0][item.field]);
+    const checkEmpty = (item: { field: string }) => {
+      return UtilityService.stringHasContent(
+        this.responseData.publications[0][item.field]
+      );
     };
     // Filter all the fields to only include properties with defined data
-    this.infoFields = this.infoFields.filter(item => checkEmpty(item));
+    this.infoFields = this.infoFields.filter((item) => checkEmpty(item));
     // this.authorFields = this.authorFields.filter(item => checkEmpty(item));
-    this.organizationSubFields = this.organizationSubFields.filter(item => checkEmpty(item));
-    this.typeFields = this.typeFields.filter(item => checkEmpty(item));
-    this.mediumFields = this.mediumFields.filter(item => checkEmpty(item));
-    this.linksFields = this.linksFields.filter(item => checkEmpty(item));
-    this.otherFields = this.otherFields.filter(item => checkEmpty(item));
+    this.organizationSubFields = this.organizationSubFields.filter((item) =>
+      checkEmpty(item)
+    );
+    this.typeFields = this.typeFields.filter((item) => checkEmpty(item));
+    this.mediumFields = this.mediumFields.filter((item) => checkEmpty(item));
+    this.linksFields = this.linksFields.filter((item) => checkEmpty(item));
+    this.otherFields = this.otherFields.filter((item) => checkEmpty(item));
   }
 
   shapeData() {
     // Capitalize first letter of locale
-    const locale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    const locale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     const source = this.responseData.publications[0];
     const countries = source.countries;
     const languages = source.languages;
@@ -279,64 +464,93 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
 
     if (countries?.length > 0) {
       const key = 'country' + locale;
-      source.countries = countries.map(x => x[key]);
+      source.countries = countries.map((x) => x[key]);
     }
 
     if (languages?.length > 0) {
       const key = 'language' + locale;
-      source.languages = languages.map(x => x[key]);
+      source.languages = languages.map((x) => x[key]);
     }
 
     // Link with targeted search for keywords
     // We need to espace parentheses because these are registered in Angular router as secondary segments.
     if (keywords?.length > 0) {
-      source.keywords = keywords.map(x =>
-        '<a href="/results/publications/' + x.keyword.replaceAll(/\(/g, '%28').replaceAll(/\)/g, '%29').trim()
-        + '?target=keywords&page=1">' + x.keyword.trim() + '</a>').join(', ');
+      source.keywords = keywords
+        .map(
+          (x) =>
+            '<a href="/results/publications/' +
+            x.keyword.replaceAll(/\(/g, '%28').replaceAll(/\)/g, '%29').trim() +
+            '?target=keywords&page=1">' +
+            x.keyword.trim() +
+            '</a>'
+        )
+        .join(', ');
     }
 
     // Get authors per organization
     if (author?.length > 0) {
-      author.forEach(item => {
-        item.organization.forEach(org => {
+      author.forEach((item) => {
+        item.organization.forEach((org) => {
           let authorArr = [];
           const orgUnitArr = [];
-          org.organizationUnit.forEach(subUnit => {
-            subUnit.person?.forEach(person => {
+          org.organizationUnit.forEach((subUnit) => {
+            subUnit.person?.forEach((person) => {
               // Add author if name is available
-              if ((person.authorLastName + ' ' + person.authorFirstNames).trim().length > 0) {
+              if (
+                (person.authorLastName + ' ' + person.authorFirstNames).trim()
+                  .length > 0
+              ) {
                 authorArr.push({
-                  author: (person.authorLastName + ' ' + person.authorFirstNames).trim(),
+                  author: (
+                    person.authorLastName +
+                    ' ' +
+                    person.authorFirstNames
+                  ).trim(),
                   orcid: person.Orcid?.length > 10 ? person.Orcid : false,
-                  subUnit: subUnit.OrgUnitId !== '-1' ? [subUnit.organizationUnitNameFi] : null
+                  subUnit:
+                    subUnit.OrgUnitId !== '-1'
+                      ? [subUnit.organizationUnitNameFi]
+                      : null,
                 });
               }
             });
             // Add sub units under organization if no person sub units
-            if (!subUnit.person && subUnit.organizationUnitNameFi !== '-1' && subUnit.organizationUnitNameFi !== ' '
-            && subUnit.OrgUnitId !== '-1') {
+            if (
+              !subUnit.person &&
+              subUnit.organizationUnitNameFi !== '-1' &&
+              subUnit.organizationUnitNameFi !== ' ' &&
+              subUnit.OrgUnitId !== '-1'
+            ) {
               orgUnitArr.push({
-                subUnit: subUnit.OrgUnitId !== '-1' ? [subUnit.organizationUnitNameFi] : null
+                subUnit:
+                  subUnit.OrgUnitId !== '-1'
+                    ? [subUnit.organizationUnitNameFi]
+                    : null,
               });
               // List sub unit IDs if no name available
-            } else if (!subUnit.person && subUnit.organizationUnitNameFi === ' ') {
+            } else if (
+              !subUnit.person &&
+              subUnit.organizationUnitNameFi === ' '
+            ) {
               orgUnitArr.push({
-                subUnit: [subUnit.OrgUnitId]
+                subUnit: [subUnit.OrgUnitId],
               });
             } else if (subUnit.organizationUnitNameFi === ' ') {
               orgUnitArr.push({
-                subUnit: [subUnit.OrgUnitId]
+                subUnit: [subUnit.OrgUnitId],
               });
             }
           });
 
           // Filter all authors with subUnit
-          const subUnits = authorArr.filter(obj => obj.subUnit !== null);
+          const subUnits = authorArr.filter((obj) => obj.subUnit !== null);
 
           // Look through all authors
-          authorArr.forEach(obj => {
+          authorArr.forEach((obj) => {
             // Check if author with same name exists with subUnit
-            if (subUnits.findIndex(withSub => withSub.author === obj.author) < 0) {
+            if (
+              subUnits.findIndex((withSub) => withSub.author === obj.author) < 0
+            ) {
               // Add it to the list if not
               subUnits.push(obj);
             }
@@ -346,37 +560,53 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
           authorArr = subUnits;
 
           // Check for duplicate authors and merge sub units
-          const duplicateAuthors = Object.values(authorArr.reduce((c, {author, orcid, subUnit}) => {
-            c[author] = c[author] || {author, orcid, subUnits: []};
-            c[author].subUnits = c[author].subUnits.concat(Array.isArray(subUnit) ? subUnit : [subUnit]);
-            return c;
-          }, {}));
+          const duplicateAuthors = Object.values(
+            authorArr.reduce((c, { author, orcid, subUnit }) => {
+              c[author] = c[author] || { author, orcid, subUnits: [] };
+              c[author].subUnits = c[author].subUnits.concat(
+                Array.isArray(subUnit) ? subUnit : [subUnit]
+              );
+              return c;
+            }, {})
+          );
 
           const checkedAuthors = [...new Set(duplicateAuthors)];
 
           // Language check
-          const orgName = org['OrganizationName' + this.currentLocale].trim() ||
-          org?.OrganizationNameEn?.trim() || org?.OrganizationNameFi?.trim() ||
-          org?.OrganizationNameSv?.trim();
+          const orgName =
+            org['OrganizationName' + this.currentLocale].trim() ||
+            org?.OrganizationNameEn?.trim() ||
+            org?.OrganizationNameFi?.trim() ||
+            org?.OrganizationNameSv?.trim();
 
-          this.authorAndOrganization.push({orgName: orgName, orgId: org.organizationId,
-            authors: checkedAuthors, orgUnits: orgUnitArr});
+          this.authorAndOrganization.push({
+            orgName: orgName,
+            orgId: org.organizationId,
+            authors: checkedAuthors,
+            orgUnits: orgUnitArr,
+          });
         });
       });
 
       // Default subUnits checks to false and check if any authors or organizations have sub units. Show button if sub units
       this.hasSubUnits = false;
-      const combinedSubUnits = [...this.authorAndOrganization[0].authors, ...this.authorAndOrganization[0].orgUnits];
-      this.hasSubUnits = combinedSubUnits.find(item => item.subUnit !== null) ? true : false;
+      const combinedSubUnits = [
+        ...this.authorAndOrganization[0].authors,
+        ...this.authorAndOrganization[0].orgUnits,
+      ];
+      this.hasSubUnits = combinedSubUnits.find((item) => item.subUnit !== null)
+        ? true
+        : false;
     }
 
     // Remove duplicate organizations
-    this.authorAndOrganization = this.authorAndOrganization.filter((v, i, a) =>
-                                 a.findIndex(t => (t.orgName === v.orgName)) === i);
+    this.authorAndOrganization = this.authorAndOrganization.filter(
+      (v, i, a) => a.findIndex((t) => t.orgName === v.orgName) === i
+    );
 
     // RelatedQ
     this.relatedData = {
-      organizations: this.authorAndOrganization.map(item => item.orgId)
+      organizations: this.authorAndOrganization.map((item) => item.orgId),
     };
 
     // Is this needed anymore?
@@ -399,20 +629,24 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       }
     }
 
-    source.internationalCollaboration = source.internationalCollaboration ? yes : no;
+    source.internationalCollaboration = source.internationalCollaboration
+      ? yes
+      : no;
     source.businessCollaboration = source.businessCollaboration ? yes : no;
 
     // Get & set publication type label
-    this.publicationTypeLabel = this.staticDataService.publicationClass.find
-      (val => val.class === source.publicationTypeCode.slice(0, 1)).types.find
-      (type => type.type === source.publicationTypeCode)?.label || source.publicationTypeCode;
+    this.publicationTypeLabel =
+      this.staticDataService.publicationClass
+        .find((val) => val.class === source.publicationTypeCode.slice(0, 1))
+        .types.find((type) => type.type === source.publicationTypeCode)
+        ?.label || source.publicationTypeCode;
 
     if (this.publicationTypeLabel) {
-      source.publicationTypeCode = source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;
+      source.publicationTypeCode =
+        source.publicationTypeCode.trim() + ' ' + this.publicationTypeLabel;
     }
 
     // tslint:disable-next-line: curly
     if (source.doiHandle === 'http://dx.doi.org/') source.doiHandle = '';
   }
-
 }

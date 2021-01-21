@@ -23,7 +23,7 @@ describe('FiltersComponent', () => {
   let fixture: ComponentFixture<FiltersComponent>;
 
   const routerSpy = {
-    navigate: jasmine.createSpy('navigate')
+    navigate: jasmine.createSpy('navigate'),
   };
 
   const mockActivatedRoute = {
@@ -33,21 +33,16 @@ describe('FiltersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        FiltersComponent,
-      ],
+      declarations: [FiltersComponent],
       providers: [
-        {provide: Router, useValue: routerSpy},
-        {provide: ActivatedRoute, useValue: mockActivatedRoute},
+        { provide: Router, useValue: routerSpy },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
         WINDOW_PROVIDERS,
-        PublicationFilterService
+        PublicationFilterService,
       ],
-      imports: [
-        ModalModule.forRoot(),
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+      imports: [ModalModule.forRoot()],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FiltersComponent);
     component = fixture.componentInstance;
@@ -63,65 +58,67 @@ describe('FiltersComponent', () => {
   });
 
   it('should add parameters to preselected filter category', () => {
-    component.activeFilters = Object.assign({}, {year: ['2020', '2019']});
+    component.activeFilters = Object.assign({}, { year: ['2020', '2019'] });
 
     component.selectionChange('year', '2021');
 
-    expect (routerSpy.navigate).toHaveBeenCalledWith([], {
+    expect(routerSpy.navigate).toHaveBeenCalledWith([], {
       queryParams: {
-        year: [ '2020', '2019', '2021' ],
+        year: ['2020', '2019', '2021'],
         sort: undefined,
-        page: 1 },
-        queryParamsHandling: 'merge'
-      }
-    );
+        page: 1,
+      },
+      queryParamsHandling: 'merge',
+    });
   });
 
   it('should change year range accordingly', () => {
     // Set from year to 2020 and expect query parameters to be in asceding order from chosen value to latest
-    const res = Object.assign({}, {value: 2020});
+    const res = Object.assign({}, { value: 2020 });
 
     component.range(res, 'from');
 
-    expect (routerSpy.navigate).toHaveBeenCalledWith([], {
+    expect(routerSpy.navigate).toHaveBeenCalledWith([], {
       queryParams: {
-        year: [ '2021', '2020' ],
+        year: ['2021', '2020'],
         sort: undefined,
-        page: 1 },
-        queryParamsHandling: 'merge'
-      }
-    );
+        page: 1,
+      },
+      queryParamsHandling: 'merge',
+    });
   });
 
   it('should select all from parent', () => {
-    component.responseData.aggregations.year.subData = AggResponse.aggregations.year.buckets;
+    component.responseData.aggregations.year.subData =
+      AggResponse.aggregations.year.buckets;
     const subFilter = component.responseData.aggregations.year;
 
     component.selectAll('year', subFilter);
 
     // Note: Year params are not in order because of preselection test
-    expect (routerSpy.navigate).toHaveBeenCalledWith([], {
+    expect(routerSpy.navigate).toHaveBeenCalledWith([], {
       queryParams: {
-        year: [ '2020', '2019', '2021' ],
+        year: ['2020', '2019', '2021'],
         sort: undefined,
-        page: 1 },
-        queryParamsHandling: 'merge'
-      }
-    );
+        page: 1,
+      },
+      queryParamsHandling: 'merge',
+    });
   });
 
   it('should filter with term', () => {
-    const event = Object.assign({}, {target: {value: 'test'}});
+    const event = Object.assign({}, { target: { value: 'test' } });
     // Buckets need to be moved up one level until shapeData method is called
-    component.responseData.aggregations.testField.buckets = AggResponse.aggregations.testField.testFields.buckets;
+    component.responseData.aggregations.testField.buckets =
+      AggResponse.aggregations.testField.testFields.buckets;
     component.filterInput(event, 'testField');
 
-    expect (component.showMoreCount.testField).toBeDefined();
+    expect(component.showMoreCount.testField).toBeDefined();
   });
 
   it('should render corresponding filter header', () => {
     component.responseData = AggPublicationResponse;
-    component.currentFilter = [{field: 'testField', label: 'Test header'}];
+    component.currentFilter = [{ field: 'testField', label: 'Test header' }];
     component.ngOnChanges();
 
     fixture.detectChanges();

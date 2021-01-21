@@ -7,39 +7,44 @@
 
 import { TabChangeService } from './tab-change.service';
 
-
 describe('TabChangeService', () => {
-    let tabChangeService: TabChangeService;
-    const locale = 'fi';
-    const mockTab = {data: '', label: '', link: 'publications', icon: '', singular: ''};
+  let tabChangeService: TabChangeService;
+  const locale = 'fi';
+  const mockTab = {
+    data: '',
+    label: '',
+    link: 'publications',
+    icon: '',
+    singular: '',
+  };
 
-    beforeEach(() => {
-        tabChangeService = new TabChangeService(locale);
-    });
+  beforeEach(() => {
+    tabChangeService = new TabChangeService(locale);
+  });
 
-    it('should be created', () => {
-        expect(tabChangeService).toBeTruthy();
-    });
+  it('should be created', () => {
+    expect(tabChangeService).toBeTruthy();
+  });
 
-    it('tab should be updated', () => {
-        // Initially undefined
-        expect(tabChangeService.tab).toBe(undefined);
-        tabChangeService.changeTab(mockTab);
-        // Updated after changeTab()
-        expect(tabChangeService.tab).toBe('publications');
-    });
+  it('tab should be updated', () => {
+    // Initially undefined
+    expect(tabChangeService.tab).toBe(undefined);
+    tabChangeService.changeTab(mockTab);
+    // Updated after changeTab()
+    expect(tabChangeService.tab).toBe('publications');
+  });
 
-    it('#currentTab should be updated as observable', (done: DoneFn) => {
-        // Initially empty
-        const initialSub = tabChangeService.currentTab.subscribe(tab => {
-            expect(tab.link).toBe('');
-        });
-        initialSub.unsubscribe();
-        tabChangeService.changeTab(mockTab);
-        // Updated after changeTab()
-        tabChangeService.currentTab.subscribe(tab => {
-            expect(tab.link).toBe('publications');
-            done();
-        });
+  it('#currentTab should be updated as observable', (done: DoneFn) => {
+    // Initially empty
+    const initialSub = tabChangeService.currentTab.subscribe((tab) => {
+      expect(tab.link).toBe('');
     });
+    initialSub.unsubscribe();
+    tabChangeService.changeTab(mockTab);
+    // Updated after changeTab()
+    tabChangeService.currentTab.subscribe((tab) => {
+      expect(tab.link).toBe('publications');
+      done();
+    });
+  });
 });

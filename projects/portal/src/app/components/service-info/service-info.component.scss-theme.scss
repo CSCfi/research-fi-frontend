@@ -1,8 +1,8 @@
 @import '~@angular/material/theming';
 
 @mixin app-service-info-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-service-info {
-    }
+  app-service-info {
+  }
 }

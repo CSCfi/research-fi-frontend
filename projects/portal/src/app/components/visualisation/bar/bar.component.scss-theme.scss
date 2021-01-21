@@ -1,18 +1,18 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 @import '~@angular/material/theming';
 
 @mixin app-bar-chart-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-bar {
-        .bar {
-            // fill: mat-color($primary);
-        }
+  app-bar {
+    .bar {
+      // fill: mat-color($primary);
     }
+  }
 }

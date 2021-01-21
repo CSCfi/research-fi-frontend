@@ -6,36 +6,36 @@
 // :license: MIT
 
 mat-chip {
-    cursor: pointer;
-    max-width: fit-content;
+  cursor: pointer;
+  max-width: fit-content;
 }
 
 .mat-standard-chip {
-    display: inline-table;
+  display: inline-table;
 }
 
 .narrow {
-    max-width: 286px;
+  max-width: 286px;
 }
 
 @media (max-width: 1440px) {
-    .narrow {
-        max-width: 200px;
-    }
+  .narrow {
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 1107px) {
-    .narrow {
-        max-width: 170px;
-    }
+  .narrow {
+    max-width: 170px;
+  }
 }
 
 @media (max-width: 991px) {
-    .narrow {
-        max-width: unset;
-    }
+  .narrow {
+    max-width: unset;
+  }
 
-    .info-button {
-        display: none;
-    }
+  .info-button {
+    display: none;
+  }
 }

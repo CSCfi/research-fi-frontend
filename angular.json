@@ -87,21 +87,15 @@
               ]
             },
             "fi": {
-              "localize": [
-                "fi"
-              ],
+              "localize": ["fi"],
               "i18nLocale": "fi"
             },
             "en": {
-              "localize": [
-                "en"
-              ],
+              "localize": ["en"],
               "i18nLocale": "en"
             },
             "sv": {
-              "localize": [
-                "sv"
-              ],
+              "localize": ["sv"],
               "i18nLocale": "sv"
             },
             "es5": {
@@ -168,9 +162,7 @@
               "projects/portal/tsconfig.spec.json",
               "projects/portal/e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -216,11 +208,7 @@
               "srcDir": "projects/shared/i18n",
               "genDir": "projects/shared/i18n",
               "defaultLanguage": "fi",
-              "languages": [
-                "fi",
-                "sv",
-                "en"
-              ]
+              "languages": ["fi", "sv", "en"]
             }
           }
         }
@@ -247,9 +235,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/portal/e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -336,21 +322,15 @@
               ]
             },
             "fi": {
-              "localize": [
-                "fi"
-              ],
+              "localize": ["fi"],
               "i18nLocale": "fi"
             },
             "en": {
-              "localize": [
-                "en"
-              ],
+              "localize": ["en"],
               "i18nLocale": "en"
             },
             "sv": {
-              "localize": [
-                "sv"
-              ],
+              "localize": ["sv"],
               "i18nLocale": "sv"
             },
             "es5": {
@@ -404,9 +384,7 @@
               "projects/mydata/src/favicon.ico",
               "projects/mydata/src/assets"
             ],
-            "styles": [
-              "projects/mydata/src/styles.scss"
-            ],
+            "styles": ["projects/mydata/src/styles.scss"],
             "scripts": []
           }
         },
@@ -418,9 +396,7 @@
               "projects/mydata/tsconfig.spec.json",
               "projects/mydata/e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -470,9 +446,7 @@
               "projects/ui-library/tsconfig.lib.json",
               "projects/ui-library/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

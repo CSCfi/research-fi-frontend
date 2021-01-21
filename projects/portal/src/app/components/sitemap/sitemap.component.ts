@@ -1,14 +1,22 @@
-import { Component, OnInit, LOCALE_ID, Inject, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  LOCALE_ID,
+  Inject,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { TabChangeService } from '@portal.services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { UtilityService } from '@portal.services/utility.service';
-import { sitemap, common } from '@portal.assets/static-data/meta-tags.json'
-
+import { sitemap, common } from '@portal.assets/static-data/meta-tags.json';
 
 @Component({
   selector: 'app-sitemap',
   templateUrl: './sitemap.component.html',
-  styleUrls: ['./sitemap.component.scss']
+  styleUrls: ['./sitemap.component.scss'],
 })
 export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mainFocus') mainFocus: ElementRef;
@@ -18,15 +26,22 @@ export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
   private metaTags = sitemap;
   private commonTags = common;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              private utilityService: UtilityService) {
-                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-              }
+  constructor(
+    private titleService: Title,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private tabChangeService: TabChangeService,
+    private utilityService: UtilityService
+  ) {
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   ngOnInit(): void {
-    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
-                                this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+    this.utilityService.addMeta(
+      this.metaTags['title' + this.currentLocale],
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
 
     switch (this.localeId) {
       case 'fi': {
@@ -51,11 +66,13 @@ export class SitemapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'main-link') {
-        this.mainFocus.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.mainFocus.nativeElement.focus();
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy() {

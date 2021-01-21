@@ -4,10 +4,9 @@ import { News } from '@portal.models/news.model';
 @Component({
   selector: 'app-news-card',
   templateUrl: './news-card.component.html',
-  styleUrls: ['./news-card.component.scss']
+  styleUrls: ['./news-card.component.scss'],
 })
 export class NewsCardComponent implements OnInit {
-
   @Input() item: News;
   @Input() sideNews: boolean;
   @Input() isHomepage = false;
@@ -15,9 +14,7 @@ export class NewsCardComponent implements OnInit {
 
   constructor() {
     this.term = this.term?.replace(/ä/g, '&auml;').replace(/ö/g, '&ouml;');
-   }
-
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {}
 }

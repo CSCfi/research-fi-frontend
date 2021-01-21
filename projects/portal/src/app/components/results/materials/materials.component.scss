@@ -1,71 +1,73 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 .tags {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  > div,
+  .div {
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    margin: 4px;
+    width: fit-content;
+    height: fit-content;
+    white-space: nowrap;
     display: flex;
-    flex-wrap: wrap;
-    font-size: 0.7rem;
-    margin-top: 0.5rem;
-    > div, .div {
-        border-radius: 3px;
-        color: white;
-        font-weight: bold;
-        margin: 4px;
-        width: fit-content;
-        height: fit-content;
-        white-space: nowrap;
-        display: flex;
-        margin-inline-start: 0;
+    margin-inline-start: 0;
+  }
+  a.div {
+    display: flex;
+  }
+  .peer-reviewed {
+    background: #00a19a;
+    border: 2px solid #00a19a;
+  }
+  .open-access {
+    color: #bc520a;
+    border: 2px solid #ea883e;
+  }
+  .open-access-image {
+    background-image: url(../../../../assets/img/openaccess.svg);
+    background-size: cover;
+    height: 16px;
+    width: 10px;
+    padding: 0;
+    margin-right: 5px;
+    display: inline-block;
+  }
+  .peer-reviewed,
+  .open-access {
+    padding: 3px 15px;
+  }
+  .doi-tag {
+    background: #363636;
+    border: 2px solid #363636;
+    padding: 3px 10px 3px 11px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .doi-link {
+    padding: 3px 10px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 2px solid #363636;
+    a {
+      color: #363636;
+      font-weight: bold;
     }
-    a.div {
-        display: flex;
-    }
-    .peer-reviewed {
-        background: #00A19A;
-        border: 2px solid #00A19A;
-    }
-    .open-access {
-        color: #BC520A;
-        border: 2px solid #EA883E;
-    }
-    .open-access-image {
-        background-image: url(../../../../assets/img/openaccess.svg);
-        background-size: cover;
-        height: 16px;
-        width: 10px;
-        padding: 0;
-        margin-right: 5px;
-        display: inline-block;
-    }
-    .peer-reviewed, .open-access {
-        padding: 3px 15px;
-    }
-    .doi-tag {
-        background: #363636;
-        border: 2px solid #363636;
-        padding: 3px 10px 3px 11px;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-    .doi-link {
-        padding: 3px 10px;
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border: 2px solid #363636;
-        a {
-            color: #363636;
-            font-weight: bold;
-        }
-    }
-    fa-icon {
-        padding-left: 0.25rem;
-    }
+  }
+  fa-icon {
+    padding-left: 0.25rem;
+  }
 }

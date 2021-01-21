@@ -6,10 +6,7 @@ import { UiLibraryModule } from 'ui-library';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent],
-  imports: [
-    CommonModule,
-    UiLibraryModule
-  ],
-  exports: [LayoutComponent]
+  imports: [CommonModule, UiLibraryModule],
+  exports: [LayoutComponent],
 })
-export class LayoutModule { }
+export class LayoutModule {}

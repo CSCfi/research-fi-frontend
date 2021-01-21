@@ -8,41 +8,43 @@
 @import '~@angular/material/theming';
 
 @mixin app-figures-info-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-figures-info {
-        a {
-            color: #3366CC!important;
-        }
-
-        .info {
-            background: white;
-            border: 1px solid;
-            box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
-        }
-
-        .info.left:after, .info.left:before {
-            border: solid transparent;
-        }
-        
-        .info.left:after {
-            border-left-color: #FFF;
-        }
-        .info.left:before {
-            border-color: rgba(0, 0, 0, 0);
-            border-left-color: #000;
-        }
-        
-        .info.right:after, .info.right:before {
-            border: solid transparent;
-        }
-        
-        .info.right:after {
-            border-right-color: #FFF;
-        }
-        .info.right:before {
-            border-color: rgba(0, 0, 0, 0);
-            border-right-color: #000;
-        }
+  app-figures-info {
+    a {
+      color: #3366cc !important;
     }
+
+    .info {
+      background: white;
+      border: 1px solid;
+      box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .info.left:after,
+    .info.left:before {
+      border: solid transparent;
+    }
+
+    .info.left:after {
+      border-left-color: #fff;
+    }
+    .info.left:before {
+      border-color: rgba(0, 0, 0, 0);
+      border-left-color: #000;
+    }
+
+    .info.right:after,
+    .info.right:before {
+      border: solid transparent;
+    }
+
+    .info.right:after {
+      border-right-color: #fff;
+    }
+    .info.right:before {
+      border-color: rgba(0, 0, 0, 0);
+      border-right-color: #000;
+    }
+  }
 }

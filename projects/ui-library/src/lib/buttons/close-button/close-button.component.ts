@@ -5,22 +5,18 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-
 import { Component, OnInit } from '@angular/core';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'lib-close-button',
   templateUrl: './close-button.component.html',
-  styleUrls: ['./close-button.component.scss']
+  styleUrls: ['./close-button.component.scss'],
 })
 export class CloseButtonComponent implements OnInit {
-
   faWindowClose = faWindowClose;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

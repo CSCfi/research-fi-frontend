@@ -1,386 +1,386 @@
 {
-    "took": 47,
-    "timed_out": false,
-    "_shards": {
-      "total": 1,
-      "successful": 1,
-      "skipped": 0,
-      "failed": 0
+  "took": 47,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 644,
+      "relation": "eq"
     },
-    "hits": {
-      "total": {
-        "value": 644,
-        "relation": "eq"
-      },
-      "max_score": null,
-      "hits": []
-    },
-    "aggregations": {
-      "organization": {
-        "doc_count_error_upper_bound": 0,
-        "sum_other_doc_count": 0,
-        "buckets": [
-          {
-            "key": "3",
-            "doc_count": 259,
-            "orgName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "Maanmittauslaitos",
-                  "doc_count": 119,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "4020217",
-                        "doc_count": 119
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Suomen ympäristökeskus",
-                  "doc_count": 100,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "7020017",
-                        "doc_count": 100
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Terveyden ja hyvinvoinnin laitos",
-                  "doc_count": 20,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "5610017",
-                        "doc_count": 20
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Luonnonvarakeskus",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "4100010",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Ruokavirasto",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "430001",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "organization": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "3",
+          "doc_count": 259,
+          "orgName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Maanmittauslaitos",
+                "doc_count": 119,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "4020217",
+                      "doc_count": 119
+                    }
+                  ]
                 }
-              ]
-            },
-            "sectorName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "Tutkimuslaitos",
-                  "doc_count": 259
+              },
+              {
+                "key": "Suomen ympäristökeskus",
+                "doc_count": 100,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "7020017",
+                      "doc_count": 100
+                    }
+                  ]
                 }
-              ]
-            }
+              },
+              {
+                "key": "Terveyden ja hyvinvoinnin laitos",
+                "doc_count": 20,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "5610017",
+                      "doc_count": 20
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Luonnonvarakeskus",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "4100010",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Ruokavirasto",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "430001",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              }
+            ]
           },
-          {
-            "key": "2",
-            "doc_count": 185,
-            "orgName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "Laurea-ammattikorkeakoulu",
-                  "doc_count": 70,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "02629",
-                        "doc_count": 70
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Turun ammattikorkeakoulu",
-                  "doc_count": 50,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "02509",
-                        "doc_count": 50
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Diakonia-ammattikorkeakoulu",
-                  "doc_count": 40,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "02623",
-                        "doc_count": 40
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Hämeen ammattikorkeakoulu",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "02467",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Tampereen ammattikorkeakoulu",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "02630",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Kaakkois-Suomen ammattikorkeakoulu",
-                  "doc_count": 5,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "10118",
-                        "doc_count": 5
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            "sectorName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "Ammattikorkeakoulu",
-                  "doc_count": 185
-                }
-              ]
-            }
-          },
-          {
-            "key": "1",
-            "doc_count": 180,
-            "orgName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "Jyväskylän yliopisto        ",
-                  "doc_count": 50,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "01906",
-                        "doc_count": 50
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Oulun yliopisto             ",
-                  "doc_count": 50,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "01904",
-                        "doc_count": 50
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Helsingin yliopisto        ",
-                  "doc_count": 25,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "01901",
-                        "doc_count": 25
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Turun yliopisto",
-                  "doc_count": 15,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "10089",
-                        "doc_count": 15
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Aalto-yliopisto",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "10076",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Taideyliopisto",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "10103",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Tampereen yliopisto",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "10122",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
-                },
-                {
-                  "key": "Vaasan yliopisto  ",
-                  "doc_count": 10,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "01913",
-                        "doc_count": 10
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            "sectorName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "Yliopisto",
-                  "doc_count": 180
-                }
-              ]
-            }
-          },
-          {
-            "key": "6",
-            "doc_count": 20,
-            "orgName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "CSC - Tieteen tietotekniikan keskus Oy",
-                  "doc_count": 20,
-                  "orgId": {
-                    "doc_count_error_upper_bound": 0,
-                    "sum_other_doc_count": 0,
-                    "buckets": [
-                      {
-                        "key": "09206320",
-                        "doc_count": 20
-                      }
-                    ]
-                  }
-                }
-              ]
-            },
-            "sectorName": {
-              "doc_count_error_upper_bound": 0,
-              "sum_other_doc_count": 0,
-              "buckets": [
-                {
-                  "key": "Muu",
-                  "doc_count": 20
-                }
-              ]
-            }
+          "sectorName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Tutkimuslaitos",
+                "doc_count": 259
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "key": "2",
+          "doc_count": 185,
+          "orgName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Laurea-ammattikorkeakoulu",
+                "doc_count": 70,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "02629",
+                      "doc_count": 70
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Turun ammattikorkeakoulu",
+                "doc_count": 50,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "02509",
+                      "doc_count": 50
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Diakonia-ammattikorkeakoulu",
+                "doc_count": 40,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "02623",
+                      "doc_count": 40
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Hämeen ammattikorkeakoulu",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "02467",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Tampereen ammattikorkeakoulu",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "02630",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Kaakkois-Suomen ammattikorkeakoulu",
+                "doc_count": 5,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "10118",
+                      "doc_count": 5
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "sectorName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Ammattikorkeakoulu",
+                "doc_count": 185
+              }
+            ]
+          }
+        },
+        {
+          "key": "1",
+          "doc_count": 180,
+          "orgName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Jyväskylän yliopisto        ",
+                "doc_count": 50,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "01906",
+                      "doc_count": 50
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Oulun yliopisto             ",
+                "doc_count": 50,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "01904",
+                      "doc_count": 50
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Helsingin yliopisto        ",
+                "doc_count": 25,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "01901",
+                      "doc_count": 25
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Turun yliopisto",
+                "doc_count": 15,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "10089",
+                      "doc_count": 15
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Aalto-yliopisto",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "10076",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Taideyliopisto",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "10103",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Tampereen yliopisto",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "10122",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              },
+              {
+                "key": "Vaasan yliopisto  ",
+                "doc_count": 10,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "01913",
+                      "doc_count": 10
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "sectorName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Yliopisto",
+                "doc_count": 180
+              }
+            ]
+          }
+        },
+        {
+          "key": "6",
+          "doc_count": 20,
+          "orgName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "CSC - Tieteen tietotekniikan keskus Oy",
+                "doc_count": 20,
+                "orgId": {
+                  "doc_count_error_upper_bound": 0,
+                  "sum_other_doc_count": 0,
+                  "buckets": [
+                    {
+                      "key": "09206320",
+                      "doc_count": 20
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "sectorName": {
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+              {
+                "key": "Muu",
+                "doc_count": 20
+              }
+            ]
+          }
+        }
+      ]
     }
   }
+}

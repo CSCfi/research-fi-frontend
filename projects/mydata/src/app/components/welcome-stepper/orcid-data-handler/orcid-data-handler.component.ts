@@ -13,7 +13,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-orcid-data-handler',
   templateUrl: './orcid-data-handler.component.html',
-  styleUrls: ['./orcid-data-handler.component.scss']
+  styleUrls: ['./orcid-data-handler.component.scss'],
 })
 export class OrcidDataHandlerComponent implements OnInit {
   color: ThemePalette = 'primary';
@@ -24,7 +24,7 @@ export class OrcidDataHandlerComponent implements OnInit {
   @Output() cancel = new EventEmitter<boolean>();
   faCheckCircle = faCheckCircle;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.handleLoading();
@@ -45,5 +45,4 @@ export class OrcidDataHandlerComponent implements OnInit {
   cancelHandler() {
     this.cancel.emit(true);
   }
-
 }

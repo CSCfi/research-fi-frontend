@@ -12,99 +12,98 @@ metadata:
     template: nginx-revproxy-api-devel
   name: nginx-revproxy-api-devel
 objects:
+  # Service
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: nginx-revproxy-api-devel-service
+      labels:
+        app: nginx-revproxy-api-devel
+      annotations:
+        description: Nginx reverse proxy for portal api
+    spec:
+      ports:
+        - name: nginx-revproxy-api-devel
+          port: 8080
+          targetPort: 8080
+      selector:
+        depcfg: nginx-revproxy-api-devel-deploymentconfig
 
-# Service
-- apiVersion: v1
-  kind: Service
-  metadata:
-    name: nginx-revproxy-api-devel-service
-    labels:
-      app: nginx-revproxy-api-devel
-    annotations:
-      description: Nginx reverse proxy for portal api
-  spec:
-    ports:
-      - name: nginx-revproxy-api-devel
-        port: 8080
-        targetPort: 8080
-    selector:
-      depcfg: nginx-revproxy-api-devel-deploymentconfig
+  # ImageStream
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      name: nginx-revproxy-api-devel
+      labels:
+        app: nginx-revproxy-api-devel
 
-# ImageStream
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    name: nginx-revproxy-api-devel
-    labels:
-      app: nginx-revproxy-api-devel
-
-# BuildConfig using Docker build strategy
-- apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    name: nginx-revproxy-api-devel-build
-    labels:
-      app: nginx-revproxy-api-devel
-  spec:
-    source:
-      git:
-        uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: devel
-      contextDir: .
-    strategy:
-      dockerStrategy:
-        dockerfilePath: nginx_reverse_proxy/api/devel/Dockerfile
-    output:
-      to:
-        kind: ImageStreamTag
-        name: nginx-revproxy-api-devel:latest
-    successfulBuildsHistoryLimit: 4 
-    failedBuildsHistoryLimit: 4
-
-# Deployment config
-- apiVersion: v1
-  kind: DeploymentConfig
-  metadata:
-    name: nginx-revproxy-api-devel-deployment
-    labels:
-      app: nginx-revproxy-api-devel
-  spec:
-    selector:
-      app: nginx-revproxy-api-devel
-      depcfg: nginx-revproxy-api-devel-deploymentconfig
-    template:
-      metadata:
-        labels:
-          app: nginx-revproxy-api-devel
-          depcfg: nginx-revproxy-api-devel-deploymentconfig
-      spec:
-        containers:
-          - name: nginx-revproxy-api-devel-container
-            image: researchfi/nginx-revproxy-api-devel
-            imagePullPolicy: Always
-            ports:
-              - containerPort: 8080
-                protocol: TCP
-            volumeMounts:
-              - name: nginx-revproxy-api-devel-volume
-                mountPath: /etc/nginx/apiconf
-        volumes:
-          - name: nginx-revproxy-api-devel-volume
-            secret:
-              secretName: nginx-revproxy-api-devel-secret
-              items:
-              - key: configfile
-                path: api.conf
-    replicas: 1
-    triggers:
-    - type: ConfigChange
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-        - nginx-revproxy-api-devel-container
-        from:
+  # BuildConfig using Docker build strategy
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      name: nginx-revproxy-api-devel-build
+      labels:
+        app: nginx-revproxy-api-devel
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: devel
+        contextDir: .
+      strategy:
+        dockerStrategy:
+          dockerfilePath: nginx_reverse_proxy/api/devel/Dockerfile
+      output:
+        to:
           kind: ImageStreamTag
           name: nginx-revproxy-api-devel:latest
-    strategy:
-      type: Rolling
+      successfulBuildsHistoryLimit: 4
+      failedBuildsHistoryLimit: 4
+
+  # Deployment config
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: nginx-revproxy-api-devel-deployment
+      labels:
+        app: nginx-revproxy-api-devel
+    spec:
+      selector:
+        app: nginx-revproxy-api-devel
+        depcfg: nginx-revproxy-api-devel-deploymentconfig
+      template:
+        metadata:
+          labels:
+            app: nginx-revproxy-api-devel
+            depcfg: nginx-revproxy-api-devel-deploymentconfig
+        spec:
+          containers:
+            - name: nginx-revproxy-api-devel-container
+              image: researchfi/nginx-revproxy-api-devel
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              volumeMounts:
+                - name: nginx-revproxy-api-devel-volume
+                  mountPath: /etc/nginx/apiconf
+          volumes:
+            - name: nginx-revproxy-api-devel-volume
+              secret:
+                secretName: nginx-revproxy-api-devel-secret
+                items:
+                  - key: configfile
+                    path: api.conf
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - nginx-revproxy-api-devel-container
+            from:
+              kind: ImageStreamTag
+              name: nginx-revproxy-api-devel:latest
+      strategy:
+        type: Rolling

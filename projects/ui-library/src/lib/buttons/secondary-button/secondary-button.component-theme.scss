@@ -8,19 +8,20 @@
 @import '~@angular/material/theming';
 
 @mixin app-secondary-button-theme($theme) {
-    $primary: map-get($theme, primary);
-    $warn: map-get($theme, warn);
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
 
-    .secondary-button {
-        background-color: mat-contrast($primary, 500);
+  .secondary-button {
+    background-color: mat-contrast($primary, 500);
 
-        border: 2px solid mat-color($primary);
-        color: mat-color($primary);
+    border: 2px solid mat-color($primary);
+    color: mat-color($primary);
 
-        &:hover, &:active {
-            &:not([disabled]) {
-                background-color: mat-color($primary, 100);
-            }
-        }
+    &:hover,
+    &:active {
+      &:not([disabled]) {
+        background-color: mat-color($primary, 100);
+      }
     }
+  }
 }

@@ -1,6 +1,10 @@
-import { ElementRef, ComponentFactoryResolver, ApplicationRef, Injector } from '@angular/core';
+import {
+  ElementRef,
+  ComponentFactoryResolver,
+  ApplicationRef,
+  Injector,
+} from '@angular/core';
 import { DomPortalHost } from '@angular/cdk/portal';
-
 
 export function createDomPortalHost(elRef: ElementRef, injector: Injector) {
   return new DomPortalHost(

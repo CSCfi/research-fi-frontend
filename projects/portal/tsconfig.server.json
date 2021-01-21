@@ -4,15 +4,10 @@
     "outDir": "../out-tsc/app-server",
     "module": "commonjs"
   },
-  "files": [
-    "./src/main.server.ts"
-  ],
+  "files": ["./src/main.server.ts"],
   "angularCompilerOptions": {
     "entryModule": "./app/app.server.module#AppServerModule",
     "enableIvy": true
-  }
-,
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  },
+  "include": ["src/**/*.d.ts"]
 }
