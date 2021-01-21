@@ -101,7 +101,7 @@ export class SearchService {
             persons : { match : { _index : 'person' }},
             publications : { match : { _index : 'publication' }},
             fundings : { match : { _index : 'funding' }},
-            materials : { match : { _index : 'material' }},
+            datasets : { match : { _index : 'dataset' }},
             infrastructures : { match : { _index : 'infrastructure' }},
             organizations : { match : { _index : 'organization' }}
           }
@@ -129,7 +129,7 @@ export class SearchService {
             this.settingsService.querySettings('publication', this.searchTerm),
             this.settingsService.querySettings('person', this.searchTerm),
             this.settingsService.querySettings('funding', this.searchTerm),
-            this.settingsService.querySettings('material', this.searchTerm),
+            this.settingsService.querySettings('dataset', this.searchTerm),
             this.settingsService.querySettings('infrastructure', this.searchTerm),
             this.settingsService.querySettings('organization', this.searchTerm)
           ]
@@ -155,9 +155,9 @@ export class SearchService {
                     _index: 'funding'
                 }
               },
-              materials: {
+              datasets: {
                 match: {
-                    _index: 'material'
+                    _index: 'dataset'
                 }
               },
               infrastructures: {

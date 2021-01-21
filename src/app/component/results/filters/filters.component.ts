@@ -19,7 +19,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 import { PublicationFilterService } from 'src/app/services/filters/publication-filter.service';
 import { PersonFilterService } from 'src/app/services/filters/person-filter.service';
 import { FundingFilterService } from 'src/app/services/filters/funding-filter.service';
-import { MaterialFilterService } from 'src/app/services/filters/material-filter.service';
+import { DatasetFilterService } from 'src/app/services/filters/dataset-filter.service';
 import { InfrastructureFilterService } from 'src/app/services/filters/infrastructure-filter.service';
 import { OrganizationFilterService } from 'src/app/services/filters/organization-filter.service';
 import { NewsFilterService } from 'src/app/services/filters/news-filter.service';
@@ -76,7 +76,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
                private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
                private modalService: BsModalService, private route: ActivatedRoute, public utilityService: UtilityService,
                private sortService: SortService, private publicationFilters: PublicationFilterService,
-               private personFilters: PersonFilterService, private fundingFilters: FundingFilterService, private materialFilters: MaterialFilterService,
+               private personFilters: PersonFilterService, private fundingFilters: FundingFilterService, private datasetFilters: DatasetFilterService,
                private infrastructureFilters: InfrastructureFilterService, private organizationFilters: OrganizationFilterService,
                private newsFilters: NewsFilterService, @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
                 this.showMoreCount = [];
@@ -131,7 +131,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         this.parentPanel = 'year';
         break;
       }
-      case 'materials': {
+      case 'datasets': {
         this.parentPanel = '';
         break;
       }
@@ -202,10 +202,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
           this.fundingFilters.shapeData(this.responseData);
           break;
         }
-        case 'materials': {
-          this.currentFilter = this.materialFilters.filterData;
-          this.currentSingleFilter = this.materialFilters.singleFilterData;
-          this.materialFilters.shapeData(this.responseData);
+        case 'datasets': {
+          this.currentFilter = this.datasetFilters.filterData;
+          this.currentSingleFilter = this.datasetFilters.singleFilterData;
+          this.datasetFilters.shapeData(this.responseData);
           break;
         }
         case 'infrastructures': {

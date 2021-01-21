@@ -9,7 +9,7 @@ import { Publication, PublicationAdapter } from './publication/publication.model
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 import { FundingAdapter, Funding } from './funding/funding.model';
-import { MaterialAdapter, Material } from './material/material.model';
+import { DatasetAdapter, Dataset } from './dataset/dataset.model';
 import { OrganizationAdapter, Organization } from './organization.model';
 import { InfrastructureAdapter, Infrastructure } from './infrastructure/infrastructure.model';
 
@@ -18,7 +18,7 @@ export class Search {
         public total: number,
         public publications: Publication[],
         public fundings: Funding[],
-        public materials: Material[],
+        public datasets: Dataset[],
         public infrastructures: Infrastructure[],
         public organizations: Organization[]
     ) {}
@@ -30,14 +30,14 @@ export class Search {
 export class SearchAdapter implements Adapter<Search> {
     constructor(private publicationAdapter: PublicationAdapter,
                 private fundingAdapter: FundingAdapter,
-                private materialAdapter: MaterialAdapter,
+                private datasetAdapter: DatasetAdapter,
                 private organizationAdapter: OrganizationAdapter,
                 private infrastructureAdapter: InfrastructureAdapter) {}
     adapt(item: any, tab?: string): Search {
 
         const publications: Publication[] = [];
         const fundings: Funding[] = [];
-        const materials: Material[] = [];
+        const datasets: Dataset[] = [];
         const infrastructures: Infrastructure[] = [];
         const organizations: Organization[] = [];
 
@@ -48,8 +48,8 @@ export class SearchAdapter implements Adapter<Search> {
             case 'fundings':
                 item.hits.hits.forEach(e => fundings.push(this.fundingAdapter.adapt(e._source)));
                 break;
-            case 'materials':
-                item.hits.hits.forEach(e => materials.push(this.materialAdapter.adapt(e._source)));
+            case 'datasets':
+                item.hits.hits.forEach(e => datasets.push(this.datasetAdapter.adapt(e._source)));
                 break;
             case 'infrastructures':
                 item.hits.hits.forEach(e => infrastructures.push(this.infrastructureAdapter.adapt(e._source)));
@@ -64,7 +64,7 @@ export class SearchAdapter implements Adapter<Search> {
             item.hits.total.value,
             publications,
             fundings,
-            materials,
+            datasets,
             infrastructures,
             organizations
         );

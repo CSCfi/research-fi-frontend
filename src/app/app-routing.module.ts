@@ -27,7 +27,7 @@ import { NotFoundComponent } from './common-components/not-found/not-found.compo
 import { PageResolverService } from './resolvers/page-resolver.service';
 import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
 import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
-import { SingleMaterialComponent } from './component/single/single-material/single-material.component';
+import { SingleDatasetComponent } from './component/single/single-dataset/single-dataset.component';
 
 const routes: Routes = [
   {
@@ -62,8 +62,8 @@ const routes: Routes = [
     component: SingleFundingComponent
   },
   {
-    path: 'results/material/:id',
-    component: SingleMaterialComponent
+    path: 'results/dataset/:id',
+    component: SingleDatasetComponent
   },
   {
     path: 'results/organization/:id',

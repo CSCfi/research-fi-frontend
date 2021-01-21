@@ -21,7 +21,7 @@
               <h2 i18n="@@404">404 - Virheellinen osoite</h2>
          </div>
          <main class="col-12 col-md-8">
-             <div *ngFor="let item of responseData.materials">
+             <div *ngFor="let item of responseData.datasets">
                  <div class="row d-flex justify-content-around">
                      <div class="col p-0">
                          <h1 class="result-header">{{item.name}}</h1>
@@ -141,12 +141,12 @@
                 </div>
             </div>
           </main>
-          <div *ngFor="let item of responseData.materials" class="col-12 col-md-4">
+          <div *ngFor="let item of responseData.datasets" class="col-12 col-md-4">
             <aside>
                 <aside>
                     <mat-card>
                         <mat-card-title>
-                            <h2 i18n="@@materialLinks">Linkit tutkimusaineistoon</h2>
+                            <h2 i18n="@@datasetLinks">Linkit tutkimusaineistoon</h2>
                         </mat-card-title>
                         <div class="row links" *ngFor="let row of linksFields">
                             <div *ngIf="row.field === 'doi'" class=" info-link-wrapper">
@@ -223,7 +223,7 @@
             <aside>
                 <mat-card>
                     <mat-card-title>
-                        <h2 i18n="@@materialSource">Tutkimusaineistotiedon lähde</h2>
+                        <h2 i18n="@@datasetSource">Tutkimusaineistotiedon lähde</h2>
                     </mat-card-title>
                     <div>
                         <p *ngIf="item.dataCatalog?.length > 0">{{item.dataCatalog}}</p>

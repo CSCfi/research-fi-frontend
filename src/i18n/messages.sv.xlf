@@ -715,7 +715,7 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="noMaterials" datatype="html">
+      <trans-unit id="noDatasets" datatype="html">
         <source>Ei tutkimusaineistoja</source>
         <target>No research data</target>
       </trans-unit>
@@ -1885,7 +1885,7 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="materials" datatype="html">
+      <trans-unit id="datasets" datatype="html">
         <source>Aineistot</source>
         <target state="translated">Data</target>
         <context-group purpose="location">
@@ -2704,6 +2704,14 @@
         <source>Summa</source>
         <target>Belopp</target>
       </trans-unit>
+      <trans-unit id="fundingRecipient">
+        <source>Rahoituksen saaja</source>
+        <target>Funding recipient</target>
+      </trans-unit>
+      <!-- <trans-unit id="totalAmount">
+        <source>Rahoitusten kokonaissumma</source>
+        <target>Funding recipient</target>
+      </trans-unit> -->
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
         <target state="translated">Vetenskapsområden</target>
@@ -2763,6 +2771,27 @@
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
+      </trans-unit>
+      <!-- Datasets -->
+      <trans-unit id="datasetAccessOpen">
+        <source>Avoin</source>
+        <target>Open</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessPermit">
+        <source>Vaatii luvan hakemista Fairdata-palvelussa</source>
+        <target>Requires applying permission in Fairdata service</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessLogin">
+        <source>Vaatii kirjautumisen Fairdata-palvelussa</source>
+        <target>Requires login in Fairdata service</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessRestricted">
+        <source>Saatavuutta rajoitettu</source>
+        <target>Restricted use</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessEmbargo">
+        <source>Embargo</source>
+        <target>Embargo</target>
       </trans-unit>
       <!-- Infrastructures -->
       <trans-unit id="infraServicesLabel">
@@ -3172,7 +3201,7 @@
         <source>Hanke</source>
         <target state="translated">Projekts</target>
       </trans-unit>
-      <trans-unit id="material">
+      <trans-unit id="dataset">
         <source>Aineisto</source>
         <target state="translated">Data</target>
       </trans-unit>
@@ -3204,7 +3233,7 @@
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
         <target state="translated">Finländska offentliga och privata forskningsfinansiärers finansieringsbeslut från och med att finansiären anslöt sig till tjänsten. EU:s finansieringsbeslut till finländska organisationer från och med ramprogrammet Horizon 2020.</target>
       </trans-unit>
-      <trans-unit id="materialsTooltip">
+      <trans-unit id="datasetsTooltip">
         <source>Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.</source>
         <target state="translated">Metadata av forskningsdata som producerats i Finland.</target>
       </trans-unit>
