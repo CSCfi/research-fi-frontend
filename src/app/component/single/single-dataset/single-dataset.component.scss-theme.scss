@@ -1,58 +1,80 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 @import '~@angular/material/theming';
 
 @mixin app-single-dataset-theme($theme) {
-    $primary: map-get($theme, primary);
-    $warn: map-get($theme, warn);
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
 
-    app-single-dataset {
-        div.links {
-            color: mat-contrast($primary, 500);
-            
-            .icon {
-                color: mat-color($primary);
-            }
+  app-single-dataset {
+    div.links {
+      color: mat-contrast($primary, 500);
 
-            .doi-tag {
-                background: mat-contrast($primary, 200);
-                color: mat-contrast($primary, 500);
-            }
-            .doi-link {
-                a {
-                    color: mat-color($primary);
-                }
-            }
+      .icon {
+        color: mat-color($primary);
+      }
 
-            .doi-tag, .doi-link {
-                vertical-align: middle;
-            }
-
-            .link.doi {
-                color: black;
-                border: 2px solid rgba(0, 0, 0, 0.87);
-                background: white;
-                border-radius: 2px;
-            }
+      .doi-tag {
+        background: mat-contrast($primary, 200);
+        color: mat-contrast($primary, 500);
+      }
+      .doi-link {
+        a {
+          color: mat-color($primary);
         }
+      }
 
-        
-        .reference .no-doi-warn {
-            color: mat-color($warn);
-        }
+      .doi-tag,
+      .doi-link {
+        vertical-align: middle;
+      }
+
+      .link.doi {
+        color: black;
+        border: 2px solid rgba(0, 0, 0, 0.87);
+        background: white;
+        border-radius: 2px;
+      }
     }
-    .reference-modal {
-        h3.modal-title {
-            color: mat-contrast($primary, 50)
-        }
-        
-        &.modal-body h4 {
-            color: mat-contrast($primary, 300)
-        }        
+
+    .doi-tag {
+      background: mat-contrast($primary, 200);
+      color: mat-contrast($primary, 500);
     }
+    .doi-link {
+      a {
+        color: mat-color($primary);
+      }
+    }
+
+    .doi-tag,
+    .doi-link {
+      vertical-align: middle;
+    }
+
+    .link.doi {
+      color: black;
+      border: 2px solid rgba(0, 0, 0, 0.87);
+      background: white;
+      border-radius: 2px;
+    }
+  }
+
+  .reference .no-doi-warn {
+    color: mat-color($warn);
+  }
+}
+.reference-modal {
+  h3.modal-title {
+    color: mat-contrast($primary, 50);
+  }
+
+  &.modal-body h4 {
+    color: mat-contrast($primary, 300);
+  }
 }

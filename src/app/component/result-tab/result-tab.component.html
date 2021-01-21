@@ -4,23 +4,71 @@
  :license: MIT -->
 
 <nav id="tabs">
-  <div class="wrapper" *ngIf="allData; else noData" [tabindex]="isHomepage ? -1 : 0" (keyup)="isHomepage ? '' : navigate($event)">
+  <div
+    class="wrapper"
+    *ngIf="allData; else noData"
+    [tabindex]="isHomepage ? -1 : 0"
+    (keyup)="isHomepage ? '' : navigate($event)"
+  >
     <div #scroll class="scroll" *ngFor="let counted of allData">
-      <div *ngIf="!isHomepage" class="edge" [ngStyle]="{'display': lastScrollLocation > 0 ? 'block' : 'none'}">
+      <div
+        *ngIf="!isHomepage"
+        class="edge"
+        [ngStyle]="{ display: lastScrollLocation > 0 ? 'block' : 'none' }"
+      >
         <div class="grad grad-left"></div>
-        <div class="nav-arrow nav-arrow-left" (click)="scrollLeft()"><fa-icon [icon]="faArrowLeft"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-left" (click)="scrollLeft()">
+          <fa-icon [icon]="faArrowLeft"></fa-icon>
+        </div>
       </div>
-      <div *ngIf="!isHomepage" class="edge" [ngStyle]="{'display': offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'}">
+      <div
+        *ngIf="!isHomepage"
+        class="edge"
+        [ngStyle]="{
+          display:
+            offsetWidth + lastScrollLocation < scrollWidth ? 'block' : 'none'
+        }"
+      >
         <div class="grad grad-right"></div>
-        <div class="nav-arrow nav-arrow-right" (click)="scrollRight()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
+        <div class="nav-arrow nav-arrow-right" (click)="scrollRight()">
+          <fa-icon [icon]="faArrowRight"></fa-icon>
+        </div>
       </div>
-      <ng-container *ngFor="let row of tabsOpen ? rowsOpen : rowsClosed; let i = index;">
+      <ng-container
+        *ngFor="let row of tabsOpen ? rowsOpen : rowsClosed; let i = index"
+      >
         <div class="row-wrapper" [class.row-wrapper-homepage]="isHomepage">
-          <ng-container *ngFor="let tab of slicedRow(i); let j = index;">
-            <app-tab-item [class.homepage]="isHomepage" [tab]="tab" [isHomepage]="isHomepage" [selectedTab]="selectedTab" [queryParams]="queryParams" [counted]="counted" [locale]="locale" [tooltipClass]="tooltipClass"></app-tab-item>
-            <button *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)" class="item-wrapper bundler homepage toggle-more" (click)="toggleTabs()" #toggleButton>
-              <div *ngIf="!tabsOpen" class="label text-center homepage homepage-label"><ng-container i18n="@@showAll">Näytä kaikki </ng-container><div><fa-icon [icon]="faAngleDown"></fa-icon></div></div> 
-              <div *ngIf="tabsOpen" class="label text-center homepage homepage-label"><ng-container i18n="@@showLess">Näytä vähemmän </ng-container><div><fa-icon [icon]="faAngleUp"></fa-icon></div></div> 
+          <ng-container *ngFor="let tab of slicedRow(i); let j = index">
+            <app-tab-item
+              [class.homepage]="isHomepage"
+              [tab]="tab"
+              [isHomepage]="isHomepage"
+              [selectedTab]="selectedTab"
+              [queryParams]="queryParams"
+              [counted]="counted"
+              [locale]="locale"
+              [tooltipClass]="tooltipClass"
+            ></app-tab-item>
+            <button
+              *ngIf="isHomepage && nofTabs < 6 && checkLast(i, j)"
+              class="item-wrapper bundler homepage toggle-more"
+              (click)="toggleTabs()"
+              #toggleButton
+            >
+              <div
+                *ngIf="!tabsOpen"
+                class="label text-center homepage homepage-label"
+              >
+                <ng-container i18n="@@showAll">Näytä kaikki </ng-container>
+                <div><fa-icon [icon]="faAngleDown"></fa-icon></div>
+              </div>
+              <div
+                *ngIf="tabsOpen"
+                class="label text-center homepage homepage-label"
+              >
+                <ng-container i18n="@@showLess">Näytä vähemmän </ng-container>
+                <div><fa-icon [icon]="faAngleUp"></fa-icon></div>
+              </div>
             </button>
           </ng-container>
         </div>
@@ -29,8 +77,12 @@
   </div>
   <ng-template #noData>
     <div class="row justify-content-center">
-      <div class="col" align="center" style="margin: 2rem 0;">
-        <mat-spinner [diameter]="40" i18n-aria-label="@@loading" aria-label="Ladataan"></mat-spinner>
+      <div class="col" align="center" style="margin: 2rem 0">
+        <mat-spinner
+          [diameter]="40"
+          i18n-aria-label="@@loading"
+          aria-label="Ladataan"
+        ></mat-spinner>
         <!-- <h2 class="error" *ngIf="errorTimeout" i18n="Connection problem@@connProblem1">Yhteysongelma. Dataa ei saatavilla.</h2> -->
       </div>
     </div>

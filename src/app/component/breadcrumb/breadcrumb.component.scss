@@ -1,79 +1,82 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 .breadcrumb {
-    width: fit-content;
+  width: fit-content;
 }
 
 .capitalize {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
-.breadcrumb-item a, .breadcrumb-item span {
-    padding: 0px 30px;
+.breadcrumb-item a,
+.breadcrumb-item span {
+  padding: 0px 30px;
 }
 
 .arrow_box {
-	position: relative;
-    padding: 3px 0px;
-    height: 2rem;
+  position: relative;
+  padding: 3px 0px;
+  height: 2rem;
 }
 
-.arrow_box:after, .arrow_box:before {
-    left: 100%;
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
+.arrow_box:after,
+.arrow_box:before {
+  left: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
 }
 
 .arrow_box:after {
-    border-width: 15px;
-    margin-top: -15px;
+  border-width: 15px;
+  margin-top: -15px;
 }
 
 .arrow_box:before {
-    border-width: 16px;
-    margin-top: -16px;
+  border-width: 16px;
+  margin-top: -16px;
 }
 
 // Last
 li.breadcrumb-item.arrow_box.active {
-    padding: 0 15px 0 30px;
-    white-space: nowrap;
-    max-width: 350px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  padding: 0 15px 0 30px;
+  white-space: nowrap;
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 li.breadcrumb-item.arrow_box.active.arrow_box {
-    border-right: 0px;
-    padding: 3px 30px;
+  border-right: 0px;
+  padding: 3px 30px;
 }
 
 li.breadcrumb-item.arrow_box.last.arrow_box {
-    border: 0px;
-    border-left: 0px;
+  border: 0px;
+  border-left: 0px;
 }
 
-.last.arrow_box:after, .last.arrow_box:before {
-    left: 0%;
+.last.arrow_box:after,
+.last.arrow_box:before {
+  left: 0%;
 }
 
 // Responsive
 @media (max-width: 991px) {
-    .breadcrumb {
-        padding: .75rem 0;
-    }
+  .breadcrumb {
+    padding: 0.75rem 0;
+  }
 
-    li.breadcrumb-item.arrow_box.active {
-        width: 210px;
-    }
+  li.breadcrumb-item.arrow_box.active {
+    width: 210px;
+  }
 }

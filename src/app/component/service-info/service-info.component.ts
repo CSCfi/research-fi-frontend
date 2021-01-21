@@ -1,4 +1,14 @@
-import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, ViewChild, ElementRef, OnDestroy, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  LOCALE_ID,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  PLATFORM_ID,
+} from '@angular/core';
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
@@ -12,7 +22,7 @@ import { ReviewComponent } from 'src/app/ui/review/review.component';
 @Component({
   selector: 'app-service-info',
   templateUrl: './service-info.component.html',
-  styleUrls: ['./service-info.component.scss']
+  styleUrls: ['./service-info.component.scss'],
 })
 export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   faInfo = faInfo;
@@ -28,21 +38,32 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   content: any[];
   reviewDialogRef: MatDialogRef<ReviewComponent>;
 
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              private location: Location, private utilityService: UtilityService, private route: ActivatedRoute,
-              @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object, public dialog: MatDialog) {
+  constructor(
+    private titleService: Title,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private tabChangeService: TabChangeService,
+    private location: Location,
+    private utilityService: UtilityService,
+    private route: ActivatedRoute,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: object,
+    public dialog: MatDialog
+  ) {
     // Capitalize first letter of locale
-    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   ngOnInit(): void {
     // Get page data. Data is passed with resolver in router
     const pageData = this.route.snapshot.data.pages;
-    this.content = pageData.filter(el => el.id.includes('service-info'));
+    this.content = pageData.filter((el) => el.id.includes('service-info'));
 
-    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
-                                this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale])
+    this.utilityService.addMeta(
+      this.metaTags['title' + this.currentLocale],
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
 
     switch (this.localeId) {
       case 'fi': {
@@ -74,18 +95,22 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'main-link') {
-        this.mainFocus.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.mainFocus.nativeElement.focus();
+        }
       }
-    });
+    );
 
     // Add review toggle onclick functionality to corresponding link
     if (isPlatformBrowser(this.platformId)) {
       const reviewLink = this.document.getElementById('toggle-review');
       if (reviewLink) {
         reviewLink.setAttribute('href', 'javascript:void(0)');
-        reviewLink.addEventListener('click',  (evt: Event) => this.toggleReview());
+        reviewLink.addEventListener('click', (evt: Event) =>
+          this.toggleReview()
+        );
       }
     }
   }
@@ -116,5 +141,4 @@ export class ServiceInfoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tabChangeService.toggleSkipToInput(true);
     this.tabChangeService.targetFocus('');
   }
-
 }

@@ -5,8 +5,22 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ElementRef, AfterViewInit, ChangeDetectorRef, Inject, LOCALE_ID, OnDestroy,
-         ViewChildren, QueryList, HostListener, ViewEncapsulation, ViewChild, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Inject,
+  LOCALE_ID,
+  OnDestroy,
+  ViewChildren,
+  QueryList,
+  HostListener,
+  ViewEncapsulation,
+  ViewChild,
+  PLATFORM_ID,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
@@ -26,7 +40,7 @@ import { Figure } from 'src/app/models/figure/figure.model';
   selector: 'app-single-figure',
   templateUrl: './single-figure.component.html',
   styleUrls: ['./single-figure.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('content') content: QueryList<ElementRef>;
@@ -59,66 +73,82 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   filter: any;
   loading = true;
 
-  constructor( private cdr: ChangeDetectorRef, private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string,
-               private resizeService: ResizeService, private route: ActivatedRoute, private cds: ContentDataService,
-               @Inject(WINDOW) private window: Window, private tabChangeService: TabChangeService,
-               private utilityService: UtilityService, @Inject(PLATFORM_ID) private platformId: object) {
-                  // Capitalize first letter of locale
-                  this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-                }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private titleService: Title,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private resizeService: ResizeService,
+    private route: ActivatedRoute,
+    private cds: ContentDataService,
+    @Inject(WINDOW) private window: Window,
+    private tabChangeService: TabChangeService,
+    private utilityService: UtilityService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+    // Capitalize first letter of locale
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
-  public setTitle( newTitle: string) {
-    this.titleService.setTitle( newTitle );
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   ngOnInit(): void {
     this.routeSub = combineLatest([this.route.params, this.route.queryParams])
-    .pipe(map(res => ({params: res[0], queryParams: res[1]})))
-    .subscribe(res => {
-      this.currentParent = res.params.id.slice(0, 2);
-      this.currentItem = res.params.id;
+      .pipe(map((res) => ({ params: res[0], queryParams: res[1] })))
+      .subscribe((res) => {
+        this.currentParent = res.params.id.slice(0, 2);
+        this.currentItem = res.params.id;
 
-      // Call API only if no data in session storage
-      if (isPlatformBrowser(this.platformId)) {
-        if (!sessionStorage.getItem('figureData')) {
-          this.cds.getFigures().subscribe(data => {
-            this.figureData = data;
-            sessionStorage.setItem('figureData', JSON.stringify(data));
+        // Call API only if no data in session storage
+        if (isPlatformBrowser(this.platformId)) {
+          if (!sessionStorage.getItem('figureData')) {
+            this.cds.getFigures().subscribe((data) => {
+              this.figureData = data;
+              sessionStorage.setItem('figureData', JSON.stringify(data));
+              this.setContent(res);
+            });
+          } else {
+            this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
             this.setContent(res);
-          });
-        } else {
-          this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
-          this.setContent(res);
+          }
         }
-      }
-    });
+      });
 
-    this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+    this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
+      this.onResize(dims)
+    );
   }
 
   setContent(res) {
     this.loading = false;
     this.queryParams = res.queryParams;
-    this.filter = res.queryParams.filter === 'all' ? null : res.queryParams.filter;
+    this.filter =
+      res.queryParams.filter === 'all' ? null : res.queryParams.filter;
 
-    const parent = this.figureData.find(item => item.id === this.currentParent);
-    this.result = [parent.figures.find(item => item.id === this.currentItem)];
+    const parent = this.figureData.find(
+      (item) => item.id === this.currentParent
+    );
+    this.result = [parent.figures.find((item) => item.id === this.currentItem)];
 
     // Get all visualisations into a flat array
     const dataCopy = cloneDeep(this.figureData);
     this.flatData = [];
-    dataCopy.forEach(segment => {
+    dataCopy.forEach((segment) => {
       // Hack to get segment header into item (Assign new key / value pair)
-      segment.figures.forEach(item => {
+      segment.figures.forEach((item) => {
         // item.segment = segment['header' + this.currentLocale];
-        Object.assign(item, {segment: segment['title' + this.currentLocale]});
+        Object.assign(item, { segment: segment['title' + this.currentLocale] });
       });
       this.flatData.push(segment.figures);
     });
     this.flatData = this.flatData.flat();
 
     // Filter data if filtering is enabled
-    this.flatData = this.filter ? this.flatData.filter(item => item[this.filter]) : this.flatData;
+    this.flatData = this.filter
+      ? this.flatData.filter((item) => item[this.filter])
+      : this.flatData;
 
     // Set title
     this.title = this.result[0]['title' + this.currentLocale];
@@ -138,8 +168,11 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     const titleString = this.titleService.getTitle();
-    this.utilityService.addMeta(titleString, this.metaTags['description' + this.currentLocale],
-    this.commonTags['imgAlt' + this.currentLocale]);
+    this.utilityService.addMeta(
+      titleString,
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
   }
 
   ngAfterViewInit() {
@@ -149,13 +182,13 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       this.cdr.detectChanges();
     } else {
       // It takes some time to load data so we need to subscribe to content ref changes to get first width
-      this.contentSub = this.content.changes.subscribe(item => {
+      this.contentSub = this.content.changes.subscribe((item) => {
         this.colWidth = item.first.nativeElement.offsetWidth - 15;
         this.cdr.detectChanges();
       });
     }
     // Focus to skip-to results link when clicked from header skip-links
-    this.tabChangeService.currentFocusTarget.subscribe(target => {
+    this.tabChangeService.currentFocusTarget.subscribe((target) => {
       if (target === 'main-link') {
         this.keyboardHelp.nativeElement.focus();
       }
@@ -178,8 +211,8 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler() {
-      this.showInfo = false;
-      this.showHelp = false;
+    this.showInfo = false;
+    this.showHelp = false;
   }
 
   onClickedOutside(event) {

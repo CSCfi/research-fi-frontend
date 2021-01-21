@@ -11,9 +11,9 @@ import { Counter } from '../component/results/filters/counter';
 const counters = new WeakMap<any, Counter>();
 
 @Pipe({
-  name: 'counterPipe'
+  name: 'counterPipe',
 })
-export class CounterPipe implements PipeTransform  {
+export class CounterPipe implements PipeTransform {
   transform(value: any): Counter {
     if (!counters.has(value)) {
       counters.set(value, new Counter());

@@ -5,20 +5,22 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-h2, h3, h4 {
-    margin-top: 2rem;
+h2,
+h3,
+h4 {
+  margin-top: 2rem;
 }
 
 a {
-    word-break: break-all;
+  word-break: break-all;
 }
 
 .lang-banner {
-    border: 1px solid #4546b9;
-    background: #e8e8f5;
-    width: fit-content;
-    padding: 10px;
-    fa-icon {
-        cursor: default;
-    }
+  border: 1px solid #4546b9;
+  background: #e8e8f5;
+  width: fit-content;
+  padding: 10px;
+  fa-icon {
+    cursor: default;
+  }
 }

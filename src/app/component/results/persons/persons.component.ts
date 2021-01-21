@@ -10,9 +10,9 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-persons',
   templateUrl: '../persons/persons.component.html',
-  styleUrls: ['./persons.component.scss']
+  styleUrls: ['./persons.component.scss'],
 })
 export class PersonsComponent {
-  @Input() resultData: any [];
+  @Input() resultData: any[];
   expandStatus: Array<boolean> = [];
 }

@@ -5,8 +5,22 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Inject, LOCALE_ID, PLATFORM_ID, ViewChildren,
-  AfterViewInit, ChangeDetectorRef, Renderer2, ViewEncapsulation, HostListener} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  Inject,
+  LOCALE_ID,
+  PLATFORM_ID,
+  ViewChildren,
+  AfterViewInit,
+  ChangeDetectorRef,
+  Renderer2,
+  ViewEncapsulation,
+  HostListener,
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from '../../services/resize.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +28,11 @@ import { WINDOW } from 'src/app/services/window.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
-import { faChevronDown, faChevronUp, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronDown,
+  faChevronUp,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BetaInfoComponent } from '../beta-info/beta-info.component';
@@ -25,7 +43,7 @@ import { ContentDataService } from 'src/app/services/content-data.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
@@ -43,7 +61,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   height = this.window.innerHeight;
   width = this.window.innerWidth;
   private resizeSub: Subscription;
-
 
   currentLang: string;
   lang: string;
@@ -72,11 +89,21 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   consent: string;
   pageDataSub: Subscription;
 
-  constructor(private resizeService: ResizeService, @Inject( LOCALE_ID ) protected localeId: string,
-              @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object, private router: Router, private utilityService: UtilityService,
-              private cds: ContentDataService, private renderer: Renderer2, private route: ActivatedRoute,
-              private tabChangeService: TabChangeService, public dialog: MatDialog, private privacyService: PrivacyService) {
+  constructor(
+    private resizeService: ResizeService,
+    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(WINDOW) private window: Window,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private router: Router,
+    private utilityService: UtilityService,
+    private cds: ContentDataService,
+    private renderer: Renderer2,
+    private route: ActivatedRoute,
+    private tabChangeService: TabChangeService,
+    public dialog: MatDialog,
+    private privacyService: PrivacyService
+  ) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
     this.routeEvent(router);
@@ -85,19 +112,19 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Get current url
   routeEvent(router: Router) {
-    this.routeSub = router.events.subscribe(e => {
+    this.routeSub = router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
         // Prevent multiple anchors
-        this.route.queryParams.subscribe(params => {
+        this.route.queryParams.subscribe((params) => {
           this.params = params;
           // Remove consent param
           if (params.consent) {
             this.router.navigate([], {
               queryParams: {
-                consent: null
+                consent: null,
               },
               queryParamsHandling: 'merge',
-              replaceUrl: true
+              replaceUrl: true,
             });
           }
         });
@@ -116,7 +143,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       // Get page data from API and set to localStorage. This data is used to generate content on certain pages
       if (!this.cds.pageDataFlag) {
-        this.pageDataSub = this.cds.getPages().subscribe(data => {
+        this.pageDataSub = this.cds.getPages().subscribe((data) => {
           this.cds.setPageData(data);
           // sessionStorage.setItem('pageData', JSON.stringify(data));
         });
@@ -124,28 +151,38 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       // this.window.addEventListener('keydown', this.handleTabPressed);
       // this.window.addEventListener('mousedown', this.handleMouseDown);
       // this.window.addEventListener('keydown', this.escapeListener);
-      this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
-      this.newPageSub = this.tabChangeService.newPage.subscribe(_ => {
+      this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
+        this.onResize(dims)
+      );
+      this.newPageSub = this.tabChangeService.newPage.subscribe((_) => {
         this.firstTab = true;
         this.document.activeElement.blur();
       });
     }
 
     // Subscribe to consent status and set consent. This is also used in linking between language versions
-    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-      if (status.length) {
-        this.consent = status;
+    this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(
+      (status) => {
+        if (status.length) {
+          this.consent = status;
+        }
       }
-    });
+    );
 
-    this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(elem => {
-      this.hideInputSkip = elem;
-    });
+    this.skipLinkSub = this.tabChangeService.currentSkipToInput.subscribe(
+      (elem) => {
+        this.hideInputSkip = elem;
+      }
+    );
   }
 
   @HostListener('document:keydown.escape', ['$event'])
   escapeListener(event: any) {
-    if (this.mobile && !this.utilityService.modalOpen && !this.utilityService.tooltipOpen) {
+    if (
+      this.mobile &&
+      !this.utilityService.modalOpen &&
+      !this.utilityService.tooltipOpen
+    ) {
       this.toggleNavbar();
       setTimeout(() => {
         this.navbarToggler.nativeElement.focus();
@@ -172,15 +209,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tabChangeService.targetFocus('consent');
         }
         this.document.body.classList.add('user-tabbing');
-        }
+      }
     }
-  }
+  };
 
-  @HostListener('document:mousedown',['$event'])
+  @HostListener('document:mousedown', ['$event'])
   handleMouseDown = (): void => {
     this.firstTab = false;
     this.document.body.classList.remove('user-tabbing');
-  }
+  };
 
   ngAfterViewInit() {
     // if (!this.mobile) {
@@ -221,7 +258,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.navbarOpen) {
       setTimeout(() => {
         // tslint:disable-next-line: no-unused-expression
-        this.overlay && this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
+        this.overlay &&
+          this.renderer.setStyle(this.overlay?.nativeElement, 'top', '350px');
       }, 500);
     }
 
@@ -269,7 +307,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.width = dims.width;
     if (this.width >= 1200) {
       this.mobile = false;
-      if (this.navbarOpen) { this.toggleNavbar(); }
+      if (this.navbarOpen) {
+        this.toggleNavbar();
+      }
       this.mainNavbar.nativeElement.style.cssText = '';
     } else {
       this.mobile = true;
@@ -291,7 +331,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     // }
   }
 
-
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
   }
@@ -308,5 +347,4 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       autoFocus: false,
     });
   }
-
 }

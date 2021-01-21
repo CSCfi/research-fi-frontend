@@ -4,27 +4,60 @@
  :license: MIT -->
 
 <ng-container *ngIf="responseData; else noData">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" *ngIf="type === 'single'">
-            <li class="breadcrumb-item arrow_box first" style="z-index:3;"><a routerLink="/results/publications/{{searchTerm}}" i18n="@@search">Haku</a></li>
-            <li class="breadcrumb-item arrow_box middle" style="z-index:2;"><a class="capitalize" routerLink="/results/{{tab}}/{{searchTerm}}" [queryParams]="queryParams">{{tabName}}</a></li>
-            <li *ngFor="let title of responseData[tab]" class="breadcrumb-item arrow_box active" aria-current="page">{{title[resultNameField]}}</li>
-            <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
-        </ol>
-        <ol class="breadcrumb px-0 m-0" *ngIf="type === 'figure'">
-            <li class="breadcrumb-item arrow_box first" style="z-index:3;"><a i18n="@@researchInnovationPolitics">Tiede- ja innovaatiopolitiikka</a></li>
-            <li class="breadcrumb-item arrow_box middle" style="z-index:2;"><a routerLink="/science-innovation-policy/science-research-figures" i18n="@@figuresHeader">Lukuja tieteestä ja tutkimuksesta</a></li>
-            <li class="breadcrumb-item arrow_box active" aria-current="page">{{responseData[0]['title' + currentLocale]}}</li>
-            <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
-        </ol>
-    </nav>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" *ngIf="type === 'single'">
+      <li class="breadcrumb-item arrow_box first" style="z-index: 3">
+        <a routerLink="/results/publications/{{ searchTerm }}" i18n="@@search"
+          >Haku</a
+        >
+      </li>
+      <li class="breadcrumb-item arrow_box middle" style="z-index: 2">
+        <a
+          class="capitalize"
+          routerLink="/results/{{ tab }}/{{ searchTerm }}"
+          [queryParams]="queryParams"
+          >{{ tabName }}</a
+        >
+      </li>
+      <li
+        *ngFor="let title of responseData[tab]"
+        class="breadcrumb-item arrow_box active"
+        aria-current="page"
+      >
+        {{ title[resultNameField] }}
+      </li>
+      <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
+    </ol>
+    <ol class="breadcrumb px-0 m-0" *ngIf="type === 'figure'">
+      <li class="breadcrumb-item arrow_box first" style="z-index: 3">
+        <a i18n="@@researchInnovationPolitics"
+          >Tiede- ja innovaatiopolitiikka</a
+        >
+      </li>
+      <li class="breadcrumb-item arrow_box middle" style="z-index: 2">
+        <a
+          routerLink="/science-innovation-policy/science-research-figures"
+          i18n="@@figuresHeader"
+          >Lukuja tieteestä ja tutkimuksesta</a
+        >
+      </li>
+      <li class="breadcrumb-item arrow_box active" aria-current="page">
+        {{ responseData[0]['title' + currentLocale] }}
+      </li>
+      <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
+    </ol>
+  </nav>
 </ng-container>
 <ng-template #noData>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb px-0 m-0" *ngIf="type === 'simple'">
-            <li class="breadcrumb-item arrow_box first" style="z-index:3;"><a routerLink="" i18n="@@home">Etusivu</a></li>
-            <li class="breadcrumb-item arrow_box middle" style="z-index:2;"><span>{{title}}</span></li>
-            <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
-        </ol>
-    </nav>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb px-0 m-0" *ngIf="type === 'simple'">
+      <li class="breadcrumb-item arrow_box first" style="z-index: 3">
+        <a routerLink="" i18n="@@home">Etusivu</a>
+      </li>
+      <li class="breadcrumb-item arrow_box middle" style="z-index: 2">
+        <span>{{ title }}</span>
+      </li>
+      <li class="breadcrumb-item arrow_box last" aria-current="page"></li>
+    </ol>
+  </nav>
 </ng-template>

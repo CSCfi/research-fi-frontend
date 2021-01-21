@@ -7,13 +7,12 @@
 
 @import '~@angular/material/theming';
 
-
 @mixin app-info-component-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-info {
-        .icon {
-            color: mat-color($primary);
-        }
+  app-info {
+    .icon {
+      color: mat-color($primary);
     }
+  }
 }

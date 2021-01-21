@@ -6,110 +6,259 @@
 # :license: MIT -->
 
 <header class="wrapper">
-    <div id="srHelper" class="row skip-links" [ngClass]="showSkipLinks ? 'show' : 'sr-only'" #srHelper>
-        <ul>
-            <li *ngIf="hideInputSkip"><a i18n="@@skipToInput" (blur)="showSkipLinks = false" (click)="changeFocus('search-input')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää hakukenttään</a></li>
-            <li><a i18n="@@skipToMain" (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" href="javascript:void(0)" #start>Hyppää sivun pääsisältöön</a></li>
-            <!-- <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" [routerLink]="" [queryParams]="params" [fragment]="'main-content'">Hyppää sivun pääsisältöön</a></li> -->
-            <!-- ToDo: Link to accessibility -->
-            <li><a i18n="@@skipToAccessibility" (blur)="showSkipLinks = false" (focus)="showSkipLinks = true" tabindex="0" routerLink="/accessibility">Hyppää saavutettavuusselosteeseen</a></li>
-        </ul>
-    </div>
+  <div
+    id="srHelper"
+    class="row skip-links"
+    [ngClass]="showSkipLinks ? 'show' : 'sr-only'"
+    #srHelper
+  >
+    <ul>
+      <li *ngIf="hideInputSkip">
+        <a
+          i18n="@@skipToInput"
+          (blur)="showSkipLinks = false"
+          (click)="changeFocus('search-input')"
+          (focus)="showSkipLinks = true"
+          tabindex="0"
+          href="javascript:void(0)"
+          #start
+          >Hyppää hakukenttään</a
+        >
+      </li>
+      <li>
+        <a
+          i18n="@@skipToMain"
+          (blur)="showSkipLinks = false"
+          (click)="changeFocus('main-link')"
+          (focus)="showSkipLinks = true"
+          tabindex="0"
+          href="javascript:void(0)"
+          #start
+          >Hyppää sivun pääsisältöön</a
+        >
+      </li>
+      <!-- <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" [routerLink]="" [queryParams]="params" [fragment]="'main-content'">Hyppää sivun pääsisältöön</a></li> -->
+      <!-- ToDo: Link to accessibility -->
+      <li>
+        <a
+          i18n="@@skipToAccessibility"
+          (blur)="showSkipLinks = false"
+          (focus)="showSkipLinks = true"
+          tabindex="0"
+          routerLink="/accessibility"
+          >Hyppää saavutettavuusselosteeseen</a
+        >
+      </li>
+    </ul>
+  </div>
 
-    <div offClick class="navbar navbar-expand-xl navbar-light row" #mainHeader>
-        <div class="logo col-7 col-xs-9 col-xl-2">
-            <div class="row logo-wrapper">
-                <div class="col col-auto p-0">
-                    <a class="navbar-brand" routerLink="">
-                        <img src="assets/img/logo.svg" i18n-alt alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna">
-                    </a>
-                </div>
-                <div class="col col-auto align-self-center p-0">
-                    <a class="logo-text" routerLink=""><span i18n="@@appSlogan">Tiedejatutkimus.fi</span></a>
-                </div>
-            </div>
+  <div offClick class="navbar navbar-expand-xl navbar-light row" #mainHeader>
+    <div class="logo col-7 col-xs-9 col-xl-2">
+      <div class="row logo-wrapper">
+        <div class="col col-auto p-0">
+          <a class="navbar-brand" routerLink="">
+            <img
+              src="assets/img/logo.svg"
+              i18n-alt
+              alt="Tutkimustietovarannon portaalin logo, abstrakti ikkuna"
+            />
+          </a>
         </div>
-        <nav class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
-            <div class="mobile ml-auto toggle-button-wrapper">
-                <button *ngIf="!navbarOpen" class="navbar-toggler navbar-toggler-right menu" type="button" (click)="toggleNavbar()" #navbarToggler>
-                    <div  class="toggle-menu-text closed" i18n="@@headerMenuOpen">Valikko</div>
-                </button>
-                <app-close-button *ngIf="navbarOpen" (click)="toggleNavbar()"></app-close-button>
-            </div>
-            <div class="" [class.overflow-hider]="hideOverflow && mobile" [class.absolute]="mobile" 
-                [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''" #overflowHider>
-                <div class="collapse navbar-collapse menu row" [class.mobile-bar]="mobile" [class.open]="navbarOpen && mobile" #mainNavbar>
-                    <div class="navbar-expand mx-auto navbar-nav lang mobile">
-                        <ul class="navbar-nav mx-auto">
-                            <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='fi'" href="https://tiedejatutkimus.fi/fi{{currentRoute}}" (click)="setLang('fi')">
-                                    <span class="label">Suomi</span>
-                                </a>
-                            </li>
-                            <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='sv'" href="https://forskning.fi/sv{{currentRoute}}" (click)="setLang('sv')">
-                                    <span class="label">Svenska</span>
-                                </a>
-                            </li>
-                            <li [class.col-4]="mobile">
-                                <a class="nav-item nav-link lang-box" [class.active-lang]="lang==='en'" href="https://research.fi/en{{currentRoute}}" (click)="setLang('en')">
-                                    <span class="label">English</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col p-0">
-                        <ul class="nav-right navbar-nav main" [class.row]="!mobile">
-                            <li #navLink class="nav-item col col-auto p-0">
-                                <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
-                                (click)="navbarOpen && toggleNavbar()">
-                                    <span i18n="Header@@headerLink1" class="label">Etusivu</span>
-                                </a>
-                            </li>
-                            <li #navLink class="nav-item col col-auto p-0">
-                                <a class="nav-item nav-link" routerLink="/results/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
-                                    <span i18n="Header@@headerLink2" class="label">Haku</span>
-                                </a>
-                            </li>
-                            <li #navLink class="nav-item col col-auto p-0 parent" (click)="dropdownOpen = !dropdownOpen" (clickOutside)="onClickedOutside($event)">
-                                <a class="nav-item nav-link parent-link disabled-link" tabindex="0" routerLink="/science-innovation-policy/" routerLinkActive="active-link"
-                                (keydown.enter)="$event.preventDefault(); dropdownOpen = true" (keydown.space)="$event.preventDefault(); dropdownOpen = true" [class.open]="dropdownOpen" [class.font-weight-bold]="dropdownOpen">
-                                    <span i18n="Header@@headerLink3" class="label">Tiede- ja innovaatiopolitiikka</span>
-                                </a>
-                                <ul class="dropdown" *ngIf="dropdownOpen">
-                                    <li><a i18n="Header@@headerLink4" routerLink="/science-innovation-policy/research-innovation-system/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Tutkimus- ja innovaatiojärjestelmä</a></li>
-                                    <li><a i18n="Header@@headerLink5" routerLink="/science-innovation-policy/science-research-figures/" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">Lukuja tieteestä ja tutkimuksesta</a></li>
-                                </ul>
-                            </li>
-                            <li #navLink class="nav-item col col-auto p-0">
-                                <a class="nav-item nav-link" routerLink="/news" routerLinkActive="active-link" (click)="navbarOpen && toggleNavbar()">
-                                    <span i18n="Header@@headerLink6" i18n="Header|Uutiset" class="label">Tiede- ja tutkimusuutiset</span>
-                                </a>
-                            </li>
-                            <li #navLink class="nav-item col col-auto p-0 mr-0">
-                                <div class="navbar-expand navbar-nav lang langSelect">
-                                    <mat-form-field class="lang-select">
-                                        <!-- Navigate with consent if consent is set -->
-                                        <mat-select [(value)]="currentLang" >
-                                            <a href="https://tiedejatutkimus.fi/fi{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
-                                                <mat-option value="FI">FI</mat-option>
-                                            </a>
-                                            <a href="https://forskning.fi/sv{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
-                                                <mat-option value="SV">SV</mat-option>
-                                            </a>
-                                            <a href="https://research.fi/en{{currentRoute}}{{consent ? '?consent=' + consent : null}}">
-                                                <mat-option value="EN">EN</mat-option>
-                                            </a>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </li>
-                            <div *ngIf="mobile" class=""></div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <div class="col col-auto align-self-center p-0">
+          <a class="logo-text" routerLink=""
+            ><span i18n="@@appSlogan">Tiedejatutkimus.fi</span></a
+          >
+        </div>
+      </div>
     </div>
-    <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
+    <nav class="nav-top col-auto col-5 col-xs-3 col-xl-10 p-0">
+      <div class="mobile ml-auto toggle-button-wrapper">
+        <button
+          *ngIf="!navbarOpen"
+          class="navbar-toggler navbar-toggler-right menu"
+          type="button"
+          (click)="toggleNavbar()"
+          #navbarToggler
+        >
+          <div class="toggle-menu-text closed" i18n="@@headerMenuOpen">
+            Valikko
+          </div>
+        </button>
+        <app-close-button
+          *ngIf="navbarOpen"
+          (click)="toggleNavbar()"
+        ></app-close-button>
+      </div>
+      <div
+        class=""
+        [class.overflow-hider]="hideOverflow && mobile"
+        [class.absolute]="mobile"
+        [ngClass]="mobile ? (hideOverflow ? 'invisible' : 'visible') : ''"
+        #overflowHider
+      >
+        <div
+          class="collapse navbar-collapse menu row"
+          [class.mobile-bar]="mobile"
+          [class.open]="navbarOpen && mobile"
+          #mainNavbar
+        >
+          <div class="navbar-expand mx-auto navbar-nav lang mobile">
+            <ul class="navbar-nav mx-auto">
+              <li [class.col-4]="mobile">
+                <a
+                  class="nav-item nav-link lang-box"
+                  [class.active-lang]="lang === 'fi'"
+                  href="https://tiedejatutkimus.fi/fi{{ currentRoute }}"
+                  (click)="setLang('fi')"
+                >
+                  <span class="label">Suomi</span>
+                </a>
+              </li>
+              <li [class.col-4]="mobile">
+                <a
+                  class="nav-item nav-link lang-box"
+                  [class.active-lang]="lang === 'sv'"
+                  href="https://forskning.fi/sv{{ currentRoute }}"
+                  (click)="setLang('sv')"
+                >
+                  <span class="label">Svenska</span>
+                </a>
+              </li>
+              <li [class.col-4]="mobile">
+                <a
+                  class="nav-item nav-link lang-box"
+                  [class.active-lang]="lang === 'en'"
+                  href="https://research.fi/en{{ currentRoute }}"
+                  (click)="setLang('en')"
+                >
+                  <span class="label">English</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col p-0">
+            <ul class="nav-right navbar-nav main" [class.row]="!mobile">
+              <li #navLink class="nav-item col col-auto p-0">
+                <a
+                  class="nav-item nav-link"
+                  routerLink="/"
+                  routerLinkActive="active-link"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="navbarOpen && toggleNavbar()"
+                >
+                  <span i18n="Header@@headerLink1" class="label">Etusivu</span>
+                </a>
+              </li>
+              <li #navLink class="nav-item col col-auto p-0">
+                <a
+                  class="nav-item nav-link"
+                  routerLink="/results/"
+                  routerLinkActive="active-link"
+                  (click)="navbarOpen && toggleNavbar()"
+                >
+                  <span i18n="Header@@headerLink2" class="label">Haku</span>
+                </a>
+              </li>
+              <li
+                #navLink
+                class="nav-item col col-auto p-0 parent"
+                (click)="dropdownOpen = !dropdownOpen"
+                (clickOutside)="onClickedOutside($event)"
+              >
+                <a
+                  class="nav-item nav-link parent-link disabled-link"
+                  tabindex="0"
+                  routerLink="/science-innovation-policy/"
+                  routerLinkActive="active-link"
+                  (keydown.enter)="$event.preventDefault(); dropdownOpen = true"
+                  (keydown.space)="$event.preventDefault(); dropdownOpen = true"
+                  [class.open]="dropdownOpen"
+                  [class.font-weight-bold]="dropdownOpen"
+                >
+                  <span i18n="Header@@headerLink3" class="label"
+                    >Tiede- ja innovaatiopolitiikka</span
+                  >
+                </a>
+                <ul class="dropdown" *ngIf="dropdownOpen">
+                  <li>
+                    <a
+                      i18n="Header@@headerLink4"
+                      routerLink="/science-innovation-policy/research-innovation-system/"
+                      routerLinkActive="active-link"
+                      (click)="navbarOpen && toggleNavbar()"
+                      >Tutkimus- ja innovaatiojärjestelmä</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      routerLink="/science-innovation-policy/external-links/"
+                      routerLinkActive="active-link"
+                      (click)="navbarOpen && toggleNavbar()"
+                      >Tieteestä ja tutkimuksesta muualla</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      i18n="Header@@headerLink5"
+                      routerLink="/science-innovation-policy/science-research-figures/"
+                      routerLinkActive="active-link"
+                      (click)="navbarOpen && toggleNavbar()"
+                      >Lukuja tieteestä ja tutkimuksesta</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li #navLink class="nav-item col col-auto p-0">
+                <a
+                  class="nav-item nav-link"
+                  routerLink="/news"
+                  routerLinkActive="active-link"
+                  (click)="navbarOpen && toggleNavbar()"
+                >
+                  <span
+                    i18n="Header@@headerLink6"
+                    i18n="Header|Uutiset"
+                    class="label"
+                    >Tiede- ja tutkimusuutiset</span
+                  >
+                </a>
+              </li>
+              <li #navLink class="nav-item col col-auto p-0 mr-0">
+                <div class="navbar-expand navbar-nav lang langSelect">
+                  <mat-form-field class="lang-select">
+                    <!-- Navigate with consent if consent is set -->
+                    <mat-select [(value)]="currentLang">
+                      <a
+                        href="https://tiedejatutkimus.fi/fi{{ currentRoute }}{{
+                          consent ? '?consent=' + consent : null
+                        }}"
+                      >
+                        <mat-option value="FI">FI</mat-option>
+                      </a>
+                      <a
+                        href="https://forskning.fi/sv{{ currentRoute }}{{
+                          consent ? '?consent=' + consent : null
+                        }}"
+                      >
+                        <mat-option value="SV">SV</mat-option>
+                      </a>
+                      <a
+                        href="https://research.fi/en{{ currentRoute }}{{
+                          consent ? '?consent=' + consent : null
+                        }}"
+                      >
+                        <mat-option value="EN">EN</mat-option>
+                      </a>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </li>
+              <div *ngIf="mobile" class=""></div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div *ngIf="navbarOpen" id="overlay" (click)="toggleNavbar()" #overlay></div>
 </header>

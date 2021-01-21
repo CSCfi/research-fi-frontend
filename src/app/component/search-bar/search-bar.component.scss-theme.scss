@@ -1,97 +1,103 @@
 @import '~@angular/material/theming';
 
 @mixin app-search-bar-theme($theme) {
-    $primary: map-get($theme, primary);
-    $warn: map-get($theme, warn);
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
 
-    app-search-bar {
-        // Target
-        .mat-form-field-appearance-legacy .mat-form-field-label {
-            color: white!important;
-        }
-
-        .mat-form-field, .mat-select {
-            background: white;
-        }
-        
-        .mat-form-field-appearance-legacy .mat-form-field-label.mat-form-field-empty, .mat-select-value {
-            color: mat-color($primary)!important;
-        }
-
-        .search-input input {
-            color: #495057!important;
-        }
-
-        .col-12.search {
-            background: mat-color($primary);
-            color: mat-contrast($primary, 200);
-        }
-
-        label.text-center.h1 {
-            color: mat-contrast($primary, 500); 
-        }
-        
-        button.btn.btn-search {
-            background: mat-contrast($primary, 600);
-            color: mat-color($primary);    
-            // border: 1px solid mat-contrast($primary, 600);
-        }
-
-        .search-help button span {
-            color: mat-contrast($primary, 500);
-        }
-
-        .search-helper {
-            background: #fff;
-            box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
-        }
-
-        // Auto-suggest
-        .auto-suggest h3 {
-            color: mat-contrast($primary, default-contrast);
-        }
-        
-        .auto-suggest {
-            box-shadow: 0 0 0 2px mat-color($primary);
-        }
-
-        .auto-suggest ul li a {
-            color: mat-contrast($primary, 200);
-        }
-
-        .list-group-item.active {
-            background-color: mat-color($primary);
-        }
-        
-        .list-group-item.active a, .list-group-item.tab-link.active a {
-            color: mat-contrast($primary, 500);
-        }
-
-        a.item {
-            color: mat-contrast($primary, 200);
-        }
-
-        mark, .mark {
-            background-color: unset;
-        }
-
-        .auto-suggest h2, .auto-suggest h3 {
-            color: mat-contrast($primary, 300);
-        }
-
-        .list-group-item:hover {
-            background: #E2E2F2;
-        }
-
-        #resetSearch {
-            color: mat-contrast($primary, 50);
-            &:hover {
-                color: mat-color($warn, 600);
-            }
-        }
-
-        // .auto-suggest .other-links ul li a {
-        //     color: mat-contrast($primary, 200);
-        // }
+  app-search-bar {
+    // Target
+    .mat-form-field-appearance-legacy .mat-form-field-label {
+      color: white !important;
     }
+
+    .mat-form-field,
+    .mat-select {
+      background: white;
+    }
+
+    .mat-form-field-appearance-legacy
+      .mat-form-field-label.mat-form-field-empty,
+    .mat-select-value {
+      color: mat-color($primary) !important;
+    }
+
+    .search-input input {
+      color: #495057 !important;
+    }
+
+    .col-12.search {
+      background: mat-color($primary);
+      color: mat-contrast($primary, 200);
+    }
+
+    label.text-center.h1 {
+      color: mat-contrast($primary, 500);
+    }
+
+    button.btn.btn-search {
+      background: mat-contrast($primary, 600);
+      color: mat-color($primary);
+      // border: 1px solid mat-contrast($primary, 600);
+    }
+
+    .search-help button span {
+      color: mat-contrast($primary, 500);
+    }
+
+    .search-helper {
+      background: #fff;
+      box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.2);
+    }
+
+    // Auto-suggest
+    .auto-suggest h3 {
+      color: mat-contrast($primary, default-contrast);
+    }
+
+    .auto-suggest {
+      box-shadow: 0 0 0 2px mat-color($primary);
+    }
+
+    .auto-suggest ul li a {
+      color: mat-contrast($primary, 200);
+    }
+
+    .list-group-item.active {
+      background-color: mat-color($primary);
+    }
+
+    .list-group-item.active a,
+    .list-group-item.tab-link.active a {
+      color: mat-contrast($primary, 500);
+    }
+
+    a.item {
+      color: mat-contrast($primary, 200);
+    }
+
+    mark,
+    .mark {
+      background-color: unset;
+    }
+
+    .auto-suggest h2,
+    .auto-suggest h3 {
+      color: mat-contrast($primary, 300);
+    }
+
+    .list-group-item:hover {
+      background: #e2e2f2;
+    }
+
+    #resetSearch {
+      color: mat-contrast($primary, 50);
+      &:hover {
+        color: mat-color($warn, 600);
+      }
+    }
+
+    // .auto-suggest .other-links ul li a {
+    //     color: mat-contrast($primary, 200);
+    // }
+  }
 }

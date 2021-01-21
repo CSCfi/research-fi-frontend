@@ -10,26 +10,25 @@ import { Injectable } from '@angular/core';
 import { LanguageCheck } from '../utils';
 
 export class RelatedFunding {
-    constructor(
-        public typeOfFundingName: string,
-        public typeOfFundingId: number,
-        public shareOfFunding: number,
-        public recipientName: string
-    ) {}
+  constructor(
+    public typeOfFundingName: string,
+    public typeOfFundingId: number,
+    public shareOfFunding: number,
+    public recipientName: string
+  ) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class RelatedFundingAdapter implements Adapter<RelatedFunding> {
-    constructor(private lang: LanguageCheck) {}
-    adapt(item: any): RelatedFunding {
-
-        return new RelatedFunding(
-            this.lang.testLang('typeOfFundingName', item),
-            item.typeOfFundingId,
-            item.shareOfFundingInEur,
-            ''
-        );
-    }
+  constructor(private lang: LanguageCheck) {}
+  adapt(item: any): RelatedFunding {
+    return new RelatedFunding(
+      this.lang.testLang('typeOfFundingName', item),
+      item.typeOfFundingId,
+      item.shareOfFundingInEur,
+      ''
+    );
+  }
 }

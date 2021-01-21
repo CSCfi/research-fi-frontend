@@ -6,20 +6,24 @@ import { SecondaryButtonComponent } from './secondary-button/secondary-button.co
 import { PrimaryActionButtonComponent } from './primary-action-button/primary-action-button.component';
 import { CloseButtonComponent } from './close-button/close-button.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
-
+import { DividerComponent } from './divider/divider.component';
 
 @NgModule({
-  declarations: [InfoComponent, SecondaryButtonComponent, PrimaryActionButtonComponent, CloseButtonComponent, NotFoundComponent],
+  declarations: [
+    InfoComponent,
+    SecondaryButtonComponent,
+    PrimaryActionButtonComponent,
+    CloseButtonComponent,
+    NotFoundComponent,
+    DividerComponent,
+  ],
   exports: [
     InfoComponent,
     SecondaryButtonComponent,
     PrimaryActionButtonComponent,
-    CloseButtonComponent
+    CloseButtonComponent,
+    DividerComponent,
   ],
-  imports: [
-    CommonModule,
-    FontAwesomeModule
-  ]
+  imports: [CommonModule, FontAwesomeModule],
 })
-export class CommonComponentsModule { }
+export class CommonComponentsModule {}

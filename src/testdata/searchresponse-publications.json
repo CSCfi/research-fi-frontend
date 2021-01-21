@@ -1,139 +1,136 @@
 {
-    "took": 784,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
+  "took": 784,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 7771,
+      "relation": "eq"
     },
-    "hits": {
-        "total": {
-            "value": 7771,
-            "relation": "eq"
-        },
-        "max_score": null,
-        "hits": [
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "publication_20200424174040",
+        "_type": "_doc",
+        "_id": "0367228520",
+        "_score": null,
+        "_source": {
+          "id": 296747,
+          "publicationId": "0367228520",
+          "reportingYear": 2020,
+          "publicationStatusCode": "2",
+          "publicationOrgId": "10088",
+          "publicationName": "Test publication name",
+          "authorsText": "Lastname1, Firstname1; Lastname2, Firstname2",
+          "numberOfAuthors": 6,
+          "pageNumberText": "e1192",
+          "isbn": " ",
+          "isbn2": " ",
+          "jufoCode": "82670",
+          "jufoClassCode": "1",
+          "journalName": "Test journal",
+          "issn": "1234-5678",
+          "issn2": " ",
+          "volume": " ",
+          "publicationTypeCode": "A1",
+          "internationalCollaboration": false,
+          "hospitalDistrictCollaboration": false,
+          "internationalPublication": true,
+          "govermentCollaboration": false,
+          "otherCollaboration": false,
+          "openAccessCode": 1,
+          "specialStateSubsidy": false,
+          "businessCollaboration": false,
+          "doi": "10.0000/abc1.1234",
+          "doiHandle": "https://doi.org/110.0000/abc1.1234",
+          "juuliAddress": "http://juuli.fi/Record/0123456789",
+          "originalPublicationId": "123456",
+          "publicationYear": 2020,
+          "languages": [
             {
-                "_index": "publication_20200424174040",
-                "_type": "_doc",
-                "_id": "0367228520",
-                "_score": null,
-                "_source": {
-                    "id": 296747,
-                    "publicationId": "0367228520",
-                    "reportingYear": 2020,
-                    "publicationStatusCode": "2",
-                    "publicationOrgId": "10088",
-                    "publicationName": "Test publication name",
-                    "authorsText": "Lastname1, Firstname1; Lastname2, Firstname2",
-                    "numberOfAuthors": 6,
-                    "pageNumberText": "e1192",
-                    "isbn": " ",
-                    "isbn2": " ",
-                    "jufoCode": "82670",
-                    "jufoClassCode": "1",
-                    "journalName": "Test journal",
-                    "issn": "1234-5678",
-                    "issn2": " ",
-                    "volume": " ",
-                    "publicationTypeCode": "A1",
-                    "internationalCollaboration": false,
-                    "hospitalDistrictCollaboration": false,
-                    "internationalPublication": true,
-                    "govermentCollaboration": false,
-                    "otherCollaboration": false,
-                    "openAccessCode": 1,
-                    "specialStateSubsidy": false,
-                    "businessCollaboration": false,
-                    "doi": "10.0000/abc1.1234",
-                    "doiHandle": "https://doi.org/110.0000/abc1.1234",
-                    "juuliAddress": "http://juuli.fi/Record/0123456789",
-                    "originalPublicationId": "123456",
-                    "publicationYear": 2020,
-                    "languages": [
-                        {
-                            "languageCode": "en",
-                            "languageFi": "englanti",
-                            "languageEn": "English",
-                            "languageSv": "engelska"
-                        }
-                    ],
-                    "countries": [
-                        {
-                            "countryFi": "undefined",
-                            "countryEn": "undefined",
-                            "countrySv": "undefined"
-                        }
-                    ],
-                    "fields_of_science": [
-                        {
-                            "fieldIdScience": 0,
-                            "nameFiScience": " ",
-                            "nameEnScience": " ",
-                            "nameSvScience": " ",
-                            "mainFieldOfScienceId": 0,
-                            "mainFieldOfScienceNameFi": " ",
-                            "mainFieldOfScienceNameEn": " ",
-                            "mainFieldOfScienceNameSv": " "
-                        },
-                        {
-                            "fieldIdScience": 1184,
-                            "nameFiScience": "Genetiikka, kehitysbiologia, fysiologia",
-                            "nameEnScience": "Genetics, developmental biology, physiology",
-                            "nameSvScience": "Genetik, utvecklingsbiologi, fysiologi",
-                            "mainFieldOfScienceId": 1,
-                            "mainFieldOfScienceNameFi": "Luonnontieteet",
-                            "mainFieldOfScienceNameEn": "Natural Sciences",
-                            "mainFieldOfScienceNameSv": "Naturvetenskaper"
-                        }
-                    ],
-                    "author": [
-                        {
-                            "sectorId": "1",
-                            "nameFiSector": "Yliopisto",
-                            "nameEnSector": "University",
-                            "nameSvSector": "Universitet",
-                            "organization": [
-                                {
-                                    "organizationId": "10088",
-                                    "OrganizationNameFi": "Testiyliopisto",
-                                    "OrganizationNameEn": "Test University",
-                                    "OrganizationNameSv": "Testiyliopisto",
-                                    "organizationUnit": [
-                                        {
-                                            "OrgUnitId": "1234",
-                                            "organizationUnitNameFi": "Testiyliopisto",
-                                            "organizationUnitNameEn": "Test University",
-                                            "organizationUnitNameSv": "Testiyliopisto",
-                                            "person": [
-                                                {
-                                                    "authorFirstNames": "AuthorTestFirstname",
-                                                    "authorLastName": "AuthorTestLastname"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "OrgUnitId": "4321",
-                                            "organizationUnitNameFi": "Testilaitos",
-                                            "person": [
-                                                {
-                                                    "authorFirstNames": "AuthorTestFirstname",
-                                                    "authorLastName": "AuthorTestLastname"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                "sort": [
-                    2020,
-                    "Test publication name"
-                ]
+              "languageCode": "en",
+              "languageFi": "englanti",
+              "languageEn": "English",
+              "languageSv": "engelska"
             }
-        ]
-    }
+          ],
+          "countries": [
+            {
+              "countryFi": "undefined",
+              "countryEn": "undefined",
+              "countrySv": "undefined"
+            }
+          ],
+          "fields_of_science": [
+            {
+              "fieldIdScience": 0,
+              "nameFiScience": " ",
+              "nameEnScience": " ",
+              "nameSvScience": " ",
+              "mainFieldOfScienceId": 0,
+              "mainFieldOfScienceNameFi": " ",
+              "mainFieldOfScienceNameEn": " ",
+              "mainFieldOfScienceNameSv": " "
+            },
+            {
+              "fieldIdScience": 1184,
+              "nameFiScience": "Genetiikka, kehitysbiologia, fysiologia",
+              "nameEnScience": "Genetics, developmental biology, physiology",
+              "nameSvScience": "Genetik, utvecklingsbiologi, fysiologi",
+              "mainFieldOfScienceId": 1,
+              "mainFieldOfScienceNameFi": "Luonnontieteet",
+              "mainFieldOfScienceNameEn": "Natural Sciences",
+              "mainFieldOfScienceNameSv": "Naturvetenskaper"
+            }
+          ],
+          "author": [
+            {
+              "sectorId": "1",
+              "nameFiSector": "Yliopisto",
+              "nameEnSector": "University",
+              "nameSvSector": "Universitet",
+              "organization": [
+                {
+                  "organizationId": "10088",
+                  "OrganizationNameFi": "Testiyliopisto",
+                  "OrganizationNameEn": "Test University",
+                  "OrganizationNameSv": "Testiyliopisto",
+                  "organizationUnit": [
+                    {
+                      "OrgUnitId": "1234",
+                      "organizationUnitNameFi": "Testiyliopisto",
+                      "organizationUnitNameEn": "Test University",
+                      "organizationUnitNameSv": "Testiyliopisto",
+                      "person": [
+                        {
+                          "authorFirstNames": "AuthorTestFirstname",
+                          "authorLastName": "AuthorTestLastname"
+                        }
+                      ]
+                    },
+                    {
+                      "OrgUnitId": "4321",
+                      "organizationUnitNameFi": "Testilaitos",
+                      "person": [
+                        {
+                          "authorFirstNames": "AuthorTestFirstname",
+                          "authorLastName": "AuthorTestLastname"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "sort": [2020, "Test publication name"]
+      }
+    ]
+  }
 }

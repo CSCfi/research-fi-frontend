@@ -4,8 +4,11 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :license: MIT -->
 
 <div *ngIf="currentTab.data === 'publications'">
-    <h4>Ehdotuksia:</h4>
-    <div class="suggests col-center col" *ngFor="let suggest of suggests?.options"> 
-        <li (click)="navigate(suggest.text)">{{suggest.text}}</li>
-    </div>
+  <h4>Ehdotuksia:</h4>
+  <div
+    class="suggests col-center col"
+    *ngFor="let suggest of suggests?.options"
+  >
+    <li (click)="navigate(suggest.text)">{{ suggest.text }}</li>
+  </div>
 </div>

@@ -25,7 +25,10 @@ describe('FundingFilterService', () => {
   });
 
   it('should map organizations', () => {
-    const res = service.organization(data.organization, data.organizationConsortium);
+    const res = service.organization(
+      data.organization,
+      data.organizationConsortium
+    );
     expect(res[0].subData).toBeDefined();
   });
 
@@ -36,7 +39,7 @@ describe('FundingFilterService', () => {
 
   it('should map type of funding', () => {
     const res = service.typeOfFunding(data.typeOfFunding.types.buckets);
-    res.forEach(item => {
+    res.forEach((item) => {
       expect(item.subData).toBeDefined();
       expect(item.headerFi).toBeDefined();
       expect(item.headerEn).toBeDefined();
@@ -47,9 +50,8 @@ describe('FundingFilterService', () => {
   it('should map field of science', () => {
     const res = service.minorField(data.field.fields.buckets);
 
-    res.forEach(item => {
+    res.forEach((item) => {
       expect(item.subData).toBeDefined();
     });
   });
-
 });

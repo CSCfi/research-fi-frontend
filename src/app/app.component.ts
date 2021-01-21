@@ -13,15 +13,14 @@ import {
   Router,
   RouterEvent,
   NavigationStart,
-  NavigationEnd
+  NavigationEnd,
 } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-
 export class AppComponent implements OnInit {
   title = 'research-fi-portal';
   loading: boolean;
@@ -31,7 +30,11 @@ export class AppComponent implements OnInit {
   Values for APM Configuration parameters 'serverUrl' and 'environment' are taken from AppConfigService.
   https://www.elastic.co/guide/en/apm/agent/rum-js/current/configuration.html
   */
-  constructor(@Inject(ApmService) service: ApmService, private appConfigService: AppConfigService, private router: Router) {
+  constructor(
+    @Inject(ApmService) service: ApmService,
+    private appConfigService: AppConfigService,
+    private router: Router
+  ) {
     const apm = service.init({
       serviceName: 'Angular',
       serverUrl: this.appConfigService.apmUrl,
@@ -45,7 +48,7 @@ export class AppComponent implements OnInit {
         'xmlhttprequest',
         'fetch',
         // 'error'
-      ]
+      ],
     });
   }
 

@@ -1,146 +1,117 @@
 {
-    "took":6,
-    "timed_out":false,
-    "_shards":{
-       "total":1,
-       "successful":1,
-       "skipped":0,
-       "failed":0
+  "took": 6,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
     },
-    "hits":{
-       "total":{
-          "value":10000,
-          "relation":"gte"
-       },
-       "max_score":null,
-       "hits":[
-          
-       ]
-    },
-    "aggregations":
-    {
-       "testField":{
-          "meta":{
-             
-          },
-          "doc_count":670291,
-          "testFields":{
-             "meta":{
-                
-             },
-             "doc_count_error_upper_bound":0,
-             "sum_other_doc_count":0,
-             "buckets":[
-                {
-                   "key":"Testdata",
-                   "doc_count":2547,
-                   "filtered":{
-                      "meta":{
-                         
-                      },
-                      "doc_count":2547,
-                      "filterCount":{
-                         "meta":{
-                            
-                         },
-                         "doc_count":2547
-                      }
-                   },
-                   "testFieldId":{
-                      "doc_count_error_upper_bound":0,
-                      "sum_other_doc_count":0,
-                      "buckets":[
-                         {
-                            "key":211,
-                            "doc_count":2547
-                         }
-                      ]
-                   }
-                },
-                {
-                   "key":"Otherdata #2",
-                   "doc_count":111,
-                   "filtered":{
-                      "meta":{
-                         
-                      },
-                      "doc_count":111,
-                      "filterCount":{
-                         "meta":{
-                            
-                         },
-                         "doc_count":111
-                      }
-                   },
-                   "testFieldId":{
-                      "doc_count_error_upper_bound":0,
-                      "sum_other_doc_count":0,
-                      "buckets":[
-                         {
-                            "key":123,
-                            "doc_count":111
-                         }
-                      ]
-                   }
-                }
-             ]
-          }
-       },
-       "year": {
-        "meta":{
-             
-        },
-        "doc_count":670291,
-           "buckets":[
-              {
-                 "key":2021,
-                 "doc_count":2121,
-                 "filtered":{
-                    "meta":{
-                       
-                    },
-                    "doc_count":2121,
-                    "filterCount":{
-                       "meta":{
-                          
-                       },
-                       "doc_count":2121
-                    }
-                 }
-              },
-              {
-                 "key":2020,
-                 "doc_count":2020,
-                 "filtered":{
-                    "meta":{
-                       
-                    },
-                    "doc_count":2020,
-                    "filterCount":{
-                       "meta":{
-                          
-                       },
-                       "doc_count":2020
-                    }
-                 }
-              },
-              {
-                 "key":2019,
-                 "doc_count":1919,
-                 "filtered":{
-                    "meta":{
-                       
-                    },
-                    "doc_count":1919,
-                    "filterCount":{
-                       "meta":{
-                          
-                       },
-                       "doc_count":1919
-                    }
-                 }
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "testField": {
+      "meta": {},
+      "doc_count": 670291,
+      "testFields": {
+        "meta": {},
+        "doc_count_error_upper_bound": 0,
+        "sum_other_doc_count": 0,
+        "buckets": [
+          {
+            "key": "Testdata",
+            "doc_count": 2547,
+            "filtered": {
+              "meta": {},
+              "doc_count": 2547,
+              "filterCount": {
+                "meta": {},
+                "doc_count": 2547
               }
-           ]
-       }
+            },
+            "testFieldId": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": 211,
+                  "doc_count": 2547
+                }
+              ]
+            }
+          },
+          {
+            "key": "Otherdata #2",
+            "doc_count": 111,
+            "filtered": {
+              "meta": {},
+              "doc_count": 111,
+              "filterCount": {
+                "meta": {},
+                "doc_count": 111
+              }
+            },
+            "testFieldId": {
+              "doc_count_error_upper_bound": 0,
+              "sum_other_doc_count": 0,
+              "buckets": [
+                {
+                  "key": 123,
+                  "doc_count": 111
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "year": {
+      "meta": {},
+      "doc_count": 670291,
+      "buckets": [
+        {
+          "key": 2021,
+          "doc_count": 2121,
+          "filtered": {
+            "meta": {},
+            "doc_count": 2121,
+            "filterCount": {
+              "meta": {},
+              "doc_count": 2121
+            }
+          }
+        },
+        {
+          "key": 2020,
+          "doc_count": 2020,
+          "filtered": {
+            "meta": {},
+            "doc_count": 2020,
+            "filterCount": {
+              "meta": {},
+              "doc_count": 2020
+            }
+          }
+        },
+        {
+          "key": 2019,
+          "doc_count": 1919,
+          "filtered": {
+            "meta": {},
+            "doc_count": 1919,
+            "filterCount": {
+              "meta": {},
+              "doc_count": 1919
+            }
+          }
+        }
+      ]
     }
- }
+  }
+}

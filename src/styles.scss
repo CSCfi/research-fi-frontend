@@ -1,7 +1,7 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
@@ -9,9 +9,9 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "~font-awesome/css/font-awesome.css";
-@import "~@fortawesome/fontawesome-free/css/all.css";
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 @import 'styles-custom.scss';
 // @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
@@ -51,12 +51,12 @@
 @import './app/common-components/secondary-button/secondary-button.component.scss-theme.scss';
 @import './app/common-components/primary-action-button/primary-action-button.component.scss-theme.scss';
 @import './app/common-components/close-button/close-button.component.scss-theme.scss';
+@import './app/common-components/divider/divider.component-theme.scss';
 @import './app/ui/cookie-consent/cookie-consent-theme.scss';
 @import './app/ui/review/review.component.scss-theme.scss';
 @import './app/component/results/pagination/pagination.component.scss';
 @import './app/component/science-politics/figures/carousel/carousel.component.scss-theme.scss';
 @import './app/component/visualisation/bar/bar.component.scss-theme.scss';
-
 
 // Global element color definitions
 @mixin researchfi-components-theme($theme) {
@@ -91,6 +91,7 @@
   @include app-secondary-button-theme($theme);
   @include app-primary-action-button-theme($theme);
   @include app-close-button-theme($theme);
+  @include app-divider-theme($theme);
   @include app-service-info-theme($theme);
   @include app-news-theme($theme);
   @include app-news-card-theme($theme);
@@ -100,20 +101,18 @@
   @include app-carousel-theme($theme);
   @include app-bar-chart-theme($theme);
 
-
   $primary: map-get($theme, primary);
-  
+
   .full-width {
     background: mat-color($primary);
     min-height: 3rem;
   }
 
-  
   .wrapper {
     max-width: 1440px;
     margin: auto;
   }
-  
+
   @media (max-width: 1199px) {
     .wrapper {
       padding: 0 8px;
@@ -127,16 +126,16 @@
 
   // Disable link
   a.disabled {
-      color: mat-color($primary, lighter) !important;
+    color: mat-color($primary, lighter) !important;
   }
 }
 
 // Global style definitions
 html {
-    height: 100%;
-    box-sizing: border-box;
-  }
-  
+  height: 100%;
+  box-sizing: border-box;
+}
+
 *,
 *:before,
 *:after {
@@ -150,7 +149,7 @@ html {
   padding: 0 32px;
 }
 
-fa-icon[icon="external-link-alt"] {
+fa-icon[icon='external-link-alt'] {
   padding-left: 5px;
 }
 
@@ -161,7 +160,11 @@ fa-icon[icon="external-link-alt"] {
 
 // Dont show outlines for mouse users
 body:not(.user-tabbing) {
-  button:focus, input:focus, select:focus, textarea:focus, *:focus {
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  *:focus {
     outline: none;
   }
 }

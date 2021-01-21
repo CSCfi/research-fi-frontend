@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 
 export class SingleFigure {
-
   constructor(
     public id: string,
     public placement: number,
@@ -30,14 +29,13 @@ export class SingleFigure {
     public infoFi: string,
     public infoSv: string,
     public infoEn: string,
-    public roadmap: boolean,
+    public roadmap: boolean
   ) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class SingleFigureAdapter implements Adapter<SingleFigure> {
   constructor() {}
   adapt(item: any): SingleFigure {
@@ -61,8 +59,7 @@ export class SingleFigureAdapter implements Adapter<SingleFigure> {
       item.info_fi,
       item.info_sv,
       item.info_en,
-      item.roadmap,
+      item.roadmap
     );
   }
-
 }

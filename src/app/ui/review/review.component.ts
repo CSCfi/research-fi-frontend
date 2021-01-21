@@ -18,7 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   selector: 'app-review',
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ReviewComponent implements OnInit {
   underReview = false;
@@ -49,14 +49,19 @@ export class ReviewComponent implements OnInit {
     $localize`:@@fromAccessibility:Saavutettavuudesta`,
     $localize`:@@fromPrivacy:Tietosuojasta`,
     $localize`:@@fromIncorrectInformation:Virheellisestä tiedosta`,
-    $localize`:@@otherFeedback:Muu palaute`];
+    $localize`:@@otherFeedback:Muu palaute`,
+  ];
   location: string;
   title: string;
   sendText = $localize`:@@r15:Tarkista ja lähetä`;
   back = $localize`:@@back:Takaisin`;
 
-  constructor(private dialogRef: MatDialogRef<ReviewComponent>, private router: Router, private titleService: Title,
-              private httpClient: HttpClient) { }
+  constructor(
+    private dialogRef: MatDialogRef<ReviewComponent>,
+    private router: Router,
+    private titleService: Title,
+    private httpClient: HttpClient
+  ) {}
 
   ngOnInit(): void {
     // Get title
@@ -73,11 +78,13 @@ export class ReviewComponent implements OnInit {
 
   getBodyJson(): Object {
     return {
-      'reviewTarget': this.reviewTarget,
-      'reviewContent': this.reviewContent,
-      'location': (this.locationValue ? this.locationValue : (this.title + '\n' + this.getRoute())),
-      'contactChecked':this.contactChecked,
-      'emailValue': this.emailValue
+      reviewTarget: this.reviewTarget,
+      reviewContent: this.reviewContent,
+      location: this.locationValue
+        ? this.locationValue
+        : this.title + '\n' + this.getRoute(),
+      contactChecked: this.contactChecked,
+      emailValue: this.emailValue,
     };
   }
 
@@ -94,12 +101,12 @@ export class ReviewComponent implements OnInit {
       // Send form data
       this.sending = true;
       this.sendPost(this.getBodyJson()).subscribe(
-        success => {
+        (success) => {
           this.sending = false;
           this.result = true;
           this.error = false;
         },
-        err => {
+        (err) => {
           this.sending = false;
           this.result = true;
           this.error = true;
@@ -120,11 +127,19 @@ export class ReviewComponent implements OnInit {
   }
 
   validate() {
-    this.location = this.locationTarget === 'other' ? this.locationValue : this.getRoute();
+    this.location =
+      this.locationTarget === 'other' ? this.locationValue : this.getRoute();
     this.reviewTargetError = !this.reviewTarget ? true : false;
     this.reviewContentError = !this.reviewContent ? true : false;
-    this.emailError = this.contactChecked && !this.validateEmail(this.emailValue) ? true : false;
-    if (!this.reviewTargetError && !this.reviewContentError && !this.emailError) {
+    this.emailError =
+      this.contactChecked && !this.validateEmail(this.emailValue)
+        ? true
+        : false;
+    if (
+      !this.reviewTargetError &&
+      !this.reviewContentError &&
+      !this.emailError
+    ) {
       this.underReview = true;
     }
   }
@@ -137,5 +152,4 @@ export class ReviewComponent implements OnInit {
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
-
 }

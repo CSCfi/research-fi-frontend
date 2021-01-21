@@ -1,16 +1,59 @@
-<ng-template #tooltipTemplate><div [innerHtml]="tab.tooltip"></div></ng-template>
-<a class="bundler item-wrapper" [class.disabled]="tab.data.length === 0" [class.disabled-home]="isHomepage && tab.data.length === 0" [class.homepage]="isHomepage"
-[class.active]="selectedTab === tab.link" [queryParams]="targetQueryParams" routerLink="/results/{{tab.link}}/{{searchService.currentInput | async}}/" 
-[tabindex]="isHomepage && tab.data.length !== 0 ? 0 : -1" [tooltip]="tooltipTemplate" placement="bottom" triggers="focus keydown" containerClass="tooltip-{{tab.link}}{{tooltipClass}}"
-(mouseenter)="utilityService.tooltipMouseenter(elem)" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem>
-<div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
-    <div class="tab-icon" class="tab-icon {{tab.data}}" [style.display]="isHomepage ? 'block' : 'none'"><fa-icon [icon]="tab.icon"></fa-icon></div>
-    <div class="label text-center" [class.homepage-label]="isHomepage">{{tab.label}}</div>
-    <div class="numeric-box d-sm-block" [countUp]="tab.data ? counted.aggregations._index.buckets[tab.data]?.doc_count : 999" [options]="countOps" [reanimateOnClick]="false" >0</div> <!-- TODO: Remove the ternary operator when all data becomes available -->
-</div>
-<ng-template #disabledTab>
-    <div class="tab-icon" class="tab-icon {{tab.data}}" [style.display]="isHomepage ? 'block' : 'none'"><fa-icon [icon]="tab.icon"></fa-icon></div>
-    <div class="label text-center" [class.homepage-label]="isHomepage">{{tab.label}}</div>
+<ng-template #tooltipTemplate
+  ><div [innerHtml]="tab.tooltip"></div
+></ng-template>
+<a
+  class="bundler item-wrapper"
+  [class.disabled]="tab.data.length === 0"
+  [class.disabled-home]="isHomepage && tab.data.length === 0"
+  [class.homepage]="isHomepage"
+  [class.active]="selectedTab === tab.link"
+  [queryParams]="targetQueryParams"
+  routerLink="/results/{{ tab.link }}/{{ searchService.currentInput | async }}/"
+  [tabindex]="isHomepage && tab.data.length !== 0 ? 0 : -1"
+  [tooltip]="tooltipTemplate"
+  placement="bottom"
+  triggers="focus keydown"
+  containerClass="tooltip-{{ tab.link }}{{ tooltipClass }}"
+  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+  #elem
+>
+  <div *ngIf="tab.data.length > 0; else disabledTab" #tabList [id]="tab.link">
+    <div
+      class="tab-icon"
+      class="tab-icon {{ tab.data }}"
+      [style.display]="isHomepage ? 'block' : 'none'"
+    >
+      <fa-icon [icon]="tab.icon"></fa-icon>
+    </div>
+    <div class="label text-center" [class.homepage-label]="isHomepage">
+      {{ tab.label }}
+    </div>
+    <div
+      class="numeric-box d-sm-block"
+      [countUp]="
+        tab.data
+          ? counted.aggregations._index.buckets[tab.data]?.doc_count
+          : 999
+      "
+      [options]="countOps"
+      [reanimateOnClick]="false"
+    >
+      0
+    </div>
+    <!-- TODO: Remove the ternary operator when all data becomes available -->
+  </div>
+  <ng-template #disabledTab>
+    <div
+      class="tab-icon"
+      class="tab-icon {{ tab.data }}"
+      [style.display]="isHomepage ? 'block' : 'none'"
+    >
+      <fa-icon [icon]="tab.icon"></fa-icon>
+    </div>
+    <div class="label text-center" [class.homepage-label]="isHomepage">
+      {{ tab.label }}
+    </div>
     <div class="numeric-box d-sm-block" i18n="@@comingSoon">Tulossa</div>
-</ng-template>
+  </ng-template>
 </a>

@@ -1,8 +1,8 @@
 {
-    "/api/*": {
-      "target": "",
-      "secure": false,
-      "logLevel": "debug",
-      "changeOrigin": true
-    }
+  "/api/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
   }
+}

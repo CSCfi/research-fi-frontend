@@ -6,55 +6,56 @@
 // :license: MIT
 
 .carousel-container {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 .figure-item {
-    cursor: default;
-    &:not(.active) {
-        cursor: pointer;
-    }
+  cursor: default;
+  &:not(.active) {
+    cursor: pointer;
+  }
 }
 
 img {
-    height: 150px;
-    // position: absolute;
+  height: 150px;
+  // position: absolute;
 }
 
 .img-container {
-    position: relative;
-    margin: 5px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+  margin: 5px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
 }
 
 .img-div {
-    position: relative;
-    z-index: 0;
+  position: relative;
+  z-index: 0;
 }
 
-.item-title, .item-description {
-    z-index: 1;
-    position: absolute;
-    font-weight: bold;
-    padding: 4px;
-    left: 0;
+.item-title,
+.item-description {
+  z-index: 1;
+  position: absolute;
+  font-weight: bold;
+  padding: 4px;
+  left: 0;
 }
 
 .item-title {
-    top: 0;
+  top: 0;
 }
 
 .item-description {
-    bottom: 0;
+  bottom: 0;
 }
 
 .button-container {
-    min-width: 130px;
+  min-width: 130px;
 
-    &.prev {
-        padding-right: 10px;
-    }
-    &.next {
-        padding-left: 10px;
-    }
+  &.prev {
+    padding-right: 10px;
+  }
+  &.next {
+    padding-left: 10px;
+  }
 }

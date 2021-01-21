@@ -1,7 +1,15 @@
-import { Directive, Injectable, Input, EventEmitter, Output, ElementRef, HostListener } from '@angular/core';
+import {
+  Directive,
+  Injectable,
+  Input,
+  EventEmitter,
+  Output,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appScrollSpy]'
+  selector: '[appScrollSpy]',
 })
 export class ScrollSpyDirective {
   @Input() public spiedTags = [];
@@ -17,8 +25,8 @@ export class ScrollSpyDirective {
     const parentOffset = event.target.firstElementChild.offsetTop;
     for (const [i, v] of Object.keys(children)) {
       const element = children[i];
-      if (this.spiedTags.some(spiedTag => spiedTag === element.tagName)) {
-        if ((element.offsetTop - parentOffset) <= scrollTop) {
+      if (this.spiedTags.some((spiedTag) => spiedTag === element.tagName)) {
+        if (element.offsetTop - parentOffset <= scrollTop) {
           currentSection = element.id;
         }
       }
@@ -28,5 +36,4 @@ export class ScrollSpyDirective {
       this.sectionChange.emit(this.currentSection);
     }
   }
-
 }

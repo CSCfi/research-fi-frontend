@@ -1,5 +1,6 @@
 ::ng-deep svg {
-  .breadcrumb text, .back text {
+  .breadcrumb text,
+  .back text {
     font-weight: bold;
   }
 
@@ -17,11 +18,12 @@
     fill: grey;
   }
 
-  .children, .back {
+  .children,
+  .back {
     cursor: pointer;
   }
 
-  .breadcrumb{
+  .breadcrumb {
     cursor: default;
   }
 
@@ -30,7 +32,8 @@
   }
 
   .children {
-    rect.child, rect.outline {
+    rect.child,
+    rect.outline {
       opacity: 0;
     }
   }
@@ -42,27 +45,27 @@
     // rect.parent {
     // }
     rect.outline {
-      opacity: 1
+      opacity: 1;
     }
   }
 
   .textdiv {
-      font-family: "Open Sans",Helvetica,Arial,sans-serif;
-      padding: 7px;
-      pointer-events: none;
-      line-height: 11px;
-      
-      p {
-        margin: 0 0 4px;
-      }
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    padding: 7px;
+    pointer-events: none;
+    line-height: 11px;
 
-      .title {
-        font-weight: bold;
-        font-size: 11px;
-      }
-      
-      .amount {
-        font-size: 10px;
-      }
+    p {
+      margin: 0 0 4px;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    .amount {
+      font-size: 10px;
+    }
   }
 }

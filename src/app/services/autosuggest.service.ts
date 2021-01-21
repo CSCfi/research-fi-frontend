@@ -14,13 +14,16 @@ import { SettingsService } from './settings.service';
 export class AutosuggestService {
   apiUrl: any;
 
-  constructor(private http: HttpClient, private appConfigService: AppConfigService, private settingService: SettingsService) {
+  constructor(
+    private http: HttpClient,
+    private appConfigService: AppConfigService,
+    private settingService: SettingsService
+  ) {
     this.apiUrl = this.appConfigService.apiUrl;
   }
 
   search(term: string) {
     const payLoad = this.settingService.autoSuggestSettings(term);
     return this.http.post(this.apiUrl + this.settingService.indexList, payLoad);
-    }
-
+  }
 }

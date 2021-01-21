@@ -1,69 +1,70 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 .quote {
-    padding-right: 5%;
+  padding-right: 5%;
 }
 
 .col.sub-unit {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 .guide {
-    padding: 0 3px;
+  padding: 0 3px;
 }
 
-.guide-line, .guide-line-top {
-    display: block;
-    transition: all 0.3s ease;
+.guide-line,
+.guide-line-top {
+  display: block;
+  transition: all 0.3s ease;
 }
 
 .guide-line-top {
-    height: 12px;
-    width: 3px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  height: 12px;
+  width: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .guide-line {
-    top: 10px;
-    height: 3px;
-    width: 90%;
-    position: relative;
+  top: 10px;
+  height: 3px;
+  width: 90%;
+  position: relative;
 }
 
 .cite-block:not(:first-child) {
-    margin-top: 72px;
+  margin-top: 72px;
 }
 
 .reference .no-doi-warn {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .modal-body.reference-modal {
-    padding: 1rem 2rem;
+  padding: 1rem 2rem;
 }
 
 .modal-body .copy {
-    float: right;
-    margin-top: 5px;
+  float: right;
+  margin-top: 5px;
 }
 
 .show-more-wrapper {
-    position: absolute;
+  position: absolute;
 }
 
 .auth-min-height {
-    min-height: 100px;
+  min-height: 100px;
 }
 
 @media (max-width: 575px) {
-    .auth-header-min-height {
-        min-height: 80px;
-    }
+  .auth-header-min-height {
+    min-height: 80px;
+  }
 }

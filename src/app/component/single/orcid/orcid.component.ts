@@ -10,14 +10,12 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-orcid',
   templateUrl: './orcid.component.html',
-  styleUrls: ['./orcid.component.scss']
+  styleUrls: ['./orcid.component.scss'],
 })
 export class OrcidComponent implements OnInit {
   @Input() orcid: string;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

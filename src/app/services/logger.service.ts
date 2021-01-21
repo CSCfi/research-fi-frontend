@@ -6,16 +6,16 @@ export enum LogLevel {
   Info = 2,
   Warning = 3,
   Error = 4,
-  All = 5
+  All = 5,
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoggerService {
   logLevel = LogLevel.Error;
 
-  constructor() { }
+  constructor() {}
 
   log(error: any, level = this.logLevel) {
     if (this.logLevel >= level) {
@@ -23,4 +23,3 @@ export class LoggerService {
     }
   }
 }
-
