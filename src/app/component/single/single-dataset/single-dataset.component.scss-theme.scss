@@ -42,39 +42,17 @@
       }
     }
 
-    .doi-tag {
-      background: mat-contrast($primary, 200);
-      color: mat-contrast($primary, 500);
-    }
-    .doi-link {
-      a {
-        color: mat-color($primary);
-      }
-    }
-
-    .doi-tag,
-    .doi-link {
-      vertical-align: middle;
-    }
-
-    .link.doi {
-      color: black;
-      border: 2px solid rgba(0, 0, 0, 0.87);
-      background: white;
-      border-radius: 2px;
+    .reference .no-doi-warn {
+      color: mat-color($warn);
     }
   }
+  .reference-modal {
+    h3.modal-title {
+      color: mat-contrast($primary, 50);
+    }
 
-  .reference .no-doi-warn {
-    color: mat-color($warn);
-  }
-}
-.reference-modal {
-  h3.modal-title {
-    color: mat-contrast($primary, 50);
-  }
-
-  &.modal-body h4 {
-    color: mat-contrast($primary, 300);
+    &.modal-body h4 {
+      color: mat-contrast($primary, 300);
+    }
   }
 }

@@ -128,11 +128,11 @@ export class SingleItemService {
         _index: {
           filters: {
             filters: {
-              persons: {
-                match: {
-                  _index: 'person',
-                },
-              },
+              // persons: {
+              //   match: {
+              //     _index: 'person',
+              //   },
+              // },
               publications: {
                 match: {
                   _index: 'publication',

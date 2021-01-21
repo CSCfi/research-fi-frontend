@@ -49,27 +49,4 @@
       }
     }
   }
-
-  aside a {
-    color: mat-color($primary);
-  }
-
-  .mat-raised-button.mat-primary {
-    background: white;
-    color: mat-color($primary);
-    border: 2px solid mat-color($primary);
-    border-radius: 20px;
-  }
-
-  .mat-raised-button:disabled.mat-primary {
-    background: white;
-    color: mat-color($primary, lighter);
-    border: 2px solid mat-color($primary, lighter);
-    border-radius: 20px;
-  }
-
-  .guide-line,
-  .guide-line-top {
-    background: mat-color($primary);
-  }
 }

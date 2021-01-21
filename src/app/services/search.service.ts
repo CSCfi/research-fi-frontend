@@ -109,12 +109,14 @@ export class SearchService {
       aggs: {
         _index: {
           filters: {
-            persons: { match: { _index: 'person' } },
-            publications: { match: { _index: 'publication' } },
-            fundings: { match: { _index: 'funding' } },
-            datasets: { match: { _index: 'dataset' } },
-            infrastructures: { match: { _index: 'infrastructure' } },
-            organizations: { match: { _index: 'organization' } },
+            filters: {
+              persons: { match: { _index: 'person' } },
+              publications: { match: { _index: 'publication' } },
+              fundings: { match: { _index: 'funding' } },
+              datasets: { match: { _index: 'dataset' } },
+              infrastructures: { match: { _index: 'infrastructure' } },
+              organizations: { match: { _index: 'organization' } },
+            },
           },
         },
       },

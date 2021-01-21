@@ -386,7 +386,10 @@
                   <div class="col px-0">
                     <div
                       class="row"
-                      *ngFor="let consortium of item.otherConsortium"
+                      *ngFor="
+                        let consortium of item.otherConsortium;
+                        let i = index
+                      "
                     >
                       <div class="col-12 col-sm-3 td">
                         {{ consortium.roleInFundingGroup }}
