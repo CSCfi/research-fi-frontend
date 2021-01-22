@@ -6,6 +6,11 @@
 //  :license: MIT
 
 app-search-bar {
+  .badge-area img {
+    max-width: 150px;
+    height: auto;
+  }
+
   .search {
     padding: 2rem 0;
     transition: 0.2s linear;

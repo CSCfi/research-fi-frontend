@@ -5,6 +5,10 @@
   $warn: map-get($theme, warn);
 
   app-search-bar {
+    .bar {
+      background: mat-color($primary);
+    }
+
     // Target
     .mat-form-field-appearance-legacy .mat-form-field-label {
       color: white !important;
