@@ -49,7 +49,6 @@ export class ExternalLinksComponent
   ngOnInit(): void {
     // Get data
     // this.sectorData = this.route.snapshot.data.sectorData;
-    console.log(this.route.snapshot.data);
     this.data = this.route.snapshot.data.links;
 
     // Set title

@@ -6,6 +6,7 @@ import {
   QueryList,
   AfterViewInit,
   ElementRef,
+  OnChanges,
 } from '@angular/core';
 import { SearchService } from 'src/app/services/search.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -17,7 +18,7 @@ import { UtilityService } from 'src/app/services/utility.service';
   templateUrl: './tab-item.component.html',
   styleUrls: ['./tab-item.component.scss'],
 })
-export class TabItemComponent implements OnInit, AfterViewInit {
+export class TabItemComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() tab: any;
   @Input() isHomepage = false;
   @Input() selectedTab: string;
@@ -45,19 +46,20 @@ export class TabItemComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // Set target to params
-    this.targetQueryParams = {
-      ...this.queryParams[this.tab.data],
-      target: this.settingsService.target,
-      size: this.searchService.pageSize,
-    };
-
     // Subscribe to search term, animate tab count if search term changes
     this.searchTermSub = this.searchService.currentInput.subscribe(() => {
       this.countOps.duration = 0.5;
     });
   }
 
+  ngOnChanges(): void {
+    // Set target to params
+    this.targetQueryParams = {
+      ...this.queryParams[this.tab.data],
+      target: this.settingsService.target,
+      size: this.searchService.pageSize,
+    };
+  }
   ngAfterViewInit(): void {
     if (this.tabElem) {
       this.dataService.resultTabList.push(this.tabElem);
