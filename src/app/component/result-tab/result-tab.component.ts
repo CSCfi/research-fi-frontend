@@ -9,7 +9,6 @@ import {
   OnChanges,
   Inject,
   LOCALE_ID,
-  HostListener,
   PLATFORM_ID,
   ViewEncapsulation,
   ViewChild,
@@ -18,7 +17,7 @@ import { SearchService } from '../../services/search.service';
 import { TabChangeService } from '../../services/tab-change.service';
 import { Subscription } from 'rxjs';
 import { ResizeService } from '../../services/resize.service';
-import { UrlSerializer, Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   faArrowLeft,
   faArrowRight,
@@ -26,9 +25,7 @@ import {
   faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { isPlatformBrowser } from '@angular/common';
-import { zhCnLocale } from 'ngx-bootstrap';
 import { WINDOW } from 'src/app/services/window.service';
-import { SettingsService } from 'src/app/services/settings.service';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -65,7 +62,6 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
 
   private tabSub: Subscription;
   private queryParamSub: Subscription;
-  private searchTermSub: Subscription;
   private resizeSub: Subscription;
 
   locale: string;
@@ -94,8 +90,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     private router: Router,
     private dataService: DataService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private route: ActivatedRoute,
-    @Inject(WINDOW) private window: Window
+    @Inject(WINDOW) private window: Window,
   ) {
     this.locale = localeId;
   }
@@ -109,6 +104,7 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     this.tooltipClass = this.isHomepage ? '-home' : '';
 
     this.queryParams = this.tabChangeService.tabQueryParams;
+
     // Update active tab visual after change
     this.tabSub = this.tabChangeService.currentTab.subscribe((tab) => {
       this.selectedTab = tab.link;
@@ -130,21 +126,18 @@ export class ResultTabComponent implements OnInit, OnDestroy, OnChanges {
     );
 
     // Subscribe to query params and get current tab params
+    // Params are passed to tab items to keep current state until params reset
     this.queryParamSub = this.searchService.currentQueryParams.subscribe(
       (params) => {
         this.queryParams[this.selectedTab] = params;
         this.tabChangeService.tabQueryParams = this.queryParams;
+        this.queryParams = {...this.queryParams}
       }
     );
 
     // Set automatic scroll to true to make current tab visible
     this.scrollTo = true;
   }
-
-  // Set focus to results header if click or enter
-  // resetFocus(status) {
-  //   this.tabChangeService.changeFocus(status);
-  // }
 
   // Update scrollWidth and offsetWidth once data is available and DOM is rendered
   // https://stackoverflow.com/questions/34947154/angular-2-viewchild-annotation-returns-undefined
