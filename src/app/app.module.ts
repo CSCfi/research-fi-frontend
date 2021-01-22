@@ -159,6 +159,7 @@ import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { DatasetsComponent } from './component/results/datasets/datasets.component';
 import { SingleDatasetComponent } from './component/single/single-dataset/single-dataset.component';
 import { ExternalLinksComponent } from './component/science-politics/external-links/external-links.component';
+import { BannerComponent } from './component/home-page/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -225,6 +226,7 @@ import { ExternalLinksComponent } from './component/science-politics/external-li
     DatasetsComponent,
     SingleDatasetComponent,
     ExternalLinksComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -36,8 +36,6 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FilterService } from 'src/app/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ResizeService } from 'src/app/services/resize.service';
-import { WINDOW } from 'src/app/services/window.service';
 import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
@@ -111,12 +109,10 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     private tabChangeService: TabChangeService,
     private route: ActivatedRoute,
     public router: Router,
-    private eRef: ElementRef,
     private sortService: SortService,
     private autosuggestService: AutosuggestService,
     private singleService: SingleItemService,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(WINDOW) private window: Window,
     @Inject(PLATFORM_ID) private platformId: object,
     private settingService: SettingsService,
     public utilityService: UtilityService,
@@ -490,9 +486,5 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickedOutside(e: Event) {
     this.showHelp = false;
-  }
-
-  onResize(dims: { width: number; height: number }) {
-    // this.resetMargin = this.getResetMargin(dims.w);
   }
 }
