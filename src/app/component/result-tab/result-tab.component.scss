@@ -223,6 +223,13 @@ app-result-tab {
     }
   }
 
+  .tooltip-datasets {
+    top: 50px !important;
+    &-home {
+      top: 50px !important;
+    }
+  }
+
   .tooltip-infrastructures {
     top: 155px !important;
     &-home {
