@@ -8,11 +8,13 @@
 <div class="bar row" #searchBar>
   <!-- TTTV Banner badge only on home page -->
   <div class="col-3 badge-area align-self-center">
-    <img
-      *ngIf="router.url === '/'"
-      class="d-none d-xl-block float-right"
-      src="assets/img/SA_tunnus_ympyra_keltainen_cmyk.svg"
-    />
+    <a href="https://tutkittutieto.fi/" target="_blank">
+      <img
+        *ngIf="router.url === '/'"
+        class="d-none d-xl-block float-right"
+        src="assets/img/SA_tunnus_ympyra_keltainen_cmyk.svg"
+      />
+    </a>
   </div>
   <!-- Search -->
   <div class="col-12 col-xl-6">
