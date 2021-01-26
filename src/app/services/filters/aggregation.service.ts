@@ -582,7 +582,7 @@ export class AggregationService {
           aggs: {
             funders: {
               terms: {
-                field: 'funderNameFi.keyword',
+                field: 'funderName' + this.localeC + '.keyword',
                 size: 250,
                 order: {
                   _key: 'asc',
