@@ -1567,6 +1567,10 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="downloadCSV" datatype="html">
+        <source>Lataa tiedostona (csv)</source>
+        <target>Ladda ner filen (csv)</target>
+      </trans-unit>
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source>Lisää lukuja tieteestä ja tutkimuksesta</source>
         <target state="translated">Fler siffror om vetenskap och forskning</target>
