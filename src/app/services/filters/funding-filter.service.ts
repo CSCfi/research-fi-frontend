@@ -116,7 +116,7 @@ export class FundingFilterService {
     const merged = fData ? fData : [];
 
     merged.forEach(item => {
-      item.subData = item.organizations.buckets.filter(x => x.doc_count > 0);
+      item.subData = item.organizations.buckets.filter(x => x.doc_count > 0 && x.key !== ' ');
       item.subData.map(subItem => {
           subItem.label = subItem.label || subItem.key.trim();
           subItem.key = subItem.orgId.buckets[0].key;
