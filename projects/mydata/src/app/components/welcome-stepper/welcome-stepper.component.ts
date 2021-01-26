@@ -18,7 +18,7 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent {
-  step = 0;
+  step = 1;
   cancel = false;
   termsApproved = false;
   orcidSetting: string;

@@ -5,9 +5,12 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { filter } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,16 +18,30 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   lang = 'fi';
   currentRoute: string;
   navItems = [{ label: 'Kirjaudu sisään', link: '' }];
-
   routeSub: Subscription;
   params: any;
+  loggedIn = sessionStorage.getItem('PKCE_verifier') === null ? false : true;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private oauthService: OAuthService
+  ) {
     this.routeEvent(router);
+  }
+
+  ngOnInit(): void {
+    console.log(this.loggedIn);
+    this.oauthService.events
+      .pipe(filter((e) => e.type === 'session_terminated'))
+      .subscribe((e) => {
+        console.debug('Your session has been terminated!');
+      });
   }
 
   // Get current url
@@ -48,5 +65,9 @@ export class HeaderComponent {
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
       }
     });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

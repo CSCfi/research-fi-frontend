@@ -9,6 +9,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
+
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -26,6 +29,7 @@ import { OrcidDataHandlerComponent } from './components/welcome-stepper/orcid-da
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +38,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     WelcomeStepperComponent,
     OrcidDataHandlerComponent,
     NotFoundComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
+    OAuthModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
     UiLibraryModule,

@@ -6,52 +6,13 @@
 <main id="main-content">
   <div class="wrapper">
     <ng-container *ngIf="!cancel; else cancelTemplate">
-      <div class="row" *ngIf="step > 0 && step <= 3">
+      <div class="row" *ngIf="step <= 3">
         <div class="col text-center">
           <h2>{{ step }} / 3</h2>
         </div>
       </div>
 
       <ng-container [ngSwitch]="step">
-        <!-- Intro -->
-        <ng-container *ngSwitchCase="0">
-          <div class="row pb-4">
-            <div class="col text-center">
-              <h2 class="primary-color">Palvelun käyttöönotto</h2>
-            </div>
-          </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col col-lg-8 text-center">
-              <p>
-                Palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla ei vielä
-                ole ORCID-tunnuksia, voit luoda sellaiset
-                <a href="https://orcid.org/">ORCID-palvelussa</a>.
-              </p>
-            </div>
-          </div>
-
-          <div class="row pb-3 d-flex justify-content-center">
-            <div class="col col-lg-auto">
-              <lib-primary-action-button
-                content="Aloita"
-                [big]="true"
-                (click)="increment()"
-              >
-              </lib-primary-action-button>
-            </div>
-          </div>
-          <div class="row d-flex justify-content-center">
-            <div class="col col-lg-auto">
-              <lib-secondary-button
-                content="Peruuta"
-                routerLink=""
-                [big]="true"
-              ></lib-secondary-button>
-            </div>
-          </div>
-        </ng-container>
-
         <!-- First step -->
         <ng-container *ngSwitchCase="1">
           <div class="row pb-4">

@@ -10,7 +10,7 @@
     <!-- Navigation -->
     <lib-navigation
       class="nav-top col-auto col-xs-3 col-xl-10 p-0"
-      *ngIf="currentRoute === '/'; else title"
+      *ngIf="currentRoute === '/' || currentRoute?.includes('/?'); else title"
       [navItems]="navItems"
       [currentLang]="lang"
       [currentRoute]="currentRoute"
@@ -18,6 +18,9 @@
     <ng-template #title>
       <div class="col center-container">
         <h1 class="title m-0 font-weight-bold">Tutkijan tiedot</h1>
+      </div>
+      <div class="col text-right" *ngIf="loggedIn">
+        <a href="javascript:void(0)" (click)="logout()">Kirjaudu ulos</a>
       </div>
     </ng-template>
   </div>
