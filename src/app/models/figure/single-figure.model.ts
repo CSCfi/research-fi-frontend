@@ -29,7 +29,10 @@ export class SingleFigure {
     public infoFi: string,
     public infoSv: string,
     public infoEn: string,
-    public roadmap: boolean
+    public roadmap: boolean,
+    public visualFileFi: string,
+    public visualFileSv: string,
+    public visualFileEn: string,
   ) {}
 }
 
@@ -59,7 +62,10 @@ export class SingleFigureAdapter implements Adapter<SingleFigure> {
       item.info_fi,
       item.info_sv,
       item.info_en,
-      item.roadmap
+      item.roadmap,
+      item.visual_file_fi,
+      item.visual_file_sv,
+      item.visual_file_en,
     );
   }
 }
