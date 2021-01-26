@@ -174,12 +174,12 @@ export class FundingFilterService {
     // Add data into buckets field, filter items with doc count, set key and label
     const merged = fData ? fData : [];
 
-    merged.forEach((item) => {
-      item.subData = item.organizations.buckets.filter((x) => x.doc_count > 0);
-      item.subData.map((subItem) => {
-        subItem.label = subItem.label || subItem.key.trim();
-        subItem.key = subItem.orgId.buckets[0].key;
-        subItem.doc_count = subItem.doc_count;
+    merged.forEach(item => {
+      item.subData = item.organizations.buckets.filter(x => x.doc_count > 0 && x.key !== ' ');
+      item.subData.map(subItem => {
+          subItem.label = subItem.label || subItem.key.trim();
+          subItem.key = subItem.orgId.buckets[0].key;
+          subItem.doc_count = subItem.doc_count;
       });
     });
 
