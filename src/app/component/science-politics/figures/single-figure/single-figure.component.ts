@@ -131,7 +131,6 @@ export class SingleFigureComponent implements OnInit, OnDestroy, AfterViewInit {
       (item) => item.id === this.currentParent
     );
     this.result = [parent.figures.find((item) => item.id === this.currentItem)];
-    console.log(this.result);
 
     // Get all visualisations into a flat array
     const dataCopy = cloneDeep(this.figureData);
