@@ -5,31 +5,49 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, OnDestroy,
-         LOCALE_ID, ViewChildren, QueryList } from '@angular/core';
-import { faInfoCircle, faSearch, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  ChangeDetectorRef,
+  OnDestroy,
+  LOCALE_ID,
+  ViewChildren,
+  QueryList,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  faInfoCircle,
+  faSearch,
+  faChevronDown,
+  faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-regular-svg-icons';
-import { DOCUMENT } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { ResizeService } from 'src/app/services/resize.service';
 import { Subscription } from 'rxjs';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { DataService } from 'src/app/services/data.service';
-import { content } from '../../../../assets/static-data/figures-content.json';
 import { WINDOW } from 'src/app/services/window.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
 import { figures, common } from 'src/assets/static-data/meta-tags.json';
 import { UtilityService } from 'src/app/services/utility.service';
 import { cloneDeep } from 'lodash';
+import { ContentDataService } from 'src/app/services/content-data.service';
+import { Figure } from 'src/app/models/figure/figure.model';
 
 @Component({
   selector: 'app-figures',
   templateUrl: './figures.component.html',
-  styleUrls: ['./figures.component.scss']
+  styleUrls: ['./figures.component.scss'],
 })
 export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faIconCircle = faInfoCircle;
@@ -38,59 +56,10 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   faChevronDown = faChevronDown;
   faChevronUp = faChevronUp;
 
-  navItems = [
-    {id: 's0', label: $localize`:@@figuresSecHeader:Tiedon lähteet ja tuottajat`, icon: this.faIconCircle, active: true},
-    {id: 's1', label: $localize`:@@figuresSec1:Tutkimuksen rahoitus`, icon: this.faChartBar, active: false},
-    {id: 's2', label: $localize`:@@figuresSec2:Tutkimuksen henkilövoimavarat`, icon: this.faChartBar, active: false},
-    {id: 's3', label: $localize`:@@figuresSec3:Julkaisutoiminta ja tieteellinen vaikuttavuus`, icon: this.faChartBar, active: false},
-  ];
-
-  coLink = [
-    {labelFi: 'Suomen Akatemia'},
-    {labelFi: 'Tilastokeskus'},
-    {labelFi: 'Vipunen'},
-  ];
-
-  vipunenLink = {
-    Fi: 'https://vipunen.fi/',
-    En: 'https://vipunen.fi/en-gb/',
-    Sv: 'https://vipunen.fi/sv-fi/'
-  };
-
-  statcenterLink = {
-    Fi: 'http://www.tilastokeskus.fi/',
-    En: 'http://www.tilastokeskus.fi/index_en.html',
-    Sv: 'http://www.tilastokeskus.fi/index_sv.html'
-  };
-
-  migriLink = {
-    Fi: 'https://migri.fi/etusivu',
-    En: 'www.migri.fi/en',
-    Sv: 'https://migri.fi/sv/'
-  };
-
-  okmLink = {
-    Fi: 'https://www.minedu.fi/',
-    En: 'https://minedu.fi/en/frontpage',
-    Sv: 'https://minedu.fi/sv/framsida'
-  };
-
-  akaLink = {
-    Fi: 'https://www.aka.fi/',
-    En: 'https://www.aka.fi/en',
-    Sv: 'https://www.aka.fi/sv/'
-  };
-
-  cscLink = {
-    Fi: 'https://www.csc.fi',
-    En: 'https://www.csc.fi/en/home',
-    Sv: 'https://www.csc.fi'
-  };
-
-  allContent = content;
-  link = 'test';
   currentSection: any;
   queryField: FormControl = new FormControl();
+  figureData: Figure[] = [];
+  filteredData: any[];
   queryResults: any[];
   combinedData: any;
   hasResults: boolean;
@@ -106,7 +75,6 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   showIntro: boolean;
   focusSub: any;
   currentLocale: string;
-
   private metaTags = figures;
   private commonTags = common;
   roadmapFilter: string;
@@ -116,27 +84,60 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
   filterHasBeenClicked: boolean;
   queryParams: any;
   currentFilter = null;
+  loading = true;
+  content: any[];
+  contentSub: Subscription;
 
-  constructor( @Inject(DOCUMENT) private document: any, private cdr: ChangeDetectorRef, @Inject(WINDOW) private window: Window,
-               private titleService: Title, @Inject( LOCALE_ID ) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, private scrollService: ScrollService, private dataService: DataService,
-               private historyService: HistoryService, private utilityService: UtilityService, private route: ActivatedRoute,
-               private router: Router ) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    @Inject(WINDOW) private window: Window,
+    private titleService: Title,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private tabChangeService: TabChangeService,
+    private resizeService: ResizeService,
+    private scrollService: ScrollService,
+    private dataService: DataService,
+    private historyService: HistoryService,
+    private utilityService: UtilityService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cds: ContentDataService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
     // Default to first segment
     this.currentSection = 's0';
     this.queryResults = [];
     this.queryTerm = '';
     this.hasResults = true;
     // Capitalize first letter of locale
-    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-   }
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
-  public setTitle( newTitle: string) {
-    this.titleService.setTitle( newTitle );
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   ngOnInit(): void {
-    this.queryParamSub = this.route.queryParams.subscribe(params => {
+    if (isPlatformBrowser(this.platformId)) {
+      // Get first segment content from content data service
+      this.contentSub = this.cds.pageData.subscribe((data) => {
+        this.content = data.find((el) => el.id === 'figures-intro');
+        this.loading = false;
+      });
+
+      // Get data from API and set into sessionStorage to be reusable in single figure view.
+      if (!sessionStorage.getItem('figureData')) {
+        this.cds.getFigures().subscribe((data) => {
+          this.figureData = data;
+          sessionStorage.setItem('figureData', JSON.stringify(data));
+        });
+      } else {
+        this.figureData = JSON.parse(sessionStorage.getItem('figureData'));
+      }
+    }
+
+    this.queryParamSub = this.route.queryParams.subscribe((params) => {
       this.currentFilter = params.filter || null;
       this.filter(this.currentFilter);
       this.queryParams = params;
@@ -157,58 +158,83 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
-                                this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale]);
+    this.utilityService.addMeta(
+      this.metaTags['title' + this.currentLocale],
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
 
-
-    this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
-    this.scrollSub = this.scrollService.onScroll.pipe(debounceTime(300)).subscribe(e => this.onScroll(e.y));
+    this.resizeSub = this.resizeService.onResize$.subscribe((_) =>
+      this.onResize()
+    );
+    this.scrollSub = this.scrollService.onScroll
+      .pipe(debounceTime(300))
+      .subscribe((e) => this.onScroll(e.y));
 
     this.search();
   }
 
   search() {
     // Subscribe to input changes
-    this.querySub = this.queryField.valueChanges.pipe(
-      distinctUntilChanged()
-      )
-      .subscribe(term => {
+    this.querySub = this.queryField.valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((term) => {
         // Get data from assets
         const combined = [];
         // Combine all items
-        this.allContent.forEach(segment => combined.push(segment.items));
+        this.figureData.forEach((segment) => combined.push(segment.figures));
         this.combinedData = combined.flat();
         this.queryTerm = term;
-        this.queryResults = term.length > 0 ? this.combinedData.filter(item =>
-          item['label' + this.currentLocale].toLowerCase().includes(term.toLowerCase()) ||
-          item['description' + this.currentLocale].toLowerCase().includes(term.toLowerCase())) : [];
+        this.queryResults =
+          term.length > 0
+            ? this.combinedData.filter(
+                (item) =>
+                  item['title' + this.currentLocale]
+                    .toLowerCase()
+                    .includes(term.toLowerCase()) ||
+                  item['description' + this.currentLocale]
+                    .toLowerCase()
+                    .includes(term.toLowerCase())
+              )
+            : [];
         // Set results flag, used to show right template
-        this.hasResults = this.queryResults.length === 0 && term.length > 0 ? false : true;
+        this.hasResults =
+          this.queryResults.length === 0 && term.length > 0 ? false : true;
         // Highlight side nav item
-        this.currentSection = this.queryResults.length > 0 ? '' : 's1';
-    });
+        this.currentSection = this.queryResults.length > 0 ? '' : 's0';
+      });
   }
 
-  // Filtering with cloned content. Filter both allContent and query results
+  // Filtering with cloned content. Filter both figureData and query results
   filter(filter: string) {
-    const data = cloneDeep(this.allContent);
+    const data = cloneDeep(this.figureData);
     filter = filter === 'all' ? null : filter;
 
-    const filtered = data.map(s => {
-      s.items = s.items.filter(item => filter ? item[filter] : item);
+    const filtered = data.map((s) => {
+      s.figures = s.figures.filter((item) => (filter ? item[filter] : item));
       return s;
     });
 
-    this.allContent = filter ? filtered : content;
+    this.filteredData = filter ? filtered : this.figureData;
 
     // Set link disabled if no items
-    for (const navItem of this.navItems.slice(1)) {
-      Object.assign(this.navItems.find(item => item.id === navItem.id),
-      {disabled: this.allContent.find(item => item.id === navItem.id).items.length > 0 ? false : true});
+    for (const navItem of this.figureData) {
+      Object.assign(
+        this.figureData.find((item) => item.id === navItem.id),
+        {
+          disabled:
+            this.filteredData.find((item) => item.id === navItem.id).figures
+              .length > 0
+              ? false
+              : true,
+        }
+      );
     }
+
     // Set search results data
-    this.queryResults = this.combinedData?.filter(item => filter ? item.roadmap : item);
+    this.queryResults = this.combinedData?.filter((item) =>
+      filter ? item.roadmap : item
+    );
   }
 
   scrollTo(event: any) {
@@ -228,7 +254,7 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
         target = null;
       }
     }
-    this.router.navigate([], {queryParams: {filter: target}});
+    this.router.navigate([], { queryParams: { filter: target } });
   }
 
   ngAfterViewInit() {
@@ -239,16 +265,23 @@ export class FiguresComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cdr.detectChanges();
 
     // Focus with skip-links
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'search-input') {
-        this.searchInput.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'search-input') {
+          this.searchInput.nativeElement.focus();
+        }
+        if (target === 'main-link') {
+          this.mainFocus.nativeElement.focus();
+        }
       }
-      if (target === 'main-link') {
-        this.mainFocus.nativeElement.focus();
-      }
-    });
+    );
     // Timeout to allow page to render so scroll goes to its correct position
-    if (this.historyService.history.slice(-2, -1).shift()?.includes('/science-research-figures/s')) {
+    if (
+      this.historyService.history
+        .slice(-2, -1)
+        .shift()
+        ?.includes('/science-research-figures/s')
+    ) {
       setTimeout(() => {
         this.window.scrollTo(0, this.dataService.researchFigureScrollLocation);
       }, 10);

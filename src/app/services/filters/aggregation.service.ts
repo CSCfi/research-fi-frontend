@@ -486,7 +486,7 @@ export class AggregationService {
           aggs: {
             funders: {
               terms: {
-                field: 'funderNameFi.keyword',
+                field: 'funderName' + this.localeC + '.keyword',
                 size: 250,
                 order: {
                   _key: 'asc'
@@ -521,7 +521,7 @@ export class AggregationService {
                   terms: {
                     size: 50,
                     field: 'fundingGroupPerson.fundedPersonOrganizationName' + this.localeC + '.keyword',
-                    exclude: ' |Rahoittaja'
+                    exclude: ' |Rahoittaja|Funder|Finansiär',
                   },
                   aggs: {
                     sectorId: {
@@ -578,7 +578,7 @@ export class AggregationService {
                   terms: {
                     size: 50,
                     field: 'organizationConsortium.consortiumSectorName' + this.localeC + '.keyword',
-                    exclude: ' |Rahoittaja'
+                    exclude: ' |Rahoittaja|Funder|Finansiär',
                   },
                   aggs: {
                     sectorId: {

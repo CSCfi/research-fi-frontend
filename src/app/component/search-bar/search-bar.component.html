@@ -5,144 +5,351 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="full-width" #searchBar>
-  <div class="search" [class.no-heading]="router.url !== '/'">
-    <form (keydown.enter)="$event.preventDefault()" class="wrapper">
-      <label i18n="@@searchSlogan" [class.sr-only]="router.url !== '/'" class="text-center h1" for="searchInput" [style.width]="router.url === '/' ? '100%' : '1px'">
-        Hae tietoa tutkimuksesta Suomessa
-      </label>
-      <div class="form-group has-search">
-        <div class="d-flex justify-content-center">
-          <span tabindex="-1" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown" (keydown)="utilityService.tooltipKeydown(elem, $event)" #elem></span>
-        </div>
-        <div class="input-group" #inputGroup>
-          <!-- Search target -->
-          <mat-form-field class="search-target">
-            <mat-label i18n="@@searchTarget">Kohdista haku</mat-label>
-            <mat-select (selectionChange)="changeTarget($event)" [(value)]="selectedTarget">
-              <mat-option *ngFor="let target of targets" [value]="target.value">
-                {{target['viewValue' + currentLocale]}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="search-input form-control row d-flex">
-            <input class="col-10 col-sm-11 pr-0" #searchInput [formControl]="queryField" mat-input type="text" i18n-tooltip="@@searchTooltip" tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa." triggers="focus keydown.escape"
-            (mouseenter)="utilityService.tooltipMouseenter(elem)" i18n-placeholder placeholder="Esim. julkaisu, tieteenala, asiasana" id="searchInput" autocomplete="off" tabindex="0"
-            value="{{searchService.currentInput | async}}" (focus)="onFocus()" (keyup)="setCompletionWidth()" (keydown)="onKeydown($event); disableKeys($event)">
-            <!-- Reset button -->
-            <div class="col-2 col-sm-1 reset align-self-center text-center p-0">
-              <span #resetSearchElem id="resetSearch" *ngIf="searchInput.value !== ''" (click)="resetSearch()" tabindex="0"
-              (mouseenter)="utilityService.tooltipMouseenter(resetSearchElem)" i18n-tooltip="@@resetSearchTooltip" tooltip="Tyhjennä haku" triggers="focus keydown.escape" (keydown)="utilityService.tooltipKeydown(elem, $event)">
-                <i class="fa fa-times"></i>
-              </span>
-            </div>
-            <!-- Completion -->
-            <div class="completion d-none d-lg-flex" style="position: absolute; z-index: 999; pointer-events:none;" *ngIf="completion.length > 0" [ngStyle]="{'margin-left': inputMargin }">
-              <div class="align-self-center">
-                {{completion}}
+<div class="bar row" #searchBar>
+  <!-- TTTV Banner badge only on home page -->
+  <div class="col-3 badge-area align-self-center">
+    <a [href]="'https://tutkittutieto.fi/' + (currentLocale !== 'Fi' ? currentLocale.toLowerCase() + '/' : '')" target="_blank">
+      <img
+        *ngIf="router.url === '/'"
+        class="d-none d-xl-block float-right"
+        [src]="'assets/img/SA_tunnus_' + localeId.toUpperCase() + '.svg'"
+      />
+    </a>
+  </div>
+  <!-- Search -->
+  <div class="col-12 col-xl-6">
+    <div class="search" [class.no-heading]="router.url !== '/'">
+      <form (keydown.enter)="$event.preventDefault()" class="wrapper">
+        <label
+          i18n="@@searchSlogan"
+          [class.sr-only]="router.url !== '/'"
+          class="text-center h1"
+          for="searchInput"
+          [style.width]="router.url === '/' ? '100%' : '1px'"
+        >
+          Hae tietoa tutkimuksesta Suomessa
+        </label>
+        <div class="form-group has-search">
+          <div class="d-flex justify-content-center">
+            <span
+              tabindex="-1"
+              i18n-tooltip="@@searchTooltip"
+              tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
+              triggers="focus keydown"
+              (keydown)="utilityService.tooltipKeydown(elem, $event)"
+              #elem
+            ></span>
+          </div>
+          <div class="input-group" #inputGroup>
+            <!-- Search target -->
+            <mat-form-field class="search-target">
+              <mat-label i18n="@@searchTarget">Kohdista haku</mat-label>
+              <mat-select
+                (selectionChange)="changeTarget($event)"
+                [(value)]="selectedTarget"
+              >
+                <mat-option
+                  *ngFor="let target of targets"
+                  [value]="target.value"
+                >
+                  {{ target['viewValue' + currentLocale] }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="search-input form-control row d-flex">
+              <input
+                class="col-10 col-sm-11 pr-0"
+                #searchInput
+                [formControl]="queryField"
+                mat-input
+                type="text"
+                i18n-tooltip="@@searchTooltip"
+                tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
+                triggers="focus keydown.escape"
+                (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                i18n-placeholder
+                placeholder="Esim. julkaisu, tieteenala, asiasana"
+                id="searchInput"
+                autocomplete="off"
+                tabindex="0"
+                value="{{ searchService.currentInput | async }}"
+                (focus)="onFocus()"
+                (keyup)="setCompletionWidth()"
+                (keydown)="onKeydown($event); disableKeys($event)"
+              />
+              <!-- Reset button -->
+              <div
+                class="col-2 col-sm-1 reset align-self-center text-center p-0"
+              >
+                <span
+                  #resetSearchElem
+                  id="resetSearch"
+                  *ngIf="searchInput.value !== ''"
+                  (click)="resetSearch()"
+                  tabindex="0"
+                  (mouseenter)="
+                    utilityService.tooltipMouseenter(resetSearchElem)
+                  "
+                  i18n-tooltip="@@resetSearchTooltip"
+                  tooltip="Tyhjennä haku"
+                  triggers="focus keydown.escape"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                >
+                  <i class="fa fa-times"></i>
+                </span>
+              </div>
+              <!-- Completion -->
+              <div
+                class="completion d-none d-lg-flex"
+                style="position: absolute; z-index: 999; pointer-events: none"
+                *ngIf="completion.length > 0"
+                [ngStyle]="{ 'margin-left': inputMargin }"
+              >
+                <div class="align-self-center">
+                  {{ completion }}
+                </div>
               </div>
             </div>
-          </div>
-          <!-- Completion assist is for measuring input content width -->
-          <span id="completionAssist"></span>
-          <!-- Send -->
-          <div class="input-group-append">
-            <button mat-button (blur)="showAutoSuggest = false" class="btn btn-search" type="button" (keydown.enter)="setFocus()" (click)="newInput(undefined, undefined)" (keydown.enter)="newInput(undefined, undefined)">
-              <i class="fa fa-search"></i>
-              <span i18n="Search@@searchButton" class="search-button">Hae</span>
-            </button>
-          </div>
-          <div class="search-help" (clickOutside)="onClickedOutside($event)">
-            <button  [ngClass]="showHelp ? 'up' : 'down'" mat-button (click)="showHelp = !showHelp">
-              <ng-container i18n="Search help button@@searchHelpButton">Hakuohje</ng-container>
-            </button>
-            <div class="search-helper" *ngIf="showHelp">
-              <p i18n="Search help@@searchHelp1">Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi tai esimerkiksi organisaation nimi.</p>
-              <p i18n="Search help@@searchHelp2">Hakutulosten rajaaminen onnistuu haun jälkeen haku -näkymässä.</p>
-              <p i18n="Search help@@searchHelp3">Haku kohdistuu julkaisuihin, hankkeisiin, infrastruktuureihin ja organisaatioihin.</p>
+            <!-- Completion assist is for measuring input content width -->
+            <span id="completionAssist"></span>
+            <!-- Send -->
+            <div class="input-group-append">
+              <button
+                mat-button
+                (blur)="showAutoSuggest = false"
+                class="btn btn-search"
+                type="button"
+                (keydown.enter)="setFocus()"
+                (click)="newInput(undefined, undefined)"
+                (keydown.enter)="newInput(undefined, undefined)"
+              >
+                <i class="fa fa-search"></i>
+                <span i18n="Search@@searchButton" class="search-button"
+                  >Hae</span
+                >
+              </button>
             </div>
-          </div>
+            <div class="search-help" (clickOutside)="onClickedOutside($event)">
+              <button
+                [ngClass]="showHelp ? 'up' : 'down'"
+                mat-button
+                (click)="showHelp = !showHelp"
+              >
+                <ng-container i18n="Search help button@@searchHelpButton"
+                  >Hakuohje</ng-container
+                >
+              </button>
+              <div class="search-helper" *ngIf="showHelp">
+                <p i18n="Search help@@searchHelp1">
+                  Kirjoita hakukenttään julkaisun nimi, asiasana, hankkeen nimi
+                  tai esimerkiksi organisaation nimi.
+                </p>
+                <p i18n="Search help@@searchHelp2">
+                  Hakutulosten rajaaminen onnistuu haun jälkeen haku -näkymässä.
+                </p>
+                <p i18n="Search help@@searchHelp3">
+                  Haku kohdistuu julkaisuihin, hankkeisiin, infrastruktuureihin
+                  ja organisaatioihin.
+                </p>
+              </div>
+            </div>
 
             <!-- Auto suggest -->
-          <div class="auto-suggest position-absolute" *ngIf="showAutoSuggest" role="listbox">
-            <div class="row helper" *ngIf="!queryField.value || queryField.value.length < 3">
-              <div class="col">
-                  <span *ngIf="searchInput.value.length < 3" i18n="Search suggest@@searchSuggest1">Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span>
-                  <span *ngIf="searchInput.value.length >= 3" i18n="Search suggest@@searchSuggest2">Muuta hakua saadaksesi ehdotuksia</span>
-              </div>
-            </div>
-            <div class="row" *ngIf="!topData?.length > 0 && queryField.value.length > 2">
-              <div class="col text-center">
-                <mat-spinner [diameter]="40"></mat-spinner>
-              </div>
-            </div>
-            <div class="results" *ngIf="topData">
-              <div class="row helper" *ngIf="topData[0] && topData[0].source.doc_count === 0">
+            <div
+              class="auto-suggest position-absolute"
+              *ngIf="showAutoSuggest"
+              role="listbox"
+            >
+              <div
+                class="row helper"
+                *ngIf="!queryField.value || queryField.value.length < 3"
+              >
                 <div class="col">
-                  <span i18n="Suggest results@@suggestResults1">Ei ehdotuksia</span>
+                  <span
+                    *ngIf="searchInput.value.length < 3"
+                    i18n="Search suggest@@searchSuggest1"
+                    >Kirjoita vähintään 3 kirjainta saadaksesi ehdotuksia</span
+                  >
+                  <span
+                    *ngIf="searchInput.value.length >= 3"
+                    i18n="Search suggest@@searchSuggest2"
+                    >Muuta hakua saadaksesi ehdotuksia</span
+                  >
                 </div>
               </div>
-              <div *ngFor="let data of topData">
-                <div class="row results" *ngIf="data.source.doc_count > 0">
-                  <div class ="col mx-auto index" *ngIf="data.source.doc_count > 0">
-                    <h2 class="title">{{data.translation}}</h2>
-                    <div class="top-results" *ngFor="let doc of docList">
-                      <ul *ngIf="data.index === doc.index">
-                        <app-list-item *ngFor="let item of data.source.index_results.hits.hits; let index = index" class="list-group-item" [doc]="data.index" [id]="item._source[doc.link]">
-                          <a class="item" tabindex="-1" routerLink="/results/{{data.index}}/{{item._source[doc.link]}}" (click)="addToHistory(item._source[doc.link])" 
-                          [innerHtml]="item._source[doc.field] | highlight: currentInput"></a>
-                        </app-list-item>
-                      </ul>
-                    </div>
-                    <app-list-item *ngIf="data.source.doc_count > 3" class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
-                      <div align="center">
-                        <a tabindex="-1" class="font-weight-bold" (keydown.enter)="newInput(data.index, undefined)"
-                          (click)="newInput(data.index, undefined)" href="javascript:void(0);">
-                          <ng-container i18n="Suggest results@@suggestResults2">Näytä kaikki </ng-container>{{data.translation.toLowerCase()}}
-                        </a> 
-                      </div>
-                  </app-list-item>
+              <div
+                class="row"
+                *ngIf="topData?.length === 0 && queryField.value.length > 2"
+              >
+                <div class="col text-center">
+                  <mat-spinner
+                    [diameter]="40"
+                    i18n-aria-label="@@loading"
+                    aria-label="Ladataan"
+                  ></mat-spinner>
+                </div>
+              </div>
+              <div class="results" *ngIf="topData">
+                <div
+                  class="row helper"
+                  *ngIf="topData[0] && topData[0].source.doc_count === 0"
+                >
+                  <div class="col">
+                    <span i18n="Suggest results@@suggestResults1"
+                      >Ei ehdotuksia</span
+                    >
                   </div>
                 </div>
-              </div>
-              <div class="col px-0 pb-4" [class.other-links]="otherData">
-                <ul>
-                  <li *ngFor="let data of otherData">
-                    <app-list-item class="list-group-item tab-link" [doc]="data.index" [term]="queryField">
-                      <a tabindex="-1" class="font-weight-bold" (click)="newInput(data.index, undefined)" href="javascript:void(0);">
-                        <ng-container i18n="Suggest results@@suggestResults3">Näytä kaikki </ng-container>{{data.translation}}
-                      </a>
-                    </app-list-item>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- Query history -->
-            <div class="row history" *ngIf="queryHistory">
-              <div class="col" *ngIf="queryHistory[0] === '' || this.queryHistory.length === 0; else showHistory ">
-                <app-list-item *ngFor="let additional of additionalItems" [empty]="additional"></app-list-item>
-              </div>
-              <ng-template #showHistory>
-                <div class="col query-history">
-                  <h3 class="font-weight-bold" i18n="Search history@@searchHistory">Hait viimeksi:</h3>
+                <div *ngFor="let data of topData">
+                  <div class="row results" *ngIf="data.source.doc_count > 0">
+                    <div
+                      class="col mx-auto index"
+                      *ngIf="data.source.doc_count > 0"
+                    >
+                      <h2 class="title">{{ data.translation }}</h2>
+                      <div class="top-results" *ngFor="let doc of docList">
+                        <ul *ngIf="data.index === doc.index">
+                          <app-list-item
+                            *ngFor="
+                              let item of data.source.index_results.hits.hits;
+                              let index = index
+                            "
+                            class="list-group-item"
+                            [doc]="data.index"
+                            [id]="item._source[doc.link]"
+                          >
+                            <a
+                              class="item"
+                              tabindex="-1"
+                              routerLink="/results/{{ data.index }}/{{
+                                item._source[doc.link]
+                              }}"
+                              (click)="addToHistory(item._source[doc.link])"
+                              [innerHtml]="
+                                item._source[doc.field]
+                                  | highlight: currentInput
+                              "
+                            ></a>
+                          </app-list-item>
+                        </ul>
+                      </div>
+                      <app-list-item
+                        *ngIf="data.source.doc_count > 3"
+                        class="list-group-item tab-link"
+                        [doc]="data.index"
+                        [term]="queryField"
+                      >
+                        <div align="center">
+                          <a
+                            tabindex="-1"
+                            class="font-weight-bold"
+                            (keydown.enter)="newInput(data.index, undefined)"
+                            (click)="newInput(data.index, undefined)"
+                            href="javascript:void(0);"
+                          >
+                            <ng-container
+                              i18n="Suggest results@@suggestResults2"
+                              >Näytä kaikki </ng-container
+                            >{{ data.translation.toLowerCase() }}
+                          </a>
+                        </div>
+                      </app-list-item>
+                    </div>
+                  </div>
+                </div>
+                <div class="col px-0 pb-4" [class.other-links]="otherData">
                   <ul>
-                    <app-list-item *ngFor="let item of queryHistory" class="list-group-item" [historyItem]="item">
-                      <a tabindex="-1" href="javascript:void(0);" (click)="newInput(undefined, item); clearResponse()">{{item}}</a>
-                    </app-list-item>
-                  </ul>
-                  <ul>
-                  <app-list-item *ngFor="let additional of additionalItems" class="list-group-item" [clear]="additional">
-                    <a tabindex="-1" href="javascript:void(0);" (click)="clearHistory()" i18n="Empty search history@@emptySearchHistory">Tyhjennä hakuhistoria</a>
-                  </app-list-item>
-                  <app-list-item *ngFor="let additional of additionalItems" [empty]="additional"></app-list-item>
+                    <li *ngFor="let data of otherData">
+                      <app-list-item
+                        class="list-group-item tab-link"
+                        [doc]="data.index"
+                        [term]="queryField"
+                      >
+                        <a
+                          tabindex="-1"
+                          class="font-weight-bold"
+                          (click)="newInput(data.index, undefined)"
+                          href="javascript:void(0);"
+                        >
+                          <ng-container i18n="Suggest results@@suggestResults3"
+                            >Näytä kaikki </ng-container
+                          >{{ data.translation }}
+                        </a>
+                      </app-list-item>
+                    </li>
                   </ul>
                 </div>
-              </ng-template>
+              </div>
+              <!-- Query history -->
+              <div class="row history" *ngIf="queryHistory">
+                <div
+                  class="col"
+                  *ngIf="
+                    queryHistory[0] === '' || this.queryHistory.length === 0;
+                    else showHistory
+                  "
+                >
+                  <app-list-item
+                    *ngFor="let additional of additionalItems"
+                    [empty]="additional"
+                  ></app-list-item>
+                </div>
+                <ng-template #showHistory>
+                  <div class="col query-history">
+                    <h3
+                      class="font-weight-bold"
+                      i18n="Search history@@searchHistory"
+                    >
+                      Hait viimeksi:
+                    </h3>
+                    <ul>
+                      <app-list-item
+                        *ngFor="let item of queryHistory"
+                        class="list-group-item"
+                        [historyItem]="item"
+                      >
+                        <a
+                          tabindex="-1"
+                          href="javascript:void(0);"
+                          (click)="newInput(undefined, item); clearResponse()"
+                          >{{ item }}</a
+                        >
+                      </app-list-item>
+                    </ul>
+                    <ul>
+                      <app-list-item
+                        *ngFor="let additional of additionalItems"
+                        class="list-group-item"
+                        [clear]="additional"
+                      >
+                        <a
+                          tabindex="-1"
+                          href="javascript:void(0);"
+                          (click)="clearHistory()"
+                          i18n="Empty search history@@emptySearchHistory"
+                          >Tyhjennä hakuhistoria</a
+                        >
+                      </app-list-item>
+                      <app-list-item
+                        *ngFor="let additional of additionalItems"
+                        [empty]="additional"
+                      ></app-list-item>
+                    </ul>
+                  </div>
+                </ng-template>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-  <div *ngIf="showAutoSuggest" id="overlay" (click)="showAutoSuggest === false" [ngStyle]="{'margin-top': topMargin + 'px', 'height': browserHeight + 'px'}"></div>
 </div>
+
+<!-- Overlay when auto suggest is active -->
+<div
+  *ngIf="showAutoSuggest"
+  id="overlay"
+  (click)="(showAutoSuggest === false)"
+  [ngStyle]="{ 'margin-top': topMargin + 'px', height: browserHeight + 'px' }"
+></div>

@@ -137,6 +137,8 @@ import { ResultCountComponent } from './component/results/result-count/result-co
 import { BarComponent } from './component/visualisation/bar/bar.component';
 import { FigureFiltersComponent } from './component/science-politics/figures/figure-filters/figure-filters.component';
 import { FiguresInfoComponent } from './component/science-politics/figures/figures-info/figures-info.component';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { BannerComponent } from './component/home-page/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -198,7 +200,9 @@ import { FiguresInfoComponent } from './component/science-politics/figures/figur
     ResultCountComponent,
     BarComponent,
     FigureFiltersComponent,
-    FiguresInfoComponent
+    FiguresInfoComponent,
+    SanitizeHtmlPipe,
+    BannerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
