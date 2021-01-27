@@ -68,7 +68,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor( private searchService: SearchService, private sortService: SortService, @Inject(WINDOW) private window: Window,
                private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
+               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) public localeId: string, private tabChangeService: TabChangeService,
                private resizeService: ResizeService, public utilityService: UtilityService, private route: ActivatedRoute,
                public dialog: MatDialog, private privacyService: PrivacyService) {
                  // Capitalize first letter of locale
