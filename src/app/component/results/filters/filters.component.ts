@@ -165,7 +165,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
         break;
       }
       case 'datasets': {
-        this.parentPanel = '';
+        this.parentPanel = 'year';
         break;
       }
       case 'infrastructures': {
