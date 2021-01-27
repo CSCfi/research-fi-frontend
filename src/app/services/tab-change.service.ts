@@ -1,29 +1,85 @@
 import { Injectable, LOCALE_ID, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { faFileAlt, faUsers, faBriefcase, faSpinner, faAlignLeft, faCalculator, faUniversity } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFileAlt,
+  faUsers,
+  faBriefcase,
+  faSpinner,
+  faAlignLeft,
+  faCalculator,
+  faUniversity,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TabChangeService {
   tabData = [
-    { data: 'publications', label: $localize`:@@publications:Julkaisut`, link: 'publications', icon: faFileAlt, singular: $localize`:@@publication:julkaisu`,
-      tooltip: $localize`:@@publicationsTooltip:Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.`},
-    { data: '',  label: $localize`:@@authors:Tutkijat`, link: undefined, icon: faUsers, singular: $localize`:@@author:tutkija`,
-      tooltip: $localize`:@@authorsTooltip:Suomessa toimivia tutkijoita.` },
-    { data: 'fundings', label: $localize`:@@fundings:Hankkeet`, link: 'fundings', icon: faBriefcase, singular: $localize`:@@funding:hanke`,
-      tooltip: $localize`:@@fundingsTooltip:Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.` },
-    { data: 'datasets', label: $localize`:@@datasets:Aineistot`, link: 'datasets', icon: faAlignLeft, singular: $localize`:@@dataset:aineisto`,
-      tooltip: $localize`:@@datasetsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.` },
-    { data: 'infrastructures', label: $localize`:@@infrastructures:Infrastruktuurit`, link: 'infrastructures', icon: faCalculator, singular: $localize`:@@infrastructure:infrastruktuuri`,
-      tooltip: $localize`:@@infrastructuresTooltip:Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.`  },
-    { data: '', label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`, link: undefined, icon: faSpinner, singular: $localize`:@@otherResearchActivity:muu tutkimustoiminta`,
-      tooltip: $localize`:@@otherResearcActivitiesTooltip:Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.`  },
-    { data: 'organizations', label: $localize`:@@organizations:Organisaatiot`, link: 'organizations', icon: faUniversity, singular: $localize`:@@organizationSingular:organisaatio`,
-      tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.`  }
+    {
+      data: 'publications',
+      label: $localize`:@@publications:Julkaisut`,
+      link: 'publications',
+      icon: faFileAlt,
+      singular: $localize`:@@publication:julkaisu`,
+      tooltip: $localize`:@@publicationsTooltip:Suomalaisten yliopistojen, ammattikorkeakoulujen, tutkimuslaitosten ja yliopistosairaaloiden julkaisut.`,
+    },
+    {
+      data: '',
+      label: $localize`:@@authors:Tutkijat`,
+      link: undefined,
+      icon: faUsers,
+      singular: $localize`:@@author:tutkija`,
+      tooltip: $localize`:@@authorsTooltip:Suomessa toimivia tutkijoita.`,
+    },
+    {
+      data: 'fundings',
+      label: $localize`:@@fundings:Hankkeet`,
+      link: 'fundings',
+      icon: faBriefcase,
+      singular: $localize`:@@funding:hanke`,
+      tooltip: $localize`:@@fundingsTooltip:Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.`,
+    },
+    {
+      data: 'datasets',
+      label: $localize`:@@datasets:Aineistot`,
+      link: 'datasets',
+      icon: faAlignLeft,
+      singular: $localize`:@@dataset:aineisto`,
+      tooltip: $localize`:@@datasetsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.`,
+    },
+    {
+      data: 'infrastructures',
+      label: $localize`:@@infrastructures:Infrastruktuurit`,
+      link: 'infrastructures',
+      icon: faCalculator,
+      singular: $localize`:@@infrastructure:infrastruktuuri`,
+      tooltip: $localize`:@@infrastructuresTooltip:Suomessa ylläpidettäviä tutkimusinfrastruktuureja. Infrastruktuurit ovat keskitetysti, hajautetusti tai virtuaalisesti saatavilla olevia välineitä, laitteistoja, tietoverkkoja, tietokantoja, aineistoja ja palveluita, jotka mahdollistavat tutkimuksen tekemistä.`,
+    },
+    {
+      data: '',
+      label: $localize`:@@otherResearchActivities:Muut tutkimusaktiviteetit`,
+      link: undefined,
+      icon: faSpinner,
+      singular: $localize`:@@otherResearchActivity:muu tutkimustoiminta`,
+      tooltip: $localize`:@@otherResearcActivitiesTooltip:Tutkijoiden tutkimustyöhön liittyvät asiantuntijatehtävät, pätevyydet, tunnustukset ja muu toiminta.`,
+    },
+    {
+      data: 'organizations',
+      label: $localize`:@@organizations:Organisaatiot`,
+      link: 'organizations',
+      icon: faUniversity,
+      singular: $localize`:@@organizationSingular:organisaatio`,
+      tooltip: $localize`:@@organizationsTooltip:Tiedejatutkimus.fi -palveluun tietoja toimittavat tutkimusorganisaatiot ja &#8209;rahoittajat.`,
+    },
   ];
 
-  private tabSource = new BehaviorSubject({data: '', label: '', link: '', icon: '', singular: ''});
+  private tabSource = new BehaviorSubject({
+    data: '',
+    label: '',
+    link: '',
+    icon: '',
+    singular: '',
+  });
   private focusSource = new BehaviorSubject(false);
   private focusTarget = new BehaviorSubject('');
   private skipToInput = new BehaviorSubject(true);
@@ -38,7 +94,7 @@ export class TabChangeService {
   locale: string;
   focus: string;
 
-  constructor( @Inject( LOCALE_ID ) protected localeId: string ) { }
+  constructor(@Inject(LOCALE_ID) protected localeId: string) {}
 
   // If focus is true, focus result header.
   changeFocus(focus) {
@@ -53,7 +109,13 @@ export class TabChangeService {
     this.newPageSource.next(true);
   }
 
-  changeTab(tab: {data: string; label: string, link: string, icon: any, singular: string}) {
+  changeTab(tab: {
+    data: string;
+    label: string;
+    link: string;
+    icon: any;
+    singular: string;
+  }) {
     this.tab = tab.link;
     this.tabSource.next(tab);
   }
@@ -64,6 +126,8 @@ export class TabChangeService {
   }
 
   resetQueryParams() {
-    Object.values(this.tabData).forEach(tab => this.tabQueryParams[tab.link] = {});
+    Object.values(this.tabData).forEach(
+      (tab) => (this.tabQueryParams[tab.link] = {})
+    );
   }
 }

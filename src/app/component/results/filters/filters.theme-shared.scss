@@ -1,119 +1,122 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 @import '~@angular/material/theming';
 
 @mixin app-filters-theme-shared($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    modal-container, app-filters {
-
-        .filter-sidebar {
-            background: mat-color($primary, 100);
-        }
-
-        .filter-icon {
-            color: mat-color($primary);
-        }
-
-        .error-color {
-            color: red!important;
-        }
-        
-        h3 {
-            color: mat-color($primary);
-        }
-
-        .filter-sidebar h3 {
-            background: mat-color($primary, 100);
-        }
-
-        span.mat-checkbox-label, span.label {
-            color: mat-contrast($primary, 200);
-        }
-
-        .mat-checkbox .mat-checkbox-frame {
-            background: mat-contrast($primary, 500);
-        }
-
-        span.amount {
-            color: mat-contrast($primary, 400);
-        }
-        
-        // .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
-        //     border-bottom: 1px solid mat-color($primary, 400);
-        // }
-
-        // .mat-expansion-panel {
-        //     background: unset!important;
-        // }
-
-        mat-expansion-panel.mat-expansion-panel.mat-expanded {
-            background: mat-color($primary, 50);
-        }
-
-        .mat-expansion-panel-header, .row.single {
-            background: mat-color($primary, 50);
-        }
-
-        .mat-expansion-indicator:after {
-            color: mat-color($primary)!important;
-        }
-
-        button.show-options {
-            color: mat-color($primary);
-        }
-        
-        .navbar-toggler {
-            background: mat-color($primary, 50);
-            border: 1px solid mat-color($primary);
-        }
-
-        // Select all
-        .row.select-all:hover {
-            background: rgba(0, 0, 0, 0.04);        
-        }
-
-        // Single checkbox items
-        .mat-checkbox:hover {
-            background: none!important;
-        }
-
-        .separator {
-            border: 0.5px solid mat-color($primary);
-        }
-
-        .show-more {
-            color: mat-color($primary);
-        }
-
-        .modal-close {
-            background: mat-color($primary, 500);
-            color: mat-contrast($primary, 500);
-        }
-        
-        .shared {
-            tr:nth-child(odd) {
-                background-color: mat-color($primary, 50);
-            }
-            
-            th, td {
-                color: mat-color($primary);
-            }
-            
-            td {
-                p:first-child {
-                    color: mat-contrast($primary, 50);
-                }
-            }
-            
-            a {
-                color: mat-color($primary);
-            }
-        }
+  modal-container,
+  app-filters {
+    .filter-sidebar {
+      background: mat-color($primary, 100);
     }
+
+    .filter-icon {
+      color: mat-color($primary);
+    }
+
+    .error-color {
+      color: red !important;
+    }
+
+    h3 {
+      color: mat-color($primary);
+    }
+
+    .filter-sidebar h3 {
+      background: mat-color($primary, 100);
+    }
+
+    span.mat-checkbox-label,
+    span.label {
+      color: mat-contrast($primary, 200);
+    }
+
+    .mat-checkbox .mat-checkbox-frame {
+      background: mat-contrast($primary, 500);
+    }
+
+    span.amount {
+      color: mat-contrast($primary, 400);
+    }
+
+    // .mat-expansion-panel:not([class*=mat-elevation-z]):not(:last-child) {
+    //     border-bottom: 1px solid mat-color($primary, 400);
+    // }
+
+    // .mat-expansion-panel {
+    //     background: unset!important;
+    // }
+
+    mat-expansion-panel.mat-expansion-panel.mat-expanded {
+      background: mat-color($primary, 50);
+    }
+
+    .mat-expansion-panel-header,
+    .row.single {
+      background: mat-color($primary, 50);
+    }
+
+    .mat-expansion-indicator:after {
+      color: mat-color($primary) !important;
+    }
+
+    button.show-options {
+      color: mat-color($primary);
+    }
+
+    .navbar-toggler {
+      background: mat-color($primary, 50);
+      border: 1px solid mat-color($primary);
+    }
+
+    // Select all
+    .row.select-all:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    // Single checkbox items
+    .mat-checkbox:hover {
+      background: none !important;
+    }
+
+    .separator {
+      border: 0.5px solid mat-color($primary);
+    }
+
+    .show-more {
+      color: mat-color($primary);
+    }
+
+    .modal-close {
+      background: mat-color($primary, 500);
+      color: mat-contrast($primary, 500);
+    }
+
+    .shared {
+      tr:nth-child(odd) {
+        background-color: mat-color($primary, 50);
+      }
+
+      th,
+      td {
+        color: mat-color($primary);
+      }
+
+      td {
+        p:first-child {
+          color: mat-contrast($primary, 50);
+        }
+      }
+
+      a {
+        color: mat-color($primary);
+      }
+    }
+  }
 }

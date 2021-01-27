@@ -5,8 +5,21 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, OnDestroy, Input, OnChanges, ViewChildren, QueryList,
-  Inject, TemplateRef, ElementRef, PLATFORM_ID, ViewEncapsulation, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  OnChanges,
+  ViewChildren,
+  QueryList,
+  Inject,
+  TemplateRef,
+  ElementRef,
+  PLATFORM_ID,
+  ViewEncapsulation,
+  ViewChild,
+} from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SortService } from '../../../services/sort.service';
@@ -32,14 +45,14 @@ import { DataService } from 'src/app/services/data.service';
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   @Input() responseData: any;
   @Input() tabData: string;
   @Input() showButton: boolean;
   @ViewChildren('filterSearch') filterSearch: QueryList<ElementRef>;
-  @ViewChild('openFilters', {read: ElementRef}) openFiltersButton: ElementRef;
+  @ViewChild('openFilters', { read: ElementRef }) openFiltersButton: ElementRef;
 
   currentFilter: any[];
   currentSingleFilter: any[];
@@ -72,15 +85,27 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   filterSearchHeader = $localize`:@@filterSearchHeader:Rajaa hakua`;
   filterNewsHeader = $localize`:@@filterNewsHeader:Rajaa uutisia`;
 
-  constructor( private router: Router,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window, @Inject(DOCUMENT) private document: Document,
-               private modalService: BsModalService, private route: ActivatedRoute, public utilityService: UtilityService,
-               private sortService: SortService, private publicationFilters: PublicationFilterService,
-               private personFilters: PersonFilterService, private fundingFilters: FundingFilterService, private datasetFilters: DatasetFilterService,
-               private infrastructureFilters: InfrastructureFilterService, private organizationFilters: OrganizationFilterService,
-               private newsFilters: NewsFilterService, @Inject(PLATFORM_ID) private platformId: object, private dataService: DataService ) {
-                this.showMoreCount = [];
-                }
+  constructor(
+    private router: Router,
+    private resizeService: ResizeService,
+    @Inject(WINDOW) private window: Window,
+    @Inject(DOCUMENT) private document: Document,
+    private modalService: BsModalService,
+    private route: ActivatedRoute,
+    public utilityService: UtilityService,
+    private sortService: SortService,
+    private publicationFilters: PublicationFilterService,
+    private personFilters: PersonFilterService,
+    private fundingFilters: FundingFilterService,
+    private datasetFilters: DatasetFilterService,
+    private infrastructureFilters: InfrastructureFilterService,
+    private organizationFilters: OrganizationFilterService,
+    private newsFilters: NewsFilterService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private dataService: DataService
+  ) {
+    this.showMoreCount = [];
+  }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
@@ -93,25 +118,33 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
     // Focus on the close button when modal opens
     this.modalService.onShown
-    .pipe(tap(() => (document.querySelector('[autofocus]') as HTMLElement).focus() ))
-    .subscribe();
+      .pipe(
+        tap(() =>
+          (document.querySelector('[autofocus]') as HTMLElement).focus()
+        )
+      )
+      .subscribe();
 
     // Visualisation click filtering
-    this.visualFilterSub = this.dataService.newFilter.subscribe(f => this.selectionChange(f.filter, f.key, true))
+    this.visualFilterSub = this.dataService.newFilter.subscribe((f) =>
+      this.selectionChange(f.filter, f.key, true)
+    );
 
     // Focus on open filters button when modal closes
     this.modalService.onHidden
-    .pipe(tap(() => {
-      this.openFiltersButton.nativeElement.focus() ;
-    }))
-    .subscribe();
+      .pipe(
+        tap(() => {
+          this.openFiltersButton.nativeElement.focus();
+        })
+      )
+      .subscribe();
 
     // Subscribe to queryParams
-    this.queryParamSub = this.route.queryParams.subscribe(params => {
+    this.queryParamSub = this.route.queryParams.subscribe((params) => {
       this.activeFilters = params;
     });
 
-    this.paramSub = this.route.params.subscribe(params => {
+    this.paramSub = this.route.params.subscribe((params) => {
       if (this.currentInput !== params.input || !params.input) {
         this.currentInput = params.input;
       }
@@ -150,7 +183,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     }
     // Browser check
     if (isPlatformBrowser(this.platformId)) {
-      this.resizeSub = this.resizeService.onResize$.subscribe(dims => this.onResize(dims));
+      this.resizeSub = this.resizeService.onResize$.subscribe((dims) =>
+        this.onResize(dims)
+      );
     }
   }
 
@@ -230,7 +265,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       // Restore focus after clicking a filter
       if (this.activeElement && isPlatformBrowser(this.platformId)) {
         setTimeout(() => {
-          (this.document.querySelector('#' + this.activeElement) as HTMLElement)?.focus();
+          (this.document.querySelector(
+            '#' + this.activeElement
+          ) as HTMLElement)?.focus();
         }, 1);
       }
     }
@@ -240,7 +277,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   selectionChange(filter, key, forceOn = false) {
     let selectedFilters: any = {};
     // Reset selected filters
-    if (!this.activeFilters[filter]) {selectedFilters[filter] = []; }
+    if (!this.activeFilters[filter]) {
+      selectedFilters[filter] = [];
+    }
     // Key comes as an array from selectAll method, single selects are strings
     if (Array.isArray(key)) {
       selectedFilters[filter] = key;
@@ -249,7 +288,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       // Filters cause problems if different data types
       key = key.toString();
       // Transform single active filter into array
-      if (this.activeFilters[filter] && !Array.isArray(this.activeFilters[filter])) {
+      if (
+        this.activeFilters[filter] &&
+        !Array.isArray(this.activeFilters[filter])
+      ) {
         const transformed = [];
         transformed[filter] = [this.activeFilters[filter]];
         this.activeFilters = transformed;
@@ -257,7 +299,9 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       }
       // Merge selection with active filter of dynamic key
       if (this.activeFilters[filter]) {
-        const combined = this.activeFilters[filter].concat(selectedFilters[filter] ? selectedFilters[filter] : []);
+        const combined = this.activeFilters[filter].concat(
+          selectedFilters[filter] ? selectedFilters[filter] : []
+        );
         selectedFilters[filter] = [...new Set(combined)];
       }
 
@@ -265,7 +309,10 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       if (selectedFilters[filter] && selectedFilters[filter].includes(key)) {
         // If new filter is not forced on (visualisations)
         if (!forceOn) {
-          selectedFilters[filter].splice(selectedFilters[filter].indexOf(key), 1);
+          selectedFilters[filter].splice(
+            selectedFilters[filter].indexOf(key),
+            1
+          );
         }
       } else {
         // Add new filter
@@ -282,27 +329,29 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
 
     // Merge selection with active filters and navigate
     const merged = Object.assign({}, this.activeFilters, selectedFilters);
-    this.router.navigate([],
-      { queryParams: merged,
-        queryParamsHandling: 'merge'
-      });
+    this.router.navigate([], {
+      queryParams: merged,
+      queryParamsHandling: 'merge',
+    });
   }
 
   selectAll(filter, subFilter) {
     // Push subfilter items into array
     const itemArr = [];
-    subFilter.subData.forEach(item => {
+    subFilter.subData.forEach((item) => {
       itemArr.push(item.key.toString());
     });
     let result = [];
     // Check if all items already selected
     if (this.activeFilters[filter]) {
-      const allSelected = (itemArr.every(value => this.activeFilters[filter].indexOf(value) >= 0));
+      const allSelected = itemArr.every(
+        (value) => this.activeFilters[filter].indexOf(value) >= 0
+      );
       // Create new set from active filters, prevents push to activeFilters
       result = [...new Set(this.activeFilters[filter])];
       if (allSelected) {
         // Remove all from active
-        itemArr.forEach(item => result.splice(result.indexOf(item), 1));
+        itemArr.forEach((item) => result.splice(result.indexOf(item), 1));
       } else {
         // Add all new selections and remove duplicates
         result.push(...itemArr);
@@ -333,20 +382,38 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
       case 'from': {
         this.fromYear = event.value;
         if (event.value) {
-          this.toYear ? source.map(x => x.key >= event.value && x.key <= this.toYear ? selected.push(x.key.toString()) : null) :
-          source.map(x => x.key >= event.value ? selected.push(x.key.toString()) : null);
+          this.toYear
+            ? source.map((x) =>
+                x.key >= event.value && x.key <= this.toYear
+                  ? selected.push(x.key.toString())
+                  : null
+              )
+            : source.map((x) =>
+                x.key >= event.value ? selected.push(x.key.toString()) : null
+              );
         } else {
-          source.map(x => x.key <= this.toYear ? selected.push(x.key.toString()) : null);
+          source.map((x) =>
+            x.key <= this.toYear ? selected.push(x.key.toString()) : null
+          );
         }
         break;
       }
       case 'to': {
         this.toYear = event.value;
         if (event.value) {
-          this.fromYear ? source.map(x => x.key <= event.value && x.key >= this.fromYear ? selected.push(x.key.toString()) : null) :
-          source.map(x => x.key <= event.value ? selected.push(x.key.toString()) : null);
+          this.fromYear
+            ? source.map((x) =>
+                x.key <= event.value && x.key >= this.fromYear
+                  ? selected.push(x.key.toString())
+                  : null
+              )
+            : source.map((x) =>
+                x.key <= event.value ? selected.push(x.key.toString()) : null
+              );
         } else {
-          source.map(x => x.key >= this.fromYear ? selected.push(x.key.toString()) : null);
+          source.map((x) =>
+            x.key >= this.fromYear ? selected.push(x.key.toString()) : null
+          );
         }
         break;
       }
@@ -356,57 +423,74 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   filterInput(event, parent) {
-    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
+    const term =
+      event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     const source = this.responseData.aggregations[parent];
     source.original = source.original ? source.original : source.buckets;
-    const matchArr = source.original.filter(item => (item.label ? item.label : item.key).toString().toLowerCase().includes(term));
+    const matchArr = source.original.filter((item) =>
+      (item.label ? item.label : item.key)
+        .toString()
+        .toLowerCase()
+        .includes(term)
+    );
     if (matchArr.length > 0) {
       source.buckets = matchArr;
-      this.showMoreCount[parent] = {count: term.length ? matchArr.length : this.defaultOpen};
+      this.showMoreCount[parent] = {
+        count: term.length ? matchArr.length : this.defaultOpen,
+      };
     } else {
       source.buckets = [];
-      this.showMoreCount[parent] = {count: this.defaultOpen};
+      this.showMoreCount[parent] = { count: this.defaultOpen };
     }
     // Set term per parent
     source.filterTerm = term;
   }
 
   subFilterInput(event, parent, child) {
-    const term = event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
+    const term =
+      event.target.value.length > 0 ? event.target.value.toLowerCase() : '';
     // this.filterTerm = term;
-    const source = this.responseData.aggregations[parent].buckets.find(sub => sub.key === child);
+    const source = this.responseData.aggregations[parent].buckets.find(
+      (sub) => sub.key === child
+    );
     source.original = source.original ? source.original : source.subData;
-    const matchArr = source.original.filter(subItem => subItem.label.toLowerCase().includes(term));
+    const matchArr = source.original.filter((subItem) =>
+      subItem.label.toLowerCase().includes(term)
+    );
     if (matchArr.length > 0) {
       source.subData = matchArr;
-      this.showMoreCount[child] = {count: term.length ? matchArr.length : this.defaultOpen};
+      this.showMoreCount[child] = {
+        count: term.length ? matchArr.length : this.defaultOpen,
+      };
     } else {
       source.subData = [];
-      this.showMoreCount[child] = {count: this.defaultOpen};
+      this.showMoreCount[child] = { count: this.defaultOpen };
     }
     // Set term per parent
     source.filterTerm = term;
   }
 
   setOpenStatus(parent) {
-    this.currentFilter.find(item => item.field === parent).open = true;
+    this.currentFilter.find((item) => item.field === parent).open = true;
   }
 
   closePanel(parent) {
-    this.currentFilter.find(item => item.field === parent).open = false;
+    this.currentFilter.find((item) => item.field === parent).open = false;
   }
 
   showMore(parent) {
-    this.showMoreCount[parent] = this.showMoreCount[parent] ? {count: this.showMoreCount[parent].count + this.defaultOpen} :
-                                                              {count: this.defaultOpen * 2};
+    this.showMoreCount[parent] = this.showMoreCount[parent]
+      ? { count: this.showMoreCount[parent].count + this.defaultOpen }
+      : { count: this.defaultOpen * 2 };
   }
 
   showLess(parent) {
-    this.showMoreCount[parent] =  {count: this.showMoreCount[parent].count - this.defaultOpen};
+    this.showMoreCount[parent] = {
+      count: this.showMoreCount[parent].count - this.defaultOpen,
+    };
   }
 
   trackByFn(index: any, item) {
     return item.key;
   }
-
 }

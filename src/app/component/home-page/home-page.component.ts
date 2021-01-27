@@ -5,10 +5,22 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, ViewChild, ViewChildren, ElementRef, Inject, PLATFORM_ID, QueryList, AfterViewInit,
-         ChangeDetectorRef, LOCALE_ID, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+  ElementRef,
+  Inject,
+  PLATFORM_ID,
+  QueryList,
+  AfterViewInit,
+  ChangeDetectorRef,
+  LOCALE_ID,
+  OnDestroy,
+} from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Title, } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
 import { map } from 'rxjs/operators';
@@ -30,10 +42,10 @@ import { ActivatedRoute } from '@angular/router';
   providers: [SearchBarComponent],
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
-  allData: any [];
+  allData: any[];
   errorMessage = [];
   status = false;
   news: News[] = [];
@@ -56,7 +68,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   newsImage = {
     link: '/news',
     alt: ' ',
-    imgPath: 'assets/img/home/news.jpeg'
+    imgPath: 'assets/img/home/news.jpeg',
   };
 
   focusSub: any;
@@ -66,23 +78,37 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   consentStatusSub: any;
   shortcutData: Shortcut[] = [];
 
-  constructor( private searchService: SearchService, private sortService: SortService, @Inject(WINDOW) private window: Window,
-               private titleService: Title, @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object,
-               private cdr: ChangeDetectorRef, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-               private resizeService: ResizeService, public utilityService: UtilityService, private route: ActivatedRoute,
-               public dialog: MatDialog, private privacyService: PrivacyService) {
-                 // Capitalize first letter of locale
-                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-               }
+  constructor(
+    private searchService: SearchService,
+    private sortService: SortService,
+    @Inject(WINDOW) private window: Window,
+    private titleService: Title,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private cdr: ChangeDetectorRef,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private tabChangeService: TabChangeService,
+    private resizeService: ResizeService,
+    public utilityService: UtilityService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private privacyService: PrivacyService
+  ) {
+    // Capitalize first letter of locale
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
-  public setTitle( newTitle: string) {
-    this.titleService.setTitle( newTitle );
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   ngOnInit() {
-    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
-                                this.metaTags['description' + this.currentLocale],
-                                this.commonTags['imgAlt' + this.currentLocale]);
+    this.utilityService.addMeta(
+      this.metaTags['title' + this.currentLocale],
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
     // Reset search term
     this.searchService.updateInput('');
 
@@ -90,7 +116,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getAllData();
 
     // Get news data
-    this.searchService.getNews(10).subscribe(data => {
+    this.searchService.getNews(10).subscribe((data) => {
       this.news = data;
     });
 
@@ -115,13 +141,19 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.srHeader.nativeElement.innerHTML = this.document.title.split(' - ', 1);
 
-    this.resizeSub = this.resizeService.onResize$.subscribe(_ => this.onResize());
+    this.resizeSub = this.resizeService.onResize$.subscribe((_) =>
+      this.onResize()
+    );
 
     // Get consent status
     if (isPlatformBrowser(this.platformId)) {
-      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(status => {
-        this.consentStatus = localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : status;
-      });
+      this.consentStatusSub = this.privacyService.currentConsentStatus.subscribe(
+        (status) => {
+          this.consentStatus = localStorage.getItem('cookieConsent')
+            ? localStorage.getItem('cookieConsent')
+            : status;
+        }
+      );
     }
 
     // Get shortcuts from Resolver
@@ -130,7 +162,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onResize() {
     // Timeout needs to be added because shortcutItem list doesn't keep up with resize
-    setTimeout(x => {
+    setTimeout((x) => {
       this.getHeight();
     }, 200);
   }
@@ -138,12 +170,14 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.getHeight();
     // Focus first element when clicked with skip-link
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'main-link') {
-        this.mainContent?.nativeElement.focus();
-        this.tabChangeService.targetFocus(null);
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.mainContent?.nativeElement.focus();
+          this.tabChangeService.targetFocus(null);
+        }
       }
-    });
+    );
     if (isPlatformBrowser(this.platformId)) {
       (this.window as any).twttr?.widgets?.load();
     }
@@ -152,7 +186,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   // Get height of div with most height
   getHeight() {
     const heightArr = [];
-    this.shortcutItem.forEach(item => {
+    this.shortcutItem.forEach((item) => {
       heightArr.push(item.nativeElement.firstElementChild.offsetHeight);
     });
     this.maxHeight = Math.max(...heightArr) + 30;
@@ -161,10 +195,13 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAllData() {
-    this.searchService.getAllResultCount()
-    .pipe(map(allData => [allData]))
-    .subscribe(allData => this.allData = allData,
-      error => this.errorMessage = error as any);
+    this.searchService
+      .getAllResultCount()
+      .pipe(map((allData) => [allData]))
+      .subscribe(
+        (allData) => (this.allData = allData),
+        (error) => (this.errorMessage = error as any)
+      );
   }
 
   toggleReview() {
@@ -174,7 +211,6 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
       // minHeight: '60vh'
     });
   }
-
 
   ngOnDestroy() {
     this.resizeSub?.unsubscribe();

@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DatasetFilterService {
-
   filterData = [];
 
-  singleFilterData = [
-  ];
+  singleFilterData = [];
 
-  constructor() { }
+  constructor() {}
 
   shapeData(data) {
     const source = data;
     source.shaped = true;
     return source;
   }
-
 }

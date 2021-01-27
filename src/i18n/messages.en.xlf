@@ -1573,6 +1573,10 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="downloadCSV">
+        <source>Lataa tiedostona (csv)</source>
+        <target>Download file (csv)</target>
+      </trans-unit>
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source>Lisää lukuja tieteestä ja tutkimuksesta</source>
         <target>More figures from science and research</target>
@@ -2710,6 +2714,14 @@
       <trans-unit id="sumGranted">
         <source>Summa</source>
         <target>Amount</target>
+      </trans-unit>
+      <trans-unit id="fundingRecipient">
+        <source>Rahoituksen saaja</source>
+        <target>Funding recipient</target>
+      </trans-unit>
+      <trans-unit id="totalAmount">
+        <source>Rahoitusten kokonaissumma</source>
+        <target>Total funding amount</target>
       </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>

@@ -1,15 +1,18 @@
 @import '~@angular/material/theming';
 
 @mixin app-science-politics-theme-shared($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-figures, app-research-innovation-system, app-single-figure, app-service-info {
-        .base {
-            background: rgba(255, 255, 255, 0.50);
-        }
-
-        .content {
-            border-left: 0.5rem solid mat-color($primary, 200);
-        }
+  app-figures,
+  app-research-innovation-system,
+  app-single-figure,
+  app-service-info {
+    .base {
+      background: rgba(255, 255, 255, 0.5);
     }
+
+    .content {
+      border-left: 0.5rem solid mat-color($primary, 200);
+    }
+  }
 }

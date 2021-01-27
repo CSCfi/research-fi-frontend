@@ -1,110 +1,109 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 app-news {
-    h2 {
-        font-size: 1.5rem;
-        font-weight: normal;
-    }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+  }
 
-    h3 {
-        font-size: 1.3rem;
-    }
+  h3 {
+    font-size: 1.3rem;
+  }
 
-    .side-news {
-        height: max-content;
-    }
-    
-    app-filters {
-        .mobile {
-            margin: 0!important
-        }
-    }
+  .side-news {
+    height: max-content;
+  }
 
-    // Search
-    .input {
-        border-radius: 6px;
-    }
-
-    input.search {
-        width: 97.5%;
-        padding: 8px;
-        border: none;
-        background: none;
-    }
-
-    .reset {
-        position: absolute;
-        top: 8px;
-        cursor: pointer;
-        right: 11px;
-    }
-
-    .reset button {
-        border: 0px;
-        background: none;
-        padding: 0 10px;
-    }
-
-    .fa-search {
-        font-size: 1rem;
-    }
-
-    button.search {
-        height: 100%;
-        background: white;
-        border: 2px solid;
-    }
-
-    .older-search-term {
-        padding-bottom: 1rem;
-        mark {
-            padding: 0 2px;
-        }
-    }
-
-    // Override filter button width
+  app-filters {
     .mobile {
-        max-width: 100%!important;
+      margin: 0 !important;
     }
+  }
+
+  // Search
+  .input {
+    border-radius: 6px;
+  }
+
+  input.search {
+    width: 97.5%;
+    padding: 8px;
+    border: none;
+    background: none;
+  }
+
+  .reset {
+    position: absolute;
+    top: 8px;
+    cursor: pointer;
+    right: 11px;
+  }
+
+  .reset button {
+    border: 0px;
+    background: none;
+    padding: 0 10px;
+  }
+
+  .fa-search {
+    font-size: 1rem;
+  }
+
+  button.search {
+    height: 100%;
+    background: white;
+    border: 2px solid;
+  }
+
+  .older-search-term {
+    padding-bottom: 1rem;
+    mark {
+      padding: 0 2px;
+    }
+  }
+
+  // Override filter button width
+  .mobile {
+    max-width: 100% !important;
+  }
 }
 
 app-news-card {
-    min-width: 100%;
+  min-width: 100%;
 
-    .row.content {
+  .row.content {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 
-        margin-left: auto !important;
-        margin-right: auto !important;
+  .row.content.limit-width {
+    max-width: 760px;
+  }
+
+  .mat-card-header-text {
+    margin: 0 !important;
+  }
+
+  mat-card-content {
+    margin: 0 !important;
+  }
+
+  @media (max-width: 991px) {
+    h1.col {
+      padding-left: 0;
     }
 
-    .row.content.limit-width {
-        max-width: 760px;
+    .search {
+      padding-left: 0;
     }
 
-    .mat-card-header-text {
-        margin: 0!important;
+    .side {
+      margin-top: 0;
     }
-
-    mat-card-content {
-        margin: 0!important;
-    }
-
-    @media (max-width: 991px) {
-        h1.col {
-            padding-left: 0;
-        }
-
-        .search {
-            padding-left: 0;
-        }
-
-        .side {
-            margin-top: 0;
-        }
-    }
+  }
 }

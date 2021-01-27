@@ -1,33 +1,33 @@
 @import '~@angular/material/theming';
 
 @mixin app-sort-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-sort {
-        .sort-button.mat-focused:active {
-            box-shadow: 0 0 0 4px mat-color($primary);
-            outline: 0;
-        }
-
-        .sort-button:hover {
-            background-color: mat-color($primary, 100);
-        }
-
-        mat-form-field .mat-select-value-text {
-            color: mat-color($primary);
-        }
-
-        @media (max-width: 991px) {
-            mat-form-field.mat-form-field {
-                border: 2px solid mat-color($primary);
-            }
-            .mat-select-value {
-                color: mat-contrast($primary, 200);
-                font-weight: 500;
-            }
-            .mat-form-field-flex::after {
-                color: mat-color($primary, 900);
-            }
-        }
+  app-sort {
+    .sort-button.mat-focused:active {
+      box-shadow: 0 0 0 4px mat-color($primary);
+      outline: 0;
     }
+
+    .sort-button:hover {
+      background-color: mat-color($primary, 100);
+    }
+
+    mat-form-field .mat-select-value-text {
+      color: mat-color($primary);
+    }
+
+    @media (max-width: 991px) {
+      mat-form-field.mat-form-field {
+        border: 2px solid mat-color($primary);
+      }
+      .mat-select-value {
+        color: mat-contrast($primary, 200);
+        font-weight: 500;
+      }
+      .mat-form-field-flex::after {
+        color: mat-color($primary, 900);
+      }
+    }
+  }
 }

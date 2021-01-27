@@ -8,25 +8,25 @@
 @import '~@angular/material/theming';
 
 @mixin app-carousel-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    .active {
-        border: 2px solid mat-color($primary);
-    }
+  .active {
+    border: 2px solid mat-color($primary);
+  }
 
-    .item-title {
-        background-color: mat-color($primary);
-        color: mat-contrast($primary, 500)
-    }
-    
-    .item-description {
-        background-color: mat-color($primary, 200);
-        color: mat-contrast($primary, 200)
-    }
+  .item-title {
+    background-color: mat-color($primary);
+    color: mat-contrast($primary, 500);
+  }
 
-    .mat-stroked-button:not([disabled]) {
-        border: 2px solid;
-        border-color: mat-color($primary);
-        color: mat-color($primary);
-    }
+  .item-description {
+    background-color: mat-color($primary, 200);
+    color: mat-contrast($primary, 200);
+  }
+
+  .mat-stroked-button:not([disabled]) {
+    border: 2px solid;
+    border-color: mat-color($primary);
+    color: mat-color($primary);
+  }
 }

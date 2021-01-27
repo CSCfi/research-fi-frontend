@@ -13,20 +13,22 @@ import { DOCUMENT } from '@angular/common';
 @Component({
   selector: 'app-share',
   templateUrl: './share.component.html',
-  styleUrls: ['./share.component.scss']
+  styleUrls: ['./share.component.scss'],
 })
 export class ShareComponent implements OnInit {
-
   @Input() big = true;
 
   faCopy = faCopy;
   currentUrl: string;
   message: string;
 
-  copyLink = $localize`:@@copyLink:Kopioi linkki`; 
+  copyLink = $localize`:@@copyLink:Kopioi linkki`;
 
-  constructor( private snackBar: MatSnackBar, @Inject(DOCUMENT) private document: Document,
-               @Inject(LOCALE_ID) protected localeId: string ) { }
+  constructor(
+    private snackBar: MatSnackBar,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(LOCALE_ID) protected localeId: string
+  ) {}
 
   ngOnInit() {
     this.currentUrl = this.document.location.href;
@@ -48,5 +50,4 @@ export class ShareComponent implements OnInit {
   openSnackBar() {
     this.snackBar.open(this.message);
   }
-
 }

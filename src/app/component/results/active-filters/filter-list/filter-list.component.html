@@ -4,30 +4,49 @@
  :license: MIT -->
 
 <div class="row mb-2">
-    <div class="col-10">
-        <h2><ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{data.active.length}})</h2>
-        <p i18n="@@activeFiltersListHelp">Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät samalla hakutulosnäkymään.</p>
-    </div>
-    <div class="col-2 text-right px-0">
-        <button mat-button color="primary" (click)="close()"><fa-icon [icon]="faTimes"></fa-icon><ng-container i18n="@@close">Sulje</ng-container></button>
-    </div>
+  <div class="col-10">
+    <h2>
+      <ng-container i18n="@@activeFilters">Rajaukset</ng-container> ({{
+        data.active.length
+      }})
+    </h2>
+    <p i18n="@@activeFiltersListHelp">
+      Voit poistaa rajauksia tästä listasta. Rajausten muutokset päivittyvät
+      samalla hakutulosnäkymään.
+    </p>
+  </div>
+  <div class="col-2 text-right px-0">
+    <button mat-button color="primary" (click)="close()">
+      <fa-icon [icon]="faTimes"></fa-icon
+      ><ng-container i18n="@@close">Sulje</ng-container>
+    </button>
+  </div>
 </div>
 <div class="row active-filters">
-    <div class="col" *ngFor="let category of objectKeys(grouped)">
-        <h3>{{filterTranslation[category]}}</h3>
-        <ul>
-            <ng-container *ngFor="let filter of grouped[category]">
-                <li tabindex="0" *ngIf="!filter.hide" (click)="removeFilter(filter.value)" (keydown.enter)="removeFilter(filter.value)" class="filter modal-filter">
-                    <span>{{filter.translation}}</span>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
+  <div class="col" *ngFor="let category of objectKeys(grouped)">
+    <h3>{{ filterTranslation[category] }}</h3>
+    <ul>
+      <ng-container *ngFor="let filter of grouped[category]">
+        <li
+          tabindex="0"
+          *ngIf="!filter.hide"
+          (click)="removeFilter(filter.value)"
+          (keydown.enter)="removeFilter(filter.value)"
+          class="filter modal-filter"
+        >
+          <span>{{ filter.translation }}</span>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
 </div>
 <div class="row mt-4">
-    <div class="col text-center">
-        <button mat-flat-button color="primary" (click)="clearFilters()">
-            <fa-icon [icon]="faTrash"></fa-icon><ng-container i18n="@@clearAllActive">Tyhjennä kaikki rajaukset</ng-container>
-        </button>
-    </div>
+  <div class="col text-center">
+    <button mat-flat-button color="primary" (click)="clearFilters()">
+      <fa-icon [icon]="faTrash"></fa-icon
+      ><ng-container i18n="@@clearAllActive"
+        >Tyhjennä kaikki rajaukset</ng-container
+      >
+    </button>
+  </div>
 </div>

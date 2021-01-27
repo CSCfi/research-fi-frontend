@@ -1,42 +1,43 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 @mixin app-news-theme($theme) {
-    $primary: map-get($theme, primary);
-    $warn: map-get($theme, warn);
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
 
-    app-news {
-        .content, .side-news {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .side-news {
-            border: 1px solid mat-color($primary);
-        }
-
-        .older-search-term {
-            color: mat-contrast($primary, 400)
-        }
-
-        .input {
-            background: white;
-            border: 2px solid mat-color($primary);
-        }
-
-        .reset {
-            &:hover {
-                color: mat-color($warn, 600);
-            }
-        }
-
-        @media (max-width: 991px) {
-            .side-news {
-                border: none;
-            }
-        }
+  app-news {
+    .content,
+    .side-news {
+      background: rgba(255, 255, 255, 0.5);
     }
+
+    .side-news {
+      border: 1px solid mat-color($primary);
+    }
+
+    .older-search-term {
+      color: mat-contrast($primary, 400);
+    }
+
+    .input {
+      background: white;
+      border: 2px solid mat-color($primary);
+    }
+
+    .reset {
+      &:hover {
+        color: mat-color($warn, 600);
+      }
+    }
+
+    @media (max-width: 991px) {
+      .side-news {
+        border: none;
+      }
+    }
+  }
 }

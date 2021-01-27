@@ -27,5 +27,4 @@ describe('FilterMethodService', () => {
     const res = service.separateMinor(data);
     expect(res.length === 6).toBeTruthy();
   });
-
 });

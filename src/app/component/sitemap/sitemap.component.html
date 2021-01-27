@@ -7,44 +7,89 @@
 
 <div class="full-width"></div>
 <main id="main-content">
-    <div class="wrapper">
-        <div class="row">
-            <div class="col pb-4">
-                <app-breadcrumb [type]="'simple'" [title]="'Sivukartta'"></app-breadcrumb>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h1 class="pb-4" i18n="@@sitemapHeader">Sivukartta</h1>
-            </div>
-        </div>
-        <div class="row base">
-            <div class="col">
-                <div class="content">
-                    <li><a #mainFocus routerLink="" i18n="@@home">Etusivu</a></li>
-                    <li>
-                        <a routerLink="/results" i18n="@@search">Haku</a>
-                        <ul>
-                            <li><a routerLink="/results/publications" i18n="@@publications">Julkaisut</a></li>
-                            <li><a routerLink="/results/fundings" i18n="@@fundings">Hankkeet</a></li>
-                            <li><a routerLink="/results/infrastructures" i18n="@@infrastructures">Infrastruktuurit</a></li>
-                            <li><a routerLink="/results/organizations" i18n="@@organizations">Organisaatiot</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a routerLink="/science-innovation-policy" i18n="@@headerLink3">Tiede- ja innovaatiopolitiikka</a>
-                        <ul>
-                            <li><a routerLink="/science-innovation-policy/research-innovation-system" i18n="@@headerLink4">Tutkimus- ja innovaatiojärjestelmä</a></li>
-                            <li><a routerLink="/science-innovation-policy/science-research-figures" i18n="@@headerLink5">Lukuja tieteestä ja tutkimuksesta</a></li>
-                        </ul>
-                    </li>
-                    <li><a routerLink="/news" i18n="@@headerLink6">Tiede- ja tutkimusuutiset</a></li>
-                    <li><a routerLink="/service-info" i18n="@@footerLink1">Tietoa palvelusta</a></li>
-                    <li><a routerLink="/sitemap" i18n="@@footerLink4">Sivukartta</a></li>
-                    <li><a routerLink="/accessibility" i18n="@@footerLink8">Saavutettavuusseloste</a></li>
-                    <li><a routerLink="/privacy" i18n="@@footerLink9">Tietosuoja</a></li>
-                </div>
-            </div>
-        </div>
+  <div class="wrapper">
+    <div class="row">
+      <div class="col pb-4">
+        <app-breadcrumb
+          [type]="'simple'"
+          [title]="'Sivukartta'"
+        ></app-breadcrumb>
+      </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <h1 class="pb-4" i18n="@@sitemapHeader">Sivukartta</h1>
+      </div>
+    </div>
+    <div class="row base">
+      <div class="col">
+        <div class="content">
+          <li><a #mainFocus routerLink="" i18n="@@home">Etusivu</a></li>
+          <li>
+            <a routerLink="/results" i18n="@@search">Haku</a>
+            <ul>
+              <li>
+                <a routerLink="/results/publications" i18n="@@publications"
+                  >Julkaisut</a
+                >
+              </li>
+              <li>
+                <a routerLink="/results/fundings" i18n="@@fundings">Hankkeet</a>
+              </li>
+              <li>
+                <a
+                  routerLink="/results/infrastructures"
+                  i18n="@@infrastructures"
+                  >Infrastruktuurit</a
+                >
+              </li>
+              <li>
+                <a routerLink="/results/organizations" i18n="@@organizations"
+                  >Organisaatiot</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a routerLink="/science-innovation-policy" i18n="@@headerLink3"
+              >Tiede- ja innovaatiopolitiikka</a
+            >
+            <ul>
+              <li>
+                <a
+                  routerLink="/science-innovation-policy/research-innovation-system"
+                  i18n="@@headerLink4"
+                  >Tutkimus- ja innovaatiojärjestelmä</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/science-innovation-policy/science-research-figures"
+                  i18n="@@headerLink5"
+                  >Lukuja tieteestä ja tutkimuksesta</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a routerLink="/news" i18n="@@headerLink6"
+              >Tiede- ja tutkimusuutiset</a
+            >
+          </li>
+          <li>
+            <a routerLink="/service-info" i18n="@@footerLink1"
+              >Tietoa palvelusta</a
+            >
+          </li>
+          <li><a routerLink="/sitemap" i18n="@@footerLink4">Sivukartta</a></li>
+          <li>
+            <a routerLink="/accessibility" i18n="@@footerLink8"
+              >Saavutettavuusseloste</a
+            >
+          </li>
+          <li><a routerLink="/privacy" i18n="@@footerLink9">Tietosuoja</a></li>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
