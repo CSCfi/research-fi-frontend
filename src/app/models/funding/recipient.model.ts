@@ -8,6 +8,7 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { RecipientOrganization, RecipientOrganizationAdapter } from './recipient-organization.model';
+import { LanguageCheck } from '../utils';
 
 export class Recipient {
     [x: string]: any;
@@ -30,11 +31,12 @@ export class Recipient {
     providedIn: 'root'
 })
 export class RecipientAdapter implements Adapter<Recipient> {
-    constructor(private roa: RecipientOrganizationAdapter, @Inject( LOCALE_ID ) protected localeId: string) {}
+    constructor(private roa: RecipientOrganizationAdapter, @Inject( LOCALE_ID ) protected localeId: string, private lang: LanguageCheck) {}
     adapt(item: any): Recipient {
         // Change locale to field name format
         const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
+        console.log(recipientObj)
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in funding results component
         let combined = '';
@@ -93,7 +95,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
             recipientObj?.projectId,
             recipientObj ? recipientObj?.fundingGroupPersonFirstNames + ' ' + recipientObj?.fundingGroupPersonLastName : '',
             recipientObj?.fundingGroupPersonOrcid,
-            recipientObj ? recipientObj['consortiumOrganizationName' + capitalizedLocale] : undefined, // affiliation
+            recipientObj ? this.lang.testLang('consortiumOrganizationName', recipientObj) : undefined, // affiliation
             recipientObj?.consortiumOrganizationNameFi, // organizationName
             recipientObj?.consortiumOrganizationId,
             recipientObj?.shareOfFundingInEur,
