@@ -1036,6 +1036,10 @@ export class AggregationService {
           },
         };
         break;
+
+      case 'datasets': 
+        payLoad.aggs.year = yearAgg;
+        break;
       // Infrastructures
       case 'infrastructures': {
         payLoad.aggs.year = yearAgg;

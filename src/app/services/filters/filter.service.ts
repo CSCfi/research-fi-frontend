@@ -336,6 +336,12 @@ export class FilterService {
         });
         break;
       }
+      case 'datasets': {
+        filter.forEach((value) => {
+          res.push({ term: { datasetCreated: value } });
+        });
+        break;
+      }
       case 'infrastructures': {
         filter.forEach((value) => {
           res.push({ term: { startYear: value } });
@@ -677,7 +683,7 @@ export class FilterService {
       ...basicFilter('funding', this.fundingSchemeFilter),
       ...basicFilter('funding', this.statusFilter),
 
-      // Materials
+      // Datasets
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),
