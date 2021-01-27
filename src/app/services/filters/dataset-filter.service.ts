@@ -15,6 +15,15 @@ export class DatasetFilterService {
       hideSearch: true,
       tooltip: '',
     },
+    {
+      field: 'dataSource',
+      label: $localize`:@@datasetSource:Tietolähde`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      hideSearch: false,
+      tooltip: '',
+    },
   ];
 
   singleFilterData = [];
@@ -24,8 +33,13 @@ export class DatasetFilterService {
   shapeData(data) {
     const source = data.aggregations;
     source.year.buckets = this.mapYear(source.year.years.buckets);
+    source.dataSource.buckets = this.filterEmptyKeys(source.dataSource.dataSources.buckets);
     source.shaped = true;
     return source;
+  }
+
+  filterEmptyKeys(arr) {
+    return arr.filter((item) => item.key !== ' ');
   }
 
   mapYear(data) {

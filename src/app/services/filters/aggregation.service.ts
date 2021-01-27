@@ -1039,6 +1039,13 @@ export class AggregationService {
 
       case 'datasets': 
         payLoad.aggs.year = yearAgg;
+        payLoad.aggs.dataSource = basicAgg(
+          filterActive('dataCatalog.name' + this.localeC + '.keyword'),
+          'dataSources',
+          'dataCatalog.name' + this.localeC + '.keyword',
+          null,
+          null,
+        );
         break;
       // Infrastructures
       case 'infrastructures': {

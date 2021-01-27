@@ -43,6 +43,7 @@ export class FilterService {
   sectorFilter: any;
   faFieldFilter: any;
   organizationFilter: any;
+  dataSourceFilter: any;
   typeFilter: any;
   infraFieldFilter: any;
   currentFilters: any;
@@ -70,6 +71,7 @@ export class FilterService {
     faFieldFilter: [],
     sector: [],
     organization: [],
+    dataSource: [],
     type: [],
     coPublication: [],
   });
@@ -102,6 +104,7 @@ export class FilterService {
     faFieldFilter: any[];
     sector: any[];
     organization: any[];
+    dataSource: any[];
     type: any[];
     coPublication: any[];
   }) {
@@ -221,6 +224,11 @@ export class FilterService {
         .flat()
         .filter((x) => x)
         .sort(),
+      // Datasets
+      dataSource: [source.dataSource]
+      .flat()
+      .filter((x) => x)
+      .sort(),
       // Infrastructures
       type: [source.type]
         .flat()
@@ -289,6 +297,12 @@ export class FilterService {
       filter.faField,
       'keywords.keyword.keyword'
     ); // Finnish Academy field
+    // Datasets
+    this.dataSourceFilter = this.basicFilter(
+      filter.dataSource,
+      'dataCatalog.name' + this.localeC + '.keyword'
+    );
+    console.log(this.dataSourceFilter)
     // Infrastructure
     this.typeFilter = this.basicFilter(
       filter.type,
@@ -684,6 +698,7 @@ export class FilterService {
       ...basicFilter('funding', this.statusFilter),
 
       // Datasets
+      ...basicFilter('dataset', this.dataSourceFilter),
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),
