@@ -23,8 +23,6 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { UtilityService } from 'src/app/services/utility.service';
 import { FilterService } from 'src/app/services/filters/filter.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { ResizeService } from 'src/app/services/resize.service';
-import { WINDOW } from 'src/app/services/window.service';
 import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
@@ -88,17 +86,28 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   autoSuggestSub: Subscription;
   tabSub: Subscription;
 
-  constructor( public searchService: SearchService, private tabChangeService: TabChangeService, private route: ActivatedRoute,
-               public router: Router, private eRef: ElementRef, private sortService: SortService,
-               private autosuggestService: AutosuggestService, private singleService: SingleItemService,
-               @Inject(DOCUMENT) private document: Document, @Inject(WINDOW) private window: Window, @Inject(PLATFORM_ID) private platformId: object,
-               private settingService: SettingsService, public utilityService: UtilityService,
-               @Inject(LOCALE_ID) protected localeId, private filterService: FilterService, private staticDataService: StaticDataService ) {
-                // Capitalize first letter of locale
-                this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-                this.queryHistory = this.getHistory();
-                this.completion = '';
-                this.isBrowser = isPlatformBrowser(this.platformId);
+  constructor(
+    public searchService: SearchService,
+    private tabChangeService: TabChangeService,
+    private route: ActivatedRoute,
+    public router: Router,
+    private sortService: SortService,
+    private autosuggestService: AutosuggestService,
+    private singleService: SingleItemService,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private settingService: SettingsService,
+    public utilityService: UtilityService,
+    @Inject(LOCALE_ID) protected localeId,
+    private filterService: FilterService,
+    private staticDataService: StaticDataService
+  ) {
+    // Capitalize first letter of locale
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.queryHistory = this.getHistory();
+    this.completion = '';
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit() {
@@ -396,9 +405,5 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClickedOutside(e: Event) {
     this.showHelp = false;
-  }
-
-  onResize(dims: {width: number, height: number}) {
-    // this.resetMargin = this.getResetMargin(dims.w);
   }
 }
