@@ -1,7 +1,7 @@
 <div class="row d-flex justify-content-center">
   <div class="col text-center">
-    <a class="d-inline-block" href="https://tutkittutieto.fi/" target="_blank">
-      <img class="p-3" src="assets/img/mobiili-SA_tunnus_musta_cmyk.svg" />
+    <a class="d-inline-block" [href]="'https://tutkittutieto.fi/' + (locale !== 'fi' ? locale + '/' : '')" target="_blank">
+      <img class="p-3 tttv" [src]="'assets/img/mobiili-SA_tunnus_' + locale.toUpperCase() + '.svg'" />
     </a>
   </div>
 </div>

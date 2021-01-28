@@ -11,6 +11,7 @@ import {
   RecipientOrganization,
   RecipientOrganizationAdapter,
 } from './recipient-organization.model';
+import { LanguageCheck } from '../utils';
 
 export class Recipient {
   [x: string]: any;
@@ -35,12 +36,10 @@ export class Recipient {
 export class RecipientAdapter implements Adapter<Recipient> {
   constructor(
     private roa: RecipientOrganizationAdapter,
-    @Inject(LOCALE_ID) protected localeId: string
+    @Inject(LOCALE_ID) protected localeId: string,
+    private lang: LanguageCheck
   ) {}
   adapt(item: any): Recipient {
-    // Change locale to field name format
-    const capitalizedLocale =
-      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     const recipientObj = item.fundingGroupPerson
       ?.filter((x) => x.consortiumProject === item.funderProjectNumber)
       .shift();
@@ -65,24 +64,31 @@ export class RecipientAdapter implements Adapter<Recipient> {
 
         combined =
           finnish.length > 1
-            ? finnish.map((x) => x.consortiumOrganizationNameFi).join('; ')
-            : finnish.find(
-                (org) =>
-                  org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] ===
-                  '-'
-              ).consortiumOrganizationNameFi;
+            ? finnish
+                .map((x) => this.lang.testLang('consortiumOrganizationName', x))
+                .join('; ')
+            : this.lang.testLang(
+                'consortiumOrganizationName',
+                finnish.find(
+                  (org) =>
+                    org.consortiumOrganizationBusinessId
+                      ?.trim()
+                      .slice(-2)[0] === '-'
+                )
+              );
       } else {
         combined = item.organizationConsortium
           .filter(
             (x) =>
-              x.consortiumOrganizationNameFi.trim() !== '' &&
+              this.lang.testLang('consortiumOrganizationName', x).trim() !==
+                '' &&
               // Check for finnish business ID identifier
               (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] ===
                 '-' ||
                 x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI')
           )
           .map((x) =>
-            x['consortiumOrganizationName' + capitalizedLocale].trim()
+            this.lang.testLang('consortiumOrganizationName', x).trim()
           )
           .join('; ');
       }
@@ -103,15 +109,15 @@ export class RecipientAdapter implements Adapter<Recipient> {
       // Map recipients
       if (
         person &&
-        person['consortiumOrganizationName' + capitalizedLocale] !== ''
+        this.lang.testLang('consortiumOrganizationName', person) !== ''
       ) {
         combined = person.fundingGroupPersonLastName
           ? person.fundingGroupPersonFirstNames +
             ' ' +
             person.fundingGroupPersonLastName +
             ', ' +
-            person['consortiumOrganizationName' + capitalizedLocale]
-          : person['consortiumOrganizationName' + capitalizedLocale];
+            this.lang.testLang('consortiumOrganizationName', person)
+          : this.lang.testLang('consortiumOrganizationName', person);
       } else if (person) {
         combined =
           person.fundingGroupPersonFirstNames +
@@ -125,12 +131,17 @@ export class RecipientAdapter implements Adapter<Recipient> {
               ? x.fundingGroupPersonFirstNames +
                 ' ' +
                 x.fundingGroupPersonLastName +
-                (x['consortiumOrganizationName' + capitalizedLocale].trim()
-                  .length > 0
+                (this.lang
+                  .testLang('consortiumOrganizationName', recipientObj)
+                  .trim().length > 0
                   ? ', ' +
-                    x['consortiumOrganizationName' + capitalizedLocale].trim()
+                    this.lang
+                      .testLang('consortiumOrganizationName', recipientObj)
+                      .trim()
                   : null)
-              : x['consortiumOrganizationName' + capitalizedLocale].trim()
+              : this.lang
+                  .testLang('consortiumOrganizationName', recipientObj)
+                  .trim()
           )
           .join('; ');
       }
@@ -153,7 +164,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
       } else if (item.organizationConsortium) {
         combined = item.organizationConsortium
           .filter((x) => !x.countryCode || x.countryCode === 'FI')
-          .map((x) => x['consortiumOrganizationName' + capitalizedLocale])
+          .map((x) => this.lang.testLang('consortiumOrganizationName', x))
           .join('; ');
       }
     } else {
@@ -168,7 +179,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
         : '',
       recipientObj?.fundingGroupPersonOrcid,
       recipientObj
-        ? recipientObj['consortiumOrganizationName' + capitalizedLocale]
+        ? this.lang.testLang('consortiumOrganizationName', recipientObj)
         : undefined, // affiliation
       recipientObj?.consortiumOrganizationNameFi, // organizationName
       recipientObj?.consortiumOrganizationId,

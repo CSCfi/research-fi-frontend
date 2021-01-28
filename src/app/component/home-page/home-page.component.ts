@@ -86,7 +86,7 @@ export class HomePageComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
     @Inject(PLATFORM_ID) private platformId: object,
     private cdr: ChangeDetectorRef,
-    @Inject(LOCALE_ID) protected localeId: string,
+    @Inject(LOCALE_ID) public localeId: string,
     private tabChangeService: TabChangeService,
     private resizeService: ResizeService,
     public utilityService: UtilityService,
