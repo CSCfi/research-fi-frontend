@@ -47,15 +47,15 @@ export class RecipientAdapter implements Adapter<Recipient> {
                                 (org => org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-');
 
                 combined = finnish.length > 1 ? finnish.map
-                    (x => x.consortiumOrganizationNameFi).join('; ') : finnish.find(org =>
-                    org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-').consortiumOrganizationNameFi;
+                    (x => this.lang.testLang('consortiumOrganizationName', x)).join('; ') : this.lang.testLang('consortiumOrganizationName', finnish.find(org =>
+                      org.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-'));
             } else {
                 combined = item.organizationConsortium.filter(x =>
-                    (x.consortiumOrganizationNameFi.trim() !== '') &&
+                    (this.lang.testLang('consortiumOrganizationName', x).trim() !== '') &&
                     // Check for finnish business ID identifier
                     (x.consortiumOrganizationBusinessId?.trim().slice(-2)[0] === '-' ||
                     x.consortiumOrganizationBusinessId?.trim().slice(0, 2) === 'FI' ))
-                    .map(x => x['consortiumOrganizationName' + capitalizedLocale].trim()).join('; ');
+                    .map(x => this.lang.testLang('consortiumOrganizationName', x).trim()).join('; ');
             }
         // Check that a finnish organization is found
         } else if (item.fundingGroupPerson && item.fundingGroupPerson.find
@@ -65,18 +65,18 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 // Get target recipient
                 const person = item.fundingGroupPerson.find(x => x.consortiumProject === item.funderProjectNumber);
                 // Map recipients
-                if (person && person['consortiumOrganizationName' + capitalizedLocale] !== '') {
+                if (person && this.lang.testLang('consortiumOrganizationName', person) !== '') {
                     combined = person.fundingGroupPersonLastName ?
                     person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName + ', '
-                    + person['consortiumOrganizationName' + capitalizedLocale] : person['consortiumOrganizationName' + capitalizedLocale];
+                    + this.lang.testLang('consortiumOrganizationName', person) : this.lang.testLang('consortiumOrganizationName', person);
                 } else if (person) {
                     combined = person.fundingGroupPersonFirstNames + ' ' + person.fundingGroupPersonLastName;
                 } else {
                     // If no match with funderProjectNumber
                     combined = item.fundingGroupPerson?.map(x =>
                         x.fundingGroupPersonLastName.trim().length > 0 ? x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName
-                        + (x['consortiumOrganizationName' + capitalizedLocale].trim().length > 0 ? ', ' + x['consortiumOrganizationName' + capitalizedLocale].trim() : null) :
-                        x['consortiumOrganizationName' + capitalizedLocale].trim()).join('; ');
+                        + (this.lang.testLang('consortiumOrganizationName', recipientObj).trim().length > 0 ? ', ' + this.lang.testLang('consortiumOrganizationName', recipientObj).trim() : null) :
+                        this.lang.testLang('consortiumOrganizationName', recipientObj).trim()).join('; ');
                 }
         // If no match with Finnish organization
         } else if (item.recipientType === 'person') {
@@ -85,7 +85,7 @@ export class RecipientAdapter implements Adapter<Recipient> {
                 x.fundingGroupPersonFirstNames + ' ' + x.fundingGroupPersonLastName : null).join('; ');
             } else if (item.organizationConsortium) {
                 combined = item.organizationConsortium.filter(x => !x.countryCode || x.countryCode === 'FI')
-                .map(x => x['consortiumOrganizationName' + capitalizedLocale]).join('; ');
+                .map(x => this.lang.testLang('consortiumOrganizationName', x)).join('; ');
             }
         } else {
             combined = '-';
