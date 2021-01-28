@@ -36,7 +36,6 @@ export class RecipientAdapter implements Adapter<Recipient> {
         // Change locale to field name format
         const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
         const recipientObj = item.fundingGroupPerson?.filter(x => x.consortiumProject === item.funderProjectNumber).shift();
-        console.log(recipientObj)
         const organizations: RecipientOrganization[] = [];
         // Combine recipient names and organizations, this is used in funding results component
         let combined = '';
