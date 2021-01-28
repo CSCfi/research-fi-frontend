@@ -1,163 +1,180 @@
 {
-    "common": {
-        "imgAltFi": "Tutkimustietovarannon portaalin logo, abstrakti ikkuna",
-        "imgAltEn": "Research Information Hub portal logo, abstract window",
-        "imgAltSv": "Portalens logotyp, ett abstrakt fönster"
-    },
-    "homepage": {
-        "titleFi": "Etusivu | Tiedejatutkimus.fi",
-        "titleEn": "Home | Research.fi",
-        "titleSv": "Ingångssida | Forskning.fi",
-        "descriptionFi": "Tiedejatutkimus.fi on opetus- ja kulttuuriministeriön tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta.",
-        "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
-        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
-    },
-    "serviceInfo": {
-        "titleFi": "Tietoa palvelusta | Tiedejatutkimus.fi",
-        "titleEn": "About the service | Research.fi",
-        "titleSv": "Information om tjänsten | Forskning.fi",
-        "descriptionFi": "Tiedejatutkimus.fi on opetus- ja kulttuuriministeriön tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta.",
-        "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
-        "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
-    },
-    "sitemap": {
-        "titleFi": "Sivukartta | Tiedejatutkimus.fi",
-        "titleEn": "Sitemap | Research.fi",
-        "titleSv": "Sidkarta | Forskning.fi",
-        "descriptionFi": "Tiedejatutkimus.fi-palvelun sivukartta.",
-        "descriptionEn": "Research.fi sitemap.",
-        "descriptionSv": "Sidkarta för forskning.fi."
-    },
-    "feedback": {
-        "titleFi": "Anna palautetta | Tiedejatutkimus.fi",
-        "titleEn": "Give feedback | Research.fi",
-        "titleSv": "Ge respons | Forskning.fi",
-        "descriptionFi": "Anna palautetta tiedejatutkimus.fi-palvelun käytöstä.",
-        "descriptionEn": "Give feedback on the use of the Research.fi service.",
-        "descriptionSv": "Ge respons på användingen av forskning.fi"
-    },
-    "contact": {
-        "titleFi": "Ota yhteyttä | Tiedejatutkimus.fi",
-        "titleEn": "Contact us | Research.fi",
-        "titleSv": "Ta kontakt | Forskning.fi",
-        "descriptionFi": "Ota yhteyttä käyttäjätukeemme tiedejatutkimus@csc.fi | Tiedejatutkimus.fi.",
-        "descriptionEn": "Contact our user support at tiedejatutkimus@csc.fi.",
-        "descriptionSv": "Kontakta vår användarsupport tiedejatutkimus@csc.fi."
-    },
-    "accessibility": {
-        "titleFi": "Saavutettavuusseloste | Tiedejatutkimus.fi",
-        "titleEn": "Accessibility statement | Research.fi",
-        "titleSv": "Tillgänglighetsredogörelse | Forskning.fi",
-        "descriptionFi": "Tiedejatutkimus.fi-palvelun saavutettavuusseloste. Vaatimukset perustuvat kansalliseen lakiin digitaalisten pavleluiden tarjoamisesta (306/2019).",
-        "descriptionEn": "Accessibility statement for the Research.fi service. The requirements are based on the Act on the Provision of Digital Services (306/2019).",
-        "descriptionSv": "Tillgänglighetsredogörelse för forskning.fi. Kraven grundar sig på den nationella lagen om tillhandahållande av digitala tjänster (306/2019)."
-    },
-    "privacy": {
-        "titleFi": "Tietosuoja ja henkilötietojen käsittely | Tiedejatutkimus.fi",
-        "titleEn": "Privacy and processing of personal data | Research.fi",
-        "titleSv": "Dataskydd och behandling av personuppgifter | Forskning.fi",
-        "descriptionFi": "Tutkimustietovarannon tietosuojailmoitus. Kuinka käsittelemme henkilötietojasi, mistä lähteistä ne saamme ja mitkä ovat niiden käytttötarkoitukset.",
-        "descriptionEn": "Privacy statement for the Finnish Research Information Hub. How we process your personal data, from which sources we receive it and the purposes for which it is used.",
-        "descriptionSv": "Dataskyddsanmälan för datalagret för forskningsinformation. Hur behandlar vi dina personuppgifter, från vilka källor får vi dem och för vilka ändamål används de?"
-    },
-    "publications": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Julkaisut tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
-        "descriptionEn": "Publications in Research.fi. You can use the Refine search function to refine your search results.",
-        "descriptionSv": "Publikationer i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
-        "link": "publications"
-    },
-    "singlePublication": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Tutustu julkaisun tarkempiin tietoihin tiedejatutkimus.fi-palvelussa.",
-        "descriptionEn": "Read more about the publication in Research.fi.",
-        "descriptionSv": "Bekanta dig med närmare uppgifter om publikationen i forksning.fi."
-    },
-    "fundings": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Rahoituspäätökset tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
-        "descriptionEn": "Funding decisions in Research.fi. You can use the Refine search function to refine your search results.",
-        "descriptionSv": "Finansieringsbeslut i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
-        "link": "fundings"
-    },
-    "singleFunding": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Tutustu rahoituspäätöksen tietoihin tiedejatutkimus.fi-palvelussa.",
-        "descriptionEn": "Read more about the funding decision in Research.fi.",
-        "descriptionSv": "Bekanta dig med närmare uppgifter om finansieringsbeslutet i forksning.fi."
-    },
-    "infrastructures": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Tutkimusinfrastruktuurit tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
-        "descriptionEn": "Research infrastructures in Research.fi. You can use the Refine search function to refine your search results.",
-        "descriptionSv": "Forskningsinfrastrukturer i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
-        "link": "infrastructures"
-    },
-    "singleInfrastructure": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Tutustu tutkimusinfrastruktuurin tietoihin tiedejatutkimus.fi-palvelussa.",
-        "descriptionEn": "Read more about the infrastructure in Research.fi.",
-        "descriptionSv": "Bekanta dig med forskningsinrastrukturens uppgifter i forksning.fi."
-    },
-    "organizations": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Yliopistot, ammattikorkeakoulut, valtion tutkimuslaitokset sekä tietoja toimittavat tutkimusrahoittaja tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
-        "descriptionEn": "Universities, universities of applied sciences, state research institutes and research funders providing information in Research.fi.",
-        "descriptionSv": "Universitet, yrkeshögskolor, statliga forskningsinstitut samt forskningsfinansiärer som lämnar uppgifter till tjänsten forskning.fi.",
-        "link": "organizations"
-    },
-    "singleOrganization": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Tutustu organisaatio tarkempiin tietoihin tiedejatutkimus.fi-palvelussa",
-        "descriptionEn": "Read more about the organization in Research.fi.",
-        "descriptionSv": "Bekanta dig med närmare uppgifter om organisation i forksning.fi."
-    },
-    "researchInnovation": {
-        "titleFi": "Suomalainen tutkimus ja innovaatiojärjestelmä | Tiedejatutkimus.fi",
-        "titleEn": "Finnish research and innovation system | Research.fi",
-        "titleSv": "Finländskt forsknings- och innovationssystem | Forskning.fi",
-        "descriptionFi": "Keskeisiä toimijoita suomalaisessa tutkimus- ja innovaatiojärjestelmässä ovat yliopistot,  ammattikorkeakoulut, tutkimuslaitokset sekä yritysten tutkimusyksiköt. Noin kaksi kolmasosaa tutkimus- ja tuotekehitystyöstä tehdään yritysten toimesta. Rahoittajista merkittävimpiä ovat Suomen Akatemia, Business Finland sekä säätiöt.",
-        "descriptionEn": "Key actors in the Finnish research and innovation system are universities and universities of applied sciences, research institutes and R&D departments in companies. Approximately two-thirds of research and product development work is carried out by companies. The biggest providers of research funding in Finland are the Academy of Finland, Business Finland and foundations.",
-        "descriptionSv": "Universiteten och yrkeshögskolorna, forskningsinstituten samt företagens forksningsenheter är centrala aktörer i det finländska forksnings- och innovationssystemet. Cirka två tredjedelar av forsknings- och produktutvecklingsarbetet utförs av företag. De viktigaste finansiärerna är Finlands Akademi, Business Finland och stiftelserna."
-    },
-    "figures": {
-        "titleFi": "Lukuja suomalaisesta tieteestä ja tutkimuksesta | Tiedejatutkimus.fi",
-        "titleEn": "Figures on Finnish science and research | Research.fi",
-        "titleSv": "Siffror om vetenskap och forskning | Forskning.fi",
-        "descriptionFi": "Löydä tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta.",
-        "descriptionEn": "Find information on the funding, human resources, publishing activities and scientific impact on Finnish research.",
-        "descriptionSv": "Hitta information om finansieringen av den finländska forskningen, personalresurserna samt publikationsverksamheten och forskningens genomslag."
-    },
-    "singleFigure": {
-        "titleFi": "",
-        "titleEn": "",
-        "titleSv": "",
-        "descriptionFi": "Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa mm. tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta.",
-        "descriptionEn": "Figures on Science and Research section shares information about funding, human resources, publishing activity and scientific impact of the research in Finland.",
-        "descriptionSv": "I avsnittet Siffror om vetenskap och forskning hittar man information om forskning i Finland, dess finansiering, personresurser, publicering och vetenskapliga genomslag"
-    },
-    "news": {
-        "titleFi": "Uusimmat tiede- ja tutkimusuutiset | Tiedejatutkimus.fi",
-        "titleEn": "Latest science and research news | Research.fi",
-        "titleSv": "Läs de senaste vetenskaps- och forskningnyheterna | Forskning.fi",
-        "descriptionFi": "Lue suomalaisten tutkimusorganisaatioiden uusimpia tiedettä ja tutkimusta koskevia uutisia.",
-        "descriptionEn": "Read the latest news on science and research in Finnish research organizations.",
-        "descriptionSv": "Läs de senaste nyheterna om vetenskap och forskning från finländska forskningsorganisationer."
-    }
+  "common": {
+    "imgAltFi": "Tutkimustietovarannon portaalin logo, abstrakti ikkuna",
+    "imgAltEn": "Research Information Hub portal logo, abstract window",
+    "imgAltSv": "Portalens logotyp, ett abstrakt fönster"
+  },
+  "homepage": {
+    "titleFi": "Etusivu | Tiedejatutkimus.fi",
+    "titleEn": "Home | Research.fi",
+    "titleSv": "Ingångssida | Forskning.fi",
+    "descriptionFi": "Tiedejatutkimus.fi on opetus- ja kulttuuriministeriön tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta.",
+    "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
+    "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+  },
+  "serviceInfo": {
+    "titleFi": "Tietoa palvelusta | Tiedejatutkimus.fi",
+    "titleEn": "About the service | Research.fi",
+    "titleSv": "Information om tjänsten | Forskning.fi",
+    "descriptionFi": "Tiedejatutkimus.fi on opetus- ja kulttuuriministeriön tarjoama palvelu, joka kokoaa ja jakaa tietoa Suomessa tehtävästä tutkimuksesta.",
+    "descriptionEn": "Research.fi is a service offered by the Ministry of Education and Culture that collects and shares information on research conducted in Finland.",
+    "descriptionSv": "Forskning.fi är en tjänst som tillhandahålls av undervisnings- och kulturministeriet och som sammanställer och sprider information om forskning i Finland."
+  },
+  "sitemap": {
+    "titleFi": "Sivukartta | Tiedejatutkimus.fi",
+    "titleEn": "Sitemap | Research.fi",
+    "titleSv": "Sidkarta | Forskning.fi",
+    "descriptionFi": "Tiedejatutkimus.fi-palvelun sivukartta.",
+    "descriptionEn": "Research.fi sitemap.",
+    "descriptionSv": "Sidkarta för forskning.fi."
+  },
+  "feedback": {
+    "titleFi": "Anna palautetta | Tiedejatutkimus.fi",
+    "titleEn": "Give feedback | Research.fi",
+    "titleSv": "Ge respons | Forskning.fi",
+    "descriptionFi": "Anna palautetta tiedejatutkimus.fi-palvelun käytöstä.",
+    "descriptionEn": "Give feedback on the use of the Research.fi service.",
+    "descriptionSv": "Ge respons på användingen av forskning.fi"
+  },
+  "contact": {
+    "titleFi": "Ota yhteyttä | Tiedejatutkimus.fi",
+    "titleEn": "Contact us | Research.fi",
+    "titleSv": "Ta kontakt | Forskning.fi",
+    "descriptionFi": "Ota yhteyttä käyttäjätukeemme tiedejatutkimus@csc.fi | Tiedejatutkimus.fi.",
+    "descriptionEn": "Contact our user support at tiedejatutkimus@csc.fi.",
+    "descriptionSv": "Kontakta vår användarsupport tiedejatutkimus@csc.fi."
+  },
+  "accessibility": {
+    "titleFi": "Saavutettavuusseloste | Tiedejatutkimus.fi",
+    "titleEn": "Accessibility statement | Research.fi",
+    "titleSv": "Tillgänglighetsredogörelse | Forskning.fi",
+    "descriptionFi": "Tiedejatutkimus.fi-palvelun saavutettavuusseloste. Vaatimukset perustuvat kansalliseen lakiin digitaalisten pavleluiden tarjoamisesta (306/2019).",
+    "descriptionEn": "Accessibility statement for the Research.fi service. The requirements are based on the Act on the Provision of Digital Services (306/2019).",
+    "descriptionSv": "Tillgänglighetsredogörelse för forskning.fi. Kraven grundar sig på den nationella lagen om tillhandahållande av digitala tjänster (306/2019)."
+  },
+  "privacy": {
+    "titleFi": "Tietosuoja ja henkilötietojen käsittely | Tiedejatutkimus.fi",
+    "titleEn": "Privacy and processing of personal data | Research.fi",
+    "titleSv": "Dataskydd och behandling av personuppgifter | Forskning.fi",
+    "descriptionFi": "Tutkimustietovarannon tietosuojailmoitus. Kuinka käsittelemme henkilötietojasi, mistä lähteistä ne saamme ja mitkä ovat niiden käytttötarkoitukset.",
+    "descriptionEn": "Privacy statement for the Finnish Research Information Hub. How we process your personal data, from which sources we receive it and the purposes for which it is used.",
+    "descriptionSv": "Dataskyddsanmälan för datalagret för forskningsinformation. Hur behandlar vi dina personuppgifter, från vilka källor får vi dem och för vilka ändamål används de?"
+  },
+  "publications": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Julkaisut tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
+    "descriptionEn": "Publications in Research.fi. You can use the Refine search function to refine your search results.",
+    "descriptionSv": "Publikationer i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+    "link": "publications"
+  },
+  "singlePublication": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Tutustu julkaisun tarkempiin tietoihin tiedejatutkimus.fi-palvelussa.",
+    "descriptionEn": "Read more about the publication in Research.fi.",
+    "descriptionSv": "Bekanta dig med närmare uppgifter om publikationen i forksning.fi."
+  },
+  "fundings": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Rahoituspäätökset tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
+    "descriptionEn": "Funding decisions in Research.fi. You can use the Refine search function to refine your search results.",
+    "descriptionSv": "Finansieringsbeslut i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+    "link": "fundings"
+  },
+  "singleFunding": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Tutustu rahoituspäätöksen tietoihin tiedejatutkimus.fi-palvelussa.",
+    "descriptionEn": "Read more about the funding decision in Research.fi.",
+    "descriptionSv": "Bekanta dig med närmare uppgifter om finansieringsbeslutet i forksning.fi."
+  },
+  "datasets": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "",
+    "descriptionEn": "",
+    "descriptionSv": "",
+    "link": "datasets"
+  },
+  "singleDataset": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "",
+    "descriptionEn": "",
+    "descriptionSv": ""
+  },
+  "infrastructures": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Tutkimusinfrastruktuurit tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
+    "descriptionEn": "Research infrastructures in Research.fi. You can use the Refine search function to refine your search results.",
+    "descriptionSv": "Forskningsinfrastrukturer i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
+    "link": "infrastructures"
+  },
+  "singleInfrastructure": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Tutustu tutkimusinfrastruktuurin tietoihin tiedejatutkimus.fi-palvelussa.",
+    "descriptionEn": "Read more about the infrastructure in Research.fi.",
+    "descriptionSv": "Bekanta dig med forskningsinrastrukturens uppgifter i forksning.fi."
+  },
+  "organizations": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Yliopistot, ammattikorkeakoulut, valtion tutkimuslaitokset sekä tietoja toimittavat tutkimusrahoittaja tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
+    "descriptionEn": "Universities, universities of applied sciences, state research institutes and research funders providing information in Research.fi.",
+    "descriptionSv": "Universitet, yrkeshögskolor, statliga forskningsinstitut samt forskningsfinansiärer som lämnar uppgifter till tjänsten forskning.fi.",
+    "link": "organizations"
+  },
+  "singleOrganization": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Tutustu organisaatio tarkempiin tietoihin tiedejatutkimus.fi-palvelussa",
+    "descriptionEn": "Read more about the organization in Research.fi.",
+    "descriptionSv": "Bekanta dig med närmare uppgifter om organisation i forksning.fi."
+  },
+  "researchInnovation": {
+    "titleFi": "Suomalainen tutkimus ja innovaatiojärjestelmä | Tiedejatutkimus.fi",
+    "titleEn": "Finnish research and innovation system | Research.fi",
+    "titleSv": "Finländskt forsknings- och innovationssystem | Forskning.fi",
+    "descriptionFi": "Keskeisiä toimijoita suomalaisessa tutkimus- ja innovaatiojärjestelmässä ovat yliopistot,  ammattikorkeakoulut, tutkimuslaitokset sekä yritysten tutkimusyksiköt. Noin kaksi kolmasosaa tutkimus- ja tuotekehitystyöstä tehdään yritysten toimesta. Rahoittajista merkittävimpiä ovat Suomen Akatemia, Business Finland sekä säätiöt.",
+    "descriptionEn": "Key actors in the Finnish research and innovation system are universities and universities of applied sciences, research institutes and R&D departments in companies. Approximately two-thirds of research and product development work is carried out by companies. The biggest providers of research funding in Finland are the Academy of Finland, Business Finland and foundations.",
+    "descriptionSv": "Universiteten och yrkeshögskolorna, forskningsinstituten samt företagens forksningsenheter är centrala aktörer i det finländska forksnings- och innovationssystemet. Cirka två tredjedelar av forsknings- och produktutvecklingsarbetet utförs av företag. De viktigaste finansiärerna är Finlands Akademi, Business Finland och stiftelserna."
+  },
+  "figures": {
+    "titleFi": "Lukuja suomalaisesta tieteestä ja tutkimuksesta | Tiedejatutkimus.fi",
+    "titleEn": "Figures on Finnish science and research | Research.fi",
+    "titleSv": "Siffror om vetenskap och forskning | Forskning.fi",
+    "descriptionFi": "Löydä tietoa Suomen tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta.",
+    "descriptionEn": "Find information on the funding, human resources, publishing activities and scientific impact on Finnish research.",
+    "descriptionSv": "Hitta information om finansieringen av den finländska forskningen, personalresurserna samt publikationsverksamheten och forskningens genomslag."
+  },
+  "singleFigure": {
+    "titleFi": "",
+    "titleEn": "",
+    "titleSv": "",
+    "descriptionFi": "Lukuja tieteestä ja tutkimuksesta -osiosta löydät tietoa mm. tutkimuksen rahoituksesta, henkilövoimavaroista sekä julkaisutoiminnasta ja tieteellisestä vaikuttavuudesta.",
+    "descriptionEn": "Figures on Science and Research section shares information about funding, human resources, publishing activity and scientific impact of the research in Finland.",
+    "descriptionSv": "I avsnittet Siffror om vetenskap och forskning hittar man information om forskning i Finland, dess finansiering, personresurser, publicering och vetenskapliga genomslag"
+  },
+  "news": {
+    "titleFi": "Uusimmat tiede- ja tutkimusuutiset | Tiedejatutkimus.fi",
+    "titleEn": "Latest science and research news | Research.fi",
+    "titleSv": "Läs de senaste vetenskaps- och forskningnyheterna | Forskning.fi",
+    "descriptionFi": "Lue suomalaisten tutkimusorganisaatioiden uusimpia tiedettä ja tutkimusta koskevia uutisia.",
+    "descriptionEn": "Read the latest news on science and research in Finnish research organizations.",
+    "descriptionSv": "Läs de senaste nyheterna om vetenskap och forskning från finländska forskningsorganisationer."
+  }
 }

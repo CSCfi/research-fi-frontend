@@ -5,7 +5,16 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { SearchService } from 'src/app/services/search.service';
@@ -17,29 +26,39 @@ import { UtilityService } from 'src/app/services/utility.service';
 @Component({
   selector: 'app-infrastructures',
   templateUrl: './infrastructures.component.html',
-  styleUrls: ['./infrastructures.component.scss']
+  styleUrls: ['./infrastructures.component.scss'],
 })
-export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewInit {
+export class InfrastructuresComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() resultData: Search;
   @ViewChild('main') mainContent: ElementRef;
   expandStatus: Array<boolean> = [];
   sortColumn: string;
   sortDirection: boolean;
-  faIcon = this.tabChangeService.tabData.filter(t => t.data === 'infrastructures').map(t => t.icon).pop();
+  faIcon = this.tabChangeService.tabData
+    .filter((t) => t.data === 'infrastructures')
+    .map((t) => t.icon)
+    .pop();
   inputSub: any;
   input: string;
   focusSub: any;
   faCheckCircle = faCheckCircle;
 
-  constructor(private router: Router, private route: ActivatedRoute, private tabChangeService: TabChangeService,
-              private searchService: SearchService, private sortService: SortService, private cdr: ChangeDetectorRef,
-              public utilityService: UtilityService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private tabChangeService: TabChangeService,
+    private searchService: SearchService,
+    private sortService: SortService,
+    private cdr: ChangeDetectorRef,
+    public utilityService: UtilityService
+  ) {}
 
   ngOnInit() {
     this.sortService.initSort(this.route.snapshot.queryParams.sort || '');
     this.sortColumn = this.sortService.sortColumn;
     this.sortDirection = this.sortService.sortDirection;
-    this.inputSub = this.searchService.currentInput.subscribe(input => {
+    this.inputSub = this.searchService.currentInput.subscribe((input) => {
       this.input = input;
       this.cdr.detectChanges();
     });
@@ -47,11 +66,13 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
 
   ngAfterViewInit() {
     // Focus first element when clicked with skip-link
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'main') {
-        this.mainContent?.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main') {
+          this.mainContent?.nativeElement.focus();
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy() {
@@ -59,4 +80,3 @@ export class InfrastructuresComponent implements OnInit, OnDestroy, AfterViewIni
     this.tabChangeService.targetFocus('');
   }
 }
-

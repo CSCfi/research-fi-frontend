@@ -6,56 +6,90 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="full-width"></div>
 <div class="bg-bubble d-none d-lg-block"></div>
 <main id="main-content">
-    <div class="wrapper">
-        <div class="row">
-            <div class="col pb-4">
-                <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h1 i18n="@@privacyHeader">Tietosuoja</h1>
-            </div>
-        </div>
-        <div class="row base">
-            <div class="col">
-                <div class="content">
-                    <div class="row" tabindex="0" #mainFocus>
-                        <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="navigate($event)">
-                            <mat-tab [label]="privacyPolicyContent['title' + currentLocale]">
-                                <div class="pt-4">
-                                    <h2 [innerHTML]="privacyPolicyContent['title' + currentLocale]"></h2>
-                                    <div [innerHTML]="privacyPolicyContent['content' + currentLocale] | sanitizeHtml"></div>
-                                </div>   
-                            </mat-tab>
-                            <mat-tab [label]="cookiePolicyContent['title' + currentLocale]">
-                                <div class="pt-4">
-                                    <h2 [innerHTML]="cookiePolicyContent['title' + currentLocale]"></h2>
-                                    <div [innerHTML]="cookiePolicyContent['content' + currentLocale] | sanitizeHtml"></div>
-                                </div>
-                            </mat-tab>
-                            <mat-tab i18n-label="@@CMHeader" label="Hallinnoi evästeasetuksia">
-                                <div class="pt-4">
-                                    <h2 i18n="@@CMHeader">Hallinnoi evästeasetuksia</h2>
-                                    <div class="row">
-                                        <div class="col px-0">
-                                            <button mat-flat-button color="primary" (click)="changeConsent('declined')" *ngIf="consentStatus === 'approved'">
-                                                <ng-container i18n="@@disableTracking">Poista seuranta käytöstä</ng-container>
-                                            </button>
-                                            <button mat-flat-button color="primary" (click)="changeConsent('approved')" *ngIf="consentStatus === 'declined' || !consentStatus">
-                                                <ng-container i18n="@@enableTracking">Ota seuranta käyttöön</ng-container>
-                                            </button>
-                                            <!-- <iframe style="border: 0; height: 200px; width: 600px;"
+  <div class="wrapper">
+    <div class="row">
+      <div class="col pb-4">
+        <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h1 i18n="@@privacyHeader">Tietosuoja</h1>
+      </div>
+    </div>
+    <div class="row base">
+      <div class="col">
+        <div class="content">
+          <div class="row" tabindex="0" #mainFocus>
+            <mat-tab-group
+              [(selectedIndex)]="selectedIndex"
+              (selectedTabChange)="navigate($event)"
+            >
+              <mat-tab [label]="privacyPolicyContent['title' + currentLocale]">
+                <div class="pt-4">
+                  <h2
+                    [innerHTML]="privacyPolicyContent['title' + currentLocale]"
+                  ></h2>
+                  <div
+                    [innerHTML]="
+                      privacyPolicyContent['content' + currentLocale]
+                        | sanitizeHtml
+                    "
+                  ></div>
+                </div>
+              </mat-tab>
+              <mat-tab [label]="cookiePolicyContent['title' + currentLocale]">
+                <div class="pt-4">
+                  <h2
+                    [innerHTML]="cookiePolicyContent['title' + currentLocale]"
+                  ></h2>
+                  <div
+                    [innerHTML]="
+                      cookiePolicyContent['content' + currentLocale]
+                        | sanitizeHtml
+                    "
+                  ></div>
+                </div>
+              </mat-tab>
+              <mat-tab
+                i18n-label="@@CMHeader"
+                label="Hallinnoi evästeasetuksia"
+              >
+                <div class="pt-4">
+                  <h2 i18n="@@CMHeader">Hallinnoi evästeasetuksia</h2>
+                  <div class="row">
+                    <div class="col px-0">
+                      <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="changeConsent('declined')"
+                        *ngIf="consentStatus === 'approved'"
+                      >
+                        <ng-container i18n="@@disableTracking"
+                          >Poista seuranta käytöstä</ng-container
+                        >
+                      </button>
+                      <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="changeConsent('approved')"
+                        *ngIf="consentStatus === 'declined' || !consentStatus"
+                      >
+                        <ng-container i18n="@@enableTracking"
+                          >Ota seuranta käyttöön</ng-container
+                        >
+                      </button>
+                      <!-- <iframe style="border: 0; height: 200px; width: 600px;"
                                             [src]="matomoUrl | safeUrl">
                                             </iframe> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-tab>
-                          </mat-tab-group>
                     </div>
+                  </div>
                 </div>
-            </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </main>

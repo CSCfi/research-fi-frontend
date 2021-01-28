@@ -1,41 +1,40 @@
 @import '~@angular/material/theming';
 
 @mixin app-active-filters-shared-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-active-filters, app-filter-list {
-        .active-filters li {
-            border: 1px solid mat-color($primary, 300);
-            background: mat-color($primary, 100);
-        }   
-
-        .active-filters li:after {
-            color: mat-color($primary, 800);
-        }
-
-        .icon {
-            color: mat-color($primary)
-        }
-
-        .warning-info {
-            background: mat-color($primary, default-contrast);;
-        }
-
-        .warning-info:after, .warning-info:before {
-            border: solid transparent;
-        }
-
-        .warning-info:after {
-            border-bottom-color: mat-color($primary, default-contrast);
-        }
-
-        .warning-info:before {
-            border-bottom-color: black;
-            border-width: 13px;
-            margin-left: -13px;
-        }
+  app-active-filters,
+  app-filter-list {
+    .active-filters li {
+      border: 1px solid mat-color($primary, 300);
+      background: mat-color($primary, 100);
     }
 
-    
-}
+    .active-filters li:after {
+      color: mat-color($primary, 800);
+    }
 
+    .icon {
+      color: mat-color($primary);
+    }
+
+    .warning-info {
+      background: mat-color($primary, default-contrast);
+    }
+
+    .warning-info:after,
+    .warning-info:before {
+      border: solid transparent;
+    }
+
+    .warning-info:after {
+      border-bottom-color: mat-color($primary, default-contrast);
+    }
+
+    .warning-info:before {
+      border-bottom-color: black;
+      border-width: 13px;
+      margin-left: -13px;
+    }
+  }
+}

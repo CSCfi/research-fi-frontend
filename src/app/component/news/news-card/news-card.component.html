@@ -1,47 +1,62 @@
-<mat-card class="col-12 news-card mat-elevation-z px-0 mx-auto" [class.side]="sideNews" [class.limit-width]="isHomepage">
-    <mat-card-header>
-        <mat-card-title>
-            <ng-container [ngSwitch]="isHomepage">
-                <a href="{{item.url}}" target="_blank">
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-11 pl-0">
-                            <h3 *ngSwitchCase="true">{{item.headline}}</h3>
-                            <ng-container *ngSwitchDefault>
-                                <h3 [innerHTML]="item.headline | highlight: term"></h3>
-                            </ng-container>
-                        </div>
-                        <div class="col-auto px-0 align-self-end mb-1">
-                            <fa-icon class="icon" icon="external-link-alt"></fa-icon>
-                        </div>
-                    </div>
-                </a>
-            </ng-container>
-        </mat-card-title>
-        <mat-card-subtitle>
-            <div class="row justify-content-between">
-                <span class="col pl-0">{{item.timestamp | date:'dd.MM.yyyy'}}</span>
-                <span *ngIf="item.author" class="col-2">{{item.author}}</span>
-                <span class="col pr-0 text-right" [innerHTML]="item.organizationNameFi | highlight: term"></span>
+<mat-card
+  class="col-12 news-card mat-elevation-z px-0 mx-auto"
+  [class.side]="sideNews"
+  [class.limit-width]="isHomepage"
+>
+  <mat-card-header>
+    <mat-card-title>
+      <ng-container [ngSwitch]="isHomepage">
+        <a href="{{ item.url }}" target="_blank">
+          <div class="row d-flex justify-content-between">
+            <div class="col-11 pl-0">
+              <h3 *ngSwitchCase="true">{{ item.headline }}</h3>
+              <ng-container *ngSwitchDefault>
+                <h3 [innerHTML]="item.headline | highlight: term"></h3>
+              </ng-container>
             </div>
-        </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
-        <div class="row">
-            <span class="preview" [innerHTML]="item.content | highlight: term" [ngClass]="item.mediaUri?.length > 0 ? 'col-10 px-0' : ''"></span>
-            <div class="pl-0" *ngIf="item.mediaUri?.length === 0" [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'"></div>
-            <div *ngIf="item.mediaUri?.length > 0" class="col-2 px-0">
-                <img [src]="item.mediaUri | safeUrl">
+            <div class="col-auto px-0 align-self-end mb-1">
+              <fa-icon class="icon" icon="external-link-alt"></fa-icon>
             </div>
-        </div>
-    </mat-card-content>
-    <mat-card-actions *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
-        <div class="row">
-            <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
+          </div>
+        </a>
+      </ng-container>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <div class="row justify-content-between">
+        <span class="col pl-0">{{ item.timestamp | date: 'dd.MM.yyyy' }}</span>
+        <span *ngIf="item.author" class="col-2">{{ item.author }}</span>
+        <span
+          class="col pr-0 text-right"
+          [innerHTML]="item.organizationNameFi | highlight: term"
+        ></span>
+      </div>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+    <div class="row">
+      <span
+        class="preview"
+        [innerHTML]="item.content | highlight: term"
+        [ngClass]="item.mediaUri?.length > 0 ? 'col-10 px-0' : ''"
+      ></span>
+      <div
+        class="pl-0"
+        *ngIf="item.mediaUri?.length === 0"
+        [ngClass]="item.mediaUri?.length > 0 ? 'col-10' : 'col-12'"
+      ></div>
+      <div *ngIf="item.mediaUri?.length > 0" class="col-2 px-0">
+        <img [src]="item.mediaUri | safeUrl" />
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions *ngIf="!sideNews" [ngClass]="isHomepage ? '' : 'ml-0 mr-0'">
+    <div class="row">
+      <!-- <div class="col pl-0" [ngClass]="item.mediaUri?.length > 0 ? 'link' : ''">
                 <a class="org-link" href="{{item.url}}" target="_blank" aria-label="Lue koko uutinen organisaation verkkosivuilla"><ng-container i18n="@@readOriginialNews">Lue koko uutinen organisaation verkkosivuilla </ng-container><fa-icon icon="external-link-alt"></fa-icon></a>
             </div> -->
-            <div *ngIf="item.mediaUri?.length > 0" class="col pr-0 text-right">
-                <!-- <img [src]="item.mediaUri | safeUrl"> -->
-            </div>
-        </div>
-    </mat-card-actions>
+      <div *ngIf="item.mediaUri?.length > 0" class="col pr-0 text-right">
+        <!-- <img [src]="item.mediaUri | safeUrl"> -->
+      </div>
+    </div>
+  </mat-card-actions>
 </mat-card>

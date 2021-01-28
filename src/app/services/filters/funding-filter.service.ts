@@ -11,23 +11,58 @@ import { StaticDataService } from '../../services/static-data.service';
 import { cloneDeep } from 'lodash';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FundingFilterService {
   filterData = [
-    {field: 'year', label: $localize`:@@fundingYear:Aloitusvuosi`, hasSubFields: false, open: true, limitHeight: true, hideSearch: true,
-    tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`},
-    {field: 'organization', label: $localize`:@@organization:Organisaatio`, hasSubFields: true, limitHeight: false,
-    tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`, errorTooltip: $localize`:@@fOrgErrorTooltip:Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.`},
-    {field: 'funder', label: $localize`:@@fundingFunder:Rahoittaja`, hasSubFields: false, limitHeight: false, open: true,
-    tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`},
-    {field: 'typeOfFunding', label: $localize`:@@typeOfFunding:Rahoitusmuoto`, hasSubFields: true, limitHeight: false, open: false,
-    tooltip: $localize`:@@fTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.`},
-    {field: 'field', label: $localize`:@@fieldOfScience:Tieteenala`, hasSubFields: true, limitHeight: false,
-    tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`},
+    {
+      field: 'year',
+      label: $localize`:@@fundingYear:Aloitusvuosi`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      hideSearch: true,
+      tooltip: $localize`:@@fYearFTooltip:Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.`,
+    },
+    {
+      field: 'organization',
+      label: $localize`:@@organization:Organisaatio`,
+      hasSubFields: true,
+      limitHeight: false,
+      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`,
+      errorTooltip: $localize`:@@fOrgErrorTooltip:Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.`,
+    },
+    {
+      field: 'funder',
+      label: $localize`:@@fundingFunder:Rahoittaja`,
+      hasSubFields: false,
+      limitHeight: false,
+      open: true,
+      tooltip: $localize`:@@fFunderFTooltip:Rahoituksen myöntänyt tutkimusrahoittaja. Luettelossa ovat vain ne rahoittajat, jotka toimittavat tietoja palveluun.`,
+    },
+    {
+      field: 'typeOfFunding',
+      label: $localize`:@@typeOfFunding:Rahoitusmuoto`,
+      hasSubFields: true,
+      limitHeight: false,
+      open: false,
+      tooltip: $localize`:@@fTypeOfFundingTooltip:Tapa rahoittaa tutkimusta. Rahoitusmuotoja ovat esimerkiksi tutkimusapuraha, hankerahoitus ja tutkimusinfrastruktuurirahoitus. Rahoitusmuotoja on ryhmitelty rahoittajittain suodattimeen, koska ne ovat usein rahoittajakohtaisia.`,
+    },
+    {
+      field: 'field',
+      label: $localize`:@@fieldOfScience:Tieteenala`,
+      hasSubFields: true,
+      limitHeight: false,
+      tooltip: $localize`:@@fFieldsOfScienceTooltip:Tilastokeskuksen tieteenalaluokitus. Yhteen hankkeeseen voi liittyä useita tieteenaloja. Kaikki rahoittajat eivät käytä tieteenaloja. Siksi suodatinta käyttämällä ei voi selvittää jonkin tieteenalan osuutta kokonaisrahoituksesta.`,
+    },
     // {field: 'scheme', label: 'Teema-ala', hasSubFields: false, limitHeight: false, open: true,
     // tooltip: 'Teema-ala on tutkimusrahoittajan oma tapa luokitella rahoittamaansa tutkimusta.'}
-    {field: 'faField', label: $localize`:@@FAField:Teemat`, hasSubFields: false,  open: true}
+    {
+      field: 'faField',
+      label: $localize`:@@FAField:Teemat`,
+      hasSubFields: false,
+      open: true,
+    },
   ];
 
   singleFilterData = [
@@ -38,10 +73,14 @@ export class FundingFilterService {
 
   currentLocale: string;
 
-  constructor( private filterMethodService: FilterMethodService, private staticDataService: StaticDataService,
-               @Inject( LOCALE_ID ) protected localeId: string) {
+  constructor(
+    private filterMethodService: FilterMethodService,
+    private staticDataService: StaticDataService,
+    @Inject(LOCALE_ID) protected localeId: string
+  ) {
     // Capitalize first letter of locale
-    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   shapeData(data) {
@@ -50,16 +89,23 @@ export class FundingFilterService {
       // Year
       source.year.buckets = this.mapYear(source.year.years.buckets);
       // Organization
-      source.organization.buckets = this.organization(source.organization, source.organizationConsortium);
+      source.organization.buckets = this.organization(
+        source.organization,
+        source.organizationConsortium
+      );
       // Funder
       source.funder.buckets = this.funder(source.funder.funders.buckets);
       // Type of funding
-      source.typeOfFunding.buckets = this.typeOfFunding(source.typeOfFunding.types.buckets);
+      source.typeOfFunding.buckets = this.typeOfFunding(
+        source.typeOfFunding.types.buckets
+      );
       // Field of science
       source.field.buckets = this.minorField(source.field.fields.buckets);
       // Finnish Academy field
       source.faField = source.faField.faFields;
-      source.fundingStatus.buckets = this.onGoing(source.fundingStatus.status.buckets);
+      source.fundingStatus.buckets = this.onGoing(
+        source.fundingStatus.status.buckets
+      );
     }
     source.shaped = true;
     return source;
@@ -67,7 +113,7 @@ export class FundingFilterService {
 
   mapYear(data) {
     const clone = cloneDeep(data);
-    clone.map(item => {
+    clone.map((item) => {
       item.key = item.key.toString();
     });
     return clone;
@@ -77,39 +123,52 @@ export class FundingFilterService {
     let fData = fgp.funded?.sectorName.buckets || [];
     const oData = oc.funded?.sectorName.buckets || [];
 
-
     // Find differences in consortium and funding group data, merge difference into fData
-    const parentDiff = oData.filter(item1 => !fData.some(item2 => (item2.key === item1.key)));
-    if (parentDiff.length > 0) {fData = fData.concat(parentDiff); }
-
+    const parentDiff = oData.filter(
+      (item1) => !fData.some((item2) => item2.key === item1.key)
+    );
+    if (parentDiff.length > 0) {
+      fData = fData.concat(parentDiff);
+    }
 
     // Find differences in organizations and push into parent, sum duplicate orgs doc counts
     fData.forEach((item, i) => {
       // Find differences between fundingGroupPerson and OrganizationConsortium.
       // Both data sources are sorted alphabetically to match sectors
-      const diff = oData.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)[i]?.organizations.buckets.filter(item1 =>
-                  !fData.sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)[i].organizations?.buckets.sort()
-                  .some(item2 => (item2.key === item1.key)));
+      const diff = oData
+        .sort((a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key)
+        [i]?.organizations.buckets.filter(
+          (item1) =>
+            !fData
+              .sort(
+                (a, b) => a.sectorId.buckets[0].key - b.sectorId.buckets[0].key
+              )
+              [i].organizations?.buckets.sort()
+              .some((item2) => item2.key === item1.key)
+        );
 
       // Find duplicates in fundingGroupPerson and OrganizationConsortium
-      const duplicate = oData[i]?.organizations.buckets.filter(item1 =>
-                        fData[i].organizations.buckets.some(item2 => (item2.key === item1.key)));
+      const duplicate = oData[i]?.organizations.buckets.filter((item1) =>
+        fData[i].organizations.buckets.some((item2) => item2.key === item1.key)
+      );
 
       // Push differences into fundingGroupPerson
       if (diff) {
-        diff.forEach(x => {
+        diff.forEach((x) => {
           item.organizations.buckets.push(x);
         });
       }
 
       // Get filtered sums as doc_count
-      item.organizations.buckets.map(org => {
-        org.doc_count = org.filtered.filterCount.doc_count + (duplicate?.find(d => d.key === org.key)?.filtered.filterCount.doc_count || 0);
+      item.organizations.buckets.map((org) => {
+        org.doc_count =
+          org.filtered.filterCount.doc_count +
+          (duplicate?.find((d) => d.key === org.key)?.filtered.filterCount
+            .doc_count || 0);
       });
 
       // Sort by doc count
       item.organizations.buckets.sort((a, b) => b.doc_count - a.doc_count);
-
     });
 
     // Add data into buckets field, filter items with doc count, set key and label
@@ -129,11 +188,11 @@ export class FundingFilterService {
 
   funder(data) {
     // Filter out empty keys
-    const res = data.filter(item => {
+    const res = data.filter((item) => {
       return item.key !== ' ';
     });
 
-    res.map(item => {
+    res.map((item) => {
       item.label = item.label || item.key;
       item.key = item.funderId.buckets[0]?.key || item.key;
     });
@@ -143,10 +202,10 @@ export class FundingFilterService {
   typeOfFunding(d) {
     // Copy data and check that localized data exists. If not, default to english
     const data = [...d];
-    data.forEach(item => {
+    data.forEach((item) => {
       if (!item['header' + this.currentLocale].buckets.length) {
         item['header' + this.currentLocale] = item.headerEn;
-        item['header' + this.currentLocale].buckets.forEach(type => {
+        item['header' + this.currentLocale].buckets.forEach((type) => {
           if (!type['typeName' + this.currentLocale].buckets.length) {
             type['typeName' + this.currentLocale] = type.typeNameEn;
           }
@@ -154,20 +213,23 @@ export class FundingFilterService {
       }
     });
     // Map sub items
-    data.map(item => {
+    data.map((item) => {
       item.id = item.key;
       item.key = item['header' + this.currentLocale].buckets[0].key;
-      item.subData = item['header' + this.currentLocale].buckets[0]['typeName' + this.currentLocale].buckets;
-      item.subData.map(type => {
-        type.label = type.label ? type.label : type.key,
-        type.key = type.typeId.buckets[0].key,
-        type.doc_count = type.doc_count;
+      item.subData =
+        item['header' + this.currentLocale].buckets[0][
+          'typeName' + this.currentLocale
+        ].buckets;
+      item.subData.map((type) => {
+        (type.label = type.label ? type.label : type.key),
+          (type.key = type.typeId.buckets[0].key),
+          (type.doc_count = type.doc_count);
       });
     });
 
     // Rearrange with custom order
     const rearranged = [];
-    data.forEach(item => {
+    data.forEach((item) => {
       switch (item.id) {
         case '0004': {
           rearranged.push(item);
@@ -195,14 +257,15 @@ export class FundingFilterService {
     let res = [];
     // check if major aggregation is available
     if (data.length) {
-      const combinedMajorFields =  data ?
-      (this.filterMethodService.separateMinor(data ? data : []) ) : [];
+      const combinedMajorFields = data
+        ? this.filterMethodService.separateMinor(data ? data : [])
+        : [];
 
       const result = cloneDeep(this.staticDataService.majorFieldsOfScience);
 
       for (let i = 0; i < combinedMajorFields.length; i++) {
         if (result[i]) {
-            result[i].subData = combinedMajorFields[i];
+          result[i].subData = combinedMajorFields[i];
         }
       }
       res = result;
@@ -213,12 +276,14 @@ export class FundingFilterService {
   }
 
   onGoing(data) {
-    return data.map(item => item.key = {key: 'onGoing', doc_count: item.doc_count});
+    return data.map(
+      (item) => (item.key = { key: 'onGoing', doc_count: item.doc_count })
+    );
   }
 
   getSingleAmount(data) {
-      if (data.length > 0) {
-        return data.filter(x => x.key === 1);
-      }
+    if (data.length > 0) {
+      return data.filter((x) => x.key === 1);
     }
+  }
 }

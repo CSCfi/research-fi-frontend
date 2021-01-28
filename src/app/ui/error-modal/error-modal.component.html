@@ -1,10 +1,22 @@
 <ng-template #errorModal>
-    <div class="modal-header align-items-center">
-        <h5 class="modal-title">Error</h5>
-        <app-close-button (click)="closeModal()" (keydown.enter)="closeModal()" autofocus tabindex="-1"></app-close-button>
-    </div>
-    <div class="modal-body px-3 pt-3">
-        <p><strong>{{error.name}} {{error.status}}</strong></p>
-        <p>{{staticDataService.httpErrors[error.status] || 'Tuntematon virhe ' + error.status}}</p>
-    </div>
+  <div class="modal-header align-items-center">
+    <h5 class="modal-title">Error</h5>
+    <app-close-button
+      (click)="closeModal()"
+      (keydown.enter)="closeModal()"
+      autofocus
+      tabindex="-1"
+    ></app-close-button>
+  </div>
+  <div class="modal-body px-3 pt-3">
+    <p>
+      <strong>{{ error.name }} {{ error.status }}</strong>
+    </p>
+    <p>
+      {{
+        staticDataService.httpErrors[error.status] ||
+          'Tuntematon virhe ' + error.status
+      }}
+    </p>
+  </div>
 </ng-template>

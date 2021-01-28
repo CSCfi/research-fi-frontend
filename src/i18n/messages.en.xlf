@@ -721,6 +721,10 @@
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="noDatasets" datatype="html">
+        <source>Ei tutkimusaineistoja</source>
+        <target>No research data</target>
+      </trans-unit>
       <trans-unit id="fundingRecipientHeader" datatype="html">
         <source>Myönnetty rahoitus</source>
         <target>Granted funding</target>
@@ -1132,6 +1136,10 @@
           <context context-type="sourcefile">app/component/results/tooltip/tooltip.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="description" datatype="html">
+        <source>Kuvaus</source>
+        <target>Description</target>
       </trans-unit>
       <trans-unit id="06f7177479837b356eabf8274c9785f3d6c5829b" datatype="html">
         <source>Kuvausta ei saatavilla.</source>
@@ -1565,6 +1573,10 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="downloadCSV">
+        <source>Lataa tiedostona (csv)</source>
+        <target>Download file (csv)</target>
+      </trans-unit>
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source>Lisää lukuja tieteestä ja tutkimuksesta</source>
         <target>More figures from science and research</target>
@@ -1883,7 +1895,7 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="materials" datatype="html">
+      <trans-unit id="datasets" datatype="html">
         <source>Aineistot</source>
         <target>Research data</target>
         <context-group purpose="location">
@@ -2703,6 +2715,14 @@
         <source>Summa</source>
         <target>Amount</target>
       </trans-unit>
+      <trans-unit id="fundingRecipient">
+        <source>Rahoituksen saaja</source>
+        <target>Funding recipient</target>
+      </trans-unit>
+      <trans-unit id="totalAmount">
+        <source>Rahoitusten kokonaissumma</source>
+        <target>Total funding amount</target>
+      </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
         <target>Fields of science</target>
@@ -2762,6 +2782,27 @@
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       <target>A website outside the research.fi service that contains more detailed information on the project.</target>
+      </trans-unit>
+      <!-- Datasets -->
+      <trans-unit id="datasetAccessOpen">
+        <source>Avoin</source>
+        <target>Open</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessPermit">
+        <source>Vaatii luvan hakemista Fairdata-palvelussa</source>
+        <target>Requires applying permission in Fairdata service</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessLogin">
+        <source>Vaatii kirjautumisen Fairdata-palvelussa</source>
+        <target>Requires login in Fairdata service</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessRestricted">
+        <source>Saatavuutta rajoitettu</source>
+        <target>Restricted use</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessEmbargo">
+        <source>Embargo</source>
+        <target>Embargo</target>
       </trans-unit>
       <!-- Infrastructures -->
       <trans-unit id="infraServicesLabel">
@@ -3167,7 +3208,7 @@
         <source>Hanke</source>
         <target>Project</target>
       </trans-unit>
-      <trans-unit id="material">
+      <trans-unit id="dataset">
         <source>Aineisto</source>
         <target>Research data</target>
       </trans-unit>
@@ -3199,7 +3240,7 @@
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
         <target>Funding decisions issued by Finnish public and private research funders starting from the date each funder joined the service. Funding decisions issued to Finnish organizations by the EU starting from the Horizon 2020 framework program.</target>
       </trans-unit>
-      <trans-unit id="materialsTooltip">
+      <trans-unit id="datasetsTooltip">
         <source>Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.</source>
         <target>Research data produced in Finland.</target>
       </trans-unit>

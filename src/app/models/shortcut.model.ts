@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 
 export class Shortcut {
-
   constructor(
     public placement: number,
     public titleFi: string,
@@ -22,14 +21,13 @@ export class Shortcut {
     public imageAltFi: string,
     public imageAltSv: string,
     public imageAltEn: string,
-    public link: string,
+    public link: string
   ) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ShortcutAdapter implements Adapter<Shortcut> {
   constructor() {}
   adapt(item: any): Shortcut {
@@ -45,14 +43,14 @@ export class ShortcutAdapter implements Adapter<Shortcut> {
       item.image_alt_fi,
       item.image_alt_sv,
       item.image_alt_en,
-      item.link,
+      item.link
     );
   }
 
   adaptMany(item: any): Shortcut[] {
     const shortcuts: Shortcut[] = [];
     const source = item;
-    source.forEach(el => shortcuts.push(this.adapt(el)));
+    source.forEach((el) => shortcuts.push(this.adapt(el)));
     return shortcuts;
   }
 }

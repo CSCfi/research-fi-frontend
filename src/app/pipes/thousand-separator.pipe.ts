@@ -8,13 +8,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'thousandSeparator'
+  name: 'thousandSeparator',
 })
 export class ThousandSeparatorPipe implements PipeTransform {
-
   transform(value: any): any {
-    const transformed = value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '0';
+    const transformed = value
+      ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+      : '0';
     return transformed;
   }
-
 }

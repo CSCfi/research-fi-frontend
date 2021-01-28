@@ -8,17 +8,16 @@
 @import '~@angular/material/theming';
 
 @mixin app-cookie-consent-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-cookie-consent {
-        .cookie-consent {
-            background: black;
-            color: white;
-        }
-
-        a.read-more {   
-            color: #C7C7C7;
-        }
+  app-cookie-consent {
+    .cookie-consent {
+      background: black;
+      color: white;
     }
 
+    a.read-more {
+      color: #c7c7c7;
+    }
+  }
 }

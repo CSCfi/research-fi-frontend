@@ -3,16 +3,20 @@ import { SortService } from '../sort.service';
 import { SettingsService } from '../settings.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AggregationService {
   localeC: string;
   today: string;
 
-  constructor(private sortService: SortService, private settingsService: SettingsService,
-              @Inject( LOCALE_ID ) protected localeId: string) {
-                this.localeC = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
-              }
+  constructor(
+    private sortService: SortService,
+    private settingsService: SettingsService,
+    @Inject(LOCALE_ID) protected localeId: string
+  ) {
+    this.localeC =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  }
 
   // Check current ui language
   langByLocale(locale) {
@@ -34,19 +38,38 @@ export class AggregationService {
     return field;
   }
 
-  constructAggregations(filters: any, tab: string, searchTerm: string, disableFiltering = false) {
+  constructAggregations(
+    filters: any,
+    tab: string,
+    searchTerm: string,
+    disableFiltering = false
+  ) {
     // Filter active filters based on aggregation type. We have simple terms, nested and multiple nested aggregations by data mappings
-    const active = filters.filter(item => item.bool?.should.length > 0 && !item.bool.should[0].nested && !item.bool.should[0].bool);
+    const active = filters.filter(
+      (item) =>
+        item.bool?.should.length > 0 &&
+        !item.bool.should[0].nested &&
+        !item.bool.should[0].bool
+    );
     // Active bool filters come from aggregations that contain multiple terms, eg composite aggregation
-    const activeBool = filters.filter(item => item.bool?.should[0]?.bool);
-    const activeNested = filters.filter(item => item.nested?.query.bool.should?.length > 0 ||
-                                        item.nested?.query.bool.must.bool.should.length > 0);
-    const activeMultipleNested = filters.filter(item => item.bool?.should.length > 0 && item.bool.should[0]?.nested);
+    const activeBool = filters.filter((item) => item.bool?.should[0]?.bool);
+    const activeNested = filters.filter(
+      (item) =>
+        item.nested?.query.bool.should?.length > 0 ||
+        item.nested?.query.bool.must.bool.should.length > 0
+    );
+    const activeMultipleNested = filters.filter(
+      (item) => item.bool?.should.length > 0 && item.bool.should[0]?.nested
+    );
 
     // With co-publication filter on we need to filter filter values with organizations that are in co-publication.
-    const coPublication = active.find(item => item.bool?.should[0].term['publicationStatusCode.keyword']);
+    const coPublication = active.find(
+      (item) => item.bool?.should[0].term['publicationStatusCode.keyword']
+    );
 
-    const coPublicationFilter = filters.filter(item => item.bool?.should.nested?.path === 'author');
+    const coPublicationFilter = filters.filter(
+      (item) => item.bool?.should.nested?.path === 'author'
+    );
 
     // Functions to filter out active filters. These prevents doc count changes on active filter categories
     // Filtering is disabled for active filters translations
@@ -54,90 +77,146 @@ export class AggregationService {
       if (!disableFiltering) {
         // Open access aggregations come from 3 different aggs and need special case for filters
         if (field === 'openAccess') {
-          const filteredActive = active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== 'openAccessCode' &&
-                                              Object.keys(item.bool.should[0].term)?.toString() !== 'selfArchivedCode');
-          return filteredActive.concat(activeNested, activeMultipleNested, coPublication ? coPublicationFilter : []);
+          const filteredActive = active.filter(
+            (item) =>
+              Object.keys(item.bool.should[0].term)?.toString() !==
+                'openAccessCode' &&
+              Object.keys(item.bool.should[0].term)?.toString() !==
+                'selfArchivedCode'
+          );
+          return filteredActive.concat(
+            activeNested,
+            activeMultipleNested,
+            coPublication ? coPublicationFilter : []
+          );
         } else {
-          return active.filter(item => Object.keys(item.bool.should[0].term)?.toString() !== field)
-          .concat(activeNested, activeMultipleNested, activeBool, coPublication ? coPublicationFilter : []);
+          return active
+            .filter(
+              (item) =>
+                Object.keys(item.bool.should[0].term)?.toString() !== field
+            )
+            .concat(
+              activeNested,
+              activeMultipleNested,
+              activeBool,
+              coPublication ? coPublicationFilter : []
+            );
         }
       }
     }
 
     function filterActiveNested(path) {
       if (!disableFiltering) {
-        return activeNested.filter(item => item.nested?.path !== path)
-        .concat(active, activeMultipleNested, activeBool, coPublication ? coPublicationFilter : []);
+        return activeNested
+          .filter((item) => item.nested?.path !== path)
+          .concat(
+            active,
+            activeMultipleNested,
+            activeBool,
+            coPublication ? coPublicationFilter : []
+          );
       }
     }
 
     // TODO: Don't rely on path order. Use protype find instead
     function filterActiveMultipleNested(path1, path2) {
       if (!disableFiltering) {
-        const res = activeMultipleNested.filter(item => item.bool.should[0].nested.path !== path2)
-                    .concat(activeMultipleNested
-                    .filter(item => item.bool.should[1].nested.path !== path1), coPublication ? coPublicationFilter : []);
-        return res.concat(active, activeNested, activeBool, coPublication ? coPublicationFilter : []);
+        const res = activeMultipleNested
+          .filter((item) => item.bool.should[0].nested.path !== path2)
+          .concat(
+            activeMultipleNested.filter(
+              (item) => item.bool.should[1].nested.path !== path1
+            ),
+            coPublication ? coPublicationFilter : []
+          );
+        return res.concat(
+          active,
+          activeNested,
+          activeBool,
+          coPublication ? coPublicationFilter : []
+        );
       }
     }
 
     const yearAgg = {
       filter: {
         bool: {
-          filter: filterActive(this.sortService.yearField)
-        }
+          filter: filterActive(this.sortService.yearField),
+        },
       },
       aggs: {
         years: {
           terms: {
             field: this.sortService.yearField,
-            order: { _key : 'desc' },
-            size: 100
-          }
-        }
-      }
+            order: { _key: 'desc' },
+            size: 100,
+          },
+        },
+      },
     };
 
     // Testing purposes
-    const basicAgg = (filterMethod: any, path: string, fieldName: string, orderBy: string, sizeOf: number) => {
+    const basicAgg = (
+      filterMethod: any,
+      path: string,
+      fieldName: string,
+      orderBy: string,
+      sizeOf: number
+    ) => {
       return {
         filter: {
           bool: {
-            filter: filterMethod
-          }
+            filter: filterMethod,
+          },
         },
         aggs: {
           [path]: {
             terms: {
               field: fieldName,
-              ...( orderBy ? {order: { _key : orderBy }} : []),
-              ...( sizeOf ? {size: sizeOf} : []),
-            }
-          }
-        }
+              ...(orderBy ? { order: { _key: orderBy } } : []),
+              ...(sizeOf ? { size: sizeOf } : []),
+            },
+          },
+        },
       };
     };
 
     // Aggregations
     const payLoad: any = {
-      ...(searchTerm ? { query: {
-        // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
-        // outside path.
-        bool: { should: [ this.settingsService.querySettings(tab !== 'news' ? tab.slice(0, -1) : tab, searchTerm) ] }
-        }} : []),
+      ...(searchTerm
+        ? {
+            query: {
+              // Get query settings and perform aggregations based on tab. Nested filters use reverse nested aggregation to filter out fields
+              // outside path.
+              bool: {
+                should: [
+                  this.settingsService.querySettings(
+                    tab !== 'news' ? tab.slice(0, -1) : tab,
+                    searchTerm
+                  ),
+                ],
+              },
+            },
+          }
+        : []),
       size: 0,
-      aggs: {}
+      aggs: {},
     };
 
     // Testing purposes
-    const terms = (fieldName: string, orderBy: string, sizeOf: number, exclusion: any) => {
+    const terms = (
+      fieldName: string,
+      orderBy: string,
+      sizeOf: number,
+      exclusion: any
+    ) => {
       return {
         terms: {
           field: fieldName,
-          ...( orderBy ? {order: { _key : orderBy }} : []),
-          ...( sizeOf ? {size: sizeOf} : []),
-          ...( exclusion ? {exclude: exclusion} : []),
-        }
+          ...(orderBy ? { order: { _key: orderBy } } : []),
+          ...(sizeOf ? { size: sizeOf } : []),
+          ...(exclusion ? { exclude: exclusion } : []),
+        },
       };
     };
 
@@ -146,31 +225,34 @@ export class AggregationService {
         payLoad.aggs.year = yearAgg;
         payLoad.aggs.organization = {
           nested: {
-            path: 'author'
+            path: 'author',
           },
           aggs: {
             sectorName: {
               terms: {
                 size: 50,
                 field: 'author.name' + this.localeC + 'Sector.keyword',
-                exclude: ' '
+                exclude: ' ',
               },
               aggs: {
                 sectorId: {
                   terms: {
                     size: 50,
-                    field: 'author.sectorId.keyword'
-                  }
+                    field: 'author.sectorId.keyword',
+                  },
                 },
                 organization: {
                   nested: {
-                    path: 'author.organization'
+                    path: 'author.organization',
                   },
                   aggs: {
                     org: {
                       terms: {
                         size: 50,
-                        field: 'author.organization.OrganizationName' + this.localeC + '.keyword'
+                        field:
+                          'author.organization.OrganizationName' +
+                          this.localeC +
+                          '.keyword',
                       },
                       aggs: {
                         filtered: {
@@ -179,70 +261,73 @@ export class AggregationService {
                             filterCount: {
                               filter: {
                                 bool: {
-                                  filter: filterActiveNested('author')
-                                }
-                              }
-                            }
-                          }
+                                  filter: filterActiveNested('author'),
+                                },
+                              },
+                            },
+                          },
                         },
                         orgId: {
                           terms: {
                             size: 10,
-                            field: 'author.organization.organizationId.keyword'
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+                            field: 'author.organization.organizationId.keyword',
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.countryCode = {
           filter: {
             bool: {
-              filter: filterActive('internationalPublication')
-            }
+              filter: filterActive('internationalPublication'),
+            },
           },
           aggs: {
             countryCodes: {
               terms: {
                 field: 'internationalPublication',
-                order: { _key : 'asc' },
-                size: 50
-              }
-            }
-          }
+                order: { _key: 'asc' },
+                size: 50,
+              },
+            },
+          },
         };
         payLoad.aggs.lang = {
           filter: {
             bool: {
-              filter: filterActive('languages.languageCode')
-            }
+              filter: filterActive('languages.languageCode'),
+            },
           },
           aggs: {
             langs: {
               terms: {
                 field: 'languages.languageCode.keyword',
-                size: 50
+                size: 50,
               },
               aggs: {
                 language: {
                   terms: {
-                    field: 'languages.' + this.langByLocale(this.localeId) + '.keyword',
-                    size: 100
-                  }
-                }
-              }
-            }
-          }
+                    field:
+                      'languages.' +
+                      this.langByLocale(this.localeId) +
+                      '.keyword',
+                    size: 100,
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.publicationType = {
           filter: {
             bool: {
-              filter: filterActive('publicationTypeCode.keyword')
-            }
+              filter: filterActive('publicationTypeCode.keyword'),
+            },
           },
           aggs: {
             publicationTypes: {
@@ -251,146 +336,157 @@ export class AggregationService {
                 size: 50,
                 exclude: ' ',
                 order: {
-                  _key: 'asc'
-                }
-              }
-            }
-          }
+                  _key: 'asc',
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.publicationFormat = {
           filter: {
             bool: {
-              filter: filterActive('publicationFormat.id.keyword')
-            }
+              filter: filterActive('publicationFormat.id.keyword'),
+            },
           },
           aggs: {
             publicationFormats: {
               terms: {
-                field: 'publicationFormat.name' + this.localeC + 'PublicationFormat.keyword',
+                field:
+                  'publicationFormat.name' +
+                  this.localeC +
+                  'PublicationFormat.keyword',
                 exclude: ' ',
               },
               aggs: {
                 id: {
                   terms: {
-                    field: 'publicationFormat.id.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'publicationFormat.id.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.publicationAudience = {
           filter: {
             bool: {
-              filter: filterActive('publicationAudience.id.keyword')
-            }
+              filter: filterActive('publicationAudience.id.keyword'),
+            },
           },
           aggs: {
             publicationAudiences: {
               terms: {
-                field: 'publicationAudience.name' + this.localeC + 'PublicationAudience.keyword',
+                field:
+                  'publicationAudience.name' +
+                  this.localeC +
+                  'PublicationAudience.keyword',
                 exclude: ' ',
               },
               aggs: {
                 id: {
                   terms: {
-                    field: 'publicationAudience.id.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'publicationAudience.id.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.parentPublicationType = {
           filter: {
             bool: {
-              filter: filterActive('parentPublicationType.id.keyword')
-            }
+              filter: filterActive('parentPublicationType.id.keyword'),
+            },
           },
           aggs: {
             parentPublicationTypes: {
               terms: {
-                field: 'parentPublicationType.name' + this.localeC + 'ParentPublicationType.keyword',
+                field:
+                  'parentPublicationType.name' +
+                  this.localeC +
+                  'ParentPublicationType.keyword',
                 exclude: ' ',
               },
               aggs: {
                 id: {
                   terms: {
-                    field: 'parentPublicationType.id.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'parentPublicationType.id.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.peerReviewed = {
           filter: {
             bool: {
-              filter: filterActive('peerReviewed.id.keyword')
-            }
+              filter: filterActive('peerReviewed.id.keyword'),
+            },
           },
           aggs: {
             peerReviewedValues: {
               terms: {
-                field: 'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword',
+                field:
+                  'peerReviewed.name' + this.localeC + 'PeerReviewed.keyword',
                 exclude: ' ',
               },
               aggs: {
                 id: {
                   terms: {
-                    field: 'peerReviewed.id.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'peerReviewed.id.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.juFo = {
           filter: {
             bool: {
-              filter: filterActive('jufoClassCode.keyword')
-            }
+              filter: filterActive('jufoClassCode.keyword'),
+            },
           },
           aggs: {
             juFoCodes: {
               terms: {
                 field: 'jufoClassCode.keyword',
                 order: {
-                  _key: 'desc'
-                }
-              }
-            }
-          }
+                  _key: 'desc',
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.internationalCollaboration = {
           filter: {
             bool: {
-              filter: filterActive('internationalCollaboration')
-            }
+              filter: filterActive('internationalCollaboration'),
+            },
           },
           aggs: {
             internationalCollaborationCodes: {
               terms: {
                 field: 'internationalCollaboration',
                 size: 2,
-              }
-            }
-          }
+              },
+            },
+          },
         };
         // Field of science
         payLoad.aggs.field = {
           nested: {
-            path: 'fieldsOfScience'
+            path: 'fieldsOfScience',
           },
           aggs: {
             fields: {
               terms: {
-                field: 'fieldsOfScience.name' + this.localeC + 'Science.keyword',
+                field:
+                  'fieldsOfScience.name' + this.localeC + 'Science.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {
-                  _key: 'asc'
-                }
+                  _key: 'asc',
+                },
               },
               aggs: {
                 filtered: {
@@ -399,49 +495,49 @@ export class AggregationService {
                     filterCount: {
                       filter: {
                         bool: {
-                          filter: filterActiveNested('fieldsOfScience')
-                        }
-                      }
-                    }
-                  }
+                          filter: filterActiveNested('fieldsOfScience'),
+                        },
+                      },
+                    },
+                  },
                 },
                 fieldId: {
                   terms: {
-                    field: 'fieldsOfScience.fieldIdScience'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'fieldsOfScience.fieldIdScience',
+                  },
+                },
+              },
+            },
+          },
         };
         // Open access
         payLoad.aggs.selfArchived = {
           filter: {
             bool: {
-              filter: filterActive('openAccess')
-            }
+              filter: filterActive('openAccess'),
+            },
           },
           aggs: {
             selfArchivedCodes: {
               terms: {
-                field: 'selfArchivedCode'
-              }
-            }
-          }
+                field: 'selfArchivedCode',
+              },
+            },
+          },
         };
         payLoad.aggs.openAccess = {
           filter: {
             bool: {
-              filter: filterActive('openAccess')
-            }
+              filter: filterActive('openAccess'),
+            },
           },
           aggs: {
             openAccessCodes: {
               terms: {
-                field: 'openAccessCode'
-              }
-            }
-          }
+                field: 'openAccessCode',
+              },
+            },
+          },
         };
         // Composite is to get aggregation of selfarchived and open access codes of 0
         payLoad.aggs.oaComposite = {
@@ -450,28 +546,28 @@ export class AggregationService {
               {
                 selfArchived: {
                   terms: {
-                    field: 'selfArchivedCode'
-                  }
-                }
+                    field: 'selfArchivedCode',
+                  },
+                },
               },
               {
                 openAccess: {
                   terms: {
-                    field: 'openAccessCode'
-                  }
-                }
-              }
-            ]
+                    field: 'openAccessCode',
+                  },
+                },
+              },
+            ],
           },
           aggs: {
             filtered: {
               filter: {
                 bool: {
-                  filter: filterActive('openAccess')
-                }
-              }
-            }
-          }
+                  filter: filterActive('openAccess'),
+                },
+              },
+            },
+          },
         };
         break;
       case 'fundings':
@@ -480,8 +576,8 @@ export class AggregationService {
         payLoad.aggs.funder = {
           filter: {
             bool: {
-              filter: filterActive('funderBusinessId.pid_content.keyword')
-            }
+              filter: filterActive('funderBusinessId.pid_content.keyword'),
+            },
           },
           aggs: {
             funders: {
@@ -489,32 +585,30 @@ export class AggregationService {
                 field: 'funderName' + this.localeC + '.keyword',
                 size: 250,
                 order: {
-                  _key: 'asc'
-                }
+                  _key: 'asc',
+                },
               },
               aggs: {
                 funderId: {
                   terms: {
-                    field: 'funderBusinessId.pid_content.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'funderBusinessId.pid_content.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         // Sector & organization
         payLoad.aggs.organization = {
           nested: {
-            path: 'fundingGroupPerson'
+            path: 'fundingGroupPerson',
           },
           aggs: {
             funded: {
               filter: {
                 terms: {
-                  'fundingGroupPerson.fundedPerson': [
-                    1
-                  ]
-                }
+                  'fundingGroupPerson.fundedPerson': [1],
+                },
               },
               aggs: {
                 sectorName: {
@@ -527,13 +621,17 @@ export class AggregationService {
                     sectorId: {
                       terms: {
                         size: 50,
-                        field: 'fundingGroupPerson.fundedPersonOrganizationSectorId.keyword'
-                      }
+                        field:
+                          'fundingGroupPerson.fundedPersonOrganizationSectorId.keyword',
+                      },
                     },
                     organizations: {
                       terms: {
                         size: 50,
-                        field: 'fundingGroupPerson.consortiumOrganizationName' + this.localeC + '.keyword'
+                        field:
+                          'fundingGroupPerson.consortiumOrganizationName' +
+                          this.localeC +
+                          '.keyword',
                       },
                       aggs: {
                         filtered: {
@@ -542,36 +640,40 @@ export class AggregationService {
                             filterCount: {
                               filter: {
                                 bool: {
-                                  filter: filterActiveMultipleNested('fundingGroupPerson', 'organizationConsortium')
-                                }
-                              }
-                            }
-                          }
+                                  filter: filterActiveMultipleNested(
+                                    'fundingGroupPerson',
+                                    'organizationConsortium'
+                                  ),
+                                },
+                              },
+                            },
+                          },
                         },
                         orgId: {
                           terms: {
                             size: 1,
-                            field: 'fundingGroupPerson.consortiumOrganizationId.keyword'
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+                            field:
+                              'fundingGroupPerson.consortiumOrganizationId.keyword',
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.organizationConsortium = {
           nested: {
-            path: 'organizationConsortium'
+            path: 'organizationConsortium',
           },
           aggs: {
             funded: {
               filter: {
                 terms: {
-                  'organizationConsortium.isFinnishOrganization': [1]
-                }
+                  'organizationConsortium.isFinnishOrganization': [1],
+                },
               },
               aggs: {
                 sectorName: {
@@ -584,13 +686,17 @@ export class AggregationService {
                     sectorId: {
                       terms: {
                         size: 50,
-                        field: 'organizationConsortium.consortiumSectorId.keyword'
-                      }
+                        field:
+                          'organizationConsortium.consortiumSectorId.keyword',
+                      },
                     },
                     organizations: {
                       terms: {
                         size: 50,
-                        field: 'organizationConsortium.consortiumOrganizationName' + this.localeC + '.keyword'
+                        field:
+                          'organizationConsortium.consortiumOrganizationName' +
+                          this.localeC +
+                          '.keyword',
                       },
                       aggs: {
                         filtered: {
@@ -599,38 +705,42 @@ export class AggregationService {
                             filterCount: {
                               filter: {
                                 bool: {
-                                  filter: filterActiveMultipleNested('fundingGroupPerson', 'organizationConsortium')
-                                }
-                              }
-                            }
-                          }
+                                  filter: filterActiveMultipleNested(
+                                    'fundingGroupPerson',
+                                    'organizationConsortium'
+                                  ),
+                                },
+                              },
+                            },
+                          },
                         },
                         orgId: {
                           terms: {
                             size: 1,
-                            field: 'organizationConsortium.consortiumOrganizationId.keyword'
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+                            field:
+                              'organizationConsortium.consortiumOrganizationId.keyword',
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         };
         // Type of funding
         payLoad.aggs.typeOfFunding = {
           filter: {
             bool: {
-              filter: filterActive('typeOfFundingId.keyword')
-            }
+              filter: filterActive('typeOfFundingId.keyword'),
+            },
           },
           aggs: {
             types: {
               terms: {
                 field: 'typeOfFunding.typeOfFundingHeaderId.keyword',
-                exclude: ' '
+                exclude: ' ',
               },
               aggs: {
                 headerFi: {
@@ -639,53 +749,53 @@ export class AggregationService {
                     exclude: ' ',
                     size: 250,
                     order: {
-                      _key: 'asc'
-                    }
+                      _key: 'asc',
+                    },
                   },
                   aggs: {
                     typeNameFi: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameFi.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
+                            exclude: ' ',
+                          },
+                        },
+                      },
                     },
                     typeNameEn: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameEn.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
+                            exclude: ' ',
+                          },
+                        },
+                      },
                     },
                     typeNameSv: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameSv.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
-                    }
-                  }
+                            exclude: ' ',
+                          },
+                        },
+                      },
+                    },
+                  },
                 },
                 headerEn: {
                   terms: {
@@ -693,53 +803,53 @@ export class AggregationService {
                     exclude: ' ',
                     size: 250,
                     order: {
-                      _key: 'asc'
-                    }
+                      _key: 'asc',
+                    },
                   },
                   aggs: {
                     typeNameEn: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameEn.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
+                            exclude: ' ',
+                          },
+                        },
+                      },
                     },
                     typeNameFi: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameFi.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
+                            exclude: ' ',
+                          },
+                        },
+                      },
                     },
                     typeNameSv: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameSv.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
-                    }
-                  }
+                            exclude: ' ',
+                          },
+                        },
+                      },
+                    },
+                  },
                 },
                 headerSv: {
                   terms: {
@@ -747,72 +857,73 @@ export class AggregationService {
                     exclude: ' ',
                     size: 250,
                     order: {
-                      _key: 'asc'
-                    }
+                      _key: 'asc',
+                    },
                   },
                   aggs: {
                     typeNameSv: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameSv.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
+                            exclude: ' ',
+                          },
+                        },
+                      },
                     },
                     typeNameFi: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameFi.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
+                            exclude: ' ',
+                          },
+                        },
+                      },
                     },
                     typeNameEn: {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameEn.keyword',
-                        exclude: ' '
+                        exclude: ' ',
                       },
                       aggs: {
                         typeId: {
                           terms: {
                             field: 'typeOfFunding.typeOfFundingId.keyword',
-                            exclude: ' '
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+                            exclude: ' ',
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         };
         // Field of science
         payLoad.aggs.field = {
           nested: {
-            path: 'fieldsOfScience'
+            path: 'fieldsOfScience',
           },
           aggs: {
             fields: {
               terms: {
-                field: 'fieldsOfScience.name' + this.localeC + 'Science.keyword',
+                field:
+                  'fieldsOfScience.name' + this.localeC + 'Science.keyword',
                 exclude: ' ',
                 size: 250,
                 order: {
-                  _key: 'asc'
-                }
+                  _key: 'asc',
+                },
               },
               aggs: {
                 filtered: {
@@ -821,20 +932,20 @@ export class AggregationService {
                     filterCount: {
                       filter: {
                         bool: {
-                          filter: filterActiveNested('fieldsOfScience')
-                        }
-                      }
-                    }
-                  }
+                          filter: filterActiveNested('fieldsOfScience'),
+                        },
+                      },
+                    },
+                  },
                 },
                 fieldId: {
                   terms: {
-                    field: 'fieldsOfScience.fieldIdScience'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'fieldsOfScience.fieldIdScience',
+                  },
+                },
+              },
+            },
+          },
         };
 
         // payLoad.aggs.field = {
@@ -868,8 +979,8 @@ export class AggregationService {
         payLoad.aggs.fundingStatus = {
           filter: {
             bool: {
-              filter: filterActive('fundingEndDate')
-            }
+              filter: filterActive('fundingEndDate'),
+            },
           },
           aggs: {
             status: {
@@ -877,19 +988,19 @@ export class AggregationService {
                 field: 'fundingEndDate',
                 ranges: [
                   {
-                    from: this.today
-                  }
-                ]
-              }
-            }
-          }
+                    from: this.today,
+                  },
+                ],
+              },
+            },
+          },
         };
         // Scheme & Keywords
         payLoad.aggs.scheme = {
           filter: {
             bool: {
-              filter: filterActive('keywords.scheme.keyword')
-            }
+              filter: filterActive('keywords.scheme.keyword'),
+            },
           },
           aggs: {
             types: {
@@ -900,78 +1011,106 @@ export class AggregationService {
               aggs: {
                 typeName: {
                   terms: {
-                    field: 'keywords.keyword.keyword' + this.localeC + '.keyword',
-                  }
-                }
-              }
-            }
-          }
+                    field:
+                      'keywords.keyword.keyword' + this.localeC + '.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.faField = {
           filter: {
             bool: {
-              filter: filterActive('keywords.keyword.keyword')
-            }
+              filter: filterActive('keywords.keyword.keyword'),
+            },
           },
           aggs: {
             faFields: {
               terms: {
                 field: 'keywords.keyword.keyword',
                 size: 50,
-                exclude: ' '
-              }
-            }
-          }
+                exclude: ' ',
+              },
+            },
+          },
         };
+        break;
+
+      case 'datasets': 
+        payLoad.aggs.year = yearAgg;
+        payLoad.aggs.dataSource = basicAgg(
+          filterActive('dataCatalog.name' + this.localeC + '.keyword'),
+          'dataSources',
+          'dataCatalog.name' + this.localeC + '.keyword',
+          null,
+          null,
+        );
         break;
       // Infrastructures
       case 'infrastructures': {
         payLoad.aggs.year = yearAgg;
-        payLoad.aggs.type = basicAgg(filterActive('services.serviceType.keyword'), 'types', 'services.serviceType.keyword', null, null);
+        payLoad.aggs.type = basicAgg(
+          filterActive('services.serviceType.keyword'),
+          'types',
+          'services.serviceType.keyword',
+          null,
+          null
+        );
         payLoad.aggs.organization = {
           filter: {
             bool: {
-              filter: filterActive('responsibleOrganization.TKOppilaitosTunnus.keyword')
-            }
+              filter: filterActive(
+                'responsibleOrganization.TKOppilaitosTunnus.keyword'
+              ),
+            },
           },
           aggs: {
             sector: {
               terms: {
-                field: 'responsibleOrganization.responsibleOrganizationSector' + this.localeC + '.keyword',
-                exclude: ' '
+                field:
+                  'responsibleOrganization.responsibleOrganizationSector' +
+                  this.localeC +
+                  '.keyword',
+                exclude: ' ',
               },
               aggs: {
                 organizations: {
                   terms: {
-                    field: 'responsibleOrganization.responsibleOrganizationName' + this.localeC + '.keyword',
-                    exclude: ' '
+                    field:
+                      'responsibleOrganization.responsibleOrganizationName' +
+                      this.localeC +
+                      '.keyword',
+                    exclude: ' ',
                   },
                   aggs: {
                     organizationId: {
                       terms: {
-                        field: 'responsibleOrganization.TKOppilaitosTunnus.keyword',
-                        exclude: ' '
-                      }
-                    }
-                  }
+                        field:
+                          'responsibleOrganization.TKOppilaitosTunnus.keyword',
+                        exclude: ' ',
+                      },
+                    },
+                  },
                 },
                 sectorId: {
                   terms: {
-                    field: 'responsibleOrganization.responsibleOrganizationSectorId.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field:
+                      'responsibleOrganization.responsibleOrganizationSectorId.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         payLoad.aggs.infraField = {
           nested: {
-            path: 'fieldsOfScience'
+            path: 'fieldsOfScience',
           },
           aggs: {
             infraFields: {
               terms: {
-                field: 'fieldsOfScience.name' + this.localeC + '.keyword'
+                field: 'fieldsOfScience.name' + this.localeC + '.keyword',
               },
               aggs: {
                 filtered: {
@@ -980,20 +1119,20 @@ export class AggregationService {
                     filterCount: {
                       filter: {
                         bool: {
-                          filter: filterActiveNested('fieldsOfScience')
-                        }
-                      }
-                    }
-                  }
+                          filter: filterActiveNested('fieldsOfScience'),
+                        },
+                      },
+                    },
+                  },
                 },
                 majorId: {
                   terms: {
-                    field: 'fieldsOfScience.field_id.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'fieldsOfScience.field_id.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         break;
       }
@@ -1003,8 +1142,8 @@ export class AggregationService {
         payLoad.aggs.sector = {
           filter: {
             bool: {
-              filter: filterActive('sectorId.keyword')
-            }
+              filter: filterActive('sectorId.keyword'),
+            },
           },
           aggs: {
             sectorId: {
@@ -1012,25 +1151,25 @@ export class AggregationService {
                 field: 'sectorId.keyword',
                 size: 50,
                 order: {
-                  _key: 'asc'
-                }
+                  _key: 'asc',
+                },
               },
               aggs: {
                 sectorName: {
                   terms: {
                     field: 'sectorName' + this.localeC + '.keyword',
-                  }
-                }
-              }
-            }
-          }
+                  },
+                },
+              },
+            },
+          },
         };
         // organization agg is for filter translations
         payLoad.aggs.organization = {
           filter: {
             bool: {
-              filter: filterActive('sectorId.keyword')
-            }
+              filter: filterActive('sectorId.keyword'),
+            },
           },
           aggs: {
             organizationName: {
@@ -1038,45 +1177,45 @@ export class AggregationService {
                 field: 'name' + this.localeC + '.keyword',
                 size: 50,
                 order: {
-                  _key: 'asc'
-                }
+                  _key: 'asc',
+                },
               },
               aggs: {
                 organizationId: {
                   terms: {
                     field: 'organizationId.keyword',
-                  }
-                }
-              }
-            }
-          }
+                  },
+                },
+              },
+            },
+          },
         };
         break;
       // News
       case 'news':
         payLoad.aggs.organization = {
           terms: {
-            field: 'sectorId.keyword'
+            field: 'sectorId.keyword',
           },
           aggs: {
             sectorName: {
               terms: {
-                field: 'sectorName' + this.localeC + '.keyword'
-              }
+                field: 'sectorName' + this.localeC + '.keyword',
+              },
             },
             orgName: {
               terms: {
-                field: 'organizationNameFi.keyword'
+                field: 'organizationNameFi.keyword',
               },
               aggs: {
                 orgId: {
                   terms: {
-                    field: 'organizationId.keyword'
-                  }
-                }
-              }
-            }
-          }
+                    field: 'organizationId.keyword',
+                  },
+                },
+              },
+            },
+          },
         };
         break;
       default:

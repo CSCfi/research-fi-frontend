@@ -6,41 +6,41 @@
 // # :license: MIT
 
 .subtitle {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .service-name {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 h3.th {
-    padding: 11px 15px !important;
-    &.contact {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-    }
+  padding: 11px 15px !important;
+  &.contact {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
 }
 
 h4.th.classification {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .subheader {
-    font-size: 1.2rem;
-    padding-left: 15px;
-    font-weight: bold;
+  font-size: 1.2rem;
+  padding-left: 15px;
+  font-weight: bold;
 }
 
 .subtitle.open::after {
-    font-family: "FontAwesome";
-    content: "\f0de";
-    vertical-align: middle;
-    margin-left: 10px;
+  font-family: 'FontAwesome';
+  content: '\f0de';
+  vertical-align: middle;
+  margin-left: 10px;
 }
 
 .subtitle.closed::after {
-    font-family: "FontAwesome";
-    content: "\f0dd";
-    vertical-align: text-bottom;
-    margin-left: 10px;
+  font-family: 'FontAwesome';
+  content: '\f0dd';
+  vertical-align: text-bottom;
+  margin-left: 10px;
 }

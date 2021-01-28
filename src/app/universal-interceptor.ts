@@ -5,11 +5,18 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import {Injectable, Inject, Optional, LOCALE_ID} from '@angular/core';
-import {HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpHeaders, HttpEvent} from '@angular/common/http';
-import {Request} from 'express';
-import {REQUEST} from '@nguniversal/express-engine/tokens';
-import {EXPRESS_HTTP_PORT} from './app.global';
+import { Injectable, Inject, Optional, LOCALE_ID } from '@angular/core';
+import {
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+  HttpResponse,
+  HttpHeaders,
+  HttpEvent,
+} from '@angular/common/http';
+import { Request } from 'express';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { EXPRESS_HTTP_PORT } from './app.global';
 import 'rxjs/add/operator/map';
 
 /*
@@ -22,8 +29,10 @@ full server address.
 */
 @Injectable()
 export class UniversalInterceptor implements HttpInterceptor {
-
-  constructor(@Optional() @Inject(REQUEST) protected request: Request, @Inject(LOCALE_ID) protected localeId: string) {
+  constructor(
+    @Optional() @Inject(REQUEST) protected request: Request,
+    @Inject(LOCALE_ID) protected localeId: string
+  ) {
     this.localeId = localeId;
   }
 
@@ -38,13 +47,16 @@ export class UniversalInterceptor implements HttpInterceptor {
     It is safe to remove 'email', because config.json will be read independently in server.ts.
     */
     if (this.request && req.url.indexOf('config.json') !== -1) {
-      let configJsonUrl = `http://localhost:${EXPRESS_HTTP_PORT}/${this.localeId.slice(0, 2)}/assets/config/config.json`;
-      serverReq = req.clone({url: configJsonUrl});
-    
+      let configJsonUrl = `http://localhost:${EXPRESS_HTTP_PORT}/${this.localeId.slice(
+        0,
+        2
+      )}/assets/config/config.json`;
+      serverReq = req.clone({ url: configJsonUrl });
+
       // Overwrite property 'email' in config.json response.
       return next.handle(serverReq).map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          event.body["email"] = {};
+          event.body['email'] = {};
         }
         return event;
       });

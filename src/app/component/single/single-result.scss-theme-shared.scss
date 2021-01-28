@@ -1,47 +1,52 @@
 @import '~@angular/material/theming';
 
 @mixin app-single-result-theme-shared($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-single-publication, app-single-funding, app-single-infrastructure, app-single-organization {
+  app-single-publication,
+  app-single-funding,
+  app-single-dataset,
+  app-single-infrastructure,
+  app-single-organization {
+    .shared {
+      tr:nth-child(even),
+      .content:nth-child(even) {
+        background-color: mat-color($primary, 50);
+      }
 
-        .shared {
-            tr:nth-child(even), .content:nth-child(even) {
-                background-color: mat-color($primary, 50);
-            }
-            
-            th, td {
-                color: mat-contrast($primary, 50);
-            }
+      th,
+      td {
+        color: mat-contrast($primary, 50);
+      }
 
-            td {
-                p:first-child {
-                    color: mat-contrast($primary, 50);
-                }
-            }
-            
-            aside a {
-                color: mat-color($primary);
-            }
-
-            .mat-raised-button.mat-primary {
-                background: white;
-                color: mat-color($primary);
-                border: 2px solid mat-color($primary);
-                border-radius: 20px;
-            }
-
-            .mat-raised-button:disabled.mat-primary {
-                background: white;
-                color: mat-color($primary, lighter);
-                border: 2px solid mat-color($primary, lighter);
-                border-radius: 20px;
-            }
-
-            .guide-line, .guide-line-top {
-                background: mat-color($primary);
-            }
-
+      td {
+        p:first-child {
+          color: mat-contrast($primary, 50);
         }
+      }
+
+      aside a {
+        color: mat-color($primary);
+      }
+
+      .mat-raised-button.mat-primary {
+        background: white;
+        color: mat-color($primary);
+        border: 2px solid mat-color($primary);
+        border-radius: 20px;
+      }
+
+      .mat-raised-button:disabled.mat-primary {
+        background: white;
+        color: mat-color($primary, lighter);
+        border: 2px solid mat-color($primary, lighter);
+        border-radius: 20px;
+      }
+
+      .guide-line,
+      .guide-line-top {
+        background: mat-color($primary);
+      }
     }
+  }
 }

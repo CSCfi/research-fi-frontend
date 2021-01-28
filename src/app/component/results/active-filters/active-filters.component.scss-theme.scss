@@ -1,20 +1,20 @@
 @import '~@angular/material/theming';
 
 @mixin app-active-filters-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-active-filters {
-        .ellipsis {
-            display: inline-block;
-            padding: 0 0.5rem;
-            font-size: 2rem;
-            line-height: 1rem;
-            font-weight: bold;
-            color: mat-color($primary);
-        }
-
-        .row.active-filters {
-            background: white
-        }
+  app-active-filters {
+    .ellipsis {
+      display: inline-block;
+      padding: 0 0.5rem;
+      font-size: 2rem;
+      line-height: 1rem;
+      font-weight: bold;
+      color: mat-color($primary);
     }
+
+    .row.active-filters {
+      background: white;
+    }
+  }
 }

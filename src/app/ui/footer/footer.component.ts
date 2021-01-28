@@ -5,10 +5,22 @@
 // # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // # :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  LOCALE_ID,
+  ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../services/app-config-service.service';
-import { faTwitter, faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import {
+  faTwitter,
+  faFacebook,
+  faLinkedin,
+} from '@fortawesome/free-brands-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReviewComponent } from '../review/review.component';
@@ -17,9 +29,8 @@ import { ReviewComponent } from '../review/review.component';
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-
 export class FooterComponent implements OnInit {
   buildInfo = '';
   faTwitter = faTwitter;
@@ -32,7 +43,11 @@ export class FooterComponent implements OnInit {
   reviewDialogRef: MatDialogRef<ReviewComponent>;
   @ViewChild('contact') contact: ElementRef;
 
-  constructor(private appConfigService: AppConfigService, @Inject(LOCALE_ID) protected localeId: string, public dialog: MatDialog) {
+  constructor(
+    private appConfigService: AppConfigService,
+    @Inject(LOCALE_ID) protected localeId: string,
+    public dialog: MatDialog
+  ) {
     this.buildInfo = this.appConfigService.buildInfo;
     this.showReviewButton = true;
   }
@@ -75,17 +90,19 @@ export class FooterComponent implements OnInit {
   // Email obfuscator
   obfuscate() {
     const coded = 'vr7I7CyvMv0rJM9@191.ir';
-    const key = 'm1z6dWNO04fnVsKES5aoLxJeqTIbhugFiQp9GXjtycBUZ7YwkR2M38rAlDHPCv';
+    const key =
+      'm1z6dWNO04fnVsKES5aoLxJeqTIbhugFiQp9GXjtycBUZ7YwkR2M38rAlDHPCv';
     const shift = coded.length;
     let link = '';
 
     for (let i = 0; i < coded.length; i++) {
       if (key.indexOf(coded.charAt(i)) == -1) {
         const ltr = coded.charAt(i);
-        link += (ltr);
+        link += ltr;
       } else {
-        const ltr = (key.indexOf(coded.charAt(i)) - shift + key.length) % key.length;
-        link += (key.charAt(ltr));
+        const ltr =
+          (key.indexOf(coded.charAt(i)) - shift + key.length) % key.length;
+        link += key.charAt(ltr);
       }
     }
     return link;
@@ -96,5 +113,4 @@ export class FooterComponent implements OnInit {
     this.contact.nativeElement.innerHTML = link;
     this.contact.nativeElement.href = 'mailto:' + link;
   }
-
 }

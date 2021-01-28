@@ -4,10 +4,9 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-primary-action-button',
   templateUrl: './primary-action-button.component.html',
-  styleUrls: ['./primary-action-button.component.scss']
+  styleUrls: ['./primary-action-button.component.scss'],
 })
 export class PrimaryActionButtonComponent implements OnInit {
-
   @Input() icon: IconDefinition;
   @Input() iconAfter: boolean;
   @Input() noSmIcon: boolean;
@@ -16,9 +15,7 @@ export class PrimaryActionButtonComponent implements OnInit {
   @Input() big: boolean;
   @Input() small: boolean;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

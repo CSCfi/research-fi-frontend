@@ -3,21 +3,17 @@ import { MatChipsModule } from '@angular/material/chips';
 import { Router } from '@angular/router';
 import { FigureFiltersComponent } from './figure-filters.component';
 
-
 describe('FigureFiltersComponent', () => {
   let component: FigureFiltersComponent;
   let fixture: ComponentFixture<FigureFiltersComponent>;
-  const routerSpy = {navigate: jasmine.createSpy('navigate')};
+  const routerSpy = { navigate: jasmine.createSpy('navigate') };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FigureFiltersComponent ],
-      providers: [
-        { provide: Router, useValue: routerSpy }
-      ],
-      imports: [MatChipsModule]
-    })
-    .compileComponents();
+      declarations: [FigureFiltersComponent],
+      providers: [{ provide: Router, useValue: routerSpy }],
+      imports: [MatChipsModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -32,7 +28,7 @@ describe('FigureFiltersComponent', () => {
 
   it('should navigate with params', () => {
     component.navigate('test');
-    expect (routerSpy.navigate).toHaveBeenCalledWith([], {
+    expect(routerSpy.navigate).toHaveBeenCalledWith([], {
       queryParams: {
         filter: 'test',
       },

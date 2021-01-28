@@ -4,7 +4,10 @@
  :license: MIT -->
 
 <div class="row" *ngFor="let persons of resultData">
-    <div class="col-12 no-margin single" *ngFor="let person of persons.hits.hits; let i = index">
-    <li>{{person._source.lastName}}</li>        
-    </div>
+  <div
+    class="col-12 no-margin single"
+    *ngFor="let person of persons.hits.hits; let i = index"
+  >
+    <li>{{ person._source.lastName }}</li>
+  </div>
 </div>

@@ -31,5 +31,4 @@ describe('AggregationService', () => {
     const res = service.constructAggregations([], 'organizations', '');
     expect(Object.keys(res.aggs).length > 0).toBeTruthy();
   });
-
 });

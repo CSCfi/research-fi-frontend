@@ -8,40 +8,42 @@
 @import '~@angular/material/theming';
 
 @mixin app-figures-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-figures {
-        .bg-bubble, .circle-small {
-            background: mat-color($primary, 200);
-        }
-
-        .nav a, .content:not(.intro) a {
-            color: mat-contrast($primary, 300);
-        }
-
-        .active {
-            background: #dc1ddf0f;
-        }
-
-        .active .icon, .active a {
-            color: mat-color($primary);
-        }
-
-        .search input {
-            border: 1px solid mat-contrast($primary, 400);
-        }
-
-        .search-icon {
-            color: mat-contrast($primary, 400);
-        }
-
-        .card {
-            color: mat-contrast($primary, 300);
-            border: 0;
-            -webkit-box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.1);
-            -moz-box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.1);
-            box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.1);
-        }
-
+  app-figures {
+    .bg-bubble,
+    .circle-small {
+      background: mat-color($primary, 200);
     }
+
+    .nav a,
+    .content:not(.intro) a {
+      color: mat-contrast($primary, 300);
+    }
+
+    .active {
+      background: #dc1ddf0f;
+    }
+
+    .active .icon,
+    .active a {
+      color: mat-color($primary);
+    }
+
+    .search input {
+      border: 1px solid mat-contrast($primary, 400);
+    }
+
+    .search-icon {
+      color: mat-contrast($primary, 400);
+    }
+
+    .card {
+      color: mat-contrast($primary, 300);
+      border: 0;
+      -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.1);
+    }
+  }
 }
