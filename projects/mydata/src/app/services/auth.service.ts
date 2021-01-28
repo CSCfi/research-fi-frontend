@@ -7,7 +7,7 @@ export const authConfig: AuthConfig = {
   redirectUri: 'https://localhost:5003/welcome',
   responseType: 'code',
   scope: 'openid profile api1',
-  logoutUrl: 'https://localhost:5003/',
+  //logoutUrl: 'https://localhost:5003/',
   postLogoutRedirectUri: 'https://localhost:5003/',
   sessionChecksEnabled: true,
 };
@@ -19,17 +19,19 @@ export class AuthService {
   constructor(private oauthService: OAuthService) {}
 
   configure() {
-    this.oauthService.initCodeFlow();
     this.oauthService.configure(authConfig);
   }
 
   login() {
     this.configure();
+    this.oauthService.initCodeFlow();
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   logout() {
     this.configure();
-    this.oauthService.logOut();
+    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+      this.oauthService.logOut();
+    });
   }
 }
