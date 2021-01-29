@@ -50,5 +50,9 @@ projects/portal/src/environments/environment.researchfi.ts
 projects/portal/src/environments/environment.researchfi.prod.ts
 projects/portal/src/assets/config/config.json
 
+projects/mydata/src/environments/environment.researchfi.ts
+projects/mydata/src/environments/environment.researchfi.prod.ts
+projects/mydata/src/assets/config/config.ts
+
 # Nginx reverse proxy api.conf files
 nginx_reverse_proxy/**/api.conf

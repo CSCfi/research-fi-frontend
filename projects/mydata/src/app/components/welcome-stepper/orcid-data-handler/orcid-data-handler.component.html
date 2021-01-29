@@ -33,41 +33,25 @@
 </ng-container>
 
 <ng-template #successTemplate>
-  <div class="row">
-    <div class="col success-icon text-center primary-color">
-      <fa-icon [icon]="faCheckCircle"></fa-icon>
-    </div>
-  </div>
-
   <div class="row pb-4">
     <div class="col text-center">
-      <h2 class="primary-color">Tiedot tuotiin onnistuneesti</h2>
+      <h2 class="primary-color">Mitkä tiedot tuodaan julkisiksi?</h2>
     </div>
   </div>
 
   <div class="row pb-4 d-flex justify-content-center">
     <div class="col col-lg-4">
-      <p>
-        Oletuksena vain nimesi ja Orcid-tunnuksesi ovat julkisia. Muita tietoja
-        ei ole vielä asetettu julkisiksi.
-      </p>
-    </div>
-  </div>
-
-  <div class="row pb-3 d-flex justify-content-center">
-    <div class="col col-lg-4">
-      <lib-secondary-button
-        content="Aseta kaikki ORCID-tietoni julkisiksi"
-        [big]="true"
-      ></lib-secondary-button>
-    </div>
-  </div>
-  <div class="row d-flex justify-content-center">
-    <div class="col col-lg-4">
-      <lib-secondary-button
-        content="Valitse julkiset tiedot yksitellen"
-        [big]="true"
-      ></lib-secondary-button>
+      <mat-expansion-panel
+        class="mat-elevation-z1"
+        *ngFor="let item of dataSchema"
+        [expanded]="item.expanded"
+      >
+        <mat-expansion-panel-header
+          ><span class="font-weight-bold">{{
+            item.label
+          }}</span></mat-expansion-panel-header
+        >
+      </mat-expansion-panel>
     </div>
   </div>
 </ng-template>

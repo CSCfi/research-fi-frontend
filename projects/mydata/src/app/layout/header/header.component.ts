@@ -36,11 +36,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.loggedIn);
+    console.log('Has valid access: ', this.oauthService.hasValidAccessToken());
     this.oauthService.events
       .pipe(filter((e) => e.type === 'session_terminated'))
       .subscribe((e) => {
-        console.debug('Your session has been terminated!');
+        console.log('Your session has been terminated!');
       });
   }
 

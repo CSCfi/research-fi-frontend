@@ -22,6 +22,7 @@ import { LayoutModule } from './layout/layout.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { HomeComponent } from './components/home/home.component';
 import { WelcomeStepperComponent } from './components/welcome-stepper/welcome-stepper.component';
@@ -44,7 +45,12 @@ import { LoginComponent } from './components/login/login.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    OAuthModule.forRoot(),
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['https://apitest-ts.rahtiapp.fi/api/'],
+        sendAccessToken: true,
+      },
+    }),
     AppRoutingModule,
     BrowserAnimationsModule,
     UiLibraryModule,
@@ -52,6 +58,7 @@ import { LoginComponent } from './components/login/login.component';
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatExpansionModule,
     FontAwesomeModule,
   ],
   providers: [],

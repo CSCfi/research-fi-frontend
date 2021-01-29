@@ -5,6 +5,8 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-.success-icon {
-  font-size: 3rem;
+app-orcid-data-handler {
+  .mat-expansion-panel {
+    background: none !important;
+  }
 }

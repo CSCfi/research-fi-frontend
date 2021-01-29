@@ -6,9 +6,9 @@
 <main id="main-content">
   <div class="wrapper">
     <ng-container *ngIf="!cancel; else cancelTemplate">
-      <div class="row" *ngIf="step <= 3">
+      <div class="row" *ngIf="step !== 4 || (step === 4 && dataFetched)">
         <div class="col text-center">
-          <h2>{{ step }} / 3</h2>
+          <h2>{{ step }} / 4</h2>
         </div>
       </div>
 
@@ -17,15 +17,15 @@
         <ng-container *ngSwitchCase="1">
           <div class="row pb-4">
             <div class="col text-center">
-              <h2 class="primary-color">Tervetuloa!</h2>
+              <h2 class="primary-color">Tervetuloa {{ userName }}!</h2>
             </div>
           </div>
 
           <div class="row pb-4 d-flex justify-content-center">
             <div class="col col-lg-4 text-center">
               <p>
-                Ennen kuin aloitat palvelun käyttämisen, pyydämme sinua lukemaan
-                ja hyväksymään palvelun käyttöehdot ja tietosuojakäytännöt
+                Ottaaksesi palvelun käyttöön, pyydämme sinua lukemaan ja
+                hyväksymään palvelun käyttöehdot ja tietosuojaselosteen.
               </p>
             </div>
           </div>
@@ -33,7 +33,7 @@
           <div class="row pb-3 d-flex justify-content-center">
             <div class="col col-lg-auto">
               <lib-primary-action-button
-                content="Käyttöehdot ja tietosuoja"
+                content="Avaa käyttöehdot ja tietosuoja"
                 (click)="increment()"
                 [big]="true"
               >
@@ -78,6 +78,9 @@
                 Excepteur sint occaecat cupidatat non proident, sunt in culpa
                 qui officia deserunt mollit anim id est laborum.
               </p>
+              <a href="#" class="d-block text-right font-weight-bold"
+                >Lue lisää palvelun tietosuojasta</a
+              >
             </div>
           </div>
 
@@ -86,6 +89,14 @@
               <mat-checkbox color="primary" [(ngModel)]="termsApproved"
                 >Olen lukenut palvelun käyttöehdot ja tietosuojan, ja hyväksyn
                 ne</mat-checkbox
+              >
+              <mat-checkbox
+                color="primary"
+                [(ngModel)]="personalDataHandlingApproved"
+                >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
+              >
+              <a href="#" class="d-block text-right font-weight-bold"
+                >Lue lisää palvelun tietosuojasta</a
               >
             </div>
           </div>
@@ -104,7 +115,7 @@
             <div class="col-6 col-lg-2">
               <lib-primary-action-button
                 content="Seuraava"
-                [disabled]="!termsApproved"
+                [disabled]="!termsApproved || !personalDataHandlingApproved"
                 (click)="increment()"
                 [big]="true"
                 [icon]="faAngleDoubleRight"
@@ -126,40 +137,54 @@
 
           <div class="row pb-3 d-flex justify-content-center">
             <div class="col col-lg-4">
+              <p>Ota palvelu käyttöön tuomalla tietosi Orcidista.</p>
+              <p>Tässä vaiheessa emme vielä julkaise tietojasi.</p>
               <p>
-                Saammeko luvan tuoda kaikki Orcid-tietosi tämän palvelun
-                tietolähteiksi?
-              </p>
-              <p>
-                Nimeäsi ja Orcid-tunnustasi lukuunottamatta muita tietoja ei
-                vielä julkaista tässä vaiheessa.
-              </p>
-              <p>
-                Voit hallinnoida tietojesi jakamista ja näkyvyyttä tuonnin
+                Voit hallinnoida Orcid-tietojesi jakamista ja näkyvyyttä tuonnin
                 jälkeen.
               </p>
             </div>
           </div>
 
-          <div class="row pb-3 d-flex justify-content-center">
-            <div class="col col-lg-4">
-              <mat-radio-group
-                aria-label="Orcid-tietojen valinta"
-                class="example-radio-group"
-                [(ngModel)]="orcidSetting"
-                color="primary"
+          <div class="row pt-5 mt-5 pb-4 d-flex justify-content-center">
+            <div class="col-6 col-lg-2">
+              <lib-secondary-button
+                content="Edellinen"
+                (click)="decrement()"
+                [big]="true"
+                [icon]="faAngleDoubleLeft"
+                [noSmIcon]="true"
               >
-                <mat-radio-button class="example-radio-button" value="all"
-                  >Tuo kaikki ORCID-tietoni</mat-radio-button
-                >
-                <mat-radio-button class="example-radio-button" value="basic"
-                  >Tuo ORCIDista vain nimi ja ORCID id
-                </mat-radio-button>
-              </mat-radio-group>
+              </lib-secondary-button>
+            </div>
+            <div class="col-6 col-lg-2">
+              <lib-primary-action-button
+                content="Tuo tiedot"
+                (click)="increment()"
+                [big]="true"
+                [icon]="faAngleDoubleRight"
+                [iconAfter]="true"
+                [noSmIcon]="true"
+              >
+              </lib-primary-action-button>
             </div>
           </div>
+        </ng-container>
 
+        <!-- Fourth step -->
+        <ng-container *ngSwitchCase="4">
           <div class="row pb-4 d-flex justify-content-center">
+            <div class="col">
+              <app-orcid-data-handler
+                (cancel)="onCancelClick($event)"
+                (dataFlag)="setDataFlag($event)"
+              ></app-orcid-data-handler>
+            </div>
+          </div>
+          <div
+            *ngIf="dataFetched"
+            class="row pb-4 d-flex justify-content-center"
+          >
             <div class="col-6 col-lg-2">
               <lib-secondary-button
                 content="Edellinen"
@@ -173,8 +198,6 @@
             <div class="col-6 col-lg-2">
               <lib-primary-action-button
                 content="Seuraava"
-                [disabled]="!orcidSetting"
-                (click)="increment()"
                 [big]="true"
                 [icon]="faAngleDoubleRight"
                 [iconAfter]="true"
@@ -184,15 +207,6 @@
             </div>
           </div>
         </ng-container>
-
-        <!-- Fourth step -->
-        <div *ngSwitchCase="4" class="row">
-          <div class="col">
-            <app-orcid-data-handler
-              (cancel)="onCancelClick($event)"
-            ></app-orcid-data-handler>
-          </div>
-        </div>
 
         <!-- Default to 404 -->
         <app-not-found *ngSwitchDefault></app-not-found>

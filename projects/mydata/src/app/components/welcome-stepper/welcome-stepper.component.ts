@@ -10,6 +10,8 @@ import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { ProfileService } from '../../services/profile.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -18,14 +20,32 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent {
-  step = 1;
+  step = 4;
   cancel = false;
+  dataFetched = false;
   termsApproved = false;
-  orcidSetting: string;
+  personalDataHandlingApproved = false;
   fetching = false;
+  userData: any;
+  userName: string;
 
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
+
+  constructor(
+    private profileService: ProfileService,
+    private oauthService: OAuthService
+  ) {
+    this.getUserData();
+  }
+
+  private getUserData() {
+    const jwt = this.oauthService.getIdToken();
+    const tokens = jwt.split('.');
+    // console.log(atob(tokens[1]));
+    this.userData = JSON.parse(atob(tokens[1]));
+    this.userName = this.userData?.name.split(' ')[0];
+  }
 
   increment() {
     this.step = this.step + 1;
@@ -41,5 +61,21 @@ export class WelcomeStepperComponent {
 
   onCancelClick(event) {
     this.toggleCancel();
+  }
+
+  fetchData() {
+    this.dataFetched = true;
+  }
+
+  setDataFlag(event) {
+    this.fetchData();
+  }
+
+  createProfile() {
+    this.profileService.createProfile().subscribe((data) => console.log(data));
+  }
+
+  deleteProfile() {
+    this.profileService.deleteProfile().subscribe((data) => console.log(data));
   }
 }
