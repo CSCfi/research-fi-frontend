@@ -606,14 +606,56 @@
               <div
                 class="col-12 col-sm-6 col-lg-4 offset-0 offset-sm-6 offset-lg-3 td"
               >
-                <h3 class="th">{{ row.label }}</h3>
+                <h3 class="th">
+                  {{ row.label }}
+                  <ng-container *ngIf="row.tooltip">
+                    <ng-template #tooltipTemplate>
+                      <div [innerHtml]="row.tooltip"></div>
+                    </ng-template>
+                    <span
+                      [tooltip]="tooltipTemplate"
+                      tabindex="0"
+                      triggers="focus keydown"
+                      placement="top"
+                      (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                      (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                      #elem
+                    >
+                      <fa-icon
+                        class="info-icon pl-2"
+                        icon="info-circle"
+                      ></fa-icon>
+                    </span>
+                  </ng-container>  
+                </h3>
                 <p class="td" innerHtml="{{ item[row.field] }}"></p>
               </div>
               <div
                 class="col-12 col-sm-6 col-lg-5 offset-0 offset-sm-6 offset-lg-0 td"
                 *ngIf="otherFields.slice(2).length > i + 1"
               >
-                <h3 class="th">{{ otherFields.slice(2)[i + 1].label }}</h3>
+                <h3 class="th">
+                  {{ otherFields.slice(2)[i + 1].label }}
+                  <ng-container *ngIf="otherFields.slice(2)[i + 1].tooltip">
+                    <ng-template #tooltipTemplate>
+                      <div [innerHtml]="otherFields.slice(2)[i + 1].tooltip"></div>
+                    </ng-template>
+                    <span
+                      [tooltip]="tooltipTemplate"
+                      tabindex="0"
+                      triggers="focus keydown"
+                      placement="top"
+                      (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                      (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                      #elem
+                    >
+                      <fa-icon
+                        class="info-icon pl-2"
+                        icon="info-circle"
+                      ></fa-icon>
+                    </span>
+                  </ng-container>  
+                </h3>
                 <p
                   class="td"
                   innerHtml="{{ item[otherFields.slice(2)[i + 1].field] }}"

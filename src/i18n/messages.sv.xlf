@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="authorOrganization" datatype="html">
         <source>Organisaatiot ja tekijät</source>
-        <target state="translated">Organisationer och upphovsmän</target>
+        <target state="translated">Organisationer och upphovspersoner</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">35</context>
@@ -330,7 +330,7 @@
       </trans-unit>
       <trans-unit id="736db59efa202cb6c4ddda729570e44719b2109e" datatype="html">
         <source>Julkaisun tekijät, joilla on suomalainen organisaatio.</source>
-        <target state="translated">Upphovsmän till publikationen, som har en finländsk organisation.</target>
+        <target state="translated">Upphovspersoner till publikationen, som har en finländsk organisation.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">37</context>
@@ -466,7 +466,7 @@
       </trans-unit>
       <trans-unit id="publicationAuthors" datatype="html">
         <source>Tekijät</source>
-        <target state="translated">Upphovsmän</target>
+        <target state="translated">Upphovspersoner</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
           <context context-type="linenumber">21</context>
@@ -2553,7 +2553,7 @@
       </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
-        <target state="translated">Fullständig information om publikationens upphovsmän anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
+        <target state="translated">Fullständig information om publikationens upphovspersoner anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
       </trans-unit>
       <trans-unit id="3294281240991807762">
         <source>Lehti</source>
@@ -2637,7 +2637,7 @@
       </trans-unit>
       <trans-unit id="intCoPublicationAuthors">
         <source>Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista</source>
-        <target state="translated">Publikationen har upphovsmän även från andra än finländska forskningsorganisationer.</target>
+        <target state="translated">Publikationen har upphovspersoner även från andra än finländska forskningsorganisationer.</target>
       </trans-unit>
       <trans-unit id="publicationWithCompany">
         <source>Yhteisjulkaisu yrityksen kanssa</source>
@@ -2645,7 +2645,7 @@
       </trans-unit>
       <trans-unit id="publicationCompanyAuthors">
         <source>Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.</source>
-        <target state="translated">Minst en av publikationens upphovsmän har anknytning till ett nationellt eller internationellt företag,</target>
+        <target state="translated">Minst en av publikationens upphovspersoner har anknytning till ett nationellt eller internationellt företag,</target>
       </trans-unit>
       <trans-unit id="keywords">
         <source>Avainsanat</source>
@@ -3098,7 +3098,7 @@
       </trans-unit>
       <trans-unit id="pOrgFTooltip">
         <source>Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.</source>
-        <target state="translated">Den finländska organisationen för publikationens upphovsman. Tjänsten innehåller tills vidare inga uppgifter om utländska organisationer för publikationerna.</target>
+        <target state="translated">Den finländska organisationen för publikationens upphovsperson. Tjänsten innehåller tills vidare inga uppgifter om utländska organisationer för publikationerna.</target>
       </trans-unit>
       <trans-unit id="pFOSFTooltip">
         <source>Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.</source>
@@ -3122,7 +3122,7 @@
       </trans-unit>
       <trans-unit id="intCoPublicationTooltip">
         <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>
-        <target state="translated">Publikationen har upphovsmän även från andra än finländska forskningsorganisationer.</target>
+        <target state="translated">Publikationen har upphovspersoner även från andra än finländska forskningsorganisationer.</target>
       </trans-unit>
       <trans-unit id="fYearFTooltip">
         <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
@@ -3571,7 +3571,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="PP35" datatype="html">
         <source>Lisäksi tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijöiden tiedot) voidaan luovuttaa yksittäistapauksissa voimassaolevan 
                                                     lainsäädännön mukaisesti niitä hyödyntäville tahoille, kuten tutkimusorganisaatioille tai -rahoittajille.</source>
-        <target state="translated">Dessutom kan metadata om publikationer, forskningsdata, finansieringsbeslut och forskningsinfrastrukturer (inkl. uppgifter om upphovsmän) som ingår i datalagret för forskningsinformation i enskilda fall i enlighet med gällande lagstiftning lämnas ut till aktörer som utnyttjar dem, såsom forskningsorganisationer eller forskningsfinansiärer. </target>
+        <target state="translated">Dessutom kan metadata om publikationer, forskningsdata, finansieringsbeslut och forskningsinfrastrukturer (inkl. uppgifter om upphovspersoner) som ingår i datalagret för forskningsinformation i enskilda fall i enlighet med gällande lagstiftning lämnas ut till aktörer som utnyttjar dem, såsom forskningsorganisationer eller forskningsfinansiärer. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">89</context>
