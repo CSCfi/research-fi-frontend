@@ -29,8 +29,7 @@ export class FundingFilterService {
       label: $localize`:@@organization:Organisaatio`,
       hasSubFields: true,
       limitHeight: false,
-      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`,
-      errorTooltip: $localize`:@@fOrgErrorTooltip:Mikäli organisaatiolla on useita rahoituksen saajia samassa hankkeessa, hanke on laskettu alla olevaan lukumäärään useaan kertaan.`,
+      tooltip: $localize`:@@fOrgFTooltip:Organisaatio, jossa saaja työskentelee tai jolle rahoitus on myönnetty.`
     },
     {
       field: 'funder',
