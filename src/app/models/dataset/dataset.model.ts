@@ -9,6 +9,19 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { LanguageCheck } from '../utils';
 
+export interface OrganizationActor {
+  name: string;
+  id: string;
+  actors: Actor[];
+  roles: string[];
+}
+
+export interface Actor {
+  name: string;
+  roles: string[];
+}
+
+
 export class Dataset {
   constructor(
     public id: string,
@@ -16,7 +29,7 @@ export class Dataset {
     public description: string,
     public year: string,
     public type: string,
-    public authors: string,
+    public authors: OrganizationActor[],
     public project: string,
     public fieldsOfScience: string,
     public lang: string,
@@ -38,13 +51,63 @@ export class DatasetAdapter implements Adapter<Dataset> {
   adapt(item: any): Dataset {
     const keywords = item.keywords ? item.keywords.map((x) => x.keyword) : [];
 
+    console.log(item.actor)
+
+
+    const orgs: OrganizationActor[] = []
+
+    item.actor.forEach(actorRole => {
+      const role: string = actorRole.actorRoleNameFi;
+      actorRole.sector.forEach(sector => {
+        sector.organization.forEach(org => {
+          // Create or find the organization object to be added and referenced later
+          // TODO translations
+          const orgExists = orgs.find(x => x.name === org.OrganizationNameFi)
+          const orgObj: OrganizationActor = orgExists ? orgExists : {name: org.OrganizationNameFi, id: org.organizationId, actors: [], roles: []};
+          // Push if new org
+          if (!orgExists) {
+            orgs.push(orgObj);
+          }
+          // Add role if org has no children
+          if(!org.organizationUnit) {
+            orgObj.roles.push(role);
+          }
+          org?.organizationUnit?.forEach(orgUnit => {
+            // Check if subunit is "valid"
+            if (orgUnit.OrgUnitId !== '-1' && orgUnit.OrgUnitId !== ' ') {
+              orgObj.actors.push({name: orgUnit.organizationUnitNameFi, roles: [role]});
+            }
+            orgUnit?.person?.forEach(person => {
+              orgObj.actors.push({name: person.authorFullName, roles: [role]});
+            })
+          })
+        })
+      })
+    });
+
+    // Combine actors with multiple roles
+    orgs.forEach(org => {
+      const unique = [];
+      org.actors.forEach(actor => {
+        if (!unique.includes(actor.name)) {
+          unique.push(actor.name);
+        } else {
+          const actorObj = org.actors.find(a => a.name === actor.name);
+          actorObj.roles.push(...actor.roles);
+        }
+      });
+      org.actors = org.actors.slice(0, unique.length);
+    })
+
+    console.log(orgs)
+
     return new Dataset(
       item.identifier,
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       item.datasetCreated,
       'tyyppi - test',
-      'tekijät - test',
+      orgs,
       'projekti - test',
       'tieteenalat - test',
       'kieli - test',
