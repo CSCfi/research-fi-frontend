@@ -33,6 +33,7 @@ import { FilterListComponent } from './filter-list/filter-list.component';
 import { PublicationFilterService } from 'src/app/services/filters/publication-filter.service';
 import { PersonFilterService } from 'src/app/services/filters/person-filter.service';
 import { FundingFilterService } from 'src/app/services/filters/funding-filter.service';
+import { DatasetFilterService } from 'src/app/services/filters/dataset-filter.service';
 import { InfrastructureFilterService } from 'src/app/services/filters/infrastructure-filter.service';
 import { OrganizationFilterService } from 'src/app/services/filters/organization-filter.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -59,7 +60,14 @@ export class ActiveFiltersComponent
     noOpenAccessData: $localize`:@@noInfo:Ei tietoa`,
     selfArchived: $localize`:@@selfArchived:Rinnakkaistallennettu`,
     undefined: $localize`:@@notKnown:Ei tiedossa`,
+    // Dataset access types
+    open: $localize`:@@datasetAccessOpen:Avoin`,
+    permit: $localize`:@@datasetAccessPermit:Vaatii luvan hakemista Fairdata-palvelussa`,
+    login: $localize`:@@datasetAccessLogin:Vaatii kirjautumisen Fairdata-palvelussa`,
+    restricted: $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`,
+    embargo: $localize`:@@datasetAccessEmbargo:Embargo`,
   };
+
   filterResponse: any;
   tabFilters: any;
   response: any;
@@ -90,6 +98,7 @@ export class ActiveFiltersComponent
     private publicationFilters: PublicationFilterService,
     private personFilters: PersonFilterService,
     private fundingFilters: FundingFilterService,
+    private datasetFilters: DatasetFilterService,
     private infrastructureFilters: InfrastructureFilterService,
     private organizationFilters: OrganizationFilterService,
     private newsFilters: NewsFilterService,
@@ -110,6 +119,10 @@ export class ActiveFiltersComponent
       case 'fundings':
         this.tabFilters = this.fundingFilters.filterData;
         this.yearRange = $localize`:@@startYear:Aloitusvuosi` + ': ';
+        break;
+      case 'datasets':
+        this.tabFilters = this.datasetFilters.filterData;
+        this.yearRange = $localize`:@@yearOfPublication:Julkaisuvuosi` + ': ';
         break;
       case 'infrastructures':
         this.tabFilters = this.infrastructureFilters.filterData;
@@ -208,6 +221,10 @@ export class ActiveFiltersComponent
             }
             case 'fundings': {
               this.response = this.fundingFilters.shapeData(response);
+              break;
+            }
+            case 'datasets': {
+              this.response = this.datasetFilters.shapeData(response);
               break;
             }
             case 'infrastructures': {
@@ -555,6 +572,8 @@ export class ActiveFiltersComponent
                     : result.key;
                 }, 1);
               }
+
+              // Datasets
 
               // Infrastructures
               // Type

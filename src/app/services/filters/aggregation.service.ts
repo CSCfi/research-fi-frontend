@@ -1036,13 +1036,20 @@ export class AggregationService {
           },
         };
         break;
-
+      // Datasets
       case 'datasets': 
         payLoad.aggs.year = yearAgg;
         payLoad.aggs.dataSource = basicAgg(
           filterActive('dataCatalog.name' + this.localeC + '.keyword'),
           'dataSources',
           'dataCatalog.name' + this.localeC + '.keyword',
+          null,
+          null,
+        );
+        payLoad.aggs.accessType = basicAgg(
+          filterActive('accessType.keyword'),
+          'accessTypes',
+          'accessType.keyword',
           null,
           null,
         );

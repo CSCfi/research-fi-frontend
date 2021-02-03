@@ -44,6 +44,7 @@ export class FilterService {
   faFieldFilter: any;
   organizationFilter: any;
   dataSourceFilter: any;
+  accessTypeFilter: any;
   typeFilter: any;
   infraFieldFilter: any;
   currentFilters: any;
@@ -72,6 +73,7 @@ export class FilterService {
     sector: [],
     organization: [],
     dataSource: [],
+    accessType: [],
     type: [],
     coPublication: [],
   });
@@ -105,6 +107,7 @@ export class FilterService {
     sector: any[];
     organization: any[];
     dataSource: any[];
+    accessType: any[];
     type: any[];
     coPublication: any[];
   }) {
@@ -229,6 +232,10 @@ export class FilterService {
       .flat()
       .filter((x) => x)
       .sort(),
+      accessType: [source.accessType]
+      .flat()
+      .filter((x) => x)
+      .sort(),
       // Infrastructures
       type: [source.type]
         .flat()
@@ -301,6 +308,10 @@ export class FilterService {
     this.dataSourceFilter = this.basicFilter(
       filter.dataSource,
       'dataCatalog.name' + this.localeC + '.keyword'
+    );
+    this.accessTypeFilter = this.basicFilter(
+      filter.accessType,
+      'accessType.keyword'
     );
     // Infrastructure
     this.typeFilter = this.basicFilter(
@@ -698,6 +709,7 @@ export class FilterService {
 
       // Datasets
       ...basicFilter('dataset', this.dataSourceFilter),
+      ...basicFilter('dataset', this.accessTypeFilter),
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),
