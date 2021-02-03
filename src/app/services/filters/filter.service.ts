@@ -302,7 +302,6 @@ export class FilterService {
       filter.dataSource,
       'dataCatalog.name' + this.localeC + '.keyword'
     );
-    console.log(this.dataSourceFilter)
     // Infrastructure
     this.typeFilter = this.basicFilter(
       filter.type,

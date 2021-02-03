@@ -51,19 +51,15 @@ export class DatasetAdapter implements Adapter<Dataset> {
   adapt(item: any): Dataset {
     const keywords = item.keywords ? item.keywords.map((x) => x.keyword) : [];
 
-    console.log(item.actor)
-
-
     const orgs: OrganizationActor[] = []
 
     item.actor.forEach(actorRole => {
-      const role: string = actorRole.actorRoleNameFi;
+      const role: string = this.lang.testLang('actorRoleName', actorRole);
       actorRole.sector.forEach(sector => {
         sector.organization.forEach(org => {
           // Create or find the organization object to be added and referenced later
-          // TODO translations
-          const orgExists = orgs.find(x => x.name === org.OrganizationNameFi)
-          const orgObj: OrganizationActor = orgExists ? orgExists : {name: org.OrganizationNameFi, id: org.organizationId, actors: [], roles: []};
+          const orgExists = orgs.find(x => x.name === this.lang.testLang('OrganizationName', org))
+          const orgObj: OrganizationActor = orgExists ? orgExists : {name: this.lang.testLang('OrganizationName', org), id: org.organizationId, actors: [], roles: []};
           // Push if new org
           if (!orgExists) {
             orgs.push(orgObj);
@@ -75,7 +71,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
           org?.organizationUnit?.forEach(orgUnit => {
             // Check if subunit is "valid"
             if (orgUnit.OrgUnitId !== '-1' && orgUnit.OrgUnitId !== ' ') {
-              orgObj.actors.push({name: orgUnit.organizationUnitNameFi, roles: [role]});
+              orgObj.actors.push({name: this.lang.testLang('organizationUnitName', orgUnit), roles: [role]});
             }
             orgUnit?.person?.forEach(person => {
               orgObj.actors.push({name: person.authorFullName, roles: [role]});
@@ -98,8 +94,6 @@ export class DatasetAdapter implements Adapter<Dataset> {
       });
       org.actors = org.actors.slice(0, unique.length);
     })
-
-    console.log(orgs)
 
     return new Dataset(
       item.identifier,
