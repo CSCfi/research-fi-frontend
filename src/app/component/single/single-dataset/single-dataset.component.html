@@ -51,6 +51,7 @@
         </div>
 
         <div id="info" class="table">
+          <!-- InfoFields -->
           <div class="row content" *ngFor="let row of infoFields">
             <!-- Labels -->
             <h2 class="col-12 col-sm-6 col-lg-3 th">
@@ -73,10 +74,71 @@
               </ng-container>
             </h2>
             <div class="col-12 col-sm-6 col-lg-9 td">
-              {{ item[row.field] }}<span *ngIf="row.fieldEn">,</span>
-              {{ item[row.fieldEn] }}
+              {{ item[row.field] }}
             </div>
           </div>
+
+          <!-- Authors -->
+          <div class="row content" *ngFor="let row of authors">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              {{ row.label }}
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate
+                  ><div [innerHtml]="row.tooltip"></div
+                ></ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  triggers="focus keydown"
+                  placement="top"
+                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                  #elem
+                >
+                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-6 col-lg-9 td" *ngFor="let org of item.authors">
+              <a class="th" href="/results/organization/{{org.id}}">{{org.name}}</a>
+              <span class="td" *ngIf="org.roles.length > 0"> - {{org.roles.join(', ')}}</span>
+              <div *ngFor="let actor of org.actors">
+                <p class="td">{{actor.name}}<span *ngIf="actor.roles.length > 0"> - {{actor.roles.join(', ')}}</span></p>
+              </div>
+              
+            </div>
+          </div>
+
+
+          <!-- Project -->
+          <div class="row content" *ngFor="let row of project">
+            <!-- Labels -->
+            <h2 class="col-12 col-sm-6 col-lg-3 th">
+              {{ row.label }}
+              <ng-container *ngIf="row.tooltip">
+                <ng-template #tooltipTemplate
+                  ><div [innerHtml]="row.tooltip"></div
+                ></ng-template>
+                <span
+                  [tooltip]="tooltipTemplate"
+                  tabindex="0"
+                  triggers="focus keydown"
+                  placement="top"
+                  (mouseenter)="utilityService.tooltipMouseenter(elem)"
+                  (keydown)="utilityService.tooltipKeydown(elem, $event)"
+                  #elem
+                >
+                  <fa-icon class="info-icon pl-2" icon="info-circle"></fa-icon>
+                </span>
+              </ng-container>
+            </h2>
+            <div class="col-12 col-sm-6 col-lg-9 td">
+              {{ item[row.field] }}
+            </div>
+          </div>
+
+          <!-- OtherInfoFields -->
           <div class="row content" *ngIf="otherInfoFields?.length > 0">
             <h2 class="col-12 col-sm-6 col-lg-3 th" i18n="@@otherInfo">
               Muut tiedot

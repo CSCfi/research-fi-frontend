@@ -45,9 +45,16 @@ export class SingleDatasetComponent implements OnInit {
     { label: $localize`:@@description:Kuvaus`, field: 'description' },
     { label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'year' },
     { label: $localize`:@@datasetType:Aineiston tyyppi`, field: 'type' },
-    { label: $localize`:@@authors:Tekijät`, field: 'authors' },
-    { label: $localize`:@@datasetProject:Projekti`, field: 'project' },
   ];
+  
+  authors = [
+    { label: $localize`:@@authors:Tekijät`, field: 'authors' },
+  ]
+
+  project = [
+    { label: $localize`:@@datasetProject:Projekti`, field: 'project' },
+  ]
+  
 
   otherInfoFields = [
     {

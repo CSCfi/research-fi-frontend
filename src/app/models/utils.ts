@@ -178,13 +178,13 @@ export class LanguageCheck {
         return $localize`:@@datasetAccessOpen:Avoin`;
       }
       case 'permit': {
-        return $localize`:@@datasetAccessPermin:Vaatii luvan hakemista Fairdata-palvelussa`;
+        return $localize`:@@datasetAccessPermit:Vaatii luvan hakemista Fairdata-palvelussa`;
       }
       case 'login': {
         return $localize`:@@datasetAccessLogin:Vaatii kirjautumisen Fairdata-palvelussa`;
       }
       case 'restricted': {
-        return $localize`:@@datasetAccessrestricted:Saatavuutta rajoitettu`;
+        return $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`;
       }
       case 'embargo': {
         return $localize`:@@datasetAccessEmbargo:Embargo`;
