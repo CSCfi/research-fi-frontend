@@ -8,6 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 import { LanguageCheck } from '../utils';
+import { FieldOfScience, FieldOfScienceAdapter } from '../publication/field-of-science.model';
 
 export interface OrganizationActor {
   name: string;
@@ -47,9 +48,24 @@ export class Dataset {
   providedIn: 'root',
 })
 export class DatasetAdapter implements Adapter<Dataset> {
-  constructor(private lang: LanguageCheck) {}
+  constructor(private lang: LanguageCheck, private fs: FieldOfScienceAdapter) {}
   adapt(item: any): Dataset {
     const keywords = item.keywords ? item.keywords.map((x) => x.keyword) : [];
+
+    let fieldsOfScience: FieldOfScience[] = [];
+    // All items don't have field_of_science field
+    item.fieldsOfScience
+      ? item.fieldsOfScience.forEach((field) =>
+          fieldsOfScience.push(this.fs.adapt(field))
+        )
+      : (fieldsOfScience = []);
+
+    // Only include fields with id
+    fieldsOfScience = fieldsOfScience.filter((x) => x.id);
+    // Create string from array
+    const fieldsOfScienceString = fieldsOfScience.map((x) => x.name).join('; ');
+
+    const temporalCoverage = item.temporalCoverageStart === item.temporalCoverageEnd ? '' + item.temporalCoverageStart : item.temporalCoverageStart + ' - ' + item.temporalCoverageEnd;
 
     const orgs: OrganizationActor[] = []
 
@@ -103,12 +119,12 @@ export class DatasetAdapter implements Adapter<Dataset> {
       'tyyppi - test',
       orgs,
       'projekti - test',
-      'tieteenalat - test',
+      fieldsOfScienceString,
       'kieli - test',
       this.lang.translateAccessType(item.accessType),
       this.lang.testLang('licenseName', item),
       keywords.join(', '),
-      'kattavuus - test',
+      temporalCoverage,
       this.lang.testLang('name', item?.dataCatalog[0]),
       item.accessType === 'open',
       Math.random() > 0.5 ? 'test' : undefined // DOI test

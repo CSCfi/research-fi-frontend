@@ -719,6 +719,7 @@ export class FilterService {
       ...basicFilter('dataset', this.dataSourceFilter),
       ...basicFilter('dataset', this.accessTypeFilter),
       ...basicFilter('dataset', this.organizationFilter),
+      ...basicFilter('dataset', this.fieldFilter),
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),
