@@ -420,6 +420,14 @@ export class FilterService {
         });
         break;
       }
+      case 'datasets': {
+        const filterString =
+          'actor.sector.organization.organizationId.keyword';
+        filter.forEach((value) => {
+          res.push({ term: { [filterString]: value } });
+        });
+        break;
+      }
       case 'infrastructures': {
         const filterString =
           'responsibleOrganization.TKOppilaitosTunnus.keyword';
@@ -710,6 +718,8 @@ export class FilterService {
       // Datasets
       ...basicFilter('dataset', this.dataSourceFilter),
       ...basicFilter('dataset', this.accessTypeFilter),
+      ...basicFilter('dataset', this.organizationFilter),
+      ...basicFilter('dataset', this.fieldFilter),
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),

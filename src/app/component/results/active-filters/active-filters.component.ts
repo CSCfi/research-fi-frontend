@@ -450,6 +450,26 @@ export class ActiveFiltersComponent
                       );
                     }
                   }, 1);
+                  // Dataset organization name
+                } else if (tab === 'datasets') {
+                  setTimeout((t) => {
+                    if (source.organization.sectorName.buckets) {
+                      source.organization.sectorName.buckets.forEach(
+                        (sector) => {
+                          if (sector.subData.find((x) => x.key === val.value)) {
+                            const foundIndex = this.activeFilters.findIndex(
+                              (x) => x.value === val.value
+                            );
+                            this.activeFilters[
+                              foundIndex
+                            ].translation = sector.subData
+                              .find((x) => x.key === val.value)
+                              .label.trim();
+                          }
+                        }
+                      );
+                    }
+                  }, 1);
                   // Infrastructure organization name
                 } else if (tab === 'infrastructures') {
                   setTimeout((t) => {
