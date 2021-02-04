@@ -1037,7 +1037,7 @@ export class AggregationService {
         };
         break;
       // Datasets
-      case 'datasets': 
+      case 'datasets':
         payLoad.aggs.year = yearAgg;
         payLoad.aggs.dataSource = basicAgg(
           filterActive('dataCatalog.name' + this.localeC + '.keyword'),
@@ -1053,6 +1053,49 @@ export class AggregationService {
           null,
           null,
         );
+        payLoad.aggs.organization = {
+          filter: {
+            bool: {
+              filter: filterActive(
+                'actor.sector.organization.organizationId.keyword'
+              ),
+            },
+          },
+          aggs: {
+            sectorName: {
+              terms: {
+                size: 50,
+                field: 'actor.sector.name' + this.localeC + 'Sector.keyword',
+                exclude: ' ',
+              },
+              aggs: {
+                sectorId: {
+                  terms: {
+                    size: 50,
+                    field: 'actor.sector.sectorId.keyword',
+                  },
+                },
+                org: {
+                  terms: {
+                    size: 50,
+                    field:
+                      'actor.sector.organization.OrganizationName' +
+                      this.localeC +
+                      '.keyword',
+                  },
+                  aggs: {
+                    orgId: {
+                      terms: {
+                        size: 10,
+                        field: 'actor.sector.organization.organizationId.keyword',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
         break;
       // Infrastructures
       case 'infrastructures': {

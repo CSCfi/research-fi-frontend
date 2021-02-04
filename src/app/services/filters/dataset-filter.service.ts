@@ -8,11 +8,20 @@ export class DatasetFilterService {
   filterData = [
     {
       field: 'year',
-      label: $localize`:@@publicationYear:Aloitusvuosi`,
+      label: $localize`:@@publicationYear:Julkaisuvuosi`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
       hideSearch: true,
+      tooltip: '',
+    },
+    {
+      field: 'organization',
+      label: $localize`:@@organization:Organisaatio`,
+      hasSubFields: true,
+      open: false,
+      limitHeight: true,
+      hideSearch: false,
       tooltip: '',
     },
     {
@@ -42,6 +51,7 @@ export class DatasetFilterService {
   shapeData(data) {
     const source = data.aggregations;
     source.year.buckets = this.mapYear(source.year.years.buckets);
+    source.organization = this.organization(source.organization);
     source.dataSource.buckets = this.filterEmptyKeys(source.dataSource.dataSources.buckets);
     source.accessType.buckets = this.accessType(source.accessType.accessTypes.buckets);
     source.shaped = true;
@@ -58,6 +68,25 @@ export class DatasetFilterService {
       item.key = item.key.toString();
     });
     return clone;
+  }
+
+  organization(data) {
+    const source = cloneDeep(data) || [];
+    source.buckets = source.sectorName ? source.sectorName.buckets : [];
+    source.buckets.forEach((item) => {
+      item.subData = item.org.buckets.filter(
+        (x) => x.doc_count > 0
+      );
+      item.subData.map((subItem) => {
+        subItem.label = subItem.label || subItem.key;
+        subItem.key = subItem.orgId.buckets[0].key;
+        subItem.doc_count = subItem.doc_count;
+      });
+      item.doc_count = item.subData
+        .map((s) => s.doc_count)
+        .reduce((a, b) => a + b, 0);
+    });
+    return source;
   }
 
   accessType(data) {
