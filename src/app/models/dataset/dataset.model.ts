@@ -70,7 +70,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     const orgs: OrganizationActor[] = [];
 
-    item.actor.forEach(actorRole => {
+    item.actor?.forEach(actorRole => {
       const role: string = this.lang.testLang('actorRoleName', actorRole);
       actorRole.sector.forEach(sector => {
         sector.organization.forEach(org => {

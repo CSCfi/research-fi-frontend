@@ -2777,6 +2777,14 @@
       <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
       </trans-unit>
       <!-- Datasets -->
+      <trans-unit id="datasetName">
+        <source>Tutkimusaineiston nimi</source>
+        <target>Namn</target>
+      </trans-unit>
+      <trans-unit id="datasetCreators">
+        <source>Tutkimusaineiston tekijät / organisaatio</source>
+        <target>Upphovspersoner / organisationer</target>
+      </trans-unit>
       <trans-unit id="datasetType">
         <source>Aineiston tyyppi</source>
         <target>Typ av data</target>

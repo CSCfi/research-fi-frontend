@@ -205,6 +205,7 @@
 
         span.doi-link,
         .link {
+          width: max-content;
           max-width: max-content;
           height: fit-content;
           white-space: nowrap;

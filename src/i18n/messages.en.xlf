@@ -2784,6 +2784,14 @@
       <target>A website outside the research.fi service that contains more detailed information on the project.</target>
       </trans-unit>
       <!-- Datasets -->
+      <trans-unit id="datasetName">
+        <source>Tutkimusaineiston nimi</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="datasetCreators">
+        <source>Tutkimusaineiston tekijät / organisaatio</source>
+        <target>Authors / organizations</target>
+      </trans-unit>
       <trans-unit id="datasetType">
         <source>Aineiston tyyppi</source>
         <target>Type of data</target>
