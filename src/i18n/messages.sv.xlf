@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="relatedPublications" datatype="html">
         <source>Hae julkaisuun liittyvät</source>
-        <target state="translated">Sök sådana som är förknippade med publikationen</target>
+        <target state="translated">Sök sådana som är relaterade med publikationen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">289</context>
@@ -2777,6 +2777,30 @@
       <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
       </trans-unit>
       <!-- Datasets -->
+      <trans-unit id="datasetType">
+        <source>Aineiston tyyppi</source>
+        <target>Typ av data</target>
+      </trans-unit>
+      <trans-unit id="datasetProject">
+        <source>Projekti</source>
+        <target>Projekt</target>
+      </trans-unit>
+      <trans-unit id="license">
+        <source>Lisenssi</source>
+        <target>Licens</target>
+      </trans-unit>
+      <trans-unit id="temporalCoverage">
+        <source>Ajallinen kattavuus</source>
+        <target>Temporal täckning</target>
+      </trans-unit>
+      <trans-unit id="datasetsRelated">
+        <source>Liittyvät aineistot</source>
+        <target>Relaterade till denna forskningsdata</target>
+      </trans-unit>
+      <trans-unit id="datasetAccess">
+        <source>Saatavuus</source>
+        <target>Öppen tillgång</target>
+      </trans-unit>
       <trans-unit id="datasetAccessOpen">
         <source>Avoin</source>
         <target>Open</target>
@@ -2796,6 +2820,22 @@
       <trans-unit id="datasetAccessEmbargo">
         <source>Embargo</source>
         <target>Embargo</target>
+      </trans-unit>
+      <trans-unit id="datasetLinks">
+        <source>Linkit tutkimusaineistoon</source>
+        <target>Links to the research data</target>
+      </trans-unit>
+      <trans-unit id="noDatasetLinks">
+        <source>Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa</source>
+        <target>Det finns inga länkar till forskningsdata på denna portal</target>
+      </trans-unit>
+      <trans-unit id="datasetSource">
+        <source>Tutkimusaineiston lähde</source>
+        <target>Källa till forskningsdata</target>
+      </trans-unit>
+      <trans-unit id="relatedDatasets">
+        <source>Hae tutkimusaineistoon liittyvät </source>
+        <target>Sök sådana som är relaterade till forskningsdata</target>
       </trans-unit>
       <!-- Infrastructures -->
       <trans-unit id="infraServicesLabel">

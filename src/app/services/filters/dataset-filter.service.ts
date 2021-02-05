@@ -10,7 +10,7 @@ export class DatasetFilterService {
   filterData = [
     {
       field: 'year',
-      label: $localize`:@@publicationYear:Julkaisuvuosi`,
+      label: $localize`:@@yearOfPublication:Julkaisuvuosi`,
       hasSubFields: false,
       open: true,
       limitHeight: true,
@@ -46,7 +46,7 @@ export class DatasetFilterService {
     },
     {
       field: 'accessType',
-      label: $localize`:@@availability:Saatavuus`,
+      label: $localize`:@@datasetAccess:Saatavuus`,
       hasSubFields: false,
       open: true,
       limitHeight: true,

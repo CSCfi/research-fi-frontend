@@ -31,6 +31,7 @@ export class Dataset {
     public year: string,
     public type: string,
     public authors: OrganizationActor[],
+    public creators: string,
     public project: string,
     public fieldsOfScience: string,
     public lang: string,
@@ -67,15 +68,16 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     const temporalCoverage = item.temporalCoverageStart === item.temporalCoverageEnd ? '' + item.temporalCoverageStart : item.temporalCoverageStart + ' - ' + item.temporalCoverageEnd;
 
-    const orgs: OrganizationActor[] = []
+    const orgs: OrganizationActor[] = [];
 
     item.actor.forEach(actorRole => {
       const role: string = this.lang.testLang('actorRoleName', actorRole);
       actorRole.sector.forEach(sector => {
         sector.organization.forEach(org => {
+          const orgName = this.lang.testLang('OrganizationName', org);
           // Create or find the organization object to be added and referenced later
-          const orgExists = orgs.find(x => x.name === this.lang.testLang('OrganizationName', org))
-          const orgObj: OrganizationActor = orgExists ? orgExists : {name: this.lang.testLang('OrganizationName', org), id: org.organizationId, actors: [], roles: []};
+          const orgExists = orgs.find(x => x.name === orgName)
+          const orgObj: OrganizationActor = orgExists ? orgExists : {name: orgName, id: org.organizationId, actors: [], roles: []};
           // Push if new org
           if (!orgExists) {
             orgs.push(orgObj);
@@ -125,6 +127,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.datasetCreated,
       'tyyppi - test',
       orgsSorted,
+      'tekijät - test',
       'projekti - test',
       fieldsOfScienceString,
       'kieli - test',

@@ -366,7 +366,7 @@
             <div
               *ngIf="!linksFields.length && !item.selfArchivedData"
               class="no-links"
-              i18n="@@noMaterialLinks"
+              i18n="@@noDatasetLinks"
             >
               Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa
             </div>
@@ -375,10 +375,10 @@
         <mat-card>
           <mat-card-title>
             <h2>
-              <ng-container i18n="@@relatedMaterials"
+              <ng-container i18n="@@relatedDatasets"
                 >Hae tutkimusaineistoon liittyvät</ng-container
               >
-              ( <ng-container i18n="@@comingSoon">tulossa</ng-container>)
+              (<ng-container i18n="@@comingSoon">tulossa</ng-container>)
             </h2>
           </mat-card-title>
           <app-related-links [id]="item.id"> </app-related-links>

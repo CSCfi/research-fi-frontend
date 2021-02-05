@@ -43,7 +43,7 @@ export class SingleDatasetComponent implements OnInit {
 
   infoFields = [
     { label: $localize`:@@description:Kuvaus`, field: 'description' },
-    { label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'year' },
+    { label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'year' },
     { label: $localize`:@@datasetType:Aineiston tyyppi`, field: 'type' },
   ];
   
@@ -62,7 +62,7 @@ export class SingleDatasetComponent implements OnInit {
       field: 'fieldsOfScience',
     },
     { label: $localize`:@@language:Kieli`, field: 'lang' },
-    { label: $localize`:@@availability:Saatavuus`, field: 'availability' },
+    { label: $localize`:@@datasetAccess:Saatavuus`, field: 'availability' },
     { label: $localize`:@@license:Lisenssi`, field: 'license' },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
     {
@@ -73,13 +73,13 @@ export class SingleDatasetComponent implements OnInit {
 
   otherFields = [
     {
-      label: $localize`:@@relatedDatasets:Liittyvät aineistot`,
+      label: $localize`:@@datasetsRelated:Liittyvät aineistot`,
       field: 'name',
       tooltip: '',
     },
   ];
 
-  linksFields = [{ label: $localize`:@@doi:DOI`, field: 'doi', tooltip: '' }];
+  linksFields = [{ label: 'DOI', field: 'doi', tooltip: '' }];
 
   relatedList = [
     {
