@@ -111,13 +111,20 @@ export class DatasetAdapter implements Adapter<Dataset> {
       org.actors = org.actors.slice(0, unique.length);
     })
 
+    // Sort by organization name
+    let orgsSorted = orgs.sort((a, b) => (+(a.name > b.name) - 0.5));
+    // Move empty org to the end
+    if (!orgsSorted[0]?.name.trim()) {
+      orgsSorted.push(...orgsSorted.splice(0, 1));
+    }
+
     return new Dataset(
       item.identifier,
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       item.datasetCreated,
       'tyyppi - test',
-      orgs,
+      orgsSorted,
       'projekti - test',
       fieldsOfScienceString,
       'kieli - test',

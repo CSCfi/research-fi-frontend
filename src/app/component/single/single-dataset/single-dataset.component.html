@@ -100,7 +100,7 @@
                 </span>
               </ng-container>
             </h2>
-            <div class="col-12 col-sm-6 col-lg-9 td" *ngFor="let org of item.authors">
+            <div class="col-12 col-sm-6 col-lg-9 td" [class.offset-sm-6]="!isFirst" [class.offset-lg-3]="!isFirst" *ngFor="let org of item.authors; first as isFirst">
               <a class="th" href="/results/organization/{{org.id}}">{{org.name}}</a>
               <span class="td" *ngIf="org.roles.length > 0"> - {{org.roles.join(', ')}}</span>
               <div *ngFor="let actor of org.actors">
