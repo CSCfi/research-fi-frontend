@@ -24,7 +24,7 @@ export class DatasetFilterService {
       open: false,
       limitHeight: true,
       hideSearch: false,
-      tooltip: '',
+      tooltip: $localize`:@@datasetOrgFilterTooltip:Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista.`,
     },
     {
       field: 'dataSource',
@@ -33,7 +33,7 @@ export class DatasetFilterService {
       open: true,
       limitHeight: true,
       hideSearch: false,
-      tooltip: '',
+      tooltip: $localize`:@@datasetSourceFilterTooltip:Lähde, josta aineisto on peräisin.`,
     },
     {
       field: 'field',
@@ -42,7 +42,7 @@ export class DatasetFilterService {
       open: false,
       limitHeight: true,
       hideSearch: false,
-      tooltip: '',
+      tooltip: $localize`:@@datasetFieldFilterTooltip:Tilastokeskuksen tieteenalaluokitus`,
     },
     {
       field: 'accessType',
@@ -51,7 +51,37 @@ export class DatasetFilterService {
       open: true,
       limitHeight: true,
       hideSearch: false,
-      tooltip: '',
+      tooltip:
+        '<p><strong>' +
+        $localize`:@@datasetAccessOpen:Avoin` +
+        ': </strong>' +
+        $localize`:@@datasetAccessOpenTooltip:Aineisto on avoimesti saatavilla` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu` +
+        ': </strong>' +
+        $localize`:@@datasetAccessRestrictedTooltip:Aineiston saatavuutta on rajoitettu. Katso rajoituksen tarkemmat tiedot aineiston lähteestä.` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessLogin:Vaatii kirjautumisen` +
+        ': </strong>' +
+        $localize`:@@datasetAccessLoginTooltip:Pääsy aineistoon vaatii kirjautumisen Fairdata-palvelussa.` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessPermit:Vaatii luvan` +
+        ': </strong>' +
+        $localize`:@@datasetAccessPermitTooltip:Pääsy aineistoon vaatii luvan hakemista Fairdata-palvelussa.` +
+        '</p><p><strong>' +
+        $localize`:@@datasetAccessEmbargo:Embargo` +
+        ': </strong>' +
+        $localize`:@@datasetAccessEmbargoTooltip:Embargo eli julkaisuviive määrittää ajankohdan, jolloin aineisto on saatavilla.` +
+        '</p>',
+    },
+    {
+      field: 'lang',
+      label: $localize`:@@language:Kieli`,
+      hasSubFields: false,
+      open: true,
+      limitHeight: true,
+      hideSearch: false,
+      tooltip: $localize`:@@datasetLangFilterTooltip:Aineistossa käytetty kieli.`,
     },
   ];
 
