@@ -74,7 +74,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       const role: string = this.lang.testLang('actorRoleName', actorRole);
       actorRole.sector.forEach(sector => {
         sector.organization.forEach(org => {
-          const orgName = this.lang.testLang('OrganizationName', org);
+          const orgName = this.lang.testLang('OrganizationName', org).trim();
           // Create or find the organization object to be added and referenced later
           const orgExists = orgs.find(x => x.name === orgName)
           const orgObj: OrganizationActor = orgExists ? orgExists : {name: orgName, id: org.organizationId, actors: [], roles: []};
@@ -127,7 +127,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.datasetCreated,
       'tyyppi - test',
       orgsSorted,
-      'tekijät - test',
+      item.creatorsText,
       'projekti - test',
       fieldsOfScienceString,
       'kieli - test',
