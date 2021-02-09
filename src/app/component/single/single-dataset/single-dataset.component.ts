@@ -43,43 +43,60 @@ export class SingleDatasetComponent implements OnInit {
 
   infoFields = [
     { label: $localize`:@@description:Kuvaus`, field: 'description' },
-    { label: $localize`:@@publicationYear:Julkaisuvuosi`, field: 'year' },
+    { label: $localize`:@@yearOfPublication:Julkaisuvuosi`, field: 'year' },
     { label: $localize`:@@datasetType:Aineiston tyyppi`, field: 'type' },
   ];
   
   authors = [
-    { label: $localize`:@@authors:Tekijät`, field: 'authors' },
+    { label: $localize`:@@datasetAuthors:Tekijät`, field: 'authors', tooltip: $localize`:@@datasetAuthorsTooltip:Tutkimukseen tai aineiston tekemiseen osallistuneet henkilöt ja organisaatiot. ` },
   ]
 
   project = [
-    { label: $localize`:@@datasetProject:Projekti`, field: 'project' },
+    { label: $localize`:@@datasetProject:Projekti`, field: 'project', tooltip: $localize`:@@datasetProjectTooltip:Projekti, jonka tuotoksena aineisto on luotu. ` },
   ]
   
 
   otherInfoFields = [
-    {
-      label: $localize`:@@fieldsOfScience:Tieteenalat`,
-      field: 'fieldsOfScience',
-    },
-    { label: $localize`:@@language:Kieli`, field: 'lang' },
-    { label: $localize`:@@availability:Saatavuus`, field: 'availability' },
-    { label: $localize`:@@license:Lisenssi`, field: 'license' },
+    { label: $localize`:@@fieldsOfScience:Tieteenalat`, field: 'fieldsOfScience', tooltip: $localize`:@@datasetFieldFilterTooltip:Tilastokeskuksen tieteenalaluokitus.` },
+    { label: $localize`:@@language:Kieli`, field: 'lang', tooltip: $localize`:@@datasetLangFilterTooltip:Aineistossa käytetty kieli.` },
+    { label: $localize`:@@datasetAccess:Saatavuus`, field: 'availability',
+      tooltip:
+      '<p><strong>' +
+      $localize`:@@datasetAccessOpen:Avoin` +
+      ': </strong>' +
+      $localize`:@@datasetAccessOpenTooltip:Aineisto on avoimesti saatavilla` +
+      '</p><p><strong>' +
+      $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu` +
+      ': </strong>' +
+      $localize`:@@datasetAccessRestrictedTooltip:Aineiston saatavuutta on rajoitettu. Katso rajoituksen tarkemmat tiedot aineiston lähteestä.` +
+      '</p><p><strong>' +
+      $localize`:@@datasetAccessLogin:Vaatii kirjautumisen` +
+      ': </strong>' +
+      $localize`:@@datasetAccessLoginTooltip:Pääsy aineistoon vaatii kirjautumisen Fairdata-palvelussa.` +
+      '</p><p><strong>' +
+      $localize`:@@datasetAccessPermit:Vaatii luvan` +
+      ': </strong>' +
+      $localize`:@@datasetAccessPermitTooltip:Pääsy aineistoon vaatii luvan hakemista Fairdata-palvelussa.` +
+      '</p><p><strong>' +
+      $localize`:@@datasetAccessEmbargo:Embargo` +
+      ': </strong>' +
+      $localize`:@@datasetAccessEmbargoTooltip:Embargo eli julkaisuviive määrittää ajankohdan, jolloin aineisto on saatavilla.` +
+      '</p>',
+     },
+    { label: $localize`:@@license:Lisenssi`, field: 'license', tooltip: $localize`:@@datasetLicenseTooltip:Lisenssi, joka määrittelee aineiston käyttöehdot.` },
     { label: $localize`:@@keywords:Avainsanat`, field: 'keywords' },
-    {
-      label: $localize`:@@temporalCoverage:Ajallinen kattavuus`,
-      field: 'coverage',
-    },
+    { label: $localize`:@@temporalCoverage:Ajallinen kattavuus`, field: 'coverage', tooltip: $localize`:@@datasetTemporalCoverageTooltip:Ajanjakso, jonka aineisto kattaa(esim. aikaväli jolloin havaintoja on tehty).` },
   ];
 
   otherFields = [
     {
-      label: $localize`:@@relatedDatasets:Liittyvät aineistot`,
+      label: $localize`:@@datasetsRelated:Liittyvät aineistot`,
       field: 'name',
       tooltip: '',
     },
   ];
 
-  linksFields = [{ label: $localize`:@@doi:DOI`, field: 'doi', tooltip: '' }];
+  linksFields = [{ label: 'DOI', field: 'doi', tooltip: '' }];
 
   relatedList = [
     {

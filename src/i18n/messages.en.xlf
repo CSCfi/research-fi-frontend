@@ -366,7 +366,7 @@
           <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="otherPublicationInfo" datatype="html">
+      <trans-unit id="otherInfo" datatype="html">
         <source>Muut tiedot</source>
         <target>Other information</target>
         <context-group purpose="location">
@@ -2784,25 +2784,129 @@
       <target>A website outside the research.fi service that contains more detailed information on the project.</target>
       </trans-unit>
       <!-- Datasets -->
+      <trans-unit id="datasetName">
+        <source>Tutkimusaineiston nimi</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="datasetCreators">
+        <source>Tutkimusaineiston tekijät / organisaatio</source>
+        <target>Authors / organizations</target>
+      </trans-unit>
+      <trans-unit id="datasetType">
+        <source>Aineiston tyyppi</source>
+        <target>Type of data</target>
+      </trans-unit>
+      <trans-unit id="datasetAuthors">
+        <source>Tekijät</source>
+        <target>Authors</target>
+      </trans-unit>
+      <trans-unit id="datasetProject">
+        <source>Projekti</source>
+        <target>Project</target>
+      </trans-unit>
+      <trans-unit id="license">
+        <source>Lisenssi</source>
+        <target>License</target>
+      </trans-unit>
+      <trans-unit id="temporalCoverage">
+        <source>Ajallinen kattavuus</source>
+        <target>Temporal coverage</target>
+      </trans-unit>
+      <trans-unit id="datasetsRelated">
+        <source>Liittyvät aineistot</source>
+        <target>Related to this research data</target>
+      </trans-unit>
+      <trans-unit id="datasetAuthorsTooltip">
+        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet henkilöt ja organisaatiot.</source>
+        <target>The persons and organizations involved in the research or the production of research data.</target>
+      </trans-unit>
+      <trans-unit id="datasetProjectTooltip">
+        <source>Projekti, jonka tuotoksena aineisto on luotu.</source>
+        <target>The project in which the data was created.</target>
+      </trans-unit>
+      <trans-unit id="datasetLicenseTooltip">
+        <source>Lisenssi, joka määrittelee aineiston käyttöehdot.</source>
+        <target>The license specifying the terms and conditions for the use of the data.</target>
+      </trans-unit>
+      <trans-unit id="datasetTemporalCoverageTooltip">
+        <source>Ajanjakso, jonka aineisto kattaa(esim. aikaväli jolloin havaintoja on tehty).</source>
+        <target>The period of time covered by the data (e.g. the period in which the observations were made).</target>
+      </trans-unit>
+      <trans-unit id="datasetAccess">
+        <source>Saatavuus</source>
+        <target>Open access</target>
+      </trans-unit>
       <trans-unit id="datasetAccessOpen">
         <source>Avoin</source>
         <target>Open</target>
       </trans-unit>
+      <trans-unit id="datasetAccessOpenTooltip">
+        <source>Aineisto on avoimesti saatavilla.</source>
+        <target>The data is openly accessible.</target>
+      </trans-unit>
       <trans-unit id="datasetAccessPermit">
-        <source>Vaatii luvan hakemista Fairdata-palvelussa</source>
-        <target>Requires applying permission in Fairdata service</target>
+        <source>Vaatii luvan</source>
+        <target>Permit required</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessPermitTooltip">
+        <source>Pääsy aineistoon vaatii luvan hakemista Fairdata-palvelussa.</source>
+        <target>Accessing the data requires applying for a permit in the Fairdata service.</target>
       </trans-unit>
       <trans-unit id="datasetAccessLogin">
-        <source>Vaatii kirjautumisen Fairdata-palvelussa</source>
-        <target>Requires login in Fairdata service</target>
+        <source>Vaatii kirjautumisen</source>
+        <target>Requires login</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessLoginTooltip">
+        <source>Pääsy aineistoon vaatii kirjautumisen Fairdata-palvelussa.</source>
+        <target>Accessing the data requires logging in to the Fairdata service.</target>
       </trans-unit>
       <trans-unit id="datasetAccessRestricted">
         <source>Saatavuutta rajoitettu</source>
-        <target>Restricted use</target>
+        <target>Restricted access</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessRestrictedTooltip">
+        <source>Aineiston saatavuutta on rajoitettu. Katso rajoituksen tarkemmat tiedot aineiston lähteestä.</source>
+        <target>Access to the data is restricted. For more detailed information about the restriction, see the data source.</target>
       </trans-unit>
       <trans-unit id="datasetAccessEmbargo">
         <source>Embargo</source>
         <target>Embargo</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessEmbargoTooltip">
+        <source>Embargo eli julkaisuviive määrittää ajankohdan, jolloin aineisto on saatavilla.</source>
+        <target>An embargo, or publication delay, determines when the data will be made available.</target>
+      </trans-unit>
+      <trans-unit id="datasetLinks">
+        <source>Linkit tutkimusaineistoon</source>
+        <target>Links to the research data</target>
+      </trans-unit>
+      <trans-unit id="noDatasetLinks">
+        <source>Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa</source>
+        <target>There are no links to the research data on this portal</target>
+      </trans-unit>
+      <trans-unit id="datasetSource">
+        <source>Tutkimusaineiston lähde</source>
+        <target>Source of research data</target>
+      </trans-unit>
+      <trans-unit id="relatedDatasets">
+        <source>Hae tutkimusaineistoon liittyvät</source>
+        <target>Search for items related to the research data</target>
+      </trans-unit>
+      <trans-unit id="datasetOrgFilterTooltip">
+        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista.</source>
+        <target>The organizations involved in the research or the production of research data. Currently, the service does not contain any information on foreign organizations involved in the research data.</target>
+      </trans-unit>
+      <trans-unit id="datasetSourceFilterTooltip">
+        <source>Lähde, josta aineisto on peräisin.</source>
+        <target>The source of the data.</target>
+      </trans-unit>
+      <trans-unit id="datasetFieldFilterTooltip">
+        <source>Tilastokeskuksen tieteenalaluokitus.</source>
+        <target>The Statistics Finland Fields of science classification.</target>
+      </trans-unit>
+      <trans-unit id="datasetLangFilterTooltip">
+        <source>Aineistossa käytetty kieli.</source>
+        <target>The language used in the data.</target>
       </trans-unit>
       <!-- Infrastructures -->
       <trans-unit id="infraServicesLabel">

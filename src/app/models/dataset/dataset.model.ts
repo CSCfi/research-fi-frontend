@@ -31,6 +31,7 @@ export class Dataset {
     public year: string,
     public type: string,
     public authors: OrganizationActor[],
+    public creators: string,
     public project: string,
     public fieldsOfScience: string,
     public lang: string,
@@ -67,15 +68,16 @@ export class DatasetAdapter implements Adapter<Dataset> {
 
     const temporalCoverage = item.temporalCoverageStart === item.temporalCoverageEnd ? '' + item.temporalCoverageStart : item.temporalCoverageStart + ' - ' + item.temporalCoverageEnd;
 
-    const orgs: OrganizationActor[] = []
+    const orgs: OrganizationActor[] = [];
 
-    item.actor.forEach(actorRole => {
+    item.actor?.forEach(actorRole => {
       const role: string = this.lang.testLang('actorRoleName', actorRole);
       actorRole.sector.forEach(sector => {
         sector.organization.forEach(org => {
+          const orgName = this.lang.testLang('OrganizationName', org).trim();
           // Create or find the organization object to be added and referenced later
-          const orgExists = orgs.find(x => x.name === this.lang.testLang('OrganizationName', org))
-          const orgObj: OrganizationActor = orgExists ? orgExists : {name: this.lang.testLang('OrganizationName', org), id: org.organizationId, actors: [], roles: []};
+          const orgExists = orgs.find(x => x.name === orgName)
+          const orgObj: OrganizationActor = orgExists ? orgExists : {name: orgName, id: org.organizationId, actors: [], roles: []};
           // Push if new org
           if (!orgExists) {
             orgs.push(orgObj);
@@ -111,13 +113,21 @@ export class DatasetAdapter implements Adapter<Dataset> {
       org.actors = org.actors.slice(0, unique.length);
     })
 
+    // Sort by organization name
+    let orgsSorted = orgs.sort((a, b) => (+(a.name > b.name) - 0.5));
+    // Move empty org to the end
+    if (!orgsSorted[0]?.name.trim()) {
+      orgsSorted.push(...orgsSorted.splice(0, 1));
+    }
+
     return new Dataset(
       item.identifier,
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       item.datasetCreated,
       'tyyppi - test',
-      orgs,
+      orgsSorted,
+      item.creatorsText,
       'projekti - test',
       fieldsOfScienceString,
       'kieli - test',

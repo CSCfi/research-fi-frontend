@@ -229,6 +229,60 @@ export class SortService {
         }
         break;
       }
+      case 'datasets': {
+        this.yearField = 'datasetCreated';
+        switch (this.sortColumn) {
+          case 'name': {
+            const sortString = 'name' + this.localeC + '.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+          case 'author': {
+            const sortString = 'creatorsText.keyword';
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+          case 'year': {
+            const sortString = this.yearField;
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'desc' : 'asc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+          default: {
+            const sortString = this.yearField;
+            this.sort = [
+              {
+                [sortString]: {
+                  order: this.sortDirection ? 'asc' : 'desc',
+                  unmapped_type: 'long',
+                },
+              },
+            ];
+            break;
+          }
+        }
+        break;
+      }
       case 'infrastructures': {
         this.yearField = 'startYear';
         switch (this.sortColumn) {
@@ -322,60 +376,6 @@ export class SortService {
               {
                 [sortString]: {
                   order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long',
-                },
-              },
-            ];
-            break;
-          }
-        }
-        break;
-      }
-      case 'datasets': {
-        this.yearField = 'datasetCreated';
-        switch (this.sortColumn) {
-          case 'name': {
-            const sortString = 'name' + this.localeC + '.keyword';
-            this.sort = [
-              {
-                [sortString]: {
-                  order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long',
-                },
-              },
-            ];
-            break;
-          }
-          case 'author': {
-            const sortString = 'authorsText.keyword';
-            this.sort = [
-              {
-                [sortString]: {
-                  order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long',
-                },
-              },
-            ];
-            break;
-          }
-          case 'year': {
-            const sortString = this.yearField;
-            this.sort = [
-              {
-                [sortString]: {
-                  order: this.sortDirection ? 'desc' : 'asc',
-                  unmapped_type: 'long',
-                },
-              },
-            ];
-            break;
-          }
-          default: {
-            const sortString = this.yearField;
-            this.sort = [
-              {
-                [sortString]: {
-                  order: this.sortDirection ? 'asc' : 'desc',
                   unmapped_type: 'long',
                 },
               },

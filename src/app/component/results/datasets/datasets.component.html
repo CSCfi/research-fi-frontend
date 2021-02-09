@@ -39,7 +39,7 @@
         "
         (click)="utilityService.sortBy('author')"
         (keydown.enter)="utilityService.sortBy('author')"
-        i18n="@@datasetAuthors"
+        i18n="@@datasetCreators"
         >Tutkimusaineiston tekijät / organisaatio</span
       >
     </div>
@@ -76,7 +76,7 @@
             routerLink="/results/dataset/{{ dataset.id }}"
             class="icon"
             tabindex="-1"
-            title="Julkaisujen tiedon ikoni"
+            title="Tutkimusaineistojen tiedon ikoni"
           >
             <fa-icon [icon]="faIcon"></fa-icon>
           </a>
@@ -122,7 +122,7 @@
         <div class="col col-lg-5 col-xl-3 d-none d-lg-block">
           <span
             [innerHtml]="
-              dataset.description | cutContent: 100 | highlight: input
+              dataset.creators | cutContent: 100 | highlight: input
             "
           ></span>
         </div>
@@ -167,7 +167,7 @@
 <ng-template #noResults>
   <div class="row main-content" *ngIf="resultData && resultData.total === 0">
     <div class="col text-center no-results" role="alert">
-      <h2 i18n="@@noPublications">Ei julkaisuja</h2>
+      <h2 i18n="@@noDatasets">Ei tutkimusaineistoja</h2>
       <br />
       <p i18n="@@resultSearchTermWarning">
         Tarkista, onko hakutermissä kirjoitusvirheitä.<br />
