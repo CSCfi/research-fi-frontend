@@ -1096,6 +1096,32 @@ export class AggregationService {
             },
           },
         };
+        payLoad.aggs.lang = {
+          filter: {
+            bool: {
+              filter: filterActive('languages.languageCode'),
+            },
+          },
+          aggs: {
+            langs: {
+              terms: {
+                field: 'languages.languageCode.keyword',
+                size: 50,
+              },
+              aggs: {
+                language: {
+                  terms: {
+                    field:
+                      'languages.languageName' +
+                      this.localeC +
+                      '.keyword',
+                    size: 100,
+                  },
+                },
+              },
+            },
+          },
+        };
         payLoad.aggs.field = {
           filter: {
             bool: {

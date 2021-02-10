@@ -313,6 +313,10 @@ export class FilterService {
       filter.accessType,
       'accessType.keyword'
     );
+    this.langFilter = this.basicFilter(
+      filter.lang,
+      'languages.languageCode'
+    );
     // Infrastructure
     this.typeFilter = this.basicFilter(
       filter.type,
@@ -719,6 +723,7 @@ export class FilterService {
       ...basicFilter('dataset', this.dataSourceFilter),
       ...basicFilter('dataset', this.accessTypeFilter),
       ...basicFilter('dataset', this.organizationFilter),
+      ...basicFilter('dataset', this.langFilter),
       ...basicFilter('dataset', this.fieldFilter),
 
       // Infrastructures

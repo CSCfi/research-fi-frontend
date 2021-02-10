@@ -41,6 +41,7 @@ export class Dataset {
     public coverage: string,
     public dataCatalog: string,
     public openAccess: boolean,
+    public relatedDatasets: string,
     public doi: string
   ) {}
 }
@@ -77,7 +78,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
           const orgName = this.lang.testLang('OrganizationName', org).trim();
           // Create or find the organization object to be added and referenced later
           const orgExists = orgs.find(x => x.name === orgName)
-          const orgObj: OrganizationActor = orgExists ? orgExists : {name: orgName, id: org.organizationId, actors: [], roles: []};
+          const orgObj: OrganizationActor = orgExists ? orgExists : {name: orgName, id: org.organizationId.trim(), actors: [], roles: []};
           // Push if new org
           if (!orgExists) {
             orgs.push(orgObj);
@@ -118,6 +119,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
     // Move empty org to the end
     if (!orgsSorted[0]?.name.trim()) {
       orgsSorted.push(...orgsSorted.splice(0, 1));
+      orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaatio puuttuu`; 
     }
 
     return new Dataset(
@@ -125,19 +127,20 @@ export class DatasetAdapter implements Adapter<Dataset> {
       this.lang.testLang('name', item),
       this.lang.testLang('description', item),
       item.datasetCreated,
-      'tyyppi - test',
+      item.type, // Missing
       orgsSorted,
       item.creatorsText,
-      'projekti - test',
+      item.project, // Missing
       fieldsOfScienceString,
-      'kieli - test',
+      item.languages?.map(x => this.lang.testLang('languageName', x))?.join(', '),
       this.lang.translateAccessType(item.accessType),
       this.lang.testLang('licenseName', item),
       keywords.join(', '),
       temporalCoverage,
-      this.lang.testLang('name', item?.dataCatalog[0]),
+      item.dataCatalog?.map(x => this.lang.testLang('name', x))?.join(', '),
       item.accessType === 'open',
-      Math.random() > 0.5 ? 'test' : undefined // DOI test
+      item.relatedDatasets, // Missing
+      item.doi // Missing
     );
   }
 }

@@ -419,6 +419,35 @@ export class StaticDataService {
         ];
         break;
       }
+      case 'dataset': {
+        res = [
+          'nameFi^2',
+          'nameEn^2',
+          'nameSv^2',
+          'descriptionFi',
+          'descriptionEn',
+          'descriptionSv',
+          'datasetCreated',
+          'actor.sector.organizationNameFi',
+          'actor.sector.organizationNameEn',
+          'actor.sector.organizationNameSv',
+          'actor.sector.organization.organizationUnitNameFi',
+          'actor.sector.organization.organizationUnitNameEn',
+          'actor.sector.organization.organizationUnitNameSv',
+          'actor.sector.organization.organizationUnit.person.authorFullName',
+          'fieldsOfScience.nameFiScience',
+          'fieldsOfScience.nameEnScience',
+          'fieldsOfScience.nameSvScience',
+          'identifier',
+          'keywords.keyword',
+          'dataCatalog.identifier',
+          'dataCatalog.nameFi',
+          'dataCatalog.nameEn',
+          'dataCatalog.nameSv',
+          'fairdataUrl',
+        ];
+        break;
+      }
       case 'infrastructure': {
         res = [
           'nameFi^2',
@@ -523,6 +552,10 @@ export class StaticDataService {
         res = ['funderBusinessId.pid_content'];
         break;
       }
+      case 'dataset': {
+        res = [''];
+        break;
+      }
       case 'infrastructure': {
         res = ['responsibleOrganization.TKOppilaitosTunnus'];
         break;
@@ -572,6 +605,10 @@ export class StaticDataService {
             ];
             break;
           }
+          case 'dataset': {
+            res = ['creatorsText'];
+            break;
+          }
           case 'infrastructure': {
             res = [''];
             break;
@@ -595,6 +632,14 @@ export class StaticDataService {
               'projectNameSv',
               'projectNameEn',
               'projectAcronym',
+            ];
+            break;
+          }
+          case 'dataset': {
+            res = [
+              'nameFi',
+              'nameSv',
+              'nameEn',
             ];
             break;
           }
@@ -626,6 +671,10 @@ export class StaticDataService {
             res = ['keywords.keyword'];
             break;
           }
+          case 'dataset': {
+            res = ['keywords.keyword'];
+            break;
+          }
           case 'infrastructure': {
             res = ['keywords.keyword'];
             break;
@@ -645,6 +694,14 @@ export class StaticDataService {
           }
           case 'funding': {
             res = [''];
+            break;
+          }
+          case 'dataset': {
+            res = [
+              'actors.sector.organizationNameFi',
+              'actors.sector.organizationNameEn',
+              'actors.sector.organizationNameSv',
+            ];
             break;
           }
           case 'infrastructure': {
@@ -677,6 +734,10 @@ export class StaticDataService {
             ];
             break;
           }
+          case 'dataset': {
+            res = [''];
+            break;
+          }
           case 'infrastructure': {
             res = [''];
             break;
@@ -695,6 +756,10 @@ export class StaticDataService {
             break;
           }
           case 'funding': {
+            res = [''];
+            break;
+          }
+          case 'dataset': {
             res = [''];
             break;
           }
