@@ -270,7 +270,7 @@
               </div>
             </div>
           </ng-container>
-          <div class="row content">
+          <div class="row content" *ngIf="otherFields.length">
             <ng-container *ngFor="let row of otherFields">
               <!-- Labels -->
               <h2 class="col-12 col-sm-6 col-lg-3 th">
