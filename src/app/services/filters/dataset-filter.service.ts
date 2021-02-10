@@ -1,3 +1,4 @@
+import { isNgTemplate } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash';
 import { StaticDataService } from '../static-data.service';
@@ -94,6 +95,7 @@ export class DatasetFilterService {
     source.year.buckets = this.mapYear(source.year.years.buckets);
     source.organization = this.organization(source.organization);
     source.dataSource.buckets = this.filterEmptyKeys(source.dataSource.dataSources.buckets);
+    source.lang.buckets = this.lang(source.lang.langs.buckets);
     
     source.field.buckets = this.minorField(
       source.field.fields.buckets.filter(
@@ -160,7 +162,6 @@ export class DatasetFilterService {
     }
   }
 
-
   accessType(data) {
     data.forEach(type => {
       switch (type.key) {
@@ -188,4 +189,18 @@ export class DatasetFilterService {
     })
     return data;
   }
+
+  lang(data) {
+    const langs = data.map(lang => {
+      return {
+        label: lang.language.buckets[0]?.key !== 'undefined'
+          ? lang.language.buckets[0]?.key
+          : $localize`:@@notKnown:Ei tiedossa`,
+        key: lang.key.toLowerCase(),
+        doc_count: lang.doc_count
+      }
+    })
+    return langs.filter(lang => lang.key !== ' '); 
+  }
+
 }
