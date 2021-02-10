@@ -98,18 +98,18 @@
     "titleFi": "",
     "titleEn": "",
     "titleSv": "",
-    "descriptionFi": "",
-    "descriptionEn": "",
-    "descriptionSv": "",
+    "descriptionFi": "Tutkimusaineistot tiedejatutkimus.fi-palvelussa. Hakutuloksia voi rajata haun jälkeen rajaa hakua -toiminnolla.",
+    "descriptionEn": "Research datasets in Research.fi. You can use the Refine search function to refine your search results.",
+    "descriptionSv": "Forskningsdata i forskning.fi. Sökresultaten kan avgränsas efter sökningen med funktionen Avgränsa sökningen.",
     "link": "datasets"
   },
   "singleDataset": {
     "titleFi": "",
     "titleEn": "",
     "titleSv": "",
-    "descriptionFi": "",
-    "descriptionEn": "",
-    "descriptionSv": ""
+    "descriptionFi": "Tutustu tutkimusaineiston kuvailutietoihin Tiedejatutkimus.fi-palvelussa.",
+    "descriptionEn": "Browse the available metadata for research data in the Research.fi service.",
+    "descriptionSv": "Bekanta dig med beskrivningarna av forskningsdata i tjänsten Forskning.fi"
   },
   "infrastructures": {
     "titleFi": "",
@@ -141,7 +141,7 @@
     "titleFi": "",
     "titleEn": "",
     "titleSv": "",
-    "descriptionFi": "Tutustu organisaatio tarkempiin tietoihin tiedejatutkimus.fi-palvelussa",
+    "descriptionFi": "Tutustu organisaation tarkempiin tietoihin tiedejatutkimus.fi-palvelussa",
     "descriptionEn": "Read more about the organization in Research.fi.",
     "descriptionSv": "Bekanta dig med närmare uppgifter om organisation i forksning.fi."
   },

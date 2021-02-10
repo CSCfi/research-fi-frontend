@@ -130,7 +130,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.creatorsText,
       'projekti - test',
       fieldsOfScienceString,
-      'kieli - test',
+      this.lang.testLang('languageName', item?.languages[0]),
       this.lang.translateAccessType(item.accessType),
       this.lang.testLang('licenseName', item),
       keywords.join(', '),
