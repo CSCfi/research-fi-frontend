@@ -222,6 +222,7 @@ export class SingleDatasetComponent implements OnInit {
     this.otherInfoFields = this.otherInfoFields.filter((item) =>
       checkEmpty(item)
     );
+    this.project = this.project.filter((item) => checkEmpty(item));
     this.otherFields = this.otherFields.filter((item) => checkEmpty(item));
     this.linksFields = this.linksFields.filter((item) => checkEmpty(item));
   }
