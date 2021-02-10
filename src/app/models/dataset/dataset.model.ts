@@ -41,6 +41,7 @@ export class Dataset {
     public coverage: string,
     public dataCatalog: string,
     public openAccess: boolean,
+    public relatedDatasets: string,
     public doi: string
   ) {}
 }
@@ -118,7 +119,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
     // Move empty org to the end
     if (!orgsSorted[0]?.name.trim()) {
       orgsSorted.push(...orgsSorted.splice(0, 1));
-      orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaation puuttuu`; 
+      orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaatio puuttuu`; 
     }
 
     return new Dataset(
@@ -138,7 +139,8 @@ export class DatasetAdapter implements Adapter<Dataset> {
       temporalCoverage,
       item.dataCatalog?.map(x => this.lang.testLang('name', x))?.join(', '),
       item.accessType === 'open',
-      Math.random() > 0.5 ? 'test' : undefined // DOI test
+      item.relatedDatasets, // Missing
+      item.doi // Missing
     );
   }
 }

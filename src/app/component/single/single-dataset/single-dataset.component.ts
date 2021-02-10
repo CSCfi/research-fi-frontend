@@ -91,7 +91,7 @@ export class SingleDatasetComponent implements OnInit {
   otherFields = [
     {
       label: $localize`:@@datasetsRelated:Liittyvät aineistot`,
-      field: 'name',
+      field: 'relatedDatasets',
       tooltip: '',
     },
   ];

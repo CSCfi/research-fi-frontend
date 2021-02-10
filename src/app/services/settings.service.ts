@@ -249,6 +249,14 @@ export class SettingsService {
             {
               bool: {
                 must: [
+                  { term: { _index: 'dataset' } },
+                  this.querySettings('dataset', term),
+                ],
+              },
+            },
+            {
+              bool: {
+                must: [
                   { term: { _index: 'infrastructure' } },
                   this.querySettings('infrastructure', term),
                 ],
@@ -305,6 +313,11 @@ export class SettingsService {
               funding: {
                 match: {
                   _index: 'funding',
+                },
+              },
+              dataset: {
+                match: {
+                  _index: 'dataset',
                 },
               },
               infrastructure: {
