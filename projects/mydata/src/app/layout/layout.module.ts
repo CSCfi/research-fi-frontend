@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { LayoutComponent } from './layout.component';
-import { UiLibraryModule } from '../../../../ui-library/src/lib/ui-library.module';
+import { UiLibraryModule } from 'ui-library';
 
 @NgModule({
   declarations: [

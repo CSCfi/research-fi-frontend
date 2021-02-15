@@ -12,6 +12,7 @@
     "start-fi": "ng serve --configuration=fi",
     "start-sv": "ng serve --configuration=sv",
     "start-en": "ng serve --configuration=en",
+    "build:ui-library": "ng build ui-library --prod",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "build:prod": "ng build --configuration=production --localize",
     "build:server:prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng run research-fi:server:production",
@@ -23,7 +24,7 @@
     "mydata:build:prod": "ng build mydata --configuration=production --localize",
     "mydata:build:server:prod": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng run mydata:server:production",
     "mydata:build:client-and-server-bundles": "npm run mydata:build:prod && npm run mydata:build:server:prod",
-    "mydata:build:ssr": "npm run mydata:build:client-and-server-bundles && npm run mydata:webpack:server",
+    "mydata:build:ssr": "npm run build:ui-library && npm run mydata:build:client-and-server-bundles && npm run mydata:webpack:server",
     "mydata:serve:ssr": "node dist_mydata/server.js"
   },
   "private": true,
