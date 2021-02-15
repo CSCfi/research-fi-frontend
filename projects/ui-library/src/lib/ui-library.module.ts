@@ -22,7 +22,7 @@ import { NavigationComponent } from './header/navigation/navigation.component';
   ],
   imports: [
     RouterModule,
-    BrowserModule.withServerTransition({ appId: 'serverUiLibrary' }),
+    BrowserModule,
     MatFormFieldModule,
     MatSelectModule,
     ClickOutsideModule,
