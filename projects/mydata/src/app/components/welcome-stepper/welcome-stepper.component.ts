@@ -20,7 +20,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeStepperComponent {
-  step = 4;
+  step = 1;
   cancel = false;
   dataFetched = false;
   termsApproved = false;
