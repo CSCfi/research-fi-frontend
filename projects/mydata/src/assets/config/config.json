@@ -1,0 +1,22 @@
+{
+    "apiUrl": "https://researchfi-api-researchfi.rahtiapp.fi",
+    "cmsUrl": "https://cms-nginx-researchfi.rahtiapp.fi",
+    "environmentName": "local",
+    "email": {
+        "enabled": true,
+        "host": "smtp.mailtrap.io",
+        "port": 2525,
+        "username": "68e737519ff36c",
+        "password": "4f340f8f728490",
+        "receiver": "timo.sarkikoski@visma.com"
+    },
+    "authConfig": {
+        "issuer": "https://2c42332396b9.ngrok.io",
+        "clientId": "js",
+        "redirectUri": "https://localhost:5003/welcome",
+        "responseType": "code",
+        "scope": "openid profile api1",
+        "postLogoutRedirectUri": "https://localhost:5003/",
+        "sessionChecksEnabled": true
+    }
+}
