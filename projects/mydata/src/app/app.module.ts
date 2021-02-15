@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
-import { UiLibraryModule } from '../../../ui-library/src/lib/ui-library.module';
+import { UiLibraryModule } from 'ui-library';
 import { LayoutModule } from './layout/layout.module';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
