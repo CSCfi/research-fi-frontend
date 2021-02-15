@@ -251,6 +251,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "spec": false,
           "style": "scss"
         }
       },
@@ -261,12 +262,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mydata",
+            "aot": true,
+            "outputPath": "dist_mydata/browser/",
             "index": "projects/mydata/src/index.html",
             "main": "projects/mydata/src/main.ts",
             "polyfills": "projects/mydata/src/polyfills.ts",
             "tsConfig": "projects/mydata/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/mydata/src/favicon.ico",
               "projects/mydata/src/assets",
@@ -293,7 +294,7 @@
           },
           "configurations": {
             "production": {
-              "outputPath": "dist/mydata/",
+              "outputPath": "dist_mydata/browser/",
               "baseHref": "/",
               "fileReplacements": [
                 {
@@ -306,6 +307,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -410,6 +412,29 @@
           "configurations": {
             "production": {
               "devServerTarget": "mydata:serve:production"
+            }
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "main": "projects/mydata/src/main.server.ts",
+            "tsConfig": "projects/mydata/tsconfig.server.json",
+            "localize": ["fi", "en", "sv"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/shared/theme"]
+            }
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputPath": "dist_mydata/server",
+              "fileReplacements": [
+                {
+                  "replace": "projects/mydata/src/environments/environment.ts",
+                  "with": "projects/mydata/src/environments/environment.prod.ts"
+                }
+              ]
             }
           }
         }

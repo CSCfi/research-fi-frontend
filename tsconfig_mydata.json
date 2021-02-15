@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "downlevelIteration": true,
+    "outDir": "./dist_mydata/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom", "esnext.array"],
+    "paths": {
+      "@mydata/*": ["mydata/*"],
+      "@mydata.services/*": ["projects/mydata/src/app/services/*"],
+      "@mydata.models/*": ["projects/mydata/src/app/models/*"],
+      "@mydata.assets/*": ["projects/mydata/src/assets/*"],
+      "@mydata.layout/*": ["projects/mydata/src/app/layout/*"],
+      "@mydata.testdata/*": ["projects/mydata/src/testdata/*"],
+      "@mydata.testing/*": ["projects/mydata/src/testing/*"],
+      "ui-library": ["dist/ui-library/ui-library", "dist/ui-library"],
+      "shared": ["projects/shared/*"]
+    }
+  }
+}
