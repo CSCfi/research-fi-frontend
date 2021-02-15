@@ -5,12 +5,19 @@
 // :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 // :license: MIT
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -24,18 +31,24 @@ export class HeaderComponent implements OnInit {
   navItems = [{ label: 'Kirjaudu sisään', link: '' }];
   routeSub: Subscription;
   params: any;
-  loggedIn = sessionStorage.getItem('PKCE_verifier') === null ? false : true;
+  loggedIn: boolean;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private oauthService: OAuthService
+    private oauthService: OAuthService,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.routeEvent(router);
   }
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.loggedIn =
+        sessionStorage.getItem('PKCE_verifier') === null ? false : true;
+    }
+
     console.log('Has valid access: ', this.oauthService.hasValidAccessToken());
     this.oauthService.events
       .pipe(filter((e) => e.type === 'session_terminated'))

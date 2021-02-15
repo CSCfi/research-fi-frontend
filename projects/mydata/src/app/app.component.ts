@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import {
   NavigationEnd,
   NavigationStart,
   Router,
   RouterEvent,
 } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
 import { authConfig } from '../assets/config/config';
@@ -17,8 +18,13 @@ import { authConfig } from '../assets/config/config';
 export class AppComponent implements OnInit {
   title = 'mydata';
   loading: boolean;
+  isBrowser: boolean;
 
-  constructor(private router: Router, private oauthService: OAuthService) {
+  constructor(
+    private router: Router,
+    private oauthService: OAuthService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
     this.configureAuth();
 
     this.oauthService.events
@@ -30,6 +36,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isBrowser = true;
+    }
     this.routerEvents();
   }
 

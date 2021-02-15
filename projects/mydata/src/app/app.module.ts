@@ -42,7 +42,7 @@ import { LoginComponent } from './components/login/login.component';
     LoginComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverMyData' }),
     FormsModule,
     HttpClientModule,
     OAuthModule.forRoot({
