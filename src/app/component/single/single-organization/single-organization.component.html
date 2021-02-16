@@ -276,7 +276,6 @@
               >
             </h2>
           </mat-card-title>
-          <!-- TODO: Uncomment when organization names match -->
           <app-related-links
             [id]="
               item.sectorNameFi === 'Rahoittaja' ? item.businessId : item.id
@@ -285,10 +284,8 @@
               item.sectorNameFi === 'Rahoittaja' ? 'funder' : 'organization'
             "
           ></app-related-links>
-          <!-- <app-related-links [id]="item.id" [filter]="'organization'"></app-related-links> -->
         </mat-card>
       </aside>
-      <!-- Copy url -->
       <aside>
         <mat-card>
           <mat-card-title><h2 i18n="@@share">Jaa</h2></mat-card-title>
@@ -302,9 +299,6 @@
               Organisaatiotiedon lähde
             </h2></mat-card-title
           >
-          <!-- <div *ngFor="let source of responseData.organizations">
-                        <p>Virta/Vipunen/etc?</p>
-                    </div> -->
           <ul>
             <li class="py-2">
               <a [href]="vipunenLink[currentLocale]" target="_blank"
@@ -335,8 +329,6 @@
               ></a>
             </li>
           </ul>
-          <!-- <div class="refer"><a href="#">Lue lisää [palvelun nimi] tietovirroista</a></div>
-                    <div class="clear"></div> -->
         </mat-card>
       </aside>
     </div>
