@@ -37,8 +37,6 @@
           >Hyppää sivun pääsisältöön</a
         >
       </li>
-      <!-- <li><a (blur)="showSkipLinks = false" (click)="changeFocus('main-link')" (focus)="showSkipLinks = true" tabindex="0" [routerLink]="" [queryParams]="params" [fragment]="'main-content'">Hyppää sivun pääsisältöön</a></li> -->
-      <!-- ToDo: Link to accessibility -->
       <li>
         <a
           i18n="@@skipToAccessibility"
@@ -200,6 +198,7 @@
                   </li>
                   <li>
                     <a
+                      i18n="@@externalLinksHeader"
                       routerLink="/science-innovation-policy/external-links/"
                       routerLinkActive="active-link"
                       (click)="navbarOpen && toggleNavbar()"
