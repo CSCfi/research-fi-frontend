@@ -649,6 +649,10 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="externalLinksHeader" datatype="html">
+        <source>Tieteestä ja tutkimuksesta muualla</source>
+        <target>Science and research elsewhere</target>
+      </trans-unit>
       <trans-unit id="figuresHeader" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta</source>
         <target>Figures on science and research</target>
