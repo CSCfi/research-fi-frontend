@@ -100,8 +100,9 @@ export class SingleItemService {
       );
   }
 
-  // Testing purposes only
   getCount(tab, id, filters): Observable<any> {
+    // Reset target so query settings are reseted
+    this.settingsService.changeTarget(null);
     // Set target fields
     this.settingsService.related = true;
     const payLoad = {

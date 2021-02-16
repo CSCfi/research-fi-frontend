@@ -49,7 +49,6 @@ export class ExternalLinksComponent
   ngOnInit(): void {
     // Get data
     this.data = this.route.snapshot.data.links;
-    console.log(this.data)
     // Set title
     switch (this.localeId) {
       case 'fi': {

@@ -83,7 +83,7 @@ export class RelatedLinksComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Subscribe to route params, get current parent from current url
-    this.routeSub = this.route.params.subscribe((param) => {
+    this.routeSub = this.route.params.subscribe(() => {
       const currentUrl = this.router.url;
       const tree: UrlTree = this.router.parseUrl(currentUrl);
       const g: UrlSegmentGroup = tree.root.children[PRIMARY_OUTLET];
