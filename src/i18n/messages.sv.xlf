@@ -2716,10 +2716,10 @@
         <source>Rahoituksen saaja</source>
         <target>Funding recipient</target>
       </trans-unit>
-      <!-- <trans-unit id="totalAmount">
-        <source>Rahoitusten kokonaissumma</source>
-        <target>Funding recipient</target>
-      </trans-unit> -->
+      <trans-unit id="totalAmount">
+        <source>Kokonaissumma</source>
+        <target>Totalbeloppet</target>
+      </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
         <target state="translated">Vetenskapsområden</target>
