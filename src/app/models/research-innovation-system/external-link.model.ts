@@ -17,7 +17,9 @@ export class ExternalLink {
     public contentFi: string,
     public contentSv: string,
     public contentEn: string,
-    public url: string
+    public urlFi: string,
+    public urlSv: string,
+    public urlEn: string
   ) {}
 }
 
@@ -35,7 +37,9 @@ export class ExternalLinkAdapter implements Adapter<ExternalLink> {
       item.content_fi,
       item.content_sv,
       item.content_en,
-      item.url
+      item.url_fi,
+      item.url_sv,
+      item.url_en
     );
   }
 }
