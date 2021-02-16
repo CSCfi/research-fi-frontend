@@ -49,7 +49,7 @@ export class ExternalLinksComponent
   ngOnInit(): void {
     // Get data
     this.data = this.route.snapshot.data.links;
-
+    console.log(this.data)
     // Set title
     switch (this.localeId) {
       case 'fi': {
@@ -59,11 +59,11 @@ export class ExternalLinksComponent
         break;
       }
       case 'en': {
-        this.setTitle('Tieteestä ja tutkimuksesta muualla - Research.fi');
+        this.setTitle('Science and research elsewhere - Research.fi');
         break;
       }
       case 'sv': {
-        this.setTitle('Tieteestä ja tutkimuksesta muualla - Forskning.fi');
+        this.setTitle('Vetenskap och forskning annanstans - Forskning.fi');
         break;
       }
     }
