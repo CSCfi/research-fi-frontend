@@ -13,16 +13,16 @@ WORKDIR /webapp
 RUN chown -R node:node /webapp
 USER node
 RUN npm install
-RUN npm run build mydata --configuration=production
+RUN npm run mydata:build:ssr
 
 # Stage 2: Serve Angular application
 #FROM docker-registry.default.svc:5000/ts/node:12.12.0-alpine as angular
 FROM node:12.12.0-alpine as builder
-COPY --from=builder /app/dist/ /dist/
+COPY --from=builder /app/dist_mydata/ /dist_mydata/
 WORKDIR /
 
-RUN chown -R node:node /dist
+RUN chown -R node:node /dist_mydata
 USER node
 
 EXPOSE 8080
-CMD node dist/server.js
+CMD node dist_mydata/server.js

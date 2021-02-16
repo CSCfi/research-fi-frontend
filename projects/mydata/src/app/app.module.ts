@@ -6,7 +6,7 @@
 //  :license: MIT
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -31,6 +31,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './components/login/login.component';
+
+import { AppConfigService } from './services/app-config-service.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,20 @@ import { LoginComponent } from './components/login/login.component';
     MatExpansionModule,
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AppConfigService],
+      useFactory: (appConfigService: AppConfigService) => {
+        // Load configuration from file when application starts.
+        return () => {
+          return appConfigService.loadAppConfig();
+        };
+      },
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,13 @@
+{
+    "apiUrl": "",
+    "authConfig": {
+        "issuer": "",
+        "clientId": "js",
+        "redirectUri": "https://localhost:5003/welcome",
+        "responseType": "code",
+        "scope": "openid profile api1",
+        "postLogoutRedirectUri": "openid profile api1",
+        "sessionChecksEnabled": true,
+        "oidc": true
+    }
+}
