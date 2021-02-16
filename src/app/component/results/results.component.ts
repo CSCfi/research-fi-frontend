@@ -506,7 +506,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
     // Set label by locale
     switch (this.localeId) {
       case 'fi': {
-        this.setTitle('Haku - ' + tab.label + ' - Tiedejatutkimus.fi');
+        this.setTitle(tab.label + ' - Tiedejatutkimus.fi');
         this.srHeader.nativeElement.innerHTML =
           this.titleService.getTitle().split(' - ', 2).join(' - ') +
           ' - ' +
@@ -515,7 +515,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       }
       case 'en': {
-        this.setTitle('Search - ' + tab.label + ' - Research.fi');
+        this.setTitle(tab.label + ' - Research.fi');
         this.srHeader.nativeElement.innerHTML =
           this.titleService.getTitle().split(' - ', 2).join(' - ') +
           ' - ' +
@@ -524,7 +524,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       }
       case 'sv': {
-        this.setTitle('Sökning - ' + tab.label + ' - Forskning.fi');
+        this.setTitle(tab.label + ' - Forskning.fi');
         this.srHeader.nativeElement.innerHTML =
           this.titleService.getTitle().split(' - ', 2).join(' - ') +
           ' - ' +
