@@ -168,26 +168,26 @@ export class UtilityService {
     });
   }
 
-  // Adding meta taga
   addMeta(title: string, description: string, imageAlt: string) {
-    this.meta.addTags([
-      { name: 'description', content: title },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: description },
-      {
-        property: 'og:image',
-        content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg',
-      },
-      { property: 'og:image:alt', content: imageAlt },
-      { property: 'og:image:height', content: '100' },
-      { property: 'og:image:width', content: '100' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: title },
-      { name: 'twitter:description', content: description },
-      {
-        name: 'twitter:image',
-        content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg',
-      },
-    ]);
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({
+      property: 'og:image',
+      content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg',
+    });
+    this.meta.updateTag({ property: 'og:image:alt', content: imageAlt });
+    this.meta.updateTag({ property: 'og:image:height', content: '100' });
+    this.meta.updateTag({ property: 'og:image:width', content: '100' });
+    this.meta.updateTag({
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    });
+    this.meta.updateTag({ name: 'twitter:title', content: title });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({
+      name: 'twitter:image',
+      content: 'https://tiedejatutkimus.fi/fi/assets/img/logo.jpg',
+    });
   }
 }
