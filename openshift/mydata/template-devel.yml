@@ -117,9 +117,9 @@ objects:
           imageChangeParams:
             automatic: true
             containerNames:
-              - mydata-config-devel
+              - mydata-frontend-devel
             from:
               kind: ImageStreamTag
-              name: mydata-config-devel:latest
+              name: mydata-frontend-devel:latest
       strategy:
         type: Rolling
