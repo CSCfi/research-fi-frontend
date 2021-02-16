@@ -17,7 +17,7 @@ RUN npm run mydata:build:ssr
 
 # Stage 2: Serve Angular application
 #FROM docker-registry.default.svc:5000/ts/node:12.12.0-alpine as angular
-FROM node:12.12.0-alpine as builder
+FROM node:12.12.0-alpine as angular
 COPY --from=builder /app/dist_mydata/ /dist_mydata/
 WORKDIR /
 
