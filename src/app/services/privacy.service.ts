@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Subscription, BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PrivacyService {
   private consentBarSource = new BehaviorSubject(false);
@@ -17,7 +17,7 @@ export class PrivacyService {
   private consentStatusSource = new BehaviorSubject('');
   currentConsentStatus = this.consentStatusSource.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   hideConsentBar(status) {
     this.consentBarSource.next(status);

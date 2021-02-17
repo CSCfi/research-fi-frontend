@@ -1,122 +1,121 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
-  
+
 @mixin app-pagination-shared {
-    app-pagination, app-news-pagination {
-        button {
-            border: 0;
-        }
-    
-        .pagination-container {
-            padding-top: 56px;
-        }
-    
-        button.pagination-link-active {
-            cursor: pointer;
-            font-weight: bold;
-        }
-    
-        .pagination {
-            padding: 0;
-            padding-bottom: 1rem;
-            flex-direction: column;
-        }
-    
-        .pagination-button button.secondary-button:not(.small) {
-            min-width: 175px;
-        }
-
-        .pagination .pages button {
-            border: 0;
-        }
-    
-        .pagination .buttons {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-    
-        .pagination .pages {
-            display: flex;
-            justify-content: space-evenly;
-            button:not(.current-page):hover {
-                text-decoration: underline;
-            }
-            .current-page {
-                background: inherit;
-                font-weight: bold;
-                text-decoration: underline;
-                color: inherit;
-            }
-        }
-            
-        .result-count {
-            display: flex;
-            align-items: flex-end;
-            flex-direction: column;
-            font-weight: bold;
-        }
-    
-    
-        @media (max-width: 991px) {
-            
-            .result-count {
-                align-items: center;
-                padding-top: 1rem;
-            }
-    
-            .pagination-container {
-                padding: 1rem 0 0;
-            }
-    
-            .pagination .buttons {
-                margin: 0 !important;
-            }
-    
-            .pagination .page-button {
-                margin: 0 1rem !important;
-                padding: 13px 22px;
-            }
-            
-            .pagination {
-                justify-content: center;
-                padding: 0;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .pagination .buttons {
-                margin: unset !important;
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 767px) {
-            .pages {
-                margin-top: 1rem;
-            }
-        }
-
-        @media (max-width: 575px) {
-            .pagination-button button.secondary-button:not(.small) {
-                min-width: 120px;
-            }
-            
-            .pagination .page-button {
-                padding: 13px 10px;
-            }
-        }
+  app-pagination,
+  app-news-pagination {
+    button {
+      border: 0;
     }
-    
-    app-news-pagination {
-        @media (min-width: 992px) {
-            .pagination-button button.secondary-button {
-                min-width: 110px;
-            }        
-        }
+
+    .pagination-container {
+      padding-top: 56px;
     }
+
+    button.pagination-link-active {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .pagination {
+      padding: 0;
+      padding-bottom: 1rem;
+      flex-direction: column;
+    }
+
+    .pagination-button button.secondary-button:not(.small) {
+      min-width: 175px;
+    }
+
+    .pagination .pages button {
+      border: 0;
+    }
+
+    .pagination .buttons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .pagination .pages {
+      display: flex;
+      justify-content: space-evenly;
+      button:not(.current-page):hover {
+        text-decoration: underline;
+      }
+      .current-page {
+        background: inherit;
+        font-weight: bold;
+        text-decoration: underline;
+        color: inherit;
+      }
+    }
+
+    .result-count {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      font-weight: bold;
+    }
+
+    @media (max-width: 991px) {
+      .result-count {
+        align-items: center;
+        padding-top: 1rem;
+      }
+
+      .pagination-container {
+        padding: 1rem 0 0;
+      }
+
+      .pagination .buttons {
+        margin: 0 !important;
+      }
+
+      .pagination .page-button {
+        margin: 0 1rem !important;
+        padding: 13px 22px;
+      }
+
+      .pagination {
+        justify-content: center;
+        padding: 0;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .pagination .buttons {
+        margin: unset !important;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .pages {
+        margin-top: 1rem;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .pagination-button button.secondary-button:not(.small) {
+        min-width: 120px;
+      }
+
+      .pagination .page-button {
+        padding: 13px 10px;
+      }
+    }
+  }
+
+  app-news-pagination {
+    @media (min-width: 992px) {
+      .pagination-button button.secondary-button {
+        min-width: 110px;
+      }
+    }
+  }
 }

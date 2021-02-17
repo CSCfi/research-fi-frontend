@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { Adapter } from './adapter.model';
 
 export class Page {
-
   constructor(
     public id: number,
     public titleFi: string,
@@ -17,14 +16,13 @@ export class Page {
     public titleEn: string,
     public contentFi: string,
     public contentSv: string,
-    public contentEn: string,
+    public contentEn: string
   ) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class PageAdapter implements Adapter<Page> {
   constructor() {}
   adapt(item: any): Page {
@@ -35,14 +33,14 @@ export class PageAdapter implements Adapter<Page> {
       item.title_en,
       item.content_fi,
       item.content_sv,
-      item.content_en,
+      item.content_en
     );
   }
 
   adaptMany(item: any): Page[] {
     const pages: Page[] = [];
     const source = item;
-    source.forEach(el => pages.push(this.adapt(el)));
+    source.forEach((el) => pages.push(this.adapt(el)));
     return pages;
   }
 }

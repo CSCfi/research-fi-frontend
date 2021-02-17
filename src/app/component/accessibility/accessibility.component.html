@@ -6,31 +6,34 @@ Copyright 2019 Ministry of Education and Culture, Finland
 <div class="full-width"></div>
 
 <main id="main-content">
-    <div class="wrapper">
-        <ng-container>
-            <div class="row">
-                <div class="col pb-4">
-                    <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
-                </div>
+  <div class="wrapper">
+    <ng-container>
+      <div class="row">
+        <div class="col pb-4">
+          <app-breadcrumb [type]="'simple'" [title]="title"></app-breadcrumb>
+        </div>
+      </div>
+      <ng-container>
+        <div class="row">
+          <div class="col">
+            <h1 [innerHTML]="content['title' + currentLocale]"></h1>
+          </div>
+        </div>
+        <div class="row base">
+          <div class="col px-0">
+            <div class="content" #mainFocus tabindex="0">
+              <div class="row">
+                <div
+                  class="col page-content"
+                  [innerHTML]="
+                    content['content' + currentLocale] | sanitizeHtml
+                  "
+                ></div>
+              </div>
             </div>
-            <ng-container>
-                <div class="row">
-                    <div class="col">
-                        <h1 [innerHTML]="content['title' + currentLocale]"></h1>
-                    </div>
-                </div>
-                <div class="row base">
-                    <div class="col px-0">
-                        <div class="content" #mainFocus tabindex="0">
-                            <div class="row">
-                                <div class="col page-content"
-                                    [innerHTML]="content['content' + currentLocale] | sanitizeHtml">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-        </ng-container>
-    </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
 </main>

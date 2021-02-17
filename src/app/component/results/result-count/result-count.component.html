@@ -4,19 +4,37 @@ Copyright 2019 Ministry of Education and Culture, Finland
 :license: MIT -->
 
 <div class="count" *ngIf="total > 0" [class.pagination]="pagination">
-    <div class="d-none d-md-inline-block" [class.d-inline-block]="pagination">
-        <span *ngIf="fromPage + currentSize < total"><ng-container i18n="@@paginationResultCount">Näytetään tulokset</ng-container> {{fromPage + 1}} - {{fromPage + currentSize}} / {{total}}</span>
-        <span *ngIf="fromPage + currentSize >= total"><ng-container i18n="@@paginationResultCount">Näytetään tulokset</ng-container> {{fromPage + 1}} - {{total}} / {{total}}</span>
-    </div>
-    <p *ngIf="pagination"><ng-container i18n="@@page">Sivu</ng-container> {{page}}</p>
-    <ng-container *ngIf="!pagination" >
-        <select name="page-results" id="page-results" class="px-0 mx-0 mr-1 ml-md-3 px-md-1" (change)="change($event)" [value]="currentSize" 
-        i18n-aria-label="@@resultCountAriaLabel" aria-label="Hakutulosten lukumäärä sivulla">
-            <option value="10">10</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
-        <span i18n="@@resultsPage"> tulosta / sivu</span>
-    </ng-container>
-
+  <div class="d-none d-md-inline-block" [class.d-inline-block]="pagination">
+    <span *ngIf="fromPage + currentSize < total"
+      ><ng-container i18n="@@paginationResultCount"
+        >Näytetään tulokset</ng-container
+      >
+      {{ fromPage + 1 }} - {{ fromPage + currentSize }} / {{ total }}</span
+    >
+    <span *ngIf="fromPage + currentSize >= total"
+      ><ng-container i18n="@@paginationResultCount"
+        >Näytetään tulokset</ng-container
+      >
+      {{ fromPage + 1 }} - {{ total }} / {{ total }}</span
+    >
+  </div>
+  <p *ngIf="pagination">
+    <ng-container i18n="@@page">Sivu</ng-container> {{ page }}
+  </p>
+  <ng-container *ngIf="!pagination">
+    <select
+      name="page-results"
+      id="page-results"
+      class="px-0 mx-0 mr-1 ml-md-3 px-md-1"
+      (change)="change($event)"
+      [value]="currentSize"
+      i18n-aria-label="@@resultCountAriaLabel"
+      aria-label="Hakutulosten lukumäärä sivulla"
+    >
+      <option value="10">10</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+    <span i18n="@@resultsPage"> tulosta / sivu</span>
+  </ng-container>
 </div>

@@ -1,19 +1,23 @@
 @import '~@angular/material/theming';
 
 @mixin app-footer-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-footer {
-        >footer {
-            background-color: mat-color($primary, 50);
+  app-footer {
+    > footer {
+      background-color: mat-color($primary, 50);
 
-            .header {
-                color: mat-contrast($primary, 200);
-            }
-            
-            li a, li a:hover, .href, .href:hover, .fa {
-                color: mat-color($primary);
-            }
-        }
+      .header {
+        color: mat-contrast($primary, 200);
+      }
+
+      li a,
+      li a:hover,
+      .href,
+      .href:hover,
+      .fa {
+        color: mat-color($primary);
+      }
     }
+  }
 }

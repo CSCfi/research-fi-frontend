@@ -10,23 +10,18 @@ import { Adapter } from '../adapter.model';
 import { LanguageCheck } from '../utils';
 
 export class FieldOfScience {
-
-    constructor(
-        public id: number,
-        public name
-    ) {}
+  constructor(public id: number, public name) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class FieldOfScienceAdapter implements Adapter<FieldOfScience> {
-    constructor(private lang: LanguageCheck) {}
-    adapt(item: any): FieldOfScience {
-        return new FieldOfScience(
-            item.fieldIdScience,
-            this.lang.translateFieldOfScience(item)
-        );
-    }
+  constructor(private lang: LanguageCheck) {}
+  adapt(item: any): FieldOfScience {
+    return new FieldOfScience(
+      item.fieldIdScience,
+      this.lang.translateFieldOfScience(item)
+    );
+  }
 }

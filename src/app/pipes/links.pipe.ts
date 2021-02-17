@@ -8,10 +8,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'links'
+  name: 'links',
 })
 export class LinksPipe implements PipeTransform {
-
   // This pipe is intended to use with publications only
   transform(publication: any): any {
     const fields = ['doi', 'doiHandle'];
@@ -20,7 +19,10 @@ export class LinksPipe implements PipeTransform {
     // Push links to array, self archived is priority
     if (publication.selfArchivedData) {
       for (const selfArchived of publication.selfArchivedData) {
-        if (selfArchived.selfArchived && selfArchived.selfArchived[0]?.selfArchivedAddress.trim().length > 0) {
+        if (
+          selfArchived.selfArchived &&
+          selfArchived.selfArchived[0]?.selfArchivedAddress.trim().length > 0
+        ) {
           linkArr.push(selfArchived.selfArchived[0].selfArchivedAddress);
         }
       }
@@ -38,5 +40,4 @@ export class LinksPipe implements PipeTransform {
     publication.link = linkArr.length > 0 ? linkArr[0] : 'javascript:void(0);';
     return linkArr.length > 0 ? linkArr[0] : '';
   }
-
 }

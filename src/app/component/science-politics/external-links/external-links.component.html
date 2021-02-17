@@ -1,0 +1,40 @@
+<!-- # This file is part of the research.fi API service
+#
+# Copyright 2019 Ministry of Education and Culture, Finland
+#
+# :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+# :license: MIT -->
+
+<div class="full-width"></div>
+<main id="main-content">
+  <div class="wrapper">
+    <div class="row pt-4">
+      <div class="col text-center mt-3">
+        <h1 i18n="@@externalLinksHeader">Tieteestä ja tutkimuksesta muualla</h1>
+      </div>
+    </div>
+    <ng-container *ngFor="let section of data">
+      <app-divider
+        [headingText]="section['title' + currentLocale]"
+      ></app-divider>
+      <div class="row">
+        <div
+          [ngClass]="section.links.length === 3 ? 'col-lg-4' : 'col-lg-6'"
+          class="col-12 pb-3"
+          *ngFor="let link of section.links"
+        >
+          <ul class="item-container list-unstyled">
+            <li class="item-heading pb-2">
+              {{ link['label' + currentLocale] }}
+            </li>
+            <li class="pb-1">{{ link['content' + currentLocale] }}</li>
+            <a #mainFocus [href]="link.url" target="_blank"
+              ><fa-icon class="pl-0" icon="external-link-alt"></fa-icon>
+              {{ link['url' + currentLocale] }}</a
+            >
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</main>

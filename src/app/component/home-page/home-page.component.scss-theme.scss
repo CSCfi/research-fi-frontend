@@ -1,49 +1,55 @@
 @import '~@angular/material/theming';
 
 @mixin app-home-page-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-home-page {
-        .drop-shadow {
-            box-shadow: 0px 9px 11px -4px rgba(0,0,0,0.1);
-            -webkit-box-shadow: 0px 9px 11px -4px rgba(0,0,0,0.1);
-        }
-
-        .header, .caption {
-            // background: mat-color($primary, 100);
-            color: mat-contrast($primary, 100);
-        }
-
-        .link-img:hover, .link-img:focus, .shortcut:hover, .shortcut:focus {
-            .header, .caption {
-                background: mat-color($primary);
-                color: mat-contrast($primary, 500);
-            }
-        }
-
-        .col-header, .sub-header {
-            background-color: mat-color($primary);
-            h2 {
-                color: mat-contrast($primary, 500);
-            }
-        }
-        
-        a.header-link:hover {
-            color: mat-contrast($primary, 500);
-        }
-
-        .tint-background {
-            background: mat-color($primary, 50);
-        }
-
-        .news-feed .news-card {
-            background: mat-contrast($primary, 500);
-        }
-
-        @media (max-width: 991px) {
-            .news-feed {
-                outline: 6px solid mat-contrast($primary, 500);
-            }
-        }
+  app-home-page {
+    .drop-shadow {
+      box-shadow: 0px 9px 11px -4px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0px 9px 11px -4px rgba(0, 0, 0, 0.1);
     }
+
+    .header,
+    .caption {
+      // background: mat-color($primary, 100);
+      color: mat-contrast($primary, 100);
+    }
+
+    .link-img:hover,
+    .link-img:focus,
+    .shortcut:hover,
+    .shortcut:focus {
+      .header,
+      .caption {
+        background: mat-color($primary);
+        color: mat-contrast($primary, 500);
+      }
+    }
+
+    .col-header,
+    .sub-header {
+      background-color: mat-color($primary);
+      h2 {
+        color: mat-contrast($primary, 500);
+      }
+    }
+
+    a.header-link:hover {
+      color: mat-contrast($primary, 500);
+    }
+
+    .tint-background {
+      background: mat-color($primary, 50);
+    }
+
+    .news-feed .news-card {
+      background: mat-contrast($primary, 500);
+    }
+
+    @media (max-width: 991px) {
+      .news-feed {
+        outline: 6px solid mat-contrast($primary, 500);
+      }
+    }
+  }
 }

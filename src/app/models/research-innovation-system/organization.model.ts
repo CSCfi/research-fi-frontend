@@ -9,20 +9,18 @@ import { Injectable } from '@angular/core';
 import { Adapter } from '../adapter.model';
 
 export class Organization {
-
   constructor(
     public placement: number,
     public nameFi: string,
     public nameSv: string,
     public nameEn: string,
-    public link: string,
+    public link: string
   ) {}
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class OrganizationAdapter implements Adapter<Organization> {
   constructor() {}
   adapt(item: any): Organization {
@@ -31,8 +29,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.name_fi,
       item.name_sv,
       item.name_en,
-      item.link,
+      item.link
     );
   }
-
 }

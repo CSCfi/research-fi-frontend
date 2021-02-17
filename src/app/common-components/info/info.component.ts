@@ -11,19 +11,15 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
   @Input() content;
   faInfoCircle = faInfoCircle;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  showInfo() {
-
-  }
-
+  showInfo() {}
 }

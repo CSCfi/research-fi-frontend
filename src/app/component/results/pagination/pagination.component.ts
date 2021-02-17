@@ -12,12 +12,15 @@ import { Subscription } from 'rxjs';
 import { ResizeService } from 'src/app/services/resize.service';
 import { WINDOW } from 'src/app/services/window.service';
 import { Search } from 'src/app/models/search.model';
-import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+  styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
   page: number;
@@ -38,11 +41,16 @@ export class PaginationComponent implements OnInit {
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
 
-  previous = $localize`:@@previous:Edellinen`; 
-  next = $localize`:@@next:Seuraava`; 
+  previous = $localize`:@@previous:Edellinen`;
+  next = $localize`:@@next:Seuraava`;
 
-  constructor( private searchService: SearchService, private route: ActivatedRoute, private router: Router,
-               private resizeService: ResizeService, @Inject(WINDOW) private window: Window) { }
+  constructor(
+    private searchService: SearchService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private resizeService: ResizeService,
+    @Inject(WINDOW) private window: Window
+  ) {}
 
   ngOnInit() {
     // Reset pagination
@@ -50,16 +58,24 @@ export class PaginationComponent implements OnInit {
 
     this.pageSize = this.searchService.pageSize;
 
-    this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop, this.pageSize);
+    this.pages = this.generatePages(
+      this.page,
+      5 + 4 * +this.desktop,
+      this.pageSize
+    );
 
     // Initialize fromPage
     this.fromPage = (this.page - 1) * this.pageSize;
 
     // Get total value of results and send to search service
-    this.totalSub = this.searchService.currentTotal.subscribe(total => this.total = total.value);
+    this.totalSub = this.searchService.currentTotal.subscribe(
+      (total) => (this.total = total.value)
+    );
 
     // Get updates for window resize
-    this.resizeSub = this.resizeService.onResize$.subscribe(size => this.onResize(size));
+    this.resizeSub = this.resizeService.onResize$.subscribe((size) =>
+      this.onResize(size)
+    );
   }
 
   generatePages(currentPage: number, length: number, pageSize: number) {
@@ -73,26 +89,25 @@ export class PaginationComponent implements OnInit {
     const res = Array(length);
     // If page is at end, count from top
     // tslint:disable-next-line: no-bitwise
-    if (this.page > this.maxPage - (length / 2 | 0)) {
+    if (this.page > this.maxPage - ((length / 2) | 0)) {
       res[length - 1] = this.maxPage;
       for (let i = length - 2; i >= 0; i--) {
         res[i] = res[i + 1] - 1;
       }
-    // Otherwise count from bottom
+      // Otherwise count from bottom
     } else {
       // tslint:disable-next-line: no-bitwise
-      res[0] = Math.max(1, currentPage - (length / 2 | 0));
+      res[0] = Math.max(1, currentPage - ((length / 2) | 0));
       for (let i = 1; i < length; i++) {
         res[i] = res[i - 1] + 1;
       }
-
     }
     return res;
   }
 
   getHighestPage(results: number, pageSize: number) {
     // tslint:disable-next-line: no-bitwise
-    return ((results - 1) / pageSize) + 1 | 0;
+    return ((results - 1) / pageSize + 1) | 0;
   }
 
   goToPage(n: number, pageSize: number) {
@@ -105,23 +120,25 @@ export class PaginationComponent implements OnInit {
   onResize(size) {
     const w = size.width;
     // Change if swap to or from desktop
-    const changePages = (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
+    const changePages =
+      (this.desktop && w < 1200) || (!this.desktop && w >= 1200);
     this.desktop = w >= 1200;
     this.order = w >= 768;
     // Generate 5 pages and 4 more if desktop (9 total for desktop so it's odd)
     if (changePages) {
-      this.pages = this.generatePages(this.page, 5 + 4 * +this.desktop, this.pageSize);
+      this.pages = this.generatePages(
+        this.page,
+        5 + 4 * +this.desktop,
+        this.pageSize
+      );
     }
   }
 
-
   navigate() {
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: { page: this.page },
-        queryParamsHandling: 'merge'
-      });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.page },
+      queryParamsHandling: 'merge',
+    });
   }
 }

@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/dist_mydata
 /tmp
 /out-tsc
 # Only exists if Bazel was run
@@ -25,7 +26,7 @@ speed-measure-plugin.json
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
+.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
