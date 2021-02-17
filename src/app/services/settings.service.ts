@@ -20,8 +20,9 @@ export class SettingsService {
   related = false;
 
   constructor(private staticDataService: StaticDataService) {
+    // Add 'dataset' when data is ready
     this.indexList =
-      'publication,funding,dataset,infrastructure,organization' + '/_search?';
+      'publication,funding,infrastructure,organization' + '/_search?';
     this.aggsOnly = 'filter_path=aggregations';
   }
 
