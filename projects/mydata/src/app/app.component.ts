@@ -30,12 +30,12 @@ export class AppComponent implements OnInit {
   ) {
     this.configureAuth(this.appConfig.authConfig);
 
-    this.oauthService.events
-      .pipe(filter((e) => e.type === 'token_received'))
-      .subscribe((_) => {
-        this.oauthService.loadUserProfile();
-        this.authService.setTokenReceived();
-      });
+    // this.oauthService.events
+    //   .pipe(filter((e) => e.type === 'token_received'))
+    //   .subscribe((_) => {
+    //     this.oauthService.loadUserProfile();
+    //     this.authService.setTokenReceived();
+    //   });
   }
 
   ngOnInit() {
