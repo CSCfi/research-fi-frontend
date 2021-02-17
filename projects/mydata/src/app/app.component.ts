@@ -7,9 +7,7 @@ import {
 } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { filter } from 'rxjs/operators';
 import { AppConfigService } from './services/app-config-service.service';
-import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -25,17 +23,9 @@ export class AppComponent implements OnInit {
     private router: Router,
     private oauthService: OAuthService,
     private appConfig: AppConfigService,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private authService: AuthService
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.configureAuth(this.appConfig.authConfig);
-
-    // this.oauthService.events
-    //   .pipe(filter((e) => e.type === 'token_received'))
-    //   .subscribe((_) => {
-    //     this.oauthService.loadUserProfile();
-    //     this.authService.setTokenReceived();
-    //   });
   }
 
   ngOnInit() {
