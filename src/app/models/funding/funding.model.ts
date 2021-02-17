@@ -174,8 +174,10 @@ export class FundingAdapter implements Adapter<Funding> {
       item.projetHomepage,
       item.recipientType,
       item.euFunding,
-      relatedFundings,
-      totalFundingAmount
+      // relatedFundings,
+      undefined, // Temporary related fundings
+      // totalFundingAmount
+      recipient.amountEur // Temporary fundingAmount
     );
   }
 }

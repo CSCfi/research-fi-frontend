@@ -63,10 +63,10 @@ const routes: Routes = [
     path: 'results/funding/:id',
     component: SingleFundingComponent,
   },
-  {
-    path: 'results/dataset/:id',
-    component: SingleDatasetComponent,
-  },
+  // {
+  //   path: 'results/dataset/:id',
+  //   component: SingleDatasetComponent,
+  // },
   {
     path: 'results/organization/:id',
     component: SingleOrganizationComponent,
