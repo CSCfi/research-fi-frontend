@@ -117,7 +117,7 @@ export class DatasetAdapter implements Adapter<Dataset> {
     // Sort by organization name
     let orgsSorted = orgs.sort((a, b) => (+(a.name > b.name) - 0.5));
     // Move empty org to the end
-    if (!orgsSorted[0]?.name.trim()) {
+    if (orgsSorted.length > 0 && !orgsSorted[0]?.name.trim()) {
       orgsSorted.push(...orgsSorted.splice(0, 1));
       orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaatio puuttuu`; 
     }

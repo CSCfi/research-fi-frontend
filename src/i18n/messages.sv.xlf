@@ -360,7 +360,7 @@
           <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="otherPublicationInfo" datatype="html">
+      <trans-unit id="otherInfo" datatype="html">
         <source>Muut tiedot</source>
         <target state="translated">Övriga uppgifter</target>
         <context-group purpose="location">
@@ -1137,7 +1137,7 @@
       </trans-unit>
       <trans-unit id="description" datatype="html">
         <source>Kuvaus</source>
-        <target>Description</target>
+        <target>Beskrivning</target>
       </trans-unit>
       <trans-unit id="06f7177479837b356eabf8274c9785f3d6c5829b" datatype="html">
         <source>Kuvausta ei saatavilla.</source>
@@ -2716,10 +2716,10 @@
         <source>Rahoituksen saaja</source>
         <target>Funding recipient</target>
       </trans-unit>
-      <!-- <trans-unit id="totalAmount">
-        <source>Rahoitusten kokonaissumma</source>
-        <target>Funding recipient</target>
-      </trans-unit> -->
+      <trans-unit id="totalAmount">
+        <source>Kokonaissumma</source>
+        <target>Totalbeloppet</target>
+      </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
         <target state="translated">Vetenskapsområden</target>
@@ -2817,7 +2817,7 @@
         <source>Liittyvät aineistot</source>
         <target>Relaterade till denna forskningsdata</target>
       </trans-unit>
-      <trans-unit id="datasetCreatorsTooltip">
+      <trans-unit id="datasetAuthorsTooltip">
         <source>Tutkimukseen tai aineiston tekemiseen osallistuneet henkilöt ja organisaatiot.</source>
         <target>Personer och organisationer som deltagit i undersökningen eller utarbetandet av materialet.</target>
       </trans-unit>

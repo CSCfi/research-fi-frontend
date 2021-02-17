@@ -439,6 +439,7 @@ export class StaticDataService {
           'fieldsOfScience.nameEnScience',
           'fieldsOfScience.nameSvScience',
           'identifier',
+          'accessType',
           'keywords.keyword',
           'dataCatalog.identifier',
           'dataCatalog.nameFi',

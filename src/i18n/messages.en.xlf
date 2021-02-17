@@ -2724,8 +2724,8 @@
         <target>Funding recipient</target>
       </trans-unit>
       <trans-unit id="totalAmount">
-        <source>Rahoitusten kokonaissumma</source>
-        <target>Total funding amount</target>
+        <source>Kokonaissumma</source>
+        <target>Total amount</target>
       </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>

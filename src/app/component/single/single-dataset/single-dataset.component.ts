@@ -38,6 +38,9 @@ export class SingleDatasetComponent implements OnInit {
   tabQueryParams: any;
   private metaTags = singleDataset;
   private commonTags = common;
+  showMore = $localize`:@@showMore:Näytä enemmän`;
+  showLess = $localize`:@@showLess:Näytä vähemmän`;
+
 
   tab = 'datasets';
 
