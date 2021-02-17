@@ -5,13 +5,15 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { ProfileService } from '../../services/profile.service';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-welcome-stepper',
@@ -19,7 +21,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
   styleUrls: ['./welcome-stepper.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class WelcomeStepperComponent {
+export class WelcomeStepperComponent implements OnInit, OnDestroy {
   step = 1;
   cancel = false;
   dataFetched = false;
@@ -28,22 +30,31 @@ export class WelcomeStepperComponent {
   fetching = false;
   userData: any;
   userName: string;
+  isLoading = true;
 
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
+  tokenSub: Subscription;
 
   constructor(
     private profileService: ProfileService,
-    private oauthService: OAuthService
-  ) {
-    const jwt = this.oauthService.getIdToken();
-    if (jwt) this.getUserData(jwt);
+    private oauthService: OAuthService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.tokenSub = this.authService.tokenReceived.subscribe((hasToken) => {
+      if (hasToken) {
+        this.getUserData(this.oauthService.getIdToken());
+      }
+    });
   }
 
   private getUserData(jwt) {
     const tokens = jwt.split('.');
     this.userData = JSON.parse(atob(tokens[1]));
     this.userName = this.userData?.name.split(' ')[0];
+    this.isLoading = false;
   }
 
   increment() {
@@ -76,5 +87,9 @@ export class WelcomeStepperComponent {
 
   deleteProfile() {
     this.profileService.deleteProfile().subscribe((data) => console.log(data));
+  }
+
+  ngOnDestroy() {
+    this.tokenSub.unsubscribe();
   }
 }

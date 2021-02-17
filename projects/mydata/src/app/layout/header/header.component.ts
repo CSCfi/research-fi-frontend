@@ -55,6 +55,14 @@ export class HeaderComponent implements OnInit {
       .subscribe((e) => {
         console.log('Your session has been terminated!');
       });
+
+    /*
+     * tokenReceived -flag is set both in app.component and here.
+     * In former we check if token is just received and in header we check for valid token.
+     */
+    if (this.oauthService.hasValidAccessToken()) {
+      this.authService.setTokenReceived();
+    }
   }
 
   // Get current url

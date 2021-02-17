@@ -12,205 +12,216 @@
         </div>
       </div>
 
-      <ng-container [ngSwitch]="step">
-        <!-- First step -->
-        <ng-container *ngSwitchCase="1">
-          <div class="row pb-4">
-            <div class="col text-center">
-              <h2 class="primary-color">Tervetuloa {{ userName }}!</h2>
-            </div>
-          </div>
+      <div
+        *ngIf="isLoading; else stepper"
+        class="row pb-4 d-flex justify-content-center mt-3"
+      >
+        <div class="col-auto text-center">
+          <mat-spinner class="example-margin" [diameter]="40"> </mat-spinner>
+        </div>
+      </div>
 
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col col-lg-4 text-center">
-              <p>
-                Ottaaksesi palvelun käyttöön, pyydämme sinua lukemaan ja
-                hyväksymään palvelun käyttöehdot ja tietosuojaselosteen.
-              </p>
+      <ng-template #stepper>
+        <ng-container [ngSwitch]="step">
+          <!-- First step -->
+          <ng-container *ngSwitchCase="1">
+            <div class="row pb-4">
+              <div class="col text-center">
+                <h2 class="primary-color">Tervetuloa {{ userName }}!</h2>
+              </div>
             </div>
-          </div>
 
-          <div class="row pb-3 d-flex justify-content-center">
-            <div class="col col-lg-auto">
-              <lib-primary-action-button
-                content="Avaa käyttöehdot ja tietosuoja"
-                (click)="increment()"
-                [big]="true"
-              >
-              </lib-primary-action-button>
+            <div class="row pb-4 d-flex justify-content-center">
+              <div class="col col-lg-4 text-center">
+                <p>
+                  Ottaaksesi palvelun käyttöön, pyydämme sinua lukemaan ja
+                  hyväksymään palvelun käyttöehdot ja tietosuojaselosteen.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="row d-flex justify-content-center">
-            <div class="col col-lg-auto">
-              <lib-secondary-button
-                content="Peruuta käyttöönotto"
-                (click)="toggleCancel()"
-                [big]="true"
-              >
-              </lib-secondary-button>
+
+            <div class="row pb-3 d-flex justify-content-center">
+              <div class="col col-lg-auto">
+                <lib-primary-action-button
+                  content="Avaa käyttöehdot ja tietosuoja"
+                  (click)="increment()"
+                  [big]="true"
+                >
+                </lib-primary-action-button>
+              </div>
             </div>
-          </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col col-lg-auto">
+                <lib-secondary-button
+                  content="Peruuta käyttöönotto"
+                  (click)="toggleCancel()"
+                  [big]="true"
+                >
+                </lib-secondary-button>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Second step -->
+          <ng-container *ngSwitchCase="2">
+            <div class="row pb-4">
+              <div class="col text-center">
+                <h2 class="primary-color">Käyttöehdot ja tietosuoja</h2>
+              </div>
+            </div>
+
+            <div class="row pb-4 d-flex justify-content-center">
+              <div class="col col-lg-4">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <p>
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                <p>
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur.
+                </p>
+                <p>
+                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                  qui officia deserunt mollit anim id est laborum.
+                </p>
+                <a href="#" class="d-block text-right font-weight-bold"
+                  >Lue lisää palvelun tietosuojasta</a
+                >
+              </div>
+            </div>
+
+            <div class="row pb-4 d-flex justify-content-center">
+              <div class="col col-lg-4">
+                <mat-checkbox color="primary" [(ngModel)]="termsApproved"
+                  >Olen lukenut palvelun käyttöehdot ja tietosuojan, ja hyväksyn
+                  ne</mat-checkbox
+                >
+                <mat-checkbox
+                  color="primary"
+                  [(ngModel)]="personalDataHandlingApproved"
+                  >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
+                >
+                <a href="#" class="d-block text-right font-weight-bold"
+                  >Lue lisää palvelun tietosuojasta</a
+                >
+              </div>
+            </div>
+
+            <div class="row pb-4 d-flex justify-content-center">
+              <div class="col-6 col-lg-2">
+                <lib-secondary-button
+                  content="Edellinen"
+                  (click)="decrement()"
+                  [big]="true"
+                  [icon]="faAngleDoubleLeft"
+                  [noSmIcon]="true"
+                >
+                </lib-secondary-button>
+              </div>
+              <div class="col-6 col-lg-2">
+                <lib-primary-action-button
+                  content="Seuraava"
+                  [disabled]="!termsApproved || !personalDataHandlingApproved"
+                  (click)="increment()"
+                  [big]="true"
+                  [icon]="faAngleDoubleRight"
+                  [iconAfter]="true"
+                  [noSmIcon]="true"
+                >
+                </lib-primary-action-button>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Third step -->
+          <ng-container *ngSwitchCase="3">
+            <div class="row pb-4">
+              <div class="col text-center">
+                <h2 class="primary-color">Tietojen tuominen Orcidista</h2>
+              </div>
+            </div>
+
+            <div class="row pb-3 d-flex justify-content-center">
+              <div class="col col-lg-4">
+                <p>Ota palvelu käyttöön tuomalla tietosi Orcidista.</p>
+                <p>Tässä vaiheessa emme vielä julkaise tietojasi.</p>
+                <p>
+                  Voit hallinnoida Orcid-tietojesi jakamista ja näkyvyyttä
+                  tuonnin jälkeen.
+                </p>
+              </div>
+            </div>
+
+            <div class="row pt-5 mt-5 pb-4 d-flex justify-content-center">
+              <div class="col-6 col-lg-2">
+                <lib-secondary-button
+                  content="Edellinen"
+                  (click)="decrement()"
+                  [big]="true"
+                  [icon]="faAngleDoubleLeft"
+                  [noSmIcon]="true"
+                >
+                </lib-secondary-button>
+              </div>
+              <div class="col-6 col-lg-2">
+                <lib-primary-action-button
+                  content="Tuo tiedot"
+                  (click)="increment()"
+                  [big]="true"
+                  [icon]="faAngleDoubleRight"
+                  [iconAfter]="true"
+                  [noSmIcon]="true"
+                >
+                </lib-primary-action-button>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Fourth step -->
+          <ng-container *ngSwitchCase="4">
+            <div class="row pb-4 d-flex justify-content-center">
+              <div class="col">
+                <app-orcid-data-handler
+                  (cancel)="onCancelClick($event)"
+                  (dataFlag)="setDataFlag($event)"
+                ></app-orcid-data-handler>
+              </div>
+            </div>
+            <div
+              *ngIf="dataFetched"
+              class="row pb-4 d-flex justify-content-center"
+            >
+              <div class="col-6 col-lg-2">
+                <lib-secondary-button
+                  content="Edellinen"
+                  (click)="decrement()"
+                  [big]="true"
+                  [icon]="faAngleDoubleLeft"
+                  [noSmIcon]="true"
+                >
+                </lib-secondary-button>
+              </div>
+              <div class="col-6 col-lg-2">
+                <lib-primary-action-button
+                  content="Seuraava"
+                  [big]="true"
+                  [icon]="faAngleDoubleRight"
+                  [iconAfter]="true"
+                  [noSmIcon]="true"
+                >
+                </lib-primary-action-button>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Default to 404 -->
+          <app-not-found *ngSwitchDefault></app-not-found>
         </ng-container>
-
-        <!-- Second step -->
-        <ng-container *ngSwitchCase="2">
-          <div class="row pb-4">
-            <div class="col text-center">
-              <h2 class="primary-color">Käyttöehdot ja tietosuoja</h2>
-            </div>
-          </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col col-lg-4">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-              <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-              <p>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur.
-              </p>
-              <p>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                qui officia deserunt mollit anim id est laborum.
-              </p>
-              <a href="#" class="d-block text-right font-weight-bold"
-                >Lue lisää palvelun tietosuojasta</a
-              >
-            </div>
-          </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col col-lg-4">
-              <mat-checkbox color="primary" [(ngModel)]="termsApproved"
-                >Olen lukenut palvelun käyttöehdot ja tietosuojan, ja hyväksyn
-                ne</mat-checkbox
-              >
-              <mat-checkbox
-                color="primary"
-                [(ngModel)]="personalDataHandlingApproved"
-                >Hyväksyn henkilötietojeni käsittelyn</mat-checkbox
-              >
-              <a href="#" class="d-block text-right font-weight-bold"
-                >Lue lisää palvelun tietosuojasta</a
-              >
-            </div>
-          </div>
-
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col-6 col-lg-2">
-              <lib-secondary-button
-                content="Edellinen"
-                (click)="decrement()"
-                [big]="true"
-                [icon]="faAngleDoubleLeft"
-                [noSmIcon]="true"
-              >
-              </lib-secondary-button>
-            </div>
-            <div class="col-6 col-lg-2">
-              <lib-primary-action-button
-                content="Seuraava"
-                [disabled]="!termsApproved || !personalDataHandlingApproved"
-                (click)="increment()"
-                [big]="true"
-                [icon]="faAngleDoubleRight"
-                [iconAfter]="true"
-                [noSmIcon]="true"
-              >
-              </lib-primary-action-button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Third step -->
-        <ng-container *ngSwitchCase="3">
-          <div class="row pb-4">
-            <div class="col text-center">
-              <h2 class="primary-color">Tietojen tuominen Orcidista</h2>
-            </div>
-          </div>
-
-          <div class="row pb-3 d-flex justify-content-center">
-            <div class="col col-lg-4">
-              <p>Ota palvelu käyttöön tuomalla tietosi Orcidista.</p>
-              <p>Tässä vaiheessa emme vielä julkaise tietojasi.</p>
-              <p>
-                Voit hallinnoida Orcid-tietojesi jakamista ja näkyvyyttä tuonnin
-                jälkeen.
-              </p>
-            </div>
-          </div>
-
-          <div class="row pt-5 mt-5 pb-4 d-flex justify-content-center">
-            <div class="col-6 col-lg-2">
-              <lib-secondary-button
-                content="Edellinen"
-                (click)="decrement()"
-                [big]="true"
-                [icon]="faAngleDoubleLeft"
-                [noSmIcon]="true"
-              >
-              </lib-secondary-button>
-            </div>
-            <div class="col-6 col-lg-2">
-              <lib-primary-action-button
-                content="Tuo tiedot"
-                (click)="increment()"
-                [big]="true"
-                [icon]="faAngleDoubleRight"
-                [iconAfter]="true"
-                [noSmIcon]="true"
-              >
-              </lib-primary-action-button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Fourth step -->
-        <ng-container *ngSwitchCase="4">
-          <div class="row pb-4 d-flex justify-content-center">
-            <div class="col">
-              <app-orcid-data-handler
-                (cancel)="onCancelClick($event)"
-                (dataFlag)="setDataFlag($event)"
-              ></app-orcid-data-handler>
-            </div>
-          </div>
-          <div
-            *ngIf="dataFetched"
-            class="row pb-4 d-flex justify-content-center"
-          >
-            <div class="col-6 col-lg-2">
-              <lib-secondary-button
-                content="Edellinen"
-                (click)="decrement()"
-                [big]="true"
-                [icon]="faAngleDoubleLeft"
-                [noSmIcon]="true"
-              >
-              </lib-secondary-button>
-            </div>
-            <div class="col-6 col-lg-2">
-              <lib-primary-action-button
-                content="Seuraava"
-                [big]="true"
-                [icon]="faAngleDoubleRight"
-                [iconAfter]="true"
-                [noSmIcon]="true"
-              >
-              </lib-primary-action-button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- Default to 404 -->
-        <app-not-found *ngSwitchDefault></app-not-found>
-      </ng-container>
+      </ng-template>
     </ng-container>
 
     <!-- Cancel -->
