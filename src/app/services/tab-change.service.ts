@@ -44,7 +44,7 @@ export class TabChangeService {
       data: '',
       label: $localize`:@@datasets:Aineistot`,
       // link: 'datasets',
-      link: '',
+      link: undefined,
       icon: faAlignLeft,
       singular: $localize`:@@dataset:aineisto`,
       tooltip: $localize`:@@datasetsTooltip:Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.`,
