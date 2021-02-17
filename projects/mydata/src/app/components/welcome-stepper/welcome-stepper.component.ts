@@ -36,13 +36,12 @@ export class WelcomeStepperComponent {
     private profileService: ProfileService,
     private oauthService: OAuthService
   ) {
-    this.getUserData();
+    const jwt = this.oauthService.getIdToken();
+    if (jwt) this.getUserData(jwt);
   }
 
-  private getUserData() {
-    const jwt = this.oauthService.getIdToken();
+  private getUserData(jwt) {
     const tokens = jwt.split('.');
-    // console.log(atob(tokens[1]));
     this.userData = JSON.parse(atob(tokens[1]));
     this.userName = this.userData?.name.split(' ')[0];
   }
