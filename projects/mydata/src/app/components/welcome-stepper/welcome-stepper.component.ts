@@ -11,7 +11,6 @@ import {
   faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { ProfileService } from '../../services/profile.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 
@@ -38,23 +37,17 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   constructor(
     private profileService: ProfileService,
-    private oauthService: OAuthService,
     private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.tokenSub = this.authService.tokenReceived.subscribe((hasToken) => {
       if (hasToken) {
-        this.getUserData(this.oauthService.getIdToken());
+        const userData = this.authService.getUserData();
+        this.userName = userData.name.split(' ')[0];
+        this.isLoading = false;
       }
     });
-  }
-
-  private getUserData(jwt) {
-    const tokens = jwt.split('.');
-    this.userData = JSON.parse(atob(tokens[1]));
-    this.userName = this.userData?.name.split(' ')[0];
-    this.isLoading = false;
   }
 
   increment() {

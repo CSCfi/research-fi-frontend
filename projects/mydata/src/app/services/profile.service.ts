@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthService } from './auth.service';
 import { AppConfigService } from '../services/app-config-service.service';
 
 @Injectable({
@@ -10,9 +10,9 @@ export class ProfileService {
   apiUrl: string;
   httpOptions: object;
 
-  constructor(private http: HttpClient, private oauthService: OAuthService, private appConfig: AppConfigService) {
+  constructor(private http: HttpClient, private authService: AuthService, private appConfig: AppConfigService) {
     this.apiUrl = this.appConfig.apiUrl;
-    const token = this.oauthService.getAccessToken();
+    const token = this.authService.getAccessToken();
 
     this.httpOptions = {
       headers: new HttpHeaders({

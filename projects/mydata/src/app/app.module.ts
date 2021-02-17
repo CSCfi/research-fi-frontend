@@ -49,7 +49,7 @@ import { AppConfigService } from './services/app-config-service.service';
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['https://apitest-ts.rahtiapp.fi/api/'],
+        allowedUrls: [],
         sendAccessToken: true,
       },
     }),

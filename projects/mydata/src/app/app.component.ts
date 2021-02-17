@@ -6,8 +6,6 @@ import {
   RouterEvent,
 } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { AppConfigService } from './services/app-config-service.service';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +19,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private oauthService: OAuthService,
-    private appConfig: AppConfigService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
-    this.configureAuth(this.appConfig.authConfig);
   }
 
   ngOnInit() {
@@ -33,11 +28,6 @@ export class AppComponent implements OnInit {
       this.isBrowser = true;
     }
     this.routerEvents();
-  }
-
-  private configureAuth(authConfig) {
-    this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   // Set loading indicator. This is useful for pages that rely on resolvers
