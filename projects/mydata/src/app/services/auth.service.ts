@@ -19,7 +19,7 @@ export class AuthService {
 
   configure(authConfig) {
     this.oauthService.configure(authConfig);
-    if (this.oauthService.hasValidAccessToken()) {
+    if (this.hasValidTokens()) {
       this.oauthService.loadDiscoveryDocumentAndTryLogin();
     }
   }
