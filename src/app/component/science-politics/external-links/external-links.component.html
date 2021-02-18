@@ -28,7 +28,7 @@
               {{ link['label' + currentLocale] }}
             </li>
             <li class="pb-1">{{ link['content' + currentLocale] }}</li>
-            <a #mainFocus [href]="link.url" target="_blank"
+            <a #mainFocus [href]="link['url' + currentLocale]" target="_blank"
               ><fa-icon class="pl-0" icon="external-link-alt"></fa-icon>
               {{ link['url' + currentLocale] }}</a
             >
