@@ -11,22 +11,19 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(): Promise<boolean> {
+  async canActivate(): Promise<boolean> {
     if (this.authService.hasValidTokens()) {
       return Promise.resolve(true);
     }
 
-    return this.oauthService
-      .loadDiscoveryDocumentAndTryLogin()
-      .then((_) => {
-        return this.authService.hasValidTokens();
-      })
-      .then((valid) => {
-        this.router.navigate(['/welcome']);
-        if (!valid) {
-          this.router.navigate(['/login']);
-        }
-        return valid;
-      });
+    await this.oauthService.loadDiscoveryDocumentAndTryLogin();
+
+    const valid = this.authService.hasValidTokens();
+
+    valid
+      ? this.router.navigate(['/welcome'])
+      : this.router.navigate(['/login']);
+
+    return valid;
   }
 }
