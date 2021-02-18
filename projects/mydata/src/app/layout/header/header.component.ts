@@ -47,27 +47,6 @@ export class HeaderComponent implements OnInit {
       this.loggedIn =
         sessionStorage.getItem('PKCE_verifier') === null ? false : true;
     }
-
-    this.oauthService.events.subscribe((e) => {
-      switch (e.type) {
-        case 'token_received': {
-          console.log('Token received');
-          this.oauthService.loadUserProfile();
-          this.authService.setTokenReceived();
-          break;
-        }
-        case 'discovery_document_loaded': {
-          if (this.oauthService.hasValidAccessToken()) {
-            console.log('Token available');
-            this.authService.setTokenReceived();
-          }
-        }
-        case 'session_terminated': {
-          console.log('Your session has been terminated!');
-          break;
-        }
-      }
-    });
   }
 
   // Get current url

@@ -29,7 +29,6 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   fetching = false;
   userData: any;
   userName: string;
-  isLoading = true;
 
   faAngleDoubleRight = faAngleDoubleRight;
   faAngleDoubleLeft = faAngleDoubleLeft;
@@ -45,7 +44,6 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
       if (hasToken) {
         const userData = this.authService.getUserData();
         this.userName = userData.name.split(' ')[0];
-        this.isLoading = false;
       }
     });
   }

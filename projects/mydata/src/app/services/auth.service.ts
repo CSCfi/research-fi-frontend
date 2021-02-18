@@ -10,13 +10,18 @@ export class AuthService {
   private tokenReceivedSubject = new BehaviorSubject(false);
   tokenReceived = this.tokenReceivedSubject.asObservable();
 
-  constructor(private oauthService: OAuthService, private appConfigService: AppConfigService) {
+  constructor(
+    private oauthService: OAuthService,
+    private appConfigService: AppConfigService
+  ) {
     this.configure(this.appConfigService.authConfig);
   }
 
   configure(authConfig) {
     this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    if (this.oauthService.hasValidAccessToken()) {
+      this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    }
   }
 
   login() {
@@ -25,9 +30,14 @@ export class AuthService {
   }
 
   logout() {
-    this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      this.oauthService.logOut();
-    });
+    this.oauthService.logOut();
+  }
+
+  hasValidTokens() {
+    return (
+      this.oauthService.hasValidIdToken() &&
+      this.oauthService.hasValidAccessToken()
+    );
   }
 
   setTokenReceived() {
@@ -37,14 +47,14 @@ export class AuthService {
   getAccessToken() {
     return this.oauthService.getAccessToken();
   }
-  
+
   getUserData() {
     const jwt = this.oauthService.getIdToken();
     const tokens = jwt.split('.');
     const userData = JSON.parse(atob(tokens[1]));
     return {
       name: userData?.name,
-      orcidId: userData?.orcid
+      orcidId: userData?.orcid,
     };
   }
 }

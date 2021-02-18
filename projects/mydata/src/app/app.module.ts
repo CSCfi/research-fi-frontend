@@ -34,6 +34,8 @@ import { LoginComponent } from './components/login/login.component';
 
 import { AppConfigService } from './services/app-config-service.service';
 
+import { AuthGuard } from './services/auth-guard.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +77,8 @@ import { AppConfigService } from './services/app-config-service.service';
           return appConfigService.loadAppConfig();
         };
       },
-    }
+    },
+    AuthGuard,
   ],
   bootstrap: [AppComponent],
 })
