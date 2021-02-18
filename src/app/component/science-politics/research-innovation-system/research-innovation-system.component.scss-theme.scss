@@ -8,13 +8,12 @@
 @import '~@angular/material/theming';
 
 @mixin app-research-innovation-system-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-research-innovation-system {
-        .mat-expansion-panel-content .org-links a {
-            color: mat-contrast($primary, 50);
-            text-decoration: underline;
-        }
-
+  app-research-innovation-system {
+    .mat-expansion-panel-content .org-links a {
+      color: mat-contrast($primary, 50);
+      text-decoration: underline;
     }
+  }
 }

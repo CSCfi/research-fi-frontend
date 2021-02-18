@@ -19,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule  } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
@@ -32,8 +32,15 @@ import { WINDOW_PROVIDERS } from '../services/window.service';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ErrorModalComponent, ReviewComponent, BetaInfoComponent,
-    CookieConsentComponent],
+  declarations: [
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    ErrorModalComponent,
+    ReviewComponent,
+    BetaInfoComponent,
+    CookieConsentComponent,
+  ],
   imports: [
     CommonModule,
     CommonComponentsModule,
@@ -50,10 +57,10 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     FormsModule,
     FontAwesomeModule,
     ClickOutsideModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
   ],
   exports: [LayoutComponent],
   entryComponents: [ReviewComponent],
-  providers: [WINDOW_PROVIDERS]
+  providers: [WINDOW_PROVIDERS],
 })
-export class UiModule { }
+export class UiModule {}

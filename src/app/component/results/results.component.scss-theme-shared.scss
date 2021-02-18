@@ -1,101 +1,110 @@
 @import '~@angular/material/theming';
 
 @mixin app-results-theme-shared($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-results {
-        h3 {
-            color: mat-contrast($primary, 200);
-        }
-        
-        span.total {
-            color: mat-contrast($primary, 400);
-        }
-
-        span.icon, span.bold {
-            color: mat-contrast($primary, 200);
-        }
-
-        a.theme-link {
-            color: mat-color($primary);
-        }
-
-        .visual-button-container {
-            background-color: mat-color($primary, 100);
-        }
-
-        // "Bleed" the styles into sub-pages
-        app-publications, app-fundings, app-infrastructures, app-organizations, app-related-results {
-
-            .row.expand {
-                background: mat-color($primary, 50);
-            }
-
-            .sticky-header {
-                background: mat-contrast($primary, default-contrast);
-            }
-            
-            a.pagination-link {
-                color: mat-color($primary) !important;
-            }
-
-            .result-title {
-                color: mat-contrast($primary, 200);
-            }
-
-            a.icon, .check-icon {
-                color: mat-color($primary)!important;
-            }
-
-            .inline li {
-                border: 1px solid mat-color($primary);
-                background: mat-color($primary, default-contrast);
-            }
-            
-            .inline li.active {
-                border: 1px solid mat-color($primary);
-                background: mat-color($primary);
-                color: mat-color($primary, default-contrast);
-            }
-
-            // Hover description
-            .tooltip-box {
-                background: mat-color($primary, default-contrast);
-                border: 1px solid;
-            }
-
-            .tooltip-title a {
-                color: mat-color($primary);
-            }
-
-            .arrow-up:after, .arrow-up:before, .arrow-down:after, .arrow-down:before {
-                border: solid transparent;
-            }
-
-            .arrow-up:after {
-                border-bottom-color: mat-color($primary, default-contrast);
-            }
-
-            .arrow-up:before {
-                border-bottom-color: mat-color($primary);
-                border-width: 13px;
-                margin-left: -13px;
-            }
-
-            .arrow-down:after {
-                border-top-color: mat-color($primary, default-contrast);
-            }
-            .arrow-down:before {
-                border-top-color: mat-color($primary);
-                border-width: 13px;
-                margin-left: -13px;
-            }
-            
-            @media (max-width: 991px) {
-                .single {
-                    border-bottom: 1px solid mat-color($primary, 200);
-                }
-            }
-        }
+  app-results {
+    h3 {
+      color: mat-contrast($primary, 200);
     }
+
+    span.total {
+      color: mat-contrast($primary, 400);
+    }
+
+    span.icon,
+    span.bold {
+      color: mat-contrast($primary, 200);
+    }
+
+    a.theme-link {
+      color: mat-color($primary);
+    }
+
+    .visual-button-container {
+      background-color: mat-color($primary, 100);
+    }
+
+    // "Bleed" the styles into sub-pages
+    app-publications,
+    app-fundings,
+    app-datasets,
+    app-infrastructures,
+    app-organizations,
+    app-related-results {
+      .row.expand {
+        background: mat-color($primary, 50);
+      }
+
+      .sticky-header {
+        background: mat-contrast($primary, default-contrast);
+      }
+
+      a.pagination-link {
+        color: mat-color($primary) !important;
+      }
+
+      .result-title {
+        color: mat-contrast($primary, 200);
+      }
+
+      a.icon,
+      .check-icon {
+        color: mat-color($primary) !important;
+      }
+
+      .inline li {
+        border: 1px solid mat-color($primary);
+        background: mat-color($primary, default-contrast);
+      }
+
+      .inline li.active {
+        border: 1px solid mat-color($primary);
+        background: mat-color($primary);
+        color: mat-color($primary, default-contrast);
+      }
+
+      // Hover description
+      .tooltip-box {
+        background: mat-color($primary, default-contrast);
+        border: 1px solid;
+      }
+
+      .tooltip-title a {
+        color: mat-color($primary);
+      }
+
+      .arrow-up:after,
+      .arrow-up:before,
+      .arrow-down:after,
+      .arrow-down:before {
+        border: solid transparent;
+      }
+
+      .arrow-up:after {
+        border-bottom-color: mat-color($primary, default-contrast);
+      }
+
+      .arrow-up:before {
+        border-bottom-color: mat-color($primary);
+        border-width: 13px;
+        margin-left: -13px;
+      }
+
+      .arrow-down:after {
+        border-top-color: mat-color($primary, default-contrast);
+      }
+      .arrow-down:before {
+        border-top-color: mat-color($primary);
+        border-width: 13px;
+        margin-left: -13px;
+      }
+
+      @media (max-width: 991px) {
+        .single {
+          border-bottom: 1px solid mat-color($primary, 200);
+        }
+      }
+    }
+  }
 }

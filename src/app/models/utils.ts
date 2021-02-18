@@ -8,20 +8,19 @@
 import { Injectable, Inject, LOCALE_ID } from '@angular/core';
 import { UtilityService } from '../services/utility.service';
 
-
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class LanguageCheck {
-  constructor( @Inject( LOCALE_ID ) protected localeId: string) {}
+  constructor(@Inject(LOCALE_ID) protected localeId: string) {}
 
   // Point of language test is to populate data if no content available.
   testLang(field, item) {
     // tslint:disable-next-line: curly
     if (!item) return undefined;
     // Change locale to field name format
-    const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    const capitalizedLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     // Get the content based on the current locale
     const content = item[field + capitalizedLocale]?.toString()?.trim() || '';
     // Check if the original locale has valuable content
@@ -32,13 +31,19 @@ export class LanguageCheck {
       case false: {
         switch (this.localeId) {
           case 'fi': {
-            return UtilityService.stringHasContent(item[field + 'En']) ? item[field + 'En'] : item[field + 'Sv'];
+            return UtilityService.stringHasContent(item[field + 'En'])
+              ? item[field + 'En']
+              : item[field + 'Sv'];
           }
           case 'en': {
-            return UtilityService.stringHasContent(item[field + 'Fi']) ? item[field + 'Fi'] : item[field + 'Sv'];
+            return UtilityService.stringHasContent(item[field + 'Fi'])
+              ? item[field + 'Fi']
+              : item[field + 'Sv'];
           }
           case 'sv': {
-            return UtilityService.stringHasContent(item[field + 'En']) ? item[field + 'En'] : item[field + 'Fi'];
+            return UtilityService.stringHasContent(item[field + 'En'])
+              ? item[field + 'En']
+              : item[field + 'Fi'];
           }
         }
         break;
@@ -52,7 +57,8 @@ export class LanguageCheck {
 
   translateFieldOfScience(item) {
     // Same logic as testLang but different field naming convention
-    const capitalizedLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+    const capitalizedLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
     const content = item['name' + capitalizedLocale + 'Science'] || '';
     const contentIsValid = UtilityService.stringHasContent(content);
 
@@ -61,13 +67,25 @@ export class LanguageCheck {
       case false: {
         switch (this.localeId) {
           case 'fi': {
-            return UtilityService.stringHasContent(item['name' + 'En' + 'Science']) ? item['name' + 'En' + 'Science'] : item['name' + 'Sv' + 'Science'];
+            return UtilityService.stringHasContent(
+              item['name' + 'En' + 'Science']
+            )
+              ? item['name' + 'En' + 'Science']
+              : item['name' + 'Sv' + 'Science'];
           }
           case 'en': {
-            return UtilityService.stringHasContent(item['name' + 'Fi' + 'Science']) ? item['name' + 'Fi' + 'Science'] : item['name' + 'Sv' + 'Science'];
+            return UtilityService.stringHasContent(
+              item['name' + 'Fi' + 'Science']
+            )
+              ? item['name' + 'Fi' + 'Science']
+              : item['name' + 'Sv' + 'Science'];
           }
           case 'sv': {
-            return UtilityService.stringHasContent(item['name' + 'En' + 'Science']) ? item['name' + 'En' + 'Science'] : item['name' + 'Fi' + 'Science'];
+            return UtilityService.stringHasContent(
+              item['name' + 'En' + 'Science']
+            )
+              ? item['name' + 'En' + 'Science']
+              : item['name' + 'Fi' + 'Science'];
           }
         }
         break;
@@ -77,7 +95,6 @@ export class LanguageCheck {
         return item['name' + capitalizedLocale + 'Science'];
       }
     }
-
   }
 
   translateRole(role, euFunding) {
@@ -124,5 +141,56 @@ export class LanguageCheck {
         }
       }
     }
+  }
+
+  translateKeywords(item) {
+    const endings = ['', 'En', 'Sv'];
+    const keywordsObj = {};
+
+    endings.forEach((lang) => {
+      const keywords = item['keywords' + lang]
+        ? item['keywords' + lang].map((x) => x.keyword)
+        : [];
+      keywordsObj['keyword' + (lang ? lang : 'Fi')] = keywords.join(', ');
+    });
+    return this.testLang('keyword', keywordsObj);
+  }
+
+  translateInfraServiceType(type) {
+    switch (type) {
+      case 'laitteisto': {
+        return $localize`:@@infraServiceTypeEquipment:Laitteisto`;
+      }
+      case 'aineisto': {
+        return $localize`:@@infraServiceTypeMaterial:Aineisto`;
+      }
+      case 'palvelu': {
+        return $localize`:@@infraServiceTypeService:Palvelu`;
+      }
+    }
+    // Return finnish if not english or swedish
+    return type;
+  }
+
+  translateAccessType(type) {
+    switch (type) {
+      case 'open': {
+        return $localize`:@@datasetAccessOpen:Avoin`;
+      }
+      case 'permit': {
+        return $localize`:@@datasetAccessPermit:Vaatii luvan hakemista Fairdata-palvelussa`;
+      }
+      case 'login': {
+        return $localize`:@@datasetAccessLogin:Vaatii kirjautumisen Fairdata-palvelussa`;
+      }
+      case 'restricted': {
+        return $localize`:@@datasetAccessRestricted:Saatavuutta rajoitettu`;
+      }
+      case 'embargo': {
+        return $localize`:@@datasetAccessEmbargo:Embargo`;
+      }
+    }
+    // Return finnish if not english or swedish
+    return type;
   }
 }

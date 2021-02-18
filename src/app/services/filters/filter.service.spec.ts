@@ -27,8 +27,8 @@ describe('FilterService', () => {
         StaticDataService,
         AggregationService,
         TabChangeService,
-        {provide: LOCALE_ID, useValue: 'fi'},
-      ]
+        { provide: LOCALE_ID, useValue: 'fi' },
+      ],
     });
 
     filterService = TestBed.inject(FilterService);
@@ -57,7 +57,7 @@ describe('FilterService', () => {
       toYear: [],
       type: ['palvelu'],
       typeOfFunding: ['11'],
-      year: ['2020']
+      year: ['2020'],
     };
   });
 
@@ -69,20 +69,34 @@ describe('FilterService', () => {
     // Empty
     expect(filterService.rangeFilter([], [])).toEqual([]);
     // From
-    expect(JSON.stringify(filterService.rangeFilter(['f2005'], []))).toContain('"gte":2005');
+    expect(JSON.stringify(filterService.rangeFilter(['f2005'], []))).toContain(
+      '"gte":2005'
+    );
     // To
-    expect(JSON.stringify(filterService.rangeFilter([], ['t2006']))).toContain('"lte":2006');
+    expect(JSON.stringify(filterService.rangeFilter([], ['t2006']))).toContain(
+      '"lte":2006'
+    );
     // Both
-    expect(JSON.stringify(filterService.rangeFilter(['f2007'], ['t2012']))).toContain('"gte":2007,"lte":2012');
+    expect(
+      JSON.stringify(filterService.rangeFilter(['f2007'], ['t2012']))
+    ).toContain('"gte":2007,"lte":2012');
   });
 
   it('should construct filters per indice', () => {
-    const indexList = ['publications', 'fundings', 'infrastructures', 'organizations', 'news'];
-    indexList.forEach(index => {
+    const indexList = [
+      'publications',
+      'fundings',
+      'infrastructures',
+      'organizations',
+      'news',
+    ];
+    indexList.forEach((index) => {
       tabChangeService.tab = index;
       filterService.createFilters(filters);
       // Needs to check greater than 1 because of global year filter
-      expect(filterService.constructFilters(index.slice(0, -1)).length > 1).toBeTruthy();
+      expect(
+        filterService.constructFilters(index.slice(0, -1)).length > 1
+      ).toBeTruthy();
     });
   });
 });

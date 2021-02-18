@@ -3,13 +3,42 @@
  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
  :license: MIT -->
 
-<div class="tooltip-title" id="title" (mouseenter)="getCoords($event, index, description)" (mouseenter)="enter(index)" (mouseleave)="leave(index)" [ngStyle]="colStyle">
-    <a routerLink="/results/funding/{{id}}">
-        <h3 id="header-{{index}}" class="result-title" [innerHtml]="title | highlight: input"></h3>
-        <div class="tooltip-box" [ngClass]="[(arrowPosition === 'down') ? 'arrow-down' : 'arrow-up', (hasDescription) ? '' : 'no-description']" *ngIf="hoverIndex === index" [ngStyle]="{'margin-left': tooltipMargin, 'margin-top': tooltipUpMargin}">
-            <h4 i18n="@@fundingDescription">Hankkeen kuvaus</h4>
-            <span *ngIf="description !== ' '" class="tooltip-description">{{description}}</span>
-            <span *ngIf="description === ' ' || !description" class="tooltip-description" i18n="noFundingDescription">Kuvausta ei saatavilla.</span>
-        </div>
-    </a>
-</div>   
+<div
+  class="tooltip-title"
+  id="title"
+  (mouseenter)="getCoords($event, index, description)"
+  (mouseenter)="enter(index)"
+  (mouseleave)="leave(index)"
+  [ngStyle]="colStyle"
+>
+  <a routerLink="/results/funding/{{ id }}">
+    <h3
+      id="header-{{ index }}"
+      class="result-title"
+      [innerHtml]="title | highlight: input"
+    ></h3>
+    <div
+      class="tooltip-box"
+      [ngClass]="[
+        arrowPosition === 'down' ? 'arrow-down' : 'arrow-up',
+        hasDescription ? '' : 'no-description'
+      ]"
+      *ngIf="hoverIndex === index"
+      [ngStyle]="{
+        'margin-left': tooltipMargin,
+        'margin-top': tooltipUpMargin
+      }"
+    >
+      <h4 i18n="@@fundingDescription">Hankkeen kuvaus</h4>
+      <span *ngIf="description !== ' '" class="tooltip-description">{{
+        description
+      }}</span>
+      <span
+        *ngIf="description === ' ' || !description"
+        class="tooltip-description"
+        i18n="noFundingDescription"
+        >Kuvausta ei saatavilla.</span
+      >
+    </div>
+  </a>
+</div>

@@ -5,7 +5,15 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { PrivacyService } from 'src/app/services/privacy.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-cookie-consent',
   templateUrl: './cookie-consent.component.html',
-  styleUrls: ['./cookie-consent.component.scss']
+  styleUrls: ['./cookie-consent.component.scss'],
 })
 export class CookieConsentComponent implements OnInit, OnDestroy {
   showConsent = true;
@@ -24,28 +32,38 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
   focusSub: any;
   routeSub: any;
 
-  constructor(private privacyService: PrivacyService, @Inject(DOCUMENT) private document: any,
-              @Inject(PLATFORM_ID) private platformId: object, private snackBar: MatSnackBar,
-              private tabChangeService: TabChangeService, private route: ActivatedRoute) { }
+  constructor(
+    private privacyService: PrivacyService,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private snackBar: MatSnackBar,
+    private tabChangeService: TabChangeService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     // Bar can be hidden from privacy / cookies tab
-    this.utilitySub = this.privacyService.currentConsentBarStatus.subscribe(status => {
-      this.showConsent = status === false ? true : false;
-    });
+    this.utilitySub = this.privacyService.currentConsentBarStatus.subscribe(
+      (status) => {
+        this.showConsent = status === false ? true : false;
+      }
+    );
     // set consent bar status, this is used to set focus into consent bar
     this.privacyService.hideConsentBar(this.showConsent);
     // Load initial matomo script
     this.loadScript();
     // Get consent status from local storage and set visibility
     if (isPlatformBrowser(this.platformId)) {
-      this.showConsent = localStorage.getItem('cookieConsent') === 'declined' ||
-      localStorage.getItem('cookieConsent') === 'approved' ? false : true;
+      this.showConsent =
+        localStorage.getItem('cookieConsent') === 'declined' ||
+        localStorage.getItem('cookieConsent') === 'approved'
+          ? false
+          : true;
     }
 
     // Set consent if navigated with consent param
     if (isPlatformBrowser(this.platformId)) {
-      this.routeSub = this.route.queryParams.subscribe(params => {
+      this.routeSub = this.route.queryParams.subscribe((params) => {
         if (!localStorage.getItem('cookieConsent')) {
           switch (params.consent) {
             case 'declined': {
@@ -62,11 +80,13 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     }
 
     // Focus on bar instead of skip links
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(focus => {
-      if (focus === 'consent') {
-        this.readMore.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (focus) => {
+        if (focus === 'consent') {
+          this.readMore.nativeElement.focus();
+        }
       }
-    });
+    );
   }
 
   decline(showSnackBar) {
@@ -82,7 +102,9 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       `;
       this.document.getElementsByTagName('head')[0].appendChild(node);
     }
-    if (!showSnackBar) {this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`); }
+    if (!showSnackBar) {
+      this.snackBar.open($localize`:@@cookiesDenied:Evästeet hylätty`);
+    }
   }
 
   approve(hideSnackBar) {
@@ -100,7 +122,9 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
       this.document.getElementsByTagName('head')[0].appendChild(node);
       // this.setTwitterCookie();
     }
-    if (!hideSnackBar) {this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`); }
+    if (!hideSnackBar) {
+      this.snackBar.open($localize`:@@cookiesApproved:Evästeet hyväksytty`);
+    }
   }
 
   setTwitterCookie() {
@@ -141,5 +165,4 @@ export class CookieConsentComponent implements OnInit, OnDestroy {
     this.focusSub?.unsubscribe();
     this.routeSub?.unsubscribe();
   }
-
 }

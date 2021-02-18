@@ -31,10 +31,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/assets/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/assets/favicon.ico", "src/assets"],
             "styles": [
               {
                 "input": "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
@@ -81,21 +78,15 @@
               ]
             },
             "fi": {
-              "localize": [
-                "fi"
-              ],
+              "localize": ["fi"],
               "i18nLocale": "fi"
             },
             "en": {
-              "localize": [
-                "en"
-              ],
+              "localize": ["en"],
               "i18nLocale": "en"
             },
             "sv": {
-              "localize": [
-                "sv"
-              ],
+              "localize": ["sv"],
               "i18nLocale": "sv"
             },
             "es5": {
@@ -162,9 +153,7 @@
               "src/tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -207,11 +196,7 @@
               "srcDir": "src/i18n",
               "genDir": "src/i18n",
               "defaultLanguage": "fi",
-              "languages": [
-                "fi",
-                "sv",
-                "en"
-              ]
+              "languages": ["fi", "sv", "en"]
             }
           }
         }
@@ -238,9 +223,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

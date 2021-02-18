@@ -5,8 +5,21 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewChild, ViewChildren, ElementRef, OnInit, HostListener, Inject, AfterViewInit, QueryList,
-  PLATFORM_ID, ViewEncapsulation, LOCALE_ID, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ViewChildren,
+  ElementRef,
+  OnInit,
+  HostListener,
+  Inject,
+  AfterViewInit,
+  QueryList,
+  PLATFORM_ID,
+  ViewEncapsulation,
+  LOCALE_ID,
+  OnDestroy,
+} from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SortService } from '../../services/sort.service';
@@ -26,12 +39,11 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { StaticDataService } from 'src/app/services/static-data.service';
 
 @Component({
-    selector: 'app-search-bar',
-    templateUrl: './search-bar.component.html',
-    styleUrls: ['./search-bar.component.scss'],
-    encapsulation: ViewEncapsulation.None,
+  selector: 'app-search-bar',
+  templateUrl: './search-bar.component.html',
+  styleUrls: ['./search-bar.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-
 export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
@@ -52,18 +64,19 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   faTimes = faTimes;
 
   docList = [
-    {index: 'publication', field: 'publicationName', link: 'publicationId'},
-    {index: 'funding', field: 'projectNameFi', link: 'projectId'},
-    {index: 'infrastructure', field: 'name', link: 'name'},
-    {index: 'organization', field: 'nameFi', link: 'organizationId'}
+    { index: 'publication', field: 'publicationName', link: 'publicationId' },
+    { index: 'funding', field: 'projectNameFi', link: 'projectId' },
+    { index: 'infrastructure', field: 'name', link: 'name' },
+    { index: 'organization', field: 'nameFi', link: 'organizationId' },
   ];
 
   translations = {
     publication: $localize`:@@publications:julkaisut`,
     person: $localize`:@@authors:tutkijat`,
     funding: $localize`:@@fundings:rahoitetut hankkeet`,
+    dataset: $localize`:@@datasets:aineistot`,
     infrastructure: $localize`:@@infrastructures:infrastruktuurit`,
-    organization: $localize`:@@organizations:tutkimusorganisaatiot`
+    organization: $localize`:@@organizations:tutkimusorganisaatiot`,
   };
 
   targets = this.staticDataService.targets;
@@ -73,7 +86,13 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   inputMargin: string;
   resetMargin: string;
   isBrowser: boolean;
-  currentTab: { data: string; labelFi: string; labelEn: string; link: string; icon: string; };
+  currentTab: {
+    data: string;
+    labelFi: string;
+    labelEn: string;
+    link: string;
+    icon: string;
+  };
   selectedTab: string;
   routeSub: Subscription;
   topMargin: any;
@@ -111,13 +130,17 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.routeSub = this.route.queryParams.subscribe(params => {
+    this.routeSub = this.route.queryParams.subscribe((params) => {
       this.selectedTarget = params.target ? params.target : null;
       this.queryParams = params;
-      this.topMargin = this.searchBar.nativeElement.offsetHight + this.searchBar.nativeElement.offsetTop;
+      this.topMargin =
+        this.searchBar.nativeElement.offsetHight +
+        this.searchBar.nativeElement.offsetTop;
     });
     // Get previous search term and set it to form control value
-    this.inputSub = this.searchService.currentInput.subscribe(input => this.currentTerm = input);
+    this.inputSub = this.searchService.currentInput.subscribe(
+      (input) => (this.currentTerm = input)
+    );
     this.queryField = new FormControl(this.currentTerm);
 
     // Hotfix to set docList infrastructure field with locale
@@ -126,9 +149,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     // Get items for list
-    this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
+    this.keyManager = new ActiveDescendantKeyManager(this.items)
+      .withWrap()
+      .withTypeAhead();
 
-    this.tabChangeService.currentFocusTarget.subscribe(target => {
+    this.tabChangeService.currentFocusTarget.subscribe((target) => {
       if (target === 'search-input') {
         this.searchInput.nativeElement.focus();
       }
@@ -155,47 +180,65 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.queryField.setValue(this.searchInput.nativeElement.value);
 
     // This is used for overlay heigth calcualtion
-    this.browserHeight = this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
+    this.browserHeight =
+      this.document.body.scrollHeight - this.searchBar.nativeElement.offsetTop;
 
     this.setCompletionWidth();
   }
 
   fireAutoSuggest() {
-    this.autoSuggestSub = this.queryField.valueChanges.pipe(
-      debounceTime(1000),
-      distinctUntilChanged()
-    )
-    .subscribe(result => {
-      this.keyManager = new ActiveDescendantKeyManager(this.items).withWrap().withTypeAhead();
-      this.currentInput = result;
-      if (result.length > 2) {
-        this.topData = []; this.otherData = [];
-        this.autosuggestService.search(result).pipe(map(response => [response]))
-        .subscribe(response => {
-          // Sort indices with highest doc count
-          const arr = [];
-          this.autoSuggestResponse = response;
-          const source = this.autoSuggestResponse[0].aggregations._index.buckets;
-          Object.keys(source).sort((a, b) => source[b].doc_count - source[a].doc_count)
-          .forEach((key) => {
-            arr.push({index: key, source: source[key], translation: this.translations[key]});
-          });
-          // Show hits for top 2 indices with most results
-          this.topData = arr.slice(0, 2);
-          // List other indices, filter out indices with no results
-          this.otherData = arr.slice(2).filter(x => x.source.doc_count > 0);
-          // Completion
-          this.getCompletion();
-        });
-        // Reset data
-      } else {this.topData = []; this.otherData = []; this.completion = ''; }
-    });
+    this.autoSuggestSub = this.queryField.valueChanges
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe((result) => {
+        this.keyManager = new ActiveDescendantKeyManager(this.items)
+          .withWrap()
+          .withTypeAhead();
+        this.currentInput = result;
+        if (result.length > 2) {
+          this.topData = [];
+          this.otherData = [];
+          this.autosuggestService
+            .search(result)
+            .pipe(map((response) => [response]))
+            .subscribe((response) => {
+              // Sort indices with highest doc count
+              const arr = [];
+              this.autoSuggestResponse = response;
+              const source = this.autoSuggestResponse[0].aggregations._index
+                .buckets;
+              Object.keys(source)
+                .sort((a, b) => source[b].doc_count - source[a].doc_count)
+                .forEach((key) => {
+                  arr.push({
+                    index: key,
+                    source: source[key],
+                    translation: this.translations[key],
+                  });
+                });
+              // Show hits for top 2 indices with most results
+              this.topData = arr.slice(0, 2);
+              // List other indices, filter out indices with no results
+              this.otherData = arr
+                .slice(2)
+                .filter((x) => x.source.doc_count > 0);
+              // Completion
+              this.getCompletion();
+            });
+          // Reset data
+        } else {
+          this.topData = [];
+          this.otherData = [];
+          this.completion = '';
+        }
+      });
   }
 
   // Keycodes
   onKeydown(event) {
     // Reset completion with else than right arrow
-    if (event.keyCode !== 39) {this.completion = ''; }
+    if (event.keyCode !== 39) {
+      this.completion = '';
+    }
     this.showAutoSuggest = true;
     // Listen for enter key and match with auto-suggest values
     if (event.keyCode === 13 && this.keyManager.activeItem) {
@@ -229,7 +272,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       // Set focus to skip-to link
       this.setFocus();
       // Continue without action. For some reason letter 'n' registers as down arrow, hacky fix:
-    } else if (event.keyCode !== 78)  {
+    } else if (event.keyCode !== 78) {
       this.keyManager.onKeydown(event);
     }
     // Hide auto-suggest with esc key
@@ -250,18 +293,24 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getCompletion() {
     // Get first result from completions
-    let completionData = this.autoSuggestResponse[0].suggest.mySuggestions[0].options[0] ?
-    this.autoSuggestResponse[0].suggest.mySuggestions[0].options[0].text : '';
+    let completionData = this.autoSuggestResponse[0].suggest.mySuggestions[0]
+      .options[0]
+      ? this.autoSuggestResponse[0].suggest.mySuggestions[0].options[0].text
+      : '';
     // Get second completion suggest if first is same as input
     if (completionData === this.searchInput.nativeElement.value) {
-      completionData = this.autoSuggestResponse[0].suggest.mySuggestions[0].options[1] ?
-      this.autoSuggestResponse[0].suggest.mySuggestions[0].options[1].text : '';
+      completionData = this.autoSuggestResponse[0].suggest.mySuggestions[0]
+        .options[1]
+        ? this.autoSuggestResponse[0].suggest.mySuggestions[0].options[1].text
+        : '';
     }
     // Replace characters other than alphabetical letters at the start of completion
     if (completionData.match(/^[^A-Z]/i)) {
       completionData = completionData.replace(/^[^A-Z]+/i, '');
     }
-    this.completion = completionData.slice(this.searchInput.nativeElement.value.split(' ').splice(-1)[0].length);
+    this.completion = completionData.slice(
+      this.searchInput.nativeElement.value.split(' ').splice(-1)[0].length
+    );
   }
 
   // Put input term to hidden span and calulate width. Add margin to completion.
@@ -271,7 +320,7 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     const width = span.offsetWidth;
     span.style.fontSize = '25px';
     const margin = 16;
-    this.inputMargin = (width + margin) + 'px';
+    this.inputMargin = width + margin + 'px';
   }
 
   getResetMargin(w: number) {
@@ -289,10 +338,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     const val = input.value;
     let isAtEnd = false;
     if (typeof input.selectionStart === 'number') {
-      isAtEnd = (input.selectionEnd === val.length);
+      isAtEnd = input.selectionEnd === val.length;
     }
     if (isAtEnd) {
-      this.searchInput.nativeElement.value = this.searchInput.nativeElement.value + this.completion;
+      this.searchInput.nativeElement.value =
+        this.searchInput.nativeElement.value + this.completion;
       this.queryField.setValue(this.searchInput.nativeElement.value);
       this.completion = '';
     }
@@ -300,7 +350,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Disable up & down arrows on input. Normally places caret on start or end of input
   disableKeys(event) {
-    if (event.keyCode === 40 ||  event.keyCode === 38) { return false; }
+    if (event.keyCode === 40 || event.keyCode === 38) {
+      return false;
+    }
   }
 
   // Hide auto-suggest and reset completion if clicked outside element
@@ -324,22 +376,36 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchInput.nativeElement.value = '';
     this.selectedTarget = '';
     // Navigate only if search term already in use
-    if (this.searchService.searchTerm.length > 0) {this.newInput(false, false); }
+    if (this.searchService.searchTerm.length > 0) {
+      this.newInput(false, false);
+    }
   }
 
   newInput(selectedIndex, historyLink) {
     // Check that current target exists in predefined list, reset if not
-    this.selectedTarget = this.targets.find(item => item.value === this.selectedTarget) ? this.selectedTarget : '';
+    this.selectedTarget = this.targets.find(
+      (item) => item.value === this.selectedTarget
+    )
+      ? this.selectedTarget
+      : '';
     // Copy queryparams, set target and reset page
-    const newQueryParams = {...this.queryParams, target: this.selectedTarget, page: 1};
+    const newQueryParams = {
+      ...this.queryParams,
+      target: this.selectedTarget,
+      page: 1,
+    };
     // Hide search helper
     this.showHelp = false;
     // Reset focus target
     this.tabChangeService.targetFocus('');
     // Set input to local storage & assign list to variable
     this.currentInput = this.queryField.value;
-    if (this.currentInput && isPlatformBrowser(this.platformId)) {localStorage.setItem(localStorage.length.toString(), this.currentInput); }
-    this.queryHistory = isPlatformBrowser(this.platformId) ? this.getHistory() : '';
+    if (this.currentInput && isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(localStorage.length.toString(), this.currentInput);
+    }
+    this.queryHistory = isPlatformBrowser(this.platformId)
+      ? this.getHistory()
+      : '';
     // Hide auto-suggest
     this.showAutoSuggest = false;
     // Reset completion
@@ -355,7 +421,9 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchService.updateInput(this.searchInput.nativeElement.value);
     }
     // Reset / generate timestamp for randomized results
-    this.searchService.searchTerm.length > 0 ? this.filterService.timestamp = undefined : this.filterService.generateTimeStamp();
+    this.searchService.searchTerm.length > 0
+      ? (this.filterService.timestamp = undefined)
+      : this.filterService.generateTimeStamp();
 
     this.tabSub = this.searchService.getTabValues().subscribe((data: any) => {
       this.searchService.tabValues = data;
@@ -363,11 +431,21 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       // Temporary default to publications
       // Change tab if clicked from auto suggest
       if (selectedIndex) {
-        this.router.navigate(['results/', selectedIndex + 's', this.searchService.searchTerm || '']);
-        } else {
-          // Preserve queryParams with new search to same index. Use queryParams with added target if selected
-          this.router.navigate(['results/', this.tabChangeService.tab || 'publications', this.searchService.searchTerm || ''],
-          {queryParams: newQueryParams});
+        this.router.navigate([
+          'results/',
+          selectedIndex + 's',
+          this.searchService.searchTerm || '',
+        ]);
+      } else {
+        // Preserve queryParams with new search to same index. Use queryParams with added target if selected
+        this.router.navigate(
+          [
+            'results/',
+            this.tabChangeService.tab || 'publications',
+            this.searchService.searchTerm || '',
+          ],
+          { queryParams: newQueryParams }
+        );
       }
     });
   }
@@ -378,7 +456,11 @@ export class SearchBarComponent implements OnInit, AfterViewInit, OnDestroy {
       const values = Object.values(localStorage);
       const arr = keys.map((key, i) => [key, values[i]]);
       // Filter for integer keys, sort by order, map to value and filter for duplicates
-      return arr.filter(x => +x[0] === +x[0]).sort((a, b) => b[0] - a[0]).map(x => x[1]).filter((e, i, a) => a.indexOf(e) === i);
+      return arr
+        .filter((x) => +x[0] === +x[0])
+        .sort((a, b) => b[0] - a[0])
+        .map((x) => x[1])
+        .filter((e, i, a) => a.indexOf(e) === i);
     }
   }
 

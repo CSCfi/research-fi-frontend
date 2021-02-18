@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="authorOrganization" datatype="html">
         <source>Organisaatiot ja tekijät</source>
-        <target state="translated">Organisationer och upphovsmän</target>
+        <target state="translated">Organisationer och upphovspersoner</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">35</context>
@@ -330,7 +330,7 @@
       </trans-unit>
       <trans-unit id="736db59efa202cb6c4ddda729570e44719b2109e" datatype="html">
         <source>Julkaisun tekijät, joilla on suomalainen organisaatio.</source>
-        <target state="translated">Upphovsmän till publikationen, som har en finländsk organisation.</target>
+        <target state="translated">Upphovspersoner till publikationen, som har en finländsk organisation.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">37</context>
@@ -360,7 +360,7 @@
           <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="otherPublicationInfo" datatype="html">
+      <trans-unit id="otherInfo" datatype="html">
         <source>Muut tiedot</source>
         <target state="translated">Övriga uppgifter</target>
         <context-group purpose="location">
@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="relatedPublications" datatype="html">
         <source>Hae julkaisuun liittyvät</source>
-        <target state="translated">Sök sådana som är förknippade med publikationen</target>
+        <target state="translated">Sök sådana som är relaterade med publikationen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/single/single-publication/single-publication.component.html</context>
           <context context-type="linenumber">289</context>
@@ -466,7 +466,7 @@
       </trans-unit>
       <trans-unit id="publicationAuthors" datatype="html">
         <source>Tekijät</source>
-        <target state="translated">Upphovsmän</target>
+        <target state="translated">Upphovspersoner</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/results/publications/publications.component.html</context>
           <context context-type="linenumber">21</context>
@@ -643,6 +643,10 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="externalLinksHeader" datatype="html">
+        <source>Tieteestä ja tutkimuksesta muualla</source>
+        <target>Vetenskap och forskning annanstans</target>
+      </trans-unit>
       <trans-unit id="figuresHeader" datatype="html">
         <source>Lukuja tieteestä ja tutkimuksesta</source>
         <target state="translated">Siffror om vetenskap och forskning</target>
@@ -714,6 +718,10 @@
           <context context-type="sourcefile">app/component/results/fundings/fundings.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="noDatasets" datatype="html">
+        <source>Ei tutkimusaineistoja</source>
+        <target>No research data</target>
       </trans-unit>
       <trans-unit id="fundingRecipientHeader" datatype="html">
         <source>Myönnetty rahoitus</source>
@@ -1126,6 +1134,10 @@
           <context context-type="sourcefile">app/component/results/tooltip/tooltip.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="description" datatype="html">
+        <source>Kuvaus</source>
+        <target>Beskrivning</target>
       </trans-unit>
       <trans-unit id="06f7177479837b356eabf8274c9785f3d6c5829b" datatype="html">
         <source>Kuvausta ei saatavilla.</source>
@@ -1559,6 +1571,10 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="downloadCSV" datatype="html">
+        <source>Lataa tiedostona (csv)</source>
+        <target>Ladda ner filen (csv)</target>
+      </trans-unit>
       <trans-unit id="moreFiguresFrom" datatype="html">
         <source>Lisää lukuja tieteestä ja tutkimuksesta</source>
         <target state="translated">Fler siffror om vetenskap och forskning</target>
@@ -1877,7 +1893,7 @@
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="materials" datatype="html">
+      <trans-unit id="datasets" datatype="html">
         <source>Aineistot</source>
         <target state="translated">Data</target>
         <context-group purpose="location">
@@ -2541,7 +2557,7 @@
       </trans-unit>
       <trans-unit id="publicationAuthorsTooltip">
         <source>Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.</source>
-        <target state="translated">Fullständig information om publikationens upphovsmän anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
+        <target state="translated">Fullständig information om publikationens upphovspersoner anges i den form och i den ordning som de nämns i den ursprungliga publikationen eller källdatabasen.</target>
       </trans-unit>
       <trans-unit id="3294281240991807762">
         <source>Lehti</source>
@@ -2625,7 +2641,7 @@
       </trans-unit>
       <trans-unit id="intCoPublicationAuthors">
         <source>Kv. yhteisjulkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista</source>
-        <target state="translated">Publikationen har upphovsmän även från andra än finländska forskningsorganisationer.</target>
+        <target state="translated">Publikationen har upphovspersoner även från andra än finländska forskningsorganisationer.</target>
       </trans-unit>
       <trans-unit id="publicationWithCompany">
         <source>Yhteisjulkaisu yrityksen kanssa</source>
@@ -2633,7 +2649,7 @@
       </trans-unit>
       <trans-unit id="publicationCompanyAuthors">
         <source>Julkaisussa on tekijöitä vähintään yhdestä yrityksestä.</source>
-        <target state="translated">Minst en av publikationens upphovsmän har anknytning till ett nationellt eller internationellt företag,</target>
+        <target state="translated">Minst en av publikationens upphovspersoner har anknytning till ett nationellt eller internationellt företag,</target>
       </trans-unit>
       <trans-unit id="keywords">
         <source>Avainsanat</source>
@@ -2696,6 +2712,14 @@
         <source>Summa</source>
         <target>Belopp</target>
       </trans-unit>
+      <trans-unit id="fundingRecipient">
+        <source>Rahoituksen saaja</source>
+        <target>Funding recipient</target>
+      </trans-unit>
+      <trans-unit id="totalAmount">
+        <source>Kokonaissumma</source>
+        <target>Totalbeloppet</target>
+      </trans-unit>
       <trans-unit id="fieldsOfScience">
         <source>Tieteenalat</source>
         <target state="translated">Vetenskapsområden</target>
@@ -2755,6 +2779,135 @@
       <trans-unit id="6587616297300188756">
         <source>Tiedejatutkimus.fi -palvelun ulkopuolella oleva verkkosivu, jossa hankkeesta on tarkempaa tietoa.</source>
       <target state="translated">En webbplats utanför tjänsten forskning.fi där det finns mer detaljerad information om projektet</target>
+      </trans-unit>
+      <!-- Datasets -->
+      <trans-unit id="datasetName">
+        <source>Tutkimusaineiston nimi</source>
+        <target>Namn</target>
+      </trans-unit>
+      <trans-unit id="datasetCreators">
+        <source>Tutkimusaineiston tekijät / organisaatio</source>
+        <target>Upphovspersoner / organisationer</target>
+      </trans-unit>
+      <trans-unit id="datasetType">
+        <source>Aineiston tyyppi</source>
+        <target>Typ av data</target>
+      </trans-unit>
+      <trans-unit id="datasetAuthors">
+        <source>Tekijät</source>
+        <target>Upphovspersoner</target>
+      </trans-unit>
+      <trans-unit id="missingOrg">
+        <source>Organisaatio puuttuu</source>
+        <target>Organisation saknas</target>
+      </trans-unit>
+      <trans-unit id="datasetProject">
+        <source>Projekti</source>
+        <target>Projekt</target>
+      </trans-unit>
+      <trans-unit id="license">
+        <source>Lisenssi</source>
+        <target>Licens</target>
+      </trans-unit>
+      <trans-unit id="temporalCoverage">
+        <source>Ajallinen kattavuus</source>
+        <target>Temporal täckning</target>
+      </trans-unit>
+      <trans-unit id="datasetsRelated">
+        <source>Liittyvät aineistot</source>
+        <target>Relaterade till denna forskningsdata</target>
+      </trans-unit>
+      <trans-unit id="datasetAuthorsTooltip">
+        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet henkilöt ja organisaatiot.</source>
+        <target>Personer och organisationer som deltagit i undersökningen eller utarbetandet av materialet.</target>
+      </trans-unit>
+      <trans-unit id="datasetProjectTooltip">
+        <source>Projekti, jonka tuotoksena aineisto on luotu.</source>
+        <target>Projekt som producerat materialet.</target>
+      </trans-unit>
+      <trans-unit id="datasetLicenseTooltip">
+        <source>Lisenssi, joka määrittelee aineiston käyttöehdot.</source>
+        <target>En licens som definierar användarvillkoren för materialet.</target>
+      </trans-unit>
+      <trans-unit id="datasetTemporalCoverageTooltip">
+        <source>Ajanjakso, jonka aineisto kattaa(esim. aikaväli jolloin havaintoja on tehty).</source>
+        <target>Tidsperiod som materialet omfattar (t.ex. tidsintervall då observationer har gjorts).</target>
+      </trans-unit>
+      <trans-unit id="datasetAccess">
+        <source>Saatavuus</source>
+        <target>Öppen tillgång</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessOpen">
+        <source>Avoin</source>
+        <target>Öppet</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessOpenTooltip">
+        <source>Aineisto on avoimesti saatavilla.</source>
+        <target>Materialet är öppet tillgänglig.</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessPermit">
+        <source>Vaatii luvan</source>
+        <target>Kräver tillstånd</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessPermitTooltip">
+        <source>Pääsy aineistoon vaatii luvan hakemista Fairdata-palvelussa.</source>
+        <target>Tillgång till materialet kräver ansökan om tillstånd i Fairdata-tjänsten.</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessLogin">
+        <source>Vaatii kirjautumisen</source>
+        <target>Kräver inloggning</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessLoginTooltip">
+        <source>Pääsy aineistoon vaatii kirjautumisen Fairdata-palvelussa.</source>
+        <target>Tillgång till materialet kräver inloggning i Fairdata-tjänsten.</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessRestricted">
+        <source>Saatavuutta rajoitettu</source>
+        <target>Begränsad tillgång</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessRestrictedTooltip">
+        <source>Aineiston saatavuutta on rajoitettu. Katso rajoituksen tarkemmat tiedot aineiston lähteestä.</source>
+        <target>Tillgången till materialet är begränsad. Närmare uppgifter om begränsningen finns i materialets källa.</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessEmbargo">
+        <source>Embargo</source>
+        <target>Embargo</target>
+      </trans-unit>
+      <trans-unit id="datasetAccessEmbargoTooltip">
+        <source>Embargo eli julkaisuviive määrittää ajankohdan, jolloin aineisto on saatavilla.</source>
+        <target>Embargo dvs. publiceringsfördröjning fastställer tidpunkten då materialet är tillgängligt.</target>
+      </trans-unit>
+      <trans-unit id="datasetLinks">
+        <source>Linkit tutkimusaineistoon</source>
+        <target>Links to the research data</target>
+      </trans-unit>
+      <trans-unit id="noDatasetLinks">
+        <source>Tutkimusaineistoon ei ole tarjolla linkkejä tässä portaalissa</source>
+        <target>Det finns inga länkar till forskningsdata på denna portal</target>
+      </trans-unit>
+      <trans-unit id="datasetSource">
+        <source>Tutkimusaineiston lähde</source>
+        <target>Källa till forskningsdata</target>
+      </trans-unit>
+      <trans-unit id="relatedDatasets">
+        <source>Hae tutkimusaineistoon liittyvät </source>
+        <target>Sök sådana som är relaterade till forskningsdata</target>
+      </trans-unit>
+      <trans-unit id="datasetOrgFilterTooltip">
+        <source>Tutkimukseen tai aineiston tekemiseen osallistuneet organisaatiot. Palvelu ei toistaiseksi sisällä tietoja aineistojen ulkomaisista organisaatioista.</source>
+        <target>Organisationer som deltagit i undersökningen eller utarbetandet av materialet. Tjänsten innehåller tills vidare inga uppgifter om materialets utländska organisationer. </target>
+      </trans-unit>
+      <trans-unit id="datasetSourceFilterTooltip">
+        <source>Lähde, josta aineisto on peräisin.</source>
+        <target>Källa från vilket material härstämmar.</target>
+      </trans-unit>
+      <trans-unit id="datasetFieldFilterTooltip">
+        <source>Tilastokeskuksen tieteenalaluokitus.</source>
+        <target>Statistikcentralens klassificering av vetenskapsområden.</target>
+      </trans-unit>
+      <trans-unit id="datasetLangFilterTooltip">
+        <source>Aineistossa käytetty kieli.</source>
+        <target>Det språk som använts i materialet.</target>
       </trans-unit>
       <!-- Infrastructures -->
       <trans-unit id="infraServicesLabel">
@@ -3057,7 +3210,7 @@
       </trans-unit>
       <trans-unit id="pOrgFTooltip">
         <source>Julkaisun tekijän suomalainen organisaatio. Palvelu ei toistaiseksi sisällä tietoja julkaisujen ulkomaisista organisaatioista.</source>
-        <target state="translated">Den finländska organisationen för publikationens upphovsman. Tjänsten innehåller tills vidare inga uppgifter om utländska organisationer för publikationerna.</target>
+        <target state="translated">Den finländska organisationen för publikationens upphovsperson. Tjänsten innehåller tills vidare inga uppgifter om utländska organisationer för publikationerna.</target>
       </trans-unit>
       <trans-unit id="pFOSFTooltip">
         <source>Tilastokeskuksen tieteenalaluokitus. Julkaisulla voi olla 1-6 tieteenalaa.</source>
@@ -3081,7 +3234,7 @@
       </trans-unit>
       <trans-unit id="intCoPublicationTooltip">
         <source>Julkaisussa on tekijöitä myös muualta kuin suomalaisista tutkimusorganisaatioista.</source>
-        <target state="translated">Publikationen har upphovsmän även från andra än finländska forskningsorganisationer.</target>
+        <target state="translated">Publikationen har upphovspersoner även från andra än finländska forskningsorganisationer.</target>
       </trans-unit>
       <trans-unit id="fYearFTooltip">
         <source>Vuosi, jolle rahoitus on myönnetty. Useampivuotisissa rahoituksissa ensimmäinen vuosi.</source>
@@ -3164,7 +3317,7 @@
         <source>Hanke</source>
         <target state="translated">Projekts</target>
       </trans-unit>
-      <trans-unit id="material">
+      <trans-unit id="dataset">
         <source>Aineisto</source>
         <target state="translated">Data</target>
       </trans-unit>
@@ -3196,7 +3349,7 @@
         <source>Suomalaisten julkisten ja yksityisten tutkimusrahoittajien rahoituspäätöksiä siitä alkaen, kun rahoittaja on liittynyt palveluun. EU:n suomalaisille organisaatioille myöntämät rahoituspäätökset Horizon 2020 puiteohjelmasta alkaen.</source>
         <target state="translated">Finländska offentliga och privata forskningsfinansiärers finansieringsbeslut från och med att finansiären anslöt sig till tjänsten. EU:s finansieringsbeslut till finländska organisationer från och med ramprogrammet Horizon 2020.</target>
       </trans-unit>
-      <trans-unit id="materialsTooltip">
+      <trans-unit id="datasetsTooltip">
         <source>Suomessa tuotettujen tutkimusaineistojen kuvailutietoja.</source>
         <target state="translated">Metadata av forskningsdata som producerats i Finland.</target>
       </trans-unit>
@@ -3530,7 +3683,7 @@ uppgifter till datalagret för forskningsinformation. De gemensamma personuppgif
       <trans-unit id="PP35" datatype="html">
         <source>Lisäksi tutkimustietovarannon sisältämiä julkaisujen, aineistojen, rahoituspäätösten ja infrastruktuurien  metatietoja (ml. tekijöiden tiedot) voidaan luovuttaa yksittäistapauksissa voimassaolevan 
                                                     lainsäädännön mukaisesti niitä hyödyntäville tahoille, kuten tutkimusorganisaatioille tai -rahoittajille.</source>
-        <target state="translated">Dessutom kan metadata om publikationer, forskningsdata, finansieringsbeslut och forskningsinfrastrukturer (inkl. uppgifter om upphovsmän) som ingår i datalagret för forskningsinformation i enskilda fall i enlighet med gällande lagstiftning lämnas ut till aktörer som utnyttjar dem, såsom forskningsorganisationer eller forskningsfinansiärer. </target>
+        <target state="translated">Dessutom kan metadata om publikationer, forskningsdata, finansieringsbeslut och forskningsinfrastrukturer (inkl. uppgifter om upphovspersoner) som ingår i datalagret för forskningsinformation i enskilda fall i enlighet med gällande lagstiftning lämnas ut till aktörer som utnyttjar dem, såsom forskningsorganisationer eller forskningsfinansiärer. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/component/privacy/privacy.component.html</context>
           <context context-type="linenumber">89</context>

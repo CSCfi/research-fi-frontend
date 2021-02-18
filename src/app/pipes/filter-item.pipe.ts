@@ -9,23 +9,21 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'filterItem',
-  pure: false
+  pure: false,
 })
 // This pipe is used to set "Select all" checkbox
 export class FilterItemPipe implements PipeTransform {
   transform(value: any, active: any): any {
     const arr = [];
-    value.subData.forEach(item => {
+    value.subData.forEach((item) => {
       arr.push(item.key.toString());
     });
 
     // Check if filters are present in active filters
     if (value && active) {
-      return (arr.every( e => active.includes(e) ));
+      return arr.every((e) => active.includes(e));
     } else {
       return false;
     }
-
   }
-
 }

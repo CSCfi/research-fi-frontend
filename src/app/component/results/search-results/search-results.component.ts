@@ -1,4 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, Injector, Input, ComponentRef, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Injector,
+  Input,
+  ComponentRef,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { createDomPortalHost } from './utils';
 import { SearchService } from '../../../services/search.service';
@@ -11,13 +21,13 @@ import { OrganizationsComponent } from '../organizations/organizations.component
 import { PersonsComponent } from '../persons/persons.component';
 import { InfrastructuresComponent } from '../infrastructures/infrastructures.component';
 import { Search } from 'src/app/models/search.model';
+import { DatasetsComponent } from '../datasets/datasets.component';
 
 @Component({
   selector: 'app-search-results',
-  template: '<div #portalHost></div>'
+  template: '<div #portalHost></div>',
 })
 export class SearchResultsComponent implements OnInit, OnChanges {
-
   portalHost: DomPortalOutlet;
   @ViewChild('portalHost', { static: true }) elRef: ElementRef;
   componentRef: ComponentRef<any>;
@@ -35,7 +45,11 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   tabSub: Subscription;
   filterSub: Subscription;
 
-  constructor(private injector: Injector, private searchService: SearchService, private dataService: DataService) { }
+  constructor(
+    private injector: Injector,
+    private searchService: SearchService,
+    private dataService: DataService
+  ) {}
 
   ngOnInit() {
     this.portalHost = createDomPortalHost(this.elRef, this.injector);
@@ -46,28 +60,31 @@ export class SearchResultsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.currentTab && !changes.currentTab.firstChange ||
-      changes.updateFilters && !changes.updateFilters.firstChange) {
-        if (this.componentRef) {
-          // Reset data so previous data is not displayed until new data is loaded
-          this.componentRef.instance.resultData = undefined;
-        }
-        this.getResultData();
-
+    if (
+      (changes.currentTab && !changes.currentTab.firstChange) ||
+      (changes.updateFilters && !changes.updateFilters.firstChange)
+    ) {
+      if (this.componentRef) {
+        // Reset data so previous data is not displayed until new data is loaded
+        this.componentRef.instance.resultData = undefined;
       }
+      this.getResultData();
+    }
   }
 
   getResultData() {
     // Get data, then change component
-    this.searchService.getData()
-    // .pipe(map(responseData => [responseData]))
-    .subscribe(responseData => {
-      this.responseData = responseData;
-      this.searchService.updateTotal(this.responseData.total);
-    },
-      error => this.errorMessage = error as any,
-      () => this.changeComponent(this.currentTab)
-    );
+    this.searchService
+      .getData()
+      // .pipe(map(responseData => [responseData]))
+      .subscribe(
+        (responseData) => {
+          this.responseData = responseData;
+          this.searchService.updateTotal(this.responseData.total);
+        },
+        (error) => (this.errorMessage = error as any),
+        () => this.changeComponent(this.currentTab)
+      );
   }
 
   changeComponent(tab) {
@@ -83,6 +100,10 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
       case 'fundings':
         child = FundingsComponent;
+        break;
+
+      case 'datasets':
+        child = DatasetsComponent;
         break;
 
       case 'infrastructures':
@@ -107,7 +128,7 @@ export class SearchResultsComponent implements OnInit, OnChanges {
 
 @Component({
   selector: 'app-empty-result',
-  template: '<b>Component not implemented yet</b>'
+  template: '<b>Component not implemented yet</b>',
 })
 export class EmptyResultComponent {
   @Input() resultData;

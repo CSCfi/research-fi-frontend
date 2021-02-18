@@ -12,18 +12,20 @@ import { Router, NavigationEnd, Event } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HistoryService {
+  history: string[] = [];
 
-    history: string[] = [];
+  constructor(router: Router) {
+    router.events
+      .pipe(
+        filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd)
+      )
+      .subscribe((e) => this.pushToHistory(e.urlAfterRedirects));
+  }
 
-    constructor(router: Router) {
-        router.events.pipe(filter((e: Event): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(e => this.pushToHistory(e.urlAfterRedirects));
-    }
-
-
-    pushToHistory(url: string) {
-        this.history.push(url);
-    }
+  pushToHistory(url: string) {
+    this.history.push(url);
+  }
 }

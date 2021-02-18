@@ -12,99 +12,98 @@ metadata:
     template: nginx-revproxy-api-production
   name: nginx-revproxy-api-production
 objects:
+  # Service
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: nginx-revproxy-api-production-service
+      labels:
+        app: nginx-revproxy-api-production
+      annotations:
+        description: Nginx reverse proxy for portal api
+    spec:
+      ports:
+        - name: nginx-revproxy-api-production
+          port: 8080
+          targetPort: 8080
+      selector:
+        depcfg: nginx-revproxy-api-production-deploymentconfig
 
-# Service
-- apiVersion: v1
-  kind: Service
-  metadata:
-    name: nginx-revproxy-api-production-service
-    labels:
-      app: nginx-revproxy-api-production
-    annotations:
-      description: Nginx reverse proxy for portal api
-  spec:
-    ports:
-      - name: nginx-revproxy-api-production
-        port: 8080
-        targetPort: 8080
-    selector:
-      depcfg: nginx-revproxy-api-production-deploymentconfig
+  # ImageStream
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      name: nginx-revproxy-api-production
+      labels:
+        app: nginx-revproxy-api-production
 
-# ImageStream
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    name: nginx-revproxy-api-production
-    labels:
-      app: nginx-revproxy-api-production
-
-# BuildConfig using Docker build strategy
-- apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    name: nginx-revproxy-api-production-build
-    labels:
-      app: nginx-revproxy-api-production
-  spec:
-    source:
-      git:
-        uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: devel
-      contextDir: .
-    strategy:
-      dockerStrategy:
-        dockerfilePath: nginx_reverse_proxy/api/production/Dockerfile
-    output:
-      to:
-        kind: ImageStreamTag
-        name: nginx-revproxy-api-production:latest
-    successfulBuildsHistoryLimit: 4 
-    failedBuildsHistoryLimit: 4
-
-# Deployment config
-- apiVersion: v1
-  kind: DeploymentConfig
-  metadata:
-    name: nginx-revproxy-api-production-deployment
-    labels:
-      app: nginx-revproxy-api-production
-  spec:
-    selector:
-      app: nginx-revproxy-api-production
-      depcfg: nginx-revproxy-api-production-deploymentconfig
-    template:
-      metadata:
-        labels:
-          app: nginx-revproxy-api-production
-          depcfg: nginx-revproxy-api-production-deploymentconfig
-      spec:
-        containers:
-          - name: nginx-revproxy-api-production-container
-            image: researchfi/nginx-revproxy-api-production
-            imagePullPolicy: Always
-            ports:
-              - containerPort: 8080
-                protocol: TCP
-            volumeMounts:
-              - name: nginx-revproxy-api-production-volume
-                mountPath: /etc/nginx/apiconf
-        volumes:
-          - name: nginx-revproxy-api-production-volume
-            secret:
-              secretName: nginx-revproxy-api-production-secret
-              items:
-              - key: configfile
-                path: api.conf
-    replicas: 1
-    triggers:
-    - type: ConfigChange
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-        - nginx-revproxy-api-production-container
-        from:
+  # BuildConfig using Docker build strategy
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      name: nginx-revproxy-api-production-build
+      labels:
+        app: nginx-revproxy-api-production
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: devel
+        contextDir: .
+      strategy:
+        dockerStrategy:
+          dockerfilePath: nginx_reverse_proxy/api/production/Dockerfile
+      output:
+        to:
           kind: ImageStreamTag
           name: nginx-revproxy-api-production:latest
-    strategy:
-      type: Rolling
+      successfulBuildsHistoryLimit: 4
+      failedBuildsHistoryLimit: 4
+
+  # Deployment config
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: nginx-revproxy-api-production-deployment
+      labels:
+        app: nginx-revproxy-api-production
+    spec:
+      selector:
+        app: nginx-revproxy-api-production
+        depcfg: nginx-revproxy-api-production-deploymentconfig
+      template:
+        metadata:
+          labels:
+            app: nginx-revproxy-api-production
+            depcfg: nginx-revproxy-api-production-deploymentconfig
+        spec:
+          containers:
+            - name: nginx-revproxy-api-production-container
+              image: researchfi/nginx-revproxy-api-production
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              volumeMounts:
+                - name: nginx-revproxy-api-production-volume
+                  mountPath: /etc/nginx/apiconf
+          volumes:
+            - name: nginx-revproxy-api-production-volume
+              secret:
+                secretName: nginx-revproxy-api-production-secret
+                items:
+                  - key: configfile
+                    path: api.conf
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - nginx-revproxy-api-production-container
+            from:
+              kind: ImageStreamTag
+              name: nginx-revproxy-api-production:latest
+      strategy:
+        type: Rolling

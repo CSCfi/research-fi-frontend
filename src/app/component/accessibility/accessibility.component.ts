@@ -5,7 +5,17 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, OnInit, Inject, LOCALE_ID, AfterViewInit, OnDestroy, ViewChild, ElementRef, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  LOCALE_ID,
+  AfterViewInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  PLATFORM_ID,
+} from '@angular/core';
 import { TabChangeService } from 'src/app/services/tab-change.service';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
@@ -19,12 +29,14 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-accessibility',
   templateUrl: './accessibility.component.html',
-  styleUrls: ['./accessibility.component.scss']
+  styleUrls: ['./accessibility.component.scss'],
 })
-export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AccessibilityComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   focusSub: Subscription;
   @ViewChild('mainFocus') mainFocus: ElementRef;
-  @ViewChild('contentContainer', { static: false }) contentContainer: ElementRef;
+  @ViewChild('contentContainer', { static: false })
+  contentContainer: ElementRef;
   title: string;
   reviewDialogRef: MatDialogRef<ReviewComponent>;
   currentLocale: string;
@@ -34,21 +46,32 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   private commonTags = common;
   content: any[];
 
-
-  constructor(private titleService: Title, @Inject(LOCALE_ID) protected localeId: string, private tabChangeService: TabChangeService,
-              public dialog: MatDialog, private utilityService: UtilityService, private route: ActivatedRoute,
-              @Inject(DOCUMENT) private document: any, @Inject(PLATFORM_ID) private platformId: object) {
-    this.currentLocale = this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
+  constructor(
+    private titleService: Title,
+    @Inject(LOCALE_ID) protected localeId: string,
+    private tabChangeService: TabChangeService,
+    public dialog: MatDialog,
+    private utilityService: UtilityService,
+    private route: ActivatedRoute,
+    @Inject(DOCUMENT) private document: any,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+    this.currentLocale =
+      this.localeId.charAt(0).toUpperCase() + this.localeId.slice(1);
   }
 
   ngOnInit(): void {
     // Get page data. Data is passed with resolver in router
-    this.content = this.route.snapshot.data.pages.find((e: { id: string; }) => e.id === 'accessibility');
+    this.content = this.route.snapshot.data.pages.find(
+      (e: { id: string }) => e.id === 'accessibility'
+    );
 
     // Add meta tags and title
-    this.utilityService.addMeta(this.metaTags['title' + this.currentLocale],
-    this.metaTags['description' + this.currentLocale],
-    this.commonTags['imgAlt' + this.currentLocale]);
+    this.utilityService.addMeta(
+      this.metaTags['title' + this.currentLocale],
+      this.metaTags['description' + this.currentLocale],
+      this.commonTags['imgAlt' + this.currentLocale]
+    );
     switch (this.localeId) {
       case 'fi': {
         this.setTitle('Saavutettavuusseloste - Tiedejatutkimus.fi');
@@ -79,21 +102,24 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit() {
-    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(target => {
-      if (target === 'main-link') {
-        this.mainFocus.nativeElement.focus();
+    this.focusSub = this.tabChangeService.currentFocusTarget.subscribe(
+      (target) => {
+        if (target === 'main-link') {
+          this.mainFocus.nativeElement.focus();
+        }
       }
-    });
+    );
 
     // Add review toggle onclick functionality to corresponding link
     if (isPlatformBrowser(this.platformId)) {
       const reviewLink = this.document.getElementById('toggle-review');
       if (reviewLink) {
         reviewLink.setAttribute('href', 'javascript:void(0)');
-        reviewLink.addEventListener('click',  (evt: Event) => this.toggleReview());
+        reviewLink.addEventListener('click', (evt: Event) =>
+          this.toggleReview()
+        );
       }
     }
-
   }
 
   toggleReview() {
@@ -103,7 +129,6 @@ export class AccessibilityComponent implements OnInit, AfterViewInit, OnDestroy 
       // minHeight: '60vh'
     });
   }
-
 
   ngOnDestroy() {
     // Reset skip to input - skip-link

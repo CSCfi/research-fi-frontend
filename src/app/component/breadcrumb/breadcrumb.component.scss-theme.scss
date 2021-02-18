@@ -1,70 +1,72 @@
 @import '~@angular/material/theming';
 
 @mixin app-breadcrumb-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-breadcrumb {
-        .breadcrumb {
-            background-color: mat-color($primary, default-contrast);
-        }
-
-        .breadcrumb-item a, .breadcrumb-item.active {
-            color: mat-color($primary, 900);
-        }
-        
-        .breadcrumb-item span, .breadcrumb-item a:not([href]):hover {
-            color: mat-color($primary, 900);
-            cursor: default;
-        }
-        
-        .arrow_box {
-            background: mat-color($primary, 50);
-        }
-
-        .arrow_box:after {
-            border-color: transparent;
-        }
-        
-        .arrow_box:before {
-            border-color: transparent;
-            border-left-color: mat-color($primary, default-contrast);
-        }
-
-        // First
-        li.breadcrumb-item.arrow_box.first {
-            border-right: none;
-        }
-        
-        .first.arrow_box:after {
-            border-left-color: mat-color($primary, 50);
-        }
-        
-        // Middle
-        li.breadcrumb-item.arrow_box.middle {
-            background: mat-color($primary, 100);
-        }
-        
-        .middle.arrow_box:after {
-            border-left-color: mat-color($primary, 100);
-        }
-        
-        // Last        
-        li.breadcrumb-item.arrow_box.active.arrow_box {
-            background: mat-color($primary, 200);
-            border: 1px solid mat-color($primary, 200);
-        }
-        
-        li.breadcrumb-item.arrow_box.last.arrow_box {
-            background: mat-color($primary, 200);
-        }
-        
-        .last.arrow_box:after {
-            border-color: transparent;
-            border-left-color: mat-color($primary, 200);
-        }
-        
-        .last.arrow_box:before {
-            border-left-color: mat-color($primary, 200);
-        }
+  app-breadcrumb {
+    .breadcrumb {
+      background-color: mat-color($primary, default-contrast);
     }
+
+    .breadcrumb-item a,
+    .breadcrumb-item.active {
+      color: mat-color($primary, 900);
+    }
+
+    .breadcrumb-item span,
+    .breadcrumb-item a:not([href]):hover {
+      color: mat-color($primary, 900);
+      cursor: default;
+    }
+
+    .arrow_box {
+      background: mat-color($primary, 50);
+    }
+
+    .arrow_box:after {
+      border-color: transparent;
+    }
+
+    .arrow_box:before {
+      border-color: transparent;
+      border-left-color: mat-color($primary, default-contrast);
+    }
+
+    // First
+    li.breadcrumb-item.arrow_box.first {
+      border-right: none;
+    }
+
+    .first.arrow_box:after {
+      border-left-color: mat-color($primary, 50);
+    }
+
+    // Middle
+    li.breadcrumb-item.arrow_box.middle {
+      background: mat-color($primary, 100);
+    }
+
+    .middle.arrow_box:after {
+      border-left-color: mat-color($primary, 100);
+    }
+
+    // Last
+    li.breadcrumb-item.arrow_box.active.arrow_box {
+      background: mat-color($primary, 200);
+      border: 1px solid mat-color($primary, 200);
+    }
+
+    li.breadcrumb-item.arrow_box.last.arrow_box {
+      background: mat-color($primary, 200);
+    }
+
+    .last.arrow_box:after {
+      border-color: transparent;
+      border-left-color: mat-color($primary, 200);
+    }
+
+    .last.arrow_box:before {
+      border-left-color: mat-color($primary, 200);
+    }
+  }
 }

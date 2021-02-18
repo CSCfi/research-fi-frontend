@@ -9,70 +9,70 @@
 @import '~@angular/material/theming';
 
 @mixin mat-expansion-panel-style($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-research-innovation-system, app-service-info {
+  app-research-innovation-system,
+  app-service-info {
+    .title h2 {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
 
-        .title h2 {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
+    .icon {
+      min-width: 2rem;
+      border-radius: 50%;
+      padding: 0.5rem;
+      margin-right: 1rem;
+      text-align: center;
+      font-size: 1.3rem;
+      align-self: center;
+      line-height: inherit;
+    }
 
-        .icon {
-            min-width: 2rem;
-            border-radius: 50%;
-            padding: 0.5rem;
-            margin-right: 1rem;
-            text-align: center;
-            font-size: 1.3rem;
-            align-self: center;
-            line-height: inherit;
-        }
+    .mat-expansion-panel-header {
+      padding: 0 1.5rem 0 0.5rem;
+    }
 
-        .mat-expansion-panel-header {
-            padding: 0 1.5rem 0 0.5rem;
-        }
+    .mat-expansion-panel:not([class*='mat-elevation-z']) {
+      box-shadow: none;
+      border-radius: 0;
+      margin: 1rem 1rem;
+    }
 
-        .mat-expansion-panel:not([class*='mat-elevation-z']) {
-            box-shadow: none;
-            border-radius: 0;
-            margin: 1rem 1rem;
-        }
-
-        ::ng-deep .mat-expansion-panel-body {
-            padding: 0 0 1rem!important;
-        }
+    ::ng-deep .mat-expansion-panel-body {
+      padding: 0 0 1rem !important;
+    }
 
     // Theming
 
-        .mat-expansion-panel {
-            background: none;
-        }
-
-        .mat-expansion-panel:not([class*='mat-elevation-z']) {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-        }
-
-        .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']) {
-            outline: 5px auto -webkit-focus-ring-color!important;
-            background: none !important;
-        }
-
-        .mat-expansion-panel-content {
-            font-size: 16px;
-            color: mat-contrast($primary, 300);
-            strong {
-                color: mat-color($primary);
-            }
-        }
-
-        .icon {
-            color: white;
-            background: mat-color($primary, 200);
-        }
-
-        .title {
-            color: mat-contrast($primary, 200);
-        }
+    .mat-expansion-panel {
+      background: none;
     }
+
+    .mat-expansion-panel:not([class*='mat-elevation-z']) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']) {
+      outline: 5px auto -webkit-focus-ring-color !important;
+      background: none !important;
+    }
+
+    .mat-expansion-panel-content {
+      font-size: 16px;
+      color: mat-contrast($primary, 300);
+      strong {
+        color: mat-color($primary);
+      }
+    }
+
+    .icon {
+      color: white;
+      background: mat-color($primary, 200);
+    }
+
+    .title {
+      color: mat-contrast($primary, 200);
+    }
+  }
 }

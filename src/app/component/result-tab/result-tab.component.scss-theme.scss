@@ -1,82 +1,82 @@
 @import '~@angular/material/theming';
 
 @mixin app-result-tab-theme($theme) {
-    $primary: map-get($theme, primary);
+  $primary: map-get($theme, primary);
 
-    app-result-tab {
-
-        a:hover {
-            text-decoration: none;
-        }
-        
-        .scroll {
-            background: mat-contrast($primary, 800);
-        }
-
-        .tab-icon {
-            // background-color: mat-color($primary);
-            color: mat-color($primary);
-        }
-        
-        .tab-icon:after {
-            color: mat-color($primary);
-        }
-        
-        .bundler.active {
-            // background: mat-color($primary, A100);
-            // border-bottom: 6px solid mat-color($primary);
-            border-top: 1px solid mat-color($primary);
-            border-right: 1px solid mat-color($primary);
-            border-left: 1px solid mat-color($primary);
-            box-shadow: 13px 0 22px -13px rgba(0,0,0,0.2), -13px 0 22px -13px rgba(0,0,0,0.2);
-        }
-        
-        .bundler {
-            background: mat-color($primary, 100);
-            border-bottom: 1px solid mat-color($primary);
-        }
-        
-        .bundler:not(.active):hover {
-            background: mat-color($primary, 200)!important;
-        }
-
-        .bundler.disabled:hover {
-            background: unset!important;
-        }
-        
-        .numeric-box {
-            color: mat-color($primary, 600);
-        }
-        .text-center {
-            color: mat-color($primary, 800);
-        }
-
-        .nav-arrow {
-            background: mat-color($primary);
-            color: mat-contrast($primary, 500);
-        }
-
-        .item-wrapper.homepage {
-            background-color: mat-contrast($primary, 500) !important;
-            box-shadow: 0 3px 6px 0 rgba(0,0,0,0.3);
-        }
-
-        // .arrow::after {
-        //     color: mat-contrast($primary, 500);
-        // }
-        
-        @media (max-width: 575px) {
-            .bundler.active {
-                border-bottom: 0px;
-            }
-
-            .active .text-center {
-                color: mat-color($primary);
-            }
-
-            .text-center {
-                color: mat-color($primary);
-            }
-        }
+  app-result-tab {
+    a:hover {
+      text-decoration: none;
     }
+
+    .scroll {
+      background: mat-contrast($primary, 800);
+    }
+
+    .tab-icon {
+      // background-color: mat-color($primary);
+      color: mat-color($primary);
+    }
+
+    .tab-icon:after {
+      color: mat-color($primary);
+    }
+
+    .bundler.active {
+      // background: mat-color($primary, A100);
+      // border-bottom: 6px solid mat-color($primary);
+      border-top: 1px solid mat-color($primary);
+      border-right: 1px solid mat-color($primary);
+      border-left: 1px solid mat-color($primary);
+      box-shadow: 13px 0 22px -13px rgba(0, 0, 0, 0.2),
+        -13px 0 22px -13px rgba(0, 0, 0, 0.2);
+    }
+
+    .bundler {
+      background: mat-color($primary, 100);
+      border-bottom: 1px solid mat-color($primary);
+    }
+
+    .bundler:not(.active):hover {
+      background: mat-color($primary, 200) !important;
+    }
+
+    .bundler.disabled:hover {
+      background: unset !important;
+    }
+
+    .numeric-box {
+      color: mat-color($primary, 600);
+    }
+    .text-center {
+      color: mat-color($primary, 800);
+    }
+
+    .nav-arrow {
+      background: mat-color($primary);
+      color: mat-contrast($primary, 500);
+    }
+
+    .item-wrapper.homepage {
+      background-color: mat-contrast($primary, 500) !important;
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    // .arrow::after {
+    //     color: mat-contrast($primary, 500);
+    // }
+
+    @media (max-width: 575px) {
+      .bundler.active {
+        border-bottom: 0px;
+      }
+
+      .active .text-center {
+        color: mat-color($primary);
+      }
+
+      .text-center {
+        color: mat-color($primary);
+      }
+    }
+  }
 }

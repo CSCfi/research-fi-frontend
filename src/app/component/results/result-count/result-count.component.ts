@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-result-count',
   templateUrl: './result-count.component.html',
-  styleUrls: ['./result-count.component.scss']
+  styleUrls: ['./result-count.component.scss'],
 })
 export class ResultCountComponent implements OnInit, OnDestroy {
   @Input() responseData: any;
@@ -26,12 +26,15 @@ export class ResultCountComponent implements OnInit, OnDestroy {
   page: number;
   fromPage: number;
   currentSize: any;
-  constructor(private searchService: SearchService, private dataService: DataService, private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(
+    private searchService: SearchService,
+    private dataService: DataService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-
-    this.totalSub = this.dataService.currentTotal.subscribe(total => {
+    this.totalSub = this.dataService.currentTotal.subscribe((total) => {
       this.currentSize = this.searchService.pageSize;
       this.total = total;
       // Get current page
@@ -43,17 +46,14 @@ export class ResultCountComponent implements OnInit, OnDestroy {
 
   change(event) {
     this.searchService.pageSize = event.target.value;
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: { page: 1, size: event.target.value },
-        queryParamsHandling: 'merge'
-      });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: 1, size: event.target.value },
+      queryParamsHandling: 'merge',
+    });
   }
 
   ngOnDestroy() {
     this.totalSub?.unsubscribe();
   }
-
 }

@@ -12,89 +12,88 @@ metadata:
     template: nginx-revproxy-angular-qa
   name: nginx-revproxy-angular-qa
 objects:
+  # Service
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: nginx-revproxy-angular-qa-service
+      labels:
+        app: nginx-revproxy-angular-qa
+      annotations:
+        description: Nginx reverse proxy for Angular web app - qa
+    spec:
+      ports:
+        - name: nginx-revproxy-angular-qa
+          port: 8080
+          targetPort: 8080
+      selector:
+        depcfg: nginx-revproxy-angular-qa-deploymentconfig
 
-# Service
-- apiVersion: v1
-  kind: Service
-  metadata:
-    name: nginx-revproxy-angular-qa-service
-    labels:
-      app: nginx-revproxy-angular-qa
-    annotations:
-      description: Nginx reverse proxy for Angular web app - qa
-  spec:
-    ports:
-      - name: nginx-revproxy-angular-qa
-        port: 8080
-        targetPort: 8080
-    selector:
-      depcfg: nginx-revproxy-angular-qa-deploymentconfig
+  # ImageStream
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      name: nginx-revproxy-angular-qa
+      labels:
+        app: nginx-revproxy-angular-qa
 
-# ImageStream
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    name: nginx-revproxy-angular-qa
-    labels:
-      app: nginx-revproxy-angular-qa
-
-# BuildConfig using Docker build strategy
-- apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    name: nginx-revproxy-angular-qa-build
-    labels:
-      app: nginx-revproxy-angular-qa
-  spec:
-    source:
-      git:
-        uri: https://github.com/CSCfi/research-fi-frontend.git
-        ref: qa
-      contextDir: .
-    strategy:
-      dockerStrategy:
-        dockerfilePath: nginx_reverse_proxy/angular/qa/Dockerfile
-    output:
-      to:
-        kind: ImageStreamTag
-        name: nginx-revproxy-angular-qa:latest
-    successfulBuildsHistoryLimit: 4 
-    failedBuildsHistoryLimit: 4
-
-# Deployment config
-- apiVersion: v1
-  kind: DeploymentConfig
-  metadata:
-    name: nginx-revproxy-angular-qa-deployment
-    labels:
-      app: nginx-revproxy-angular-qa
-  spec:
-    selector:
-      app: nginx-revproxy-angular-qa
-      depcfg: nginx-revproxy-angular-qa-deploymentconfig
-    template:
-      metadata:
-        labels:
-          app: nginx-revproxy-angular-qa
-          depcfg: nginx-revproxy-angular-qa-deploymentconfig
-      spec:
-        containers:
-          - name: nginx-revproxy-angular-qa-container
-            image: researchfi/nginx-revproxy-angular-qa
-            imagePullPolicy: Always
-            ports:
-              - containerPort: 8080
-                protocol: TCP
-    replicas: 1
-    triggers:
-    - type: ConfigChange
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-        - nginx-revproxy-angular-qa-container
-        from:
+  # BuildConfig using Docker build strategy
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      name: nginx-revproxy-angular-qa-build
+      labels:
+        app: nginx-revproxy-angular-qa
+    spec:
+      source:
+        git:
+          uri: https://github.com/CSCfi/research-fi-frontend.git
+          ref: qa
+        contextDir: .
+      strategy:
+        dockerStrategy:
+          dockerfilePath: nginx_reverse_proxy/angular/qa/Dockerfile
+      output:
+        to:
           kind: ImageStreamTag
           name: nginx-revproxy-angular-qa:latest
-    strategy:
-      type: Rolling
+      successfulBuildsHistoryLimit: 4
+      failedBuildsHistoryLimit: 4
+
+  # Deployment config
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: nginx-revproxy-angular-qa-deployment
+      labels:
+        app: nginx-revproxy-angular-qa
+    spec:
+      selector:
+        app: nginx-revproxy-angular-qa
+        depcfg: nginx-revproxy-angular-qa-deploymentconfig
+      template:
+        metadata:
+          labels:
+            app: nginx-revproxy-angular-qa
+            depcfg: nginx-revproxy-angular-qa-deploymentconfig
+        spec:
+          containers:
+            - name: nginx-revproxy-angular-qa-container
+              image: researchfi/nginx-revproxy-angular-qa
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+      replicas: 1
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - nginx-revproxy-angular-qa-container
+            from:
+              kind: ImageStreamTag
+              name: nginx-revproxy-angular-qa:latest
+      strategy:
+        type: Rolling

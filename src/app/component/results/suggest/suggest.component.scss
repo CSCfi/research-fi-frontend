@@ -1,21 +1,21 @@
 //  This file is part of the research.fi API service
-// 
+//
 //  Copyright 2019 Ministry of Education and Culture, Finland
-// 
+//
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
 .suggests {
-    display: inline;
+  display: inline;
 }
 
 .suggests li {
-    list-style: none;
-    display: inline;
-    cursor: pointer;
-    text-decoration: underline;
+  list-style: none;
+  display: inline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .suggests li:hover {
-    font-weight: bold;
+  font-weight: bold;
 }
