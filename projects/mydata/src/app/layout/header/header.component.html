@@ -20,7 +20,9 @@
         <h1 class="title m-0 font-weight-bold">Tutkijan tiedot</h1>
       </div>
       <div class="col text-right" *ngIf="loggedIn">
-        <a href="javascript:void(0)" (click)="logout()">Kirjaudu ulos</a>
+        <a href="javascript:void(0)" (click)="logout()" class="font-weight-bold"
+          >Kirjaudu ulos</a
+        >
       </div>
     </ng-template>
   </div>

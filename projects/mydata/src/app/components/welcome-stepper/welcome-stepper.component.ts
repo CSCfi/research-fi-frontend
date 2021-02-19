@@ -5,7 +5,7 @@
 //  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
 //  :license: MIT
 
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import {
   faAngleDoubleRight,
   faAngleDoubleLeft,
@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./welcome-stepper.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class WelcomeStepperComponent implements OnInit, OnDestroy {
+export class WelcomeStepperComponent implements OnInit {
   step = 1;
   cancel = false;
   dataFetched = false;
@@ -40,12 +40,8 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.tokenSub = this.authService.tokenReceived.subscribe((hasToken) => {
-      if (hasToken) {
-        const userData = this.authService.getUserData();
-        this.userName = userData.name.split(' ')[0];
-      }
-    });
+    const userData = this.authService.getUserData();
+    this.userName = userData.name.split(' ')[0];
   }
 
   increment() {
@@ -78,9 +74,5 @@ export class WelcomeStepperComponent implements OnInit, OnDestroy {
 
   deleteProfile() {
     this.profileService.deleteProfile().subscribe((data) => console.log(data));
-  }
-
-  ngOnDestroy() {
-    this.tokenSub.unsubscribe();
   }
 }
