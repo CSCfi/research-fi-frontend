@@ -8,6 +8,8 @@ import {
   OnDestroy,
   ViewChild,
   ViewEncapsulation,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -21,20 +23,22 @@ import { WINDOW } from '../../services/window.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class NavigationComponent implements OnInit, OnDestroy {
-  @Input() navItems: any;
-  @Input() currentLang: any;
-  @Input() currentRoute: any;
+  @Input() navItems: any[];
+  @Input() localizedDomains: any[];
+  @Input() currentLang: string;
+  @Input() currentRoute: string;
   mobile = this.window.innerWidth < 1200;
   height = this.window.innerHeight;
   width = this.window.innerWidth;
   navbarOpen = false;
   hideOverflow = true;
-  dropdownOpen: any;
+  dropdownOpen: boolean;
   lang: string;
   consent: string;
   private resizeSub: Subscription;
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
   @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
+  @Output() emitClick: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private resizeService: ResizeService,
@@ -73,6 +77,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   onClickedOutside(e: Event) {
     this.dropdownOpen = false;
+  }
+
+  // Navigation links can fire methods on parent components
+  emitToParent(method) {
+    this.emitClick.emit(method);
+  }
+
+  handleLinkClick(item) {
+    if (this.navbarOpen) this.toggleNavbar();
+    if (item.function) this.emitToParent(item.function);
   }
 
   onResize(dims) {

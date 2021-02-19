@@ -30,31 +30,13 @@
       <!-- Lang selector -->
       <div class="navbar-expand mx-auto navbar-nav lang mobile">
         <ul class="navbar-nav mx-auto">
-          <li [class.col-4]="mobile">
+          <li *ngFor="let domain of localizedDomains" [class.col-4]="mobile">
             <a
               class="nav-item nav-link lang-box"
-              [class.active-lang]="currentLang === 'fi'"
-              href="https://tiedejatutkimus.fi/fi{{ currentRoute }}"
+              [class.active-lang]="currentLang === domain.locale"
+              [href]="domain.url + currentRoute"
             >
-              <span class="label">Suomi</span>
-            </a>
-          </li>
-          <li [class.col-4]="mobile">
-            <a
-              class="nav-item nav-link lang-box"
-              [class.active-lang]="currentLang === 'sv'"
-              href="https://forskning.fi/sv{{ currentRoute }}"
-            >
-              <span class="label">Svenska</span>
-            </a>
-          </li>
-          <li [class.col-4]="mobile">
-            <a
-              class="nav-item nav-link lang-box"
-              [class.active-lang]="currentLang === 'en'"
-              href="https://research.fi/en{{ currentRoute }}"
-            >
-              <span class="label">English</span>
+              <span class="label">{{ domain.label }}</span>
             </a>
           </li>
         </ul>
@@ -69,10 +51,12 @@
             >
               <a
                 class="nav-item nav-link"
-                [routerLink]="item.link"
+                [routerLink]="
+                  item.link.trim().length > 0 ? item.link : currentRoute
+                "
                 routerLinkActive="active-link"
                 [routerLinkActiveOptions]="{ exact: item.exact }"
-                (click)="navbarOpen && toggleNavbar()"
+                (click)="handleLinkClick(item)"
               >
                 <span class="label">{{ item.label }}</span>
               </a>
@@ -115,25 +99,16 @@
                 <!-- Navigate with consent if consent is set -->
                 <mat-select [(value)]="lang">
                   <a
-                    href="https://tiedejatutkimus.fi/fi{{ currentRoute }}{{
-                      consent ? '?consent=' + consent : null
-                    }}"
+                    *ngFor="let domain of localizedDomains"
+                    [href]="
+                      domain.url +
+                      currentRoute +
+                      (consent ? '?consent=' + consent : '')
+                    "
                   >
-                    <mat-option value="FI">FI</mat-option>
-                  </a>
-                  <a
-                    href="https://forskning.fi/sv{{ currentRoute }}{{
-                      consent ? '?consent=' + consent : null
-                    }}"
-                  >
-                    <mat-option value="SV">SV</mat-option>
-                  </a>
-                  <a
-                    href="https://research.fi/en{{ currentRoute }}{{
-                      consent ? '?consent=' + consent : null
-                    }}"
-                  >
-                    <mat-option value="EN">EN</mat-option>
+                    <mat-option [value]="domain.locale.toUpperCase()">{{
+                      domain.locale.toUpperCase()
+                    }}</mat-option>
                   </a>
                 </mat-select>
               </mat-form-field>
