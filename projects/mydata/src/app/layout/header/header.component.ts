@@ -13,7 +13,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from '../../services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -27,7 +26,12 @@ import { isPlatformBrowser } from '@angular/common';
 export class HeaderComponent implements OnInit {
   lang = 'fi';
   currentRoute: string;
-  navItems = [{ label: 'Kirjaudu sisään', link: '' }];
+  navItems = [{ label: 'Kirjaudu sisään', link: '', function: true }];
+  localizedDomains = [
+    { label: 'Suomi', locale: 'fi', url: 'https://localhost:5003/fi' },
+    { label: 'Svenska', locale: 'sv', url: 'https://localhost:5003/sv' },
+    { label: 'English', locale: 'en', url: 'https://localhost:5003/en' },
+  ];
   routeSub: Subscription;
   params: any;
   loggedIn: boolean;
@@ -36,10 +40,19 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private oauthService: OAuthService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.routeEvent(router);
+
+    router.events.forEach(() => {
+      if (this.authService.hasValidTokens()) {
+        this.loggedIn = true;
+        this.navItems[0].label = 'Kirjaudu ulos';
+      } else {
+        this.loggedIn = true;
+        this.navItems[0].label = 'Kirjaudu sisään';
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -47,6 +60,10 @@ export class HeaderComponent implements OnInit {
       this.loggedIn =
         sessionStorage.getItem('PKCE_verifier') === null ? false : true;
     }
+  }
+
+  navItemClickHandler(event) {
+    this.authService.hasValidTokens() ? this.logout() : this.login();
   }
 
   // Get current url
@@ -67,9 +84,14 @@ export class HeaderComponent implements OnInit {
             });
           }
         });
-        this.currentRoute = e.urlAfterRedirects.split('#')[0];
+        this.currentRoute = e.urlAfterRedirects.split('?')[0];
+        console.log(e.urlAfterRedirects);
       }
     });
+  }
+
+  login() {
+    this.authService.login();
   }
 
   logout() {

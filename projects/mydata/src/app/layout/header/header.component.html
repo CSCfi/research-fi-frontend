@@ -5,25 +5,22 @@
 
 <header class="wrapper">
   <div class="navbar navbar-expand-xl navbar-light row">
-    <!-- Logo / slogan -->
+    <!-- Logo / branding -->
     <lib-logo class="logo col-7 col-xs-9 col-xl-2 px-0"></lib-logo>
-    <!-- Navigation -->
-    <lib-navigation
-      class="nav-top col-auto col-xs-3 col-xl-10 p-0"
-      *ngIf="currentRoute === '/' || currentRoute?.includes('/?'); else title"
-      [navItems]="navItems"
-      [currentLang]="lang"
-      [currentRoute]="currentRoute"
-    ></lib-navigation>
-    <ng-template #title>
+    <!-- Centered branding -->
+    <ng-container *ngIf="currentRoute !== '/'">
       <div class="col center-container">
         <h1 class="title m-0 font-weight-bold">Tutkijan tiedot</h1>
       </div>
-      <div class="col text-right" *ngIf="loggedIn">
-        <a href="javascript:void(0)" (click)="logout()" class="font-weight-bold"
-          >Kirjaudu ulos</a
-        >
-      </div>
-    </ng-template>
+    </ng-container>
+    <!-- Navigation -->
+    <lib-navigation
+      class="nav-top col-auto col-xs-3 col-xl-10 p-0"
+      [navItems]="navItems"
+      [localizedDomains]="localizedDomains"
+      [currentLang]="lang"
+      [currentRoute]="currentRoute"
+      (emitClick)="navItemClickHandler($event)"
+    ></lib-navigation>
   </div>
 </header>
