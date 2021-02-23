@@ -1,45 +1,45 @@
-// # This file is part of the research.fi API service
-// #
-// # Copyright 2019 Ministry of Education and Culture, Finland
-// #
-// # :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
-// # :license: MIT
+// This file is part of the research.fi API service
+//
+// Copyright 2019 Ministry of Education and Culture, Finland
+//
+// :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+// :license: MIT
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomePageComponent } from './component/home-page/home-page.component';
-import { ResultsComponent } from './component/results/results.component';
-import { SinglePublicationComponent } from './component/single/single-publication/single-publication.component';
-import { SingleFundingComponent } from './component/single/single-funding/single-funding.component';
-import { SingleOrganizationComponent } from './component/single/single-organization/single-organization.component';
-import { VisualisationComponent } from './component/visualisation/visualisation.component';
-import { NewsComponent } from './component/news/news/news.component';
+import { HomePageComponent } from './portal/components/home-page/home-page.component';
+import { ResultsComponent } from './portal/components/results/results.component';
+import { SinglePublicationComponent } from './portal/components/single/single-publication/single-publication.component';
+import { SingleFundingComponent } from './portal/components/single/single-funding/single-funding.component';
+import { SingleOrganizationComponent } from './portal/components/single/single-organization/single-organization.component';
+import { VisualisationComponent } from './portal/components/visualisation/visualisation.component';
+import { NewsComponent } from './portal/components/news/news/news.component';
 // tslint:disable-next-line: max-line-length
-import { ResearchInnovationSystemComponent } from './component/science-politics/research-innovation-system/research-innovation-system.component';
-import { FiguresComponent } from './component/science-politics/figures/figures.component';
-import { ExternalLinksComponent } from './component/science-politics/external-links/external-links.component';
-import { SingleFigureComponent } from './component/science-politics/figures/single-figure/single-figure.component';
-import { ServiceInfoComponent } from './component/service-info/service-info.component';
-import { PrivacyComponent } from './component/privacy/privacy.component';
-import { AccessibilityComponent } from './component/accessibility/accessibility.component';
-import { SitemapComponent } from './component/sitemap/sitemap.component';
-import { SingleInfrastructureComponent } from './component/single/single-infrastructure/single-infrastructure.component';
-import { NotFoundComponent } from './common-components/not-found/not-found.component';
-import { PageResolverService } from './resolvers/page-resolver.service';
-import { ResearchInnovationSystemSectorResolver } from './resolvers/research-innovation-system-sector-resolver.service';
-import { ExternalLinkResolver } from './resolvers/external-link-resolver.service';
-import { ShortcutResolverService } from './resolvers/shortcut-resolver.service';
-import { SingleDatasetComponent } from './component/single/single-dataset/single-dataset.component';
+import { ResearchInnovationSystemComponent } from './portal/components/science-politics/research-innovation-system/research-innovation-system.component';
+import { FiguresComponent } from './portal/components/science-politics/figures/figures.component';
+import { ExternalLinksComponent } from './portal/components/science-politics/external-links/external-links.component';
+import { SingleFigureComponent } from './portal/components/science-politics/figures/single-figure/single-figure.component';
+import { ServiceInfoComponent } from './portal/components/service-info/service-info.component';
+import { PrivacyComponent } from './portal/components/privacy/privacy.component';
+import { AccessibilityComponent } from './portal/components/accessibility/accessibility.component';
+import { SitemapComponent } from './portal/components/sitemap/sitemap.component';
+import { SingleInfrastructureComponent } from './portal/components/single/single-infrastructure/single-infrastructure.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { PageResolverService } from './portal/resolvers/page-resolver.service';
+import { ResearchInnovationSystemSectorResolver } from './portal/resolvers/research-innovation-system-sector-resolver.service';
+import { ExternalLinkResolver } from './portal/resolvers/external-link-resolver.service';
+import { ShortcutResolverService } from './portal/resolvers/shortcut-resolver.service';
+import { SingleDatasetComponent } from './portal/components/single/single-dataset/single-dataset.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    pathMatch: 'full',
-    component: HomePageComponent,
-    resolve: {
-      shortcuts: ShortcutResolverService,
-    },
-  },
+  // {
+  //   path: '',
+  //   pathMatch: 'full',
+  //   component: HomePageComponent,
+  //   resolve: {
+  //     shortcuts: ShortcutResolverService,
+  //   },
+  // },
   {
     path: 'results/publication',
     redirectTo: 'results/publications',
