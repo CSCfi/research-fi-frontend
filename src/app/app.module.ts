@@ -10,7 +10,6 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
@@ -28,7 +27,6 @@ import { PortalRoutingModule } from './portal/portal-routing.module';
     BrowserModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
-    // AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
     CommonComponentsModule,
@@ -52,7 +50,7 @@ import { PortalRoutingModule } from './portal/portal-routing.module';
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })
