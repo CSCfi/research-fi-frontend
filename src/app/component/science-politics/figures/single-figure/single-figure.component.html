@@ -101,7 +101,7 @@
             <div class="row pb-3">
               <div class="col pl-0">
                 <strong i18n="@@shareThisPage">Jaa tämä sivu:</strong>
-                <app-share [big]="false"></app-share>
+                <app-share [id]="item.id" [big]="false"></app-share>
               </div>
             </div>
             <div *ngIf="item['visualFile' + currentLocale]" class="row">
