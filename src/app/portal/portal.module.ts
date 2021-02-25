@@ -15,7 +15,7 @@ import { TypeaheadModule, ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from '../app-routing.module';
+import { PortalRoutingModule } from './portal-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
@@ -230,6 +230,7 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
     BannerComponent,
   ],
   imports: [
+    PortalRoutingModule,
     CommonModule,
     TypeaheadModule.forRoot(),
     FormsModule,
@@ -255,7 +256,6 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
     ScrollingModule,
     ClipboardModule,
     CountUpModule,
-    PortalModule,
     FontAwesomeModule,
     TransferHttpCacheModule,
     ModalModule.forRoot(),
