@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { Search, SearchAdapter } from '../models/search.model';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppConfigService } from '../../shared/services/app-config-service.service';
+import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { SettingsService } from './settings.service';
 
 @Injectable({

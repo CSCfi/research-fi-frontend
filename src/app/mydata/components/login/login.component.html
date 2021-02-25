@@ -1,0 +1,39 @@
+<main id="main-content">
+  <div class="wrapper">
+    <div class="row pb-4">
+      <div class="col text-center">
+        <h2 class="primary-color">Palvelun käyttöönotto</h2>
+      </div>
+    </div>
+
+    <div class="row pb-4 d-flex justify-content-center">
+      <div class="col col-lg-8 text-center">
+        <p>
+          Palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla ei vielä ole
+          ORCID-tunnuksia, voit luoda sellaiset
+          <a href="https://orcid.org/">ORCID-palvelussa</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="row pb-3 d-flex justify-content-center">
+      <div class="col col-lg-auto">
+        <app-primary-action-button
+          content="Aloita"
+          [big]="true"
+          (click)="login()"
+        >
+        </app-primary-action-button>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col col-lg-auto">
+        <app-secondary-button
+          content="Peruuta"
+          [routerLink]="'/'"
+          [big]="true"
+        ></app-secondary-button>
+      </div>
+    </div>
+  </div>
+</main>

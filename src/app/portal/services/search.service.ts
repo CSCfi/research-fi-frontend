@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { SortService } from './sort.service';
 import { FilterService } from './filters/filter.service';
 import { TabChangeService } from './tab-change.service';
-import { AppConfigService } from '../../shared/services/app-config-service.service';
+import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { SettingsService } from './settings.service';
 import { News, NewsAdapter } from '../models/news.model';
 import {

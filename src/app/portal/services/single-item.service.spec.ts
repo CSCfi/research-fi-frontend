@@ -12,7 +12,7 @@ import {
 } from '@angular/common/http/testing';
 import { SingleItemService } from './single-item.service';
 import { SettingsService } from './settings.service';
-import { AppConfigService } from '../../shared/services/app-config-service.service';
+import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 
 import ResponseJsonPublications from '../../../testdata/searchresponse-publications.json';
 

@@ -7,7 +7,7 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CommonComponentsModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -43,7 +43,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
   ],
   imports: [
     CommonModule,
-    CommonComponentsModule,
+    SharedModule,
     AppRoutingModule,
     MatSelectModule,
     MatMenuModule,

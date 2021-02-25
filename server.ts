@@ -80,6 +80,7 @@ getAppConfig.then((data: any) => {
         defaultSrc: [
           "'self'",
           'ws://localhost:4200',
+          'ws://localhost:5003',
           'http://localhost:*',
           'http://*.csc.fi:*',
           'https://*.csc.fi:*',
@@ -121,6 +122,7 @@ getAppConfig.then((data: any) => {
         imgSrc: [
           "'self'",
           'ws://localhost:4200',
+          'ws://localhost:5003',
           'http://localhost:*',
           'https://apps.utu.fi:*',
           'https://tt.eduuni.fi:*',

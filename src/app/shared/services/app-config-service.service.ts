@@ -77,4 +77,24 @@ export class AppConfigService {
     }
     return this.appConfig.environmentName;
   }
+
+  /*
+   *  MyData configurations
+   */
+
+  // Auth config
+  get myDataAuthConfig() {
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
+    return this.appConfig.myData.authConfig;
+  }
+
+  // API Url
+  get myDataApiUrl() {
+    if (!this.appConfig) {
+      throw Error('Config file not loaded!');
+    }
+    return this.appConfig.myData.apiUrl;
+  }
 }

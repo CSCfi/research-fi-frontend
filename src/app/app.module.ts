@@ -14,24 +14,26 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { AppConfigService } from './shared/services/app-config-service.service';
-import { CommonComponentsModule } from './shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { InterceptService } from './shared/services/intercept.service';
 import { PortalModule } from './portal/portal.module';
 import { PortalRoutingModule } from './portal/portal-routing.module';
+import { MyDataModule } from './mydata/mydata.module';
+import { MyDataRoutingModule } from './mydata/mydata-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     BrowserAnimationsModule,
     LayoutModule,
-    CommonComponentsModule,
+    SharedModule,
     PortalModule,
     PortalRoutingModule,
+    MyDataModule,
+    MyDataRoutingModule,
   ],
   providers: [
     AppConfigService,
@@ -52,6 +54,6 @@ import { PortalRoutingModule } from './portal/portal-routing.module';
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
