@@ -132,7 +132,7 @@ import { PrivacyComponent } from './components/privacy/privacy.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 
-import { CommonComponentsModule } from '../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { filter } from 'rxjs/operators';
 import { NewsCardComponent } from './components/news/news-card/news-card.component';
 import { SitemapComponent } from './components/sitemap/sitemap.component';
@@ -248,7 +248,7 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
     TransferHttpCacheModule,
     ModalModule.forRoot(),
     ClickOutsideModule,
-    CommonComponentsModule,
+    SharedModule,
     A11yModule,
     TooltipModule.forRoot(),
   ],

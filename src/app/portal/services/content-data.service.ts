@@ -20,7 +20,7 @@ import {
   SectorAdapter,
 } from '../models/research-innovation-system/sector.model';
 import { map } from 'rxjs/operators';
-import { AppConfigService } from '../../shared/services/app-config-service.service';
+import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

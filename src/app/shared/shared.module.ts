@@ -33,4 +33,4 @@ import { DividerComponent } from './components/divider/divider.component';
   ],
   imports: [CommonModule, FontAwesomeModule],
 })
-export class CommonComponentsModule {}
+export class SharedModule {}
