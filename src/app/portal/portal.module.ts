@@ -6,17 +6,16 @@
 //  :license: MIT
 
 import { Title, Meta } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TypeaheadModule, ModalModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PortalRoutingModule } from './portal-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
   FontAwesomeModule,
@@ -27,15 +26,12 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
-// import { AppComponent } from '../app.component';
-
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-// import { LayoutModule } from '../layout/layout';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ResultsComponent } from './components/results/results.component';
@@ -88,28 +84,21 @@ import {
   EmptyResultComponent,
 } from './components/results/search-results/search-results.component';
 
-// import { PortalModule } from '@angular/cdk/portal';
 import { ListItemComponent } from './components/search-bar/list-item/list-item.component';
 import { SunburstComponent } from './components/visualisation/sunburst/sunburst.component';
 import { TreemapComponent } from './components/visualisation/treemap/treemap.component';
 import { HighlightSearch } from './pipes/highlight.pipe';
 import { LinksPipe } from './pipes/links.pipe';
 
-import { LOCALE_ID } from '@angular/core';
 import {
-  registerLocaleData,
   Location,
   LocationStrategy,
   PathLocationStrategy,
   ViewportScroller,
 } from '@angular/common';
-import localeFi from '@angular/common/locales/fi';
-import localeEn from '@angular/common/locales/en';
-
-registerLocaleData(localeFi, localeEn);
 
 import { TooltipComponent } from './components/results/tooltip/tooltip.component';
-// import { WINDOW_PROVIDERS } from './services/window.service';
+import { WINDOW_PROVIDERS } from '../shared/services/window.service';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { SuggestComponent } from './components/results/suggest/suggest.component';
 import { NewsComponent } from './components/news/news/news.component';
@@ -134,7 +123,7 @@ import { ScrollSpyDirective } from './directives/scroll-spy.directive';
 import { CutContentPipe } from './pipes/cut-content.pipe';
 import { SingleFigureComponent } from './components/science-politics/figures/single-figure/single-figure.component';
 import { RelatedLinksComponent } from './components/single/related-links/related-links.component';
-import { Event, Scroll, Router, PRIMARY_OUTLET } from '@angular/router'; // Router required by ApmService and scroll logic
+import { Event, Scroll, Router } from '@angular/router'; // Router required by ApmService and scroll logic
 import 'reflect-metadata'; // Required by ApmService
 import { ApmService } from '@elastic/apm-rum-angular';
 import { FilterListComponent } from './components/results/active-filters/filter-list/filter-list.component';
@@ -164,7 +153,6 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
 
 @NgModule({
   declarations: [
-    // AppComponent,
     HomePageComponent,
     SearchBarComponent,
     ResultsComponent,
@@ -269,24 +257,13 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
     Title,
     Meta,
     AutosuggestService,
-    // WINDOW_PROVIDERS,
+    WINDOW_PROVIDERS,
     AppConfigService,
     Location,
     {
       provide: LocationStrategy,
       useClass: PathLocationStrategy,
     },
-    // {
-    //   provide: APP_INITIALIZER,
-    //   multi: true,
-    //   deps: [AppConfigService],
-    //   useFactory: (appConfigService: AppConfigService) => {
-    //     // Load configuration from file when application starts.
-    //     return () => {
-    //       return appConfigService.loadAppConfig();
-    //     };
-    //   },
-    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
@@ -306,7 +283,6 @@ import { BannerComponent } from './components/home-page/banner/banner.component'
       useValue: { duration: 3000 },
     },
   ],
-  // bootstrap: [AppComponent],
   entryComponents: [
     PublicationsComponent,
     PersonsComponent,
