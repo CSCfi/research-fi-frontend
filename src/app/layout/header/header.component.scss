@@ -276,6 +276,7 @@ mat-form-field.lang-select .mat-form-field-underline {
   overflow-x: hidden;
   // 100vw - padding
   width: calc(100vw - 16px);
+  min-height: 15rem;
 
   .lang.mobile {
     margin-bottom: 20px;
