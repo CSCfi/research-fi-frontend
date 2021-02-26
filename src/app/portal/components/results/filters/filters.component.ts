@@ -120,7 +120,7 @@ export class FiltersComponent implements OnInit, OnDestroy, OnChanges {
     this.modalService.onShown
       .pipe(
         tap(() =>
-          (document.querySelector('[autofocus]') as HTMLElement).focus()
+          (document.querySelector('[autofocus]') as HTMLElement)?.focus()
         )
       )
       .subscribe();

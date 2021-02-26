@@ -161,6 +161,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
   private metaTags: { link: string };
   private commonTags = common;
   inputSub: Subscription;
+  modalHideSub: Subscription;
 
   constructor(
     private searchService: SearchService,
@@ -344,7 +345,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Get visualisation data
         this.getVisualData();
-        // this.getQueryFilterData();
+
         // Reset flags
         this.searchService.redirecting = false;
         this.init = false;
@@ -366,8 +367,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.updateTitle(this.selectedTabData);
     });
 
-    this.modalService.onHide.subscribe((s) => {
-      // this.modalRef.hide();
+    this.modalHideSub = this.modalService.onHide.subscribe((s) => {
       this.modalRef = undefined;
       this.percentage = false;
       this.fundingAmount = false;
@@ -566,6 +566,7 @@ export class ResultsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.totalSub?.unsubscribe();
       this.tabSub?.unsubscribe();
       this.inputSub?.unsubscribe();
+      this.modalHideSub?.unsubscribe();
     }
   }
 }

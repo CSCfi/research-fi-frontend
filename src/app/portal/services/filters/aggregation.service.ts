@@ -614,7 +614,10 @@ export class AggregationService {
                 sectorName: {
                   terms: {
                     size: 50,
-                    field: 'fundingGroupPerson.fundedPersonOrganizationName' + this.localeC + '.keyword',
+                    field:
+                      'fundingGroupPerson.fundedPersonOrganizationName' +
+                      this.localeC +
+                      '.keyword',
                     exclude: ' |Rahoittaja|Funder|Finansiär',
                   },
                   aggs: {
@@ -679,7 +682,10 @@ export class AggregationService {
                 sectorName: {
                   terms: {
                     size: 50,
-                    field: 'organizationConsortium.consortiumSectorName' + this.localeC + '.keyword',
+                    field:
+                      'organizationConsortium.consortiumSectorName' +
+                      this.localeC +
+                      '.keyword',
                     exclude: ' |Rahoittaja|Funder|Finansiär',
                   },
                   aggs: {
@@ -757,6 +763,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameFi.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -771,6 +778,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameEn.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -785,6 +793,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameSv.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -811,6 +820,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameEn.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -825,6 +835,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameFi.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -839,6 +850,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameSv.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -865,6 +877,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameSv.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -879,6 +892,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameFi.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -893,6 +907,7 @@ export class AggregationService {
                       terms: {
                         field: 'typeOfFunding.typeOfFundingNameEn.keyword',
                         exclude: ' ',
+                        size: 50,
                       },
                       aggs: {
                         typeId: {
@@ -1044,14 +1059,14 @@ export class AggregationService {
           'dataSources',
           'dataCatalog.name' + this.localeC + '.keyword',
           null,
-          null,
+          null
         );
         payLoad.aggs.accessType = basicAgg(
           filterActive('accessType.keyword'),
           'accessTypes',
           'accessType.keyword',
           null,
-          null,
+          null
         );
         payLoad.aggs.organization = {
           filter: {
@@ -1087,7 +1102,8 @@ export class AggregationService {
                     orgId: {
                       terms: {
                         size: 10,
-                        field: 'actor.sector.organization.organizationId.keyword',
+                        field:
+                          'actor.sector.organization.organizationId.keyword',
                       },
                     },
                   },
@@ -1111,10 +1127,7 @@ export class AggregationService {
               aggs: {
                 language: {
                   terms: {
-                    field:
-                      'languages.languageName' +
-                      this.localeC +
-                      '.keyword',
+                    field: 'languages.languageName' + this.localeC + '.keyword',
                     size: 100,
                   },
                 },
@@ -1125,9 +1138,7 @@ export class AggregationService {
         payLoad.aggs.field = {
           filter: {
             bool: {
-              filter: filterActive(
-                'fieldsOfScience.fieldIdScience'
-              ),
+              filter: filterActive('fieldsOfScience.fieldIdScience'),
             },
           },
           aggs: {
