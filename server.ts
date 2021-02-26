@@ -23,7 +23,7 @@ import * as compression from 'compression';
 import * as helmet from 'helmet';
 import { join } from 'path';
 import { EXPRESS_HTTP_PORT } from './src/app/app.global';
-import { EmailService } from './src/app/services/email.service';
+import { EmailService } from './src/app/shared/services/email.service';
 
 // Add timestamp to logs
 require('log-timestamp');
@@ -80,6 +80,7 @@ getAppConfig.then((data: any) => {
         defaultSrc: [
           "'self'",
           'ws://localhost:4200',
+          'ws://localhost:5003',
           'http://localhost:*',
           'http://*.csc.fi:*',
           'https://*.csc.fi:*',
@@ -121,6 +122,7 @@ getAppConfig.then((data: any) => {
         imgSrc: [
           "'self'",
           'ws://localhost:4200',
+          'ws://localhost:5003',
           'http://localhost:*',
           'https://apps.utu.fi:*',
           'https://tt.eduuni.fi:*',

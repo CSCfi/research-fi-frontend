@@ -1,0 +1,29 @@
+<!--  This file is part of the research.fi API service
+ Copyright 2019 Ministry of Education and Culture, Finland
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<button
+  class="primary-action text-center ttv-button"
+  [class.icon]="!!icon"
+  [class.big]="big"
+  [class.small]="small"
+  [class.icon-after]="iconAfter"
+  [class.no-sm-icon]="noSmIcon"
+  [disabled]="disabled"
+  matRipple
+>
+  <fa-icon
+    class="before"
+    [ngClass]="{ 'd-none d-sm-inline': noSmIcon }"
+    *ngIf="!!icon && !iconAfter"
+    [icon]="icon"
+  ></fa-icon>
+  <ng-container>{{ content }}</ng-container>
+  <fa-icon
+    class="after"
+    [ngClass]="{ 'd-none d-sm-inline': noSmIcon }"
+    *ngIf="!!icon && iconAfter"
+    [icon]="icon"
+  ></fa-icon>
+</button>

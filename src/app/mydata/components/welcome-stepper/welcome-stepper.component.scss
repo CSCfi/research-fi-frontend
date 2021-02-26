@@ -1,0 +1,32 @@
+//  This file is part of the research.fi API service
+//
+//  Copyright 2019 Ministry of Education and Culture, Finland
+//
+//  :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+//  :license: MIT
+
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+
+.mat-checkbox-inner-container {
+  margin-top: 4px !important;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.mat-radio-label {
+  white-space: normal !important;
+}
+
+.mat-radio-label-content {
+  padding-left: 1rem !important;
+}

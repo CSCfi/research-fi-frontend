@@ -1,0 +1,33 @@
+<!-- # This file is part of the research.fi API service
+
+ Copyright 2019 Ministry of Education and Culture, Finland
+
+ :author: CSC - IT Center for Science Ltd., Espoo Finland servicedesk@csc.fi
+ :license: MIT -->
+
+<app-cookie-consent></app-cookie-consent>
+<app-error-modal></app-error-modal>
+<div class="content-container">
+  <app-header></app-header>
+
+  <div
+    class="row justify-content-center main-loader"
+    *ngIf="loading || (authInitialized | async); else content"
+  >
+    <div class="col-auto align-self-center">
+      <mat-spinner
+        [diameter]="80"
+        i18n-aria-label="@@loading"
+        aria-label="Ladataan"
+      ></mat-spinner>
+    </div>
+  </div>
+
+  <ng-template #content>
+    <div class="container-fluid main">
+      <ng-content></ng-content>
+    </div>
+  </ng-template>
+
+  <app-footer></app-footer>
+</div>
