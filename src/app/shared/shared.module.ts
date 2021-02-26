@@ -14,6 +14,7 @@ import { PrimaryActionButtonComponent } from './components/primary-action-button
 import { CloseButtonComponent } from './components/close-button/close-button.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DividerComponent } from './components/divider/divider.component';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DividerComponent } from './components/divider/divider.component';
     CloseButtonComponent,
     NotFoundComponent,
     DividerComponent,
+    MatRippleModule,
   ],
   exports: [
     InfoComponent,

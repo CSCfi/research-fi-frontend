@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
 
 /*
   App is separated in two main modules. One for Portal and one for MyData.
-  These basically works as a different apps but share notable amount of components and data
+  These basically work as different apps but share notable amount of components and data
   and for this reason these apps are used as feature modules instead of separate projects.
 */
 export class AppSettingsService {
