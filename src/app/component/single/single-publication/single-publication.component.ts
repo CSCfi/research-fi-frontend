@@ -52,24 +52,16 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   private commonTags = common;
 
   infoFields = [
-    // {label: 'Julkaisun nimi', field: 'title'},
     {
       label: $localize`:@@yearOfPublication:Julkaisuvuosi`,
       field: 'publicationYear',
     },
-    // {label: $localize`:@@publicationType:Julkaisutyyppi`, field: 'publicationTypeCode', // Remove when type fields in use
-    // tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`}, // Remove when type fields in use
     {
       label: $localize`:@@publicationAuthors:Tekijät`,
       field: 'authors',
       tooltip: $localize`:@@publicationAuthorsTooltip:Julkaisun tekijät siinä järjestyksessä, jossa ne on listattu alkuperäisessä julkaisussa. Jos tekijöitä on yli 20, kaikkia ei ole välttämättä ilmoitettu.`,
     },
   ];
-
-  // authorFields = [
-  //   {label: 'Tekijöiden määrä', labelSv: '', labelEn: '', field: 'author[0].nameFiSector',
-  //   tooltip: 'Julkaisun tekijät, joilla on suomalainen organisaatio', tooltipSv: '', tooltipEn: ''}
-  // ];
 
   authorAndOrganization = [];
 
@@ -152,7 +144,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       label: $localize`:@@OKMPublicationType:OKM:n julkaisutyyppiluokitus`,
       field: 'publicationTypeCode',
     },
-    // tooltip: $localize`:@@publicationTypeTooltip:OKM:n julkaisutiedonkeruun mukainen julkaisutyyppi A–G.`},
   ];
 
   mediumFields = [
@@ -221,7 +212,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   linksFields = [
     { label: 'DOI', field: 'doi', path: 'https://doi.org/' },
     { label: '', field: 'doiHandle' },
-    // {label: '', field: 'selfArchivedAddress'},
   ];
 
   otherFields = [
@@ -379,7 +369,6 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
   getData(id: string) {
     this.singleService
       .getSinglePublication(id)
-      // .pipe(map(responseData => [responseData]))
       .subscribe(
         (responseData) => {
           this.responseData = responseData;
