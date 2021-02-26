@@ -26,56 +26,6 @@ CI/CD pipeline adds the file automatically
 export class AppConfigService {
   private appConfig: any;
 
-  portalSettings = {
-    label: $localize`:@@appSlogan:Tiedejatutkimus.fi`,
-    baseRoute: '',
-    navItems: [
-      { label: $localize`:@@headerLink1:Etusivu`, link: '/', exact: true },
-      {
-        label: $localize`:@@headerLink2:Haku`,
-        link: '/results/',
-        exact: false,
-      },
-      {
-        label: $localize`:@@headerLink3:Tiede- ja innovaatiopolitiikka`,
-        link: '/science-innovation-policy/',
-        dropdownItems: [
-          {
-            label: $localize`:@@headerLink4:Tutkimus- ja innovaatiojärjestelmä`,
-            link: '/science-innovation-policy/research-innovation-system/',
-            exact: true,
-          },
-          {
-            label: $localize`:@@headerLink5:Tiede ja tutkimus lukuina`,
-            link: '/science-innovation-policy/science-research-figures/',
-            exact: true,
-          },
-        ],
-      },
-      {
-        label: $localize`:@@headerLink6:Tiede- ja tutkimusuutiset`,
-        link: '/news',
-        exact: true,
-      },
-    ],
-    localizedDomains: [
-      { label: 'Suomi', locale: 'FI', url: 'https://tiedejatutkimus.fi/fi' },
-      { label: 'Svenska', locale: 'SV', url: 'https://forskning.fi/sv' },
-      { label: 'English', locale: 'EN', url: 'https://research.fi/en' },
-    ],
-  };
-
-  myDataSettings = {
-    label: 'Tutkijan tiedot',
-    baseRoute: 'mydata',
-    navItems: [{ label: 'Kirjaudu sisään', link: '', function: true }],
-    localizedDomains: [
-      { label: 'Suomi', locale: 'FI', url: 'https://localhost:5003/fi' },
-      { label: 'Svenska', locale: 'SV', url: 'https://localhost:5003/sv' },
-      { label: 'English', locale: 'EN', url: 'https://localhost:5003/en' },
-    ],
-  };
-
   constructor(private http: HttpClient) {}
 
   // Read configuartion file
