@@ -40,6 +40,11 @@ export class AppSettingsService {
             link: '/science-innovation-policy/science-research-figures/',
             exact: true,
           },
+          {
+            label: $localize`:@@externalLinksHeader:Tieteestä ja tutkimuksesta muualla`,
+            link: '/science-innovation-policy/external-links/',
+            exact: true,
+          },
         ],
       },
       {
