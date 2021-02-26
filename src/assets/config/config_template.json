@@ -10,5 +10,18 @@
     "username": "<optional username>",
     "password": "<optional password>",
     "receiver": "<receiver email address>"
+  },
+  "myData": {
+    "apiUrl": "<API_HOST>",
+    "authConfig": {
+      "issuer": "<IDENTITY_SERVER>",
+      "clientId": "js",
+      "redirectUri": "https://localhost:5003/mydata/welcome",
+      "responseType": "code",
+      "scope": "openid profile api1",
+      "postLogoutRedirectUri": "https://localhost:5003/mydata",
+      "sessionChecksEnabled": true,
+      "oidc": true
+    }
   }
 }
