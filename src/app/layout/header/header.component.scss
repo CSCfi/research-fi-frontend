@@ -242,9 +242,17 @@ mat-form-field.lang-select .mat-select-value-text:after {
   content: '\f078' !important;
 }
 
+.mat-select-value {
+  padding-left: 0.5rem;
+}
+
 mat-form-field.lang-select.mat-form-field-appearance-legacy
   .mat-form-field-wrapper {
   padding-bottom: 0 !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 0.36em 0 !important;
 }
 
 mat-form-field.lang-select,
