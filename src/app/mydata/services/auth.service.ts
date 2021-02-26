@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject } from 'rxjs';
-import { AppConfigService } from '../../shared/services/app-config-service.service';
+import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 
 @Injectable({
   providedIn: 'root',

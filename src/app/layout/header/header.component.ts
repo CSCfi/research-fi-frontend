@@ -15,8 +15,6 @@ import {
   LOCALE_ID,
   PLATFORM_ID,
   ViewChildren,
-  AfterViewInit,
-  ChangeDetectorRef,
   Renderer2,
   ViewEncapsulation,
   HostListener,
@@ -38,6 +36,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BetaInfoComponent } from '../beta-info/beta-info.component';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { ContentDataService } from 'src/app/portal/services/content-data.service';
+import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
 
 @Component({
   selector: 'app-header',
@@ -45,7 +44,7 @@ import { ContentDataService } from 'src/app/portal/services/content-data.service
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('mainNavbar', { static: true }) mainNavbar: ElementRef;
   @ViewChild('navbarToggler', { static: true }) navbarToggler: ElementRef;
   @ViewChild('overflowHider', { static: true }) overflowHider: ElementRef;
@@ -89,6 +88,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   consent: string;
   pageDataSub: Subscription;
 
+  appSettings: object;
+
   constructor(
     private resizeService: ResizeService,
     @Inject(LOCALE_ID) protected localeId: string,
@@ -102,7 +103,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute,
     private tabChangeService: TabChangeService,
     public dialog: MatDialog,
-    private privacyService: PrivacyService
+    private privacyService: PrivacyService,
+    private appConfigService: AppConfigService
   ) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
@@ -129,6 +131,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         });
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
+
+        this.appSettings = this.currentRoute.includes('/mydata')
+          ? this.appConfigService.myDataSettings
+          : this.appConfigService.portalSettings;
       }
       // Check if consent has been chosen & set variable. This is used in linking between language versions
       if (isPlatformBrowser(this.platformId)) {
@@ -219,26 +225,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.document.body.classList.remove('user-tabbing');
   };
 
-  ngAfterViewInit() {
-    // if (!this.mobile) {
-    //   const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
-    //   this.navLink.forEach((item, index) => {
-    //     this.renderer.setStyle(
-    //       item.nativeElement,
-    //       'width',
-    //       `${widths[index]}px`
-    //     );
-    //   });
-    //   this.widthFlag = true;
-    // }
-  }
-
   ngOnDestroy() {
     if (isPlatformBrowser(this.platformId)) {
-      // this.window.removeEventListener('keydown', this.handleTabPressed);
-      // this.window.removeEventListener('keydown', this.escapeListener);
-      // this.window.removeEventListener('mousedown', this.handleMouseDown);
-
       this.resizeSub?.unsubscribe();
     }
     this.routeSub?.unsubscribe();
@@ -267,14 +255,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     setTimeout(() => {
       this.hideOverflow = !this.hideOverflow;
     }, 250 * (1 - +this.navbarOpen));
-  }
-
-  // @HostListener('window:scroll')
-  scroll() {
-    // Doesnt work with esc opening and scrolling to focus
-    if (this.navbarOpen) {
-      // this.toggleNavbar();
-    }
   }
 
   setLang(lang: string) {
@@ -310,25 +290,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.navbarOpen) {
         this.toggleNavbar();
       }
-      this.mainNavbar.nativeElement.style.cssText = '';
+
+      if (this.mainNavbar) this.mainNavbar.nativeElement.style.cssText = '';
     } else {
       this.mobile = true;
     }
-
-    // if (!this.mobile && !this.widthFlag) {
-    //   setTimeout(x => {
-    //     const widths = this.navLink.map(th => th.nativeElement.offsetWidth + this.additionalWidth);
-    //     const arr = this.navLink.toArray();
-    //     arr.forEach((item, index) => {
-    //       this.renderer.setStyle(
-    //         item.nativeElement,
-    //         'width',
-    //         `${widths[index]}px`
-    //       );
-    //     });
-    //   }, 200);
-    //   this.widthFlag = true;
-    // }
   }
 
   onClickedOutside(e: Event) {
