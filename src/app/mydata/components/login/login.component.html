@@ -7,17 +7,20 @@
     </div>
 
     <div class="row pb-4 d-flex justify-content-center">
-      <div class="col col-lg-8 text-center">
+      <div class="col col-lg-4 text-center">
         <p>
-          Palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla ei vielä ole
-          ORCID-tunnuksia, voit luoda sellaiset
-          <a href="https://orcid.org/">ORCID-palvelussa</a>.
+          Tutkijan tiedot -palveluun kirjaudutaan ORCID-tunnuksilla. Jos sinulla
+          ei vielä ole ORCID-tunnuksia, voit
+          <a href="https://orcid.org/"
+            >luoda sellaiset ORCID-palvelussa
+            <i class="fas fa-external-link-alt"></i></a
+          >.
         </p>
       </div>
     </div>
 
     <div class="row pb-3 d-flex justify-content-center">
-      <div class="col col-lg-auto">
+      <div class="col col-lg-3">
         <app-primary-action-button
           content="Aloita"
           [big]="true"
@@ -27,10 +30,10 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center">
-      <div class="col col-lg-auto">
+      <div class="col col-lg-3">
         <app-secondary-button
           content="Peruuta"
-          [routerLink]="'/'"
+          routerLink="/mydata"
           [big]="true"
         ></app-secondary-button>
       </div>

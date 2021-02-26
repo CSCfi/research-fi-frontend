@@ -18,6 +18,8 @@ import {
   Renderer2,
   ViewEncapsulation,
   HostListener,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ResizeService } from 'src/app/shared/services/resize.service';
@@ -36,7 +38,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BetaInfoComponent } from '../beta-info/beta-info.component';
 import { PrivacyService } from 'src/app/portal/services/privacy.service';
 import { ContentDataService } from 'src/app/portal/services/content-data.service';
-import { AppConfigService } from 'src/app/shared/services/app-config-service.service';
+import { AppSettingsService } from 'src/app/shared/services/app-settings.service';
+import { AuthService } from 'src/app/mydata/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -51,6 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('start', { static: false }) start: ElementRef;
   @ViewChild('overlay', { static: false }) overlay: ElementRef;
   @ViewChildren('navLink') navLink: any;
+  @Output() emitClick: EventEmitter<any> = new EventEmitter();
 
   navbarOpen = false;
   hideOverflow = true;
@@ -104,7 +108,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private tabChangeService: TabChangeService,
     public dialog: MatDialog,
     private privacyService: PrivacyService,
-    private appConfigService: AppConfigService
+    private appSettingsService: AppSettingsService,
+    private authService: AuthService
   ) {
     this.lang = localeId;
     this.currentLang = this.getLang(this.lang);
@@ -133,8 +138,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentRoute = e.urlAfterRedirects.split('#')[0];
 
         this.appSettings = this.currentRoute.includes('/mydata')
-          ? this.appConfigService.myDataSettings
-          : this.appConfigService.portalSettings;
+          ? this.appSettingsService.myDataSettings
+          : this.appSettingsService.portalSettings;
       }
       // Check if consent has been chosen & set variable. This is used in linking between language versions
       if (isPlatformBrowser(this.platformId)) {
@@ -280,6 +285,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
     this.document.documentElement.lang = lang;
     return current;
+  }
+
+  // Navigation links can fire methods on parent components
+  emitToParent(method) {
+    this.emitClick.emit(method);
+  }
+
+  handleLinkClick(item) {
+    if (this.navbarOpen) this.toggleNavbar();
+
+    if (item.loginProcess) {
+      this.authService.hasValidTokens()
+        ? this.authService.logout()
+        : this.authService.login();
+    }
   }
 
   onResize(dims) {
