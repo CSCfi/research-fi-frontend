@@ -24,7 +24,6 @@ import { MatRippleModule } from '@angular/material/core';
     CloseButtonComponent,
     NotFoundComponent,
     DividerComponent,
-    MatRippleModule,
   ],
   exports: [
     InfoComponent,
@@ -33,6 +32,6 @@ import { MatRippleModule } from '@angular/material/core';
     CloseButtonComponent,
     DividerComponent,
   ],
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, MatRippleModule],
 })
 export class SharedModule {}
