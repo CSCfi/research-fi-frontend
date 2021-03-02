@@ -125,7 +125,7 @@ export class DatasetFilterService {
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
       item.subData = item.org.buckets.filter(
-        (x) => x.doc_count > 0
+        (x) => x.doc_count > 0 && x.key.trim().length > 0
       );
       item.subData.map((subItem) => {
         subItem.label = subItem.label || subItem.key;
