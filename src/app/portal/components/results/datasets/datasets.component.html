@@ -94,7 +94,7 @@
             ></h4>
           </a>
           <div class="tags d-xl-none">
-            <a
+            <!-- <a
               *ngIf="dataset.openAccess"
               href=""
               target="_blank"
@@ -103,12 +103,12 @@
               <span class="open-access-image"></span>
               <span i18n="@@openAccess">Avoin saatavuus</span
               ><fa-icon icon="external-link-alt"></fa-icon>
-            </a>
+            </a> -->
             <!-- Span is for datasets that doesn't have OA link. Angular doesn't allow void(0) to be passed without unsafe warnings -->
-            <!-- <span *ngIf="dataset.openAccess" class="open-access div">
-                          <span class="open-access-image"></span>
-                          <span i18n="@@openAccess">Avoin saatavuus</span>
-                      </span> -->
+            <span *ngIf="dataset.openAccess" class="open-access div">
+              <span class="open-access-image"></span>
+              <span i18n="@@openAccess">Avoin saatavuus</span>
+            </span>
             <div *ngIf="dataset.doi?.trim()" class="doi">
               <span class="doi-tag">DOI</span>
               <span class="doi-link"
