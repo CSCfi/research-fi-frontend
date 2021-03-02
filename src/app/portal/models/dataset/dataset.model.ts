@@ -42,7 +42,8 @@ export class Dataset {
     public dataCatalog: string,
     public openAccess: boolean,
     public relatedDatasets: string,
-    public doi: string
+    public doi: string,
+    public urn: string
   ) {}
 }
 
@@ -122,6 +123,17 @@ export class DatasetAdapter implements Adapter<Dataset> {
       orgsSorted[orgsSorted.length - 1].name = $localize`:@@missingOrg:Organisaatio puuttuu`; 
     }
 
+    let urn = '';
+    let doi = '';
+
+    item.preferredIdentifiers?.forEach(id => {
+      if (id.pidType === 'doi') {
+        doi = (id.pidContent.slice(4))
+      } else if (id.pidType === 'urn') {
+        urn = (id.pidContent)
+      }
+    });
+
     return new Dataset(
       item.identifier,
       this.lang.testLang('name', item),
@@ -140,7 +152,8 @@ export class DatasetAdapter implements Adapter<Dataset> {
       item.dataCatalog?.map(x => this.lang.testLang('name', x))?.join(', '),
       item.accessType === 'open',
       item.relatedDatasets, // Missing
-      item.doi // Missing
+      doi, // Missing?
+      urn
     );
   }
 }
