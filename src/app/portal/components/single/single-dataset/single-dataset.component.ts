@@ -99,7 +99,10 @@ export class SingleDatasetComponent implements OnInit {
     },
   ];
 
-  linksFields = [{ label: 'DOI', field: 'doi', tooltip: '' }];
+  linksFields = [
+    { label: 'DOI', field: 'doi', tooltip: '' },
+    { label: 'URN', field: 'urn', tooltip: '' },
+  ];
 
   relatedList = [
     {
