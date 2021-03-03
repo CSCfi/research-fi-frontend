@@ -125,7 +125,7 @@ export class DatasetFilterService {
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
       item.subData = item.org.buckets.filter(
-        (x) => x.doc_count > 0
+        (x) => x.doc_count > 0 && x.key.trim().length > 0
       );
       item.subData.map((subItem) => {
         subItem.label = subItem.label || subItem.key;
@@ -199,7 +199,11 @@ export class DatasetFilterService {
         key: lang.key.toLowerCase(),
         doc_count: lang.doc_count
       }
-    })
+    });
+    // Move no language content to the end
+    const noLangIdx = langs.findIndex(x => x.key === 'zxx');
+    langs.push(...langs.splice(noLangIdx, 1));
+
     return langs.filter(lang => lang.key !== ' '); 
   }
 

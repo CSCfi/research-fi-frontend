@@ -21,6 +21,7 @@
     white-space: nowrap;
     display: flex;
     margin-inline-start: 0;
+    max-width: 100%;
   }
   a.div {
     display: flex;
@@ -62,9 +63,15 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border: 2px solid #363636;
+    max-width: 100%;
     a {
       color: #363636;
       font-weight: bold;
+      max-width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: block;
     }
   }
   fa-icon {
