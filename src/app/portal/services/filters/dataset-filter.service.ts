@@ -199,7 +199,11 @@ export class DatasetFilterService {
         key: lang.key.toLowerCase(),
         doc_count: lang.doc_count
       }
-    })
+    });
+    // Move no language content to the end
+    const noLangIdx = langs.findIndex(x => x.key === 'zxx');
+    langs.push(...langs.splice(noLangIdx, 1));
+
     return langs.filter(lang => lang.key !== ' '); 
   }
 
