@@ -723,7 +723,7 @@ export class FilterService {
       ...basicFilter('dataset', this.dataSourceFilter),
       ...basicFilter('dataset', this.accessTypeFilter),
       ...basicFilter('dataset', this.organizationFilter),
-      ...basicFilter('dataset', this.langFilter),
+      ...nestedFilter('dataset', this.langFilter, 'languages'),
       ...basicFilter('dataset', this.fieldFilter),
 
       // Infrastructures

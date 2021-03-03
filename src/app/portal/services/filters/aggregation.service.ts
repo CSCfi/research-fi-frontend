@@ -1113,22 +1113,36 @@ export class AggregationService {
           },
         };
         payLoad.aggs.lang = {
-          filter: {
-            bool: {
-              filter: filterActive('languages.languageCode'),
-            },
+          nested: {
+            path: 'languages',
           },
           aggs: {
             langs: {
               terms: {
-                field: 'languages.languageCode.keyword',
-                size: 50,
+                field:
+                  'languages.languageCode.keyword',
+                exclude: ' ',
+                size: 250,
+                order: {
+                  _key: 'asc',
+                },
               },
               aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('languages'),
+                        },
+                      },
+                    },
+                  },
+                },
                 language: {
                   terms: {
                     field: 'languages.languageName' + this.localeC + '.keyword',
-                    size: 100,
                   },
                 },
               },
