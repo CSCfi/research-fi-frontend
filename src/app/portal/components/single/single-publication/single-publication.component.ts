@@ -198,7 +198,7 @@ export class SinglePublicationComponent implements OnInit, OnDestroy {
       field: 'jufoCode',
       link: true,
       linkPath:
-        'http://jfp.csc.fi:8080/fi/web/haku#!PublicationInformationView/id/',
+        'https://jfp.csc.fi/en/web/haku/julkaisukanavahaku#!PublicationInformationView/id/',
       tooltip: $localize`Julkaisukanavan tunniste Julkaisufoorumissa (www.julkaisufoorumi.fi).`,
     },
     {
