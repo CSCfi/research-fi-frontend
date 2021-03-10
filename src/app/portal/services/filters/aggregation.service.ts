@@ -1164,10 +1164,8 @@ export class AggregationService {
           },
         };
         payLoad.aggs.field = {
-          filter: {
-            bool: {
-              filter: filterActive('fieldsOfScience.fieldIdScience'),
-            },
+          nested: {
+            path: 'fieldsOfScience',
           },
           aggs: {
             fields: {
@@ -1181,6 +1179,18 @@ export class AggregationService {
                 },
               },
               aggs: {
+                filtered: {
+                  reverse_nested: {},
+                  aggs: {
+                    filterCount: {
+                      filter: {
+                        bool: {
+                          filter: filterActiveNested('fieldsOfScience'),
+                        },
+                      },
+                    },
+                  },
+                },
                 fieldId: {
                   terms: {
                     field: 'fieldsOfScience.fieldIdScience',
@@ -1190,6 +1200,33 @@ export class AggregationService {
             },
           },
         };
+        // payLoad.aggs.field = {
+        //   filter: {
+        //     bool: {
+        //       filter: filterActive('fieldsOfScience.fieldIdScience'),
+        //     },
+        //   },
+        //   aggs: {
+        //     fields: {
+        //       terms: {
+        //         field:
+        //           'fieldsOfScience.name' + this.localeC + 'Science.keyword',
+        //         exclude: ' ',
+        //         size: 250,
+        //         order: {
+        //           _key: 'asc',
+        //         },
+        //       },
+        //       aggs: {
+        //         fieldId: {
+        //           terms: {
+        //             field: 'fieldsOfScience.fieldIdScience',
+        //           },
+        //         },
+        //       },
+        //     },
+        //   },
+        // };
 
         break;
       // Infrastructures

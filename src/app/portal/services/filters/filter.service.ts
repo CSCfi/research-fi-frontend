@@ -724,7 +724,7 @@ export class FilterService {
       ...basicFilter('dataset', this.accessTypeFilter),
       ...nestedFilter('dataset', this.organizationFilter, 'actor'),
       ...nestedFilter('dataset', this.langFilter, 'languages'),
-      ...basicFilter('dataset', this.fieldFilter),
+      ...nestedFilter('dataset', this.fieldFilter, 'fieldsOfScience'),
 
       // Infrastructures
       ...basicFilter('infrastructure', this.typeFilter),
