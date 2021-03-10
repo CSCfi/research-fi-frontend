@@ -124,7 +124,7 @@ export class DatasetFilterService {
     const source = cloneDeep(data) || [];
     source.buckets = source.sectorName ? source.sectorName.buckets : [];
     source.buckets.forEach((item) => {
-      item.subData = item.org.buckets.filter(
+      item.subData = item.org.organization.buckets.filter(
         (x) => x.doc_count > 0 && x.key.trim().length > 0
       );
       item.subData.map((subItem) => {
