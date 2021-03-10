@@ -1069,12 +1069,8 @@ export class AggregationService {
           null
         );
         payLoad.aggs.organization = {
-          filter: {
-            bool: {
-              filter: filterActive(
-                'actor.sector.organization.organizationId.keyword'
-              ),
-            },
+          nested: {
+            path: 'actor.sector',
           },
           aggs: {
             sectorName: {
@@ -1091,19 +1087,37 @@ export class AggregationService {
                   },
                 },
                 org: {
-                  terms: {
-                    size: 50,
-                    field:
-                      'actor.sector.organization.OrganizationName' +
-                      this.localeC +
-                      '.keyword',
+                  nested: {
+                    path: 'actor.sector.organization',
                   },
                   aggs: {
-                    orgId: {
+                    organization: {
                       terms: {
-                        size: 10,
+                        size: 50,
                         field:
-                          'actor.sector.organization.organizationId.keyword',
+                          'actor.sector.organization.OrganizationName' +
+                          this.localeC +
+                          '.keyword',
+                      },
+                      aggs: {
+                        filtered: {
+                          reverse_nested: {},
+                          aggs: {
+                            filterCount: {
+                              filter: {
+                                bool: {
+                                  filter: filterActiveNested('actor'),
+                                },
+                              },
+                            },
+                          },
+                        },
+                        orgId: {
+                          terms: {
+                            size: 10,
+                            field: 'actor.sector.organization.organizationId.keyword',
+                          },
+                        },
                       },
                     },
                   },
