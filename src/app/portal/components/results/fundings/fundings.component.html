@@ -99,7 +99,7 @@
                 </app-tooltip>-->
         <a
           routerLink="/results/funding/{{ funding.id }}"
-          [tooltip]="
+          [title]="
             (funding.description ? funding.description : '') | cutContent: 200
           "
           (mouseenter)="utilityService.tooltipMouseenter(elem)"
