@@ -98,6 +98,14 @@
                 <span>{{ item['source' + currentLocale] }}</span>
               </div>
             </div>
+            <div *ngIf="item.visualUpdateDate" class="row pb-3">
+              <div class="col pl-0">
+                <span class="strong d-block" i18n="@@figureUpdateDate"
+                  >Vuosittainen päivitysajankohta:</span
+                >
+                <span>{{ item.visualUpdateDate }}</span>
+              </div>
+            </div>
             <div class="row pb-3">
               <div class="col pl-0">
                 <strong i18n="@@shareThisPage">Jaa tämä sivu:</strong>
@@ -107,7 +115,8 @@
             <div *ngIf="item['visualFile' + currentLocale]" class="row">
               <div class="col pl-0">
                 <a href="{{ item['visualFile' + currentLocale] }}"
-                  ><app-secondary-button i18n-content="@@downloadCSV"
+                  ><app-secondary-button
+                    i18n-content="@@downloadCSV"
                     content="Lataa tiedostona (csv)"
                   ></app-secondary-button
                 ></a>
