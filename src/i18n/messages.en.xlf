@@ -1577,6 +1577,10 @@
           <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="figureSource" datatype="html">
+        <source>Vuosittainen päivitysajankohta</source>
+        <target state="translated">Annual update</target>
+      </trans-unit>
       <trans-unit id="downloadCSV">
         <source>Lataa tiedostona (csv)</source>
         <target>Download file (csv)</target>
