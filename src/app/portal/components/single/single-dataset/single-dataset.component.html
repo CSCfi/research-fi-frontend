@@ -114,10 +114,12 @@
             </h2>
             <div class="col-12 col-sm-6 col-lg-9 td" [class.offset-sm-6]="!isFirst" [class.offset-lg-3]="!isFirst" *ngFor="let org of item.authors; first as isFirst">
               <a *ngIf="org.id" class="th" href="/results/organization/{{org.id}}">{{org.name}}</a>
-              <p *ngIf="!org.id" class="th">{{org.name}}</p>
-              <span *ngIf="org.roles.length > 0"> - {{org.roles.join(', ')}}</span>
+              <p *ngIf="!org.id" class="th">{{org.name}}<span *ngIf="org.roles.length > 0" class="font-weight-normal"> - {{org.roles.join(', ')}}</span></p>
               <div *ngFor="let actor of org.actors">
-                <p class="td">{{actor.name}}<span *ngIf="actor.roles.length > 0"> - {{actor.roles.join(', ')}}</span></p>
+                <p class="td">{{actor.name}}
+                  <app-orcid *ngIf="actor.orcid" [orcid]="actor.orcid"></app-orcid>
+                  <span *ngIf="actor.roles.length > 0"> - {{actor.roles.join(', ')}}</span>
+                </p>
               </div>
               
             </div>
