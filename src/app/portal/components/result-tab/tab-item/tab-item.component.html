@@ -15,10 +15,9 @@
   [queryParams]="targetQueryParams"
   routerLink="/results/{{ tab.link }}/{{ searchService.currentInput | async }}/"
   [tabindex]="isHomepage && tab.data.length !== 0 ? 0 : -1"
-  [tooltip]="tooltipTemplate"
+  [title]="tab.tooltip"
   placement="bottom"
   triggers="focus keydown"
-  containerClass="tooltip-{{ tab.link }}{{ tooltipClass }}"
   (mouseenter)="utilityService.tooltipMouseenter(elem)"
   (keydown)="utilityService.tooltipKeydown(elem, $event)"
   #elem

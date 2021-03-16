@@ -82,11 +82,11 @@
               <div [ngClass]="filter.hasSubFields ? 'px-1 ' : ''" class="col">
                 <span class="pr-2">{{ filter?.label }}</span>
                 <ng-container *ngIf="filter.tooltip">
-                  <ng-template #tooltipTemplate
+                  <!-- <ng-template #tooltipTemplate
                     ><div [innerHtml]="filter?.tooltip"></div
-                  ></ng-template>
+                  ></ng-template> -->
                   <span
-                    [tooltip]="tooltipTemplate"
+                    [title]="filter?.tooltip"
                     tabindex="0"
                     triggers="focus keydown"
                     placement="top"
@@ -98,12 +98,12 @@
                   </span>
                 </ng-container>
                 <ng-container *ngIf="filter.errorTooltip">
-                  <ng-template #tooltipTemplate
+                  <!-- <ng-template #tooltipTemplate
                     ><div [innerHtml]="filter?.errorTooltip"></div
-                  ></ng-template>
+                  ></ng-template> -->
                   <span
                     class="ml-2"
-                    [tooltip]="tooltipTemplate"
+                    [title]="filter?.errorTooltip"
                     tabindex="0"
                     triggers="focus keydown"
                     placement="top"
@@ -145,7 +145,7 @@
               >
             </mat-slide-toggle>
             <div class="pl-2 d-inline-block">
-              <ng-template #tooltipTemplate
+              <!-- <ng-template #tooltipTemplate
                 ><div i18n="@@filterCoPublicationsTooltip">
                   Valitsemalla ”näytä vain yhteisjulkaisut” voit tarkastella
                   suomalaisten organisaatioiden yhteisiä julkaisuja. Hakutulos
@@ -154,9 +154,9 @@
                   yhtään organisaatiota ei ole valittu, hakutulos näyttää kaikki
                   yhteisjulkaisut.
                 </div></ng-template
-              >
+              > -->
               <span
-                [tooltip]="tooltipTemplate"
+                [title]="coPublicationTooltip"
                 tabindex="0"
                 triggers="focus keydown"
                 placement="top"
@@ -306,11 +306,11 @@
                   }}</span>
                 </div>
                 <div class="col-2 pr-0 text-right" *ngIf="item.tooltip">
-                  <ng-template #tooltipTemplate
+                  <!-- <ng-template #tooltipTemplate
                     ><div [innerHtml]="item?.tooltip"></div
-                  ></ng-template>
+                  ></ng-template> -->
                   <span
-                    [tooltip]="tooltipTemplate"
+                    [title]="item?.tooltip"
                     tabindex="0"
                     triggers="focus keydown"
                     placement="top"
@@ -566,11 +566,11 @@
               <div class="col row">
                 <span class="label pr-2">{{ item?.label }}</span>
                 <ng-container *ngIf="item.tooltip">
-                  <ng-template #tooltipTemplate
+                  <!-- <ng-template #tooltipTemplate
                     ><div [innerHtml]="item.tooltip"></div
-                  ></ng-template>
+                  ></ng-template> -->
                   <span
-                    [tooltip]="tooltipTemplate"
+                    [title]="item?.tooltip"
                     tabindex="0"
                     triggers="focus keydown"
                     placement="top"

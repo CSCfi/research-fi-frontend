@@ -33,8 +33,8 @@
           <div class="d-flex justify-content-center">
             <span
               tabindex="-1"
-              i18n-tooltip="@@searchTooltip"
-              tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
+              i18n-title="@@searchTooltip"
+              title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
               triggers="focus keydown"
               (keydown)="utilityService.tooltipKeydown(elem, $event)"
               #elem
@@ -63,8 +63,8 @@
                 [formControl]="queryField"
                 mat-input
                 type="text"
-                i18n-tooltip="@@searchTooltip"
-                tooltip="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
+                i18n-title="@@searchTooltip"
+                title="Voit hakea julkaisuja, rahoituspäätöksiä, infrastruktuureja ja organisaatioita kuvailevaa tietoa."
                 triggers="focus keydown.escape"
                 (mouseenter)="utilityService.tooltipMouseenter(elem)"
                 i18n-placeholder
@@ -90,8 +90,8 @@
                   (mouseenter)="
                     utilityService.tooltipMouseenter(resetSearchElem)
                   "
-                  i18n-tooltip="@@resetSearchTooltip"
-                  tooltip="Tyhjennä haku"
+                  i18n-title="@@resetSearchTooltip"
+                  title="Tyhjennä haku"
                   triggers="focus keydown.escape"
                   (keydown)="utilityService.tooltipKeydown(elem, $event)"
                 >
